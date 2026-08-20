@@ -20,6 +20,15 @@ export function TechnicalHUD() {
   const hotspotId = useScrollValue('hotspotId')
   const { reducedMotion } = useQuality()
 
+  // Escape closes an open hotspot detail panel (keyboard parity with [ X ]).
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') setScrollState({ hotspotId: null })
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
 
@@ -84,8 +93,9 @@ export function TechnicalHUD() {
           <button
             key={mode}
             type="button"
+            aria-pressed={materialMode === mode}
             onClick={() => setScrollState({ materialMode: mode })}
-            className={`cursor-pointer px-2 py-1 transition-colors ${
+            className={`cursor-pointer px-2 py-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
               materialMode === mode
                 ? 'bg-cyan-300/20 text-cyan-100'
                 : 'text-cyan-400/70 hover:text-cyan-200'
@@ -105,8 +115,9 @@ export function TechnicalHUD() {
             </p>
             <button
               type="button"
+              aria-label="Close hotspot detail"
               onClick={() => setScrollState({ hotspotId: null })}
-              className="cursor-pointer text-cyan-400/70 hover:text-cyan-100"
+              className="cursor-pointer text-cyan-400/70 outline-none hover:text-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               [ X ]
             </button>

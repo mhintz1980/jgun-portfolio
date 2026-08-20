@@ -56,7 +56,12 @@ function subscribe(callback: () => void): () => void {
 }
 
 export function useScrollValue<K extends keyof ScrollState>(key: K): ScrollState[K] {
-  return useSyncExternalStore(subscribe, () => state[key])
+  // Third arg lets HUD/hotspot markup server-render for the a11y smoke checks.
+  return useSyncExternalStore(
+    subscribe,
+    () => state[key],
+    () => state[key],
+  )
 }
 
 /**

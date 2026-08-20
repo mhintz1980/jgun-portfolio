@@ -5,6 +5,35 @@ import { setScrollState, useScrollValue } from '../state/scrollStore'
 import type { ChapterIndex, RoleMapEntry } from '../types/portfolio'
 
 /**
+ * Pure DOM hotspot marker (exported separately so the Node a11y smoke check
+ * can render it without a canvas). A real <button>, so Enter/Space activate
+ * natively; aria-pressed reflects the toggle; the cyan focus-visible ring
+ * matches the HUD chrome instead of the browser default.
+ */
+export function HotspotButton({
+  def,
+  selected,
+}: {
+  def: (typeof HOTSPOTS)[number]
+  selected: boolean
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={() => setScrollState({ hotspotId: selected ? null : def.id })}
+      className={`pointer-events-auto cursor-pointer whitespace-nowrap border px-2 py-1 font-mono text-[10px] tracking-widest outline-none backdrop-blur transition-colors focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+        selected
+          ? 'border-cyan-300 bg-cyan-300/20 text-cyan-100'
+          : 'border-cyan-400/40 bg-black/50 text-cyan-300/90 hover:border-cyan-300'
+      }`}
+    >
+      {def.kind === 'inspect' ? '◉ INSPECT' : '◎ DATUM POINT'} · {def.label}
+    </button>
+  )
+}
+
+/**
  * Module 4 — clickable 3D hotspot annotations.
  *
  * Anchors come from role-map.json (the pipeline's authoritative name/anchor
@@ -44,30 +73,17 @@ export function Hotspots() {
     <>
       {anchors
         .filter(({ def }) => def.chapters.includes(chapter as ChapterIndex))
-        .map(({ def, entry }) => {
-          const isSelected = selected === def.id
-          return (
-            <Html
-              key={def.id}
-              position={entry.bboxCenter}
-              center
-              distanceFactor={0.35}
-              zIndexRange={[40, 0]}
-            >
-              <button
-                type="button"
-                onClick={() => setScrollState({ hotspotId: isSelected ? null : def.id })}
-                className={`pointer-events-auto cursor-pointer whitespace-nowrap border px-2 py-1 font-mono text-[10px] tracking-widest backdrop-blur transition-colors ${
-                  isSelected
-                    ? 'border-cyan-300 bg-cyan-300/20 text-cyan-100'
-                    : 'border-cyan-400/40 bg-black/50 text-cyan-300/90 hover:border-cyan-300'
-                }`}
-              >
-                {def.kind === 'inspect' ? '◉ INSPECT' : '◎ DATUM POINT'} · {def.label}
-              </button>
-            </Html>
-          )
-        })}
+        .map(({ def, entry }) => (
+          <Html
+            key={def.id}
+            position={entry.bboxCenter}
+            center
+            distanceFactor={0.35}
+            zIndexRange={[40, 0]}
+          >
+            <HotspotButton def={def} selected={selected === def.id} />
+          </Html>
+        ))}
     </>
   )
 }
