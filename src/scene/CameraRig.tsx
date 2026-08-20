@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
 import { CAMERA_PATH } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
+import { getQuality } from '../state/qualityStore'
 
 const smoothstep = (t: number): number => t * t * (3 - 2 * t)
 
@@ -25,6 +26,23 @@ export function CameraRig() {
   const scratchB = useRef(new Vector3())
 
   useFrame((state, delta) => {
+    // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
+    // scroll interpolation, no pointer parallax, no damped drift.
+    if (getQuality().reducedMotion) {
+      const hero = CAMERA_PATH[0]
+      camera.position.set(hero.position[0], hero.position[1], hero.position[2])
+      camera.lookAt(scratchA.current.set(hero.target[0], hero.target[1], hero.target[2]))
+      if (camera instanceof PerspectiveCamera && camera.fov !== hero.fov) {
+        camera.fov = hero.fov
+        camera.updateProjectionMatrix()
+        telemetry.fov = camera.fov
+      }
+      telemetry.x = camera.position.x
+      telemetry.y = camera.position.y
+      telemetry.z = camera.position.z
+      return
+    }
+
     const { progress } = getScrollState()
 
     const segments = CAMERA_PATH.length - 1

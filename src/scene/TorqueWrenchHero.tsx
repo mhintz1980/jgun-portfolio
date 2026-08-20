@@ -8,6 +8,7 @@ import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
 import { EXPLODE_OFFSETS } from '../data/caseStudies'
 import { getScrollState } from '../state/scrollStore'
+import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
 
@@ -39,7 +40,7 @@ export function TorqueWrenchHero() {
   const group = useRef<Group>(null)
   const rig = useMemo(() => buildWrenchRig(scene), [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0 }).current
-  const surface = useRef<'live' | 'cad'>('live')
+  const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
 
   const cadMaterial = useMemo(
@@ -53,6 +54,10 @@ export function TorqueWrenchHero() {
   )
 
   useLayoutEffect(() => {
+    // Reduced motion: no scroll-driven timeline at all — the wrench holds its
+    // hero pose and only the explicit material-mode switcher stays live.
+    if (getQuality().reducedMotion) return
+
     const timeline = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
@@ -88,6 +93,27 @@ export function TorqueWrenchHero() {
 
   useFrame((state, delta) => {
     const { chapter, chapterProgress, materialMode } = getScrollState()
+    const { tier, reducedMotion } = getQuality()
+
+    // Reduced motion: hold the hero pose — no spin, no parallax, no ghost
+    // fade, no explosion, no dissolve. The material-mode switcher (an explicit
+    // user action, not motion) is the only thing that still mutates the scene.
+    if (reducedMotion) {
+      if (group.current) {
+        group.current.rotation.y = 0
+        group.current.rotation.x = 0
+      }
+      const explode = materialMode === 'exploded' ? 1 : 0
+      if (rig.handleRoot) offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
+      for (const node of rig.stage1) offsetZ(node, EXPLODE_OFFSETS.stage1 * explode)
+      for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
+      if (surface.current !== 'live' || lastMode.current !== materialMode) {
+        applyLiveMaterials(materialMode)
+        surface.current = 'live'
+      }
+      lastMode.current = materialMode
+      return
+    }
 
     // 1. Lateral rotation + hover parallax.
     if (group.current) {
@@ -113,12 +139,22 @@ export function TorqueWrenchHero() {
     for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
 
     // 4. Material surface management: CAD dissolve owns chapter 4, the mode
-    //    switcher owns everything else.
-    const wantCad = chapter === 3
+    //    switcher owns everything else. In the lite tier the dissolve shader
+    //    is retired: chapter 4 falls back to a plain opacity ramp into the
+    //    blueprint wireframe instead of the GLSL scanline dissolve.
+    const wantCad = chapter === 3 && tier === 'full'
+    const wantLiteFade = chapter === 3 && tier !== 'full'
     if (wantCad && surface.current !== 'cad') {
       for (const mesh of rig.meshes) mesh.material = cadMaterial
       surface.current = 'cad'
-    } else if (!wantCad && (surface.current !== 'live' || lastMode.current !== materialMode)) {
+    } else if (wantLiteFade) {
+      if (surface.current !== 'fade') {
+        for (const mesh of rig.meshes) mesh.material = blueprintMaterial
+        surface.current = 'fade'
+      }
+      blueprintMaterial.opacity = MathUtils.lerp(0.08, 0.35, chapterProgress)
+    } else if (!wantCad && !wantLiteFade && (surface.current !== 'live' || lastMode.current !== materialMode)) {
+      blueprintMaterial.opacity = 0.35
       applyLiveMaterials(materialMode)
       surface.current = 'live'
     }

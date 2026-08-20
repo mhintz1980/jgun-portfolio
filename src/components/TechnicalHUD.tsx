@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { CHAPTERS, HOTSPOTS, MATERIAL_MODE_LABELS } from '../data/caseStudies'
 import { getScrollState, setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
+import { useQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 
 const MODES: MaterialMode[] = ['solid', 'blueprint', 'exploded']
@@ -17,11 +18,16 @@ export function TechnicalHUD() {
   const chapter = useScrollValue('chapter')
   const materialMode = useScrollValue('materialMode')
   const hotspotId = useScrollValue('hotspotId')
+  const { reducedMotion } = useQuality()
 
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
+    // Reduced motion: ScrollRig never mounts, so scroll/camera telemetry is
+    // static — skip the rAF loop entirely (the readouts below are hidden too).
+    if (reducedMotion) return
+
     let frame = 0
     const tick = (): void => {
       const { progress } = getScrollState()
@@ -35,35 +41,42 @@ export function TechnicalHUD() {
     }
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
-  }, [])
+  }, [reducedMotion])
 
   const chapterDef = CHAPTERS[chapter] ?? CHAPTERS[0]
   const hotspot = HOTSPOTS.find((def) => def.id === hotspotId) ?? null
 
   return (
     <div className="pointer-events-none fixed inset-0 z-20 select-none font-mono text-[11px] tracking-widest text-cyan-300/90">
-      {/* Top-left: chapter + scroll progress */}
-      <div className="absolute left-5 top-5 space-y-1">
-        <p className="text-cyan-200">{chapterDef.label}</p>
-        <p>
-          <span ref={progressRef}>SCROLL // 000%</span>
-        </p>
-      </div>
+      {/* Scroll/chapter telemetry only makes sense when the scroll rig is
+          live — under reduced motion the chapter tracker never runs, so these
+          would freeze on stale values. Hide them; keep the mode switcher. */}
+      {!reducedMotion && (
+        <>
+          {/* Top-left: chapter + scroll progress */}
+          <div className="absolute left-5 top-5 space-y-1">
+            <p className="text-cyan-200">{chapterDef.label}</p>
+            <p>
+              <span ref={progressRef}>SCROLL // 000%</span>
+            </p>
+          </div>
 
-      {/* Top-right: live tolerance callouts + active datum */}
-      <div className="absolute right-5 top-5 space-y-1 text-right">
-        {chapterDef.callouts.map((callout) => (
-          <p key={callout}>{callout}</p>
-        ))}
-        <p className="text-cyan-200">DATUM: {chapterDef.datum}</p>
-      </div>
+          {/* Top-right: live tolerance callouts + active datum */}
+          <div className="absolute right-5 top-5 space-y-1 text-right">
+            {chapterDef.callouts.map((callout) => (
+              <p key={callout}>{callout}</p>
+            ))}
+            <p className="text-cyan-200">DATUM: {chapterDef.datum}</p>
+          </div>
 
-      {/* Bottom-left: camera telemetry (datum coordinates) */}
-      <div className="absolute bottom-5 left-5">
-        <p>
-          <span ref={datumCoordsRef}>CAM [ 0.000 0.000 0.000 ]</span>
-        </p>
-      </div>
+          {/* Bottom-left: camera telemetry (datum coordinates) */}
+          <div className="absolute bottom-5 left-5">
+            <p>
+              <span ref={datumCoordsRef}>CAM [ 0.000 0.000 0.000 ]</span>
+            </p>
+          </div>
+        </>
+      )}
 
       {/* Bottom-right: material mode switcher */}
       <div className="pointer-events-auto absolute bottom-5 right-5 flex flex-col items-end gap-1">

@@ -1,4 +1,5 @@
 import { CASE_STUDIES, CHAPTERS } from '../data/caseStudies'
+import { useQuality } from '../state/qualityStore'
 
 /**
  * The scrollable narrative — four chapters, each a tall section that drives a
@@ -7,6 +8,12 @@ import { CASE_STUDIES, CHAPTERS } from '../data/caseStudies'
  * only exist to give the story scroll room.
  */
 export function Chapters() {
+  const { tier, reducedMotion } = useQuality()
+  // pointer-events-none exists only to preserve canvas hover parallax; when
+  // there is no live canvas interaction (poster tier or reduced motion) the
+  // text must be selectable and screen-reader/keyboard friendly standalone.
+  const passThrough = tier !== 'poster' && !reducedMotion ? 'pointer-events-none ' : ''
+
   return (
     <div className="relative z-10">
       {CHAPTERS.map((chapterDef) => {
@@ -15,7 +22,7 @@ export function Chapters() {
           <section
             key={chapterDef.index}
             data-chapter={chapterDef.index}
-            className="pointer-events-none flex min-h-[220vh] flex-col justify-center px-[8vw] py-[20vh]"
+            className={`${passThrough}flex min-h-[220vh] flex-col justify-center px-[8vw] py-[20vh]`}
           >
             <p className="font-mono text-xs tracking-[0.4em] text-cyan-400">{chapterDef.label}</p>
             <h2 className="mt-4 max-w-3xl text-4xl font-semibold text-zinc-100 md:text-6xl">
