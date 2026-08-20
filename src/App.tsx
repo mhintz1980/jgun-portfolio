@@ -1,5 +1,6 @@
 import { SceneCanvas } from './scene/SceneCanvas'
 import { ScrollRig } from './scene/ScrollRig'
+import { BootSequence } from './components/BootSequence'
 import { Chapters } from './components/Chapters'
 import { StaticPoster } from './components/StaticPoster'
 import { TechnicalHUD } from './components/TechnicalHUD'
@@ -27,6 +28,9 @@ export default function App() {
 
       {/* Telemetry overlay (DOM; hides its canvas-bound readouts per tier) */}
       {canvasActive && <TechnicalHUD />}
+
+      {/* GLB stream-in boot readout (poster tier: nothing streams, no boot) */}
+      {canvasActive && <BootSequence />}
 
       {/* Scrollable narrative — always plain DOM, never canvas-gated */}
       <main>
