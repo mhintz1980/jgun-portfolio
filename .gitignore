@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.local
+
+# Heavy runtime GLBs are synced from C:\Projects\CAD\RL300-SAFE\optimized\ — run `npm run sync-assets`.
+# role-map.json IS committed (76 KB, the authoritative name/anchor source).
+public/models/*.glb

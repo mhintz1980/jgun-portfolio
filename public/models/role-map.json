@@ -1,0 +1,4742 @@
+[
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000207-1",
+    "tris": 600,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0032
+    ],
+    "bboxSize": [
+      0.0111,
+      0.0111,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000207-1",
+    "tris": 600,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0032
+    ],
+    "bboxSize": [
+      0.0111,
+      0.0111,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000245-1",
+    "tris": 14576,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0217
+    ],
+    "bboxSize": [
+      0.0653,
+      0.0655,
+      0.1046
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000245-1",
+    "tris": 14576,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0217
+    ],
+    "bboxSize": [
+      0.0653,
+      0.0655,
+      0.1046
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000001-1",
+    "tris": 240,
+    "bboxCenter": [
+      0,
+      0,
+      0.0185
+    ],
+    "bboxSize": [
+      0.0253,
+      0.0254,
+      0.0127
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000001-1",
+    "tris": 240,
+    "bboxCenter": [
+      0,
+      0,
+      0.0185
+    ],
+    "bboxSize": [
+      0.0253,
+      0.0254,
+      0.0127
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000591-1 <1>",
+    "tris": 13788,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0683
+    ],
+    "bboxSize": [
+      0.0344,
+      0.0344,
+      0.0206
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P001836-1",
+    "tris": 6588,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0682
+    ],
+    "bboxSize": [
+      0.0316,
+      0.0317,
+      0.0203
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P001836-1",
+    "tris": 6588,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0682
+    ],
+    "bboxSize": [
+      0.0316,
+      0.0317,
+      0.0203
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0058,
+      0.0101,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0058,
+      0.0101,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0101,
+      -0.0058,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0101,
+      -0.0058,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0058,
+      -0.0101,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0058,
+      -0.0101,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0101,
+      0.0058,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0101,
+      0.0058,
+      -0.0754
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000095-1",
+    "tris": 9144,
+    "bboxCenter": [
+      0,
+      0,
+      0.0226
+    ],
+    "bboxSize": [
+      0.0292,
+      0.0294,
+      0.0584
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000095-1",
+    "tris": 9144,
+    "bboxCenter": [
+      0,
+      0,
+      0.0226
+    ],
+    "bboxSize": [
+      0.0292,
+      0.0294,
+      0.0584
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000004-1",
+    "tris": 3136,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0545
+    ],
+    "bboxSize": [
+      0.058,
+      0.058,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000004-1",
+    "tris": 3136,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0545
+    ],
+    "bboxSize": [
+      0.058,
+      0.058,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000861-1 <1>",
+    "tris": 25612,
+    "bboxCenter": [
+      0.0015,
+      0.0001,
+      -0.0086
+    ],
+    "bboxSize": [
+      0.0549,
+      0.0556,
+      0.0388
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      -0.0163,
+      0.0113,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      -0.0163,
+      0.0113,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      -0.0158,
+      -0.012,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      -0.0158,
+      -0.012,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003047-1",
+    "tris": 9012,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0086
+    ],
+    "bboxSize": [
+      0.0519,
+      0.0521,
+      0.0388
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003047-1",
+    "tris": 9012,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0086
+    ],
+    "bboxSize": [
+      0.0519,
+      0.0521,
+      0.0388
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0066,
+      -0.0187,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0066,
+      -0.0187,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0198,
+      0.0005,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0198,
+      0.0005,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0057,
+      0.019,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003046-1",
+    "tris": 3320,
+    "bboxCenter": [
+      0.0057,
+      0.019,
+      -0.0145
+    ],
+    "bboxSize": [
+      0.0183,
+      0.0179,
+      0.0162
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000606-1 <1>",
+    "tris": 15002,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0394
+    ],
+    "bboxSize": [
+      0.0494,
+      0.0494,
+      0.0327
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      0.0132,
+      -0.0113,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.023,
+      0.0229,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      0.0132,
+      -0.0113,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.023,
+      0.0229,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      0.0113,
+      0.0132,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.0229,
+      0.023,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      0.0113,
+      0.0132,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.0229,
+      0.023,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P001849-1",
+    "tris": 7778,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0394
+    ],
+    "bboxSize": [
+      0.0459,
+      0.046,
+      0.0327
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P001849-1",
+    "tris": 7778,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0394
+    ],
+    "bboxSize": [
+      0.0459,
+      0.046,
+      0.0327
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      -0.0132,
+      0.0113,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.023,
+      0.0229,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      -0.0132,
+      0.0113,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.023,
+      0.0229,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      -0.0113,
+      -0.0132,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.0229,
+      0.023,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000248-1",
+    "tris": 1806,
+    "bboxCenter": [
+      -0.0113,
+      -0.0132,
+      -0.0471
+    ],
+    "bboxSize": [
+      0.0229,
+      0.023,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000074-1",
+    "tris": 2724,
+    "bboxCenter": [
+      0,
+      0,
+      0.0279
+    ],
+    "bboxSize": [
+      0.0314,
+      0.0313,
+      0.0011
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000074-1",
+    "tris": 2724,
+    "bboxCenter": [
+      0,
+      0,
+      0.0279
+    ],
+    "bboxSize": [
+      0.0314,
+      0.0313,
+      0.0011
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000860-1 <1>",
+    "tris": 15290,
+    "bboxCenter": [
+      0,
+      0,
+      -0.021
+    ],
+    "bboxSize": [
+      0.049,
+      0.049,
+      0.0411
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      -0.0123,
+      0.0146,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0198,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      -0.0123,
+      0.0146,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0198,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      -0.0146,
+      -0.0123,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0198,
+      0.0197,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      -0.0146,
+      -0.0123,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0198,
+      0.0197,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003045-1",
+    "tris": 8610,
+    "bboxCenter": [
+      0,
+      0,
+      -0.021
+    ],
+    "bboxSize": [
+      0.0476,
+      0.0475,
+      0.0411
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003045-1",
+    "tris": 8610,
+    "bboxCenter": [
+      0,
+      0,
+      -0.021
+    ],
+    "bboxSize": [
+      0.0476,
+      0.0475,
+      0.0411
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      0.0123,
+      -0.0146,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0198,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      0.0123,
+      -0.0146,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0198,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      0.0146,
+      0.0123,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0198,
+      0.0197,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000069-1",
+    "tris": 1670,
+    "bboxCenter": [
+      0.0146,
+      0.0123,
+      -0.0343
+    ],
+    "bboxSize": [
+      0.0198,
+      0.0197,
+      0.0102
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000881-1 <1>",
+    "tris": 228223,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0995
+    ],
+    "bboxSize": [
+      0.0753,
+      0.0754,
+      0.0825
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0182,
+      -0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0182,
+      -0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      -0.0086,
+      -0.0303,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.009,
+      0.0138,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      -0.0086,
+      -0.0303,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.009,
+      0.0138,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P001835-2",
+    "tris": 9196,
+    "bboxCenter": [
+      0,
+      0,
+      -0.105
+    ],
+    "bboxSize": [
+      0.0177,
+      0.0177,
+      0.0715
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P001835-2",
+    "tris": 9196,
+    "bboxCenter": [
+      0,
+      0,
+      -0.105
+    ],
+    "bboxSize": [
+      0.0177,
+      0.0177,
+      0.0715
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000724-1",
+    "tris": 10784,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0924
+    ],
+    "bboxSize": [
+      0.0555,
+      0.0554,
+      0.0322
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000724-1",
+    "tris": 10784,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0924
+    ],
+    "bboxSize": [
+      0.0555,
+      0.0554,
+      0.0322
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003069-1",
+    "tris": 5176,
+    "bboxCenter": [
+      0,
+      0,
+      -0.119
+    ],
+    "bboxSize": [
+      0.0664,
+      0.0663,
+      0.0266
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003069-1",
+    "tris": 5176,
+    "bboxCenter": [
+      0,
+      0,
+      -0.119
+    ],
+    "bboxSize": [
+      0.0664,
+      0.0663,
+      0.0266
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0094,
+      -0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0094,
+      -0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000112-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1169
+    ],
+    "bboxSize": [
+      0.021,
+      0.0209,
+      0.005
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000112-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1169
+    ],
+    "bboxSize": [
+      0.021,
+      0.0209,
+      0.005
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000420-1",
+    "tris": 10490,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0865
+    ],
+    "bboxSize": [
+      0.0635,
+      0.0635,
+      0.0565
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000420-1",
+    "tris": 10490,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0865
+    ],
+    "bboxSize": [
+      0.0635,
+      0.0635,
+      0.0565
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0,
+      0.021,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0,
+      0.021,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000132-1 <1>",
+    "tris": 3017,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1046
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0233,
+      0.0019
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000132-1",
+    "tris": 3017,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1046
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0233,
+      0.0019
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000132-1",
+    "tris": 3017,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1046
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0233,
+      0.0019
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000229-1",
+    "tris": 5824,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1059
+    ],
+    "bboxSize": [
+      0.0583,
+      0.0583,
+      0.0229
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000229-1",
+    "tris": 5824,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1059
+    ],
+    "bboxSize": [
+      0.0583,
+      0.0583,
+      0.0229
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000131-1",
+    "tris": 1200,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1059
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0232,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000131-1",
+    "tris": 1200,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1059
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0232,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0046,
+      0.009,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0046,
+      0.009,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0,
+      -0.021,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0,
+      -0.021,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0049,
+      0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0049,
+      0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      0.0094,
+      0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      0.0094,
+      0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1 <3>",
+    "tris": 3198,
+    "bboxCenter": [
+      -0.0334,
+      -0.0091,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0074,
+      0.0066,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      -0.0335,
+      -0.0091,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0071,
+      0.0066,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      -0.0335,
+      -0.0091,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0071,
+      0.0066,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      -0.0317,
+      -0.0088,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      -0.0317,
+      -0.0088,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000180-1",
+    "tris": 3208,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0851
+    ],
+    "bboxSize": [
+      0.0342,
+      0.0343,
+      0.0065
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000180-1",
+    "tris": 3208,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0851
+    ],
+    "bboxSize": [
+      0.0342,
+      0.0343,
+      0.0065
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0182,
+      -0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0182,
+      -0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003068-2",
+    "tris": 2792,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1006
+    ],
+    "bboxSize": [
+      0.0753,
+      0.0754,
+      0.0272
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003068-2",
+    "tris": 2792,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1006
+    ],
+    "bboxSize": [
+      0.0753,
+      0.0754,
+      0.0272
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000211-1",
+    "tris": 212,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0815
+    ],
+    "bboxSize": [
+      0.0149,
+      0.0149,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000211-1",
+    "tris": 212,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0815
+    ],
+    "bboxSize": [
+      0.0149,
+      0.0149,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      0.0302,
+      0.009,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0138,
+      0.0092,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      0.0302,
+      0.009,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0138,
+      0.0092,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1 <1>",
+    "tris": 3198,
+    "bboxCenter": [
+      0.0247,
+      -0.0243,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0078,
+      0.0078,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      0.0247,
+      -0.0243,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0078,
+      0.0078,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      0.0247,
+      -0.0243,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0078,
+      0.0078,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      0.0234,
+      -0.0231,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      0.0234,
+      -0.0231,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0094,
+      0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0094,
+      0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000129-1",
+    "tris": 2978,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1088
+    ],
+    "bboxSize": [
+      0.0277,
+      0.0277,
+      0.0011
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000129-1",
+    "tris": 2978,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1088
+    ],
+    "bboxSize": [
+      0.0277,
+      0.0277,
+      0.0011
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000210-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0841
+    ],
+    "bboxSize": [
+      0.019,
+      0.019,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000210-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0841
+    ],
+    "bboxSize": [
+      0.019,
+      0.019,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      0.0049,
+      -0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      0.0049,
+      -0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000122-1__Imported1",
+    "tris": 3012,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1199
+    ],
+    "bboxSize": [
+      0.0223,
+      0.0223,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000122-1__Imported1",
+    "tris": 3012,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1199
+    ],
+    "bboxSize": [
+      0.0223,
+      0.0223,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000131-1",
+    "tris": 1200,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1032
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0232,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000131-1",
+    "tris": 1200,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1032
+    ],
+    "bboxSize": [
+      0.0233,
+      0.0232,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      -0.0094,
+      -0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      -0.0094,
+      -0.0049,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000133-1__Imported1",
+    "tris": 2620,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0596
+    ],
+    "bboxSize": [
+      0.0538,
+      0.0539,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000133-1__Imported1",
+    "tris": 2620,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0596
+    ],
+    "bboxSize": [
+      0.0538,
+      0.0539,
+      0.0008
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000297-2",
+    "tris": 4384,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1003
+    ],
+    "bboxSize": [
+      0.0555,
+      0.0554,
+      0.0157
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000297-2",
+    "tris": 4384,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1003
+    ],
+    "bboxSize": [
+      0.0555,
+      0.0554,
+      0.0157
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1 <2>",
+    "tris": 3198,
+    "bboxCenter": [
+      0.0086,
+      0.0335,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0065,
+      0.0074,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      0.0086,
+      0.0337,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0065,
+      0.007,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported1",
+    "tris": 2356,
+    "bboxCenter": [
+      0.0086,
+      0.0337,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0065,
+      0.007,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      0.0083,
+      0.0318,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000156-1__Imported2",
+    "tris": 842,
+    "bboxCenter": [
+      0.0083,
+      0.0318,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.004,
+      0.004,
+      0.004
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0046,
+      -0.009,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0046,
+      -0.009,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P003070-1",
+    "tris": 480,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1154
+    ],
+    "bboxSize": [
+      0.0569,
+      0.0566,
+      0.0036
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P003070-1",
+    "tris": 480,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1154
+    ],
+    "bboxSize": [
+      0.0569,
+      0.0566,
+      0.0036
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.009,
+      -0.0046,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.009,
+      -0.0046,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      -0.0049,
+      0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000215-1",
+    "tris": 29672,
+    "bboxCenter": [
+      -0.0049,
+      0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0014,
+      0.0014,
+      0.0033
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000106-1",
+    "tris": 2896,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0635
+    ],
+    "bboxSize": [
+      0.0519,
+      0.052,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000106-1",
+    "tris": 2896,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0635
+    ],
+    "bboxSize": [
+      0.0519,
+      0.052,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0182,
+      0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0182,
+      0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.009,
+      0.0046,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000169-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.009,
+      0.0046,
+      -0.0972
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0063,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0049,
+      -0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000216-1",
+    "tris": 840,
+    "bboxCenter": [
+      0.0049,
+      -0.0094,
+      -0.1011
+    ],
+    "bboxSize": [
+      0.0016,
+      0.0016,
+      0.0016
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0182,
+      0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000118-1",
+    "tris": 840,
+    "bboxCenter": [
+      -0.0182,
+      0.0105,
+      -0.0977
+    ],
+    "bboxSize": [
+      0.0047,
+      0.0047,
+      0.0048
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      -0.0226,
+      0.0223,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0128,
+      0.0127,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000464-1",
+    "tris": 920,
+    "bboxCenter": [
+      -0.0226,
+      0.0223,
+      -0.1033
+    ],
+    "bboxSize": [
+      0.0128,
+      0.0127,
+      0.0079
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of K000092-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1128
+    ],
+    "bboxSize": [
+      0.037,
+      0.0369,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "K000092-1",
+    "tris": 960,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1128
+    ],
+    "bboxSize": [
+      0.037,
+      0.0369,
+      0.007
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000725-1",
+    "tris": 13072,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0818
+    ],
+    "bboxSize": [
+      0.0433,
+      0.0433,
+      0.0433
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000725-1",
+    "tris": 13072,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0818
+    ],
+    "bboxSize": [
+      0.0433,
+      0.0433,
+      0.0433
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "A000592-1 <1>",
+    "tris": 14046,
+    "bboxCenter": [
+      0,
+      0,
+      -0.0541
+    ],
+    "bboxSize": [
+      0.0322,
+      0.0322,
+      0.0264
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P001837-1",
+    "tris": 6846,
+    "bboxCenter": [
+      0,
+      0,
+      -0.054
+    ],
+    "bboxSize": [
+      0.0317,
+      0.0317,
+      0.0261
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P001837-1",
+    "tris": 6846,
+    "bboxCenter": [
+      0,
+      0,
+      -0.054
+    ],
+    "bboxSize": [
+      0.0317,
+      0.0317,
+      0.0261
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.009,
+      0.0074,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.009,
+      0.0074,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0074,
+      0.009,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.0074,
+      0.009,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0074,
+      -0.009,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      0.0074,
+      -0.009,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "occurrence of P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.009,
+      -0.0074,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "D1-AP Gearbox Assy-rev2-1 <1>",
+    "occurrence": "P000247-1",
+    "tris": 1800,
+    "bboxCenter": [
+      -0.009,
+      -0.0074,
+      -0.0641
+    ],
+    "bboxSize": [
+      0.0142,
+      0.0142,
+      0.0063
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P000427-1",
+    "tris": 1560,
+    "bboxCenter": [
+      0.0639,
+      0,
+      -0.1592
+    ],
+    "bboxSize": [
+      0.0079,
+      0.0079,
+      0.0406
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P000427-1",
+    "tris": 1560,
+    "bboxCenter": [
+      0.0639,
+      0,
+      -0.1592
+    ],
+    "bboxSize": [
+      0.0079,
+      0.0079,
+      0.0406
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000161-1",
+    "tris": 40818,
+    "bboxCenter": [
+      0.0851,
+      -0.0001,
+      -0.188
+    ],
+    "bboxSize": [
+      0.0168,
+      0.0125,
+      0.0135
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000161-1",
+    "tris": 40818,
+    "bboxCenter": [
+      0.0851,
+      -0.0001,
+      -0.188
+    ],
+    "bboxSize": [
+      0.0168,
+      0.0125,
+      0.0135
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001331-1",
+    "tris": 624,
+    "bboxCenter": [
+      0.1437,
+      0,
+      -0.1885
+    ],
+    "bboxSize": [
+      0.0085,
+      0.0253,
+      0.0432
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001331-1",
+    "tris": 624,
+    "bboxCenter": [
+      0.1437,
+      0,
+      -0.1885
+    ],
+    "bboxSize": [
+      0.0085,
+      0.0253,
+      0.0432
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003028-1",
+    "tris": 6816,
+    "bboxCenter": [
+      0.0081,
+      0,
+      -0.1143
+    ],
+    "bboxSize": [
+      0.0871,
+      0.0756,
+      0.0121
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003028-1",
+    "tris": 6816,
+    "bboxCenter": [
+      0.0081,
+      0,
+      -0.1143
+    ],
+    "bboxSize": [
+      0.0871,
+      0.0756,
+      0.0121
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P000034-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.1451,
+      0,
+      -0.1769
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0211,
+      0.021
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P000034-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.1451,
+      0,
+      -0.1769
+    ],
+    "bboxSize": [
+      0.0063,
+      0.0211,
+      0.021
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000209-1",
+    "tris": 34794,
+    "bboxCenter": [
+      0.0547,
+      0,
+      -0.1424
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0061,
+      0.0131
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000209-1",
+    "tris": 34794,
+    "bboxCenter": [
+      0.0547,
+      0,
+      -0.1424
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0061,
+      0.0131
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000507-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.1485,
+      0,
+      -0.1769
+    ],
+    "bboxSize": [
+      0.0004,
+      0.0189,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000507-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.1485,
+      0,
+      -0.1769
+    ],
+    "bboxSize": [
+      0.0004,
+      0.0189,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001928-1",
+    "tris": 2018,
+    "bboxCenter": [
+      0.0414,
+      0.0013,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0131,
+      0.0572,
+      0.0078
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001928-1",
+    "tris": 2018,
+    "bboxCenter": [
+      0.0414,
+      0.0013,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0131,
+      0.0572,
+      0.0078
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000138-1",
+    "tris": 6060,
+    "bboxCenter": [
+      0.1723,
+      0,
+      -0.2023
+    ],
+    "bboxSize": [
+      0.057,
+      0.0196,
+      0.0246
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000138-1",
+    "tris": 6060,
+    "bboxCenter": [
+      0.1723,
+      0,
+      -0.2023
+    ],
+    "bboxSize": [
+      0.057,
+      0.0196,
+      0.0246
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "A000354-1 <1>",
+    "tris": 6850,
+    "bboxCenter": [
+      0.0381,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0135,
+      0.0135,
+      0.0579
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001237-1",
+    "tris": 2932,
+    "bboxCenter": [
+      0.0381,
+      0,
+      -0.1701
+    ],
+    "bboxSize": [
+      0.0135,
+      0.0135,
+      0.0469
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001237-1",
+    "tris": 2932,
+    "bboxCenter": [
+      0.0381,
+      0,
+      -0.1701
+    ],
+    "bboxSize": [
+      0.0135,
+      0.0135,
+      0.0469
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001227-1",
+    "tris": 3918,
+    "bboxCenter": [
+      0.0381,
+      0,
+      -0.1643
+    ],
+    "bboxSize": [
+      0.0111,
+      0.0111,
+      0.0574
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001227-1",
+    "tris": 3918,
+    "bboxCenter": [
+      0.0381,
+      0,
+      -0.1643
+    ],
+    "bboxSize": [
+      0.0111,
+      0.0111,
+      0.0574
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000782-1",
+    "tris": 244,
+    "bboxCenter": [
+      0.028,
+      0.0062,
+      -0.207
+    ],
+    "bboxSize": [
+      0.0202,
+      0.0204,
+      0.0081
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000782-1",
+    "tris": 244,
+    "bboxCenter": [
+      0.028,
+      0.0062,
+      -0.207
+    ],
+    "bboxSize": [
+      0.0202,
+      0.0204,
+      0.0081
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003031-1",
+    "tris": 15366,
+    "bboxCenter": [
+      0.1514,
+      0,
+      -0.1882
+    ],
+    "bboxSize": [
+      0.022,
+      0.0329,
+      0.0516
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003031-1",
+    "tris": 15366,
+    "bboxCenter": [
+      0.1514,
+      0,
+      -0.1882
+    ],
+    "bboxSize": [
+      0.022,
+      0.0329,
+      0.0516
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000209-1",
+    "tris": 34794,
+    "bboxCenter": [
+      0.0731,
+      0,
+      -0.1424
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0061,
+      0.0131
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000209-1",
+    "tris": 34794,
+    "bboxCenter": [
+      0.0731,
+      0,
+      -0.1424
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0061,
+      0.0131
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "A000150-1 <1>",
+    "tris": 2220,
+    "bboxCenter": [
+      0.0723,
+      0,
+      -0.1854
+    ],
+    "bboxSize": [
+      0.0073,
+      0.0148,
+      0.0146
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P000449-1",
+    "tris": 2220,
+    "bboxCenter": [
+      0.0723,
+      0,
+      -0.1854
+    ],
+    "bboxSize": [
+      0.0073,
+      0.0148,
+      0.0146
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P000449-1",
+    "tris": 2220,
+    "bboxCenter": [
+      0.0723,
+      0,
+      -0.1854
+    ],
+    "bboxSize": [
+      0.0073,
+      0.0148,
+      0.0146
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003036-1",
+    "tris": 15912,
+    "bboxCenter": [
+      0.0563,
+      0,
+      -0.161
+    ],
+    "bboxSize": [
+      0.1876,
+      0.0799,
+      0.1152
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003036-1",
+    "tris": 15912,
+    "bboxCenter": [
+      0.0563,
+      0,
+      -0.161
+    ],
+    "bboxSize": [
+      0.1876,
+      0.0799,
+      0.1152
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000537-1__Imported1",
+    "tris": 38452,
+    "bboxCenter": [
+      0.0377,
+      -0.0129,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0088,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000537-1__Imported1",
+    "tris": 38452,
+    "bboxCenter": [
+      0.0377,
+      -0.0129,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0088,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003040-1",
+    "tris": 1536,
+    "bboxCenter": [
+      0.0072,
+      0,
+      -0.1941
+    ],
+    "bboxSize": [
+      0.0854,
+      0.0762,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003040-1",
+    "tris": 1536,
+    "bboxCenter": [
+      0.0072,
+      0,
+      -0.1941
+    ],
+    "bboxSize": [
+      0.0854,
+      0.0762,
+      0.0009
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003039-1",
+    "tris": 2332,
+    "bboxCenter": [
+      0.0621,
+      0,
+      -0.1259
+    ],
+    "bboxSize": [
+      0.0313,
+      0.0094,
+      0.0346
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003039-1",
+    "tris": 2332,
+    "bboxCenter": [
+      0.0621,
+      0,
+      -0.1259
+    ],
+    "bboxSize": [
+      0.0313,
+      0.0094,
+      0.0346
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P000237-1",
+    "tris": 880,
+    "bboxCenter": [
+      0.0639,
+      0,
+      -0.1559
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0048,
+      0.0624
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P000237-1",
+    "tris": 880,
+    "bboxCenter": [
+      0.0639,
+      0,
+      -0.1559
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0048,
+      0.0624
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003042-1",
+    "tris": 1132,
+    "bboxCenter": [
+      0.0421,
+      -0.0195,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0146,
+      0.0162,
+      0.0242
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003042-1",
+    "tris": 1132,
+    "bboxCenter": [
+      0.0421,
+      -0.0195,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0146,
+      0.0162,
+      0.0242
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000537-1__Imported1",
+    "tris": 38452,
+    "bboxCenter": [
+      0.0377,
+      0.0157,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0088,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000537-1__Imported1",
+    "tris": 38452,
+    "bboxCenter": [
+      0.0377,
+      0.0157,
+      -0.1407
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0088,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "A000554-1 <1>",
+    "tris": 7496,
+    "bboxCenter": [
+      0.1181,
+      0.0003,
+      -0.1935
+    ],
+    "bboxSize": [
+      0.0571,
+      0.0197,
+      0.0276
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001335-1",
+    "tris": 3260,
+    "bboxCenter": [
+      0.1191,
+      0.0004,
+      -0.1936
+    ],
+    "bboxSize": [
+      0.0551,
+      0.0193,
+      0.0274
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001335-1",
+    "tris": 3260,
+    "bboxCenter": [
+      0.1191,
+      0.0004,
+      -0.1936
+    ],
+    "bboxSize": [
+      0.0551,
+      0.0193,
+      0.0274
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001293-1",
+    "tris": 372,
+    "bboxCenter": [
+      0.0922,
+      0.0004,
+      -0.1889
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0193,
+      0.0184
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001293-1",
+    "tris": 372,
+    "bboxCenter": [
+      0.0922,
+      0.0004,
+      -0.1889
+    ],
+    "bboxSize": [
+      0.0052,
+      0.0193,
+      0.0184
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000349-1",
+    "tris": 1932,
+    "bboxCenter": [
+      0.11,
+      0.0003,
+      -0.1919
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0197,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000349-1",
+    "tris": 1932,
+    "bboxCenter": [
+      0.11,
+      0.0003,
+      -0.1919
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0197,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000349-1",
+    "tris": 1932,
+    "bboxCenter": [
+      0.1271,
+      0.0003,
+      -0.195
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0197,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000349-1",
+    "tris": 1932,
+    "bboxCenter": [
+      0.1271,
+      0.0003,
+      -0.195
+    ],
+    "bboxSize": [
+      0.0048,
+      0.0197,
+      0.0188
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002126-1",
+    "tris": 6698,
+    "bboxCenter": [
+      0.0278,
+      -0.0316,
+      -0.2174
+    ],
+    "bboxSize": [
+      0.0247,
+      0.0114,
+      0.0133
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002126-1",
+    "tris": 6698,
+    "bboxCenter": [
+      0.0278,
+      -0.0316,
+      -0.2174
+    ],
+    "bboxSize": [
+      0.0247,
+      0.0114,
+      0.0133
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "A000759-1 <1>",
+    "tris": 12740,
+    "bboxCenter": [
+      0.0141,
+      0.0063,
+      -0.2105
+    ],
+    "bboxSize": [
+      0.0489,
+      0.0199,
+      0.0238
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of 51065-0400-1",
+    "tris": 1052,
+    "bboxCenter": [
+      -0.0068,
+      0.0113,
+      -0.2075
+    ],
+    "bboxSize": [
+      0.0071,
+      0.0099,
+      0.0049
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "51065-0400-1",
+    "tris": 1052,
+    "bboxCenter": [
+      -0.0068,
+      0.0113,
+      -0.2075
+    ],
+    "bboxSize": [
+      0.0071,
+      0.0099,
+      0.0049
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of AST SENSOR SK13045-1",
+    "tris": 11688,
+    "bboxCenter": [
+      0.0167,
+      0.0062,
+      -0.2105
+    ],
+    "bboxSize": [
+      0.0437,
+      0.0198,
+      0.0238
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "AST SENSOR SK13045-1",
+    "tris": 11688,
+    "bboxCenter": [
+      0.0167,
+      0.0062,
+      -0.2105
+    ],
+    "bboxSize": [
+      0.0437,
+      0.0198,
+      0.0238
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002240-1 <1>",
+    "tris": 22236,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.063
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000018-1",
+    "tris": 296,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1925
+    ],
+    "bboxSize": [
+      0.0572,
+      0.0574,
+      0.0041
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000018-1",
+    "tris": 296,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1925
+    ],
+    "bboxSize": [
+      0.0572,
+      0.0574,
+      0.0041
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0068,
+      0.0126,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0068,
+      0.0126,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of AIR MOTOR HOUSING-MACHINED-1",
+    "tris": 13644,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.038
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "AIR MOTOR HOUSING-MACHINED-1",
+    "tris": 13644,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.038
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of FLANGE-1",
+    "tris": 2310,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1396
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.0119
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "FLANGE-1",
+    "tris": 2310,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1396
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.0119
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of ROTOR-1",
+    "tris": 2980,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0399,
+      0.04,
+      0.063
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "ROTOR-1",
+    "tris": 2980,
+    "bboxCenter": [
+      0,
+      0,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0399,
+      0.04,
+      0.063
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0143,
+      0.0005,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0143,
+      0.0005,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0143,
+      -0.0005,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0143,
+      -0.0005,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of FLANGE-1",
+    "tris": 2310,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1895
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.0119
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "FLANGE-1",
+    "tris": 2310,
+    "bboxCenter": [
+      0.0001,
+      0,
+      -0.1895
+    ],
+    "bboxSize": [
+      0.0578,
+      0.058,
+      0.0119
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0076,
+      0.0122,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0076,
+      0.0122,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0076,
+      -0.0122,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      0.0076,
+      -0.0122,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0068,
+      -0.0126,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TEFLON ROD-1",
+    "tris": 116,
+    "bboxCenter": [
+      -0.0068,
+      -0.0126,
+      -0.1645
+    ],
+    "bboxSize": [
+      0.0092,
+      0.0092,
+      0.0374
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P003037-1",
+    "tris": 7800,
+    "bboxCenter": [
+      0.0071,
+      0,
+      -0.212
+    ],
+    "bboxSize": [
+      0.0854,
+      0.0762,
+      0.0353
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P003037-1",
+    "tris": 7800,
+    "bboxCenter": [
+      0.0071,
+      0,
+      -0.212
+    ],
+    "bboxSize": [
+      0.0854,
+      0.0762,
+      0.0353
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "A000803-1 <1>",
+    "tris": 111712,
+    "bboxCenter": [
+      0.0046,
+      0,
+      -0.2153
+    ],
+    "bboxSize": [
+      0.069,
+      0.0559,
+      0.0321
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000565-1",
+    "tris": 7892,
+    "bboxCenter": [
+      0.0093,
+      0.0191,
+      -0.2165
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0062,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000565-1",
+    "tris": 7892,
+    "bboxCenter": [
+      0.0093,
+      0.0191,
+      -0.2165
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0062,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001926-1",
+    "tris": 1024,
+    "bboxCenter": [
+      0.0078,
+      0,
+      -0.2194
+    ],
+    "bboxSize": [
+      0.0093,
+      0.0464,
+      0.0078
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001926-1",
+    "tris": 1024,
+    "bboxCenter": [
+      0.0078,
+      0,
+      -0.2194
+    ],
+    "bboxSize": [
+      0.0093,
+      0.0464,
+      0.0078
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      -0.0099,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      -0.0099,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002124-1",
+    "tris": 3286,
+    "bboxCenter": [
+      0.0076,
+      0,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.0139,
+      0.0097,
+      0.0115
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002124-1",
+    "tris": 3286,
+    "bboxCenter": [
+      0.0076,
+      0,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.0139,
+      0.0097,
+      0.0115
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P001924-1",
+    "tris": 5124,
+    "bboxCenter": [
+      0.0046,
+      0,
+      -0.2153
+    ],
+    "bboxSize": [
+      0.069,
+      0.0559,
+      0.0321
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P001924-1",
+    "tris": 5124,
+    "bboxCenter": [
+      0.0046,
+      0,
+      -0.2153
+    ],
+    "bboxSize": [
+      0.069,
+      0.0559,
+      0.0321
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002123-1",
+    "tris": 3264,
+    "bboxCenter": [
+      0.0076,
+      0.0099,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.0139,
+      0.0097,
+      0.0115
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002123-1",
+    "tris": 3264,
+    "bboxCenter": [
+      0.0076,
+      0.0099,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.0139,
+      0.0097,
+      0.0115
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002117-1",
+    "tris": 690,
+    "bboxCenter": [
+      -0.009,
+      0,
+      -0.2214
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0397,
+      0.0082
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002117-1",
+    "tris": 690,
+    "bboxCenter": [
+      -0.009,
+      0,
+      -0.2214
+    ],
+    "bboxSize": [
+      0.0197,
+      0.0397,
+      0.0082
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000565-1",
+    "tris": 7892,
+    "bboxCenter": [
+      0.0093,
+      -0.019,
+      -0.2165
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0062,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000565-1",
+    "tris": 7892,
+    "bboxCenter": [
+      0.0093,
+      -0.019,
+      -0.2165
+    ],
+    "bboxSize": [
+      0.0061,
+      0.0062,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002114-1 <1>",
+    "tris": 23898,
+    "bboxCenter": [
+      0.0039,
+      0,
+      -0.2123
+    ],
+    "bboxSize": [
+      0.0553,
+      0.0491,
+      0.0224
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of SENSOR CONNECTOR-1",
+    "tris": 934,
+    "bboxCenter": [
+      -0.0091,
+      0.0128,
+      -0.2087
+    ],
+    "bboxSize": [
+      0.0095,
+      0.01,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "SENSOR CONNECTOR-1",
+    "tris": 934,
+    "bboxCenter": [
+      -0.0091,
+      0.0128,
+      -0.2087
+    ],
+    "bboxSize": [
+      0.0095,
+      0.01,
+      0.0073
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      0,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      0,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of CP2102-2",
+    "tris": 2056,
+    "bboxCenter": [
+      -0.007,
+      0.0091,
+      -0.2123
+    ],
+    "bboxSize": [
+      0.005,
+      0.005,
+      0.0023
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "CP2102-2",
+    "tris": 2056,
+    "bboxCenter": [
+      -0.007,
+      0.0091,
+      -0.2123
+    ],
+    "bboxSize": [
+      0.005,
+      0.005,
+      0.0023
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "USB-M2XF-2 <1>",
+    "tris": 6892,
+    "bboxCenter": [
+      0.0173,
+      -0.0164,
+      -0.216
+    ],
+    "bboxSize": [
+      0.0118,
+      0.0116,
+      0.0066
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of CU04-SHELL AB-1__Imported1",
+    "tris": 4734,
+    "bboxCenter": [
+      0.0173,
+      -0.0164,
+      -0.216
+    ],
+    "bboxSize": [
+      0.0118,
+      0.0116,
+      0.0066
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "CU04-SHELL AB-1__Imported1",
+    "tris": 4734,
+    "bboxCenter": [
+      0.0173,
+      -0.0164,
+      -0.216
+    ],
+    "bboxSize": [
+      0.0118,
+      0.0116,
+      0.0066
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of CU04-base-1__Imported1",
+    "tris": 2158,
+    "bboxCenter": [
+      0.0172,
+      -0.0162,
+      -0.2161
+    ],
+    "bboxSize": [
+      0.0086,
+      0.0093,
+      0.006
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "CU04-base-1__Imported1",
+    "tris": 2158,
+    "bboxCenter": [
+      0.0172,
+      -0.0162,
+      -0.2161
+    ],
+    "bboxSize": [
+      0.0086,
+      0.0093,
+      0.006
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of MSP430F6726IPN-1",
+    "tris": 3352,
+    "bboxCenter": [
+      -0.0067,
+      -0.0035,
+      -0.2097
+    ],
+    "bboxSize": [
+      0.014,
+      0.0147,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "MSP430F6726IPN-1",
+    "tris": 3352,
+    "bboxCenter": [
+      -0.0067,
+      -0.0035,
+      -0.2097
+    ],
+    "bboxSize": [
+      0.014,
+      0.0147,
+      0.0056
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of Tenergy LiPo Battery 3.7 V-1",
+    "tris": 1224,
+    "bboxCenter": [
+      0.0043,
+      0.005,
+      -0.2082
+    ],
+    "bboxSize": [
+      0.0201,
+      0.033,
+      0.0142
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "Tenergy LiPo Battery 3.7 V-1",
+    "tris": 1224,
+    "bboxCenter": [
+      0.0043,
+      0.005,
+      -0.2082
+    ],
+    "bboxSize": [
+      0.0201,
+      0.033,
+      0.0142
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of FDC6327C-1",
+    "tris": 180,
+    "bboxCenter": [
+      0.0088,
+      0.0068,
+      -0.2146
+    ],
+    "bboxSize": [
+      0.003,
+      0.003,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "FDC6327C-1",
+    "tris": 180,
+    "bboxCenter": [
+      0.0088,
+      0.0068,
+      -0.2146
+    ],
+    "bboxSize": [
+      0.003,
+      0.003,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of FDC6327C-1",
+    "tris": 180,
+    "bboxCenter": [
+      0.0088,
+      -0.0068,
+      -0.2146
+    ],
+    "bboxSize": [
+      0.003,
+      0.003,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "FDC6327C-1",
+    "tris": 180,
+    "bboxCenter": [
+      0.0088,
+      -0.0068,
+      -0.2146
+    ],
+    "bboxSize": [
+      0.003,
+      0.003,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of Part8AT25320B 640B-1",
+    "tris": 300,
+    "bboxCenter": [
+      -0.0069,
+      -0.0096,
+      -0.2126
+    ],
+    "bboxSize": [
+      0.0058,
+      0.0049,
+      0.0031
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "Part8AT25320B 640B-1",
+    "tris": 300,
+    "bboxCenter": [
+      -0.0069,
+      -0.0096,
+      -0.2126
+    ],
+    "bboxSize": [
+      0.0058,
+      0.0049,
+      0.0031
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      -0.0099,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      -0.0099,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of PC BOARD-1",
+    "tris": 5042,
+    "bboxCenter": [
+      0.0039,
+      0,
+      -0.2144
+    ],
+    "bboxSize": [
+      0.0553,
+      0.0491,
+      0.0182
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "PC BOARD-1",
+    "tris": 5042,
+    "bboxCenter": [
+      0.0039,
+      0,
+      -0.2144
+    ],
+    "bboxSize": [
+      0.0553,
+      0.0491,
+      0.0182
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of MANOMETER LCD BK11356-1",
+    "tris": 1912,
+    "bboxCenter": [
+      -0.007,
+      -0.0005,
+      -0.2125
+    ],
+    "bboxSize": [
+      0.0238,
+      0.038,
+      0.0142
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "MANOMETER LCD BK11356-1",
+    "tris": 1912,
+    "bboxCenter": [
+      -0.007,
+      -0.0005,
+      -0.2125
+    ],
+    "bboxSize": [
+      0.0238,
+      0.038,
+      0.0142
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of 9HT7-1",
+    "tris": 88,
+    "bboxCenter": [
+      -0.0138,
+      -0.0156,
+      -0.2075
+    ],
+    "bboxSize": [
+      0.0018,
+      0.007,
+      0.0017
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "9HT7-1",
+    "tris": 88,
+    "bboxCenter": [
+      -0.0138,
+      -0.0156,
+      -0.2075
+    ],
+    "bboxSize": [
+      0.0018,
+      0.007,
+      0.0017
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of SENSOR CONNECTOR-1",
+    "tris": 934,
+    "bboxCenter": [
+      -0.0009,
+      -0.0195,
+      -0.2114
+    ],
+    "bboxSize": [
+      0.0108,
+      0.0087,
+      0.0098
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "SENSOR CONNECTOR-1",
+    "tris": 934,
+    "bboxCenter": [
+      -0.0009,
+      -0.0195,
+      -0.2114
+    ],
+    "bboxSize": [
+      0.0108,
+      0.0087,
+      0.0098
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      0.0099,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "TL3315-1",
+    "tris": 268,
+    "bboxCenter": [
+      0.0088,
+      0.0099,
+      -0.217
+    ],
+    "bboxSize": [
+      0.0045,
+      0.0047,
+      0.0018
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002115-1",
+    "tris": 300,
+    "bboxCenter": [
+      -0.0091,
+      0,
+      -0.2191
+    ],
+    "bboxSize": [
+      0.0181,
+      0.0378,
+      0.0068
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002115-1",
+    "tris": 300,
+    "bboxCenter": [
+      -0.0091,
+      0,
+      -0.2191
+    ],
+    "bboxSize": [
+      0.0181,
+      0.0378,
+      0.0068
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      0.0099,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      0.0099,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      0,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "K000564-1",
+    "tris": 18358,
+    "bboxCenter": [
+      0.0079,
+      0,
+      -0.22
+    ],
+    "bboxSize": [
+      0.0068,
+      0.0061,
+      0.0052
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "occurrence of P002125-2",
+    "tris": 3268,
+    "bboxCenter": [
+      0.0076,
+      -0.0099,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.014,
+      0.0097,
+      0.0115
+    ]
+  },
+  {
+    "assembly": "HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>",
+    "occurrence": "P002125-2",
+    "tris": 3268,
+    "bboxCenter": [
+      0.0076,
+      -0.0099,
+      -0.2234
+    ],
+    "bboxSize": [
+      0.014,
+      0.0097,
+      0.0115
+    ]
+  }
+]
