@@ -30,8 +30,8 @@ const GHOST_OPACITY = 0.15
  * fights the R3F render loop:
  *   1. spin    — initial lateral rotation (hover parallax layered in useFrame)
  *   2. ghost   — housing alpha fade to ghost wireframe territory (0.15)
- *   3. explode — multi-stage axial explosion (real-scale meters, see
- *                EXPLODE_OFFSETS: handle -0.10, stage1 +0.05, stage2 +0.10)
+ *   3. explode — multi-stage axial explosion (0.35 m total spread, see
+ *                EXPLODE_OFFSETS: handle -0.175, stage1 +0.0875, stage2 +0.175)
  * The material mode switcher ([ SOLID PBR ] / [ BLUEPRINT WIREFRAME ] /
  * [ EXPLODED ASSEMBLY ]) is UI-driven via the scroll store.
  */

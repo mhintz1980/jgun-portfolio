@@ -27,8 +27,11 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
  * original node tree BEFORE merging, so name/bbox-based identity is unaffected.
  */
 
-const HANDLE_RE = /HANDLE\s*ASSY/i
-const GEARBOX_RE = /GEARBOX\s*ASSY/i
+// Node-name matchers tolerate the exporter's punctuation mangling: the GLB
+// carries underscored names (e.g. `D1-AP_Gearbox_Assy-rev2-1_<1>`), so the
+// separator class must include `_`, not just whitespace.
+const HANDLE_RE = /HANDLE[\s_]*ASSY/i
+const GEARBOX_RE = /GEARBOX[\s_]*ASSY/i
 const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 
 export interface WrenchRig {

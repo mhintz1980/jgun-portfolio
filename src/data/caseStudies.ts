@@ -99,14 +99,16 @@ export const MATERIAL_MODE_LABELS: Record<MaterialMode, string> = {
 }
 
 /**
- * Axial explosion offsets in METERS. The model is ~0.25 m end-to-end, so these
- * are the real-scale values from the corrected brief — NOT the original
- * placeholder ±1.5/+3.0, which are 6–12× the model's length.
+ * Axial explosion offsets in METERS. The model is ~0.25 m end-to-end — NOT the
+ * original placeholder ±1.5/+3.0 (6–12× its length). Final values (Mark,
+ * 2026-08-23) are ×1.75 the corrected-brief real scale (−0.10/+0.05/+0.10):
+ * a 0.35 m total handle→stage-2 spread that still reads at the CH.02 lateral
+ * camera.
  */
 export const EXPLODE_OFFSETS = {
-  handle: -0.1,
-  stage1: 0.05,
-  stage2: 0.1,
+  handle: -0.175,
+  stage1: 0.0875,
+  stage2: 0.175,
 } as const
 
 /**
