@@ -1,5 +1,7 @@
 import { Box3, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
+import type { StageId } from '../../data/caseStudies'
+import { STAGE_IDS } from '../../data/caseStudies'
 
 /**
  * Classifies the loaded GLB scene into rig roles by REAL node identity, then
@@ -8,39 +10,87 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
  * The two top-level assemblies in the JGun GLB (confirmed by the audit and
  * role-map.json) are:
  *   - `HANDLE ASSY, D.5AP-D1AP-rev1-1 <1>`  — air motor + smart-tool electronics
- *   - `D1-AP Gearbox Assy-rev2-1 <1>`       — planetary reduction stages
+ *   - `D1-AP Gearbox Assy-rev2-1 <1>`       — planetary reduction train
  *
- * Identity lives on NODES; mesh names are generic `meshN_mesh`. We therefore
- * match node names with tolerant patterns (GLTFLoader may dedupe/mangle
- * punctuation) and never hardcode mesh names. Gearbox stage membership is
- * derived from geometry (bbox center along the long axis) rather than from
- * guessed part numbers, so the split survives re-exports.
+ * Identity lives on NODES; mesh names are generic `meshN_mesh`. Node names are
+ * matched with tolerant patterns (GLTFLoader may dedupe/mangle punctuation) —
+ * the separator class must include `_`, not just whitespace.
+ *
+ * Gearbox roles come from the D1-AP 2-speed part-number table (Mark Hintz,
+ * 2026-08-23): P-prefix = manufactured part, K = commercial part (bearings,
+ * rings, screws, bushings), A = sub-assembly. Five planetary stages, each an
+ * A-node cage assembly holding a cage part (the carrier, with integral sun —
+ * except the final-stage cage P001849, which carries an internal spline
+ * locking it to the output shaft) plus a ring of planet occurrences (four per
+ * stage, five in stage 4). A000881 is the two-speed clutch: static structure
+ * (intermediate housing P000420, input shaft P001835) plus the sliding shift
+ * train (ring switch P003068, shifter fork P000724, shifter cam P000297,
+ * ring-switch pins P000464 at 120°). The output spindle cluster (P000095
+ * shaft, P000207/K000001 bushings, K000074 retaining ring) is the only group
+ * that exits the +Z snout; everything else extracts rearward (see
+ * EXPLODE_OFFSETS in caseStudies.ts for the measured rationale).
  *
  * Consolidation: the export carries ~9.7k one-primitive glTF meshes across 96
  * mesh defs, which GLTFLoader expands to ~13k THREE.Mesh objects — ~13k draw
- * calls per frame. That draw-call count (not triangle count, only ~494k drawn
- * tris) is what floors integrated GPUs to ~10 fps. Every mesh belongs to
- * exactly one rigid animation unit (handle assembly, gearbox stage 1, gearbox
- * stage 2, or the static remainder), so merging geometry per
+ * calls per frame. Every mesh belongs to exactly one rigid animation unit
+ * (handle, output spindle, clutch halves, five stage carriers, each planet,
+ * or the static remainder), so merging geometry per
  * (unit × material × ghost-status) into unit-local space is visually lossless
  * and collapses the scene to tens of draws. Role detection runs on the
- * original node tree BEFORE merging, so name/bbox-based identity is unaffected.
+ * original node tree BEFORE merging, so name-based identity is unaffected.
  */
 
-// Node-name matchers tolerate the exporter's punctuation mangling: the GLB
-// carries underscored names (e.g. `D1-AP_Gearbox_Assy-rev2-1_<1>`), so the
-// separator class must include `_`, not just whitespace.
 const HANDLE_RE = /HANDLE[\s_]*ASSY/i
 const GEARBOX_RE = /GEARBOX[\s_]*ASSY/i
 const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 
+// D1-AP part-number roles (substring matches survive GLTFLoader mangling —
+// part numbers carry no spaces). Names at runtime look like
+// `occurrence_of_P000247-1` / `P000247-1` / `A000591-1__1_`.
+const HOUSING_PART_RE = /P000245/i
+const OUTPUT_PART_RE = /(P000095|P000207|K000001|K000074)/i
+const CLUTCH_SLIDING_RE = /(P003068|P000724|P000297|P000464)/i
+const CLUTCH_STATIC_RE = /(A000881|P000420|P001835)/i
+
+interface StageDef {
+  /** Cage sub-assembly node — fallback carrier bucket for unlisted hardware. */
+  assembly: RegExp
+  /** Cage (carrier) part. */
+  cage: RegExp
+  /** Planet part. */
+  planet: RegExp
+  /** Only when the planet part is shared between stages (P000247 lives in
+   *  both stage 1 and stage 2) — disambiguated by the owning assembly. */
+  planetAssembly?: RegExp
+}
+
+const STAGE_DEFS: Record<StageId, StageDef> = {
+  stage1: { assembly: /A000591/i, cage: /P001836/i, planet: /P000247/i, planetAssembly: /A000591/i },
+  stage2: { assembly: /A000592/i, cage: /P001837/i, planet: /P000247/i, planetAssembly: /A000592/i },
+  stage3: { assembly: /A000860/i, cage: /P003045/i, planet: /P000069/i },
+  stage4: { assembly: /A000861/i, cage: /P003047/i, planet: /P003046/i },
+  stage5: { assembly: /A000606/i, cage: /P001849/i, planet: /P000248/i },
+}
+
+export interface StageNodes {
+  /** Merged cage (carrier) group — extracts along Z and rotates about the
+   *  gear-train axis at its stage ratio. Null when the stage isn't found. */
+  carrier: Object3D | null
+  /** Merged per-planet groups — children of the carrier; each counter-rotates
+   *  about its own pin axis. Empty when the stage isn't found. */
+  planets: Object3D[]
+}
+
 export interface WrenchRig {
   handleRoot: Object3D | null
   gearboxRoot: Object3D | null
-  /** Gearbox input (handle) side — Stage 1 merged group: sun & planet cluster. */
-  stage1: Object3D[]
-  /** Gearbox output side — Stage 2 merged group: planet carrier & output drive. */
-  stage2: Object3D[]
+  /** Static outer shell (P000245) — ghosts, never explodes. */
+  housing: Object3D | null
+  /** Output spindle cluster — the only unit that exits the +Z snout. */
+  outputShaft: Object3D | null
+  /** Two-speed clutch: static structure vs. the sliding shift train. */
+  clutch: { static: Object3D | null; sliding: Object3D | null }
+  stages: Record<StageId, StageNodes>
   /** All meshes in the model (post-consolidation). */
   meshes: Mesh[]
   /** Per-mesh material as loaded (post ghost-clone) — restored on mode switches. */
@@ -66,6 +116,15 @@ function isUnderHousing(node: Object3D): boolean {
   return false
 }
 
+function hasAncestorMatching(node: Object3D, re: RegExp): boolean {
+  let current = node.parent
+  while (current) {
+    if (re.test(current.name)) return true
+    current = current.parent
+  }
+  return false
+}
+
 export function buildWrenchRig(root: Object3D): WrenchRig {
   // useGLTF caches the parsed scene per URL and consolidation is destructive
   // (original mesh leaves are removed) — a remount must reuse the built rig.
@@ -86,24 +145,64 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const gearbox = gearboxRoot as Object3D | null
   const handle = handleRoot as Object3D | null
 
-  // ---- Gearbox stage split: order direct children along the long (Z) axis.
-  const stage1Nodes: Object3D[] = []
-  const stage2Nodes: Object3D[] = []
+  // ---- Part-number tagging: nearest tagged ancestor owns each mesh.
+  // Occurrence wrappers and their part-leaf share a key: the wrapper is
+  // traversed first and allocates it, the leaf reuses it via the ancestor walk.
+  const unitOfNode = new Map<Object3D, string>()
+  const stagePlanets = new Map<StageId, Object3D[]>()
+  for (const id of STAGE_IDS) stagePlanets.set(id, [])
+
   if (gearbox) {
-    const measured = gearbox.children.map((child) => {
-      const box = new Box3().setFromObject(child)
-      return { child, z: box.isEmpty() ? 0 : (box.min.z + box.max.z) / 2 }
+    root.traverse((node) => {
+      const name = node.name
+      for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {
+        if (def.planet.test(name)) {
+          if (def.planetAssembly && !hasAncestorMatching(node, def.planetAssembly)) continue
+          // Reuse the wrapper's planet index if an ancestor already tagged it.
+          let owner: string | null = null
+          let current = node.parent
+          while (current) {
+            const key = unitOfNode.get(current)
+            if (key?.startsWith(`${id}-planet`)) {
+              owner = key
+              break
+            }
+            current = current.parent
+          }
+          const key = owner ?? `${id}-planet-${stagePlanets.get(id)!.length}`
+          unitOfNode.set(node, key)
+          if (!owner) stagePlanets.get(id)!.push(node)
+          return
+        }
+      }
+      if (HOUSING_PART_RE.test(name)) {
+        unitOfNode.set(node, 'housing')
+        return
+      }
+      if (OUTPUT_PART_RE.test(name)) {
+        unitOfNode.set(node, 'output')
+        return
+      }
+      if (CLUTCH_SLIDING_RE.test(name)) {
+        unitOfNode.set(node, 'clutch-sliding')
+        return
+      }
+      if (CLUTCH_STATIC_RE.test(name)) {
+        unitOfNode.set(node, 'clutch-static')
+        return
+      }
+      for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {
+        if (def.cage.test(name) || def.assembly.test(name)) {
+          unitOfNode.set(node, `${id}-carrier`)
+          return
+        }
+      }
     })
-    const sorted = [...measured].sort((a, b) => a.z - b.z)
-    const medianZ = sorted.length > 0 ? sorted[Math.floor(sorted.length / 2)].z : 0
-    // Handle sits on the -Z end; gearbox children nearer the handle are Stage 1.
-    for (const entry of measured) {
-      ;(entry.z < medianZ ? stage1Nodes : stage2Nodes).push(entry.child)
-    }
   }
+  if (handle) unitOfNode.set(handle, 'handle')
 
   // ---- Housing meshes: explicit *HOUSING* names, plus the gearbox's largest
-  // child by bbox volume (the outer shell part-numbered P000245).
+  // child by bbox volume (the P000245 outer shell).
   const housingMeshSet = new Set<Mesh>()
   for (const mesh of meshes) {
     if (isUnderHousing(mesh)) housingMeshSet.add(mesh)
@@ -132,44 +231,108 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const bounds = new Box3().setFromObject(root)
   const center = bounds.isEmpty() ? new Vector3() : bounds.getCenter(new Vector3())
 
-  // ---- Consolidation: merge meshes per (animation unit × material × ghost).
+  // ---- Animation units. Each animatable node owns a merged group; geometry
+  // is baked into the GROUP's own frame, so translating/rotating the group
+  // moves its parts rigidly about the pivot the group sits at. Carriers pivot
+  // on the gear-train axis (mean planet-pin center); planet groups hang under
+  // their carrier at their pin so the carrier rotation revolves them and their
+  // own rotation.z counter-spins them on the pin.
   root.updateMatrixWorld(true)
 
-  const stage1Set = new Set(stage1Nodes)
-  const stage2Set = new Set(stage2Nodes)
+  const stages: Record<StageId, StageNodes> = {
+    stage1: { carrier: null, planets: [] },
+    stage2: { carrier: null, planets: [] },
+    stage3: { carrier: null, planets: [] },
+    stage4: { carrier: null, planets: [] },
+    stage5: { carrier: null, planets: [] },
+  }
+  let housingGroup: Group | null = null
+  let outputGroup: Group | null = null
+  let clutchStaticGroup: Group | null = null
+  let clutchSlidingGroup: Group | null = null
 
-  const stage1Group = new Group()
-  stage1Group.name = 'MERGED Stage1'
-  const stage2Group = new Group()
-  stage2Group.name = 'MERGED Stage2'
+  if (gearbox) {
+    const gearboxInverse = new Matrix4().copy(gearbox.matrixWorld).invert()
+    const toGearboxLocal = (world: Vector3): Vector3 => world.clone().applyMatrix4(gearboxInverse)
+
+    const makeUnit = (name: string): Group => {
+      const group = new Group()
+      group.name = name
+      gearbox.add(group)
+      return group
+    }
+
+    housingGroup = makeUnit('MERGED Housing (P000245)')
+    outputGroup = makeUnit('MERGED Output Spindle')
+    clutchStaticGroup = makeUnit('MERGED Clutch Static')
+    clutchSlidingGroup = makeUnit('MERGED Clutch Sliding')
+
+    for (const id of STAGE_IDS) {
+      const planetNodes = stagePlanets.get(id)!
+      // Carrier pivot = mean planet-pin center (the orbital axis proxy) in
+      // gearbox-local XY; ring symmetry makes the mean exact.
+      const pivot = new Vector3()
+      for (const node of planetNodes) {
+        const box = new Box3().setFromObject(node)
+        if (!box.isEmpty()) pivot.add(toGearboxLocal(box.getCenter(new Vector3())))
+      }
+      if (planetNodes.length > 0) pivot.multiplyScalar(1 / planetNodes.length)
+
+      const carrier = makeUnit(`MERGED ${id} Carrier`)
+      carrier.position.set(pivot.x, pivot.y, 0)
+      stages[id].carrier = carrier
+      for (let i = 0; i < planetNodes.length; i++) {
+        const box = new Box3().setFromObject(planetNodes[i])
+        const pin = box.isEmpty() ? new Vector3() : toGearboxLocal(box.getCenter(new Vector3()))
+        const planet = new Group()
+        planet.name = `MERGED ${id} Planet ${i + 1}`
+        planet.position.set(pin.x - pivot.x, pin.y - pivot.y, 0)
+        carrier.add(planet)
+        stages[id].planets.push(planet)
+      }
+    }
+    // Groups were positioned — refresh world matrices before bake inverses.
+    root.updateMatrixWorld(true)
+  }
+
+  const groupsByKey = new Map<string, Group>()
+  if (gearbox) {
+    groupsByKey.set('housing', housingGroup!)
+    groupsByKey.set('output', outputGroup!)
+    groupsByKey.set('clutch-static', clutchStaticGroup!)
+    groupsByKey.set('clutch-sliding', clutchSlidingGroup!)
+    for (const id of STAGE_IDS) {
+      const key = `${id}-carrier`
+      if (stages[id].carrier) groupsByKey.set(key, stages[id].carrier as Group)
+      stages[id].planets.forEach((planet, i) => groupsByKey.set(`${id}-planet-${i}`, planet as Group))
+    }
+  }
+
   const staticGroup = new Group()
   staticGroup.name = 'MERGED Static'
-  if (gearbox) {
-    gearbox.add(stage1Group)
-    gearbox.add(stage2Group)
-  }
   root.add(staticGroup)
 
   interface Unit {
     key: string
-    /** Parent of the merged mesh. */
+    /** Merged-mesh parent AND bake frame — animating it moves its parts. */
     host: Object3D
-    /** Space geometry is baked into — the host's parent frame stays animatable. */
-    frame: Object3D
   }
   const unitOf = (mesh: Mesh): Unit => {
     let current: Object3D | null = mesh
     while (current) {
-      if (handle && current === handle) return { key: 'handle', host: handle, frame: handle }
-      if (gearbox && stage1Set.has(current))
-        return { key: 'stage1', host: stage1Group, frame: gearbox }
-      if (gearbox && stage2Set.has(current))
-        return { key: 'stage2', host: stage2Group, frame: gearbox }
+      const key = unitOfNode.get(current)
+      if (key) {
+        const group = groupsByKey.get(key)
+        if (group) return { key, host: group }
+        // 'handle' — the assembly node itself is the unit.
+        return { key, host: current }
+      }
       current = current.parent
     }
-    return { key: 'static', host: staticGroup, frame: root }
+    return { key: 'static', host: staticGroup }
   }
 
+  // ---- Consolidation: merge meshes per (animation unit × material × ghost).
   interface Bucket {
     unit: Unit
     material: Material
@@ -177,7 +340,8 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     sources: Mesh[]
   }
   const buckets = new Map<string, Bucket>()
-  const leftovers: Mesh[] = [] // array-material meshes (none expected from GLTFLoader)
+  const leftovers: Mesh[] = // array-material meshes (none expected from GLTFLoader)
+    []
   for (const mesh of meshes) {
     if (Array.isArray(mesh.material)) {
       leftovers.push(mesh)
@@ -207,7 +371,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const bake = new Matrix4()
 
   for (const bucket of buckets.values()) {
-    const inv = inverseFor(bucket.unit.frame)
+    const inv = inverseFor(bucket.unit.host)
     const geometries = bucket.sources.map((source) => {
       const geometry = source.geometry.clone()
       geometry.applyMatrix4(bake.multiplyMatrices(inv, source.matrixWorld))
@@ -260,18 +424,24 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const originalMaterials = new Map<Mesh, Material | Material[]>()
   for (const mesh of finalMeshes) originalMaterials.set(mesh, mesh.material)
 
-  // ---- Explosion rest positions (merged stage groups sit at gearbox origin).
-  const stage1 = gearbox ? [stage1Group as Object3D] : []
-  const stage2 = gearbox ? [stage2Group as Object3D] : []
+  // ---- Explosion rest positions (unit groups sit at their pivots).
   const basePositions = new Map<Object3D, Vector3>()
   if (handle) basePositions.set(handle, handle.position.clone())
-  for (const node of [...stage1, ...stage2]) basePositions.set(node, node.position.clone())
+  if (outputGroup) basePositions.set(outputGroup, outputGroup.position.clone())
+  if (clutchStaticGroup) basePositions.set(clutchStaticGroup, clutchStaticGroup.position.clone())
+  if (clutchSlidingGroup) basePositions.set(clutchSlidingGroup, clutchSlidingGroup.position.clone())
+  for (const id of STAGE_IDS) {
+    const carrier = stages[id].carrier
+    if (carrier) basePositions.set(carrier, carrier.position.clone())
+  }
 
   const rig: WrenchRig = {
     handleRoot: handle,
     gearboxRoot: gearbox,
-    stage1,
-    stage2,
+    housing: housingGroup,
+    outputShaft: outputGroup,
+    clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup },
+    stages,
     meshes: finalMeshes,
     originalMaterials,
     ghostMaterials,

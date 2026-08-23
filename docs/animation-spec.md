@@ -2,14 +2,17 @@
 
 One document describing the full scroll experience: what animates, what drives
 it, and where each behavior lives in code. The code is the source of truth;
-this spec describes it as of commit `d33ec89` (2026-08-23). When behavior and
-this document disagree, fix the document in the same change.
+this spec describes it as of the 2026-08-23 explosion/kinematics rework
+(commits through the rear-extraction change). When behavior and this document
+disagree, fix the document in the same change.
 
 The page in one sentence: a fixed WebGL stage holds a photoreal CAD assembly
 of the JGun pneumatic torque wrench while the user scrolls a plain-DOM
-narrative past it — the camera flies a 4-keyframe trajectory, the housing
-fades to ghost, the assembly explodes axially, and the metal dissolves into
-emissive wireframe, narrating "shop floor to software."
+narrative past it — the camera flies a 4-keyframe trajectory, the two-speed
+clutch shifts, the gear train spins up epicyclically, the housing fades to
+ghost, the internals extract rearward out of the gearbox in a staggered
+five-stage ladder while only the output spindle exits the snout, and the
+metal dissolves into emissive wireframe, narrating "shop floor to software."
 
 ---
 
@@ -33,8 +36,10 @@ re-renders); DOM-side consumers subscribe per-key via `useScrollValue`
 (`useSyncExternalStore`). Per-frame runtime telemetry lives in a plain mutable
 object (`telemetry`), deliberately outside React state, exposed read-only as
 `window.__telemetry` for headless probes in three blocks: `camera` (position +
-FOV, written by CameraRig), `rig` (handle/stage1/stage2 Z offsets, ghost
-opacity + count, explode factor, written by TorqueWrenchHero), and `scroll`
+FOV, written by CameraRig), `rig` (written by TorqueWrenchHero — unit Z
+offsets `handleZ`/`outputZ`/`clutchZ`/`slidingZ`, per-stage `stageZ[5]` and
+carrier `stageRot[5]`, stage-1 first-planet `planetRot`, proxy channels
+`gearRotation` + `shift`, ghost opacity + count, explode factor), and `scroll`
 (progress/chapter/chapterProgress/materialMode, mirrored by CameraRig).
 
 ## 2. Scroll pipeline (`src/scene/ScrollRig.tsx`)
@@ -100,14 +105,16 @@ parallax, no drift.
 One GSAP timeline, scrubbed (`scrub: 0.6`) across the CH.01 section's full
 pass through the viewport (`trigger: '[data-chapter="1"]'`,
 `start: 'top bottom'`, `end: 'bottom top'`), animating a plain proxy object
-(`{ spin, ghost, explode }`) so GSAP never fights the R3F render loop.
-`useFrame` applies the proxy each frame:
+(`{ spin, ghost, explode, gearRotation, shift }`) so GSAP never fights the R3F
+render loop. `useFrame` applies the proxy each frame:
 
 | Stage | Timeline window | Effect |
 |---|---|---|
-| 1. spin | 0 → 0.30 | hero group yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
-| 2. ghost | 0.25 → 0.50 | housing materials lerp opacity 1 → **0.15** (`GHOST_OPACITY`); `depthWrite` off below 0.5 |
-| 3. explode | 0.55 → 1.00 | axial stage offsets (below) |
+| 1. shift | 0 → 0.15 | two-speed clutch slide: ring switch / fork / cam / pins travel −0.015 m together |
+| 2. spin | 0.15 → 0.45 | hero group yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
+| 3. gearRotation | 0.15 → 0.45 | epicyclic sweep 0 → 8π rad (see §5.4) |
+| 4. ghost | 0.35 → 0.60 | housing materials lerp opacity 1 → **0.15** (`GHOST_OPACITY`); `depthWrite` off below 0.5 |
+| 5. explode | 0.60 → 1.00 | rear extraction ladder (§5.3) |
 
 ### 5.1 Rig classification (`src/scene/rig/nodeRoles.ts`)
 
@@ -117,12 +124,34 @@ separator class must include `_`: GLTFLoader sanitizes node names at load, so
 the GLB's `HANDLE ASSY, D.5AP-…` arrives as `HANDLE_ASSY,_D5AP-…`. A `\s*`-only
 class silently kills the whole rig — the 2026-08-22 explosion bug).
 
-Gearbox direct children are split into Stage 1 / Stage 2 by bbox-center Z
-relative to the median (handle side = Stage 1). ~13k raw meshes are merged
-per (unit × material × ghost-status) into ~50 draw calls; rig detection runs
-on the original tree before merging. The built rig is cached on
-`root.userData.wrenchRig` because consolidation is destructive and `useGLTF`
-caches the parsed scene per URL.
+Gearbox-internal roles come from the **D1-AP 2-speed part-number table**
+(Mark, 2026-08-23): `P…` manufactured parts, `K…` commercial parts, `A…`
+sub-assemblies. Each node is tagged by part-number substring (survives
+GLTFLoader mangling — part numbers carry no spaces), and each mesh belongs to
+its *nearest tagged ancestor's* unit:
+
+| Role | Parts |
+|---|---|
+| stage 1 | A000591 cage assy: P001836 cage (carrier w/ integral sun) + 4× P000247 planets |
+| stage 2 | A000592: P001837 cage + 4× P000247 (shared planet part — disambiguated by assembly ancestor) |
+| stage 3 | A000860: P003045 cage + 4× P000069 |
+| stage 4 | A000861: P003047 cage + **5×** P003046 |
+| stage 5 | A000606: P001849 cage (internal spline locks to output shaft) + 4× P000248 |
+| clutch static | A000881 subtree, P000420 intermediate housing, P001835 input shaft |
+| clutch sliding | P003068 ring switch, P000724 shifter fork, P000297 shifter cam, 3× P000464 pins |
+| output spindle | P000095 shaft, P000207 / K000001 bushings, K000074 retaining ring |
+| housing | P000245 outer shell — static, never explodes |
+| untagged | static remainder (K-hardware etc.) |
+
+~13k raw meshes are merged per (unit × material × ghost-status); rig
+detection runs on the original tree before merging. Each animation unit owns
+a merged `Group` whose geometry is baked into the group's own frame, so the
+group's transform is the part's rigid motion: carrier groups sit at the
+gear-train axis (mean planet-pin center, gearbox-local XY) and their planet
+groups hang beneath them at each pin — carrier `rotation.z` revolves the
+planets; each planet's own `rotation.z` counter-spins it on its pin. The
+built rig is cached on `root.userData.wrenchRig` because consolidation is
+destructive and `useGLTF` caches the parsed scene per URL.
 
 ### 5.2 Ghost set (who fades)
 
@@ -130,25 +159,49 @@ A mesh ghosts if (a) it sits under a node matching
 `/(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i`, or (b) it belongs to the gearbox's
 largest child by bbox volume (the P000245 outer shell). Ghost materials are
 cloned transparent-capable so the fade never bleeds into shared sources.
-Current verified count: **19 ghost materials** (17 on the P000245/stage-1
-path, 2 handle-side housing nodes). Ghost is suppressed in blueprint mode
+Current verified count: **23 ghost materials** (was 19 before the per-part
+unit rework — finer unit bucketing splits shared materials across more merged
+meshes; all still fade together). Ghost is suppressed in blueprint mode
 (everything is already wireframe).
 
-### 5.3 Explosion offsets (`EXPLODE_OFFSETS`, meters)
+### 5.3 Explosion offsets (`EXPLODE_OFFSETS`, meters — rear extraction)
 
-| Unit | Offset |
-|---|---|
-| handle assembly (−Z) | −0.175 |
-| gearbox Stage 1 (+Z) | +0.0875 |
-| gearbox Stage 2 (+Z) | +0.175 |
+Mechanical constraint (Mark, 2026-08-23): the P000245 housing bore necks down
+toward the +Z snout (measured: ⌀0.065 housing vs ⌀0.012–0.028 bushings at
++Z; handle center z ≈ −0.168, output cluster z ≈ +0.02..0.03), so the
+internals CANNOT exit the front. All five stages + clutch extract rearward
+(−Z, toward the removed handle) in a staggered ladder; only the output
+spindle exits forward through the snout; the housing stays put.
 
-×1.75 the corrected-brief real scale (−0.10/+0.05/+0.10) for a **0.35 m total
-handle→stage-2 spread** on the ~0.25 m model (ratified by Mark, 2026-08-23;
-the original brief's ±1.5/+3.0 was 6–12× the model length). Applied as
-`basePositions` + offset each frame, so it composes with (and fully opens in)
-exploded mode: `explode = max(anim.explode, mode === 'exploded' ? 1 : 0)`.
+| Unit | Offset | Exploded center (m, gearbox frame) |
+|---|---|---|
+| output spindle | +0.050 | ≈ +0.073 (through snout) |
+| gearbox Stage 5 | −0.035 | ≈ −0.074 (stays by the output) |
+| gearbox Stage 4 | −0.070 | ≈ −0.079 |
+| gearbox Stage 3 | −0.105 | ≈ −0.126 |
+| gearbox Stage 2 | −0.140 | ≈ −0.194 |
+| gearbox Stage 1 | −0.175 | ≈ −0.243 |
+| clutch (static + sliding) | −0.210 | ≈ −0.310 |
+| handle assembly | −0.260 | ≈ −0.428 |
 
-### 5.4 Material modes
+Applied as `basePositions` + offset each frame, so it composes with (and
+fully opens in) exploded mode: `explode = max(anim.explode, mode ===
+'exploded' ? 1 : 0)`.
+
+### 5.4 Epicyclic gear rotation + clutch shift
+
+The proxy's `gearRotation` channel (0 → 8π across timeline 0.15→0.45) drives
+kinematically-staged rotation via `GEAR_RATIOS` (`caseStudies.ts`): carrier
+`rotation.z = gearRotation · ratio[stage]` with cumulative ratios 1.0 / 0.28 /
+0.08 / 0.022 / 0.006 (stage 5 = final output), and each planet
+`rotation.z = −gearRotation · ratio[stage] · 3.5` (counter-rotation on its
+pin; planet groups are carrier children, so they also revolve with it). The
+`shift` channel (0→1 across 0→0.15) slides the clutch train
+(`CLUTCH_SHIFT_DISTANCE` −0.015 m) before anything else moves. Rotation and
+shift are scroll-driven only — the `[ EXPLODED ASSEMBLY ]` mode is a static
+fully-open pose that keeps the train at rest, and reduced motion skips both.
+
+### 5.5 Material modes
 
 `[ SOLID PBR ]` / `[ BLUEPRINT WIREFRAME ]` / `[ EXPLODED ASSEMBLY ]` via the
 HUD switcher (UI-driven, not scroll). Blueprint swaps all rig meshes to a
@@ -212,8 +265,9 @@ upgrade at runtime.
 
 `prefers-reduced-motion` is orthogonal to tier: the canvas may render (static
 hero pose, mode switcher still live) but Lenis/ScrollTrigger never mount, the
-camera pins to the CH.01 keyframe, and spin/ghost-fade/explosion-scroll/
-pointer-parallax/dissolve are all skipped. Explosion in reduced motion is
+camera pins to the CH.01 keyframe, and spin/ghost-fade/gear-rotation/
+clutch-shift/explosion-scroll/pointer-parallax/dissolve are all skipped.
+Explosion in reduced motion is
 only reachable via the explicit `[ EXPLODED ASSEMBLY ]` switcher — a user
 action, not motion.
 
@@ -227,12 +281,15 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 
 - 3D-scene truth comes from **instrumentation** (`document.title` /
   `window.__telemetry` probes read from a real browser), never from
-  screenshots: historically headless Chrome never loaded this GLB (remote
-  Draco decoder fetch stalls; decoders are now vendored locally in
-  `public/draco/` via `useGLTF.setDecoderPath` — headless GLB load re-test
-  pending) and vision models confabulate on the dark scene. Verified values
-  cited in this spec (offsets `hZ=-0.175 s1Z=0.087 s2Z=0.175`; 19 ghost
-  materials at 0.15 in the CH.02 zone) were captured that way on 2026-08-23.
+  screenshots: vision models confabulate on the dark scene. Headless GLB load
+  with the vendored local Draco decoders (`public/draco/`) was re-tested
+  2026-08-23 and **works** (full rig builds headless, zero console errors, and
+  headless WebGL rasterizes). Verified values cited in this spec (rear
+  extraction ladder `stageZ [-0.175, -0.14, -0.105, -0.07, -0.035]`,
+  `outputZ +0.05`, `handleZ -0.26`, sliding clutch `-0.225` at shift 1,
+  per-stage carrier rotations exactly `8π × {1.0, 0.28, 0.08, 0.022, 0.006}`
+  with planets at −3.5×, 23 ghost materials at 0.15) were captured that way
+  on 2026-08-23.
 - Full method + failure log: vault
   `04-Projects/Portfolio-Site/2026-08-22-jgun-chapter1-gauntlet-and-capture-playbook.md`.
 
@@ -241,22 +298,18 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 - No deploy/hosting config — the build is live nowhere (the real ship blocker).
 - Concept A↔B site-relationship decision open (vault project-state).
 
-## 13. Planned changes (owner-specified 2026-08-23, implementation details pending)
+## 13. Planned changes (owner-specified 2026-08-23)
 
-Mark will supply full specifics next session; recorded here so the intent survives handoff:
+1. **Explosion direction rework** — **IMPLEMENTED 2026-08-23** (see §5.1/§5.3):
+   internals extract rearward out of the gearbox (−Z, past the removed
+   handle) in a staggered five-stage ladder; all internals separate; only the
+   output spindle exits the +Z snout. The old bbox-median two-stage split and
+   its through-the-snout +Z offsets are gone.
+2. **Rotational animation on planets and cages** — **IMPLEMENTED 2026-08-23**
+   (see §5.4): `gearRotation` proxy channel drives carriers about the train
+   axis at per-stage reduction ratios with planet counter-rotation on pins;
+   the two-speed clutch shift animates first (`shift` channel, −0.015 m).
 
-1. **Explosion direction rework** — internal components should explode *out of
-   the gearbox*, and *all* of them should separate (today only the three units
-   move, axially along Z: handle −0.175, stage 1 +0.0875, stage 2 +0.175 —
-   `EXPLODE_OFFSETS` in `caseStudies.ts`, applied via `offsetZ` in
-   `TorqueWrenchHero.tsx` step 3).
-2. **Rotational animation on planets and cages** during extraction — planet
-   gears and carriers should spin as they come out.
-
-Structural note for whoever implements: the current rig consolidates each
-stage into merged whole-group animation units (`MERGED Stage1`/`Stage2` in
-`nodeRoles.ts`), so there are **no individual planet/cage nodes to rotate at
-runtime** — per-part rotation and per-part explosion directions require new
-animation units in `buildWrenchRig` (classification before the destructive
-merge), not just timeline tweaks. Planet/carrier identity will likely need
-node-name patterns or geometry heuristics like the existing stage split.
+Verification of both: `window.__telemetry` probes on vite preview (§11),
+2026-08-23 — static exploded mode, mid-scrub, and full-scroll states all
+asserted.

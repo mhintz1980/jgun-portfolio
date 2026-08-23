@@ -49,10 +49,14 @@ verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
 - **Node names, never mesh names.** Mesh names in the GLB are generic
   `meshN_mesh`; identity lives on nodes (`HANDLE ASSY, D.5AP-D1AP-rev1`,
   `D1-AP Gearbox Assy-rev2`). `nodeRoles.ts` matches tolerant patterns and
-  derives gearbox stage membership geometrically, so re-exports don't break it.
-- **Real-scale explosion offsets.** The wrench is ~0.25 m end-to-end; offsets are
-  −0.175 / +0.0875 / +0.175 m (`EXPLODE_OFFSETS`, ×1.75 the brief's real scale for a
-  0.35 m total spread — not the original brief's ±1.5/+3.0).
+  tags gearbox roles by the D1-AP part-number table (5 stages, clutch halves,
+  output spindle, housing), so re-exports don't break it.
+- **Rear-extraction explosion offsets.** The P000245 housing bore necks down
+  at the snout, so all five stages + clutch extract rearward (−Z) in a
+  staggered ladder (−0.035 … −0.21 m, stage 1 furthest), only the output
+  spindle exits forward (+0.05 m), and the handle backs off −0.26 m; carriers
+  spin at per-stage ratios with planet counter-rotation during the sequence
+  (`EXPLODE_OFFSETS` / `GEAR_RATIOS` in `caseStudies.ts`).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.
 - **Copy is Honey's** (`OUTBOX/portfolio-module4-copy.md`), used verbatim.

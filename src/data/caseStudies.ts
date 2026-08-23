@@ -109,17 +109,52 @@ export const MATERIAL_MODE_LABELS: Record<MaterialMode, string> = {
 }
 
 /**
- * Axial explosion offsets in METERS. The model is ~0.25 m end-to-end — NOT the
- * original placeholder ±1.5/+3.0 (6–12× its length). Final values (Mark,
- * 2026-08-23) are ×1.75 the corrected-brief real scale (−0.10/+0.05/+0.10):
- * a 0.35 m total handle→stage-2 spread that still reads at the CH.02 lateral
- * camera.
+ * Axial explosion offsets in METERS, on the D1-AP 2-speed gearbox (Mark,
+ * 2026-08-23). Measured rest-pose geometry (Default.glb): the handle assembly
+ * sits at −Z (center z ≈ −0.168), the output spindle cluster — P000095 shaft,
+ * P000207/K000001 bushings, K000074 retaining ring — at +Z (z ≈ +0.02..0.03),
+ * and the P000245 outer housing bore necks down toward that +Z snout. The
+ * internals therefore CANNOT exit the front: all five planetary stages and
+ * the clutch extract rearward (−Z, toward the removed handle) in a staggered
+ * telescoping stack (stage 1 travels furthest, stage 5 least — it stays by
+ * the output, whose spline it locks to), while only the output-spindle parts
+ * exit forward (+Z) through the snout. The housing itself never moves.
  */
 export const EXPLODE_OFFSETS = {
-  handle: -0.175,
-  stage1: 0.0875,
-  stage2: 0.175,
+  output: 0.05,
+  stage5: -0.035,
+  stage4: -0.07,
+  stage3: -0.105,
+  stage2: -0.14,
+  stage1: -0.175,
+  clutch: -0.21,
+  handle: -0.26,
 } as const
+
+export type StageId = 'stage1' | 'stage2' | 'stage3' | 'stage4' | 'stage5'
+export const STAGE_IDS: readonly StageId[] = ['stage1', 'stage2', 'stage3', 'stage4', 'stage5']
+
+/**
+ * Carrier-speed ratios per stage, relative to the input drive (cumulative
+ * reduction: stage N's carrier turns at its listed fraction of input speed),
+ * plus the planet counter-rotation multiplier for the epicyclic spin — each
+ * planet counter-rotates on its pin at −stageAngle × multiplier.
+ */
+export const GEAR_RATIOS = {
+  stage1: 1.0,
+  stage2: 0.28,
+  stage3: 0.08,
+  stage4: 0.022,
+  stage5: 0.006,
+  planetMultiplier: 3.5,
+} as const
+
+/**
+ * Mechanical shift travel (meters) for the two-speed clutch: the ring switch
+ * (P003068) / shifter fork (P000724) / shifter cam (P000297) / pins (P000464)
+ * slide together along the train axis before the explosion begins.
+ */
+export const CLUTCH_SHIFT_DISTANCE = -0.015
 
 /**
  * Camera trajectory state machine keyframes — one per scroll chapter.

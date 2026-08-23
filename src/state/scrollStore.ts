@@ -94,8 +94,17 @@ export interface TelemetryCamera {
 export interface TelemetryRig {
   /** Live Z of the explosion-animated units (m — rest position + offset). */
   handleZ: number
-  stage1Z: number
-  stage2Z: number
+  outputZ: number
+  clutchZ: number
+  slidingZ: number
+  /** Carrier-group Z per stage, stage1..stage5 (rest + offset). */
+  stageZ: number[]
+  /** Carrier-group rotation.z per stage + stage-1 first-planet rotation (rad). */
+  stageRot: number[]
+  planetRot: number
+  /** Commanded proxy channels: gear sweep angle (rad) and clutch shift 0..1. */
+  gearRotation: number
+  shift: number
   /** Commanded ghost opacity (1 → GHOST_OPACITY) and ghost material count. */
   ghostOpacity: number
   ghostCount: number
@@ -112,7 +121,20 @@ export interface TelemetryScroll {
 
 export const telemetry: { camera: TelemetryCamera; rig: TelemetryRig; scroll: TelemetryScroll } = {
   camera: { x: 0, y: 0, z: 0, fov: 42 },
-  rig: { handleZ: 0, stage1Z: 0, stage2Z: 0, ghostOpacity: 1, ghostCount: 0, explodeFactor: 0 },
+  rig: {
+    handleZ: 0,
+    outputZ: 0,
+    clutchZ: 0,
+    slidingZ: 0,
+    stageZ: [0, 0, 0, 0, 0],
+    stageRot: [0, 0, 0, 0, 0],
+    planetRot: 0,
+    gearRotation: 0,
+    shift: 0,
+    ghostOpacity: 1,
+    ghostCount: 0,
+    explodeFactor: 0,
+  },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
 }
 

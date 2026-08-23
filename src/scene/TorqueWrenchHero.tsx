@@ -6,7 +6,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Group, MathUtils, MeshBasicMaterial, Object3D } from 'three'
 import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
-import { EXPLODE_OFFSETS } from '../data/caseStudies'
+import {
+  CLUTCH_SHIFT_DISTANCE,
+  EXPLODE_OFFSETS,
+  GEAR_RATIOS,
+  STAGE_IDS,
+} from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
@@ -16,6 +21,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const MODEL_URL = '/models/Default.glb'
 const GHOST_OPACITY = 0.15
+/** Total carrier sweep across the gear-rotation window (≈4 turns of stage 1). */
+const GEAR_ROTATION_SWEEP = Math.PI * 8
 
 // Draco decoders are vendored with the site (public/draco, copied from
 // three's examples) instead of drei's default gstatic CDN fetch — remote
@@ -28,16 +35,22 @@ useGLTF.setDecoderPath('/draco/')
  *
  * Loads /models/Default.glb (jgun-full.glb renamed; the split
  * jgun-gearbox.glb / jgun-handle.glb derivatives live alongside it for a
- * future streaming pass). Node identity comes from buildWrenchRig — real
- * assembly names, never guessed mesh names.
+ * future streaming pass). Node identity comes from buildWrenchRig — the
+ * D1-AP 2-speed part-number table, never guessed mesh names.
  *
  * The GSAP ScrollTrigger timeline is scrubbed across chapter 2 and animates a
  * plain proxy object; useFrame applies the proxy each frame so GSAP never
  * fights the R3F render loop:
- *   1. spin    — initial lateral rotation (hover parallax layered in useFrame)
- *   2. ghost   — housing alpha fade to ghost wireframe territory (0.15)
- *   3. explode — multi-stage axial explosion (0.35 m total spread, see
- *                EXPLODE_OFFSETS: handle -0.175, stage1 +0.0875, stage2 +0.175)
+ *   1. shift        — two-speed clutch slide (ring switch / fork / cam / pins)
+ *   2. spin         — initial lateral rotation (hover parallax layered in useFrame)
+ *   3. gearRotation — epicyclic sweep: each carrier turns about the train axis
+ *                     at its stage ratio while its planets counter-rotate on
+ *                     their pins
+ *   4. ghost        — housing alpha fade to ghost wireframe territory (0.15)
+ *   5. explode      — rear extraction: all five stages + clutch pull out the
+ *                     −Z bore (staggered; stage 1 travels furthest), only the
+ *                     output spindle exits +Z through the snout, and the
+ *                     handle backs off furthest (see EXPLODE_OFFSETS)
  * The material mode switcher ([ SOLID PBR ] / [ BLUEPRINT WIREFRAME ] /
  * [ EXPLODED ASSEMBLY ]) is UI-driven via the scroll store.
  */
@@ -46,7 +59,7 @@ export function TorqueWrenchHero() {
   const group = useRef<Group>(null)
   const inner = useRef<Group>(null)
   const rig = useMemo(() => buildWrenchRig(scene), [scene])
-  const anim = useRef({ spin: 0, ghost: 0, explode: 0 }).current
+  const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
 
@@ -54,7 +67,8 @@ export function TorqueWrenchHero() {
   // shader evaluates the sweep inside the recentered inner group (scene
   // translated by -center) — shift the bounds into that frame to match.
   // uRootInv (that group's inverse world matrix) is refreshed every frame
-  // below, so rotation/parallax never drift the scanline.
+  // below, so rotation/parallax never drift the scanline. Carrier rotation
+  // is about Z, so it never shifts part Z out of the sweep either.
   const cadMaterial = useMemo(
     () =>
       createCadTransitionMaterial({
@@ -84,9 +98,13 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      .to(anim, { spin: 1, duration: 0.3 }, 0)
-      .to(anim, { ghost: 1, duration: 0.25 }, 0.25)
-      .to(anim, { explode: 1, duration: 0.45 }, 0.55)
+      // Shift mechanism engages first, then the drive spins up while the
+      // housings ghost — the explosion inherits the running gear train.
+      .to(anim, { shift: 1, duration: 0.15 }, 0)
+      .to(anim, { spin: 1, duration: 0.3 }, 0.15)
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.3 }, 0.15)
+      .to(anim, { ghost: 1, duration: 0.25 }, 0.35)
+      .to(anim, { explode: 1, duration: 0.4 }, 0.6)
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -102,15 +120,47 @@ export function TorqueWrenchHero() {
     }
   }
 
-  const offsetZ = (node: Object3D, offset: number): void => {
+  const offsetZ = (node: Object3D | null, offset: number): void => {
+    if (!node) return
     const base = rig.basePositions.get(node)
     if (base) node.position.z = base.z + offset
   }
 
+  /** Rear extraction + snout exit, driven by the explode factor 0..1. */
+  const applyExplosion = (explode: number, shift: number): void => {
+    offsetZ(rig.outputShaft, EXPLODE_OFFSETS.output * explode)
+    for (const id of STAGE_IDS) {
+      offsetZ(rig.stages[id].carrier, EXPLODE_OFFSETS[id] * explode)
+    }
+    offsetZ(rig.clutch.static, EXPLODE_OFFSETS.clutch * explode)
+    offsetZ(rig.clutch.sliding, EXPLODE_OFFSETS.clutch * explode + shift * CLUTCH_SHIFT_DISTANCE)
+    offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
+  }
+
+  /**
+   * Epicyclic rotation: each carrier turns about the gear-train axis at its
+   * stage ratio (planet groups are children of their carrier, so they revolve
+   * with it) while each planet counter-rotates on its own pin.
+   */
+  const applyGearRotation = (angle: number): void => {
+    for (const id of STAGE_IDS) {
+      const stage = rig.stages[id]
+      if (stage.carrier) stage.carrier.rotation.z = angle * GEAR_RATIOS[id]
+      const planetAngle = -angle * GEAR_RATIOS[id] * GEAR_RATIOS.planetMultiplier
+      for (const planet of stage.planets) planet.rotation.z = planetAngle
+    }
+  }
+
   const writeRigTelemetry = (explode: number, ghostOpacity: number): void => {
     telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
-    telemetry.rig.stage1Z = rig.stage1[0]?.position.z ?? 0
-    telemetry.rig.stage2Z = rig.stage2[0]?.position.z ?? 0
+    telemetry.rig.outputZ = rig.outputShaft?.position.z ?? 0
+    telemetry.rig.clutchZ = rig.clutch.static?.position.z ?? 0
+    telemetry.rig.slidingZ = rig.clutch.sliding?.position.z ?? 0
+    telemetry.rig.stageZ = STAGE_IDS.map((id) => rig.stages[id].carrier?.position.z ?? 0)
+    telemetry.rig.stageRot = STAGE_IDS.map((id) => rig.stages[id].carrier?.rotation.z ?? 0)
+    telemetry.rig.planetRot = rig.stages.stage1.planets[0]?.rotation.z ?? 0
+    telemetry.rig.gearRotation = anim.gearRotation
+    telemetry.rig.shift = anim.shift
     telemetry.rig.ghostOpacity = ghostOpacity
     telemetry.rig.ghostCount = rig.ghostMaterials.size
     telemetry.rig.explodeFactor = explode
@@ -121,17 +171,17 @@ export function TorqueWrenchHero() {
     const { tier, reducedMotion } = getQuality()
 
     // Reduced motion: hold the hero pose — no spin, no parallax, no ghost
-    // fade, no explosion, no dissolve. The material-mode switcher (an explicit
-    // user action, not motion) is the only thing that still mutates the scene.
+    // fade, no gear rotation, no clutch shift, no scroll-driven explosion.
+    // The material-mode switcher (an explicit user action, not motion) is the
+    // only thing that still mutates the scene.
     if (reducedMotion) {
       if (group.current) {
         group.current.rotation.y = 0
         group.current.rotation.x = 0
       }
+      applyGearRotation(0)
       const explode = materialMode === 'exploded' ? 1 : 0
-      if (rig.handleRoot) offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
-      for (const node of rig.stage1) offsetZ(node, EXPLODE_OFFSETS.stage1 * explode)
-      for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
+      applyExplosion(explode, 0)
       // Ghost never fades under reduced motion, so its commanded opacity is 1.
       writeRigTelemetry(explode, 1)
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
@@ -160,14 +210,16 @@ export function TorqueWrenchHero() {
       material.depthWrite = material.opacity > 0.5
     }
 
-    // 3. Multi-stage axial explosion (forced fully open in exploded mode).
+    // 3. Epicyclic gear rotation (scroll-driven only; the exploded MODE is a
+    //    static fully-open pose and keeps the train at rest).
+    applyGearRotation(anim.gearRotation)
+
+    // 4. Rear extraction (forced fully open in exploded mode).
     const explode = Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
-    if (rig.handleRoot) offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
-    for (const node of rig.stage1) offsetZ(node, EXPLODE_OFFSETS.stage1 * explode)
-    for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
+    applyExplosion(explode, anim.shift)
     writeRigTelemetry(explode, ghostOpacity)
 
-    // 4. Material surface management: CAD dissolve owns chapter 4, the mode
+    // 5. Material surface management: CAD dissolve owns chapter 4, the mode
     //    switcher owns everything else. In the lite tier the dissolve shader
     //    is retired: chapter 4 falls back to a plain opacity ramp into the
     //    blueprint wireframe instead of the GLSL scanline dissolve.
