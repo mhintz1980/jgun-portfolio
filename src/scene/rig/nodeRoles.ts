@@ -49,7 +49,8 @@ export interface WrenchRig {
   ghostMaterials: Map<Mesh, Material>
   /** Rest positions of every node the explosion animates. */
   basePositions: Map<Object3D, Vector3>
-  /** World-space Z bounds of the whole model — sweep range for the CAD shader. */
+  /** Model-space (GLTF scene frame) Z bounds of the whole model — sweep range
+   *  for the CAD shader; shifted into the recentered hero frame at the call site. */
   sweepMin: number
   sweepMax: number
   /** Model center offset so the hero group can recenter the wrench at the origin. */

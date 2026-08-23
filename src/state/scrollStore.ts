@@ -78,8 +78,47 @@ export function useScrollValue<K extends keyof ScrollState>(key: K): ScrollState
 }
 
 /**
- * Per-frame camera telemetry for the HUD datum readout. Mutated directly from
- * the frame loop and read by a rAF loop in TechnicalHUD — deliberately outside
- * React state so 60 fps updates never trigger reconciliation.
+ * Per-frame runtime telemetry — the page's instrumentation surface. Mutated
+ * directly from the frame loops (CameraRig writes camera + scroll,
+ * TorqueWrenchHero writes rig) and read by a rAF loop in TechnicalHUD —
+ * deliberately outside React state so 60 fps updates never trigger
+ * reconciliation.
  */
-export const telemetry = { x: 0, y: 0, z: 0, fov: 42 }
+export interface TelemetryCamera {
+  x: number
+  y: number
+  z: number
+  fov: number
+}
+
+export interface TelemetryRig {
+  /** Live Z of the explosion-animated units (m — rest position + offset). */
+  handleZ: number
+  stage1Z: number
+  stage2Z: number
+  /** Commanded ghost opacity (1 → GHOST_OPACITY) and ghost material count. */
+  ghostOpacity: number
+  ghostCount: number
+  /** Active explosion factor 0..1 (timeline ⊕ exploded mode). */
+  explodeFactor: number
+}
+
+export interface TelemetryScroll {
+  progress: number
+  chapter: number
+  chapterProgress: number
+  materialMode: MaterialMode
+}
+
+export const telemetry: { camera: TelemetryCamera; rig: TelemetryRig; scroll: TelemetryScroll } = {
+  camera: { x: 0, y: 0, z: 0, fov: 42 },
+  rig: { handleZ: 0, stage1Z: 0, stage2Z: 0, ghostOpacity: 1, ghostCount: 0, explodeFactor: 0 },
+  scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
+}
+
+// Exposed for headless verification probes (docs/animation-spec.md §11 —
+// instrumentation over screenshots). The frame loops stay the sole writers;
+// outside readers should treat it as read-only.
+if (typeof window !== 'undefined') {
+  ;(window as unknown as Record<string, unknown>).__telemetry = telemetry
+}

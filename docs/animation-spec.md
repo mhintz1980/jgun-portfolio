@@ -30,8 +30,12 @@ A single external store (`src/state/scrollStore.ts`) bridges them:
 
 Canvas-side consumers read `getScrollState()` inside `useFrame` (zero React
 re-renders); DOM-side consumers subscribe per-key via `useScrollValue`
-(`useSyncExternalStore`). Per-frame camera telemetry for the HUD lives in a
-plain mutable object (`telemetry`), deliberately outside React state.
+(`useSyncExternalStore`). Per-frame runtime telemetry lives in a plain mutable
+object (`telemetry`), deliberately outside React state, exposed read-only as
+`window.__telemetry` for headless probes in three blocks: `camera` (position +
+FOV, written by CameraRig), `rig` (handle/stage1/stage2 Z offsets, ghost
+opacity + count, explode factor, written by TorqueWrenchHero), and `scroll`
+(progress/chapter/chapterProgress/materialMode, mirrored by CameraRig).
 
 ## 2. Scroll pipeline (`src/scene/ScrollRig.tsx`)
 
@@ -154,13 +158,18 @@ the initial mode once at load (read in `scrollStore`, never rewrites the URL).
 
 ## 6. Chapter 4 CAD dissolve (`src/shaders/CadTransitionShader.ts`)
 
-A world-space planar sweep travels along the model's long (Z) axis: ahead of
-the sweep, half-lambert + fresnel metal; behind it, emissive digital
+A model-space planar sweep travels along the assembly's long (Z) axis: ahead
+of the sweep, half-lambert + fresnel metal; behind it, emissive digital
 wireframe/point-cloud with animated noise; the sweep edge is an emissive
-scanline. Uniforms: `uProgress` (chapter-4 scroll), `uTime`, `uScanColor`,
-`uEdgeWidth`, `uNoiseFreq`, `uSweepMin/uSweepMax` (model Z bounds from the
-rig). Active only at `chapter === 3 && tier === 'full'`. Lite tier replaces
-it with a plain opacity ramp into the blueprint wireframe.
+scanline. The sweep is evaluated in the hero's recentered model frame via
+`uRootInv` (that frame's inverse world matrix, refreshed each frame in
+`TorqueWrenchHero`), so hero rotation and pointer parallax cannot drift the
+scanline, while explosion offsets — applied below that frame — still sweep
+with the parts. Uniforms: `uProgress` (chapter-4 scroll), `uTime`,
+`uScanColor`, `uEdgeWidth`, `uNoiseFreq`, `uRootInv`, `uSweepMin/uSweepMax`
+(model-frame Z bounds from the rig, shifted by `-center.z` at the call site).
+Active only at `chapter === 3 && tier === 'full'`. Lite tier replaces it with
+a plain opacity ramp into the blueprint wireframe.
 
 ## 7. Hotspots (`src/scene/Hotspots.tsx`, `HOTSPOTS`)
 
@@ -168,7 +177,10 @@ Seven annotated occurrences (`ROTOR-1`, `AIR MOTOR HOUSING-MACHINED-1`,
 `FLANGE-1`, `P000245-1`, `MSP430F6726IPN-1`, `MANOMETER LCD BK11356-1`,
 `Tenergy LiPo Battery 3.7 V-1`), anchored by matching `role-map.json`
 occurrence names (316 entries with world-space bbox centers — the pipeline's
-authoritative anchor source). Rendered inside the hero group so they track
+authoritative anchor source). Occurrence matching is exact-first with a
+prefix-normalizing fallback: entries may carry an exporter-added
+`"occurrence of "` prefix, which is stripped (case-insensitive) only when no
+exact row exists, so anchors never shift when both forms are present. Rendered inside the hero group so they track
 rotation and explosion; visible only in their declared chapters. Each is a
 real `<button>` with `aria-pressed`, native Enter/Space activation, cyan
 focus-visible ring, and Escape closes the detail panel. No role map → no
@@ -214,17 +226,17 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 ## 11. Verification method (how claims about this page get checked)
 
 - 3D-scene truth comes from **instrumentation** (`document.title` /
-  `window.*` probes read from a real browser), never from screenshots:
-  headless Chrome never loads this GLB (Draco fetch stalls) and vision models
-  confabulate on the dark scene. Verified values cited in this spec
-  (offsets `hZ=-0.175 s1Z=0.087 s2Z=0.175`; 19 ghost materials at 0.15 in
-  the CH.02 zone) were captured that way on 2026-08-23.
+  `window.__telemetry` probes read from a real browser), never from
+  screenshots: historically headless Chrome never loaded this GLB (remote
+  Draco decoder fetch stalls; decoders are now vendored locally in
+  `public/draco/` via `useGLTF.setDecoderPath` — headless GLB load re-test
+  pending) and vision models confabulate on the dark scene. Verified values
+  cited in this spec (offsets `hZ=-0.175 s1Z=0.087 s2Z=0.175`; 19 ghost
+  materials at 0.15 in the CH.02 zone) were captured that way on 2026-08-23.
 - Full method + failure log: vault
   `04-Projects/Portfolio-Site/2026-08-22-jgun-chapter1-gauntlet-and-capture-playbook.md`.
 
 ## 12. Known gaps (not animation bugs)
 
 - No deploy/hosting config — the build is live nowhere (the real ship blocker).
-- `favicon.svg` referenced by `index.html` but missing (real 404).
-- Spent `jgun-portfolio-perf` worktree still linked (`git worktree remove`).
 - Concept A↔B site-relationship decision open (vault project-state).

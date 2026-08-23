@@ -7,6 +7,15 @@ import { getQuality } from '../state/qualityStore'
 
 const smoothstep = (t: number): number => t * t * (3 - 2 * t)
 
+/** Mirror the scroll store into telemetry.scroll each frame (probe surface). */
+const writeScrollTelemetry = (): void => {
+  const { progress, chapter, chapterProgress, materialMode } = getScrollState()
+  telemetry.scroll.progress = progress
+  telemetry.scroll.chapter = chapter
+  telemetry.scroll.chapterProgress = chapterProgress
+  telemetry.scroll.materialMode = materialMode
+}
+
 /**
  * Module 1 — camera trajectory state machine.
  *
@@ -35,11 +44,12 @@ export function CameraRig() {
       if (camera instanceof PerspectiveCamera && camera.fov !== hero.fov) {
         camera.fov = hero.fov
         camera.updateProjectionMatrix()
-        telemetry.fov = camera.fov
+        telemetry.camera.fov = camera.fov
       }
-      telemetry.x = camera.position.x
-      telemetry.y = camera.position.y
-      telemetry.z = camera.position.z
+      telemetry.camera.x = camera.position.x
+      telemetry.camera.y = camera.position.y
+      telemetry.camera.z = camera.position.z
+      writeScrollTelemetry()
       return
     }
 
@@ -73,12 +83,13 @@ export function CameraRig() {
     if (camera instanceof PerspectiveCamera) {
       camera.fov += (goalFov - camera.fov) * damp
       camera.updateProjectionMatrix()
-      telemetry.fov = camera.fov
+      telemetry.camera.fov = camera.fov
     }
 
-    telemetry.x = camera.position.x
-    telemetry.y = camera.position.y
-    telemetry.z = camera.position.z
+    telemetry.camera.x = camera.position.x
+    telemetry.camera.y = camera.position.y
+    telemetry.camera.z = camera.position.z
+    writeScrollTelemetry()
   })
 
   return null

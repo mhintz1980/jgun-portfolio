@@ -44,7 +44,8 @@ export function TechnicalHUD() {
         progressRef.current.textContent = `SCROLL // ${String(Math.round(progress * 100)).padStart(3, '0')}%`
       }
       if (datumCoordsRef.current) {
-        datumCoordsRef.current.textContent = `CAM [ ${telemetry.x.toFixed(3)} ${telemetry.y.toFixed(3)} ${telemetry.z.toFixed(3)} ] · FOV ${telemetry.fov.toFixed(1)}°`
+        const cam = telemetry.camera
+        datumCoordsRef.current.textContent = `CAM [ ${cam.x.toFixed(3)} ${cam.y.toFixed(3)} ${cam.z.toFixed(3)} ] · FOV ${cam.fov.toFixed(1)}°`
       }
       frame = requestAnimationFrame(tick)
     }

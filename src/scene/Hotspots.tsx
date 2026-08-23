@@ -61,10 +61,20 @@ export function Hotspots() {
     }
   }, [])
 
+  // The exporter prefixes some occurrence names with "occurrence of " while
+  // others are bare part numbers (149 prefixed / 167 bare of 316). Exact
+  // match wins; the normalized fallback only fires for names that have no
+  // exact row, so existing anchors never shift when both forms exist.
+  const normalizeOccurrence = (name: string): string => name.replace(/^occurrence of /i, '')
+
   const anchors = useMemo(() => {
     const byOccurrence = new Map(roleMap.map((entry) => [entry.occurrence, entry]))
+    const byNormalized = new Map(
+      roleMap.map((entry) => [normalizeOccurrence(entry.occurrence), entry]),
+    )
     return HOTSPOTS.flatMap((def) => {
-      const entry = byOccurrence.get(def.occurrence)
+      const entry =
+        byOccurrence.get(def.occurrence) ?? byNormalized.get(normalizeOccurrence(def.occurrence))
       return entry ? [{ def, entry }] : []
     })
   }, [roleMap])

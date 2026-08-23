@@ -7,7 +7,7 @@ import { Group, MathUtils, MeshBasicMaterial, Object3D } from 'three'
 import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
 import { EXPLODE_OFFSETS } from '../data/caseStudies'
-import { getScrollState } from '../state/scrollStore'
+import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
@@ -16,6 +16,12 @@ gsap.registerPlugin(ScrollTrigger)
 
 const MODEL_URL = '/models/Default.glb'
 const GHOST_OPACITY = 0.15
+
+// Draco decoders are vendored with the site (public/draco, copied from
+// three's examples) instead of drei's default gstatic CDN fetch — remote
+// decoder fetches stall offline and headless loads. Module-scope, so it must
+// run before useGLTF.preload at the bottom of this file.
+useGLTF.setDecoderPath('/draco/')
 
 /**
  * Module 2 — exploded torque wrench & planetary kinematic rig.
@@ -38,13 +44,23 @@ const GHOST_OPACITY = 0.15
 export function TorqueWrenchHero() {
   const { scene } = useGLTF(MODEL_URL)
   const group = useRef<Group>(null)
+  const inner = useRef<Group>(null)
   const rig = useMemo(() => buildWrenchRig(scene), [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0 }).current
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
 
+  // Sweep bounds are measured in the GLTF scene frame (nodeRoles), while the
+  // shader evaluates the sweep inside the recentered inner group (scene
+  // translated by -center) — shift the bounds into that frame to match.
+  // uRootInv (that group's inverse world matrix) is refreshed every frame
+  // below, so rotation/parallax never drift the scanline.
   const cadMaterial = useMemo(
-    () => createCadTransitionMaterial({ sweepMin: rig.sweepMin, sweepMax: rig.sweepMax }),
+    () =>
+      createCadTransitionMaterial({
+        sweepMin: rig.sweepMin - rig.center.z,
+        sweepMax: rig.sweepMax - rig.center.z,
+      }),
     [rig],
   )
   const blueprintMaterial = useMemo(
@@ -91,6 +107,15 @@ export function TorqueWrenchHero() {
     if (base) node.position.z = base.z + offset
   }
 
+  const writeRigTelemetry = (explode: number, ghostOpacity: number): void => {
+    telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
+    telemetry.rig.stage1Z = rig.stage1[0]?.position.z ?? 0
+    telemetry.rig.stage2Z = rig.stage2[0]?.position.z ?? 0
+    telemetry.rig.ghostOpacity = ghostOpacity
+    telemetry.rig.ghostCount = rig.ghostMaterials.size
+    telemetry.rig.explodeFactor = explode
+  }
+
   useFrame((state, delta) => {
     const { chapter, chapterProgress, materialMode } = getScrollState()
     const { tier, reducedMotion } = getQuality()
@@ -107,6 +132,8 @@ export function TorqueWrenchHero() {
       if (rig.handleRoot) offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
       for (const node of rig.stage1) offsetZ(node, EXPLODE_OFFSETS.stage1 * explode)
       for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
+      // Ghost never fades under reduced motion, so its commanded opacity is 1.
+      writeRigTelemetry(explode, 1)
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
         applyLiveMaterials(materialMode)
         surface.current = 'live'
@@ -127,8 +154,9 @@ export function TorqueWrenchHero() {
 
     // 2. Housing ghost fade (suppressed in blueprint mode — everything is wire).
     const ghostAmount = materialMode === 'blueprint' ? 0 : anim.ghost
+    const ghostOpacity = MathUtils.lerp(1, GHOST_OPACITY, ghostAmount)
     for (const material of rig.ghostMaterials.values()) {
-      material.opacity = MathUtils.lerp(1, GHOST_OPACITY, ghostAmount)
+      material.opacity = ghostOpacity
       material.depthWrite = material.opacity > 0.5
     }
 
@@ -137,6 +165,7 @@ export function TorqueWrenchHero() {
     if (rig.handleRoot) offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
     for (const node of rig.stage1) offsetZ(node, EXPLODE_OFFSETS.stage1 * explode)
     for (const node of rig.stage2) offsetZ(node, EXPLODE_OFFSETS.stage2 * explode)
+    writeRigTelemetry(explode, ghostOpacity)
 
     // 4. Material surface management: CAD dissolve owns chapter 4, the mode
     //    switcher owns everything else. In the lite tier the dissolve shader
@@ -160,6 +189,9 @@ export function TorqueWrenchHero() {
     }
     lastMode.current = materialMode
 
+    if (inner.current) {
+      cadMaterial.uniforms.uRootInv.value.copy(inner.current.matrixWorld).invert()
+    }
     cadMaterial.uniforms.uTime.value += delta
     if (wantCad) {
       cadMaterial.uniforms.uProgress.value = chapterProgress
@@ -170,7 +202,7 @@ export function TorqueWrenchHero() {
   // explosion offsets work in a clean local space.
   return (
     <group ref={group}>
-      <group position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
+      <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
         <primitive object={scene} />
         <Hotspots />
       </group>

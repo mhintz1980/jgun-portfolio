@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>JGun portfolio — CAD hex + scanline</title>
+  <rect width="64" height="64" rx="12" fill="#05070a"/>
+  <path d="M32 9 L53 21 V45 L32 57 L11 45 V21 Z" fill="none" stroke="#38e8ff" stroke-width="4.5" stroke-linejoin="round"/>
+  <circle cx="32" cy="33" r="7" fill="none" stroke="#38e8ff" stroke-width="3.5" opacity="0.8"/>
+  <line x1="8" y1="46" x2="56" y2="46" stroke="#38e8ff" stroke-width="3" opacity="0.45"/>
+</svg>

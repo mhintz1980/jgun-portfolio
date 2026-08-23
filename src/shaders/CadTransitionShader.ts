@@ -1,12 +1,21 @@
-import { Color, DoubleSide, ShaderMaterial } from 'three'
+import { Color, DoubleSide, Matrix4, ShaderMaterial } from 'three'
 
 /**
  * Module 3 — CAD-to-Code dissolve shader.
  *
- * A world-space planar sweep travels along the model's long (Z) axis. Ahead of
- * the sweep the mesh shades as physical metal (half-lambert + fresnel); behind
- * it the surface dissolves into an emissive digital wireframe/point cloud with
- * dynamic noise. The sweep edge itself is an emissive laser/scanline.
+ * A model-space planar sweep travels along the assembly's long (Z) axis.
+ * Ahead of the sweep the mesh shades as physical metal (half-lambert +
+ * fresnel); behind it the surface dissolves into an emissive digital
+ * wireframe/point cloud with dynamic noise. The sweep edge itself is an
+ * emissive laser/scanline.
+ *
+ * The sweep is evaluated in the hero's recentered model frame: uRootInv
+ * (inverse of that frame's world matrix) maps world positions back into model
+ * space before the Z comparison, so hero-group rotation and pointer parallax
+ * cannot drift the scanline across the geometry. Explosion unit offsets live
+ * below that frame and therefore still sweep with the parts. The digital
+ * grid/point-cloud texture stays world-anchored on purpose — it reads as the
+ * scanner's fixed reference frame.
  *
  * Uniforms:
  *  - uProgress  0..1, driven by scroll (chapter 4 progress)
@@ -14,7 +23,8 @@ import { Color, DoubleSide, ShaderMaterial } from 'three'
  *  - uEdgeWidth width of the scanline edge in sweep space
  *  - uNoiseFreq spatial frequency of the dissolve noise
  *  - uTime      seconds, advanced from the frame loop
- *  - uSweepMin / uSweepMax  world-space Z bounds of the model (sweep range)
+ *  - uRootInv   mat4, inverse world matrix of the hero's recentered group
+ *  - uSweepMin / uSweepMax  model-frame Z bounds of the model (sweep range)
  */
 
 export interface CadTransitionOptions {
@@ -33,10 +43,12 @@ uniform float uNoiseFreq;
 uniform float uTime;
 uniform float uSweepMin;
 uniform float uSweepMax;
+uniform mat4 uRootInv;
 
 varying vec3 vWorldPos;
 varying vec3 vWorldNormal;
 varying vec3 vViewDir;
+varying float vRootZ;
 
 float hash3(vec3 p) {
   return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453123);
@@ -46,8 +58,11 @@ void main() {
   vec4 worldPos = modelMatrix * vec4(position, 1.0);
   vWorldNormal = normalize(mat3(modelMatrix) * normal);
 
-  // World-space planar sweep coordinate along the model's long axis.
-  float sweep = clamp((worldPos.z - uSweepMin) / (uSweepMax - uSweepMin), 0.0, 1.0);
+  // Model-space planar sweep coordinate along the assembly's long axis (see
+  // header comment: rotation/parallax live above uRootInv's frame and cannot
+  // drift the scanline).
+  vec4 rootPos = uRootInv * worldPos;
+  float sweep = clamp((rootPos.z - uSweepMin) / (uSweepMax - uSweepMin), 0.0, 1.0);
   float edge = 1.0 - smoothstep(0.0, max(uEdgeWidth, 1e-4), abs(sweep - uProgress));
 
   // Vertices near the scan edge jitter along their normals — the surface
@@ -58,6 +73,7 @@ void main() {
   vec4 displacedWorld = modelMatrix * vec4(displaced, 1.0);
   vWorldPos = displacedWorld.xyz;
   vViewDir = normalize(cameraPosition - displacedWorld.xyz);
+  vRootZ = (uRootInv * displacedWorld).z;
 
   gl_Position = projectionMatrix * viewMatrix * displacedWorld;
 }
@@ -78,13 +94,14 @@ uniform vec3 uBaseColor;
 varying vec3 vWorldPos;
 varying vec3 vWorldNormal;
 varying vec3 vViewDir;
+varying float vRootZ;
 
 float hash3(vec3 p) {
   return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453123);
 }
 
 void main() {
-  float sweep = clamp((vWorldPos.z - uSweepMin) / (uSweepMax - uSweepMin), 0.0, 1.0);
+  float sweep = clamp((vRootZ - uSweepMin) / (uSweepMax - uSweepMin), 0.0, 1.0);
   // d > 0: still physical. d < 0: already scanned / digital.
   float d = sweep - uProgress;
 
@@ -129,6 +146,7 @@ export function createCadTransitionMaterial(options: CadTransitionOptions = {}):
       uNoiseFreq: { value: options.noiseFreq ?? 24 },
       uSweepMin: { value: options.sweepMin ?? -0.25 },
       uSweepMax: { value: options.sweepMax ?? 0.05 },
+      uRootInv: { value: new Matrix4() },
     },
     side: DoubleSide,
   })
