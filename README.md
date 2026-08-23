@@ -41,6 +41,9 @@ load; the parameter is read once and never rewrites the URL.
 | 3 — CAD-to-code dissolve shader | `src/shaders/CadTransitionShader.ts` |
 | 4 — Data contracts & HUD | `src/types/portfolio.ts`, `src/data/caseStudies.ts`, `src/components/TechnicalHUD.tsx`, `src/scene/Hotspots.tsx` |
 
+**Full scroll/animation spec** (chapters, camera keyframes, timelines, tiers,
+verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
+
 ## Design decisions inherited from the group audit
 
 - **Node names, never mesh names.** Mesh names in the GLB are generic
