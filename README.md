@@ -47,8 +47,9 @@ load; the parameter is read once and never rewrites the URL.
   `meshN_mesh`; identity lives on nodes (`HANDLE ASSY, D.5AP-D1AP-rev1`,
   `D1-AP Gearbox Assy-rev2`). `nodeRoles.ts` matches tolerant patterns and
   derives gearbox stage membership geometrically, so re-exports don't break it.
-- **Real-scale explosion offsets.** The wrench is ~0.25 m end-to-end; offsets
-  are −0.10 / +0.05 / +0.10 m (`EXPLODE_OFFSETS`), not the original brief's ±1.5/+3.0.
+- **Real-scale explosion offsets.** The wrench is ~0.25 m end-to-end; offsets are
+  −0.175 / +0.0875 / +0.175 m (`EXPLODE_OFFSETS`, ×1.75 the brief's real scale for a
+  0.35 m total spread — not the original brief's ±1.5/+3.0).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.
 - **Copy is Honey's** (`OUTBOX/portfolio-module4-copy.md`), used verbatim.
