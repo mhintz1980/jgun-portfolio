@@ -240,3 +240,23 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 
 - No deploy/hosting config — the build is live nowhere (the real ship blocker).
 - Concept A↔B site-relationship decision open (vault project-state).
+
+## 13. Planned changes (owner-specified 2026-08-23, implementation details pending)
+
+Mark will supply full specifics next session; recorded here so the intent survives handoff:
+
+1. **Explosion direction rework** — internal components should explode *out of
+   the gearbox*, and *all* of them should separate (today only the three units
+   move, axially along Z: handle −0.175, stage 1 +0.0875, stage 2 +0.175 —
+   `EXPLODE_OFFSETS` in `caseStudies.ts`, applied via `offsetZ` in
+   `TorqueWrenchHero.tsx` step 3).
+2. **Rotational animation on planets and cages** during extraction — planet
+   gears and carriers should spin as they come out.
+
+Structural note for whoever implements: the current rig consolidates each
+stage into merged whole-group animation units (`MERGED Stage1`/`Stage2` in
+`nodeRoles.ts`), so there are **no individual planet/cage nodes to rotate at
+runtime** — per-part rotation and per-part explosion directions require new
+animation units in `buildWrenchRig` (classification before the destructive
+merge), not just timeline tweaks. Planet/carrier identity will likely need
+node-name patterns or geometry heuristics like the existing stage split.
