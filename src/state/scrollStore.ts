@@ -26,8 +26,21 @@ const state: ScrollState = {
   chapter: 0,
   chapterProgress: 0,
   velocity: 0,
-  materialMode: 'solid',
+  materialMode: initialMaterialMode(),
   hotspotId: null,
+}
+
+/**
+ * Deep-linkable initial material mode via ?view=<mode> — e.g.
+ * /?view=exploded opens straight into the fully exploded assembly. Only the
+ * three real switcher modes are accepted; anything else falls back to solid.
+ * Read once at store creation; the HUD switcher remains the live control.
+ */
+function initialMaterialMode(): MaterialMode {
+  if (typeof window === 'undefined') return 'solid'
+  const view = new URLSearchParams(window.location.search).get('view')
+  if (view === 'solid' || view === 'blueprint' || view === 'exploded') return view
+  return 'solid'
 }
 
 const listeners = new Set<() => void>()

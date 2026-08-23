@@ -25,6 +25,13 @@ GLBs are gitignored (16 MB); `public/models/role-map.json` is committed.
 `useGLTF('/models/Default.glb')` path resolves. The GLBs are Draco-compressed;
 drei's default decoder (gstatic CDN) handles them at runtime.
 
+## URL views
+
+`?view=<solid|blueprint|exploded>` sets the initial material mode on load —
+e.g. `/?view=exploded` opens directly on the fully exploded assembly (handle
+and gearbox stages separated axially). The HUD mode switcher stays live after
+load; the parameter is read once and never rewrites the URL.
+
 ## Module map
 
 | Module | Files |
