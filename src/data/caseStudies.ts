@@ -50,6 +50,16 @@ export const CHAPTERS: ChapterDef[] = [
   },
 ]
 
+/**
+ * CH.01 machine-identity lines, reused verbatim from StaticPoster.tsx (same
+ * Honey-drafted vocabulary) so the full-tier opening viewport names the machine
+ * itself, not just the role title.
+ */
+export const ASSEMBLY_IDENTITY = {
+  machine: 'Industrial Pneumatic Torque Wrench',
+  spec: 'Multi-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T',
+} as const
+
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'gearbox',

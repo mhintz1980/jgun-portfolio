@@ -1,6 +1,8 @@
-import { Suspense, useRef, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
+import { PMREMGenerator } from 'three'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
@@ -16,6 +18,36 @@ const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRa
 const DPR_STEPS = [MAX_DPR, 1.5, 1.25, 1].filter(
   (value, index, all) => value <= MAX_DPR && all.indexOf(value) === index,
 )
+
+/**
+ * Procedural IBL for the PBR assembly: PMREM-bakes three's bundled
+ * RoomEnvironment (procedural geometry — no external HDR fetch) into
+ * scene.environment. The GLB's metallic MeshStandardMaterials read near-black
+ * under punctual lights alone; the envmap gives machined surfaces something to
+ * reflect. Environment only — background/fog and the light rig stay untouched,
+ * and the intensity keeps the punctual key/fill in charge so the look stays
+ * restrained rather than showroom-bright.
+ */
+function RoomEnvironmentIbl() {
+  const gl = useThree((state) => state.gl)
+  const scene = useThree((state) => state.scene)
+
+  useEffect(() => {
+    const pmrem = new PMREMGenerator(gl)
+    const room = new RoomEnvironment()
+    const target = pmrem.fromScene(room, 0.04)
+    scene.environment = target.texture
+    scene.environmentIntensity = 0.7
+    return () => {
+      scene.environment = null
+      target.dispose()
+      pmrem.dispose()
+      room.dispose()
+    }
+  }, [gl, scene])
+
+  return null
+}
 
 /**
  * Module 1 — core scene canvas.
@@ -71,6 +103,8 @@ export function SceneCanvas() {
           <directionalLight position={[1.5, 2, 1]} intensity={2.2} />
           <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
           <spotLight position={[0, 1.2, -0.6]} intensity={1.4} angle={0.5} penumbra={1} />
+
+          <RoomEnvironmentIbl />
 
           <Suspense fallback={null}>
             <TorqueWrenchHero />
