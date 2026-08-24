@@ -328,3 +328,68 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 Verification of both: `window.__telemetry` probes on vite preview (§11),
 2026-08-23 — static exploded mode, mid-scrub, and full-scroll states all
 asserted.
+
+## 14. Multi-chapter stage orchestration (2026-08-24, orzo-style upgrade)
+
+`src/scene/StageManager.tsx` wraps the hero in three scroll-keyed stages on
+the fixed canvas. Stage state comes from **global scroll progress** via
+`getScrollState()` inside `useFrame` (zero React re-renders); the windows
+live in `src/scene/stages/stageWindows.ts`:
+
+| Stage | Content | Fade in | Fade out |
+|---|---|---|---|
+| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.52 → 0.56 |
+| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.52 → 0.56 | 0.72 → 0.76 |
+| 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.72 → 0.76 | — (holds to end) |
+
+Vertical travel ±0.5 m; cross-fades are smoothstep over the overlapping
+windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
+
+**Deviation from the mission spec (documented, owner review pending):** the
+spec's windows (0.42 / 0.38–0.72 / 0.68–1.00) would sink the wrench at global
+progress 0.42 — but the explosion timeline spans 0.146→0.537 and its explode
+window only starts ≈ 0.39, so 0.42 truncates the flagship explosion. The
+S1→S2 boundary therefore sits at 0.52–0.56 (post-explosion); S2→S3 stays at
+the spec's ~0.7 mark. Measured on the live page (§11 method): at 0.54 the
+alphas read [0.50, 0.50, 0] with the explosion still fully open
+(`explodeFactor 1`, `handleZ −0.303`).
+
+### 14.1 CH.03 airflow field (`src/scene/stages/AirflowField.tsx`)
+
+One draw call of shader-driven `THREE.Points` (12k full tier / 3.6k lite):
+per-particle seeds live in the `position` attribute (geometry is
+shader-displaced, `frustumCulled={false}`). The vertex shader advects each
+particle along intake duct → helical engine-compartment sweep → exhaust
+dissipation around the enclosure bounds, with curl-style turbulence whose
+amplitude, advection speed and alpha all scale with `uFlow` — the
+scroll-bound intensity ramping 0.56→0.72 (damped `1−e^(−4Δ)`). Colors run
+cool cyan → warm amber along the route (the thermal read). Additive
+blending, `depthWrite:false`, frozen (uniform alpha 0, no updates) whenever
+the stage envelope is inactive or reduced-motion is set.
+
+### 14.2 Telemetry
+
+`window.__telemetry.stage` (additive, written by StageManager +
+AirflowField frame loops): `active` (dominant stage index, −1 none), `alpha`
+and `y` triples (wrench/enclosure/cloud), `flow` (0..1). Verified states,
+2026-08-24 on a freshly restarted :4173 preview: progress 0 → `[1,0,0]`
+camera at the CH.01 keyframe exactly; 0.54 → `[0.50,0.50,0]`; 0.64 →
+`[0,1,0]`, `flow 0.5`, camera on the CH.03 keyframe; 0.90 → `[0,0,1]`,
+`flow 0`, camera on the CH.03→CH.04 interpolation. Zero console errors;
+canvas live at every probe.
+
+### 14.3 Known gaps (owner decisions pending)
+
+- **Camera keyframes NOT retargeted** (mission Step 1 gate — awaiting
+  explicit confirmation): CH.03/CH.04 keyframes still aim at wrench geometry;
+  placeholders were sized to fit them instead. Retarget once the real MSP /
+  M249 GLBs land.
+- The CH.04 CAD dissolve (§6) still targets the (now sunken) wrench, not the
+  M249 stage — it animates an invisible rig at chapter 3. Rebind when the
+  M249 asset + camera retarget are decided.
+- Real MSP enclosure / M249 Draco GLBs do not exist yet (owner: Mark) — the
+  procedural placeholders stand in.
+- The parallel-session WIP (`src/components/canvas/StageManager.tsx`) is
+  untouched and unwired; the orchestrator lives at `src/scene/StageManager.tsx`.
+  That WIP file also breaks `tsc` (unused `fade`) — `npm run build`'s tsc gate
+  fails on it until the parallel session resolves or it is removed.

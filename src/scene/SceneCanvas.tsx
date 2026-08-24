@@ -4,6 +4,7 @@ import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { PMREMGenerator } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
+import { StageManager } from './StageManager'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
 
@@ -107,7 +108,9 @@ export function SceneCanvas() {
           <RoomEnvironmentIbl />
 
           <Suspense fallback={null}>
-            <TorqueWrenchHero />
+            <StageManager>
+              <TorqueWrenchHero />
+            </StageManager>
             <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
           </Suspense>
 
