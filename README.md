@@ -53,9 +53,10 @@ verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
   output spindle, housing), so re-exports don't break it.
 - **Rear-extraction explosion offsets.** The P000245 housing bore necks down
   at the snout, so all five stages + clutch extract rearward (−Z) in a
-  staggered ladder (−0.035 … −0.21 m, stage 1 furthest), only the output
-  spindle exits forward (+0.05 m), and the handle backs off −0.26 m; carriers
-  spin at per-stage ratios with planet counter-rotation during the sequence
+  clearance-derived ladder (−0.063 … −0.251 m, every stage fully clear with
+  ≥12 mm air), only the output spindle exits forward (+0.05 m), and the
+  handle backs off −0.303 m; carriers spin at per-stage ratios with planet
+  counter-rotation through the whole sequence
   (`EXPLODE_OFFSETS` / `GEAR_RATIOS` in `caseStudies.ts`).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.

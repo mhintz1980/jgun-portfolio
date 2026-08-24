@@ -112,9 +112,9 @@ render loop. `useFrame` applies the proxy each frame:
 |---|---|---|
 | 1. shift | 0 → 0.15 | two-speed clutch slide: ring switch / fork / cam / pins travel −0.015 m together |
 | 2. spin | 0.15 → 0.45 | hero group yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
-| 3. gearRotation | 0.15 → 0.45 | epicyclic sweep 0 → 8π rad (see §5.4) |
+| 3. gearRotation | 0.15 → 1.00 | epicyclic sweep 0 → 8π rad — spins up AND keeps turning through the extraction (§5.4) |
 | 4. ghost | 0.35 → 0.60 | housing materials lerp opacity 1 → **0.15** (`GHOST_OPACITY`); `depthWrite` off below 0.5 |
-| 5. explode | 0.60 → 1.00 | rear extraction ladder (§5.3) |
+| 5. explode | 0.60 → 1.00 | rear extraction ladder (§5.3) — overlaps the gear sweep's tail |
 
 ### 5.1 Rig classification (`src/scene/rig/nodeRoles.ts`)
 
@@ -170,19 +170,27 @@ Mechanical constraint (Mark, 2026-08-23): the P000245 housing bore necks down
 toward the +Z snout (measured: ⌀0.065 housing vs ⌀0.012–0.028 bushings at
 +Z; handle center z ≈ −0.168, output cluster z ≈ +0.02..0.03), so the
 internals CANNOT exit the front. All five stages + clutch extract rearward
-(−Z, toward the removed handle) in a staggered ladder; only the output
-spindle exits forward through the snout; the housing stays put.
+(−Z, toward the removed handle); only the output spindle exits forward
+through the snout; the housing stays put. Magnitudes are a clearance-derived
+ladder (Mark review pass 2, 2026-08-23: first pass left the final stage half
+inside the gearbox): every stage fully clears the housing rear face
+(z = −0.074) with ≥12 mm air, adjacent exploded stages keep ≥12 mm gaps —
+offsets = target slot center − rest center from measured half-depths.
 
 | Unit | Offset | Exploded center (m, gearbox frame) |
 |---|---|---|
 | output spindle | +0.050 | ≈ +0.073 (through snout) |
-| gearbox Stage 5 | −0.035 | ≈ −0.074 (stays by the output) |
-| gearbox Stage 4 | −0.070 | ≈ −0.079 |
-| gearbox Stage 3 | −0.105 | ≈ −0.126 |
-| gearbox Stage 2 | −0.140 | ≈ −0.194 |
-| gearbox Stage 1 | −0.175 | ≈ −0.243 |
-| clutch (static + sliding) | −0.210 | ≈ −0.310 |
-| handle assembly | −0.260 | ≈ −0.428 |
+| gearbox Stage 5 | −0.063 | ≈ −0.102 (fully clear of the housing mouth) |
+| gearbox Stage 4 | −0.142 | ≈ −0.150 |
+| gearbox Stage 3 | −0.181 | ≈ −0.202 |
+| gearbox Stage 2 | −0.194 | ≈ −0.248 |
+| gearbox Stage 1 | −0.215 | ≈ −0.284 |
+| clutch (static + sliding) | −0.251 | ≈ −0.350 |
+| handle assembly | −0.303 | ≈ −0.471 |
+
+Exploded stack span ≈ 0.61 m (output front +0.073 to handle rear −0.536) —
+the handle's tail can kiss the frame edge at full explode under the CH.02
+lateral camera; widening that camera is an open tuning decision.
 
 Applied as `basePositions` + offset each frame, so it composes with (and
 fully opens in) exploded mode: `explode = max(anim.explode, mode ===
@@ -289,7 +297,14 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
   `outputZ +0.05`, `handleZ -0.26`, sliding clutch `-0.225` at shift 1,
   per-stage carrier rotations exactly `8π × {1.0, 0.28, 0.08, 0.022, 0.006}`
   with planets at −3.5×, 23 ghost materials at 0.15) were captured that way
-  on 2026-08-23.
+  on 2026-08-23. Pass-2 review values (same day): clearance ladder `stageZ
+  [-0.215, -0.194, -0.181, -0.142, -0.063]`, `outputZ +0.05`, `handleZ
+  -0.303`, sliding clutch `-0.266` at shift 1, and `gearRotation` reaching
+  8π exactly as `explodeFactor` hits 1 (overlapping windows — gears spin
+  through the extraction). Headless caveat: the playwright browser's
+  software-GL process can wedge or the quality ladder can degrade to poster
+  mid-probe (canvas unmounts, telemetry freezes) — capture early, and
+  restart the preview server after every rebuild before probing.
 - Full method + failure log: vault
   `04-Projects/Portfolio-Site/2026-08-22-jgun-chapter1-gauntlet-and-capture-playbook.md`.
 

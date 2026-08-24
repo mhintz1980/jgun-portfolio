@@ -98,11 +98,13 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      // Shift mechanism engages first, then the drive spins up while the
-      // housings ghost — the explosion inherits the running gear train.
+      // Shift mechanism engages first; the drive then spins up and KEEPS
+      // SPINNING THROUGH the extraction (Mark review 2026-08-23: gears must
+      // turn as they leave the housing) while the housings ghost — the
+      // explosion inherits the running gear train.
       .to(anim, { shift: 1, duration: 0.15 }, 0)
       .to(anim, { spin: 1, duration: 0.3 }, 0.15)
-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.3 }, 0.15)
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.85 }, 0.15)
       .to(anim, { ghost: 1, duration: 0.25 }, 0.35)
       .to(anim, { explode: 1, duration: 0.4 }, 0.6)
 
