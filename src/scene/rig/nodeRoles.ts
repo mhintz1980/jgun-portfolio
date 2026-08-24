@@ -2,6 +2,7 @@ import { Box3, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StageId } from '../../data/caseStudies'
 import { STAGE_IDS } from '../../data/caseStudies'
+import { materialRoleFor, roleMaterial } from './materials'
 
 /**
  * Classifies the loaded GLB scene into rig roles by REAL node identity, then
@@ -35,7 +36,7 @@ import { STAGE_IDS } from '../../data/caseStudies'
  * calls per frame. Every mesh belongs to exactly one rigid animation unit
  * (handle, output spindle, clutch halves, five stage carriers, each planet,
  * or the static remainder), so merging geometry per
- * (unit × material × ghost-status) into unit-local space is visually lossless
+ * (unit × PBR role × ghost-status) into unit-local space is visually lossless
  * and collapses the scene to tens of draws. Role detection runs on the
  * original node tree BEFORE merging, so name-based identity is unaffected.
  */
@@ -332,7 +333,11 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     return { key: 'static', host: staticGroup }
   }
 
-  // ---- Consolidation: merge meshes per (animation unit × material × ghost).
+  // ---- Consolidation: merge meshes per (animation unit × PBR role × ghost).
+  // The photoreal role replaces the CAD placeholder material as the bucket
+  // identity (Mark review 2026-08-24 — see rig/materials.ts), which also
+  // merges more aggressively: one draw per part family instead of per
+  // original CAD material.
   interface Bucket {
     unit: Unit
     material: Material
@@ -349,10 +354,11 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const unit = unitOf(mesh)
     const ghost = housingMeshSet.has(mesh)
-    const key = `${unit.key}|${mesh.material.uuid}|${ghost ? 'g' : 's'}`
+    const role = materialRoleFor(unit.key, mesh.name)
+    const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const bucket = buckets.get(key)
     if (bucket) bucket.sources.push(mesh)
-    else buckets.set(key, { unit, material: mesh.material, ghost, sources: [mesh] })
+    else buckets.set(key, { unit, material: roleMaterial(role), ghost, sources: [mesh] })
   }
 
   const frameInverses = new Map<Object3D, Matrix4>()

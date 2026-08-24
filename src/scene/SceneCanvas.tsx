@@ -38,7 +38,7 @@ function RoomEnvironmentIbl() {
     const room = new RoomEnvironment()
     const target = pmrem.fromScene(room, 0.04)
     scene.environment = target.texture
-    scene.environmentIntensity = 0.7
+    scene.environmentIntensity = 1.0
     return () => {
       scene.environment = null
       target.dispose()
@@ -100,10 +100,14 @@ export function SceneCanvas() {
           <color attach="background" args={['#05070a']} />
           <fog attach="fog" args={['#05070a', 1.4, 4.5]} />
 
-          <ambientLight intensity={0.35} />
-          <directionalLight position={[1.5, 2, 1]} intensity={2.2} />
+          {/* Studio balance for the photoreal PBR pass (2026-08-24): the
+              environment carries the softbox reflections the clearcoat
+              shells need, so the punctual key steps back from blowing out
+              gloss highlights. */}
+          <ambientLight intensity={0.25} />
+          <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
           <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
-          <spotLight position={[0, 1.2, -0.6]} intensity={1.4} angle={0.5} penumbra={1} />
+          <spotLight position={[0, 1.2, -0.6]} intensity={1.1} angle={0.5} penumbra={1} />
 
           <RoomEnvironmentIbl />
 

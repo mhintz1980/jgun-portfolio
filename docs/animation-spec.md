@@ -143,7 +143,7 @@ its *nearest tagged ancestor's* unit:
 | housing | P000245 outer shell — static, never explodes |
 | untagged | static remainder (K-hardware etc.) |
 
-~13k raw meshes are merged per (unit × material × ghost-status); rig
+~13k raw meshes are merged per (unit × PBR role × ghost-status); rig
 detection runs on the original tree before merging. Each animation unit owns
 a merged `Group` whose geometry is baked into the group's own frame, so the
 group's transform is the part's rigid motion: carrier groups sit at the
@@ -159,10 +159,10 @@ A mesh ghosts if (a) it sits under a node matching
 `/(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i`, or (b) it belongs to the gearbox's
 largest child by bbox volume (the P000245 outer shell). Ghost materials are
 cloned transparent-capable so the fade never bleeds into shared sources.
-Current verified count: **23 ghost materials** (was 19 before the per-part
-unit rework — finer unit bucketing splits shared materials across more merged
-meshes; all still fade together). Ghost is suppressed in blueprint mode
-(everything is already wireframe).
+Current verified count: **3 ghost materials** (23 before the 2026-08-24 PBR
+rework — role-based bucketing merged the housing's per-CAD-material ghost
+clones into one per (unit × role); all still fade together). Ghost is
+suppressed in blueprint mode (everything is already wireframe).
 
 ### 5.3 Explosion offsets (`EXPLODE_OFFSETS`, meters — rear extraction)
 
@@ -171,26 +171,35 @@ toward the +Z snout (measured: ⌀0.065 housing vs ⌀0.012–0.028 bushings at
 +Z; handle center z ≈ −0.168, output cluster z ≈ +0.02..0.03), so the
 internals CANNOT exit the front. All five stages + clutch extract rearward
 (−Z, toward the removed handle); only the output spindle exits forward
-through the snout; the housing stays put. Magnitudes are a clearance-derived
-ladder (Mark review pass 2, 2026-08-23: first pass left the final stage half
-inside the gearbox): every stage fully clears the housing rear face
-(z = −0.074) with ≥12 mm air, adjacent exploded stages keep ≥12 mm gaps —
-offsets = target slot center − rest center from measured half-depths.
+through the snout; the housing stays put.
 
-| Unit | Offset | Exploded center (m, gearbox frame) |
+**Exploded line order is the driveline order, not the stage numbering**
+(Mark review 2026-08-24): the A000606 cage (P001849) is the THIRD cage of
+five — behind the housing rear face the line reads P003047 (stage 4, first
+out) → P003045 (stage 3) → P001849 (A000606) → P001837 (stage 2) → P001836
+(stage 1, furthest back). Keyed by part numbers, never stage names.
+
+Magnitudes are a clearance-derived ladder measured from JSON-chunk rest
+spans (`.scratch/measure-spans.mjs`, validated against the 08-24 handoff
+anchors): first cage clears the housing rear face (z = −0.074) by ≥14 mm,
+adjacent exploded units keep ≥15 mm gaps, and the handle backs off with
+25 mm of air behind the clutch (widened from 14.5 mm in the same review so
+the extraction reads with generous spacing).
+
+| Unit | Offset | Exploded span (m, model frame) |
 |---|---|---|
-| output spindle | +0.050 | ≈ +0.073 (through snout) |
-| gearbox Stage 5 | −0.063 | ≈ −0.102 (fully clear of the housing mouth) |
-| gearbox Stage 4 | −0.142 | ≈ −0.150 |
-| gearbox Stage 3 | −0.181 | ≈ −0.202 |
-| gearbox Stage 2 | −0.194 | ≈ −0.248 |
-| gearbox Stage 1 | −0.215 | ≈ −0.284 |
-| clutch (static + sliding) | −0.251 | ≈ −0.350 |
-| handle assembly | −0.303 | ≈ −0.471 |
+| output spindle | +0.050 | ≈ [+0.043, +0.102] (through snout) |
+| gearbox Stage 4 | −0.099 | ≈ [−0.127, −0.088] (first out; 14 mm air) |
+| gearbox Stage 3 | −0.142 | ≈ [−0.184, −0.143] |
+| gearbox Stage 5 (A000606) | −0.177 | ≈ [−0.233, −0.200] (third in line) |
+| gearbox Stage 2 | −0.208 | ≈ [−0.275, −0.249] |
+| gearbox Stage 1 | −0.233 | ≈ [−0.312, −0.291] |
+| clutch (static + sliding) | −0.269 | ≈ [−0.410, −0.327] (sliding −0.015 further at shift 1) |
+| handle assembly | −0.331 | ≈ [−0.564, −0.434] (25 mm air behind clutch) |
 
-Exploded stack span ≈ 0.61 m (output front +0.073 to handle rear −0.536) —
+Exploded stack span ≈ 0.67 m (output front +0.102 to handle rear −0.564) —
 the handle's tail can kiss the frame edge at full explode under the CH.02
-lateral camera; widening that camera is an open tuning decision.
+lateral camera; widening that camera remains an open tuning decision.
 
 Applied as `basePositions` + offset each frame, so it composes with (and
 fully opens in) exploded mode: `explode = max(anim.explode, mode ===
@@ -198,7 +207,8 @@ fully opens in) exploded mode: `explode = max(anim.explode, mode ===
 
 ### 5.4 Epicyclic gear rotation + clutch shift
 
-The proxy's `gearRotation` channel (0 → 8π across timeline 0.15→0.45) drives
+The proxy's `gearRotation` channel (0 → 8π across timeline 0.15→1.0 — spin-up
+AND spin-through-extraction, per the 2026-08-23 pass-2 review) drives
 kinematically-staged rotation via `GEAR_RATIOS` (`caseStudies.ts`): carrier
 `rotation.z = gearRotation · ratio[stage]` with cumulative ratios 1.0 / 0.28 /
 0.08 / 0.022 / 0.006 (stage 5 = final output), and each planet
@@ -209,13 +219,27 @@ pin; planet groups are carrier children, so they also revolve with it). The
 shift are scroll-driven only — the `[ EXPLODED ASSEMBLY ]` mode is a static
 fully-open pose that keeps the train at rest, and reduced motion skips both.
 
-### 5.5 Material modes
+### 5.5 Material modes & the photoreal PBR system
 
 `[ SOLID PBR ]` / `[ BLUEPRINT WIREFRAME ]` / `[ EXPLODED ASSEMBLY ]` via the
 HUD switcher (UI-driven, not scroll). Blueprint swaps all rig meshes to a
-cyan `MeshBasicMaterial` wireframe (opacity 0.35); original materials are
+cyan `MeshBasicMaterial` wireframe (opacity 0.35); role materials are
 restored on switch-back via the per-mesh originals map. `?view=<mode>` sets
 the initial mode once at load (read in `scrollStore`, never rewrites the URL).
+
+**Photoreal PBR roles (2026-08-24, Mark review: "needs to improve
+drastically")** — `src/scene/rig/materials.ts` assigns a PBR role per
+consolidated source mesh from its node name (part numbers + vendor names are
+mangling-safe) with unit-key defaults, replacing the CAD placeholder
+materials as the merge-bucket identity. Targets come from Mark's reference
+pair (`docs/torque-render.webp` + `docs/jgun-handle-gearbox-description.md`):
+deep-black clearcoat shells (`MeshPhysicalMaterial`, #0A0A0A / rough 0.18 /
+metal 0.18 / clearcoat 1), hardened tool-steel output cluster (#4A4D50 /
+0.45 / 0.95), machined steel internals in three tones (cage/planet/clutch),
+black-oxide hardware, chrome fittings, matte polycarbonate electronics with
+an emissive cyan LCD (`emissiveIntensity` 3). Studio balance: RoomEnvironment
+IBL at intensity 1.0 carries the clearcoat reflections; the punctual key
+steps back to 1.7 so gloss highlights don't blow out.
 
 ## 6. Chapter 4 CAD dissolve (`src/shaders/CadTransitionShader.ts`)
 
@@ -301,7 +325,11 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
   [-0.215, -0.194, -0.181, -0.142, -0.063]`, `outputZ +0.05`, `handleZ
   -0.303`, sliding clutch `-0.266` at shift 1, and `gearRotation` reaching
   8π exactly as `explodeFactor` hits 1 (overlapping windows — gears spin
-  through the extraction). Headless caveat: the playwright browser's
+  through the extraction). Pass-3 review values (2026-08-24, driveline-order
+  ladder + PBR rework): `stageZ [-0.233, -0.208, -0.177, -0.142, -0.099]`
+  (s1..s5 — exploded line order s4→s3→s5→s2→s1), `outputZ +0.05`, `handleZ
+  -0.331`, `clutchZ -0.269`, `ghostCount 3`; explosion completes at global
+  progress ≈0.518 with `gearRotation` 25.13 = 8π. Headless caveat: the playwright browser's
   software-GL process can wedge or the quality ladder can degrade to poster
   mid-probe (canvas unmounts, telemetry freezes) — capture early, and
   restart the preview server after every rebuild before probing.
@@ -313,7 +341,7 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
 - No deploy/hosting config — the build is live nowhere (the real ship blocker).
 - Concept A↔B site-relationship decision open (vault project-state).
 
-## 13. Planned changes (owner-specified 2026-08-23)
+## 13. Planned changes (owner-specified 2026-08-23; pass 3 = 2026-08-24)
 
 1. **Explosion direction rework** — **IMPLEMENTED 2026-08-23** (see §5.1/§5.3):
    internals extract rearward out of the gearbox (−Z, past the removed
@@ -324,6 +352,19 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
    (see §5.4): `gearRotation` proxy channel drives carriers about the train
    axis at per-stage reduction ratios with planet counter-rotation on pins;
    the two-speed clutch shift animates first (`shift` channel, −0.015 m).
+3. **Driveline-order ladder** — **IMPLEMENTED 2026-08-24** (see §5.3): the
+   A000606 cage (P001849) is the third cage of five (between P003045 and
+   P001837); handle/gearbox separation widened to 25 mm of air behind the
+   clutch.
+4. **Photoreal materials** — **IMPLEMENTED 2026-08-24** (see §5.5): PBR role
+   system per Mark's render reference (`docs/torque-render.webp` +
+   `docs/jgun-handle-gearbox-description.md`).
+5. **Scroll pacing ×2** — **IMPLEMENTED 2026-08-24** (see §14): chapter
+   sections 220vh → 440vh, stage windows remeasured (oryzo.ai reference).
+6. **K000004 bearing extraction + display rotation turns** — **QUEUED** at
+   repo TODO.md. NOTE: the queued K000004 slot math (offset −0.071 behind
+   A000606) predates the ladder reorder and MUST be re-derived against the
+   new §5.3 table before implementation.
 
 Verification of both: `window.__telemetry` probes on vite preview (§11),
 2026-08-23 — static exploded mode, mid-scrub, and full-scroll states all
@@ -338,21 +379,22 @@ live in `src/scene/stages/stageWindows.ts`:
 
 | Stage | Content | Fade in | Fade out |
 |---|---|---|---|
-| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.52 → 0.56 |
-| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.52 → 0.56 | 0.72 → 0.76 |
+| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.535 → 0.575 |
+| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.535 → 0.575 | 0.72 → 0.76 |
 | 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.72 → 0.76 | — (holds to end) |
 
 Vertical travel ±0.5 m; cross-fades are smoothstep over the overlapping
 windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
 
-**Deviation from the mission spec (documented, owner review pending):** the
-spec's windows (0.42 / 0.38–0.72 / 0.68–1.00) would sink the wrench at global
-progress 0.42 — but the explosion timeline spans 0.146→0.537 and its explode
-window only starts ≈ 0.39, so 0.42 truncates the flagship explosion. The
-S1→S2 boundary therefore sits at 0.52–0.56 (post-explosion); S2→S3 stays at
-the spec's ~0.7 mark. Measured on the live page (§11 method): at 0.54 the
-alphas read [0.50, 0.50, 0] with the explosion still fully open
-(`explodeFactor 1`, `handleZ −0.303`).
+**Window provenance (remeasured 2026-08-24 after the scroll ×2):** chapter
+sections doubled 220vh → 440vh the same day (Mark review — oryzo.ai-style
+pacing; document ≈ 1800vh). Against that layout the hero timeline transits
+global progress 0.20 → 0.518, `explodeFactor` reaches 1 at ≈0.518, the
+CH.02→CH.03 chapter flip lands ≈0.74. The wrench therefore holds its fully
+exploded pose for ≈0.017 of scroll (≈30vh — a real beat) before sinking at
+0.535–0.575; S2→S3 stays at the mission's ~0.72 mark. Measured on the live
+page (§11 method): at 0.52 alphas read [1, 0, 0] with the explosion fully
+open (`explodeFactor 1`); at 0.555 alphas read [0.50, 0.50, 0].
 
 ### 14.1 CH.03 airflow field (`src/scene/stages/AirflowField.tsx`)
 
@@ -362,7 +404,7 @@ shader-displaced, `frustumCulled={false}`). The vertex shader advects each
 particle along intake duct → helical engine-compartment sweep → exhaust
 dissipation around the enclosure bounds, with curl-style turbulence whose
 amplitude, advection speed and alpha all scale with `uFlow` — the
-scroll-bound intensity ramping 0.56→0.72 (damped `1−e^(−4Δ)`). Colors run
+scroll-bound intensity ramping 0.575→0.72 (damped `1−e^(−4Δ)`). Colors run
 cool cyan → warm amber along the route (the thermal read). Additive
 blending, `depthWrite:false`, frozen (uniform alpha 0, no updates) whenever
 the stage envelope is inactive or reduced-motion is set.

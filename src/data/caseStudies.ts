@@ -113,26 +113,34 @@ export const MATERIAL_MODE_LABELS: Record<MaterialMode, string> = {
  * rest-pose geometry (Default.glb): the handle assembly sits at −Z (center
  * z ≈ −0.168), the output spindle cluster at +Z, and the P000245 outer
  * housing (rear face z = −0.074) necks down toward the +Z snout. The
- * internals therefore CANNOT exit the front: all five planetary stages and
- * the clutch extract rearward (−Z, toward the removed handle) while only the
+ * internals therefore CANNOT exit the front: the planetary stages and the
+ * clutch extract rearward (−Z, toward the removed handle) while only the
  * output-spindle parts exit forward (+Z) through the snout. The housing
  * itself never moves.
  *
- * Magnitudes are a clearance-derived ladder (Mark review 2026-08-23: the
- * final stage was still half inside the gearbox): every stage fully clears
- * the housing rear face with ≥12 mm air, and adjacent exploded stages keep
- * ≥12 mm gaps — offsets = target slot center − rest center, computed from
- * the measured half-depths of each unit.
+ * Exploded line order is the DRIVELINE order, not the stage numbering (Mark
+ * review 2026-08-24): the A000606 cage (P001849) is the THIRD cage of five,
+ * so behind the housing rear face the line reads P003047 (stage 4, first
+ * out) → P003045 (stage 3) → P001849 (A000606) → P001837 (stage 2) →
+ * P001836 (stage 1, furthest back). Keyed by part numbers, never stage
+ * names — Mark has called A000606 both "stage 5" and "the 3rd stage cage".
+ *
+ * Magnitudes are a clearance-derived ladder measured from the JSON-chunk
+ * rest spans (.scratch/measure-spans.mjs, validated against the 08-24
+ * handoff anchors): the first cage clears the housing rear face by ≥14 mm,
+ * adjacent exploded units keep ≥15 mm gaps, and the handle backs off with
+ * 25 mm of air behind the clutch (widened from 14.5 mm per the same review
+ * so the extraction reads with generous spacing).
  */
 export const EXPLODE_OFFSETS = {
   output: 0.05,
-  stage5: -0.063,
-  stage4: -0.142,
-  stage3: -0.181,
-  stage2: -0.194,
-  stage1: -0.215,
-  clutch: -0.251,
-  handle: -0.303,
+  stage4: -0.099,
+  stage3: -0.142,
+  stage5: -0.177,
+  stage2: -0.208,
+  stage1: -0.233,
+  clutch: -0.269,
+  handle: -0.331,
 } as const
 
 export type StageId = 'stage1' | 'stage2' | 'stage3' | 'stage4' | 'stage5'

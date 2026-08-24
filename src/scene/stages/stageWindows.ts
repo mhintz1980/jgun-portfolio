@@ -4,22 +4,24 @@
  * canvas-side only, always via getScrollState() inside useFrame).
  *
  * Mission spec (2026-08-24 orzo-style upgrade) called for 0.00–0.42 /
- * 0.38–0.72 / 0.68–1.00, but those numbers predate the measured DOM: at the
- * current layout (4 × min-h-220vh sections + 40vh footer ≈ 820vh of scroll)
- * the wrench explosion timeline scrubs across [data-chapter="1"]'s viewport
- * transit at global progress 0.146 → 0.537, and its explode window only
- * starts at local 0.60 (≈ global 0.39) — a 0.42 cutoff would sink the wrench
- * just as the pass-2-verified explosion begins. The S1→S2 boundary therefore
- * sits AFTER the explosion completes; S2→S3 stays at the mission's ~0.7 mark.
- * Overlapping ranges are the cross-fade regions.
+ * 0.38–0.72 / 0.68–1.00, but those numbers predate the measured DOM. The
+ * section height was doubled to 440vh the same day (Mark review — scroll
+ * pacing ×2, oryzo.ai reference), so against the current layout (4 × 440vh
+ * sections + 40vh footer ≈ 1800vh of document) the measured anchors are:
+ * the explosion timeline scrubs [data-chapter="1"]'s viewport transit at
+ * global progress 0.20 → 0.518, explodeFactor reaches 1 at ≈0.518 (gears at
+ * the full 8π sweep simultaneously), the CH.02→CH.03 chapter flip lands at
+ * ≈0.74. The wrench therefore holds its fully-exploded pose for a beat
+ * (≈0.017 of scroll ≈ 30vh) before sinking — never truncated. Overlapping
+ * ranges are the cross-fade regions.
  */
 export type FadeRange = readonly [start: number, end: number]
 
 export const STAGE_TRANSITIONS = {
   /** Wrench stage (CH.01+02) sinks out — after the explosion ladder completes. */
-  wrenchOut: [0.52, 0.56] as FadeRange,
+  wrenchOut: [0.535, 0.575] as FadeRange,
   /** MSP enclosure stage (CH.03) enters as the wrench leaves. */
-  enclosureIn: [0.52, 0.56] as FadeRange,
+  enclosureIn: [0.535, 0.575] as FadeRange,
   /** MSP enclosure stage exits upward-window as the point cloud arrives. */
   enclosureOut: [0.72, 0.76] as FadeRange,
   /** M249 point-cloud stage (CH.04) enters and holds to the end. */

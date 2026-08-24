@@ -52,12 +52,17 @@ verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
   tags gearbox roles by the D1-AP part-number table (5 stages, clutch halves,
   output spindle, housing), so re-exports don't break it.
 - **Rear-extraction explosion offsets.** The P000245 housing bore necks down
-  at the snout, so all five stages + clutch extract rearward (−Z) in a
-  clearance-derived ladder (−0.063 … −0.251 m, every stage fully clear with
-  ≥12 mm air), only the output spindle exits forward (+0.05 m), and the
-  handle backs off −0.303 m; carriers spin at per-stage ratios with planet
-  counter-rotation through the whole sequence
+  at the snout, so the stages + clutch extract rearward (−Z) in a
+  clearance-derived, driveline-order ladder (P003047 first out at −0.099 m …
+  P001836 furthest at −0.233 m; A000606 is the THIRD cage, between P003045
+  and P001837 — ≥15 mm gaps), only the output spindle exits forward
+  (+0.05 m), and the handle backs off −0.331 m; carriers spin at per-stage
+  ratios with planet counter-rotation through the whole sequence
   (`EXPLODE_OFFSETS` / `GEAR_RATIOS` in `caseStudies.ts`).
+- **Photoreal PBR roles** (`src/scene/rig/materials.ts`): clearcoat black
+  shells, tool-steel output cluster, machined-steel internals, emissive LCD —
+  assigned by node-name role at consolidation, per Mark's render reference
+  (`docs/torque-render.webp`).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.
 - **Copy is Honey's** (`OUTBOX/portfolio-module4-copy.md`), used verbatim.

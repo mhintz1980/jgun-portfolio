@@ -15,6 +15,12 @@ const CH1_MOBILE_WRAP = 'max-md:max-w-[calc(100vw-4rem)] max-md:[overflow-wrap:a
  * ScrollTrigger. Copy comes from OUTBOX/portfolio-module4-copy.md (Honey).
  * Text is pointer-events-none so the canvas keeps hover parallax; the sections
  * only exist to give the story scroll room.
+ *
+ * Section height ×2 (220vh → 440vh) per Mark review 2026-08-24 — every
+ * scroll-driven trigger (hero timeline, chapter transitions, stage
+ * cross-fades) now breathes across twice the scroll distance, oryzo.ai-style
+ * pacing. Stage windows in scene/stages/stageWindows.ts are measured against
+ * this layout and must be re-measured if this height changes.
  */
 export function Chapters() {
   const { tier, reducedMotion } = useQuality()
@@ -31,7 +37,7 @@ export function Chapters() {
           <section
             key={chapterDef.index}
             data-chapter={chapterDef.index}
-            className={`${passThrough}flex min-h-[220vh] flex-col px-[8vw] ${
+            className={`${passThrough}flex min-h-[440vh] flex-col px-[8vw] ${
               chapterDef.index === 0
                 ? // CH.01 anchors its narrative at the top of the section so the
                   // machine and headline identify the site in the opening

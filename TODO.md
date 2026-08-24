@@ -5,6 +5,15 @@ Canonical task queue. Installed 2026-08-24 from Mark's review pass-3 handoff
 files go stale, this file is authoritative). State at install: `main` @ `a148ef5`
 (local-only, ahead 9). All prior work telemetry-verified.
 
+> ⚠️ RE-DERIVATION REQUIRED (2026-08-24 review pass 3a, commit after 47f47f9):
+> the ladder was REORDERED per Mark's live review — A000606 (P001849) is now
+> the THIRD cage in line (between P003045 and P001837), offsets are
+> s4 −0.099 / s3 −0.142 / s5 −0.177 / s2 −0.208 / s1 −0.233 / clutch −0.269 /
+> handle −0.331 (see docs/animation-spec.md §5.3). The K000004 slot math below
+> (−0.071 behind a FRONT-slot s5) is STALE — A000606 no longer sits behind the
+> housing mouth. "Right behind A000606" now means a slot adjacent to the third
+> cage. Re-derive the offset from the current §5.3 table before implementing.
+
 ## Pass 3 — Mark's review fixes (both fixes are his spec)
 
 ### [ ] Fix 1 — K000004 bearing must extract right behind A000606
