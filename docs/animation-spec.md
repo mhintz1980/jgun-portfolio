@@ -205,19 +205,25 @@ Applied as `basePositions` + offset each frame, so it composes with (and
 fully opens in) exploded mode: `explode = max(anim.explode, mode ===
 'exploded' ? 1 : 0)`.
 
-### 5.4 Epicyclic gear rotation + clutch shift
+### 5.4 Epicyclic gear rotation + clutch shift & speed indicator grooves
 
-The proxy's `gearRotation` channel (0 → 8π across timeline 0.15→1.0 — spin-up
-AND spin-through-extraction, per the 2026-08-23 pass-2 review) drives
-kinematically-staged rotation via `GEAR_RATIOS` (`caseStudies.ts`): carrier
-`rotation.z = gearRotation · ratio[stage]` with cumulative ratios 1.0 / 0.28 /
-0.08 / 0.022 / 0.006 (stage 5 = final output), and each planet
-`rotation.z = −gearRotation · ratio[stage] · 3.5` (counter-rotation on its
-pin; planet groups are carrier children, so they also revolve with it). The
-`shift` channel (0→1 across 0→0.15) slides the clutch train
-(`CLUTCH_SHIFT_DISTANCE` −0.015 m) before anything else moves. Rotation and
-shift are scroll-driven only — the `[ EXPLODED ASSEMBLY ]` mode is a static
-fully-open pose that keeps the train at rest, and reduced motion skips both.
+The proxy's `gearRotation` channel (0 → 8π across CH.02 timeline — spin-up
+AND spin-through-extraction) drives kinematically-staged rotation via
+`GEAR_RATIOS` (`caseStudies.ts`): carrier `rotation.z = gearRotation · ratio[stage]`
+with cumulative ratios 1.0 / 0.28 / 0.08 / 0.022 / 0.006 (stage 5 = final output),
+and each planet `rotation.z = −gearRotation · ratio[stage] · 3.5` (counter-rotation
+on its pin; planet groups are carrier children, so they also revolve with it).
+
+**Clutch Shift & Speed Indicator Grooves (CH.01 5%→17% scroll):**
+- **Ring Switch (P003068)**: Keyed to CH.01 scroll progress $0.05 \to 0.17$.
+  - $0.05 \to 0.10$: Slides $+9.525\text{ mm}$ ($+Z$, away from handle) along the helical cam groove in `P000420`, rotating $+120^\circ$ simultaneously (`RING_SWITCH_ROTATION`).
+  - $0.10 \to 0.12$: Pauses at the bottom of travel.
+  - $0.12 \to 0.17$: Reverses back to home against the handle as camera pulls back.
+- **P000420 Speed Indicator Grooves** (Mark spec 2026-08-25):
+  - Two circumferential grooves on `P000420` OD flank the helical cam slots:
+    - **Lower Groove (near gearbox, $+Z$)**: `#005DAA` OSHA Safety Blue. Exposed when ring switch is seated against handle (shift = 0 / low speed).
+    - **Upper Groove (near handle, $-Z$)**: `#C8102E` OSHA Safety Red. Exposed when ring switch shifts down to gearbox (shift = 1 / high speed), covering the blue groove.
+- Rotation and shift are scroll-driven only — the `[ EXPLODED ASSEMBLY ]` mode is a static fully-open pose that keeps the train at rest, and reduced motion skips both.
 
 ### 5.5 Material modes & the photoreal PBR system
 
