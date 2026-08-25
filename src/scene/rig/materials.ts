@@ -20,6 +20,9 @@ import { MeshPhysicalMaterial, MeshStandardMaterial, type Material } from 'three
 export type MaterialRole =
   | 'shellBlack'
   | 'barrelBlack'
+  | 'blackOxideSteel'
+  | 'anodizedAluminum'
+  | 'ringSwitch'
   | 'toolSteel'
   | 'cageSteel'
   | 'planetSteel'
@@ -29,8 +32,12 @@ export type MaterialRole =
   | 'chrome'
   | 'pcb'
   | 'display'
+  | 'lcdScreen'
+  | 'buttonBacklit'
   | 'battery'
   | 'polymer'
+  | 'grooveBlue'
+  | 'grooveRed'
 
 /**
  * Node-name overrides, checked before the unit default. Names are real GLB
@@ -42,6 +49,17 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   // Separator classes are [\s_]* because GLTFLoader mangles spaces into
   // underscores (see the rig's regex invariants).
   [/MANOMETER[\s_]*LCD|BK11356/i, 'display'],
+  // Rear handle digital LCD screen (P002115) — warm emissive white.
+  [/P002115/i, 'lcdScreen'],
+  // Rear handle buttons (P002123/P002124/P002125) — cool-blue backlit.
+  [/(P002123|P002124|P002125)/i, 'buttonBacklit'],
+  // LCD housing (P001924) — anodized aluminum, matches handle finish.
+  [/P001924/i, 'anodizedAluminum'],
+  // Ring switch (P003068) — anodized aluminum with knurled OD.
+  [/P003068/i, 'ringSwitch'],
+  // Gearbox intermediate housing (P000420) + outer shell (P000245) —
+  // high-temp black oxide steel, distinct from anodized aluminum.
+  [/(P000420|P000245)/i, 'blackOxideSteel'],
   // Electronics stack: MCU, PC board, USB bridge, regulators, connectors.
   [/MSP430|PC[\s_]*BOARD|CP2102|FDC6327|TL3315|AT25320|AST[\s_]*SENSOR|SENSOR[\s_]*CONNECTOR|9HT7|51065/i, 'pcb'],
   [/Tenergy|LiPo/i, 'battery'],
@@ -55,10 +73,21 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
 ]
 
 const unitDefaultRole = (unitKey: string): MaterialRole => {
-  if (unitKey === 'housing') return 'shellBlack'
+  // P000245 outer shell — high-temp black oxide steel (not clearcoat).
+  if (unitKey === 'housing') return 'blackOxideSteel'
   if (unitKey === 'output') return 'toolSteel'
-  if (unitKey === 'handle') return 'barrelBlack'
-  if (unitKey === 'clutch-static' || unitKey === 'clutch-sliding') return 'clutchSteel'
+  // Handle assembly — anodized aluminum (matches ring switch finish).
+  if (unitKey === 'handle') return 'anodizedAluminum'
+  // Ring switch unit — anodized aluminum with knurled OD normal map.
+  if (unitKey === 'ring-switch') return 'ringSwitch'
+  // Clutch-static (P000420) — black oxide steel. Fork/cam/pins — clutch steel.
+  if (unitKey === 'clutch-static') return 'blackOxideSteel'
+  if (unitKey === 'clutch-sliding') return 'clutchSteel'
+  // LCD parts fall back to their ROLE_OVERRIDES entries above; these unit
+  // defaults are the safety net when no override matches.
+  if (unitKey === 'lcd-screen') return 'lcdScreen'
+  if (unitKey === 'lcd-buttons') return 'buttonBacklit'
+  if (unitKey === 'lcd-housing') return 'anodizedAluminum'
   if (unitKey.endsWith('-carrier')) return 'cageSteel'
   if (/^-stage\d+-planet/.test(unitKey) || unitKey.includes('-planet-')) return 'planetSteel'
   return 'steelDark'
@@ -101,6 +130,44 @@ export function roleMaterial(role: MaterialRole): Material {
         clearcoat: 0.9,
         clearcoatRoughness: 0.14,
         envMapIntensity: 1.15,
+      })
+      break
+    // High-temp black oxide steel — gearbox intermediate housing (P000420)
+    // and outer shell (P000245). Turned steel with oxide finish: darker, more
+    // specular than anodized aluminum, less clearcoat than the shell role.
+    case 'blackOxideSteel':
+      material = new MeshStandardMaterial({
+        color: '#0d0d0d',
+        roughness: 0.28,
+        metalness: 0.96,
+        envMapIntensity: 1.2,
+      })
+      break
+    // Anodized aluminum — handle assembly and ring switch base finish.
+    // Slightly warmer and more matte than black oxide steel.
+    case 'anodizedAluminum':
+      material = new MeshPhysicalMaterial({
+        color: '#1a1a1e',
+        roughness: 0.48,
+        metalness: 0.82,
+        clearcoat: 0.25,
+        clearcoatRoughness: 0.35,
+        envMapIntensity: 1.0,
+      })
+      break
+    // Ring switch (P003068) — anodized aluminum OD with knurled normal map.
+    // The knurl crosshatch is on the outer diameter only; end faces are smooth
+    // (same anodized finish, no normal bump).
+    case 'ringSwitch':
+      material = new MeshPhysicalMaterial({
+        color: '#1c1c1e',
+        roughness: 0.52,
+        metalness: 0.82,
+        clearcoat: 0.2,
+        clearcoatRoughness: 0.4,
+        envMapIntensity: 1.0,
+        // normalMap is applied at runtime if the texture is loaded;
+        // without it the part still reads as correct aluminum finish.
       })
       break
     // Semi-matte hardened tool steel with faint machining marks — output
@@ -173,6 +240,27 @@ export function roleMaterial(role: MaterialRole): Material {
         metalness: 0.15,
       })
       break
+    // Rear handle digital LCD screen (P002115) — warm white emissive,
+    // casts soft warm fill onto the anodized LCD housing face.
+    case 'lcdScreen':
+      material = new MeshStandardMaterial({
+        color: '#0a0a08',
+        roughness: 0.35,
+        metalness: 0,
+        emissive: '#fffde0',
+        emissiveIntensity: 5,
+      })
+      break
+    // Rear handle buttons (P002123/P002124/P002125) — cool blue backlit.
+    case 'buttonBacklit':
+      material = new MeshStandardMaterial({
+        color: '#080a0c',
+        roughness: 0.4,
+        metalness: 0,
+        emissive: '#c8e6ff',
+        emissiveIntensity: 1.5,
+      })
+      break
     // Emissive display segments — reference calls for intensity 2.5–4.0.
     case 'display':
       material = new MeshStandardMaterial({
@@ -195,6 +283,23 @@ export function roleMaterial(role: MaterialRole): Material {
         color: '#c9cbc6',
         roughness: 0.55,
         metalness: 0,
+      })
+      break
+    // OSHA Blue — lower circumferential groove on P000420 (toward snout).
+    // Flat painted finish, no metallic reflection.
+    case 'grooveBlue':
+      material = new MeshStandardMaterial({
+        color: '#005daa',
+        roughness: 0.85,
+        metalness: 0.0,
+      })
+      break
+    // OSHA Red — upper circumferential groove on P000420 (toward handle).
+    case 'grooveRed':
+      material = new MeshStandardMaterial({
+        color: '#c8102e',
+        roughness: 0.85,
+        metalness: 0.0,
       })
       break
   }

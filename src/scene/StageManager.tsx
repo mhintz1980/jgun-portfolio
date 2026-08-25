@@ -19,6 +19,7 @@ import {
   STAGE_TRANSITIONS,
 } from './stages/stageWindows'
 import { AirflowField } from './stages/AirflowField'
+import { M249Stage } from './stages/M249Stage'
 
 /**
  * Module 5 — multi-chapter stage orchestrator.
@@ -223,18 +224,11 @@ export function StageManager({ children }: { children: ReactNode }) {
         <AirflowField />
       </group>
 
-      {/* STAGE 3 — CH.04: M249/MK46 scan point-cloud placeholder + datum
-          bounding boxes. */}
+      {/* STAGE 3 — CH.04: Real M249/MK46 Draco GLB (CR-6, 2026-08-25).
+          Replaced the rejection-sampled point-cloud placeholder. CadTransition-
+          Shader dissolve is now bound to the model's actual Z bounds. */}
       <group ref={cloudStage} visible={false}>
-        <points geometry={cloudGeometry} material={cloudMaterial} />
-        {cloudEdges.map((edges, index) => (
-          <lineSegments
-            key={index}
-            geometry={edges}
-            material={cloudBoxMaterial}
-            position={CLOUD_REGIONS[index].center}
-          />
-        ))}
+        <M249Stage />
       </group>
     </group>
   )

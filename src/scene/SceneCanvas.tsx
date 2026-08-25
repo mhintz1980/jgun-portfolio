@@ -1,12 +1,13 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
-import { PMREMGenerator } from 'three'
+import { PMREMGenerator, PointLight } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { StageManager } from './StageManager'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
+import { getScrollState } from '../state/scrollStore'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
 const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
@@ -48,6 +49,38 @@ function RoomEnvironmentIbl() {
   }, [gl, scene])
 
   return null
+}
+
+/**
+ * CR-5 — Warm fill light behind the handle LCD face.
+ * Activates during the rear orbit beat (progress 0.35→0.57) to cast soft
+ * warm reflections on the anodized LCD housing (P001924). Intensity is driven
+ * inside useFrame so no React re-renders are triggered.
+ */
+function LcdFillLight() {
+  const lightRef = useRef<PointLight>(null)
+
+  useFrame(() => {
+    if (!lightRef.current) return
+    const { progress } = getScrollState()
+    // Bell-shaped activation: fade in 0.35→0.41, hold, fade out 0.51→0.57
+    const fadeIn  = Math.min(Math.max((progress - 0.35) / 0.06, 0), 1)
+    const fadeOut = Math.min(Math.max((0.57 - progress) / 0.06, 0), 1)
+    const w = Math.min(fadeIn, fadeOut)
+    lightRef.current.intensity = w * 2.8
+  })
+
+  return (
+    <pointLight
+      ref={lightRef}
+      // Positioned behind and slightly above the handle rear face
+      position={[-0.04, 0.06, -0.30]}
+      color="#ffe8c0"
+      intensity={0}
+      distance={0.35}
+      decay={2}
+    />
+  )
 }
 
 /**
@@ -115,6 +148,7 @@ export function SceneCanvas() {
             <StageManager>
               <TorqueWrenchHero />
             </StageManager>
+            <LcdFillLight />
             <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
           </Suspense>
 

@@ -50,8 +50,15 @@ const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 // `occurrence_of_P000247-1` / `P000247-1` / `A000591-1__1_`.
 const HOUSING_PART_RE = /P000245/i
 const OUTPUT_PART_RE = /(P000095|P000207|K000001|K000074)/i
-const CLUTCH_SLIDING_RE = /(P003068|P000724|P000297|P000464)/i
+/** Ring switch extracted from the clutch-sliding train — it travels +Z (away
+ * from the handle) with a 120° cam rotation and is animated independently. */
+const RING_SWITCH_RE = /P003068/i
+const CLUTCH_SLIDING_RE = /(P000724|P000297|P000464)/i
 const CLUTCH_STATIC_RE = /(A000881|P000420|P001835)/i
+/** Rear handle LCD + buttons (CR-5 emissive materials). */
+const LCD_SCREEN_RE = /P002115/i
+const LCD_BUTTONS_RE = /(P002123|P002124|P002125)/i
+const LCD_HOUSING_RE = /P001924/i
 
 interface StageDef {
   /** Cage sub-assembly node — fallback carrier bucket for unlisted hardware. */
@@ -89,8 +96,10 @@ export interface WrenchRig {
   housing: Object3D | null
   /** Output spindle cluster — the only unit that exits the +Z snout. */
   outputShaft: Object3D | null
-  /** Two-speed clutch: static structure vs. the sliding shift train. */
-  clutch: { static: Object3D | null; sliding: Object3D | null }
+  /** Two-speed clutch: static structure vs. the sliding shift train (fork /
+   *  cam / pins). The ring switch (P003068) is split out into its own group
+   *  because it travels +Z with 120° cam rotation while the fork train goes −Z. */
+  clutch: { static: Object3D | null; sliding: Object3D | null; ringSwitch: Object3D | null }
   stages: Record<StageId, StageNodes>
   /** All meshes in the model (post-consolidation). */
   meshes: Mesh[]
@@ -184,12 +193,28 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
         unitOfNode.set(node, 'output')
         return
       }
+      if (RING_SWITCH_RE.test(name)) {
+        unitOfNode.set(node, 'ring-switch')
+        return
+      }
       if (CLUTCH_SLIDING_RE.test(name)) {
         unitOfNode.set(node, 'clutch-sliding')
         return
       }
       if (CLUTCH_STATIC_RE.test(name)) {
         unitOfNode.set(node, 'clutch-static')
+        return
+      }
+      if (LCD_SCREEN_RE.test(name)) {
+        unitOfNode.set(node, 'lcd-screen')
+        return
+      }
+      if (LCD_BUTTONS_RE.test(name)) {
+        unitOfNode.set(node, 'lcd-buttons')
+        return
+      }
+      if (LCD_HOUSING_RE.test(name)) {
+        unitOfNode.set(node, 'lcd-housing')
         return
       }
       for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {
@@ -251,6 +276,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   let outputGroup: Group | null = null
   let clutchStaticGroup: Group | null = null
   let clutchSlidingGroup: Group | null = null
+  let ringSwitchGroup: Group | null = null
 
   if (gearbox) {
     const gearboxInverse = new Matrix4().copy(gearbox.matrixWorld).invert()
@@ -267,6 +293,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     outputGroup = makeUnit('MERGED Output Spindle')
     clutchStaticGroup = makeUnit('MERGED Clutch Static')
     clutchSlidingGroup = makeUnit('MERGED Clutch Sliding')
+    ringSwitchGroup = makeUnit('MERGED Ring Switch (P003068)')
 
     for (const id of STAGE_IDS) {
       const planetNodes = stagePlanets.get(id)!
@@ -302,6 +329,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     groupsByKey.set('output', outputGroup!)
     groupsByKey.set('clutch-static', clutchStaticGroup!)
     groupsByKey.set('clutch-sliding', clutchSlidingGroup!)
+    groupsByKey.set('ring-switch', ringSwitchGroup!)
     for (const id of STAGE_IDS) {
       const key = `${id}-carrier`
       if (stages[id].carrier) groupsByKey.set(key, stages[id].carrier as Group)
@@ -436,6 +464,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   if (outputGroup) basePositions.set(outputGroup, outputGroup.position.clone())
   if (clutchStaticGroup) basePositions.set(clutchStaticGroup, clutchStaticGroup.position.clone())
   if (clutchSlidingGroup) basePositions.set(clutchSlidingGroup, clutchSlidingGroup.position.clone())
+  if (ringSwitchGroup) basePositions.set(ringSwitchGroup, ringSwitchGroup.position.clone())
   for (const id of STAGE_IDS) {
     const carrier = stages[id].carrier
     if (carrier) basePositions.set(carrier, carrier.position.clone())
@@ -446,7 +475,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     gearboxRoot: gearbox,
     housing: housingGroup,
     outputShaft: outputGroup,
-    clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup },
+    clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup, ringSwitch: ringSwitchGroup },
     stages,
     meshes: finalMeshes,
     originalMaterials,

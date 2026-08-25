@@ -10,6 +10,8 @@ import {
   CLUTCH_SHIFT_DISTANCE,
   EXPLODE_OFFSETS,
   GEAR_RATIOS,
+  RING_SWITCH_ROTATION,
+  RING_SWITCH_TRAVEL_Z,
   STAGE_IDS,
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
@@ -128,6 +130,26 @@ export function TorqueWrenchHero() {
     if (base) node.position.z = base.z + offset
   }
 
+  /**
+   * Shift mechanism: the fork train (P000724/P000297/P000464) slides −Z while
+   * the ring switch (P003068) follows the cam groove in P000420 — traveling
+   * +Z (away from handle) and rotating −120° (CW when viewed from rear).
+   * Called every frame from useFrame with the current shift proxy value (0→1).
+   */
+  const applyShift = (shift: number): void => {
+    // Fork train — slides toward handle (same −Z as before)
+    offsetZ(rig.clutch.sliding, shift * CLUTCH_SHIFT_DISTANCE)
+    // Ring switch — travels +Z along cam groove with simultaneous 120° rotation
+    const rs = rig.clutch.ringSwitch
+    if (rs) {
+      const base = rig.basePositions.get(rs)
+      if (base) {
+        rs.position.z = base.z + shift * RING_SWITCH_TRAVEL_Z
+        rs.rotation.z = -shift * RING_SWITCH_ROTATION  // CW from rear = negative in Three.js
+      }
+    }
+  }
+
   /** Rear extraction + snout exit, driven by the explode factor 0..1. */
   const applyExplosion = (explode: number, shift: number): void => {
     offsetZ(rig.outputShaft, EXPLODE_OFFSETS.output * explode)
@@ -135,7 +157,14 @@ export function TorqueWrenchHero() {
       offsetZ(rig.stages[id].carrier, EXPLODE_OFFSETS[id] * explode)
     }
     offsetZ(rig.clutch.static, EXPLODE_OFFSETS.clutch * explode)
+    // Fork train rides the clutch explosion offset plus its own shift travel
     offsetZ(rig.clutch.sliding, EXPLODE_OFFSETS.clutch * explode + shift * CLUTCH_SHIFT_DISTANCE)
+    // Ring switch also rides the clutch explosion, plus its own cam travel
+    const rs = rig.clutch.ringSwitch
+    if (rs) {
+      const base = rig.basePositions.get(rs)
+      if (base) rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_TRAVEL_Z
+    }
     offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
   }
 
@@ -166,6 +195,9 @@ export function TorqueWrenchHero() {
     telemetry.rig.ghostOpacity = ghostOpacity
     telemetry.rig.ghostCount = rig.ghostMaterials.size
     telemetry.rig.explodeFactor = explode
+    // CR-1 ring-switch telemetry: verify +Z travel and rotation
+    telemetry.rig.ringSwitchZ = rig.clutch.ringSwitch?.position.z ?? 0
+    telemetry.rig.ringSwitchRotZ = rig.clutch.ringSwitch?.rotation.z ?? 0
   }
 
   useFrame((state, delta) => {
@@ -216,7 +248,10 @@ export function TorqueWrenchHero() {
     //    static fully-open pose and keeps the train at rest).
     applyGearRotation(anim.gearRotation)
 
-    // 4. Rear extraction (forced fully open in exploded mode).
+    // 4. Clutch shift: ring switch +Z/rotation + fork train −Z.
+    applyShift(anim.shift)
+
+    // 5. Rear extraction (forced fully open in exploded mode).
     const explode = Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
     applyExplosion(explode, anim.shift)
     writeRigTelemetry(explode, ghostOpacity)

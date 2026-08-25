@@ -162,11 +162,24 @@ export const GEAR_RATIOS = {
 } as const
 
 /**
- * Mechanical shift travel (meters) for the two-speed clutch: the ring switch
- * (P003068) / shifter fork (P000724) / shifter cam (P000297) / pins (P000464)
- * slide together along the train axis before the explosion begins.
+ * Mechanical shift travel (meters) for the two-speed clutch fork train:
+ * shifter fork (P000724) / shifter cam (P000297) / pins (P000464).
+ * These slide together −Z (toward the handle) before the explosion begins.
+ * NOTE: The ring switch (P003068) is animated SEPARATELY in TorqueWrenchHero
+ * — it travels +Z with a 120° cam rotation (see RING_SWITCH_TRAVEL_Z below).
  */
 export const CLUTCH_SHIFT_DISTANCE = -0.015
+
+/**
+ * Ring switch (P003068) cam-follower kinematics.
+ * As the clutch shifts, the ring switch follows the helical cam groove on
+ * P000420: it travels +Z (away from handle, toward snout) by 9.525 mm
+ * (0.375 in) and simultaneously rotates 120° around the drivetrain axis
+ * following the groove. Rotation is CW when viewed from the handle (away
+ * from camera in the CH.01 3/4 view).
+ */
+export const RING_SWITCH_TRAVEL_Z = 0.009525  // +9.525 mm (+Z = away from handle)
+export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // 120°, applied as negative (CW from rear)
 
 /**
  * Camera trajectory state machine keyframes — one per scroll chapter.
@@ -184,6 +197,41 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   // smart-tool electronics stack (MSP430/USB/LiPo/LCD live around z ≈ -0.11)
   { position: [0.06, 0.03, -0.46], target: [0, 0, -0.11], fov: 50 },
 ]
+
+/**
+ * Shift sub-sequence camera keyframes — GSAP sub-timeline scrubbed against
+ * the shift proxy (0→1 across timeline 0→0.15). Zooms tight on the P000420
+ * groove area so the OSHA Blue stripe is visible before the ring switch moves,
+ * then holds while the ring switch lifts to reveal the OSHA Red stripe, then
+ * returns to the CH.01 keyframe. Values in meters, hero group space.
+ */
+export const SHIFT_CAMERA_KEYFRAMES = {
+  /** Before shift: CH.01 wide view. */
+  idle:    { position: [0.32, 0.16, 0.42] as [number,number,number], target: [0, 0, 0] as [number,number,number], fov: 42 },
+  /** Shift starts: zoom to P000420 groove area — blue groove visible. */
+  zoomIn:  { position: [0.14, 0.04, 0.19] as [number,number,number], target: [0, 0, 0.06] as [number,number,number], fov: 22 },
+  /** Mid shift: hold tight — ring switch rising, red groove revealed. */
+  hold:    { position: [0.12, 0.03, 0.17] as [number,number,number], target: [0, 0, 0.06] as [number,number,number], fov: 20 },
+  /** Shift complete: pull back to CH.01 framing. */
+  pullBack: { position: [0.32, 0.16, 0.42] as [number,number,number], target: [0, 0, 0] as [number,number,number], fov: 42 },
+} as const
+
+/**
+ * Rear LCD orbit camera keyframes — sub-sequence that runs during global
+ * progress 0.35→0.57 (inside the ghost-fade window). Camera arcs rearward
+ * to reveal the LCD screen (P002115) and buttons (P002123/24/25) on the
+ * handle rear face, dwells with the emissive screen glowing, then returns.
+ */
+export const LCD_ORBIT_KEYFRAMES = {
+  /** Ghost fade start — still at lateral inspection position. */
+  start:  { position: [0.55, 0.04, 0.04] as [number,number,number], target: [0, 0, 0.03] as [number,number,number], fov: 34 },
+  /** Arc rearward — coming around to the handle back face. */
+  arc:    { position: [-0.08, 0.12, -0.38] as [number,number,number], target: [0, 0.02, -0.20] as [number,number,number], fov: 38 },
+  /** Dwell: tight rear view, LCD emissive full blast. */
+  dwell:  { position: [-0.06, 0.08, -0.44] as [number,number,number], target: [0, 0.02, -0.22] as [number,number,number], fov: 32 },
+  /** Return to lateral inspection framing for explosion. */
+  return: { position: [0.55, 0.04, 0.04] as [number,number,number], target: [0, 0, 0.03] as [number,number,number], fov: 34 },
+} as const
 
 /**
  * Hotspots anchored via role-map.json `occurrence` names. All of these are

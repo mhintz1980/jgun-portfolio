@@ -110,6 +110,9 @@ export interface TelemetryRig {
   ghostCount: number
   /** Active explosion factor 0..1 (timeline ⊕ exploded mode). */
   explodeFactor: number
+  /** CR-1 ring-switch cam-follower state: position.z and rotation.z at shift=1. */
+  ringSwitchZ: number
+  ringSwitchRotZ: number
 }
 
 export interface TelemetryScroll {
@@ -150,6 +153,8 @@ export const telemetry: {
     ghostOpacity: 1,
     ghostCount: 0,
     explodeFactor: 0,
+    ringSwitchZ: 0,
+    ringSwitchRotZ: 0,
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
   stage: { active: 0, alpha: [1, 0, 0], y: [0, 0, 0], flow: 0 },
