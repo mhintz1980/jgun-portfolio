@@ -1,7 +1,7 @@
-import { useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { useGLTF } from "@react-three/drei"
-import { Box3, Group, Vector3 } from "three"
+import { Box3, Group, Material, Mesh, Vector3 } from "three"
 import { createCadTransitionMaterial } from "../../shaders/CadTransitionShader"
 import { getScrollState } from "../../state/scrollStore"
 import { getQuality } from "../../state/qualityStore"
@@ -23,6 +23,8 @@ const MODEL_URL = "/models/m249-transformed.glb"
 export function M249Stage() {
   const { scene } = useGLTF(MODEL_URL)
   const groupRef = useRef<Group>(null)
+  const originalMaterials = useRef(new Map<Mesh, Material | Material[]>())
+  const cadBound = useRef(false)
 
   const { sweepMin, sweepMax, center } = useMemo(() => {
     const box = new Box3().setFromObject(scene)
@@ -43,13 +45,44 @@ export function M249Stage() {
     [sweepMin, sweepMax, center],
   )
 
+  const bindCadMaterial = () => {
+    if (cadBound.current) return
+    scene.traverse((node) => {
+      if (!(node instanceof Mesh)) return
+      originalMaterials.current.set(node, node.material)
+      node.material = cadMaterial
+    })
+    cadBound.current = true
+  }
+
+  const restoreOriginalMaterials = () => {
+    if (!cadBound.current) return
+    for (const [mesh, material] of originalMaterials.current) mesh.material = material
+    originalMaterials.current.clear()
+    cadBound.current = false
+  }
+
+  useEffect(() => {
+    return () => {
+      restoreOriginalMaterials()
+      cadMaterial.dispose()
+    }
+  }, [cadMaterial])
+
   useFrame((_, delta) => {
     const { chapter, chapterProgress } = getScrollState()
     const { tier } = getQuality()
+    const wantCad = chapter === 3 && tier === "full"
 
     cadMaterial.uniforms.uTime.value += delta
-    if (chapter === 3 && tier === "full") {
+    if (groupRef.current) {
+      cadMaterial.uniforms.uRootInv.value.copy(groupRef.current.matrixWorld).invert()
+    }
+    if (wantCad) {
+      bindCadMaterial()
       cadMaterial.uniforms.uProgress.value = chapterProgress
+    } else {
+      restoreOriginalMaterials()
     }
   })
 

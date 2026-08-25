@@ -1,4 +1,12 @@
-import { MeshPhysicalMaterial, MeshStandardMaterial, type Material } from 'three'
+import {
+  DataTexture,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial,
+  NoColorSpace,
+  RepeatWrapping,
+  Vector2,
+  type Material,
+} from 'three'
 
 /**
  * Photoreal PBR material system for the D1-AP assembly (Mark review
@@ -80,8 +88,9 @@ const unitDefaultRole = (unitKey: string): MaterialRole => {
   if (unitKey === 'output') return 'toolSteel'
   // Handle assembly — anodized aluminum (matches ring switch finish).
   if (unitKey === 'handle') return 'anodizedAluminum'
-  // Ring switch unit — anodized aluminum with knurled OD normal map.
-  if (unitKey === 'ring-switch') return 'ringSwitch'
+  // The ring-switch unit also contains steel pins and ball plungers. P003068
+  // is routed above; keep the hardware out of the ring body's knurl material.
+  if (unitKey === 'ring-switch') return 'blackOxideSteel'
   // Clutch-static (P000420) — black oxide steel. Fork/cam/pins — clutch steel.
   if (unitKey === 'clutch-static') return 'blackOxideSteel'
   if (unitKey === 'clutch-sliding') return 'clutchSteel'
@@ -104,6 +113,72 @@ export function materialRoleFor(unitKey: string, nodeName: string): MaterialRole
 }
 
 const roleMaterials = new Map<MaterialRole, Material>()
+
+const KNURL_TEXTURE_SIZE = 256
+const KNURL_REPEAT = new Vector2(30, 8)
+
+/**
+ * A seamless tangent-space diamond-knurl normal texture. Its height field is
+ * two narrow, crossed diagonal ridges; central differences encode the result
+ * in normal-map RGB so it works with the standard PBR normal-map path.
+ */
+export function createDiamondKnurlNormalMap(): DataTexture {
+  const data = new Uint8Array(KNURL_TEXTURE_SIZE * KNURL_TEXTURE_SIZE * 4)
+  const delta = 1 / KNURL_TEXTURE_SIZE
+
+  const heightAt = (u: number, v: number) => {
+    const forwardRidge = Math.pow(Math.abs(Math.sin((u + v) * Math.PI * 8)), 16)
+    const reverseRidge = Math.pow(Math.abs(Math.sin((u - v) * Math.PI * 8)), 16)
+    return Math.max(forwardRidge, reverseRidge)
+  }
+
+  for (let y = 0; y < KNURL_TEXTURE_SIZE; y += 1) {
+    for (let x = 0; x < KNURL_TEXTURE_SIZE; x += 1) {
+      const u = x / KNURL_TEXTURE_SIZE
+      const v = y / KNURL_TEXTURE_SIZE
+      const dU = (heightAt(u + delta, v) - heightAt(u - delta, v)) / (2 * delta)
+      const dV = (heightAt(u, v + delta) - heightAt(u, v - delta)) / (2 * delta)
+      const normal = new Vector2(-dU * 0.06, -dV * 0.06)
+      const z = Math.sqrt(Math.max(0, 1 - normal.lengthSq()))
+      const offset = (y * KNURL_TEXTURE_SIZE + x) * 4
+
+      data[offset] = Math.round((normal.x * 0.5 + 0.5) * 255)
+      data[offset + 1] = Math.round((normal.y * 0.5 + 0.5) * 255)
+      data[offset + 2] = Math.round((z * 0.5 + 0.5) * 255)
+      data[offset + 3] = 255
+    }
+  }
+
+  const texture = new DataTexture(data, KNURL_TEXTURE_SIZE, KNURL_TEXTURE_SIZE)
+  texture.colorSpace = NoColorSpace
+  texture.wrapS = RepeatWrapping
+  texture.wrapT = RepeatWrapping
+  texture.repeat.copy(KNURL_REPEAT)
+  texture.needsUpdate = true
+  return texture
+}
+
+const ringSwitchKnurlNormalMap = createDiamondKnurlNormalMap()
+
+/**
+ * The GLB packs P003068's cylindrical OD and planar end faces into one mesh.
+ * Gate tangent-space XY perturbation by the mesh-local Z normal so the knurl
+ * lives on the radial OD while axial end faces retain smooth anodized metal.
+ */
+function applyRingSwitchOdKnurlMask(material: MeshPhysicalMaterial): void {
+  material.onBeforeCompile = (shader) => {
+    shader.vertexShader = `varying vec3 vRingSwitchObjectNormal;\n${shader.vertexShader}`.replace(
+      '#include <beginnormal_vertex>',
+      '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);',
+    )
+    shader.fragmentShader = `varying vec3 vRingSwitchObjectNormal;\n${shader.fragmentShader}`.replace(
+      'mapN.xy *= normalScale;',
+      `float ringSwitchOdMask = 1.0 - smoothstep(0.20, 0.55, abs(normalize(vRingSwitchObjectNormal).z));
+\tmapN.xy *= normalScale * ringSwitchOdMask;`,
+    )
+  }
+  material.customProgramCacheKey = () => 'ring-switch-od-knurl-v1'
+}
 
 /** Shared PBR material instance per role (ghost buckets clone it). */
 export function roleMaterial(role: MaterialRole): Material {
@@ -160,18 +235,21 @@ export function roleMaterial(role: MaterialRole): Material {
     // Ring switch (P003068) — anodized aluminum OD with knurled normal map.
     // The knurl crosshatch is on the outer diameter only; end faces are smooth
     // (same anodized finish, no normal bump).
-    case 'ringSwitch':
-      material = new MeshPhysicalMaterial({
+    case 'ringSwitch': {
+      const ringSwitchMaterial = new MeshPhysicalMaterial({
         color: '#1c1c1e',
         roughness: 0.52,
         metalness: 0.82,
         clearcoat: 0.2,
         clearcoatRoughness: 0.4,
         envMapIntensity: 1.0,
-        // normalMap is applied at runtime if the texture is loaded;
-        // without it the part still reads as correct aluminum finish.
+        normalMap: ringSwitchKnurlNormalMap,
+        normalScale: new Vector2(0.7, 0.7),
       })
+      applyRingSwitchOdKnurlMask(ringSwitchMaterial)
+      material = ringSwitchMaterial
       break
+    }
     // Semi-matte hardened tool steel with faint machining marks — output
     // anvil, spline collar, bushings (reference: #4A4D50 / 0.45 / 0.95).
     case 'toolSteel':
