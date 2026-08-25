@@ -141,8 +141,9 @@ its *nearest tagged ancestor's* unit:
 | clutch sliding | P000724 shifter fork, P000297 shifter cam |
 | ring switch assembly | P003068 ring switch, 3× P000464 pins, 3× K000156 ball-nose plungers |
 | output spindle | P000095 shaft, P000207 / K000001 bushings, K000074 retaining ring |
+| bearing ring | K000004 — thrust support directly behind the A000606 cage (⌀58 × 7 mm, rest z ≈ [−0.058, −0.051]); own extraction unit since pass 3 |
 | housing | P000245 outer shell — static, never explodes |
-| untagged | static remainder (K-hardware etc.) |
+| untagged | static remainder — empty since pass 3 (K000004 was the gearbox's last untagged part; the bucket stays as a defensive fallback) |
 
 ~13k raw meshes are merged per (unit × PBR role × ghost-status); rig
 detection runs on the original tree before merging. Each animation unit owns
@@ -164,6 +165,14 @@ Current verified count: **3 ghost materials** (23 before the 2026-08-24 PBR
 rework — role-based bucketing merged the housing's per-CAD-material ghost
 clones into one per (unit × role); all still fade together). Ghost is
 suppressed in blueprint mode (everything is already wireframe).
+**⚠️ Regression (measured 2026-08-25, pre-dates pass 3 Track B):**
+`ghostCount` reads **0** at repo head — `housingMeshSet` ends up empty, so
+the CH.02 fade loop no-ops and the housing stays solid (the commanded
+`ghostOpacity` still reaches 0.15). Reproduced with the Track B changes
+stashed; introduced by a pass-4 commit. P000245 carries no housing-named
+ancestor, so ghosting hinges entirely on the largest-gearbox-child bbox
+heuristic (§5.1) — suspects: bbox-volume competition or matrixWorld
+staleness at build time. OPEN — route to the pass-4 owner.
 
 ### 5.3 Explosion offsets (`EXPLODE_OFFSETS`, meters — rear extraction)
 
@@ -177,8 +186,9 @@ through the snout; the housing stays put.
 **Exploded line order is the driveline order, not the stage numbering**
 (Mark review 2026-08-24): the A000606 cage (P001849) is the THIRD cage of
 five — behind the housing rear face the line reads P003047 (stage 4, first
-out) → P003045 (stage 3) → P001849 (A000606) → P001837 (stage 2) → P001836
-(stage 1, furthest back). Keyed by part numbers, never stage names.
+out) → P003045 (stage 3) → P001849 (A000606) → K000004 (bearing ring) →
+P001837 (stage 2) → P001836 (stage 1, furthest back). Keyed by part
+numbers, never stage names.
 
 Magnitudes are a clearance-derived ladder measured from JSON-chunk rest
 spans (`.scratch/measure-spans.mjs`, validated against the 08-24 handoff
@@ -187,20 +197,29 @@ adjacent exploded units keep ≥15 mm gaps, and the handle backs off with
 25 mm of air behind the clutch (widened from 14.5 mm in the same review so
 the extraction reads with generous spacing).
 
+**Pass 3 (2026-08-25) — K000004 insertion:** the bearing ring (measured
+rest span z [−0.0580, −0.0510] from role-map.json: center −0.0545, ⌀0.058 ×
+7 mm) parks directly behind A000606 at a 15 mm gap; honoring the ≥15 mm gap
+on its rear side too (15 + 7 + 15 mm where only 16 mm existed) shifts
+stage 2, stage 1, clutch, and handle ~22 mm further back. Units ahead of
+the bearing are untouched.
+
 | Unit | Offset | Exploded span (m, model frame) |
 |---|---|---|
 | output spindle | +0.050 | ≈ [+0.043, +0.102] (through snout) |
 | gearbox Stage 4 | −0.099 | ≈ [−0.127, −0.088] (first out; 14 mm air) |
 | gearbox Stage 3 | −0.142 | ≈ [−0.184, −0.143] |
 | gearbox Stage 5 (A000606) | −0.177 | ≈ [−0.233, −0.200] (third in line) |
-| gearbox Stage 2 | −0.208 | ≈ [−0.275, −0.249] |
-| gearbox Stage 1 | −0.233 | ≈ [−0.312, −0.291] |
-| clutch (static + sliding) | −0.269 | ≈ [−0.410, −0.327] (sliding −0.015 further at shift 1) |
-| handle assembly | −0.331 | ≈ [−0.564, −0.434] (25 mm air behind clutch) |
+| bearing ring (K000004) | −0.197 | ≈ [−0.255, −0.248] (15 mm behind A000606) |
+| gearbox Stage 2 | −0.230 | ≈ [−0.297, −0.271] |
+| gearbox Stage 1 | −0.255 | ≈ [−0.334, −0.313] |
+| clutch (static + sliding) | −0.291 | ≈ [−0.432, −0.349] (sliding −0.015 further at shift 1) |
+| handle assembly | −0.354 | ≈ [−0.587, −0.457] (25 mm air behind clutch) |
 
-Exploded stack span ≈ 0.67 m (output front +0.102 to handle rear −0.564) —
+Exploded stack span ≈ 0.69 m (output front +0.102 to handle rear −0.587) —
 the handle's tail can kiss the frame edge at full explode under the CH.02
-lateral camera; widening that camera remains an open tuning decision.
+lateral camera (22 mm deeper than the pre-pass-3 −0.564 tail); widening
+that camera remains an open tuning decision.
 
 Applied as `basePositions` + offset each frame, so it composes with (and
 fully opens in) exploded mode: `explode = max(anim.explode, mode ===
@@ -210,10 +229,16 @@ fully opens in) exploded mode: `explode = max(anim.explode, mode ===
 
 The proxy's `gearRotation` channel (0 → 8π across CH.02 timeline — spin-up
 AND spin-through-extraction) drives kinematically-staged rotation via
-`GEAR_RATIOS` (`caseStudies.ts`): carrier `rotation.z = gearRotation · ratio[stage]`
-with cumulative ratios 1.0 / 0.28 / 0.08 / 0.022 / 0.006 (stage 5 = final output),
-and each planet `rotation.z = −gearRotation · ratio[stage] · 3.5` (counter-rotation
-on its pin; planet groups are carrier children, so they also revolve with it).
+`ROTATION_TURNS` (`caseStudies.ts`, pass 3): the sweep is normalized 0..1
+and each carrier completes its display turns — `carrier rotation.z =
+(gearRotation / 8π) · ROTATION_TURNS[stage] · 2π` with turns
+8 / 2.24 / 1.5 / 1 / 0.5. Stages 1/2 are exactly 2× their kinematic turns;
+the slow tail (0.32 / 0.088 / 0.024 turns at the cumulative `GEAR_RATIOS`
+1.0 / 0.28 / 0.08 / 0.022 / 0.006) is boosted so the reduction stages still
+read as motion during scroll scrub instead of appearing frozen.
+`GEAR_RATIOS` remains the kinematic reference; each planet
+`rotation.z = −carrier display angle · 3.5` (counter-rotation on its pin;
+planet groups are carrier children, so they also revolve with it).
 
 **Clutch Shift & Speed Indicator Grooves (CH.01 5%→17% scroll):**
 - **Ring Switch (P003068)**: Keyed to CH.01 scroll progress $0.05 \to 0.17$.
@@ -336,7 +361,17 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
   ladder + PBR rework): `stageZ [-0.233, -0.208, -0.177, -0.142, -0.099]`
   (s1..s5 — exploded line order s4→s3→s5→s2→s1), `outputZ +0.05`, `handleZ
   -0.331`, `clutchZ -0.269`, `ghostCount 3`; explosion completes at global
-  progress ≈0.518 with `gearRotation` 25.13 = 8π. Headless caveat: the playwright browser's
+  progress ≈0.518 with `gearRotation` 25.13 = 8π. Pass-3 Track B fix values
+  (2026-08-25, K000004 + display turns): `stageZ
+  [-0.255, -0.230, -0.177, -0.142, -0.099]`, `window.__rig.bearing.position.z
+  -0.197` (merged bbox 0.058 × 0.058 × 0.007 at z[−0.058, −0.051] — K000004
+  geometry confirmed in the unit), `handleZ -0.354`, `clutchZ -0.291`,
+  `stageRot [50.265, 14.074, 9.425, 6.283, 3.142]` = display turns {8,
+  2.24, 1.5, 1, 0.5} × 2π (the stageRot-to-sweep ratio holds at every
+  probed scroll point, not just the endpoint), `planetRot -175.929` = −3.5 ×
+  stage 1 display angle; `gearRotation` still 8π exactly at `explodeFactor`
+  1, progress ≈0.52. `ghostCount 0` at all probes — pre-existing pass-4
+  regression (§5.2), not introduced by this pass. Headless caveat: the playwright browser's
   software-GL process can wedge or the quality ladder can degrade to poster
   mid-probe (canvas unmounts, telemetry freezes) — capture early, and
   restart the preview server after every rebuild before probing.
@@ -368,10 +403,15 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
    `docs/jgun-handle-gearbox-description.md`).
 5. **Scroll pacing ×2** — **IMPLEMENTED 2026-08-24** (see §14): chapter
    sections 220vh → 440vh, stage windows remeasured (oryzo.ai reference).
-6. **K000004 bearing extraction + display rotation turns** — **QUEUED** at
-   repo TODO.md. NOTE: the queued K000004 slot math (offset −0.071 behind
-   A000606) predates the ladder reorder and MUST be re-derived against the
-   new §5.3 table before implementation.
+6. **K000004 bearing extraction + display rotation turns** —
+   **IMPLEMENTED 2026-08-25** (see §5.1/§5.3/§5.4): the queued slot math
+   (offset −0.071 behind A000606) was stale — it predates the ladder
+   reorder and would have parked the ring inside stage 1's exploded span.
+   Re-derived against the measured ladder: K000004 = −0.197 (15 mm behind
+   A000606), with stage 2 / stage 1 / clutch / handle shifted to
+   −0.230 / −0.255 / −0.291 / −0.354 to keep the ≥15 mm gap rule.
+   `ROTATION_TURNS` = { 8, 2.24, 1.5, 1, 0.5 } now scales the scroll
+   scrub's carrier display angles (planets still counter-rotate ×3.5).
 
 Verification of both: `window.__telemetry` probes on vite preview (§11),
 2026-08-23 — static exploded mode, mid-scrub, and full-scroll states all

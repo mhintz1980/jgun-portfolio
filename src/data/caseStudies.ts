@@ -126,21 +126,30 @@ export const MATERIAL_MODE_LABELS: Record<MaterialMode, string> = {
  * names — Mark has called A000606 both "stage 5" and "the 3rd stage cage".
  *
  * Magnitudes are a clearance-derived ladder measured from the JSON-chunk
- * rest spans (.scratch/measure-spans.mjs, validated against the 08-24
- * handoff anchors): the first cage clears the housing rear face by ≥14 mm,
+ * rest spans (.scratch/measure-spans.mjs, validated against the 08-24 handoff
+ * anchors): the first cage clears the housing rear face by ≥14 mm,
  * adjacent exploded units keep ≥15 mm gaps, and the handle backs off with
  * 25 mm of air behind the clutch (widened from 14.5 mm per the same review
  * so the extraction reads with generous spacing).
+ *
+ * Pass 3 (2026-08-25): the K000004 thrust bearing ring — previously the
+ * gearbox's ONLY untagged part (rest span z [−0.058, −0.051], ⌀0.058 × 7 mm,
+ * role-map center z −0.0545) — extracts as its own unit directly behind
+ * A000606. Honoring the ≥15 mm adjacent-gap rule on both of its sides costs
+ * 15 + 7 + 15 mm where only 16 mm existed, so every unit behind it (stage 2,
+ * stage 1, clutch, handle) shifts ~22 mm further back; units ahead of the
+ * bearing are untouched.
  */
 export const EXPLODE_OFFSETS = {
   output: 0.05,
   stage4: -0.099,
   stage3: -0.142,
   stage5: -0.177,
-  stage2: -0.208,
-  stage1: -0.233,
-  clutch: -0.269,
-  handle: -0.331,
+  bearing: -0.197,
+  stage2: -0.23,
+  stage1: -0.255,
+  clutch: -0.291,
+  handle: -0.354,
 } as const
 
 export type StageId = 'stage1' | 'stage2' | 'stage3' | 'stage4' | 'stage5'
@@ -159,6 +168,25 @@ export const GEAR_RATIOS = {
   stage4: 0.022,
   stage5: 0.006,
   planetMultiplier: 3.5,
+} as const
+
+/**
+ * Display rotation turns (pass 3, 2026-08-25) — visual multiplier for the
+ * scroll-scrub gear sweep: across the full gearRotation proxy sweep each
+ * carrier completes ROTATION_TURNS[stage] revolutions instead of its raw
+ * ratio fraction. Stage 1/2 are exactly 2× their kinematic turns (4 → 8,
+ * 1.12 → 2.24); the slow tail (0.32 / 0.088 / 0.024 turns at the true
+ * ratios) is boosted to 1.5 / 1 / 0.5 so the reduction stages still read as
+ * motion instead of appearing frozen. GEAR_RATIOS remains the kinematic
+ * reference; planet counter-rotation stays pegged to the carrier's display
+ * angle (see applyGearRotation).
+ */
+export const ROTATION_TURNS = {
+  stage1: 8,
+  stage2: 2.24,
+  stage3: 1.5,
+  stage4: 1,
+  stage5: 0.5,
 } as const
 
 /**

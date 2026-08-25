@@ -12,6 +12,7 @@ import {
   GEAR_RATIOS,
   RING_SWITCH_ROTATION,
   RING_SWITCH_TRAVEL_Z,
+  ROTATION_TURNS,
   STAGE_IDS,
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
@@ -23,7 +24,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 const MODEL_URL = '/models/Default.glb'
 const GHOST_OPACITY = 0.15
-/** Total carrier sweep across the gear-rotation window (≈4 turns of stage 1). */
+/** Total gearRotation proxy sweep across the gear-rotation window. The
+ * per-carrier DISPLAY angles come from ROTATION_TURNS (pass 3): the sweep's
+ * scroll-driven shape is kept, but each carrier completes its display turns
+ * instead of its raw ratio fraction (0.32/0.088/0.024-turn tails would read
+ * as frozen). */
 const GEAR_ROTATION_SWEEP = Math.PI * 8
 
 // Draco decoders are vendored with the site (public/draco, copied from
@@ -159,6 +164,8 @@ export function TorqueWrenchHero() {
     for (const id of STAGE_IDS) {
       offsetZ(rig.stages[id].carrier, EXPLODE_OFFSETS[id] * explode)
     }
+    // K000004 bearing ring parks between A000606 (stage 5) and stage 2.
+    offsetZ(rig.bearing, EXPLODE_OFFSETS.bearing * explode)
     offsetZ(rig.clutch.static, EXPLODE_OFFSETS.clutch * explode)
     // Fork train rides the clutch explosion offset plus its own shift travel
     offsetZ(rig.clutch.sliding, EXPLODE_OFFSETS.clutch * explode + shift * CLUTCH_SHIFT_DISTANCE)
@@ -175,15 +182,22 @@ export function TorqueWrenchHero() {
   }
 
   /**
-   * Epicyclic rotation: each carrier turns about the gear-train axis at its
-   * stage ratio (planet groups are children of their carrier, so they revolve
-   * with it) while each planet counter-rotates on its own pin.
+   * Epicyclic rotation: each carrier turns about the gear-train axis while
+   * each planet counter-rotates on its own pin (planet groups are carrier
+   * children, so they also revolve with it). Pass-3 display turns: the proxy
+   * sweep is normalized 0..1 and remapped through ROTATION_TURNS so stage 1/2
+   * spin exactly 2× their kinematic turns and the slow tail (0.32/0.088/0.024
+   * turns at the true ratios) still reads as motion; GEAR_RATIOS keeps the
+   * kinematic reference, and planets stay pegged to their carrier's display
+   * angle via the multiplier.
    */
   const applyGearRotation = (angle: number): void => {
+    const sweep = angle / GEAR_ROTATION_SWEEP
     for (const id of STAGE_IDS) {
       const stage = rig.stages[id]
-      if (stage.carrier) stage.carrier.rotation.z = angle * GEAR_RATIOS[id]
-      const planetAngle = -angle * GEAR_RATIOS[id] * GEAR_RATIOS.planetMultiplier
+      const carrierAngle = sweep * ROTATION_TURNS[id] * Math.PI * 2
+      if (stage.carrier) stage.carrier.rotation.z = carrierAngle
+      const planetAngle = -carrierAngle * GEAR_RATIOS.planetMultiplier
       for (const planet of stage.planets) planet.rotation.z = planetAngle
     }
   }

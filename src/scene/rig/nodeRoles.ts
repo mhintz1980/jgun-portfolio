@@ -26,7 +26,10 @@ import { materialRoleFor, roleMaterial } from './materials'
  * stage, five in stage 4). A000881 is the two-speed clutch: static structure
  * (intermediate housing P000420, input shaft P001835), the sliding fork train
  * (shifter fork P000724, shifter cam P000297), and the ring switch assembly
- * (ring switch P003068, 3× pins P000464, 3× ball plungers K000156). The output
+ * (ring switch P003068, 3× pins P000464, 3× ball plungers K000156). The
+ * K000004 thrust bearing ring directly behind the A000606 cage is its own
+ * unit too (pass 3, 2026-08-25 — it was the gearbox's last untagged part)
+ * and extracts between A000606 and stage 2. The output
  * spindle cluster (P000095 shaft, P000207/K000001 bushings, K000074 retaining
  * ring) is the only group that exits the +Z snout; everything else extracts
  * rearward (see EXPLODE_OFFSETS in caseStudies.ts for the measured rationale).
@@ -50,6 +53,10 @@ const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 // `occurrence_of_P000247-1` / `P000247-1` / `A000591-1__1_`.
 const HOUSING_PART_RE = /P000245/i
 const OUTPUT_PART_RE = /(P000095|P000207|K000001|K000074)/i
+/** Rear bearing ring (K000004) — thrust support directly behind the A000606
+ * cage (rest z ≈ [−0.058, −0.051], ⌀0.058 × 7 mm). Extracts as its own unit
+ * between A000606 and stage 2 in the rear ladder. */
+const BEARING_RE = /K000004/i
 /** Ring switch assembly (P003068 knurled ring, 3× P000464 pins, 3× K000156
  * ball-nose plungers) — travels +Z (away from handle) with a 120° cam rotation. */
 const RING_SWITCH_RE = /(P003068|P000464|K000156)/i
@@ -97,6 +104,9 @@ export interface WrenchRig {
   housing: Object3D | null
   /** Output spindle cluster — the only unit that exits the +Z snout. */
   outputShaft: Object3D | null
+  /** K000004 thrust bearing ring behind the A000606 cage — extracts between
+   *  A000606 (stage 5) and stage 2 in the rear ladder (pass 3). */
+  bearing: Object3D | null
   /** Two-speed clutch: static structure vs. sliding shift train (fork /
    *  cam). The ring switch assembly (P003068 + 3× P000464 pins + 3× K000156
    *  ball plungers) is split out into its own group because it travels +Z with
@@ -193,6 +203,10 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       }
       if (OUTPUT_PART_RE.test(name)) {
         unitOfNode.set(node, 'output')
+        return
+      }
+      if (BEARING_RE.test(name)) {
+        unitOfNode.set(node, 'bearing')
         return
       }
       if (RING_SWITCH_RE.test(name)) {
@@ -301,6 +315,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   }
   let housingGroup: Group | null = null
   let outputGroup: Group | null = null
+  let bearingGroup: Group | null = null
   let clutchStaticGroup: Group | null = null
   let clutchSlidingGroup: Group | null = null
   let ringSwitchGroup: Group | null = null
@@ -318,6 +333,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
 
     housingGroup = makeUnit('MERGED Housing (P000245)')
     outputGroup = makeUnit('MERGED Output Spindle')
+    bearingGroup = makeUnit('MERGED Bearing Ring (K000004)')
     clutchStaticGroup = makeUnit('MERGED Clutch Static')
     clutchSlidingGroup = makeUnit('MERGED Clutch Sliding')
     ringSwitchGroup = makeUnit('MERGED Ring Switch (P003068)')
@@ -354,6 +370,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   if (gearbox) {
     groupsByKey.set('housing', housingGroup!)
     groupsByKey.set('output', outputGroup!)
+    groupsByKey.set('bearing', bearingGroup!)
     groupsByKey.set('clutch-static', clutchStaticGroup!)
     groupsByKey.set('clutch-sliding', clutchSlidingGroup!)
     groupsByKey.set('ring-switch', ringSwitchGroup!)
@@ -511,6 +528,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const basePositions = new Map<Object3D, Vector3>()
   if (handle) basePositions.set(handle, handle.position.clone())
   if (outputGroup) basePositions.set(outputGroup, outputGroup.position.clone())
+  if (bearingGroup) basePositions.set(bearingGroup, bearingGroup.position.clone())
   if (clutchStaticGroup) basePositions.set(clutchStaticGroup, clutchStaticGroup.position.clone())
   if (clutchSlidingGroup) basePositions.set(clutchSlidingGroup, clutchSlidingGroup.position.clone())
   if (ringSwitchGroup) basePositions.set(ringSwitchGroup, ringSwitchGroup.position.clone())
@@ -524,6 +542,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     gearboxRoot: gearbox,
     housing: housingGroup,
     outputShaft: outputGroup,
+    bearing: bearingGroup,
     clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup, ringSwitch: ringSwitchGroup },
     stages,
     meshes: finalMeshes,
