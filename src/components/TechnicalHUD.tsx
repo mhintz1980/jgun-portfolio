@@ -7,12 +7,18 @@ import type { MaterialMode } from '../types/portfolio'
 const MODES: MaterialMode[] = ['solid', 'blueprint', 'exploded']
 
 /**
- * Module 4 — floating telemetry HUD.
+ * Module 4 — floating telemetry HUD & Continuous Scroll-to-Release UX.
  *
  * Chapter label, material-mode switcher and hotspot panel are React-driven
  * (they change rarely). The 60 fps readouts — scroll %, camera datum
  * coordinates — are written straight into the DOM from a rAF loop so the HUD
  * never re-renders per frame.
+ *
+ * Continuous Scroll UX:
+ * When a visitor inspects a subassembly, any mouse wheel movement, touch drag,
+ * or scroll navigation automatically and seamlessly releases inspect focus,
+ * smoothly returning the visitor to the scrollytelling path without trapping
+ * them behind a modal or mandatory close button.
  */
 export function TechnicalHUD() {
   const chapter = useScrollValue('chapter')
@@ -20,14 +26,62 @@ export function TechnicalHUD() {
   const hotspotId = useScrollValue('hotspotId')
   const { reducedMotion } = useQuality()
 
-  // Escape closes an open hotspot detail panel (keyboard parity with [ X ]).
+  // Continuous Scroll Release: wheel, touch drag, and keyboard navigation seamlessly
+  // release inspect mode so the user is never trapped behind an inspect overlay.
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape') setScrollState({ hotspotId: null })
+    if (!hotspotId) return
+
+    // 1. Wheel scroll release (small threshold prevents jitter)
+    const onWheel = (e: WheelEvent): void => {
+      if (Math.abs(e.deltaY) > 2 || Math.abs(e.deltaX) > 2) {
+        setScrollState({ hotspotId: null })
+      }
     }
+
+    // 2. Touch swipe release
+    let touchStartY = 0
+    let touchStartX = 0
+    const onTouchStart = (e: TouchEvent): void => {
+      if (e.touches[0]) {
+        touchStartY = e.touches[0].clientY
+        touchStartX = e.touches[0].clientX
+      }
+    }
+    const onTouchMove = (e: TouchEvent): void => {
+      if (e.touches[0]) {
+        const dy = Math.abs(e.touches[0].clientY - touchStartY)
+        const dx = Math.abs(e.touches[0].clientX - touchStartX)
+        if (dy > 6 || dx > 6) {
+          setScrollState({ hotspotId: null })
+        }
+      }
+    }
+
+    // 3. Keyboard navigation & Escape release
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (
+        event.key === 'Escape' ||
+        event.key === 'ArrowDown' ||
+        event.key === 'ArrowUp' ||
+        event.key === 'PageDown' ||
+        event.key === 'PageUp'
+      ) {
+        setScrollState({ hotspotId: null })
+      }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [hotspotId])
 
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
@@ -98,7 +152,7 @@ export function TechnicalHUD() {
             onClick={() => setScrollState({ materialMode: mode })}
             className={`cursor-pointer px-2 py-1 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
               materialMode === mode
-                ? 'bg-cyan-300/20 text-cyan-100'
+                ? 'bg-cyan-300/20 text-cyan-100 ring-1 ring-cyan-400/40'
                 : 'text-cyan-400/70 hover:text-cyan-200'
             }`}
           >
@@ -107,25 +161,37 @@ export function TechnicalHUD() {
         ))}
       </div>
 
-      {/* Bottom-center: selected hotspot detail */}
+      {/* Bottom-center: selected hotspot detail card with continuous scroll hint */}
       {hotspot && (
-        <div className="pointer-events-auto absolute bottom-6 left-1/2 w-[min(28rem,80vw)] -translate-x-1/2 border border-cyan-400/40 bg-black/70 p-4 backdrop-blur">
-          <div className="flex items-start justify-between gap-4">
-            <p className="text-cyan-100">
-              {hotspot.kind === 'inspect' ? '◉ INSPECT' : '◎ DATUM POINT'} · {hotspot.label}
-            </p>
+        <div className="pointer-events-auto absolute bottom-6 left-1/2 w-[min(30rem,88vw)] -translate-x-1/2 border border-cyan-400/50 bg-black/85 p-4 shadow-[0_0_25px_rgba(0,229,255,0.25)] backdrop-blur-md">
+          <div className="flex items-start justify-between gap-4 border-b border-cyan-400/30 pb-2.5">
+            <div className="flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00e5ff] animate-pulse" />
+              <p className="font-semibold text-cyan-100">
+                {hotspot.kind === 'inspect' ? '◉ SUBASSEMBLY INSPECTION' : '◎ GD&T DATUM REFERENCE'}
+              </p>
+            </div>
             <button
               type="button"
               aria-label="Close hotspot detail"
               onClick={() => setScrollState({ hotspotId: null })}
-              className="cursor-pointer text-cyan-400/70 outline-none hover:text-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="cursor-pointer font-mono text-cyan-400/70 outline-none transition-colors hover:text-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              [ X ]
+              [ ESC · X ]
             </button>
           </div>
-          <p className="mt-2 font-sans text-xs normal-case tracking-normal text-zinc-300">
-            {hotspot.detail}
-          </p>
+
+          <div className="mt-2.5">
+            <p className="font-mono text-xs tracking-wider text-cyan-200">{hotspot.label}</p>
+            <p className="mt-1.5 font-sans text-xs normal-case tracking-normal leading-relaxed text-zinc-300">
+              {hotspot.detail}
+            </p>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between border-t border-cyan-400/20 pt-2 font-mono text-[9px] text-cyan-400/60">
+            <span>OCCURRENCE: {hotspot.occurrence}</span>
+            <span className="text-cyan-300/80">SCROLL TO RESUME FLIGHT ▸</span>
+          </div>
         </div>
       )}
     </div>

@@ -29,3 +29,18 @@ html.lenis body {
 ::selection {
   background: rgba(56, 232, 255, 0.25);
 }
+
+/* Spatial leader line laser flow animation */
+@keyframes leaderPulse {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.leader-line-flow {
+  stroke-dasharray: 6 3;
+  animation: leaderPulse 0.9s linear infinite;
+}

@@ -17,6 +17,61 @@ const writeScrollTelemetry = (): void => {
 }
 
 /**
+ * Subassembly inspect camera framing keyframes (position, target, FOV).
+ * Used when a visitor clicks a spatial hotspot to inspect that specific part.
+ */
+interface InspectFraming {
+  position: [number, number, number]
+  target: [number, number, number]
+  fov: number
+}
+
+const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
+  // Air motor rotor — tight 3/4 view focusing on rotor vanes & input drive
+  rotor: {
+    position: [0.18, 0.08, 0.12],
+    target: [0, 0, -0.06],
+    fov: 24,
+  },
+  // Datum A motor housing bore — angled view into machined bore & datum surface
+  'motor-housing': {
+    position: [0.2, 0.09, 0.04],
+    target: [0, 0, -0.12],
+    fov: 24,
+  },
+  // Datum B interface flange — side angle focusing on motor-to-gearbox joint
+  flange: {
+    position: [0.18, 0.07, 0.08],
+    target: [0, 0, -0.03],
+    fov: 22,
+  },
+  // Gearbox outer housing P000245 — side inspection framing of ring gears & shell
+  'gearbox-housing': {
+    position: [0.24, 0.09, 0.14],
+    target: [0, 0, 0.01],
+    fov: 25,
+  },
+  // MSP430 MCU — tight top-rear view on handle smart-tool electronics
+  mcu: {
+    position: [-0.07, 0.1, -0.36],
+    target: [0, 0.02, -0.22],
+    fov: 25,
+  },
+  // LCD manometer screen & backlit buttons
+  lcd: {
+    position: [-0.05, 0.08, -0.42],
+    target: [0, 0.02, -0.24],
+    fov: 28,
+  },
+  // LiPo battery cell
+  lipo: {
+    position: [-0.09, -0.02, -0.34],
+    target: [0, -0.01, -0.2],
+    fov: 25,
+  },
+}
+
+/**
  * Module 1 — camera trajectory state machine.
  *
  * Global scroll progress selects a segment between two chapter keyframes;
@@ -31,14 +86,13 @@ const writeScrollTelemetry = (): void => {
  *  - LCD orbit (progress 0.35 → 0.57): camera arcs rearward around the handle
  *    to reveal the emissive LCD screen and buttons, then returns to the
  *    lateral inspection position before the explosion begins.
- *
- * Both sub-sequences blend against the CAMERA_PATH goal using a weight that
- * fades in/out over 0.03 of scroll so there is never a hard snap.
+ *  - Click-to-inspect subassembly focus (hotspotId active): dollies tight
+ *    into the selected part coordinates; scrolling seamlessly releases.
  */
 
 /** Smoothly ramp 0→1 over [lo, hi] and 1→0 over [lo2, hi2]. */
 function bellWeight(p: number, lo: number, hi: number, lo2: number, hi2: number): number {
-  const fadeIn  = Math.min(Math.max((p - lo) / (hi - lo), 0), 1)
+  const fadeIn = Math.min(Math.max((p - lo) / (hi - lo), 0), 1)
   const fadeOut = Math.min(Math.max((hi2 - p) / (hi2 - lo2), 0), 1)
   return smoothstep(Math.min(fadeIn, fadeOut))
 }
@@ -75,7 +129,7 @@ export function CameraRig() {
       return
     }
 
-    const { progress } = getScrollState()
+    const { progress, hotspotId } = getScrollState()
 
     // ---- Base CAMERA_PATH keyframe interpolation ----
     const segments = CAMERA_PATH.length - 1
@@ -94,21 +148,14 @@ export function CameraRig() {
     let goalFov = from.fov + (to.fov - from.fov) * t
 
     // ---- CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
-    // 0.035 → 0.055: Camera dollies tight on the ring switch / P000420 groove (FOV 42 → 22)
-    // 0.050 → 0.100: Ring switch slides +Z away from handle; camera orbits toward
-    //                the handle (-Z) while keeping target locked on the ring switch & groove
-    // 0.100 → 0.120: Ring switch pauses at bottom of travel; camera holds tight groove view
-    // 0.120 → 0.180: Camera pulls back away to wide framing as ring switch reverses to handle
     const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
     if (shiftW > 0.001) {
       const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
-      // Camera orbits from front 3/4 [0.16, 0.06, 0.16] toward the handle side [0.12, 0.05, 0.02]
       const grPos: [number, number, number] = [
         lerpN(0.16, 0.12, orbitT),
         lerpN(0.06, 0.05, orbitT),
         lerpN(0.16, 0.02, orbitT),
       ]
-      // Target centered dead-on the ring switch axis & groove interface
       const grTgt: [number, number, number] = [0, 0.012, 0.022]
       const grFov = 22
       goalPos.current.x = lerpN(goalPos.current.x, grPos[0], shiftW)
@@ -121,9 +168,6 @@ export function CameraRig() {
     }
 
     // ---- CR-5: Rear LCD orbit sub-sequence (progress 0.35 → 0.57) ----
-    // Camera arcs rearward around handle to reveal emissive LCD + buttons,
-    // dwells, then returns to lateral position before explosion.
-    // Beat map: 0.35→0.42 arc in; 0.42→0.50 dwell; 0.50→0.57 return.
     const lcdW = bellWeight(progress, 0.36, 0.42, 0.50, 0.57)
     if (lcdW > 0.001) {
       const lcdPos: [number, number, number] = [-0.06, 0.08, -0.44]
@@ -139,9 +183,6 @@ export function CameraRig() {
     }
 
     // ---- CH.04 M249 continuous zoom-out (progress 0.67 → 1.00) ----
-    // As the user scrolls across the extended CH.04 window, camera starts at
-    // medium receiver view (focus on CAD dissolve sweep) and smoothly zooms
-    // out to reveal the full 1.18m weapon platform from barrel tip to buttstock.
     if (progress >= 0.67) {
       const t4 = smoothstep(Math.min((progress - 0.67) / 0.33, 1))
       const m249Pos: [number, number, number] = [
@@ -154,6 +195,36 @@ export function CameraRig() {
       goalPos.current.set(m249Pos[0], m249Pos[1], m249Pos[2])
       goalTarget.current.set(m249Tgt[0], m249Tgt[1], m249Tgt[2])
       goalFov = m249Fov
+    }
+
+    // ---- Click-to-Inspect Subassembly Focus ----
+    const inspectFrame = hotspotId ? HOTSPOT_INSPECT_FRAMES[hotspotId] : null
+    if (inspectFrame) {
+      const explode = telemetry.rig.explodeFactor
+      let offsetZ = 0
+      if (
+        hotspotId === 'rotor' ||
+        hotspotId === 'motor-housing' ||
+        hotspotId === 'mcu' ||
+        hotspotId === 'lcd' ||
+        hotspotId === 'lipo'
+      ) {
+        offsetZ = -0.331 * explode
+      } else if (hotspotId === 'flange') {
+        offsetZ = -0.269 * explode
+      }
+
+      goalPos.current.set(
+        inspectFrame.position[0],
+        inspectFrame.position[1],
+        inspectFrame.position[2] + offsetZ,
+      )
+      goalTarget.current.set(
+        inspectFrame.target[0],
+        inspectFrame.target[1],
+        inspectFrame.target[2] + offsetZ,
+      )
+      goalFov = inspectFrame.fov
     }
 
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
