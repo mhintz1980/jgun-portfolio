@@ -37,13 +37,16 @@ export function Chapters() {
           <section
             key={chapterDef.index}
             data-chapter={chapterDef.index}
-            className={`${passThrough}flex min-h-[440vh] flex-col px-[8vw] ${
-              chapterDef.index === 0
+            className={`${passThrough}flex flex-col px-[8vw] ${
+              chapterDef.index === 3
+                ? // CH.04: extended scroll length (660vh) for the full M249 zoom-out
+                  'min-h-[660vh] justify-center py-[20vh]'
+                : chapterDef.index === 0
                 ? // CH.01 anchors its narrative at the top of the section so the
                   // machine and headline identify the site in the opening
                   // viewport; later chapters keep the centered mid-section pose.
-                  'justify-start pb-[20vh] pt-[12vh]'
-                : 'justify-center py-[20vh]'
+                  'min-h-[440vh] justify-start pb-[20vh] pt-[12vh]'
+                : 'min-h-[440vh] justify-center py-[20vh]'
             }`}
           >
             <p className="font-mono text-xs tracking-[0.4em] text-cyan-400">{chapterDef.label}</p>

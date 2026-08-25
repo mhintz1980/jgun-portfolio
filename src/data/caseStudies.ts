@@ -193,9 +193,9 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   { position: [0.55, 0.04, 0.04], target: [0, 0, 0.03], fov: 34 },
   // CH.03 — acoustic enclosure / thermal airflow, macro isometric
   { position: [0.27, 0.27, 0.27], target: [0, 0, -0.02], fov: 28 },
-  // CH.04 — digital systems & AI matrix, forward terminal perspective on the
-  // smart-tool electronics stack (MSP430/USB/LiPo/LCD live around z ≈ -0.11)
-  { position: [0.06, 0.03, -0.46], target: [0, 0, -0.11], fov: 50 },
+  // CH.04 — digital systems: M249 platform overview & continuous zoom-out
+  // Frames the centered 1.18m weapon with generous margins from barrel to stock
+  { position: [0.28, 0.42, 1.55], target: [0, 0, 0], fov: 38 },
 ]
 
 /**

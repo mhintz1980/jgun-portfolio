@@ -24,23 +24,23 @@ export function M249Stage() {
   const { scene } = useGLTF(MODEL_URL)
   const groupRef = useRef<Group>(null)
 
-  const { sweepMin, sweepMax, centerZ } = useMemo(() => {
+  const { sweepMin, sweepMax, center } = useMemo(() => {
     const box = new Box3().setFromObject(scene)
     const center = box.getCenter(new Vector3())
     return {
       sweepMin: box.min.z,
       sweepMax: box.max.z,
-      centerZ: center.z,
+      center,
     }
   }, [scene])
 
   const cadMaterial = useMemo(
     () =>
       createCadTransitionMaterial({
-        sweepMin: sweepMin - centerZ,
-        sweepMax: sweepMax - centerZ,
+        sweepMin: sweepMin - center.z,
+        sweepMax: sweepMax - center.z,
       }),
-    [sweepMin, sweepMax, centerZ],
+    [sweepMin, sweepMax, center],
   )
 
   useFrame((_, delta) => {
@@ -54,7 +54,7 @@ export function M249Stage() {
   })
 
   return (
-    <group ref={groupRef} position={[0, 0, -centerZ]}>
+    <group ref={groupRef} position={[-center.x, -center.y, -center.z]}>
       <primitive object={scene} />
     </group>
   )

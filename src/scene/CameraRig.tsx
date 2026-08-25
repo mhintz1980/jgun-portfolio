@@ -94,21 +94,22 @@ export function CameraRig() {
     let goalFov = from.fov + (to.fov - from.fov) * t
 
     // ---- CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
-    // 0.035 → 0.055: Camera dollies tight on the P000420 groove area (FOV 42 → 22)
+    // 0.035 → 0.055: Camera dollies tight on the ring switch / P000420 groove (FOV 42 → 22)
     // 0.050 → 0.100: Ring switch slides +Z away from handle; camera orbits toward
-    //                the handle (-Z) while keeping target locked on the revealed red groove
+    //                the handle (-Z) while keeping target locked on the ring switch & groove
     // 0.100 → 0.120: Ring switch pauses at bottom of travel; camera holds tight groove view
     // 0.120 → 0.180: Camera pulls back away to wide framing as ring switch reverses to handle
     const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
     if (shiftW > 0.001) {
       const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
-      // Camera orbits from front 3/4 [0.18, 0.07, 0.16] toward the handle side [0.13, 0.06, -0.02]
+      // Camera orbits from front 3/4 [0.16, 0.06, 0.16] toward the handle side [0.12, 0.05, 0.02]
       const grPos: [number, number, number] = [
-        lerpN(0.18, 0.13, orbitT),
-        lerpN(0.07, 0.06, orbitT),
-        lerpN(0.16, -0.02, orbitT),
+        lerpN(0.16, 0.12, orbitT),
+        lerpN(0.06, 0.05, orbitT),
+        lerpN(0.16, 0.02, orbitT),
       ]
-      const grTgt: [number, number, number] = [0, 0.005, -0.035]
+      // Target centered dead-on the ring switch axis & groove interface
+      const grTgt: [number, number, number] = [0, 0.012, 0.022]
       const grFov = 22
       goalPos.current.x = lerpN(goalPos.current.x, grPos[0], shiftW)
       goalPos.current.y = lerpN(goalPos.current.y, grPos[1], shiftW)
@@ -135,6 +136,24 @@ export function CameraRig() {
       goalTarget.current.y = lerpN(goalTarget.current.y, lcdTgt[1], lcdW)
       goalTarget.current.z = lerpN(goalTarget.current.z, lcdTgt[2], lcdW)
       goalFov = lerpN(goalFov, lcdFov, lcdW)
+    }
+
+    // ---- CH.04 M249 continuous zoom-out (progress 0.67 → 1.00) ----
+    // As the user scrolls across the extended CH.04 window, camera starts at
+    // medium receiver view (focus on CAD dissolve sweep) and smoothly zooms
+    // out to reveal the full 1.18m weapon platform from barrel tip to buttstock.
+    if (progress >= 0.67) {
+      const t4 = smoothstep(Math.min((progress - 0.67) / 0.33, 1))
+      const m249Pos: [number, number, number] = [
+        lerpN(0.18, 0.28, t4),
+        lerpN(0.26, 0.42, t4),
+        lerpN(0.75, 1.55, t4),
+      ]
+      const m249Tgt: [number, number, number] = [0, 0, 0]
+      const m249Fov = lerpN(33, 38, t4)
+      goalPos.current.set(m249Pos[0], m249Pos[1], m249Pos[2])
+      goalTarget.current.set(m249Tgt[0], m249Tgt[1], m249Tgt[2])
+      goalFov = m249Fov
     }
 
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
