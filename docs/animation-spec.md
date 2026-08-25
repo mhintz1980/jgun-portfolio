@@ -138,7 +138,8 @@ its *nearest tagged ancestor's* unit:
 | stage 4 | A000861: P003047 cage + **5×** P003046 |
 | stage 5 | A000606: P001849 cage (internal spline locks to output shaft) + 4× P000248 |
 | clutch static | A000881 subtree, P000420 intermediate housing, P001835 input shaft |
-| clutch sliding | P003068 ring switch, P000724 shifter fork, P000297 shifter cam, 3× P000464 pins |
+| clutch sliding | P000724 shifter fork, P000297 shifter cam |
+| ring switch assembly | P003068 ring switch, 3× P000464 pins, 3× K000156 ball-nose plungers |
 | output spindle | P000095 shaft, P000207 / K000001 bushings, K000074 retaining ring |
 | housing | P000245 outer shell — static, never explodes |
 | untagged | static remainder (K-hardware etc.) |

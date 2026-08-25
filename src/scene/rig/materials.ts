@@ -57,6 +57,8 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   [/P001924/i, 'anodizedAluminum'],
   // Ring switch (P003068) — anodized aluminum with knurled OD.
   [/P003068/i, 'ringSwitch'],
+  // Ring switch pins (P000464) & ball-nose plungers (K000156) — machined clutch steel.
+  [/(P000464|K000156)/i, 'clutchSteel'],
   // Gearbox intermediate housing (P000420) + outer shell (P000245) —
   // high-temp black oxide steel, distinct from anodized aluminum.
   [/(P000420|P000245)/i, 'blackOxideSteel'],
@@ -286,20 +288,23 @@ export function roleMaterial(role: MaterialRole): Material {
       })
       break
     // OSHA Blue — lower circumferential groove on P000420 (toward snout).
-    // Flat painted finish, no metallic reflection.
+    // Semi-gloss painted enamel finish (#005DAA OSHA Safety Blue).
     case 'grooveBlue':
       material = new MeshStandardMaterial({
         color: '#005daa',
-        roughness: 0.85,
-        metalness: 0.0,
+        roughness: 0.45,
+        metalness: 0.05,
+        envMapIntensity: 1.0,
       })
       break
     // OSHA Red — upper circumferential groove on P000420 (toward handle).
+    // Semi-gloss painted enamel finish (#C8102E OSHA Safety Red).
     case 'grooveRed':
       material = new MeshStandardMaterial({
         color: '#c8102e',
-        roughness: 0.85,
-        metalness: 0.0,
+        roughness: 0.45,
+        metalness: 0.05,
+        envMapIntensity: 1.0,
       })
       break
   }

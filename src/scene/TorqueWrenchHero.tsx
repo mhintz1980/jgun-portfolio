@@ -60,7 +60,11 @@ export function TorqueWrenchHero() {
   const { scene } = useGLTF(MODEL_URL)
   const group = useRef<Group>(null)
   const inner = useRef<Group>(null)
-  const rig = useMemo(() => buildWrenchRig(scene), [scene])
+  const rig = useMemo(() => {
+    const r = buildWrenchRig(scene)
+    if (typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__rig = r
+    return r
+  }, [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
@@ -129,8 +133,9 @@ export function TorqueWrenchHero() {
   }
 
   /**
-   * Shift mechanism: the fork train (P000724/P000297/P000464) slides −Z while
-   * the ring switch (P003068) follows the cam groove in P000420 — traveling
+   * Shift mechanism: the fork train (shifter fork P000724, shifter cam P000297)
+   * slides −Z while the ring switch assembly (P003068 knurled ring, 3× P000464
+   * pins, 3× K000156 ball plungers) follows the cam groove in P000420 — traveling
    * +Z (away from handle) and rotating +120° (CCW when viewed from rear).
    * Called every frame from useFrame with the current shift value (0→1).
    */

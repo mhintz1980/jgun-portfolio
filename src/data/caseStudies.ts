@@ -163,10 +163,11 @@ export const GEAR_RATIOS = {
 
 /**
  * Mechanical shift travel (meters) for the two-speed clutch fork train:
- * shifter fork (P000724) / shifter cam (P000297) / pins (P000464).
+ * shifter fork (P000724) and shifter cam (P000297).
  * These slide together −Z (toward the handle) before the explosion begins.
- * NOTE: The ring switch (P003068) is animated SEPARATELY in TorqueWrenchHero
- * — it travels +Z with a 120° cam rotation (see RING_SWITCH_TRAVEL_Z below).
+ * NOTE: The ring switch assembly (P003068 + 3× P000464 pins + 3× K000156 ball
+ * plungers) is animated SEPARATELY in TorqueWrenchHero — it travels +Z with
+ * a 120° cam rotation (see RING_SWITCH_TRAVEL_Z below).
  */
 export const CLUTCH_SHIFT_DISTANCE = -0.015
 

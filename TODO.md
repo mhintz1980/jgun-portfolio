@@ -4,30 +4,25 @@ Canonical task queue. Authoritative task list for current and upcoming sessions.
 
 ---
 
-## 🎯 Next Session Priority — P000420 OSHA Speed Indicator Painted Grooves
+## 🎯 Next Priority — Pass 3 & Enhancements
 
-### [ ] P000420 Speed Indicator Grooves (Blue lower / Red upper)
+### [ ] Pass 3 Fix 1 — K000004 Bearing Extraction
+- Extract $K000004$ bearing ring right behind $A000606$ (third cage in ladder). Re-derived offset from §5.3 ladder.
 
-**Mark's specification (2026-08-25, with attached reference render):**
-> "I'm not seeing the red and blue paint grooves on the P000420, which is the clutch housing that the ring switch rotates around. There is two grooves I'm referring to: one on the upper portion near the handle assembly (Red) and one groove on the lower portion near the gearbox (Blue). Only one of the grooves is exposed from underneath the ring switch at a time.
-> - When the ring switch is up against the handle (shift = 0), the lower **Blue** paint groove (`#005DAA` OSHA Blue) is exposed.
-> - As the ring switch rotates and shifts down the gearbox (shift = 1), it covers the blue painted groove and exposes the upper **Red** groove (`#C8102E` OSHA Red).
-> - The painted grooves make the user aware of what speed the gearbox is in."
-
-**Geometry & Implementation Plan:**
-1. `P000420` (intermediate clutch housing) outer diameter has two circumferential annular grooves flanking the helical cam slots:
-   - **Upper groove (near handle, $-Z$)**: painted `#C8102E` (OSHA Safety Red). Exposed when ring switch slides $+Z$ down to the gearbox (High Speed / Shift 1).
-   - **Lower groove (near gearbox, $+Z$)**: painted `#005DAA` (OSHA Safety Blue). Exposed when ring switch sits against the handle (Low Speed / Shift 0).
-2. **Implementation approaches**:
-   - **Approach A (Procedural Torus / Cylinder Overlays)**: Create two thin colored torus/annulus geometry rings mapped to P000420's OD at the exact measured Z coordinates of the grooves, parented to `clutch-static` (`P000420`), using `grooveBlue` and `grooveRed` physical materials.
-   - **Approach B (Shader / Vertex-Color mapping on P000420)**: Map cylindrical coordinate thresholds in `materials.ts` / custom shader on P000420.
-3. Verification:
-   - At 0%–5% scroll (shift = 0): Blue groove visible below ring switch; Red groove covered.
-   - At 10%–12% scroll (shift = 1): Red groove visible above ring switch; Blue groove covered.
+### [ ] Pass 3 Fix 2 — Display Rotation Turns (Kinematic override for visual impact)
+- `ROTATION_TURNS = { stage1: 8, stage2: 2.24, stage3: 1.5, stage4: 1, stage5: 0.5 }`.
 
 ---
 
 ## ✅ Completed (Pass 4 & Corrections — 2026-08-25)
+
+- [x] **P000420 Speed Indicator Grooves (Blue lower / Red upper)**:
+  - Modeled annular painted bands in the physical groove channels of P000420 (clutch intermediate housing):
+    - Upper groove (near handle, $-Z$): centered at $z = -0.10715\text{ m}$, width $1.5\text{ mm}$, radius $31.70\text{ mm}$, `#C8102E` (OSHA Safety Red).
+    - Lower groove (near gearbox, $+Z$): centered at $z = -0.08645\text{ m}$, width $1.5\text{ mm}$, radius $31.70\text{ mm}$, `#005DAA` (OSHA Safety Blue).
+  - Parented to `clutchStaticGroup` (`P000420`); automatically moves during explosion and is dynamically covered/revealed by `P003068` ring switch travel.
+  - Telemetry & visual verified at $0\%$ (shift 0: Blue groove exposed, Red covered) and $11\%$ (shift 1: Red groove exposed, Blue covered).
+
 
 - [x] **CR-1: Ring Switch (P003068)**:
   - Split from `clutch-sliding` into dedicated `WrenchRig.clutch.ringSwitch` group.
@@ -49,6 +44,8 @@ Canonical task queue. Authoritative task list for current and upcoming sessions.
 
 ## 📋 Queued Tasks (Pass 3 & Enhancements)
 
+- [ ] **Ring Switch Knurling Normal Map (P003068)**:
+  - Generate/apply a high-resolution diamond crosshatch knurl normal map to the outer cylindrical diameter of `P003068`. Currently rendering as smooth anodized aluminum without surface texture.
 - [ ] **Pass 3 Fix 1 — K000004 Bearing Extraction**:
   - Extract $K000004$ bearing ring right behind $A000606$ (third cage in ladder). Re-derived offset from §5.3 ladder.
 - [ ] **Pass 3 Fix 2 — Display Rotation Turns (Kinematic override for visual impact)**:

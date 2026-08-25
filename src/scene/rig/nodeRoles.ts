@@ -1,4 +1,4 @@
-import { Box3, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
+import { Box3, CylinderGeometry, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StageId } from '../../data/caseStudies'
 import { STAGE_IDS } from '../../data/caseStudies'
@@ -24,12 +24,12 @@ import { materialRoleFor, roleMaterial } from './materials'
  * except the final-stage cage P001849, which carries an internal spline
  * locking it to the output shaft) plus a ring of planet occurrences (four per
  * stage, five in stage 4). A000881 is the two-speed clutch: static structure
- * (intermediate housing P000420, input shaft P001835) plus the sliding shift
- * train (ring switch P003068, shifter fork P000724, shifter cam P000297,
- * ring-switch pins P000464 at 120°). The output spindle cluster (P000095
- * shaft, P000207/K000001 bushings, K000074 retaining ring) is the only group
- * that exits the +Z snout; everything else extracts rearward (see
- * EXPLODE_OFFSETS in caseStudies.ts for the measured rationale).
+ * (intermediate housing P000420, input shaft P001835), the sliding fork train
+ * (shifter fork P000724, shifter cam P000297), and the ring switch assembly
+ * (ring switch P003068, 3× pins P000464, 3× ball plungers K000156). The output
+ * spindle cluster (P000095 shaft, P000207/K000001 bushings, K000074 retaining
+ * ring) is the only group that exits the +Z snout; everything else extracts
+ * rearward (see EXPLODE_OFFSETS in caseStudies.ts for the measured rationale).
  *
  * Consolidation: the export carries ~9.7k one-primitive glTF meshes across 96
  * mesh defs, which GLTFLoader expands to ~13k THREE.Mesh objects — ~13k draw
@@ -50,10 +50,11 @@ const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 // `occurrence_of_P000247-1` / `P000247-1` / `A000591-1__1_`.
 const HOUSING_PART_RE = /P000245/i
 const OUTPUT_PART_RE = /(P000095|P000207|K000001|K000074)/i
-/** Ring switch extracted from the clutch-sliding train — it travels +Z (away
- * from the handle) with a 120° cam rotation and is animated independently. */
-const RING_SWITCH_RE = /P003068/i
-const CLUTCH_SLIDING_RE = /(P000724|P000297|P000464)/i
+/** Ring switch assembly (P003068 knurled ring, 3× P000464 pins, 3× K000156
+ * ball-nose plungers) — travels +Z (away from handle) with a 120° cam rotation. */
+const RING_SWITCH_RE = /(P003068|P000464|K000156)/i
+/** Sliding shift fork train (fork P000724, cam P000297) — slides −Z without rotation. */
+const CLUTCH_SLIDING_RE = /(P000724|P000297)/i
 const CLUTCH_STATIC_RE = /(A000881|P000420|P001835)/i
 /** Rear handle LCD + buttons (CR-5 emissive materials). */
 const LCD_SCREEN_RE = /P002115/i
@@ -96,9 +97,10 @@ export interface WrenchRig {
   housing: Object3D | null
   /** Output spindle cluster — the only unit that exits the +Z snout. */
   outputShaft: Object3D | null
-  /** Two-speed clutch: static structure vs. the sliding shift train (fork /
-   *  cam / pins). The ring switch (P003068) is split out into its own group
-   *  because it travels +Z with 120° cam rotation while the fork train goes −Z. */
+  /** Two-speed clutch: static structure vs. sliding shift train (fork /
+   *  cam). The ring switch assembly (P003068 + 3× P000464 pins + 3× K000156
+   *  ball plungers) is split out into its own group because it travels +Z with
+   *  120° cam rotation while the fork train goes −Z. */
   clutch: { static: Object3D | null; sliding: Object3D | null; ringSwitch: Object3D | null }
   stages: Record<StageId, StageNodes>
   /** All meshes in the model (post-consolidation). */
@@ -464,6 +466,28 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     finalMeshes.push(mesh)
     if (bucket.ghost) ghostMaterials.set(mesh, material)
     for (const source of bucket.sources) consumed.add(source)
+  }
+
+  // ---- P000420 OSHA Speed Indicator Painted Grooves (2026-08-25):
+  // Annular painted bands in the physical groove channels of P000420 (clutch housing):
+  // - Upper groove (Red #C8102E, near handle): centered at z = -0.10715 m, width = 1.5 mm, r = 31.70 mm
+  // - Lower groove (Blue #005DAA, near gearbox): centered at z = -0.08645 m, width = 1.5 mm, r = 31.70 mm
+  // Parented to clutchStaticGroup so they move with P000420 during explosion and are
+  // dynamically revealed/covered as the ring switch (P003068) shifts +Z.
+  if (clutchStaticGroup) {
+    const makeGroove = (zCenter: number, role: 'grooveRed' | 'grooveBlue', name: string): Mesh => {
+      const geom = new CylinderGeometry(0.03170, 0.03170, 0.0015, 64, 1, true)
+      geom.rotateX(Math.PI / 2)
+      geom.translate(0, 0, zCenter)
+      const mesh = new Mesh(geom, roleMaterial(role))
+      mesh.name = name
+      mesh.frustumCulled = true
+      clutchStaticGroup!.add(mesh)
+      finalMeshes.push(mesh)
+      return mesh
+    }
+    makeGroove(-0.10715, 'grooveRed', 'P000420 Speed Indicator (Red)')
+    makeGroove(-0.08645, 'grooveBlue', 'P000420 Speed Indicator (Blue)')
   }
 
   // Drop consumed originals before first render so their buffers never reach
