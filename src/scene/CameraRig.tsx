@@ -93,14 +93,22 @@ export function CameraRig() {
       .lerp(scratchB.current.set(to.target[0], to.target[1], to.target[2]), t)
     let goalFov = from.fov + (to.fov - from.fov) * t
 
-    // ---- CR-3: Shift groove zoom sub-sequence (progress 0 → 0.15) ----
-    // Zooms tight to reveal the OSHA Blue groove, holds while ring switch
-    // lifts to reveal OSHA Red, then returns to the wide CH.01 framing.
-    // Beat map: 0→0.04 zoom in; 0.04→0.10 hold tight; 0.10→0.15 pull back.
-    const shiftW = bellWeight(progress, 0.01, 0.04, 0.10, 0.15)
+    // ---- CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
+    // 0.035 → 0.055: Camera dollies tight on the P000420 groove area (FOV 42 → 22)
+    // 0.050 → 0.100: Ring switch slides +Z away from handle; camera orbits toward
+    //                the handle (-Z) while keeping target locked on the revealed red groove
+    // 0.100 → 0.120: Ring switch pauses at bottom of travel; camera holds tight groove view
+    // 0.120 → 0.180: Camera pulls back away to wide framing as ring switch reverses to handle
+    const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
     if (shiftW > 0.001) {
-      const grPos: [number, number, number] = [0.14, 0.04, 0.19]
-      const grTgt: [number, number, number] = [0, 0, 0.06]
+      const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
+      // Camera orbits from front 3/4 [0.18, 0.07, 0.16] toward the handle side [0.13, 0.06, -0.02]
+      const grPos: [number, number, number] = [
+        lerpN(0.18, 0.13, orbitT),
+        lerpN(0.07, 0.06, orbitT),
+        lerpN(0.16, -0.02, orbitT),
+      ]
+      const grTgt: [number, number, number] = [0, 0.005, -0.035]
       const grFov = 22
       goalPos.current.x = lerpN(goalPos.current.x, grPos[0], shiftW)
       goalPos.current.y = lerpN(goalPos.current.y, grPos[1], shiftW)

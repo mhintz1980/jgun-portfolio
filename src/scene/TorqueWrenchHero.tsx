@@ -100,15 +100,13 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      // Shift mechanism engages first; the drive then spins up and KEEPS
-      // SPINNING THROUGH the extraction (Mark review 2026-08-23: gears must
-      // turn as they leave the housing) while the housings ghost — the
-      // explosion inherits the running gear train.
-      .to(anim, { shift: 1, duration: 0.15 }, 0)
-      .to(anim, { spin: 1, duration: 0.3 }, 0.15)
-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.85 }, 0.15)
-      .to(anim, { ghost: 1, duration: 0.25 }, 0.35)
-      .to(anim, { explode: 1, duration: 0.4 }, 0.6)
+      // As CH.02 approaches, the wrench rotates laterally to inspection angle,
+      // the gear train spins up and spins through the explosion, the outer
+      // housing shell ghosts, and the reduction stages extract rearward.
+      .to(anim, { spin: 1, duration: 0.3 }, 0)
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.85 }, 0)
+      .to(anim, { ghost: 1, duration: 0.25 }, 0.25)
+      .to(anim, { explode: 1, duration: 0.4 }, 0.5)
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -133,19 +131,19 @@ export function TorqueWrenchHero() {
   /**
    * Shift mechanism: the fork train (P000724/P000297/P000464) slides −Z while
    * the ring switch (P003068) follows the cam groove in P000420 — traveling
-   * +Z (away from handle) and rotating −120° (CW when viewed from rear).
-   * Called every frame from useFrame with the current shift proxy value (0→1).
+   * +Z (away from handle) and rotating +120° (CCW when viewed from rear).
+   * Called every frame from useFrame with the current shift value (0→1).
    */
   const applyShift = (shift: number): void => {
-    // Fork train — slides toward handle (same −Z as before)
+    // Fork train — slides toward handle (−Z)
     offsetZ(rig.clutch.sliding, shift * CLUTCH_SHIFT_DISTANCE)
-    // Ring switch — travels +Z along cam groove with simultaneous 120° rotation
+    // Ring switch — travels +Z along cam groove with simultaneous positive rotation
     const rs = rig.clutch.ringSwitch
     if (rs) {
       const base = rig.basePositions.get(rs)
       if (base) {
         rs.position.z = base.z + shift * RING_SWITCH_TRAVEL_Z
-        rs.rotation.z = -shift * RING_SWITCH_ROTATION  // CW from rear = negative in Three.js
+        rs.rotation.z = +shift * RING_SWITCH_ROTATION  // +Z travel = positive rotation
       }
     }
   }
@@ -163,7 +161,10 @@ export function TorqueWrenchHero() {
     const rs = rig.clutch.ringSwitch
     if (rs) {
       const base = rig.basePositions.get(rs)
-      if (base) rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_TRAVEL_Z
+      if (base) {
+        rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_TRAVEL_Z
+        rs.rotation.z = +shift * RING_SWITCH_ROTATION
+      }
     }
     offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
   }
@@ -182,7 +183,7 @@ export function TorqueWrenchHero() {
     }
   }
 
-  const writeRigTelemetry = (explode: number, ghostOpacity: number): void => {
+  const writeRigTelemetry = (explode: number, ghostOpacity: number, shift: number): void => {
     telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
     telemetry.rig.outputZ = rig.outputShaft?.position.z ?? 0
     telemetry.rig.clutchZ = rig.clutch.static?.position.z ?? 0
@@ -191,7 +192,7 @@ export function TorqueWrenchHero() {
     telemetry.rig.stageRot = STAGE_IDS.map((id) => rig.stages[id].carrier?.rotation.z ?? 0)
     telemetry.rig.planetRot = rig.stages.stage1.planets[0]?.rotation.z ?? 0
     telemetry.rig.gearRotation = anim.gearRotation
-    telemetry.rig.shift = anim.shift
+    telemetry.rig.shift = shift
     telemetry.rig.ghostOpacity = ghostOpacity
     telemetry.rig.ghostCount = rig.ghostMaterials.size
     telemetry.rig.explodeFactor = explode
@@ -201,7 +202,7 @@ export function TorqueWrenchHero() {
   }
 
   useFrame((state, delta) => {
-    const { chapter, chapterProgress, materialMode } = getScrollState()
+    const { progress, chapter, chapterProgress, materialMode } = getScrollState()
     const { tier, reducedMotion } = getQuality()
 
     // Reduced motion: hold the hero pose — no spin, no parallax, no ghost
@@ -217,7 +218,7 @@ export function TorqueWrenchHero() {
       const explode = materialMode === 'exploded' ? 1 : 0
       applyExplosion(explode, 0)
       // Ghost never fades under reduced motion, so its commanded opacity is 1.
-      writeRigTelemetry(explode, 1)
+      writeRigTelemetry(explode, 1, 0)
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
         applyLiveMaterials(materialMode)
         surface.current = 'live'
@@ -248,13 +249,24 @@ export function TorqueWrenchHero() {
     //    static fully-open pose and keeps the train at rest).
     applyGearRotation(anim.gearRotation)
 
-    // 4. Clutch shift: ring switch +Z/rotation + fork train −Z.
-    applyShift(anim.shift)
+    // 4. Clutch shift window in CH.01:
+    // 0.05 → 0.10: ring switch travels +Z down gearbox and rotates +120°
+    // 0.10 → 0.12: pauses at bottom of travel (holding groove reveal)
+    // 0.12 → 0.17: reverses back towards handle as camera pulls back
+    let shiftAmount = 0
+    if (progress >= 0.05 && progress < 0.10) {
+      shiftAmount = MathUtils.smoothstep(progress, 0.05, 0.10)
+    } else if (progress >= 0.10 && progress <= 0.12) {
+      shiftAmount = 1
+    } else if (progress > 0.12 && progress <= 0.17) {
+      shiftAmount = 1 - MathUtils.smoothstep(progress, 0.12, 0.17)
+    }
+    applyShift(shiftAmount)
 
     // 5. Rear extraction (forced fully open in exploded mode).
     const explode = Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
-    applyExplosion(explode, anim.shift)
-    writeRigTelemetry(explode, ghostOpacity)
+    applyExplosion(explode, shiftAmount)
+    writeRigTelemetry(explode, ghostOpacity, shiftAmount)
 
     // 5. Material surface management: CAD dissolve owns chapter 4, the mode
     //    switcher owns everything else. In the lite tier the dissolve shader

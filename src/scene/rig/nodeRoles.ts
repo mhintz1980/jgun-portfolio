@@ -227,11 +227,24 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   }
   if (handle) unitOfNode.set(handle, 'handle')
 
-  // ---- Housing meshes: explicit *HOUSING* names, plus the gearbox's largest
-  // child by bbox volume (the P000245 outer shell).
+  // ---- Housing meshes: only the outer P000245 shell ghosts during CH.02.
+  // All other assemblies (clutch, ring switch, LCD cluster, stages, output, handle)
+  // must remain 100% opaque.
   const housingMeshSet = new Set<Mesh>()
   for (const mesh of meshes) {
-    if (isUnderHousing(mesh)) housingMeshSet.add(mesh)
+    if (isUnderHousing(mesh)) {
+      let current: Object3D | null = mesh
+      let isHousingUnit = false
+      while (current) {
+        const key = unitOfNode.get(current)
+        if (key) {
+          if (key === 'housing') isHousingUnit = true
+          break
+        }
+        current = current.parent
+      }
+      if (isHousingUnit) housingMeshSet.add(mesh)
+    }
   }
   if (gearbox) {
     let largest: Object3D | null = null
@@ -248,7 +261,19 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     if (largest) {
       largest.traverse((node) => {
-        if ((node as Mesh).isMesh) housingMeshSet.add(node as Mesh)
+        if ((node as Mesh).isMesh) {
+          let current: Object3D | null = node
+          let isNonHousing = false
+          while (current) {
+            const key = unitOfNode.get(current)
+            if (key && key !== 'housing') {
+              isNonHousing = true
+              break
+            }
+            current = current.parent
+          }
+          if (!isNonHousing) housingMeshSet.add(node as Mesh)
+        }
       })
     }
   }
@@ -381,7 +406,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       continue
     }
     const unit = unitOf(mesh)
-    const ghost = housingMeshSet.has(mesh)
+    const ghost = unit.key === 'housing' && housingMeshSet.has(mesh)
     const role = materialRoleFor(unit.key, mesh.name)
     const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const bucket = buckets.get(key)
