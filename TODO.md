@@ -4,17 +4,13 @@ Canonical task queue. Authoritative task list for current and upcoming sessions.
 
 ---
 
-## 🎯 Next Priority — Pass 3 & Enhancements
+## 🎯 Next Priority — Queued Enhancements
 
-### [ ] Pass 3 Fix 1 — K000004 Bearing Extraction
-- Extract $K000004$ bearing ring right behind $A000606$ (third cage in ladder). Re-derived offset from §5.3 ladder.
-
-### [ ] Pass 3 Fix 2 — Display Rotation Turns (Kinematic override for visual impact)
-- `ROTATION_TURNS = { stage1: 8, stage2: 2.24, stage3: 1.5, stage4: 1, stage5: 0.5 }`.
+See **📋 Queued Tasks** below.
 
 ---
 
-## ✅ Completed (Pass 4 & Corrections — 2026-08-25)
+## ✅ Completed (Pass 3–4 & Tracks A/C — 2026-08-25)
 
 - [x] **P000420 Speed Indicator Grooves (Blue lower / Red upper)**:
   - Modeled annular painted bands in the physical groove channels of P000420 (clutch intermediate housing):
@@ -40,16 +36,28 @@ Canonical task queue. Authoritative task list for current and upcoming sessions.
   - CH.04 section min-height extended to `660vh` ($+12.5\%$ total scroll length).
   - Continuous zoom-out from receiver CAD dissolve sweep (`[0.18, 0.26, 0.75]`, $\text{FOV } 33^\circ$) to full $1.18\text{ m}$ weapon platform overview (`[0.28, 0.42, 1.55]`, $\text{FOV } 38^\circ$).
 
+- [x] **Pass 3 Fix 1 — K000004 Bearing Extraction** *(commit `318e834`)*:
+  - K000004 thrust bearing ring extracted between A000606 (stage 5) and stage 2 at `EXPLODE_OFFSETS.bearing = -0.197 m`.
+  - `rig.bearing` group wired in `WrenchRig`, driven by `offsetZ(rig.bearing, EXPLODE_OFFSETS.bearing * explode)` in `applyExplosion`.
+
+- [x] **Pass 3 Fix 2 — Display Rotation Turns** *(commit `318e834`)*:
+  - `ROTATION_TURNS = { stage1: 8, stage2: 2.24, stage3: 1.5, stage4: 1, stage5: 0.5 }` exported from `caseStudies.ts`.
+  - Applied in `applyGearRotation` — each carrier uses `sweep * ROTATION_TURNS[id] * 2π`.
+
+- [x] **Track C — Dynamic SVG Leader Lines & Click-to-Inspect UX** *(commit `5a32cee`)*:
+  - Responsive SVG spatial leader lines, engineering reticles, explosion-aware 3D tracking (60 fps `useFrame`).
+  - Click-to-inspect camera dolly; wheel/touch/keyboard scroll auto-release.
+  - HUD detail card with `SCROLL TO RESUME FLIGHT` hint.
+  - 18/18 fallback checks + zero TS errors.
+
+- [x] **Track A — P003068 Knurling & CH.04 M249 CAD Dissolve** *(commit `928df31`)*:
+  - Procedural tangent-space diamond-knurl normal map applied only to the P003068 outer diameter, preserving smooth end faces.
+  - `CadTransitionShader` bound to the real M249 GLB meshes during full-tier CH.04, with live root-frame alignment, material restoration, and disposal on unmount.
+
 ---
 
-## 📋 Queued Tasks (Pass 3 & Enhancements)
+## 📋 Queued Tasks (Enhancements)
 
-- [ ] **Ring Switch Knurling Normal Map (P003068)**:
-  - Generate/apply a high-resolution diamond crosshatch knurl normal map to the outer cylindrical diameter of `P003068`. Currently rendering as smooth anodized aluminum without surface texture.
-- [ ] **Pass 3 Fix 1 — K000004 Bearing Extraction**:
-  - Extract $K000004$ bearing ring right behind $A000606$ (third cage in ladder). Re-derived offset from §5.3 ladder.
-- [ ] **Pass 3 Fix 2 — Display Rotation Turns (Kinematic override for visual impact)**:
-  - `ROTATION_TURNS = { stage1: 8, stage2: 2.24, stage3: 1.5, stage4: 1, stage5: 0.5 }`.
 - [ ] **Design Decisions (Mark's call, parked)**:
   - CH.02 camera framing at full extraction; reassembly beat; ending beat.
 - [ ] **Deploy / Hosting**:
