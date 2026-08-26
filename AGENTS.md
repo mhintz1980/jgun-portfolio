@@ -22,6 +22,13 @@ interactive exploded-view rig (Default.glb, D1-AP part numbers).
   names alone.
 - Spec §5 tables, README ladder, and both rig skills' tables hardcode the ladder —
   update them in the SAME commit as any behavior change.
+- NEVER regenerate `public/models/m249-transformed.glb` with a bare
+  `npx gltfjsx --transform`. gltfjsx hard-codes `normalTexture` to chroma-subsampled
+  JPEG and ignores `--format`/`--resolution` for that slot, so a bare re-run silently
+  regresses the normal map. Post-process steps + measured numbers: the generated
+  `C:\Projects\CAD\M249.jsx` header, README "Textured assets", and the vault skill
+  `glb-web-export-triage`. It is the only textured GLB here (all others have zero
+  images) and it is committed, not synced — do not add it to `sync-assets.ps1`.
 - Verify with runtime telemetry, never vision alone — vision confabulates on the dark
   scene.
 - Restart the :4173 preview server after EVERY rebuild (stale server + rotated hashes →

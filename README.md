@@ -20,10 +20,31 @@ npm run sync-assets   # copies GLBs + role-map.json from C:\Projects\CAD\RL300-S
 npm run dev
 ```
 
-GLBs are gitignored (16 MB); `public/models/role-map.json` is committed.
+The large JGun GLBs are gitignored (16 MB); `public/models/role-map.json` and
+`public/models/m249-transformed.glb` (871 KB) **are** committed.
 `sync-assets` renames `jgun-full.glb` → `Default.glb` so the brief's
 `useGLTF('/models/Default.glb')` path resolves. The GLBs are Draco-compressed;
-drei's default decoder (gstatic CDN) handles them at runtime.
+`useGLTF.setDecoderPath('/draco/')` in `TorqueWrenchHero.tsx` points every load
+at the vendored `public/draco/` decoders.
+
+## Textured assets
+
+`m249-transformed.glb` is the **only textured GLB in the project** — `Default.glb`
+and both `jgun-*.glb` carry zero images (verified by binary probe 2026-08-26), so
+the M249 is the entire texture budget: **871 KB on disk, 50.3 MB texture VRAM**
+(2048 baseColor + 2048 normal + 1024 metallicRoughness, all WebP, RGBA8 + mips).
+
+Regenerating it is **not** a single command. `npx gltfjsx --transform` hard-codes
+`normalTexture` to chroma-subsampled JPEG and ignores `--format`/`--resolution`
+for that slot, so a bare re-run silently regresses the normal map. The required
+post-process, with measured numbers, is recorded in the generated
+`C:\Projects\CAD\M249.jsx` header and in the vault skill `glb-web-export-triage`
+(driven by `_system/scripts/glb-probe.py`).
+
+KTX2/Basis was encoded and measured 2026-08-26, then **rejected** — every variant
+spends file size and/or quality to buy VRAM that is not this scene's bottleneck
+(the fixed bottleneck was draw calls). Numbers are in the skill; revisit only if
+more textured assets land on screen at once.
 
 ## URL views
 
