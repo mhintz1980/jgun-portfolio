@@ -54,12 +54,53 @@ See **📋 Queued Tasks** below.
   - Procedural tangent-space diamond-knurl normal map applied only to the P003068 outer diameter, preserving smooth end faces.
   - `CadTransitionShader` bound to the real M249 GLB meshes during full-tier CH.04, with live root-frame alignment, material restoration, and disposal on unmount.
 
+- [x] **Continuous Kinematic Idling (Milestone 4)**:
+  - Planetary gear train continuously rotates around pitch circles during scroll pauses via `useFrame` delta-time.
+  - Rotation speeds proportional to `ROTATION_TURNS` ratios; smooth blending with scroll-driven rotation; active in CH.02.
+  - Telemetry verified: `stageRot` deltas strictly decrease from stage 1 (+19.048) down to stage 5 (+1.191).
+- [x] **P000245 Outer Shell Housing Ghost Fade Fix (Milestone 4)**:
+  - Resolved `housingMeshSet` classification in `nodeRoles.ts` so `P000245` meshes land in `rig.housing` and `ghostMaterials`.
+  - Telemetry verified: `ghostCount = 1` (> 0) and `ghostOpacity = 0.15` during CH.02 explosion.
+- [x] **Left-Column Narrative Grid (Milestone 5 Start)**:
+  - Migrated chapter text from full-width layout to 5-column left-hand overlay panel (`max-width: 42%`, `backdrop-filter: blur`, dark glass styling).
+  - Scroll-range opacity clamping per chapter; 3D canvas remains fully visible and interactable on right 58%+.
+
 ---
 
-## 📋 Queued Tasks (Enhancements)
+## 📋 Queued Tasks (Upcoming Milestones & Specs)
 
-- [ ] **Design Decisions (Mark's call, parked)**:
-  - CH.02 camera framing at full extraction; reassembly beat; ending beat.
+### 📦 Milestone 1: Asset Ingestion & Stage 2 Model
+- [ ] **MSP Acoustic SAFE Enclosure / RL-300 Skid 3D Asset**:
+  - Export web-ready Draco-compressed GLB (`public/models/msp-enclosure.glb` / `rl300-skid.glb`).
+  - Discrete named subassemblies: `PUMP_HOUSING`, `ENCLOSURE_CHASSIS`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`, `DUCT_LABYRINTH`, `EXHAUST_PORT`.
+  - PBR materials: black-oxide / tool-steel pump core, composite panels, acoustic dampening foam textures.
+  - Mount into Stage 2 (`Station2_AcousticEnclosure.tsx`), replacing procedural wireframe placeholder.
+
+### 🌐 Milestone 2: Multi-Station Spatial World & Whip-Pan Camera
+- [ ] **Discrete Spatial World (`SpatialWorld.tsx` / `SpatialRig.tsx`)**:
+  - Station 1 (`[0, 0, 0]`): JGUN-D1-AP Torque Multiplier.
+  - Station 2 (`[28, 0, -6]`): RL-300 Pump with 5-Layer Acoustic SAFE Enclosure Skid.
+  - Station 3 (`[56, 0, -12]`): M249 / MK46 Parametric Receiver Platform.
+- [ ] **Post-Processing & Camera FX (`PostProcessingComposer.tsx`)**:
+  - Velocity-driven directional chromatic aberration and localized bloom bursts during high-speed camera whip-pans between stations.
+
+### 💨 Milestone 3: Interactive Airflow & Acoustic Wave Systems
+- [ ] **Mouse-Reactive Volumetric CFM Airflow**:
+  - Raycasted mouse plane intersection and dynamic cursor repulsion (`dist < 1.2 -> force deflection`) inside the acoustic duct labyrinth.
+- [ ] **Pulsing Acoustic Soundwave Baffles (`AcousticBaffleField.tsx`)**:
+  - Expanding & dissipating additive soundwave rings at the exhaust port (`scale = 1.0 + wave * 0.5`).
+
+### ⚙️ Milestone 4: Kinematics & Rig Hardening
+- [x] **Continuous Kinematic Idling**:
+  - Keep planetary gear train continuously rotating around sun/planet pitch circles during scroll pauses via `useFrame` delta-time.
+- [x] **P000245 Outer Shell Housing Ghost Fade Fix**:
+  - Resolve `housingMeshSet` resolution in `nodeRoles.ts` so `ghostCount > 0` and outer shell fades to 15% opacity during CH.02.
+
+### 📐 Milestone 5: Layout, UX & Polish
+- [x] **Left-Column Narrative Grid (`Chapters.tsx`)**:
+  - Migrate from full-width `Chapters.tsx` to 5-column left-hand overlay (`max-width: 42%`) with dark glass panel and scroll-range opacity clamping.
+- [ ] **CH.02 Camera Framing & Beats (Mark's call)**:
+  - Frame widening at full extraction so $-0.587\text{ m}$ handle tail clears viewport comfortably; reassembly & outro beat tuning.
 - [ ] **Deploy / Hosting**:
   - DNS & hosting setup on `studiomark.dev` (Porkbun).
 

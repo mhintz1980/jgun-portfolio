@@ -218,8 +218,8 @@ export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // 120°, applied as nega
 export const CAMERA_PATH: CameraKeyframe[] = [
   // CH.01 — hero planetary torque wrench, 3/4 perspective
   { position: [0.32, 0.16, 0.42], target: [0, 0, 0], fov: 42 },
-  // CH.02 — x-ray & axial exploded reduction stages, lateral inspection
-  { position: [0.55, 0.04, 0.04], target: [0, 0, 0.03], fov: 34 },
+  // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (centers on extracted cage ladder)
+  { position: [0.60, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
   // CH.03 — acoustic enclosure / thermal airflow, macro isometric
   { position: [0.27, 0.27, 0.27], target: [0, 0, -0.02], fov: 28 },
   // CH.04 — digital systems: M249 platform overview & continuous zoom-out
@@ -253,13 +253,13 @@ export const SHIFT_CAMERA_KEYFRAMES = {
  */
 export const LCD_ORBIT_KEYFRAMES = {
   /** Ghost fade start — still at lateral inspection position. */
-  start:  { position: [0.55, 0.04, 0.04] as [number,number,number], target: [0, 0, 0.03] as [number,number,number], fov: 34 },
+  start:  { position: [0.60, 0.08, 0.05] as [number,number,number], target: [0, 0.015, -0.07] as [number,number,number], fov: 36 },
   /** Arc rearward — coming around to the handle back face. */
   arc:    { position: [-0.08, 0.12, -0.38] as [number,number,number], target: [0, 0.02, -0.20] as [number,number,number], fov: 38 },
   /** Dwell: tight rear view, LCD emissive full blast. */
   dwell:  { position: [-0.06, 0.08, -0.44] as [number,number,number], target: [0, 0.02, -0.22] as [number,number,number], fov: 32 },
   /** Return to lateral inspection framing for explosion. */
-  return: { position: [0.55, 0.04, 0.04] as [number,number,number], target: [0, 0, 0.03] as [number,number,number], fov: 34 },
+  return: { position: [0.60, 0.08, 0.05] as [number,number,number], target: [0, 0.015, -0.07] as [number,number,number], fov: 36 },
 } as const
 
 /**

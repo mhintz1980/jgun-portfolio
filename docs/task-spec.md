@@ -7,8 +7,8 @@ Upgrade the existing React 19 / React Three Fiber (R3F) / GSAP / Lenis portfolio
 1. **Viewport & Typography Collision:** Chapter headings, specs, and HUD telemetry currently render simultaneously and collide over the 3D model. All chapter copy must be partitioned to a left-side 5-column grid (`max-width: 42%`) with strict GSAP scroll-range opacity clamping.
 2. **Datum Anchoring & Screen-Space Leader Lines:** Replace static/desynced HTML overlays with dynamic 3D datum trackers that project from live mesh world coordinates and render responsive SVG leader lines.
 3. **Multi-Station Spatial World:** Rather than in-place mesh swapping, build a spatial world with three discrete 3D stations traversed via accelerated kinetic whip-pan camera dollying:
-   - **Station 1 (`[0, 0, 0]`):** RL-300 / JGUN-D1-AP Multi-Stage Planetary Torque Multiplier.
-   - **Station 2 (`[28, 0, -6]`):** Industrial Pump with 5-Layer Acoustic SAFE Enclosure Skid.
+   - **Station 1 (`[0, 0, 0]`):** JGUN-D1-AP Multi-Stage Planetary Torque Multiplier.
+   - **Station 2 (`[28, 0, -6]`):** RL-300 Industrial Pump with 5-Layer Acoustic SAFE Enclosure Skid.
    - **Station 3 (`[56, 0, -12]`):** M249 / MK46 Scan-to-Parametric Reverse-Engineered Receiver Platform.
 4. **Subassembly Inspection UX (Continuous Scroll Flow):** Allow users to click individual exploded components to zoom in for detailed inspection. The interface MUST NOT trap the user behind a mandatory exit button; any mouse-wheel scroll (`wheel` event) or touch drag must smoothly release focus and resume the master scroll path.
 5. **Kinematic Idling:** The multi-stage planetary gear train must maintain continuous kinematic rotation around sun/planet pitch circles during scroll pauses.

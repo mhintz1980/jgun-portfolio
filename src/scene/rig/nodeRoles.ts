@@ -46,7 +46,6 @@ import { materialRoleFor, roleMaterial } from './materials'
 
 const HANDLE_RE = /HANDLE[\s_]*ASSY/i
 const GEARBOX_RE = /GEARBOX[\s_]*ASSY/i
-const HOUSING_RE = /(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i
 
 // D1-AP part-number roles (substring matches survive GLTFLoader mangling —
 // part numbers carry no spaces). Names at runtime look like
@@ -129,14 +128,6 @@ export interface WrenchRig {
   center: Vector3
 }
 
-function isUnderHousing(node: Object3D): boolean {
-  let current: Object3D | null = node
-  while (current) {
-    if (HOUSING_RE.test(current.name)) return true
-    current = current.parent
-  }
-  return false
-}
 
 function hasAncestorMatching(node: Object3D, re: RegExp): boolean {
   let current = node.parent
@@ -248,49 +239,14 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   // must remain 100% opaque.
   const housingMeshSet = new Set<Mesh>()
   for (const mesh of meshes) {
-    if (isUnderHousing(mesh)) {
-      let current: Object3D | null = mesh
-      let isHousingUnit = false
-      while (current) {
-        const key = unitOfNode.get(current)
-        if (key) {
-          if (key === 'housing') isHousingUnit = true
-          break
-        }
-        current = current.parent
+    let current: Object3D | null = mesh
+    while (current) {
+      const key = unitOfNode.get(current)
+      if (key) {
+        if (key === 'housing') housingMeshSet.add(mesh)
+        break
       }
-      if (isHousingUnit) housingMeshSet.add(mesh)
-    }
-  }
-  if (gearbox) {
-    let largest: Object3D | null = null
-    let largestVolume = 0
-    for (const child of gearbox.children) {
-      const box = new Box3().setFromObject(child)
-      if (box.isEmpty()) continue
-      const size = box.getSize(new Vector3())
-      const volume = size.x * size.y * size.z
-      if (volume > largestVolume) {
-        largestVolume = volume
-        largest = child
-      }
-    }
-    if (largest) {
-      largest.traverse((node) => {
-        if ((node as Mesh).isMesh) {
-          let current: Object3D | null = node
-          let isNonHousing = false
-          while (current) {
-            const key = unitOfNode.get(current)
-            if (key && key !== 'housing') {
-              isNonHousing = true
-              break
-            }
-            current = current.parent
-          }
-          if (!isNonHousing) housingMeshSet.add(node as Mesh)
-        }
-      })
+      current = current.parent
     }
   }
 

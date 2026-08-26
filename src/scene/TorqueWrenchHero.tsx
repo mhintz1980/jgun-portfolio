@@ -71,6 +71,7 @@ export function TorqueWrenchHero() {
     return r
   }, [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
+  const idleAngle = useRef(0)
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
 
@@ -109,13 +110,17 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      // As CH.02 approaches, the wrench rotates laterally to inspection angle,
-      // the gear train spins up and spins through the explosion, the outer
-      // housing shell ghosts, and the reduction stages extract rearward.
-      .to(anim, { spin: 1, duration: 0.3 }, 0)
-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.85 }, 0)
-      .to(anim, { ghost: 1, duration: 0.25 }, 0.25)
-      .to(anim, { explode: 1, duration: 0.4 }, 0.5)
+      // 1. Initial lateral rotation to inspection angle
+      .to(anim, { spin: 1, duration: 0.35 }, 0)
+      // 2. Continuous gear sweep through the extraction
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0)
+      // 3. Housing ghost in: outer shell fades to transparent (0.15) to reveal internals
+      .to(anim, { ghost: 1, duration: 0.20 }, 0.15)
+      // 4. Rear extraction: reduction stages extract rearward out of the housing
+      .to(anim, { explode: 1, duration: 0.50 }, 0.35)
+      // 5. Housing ghost out: transitions back away from transparency to solid opaque
+      //    around the ~40% global progress mark as components clear the shell.
+      .to(anim, { ghost: 0, duration: 0.25 }, 0.42)
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -190,12 +195,27 @@ export function TorqueWrenchHero() {
    * turns at the true ratios) still reads as motion; GEAR_RATIOS keeps the
    * kinematic reference, and planets stay pegged to their carrier's display
    * angle via the multiplier.
+  /**
+   * Epicyclic rotation: each carrier turns about the gear-train axis while
+   * each planet counter-rotates on its own pin (planet groups are carrier
+   * children, so they also revolve with it). Pass-3 display turns: the proxy
+   * sweep is normalized 0..1 and remapped through ROTATION_TURNS so stage 1/2
+   * spin exactly 2× their kinematic turns and the slow tail (0.32/0.088/0.024
+   * turns at the true ratios) still reads as motion; GEAR_RATIOS keeps the
+   * kinematic reference, and planets stay pegged to their carrier's display
+   * angle via the multiplier.
+   *
+   * Continuous Kinematic Idling (Milestone 4):
+   * When scroll pauses during CH.02 explosion range, idle rotation accumulates
+   * delta-time at a rate proportional to each stage's ROTATION_TURNS and blends
+   * seamlessly with scroll-driven sweep without pops or jumps.
    */
-  const applyGearRotation = (angle: number): void => {
+  const applyGearRotation = (angle: number, idle: number = 0): void => {
     const sweep = angle / GEAR_ROTATION_SWEEP
     for (const id of STAGE_IDS) {
       const stage = rig.stages[id]
-      const carrierAngle = sweep * ROTATION_TURNS[id] * Math.PI * 2
+      const turns = ROTATION_TURNS[id]
+      const carrierAngle = (sweep + idle) * turns * Math.PI * 2
       if (stage.carrier) stage.carrier.rotation.z = carrierAngle
       const planetAngle = -carrierAngle * GEAR_RATIOS.planetMultiplier
       for (const planet of stage.planets) planet.rotation.z = planetAngle
@@ -233,7 +253,7 @@ export function TorqueWrenchHero() {
         group.current.rotation.y = 0
         group.current.rotation.x = 0
       }
-      applyGearRotation(0)
+      applyGearRotation(0, 0)
       const explode = materialMode === 'exploded' ? 1 : 0
       applyExplosion(explode, 0)
       // Ghost never fades under reduced motion, so its commanded opacity is 1.
@@ -264,9 +284,18 @@ export function TorqueWrenchHero() {
       material.depthWrite = material.opacity > 0.5
     }
 
-    // 3. Epicyclic gear rotation (scroll-driven only; the exploded MODE is a
-    //    static fully-open pose and keeps the train at rest).
-    applyGearRotation(anim.gearRotation)
+    // 3. Continuous Kinematic Idling & Epicyclic gear rotation:
+    // When in CH.02 explosion range where gears are visible, accumulate delta-time
+    // so all 5 stage carriers continuously rotate around their pitch circles during
+    // scroll pauses. Blends seamlessly with scroll-driven rotation.
+    const isExploded = anim.explode > 0.01 || (chapter === 1 && progress >= 0.22 && progress <= 0.55)
+    if (isExploded && materialMode !== 'exploded') {
+      const IDLE_BASE_SPEED = 0.25
+      idleAngle.current += delta * IDLE_BASE_SPEED
+    } else if (anim.explode === 0 && anim.gearRotation === 0) {
+      idleAngle.current = 0
+    }
+    applyGearRotation(anim.gearRotation, idleAngle.current)
 
     // 4. Clutch shift window in CH.01:
     // 0.05 → 0.10: ring switch travels +Z down gearbox and rotates +120°
