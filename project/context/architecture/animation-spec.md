@@ -264,7 +264,7 @@ drastically")** — `src/scene/rig/materials.ts` assigns a PBR role per
 consolidated source mesh from its node name (part numbers + vendor names are
 mangling-safe) with unit-key defaults, replacing the CAD placeholder
 materials as the merge-bucket identity. Targets come from Mark's reference
-pair (`docs/torque-render.webp` + `docs/jgun-handle-gearbox-description.md`):
+pair (`../references/media/torque-render.webp` + `../domain/jgun-handle-gearbox.md`):
 deep-black clearcoat shells (`MeshPhysicalMaterial`, #0A0A0A / rough 0.18 /
 metal 0.18 / clearcoat 1), hardened tool-steel output cluster (#4A4D50 /
 0.45 / 0.95), machined steel internals in three tones (cage/planet/clutch),
@@ -399,8 +399,8 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
    P001837); handle/gearbox separation widened to 25 mm of air behind the
    clutch.
 4. **Photoreal materials** — **IMPLEMENTED 2026-08-24** (see §5.5): PBR role
-   system per Mark's render reference (`docs/torque-render.webp` +
-   `docs/jgun-handle-gearbox-description.md`).
+   system per Mark's render reference (`../references/media/torque-render.webp` +
+   `../domain/jgun-handle-gearbox.md`).
 5. **Scroll pacing ×2** — **IMPLEMENTED 2026-08-24** (see §14): chapter
    sections 220vh → 440vh, stage windows remeasured (oryzo.ai reference).
 6. **K000004 bearing extraction + display rotation turns** —

@@ -5,18 +5,19 @@ interactive exploded-view rig (Default.glb, D1-AP part numbers).
 
 ## Session start
 
-1. Read `TODO.md` — canonical task queue (pass-3 review mission installed 2026-08-24).
-2. Read-first docs: `docs/animation-spec.md` §5–§5.4 (canonical, measured reality).
-   `docs/animation-specification-exploded.md` is Mark's owner spec — its prose ±Z
+1. Read `TODO.md` — canonical approved task queue.
+2. Read `project/README.md` — the project knowledge map and work-ID protocol.
+3. Read-first context: `project/context/architecture/animation-spec.md` §5–§5.4 (canonical, measured reality).
+   `project/context/owner-specs/animation-exploded-owner-spec.md` is Mark's owner spec — its prose ±Z
    labels are flipped vs measured reality; measurements win.
-3. Check `git status`: untracked `.scratch/`, `docs/orzo-style-portfolio-implemetation-roadmap.md`,
+4. Check `git status`: untracked `.scratch/`, `docs/orzo-style-portfolio-implemetation-roadmap.md`,
    and `src/components/canvas/` belong to a PARALLEL session — never commit, delete,
    or build on them.
 
 ## Hard rules
 
-- Repo is local-only (Buzz nostr relay remote). NEVER push; never ship credentials.
-  Never commit `.scratch/`.
+- GitHub `origin` (`mhintz1980/jgun-portfolio`) is the authoritative repository. Push only after the relevant plan evidence and repository checks are complete.
+- Never ship credentials or commit `.scratch/` or protected parallel-session material.
 - Part numbers (A000606, K000004, P000725…) are the stable key. Stage names are not —
   Mark has used conflicting stage names for the same part; never reorder logic on
   names alone.
@@ -42,3 +43,8 @@ timeline → `r3f-scroll-performance-guard`; scroll/GSAP ScrollTrigger reference
 video-hero 3D landing pages (orzo-style) → `animated-3d-video-sites` (~/.agents/skills —
 all harnesses); deploy readiness → `asset-and-bundle-hygiene`; CH.04 shader →
 `glsl-transition-shader-pipeline`.
+
+
+## Cross-Agent Skill Locations
+
+The authoritative per-harness paths, shared fallbacks, usage rules, and codebase-memory service status are maintained in [`project/context/agent-skills.md`](project/context/agent-skills.md). Every agent must read the named `SKILL.md` before work in that skill’s domain. The map covers CAD rigging, WebGL telemetry, R3F/GSAP/ScrollTrigger scroll behavior, spatial annotations, shaders, asset hygiene, motion-led 3D composition, and codebase-memory graph retrieval.

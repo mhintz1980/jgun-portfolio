@@ -63,7 +63,7 @@ load; the parameter is read once and never rewrites the URL.
 | 4 — Data contracts & HUD | `src/types/portfolio.ts`, `src/data/caseStudies.ts`, `src/components/TechnicalHUD.tsx`, `src/scene/Hotspots.tsx` |
 
 **Full scroll/animation spec** (chapters, camera keyframes, timelines, tiers,
-verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
+verification method): [`project/context/architecture/animation-spec.md`](project/context/architecture/animation-spec.md).
 
 ## Design decisions inherited from the group audit
 
@@ -83,7 +83,7 @@ verification method): [`docs/animation-spec.md`](docs/animation-spec.md).
 - **Photoreal PBR roles** (`src/scene/rig/materials.ts`): clearcoat black
   shells, tool-steel output cluster, machined-steel internals, emissive LCD —
   assigned by node-name role at consolidation, per Mark's render reference
-  (`docs/torque-render.webp`).
+  (`project/context/references/media/torque-render.webp`).
 - **role-map.json is the anchor source** for hotspots — 316 part occurrences
   with bbox centers from the gltf-transform pipeline pass.
 - **Copy is Honey's** (`OUTBOX/portfolio-module4-copy.md`), used verbatim.

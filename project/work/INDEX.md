@@ -1,0 +1,34 @@
+# JGUN Work Registry
+
+This is the stable registry for work accepted after the `JG-###` protocol was established. [`../../TODO.md`](../../TODO.md) is the ordered queue; this index links each task to its detailed plan and verification evidence.
+
+> **Check-off rule:** A task becomes `verified` only after the linked evidence record exists, its acceptance criteria are recorded as passed, and the corresponding TODO checkbox changes in the same commit.
+
+## Accepted Work
+
+| ID | Status | Title | TODO entry | Plan | Evidence |
+|---|---|---|---|---|---|
+| JG-014 | queued | Opening sequence, print-authentic GD&T annotations, and rear-LCD reveal | [Active](../../TODO.md#active) | [plan](plans/JG-014-opening-gdt-lcd-repair.md) | Pending |
+| JG-015 | queued | RL-300 / MSP Acoustic SAFE asset ingestion | [Queued](../../TODO.md#queued) | [plan](plans/JG-015-msp-acoustic-safe-asset-ingestion.md) | Pending |
+| JG-016 | queued | Multi-station spatial world and navigation rig | [Queued](../../TODO.md#queued) | [plan](plans/JG-016-multi-station-spatial-world.md) | Pending |
+| JG-017 | queued | Post-processing and whip-pan camera effects | [Queued](../../TODO.md#queued) | [plan](plans/JG-017-whip-pan-camera-fx.md) | Pending |
+| JG-018 | queued | Interactive airflow and acoustic-wave systems | [Queued](../../TODO.md#queued) | [plan](plans/JG-018-airflow-and-acoustic-interaction.md) | Pending |
+| JG-019 | queued | Deployment readiness and studiomark.dev hosting | [Queued](../../TODO.md#queued) | [plan](plans/JG-019-deployment-and-hosting.md) | Pending |
+
+## Legacy Work
+
+Earlier completed work has not been assigned artificial IDs or evidence records retroactively. The complete pre-system record is preserved at [`../archive/superseded/TODO-pre-work-index-migration-2026-08-26.md`](../archive/superseded/TODO-pre-work-index-migration-2026-08-26.md). Backfill it only if an older feature is reopened, re-verified, or becomes a dependency for new work.
+
+## State Protocol
+
+| Status | Meaning | Required action |
+|---|---|---|
+| `proposed` | Untriaged idea in [`inbox/`](inbox/). | Do not place it in TODO. |
+| `queued` | Accepted plan, ready to work. | List it as `[ ]` in TODO. |
+| `in-progress` | Work has started against an accepted plan. | Keep TODO unchecked; update this state and plan change log. |
+| `verified` | Acceptance criteria and evidence are recorded. | Link evidence and change TODO to `[x]` in the same commit. |
+| `superseded` or `cancelled` | Work is no longer active. | Keep the record, state its disposition, and remove it from active queue sections. |
+
+## Intake Rule
+
+Start every incoming proposal in [`inbox/`](inbox/). At triage, either reject/merge it or assign the next sequential `JG-###` ID, create an accepted plan, add this registry row, and add its concise TODO line in the same change.
