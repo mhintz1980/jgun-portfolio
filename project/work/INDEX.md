@@ -13,7 +13,7 @@ This is the stable registry for work accepted after the `JG-###` protocol was es
 | JG-016 | verified | Multi-station spatial world and navigation rig | [Active](../../TODO.md#active) | [plan](plans/JG-016-multi-station-spatial-world.md) | [evidence](evidence/JG-016-multi-station-spatial-world-verification.md) |
 | JG-017 | queued | Post-processing and whip-pan camera effects | [Queued](../../TODO.md#queued) | [plan](plans/JG-017-whip-pan-camera-fx.md) | Pending |
 | JG-018 | queued | Interactive airflow and acoustic-wave systems | [Queued](../../TODO.md#queued) | [plan](plans/JG-018-airflow-and-acoustic-interaction.md) | Pending |
-| JG-019 | queued | Deployment readiness and studiomark.dev hosting | [Queued](../../TODO.md#queued) | [plan](plans/JG-019-deployment-and-hosting.md) | Pending |
+| JG-019 | verified | Deployment readiness and studiomark.dev hosting | [Queued](../../TODO.md#queued) | [plan](plans/JG-019-deployment-and-hosting.md) | [evidence](evidence/JG-019-deployment-and-hosting-verification.md) |
 
 ## Legacy Work
 

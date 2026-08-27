@@ -22,6 +22,9 @@ npm run dev
 
 The large JGun GLBs are gitignored (16 MB); `public/models/role-map.json` and
 `public/models/m249-transformed.glb` (871 KB) **are** committed.
+Deploy to studiomark.dev (Cloudflare Pages direct upload — the gitignored
+GLBs rule out git-checkout deploys): `scripts/deploy-studiomark.ps1`, full
+runbook in [`project/context/deployment.md`](project/context/deployment.md).
 `sync-assets` renames `jgun-full.glb` → `Default.glb` so the brief's
 `useGLTF('/models/Default.glb')` path resolves. The GLBs are Draco-compressed;
 `useGLTF.setDecoderPath('/draco/')` in `TorqueWrenchHero.tsx` points every load

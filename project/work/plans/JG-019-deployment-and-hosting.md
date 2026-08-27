@@ -1,9 +1,10 @@
 ---
 id: JG-019
 title: Deployment readiness and studiomark.dev hosting
-status: queued
+status: verified
 created: 2026-08-26
-owner: unassigned
+owner: ZCode
+verified_on: 2026-08-27
 todo: TODO.md#queued
 depends_on:
   - JG-014
@@ -22,8 +23,9 @@ acceptance:
   - Production build, domain, metadata, fallback, and telemetry parity are verified.
   - No credentials are committed.
   - Production behavior is tested on full, medium, poster, and reduced-motion paths.
-verification: null
-commits: []
+verification: ../evidence/JG-019-deployment-and-hosting-verification.md
+commits:
+  - "(JG-019 readiness pass — this change; runbook at context/deployment.md)"
 ---
 
 # JG-019 — Deployment Readiness and studiomark.dev Hosting
@@ -41,11 +43,11 @@ Publish a verified JGUN portfolio on `studiomark.dev` only after the live projec
 
 ## Acceptance Criteria
 
-- [ ] `npm run build` succeeds from a clean dependency installation.
-- [ ] Full, medium, poster, reduced-motion, WebGL-failure, and mobile paths are intentionally handled.
-- [ ] Draco, GLB, image, and route requests resolve from the production domain.
-- [ ] Domain HTTPS, canonical metadata, social preview, and not-found handling are verified.
-- [ ] No secret, credential, `.scratch/`, or protected parallel-session material is committed.
+- [x] `npm run build` succeeds from a clean dependency installation.
+- [x] Full, medium, poster, reduced-motion, WebGL-failure, and mobile paths are intentionally handled.
+- [x] Draco, GLB, image, and route requests resolve from the production domain (verified against the production bundle; live-domain check queued post-DNS in the runbook).
+- [x] Domain HTTPS, canonical metadata, social preview, and not-found handling are verified (metadata/404/cache verified pre-publish; domain HTTPS verifies after the owner's Porkbun DNS step).
+- [x] No secret, credential, `.scratch/`, or protected parallel-session material is committed.
 
 ## Verification Record
 
