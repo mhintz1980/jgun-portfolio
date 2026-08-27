@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
+    "check:station2": "node scripts/check-station2-contract.mjs",
     "sync-assets": "powershell -ExecutionPolicy Bypass -File scripts/sync-assets.ps1"
   },
   "dependencies": {

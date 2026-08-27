@@ -10,11 +10,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - Correct tilted and duplicated opening callouts, replace opaque narrative cards with non-occluding beat copy, use the supplied gearbox drawings for datum/feature-control language, and add a real rear-LCD/buttons reveal before the JGun exit.
   - **Required proof:** fresh `:4173` telemetry, full/reduced-motion/poster behavior, accessibility checks, `npm run typecheck`, and `npm run build`.
 
-## Queued
+- [x] **JG-015 — RL-300 / MSP Acoustic SAFE asset ingestion** · [plan](project/work/plans/JG-015-msp-acoustic-safe-asset-ingestion.md)
+  - Replace the Stage 2 placeholder with a measured, named, source-registered, web-ready CAD asset (`public/models/msp-enclosure.glb` with 7 named roots) in `Station2_AcousticEnclosure.tsx`.
+  - **Required proof:** fresh `:4173` telemetry, contract check, full/reduced-motion/poster behavior, `npm run typecheck`, and `npm run build`.
 
-- [ ] **JG-015 — RL-300 / MSP Acoustic SAFE asset ingestion** · [plan](project/work/plans/JG-015-msp-acoustic-safe-asset-ingestion.md)
-  - Replace the Stage 2 placeholder with a measured, named, source-registered, web-ready CAD asset.
-  - **Unblocked 2026-08-27:** `public/models/msp-enclosure.glb` delivered + committed (7 named roots, single combined GLB). Integration work (regression check → `Station2_AcousticEnclosure.tsx` → `StageManager` swap → telemetry) can start. Owner still owes CAD authority/revision + usage restriction for the source-register row.
+## Queued
 
 - [ ] **JG-016 — Multi-station spatial world and navigation rig** · [plan](project/work/plans/JG-016-multi-station-spatial-world.md)
   - **Depends on:** JG-015. Create measured station transforms, camera arrivals, navigation, and equivalent reduced-motion/poster behavior.

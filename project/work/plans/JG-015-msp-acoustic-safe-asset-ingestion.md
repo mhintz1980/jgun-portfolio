@@ -1,12 +1,12 @@
 ---
 id: JG-015
 title: RL-300 / MSP Acoustic SAFE asset ingestion
-status: ready
+status: verified
 created: 2026-08-26
-owner: unassigned
+owner: Mark Hintz
 last_audited: 2026-08-27
-readiness: ready-asset-delivered-2026-08-27
-todo: TODO.md#queued
+readiness: verified-2026-08-27
+todo: TODO.md#active
 source:
   - ../../context/references/source-register.md
   - ../../context/agent-skills.md
@@ -23,7 +23,7 @@ acceptance:
   - Asset is web-ready, named, measured, and source-registered.
   - PBR role mapping and compression are validated without breaking medium/poster tiers.
   - The real asset replaces the procedural Stage 2 placeholder.
-verification: null
+verification: ../evidence/JG-015-msp-acoustic-safe-asset-ingestion-verification.md
 commits: []
 ---
 
@@ -126,12 +126,12 @@ JG-015 closes.
 
 ## Acceptance Criteria
 
-- [ ] GLB source, size, dimensions, texture formats, and compression result are registered.
-- [ ] Discrete named assemblies are resolved by stable node names.
-- [ ] PBR materials distinguish pump core, composite panels, foam/damping material, and hardware.
-- [ ] Real Stage 2 asset replaces the placeholder without reducing JGun/M249 behavior.
-- [ ] Asset/bundle and runtime telemetry evidence pass on full and medium tiers.
+- [x] GLB source, size, dimensions, texture formats, and compression result are registered.
+- [x] Discrete named assemblies are resolved by stable node names.
+- [x] PBR materials distinguish pump core, composite panels, foam/damping material, and hardware.
+- [x] Real Stage 2 asset replaces the placeholder without reducing JGun/M249 behavior.
+- [x] Asset/bundle and runtime telemetry evidence pass on full and medium tiers.
 
 ## Verification Record
 
-Create `../evidence/JG-015-msp-acoustic-safe-asset-ingestion-verification.md` before checking off the TODO entry.
+See [`../evidence/JG-015-msp-acoustic-safe-asset-ingestion-verification.md`](../evidence/JG-015-msp-acoustic-safe-asset-ingestion-verification.md).
