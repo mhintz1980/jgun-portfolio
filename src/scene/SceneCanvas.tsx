@@ -7,6 +7,7 @@ import { CameraRig } from './CameraRig'
 import { StageManager } from './StageManager'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
+import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState } from '../state/scrollStore'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
@@ -53,9 +54,8 @@ function RoomEnvironmentIbl() {
 
 /**
  * CR-5 — Warm fill light behind the handle LCD face.
- * Activates during the rear orbit beat (progress 0.35→0.57) to cast soft
- * warm reflections on the anodized LCD housing (P001924). Intensity is driven
- * inside useFrame so no React re-renders are triggered.
+ * Activates only during the shared post-explode rear-LCD reveal window so the
+ * dwell has stable warm reflections without lighting the pre-explode ghost beat.
  */
 function LcdFillLight() {
   const lightRef = useRef<PointLight>(null)
@@ -63,9 +63,8 @@ function LcdFillLight() {
   useFrame(() => {
     if (!lightRef.current) return
     const { progress } = getScrollState()
-    // Bell-shaped activation: fade in 0.35→0.41, hold, fade out 0.51→0.57
-    const fadeIn  = Math.min(Math.max((progress - 0.35) / 0.06, 0), 1)
-    const fadeOut = Math.min(Math.max((0.57 - progress) / 0.06, 0), 1)
+    const fadeIn = Math.min(Math.max((progress - LCD_REVEAL_WINDOW.start) / 0.004, 0), 1)
+    const fadeOut = Math.min(Math.max((LCD_REVEAL_WINDOW.end - progress) / 0.004, 0), 1)
     const w = Math.min(fadeIn, fadeOut)
     lightRef.current.intensity = w * 2.8
   })

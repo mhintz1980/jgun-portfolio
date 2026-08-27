@@ -247,10 +247,20 @@ export const SHIFT_CAMERA_KEYFRAMES = {
 
 /**
  * Rear LCD orbit camera keyframes — sub-sequence that runs during global
- * progress 0.35→0.57 (inside the ghost-fade window). Camera arcs rearward
+ * progress window defined by LCD_REVEAL_WINDOW. Camera arcs rearward
  * to reveal the LCD screen (P002115) and buttons (P002123/24/25) on the
  * handle rear face, dwells with the emissive screen glowing, then returns.
  */
+export const LCD_REVEAL_WINDOW = {
+  /** Begins after the measured explode completion near 0.518. */
+  start: 0.519,
+  /** Stable rear LCD/buttons dwell before the wrench fade begins. */
+  dwellStart: 0.523,
+  dwellEnd: 0.532,
+  /** Ends before the measured wrench/enclosure cross-fade at 0.535–0.575. */
+  end: 0.534,
+} as const
+
 export const LCD_ORBIT_KEYFRAMES = {
   /** Ghost fade start — still at lateral inspection position. */
   start:  { position: [0.60, 0.08, 0.05] as [number,number,number], target: [0, 0.015, -0.07] as [number,number,number], fov: 36 },
@@ -274,6 +284,10 @@ export const HOTSPOTS: HotspotDef[] = [
     label: 'AIR MOTOR ROTOR',
     detail:
       'Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing.',
+    annotation: {
+      anchorOffset: [0, -0.016, 0.015],
+      processNote: 'BALANCED VANE ASSEMBLY',
+    },
     chapters: [0, 1],
   },
   {
@@ -282,6 +296,16 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'datum',
     label: 'DATUM A — MOTOR BORE',
     detail: 'Machined air-motor housing. Primary datum for the rotating stack: RUNOUT < .0015" TIR.',
+    annotation: {
+      datum: 'A',
+      frame: {
+        characteristic: '↗',
+        cells: ['↗', '.0015', 'A'],
+        datums: ['A'],
+      },
+      processNote: 'RUNOUT < .0015" TIR',
+      anchorOffset: [0, 0.028, -0.005],
+    },
     chapters: [0, 1],
   },
   {
@@ -290,6 +314,16 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'datum',
     label: 'DATUM B — MOUNT FACE',
     detail: 'Motor-to-gearbox interface flange. FLATNESS < .0008" holds stage alignment across the joint.',
+    annotation: {
+      datum: 'B',
+      frame: {
+        characteristic: '⏢',
+        cells: ['⏢', '.0008'],
+        datums: [],
+      },
+      processNote: 'FLATNESS < .0008"',
+      anchorOffset: [0, 0.028, 0],
+    },
     chapters: [1],
   },
   {
@@ -299,6 +333,15 @@ export const HOTSPOTS: HotspotDef[] = [
     label: 'GEARBOX HOUSING',
     detail:
       'Outer housing of the D1-AP planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
+    annotation: {
+      frame: {
+        characteristic: '⌖',
+        cells: ['⌖', '⌀.002 Ⓜ', 'A', 'B'],
+        datums: ['A', 'B'],
+      },
+      processNote: 'POSITION ⌖ .002" @ MMC',
+      anchorOffset: [0, 0.032, 0],
+    },
     chapters: [1, 2],
   },
   {
@@ -308,7 +351,11 @@ export const HOTSPOTS: HotspotDef[] = [
     label: 'MSP430 MCU',
     detail:
       'TI MSP430F6726 microcontroller — the smart-tool brain sampling pressure and driving the manometer display.',
-    chapters: [3],
+    annotation: {
+      processNote: 'DIGITAL SAMPLING CONTROLLER',
+      anchorOffset: [-0.003, 0, 0.002],
+    },
+    chapters: [1, 3],
   },
   {
     id: 'lcd',
@@ -316,7 +363,11 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'inspect',
     label: 'LCD MANOMETER',
     detail: 'Onboard LCD manometer readout — live line-pressure telemetry at the operator’s thumb.',
-    chapters: [3],
+    annotation: {
+      processNote: 'BACKLIT DIGITAL MANOMETER',
+      anchorOffset: [-0.003, 0, -0.006],
+    },
+    chapters: [1, 3],
   },
   {
     id: 'lipo',
@@ -324,6 +375,10 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'inspect',
     label: 'LiPo POWER CELL',
     detail: 'Tenergy 3.7 V LiPo cell powering the electronics stack independent of the air line.',
-    chapters: [3],
+    annotation: {
+      processNote: '3.7V AUXILIARY POWER CELL',
+      anchorOffset: [0.003, 0, 0.004],
+    },
+    chapters: [1, 3],
   },
 ]

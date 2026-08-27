@@ -41,6 +41,10 @@ export function HotspotButton({
   onMouseEnter?: () => void
   onMouseLeave?: () => void
 }) {
+  const datumLetter = def.annotation?.datum
+  const frame = def.annotation?.frame
+  const processNote = def.annotation?.processNote
+
   return (
     <button
       type="button"
@@ -50,24 +54,58 @@ export function HotspotButton({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={style}
-      className={`group pointer-events-auto cursor-pointer select-none whitespace-nowrap border px-3 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+      className={`group pointer-events-auto cursor-pointer select-none whitespace-nowrap border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
         selected
-          ? 'border-cyan-300 bg-cyan-950/90 text-cyan-100 shadow-[0_0_20px_rgba(0,229,255,0.5)] ring-1 ring-cyan-400/60'
-          : 'border-cyan-400/50 bg-black/80 text-cyan-300/90 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]'
+          ? 'border-cyan-300 bg-cyan-950/95 text-cyan-100 shadow-[0_0_20px_rgba(0,229,255,0.5)] ring-1 ring-cyan-400/60'
+          : 'border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]'
       }`}
     >
-      <span className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
         <span
-          className={`inline-block h-1.5 w-1.5 rounded-full transition-all duration-200 ${
+          className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-200 ${
             selected
               ? 'bg-cyan-300 shadow-[0_0_8px_#00e5ff] ring-2 ring-cyan-400/50'
               : 'bg-cyan-400/70 group-hover:bg-cyan-300'
           }`}
         />
-        <span className="font-bold tracking-wider">{def.kind === 'inspect' ? '◉ INSPECT' : '◎ DATUM'}</span>
-        <span className="text-cyan-400/40">·</span>
-        <span className="font-semibold text-cyan-100/95">{def.label}</span>
-      </span>
+
+        {/* 1. ASME Y14.5 Boxed Datum Flag: [ -A- ] */}
+        {datumLetter && (
+          <span className="inline-flex h-5 min-w-[22px] items-center justify-center border border-cyan-300 bg-cyan-950/80 px-1 font-mono text-[11px] font-bold text-cyan-100 shadow-[0_0_8px_rgba(0,229,255,0.4)]">
+            -{datumLetter}-
+          </span>
+        )}
+
+        {/* 2. ASME Y14.5 Segmented Feature Control Frame */}
+        {frame ? (
+          <div className="inline-flex items-center border border-cyan-300/90 bg-cyan-950/40 text-cyan-100">
+            {frame.characteristic && (
+              <span className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold">
+                {frame.characteristic}
+              </span>
+            )}
+            {frame.cells.map((cell, idx) => (
+              <span
+                key={`${cell}-${idx}`}
+                className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold last:border-r-0"
+              >
+                {cell}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        {/* 3. Label / Subassembly Title */}
+        <span className="font-semibold tracking-wider text-cyan-100/95">{def.label}</span>
+
+        {/* 4. Process Note */}
+        {processNote && !frame && !datumLetter && (
+          <>
+            <span className="text-cyan-400/40">·</span>
+            <span className="text-[9px] text-cyan-300/70">{processNote}</span>
+          </>
+        )}
+      </div>
     </button>
   )
 }
@@ -75,10 +113,10 @@ export function HotspotButton({
 /**
  * Dynamic SVG leader line connecting 3D occurrence coordinates (0, 0) to the
  * HTML datum badge (dx, dy). Features:
- * - 3D anchor reticle (crosshairs, center dot, radar ring).
- * - Chamfered dogleg elbow line with horizontal datum shelf.
- * - Glowing laser stroke with continuous pulse flow on hover/active.
- * - Terminal tick at the badge intersection.
+ * - Small orthographic feature mark at the measured anchor.
+ * - Thin dogleg extension line with a horizontal datum shelf.
+ * - Restrained highlight on hover/active.
+ * - Terminal tick at the frame intersection.
  */
 function SpatialLeaderLine({
   dx,
@@ -114,50 +152,10 @@ function SpatialLeaderLine({
 
       {/* 1. 3D Anchor Reticle at (0, 0) */}
       <g>
-        {/* Outer subtle crosshairs */}
-        <line x1="-12" y1="0" x2="-5" y2="0" stroke={strokeColor} strokeWidth="1" opacity="0.8" />
-        <line x1="5" y1="0" x2="12" y2="0" stroke={strokeColor} strokeWidth="1" opacity="0.8" />
-        <line x1="0" y1="-12" x2="0" y2="-5" stroke={strokeColor} strokeWidth="1" opacity="0.8" />
-        <line x1="0" y1="5" x2="0" y2="12" stroke={strokeColor} strokeWidth="1" opacity="0.8" />
-
-        {/* Outer dashed radar ring */}
-        <circle
-          cx="0"
-          cy="0"
-          r="10"
-          stroke={strokeColor}
-          strokeWidth="0.9"
-          strokeDasharray="3 2"
-          fill="none"
-          opacity={active ? '0.9' : '0.4'}
-        />
-
-        {/* Inner concentric ring */}
-        <circle
-          cx="0"
-          cy="0"
-          r="5"
-          stroke={strokeColor}
-          strokeWidth="1"
-          fill={active ? 'rgba(0, 229, 255, 0.2)' : 'none'}
-        />
-
-        {/* Solid center datum dot */}
-        <circle cx="0" cy="0" r="2.5" fill={active ? '#00e5ff' : '#38bdf8'} />
-
-        {/* Active expanding pulse ring */}
-        {selected && (
-          <circle
-            cx="0"
-            cy="0"
-            r="14"
-            stroke="#00e5ff"
-            strokeWidth="1"
-            fill="none"
-            opacity="0.6"
-            className="animate-ping"
-          />
-        )}
+        {/* Orthographic feature cross and center mark; no decorative radar treatment. */}
+        <line x1="-8" y1="0" x2="8" y2="0" stroke={strokeColor} strokeWidth="1" />
+        <line x1="0" y1="-8" x2="0" y2="8" stroke={strokeColor} strokeWidth="1" />
+        <circle cx="0" cy="0" r="2" fill={active ? '#00e5ff' : '#38bdf8'} />
       </g>
 
       {/* 2. Dogleg Leader Line + Datum Shelf */}
@@ -188,7 +186,7 @@ function SpatialLeaderLine({
 
 /**
  * Single Spatial Hotspot Item.
- * Tracks 3D position with live explosion offsets and renders dynamic leader line + angled 3D datum badge.
+ * Tracks 3D position with live explosion offsets and renders a horizontal drawing-style leader/frame.
  */
 function HotspotAnchor({
   def,
@@ -202,6 +200,7 @@ function HotspotAnchor({
   const groupRef = useRef<Group>(null)
   const [hovered, setHovered] = useState(false)
   const config = HOTSPOT_CONFIG[def.id] ?? { dx: 220, dy: -90, unitOffset: 0 }
+  const anchorOffset = def.annotation?.anchorOffset ?? [0, 0, 0]
 
   // 60 fps tracking of explosion translation so anchor coordinates follow exploded CAD parts
   useFrame(() => {
@@ -209,9 +208,9 @@ function HotspotAnchor({
     const explode = telemetry.rig.explodeFactor
     const offsetZ = config.unitOffset * explode
     groupRef.current.position.set(
-      entry.bboxCenter[0],
-      entry.bboxCenter[1],
-      entry.bboxCenter[2] + offsetZ,
+      entry.bboxCenter[0] + anchorOffset[0],
+      entry.bboxCenter[1] + anchorOffset[1],
+      entry.bboxCenter[2] + anchorOffset[2] + offsetZ,
     )
   })
 
@@ -220,7 +219,11 @@ function HotspotAnchor({
   return (
     <group
       ref={groupRef}
-      position={[entry.bboxCenter[0], entry.bboxCenter[1], entry.bboxCenter[2]]}
+      position={[
+        entry.bboxCenter[0] + anchorOffset[0],
+        entry.bboxCenter[1] + anchorOffset[1],
+        entry.bboxCenter[2] + anchorOffset[2],
+      ]}
     >
       <Html
         center={false}
@@ -230,10 +233,6 @@ function HotspotAnchor({
       >
         <div
           className="relative"
-          style={{
-            perspective: '1200px',
-            transformStyle: 'preserve-3d',
-          }}
         >
           {/* Responsive SVG Leader Line connecting (0,0) to badge */}
           <SpatialLeaderLine
@@ -243,19 +242,14 @@ function HotspotAnchor({
             hovered={hovered}
           />
 
-          {/* HTML Datum Badge with 3D CAD engineering plane perspective tilt */}
+          {/* Horizontal orthographic datum/frame surface. */}
           <div
             style={{
               position: 'absolute',
               left: `${config.dx}px`,
               top: `${config.dy - 14}px`,
-              transform: `${
-                isRight ? 'none' : 'translateX(-100%)'
-              } perspective(1000px) rotateY(${isRight ? '-16deg' : '16deg'}) rotateX(6deg) rotateZ(${
-                isRight ? '-1.5deg' : '1.5deg'
-              })`,
+              transform: isRight ? 'none' : 'translateX(-100%)',
               transformOrigin: isRight ? 'left center' : 'right center',
-              transition: 'transform 0.25s cubic-bezier(0.2, 0, 0, 1)',
             }}
           >
             <HotspotButton
@@ -311,6 +305,21 @@ export function Hotspots() {
       return entry ? [{ def, entry }] : []
     })
   }, [roleMap])
+
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    const rotor = anchors.find(({ def }) => def.id === 'rotor')
+    const motor = anchors.find(({ def }) => def.id === 'motor-housing')
+    if (!rotor || !motor) return
+    const rotorOffset = rotor.def.annotation?.anchorOffset ?? [0, 0, 0]
+    const motorOffset = motor.def.annotation?.anchorOffset ?? [0, 0, 0]
+    const same = rotorOffset.every((value, index) =>
+      Math.abs(value - motorOffset[index]) < 0.0001,
+    ) && rotor.entry.bboxCenter.every((value, index) =>
+      Math.abs(value - motor.entry.bboxCenter[index]) < 0.0001,
+    )
+    if (same) console.warn('[Hotspots] rotor and motor-bore anchors coincide')
+  }, [anchors])
 
   return (
     <>

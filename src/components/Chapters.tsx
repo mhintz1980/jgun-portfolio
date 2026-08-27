@@ -31,12 +31,70 @@ export function Chapters() {
 
   const isStaticMode = tier === 'poster' || reducedMotion
 
+  // Mechanical beat windows
+  const isShiftBeat = progress >= 0.04 && progress <= 0.18
+  const isExplodeBeat = progress > 0.18 && progress < 0.48
+  const isLcdBeat = progress >= 0.48 && progress <= 0.56
+
   return (
     <>
-      {/* 1. Left-Hand 5-Column Narrative Grid Overlay (Fixed, z-10) */}
+      {/* 1. Left-Hand Narrative Grid Overlay (Fixed, z-10) */}
       {!isStaticMode ? (
         <div className="fixed inset-0 pointer-events-none z-10 grid grid-cols-12 p-6 md:p-12 items-center">
-          {CHAPTERS.map((chapterDef) => {
+          {/* Beat 1: Shift Groove Sequence (0.04 → 0.18) */}
+          {isShiftBeat && (
+            <div className="col-span-12 md:col-span-5 max-w-[min(26rem,38vw)] max-md:max-w-full flex flex-col justify-center transition-opacity duration-200">
+              <div className="pointer-events-auto border-l-2 border-cyan-400 bg-slate-950/40 p-4 md:p-5 rounded-r-lg backdrop-blur-sm shadow-lg">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-cyan-400 mb-2">
+                  <span className="tracking-[0.2em]">P000420 // 2-SPEED SHIFT MECHANISM</span>
+                </div>
+                <h2 className="text-lg md:text-xl font-bold text-slate-100 mb-2 font-sans">
+                  Helical Cam Speed Selector
+                </h2>
+                <div className="space-y-1.5 font-mono text-[11px]">
+                  <div className="flex items-center gap-2 text-cyan-200">
+                    <span className="inline-block h-2.5 w-2.5 rounded-sm bg-[#005DAA] shadow-[0_0_6px_#005DAA]" />
+                    <span className="font-semibold">LOWER GROOVE OSHA BLUE</span>
+                    <span className="text-slate-400">· LOW SPEED</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-cyan-300/90 pl-4 text-[10px]">
+                    <span className="text-cyan-400">▸</span>
+                    <span>3X @120° HELICAL CAM SLOTS</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-cyan-200">
+                    <span className="inline-block h-2.5 w-2.5 rounded-sm bg-[#C8102E] shadow-[0_0_6px_#C8102E]" />
+                    <span className="font-semibold">UPPER GROOVE OSHA RED</span>
+                    <span className="text-slate-400">· HIGH SPEED</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Beat 2: Rear LCD / Buttons Reveal Dwell (0.48 → 0.56) */}
+          {isLcdBeat && (
+            <div className="col-span-12 md:col-span-5 max-w-[min(26rem,38vw)] max-md:max-w-full flex flex-col justify-center transition-opacity duration-200">
+              <div className="pointer-events-auto border-l-2 border-cyan-400 bg-slate-950/40 p-4 md:p-5 rounded-r-lg backdrop-blur-sm shadow-lg">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-cyan-400 mb-2">
+                  <span className="tracking-[0.2em]">DIGITAL TELEMETRY // REAR ENDCAP</span>
+                </div>
+                <h2 className="text-lg md:text-xl font-bold text-slate-100 mb-1 font-sans">
+                  Smart-Tool Instrument Interface
+                </h2>
+                <p className="text-xs text-slate-300 font-sans mb-3 leading-relaxed">
+                  Dual-readout LCD manometer with membrane keypad and TI MSP430 MCU sampling line pressure directly at the operator's thumb.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/60 font-mono text-[9px] text-cyan-300">
+                  <span className="bg-cyan-950/60 border border-cyan-700/50 px-2 py-0.5 rounded">MANOMETER LCD (BK11356)</span>
+                  <span className="bg-cyan-950/60 border border-cyan-700/50 px-2 py-0.5 rounded">MSP430 MCU</span>
+                  <span className="bg-cyan-950/60 border border-cyan-700/50 px-2 py-0.5 rounded">3.7V LiPo CELL</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Standard Chapter Narrative Cards (Active when outside specific compact beats) */}
+          {!isShiftBeat && !isLcdBeat && CHAPTERS.map((chapterDef) => {
             const caseStudy = CASE_STUDIES.find((cs) => cs.chapter === chapterDef.index)
             const [start, end] = CHAPTER_RANGES[chapterDef.index] ?? [0, 1]
 
@@ -52,7 +110,11 @@ export function Chapters() {
                 className="col-span-12 md:col-span-5 max-w-[42vw] max-md:max-w-full flex flex-col justify-center transition-opacity duration-150"
                 style={{ opacity }}
               >
-                <div className="pointer-events-auto bg-slate-950/85 border border-slate-800/80 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-2xl">
+                <div className={`pointer-events-auto border p-4 md:p-6 ${
+                  isExplodeBeat
+                    ? 'max-w-[min(26rem,36vw)] rounded-lg border-cyan-400/30 bg-black/30 backdrop-blur-sm shadow-none'
+                    : 'rounded-xl border-slate-800/80 bg-slate-950/80 backdrop-blur-md shadow-2xl'
+                }`}>
                   {/* Chapter Tag & Identity */}
                   <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-2">
                     <span className="tracking-[0.2em]">{chapterDef.label}</span>
@@ -81,8 +143,8 @@ export function Chapters() {
                     </p>
                   )}
 
-                  {/* Case Study Details */}
-                  {caseStudy && (
+                  {/* Case Study Details — shown in full for non-exploded chapters */}
+                  {caseStudy && !isExplodeBeat && (
                     <div className="border-t border-slate-800/80 pt-4 mt-2">
                       <h3 className="text-sm md:text-base font-semibold text-slate-200 mb-1">
                         {caseStudy.headline}
@@ -108,6 +170,13 @@ export function Chapters() {
                           </span>
                         ))}
                       </div>
+                    </div>
+                  )}
+
+                  {/* Compact note for CH.02 explosion beat */}
+                  {caseStudy && isExplodeBeat && (
+                    <div className="border-t border-cyan-500/20 pt-2 font-mono text-[10px] text-cyan-300/80">
+                      <span>5-STAGE REDUCTION · REAR EXTRACTION · 7-AXIS MILL-TURN</span>
                     </div>
                   )}
                 </div>

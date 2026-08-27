@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { CAMERA_PATH } from '../data/caseStudies'
+import { CAMERA_PATH, LCD_ORBIT_KEYFRAMES, LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 
@@ -83,9 +83,8 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
  *  - Shift zoom (progress 0 → 0.15): camera dollies tight on the P000420
  *    groove area so OSHA Blue is visible before the ring switch moves, then
  *    pulls back after the Red groove is revealed.
- *  - LCD orbit (progress 0.35 → 0.57): camera arcs rearward around the handle
- *    to reveal the emissive LCD screen and buttons, then returns to the
- *    lateral inspection position before the explosion begins.
+ *  - LCD orbit: after the measured explode completion, camera arcs rearward,
+ *    dwells on the emissive LCD/buttons, then returns before stage handoff.
  *  - Click-to-inspect subassembly focus (hotspotId active): dollies tight
  *    into the selected part coordinates; scrolling seamlessly releases.
  */
@@ -167,19 +166,41 @@ export function CameraRig() {
       goalFov = lerpN(goalFov, grFov, shiftW)
     }
 
-    // ---- CR-5: Rear LCD orbit sub-sequence (progress 0.35 → 0.57) ----
-    const lcdW = bellWeight(progress, 0.36, 0.42, 0.50, 0.57)
-    if (lcdW > 0.001) {
-      const lcdPos: [number, number, number] = [-0.06, 0.08, -0.44]
-      const lcdTgt: [number, number, number] = [0, 0.02, -0.22]
-      const lcdFov = 32
-      goalPos.current.x = lerpN(goalPos.current.x, lcdPos[0], lcdW)
-      goalPos.current.y = lerpN(goalPos.current.y, lcdPos[1], lcdW)
-      goalPos.current.z = lerpN(goalPos.current.z, lcdPos[2], lcdW)
-      goalTarget.current.x = lerpN(goalTarget.current.x, lcdTgt[0], lcdW)
-      goalTarget.current.y = lerpN(goalTarget.current.y, lcdTgt[1], lcdW)
-      goalTarget.current.z = lerpN(goalTarget.current.z, lcdTgt[2], lcdW)
-      goalFov = lerpN(goalFov, lcdFov, lcdW)
+    // ---- CR-5: post-explode rear LCD orbit and stable dwell ----
+    const { start, dwellStart, dwellEnd, end } = LCD_REVEAL_WINDOW
+    if (progress >= start && progress <= end) {
+      const orbit = LCD_ORBIT_KEYFRAMES
+      const blend = (from: number, to: number, lo: number, hi: number): number =>
+        lerpN(from, to, smoothstep(Math.min(Math.max((progress - lo) / (hi - lo), 0), 1)))
+      const rearPos: [number, number, number] = progress < dwellStart
+        ? [
+            blend(orbit.start.position[0], orbit.arc.position[0], start, dwellStart),
+            blend(orbit.start.position[1], orbit.arc.position[1], start, dwellStart),
+            blend(orbit.start.position[2], orbit.arc.position[2], start, dwellStart),
+          ]
+        : progress <= dwellEnd
+          ? orbit.dwell.position
+          : [
+              blend(orbit.dwell.position[0], orbit.return.position[0], dwellEnd, end),
+              blend(orbit.dwell.position[1], orbit.return.position[1], dwellEnd, end),
+              blend(orbit.dwell.position[2], orbit.return.position[2], dwellEnd, end),
+            ]
+      const rearTarget: [number, number, number] = progress < dwellStart
+        ? [
+            blend(orbit.start.target[0], orbit.arc.target[0], start, dwellStart),
+            blend(orbit.start.target[1], orbit.arc.target[1], start, dwellStart),
+            blend(orbit.start.target[2], orbit.arc.target[2], start, dwellStart),
+          ]
+        : progress <= dwellEnd
+          ? orbit.dwell.target
+          : [
+              blend(orbit.dwell.target[0], orbit.return.target[0], dwellEnd, end),
+              blend(orbit.dwell.target[1], orbit.return.target[1], dwellEnd, end),
+              blend(orbit.dwell.target[2], orbit.return.target[2], dwellEnd, end),
+            ]
+      goalPos.current.set(rearPos[0], rearPos[1], rearPos[2])
+      goalTarget.current.set(rearTarget[0], rearTarget[1], rearTarget[2])
+      goalFov = progress <= dwellEnd ? orbit.dwell.fov : orbit.return.fov
     }
 
     // ---- CH.04 M249 continuous zoom-out (progress 0.67 → 1.00) ----

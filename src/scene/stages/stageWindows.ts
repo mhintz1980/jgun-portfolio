@@ -18,14 +18,14 @@
 export type FadeRange = readonly [start: number, end: number]
 
 export const STAGE_TRANSITIONS = {
-  /** Wrench stage (CH.01+02) sinks out — after the explosion ladder completes. */
-  wrenchOut: [0.48, 0.52] as FadeRange,
+  /** Wrench stage (CH.01+02) sinks out — after the explosion ladder and rear-LCD dwell complete. */
+  wrenchOut: [0.535, 0.575] as FadeRange,
   /** MSP enclosure stage (CH.03) enters as the wrench leaves. */
-  enclosureIn: [0.48, 0.52] as FadeRange,
+  enclosureIn: [0.535, 0.575] as FadeRange,
   /** MSP enclosure stage exits upward-window as the point cloud arrives. */
-  enclosureOut: [0.65, 0.69] as FadeRange,
+  enclosureOut: [0.72, 0.76] as FadeRange,
   /** M249 point-cloud stage (CH.04) enters and holds to the end. */
-  pointCloudIn: [0.65, 0.69] as FadeRange,
+  pointCloudIn: [0.72, 0.76] as FadeRange,
 } as const
 
 /** Vertical enter/exit travel per stage (m) — clears the 28–42° frustum. */

@@ -1,9 +1,9 @@
 ---
 id: JG-014
 title: Opening sequence, print-authentic GD&T annotations, and rear-LCD reveal
-status: queued
+status: verified
 created: 2026-08-26
-owner: unassigned
+owner: Antigravity
 todo: TODO.md#active
 source:
   - ../../context/architecture/animation-spec.md
@@ -28,8 +28,9 @@ acceptance:
   - Narrative content does not occlude the machine during opening mechanical beats.
   - Rear LCD/buttons receive a stable reveal before JGun stage exit.
   - Fresh :4173 telemetry and build evidence are recorded.
-verification: null
-commits: []
+verification: ../evidence/JG-014-opening-gdt-lcd-verification.md
+commits:
+  - 3152571
 ---
 
 # JG-014 — Opening Sequence, GD&T, and LCD Repair
@@ -62,15 +63,16 @@ The work corrects the opening callout tilt, the overlapping rotor/motor-bore anc
 
 ## Acceptance Criteria
 
-- [ ] No visible callout uses CSS `perspective`, `rotateX`, `rotateY`, or `rotateZ`.
-- [ ] Datum A and rotor anchors resolve to different measured feature points.
-- [ ] At 4–16% scroll, P000420 ring-switch/groove motion remains visible without a filled narrative panel.
-- [ ] At 25–46% scroll, the gear rotation and extraction remain visible without prose covering the mechanism.
-- [ ] The P000420 groove sequence uses approved labels: `LOWER GROOVE OSHA BLUE`, `UPPER GROOVE OSHA RED`, and `3X @120°` where contextually relevant.
-- [ ] The rear LCD/buttons are visible during a stable pre-handoff dwell; JGun stage alpha remains effectively 1 during that dwell.
-- [ ] Full, reduced-motion, keyboard, touch, and poster-tier behavior are verified.
-- [ ] `npm run typecheck`, `npm run build`, and fresh `:4173` telemetry evidence are recorded.
+- [x] No visible callout uses CSS `perspective`, `rotateX`, `rotateY`, or `rotateZ`.
+- [x] Datum A and rotor anchors resolve to different measured feature points.
+- [x] At 4–16% scroll, P000420 ring-switch/groove motion remains visible without a filled narrative panel.
+- [x] At 25–46% scroll, the gear rotation and extraction remain visible without prose covering the mechanism.
+- [x] The P000420 groove sequence uses approved labels: `LOWER GROOVE OSHA BLUE`, `UPPER GROOVE OSHA RED`, and `3X @120°` where contextually relevant.
+- [x] The rear LCD/buttons are visible during a stable pre-handoff dwell; JGun stage alpha remains effectively 1 during that dwell.
+- [x] Full, reduced-motion, keyboard, touch, and poster-tier behavior are verified.
+- [x] `npm run typecheck`, `npm run build`, and fresh `:4173` telemetry evidence are recorded.
 
 ## Verification Record
 
-Create `../evidence/JG-014-opening-gdt-lcd-verification.md` after implementation. Do not change this plan or its TODO item to verified before the evidence exists.
+Verified at [`../evidence/JG-014-opening-gdt-lcd-verification.md`](../evidence/JG-014-opening-gdt-lcd-verification.md).
+

@@ -35,6 +35,23 @@ export interface CaseStudy {
 
 export type HotspotKind = 'inspect' | 'datum'
 
+export interface FeatureControlFrame {
+  /** Characteristic symbol, e.g. '↗', '⏢', '⌖'. */
+  characteristic?: string
+  /** Drawing-verified cell contents, kept in print order. */
+  cells: string[]
+  /** Optional drawing-verified datum sequence. */
+  datums?: DatumLabel[]
+}
+
+export interface HotspotAnnotation {
+  datum?: DatumLabel
+  frame?: FeatureControlFrame
+  processNote?: string
+  /** Local correction from the role-map bbox center to the measured feature point (m). */
+  anchorOffset?: [number, number, number]
+}
+
 export interface HotspotDef {
   id: string
   /**
@@ -46,6 +63,7 @@ export interface HotspotDef {
   kind: HotspotKind
   label: string
   detail: string
+  annotation?: HotspotAnnotation
   /** Chapters in which this hotspot is rendered. */
   chapters: ChapterIndex[]
 }

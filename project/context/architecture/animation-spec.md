@@ -288,7 +288,7 @@ with the parts. Uniforms: `uProgress` (chapter-4 scroll), `uTime`,
 Active only at `chapter === 3 && tier === 'full'`. Lite tier replaces it with
 a plain opacity ramp into the blueprint wireframe.
 
-## 7. Hotspots (`src/scene/Hotspots.tsx`, `HOTSPOTS`)
+## 7. Hotspots & GD&T Annotations (`src/scene/Hotspots.tsx`, `HOTSPOTS`)
 
 Seven annotated occurrences (`ROTOR-1`, `AIR MOTOR HOUSING-MACHINED-1`,
 `FLANGE-1`, `P000245-1`, `MSP430F6726IPN-1`, `MANOMETER LCD BK11356-1`,
@@ -297,11 +297,13 @@ occurrence names (316 entries with world-space bbox centers — the pipeline's
 authoritative anchor source). Occurrence matching is exact-first with a
 prefix-normalizing fallback: entries may carry an exporter-added
 `"occurrence of "` prefix, which is stripped (case-insensitive) only when no
-exact row exists, so anchors never shift when both forms are present. Rendered inside the hero group so they track
-rotation and explosion; visible only in their declared chapters. Each is a
-real `<button>` with `aria-pressed`, native Enter/Space activation, cyan
-focus-visible ring, and Escape closes the detail panel. No role map → no
-hotspots (graceful no-op).
+exact row exists, so anchors never shift when both forms are present.
+
+**Print-Authentic GD&T Conventions (ASME Y14.5 / JG-014):**
+- **Orthographic Alignment**: All datum flags (`[-A-]`, `[-B-]`) and feature control frames are strictly horizontal and 2D-aligned (zero CSS `perspective` or 3D rotation tilts).
+- **Segmented Feature Control Frames**: Bordered cells per ASME Y14.5 format (`[ ↗ | .0015 | A ]`, `[ ⏢ | .0008 ]`, `[ ⌖ | ⌀.002 Ⓜ | A | B ]`).
+- **Measured Distinct Anchors**: `AIR MOTOR HOUSING-MACHINED-1` (Datum A bore surface) and `ROTOR-1` (internal vane core) resolve to distinct measured 3D offsets (`[0, 0.028, -0.005]` vs `[0, -0.016, 0.015]`), preventing duplicate or overlapping leader origins.
+- **Accessibility**: Each is a real `<button>` with `aria-pressed`, native Enter/Space activation, high-contrast cyan focus-visible ring, and Escape closes the detail panel. No role map → no hotspots (graceful no-op).
 
 ## 8. Scene look (`SceneCanvas.tsx`)
 
