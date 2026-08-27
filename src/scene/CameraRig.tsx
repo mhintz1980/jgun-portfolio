@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { CAMERA_PATH, LCD_ORBIT_KEYFRAMES, LCD_REVEAL_WINDOW } from '../data/caseStudies'
+import { CAMERA_PATH, EXPLODE_OFFSETS, LCD_ORBIT_KEYFRAMES, LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 
@@ -167,40 +167,43 @@ export function CameraRig() {
     }
 
     // ---- CR-5: post-explode rear LCD orbit and stable dwell ----
+    // Piecewise path: start → arc → dwell (hold) → return, each segment
+    // smoothstep-eased. The pre-repair code interpolated start→arc across the
+    // whole entry phase and then SNAPPPED to the dwell keyframe at dwellStart;
+    // this version passes through the arc and eases into the dwell. start and
+    // return equal the base CAMERA_PATH blend at the window edges (see the
+    // measurement notes in caseStudies.ts), so entry/exit are continuous.
     const { start, dwellStart, dwellEnd, end } = LCD_REVEAL_WINDOW
     if (progress >= start && progress <= end) {
       const orbit = LCD_ORBIT_KEYFRAMES
+      const midArc = start + (dwellStart - start) / 2
       const blend = (from: number, to: number, lo: number, hi: number): number =>
         lerpN(from, to, smoothstep(Math.min(Math.max((progress - lo) / (hi - lo), 0), 1)))
-      const rearPos: [number, number, number] = progress < dwellStart
-        ? [
-            blend(orbit.start.position[0], orbit.arc.position[0], start, dwellStart),
-            blend(orbit.start.position[1], orbit.arc.position[1], start, dwellStart),
-            blend(orbit.start.position[2], orbit.arc.position[2], start, dwellStart),
-          ]
-        : progress <= dwellEnd
-          ? orbit.dwell.position
-          : [
-              blend(orbit.dwell.position[0], orbit.return.position[0], dwellEnd, end),
-              blend(orbit.dwell.position[1], orbit.return.position[1], dwellEnd, end),
-              blend(orbit.dwell.position[2], orbit.return.position[2], dwellEnd, end),
-            ]
-      const rearTarget: [number, number, number] = progress < dwellStart
-        ? [
-            blend(orbit.start.target[0], orbit.arc.target[0], start, dwellStart),
-            blend(orbit.start.target[1], orbit.arc.target[1], start, dwellStart),
-            blend(orbit.start.target[2], orbit.arc.target[2], start, dwellStart),
-          ]
-        : progress <= dwellEnd
-          ? orbit.dwell.target
-          : [
-              blend(orbit.dwell.target[0], orbit.return.target[0], dwellEnd, end),
-              blend(orbit.dwell.target[1], orbit.return.target[1], dwellEnd, end),
-              blend(orbit.dwell.target[2], orbit.return.target[2], dwellEnd, end),
-            ]
+      const seg = <T extends readonly number[]>(from: T, to: T, lo: number, hi: number) =>
+        [blend(from[0], to[0], lo, hi), blend(from[1], to[1], lo, hi), blend(from[2], to[2], lo, hi)] as [number, number, number]
+      let rearPos: [number, number, number]
+      let rearTarget: [number, number, number]
+      let rearFov: number
+      if (progress < midArc) {
+        rearPos = seg(orbit.start.position, orbit.arc.position, start, midArc)
+        rearTarget = seg(orbit.start.target, orbit.arc.target, start, midArc)
+        rearFov = blend(orbit.start.fov, orbit.arc.fov, start, midArc)
+      } else if (progress < dwellStart) {
+        rearPos = seg(orbit.arc.position, orbit.dwell.position, midArc, dwellStart)
+        rearTarget = seg(orbit.arc.target, orbit.dwell.target, midArc, dwellStart)
+        rearFov = blend(orbit.arc.fov, orbit.dwell.fov, midArc, dwellStart)
+      } else if (progress <= dwellEnd) {
+        rearPos = [...orbit.dwell.position] as [number, number, number]
+        rearTarget = [...orbit.dwell.target] as [number, number, number]
+        rearFov = orbit.dwell.fov
+      } else {
+        rearPos = seg(orbit.dwell.position, orbit.return.position, dwellEnd, end)
+        rearTarget = seg(orbit.dwell.target, orbit.return.target, dwellEnd, end)
+        rearFov = blend(orbit.dwell.fov, orbit.return.fov, dwellEnd, end)
+      }
       goalPos.current.set(rearPos[0], rearPos[1], rearPos[2])
       goalTarget.current.set(rearTarget[0], rearTarget[1], rearTarget[2])
-      goalFov = progress <= dwellEnd ? orbit.dwell.fov : orbit.return.fov
+      goalFov = rearFov
     }
 
     // ---- CH.04 M249 continuous zoom-out (progress 0.67 → 1.00) ----
@@ -219,21 +222,22 @@ export function CameraRig() {
     }
 
     // ---- Click-to-Inspect Subassembly Focus ----
-    const inspectFrame = hotspotId ? HOTSPOT_INSPECT_FRAMES[hotspotId] : null
+    // The LCD hotspot's own orbit dwell (already framing the rear cap) IS the
+    // inspection — don't yank the camera to the rest-frame inspect position
+    // while that window is active.
+    const inLcdWindow =
+      progress >= LCD_REVEAL_WINDOW.start && progress <= LCD_REVEAL_WINDOW.end
+    const inspectFrame =
+      hotspotId && !(hotspotId === 'lcd' && inLcdWindow)
+        ? HOTSPOT_INSPECT_FRAMES[hotspotId]
+        : null
     if (inspectFrame) {
       const explode = telemetry.rig.explodeFactor
-      let offsetZ = 0
-      if (
-        hotspotId === 'rotor' ||
-        hotspotId === 'motor-housing' ||
-        hotspotId === 'mcu' ||
-        hotspotId === 'lcd' ||
-        hotspotId === 'lipo'
-      ) {
-        offsetZ = -0.331 * explode
-      } else if (hotspotId === 'flange') {
-        offsetZ = -0.269 * explode
-      }
+      // The gearbox housing never explodes; every other annotated occurrence
+      // rides the handle assembly's rear-extraction offset (role-map assembly
+      // field — including the mount-face flange, which the pre-repair code
+      // wrongly tracked on the old clutch offset).
+      const offsetZ = hotspotId === 'gearbox-housing' ? 0 : EXPLODE_OFFSETS.handle * explode
 
       goalPos.current.set(
         inspectFrame.position[0],

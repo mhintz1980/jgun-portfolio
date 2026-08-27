@@ -63,8 +63,9 @@ function LcdFillLight() {
   useFrame(() => {
     if (!lightRef.current) return
     const { progress } = getScrollState()
-    const fadeIn = Math.min(Math.max((progress - LCD_REVEAL_WINDOW.start) / 0.004, 0), 1)
-    const fadeOut = Math.min(Math.max((LCD_REVEAL_WINDOW.end - progress) / 0.004, 0), 1)
+    // Ease over 0.02 of scroll (~40vh) — the pre-repair 0.004 ramp was ~3 frames.
+    const fadeIn = Math.min(Math.max((progress - LCD_REVEAL_WINDOW.start) / 0.02, 0), 1)
+    const fadeOut = Math.min(Math.max((LCD_REVEAL_WINDOW.end - progress) / 0.02, 0), 1)
     const w = Math.min(fadeIn, fadeOut)
     lightRef.current.intensity = w * 2.8
   })
@@ -72,8 +73,9 @@ function LcdFillLight() {
   return (
     <pointLight
       ref={lightRef}
-      // Positioned behind and slightly above the handle rear face
-      position={[-0.04, 0.06, -0.30]}
+      // Behind/above the rear cap at the measured dwell: the exploded LCD
+      // cluster sits at world [−0.14, 0, 0.46] (see LCD_ORBIT_KEYFRAMES notes).
+      position={[-0.24, 0.08, 0.56]}
       color="#ffe8c0"
       intensity={0}
       distance={0.35}

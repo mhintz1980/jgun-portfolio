@@ -2,24 +2,30 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { Group } from 'three'
-import { HOTSPOTS } from '../data/caseStudies'
+import { EXPLODE_OFFSETS, HOTSPOTS } from '../data/caseStudies'
 import { setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
-import type { ChapterIndex, RoleMapEntry } from '../types/portfolio'
+import type { ChapterIndex, HotspotDef, RoleMapEntry } from '../types/portfolio'
 
 /**
  * 2D screen offset configuration and explosion offset per hotspot ID.
  * dx/dy: screen-space pixel displacement from 3D anchor to HTML datum badge.
  * unitOffset: axial explosion offset in meters (tracks moving subassemblies).
- * Dramatic offsets give generous clearance from CAD geometry.
+ *
+ * Every annotated occurrence except the gearbox housing lives in the HANDLE
+ * assembly (role-map `assembly` field), so its unitOffset is the handle's
+ * rear-extraction offset from EXPLODE_OFFSETS — never a hand-copied number.
+ * (The pre-repair literals −0.331/−0.269 predated the pass-3 ladder and left
+ * anchors 23 mm off their parts at full explode.)
  */
+const HANDLE_UNIT_OFFSET = EXPLODE_OFFSETS.handle
 const HOTSPOT_CONFIG: Record<string, { dx: number; dy: number; unitOffset: number }> = {
-  rotor: { dx: 260, dy: -110, unitOffset: -0.331 },
-  'motor-housing': { dx: -240, dy: -95, unitOffset: -0.331 },
-  flange: { dx: 270, dy: -125, unitOffset: -0.269 },
+  rotor: { dx: 260, dy: -110, unitOffset: HANDLE_UNIT_OFFSET },
+  'motor-housing': { dx: -240, dy: -95, unitOffset: HANDLE_UNIT_OFFSET },
+  flange: { dx: 270, dy: -125, unitOffset: HANDLE_UNIT_OFFSET },
   'gearbox-housing': { dx: 250, dy: 110, unitOffset: 0 },
-  mcu: { dx: -250, dy: -105, unitOffset: -0.331 },
-  lcd: { dx: 240, dy: -120, unitOffset: -0.331 },
-  lipo: { dx: -240, dy: 105, unitOffset: -0.331 },
+  mcu: { dx: -250, dy: -105, unitOffset: HANDLE_UNIT_OFFSET },
+  lcd: { dx: 180, dy: -120, unitOffset: HANDLE_UNIT_OFFSET },
+  lipo: { dx: -240, dy: 105, unitOffset: HANDLE_UNIT_OFFSET },
 }
 
 /**
@@ -35,7 +41,7 @@ export function HotspotButton({
   onMouseEnter,
   onMouseLeave,
 }: {
-  def: (typeof HOTSPOTS)[number]
+  def: HotspotDef
   selected: boolean
   style?: React.CSSProperties
   onMouseEnter?: () => void
@@ -193,7 +199,7 @@ function HotspotAnchor({
   entry,
   selected,
 }: {
-  def: (typeof HOTSPOTS)[number]
+  def: HotspotDef
   entry: RoleMapEntry
   selected: boolean
 }) {
@@ -227,7 +233,12 @@ function HotspotAnchor({
     >
       <Html
         center={false}
-        distanceFactor={0.38}
+        // The rear-LCD orbit dwell runs ~2x closer than any other hotspot
+        // camera context; the default factor scales the badge past the
+        // viewport edge there (measured 619 px wide at 0.32 m). Window-scoped
+        // hotspots use a tighter factor so the annotation identifies the
+        // feature without covering it.
+        distanceFactor={def.window ? 0.19 : 0.38}
         zIndexRange={[40, 0]}
         style={{ pointerEvents: 'none' }}
       >
@@ -275,6 +286,7 @@ function HotspotAnchor({
 export function Hotspots() {
   const [roleMap, setRoleMap] = useState<RoleMapEntry[]>([])
   const chapter = useScrollValue('chapter')
+  const progress = useScrollValue('progress')
   const selected = useScrollValue('hotspotId')
 
   useEffect(() => {
@@ -295,36 +307,75 @@ export function Hotspots() {
   const normalizeOccurrence = (name: string): string => name.replace(/^occurrence of /i, '')
 
   const anchors = useMemo(() => {
-    const byOccurrence = new Map(roleMap.map((entry) => [entry.occurrence, entry]))
-    const byNormalized = new Map(
-      roleMap.map((entry) => [normalizeOccurrence(entry.occurrence), entry]),
-    )
+    // Group rows per name: several occurrences exist more than once (FLANGE-1
+    // appears at the motor-to-gearbox mount face AND at the rear cap). A
+    // single-entry map silently keeps the LAST row — the pre-repair flange
+    // anchor sat on the wrong flange. pickNear (measured model-frame point)
+    // selects the intended occurrence deterministically.
+    const rowsFor = (name: string): RoleMapEntry[] => {
+      const exact = roleMap.filter((entry) => entry.occurrence === name)
+      if (exact.length > 0) return exact
+      const normalized = normalizeOccurrence(name)
+      return roleMap.filter((entry) => normalizeOccurrence(entry.occurrence) === normalized)
+    }
     return HOTSPOTS.flatMap((def) => {
-      const entry =
-        byOccurrence.get(def.occurrence) ?? byNormalized.get(normalizeOccurrence(def.occurrence))
-      return entry ? [{ def, entry }] : []
+      const rows = rowsFor(def.occurrence)
+      if (rows.length === 0) return []
+      let entry = rows[0]
+      if (rows.length > 1) {
+        if (def.pickNear) {
+          const [px, py, pz] = def.pickNear
+          entry = rows.reduce((best, row) => {
+            const d = (r: RoleMapEntry): number =>
+              (r.bboxCenter[0] - px) ** 2 + (r.bboxCenter[1] - py) ** 2 + (r.bboxCenter[2] - pz) ** 2
+            return d(row) < d(best) ? row : best
+          }, rows[0])
+        } else {
+          console.warn(
+            `[Hotspots] ${def.occurrence} matches ${rows.length} role-map rows with no pickNear — using the first`,
+          )
+        }
+      }
+      return [{ def, entry }]
     })
   }, [roleMap])
 
+  // Dev-only guard (JG-014): reject duplicate anchors. The pre-repair defect
+  // was ROTOR-1 and AIR MOTOR HOUSING-MACHINED-1 sharing the bbox center
+  // [0, 0, −0.1645] — two leaders terminating on one point. Any pair of
+  // resolved anchors closer than 8 mm (rest pose) fails loudly here; the
+  // measured feature anchors in HOTSPOTS keep every pair ≥ 12.5 mm apart.
   useEffect(() => {
     if (!import.meta.env.DEV) return
-    const rotor = anchors.find(({ def }) => def.id === 'rotor')
-    const motor = anchors.find(({ def }) => def.id === 'motor-housing')
-    if (!rotor || !motor) return
-    const rotorOffset = rotor.def.annotation?.anchorOffset ?? [0, 0, 0]
-    const motorOffset = motor.def.annotation?.anchorOffset ?? [0, 0, 0]
-    const same = rotorOffset.every((value, index) =>
-      Math.abs(value - motorOffset[index]) < 0.0001,
-    ) && rotor.entry.bboxCenter.every((value, index) =>
-      Math.abs(value - motor.entry.bboxCenter[index]) < 0.0001,
-    )
-    if (same) console.warn('[Hotspots] rotor and motor-bore anchors coincide')
+    for (let i = 0; i < anchors.length; i++) {
+      for (let j = i + 1; j < anchors.length; j++) {
+        const a = anchors[i]
+        const b = anchors[j]
+        const oa = a.def.annotation?.anchorOffset ?? [0, 0, 0]
+        const ob = b.def.annotation?.anchorOffset ?? [0, 0, 0]
+        const distance = Math.hypot(
+          a.entry.bboxCenter[0] + oa[0] - (b.entry.bboxCenter[0] + ob[0]),
+          a.entry.bboxCenter[1] + oa[1] - (b.entry.bboxCenter[1] + ob[1]),
+          a.entry.bboxCenter[2] + oa[2] - (b.entry.bboxCenter[2] + ob[2]),
+        )
+        if (distance < 0.008) {
+          console.error(
+            `[Hotspots] duplicate anchors: ${a.def.id} and ${b.def.id} resolve ${distance.toFixed(4)} m apart — measure distinct feature anchors (see HOTSPOTS provenance comments)`,
+          )
+        }
+      }
+    }
   }, [anchors])
 
   return (
     <>
       {anchors
-        .filter(({ def }) => def.chapters.includes(chapter as ChapterIndex))
+        .filter(
+          ({ def }) =>
+            (def.window
+              ? progress >= def.window[0] && progress <= def.window[1]
+              : def.chapters.includes(chapter as ChapterIndex)),
+        )
         .map(({ def, entry }) => (
           <HotspotAnchor
             key={def.id}

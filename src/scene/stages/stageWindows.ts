@@ -3,25 +3,24 @@
  * each 3D stage owns the canvas (StageManager + AirflowField both read these;
  * canvas-side only, always via getScrollState() inside useFrame).
  *
- * Mission spec (2026-08-24 orzo-style upgrade) called for 0.00–0.42 /
- * 0.38–0.72 / 0.68–1.00, but those numbers predate the measured DOM. The
- * section height was doubled to 440vh the same day (Mark review — scroll
- * pacing ×2, oryzo.ai reference), so against the current layout (4 × 440vh
- * sections + 40vh footer ≈ 1800vh of document) the measured anchors are:
- * the explosion timeline scrubs [data-chapter="1"]'s viewport transit at
- * global progress 0.20 → 0.518, explodeFactor reaches 1 at ≈0.518 (gears at
- * the full 8π sweep simultaneously), the CH.02→CH.03 chapter flip lands at
- * ≈0.74. The wrench therefore holds its fully-exploded pose for a beat
- * (≈0.017 of scroll ≈ 30vh) before sinking — never truncated. Overlapping
- * ranges are the cross-fade regions.
+ * Measured against the CURRENT document (2026-08-27 remeasure, JG-014 repair):
+ * 3 × 440vh chapter sections + 660vh CH.04 + 40vh footer = 2020vh (the old
+ * 1800vh figures — explode done ≈0.518, flip ≈0.74 — are stale). The hero
+ * timeline scrubs [data-chapter="1"]'s viewport transit at global progress
+ * ≈0.177 → 0.458, so the explode tween (timeline 0.35→0.85) completes at
+ * ≈0.416 (live-probed: gearRotation 8π and explodeFactor 1 by 0.47). The
+ * rear-LCD orbit (LCD_REVEAL_WINDOW, caseStudies.ts) runs 0.420 → 0.525 —
+ * after the explode beat, before this handoff — so the wrench sinks only
+ * after the camera has returned from the LCD dwell. Overlapping ranges are
+ * the cross-fade regions.
  */
 export type FadeRange = readonly [start: number, end: number]
 
 export const STAGE_TRANSITIONS = {
-  /** Wrench stage (CH.01+02) sinks out — after the explosion ladder and rear-LCD dwell complete. */
-  wrenchOut: [0.535, 0.575] as FadeRange,
+  /** Wrench stage (CH.01+02) sinks out — after the explosion ladder AND the rear-LCD orbit return (LCD_REVEAL_WINDOW.end = 0.525). */
+  wrenchOut: [0.525, 0.565] as FadeRange,
   /** MSP enclosure stage (CH.03) enters as the wrench leaves. */
-  enclosureIn: [0.535, 0.575] as FadeRange,
+  enclosureIn: [0.525, 0.565] as FadeRange,
   /** MSP enclosure stage exits upward-window as the point cloud arrives. */
   enclosureOut: [0.72, 0.76] as FadeRange,
   /** M249 point-cloud stage (CH.04) enters and holds to the end. */

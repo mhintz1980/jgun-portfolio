@@ -36,9 +36,14 @@ export interface CaseStudy {
 export type HotspotKind = 'inspect' | 'datum'
 
 export interface FeatureControlFrame {
-  /** Characteristic symbol, e.g. '↗', '⏢', '⌖'. */
+  /**
+   * Leading characteristic cell (text form, e.g. 'RUNOUT', 'POSITION ⌖').
+   * Literal glyph transcription requires the exact frame verified in the
+   * source drawing at readable scale (gdt-annotation-style.md) — use the
+   * owner-approved HUD callout vocabulary otherwise.
+   */
   characteristic?: string
-  /** Drawing-verified cell contents, kept in print order. */
+  /** Cell contents in print order — approved vocabulary only. */
   cells: string[]
   /** Optional drawing-verified datum sequence. */
   datums?: DatumLabel[]
@@ -48,7 +53,12 @@ export interface HotspotAnnotation {
   datum?: DatumLabel
   frame?: FeatureControlFrame
   processNote?: string
-  /** Local correction from the role-map bbox center to the measured feature point (m). */
+  /**
+   * Measured model-frame (role-map) correction from the occurrence bbox
+   * center to the actual feature point the leader terminates on, in meters.
+   * Derive from the role-map bbox extents (faces/axes) and record the
+   * derivation next to the data — never eyeball it.
+   */
   anchorOffset?: [number, number, number]
 }
 
@@ -60,12 +70,27 @@ export interface HotspotDef {
    * guessed mesh name: mesh names in the GLB are generic `meshN_mesh`.
    */
   occurrence: string
+  /**
+   * When the occurrence name matches multiple role-map rows (FLANGE-1 exists
+   * at both the motor-to-gearbox mount face AND the rear cap), pick the row
+   * whose bbox center is nearest this measured model-frame point. Without it
+   * the resolver falls back to the last matching row — a silent anchor jump.
+   */
+  pickNear?: [number, number, number]
   kind: HotspotKind
   label: string
   detail: string
   annotation?: HotspotAnnotation
   /** Chapters in which this hotspot is rendered. */
   chapters: ChapterIndex[]
+  /**
+   * Optional global-scroll-progress visibility window [start, end]. When set,
+   * the hotspot is visible only inside this window REGARDLESS of chapter —
+   * used to align a hotspot with a camera beat that does not line up with
+   * the DOM chapter triggers (e.g. the rear-LCD orbit dwell runs while the
+   * chapter trigger already reports chapter 2).
+   */
+  window?: readonly [number, number]
 }
 
 /** One entry of public/models/role-map.json. */

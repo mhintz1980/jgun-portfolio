@@ -246,35 +246,67 @@ export const SHIFT_CAMERA_KEYFRAMES = {
 } as const
 
 /**
- * Rear LCD orbit camera keyframes — sub-sequence that runs during global
- * progress window defined by LCD_REVEAL_WINDOW. Camera arcs rearward
- * to reveal the LCD screen (P002115) and buttons (P002123/24/25) on the
- * handle rear face, dwells with the emissive screen glowing, then returns.
+ * Rear LCD orbit — JG-014 repair pass (2026-08-27), all values measured, not
+ * eyeballed:
+ *   - The hero timeline scrubs [data-chapter="1"] across global progress
+ *     ≈0.177 → 0.458 against the current 2020vh document (3×440vh sections +
+ *     660vh CH.04 + 40vh footer, viewport-normalized), so the explode tween
+ *     (timeline 0.35→0.85) completes at ≈0.416 — NOT the stale ≈0.518 figure
+ *     from the pre-660vh layout.
+ *   - Live probe at progress 0.47 (2026-08-27): explodeFactor 1, hero yaw
+ *     exactly 0.85π (spin tween saturated), handleZ −0.354.
+ *   - The exploded LCD cluster (role-map anchor [−0.007, −0.0005, −0.2125] +
+ *     handle offset −0.354, recentered by rig.center [0.0775, 0, −0.0906],
+ *     rotated 0.85π about Y) sits at world [−0.14, 0.00, 0.46]. The pre-repair
+ *     dwell camera (position [−0.06, 0.08, −0.44] / target [0, 0.02, −0.22])
+ *     pointed at empty space 0.68 m away on the opposite side of the model.
+ *   - The dwell camera below sits 0.32 m back from the LCD along its rear
+ *     normal [−0.44, 0.24, 0.86], framing the manometer screen (P002115) with
+ *     the 3X button cluster (P002123–P002125) beside it.
+ *   - start/return equal the base CAMERA_PATH blend at the window edges
+ *     (smoothstep(0.26)/smoothstep(0.575) between the CH.02 and CH.03
+ *     keyframes) so the orbit composes with the base path without pops.
  */
 export const LCD_REVEAL_WINDOW = {
-  /** Begins after the measured explode completion near 0.518. */
-  start: 0.519,
-  /** Stable rear LCD/buttons dwell before the wrench fade begins. */
-  dwellStart: 0.523,
-  dwellEnd: 0.532,
-  /** Ends before the measured wrench/enclosure cross-fade at 0.535–0.575. */
-  end: 0.534,
+  /** After the explode beat completes (measured ≈0.416). */
+  start: 0.420,
+  /** Stable rear LCD/buttons dwell before the wrench stage handoff. */
+  dwellStart: 0.458,
+  dwellEnd: 0.488,
+  /** Before the wrench sink window (STAGE_TRANSITIONS.wrenchOut 0.525–0.565). */
+  end: 0.525,
 } as const
 
 export const LCD_ORBIT_KEYFRAMES = {
-  /** Ghost fade start — still at lateral inspection position. */
-  start:  { position: [0.60, 0.08, 0.05] as [number,number,number], target: [0, 0.015, -0.07] as [number,number,number], fov: 36 },
-  /** Arc rearward — coming around to the handle back face. */
-  arc:    { position: [-0.08, 0.12, -0.38] as [number,number,number], target: [0, 0.02, -0.20] as [number,number,number], fov: 38 },
-  /** Dwell: tight rear view, LCD emissive full blast. */
-  dwell:  { position: [-0.06, 0.08, -0.44] as [number,number,number], target: [0, 0.02, -0.22] as [number,number,number], fov: 32 },
-  /** Return to lateral inspection framing for explosion. */
-  return: { position: [0.60, 0.08, 0.05] as [number,number,number], target: [0, 0.015, -0.07] as [number,number,number], fov: 36 },
+  /** Base-path blend at progress 0.420 — lateral inspection, already easing toward CH.03. */
+  start:  { position: [0.545, 0.112, 0.087] as [number,number,number], target: [0, 0.013, -0.062] as [number,number,number], fov: 34.7 },
+  /** Swing around the extracted train's mid-span toward the handle rear cap. */
+  arc:    { position: [0.28, 0.10, 0.50] as [number,number,number], target: [-0.05, 0.01, 0.18] as [number,number,number], fov: 34 },
+  /** Dwell: 0.32 m behind the exploded rear cap, looking straight at the LCD cluster (world [−0.14, 0, 0.46]). */
+  dwell:  { position: [-0.28, 0.08, 0.74] as [number,number,number], target: [-0.14, 0.00, 0.46] as [number,number,number], fov: 31 },
+  /** Base-path blend at progress 0.525 — mid interpolation toward the CH.03 macro view. */
+  return: { position: [0.398, 0.196, 0.185] as [number,number,number], target: [0, 0.006, -0.039] as [number,number,number], fov: 31.1 },
 } as const
 
 /**
  * Hotspots anchored via role-map.json `occurrence` names. All of these are
  * real node identities confirmed in the GLB audit — never guessed labels.
+ *
+ * anchorOffset provenance (role-map bbox spans, model frame, 2026-08-27):
+ *   ROTOR-1 z ∈ [−0.196, −0.133] → rear (air-inlet/vane) face center z −0.196.
+ *   AIR MOTOR HOUSING-MACHINED-1 z ∈ [−0.1835, −0.1455] → rear bore face z −0.1835.
+ *     Both raw bbox centers sit at [0, 0, −0.1645] (0.1 mm apart) — the
+ *     pre-JG-014 duplicate-anchor defect; the face anchors separate them by
+ *     12.5 mm of measured feature distance.
+ *   FLANGE-1 exists twice (mount face z −0.1396 AND rear cap z −0.1895) —
+ *     pickNear selects the motor-to-gearbox mount-face occurrence.
+ *
+ * Feature-control-frame cells use ONLY owner-approved vocabulary: the HUD
+ * callout strings ('RUNOUT < .0015" TIR', 'POSITION ⌖ .002" @ MMC',
+ * 'FLATNESS < .0008"') and drawing-verified datum references (P000420
+ * controls terminate in datum A). Literal glyph transcription from the
+ * drawing PDFs requires crop verification at readable scale
+ * (gdt-annotation-style.md) — invented symbols are not used.
  */
 export const HOTSPOTS: HotspotDef[] = [
   {
@@ -285,7 +317,8 @@ export const HOTSPOTS: HotspotDef[] = [
     detail:
       'Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing.',
     annotation: {
-      anchorOffset: [0, -0.016, 0.015],
+      // Rear face of the rotor bbox (center −0.1645 − half-extent 0.0315).
+      anchorOffset: [0, 0, -0.0315],
       processNote: 'BALANCED VANE ASSEMBLY',
     },
     chapters: [0, 1],
@@ -299,29 +332,34 @@ export const HOTSPOTS: HotspotDef[] = [
     annotation: {
       datum: 'A',
       frame: {
-        characteristic: '↗',
-        cells: ['↗', '.0015', 'A'],
+        characteristic: 'RUNOUT',
+        cells: ['.0015" TIR', 'A'],
         datums: ['A'],
       },
       processNote: 'RUNOUT < .0015" TIR',
-      anchorOffset: [0, 0.028, -0.005],
+      // Rear bore face of the housing bbox (center −0.1645 − half-extent 0.019).
+      anchorOffset: [0, 0, -0.019],
     },
     chapters: [0, 1],
   },
   {
     id: 'flange',
     occurrence: 'FLANGE-1',
+    // Two role-map rows share this occurrence name; pick the motor-to-gearbox
+    // mount face (z −0.1396), not the rear-cap twin (z −0.1895).
+    pickNear: [0.0001, 0, -0.1396],
     kind: 'datum',
     label: 'DATUM B — MOUNT FACE',
     detail: 'Motor-to-gearbox interface flange. FLATNESS < .0008" holds stage alignment across the joint.',
     annotation: {
       datum: 'B',
       frame: {
-        characteristic: '⏢',
-        cells: ['⏢', '.0008'],
+        characteristic: 'FLATNESS',
+        cells: ['.0008"'],
         datums: [],
       },
       processNote: 'FLATNESS < .0008"',
+      // Top rim of the mount-face annulus (bbox y half-extent 0.029).
       anchorOffset: [0, 0.028, 0],
     },
     chapters: [1],
@@ -335,11 +373,11 @@ export const HOTSPOTS: HotspotDef[] = [
       'Outer housing of the D1-AP planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
     annotation: {
       frame: {
-        characteristic: '⌖',
-        cells: ['⌖', '⌀.002 Ⓜ', 'A', 'B'],
-        datums: ['A', 'B'],
+        characteristic: 'POSITION ⌖',
+        cells: ['.002" @ MMC'],
       },
       processNote: 'POSITION ⌖ .002" @ MMC',
+      // Top rim of the housing bbox (y half-extent 0.0327).
       anchorOffset: [0, 0.032, 0],
     },
     chapters: [1, 2],
@@ -355,7 +393,7 @@ export const HOTSPOTS: HotspotDef[] = [
       processNote: 'DIGITAL SAMPLING CONTROLLER',
       anchorOffset: [-0.003, 0, 0.002],
     },
-    chapters: [1, 3],
+    chapters: [3],
   },
   {
     id: 'lcd',
@@ -363,11 +401,15 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'inspect',
     label: 'LCD MANOMETER',
     detail: 'Onboard LCD manometer readout — live line-pressure telemetry at the operator’s thumb.',
+    // Visible during the rear-LCD orbit dwell (LCD_REVEAL_WINDOW straddles
+    // progress where the DOM chapter trigger already reports chapter 2).
+    window: [0.44, 0.51],
     annotation: {
       processNote: 'BACKLIT DIGITAL MANOMETER',
+      // Toward the screen slab (P002115 sits at x −0.0091 / z −0.2191).
       anchorOffset: [-0.003, 0, -0.006],
     },
-    chapters: [1, 3],
+    chapters: [3],
   },
   {
     id: 'lipo',
@@ -379,6 +421,6 @@ export const HOTSPOTS: HotspotDef[] = [
       processNote: '3.7V AUXILIARY POWER CELL',
       anchorOffset: [0.003, 0, 0.004],
     },
-    chapters: [1, 3],
+    chapters: [3],
   },
 ]

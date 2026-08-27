@@ -78,6 +78,14 @@ poster tier): gearbox (CH.02), SAFE enclosure (CH.03), M249/MK46
 reverse-engineering (CH.04). Copy is Honey's, verbatim from
 `OUTBOX/portfolio-module4-copy.md`.
 
+**Opening treatment (JG-014, 2026-08-27):** CH.01/CH.02 render as
+TRANSPARENT top-left edge captions (no fill, no backdrop blur) so the
+ring-switch and extraction mechanisms are never covered; the gearbox case
+study sits behind an on-demand `[ + CASE STUDY ]` disclosure, and the active
+mechanical beat carries a bottom-left edge caption (one at a time): groove
+labels 0.04–0.18, driveline-order ladder 0.19–0.42, rear-LCD readout
+0.44–0.51. CH.03/CH.04 keep the milestone-5 glass cards.
+
 ## 4. Camera (`src/scene/CameraRig.tsx`, `CAMERA_PATH`)
 
 Four keyframes — one per chapter, in the hero group's space (model recentered
@@ -299,10 +307,13 @@ prefix-normalizing fallback: entries may carry an exporter-added
 `"occurrence of "` prefix, which is stripped (case-insensitive) only when no
 exact row exists, so anchors never shift when both forms are present.
 
-**Print-Authentic GD&T Conventions (ASME Y14.5 / JG-014):**
-- **Orthographic Alignment**: All datum flags (`[-A-]`, `[-B-]`) and feature control frames are strictly horizontal and 2D-aligned (zero CSS `perspective` or 3D rotation tilts).
-- **Segmented Feature Control Frames**: Bordered cells per ASME Y14.5 format (`[ ↗ | .0015 | A ]`, `[ ⏢ | .0008 ]`, `[ ⌖ | ⌀.002 Ⓜ | A | B ]`).
-- **Measured Distinct Anchors**: `AIR MOTOR HOUSING-MACHINED-1` (Datum A bore surface) and `ROTOR-1` (internal vane core) resolve to distinct measured 3D offsets (`[0, 0.028, -0.005]` vs `[0, -0.016, 0.015]`), preventing duplicate or overlapping leader origins.
+**Print-Authentic GD&T Conventions (ASME Y14.5 / JG-014, repaired 2026-08-27):**
+- **Orthographic Alignment**: All datum flags (`[-A-]`, `[-B-]`) and feature control frames are strictly horizontal and 2D-aligned (zero CSS `perspective` or 3D rotation tilts — probe-verified across all hotspot buttons and ancestors).
+- **Segmented Feature Control Frames**: bordered cells, but the cell vocabulary is restricted to the owner-approved HUD callout strings (`RUNOUT < .0015" TIR`, `POSITION ⌖ .002" @ MMC`, `FLATNESS < .0008"`) plus drawing-verified datum references (P000420 controls terminate in datum A). Literal glyph transcription from the drawing PDFs requires crop verification at readable scale (`domain/gdt-annotation-style.md`) — the invented symbols (`↗`, `⏢`, `⌀.002 Ⓜ`) used briefly in c73018b were removed for violating that rule.
+- **Measured Distinct Anchors (bbox-face derived, role-map spans)**: `ROTOR-1` terminates on its rear vane/inlet face (z −0.196 = center −0.1645 − half-extent 0.0315) and `AIR MOTOR HOUSING-MACHINED-1` (Datum A) on its rear bore face (z −0.1835) — 12.5 mm apart. Both raw bbox centers sit at [0, 0, −0.1645] (0.1 mm apart) — the pre-JG-014 duplicate-anchor defect. `FLANGE-1` exists twice in role-map (mount face z −0.1396 AND rear cap z −0.1895); `pickNear` selects the mount-face occurrence deterministically.
+- **Anchor explosion tracking**: every handle-assembly occurrence rides `EXPLODE_OFFSETS.handle` (−0.354) — the pre-repair literals (−0.331/−0.269) predated the pass-3 ladder and left anchors 23 mm off their parts at full explode.
+- **Window-scoped visibility**: a hotspot may declare a `window` (global-progress range) that overrides chapter visibility — the LCD hotspot accompanies the rear-LCD orbit dwell (LCD_REVEAL_WINDOW), which straddles progress where the DOM chapter trigger already reports chapter 2. Window-scoped hotspots use a tighter Html `distanceFactor` (0.19 vs 0.38) because the dwell camera runs ~2× closer (badge otherwise scales to ~620 px and leaves the viewport).
+- **Dev-only guard**: resolved anchor pairs closer than 8 mm (rest pose) `console.error` in development — the measured face anchors keep every pair ≥ 12.5 mm apart.
 - **Accessibility**: Each is a real `<button>` with `aria-pressed`, native Enter/Space activation, high-contrast cyan focus-visible ring, and Escape closes the detail panel. No role map → no hotspots (graceful no-op).
 
 ## 8. Scene look (`SceneCanvas.tsx`)
@@ -428,22 +439,26 @@ live in `src/scene/stages/stageWindows.ts`:
 
 | Stage | Content | Fade in | Fade out |
 |---|---|---|---|
-| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.535 → 0.575 |
-| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.535 → 0.575 | 0.72 → 0.76 |
+| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.525 → 0.565 |
+| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.525 → 0.565 | 0.72 → 0.76 |
 | 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.72 → 0.76 | — (holds to end) |
 
 Vertical travel ±0.5 m; cross-fades are smoothstep over the overlapping
 windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
 
-**Window provenance (remeasured 2026-08-24 after the scroll ×2):** chapter
-sections doubled 220vh → 440vh the same day (Mark review — oryzo.ai-style
-pacing; document ≈ 1800vh). Against that layout the hero timeline transits
-global progress 0.20 → 0.518, `explodeFactor` reaches 1 at ≈0.518, the
-CH.02→CH.03 chapter flip lands ≈0.74. The wrench therefore holds its fully
-exploded pose for ≈0.017 of scroll (≈30vh — a real beat) before sinking at
-0.535–0.575; S2→S3 stays at the mission's ~0.72 mark. Measured on the live
-page (§11 method): at 0.52 alphas read [1, 0, 0] with the explosion fully
-open (`explodeFactor 1`); at 0.555 alphas read [0.50, 0.50, 0].
+**Window provenance (remeasured 2026-08-27, JG-014 repair):** the document is
+now 3×440vh chapter sections + 660vh CH.04 + 40vh footer = 2020vh — the old
+1800vh figures (explode done ≈0.518, flip ≈0.74) were stale. Against the
+current layout the hero timeline scrubs [data-chapter="1"]'s viewport transit
+at global progress ≈0.177 → 0.458, so `explodeFactor` reaches 1 at ≈0.416
+(live-probed: gearRotation 8π, explodeFactor 1 by 0.47). The rear-LCD orbit
+(`LCD_REVEAL_WINDOW` in caseStudies.ts) runs 0.420 → 0.525 — arc, dwell
+0.458–0.488 on the measured LCD world position [−0.14, 0, 0.46] (camera
+[−0.28, 0.08, 0.74], fov 31), then return — and the wrench sinks only after
+it: 0.525–0.565. S2→S3 holds at the mission's ~0.72 mark. Measured on the
+live page (§11 method): 0.473 → alphas [1, 0, 0], camera exactly on the dwell
+keyframe, LCD anchor projecting at viewport center; 0.545 → [0.50, 0.50, 0];
+0.60 → [0, 1, 0].
 
 ### 14.1 CH.03 airflow field (`src/scene/stages/AirflowField.tsx`)
 
@@ -453,7 +468,7 @@ shader-displaced, `frustumCulled={false}`). The vertex shader advects each
 particle along intake duct → helical engine-compartment sweep → exhaust
 dissipation around the enclosure bounds, with curl-style turbulence whose
 amplitude, advection speed and alpha all scale with `uFlow` — the
-scroll-bound intensity ramping 0.575→0.72 (damped `1−e^(−4Δ)`). Colors run
+scroll-bound intensity ramping 0.565→0.72 (damped `1−e^(−4Δ)`). Colors run
 cool cyan → warm amber along the route (the thermal read). Additive
 blending, `depthWrite:false`, frozen (uniform alpha 0, no updates) whenever
 the stage envelope is inactive or reduced-motion is set.

@@ -30,7 +30,8 @@ acceptance:
   - Fresh :4173 telemetry and build evidence are recorded.
 verification: ../evidence/JG-014-opening-gdt-lcd-verification.md
 commits:
-  - 3152571
+  - c73018b
+  - "(repair pass — this change; see Change Log)"
 ---
 
 # JG-014 — Opening Sequence, GD&T, and LCD Repair
@@ -75,4 +76,25 @@ The work corrects the opening callout tilt, the overlapping rotor/motor-bore anc
 ## Verification Record
 
 Verified at [`../evidence/JG-014-opening-gdt-lcd-verification.md`](../evidence/JG-014-opening-gdt-lcd-verification.md).
+
+## Change Log
+
+- **2026-08-27 (repair pass, ZCode):** The initial verification (c73018b)
+  checked off the rear-LCD criterion without in-frame proof — the dwell
+  camera pointed at empty space 0.68 m from the actual exploded LCD cluster
+  (measured world `[−0.14, 0, 0.46]` under the saturated 0.85π hero yaw).
+  Repaired: orbit keyframes re-derived from live measurements (dwell camera
+  `[−0.28, 0.08, 0.74]`, target = LCD world position), window rescheduled to
+  0.420–0.525 against the current 2020vh document (explode completes ≈0.416,
+  not the stale ≈0.518), the arc→dwell snap replaced with a continuous
+  piecewise path, stale −0.331/−0.269 tracking offsets moved to
+  `EXPLODE_OFFSETS.handle` (−0.354), the FLANGE-1 occurrence disambiguated
+  via `pickNear` (mount face, not rear cap), invented FCF glyphs replaced
+  with the approved HUD vocabulary per `gdt-annotation-style.md`, beat
+  captions made fully transparent (no fill/blur) with the gearbox case study
+  behind an on-demand disclosure, LCD hotspot visibility aligned to the
+  orbit window (with a tighter Html distanceFactor so the badge fits the
+  0.32 m dwell framing), and LcdFillLight repositioned/re-ramped. Fresh
+  telemetry re-verification recorded in the evidence file, including the
+  in-frame proof (LCD anchor projects at viewport center during the dwell).
 
