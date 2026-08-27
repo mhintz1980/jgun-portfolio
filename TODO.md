@@ -14,6 +14,7 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 - [ ] **JG-015 — RL-300 / MSP Acoustic SAFE asset ingestion** · [plan](project/work/plans/JG-015-msp-acoustic-safe-asset-ingestion.md)
   - Replace the Stage 2 placeholder with a measured, named, source-registered, web-ready CAD asset.
+  - **Unblocked 2026-08-27:** `public/models/msp-enclosure.glb` delivered + committed (7 named roots, single combined GLB). Integration work (regression check → `Station2_AcousticEnclosure.tsx` → `StageManager` swap → telemetry) can start. Owner still owes CAD authority/revision + usage restriction for the source-register row.
 
 - [ ] **JG-016 — Multi-station spatial world and navigation rig** · [plan](project/work/plans/JG-016-multi-station-spatial-world.md)
   - **Depends on:** JG-015. Create measured station transforms, camera arrivals, navigation, and equivalent reduced-motion/poster behavior.

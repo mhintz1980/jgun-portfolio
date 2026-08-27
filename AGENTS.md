@@ -30,6 +30,14 @@ interactive exploded-view rig (Default.glb, D1-AP part numbers).
   `C:\Projects\CAD\M249.jsx` header, README "Textured assets", and the vault skill
   `glb-web-export-triage`. It is the only textured GLB here (all others have zero
   images) and it is committed, not synced — do not add it to `sync-assets.ps1`.
+- NEVER re-run `gltfjsx --transform` on `public/models/msp-enclosure.glb` (JG-015
+  Stage 2). Tested: `--transform` collapses its 7 named roots to 2 palette-joined
+  meshes and no flag combination prevents it. Source of truth
+  `C:\Projects\CAD\RL300-SAFE\msp-enclosure-draco.glb`; all mesh reduction happens
+  in Blender (`RL300-SAFE-webexport-v3.blend`). Committed, not synced — do not add
+  it to `sync-assets.ps1`. 7 roots: `ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`,
+  `PUMP_HOUSING`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`, `DUCT_INTAKE`,
+  `DUCT_EXHAUST` (a rename pass to `DUCT_LABYRINTH`/`EXHAUST_PORT` may re-commit it).
 - Verify with runtime telemetry, never vision alone — vision confabulates on the dark
   scene.
 - Restart the :4173 preview server after EVERY rebuild (stale server + rotated hashes →

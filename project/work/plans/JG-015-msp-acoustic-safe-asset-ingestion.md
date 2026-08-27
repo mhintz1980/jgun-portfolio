@@ -1,11 +1,11 @@
 ---
 id: JG-015
 title: RL-300 / MSP Acoustic SAFE asset ingestion
-status: queued
+status: ready
 created: 2026-08-26
 owner: unassigned
 last_audited: 2026-08-27
-readiness: blocked-awaiting-authoritative-msp-rl300-cad-export
+readiness: ready-asset-delivered-2026-08-27
 todo: TODO.md#queued
 source:
   - ../../context/references/source-register.md
@@ -17,7 +17,6 @@ skills:
   - webgl-telemetry-verifier
 implementation_scope:
   - public/models/msp-enclosure.glb
-  - public/models/rl300-skid.glb
   - src/scene/stages/Station2_AcousticEnclosure.tsx
   - src/scene/StageManager.tsx
 acceptance:
@@ -34,49 +33,70 @@ commits: []
 
 Replace the procedural Stage 2 enclosure placeholder with a named, measured, web-ready RL-300/MSP Acoustic SAFE asset that can support real engineering storytelling.
 
-## Readiness Gate — 2026-08-27
+## Asset Delivered — 2026-08-27 (unblocks the 2026-08-27 readiness gate)
 
-JG-015 cannot begin asset integration until an authoritative MSP/RL-300
-enclosure export is available. The inspected folder
-`C:\Projects\CAD\RL300-SAFE\optimized\` contains only the existing D1-AP
-JGun files: `jgun-full.glb`, `jgun-gearbox.glb`, `jgun-handle.glb`, and their
-JGun role map. That role map resolves **zero** occurrences of the required
-Stage 2 assemblies and identifies the source as `D1-AP Gearbox Assy-rev2-1`.
+The authoritative MSP/RL-300 enclosure export has been delivered and committed:
 
-Do not rename, copy, or register those JGun files as an MSP/RL-300 enclosure.
-Doing so would replace one placeholder with a misleading duplicate of Chapter
-01/02 geometry and would invalidate the provenance and engineering-storytelling
-acceptance criteria below.
+- **`public/models/msp-enclosure.glb`** — 2,380,776 bytes, committed directly
+  (force-added past the `public/models/*.glb` ignore, like `m249-transformed.glb`).
+- Source of truth: `C:\Projects\CAD\RL300-SAFE\msp-enclosure-draco.glb`
+  (Blender glTF I/O v5.1.19 + `KHR_draco_mesh_compression`). Working file
+  `RL300-SAFE-webexport-v3.blend`. **Never re-run `gltfjsx --transform` on it** —
+  that destroys the named-root contract (tested: collapses 7 roots to 2 meshes).
+- Single combined GLB. The `rl300-skid.glb` second path has been **removed** from
+  `implementation_scope` — the skid is part of `ENCLOSURE_CHASSIS`, not a separate asset.
 
-To unblock this plan, provide the MSP/RL-300 source export(s) that correspond
-to the two approved runtime paths in `implementation_scope`, plus the source
-authority, revision, authoring units, usage restriction, and export method.
-The export must preserve the six stable node names named in this plan. No
-source-register row is added until that provenance can be recorded truthfully.
+### Node-name contract — updated to the 7 as-built roots
+
+The export ships **7 named root nodes**, verified by reading the GLB binary:
+
+`ENCLOSURE_CHASSIS` · `COMPOSITE_PANELS` · `PUMP_HOUSING` · `ACOUSTIC_BAFFLES` ·
+`ISOLATION_MOUNTS` · `DUCT_INTAKE` · `DUCT_EXHAUST`
+
+This supersedes the earlier 6-name spec. `DUCT_LABYRINTH` was never modelled —
+the as-built enclosure has no labyrinth (see the vault note
+`rl300-safe-intake-acoustic-labyrinth.md`); intake geometry lives under
+`DUCT_INTAKE`, exhaust under `DUCT_EXHAUST`, and `COMPOSITE_PANELS` is a distinct
+7th root the original spec omitted.
+
+**Pending re-export (do not block on it):** a node-rename pass is in progress on
+`C:\Projects\CAD\RL300-SAFE\RL300-SAFE-webexport-v4-node-rename.blend`
+(`DUCT_INTAKE` → `DUCT_LABYRINTH`, `DUCT_EXHAUST` → `EXHAUST_PORT`). If/when it
+lands, `msp-enclosure.glb` is re-committed with the renamed roots and this section
+plus `Station2_AcousticEnclosure.tsx` are updated. Until then, resolve the 7 names
+above.
+
+### Provenance gaps still owed by Mark
+
+The source-register row (`context/references/source-register.md`) records what is
+verified — units (metric, 1 unit = 1 m), bbox (1.600 × 3.366 × 2.107 m), export
+method, 293,239 unique tris / 415,900 drawn, 9 Principled BSDF materials. Still
+**unverified, pending Mark**: originating CAD authority + revision, and the usage
+restriction (Myers-Seth Pumps internal / client-confidential?). Fill these before
+JG-015 closes.
 
 ## Single-Session Execution Plan
 
-1. **Validate the supplied source before copying it.** Inspect both source
-   exports and record their file sizes, bounds, units, texture formats,
-   compression result, and exact node names. Stop rather than infer a role if
-   any of `PUMP_HOUSING`, `ENCLOSURE_CHASSIS`, `ACOUSTIC_BAFFLES`,
-   `ISOLATION_MOUNTS`, `DUCT_LABYRINTH`, or `EXHAUST_PORT` is absent.
-2. **Register provenance.** Add the inspected source path, revision, intended
-   use, restriction, and review date to
-   `project/context/references/source-register.md`. The register entry must
-   distinguish the MSP/RL-300 source from the existing D1-AP JGun source.
-3. **Install the approved runtime assets.** Place the validated exports at
-   `public/models/msp-enclosure.glb` and `public/models/rl300-skid.glb` without
-   modifying the protected JGun or M249 assets. Re-inspect the copied files and
-   compare their source and destination sizes and node-name sets.
+1. **Validate the delivered asset.** `public/models/msp-enclosure.glb` is already
+   committed (see "Asset Delivered" above). Re-inspect it and record file size,
+   bounds, units, texture formats, compression result, and exact node names in
+   the verification record. Stop rather than infer a role if any of
+   `ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`, `PUMP_HOUSING`, `ACOUSTIC_BAFFLES`,
+   `ISOLATION_MOUNTS`, `DUCT_INTAKE`, or `DUCT_EXHAUST` is absent.
+2. **Register provenance.** The `source-register.md` row exists; fill the two
+   fields still owed by Mark (CAD authority + revision, usage restriction) before
+   closing. The register entry must stay distinct from the D1-AP JGun source.
+3. **Confirm the asset is installed.** `public/models/msp-enclosure.glb` (single
+   combined GLB — no `rl300-skid.glb`). Do not modify the protected JGun or M249
+   assets. Re-inspect and compare source vs destination size and node-name set.
 4. **Establish the integration regression check first.** Add a focused,
-   automated check that proves the Stage 2 component loads only the two MSP
-   paths, requires all six stable nodes, and keeps the procedural enclosure
-   placeholder out of the Stage 2 render tree. Run it once while it fails for
-   the missing component before adding production integration code.
+   automated check that proves the Stage 2 component loads only
+   `public/models/msp-enclosure.glb`, requires all 7 stable nodes, and keeps the
+   procedural enclosure placeholder out of the Stage 2 render tree. Run it once
+   while it fails for the missing component before adding production integration code.
 5. **Create `src/scene/stages/Station2_AcousticEnclosure.tsx`.** Load the
-   validated assets through the project's local Draco path, resolve only the
-   six stable names, map pump/core, composite panel, foam/damping, and hardware
+   asset through the project's local Draco path, resolve only the 7
+   stable names, map pump/core, composite panel, foam/damping, and hardware
    materials without mutating cached GLTF materials, and dispose any
    component-owned resources on unmount. Full tier may use the complete
    material treatment; lite tier must retain one visible asset representation
@@ -98,9 +118,9 @@ source-register row is added until that provenance can be recorded truthfully.
 
 ## Implementation Steps
 
-1. Record CAD source, usage restriction, units, bounding dimensions, authoring revision, and export method in `context/references/source-register.md`.
-2. Export and validate the Draco-compressed GLB with discrete named subassemblies: `PUMP_HOUSING`, `ENCLOSURE_CHASSIS`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`, `DUCT_LABYRINTH`, and `EXHAUST_PORT`.
-3. Measure asset geometry and choose the Stage 2 camera/framing only after the real dimensions are known.
+1. Record CAD source, usage restriction, units, bounding dimensions, authoring revision, and export method in `context/references/source-register.md` (row exists; CAD authority/revision + restriction still owed by Mark).
+2. Validate the delivered `public/models/msp-enclosure.glb` — discrete named subassemblies: `ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`, `PUMP_HOUSING`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`, `DUCT_INTAKE`, `DUCT_EXHAUST`.
+3. Measure asset geometry (bbox 1.600 × 3.366 × 2.107 m, Y-up, base at Z=0) and choose the Stage 2 camera/framing from the real dimensions.
 4. Build `Station2_AcousticEnclosure.tsx` and replace the procedural placeholder through `StageManager` without mounting duplicate high-cost geometry.
 5. Define full, medium, and poster-tier behavior before enabling richer airflow or post-processing effects.
 
