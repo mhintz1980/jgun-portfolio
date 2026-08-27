@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- JG-019 og-image source card. Screenshot at exactly 1200x630 into
+     public/og-image.png (see project/context/deployment.md). Lives in
+     scripts/ so it never ships in dist/. System mono fonts only — no
+     network dependencies at render time. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background-color: #05070a;
+        background-image:
+          linear-gradient(rgba(56, 232, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 232, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        color: #e4e4e7;
+        font-family: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+        position: relative;
+      }
+      .frame { position: absolute; inset: 28px; border: 1px solid rgba(34, 211, 238, 0.25); }
+      .corner { position: absolute; width: 22px; height: 22px; border-color: #22d3ee; border-style: solid; }
+      .c-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+      .c-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+      .c-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+      .c-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+      .content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 96px; }
+      .dwg { font-size: 17px; letter-spacing: 0.42em; color: #22d3ee; margin: 0 0 26px; }
+      h1 { margin: 0; font-size: 74px; line-height: 1.08; font-weight: 600; color: #fafafa; letter-spacing: -0.01em; }
+      h1 .x { color: #22d3ee; }
+      .sub { margin: 28px 0 0; font-size: 24px; line-height: 1.5; color: #a1a1aa; max-width: 46ch; }
+      .url { position: absolute; bottom: 64px; left: 96px; font-size: 19px; letter-spacing: 0.3em; color: #67e8f9; }
+      .block {
+        position: absolute; bottom: 56px; right: 88px; border: 1px solid rgba(34, 211, 238, 0.35);
+        font-size: 13px; letter-spacing: 0.14em; color: rgba(165, 243, 252, 0.85); display: flex;
+      }
+      .block span { padding: 9px 16px; }
+      .block span + span { border-left: 1px solid rgba(34, 211, 238, 0.35); }
+    </style>
+  </head>
+  <body>
+    <div class="frame"></div>
+    <div class="corner c-tl"></div>
+    <div class="corner c-tr"></div>
+    <div class="corner c-bl"></div>
+    <div class="corner c-br"></div>
+    <div class="content">
+      <p class="dwg">DWG NO. RL-300 · REV C · SCALE 1:1</p>
+      <h1>Physical <span class="x">×</span> Digital<br />Systems Architect</h1>
+      <p class="sub">25 years of precision manufacturing meets web-native 3D and AI automation.</p>
+    </div>
+    <div class="url">STUDIOMARK.DEV</div>
+    <div class="block">
+      <span>TOL ±.0015"</span><span>MAT'L 4140 HT</span><span>SHEET 1 OF 1</span>
+    </div>
+  </body>
+</html>

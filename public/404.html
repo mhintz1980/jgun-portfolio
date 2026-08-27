@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content="6;url=/" />
+    <title>404 — studiomark.dev</title>
+    <style>
+      :root { color-scheme: dark; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background-color: #05070a;
+        background-image:
+          linear-gradient(rgba(56, 232, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 232, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        color: #e4e4e7;
+        font-family: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+      }
+      .frame {
+        position: absolute;
+        inset: 24px;
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        pointer-events: none;
+      }
+      .card { max-width: 42rem; padding: 0 2rem; text-align: center; }
+      .dwg { font-size: 0.75rem; letter-spacing: 0.4em; color: #22d3ee; }
+      h1 { margin: 1.25rem 0 0.5rem; font-size: clamp(1.75rem, 5vw, 3rem); font-weight: 600; }
+      p { color: #a1a1aa; line-height: 1.6; }
+      a {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.75rem 1.5rem;
+        border: 1px solid rgba(34, 211, 238, 0.4);
+        color: #67e8f9;
+        text-decoration: none;
+        letter-spacing: 0.2em;
+        font-size: 0.8rem;
+      }
+      a:hover { background: rgba(34, 211, 238, 0.08); }
+      .foot { margin-top: 3rem; font-size: 0.625rem; letter-spacing: 0.3em; color: rgba(103, 232, 249, 0.55); }
+    </style>
+  </head>
+  <body>
+    <div class="frame"></div>
+    <main class="card">
+      <p class="dwg">DWG NO. HTTP-404 · REV A · SCALE 1:1</p>
+      <h1>Sheet Not Found</h1>
+      <p>
+        This drawing number is not in the vault. The interactive portfolio lives
+        at the root sheet — returning there in six seconds.
+      </p>
+      <a href="/">RETURN TO studiomark.dev</a>
+      <p class="foot">STATIC ERROR SHEET — NO CANVAS REQUIRED</p>
+    </main>
+  </body>
+</html>

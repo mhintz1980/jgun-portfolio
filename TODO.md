@@ -25,8 +25,9 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 - [ ] **JG-018 — Interactive airflow and acoustic-wave systems** · [plan](project/work/plans/JG-018-airflow-and-acoustic-interaction.md)
   - **Depends on:** JG-015 and JG-016. Bind airflow/baffle interactions to verified enclosure geometry with accessible alternatives and performance limits.
 
-- [ ] **JG-019 — Deployment readiness and studiomark.dev hosting** · [plan](project/work/plans/JG-019-deployment-and-hosting.md)
+- [x] **JG-019 — Deployment readiness and studiomark.dev hosting** · [plan](project/work/plans/JG-019-deployment-and-hosting.md)
   - **Depends on:** JG-014. Publish only after build, asset, fallback, metadata, and production telemetry checks are recorded.
+  - **Verified 2026-08-27:** clean-install build, all tier/fallback telemetry, asset/network audit, metadata + 404/cache policy recorded ([evidence](project/work/evidence/JG-019-deployment-and-hosting-verification.md)). Final publish awaits Mark's one-time `npx wrangler login` + Porkbun DNS records — exact steps in [project/context/deployment.md](project/context/deployment.md).
 
 ## Task Intake
 
