@@ -14,10 +14,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - Replace the Stage 2 placeholder with a measured, named, source-registered, web-ready CAD asset (`public/models/msp-enclosure.glb` with 7 named roots) in `Station2_AcousticEnclosure.tsx`.
   - **Required proof:** fresh `:4173` telemetry, contract check, full/reduced-motion/poster behavior, `npm run typecheck`, and `npm run build`.
 
-## Queued
+- [x] **JG-016 — Multi-station spatial world and navigation rig** · [plan](project/work/plans/JG-016-multi-station-spatial-world.md)
+  - Replace implicit sequential stage placement with a measured three-station world: JGun Torque Multiplier (`[0, 0, 0]`), RL-300 Acoustic Enclosure (`[28, 0, -6]`), and M249 Parametric Platform (`[56, 0, -12]`), with seamless camera navigation, deep linking, and telemetry synchronization.
+  - **Required proof:** fresh `:4173` telemetry, contract check, full/reduced-motion/poster behavior, `npm run typecheck`, and `npm run build`.
 
-- [ ] **JG-016 — Multi-station spatial world and navigation rig** · [plan](project/work/plans/JG-016-multi-station-spatial-world.md)
-  - **Depends on:** JG-015. Create measured station transforms, camera arrivals, navigation, and equivalent reduced-motion/poster behavior.
+## Queued
 
 - [ ] **JG-017 — Post-processing and whip-pan camera effects** · [plan](project/work/plans/JG-017-whip-pan-camera-fx.md)
   - **Depends on:** JG-016. Add restrained, tier-aware camera FX only after station geometry and narrative are stable.

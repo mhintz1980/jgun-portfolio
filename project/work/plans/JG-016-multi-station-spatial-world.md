@@ -1,9 +1,9 @@
 ---
 id: JG-016
 title: Multi-station spatial world and navigation rig
-status: queued
+status: verified
 created: 2026-08-26
-owner: unassigned
+owner: Antigravity
 todo: TODO.md#queued
 depends_on:
   - JG-015
@@ -25,7 +25,7 @@ acceptance:
   - All three stations have named transforms, transition windows, and camera arrivals.
   - Canvas and DOM narrative state remain synchronized without frame-loop React writes.
   - The world has deep-link, reduced-motion, and poster-tier behavior.
-verification: null
+verification: ../evidence/JG-016-multi-station-spatial-world-verification.md
 commits: []
 ---
 
@@ -45,12 +45,12 @@ Replace implicit sequential stage placement with a measured three-station world:
 
 ## Acceptance Criteria
 
-- [ ] Station 1, 2, and 3 use named transforms and measured camera targets.
-- [ ] JG-015 real Stage 2 asset is used; no placeholder is presented as finished work.
-- [ ] Scroll, camera, DOM narrative, and active station telemetry agree at every transition window.
-- [ ] Deep links, keyboard navigation, touch interaction, reduced motion, and poster tier have defined outcomes.
-- [ ] Full and medium tiers meet the performance guard’s required telemetry checks.
+- [x] Station 1, 2, and 3 use named transforms and measured camera targets.
+- [x] JG-015 real Stage 2 asset is used; no placeholder is presented as finished work.
+- [x] Scroll, camera, DOM narrative, and active station telemetry agree at every transition window.
+- [x] Deep links, keyboard navigation, touch interaction, reduced motion, and poster tier have defined outcomes.
+- [x] Full and medium tiers meet the performance guard’s required telemetry checks.
 
 ## Verification Record
 
-Create `../evidence/JG-016-multi-station-spatial-world-verification.md` before checking off the TODO entry.
+See [`../evidence/JG-016-multi-station-spatial-world-verification.md`](../evidence/JG-016-multi-station-spatial-world-verification.md).

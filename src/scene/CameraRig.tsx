@@ -206,15 +206,15 @@ export function CameraRig() {
       goalFov = rearFov
     }
 
-    // ---- CH.04 M249 continuous zoom-out (progress 0.67 → 1.00) ----
-    if (progress >= 0.67) {
-      const t4 = smoothstep(Math.min((progress - 0.67) / 0.33, 1))
+    // ---- CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
+    if (progress >= 0.76) {
+      const t4 = smoothstep(Math.min((progress - 0.76) / 0.24, 1))
       const m249Pos: [number, number, number] = [
-        lerpN(0.18, 0.28, t4),
+        lerpN(56.18, 56.28, t4),
         lerpN(0.26, 0.42, t4),
-        lerpN(0.75, 1.55, t4),
+        lerpN(-12 + 0.75, -12 + 1.55, t4),
       ]
-      const m249Tgt: [number, number, number] = [0, 0, 0]
+      const m249Tgt: [number, number, number] = [56, 0, -12]
       const m249Fov = lerpN(33, 38, t4)
       goalPos.current.set(m249Pos[0], m249Pos[1], m249Pos[2])
       goalTarget.current.set(m249Tgt[0], m249Tgt[1], m249Tgt[2])

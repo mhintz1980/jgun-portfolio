@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { setScrollState } from '../state/scrollStore'
+import { getScrollState, setScrollState } from '../state/scrollStore'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,6 +17,10 @@ gsap.registerPlugin(ScrollTrigger)
 export function ScrollRig() {
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
+
+    if (typeof window !== 'undefined') {
+      ;(window as unknown as Record<string, unknown>).__lenis = lenis
+    }
 
     lenis.on('scroll', () => ScrollTrigger.update())
     const tick = (time: number): void => {
@@ -47,11 +51,25 @@ export function ScrollRig() {
       }),
     )
 
+    // Deep-link initial scroll synchronization
+    const { progress: initialProgress } = getScrollState()
+    if (initialProgress > 0) {
+      ScrollTrigger.refresh()
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      if (max > 0) {
+        lenis.scrollTo(max * initialProgress, { immediate: true })
+        ScrollTrigger.update()
+      }
+    }
+
     return () => {
       chapterTriggers.forEach((trigger) => trigger.kill())
       globalTrigger.kill()
       gsap.ticker.remove(tick)
       lenis.destroy()
+      if (typeof window !== 'undefined') {
+        delete (window as unknown as Record<string, unknown>).__lenis
+      }
     }
   }, [])
 

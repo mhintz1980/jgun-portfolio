@@ -212,19 +212,20 @@ export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // 120°, applied as nega
 
 /**
  * Camera trajectory state machine keyframes — one per scroll chapter.
- * Coordinates are in meters, in the hero group's space (model recentered so
- * the wrench midpoint sits at the origin).
+ * Coordinates are in meters in world space across the three discrete 3D stations:
+ *   Station 1 (`[0, 0, 0]`):     CH.01 & CH.02 Torque Wrench Hero
+ *   Station 2 (`[28, 0, -6]`):   CH.03 RL-300 / MSP Acoustic SAFE Enclosure
+ *   Station 3 (`[56, 0, -12]`):  CH.04 M249 / MK46 Parametric Receiver Platform
  */
 export const CAMERA_PATH: CameraKeyframe[] = [
-  // CH.01 — hero planetary torque wrench, 3/4 perspective
+  // CH.01 — hero planetary torque wrench, 3/4 perspective (Station 1: [0, 0, 0])
   { position: [0.32, 0.16, 0.42], target: [0, 0, 0], fov: 42 },
-  // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (centers on extracted cage ladder)
+  // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (Station 1: [0, 0, 0])
   { position: [0.60, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
-  // CH.03 — acoustic enclosure / thermal airflow, macro isometric
-  { position: [0.27, 0.27, 0.27], target: [0, 0, -0.02], fov: 28 },
-  // CH.04 — digital systems: M249 platform overview & continuous zoom-out
-  // Frames the centered 1.18m weapon with generous margins from barrel to stock
-  { position: [0.28, 0.42, 1.55], target: [0, 0, 0], fov: 38 },
+  // CH.03 — acoustic enclosure / thermal airflow, macro isometric (Station 2: [28, 0, -6])
+  { position: [28.27, 0.27, -5.73], target: [28, 0, -6.02], fov: 28 },
+  // CH.04 — digital systems: M249 platform overview & continuous zoom-out (Station 3: [56, 0, -12])
+  { position: [56.28, 0.42, -10.45], target: [56, 0, -12], fov: 38 },
 ]
 
 /**

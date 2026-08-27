@@ -21,8 +21,63 @@ export interface ScrollState {
   hotspotId: string | null
 }
 
+export interface SpatialStation {
+  id: string
+  index: number
+  label: string
+  name: string
+  position: readonly [number, number, number]
+  scrollProgress: number
+}
+
+export const SPATIAL_STATIONS: readonly SpatialStation[] = [
+  { id: 'jgun', index: 0, label: 'STATION 01', name: 'D1-AP TORQUE MULTIPLIER', position: [0, 0, 0], scrollProgress: 0.0 },
+  { id: 'enclosure', index: 1, label: 'STATION 02', name: 'RL-300 ACOUSTIC SAFE ENCLOSURE', position: [28, 0, -6], scrollProgress: 0.60 },
+  { id: 'm249', index: 2, label: 'STATION 03', name: 'M249 / MK46 PLATFORM', position: [56, 0, -12], scrollProgress: 0.85 },
+] as const
+
+/**
+ * Smoothly navigates the viewport to the target station's scroll progress.
+ */
+export function navigateToStation(stationIndex: number): void {
+  const target = SPATIAL_STATIONS[stationIndex]
+  if (!target) return
+  if (typeof window === 'undefined') return
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+  if (maxScroll <= 0) return
+
+  const targetScroll = maxScroll * target.scrollProgress
+  const lenis = (window as unknown as Record<string, unknown>).__lenis as
+    | { scrollTo: (target: number, opts?: { duration?: number }) => void }
+    | undefined
+
+  if (lenis && typeof lenis.scrollTo === 'function') {
+    lenis.scrollTo(targetScroll, { duration: 1.2 })
+  } else {
+    window.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth',
+    })
+  }
+}
+
+function initialScrollProgress(): number {
+  if (typeof window === 'undefined') return 0
+  const params = new URLSearchParams(window.location.search)
+  const station = params.get('station')
+  if (station === '1' || station === 'jgun') return 0.0
+  if (station === '2' || station === 'enclosure' || station === 'safe-enclosure') return 0.60
+  if (station === '3' || station === 'm249') return 0.85
+  const chapter = params.get('chapter')
+  if (chapter === '0') return 0.0
+  if (chapter === '1') return 0.35
+  if (chapter === '2') return 0.60
+  if (chapter === '3') return 0.85
+  return 0
+}
+
 const state: ScrollState = {
-  progress: 0,
+  progress: initialScrollProgress(),
   chapter: 0,
   chapterProgress: 0,
   velocity: 0,
@@ -41,6 +96,16 @@ function initialMaterialMode(): MaterialMode {
   const view = new URLSearchParams(window.location.search).get('view')
   if (view === 'solid' || view === 'blueprint' || view === 'exploded') return view
   return 'solid'
+}
+
+if (typeof window !== 'undefined') {
+  const initProg = initialScrollProgress()
+  if (initProg > 0) {
+    window.addEventListener('DOMContentLoaded', () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      if (max > 0) window.scrollTo(0, max * initProg)
+    })
+  }
 }
 
 const listeners = new Set<() => void>()

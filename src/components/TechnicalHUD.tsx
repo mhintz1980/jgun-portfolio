@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { CHAPTERS, HOTSPOTS, MATERIAL_MODE_LABELS } from '../data/caseStudies'
-import { getScrollState, setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
+import { getScrollState, navigateToStation, setScrollState, SPATIAL_STATIONS, telemetry, useScrollValue } from '../state/scrollStore'
 import { useQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 
@@ -26,19 +26,17 @@ export function TechnicalHUD() {
   const hotspotId = useScrollValue('hotspotId')
   const { reducedMotion } = useQuality()
 
-  // Continuous Scroll Release: wheel, touch drag, and keyboard navigation seamlessly
+  // 1. Continuous Scroll Release: wheel, touch drag, and Escape seamlessly
   // release inspect mode so the user is never trapped behind an inspect overlay.
   useEffect(() => {
     if (!hotspotId) return
 
-    // 1. Wheel scroll release (small threshold prevents jitter)
     const onWheel = (e: WheelEvent): void => {
       if (Math.abs(e.deltaY) > 2 || Math.abs(e.deltaX) > 2) {
         setScrollState({ hotspotId: null })
       }
     }
 
-    // 2. Touch swipe release
     let touchStartY = 0
     let touchStartX = 0
     const onTouchStart = (e: TouchEvent): void => {
@@ -57,7 +55,6 @@ export function TechnicalHUD() {
       }
     }
 
-    // 3. Keyboard navigation & Escape release
     const onKeyDown = (event: KeyboardEvent): void => {
       if (
         event.key === 'Escape' ||
@@ -82,6 +79,26 @@ export function TechnicalHUD() {
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [hotspotId])
+
+  // 2. Global Station Keyboard Navigation (keys 1, 2, 3)
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent): void => {
+      const target = event.target as HTMLElement | null
+      const isInput = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA'
+      if (isInput) return
+
+      if (event.key === '1') {
+        navigateToStation(0)
+      } else if (event.key === '2') {
+        navigateToStation(1)
+      } else if (event.key === '3') {
+        navigateToStation(2)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
@@ -131,6 +148,27 @@ export function TechnicalHUD() {
               <p key={callout}>{callout}</p>
             ))}
             <p className="text-cyan-200">DATUM: {chapterDef.datum}</p>
+          </div>
+
+          {/* Top-center: spatial station navigation */}
+          <div className="pointer-events-auto absolute top-5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm px-2.5 py-1 border border-cyan-900/60 rounded">
+            {SPATIAL_STATIONS.map((st) => (
+              <button
+                key={st.id}
+                type="button"
+                aria-label={`Navigate to ${st.label}: ${st.name}`}
+                onClick={() => navigateToStation(st.index)}
+                className={`cursor-pointer px-2 py-0.5 text-[10px] tracking-widest outline-none transition-colors rounded focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-1 focus-visible:ring-offset-black ${
+                  (st.index === 0 && (chapter === 0 || chapter === 1)) ||
+                  (st.index === 1 && chapter === 2) ||
+                  (st.index === 2 && chapter === 3)
+                    ? 'bg-cyan-400/20 text-cyan-200 border border-cyan-400/50'
+                    : 'text-cyan-400/60 hover:text-cyan-200 border border-transparent'
+                }`}
+              >
+                {st.label}
+              </button>
+            ))}
           </div>
 
           {/* Bottom-left: camera telemetry (datum coordinates) */}
