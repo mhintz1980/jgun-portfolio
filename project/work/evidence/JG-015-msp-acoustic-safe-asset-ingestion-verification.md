@@ -128,3 +128,46 @@ Probed via programmatic evaluation on fresh Vite preview server:
 ### Graceful Degradation & Accessibility Tiers
 - **Prefers-Reduced-Motion:** Lenis/ScrollTrigger unmounted; camera locked at CH.01 `[0.32, 0.16, 0.42]`, `stage.active: 0`, `stage.alpha: [1, 0, 0]`, zero scroll-driven animations.
 - **Poster Tier (No WebGL2):** `hasCanvas: false`, static DOM presentation rendered without WebGL execution.
+
+## Supplied local verification — 2026-08-27
+
+The following commands were run by Mark in PowerShell 7.6.5 from the repository root. Their output is reproduced as supplied.
+
+| Check | Command | Result |
+|---|---|---|
+| Station2 asset contract | `npm run check:station2` | **Passed.** `Stage2 contract passed: 2380776 bytes, 7 named roots, single GLB path.` |
+| TypeScript | `npm run typecheck` | **Passed.** `tsc --noEmit` completed with no diagnostic output or errors. |
+| Production build | `npm run build` | **Passed.** `tsc && vite build` completed successfully; 621 modules transformed; build time 7.14s. |
+
+### Confirmed seven-node contract
+
+The passing `check:station2` command confirms that the delivered 2,380,776-byte `msp-enclosure.glb` contains all seven required node names, the Stage2 component references only the single approved GLB path, `StageManager` mounts `Station2_AcousticEnclosure`, the procedural `WALL_LAYERS` placeholder is absent, and no obsolete `rl300-skid.glb` load path remains.
+
+| Required root node |
+|---|
+| `ENCLOSURE_CHASSIS` |
+| `COMPOSITE_PANELS` |
+| `PUMP_HOUSING` |
+| `ACOUSTIC_BAFFLES` |
+| `ISOLATION_MOUNTS` |
+| `DUCT_INTAKE` |
+| `DUCT_EXHAUST` |
+
+### Build observation
+
+Vite emitted a non-failing bundle-size warning: `SceneCanvas-8aQmlpz1.js` is 700.37 kB minified (197.93 kB gzip), exceeding the 500 kB warning threshold. This does not invalidate the successful build, but it should be tracked as a deployment-readiness improvement: evaluate lazy-loading or manual chunking for the canvas/runtime dependencies before JG-019.
+
+### Remaining verification gate
+
+The command-based checks are now complete. Before JG-015 can become `verified`, restart the `:4173` preview after this build and append fresh runtime telemetry for full, lite, reduced-motion, and poster coverage. The telemetry must prove that Stage 2 is dominant in the CH.03 window and that JGun/M249 telemetry remains valid. Until then, this record remains `in-progress`.
+
+### Browser-console observation
+
+Mark reported the following messages while reviewing the local preview:
+
+- `THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.`
+- WebGL shader compiler `X4122` double-precision representation warnings.
+
+These are warnings, not reported runtime exceptions. They are not evidence that the Station2 asset failed to load. The `THREE.Clock` deprecation should be traced to the responsible dependency or project code and addressed during a future Three.js compatibility pass; the shader precision warnings should be monitored across target GPUs but are not an acceptance failure without visible or telemetry-confirmed rendering defects.
+
+Fresh `window.__telemetry` values and an explicit console-error check remain required before JG-015 closure.

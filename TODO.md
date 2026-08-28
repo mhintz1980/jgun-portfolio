@@ -20,8 +20,9 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Queued
 
-- [ ] **JG-017 — Post-processing and whip-pan camera effects** · [plan](project/work/plans/JG-017-whip-pan-camera-fx.md)
-  - **Depends on:** JG-016. Add restrained, tier-aware camera FX only after station geometry and narrative are stable.
+- [x] **JG-017 — Post-processing and whip-pan camera effects** · [plan](project/work/plans/JG-017-whip-pan-camera-fx.md)
+  - Added restrained velocity-driven chromatic aberration (full tier) and bloom (full + lite) during station transitions. Quality tiers and reduced motion have safe fallbacks. `transitionIntensity` telemetry field confirmed live via DevTools probes.
+  - **Required proof:** `:4173` telemetry at both transition zones (intensity 0.491/0.493 during active scroll, near-zero at rest), canvas liveness, console clean, `npm run typecheck`, and `npm run build` ([evidence](project/work/evidence/JG-017-whip-pan-camera-fx-verification.md)).
 
 - [ ] **JG-018 — Interactive airflow and acoustic-wave systems** · [plan](project/work/plans/JG-018-airflow-and-acoustic-interaction.md)
   - **Depends on:** JG-015 and JG-016. Bind airflow/baffle interactions to verified enclosure geometry with accessible alternatives and performance limits.

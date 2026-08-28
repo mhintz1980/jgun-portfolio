@@ -7,6 +7,7 @@ import { CameraRig } from './CameraRig'
 import { SpatialRig } from './SpatialRig'
 import { SpatialWorld } from './SpatialWorld'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
+import { PostProcessingComposer } from './PostProcessingComposer'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState } from '../state/scrollStore'
@@ -156,6 +157,9 @@ export function SceneCanvas() {
 
           <CameraRig />
           <SpatialRig />
+          {/* JG-017 — restrained post-processing FX (transition chromatic aberration + bloom).
+              Returns null for poster and reduced-motion tiers; safe to always mount. */}
+          <PostProcessingComposer />
         </PerformanceMonitor>
       </Canvas>
     </div>

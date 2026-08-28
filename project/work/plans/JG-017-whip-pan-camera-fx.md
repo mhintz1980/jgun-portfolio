@@ -1,10 +1,10 @@
 ---
 id: JG-017
 title: Post-processing and whip-pan camera effects
-status: queued
+status: verified
 created: 2026-08-26
 owner: unassigned
-todo: TODO.md#queued
+todo: TODO.md#active
 depends_on:
   - JG-016
 source:
@@ -16,13 +16,14 @@ skills:
 implementation_scope:
   - src/scene/PostProcessingComposer.tsx
   - src/scene/SpatialRig.tsx
-  - src/state/qualityStore.ts
+  - src/state/scrollStore.ts
+  - src/scene/SceneCanvas.tsx
 acceptance:
   - Effects reinforce named station transitions without masking engineering content.
   - Quality tiers and reduced motion have defined safe fallbacks.
   - Effect intensity and performance are telemetry verified.
-verification: null
-commits: []
+verification: ../evidence/JG-017-whip-pan-camera-fx-verification.md
+commits: [JG-017-whip-pan-camera-fx]
 ---
 
 # JG-017 — Post-Processing and Whip-Pan Camera Effects
