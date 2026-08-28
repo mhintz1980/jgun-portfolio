@@ -424,4 +424,189 @@ export const HOTSPOTS: HotspotDef[] = [
     },
     chapters: [3],
   },
+  /* ---------------- Station 2: RL-300 / MSP Acoustic SAFE Enclosure ---------------- */
+  {
+    id: 'enclosure-chassis',
+    occurrence: 'ENCLOSURE_CHASSIS',
+    kind: 'inspect',
+    label: 'EXTRUDED UNIBODY CHASSIS',
+    detail:
+      'Structural welded 6061-T6 aluminum framework with modular internal mounting channels engineered for industrial plant environments.',
+    annotation: {
+      processNote: '6061-T6 WELDED UNIBODY',
+      anchorOffset: [0, 0.35, 0],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'composite-panels',
+    occurrence: 'COMPOSITE_PANELS',
+    kind: 'datum',
+    label: 'DATUM C — 5-LAYER COMPOSITE WALL',
+    detail:
+      'Mass-loaded vinyl core + dual-density closed-cell decoupling foam providing -43 dBA acoustic attenuation without thermal trapping.',
+    annotation: {
+      datum: 'C',
+      frame: {
+        characteristic: 'ATTENUATION',
+        cells: ['-43 dBA', '5-LAYER'],
+      },
+      processNote: '-43 dBA NOISE ATTENUATION',
+      anchorOffset: [0.6, 0.2, 0.4],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'pump-housing',
+    occurrence: 'PUMP_HOUSING',
+    kind: 'inspect',
+    label: 'RL-300 ROTARY DRIVE UNIT',
+    detail:
+      'High-pressure continuous rotary positive displacement pump generating 115 dBA source noise, isolated via tuned acoustic chambers.',
+    annotation: {
+      processNote: '115 dBA CONTINUOUS DRIVE',
+      anchorOffset: [0, 0, 0],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'acoustic-baffles',
+    occurrence: 'ACOUSTIC_BAFFLES',
+    kind: 'datum',
+    label: 'DATUM D — INTERNAL LABYRINTH',
+    detail:
+      'Sound-dissipating geometric baffles trapping high-frequency acoustic waves while preserving aerodynamic cooling airflow.',
+    annotation: {
+      datum: 'D',
+      frame: {
+        characteristic: 'LABYRINTH',
+        cells: ['SOUND ARRESTOR', 'CFM TUNED'],
+      },
+      processNote: 'INTERNAL SOUND BAFFLES',
+      anchorOffset: [0.35, 0.15, -0.25],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'isolation-mounts',
+    occurrence: 'ISOLATION_MOUNTS',
+    kind: 'datum',
+    label: 'DATUM E — DECOUPLING ISOLATORS',
+    detail:
+      'Elastomeric shear isolators preventing structure-borne motor vibration transfer and eliminating sympathetic unibody resonance.',
+    annotation: {
+      datum: 'E',
+      frame: {
+        characteristic: 'ISOLATION',
+        cells: ['< 5 Hz TRANSMISSION'],
+      },
+      processNote: 'ELASTOMERIC SHEAR MOUNTS',
+      anchorOffset: [-0.5, -0.35, 0.35],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'duct-intake',
+    occurrence: 'DUCT_INTAKE',
+    kind: 'datum',
+    label: 'DATUM F — 1,850 CFM INTAKE AIRWAY',
+    detail:
+      'Laminar low-velocity cooling intake sized via CFM/FPM airflow math to maintain optimal thermal delta-T without acoustic leakage.',
+    annotation: {
+      datum: 'F',
+      frame: {
+        characteristic: 'LAMINAR FLOW',
+        cells: ['1,850 CFM', '650 FPM'],
+      },
+      processNote: '1,850 CFM LAMINAR INTAKE',
+      anchorOffset: [-1.1, 0.25, 0],
+    },
+    chapters: [2],
+  },
+  {
+    id: 'duct-exhaust',
+    occurrence: 'DUCT_EXHAUST',
+    kind: 'datum',
+    label: 'DATUM G — ATTENUATED EXHAUST DUCT',
+    detail:
+      'Low-backpressure thermal discharge port with integrated dissipative sound arrestor rings discharging cooling air quietly.',
+    annotation: {
+      datum: 'G',
+      frame: {
+        characteristic: 'DISCHARGE',
+        cells: ['LOW BACKPRESSURE'],
+      },
+      processNote: 'THERMAL DISCHARGE PORT',
+      anchorOffset: [1.2, 0.2, 0],
+    },
+    chapters: [2],
+  },
+  /* ---------------- Station 3: M249 / MK46 Platform ---------------- */
+  {
+    id: 'm249-receiver',
+    occurrence: 'RECEIVER_MONOBLOC',
+    kind: 'datum',
+    label: 'DATUM A — RECEIVER MONOBLOC',
+    detail:
+      'Reverse-engineered CNC-machined steel receiver body with ASME Y14.5 mil-spec interchangeability tolerances reconstructed from 3D scans.',
+    annotation: {
+      datum: 'A',
+      frame: {
+        characteristic: 'PROFILE ⌓',
+        cells: ['.0015" @ MMC', 'A', 'B'],
+      },
+      processNote: 'MIL-SPEC INTERCHANGEABILITY',
+      anchorOffset: [0, 0.04, 0],
+    },
+    chapters: [3],
+  },
+  {
+    id: 'm249-trunnion',
+    occurrence: 'BARREL_TRUNNION',
+    kind: 'datum',
+    label: 'DATUM B — BARREL TRUNNION BORE',
+    detail:
+      'Precision-machined locking trunnion bore. Concentricity and RUNOUT < .0008" TIR for quick-change barrel interchangeability.',
+    annotation: {
+      datum: 'B',
+      frame: {
+        characteristic: 'RUNOUT',
+        cells: ['.0008" TIR', 'A'],
+      },
+      processNote: 'QUICK-CHANGE LOCKUP BORE',
+      anchorOffset: [0, 0.02, 0.15],
+    },
+    chapters: [3],
+  },
+  {
+    id: 'm249-rail',
+    occurrence: 'PICATINNY_TOP_RAIL',
+    kind: 'datum',
+    label: 'DATUM C — MIL-STD-1913 TOP RAIL',
+    detail:
+      'Parametrically reconstructed 1913 optical mounting rail with true recoil slot spacing and precision center-bore datum alignment.',
+    annotation: {
+      datum: 'C',
+      frame: {
+        characteristic: 'PARALLELISM //',
+        cells: ['.0010"', 'A'],
+      },
+      processNote: 'MIL-STD-1913 PROFILE',
+      anchorOffset: [0, 0.1, -0.08],
+    },
+    chapters: [3],
+  },
+  {
+    id: 'm249-feed-tray',
+    occurrence: 'FEED_TRAY_INTERFACE',
+    kind: 'inspect',
+    label: 'FEED TRAY & BOLT CARRIER GUIDE',
+    detail:
+      'Reverse-engineered feed guide rails reconstructed from raw 3D scan point clouds without original technical data package (TDP).',
+    annotation: {
+      processNote: 'DUAL-FEED GUIDE INTERFACE',
+      anchorOffset: [0, 0.06, 0.04],
+    },
+    chapters: [3],
+  },
 ]

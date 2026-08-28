@@ -1,10 +1,14 @@
 import { useLoader } from '@react-three/fiber'
+import { Html } from '@react-three/drei'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { Color, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { useMemo, useState } from 'react'
 import { useQuality } from '../../state/qualityStore'
 import { setScrollState, useScrollValue } from '../../state/scrollStore'
+import { HOTSPOTS } from '../../data/caseStudies'
+import { HotspotButton, SpatialLeaderLine } from '../Hotspots'
+import type { HotspotDef } from '../../types/portfolio'
 
 const ASSET_PATHS = ['/models/msp-enclosure.glb'] as const
 
@@ -28,54 +32,110 @@ export interface EnclosureSubassembly {
 
 export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
   ENCLOSURE_CHASSIS: {
-    id: 'chassis',
+    id: 'enclosure-chassis',
     name: 'ENCLOSURE_CHASSIS',
     label: 'EXTRUDED CHASSIS FRAMEWORK',
     spec: 'Structural welded aluminum unibody with modular mounting channels',
     roleColor: '#6b7280',
   },
   COMPOSITE_PANELS: {
-    id: 'panels',
+    id: 'composite-panels',
     name: 'COMPOSITE_PANELS',
     label: '5-LAYER COMPOSITE ACOUSTIC WALLS',
     spec: 'Mass-loaded vinyl core + dual-density closed-cell decoupling foam (-43 dBA)',
     roleColor: '#9ca3af',
   },
   PUMP_HOUSING: {
-    id: 'pump',
+    id: 'pump-housing',
     name: 'PUMP_HOUSING',
     label: 'INTERNAL DRIVE UNIT & PUMP',
     spec: 'High-pressure continuous rotary pump generating 115 dBA source noise',
     roleColor: '#d97706',
   },
   ACOUSTIC_BAFFLES: {
-    id: 'baffles',
+    id: 'acoustic-baffles',
     name: 'ACOUSTIC_BAFFLES',
     label: 'INTERNAL ACOUSTIC LABYRINTH',
     spec: 'Sound-dissipating geometric baffles trapping high-frequency acoustic waves',
     roleColor: '#374151',
   },
   ISOLATION_MOUNTS: {
-    id: 'mounts',
+    id: 'isolation-mounts',
     name: 'ISOLATION_MOUNTS',
     label: 'VIBRATION DECOUPLING MOUNTS',
     spec: 'Elastomeric shear isolators preventing structure-borne chassis resonance',
     roleColor: '#111827',
   },
   DUCT_INTAKE: {
-    id: 'intake',
+    id: 'duct-intake',
     name: 'DUCT_INTAKE',
     label: 'LAMINAR INTAKE AIRWAY',
     spec: '1,850 CFM low-velocity cooling intake with acoustic foam lining',
     roleColor: '#0891b2',
   },
   DUCT_EXHAUST: {
-    id: 'exhaust',
+    id: 'duct-exhaust',
     name: 'DUCT_EXHAUST',
     label: 'ATTENUATED EXHAUST DUCT',
     spec: 'Low-backpressure thermal discharge port with integrated sound arrestor',
     roleColor: '#f97316',
   },
+}
+
+const STATION2_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
+  'composite-panels': { pos: [0.6, 0.25, 0.4], dx: 240, dy: -110 },
+  'acoustic-baffles': { pos: [0.35, 0.15, -0.25], dx: 210, dy: 80 },
+  'isolation-mounts': { pos: [-0.5, -0.35, 0.35], dx: -210, dy: 90 },
+  'duct-intake': { pos: [-1.1, 0.25, 0], dx: -240, dy: -90 },
+  'duct-exhaust': { pos: [1.2, 0.2, 0], dx: 230, dy: -80 },
+}
+
+function Station2HotspotAnchor({
+  def,
+  selected,
+}: {
+  def: HotspotDef
+  selected: boolean
+}) {
+  const [hovered, setHovered] = useState(false)
+  const config = STATION2_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 220, dy: -90 }
+  const isRight = config.dx > 0
+
+  return (
+    <group position={config.pos}>
+      <Html
+        center={false}
+        distanceFactor={3.5}
+        zIndexRange={[40, 0]}
+        style={{ pointerEvents: 'none' }}
+      >
+        <div className="relative">
+          <SpatialLeaderLine
+            dx={config.dx}
+            dy={config.dy}
+            selected={selected}
+            hovered={hovered}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              left: `${config.dx}px`,
+              top: `${config.dy - 14}px`,
+              transform: isRight ? 'none' : 'translateX(-100%)',
+              transformOrigin: isRight ? 'left center' : 'right center',
+            }}
+          >
+            <HotspotButton
+              def={def}
+              selected={selected}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            />
+          </div>
+        </div>
+      </Html>
+    </group>
+  )
 }
 
 function cloneMaterials(root: Object3D, lite: boolean): void {
@@ -109,6 +169,7 @@ export function Station2_AcousticEnclosure() {
   const { tier } = useQuality()
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const activeHotspotId = useScrollValue('hotspotId')
+  const chapter = useScrollValue('chapter')
 
   const gltfs = useLoader(GLTFLoader, [...ASSET_PATHS], (loader) => {
     const draco = new DRACOLoader()
@@ -137,8 +198,9 @@ export function Station2_AcousticEnclosure() {
   // Update emissive highlighting on hover / inspect
   useMemo(() => {
     scene.children.forEach((child) => {
+      const sub = ENCLOSURE_SUBASSEMBLIES[child.name]
       const isHighlighted =
-        child.name === hoveredNode || (activeHotspotId && child.name.toLowerCase().includes(activeHotspotId))
+        child.name === hoveredNode || (activeHotspotId && sub && sub.id === activeHotspotId)
 
       child.traverse((obj) => {
         if (!(obj instanceof Mesh)) return
@@ -158,37 +220,53 @@ export function Station2_AcousticEnclosure() {
     })
   }, [scene, hoveredNode, activeHotspotId])
 
+  const station2Hotspots = useMemo(() => {
+    return HOTSPOTS.filter((h) => h.chapters.includes(2))
+  }, [])
+
   return (
-    <primitive
-      object={scene}
-      dispose={null}
-      onPointerOver={(e: { stopPropagation: () => void; object: Object3D }) => {
-        e.stopPropagation()
-        let cur: Object3D | null = e.object
-        while (cur && cur !== scene) {
-          if (cur.name && REQUIRED_NODES.includes(cur.name as (typeof REQUIRED_NODES)[number])) {
-            setHoveredNode(cur.name)
-            return
-          }
-          cur = cur.parent
-        }
-      }}
-      onPointerOut={() => setHoveredNode(null)}
-      onClick={(e: { stopPropagation: () => void; object: Object3D }) => {
-        e.stopPropagation()
-        let cur: Object3D | null = e.object
-        while (cur && cur !== scene) {
-          if (cur.name && REQUIRED_NODES.includes(cur.name as (typeof REQUIRED_NODES)[number])) {
-            const sub = ENCLOSURE_SUBASSEMBLIES[cur.name]
-            if (sub) {
-              setScrollState({ hotspotId: sub.id })
+    <group>
+      <primitive
+        object={scene}
+        dispose={null}
+        onPointerOver={(e: { stopPropagation: () => void; object: Object3D }) => {
+          e.stopPropagation()
+          let cur: Object3D | null = e.object
+          while (cur && cur !== scene) {
+            if (cur.name && REQUIRED_NODES.includes(cur.name as (typeof REQUIRED_NODES)[number])) {
+              setHoveredNode(cur.name)
+              return
             }
-            return
+            cur = cur.parent
           }
-          cur = cur.parent
-        }
-      }}
-    />
+        }}
+        onPointerOut={() => setHoveredNode(null)}
+        onClick={(e: { stopPropagation: () => void; object: Object3D }) => {
+          e.stopPropagation()
+          let cur: Object3D | null = e.object
+          while (cur && cur !== scene) {
+            if (cur.name && REQUIRED_NODES.includes(cur.name as (typeof REQUIRED_NODES)[number])) {
+              const sub = ENCLOSURE_SUBASSEMBLIES[cur.name]
+              if (sub) {
+                setScrollState({ hotspotId: sub.id })
+              }
+              return
+            }
+            cur = cur.parent
+          }
+        }}
+      />
+
+      {/* 3D Spatial Datum Markers on Station 2 */}
+      {chapter === 2 &&
+        station2Hotspots.map((def) => (
+          <Station2HotspotAnchor
+            key={def.id}
+            def={def}
+            selected={activeHotspotId === def.id}
+          />
+        ))}
+    </group>
   )
 }
 

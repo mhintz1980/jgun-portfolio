@@ -27,6 +27,7 @@ interface InspectFraming {
 }
 
 const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
+  // ---- Station 1: JGun Torque Multiplier ([0, 0, 0]) ----
   // Air motor rotor — tight 3/4 view focusing on rotor vanes & input drive
   rotor: {
     position: [0.18, 0.08, 0.12],
@@ -68,6 +69,65 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
     position: [-0.09, -0.02, -0.34],
     target: [0, -0.01, -0.2],
     fov: 25,
+  },
+
+  // ---- Station 2: RL-300 / MSP Acoustic SAFE Enclosure ([28, 0, -6]) ----
+  'enclosure-chassis': {
+    position: [28 + 1.8, 1.2, -6 + 2.2],
+    target: [28, 0.2, -6],
+    fov: 28,
+  },
+  'composite-panels': {
+    position: [28 + 2.0, 0.9, -6 + 1.8],
+    target: [28 + 0.3, 0.1, -6 + 0.2],
+    fov: 26,
+  },
+  'pump-housing': {
+    position: [28 + 0.9, 0.6, -6 + 1.4],
+    target: [28, 0, -6],
+    fov: 24,
+  },
+  'acoustic-baffles': {
+    position: [28 + 1.2, 0.8, -6 + 0.8],
+    target: [28 + 0.2, 0.2, -6 - 0.2],
+    fov: 24,
+  },
+  'isolation-mounts': {
+    position: [28 - 1.2, -0.1, -6 + 1.5],
+    target: [28 - 0.5, -0.35, -6 + 0.35],
+    fov: 24,
+  },
+  'duct-intake': {
+    position: [28 - 2.2, 0.8, -6 + 1.2],
+    target: [28 - 1.1, 0.25, -6],
+    fov: 26,
+  },
+  'duct-exhaust': {
+    position: [28 + 2.4, 0.8, -6 + 1.0],
+    target: [28 + 1.2, 0.2, -6],
+    fov: 26,
+  },
+
+  // ---- Station 3: M249 Receiver Platform ([56, 0, -12]) ----
+  'm249-receiver': {
+    position: [56 + 0.25, 0.35, -12 + 0.8],
+    target: [56, 0.05, -12],
+    fov: 26,
+  },
+  'm249-trunnion': {
+    position: [56 + 0.22, 0.25, -12 + 0.65],
+    target: [56, 0.03, -12 + 0.15],
+    fov: 22,
+  },
+  'm249-rail': {
+    position: [56 + 0.2, 0.45, -12 + 0.6],
+    target: [56, 0.1, -12 - 0.08],
+    fov: 22,
+  },
+  'm249-feed-tray': {
+    position: [56 + 0.22, 0.32, -12 + 0.7],
+    target: [56, 0.06, -12 + 0.04],
+    fov: 24,
   },
 }
 
@@ -233,11 +293,16 @@ export function CameraRig() {
         : null
     if (inspectFrame) {
       const explode = telemetry.rig.explodeFactor
-      // The gearbox housing never explodes; every other annotated occurrence
-      // rides the handle assembly's rear-extraction offset (role-map assembly
-      // field — including the mount-face flange, which the pre-repair code
-      // wrongly tracked on the old clutch offset).
-      const offsetZ = hotspotId === 'gearbox-housing' ? 0 : EXPLODE_OFFSETS.handle * explode
+      // Station 1 handle parts ride the handle rear extraction offset.
+      // Station 1 gearbox housing and all Station 2/3 occurrences use fixed station frames.
+      const isStation1Handle =
+        hotspotId === 'rotor' ||
+        hotspotId === 'motor-housing' ||
+        hotspotId === 'flange' ||
+        hotspotId === 'mcu' ||
+        hotspotId === 'lcd' ||
+        hotspotId === 'lipo'
+      const offsetZ = isStation1Handle ? EXPLODE_OFFSETS.handle * explode : 0
 
       goalPos.current.set(
         inspectFrame.position[0],

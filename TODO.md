@@ -18,6 +18,9 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - Replace implicit sequential stage placement with a measured three-station world: JGun Torque Multiplier (`[0, 0, 0]`), RL-300 Acoustic Enclosure (`[28, 0, -6]`), and M249 Parametric Platform (`[56, 0, -12]`), with seamless camera navigation, deep linking, and telemetry synchronization.
   - **Required proof:** fresh `:4173` telemetry, contract check, full/reduced-motion/poster behavior, `npm run typecheck`, and `npm run build`.
 
+- [x] **JG-020 — Multi-station subassembly inspection, spatial hotspots, and interactive CAD anchors** · [plan](project/work/plans/JG-020-multi-station-hotspots-inspection.md)
+  - Expand subassembly inspection, spatial datum annotations, and camera dollying across all 3 stations (JGun, RL-300 SAFE Enclosure, and M249 Receiver Platform) with interactive hovering, rich engineering HUD cards, and continuous scroll release ([evidence](project/work/evidence/JG-020-multi-station-hotspots-inspection-verification.md)).
+
 ## Queued
 
 - [x] **JG-017 — Post-processing and whip-pan camera effects** · [plan](project/work/plans/JG-017-whip-pan-camera-fx.md)

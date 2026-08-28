@@ -64,7 +64,7 @@ The authoritative per-harness paths, shared fallbacks, usage rules, and codebase
   context. ZCode subagents take no cheaper-model argument; the saving is keeping
   output out of the main thread (subagents default to a cheaper model anyway).
 - Pipe known-noisy commands (installs, builds, test runs) through `| tail -n 40`
-  when the full log isn't needed; the workspace PreToolUse hook
-  (`.zcode/hooks/trim_pretooluse.py`) wraps most of these automatically.
+  when the full log isn't needed; the user-scope PreToolUse hook
+  (`~/.zcode/scripts/trim_pretooluse.py`) wraps most of these automatically.
 - Never suggest compaction/summarization as a cost-saving measure — finish the
   job and `/clear` instead.

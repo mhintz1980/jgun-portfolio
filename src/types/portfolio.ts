@@ -7,7 +7,7 @@ export type MaterialMode = 'solid' | 'blueprint' | 'exploded'
 
 export type ChapterIndex = 0 | 1 | 2 | 3
 
-export type DatumLabel = 'A' | 'B' | 'C'
+export type DatumLabel = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
 
 export interface ChapterDef {
   index: ChapterIndex

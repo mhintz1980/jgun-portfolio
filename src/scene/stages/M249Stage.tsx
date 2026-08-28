@@ -1,43 +1,87 @@
-import { useEffect, useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useFrame } from "@react-three/fiber"
-import { useGLTF } from "@react-three/drei"
-import { Box3, Group, Material, Mesh, Vector3 } from "three"
+import { Html, useGLTF } from "@react-three/drei"
+import { Box3, Group, Material, Mesh, MeshStandardMaterial, Vector3 } from "three"
 import { createCadTransitionMaterial } from "../../shaders/CadTransitionShader"
-import { getScrollState } from "../../state/scrollStore"
+import { getScrollState, setScrollState, useScrollValue } from "../../state/scrollStore"
 import { getQuality } from "../../state/qualityStore"
+import { HOTSPOTS } from "../../data/caseStudies"
+import { HotspotButton, SpatialLeaderLine } from "../Hotspots"
+import type { HotspotDef } from "../../types/portfolio"
 
 const MODEL_URL = "/models/m249-transformed.glb"
 
+const STATION3_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
+  "m249-receiver": { pos: [0, 0.04, 0], dx: 220, dy: -90 },
+  "m249-trunnion": { pos: [0, 0.02, 0.15], dx: 240, dy: -110 },
+  "m249-rail": { pos: [0, 0.10, -0.08], dx: -240, dy: -90 },
+  "m249-feed-tray": { pos: [0, 0.06, 0.04], dx: -220, dy: 80 },
+}
+
+function Station3HotspotAnchor({
+  def,
+  selected,
+}: {
+  def: HotspotDef
+  selected: boolean
+}) {
+  const [hovered, setHovered] = useState(false)
+  const config = STATION3_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 220, dy: -90 }
+  const isRight = config.dx > 0
+
+  return (
+    <group position={config.pos}>
+      <Html
+        center={false}
+        distanceFactor={1.2}
+        zIndexRange={[40, 0]}
+        style={{ pointerEvents: "none" }}
+      >
+        <div className="relative">
+          <SpatialLeaderLine
+            dx={config.dx}
+            dy={config.dy}
+            selected={selected}
+            hovered={hovered}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: `${config.dx}px`,
+              top: `${config.dy - 14}px`,
+              transform: isRight ? "none" : "translateX(-100%)",
+              transformOrigin: isRight ? "left center" : "right center",
+            }}
+          >
+            <HotspotButton
+              def={def}
+              selected={selected}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            />
+          </div>
+        </div>
+      </Html>
+    </group>
+  )
+}
+
 /**
- * CR-6 -- Real M249/MK46 receiver platform GLB.
+ * CR-6 -- Real M249/MK46 receiver platform GLB + Interactive Subassembly Inspection.
  *
  * Replaces the procedural rejection-sampled point-cloud placeholder in
  * StageManager stage 2 (CH.04). The model is Draco-compressed (KHR_draco,
  * confirmed by binary probe 2026-08-25); the same vendored public/draco/
  * decoders used for Default.glb cover it.
- *
- * ASSET NOTE (2026-08-26) -- this is the ONLY textured GLB in the project
- * (Default.glb / jgun-*.glb carry zero images), so it is the entire texture
- * budget: 871 KB on disk, 50.3 MB texture VRAM (2048 baseColor + 2048 normal
- * + 1024 metallicRoughness, all WebP, RGBA8 + mips).
- *
- * It is POST-PROCESSED after gltfjsx. Re-running `npx gltfjsx --transform`
- * alone WILL regress the normal map to chroma-subsampled JPEG -- gltfjsx
- * hard-codes that slot and ignores --format/--resolution. Required steps and
- * measured numbers are in the generated C:\Projects\CAD\M249.jsx header and
- * in the vault skill `glb-web-export-triage`. KTX2 was encoded and measured
- * 2026-08-26, then rejected: every variant spends file size and/or quality to
- * buy VRAM that is not this scene's bottleneck.
- *
- * CadTransitionShader is bound to the model actual Z bounds so the CH.04
- * dissolve scanline tracks the real geometry (previously aimed at the
- * sunken wrench -- spec 14.3 known-gap, now resolved).
  */
 export function M249Stage() {
   const { scene } = useGLTF(MODEL_URL)
   const groupRef = useRef<Group>(null)
   const originalMaterials = useRef(new Map<Mesh, Material | Material[]>())
   const cadBound = useRef(false)
+  const activeHotspotId = useScrollValue("hotspotId")
+  const chapter = useScrollValue("chapter")
+  const [hovered, setHovered] = useState(false)
 
   const { sweepMin, sweepMax, center } = useMemo(() => {
     const box = new Box3().setFromObject(scene)
@@ -82,6 +126,26 @@ export function M249Stage() {
     }
   }, [cadMaterial])
 
+  // Emissive highlight on inspect/hover
+  useMemo(() => {
+    if (cadBound.current) return
+    scene.traverse((obj) => {
+      if (!(obj instanceof Mesh)) return
+      const materials = Array.isArray(obj.material) ? obj.material : [obj.material]
+      materials.forEach((mat) => {
+        if (mat instanceof MeshStandardMaterial) {
+          if (hovered || (activeHotspotId && activeHotspotId.startsWith("m249"))) {
+            mat.emissive.set("#00e5ff")
+            mat.emissiveIntensity = 0.25
+          } else {
+            mat.emissive.set("#000000")
+            mat.emissiveIntensity = 0.0
+          }
+        }
+      })
+    })
+  }, [scene, hovered, activeHotspotId])
+
   useFrame((_, delta) => {
     const { chapter, chapterProgress } = getScrollState()
     const { tier } = getQuality()
@@ -99,9 +163,44 @@ export function M249Stage() {
     }
   })
 
+  const station3Hotspots = useMemo(() => {
+    return HOTSPOTS.filter((h) => h.chapters.includes(3) && h.id.startsWith("m249"))
+  }, [])
+
   return (
     <group ref={groupRef} position={[-center.x, -center.y, -center.z]}>
-      <primitive object={scene} />
+      <primitive
+        object={scene}
+        onPointerOver={(e: { stopPropagation: () => void }) => {
+          e.stopPropagation()
+          setHovered(true)
+        }}
+        onPointerOut={() => setHovered(false)}
+        onClick={(e: { stopPropagation: () => void; point: Vector3 }) => {
+          e.stopPropagation()
+          // Classify subassembly by click position in model frame
+          const pt = e.point.clone().sub(new Vector3(56, 0, -12))
+          if (pt.y > 0.08) {
+            setScrollState({ hotspotId: "m249-rail" })
+          } else if (pt.z > 0.1) {
+            setScrollState({ hotspotId: "m249-trunnion" })
+          } else if (pt.y > 0.04) {
+            setScrollState({ hotspotId: "m249-feed-tray" })
+          } else {
+            setScrollState({ hotspotId: "m249-receiver" })
+          }
+        }}
+      />
+
+      {/* 3D Spatial Datum Markers on Station 3 */}
+      {chapter === 3 &&
+        station3Hotspots.map((def) => (
+          <Station3HotspotAnchor
+            key={def.id}
+            def={def}
+            selected={activeHotspotId === def.id}
+          />
+        ))}
     </group>
   )
 }

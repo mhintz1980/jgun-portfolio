@@ -14,6 +14,7 @@ This is the stable registry for work accepted after the `JG-###` protocol was es
 | JG-017 | verified | Post-processing and whip-pan camera effects | [Active](../../TODO.md#active) | [plan](plans/JG-017-whip-pan-camera-fx.md) | [evidence](evidence/JG-017-whip-pan-camera-fx-verification.md) |
 | JG-018 | verified | Interactive airflow and acoustic-wave systems | [Queued](../../TODO.md#queued) | [plan](plans/JG-018-airflow-and-acoustic-interaction.md) | [evidence](evidence/JG-018-airflow-and-acoustic-interaction-verification.md) |
 | JG-019 | verified | Deployment readiness and studiomark.dev hosting | [Queued](../../TODO.md#queued) | [plan](plans/JG-019-deployment-and-hosting.md) | [evidence](evidence/JG-019-deployment-and-hosting-verification.md) |
+| JG-020 | verified | Multi-station subassembly inspection, spatial hotspots, and interactive CAD anchors | [Active](../../TODO.md#active) | [plan](plans/JG-020-multi-station-hotspots-inspection.md) | [evidence](evidence/JG-020-multi-station-hotspots-inspection-verification.md) |
 
 ## Legacy Work
 

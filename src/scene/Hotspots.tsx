@@ -124,7 +124,7 @@ export function HotspotButton({
  * - Restrained highlight on hover/active.
  * - Terminal tick at the frame intersection.
  */
-function SpatialLeaderLine({
+export function SpatialLeaderLine({
   dx,
   dy,
   selected,
