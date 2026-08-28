@@ -73,39 +73,39 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
 
   // ---- Station 2: RL-300 / MSP Acoustic SAFE Enclosure ([28, 0, -6]) ----
   'enclosure-chassis': {
-    position: [28 + 1.8, 1.2, -6 + 2.2],
-    target: [28, 0.2, -6],
-    fov: 28,
+    position: [31.8, 2.4, -2.4],
+    target: [28.0, 1.23, -6.41],
+    fov: 34,
   },
   'composite-panels': {
-    position: [28 + 2.0, 0.9, -6 + 1.8],
-    target: [28 + 0.3, 0.1, -6 + 0.2],
-    fov: 26,
+    position: [31.2, 2.0, -2.8],
+    target: [28.66, 1.20, -5.74],
+    fov: 30,
   },
   'pump-housing': {
-    position: [28 + 0.9, 0.6, -6 + 1.4],
-    target: [28, 0, -6],
-    fov: 24,
+    position: [30.4, 1.8, -3.4],
+    target: [28.02, 0.89, -6.00],
+    fov: 28,
   },
   'acoustic-baffles': {
-    position: [28 + 1.2, 0.8, -6 + 0.8],
-    target: [28 + 0.2, 0.2, -6 - 0.2],
-    fov: 24,
+    position: [25.2, 2.2, -4.2],
+    target: [26.68, 1.54, -6.38],
+    fov: 28,
   },
   'isolation-mounts': {
-    position: [28 - 1.2, -0.1, -6 + 1.5],
-    target: [28 - 0.5, -0.35, -6 + 0.35],
-    fov: 24,
+    position: [29.6, 0.6, -4.0],
+    target: [28.00, 0.05, -6.00],
+    fov: 26,
   },
   'duct-intake': {
-    position: [28 - 2.2, 0.8, -6 + 1.2],
-    target: [28 - 1.1, 0.25, -6],
-    fov: 26,
+    position: [29.8, 1.6, -2.8],
+    target: [28.00, 1.11, -5.05],
+    fov: 28,
   },
   'duct-exhaust': {
-    position: [28 + 2.4, 0.8, -6 + 1.0],
-    target: [28 + 1.2, 0.2, -6],
-    fov: 26,
+    position: [29.6, 1.8, -9.2],
+    target: [27.90, 1.23, -7.17],
+    fov: 28,
   },
 
   // ---- Station 3: M249 Receiver Platform ([56, 0, -12]) ----

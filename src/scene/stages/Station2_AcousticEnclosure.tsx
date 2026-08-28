@@ -2,7 +2,7 @@ import { useLoader } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { Color, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
+import { Color, DoubleSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { useMemo, useState } from 'react'
 import { useQuality } from '../../state/qualityStore'
 import { setScrollState, useScrollValue } from '../../state/scrollStore'
@@ -83,11 +83,13 @@ export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
 }
 
 const STATION2_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
-  'composite-panels': { pos: [0.6, 0.25, 0.4], dx: 240, dy: -110 },
-  'acoustic-baffles': { pos: [0.35, 0.15, -0.25], dx: 210, dy: 80 },
-  'isolation-mounts': { pos: [-0.5, -0.35, 0.35], dx: -210, dy: 90 },
-  'duct-intake': { pos: [-1.1, 0.25, 0], dx: -240, dy: -90 },
-  'duct-exhaust': { pos: [1.2, 0.2, 0], dx: 230, dy: -80 },
+  'enclosure-chassis': { pos: [0.0, 2.30, -0.40], dx: 240, dy: -90 },
+  'composite-panels': { pos: [1.80, 1.50, 0.30], dx: 240, dy: -110 },
+  'pump-housing': { pos: [0.02, 0.90, 0.00], dx: -220, dy: -80 },
+  'acoustic-baffles': { pos: [-1.32, 1.55, -0.38], dx: -240, dy: 80 },
+  'isolation-mounts': { pos: [0.60, 0.05, 0.60], dx: 220, dy: 90 },
+  'duct-intake': { pos: [0.00, 1.35, 0.95], dx: -240, dy: -90 },
+  'duct-exhaust': { pos: [-0.10, 1.50, -1.30], dx: 230, dy: -80 },
 }
 
 function Station2HotspotAnchor({
@@ -105,7 +107,7 @@ function Station2HotspotAnchor({
     <group position={config.pos}>
       <Html
         center={false}
-        distanceFactor={3.5}
+        distanceFactor={7.5}
         zIndexRange={[40, 0]}
         style={{ pointerEvents: 'none' }}
       >
@@ -141,19 +143,32 @@ function Station2HotspotAnchor({
 function cloneMaterials(root: Object3D, lite: boolean): void {
   const meta = ENCLOSURE_SUBASSEMBLIES[root.name]
   const roleColor = meta?.roleColor ?? '#6b7280'
+  const isPanels = root.name === 'COMPOSITE_PANELS'
+
+  const processMaterial = (material: Material): Material => {
+    const clone = material.clone()
+    if (clone instanceof MeshStandardMaterial) {
+      clone.color.set(roleColor)
+      clone.metalness = 0.2
+      clone.roughness = lite ? Math.max(clone.roughness, 0.62) : 0.35
+      clone.side = DoubleSide
+      if (isPanels) {
+        clone.transparent = true
+        clone.opacity = 0.68
+        clone.roughness = 0.2
+      }
+      clone.userData.baseColor = new Color(roleColor)
+    }
+    return clone
+  }
 
   root.traverse((object) => {
     if (!(object instanceof Mesh)) return
-    const materials = Array.isArray(object.material) ? object.material : [object.material]
-    object.material = materials.map((material) => {
-      const clone = material.clone()
-      if (clone instanceof MeshStandardMaterial) {
-        clone.color.set(roleColor)
-        clone.roughness = lite ? Math.max(clone.roughness, 0.62) : clone.roughness
-        clone.userData.baseColor = new Color(roleColor)
-      }
-      return clone
-    }) as Material[]
+    if (Array.isArray(object.material)) {
+      object.material = object.material.map(processMaterial)
+    } else if (object.material) {
+      object.material = processMaterial(object.material)
+    }
   })
 }
 

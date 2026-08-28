@@ -223,7 +223,7 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (Station 1: [0, 0, 0])
   { position: [0.60, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
   // CH.03 — acoustic enclosure / thermal airflow, macro isometric (Station 2: [28, 0, -6])
-  { position: [28.27, 0.27, -5.73], target: [28, 0, -6.02], fov: 28 },
+  { position: [32.6, 2.8, -1.2], target: [28.0, 1.2, -6.35], fov: 36 },
   // CH.04 — digital systems: M249 platform overview & continuous zoom-out (Station 3: [56, 0, -12])
   { position: [56.28, 0.42, -10.45], target: [56, 0, -12], fov: 38 },
 ]

@@ -43,7 +43,9 @@ function RoomEnvironmentIbl() {
     const target = pmrem.fromScene(room, 0.04)
     scene.environment = target.texture
     scene.environmentIntensity = 1.0
+    ;(window as any).__threeScene = scene
     return () => {
+      ;(window as any).__threeScene = null
       scene.environment = null
       target.dispose()
       pmrem.dispose()
@@ -113,7 +115,7 @@ export function SceneCanvas() {
       <Canvas
         dpr={DPR_STEPS[step]}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
-        camera={{ fov: 42, near: 0.005, far: 20, position: [0.32, 0.16, 0.42] }}
+        camera={{ fov: 42, near: 0.005, far: 150, position: [0.32, 0.16, 0.42] }}
         onCreated={({ gl }) => {
           gl.domElement.addEventListener('webglcontextlost', (event) => {
             event.preventDefault()
@@ -134,7 +136,7 @@ export function SceneCanvas() {
           onFallback={() => setDprStep(DPR_STEPS.length - 1)}
         >
           <color attach="background" args={['#05070a']} />
-          <fog attach="fog" args={['#05070a', 1.4, 4.5]} />
+          <fog attach="fog" args={['#05070a', 25, 120]} />
 
           {/* Studio balance for the photoreal PBR pass (2026-08-24): the
               environment carries the softbox reflections the clearcoat
