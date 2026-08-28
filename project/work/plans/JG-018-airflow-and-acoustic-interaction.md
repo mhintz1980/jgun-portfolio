@@ -1,10 +1,10 @@
 ---
 id: JG-018
 title: Interactive airflow and acoustic-wave systems
-status: queued
+status: verified
 created: 2026-08-26
-owner: unassigned
-todo: TODO.md#queued
+owner: Antigravity
+todo: TODO.md#active
 depends_on:
   - JG-015
   - JG-016
@@ -17,12 +17,12 @@ skills:
 implementation_scope:
   - src/scene/stages/AirflowField.tsx
   - src/scene/stages/AcousticBaffleField.tsx
-  - src/scene/Station2_AcousticEnclosure.tsx
+  - src/scene/stages/Station2_AcousticEnclosure.tsx
 acceptance:
   - Interaction explains real enclosure engineering rather than providing decorative particles.
   - Raycast and dynamic geometry work is bounded and tier-aware.
   - Touch and keyboard alternatives exist where interaction conveys required information.
-verification: null
+verification: ../evidence/JG-018-airflow-and-acoustic-interaction-verification.md
 commits: []
 ---
 
@@ -41,11 +41,11 @@ Make the Stage 2 enclosure explain airflow and noise-control design through boun
 
 ## Acceptance Criteria
 
-- [ ] Airflow and acoustic effects are tied to verified Stage 2 model anchors.
-- [ ] Mouse, touch, keyboard, reduced-motion, and poster-tier behavior are defined.
-- [ ] Interaction does not obscure the enclosure or replace engineering explanation with decoration.
-- [ ] Full and medium tier runtime evidence demonstrates bounded scene cost.
+- [x] Airflow and acoustic effects are tied to verified Stage 2 model anchors.
+- [x] Mouse, touch, keyboard, reduced-motion, and poster-tier behavior are defined.
+- [x] Interaction does not obscure the enclosure or replace engineering explanation with decoration.
+- [x] Full and medium tier runtime evidence demonstrates bounded scene cost.
 
 ## Verification Record
 
-Create `../evidence/JG-018-airflow-and-acoustic-interaction-verification.md` before checking off the TODO entry.
+See [`../evidence/JG-018-airflow-and-acoustic-interaction-verification.md`](../evidence/JG-018-airflow-and-acoustic-interaction-verification.md).

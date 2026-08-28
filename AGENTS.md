@@ -56,3 +56,15 @@ all harnesses); deploy readiness → `asset-and-bundle-hygiene`; CH.04 shader �
 ## Cross-Agent Skill Locations
 
 The authoritative per-harness paths, shared fallbacks, usage rules, and codebase-memory service status are maintained in [`project/context/agent-skills.md`](project/context/agent-skills.md). Every agent must read the named `SKILL.md` before work in that skill’s domain. The map covers CAD rigging, WebGL telemetry, R3F/GSAP/ScrollTrigger scroll behavior, spatial annotations, shaders, asset hygiene, motion-led 3D composition, and codebase-memory graph retrieval.
+
+## Token guardrails (ZCode)
+
+- Be concise. Dispatch mechanical work — rename, format, summarize, scrape, bulk
+  file reads — to an Agent subagent so its tool output never enters the main
+  context. ZCode subagents take no cheaper-model argument; the saving is keeping
+  output out of the main thread (subagents default to a cheaper model anyway).
+- Pipe known-noisy commands (installs, builds, test runs) through `| tail -n 40`
+  when the full log isn't needed; the workspace PreToolUse hook
+  (`.zcode/hooks/trim_pretooluse.py`) wraps most of these automatically.
+- Never suggest compaction/summarization as a cost-saving measure — finish the
+  job and `/clear` instead.

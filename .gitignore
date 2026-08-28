@@ -9,3 +9,4 @@ public/models/*.glb
 # Local diagnostic scratch (analysis scripts, node dumps, captures)
 .scratch/
 .playwright-mcp/
+.zcode/

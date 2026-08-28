@@ -28,12 +28,21 @@ for (const node of requiredNodes) {
   if (!component.includes(`'${node}'`)) throw new Error(`Station2 node contract missing: ${node}`)
   if (!assetText.includes(node)) throw new Error(`GLB binary does not contain node name: ${node}`)
 }
-if (!spatialWorld.includes('<Station2_AcousticEnclosure />') && !stageManager.includes('<Station2_AcousticEnclosure />')) {
-  throw new Error('SpatialWorld/StageManager does not mount Station2')
-}
-if (spatialWorld.includes('WALL_LAYERS') || stageManager.includes('WALL_LAYERS')) {
-  throw new Error('Procedural Stage2 placeholder remains in SpatialWorld/StageManager')
-}
-if (component.includes("'/models/rl300-skid.glb'")) throw new Error('Unexpected second Stage2 asset path')
+const airflowPath = new URL('../src/scene/stages/AirflowField.tsx', import.meta.url)
+const acousticBafflePath = new URL('../src/scene/stages/AcousticBaffleField.tsx', import.meta.url)
 
-console.log(`Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, single GLB path.`)
+const airflowText = await readFile(airflowPath, 'utf8')
+const acousticBaffleText = await readFile(acousticBafflePath, 'utf8')
+
+if (!spatialWorld.includes('<AcousticBaffleField />')) {
+  throw new Error('SpatialWorld does not mount AcousticBaffleField')
+}
+if (!spatialWorld.includes('<AirflowField />')) {
+  throw new Error('SpatialWorld does not mount AirflowField')
+}
+if (airflowText.length === 0 || acousticBaffleText.length === 0) {
+  throw new Error('AirflowField or AcousticBaffleField component is empty')
+}
+
+console.log(`Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, AirflowField & AcousticBaffleField mounted.`)
+

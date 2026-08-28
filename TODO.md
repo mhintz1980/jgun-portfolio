@@ -24,8 +24,8 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - Added restrained velocity-driven chromatic aberration (full tier) and bloom (full + lite) during station transitions. Quality tiers and reduced motion have safe fallbacks. `transitionIntensity` telemetry field confirmed live via DevTools probes.
   - **Required proof:** `:4173` telemetry at both transition zones (intensity 0.491/0.493 during active scroll, near-zero at rest), canvas liveness, console clean, `npm run typecheck`, and `npm run build` ([evidence](project/work/evidence/JG-017-whip-pan-camera-fx-verification.md)).
 
-- [ ] **JG-018 — Interactive airflow and acoustic-wave systems** · [plan](project/work/plans/JG-018-airflow-and-acoustic-interaction.md)
-  - **Depends on:** JG-015 and JG-016. Bind airflow/baffle interactions to verified enclosure geometry with accessible alternatives and performance limits.
+- [x] **JG-018 — Interactive airflow and acoustic-wave systems** · [plan](project/work/plans/JG-018-airflow-and-acoustic-interaction.md)
+  - **Depends on:** JG-015 and JG-016. Bound airflow and acoustic-wave interactions to verified Station 2 CAD geometry (`DUCT_INTAKE`, `PUMP_HOUSING`, `ACOUSTIC_BAFFLES`, `DUCT_EXHAUST`, `ISOLATION_MOUNTS`) with aerodynamic cursor deflection, restrained soundwave dissipation, accessible alternatives, and zero per-frame allocation ([evidence](project/work/evidence/JG-018-airflow-and-acoustic-interaction-verification.md)).
 
 - [x] **JG-019 — Deployment readiness and studiomark.dev hosting** · [plan](project/work/plans/JG-019-deployment-and-hosting.md)
   - **Depends on:** JG-014. Publish only after build, asset, fallback, metadata, and production telemetry checks are recorded.

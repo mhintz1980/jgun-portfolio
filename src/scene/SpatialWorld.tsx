@@ -5,6 +5,7 @@ import { ContactShadows } from '@react-three/drei'
 import { getQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { stageEnvelope, STAGE_TRANSITIONS } from './stages/stageWindows'
+import { AcousticBaffleField } from './stages/AcousticBaffleField'
 import { AirflowField } from './stages/AirflowField'
 import { M249Stage } from './stages/M249Stage'
 import { Station2_AcousticEnclosure } from './stages/Station2_AcousticEnclosure'
@@ -88,6 +89,7 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
       >
         <Station2_AcousticEnclosure />
         <AirflowField />
+        <AcousticBaffleField />
         <ContactShadows position={[0, -0.05, 0]} opacity={0.45} scale={4.5} blur={2.0} far={1.5} />
       </group>
 

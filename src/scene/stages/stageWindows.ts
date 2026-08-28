@@ -31,12 +31,26 @@ export const STAGE_TRANSITIONS = {
 export const STAGE_TRAVEL = 0.5
 
 /**
- * MSP SAFE enclosure placeholder half-extents (m), camera-fit to the frozen
- * CH.03 keyframe (position (0.27, 0.27, 0.27) → target origin, FOV 28° gives
- * ≈ ±0.12 m vertical half-view at the target plane). Provisional until the
- * real Draco GLB lands in public/models/ — then re-measure and re-fit.
+ * Measured RL-300 / MSP SAFE enclosure subassembly anchor positions (m, model frame).
+ * Extracted from the authoritative 7 named roots in public/models/msp-enclosure.glb:
+ *   - DUCT_INTAKE: [0.0, 1.158, 0.893] (laminar inlet port, +Z)
+ *   - PUMP_HOUSING: [0.022, 0.943, -0.055] (vibration / thermal noise source)
+ *   - ACOUSTIC_BAFFLES: [-1.319, 1.590, -0.433] (labyrinth sound absorption wall)
+ *   - DUCT_EXHAUST: [-0.101, 1.282, -1.225] (attenuated outlet port, -Z)
+ *   - ISOLATION_MOUNTS: [0.0, 0.025, -0.055] (structure-borne decoupling base)
  */
-export const ENCLOSURE_HALF: readonly [number, number, number] = [0.14, 0.1, 0.19]
+export const STATION2_CAD_ANCHORS = {
+  ductIntake: [0.0, 1.158, 0.893] as const,
+  pumpHousing: [0.022, 0.943, -0.055] as const,
+  acousticBaffles: [-1.319, 1.590, -0.433] as const,
+  ductExhaust: [-0.101, 1.282, -1.225] as const,
+  isolationMounts: [0.0, 0.025, -0.055] as const,
+} as const
+
+/**
+ * Enclosure half-extents (m) for particle route and interaction bounding.
+ */
+export const ENCLOSURE_HALF: readonly [number, number, number] = [1.2, 1.1, 1.6]
 
 export interface StageEnvelope {
   /** Cross-fade alpha 0..1 (visibility gate at ≤ 0.001). */

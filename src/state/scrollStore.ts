@@ -197,6 +197,11 @@ export interface TelemetryStage {
   /** CH.03 airflow field intensity 0..1 (scroll-bound, damped). */
   flow: number
   /**
+   * JG-018 — acoustic wave attenuation & baffle propagation intensity 0..1.
+   * Written each frame by AcousticBaffleField.
+   */
+  acousticWave: number
+  /**
    * JG-017 — smoothed cross-station transition intensity 0..1.
    * Written each frame by SpatialRig from the max absolute alpha-delta,
    * exponentially decayed so it persists for ~0.4 s after the transition peak.
@@ -230,7 +235,7 @@ export const telemetry: {
     ringSwitchRotZ: 0,
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
-  stage: { active: 0, alpha: [1, 0, 0], y: [0, 0, 0], flow: 0, transitionIntensity: 0 },
+  stage: { active: 0, alpha: [1, 0, 0], y: [0, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0 },
 }
 
 // Exposed for headless verification probes (docs/animation-spec.md §11 —
