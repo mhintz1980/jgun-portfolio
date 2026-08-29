@@ -2,7 +2,7 @@ import { useLoader } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { Color, DoubleSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
+import { Color, DoubleSide, FrontSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
 import { useMemo, useState } from 'react'
 import { useQuality } from '../../state/qualityStore'
 import { setScrollState, useScrollValue } from '../../state/scrollStore'
@@ -142,28 +142,48 @@ function Station2HotspotAnchor({
 
 function cloneMaterials(root: Object3D, lite: boolean): void {
   const meta = ENCLOSURE_SUBASSEMBLIES[root.name]
-  const roleColor = meta?.roleColor ?? '#6b7280'
+  const roleColor = new Color(meta?.roleColor ?? '#6b7280')
   const isPanels = root.name === 'COMPOSITE_PANELS'
+
+  // Functional parts get higher role tint (t ≈ 0.55); structural roots get subtle tint (t ≈ 0.15)
+  const isFunctional =
+    root.name === 'DUCT_INTAKE' ||
+    root.name === 'DUCT_EXHAUST' ||
+    root.name === 'PUMP_HOUSING'
+  const tintFactor = isFunctional ? 0.55 : 0.15
 
   const processMaterial = (material: Material): Material => {
     const clone = material.clone()
     if (clone instanceof MeshStandardMaterial) {
-      clone.color.set(roleColor)
-      clone.metalness = 0.2
-      clone.roughness = lite ? Math.max(clone.roughness, 0.62) : 0.35
-      clone.side = DoubleSide
+      // Keep GLB baked source color and lerp toward role color with functional/structural weights
+      clone.color.lerp(roleColor, tintFactor)
+
+      // Keep GLB metalness/roughness clamped to plausible engineering range
+      clone.metalness = Math.min(1, Math.max(0, clone.metalness))
+      clone.roughness = Math.min(1, Math.max(0.1, clone.roughness))
+      if (lite) {
+        clone.roughness = Math.max(clone.roughness, 0.62)
+      }
+
+      // DoubleSide only on composite panels
+      clone.side = isPanels ? DoubleSide : FrontSide
+
       if (isPanels) {
         clone.transparent = true
         clone.opacity = 0.68
-        clone.roughness = 0.2
+        clone.depthWrite = false
       }
-      clone.userData.baseColor = new Color(roleColor)
+
+      clone.userData.baseColor = clone.color.clone()
     }
     return clone
   }
 
   root.traverse((object) => {
     if (!(object instanceof Mesh)) return
+    if (isPanels) {
+      object.renderOrder = 10 // render panels after opaque internals to prevent sorting artifacts
+    }
     if (Array.isArray(object.material)) {
       object.material = object.material.map(processMaterial)
     } else if (object.material) {

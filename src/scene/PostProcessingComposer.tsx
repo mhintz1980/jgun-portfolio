@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { EffectComposer, ChromaticAberration, Bloom } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
+import { EffectComposer, ChromaticAberration, Bloom, ToneMapping } from '@react-three/postprocessing'
+import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import type { ChromaticAberrationEffect, BloomEffect } from 'postprocessing'
 import { Vector2 } from 'three'
 import { useQuality } from '../state/qualityStore'
@@ -108,6 +108,7 @@ export function PostProcessingComposer() {
           intensity={BLOOM_REST}
           mipmapBlur
         />
+        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
       <FxDriver
         aberrationRef={aberrationRef}

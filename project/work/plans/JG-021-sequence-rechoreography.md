@@ -112,3 +112,16 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 - **Watch-Item (Stop-and-Go Rhythm):**
   - Smoothstep endpoints at 0.525 / 0.600 / 0.720 / 0.760 intentionally bring camera velocity to zero at segment boundaries, creating a deliberate content-aligned pacing rhythm.
 
+## Implementation notes (WS2)
+
+- **ACES Tone Mapping:**
+  - Added `<ToneMapping mode={ToneMappingMode.ACES_FILMIC} />` as the final pass in `PostProcessingComposer.tsx`.
+- **CAD-Authentic Materials with Functional Accents:**
+  - Preserved GLB source baked colors and material properties; applied role-tint lerp with $t \approx 0.55$ on functional parts (`DUCT_INTAKE`, `DUCT_EXHAUST`, `PUMP_HOUSING`) and $t \approx 0.15$ on structural roots (`ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`).
+  - Preserved GLB metalness and roughness clamped to plausible engineering ranges with lite-tier roughness floor.
+- **Panel Transparency & Render Order:**
+  - `COMPOSITE_PANELS` configured with `side: DoubleSide`, `transparent: true`, `opacity: 0.68`, `depthWrite: false`, and `renderOrder: 10` (rendering after opaque internals to eliminate WebGL sorting artifacts). All other roots use `FrontSide` and `depthWrite: true`.
+- **Station 2 Light Rebalancing:**
+  - Rebalanced Station 2 local lights in `SpatialWorld.tsx` under ACES tone mapping: directional lights at 1.4 and 0.5, point light at 0.9. Emissive hover/inspect highlighting logic unchanged.
+
+
