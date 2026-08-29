@@ -1,6 +1,6 @@
 # JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement
 
-**Status:** queued · **Accepted:** 2026-08-28 · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
+**Status:** queued · **Accepted:** 2026-08-28 · **Amended:** 2026-08-29 (Amendment A) · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
 
 ## Adoption corrections (binding)
 
@@ -9,6 +9,24 @@
 3. Workstream 4 must satisfy `spatial-hotspot-a11y` fully: keyboard-operable focus targets, screen-reader semantics, SVG leader lines, and ref-mutated transforms — no per-frame React state (`r3f-scroll-performance-guard`).
 4. Camera work keeps the existing telemetry mirror (`telemetry.scroll.*`, `transitionIntensity`) and JG-020 `HOTSPOT_INSPECT_FRAMES` inspection framing intact; segment/beat values must be validated against animation-spec §5 measured windows before first build.
 5. GD&T datum badges and feature-control frames created in Workstream 4 follow the registered style references at `context/references/media/gdt/` (source register entry, 2026-08-28).
+
+## Amendment A (2026-08-29) — merged from the second remote transfer
+
+A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; `plan-2.md`, a pre-adoption draft of this plan) arrived 2026-08-29 after adoption and was reconciled against this plan. Its five root causes independently match the verified ones below. Full text and disposition: `.archive/remote-review-transfer-2026-08-29/` (local archive — this section is the committed record).
+
+**Binding refinements merged:**
+
+1. **WS3.1 — transient cutaway.** The panel reveal is a beat, not a permanent state: COMPOSITE_PANELS restore assembled position/opacity after the reveal sub-window ends (re-entering the window re-runs it; reduced-motion/poster remain pinned assembled).
+2. **Verification — collision scope.** Badge DOM-rect probes assert no badge intersects the safe area **or another badge**, at desktop **and 390×844 mobile** widths (the review measured 9 of 13 Station 2 callouts fully offscreen on mobile).
+3. **Verification — material identity.** Extend the `__threeScene` material probe from distinct colors to surviving source material identities (the review counts ~9 distinct GLB materials).
+
+**Unverified review claims — confirm or refute during P4 evidence; real ones become follow-up tasks, not scope creep:**
+
+- opening identity copy initially transparent;
+- reduced-motion tier strands visitors on CH.01;
+- mobile controls undersized/overcrowded.
+
+**Deferred (recorded to avoid re-litigation; propose separately after JG-021 lands):** full `SequenceBeat`/shot-director refactor with an `inspect > scripted beat > station fallback` stack (superseded by Adoption correction 1 — `PATH_SEGMENTS` is the chosen mechanism); narrative copy choreography (bottom-edge captions, identifier-only whip, end contact action); mobile one-marker + bottom-sheet callout pattern; hard ≤2-passive-annotation cap.
 
 ## Root causes (from the remote review, verified)
 
