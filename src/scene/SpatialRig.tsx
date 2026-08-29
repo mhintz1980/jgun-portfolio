@@ -59,10 +59,11 @@ export function SpatialRig() {
     prevAlpha[0] = alphas[0]; prevAlpha[1] = alphas[1]; prevAlpha[2] = alphas[2]
 
     // Scale raw delta to 0..1 and inject into exponential decay accumulator.
-    // 0.015 denominator: at 60 fps a 0.04-unit transition window takes ~40
-    // frames, giving ~0.001/frame; at 30 fps ~0.002/frame. Scale so the peak
-    // intensity stays around 0.8–1.0 at normal scroll speeds.
-    const scaled = Math.min(maxDelta / 0.015, 1)
+    // Denominator 0.085 accounts for the smoothstep derivative (dα/dp = 37.5 at
+    // mid-window across the 0.04-unit transition), yielding peak intensity
+    // ~0.70–0.74 during continuous 60 fps scrub (well below 1.0 ceiling) and
+    // ~0.49 during incremental 80 ms steps, matching the JG-017 spec.
+    const scaled = Math.min(maxDelta / 0.085, 1)
     const decay = 1 - Math.exp(-safeDelta / 0.35)
     telemetry.stage.transitionIntensity = Math.max(
       telemetry.stage.transitionIntensity * (1 - decay) + scaled * decay,

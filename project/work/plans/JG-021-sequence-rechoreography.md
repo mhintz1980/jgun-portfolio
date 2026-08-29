@@ -116,12 +116,29 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 
 - **ACES Tone Mapping:**
   - Added `<ToneMapping mode={ToneMappingMode.ACES_FILMIC} />` as the final pass in `PostProcessingComposer.tsx`.
-- **CAD-Authentic Materials with Functional Accents:**
+- **CAD-Authentic Materials with Functional Accents & Identity Enumeration (Amendment A):**
   - Preserved GLB source baked colors and material properties; applied role-tint lerp with $t \approx 0.55$ on functional parts (`DUCT_INTAKE`, `DUCT_EXHAUST`, `PUMP_HOUSING`) and $t \approx 0.15$ on structural roots (`ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`).
   - Preserved GLB metalness and roughness clamped to plausible engineering ranges with lite-tier roughness floor.
+  - Enumerated 9 distinct GLB source materials across 593 meshes in `__threeScene`:
+    1. `MSP_STAINLESS` (99 meshes) — `#d0d2d6`, metalness 1.0, roughness 0.22.
+    2. `MSP_YELLOW_PAINT` (138 meshes) — `#f0bc32`, metalness 0.05, roughness 0.42.
+    3. `MSP_ALUMINUM` (12 meshes) — `#d0d1d3`, metalness 1.0, roughness 0.50.
+    4. `MSP_RUBBER` (14 meshes) — `#35393f`, metalness 0.0, roughness 0.75.
+    5. `MSP_BLACK_CHASSIS` (155 meshes) — `#383a3f`, metalness 0.10, roughness 0.48.
+    6. `MSP_PLASTIC` (103 meshes) — `#b5b6b7`, metalness 0.0, roughness 0.35.
+    7. `MSP_STEEL_MACHINED` (12 meshes) — `#c4c5c9`, metalness 0.95, roughness 0.30.
+    8. `MSP_STEEL_CAST` (47 meshes) — `#c18b72`, metalness 0.90, roughness 0.55.
+    9. `MSP_AIRWAY_VOLUME` (1 mesh) — `#3daad6`, metalness 0.0, roughness 0.50, transparent (cyan functional tint).
 - **Panel Transparency & Render Order:**
   - `COMPOSITE_PANELS` configured with `side: DoubleSide`, `transparent: true`, `opacity: 0.68`, `depthWrite: false`, and `renderOrder: 10` (rendering after opaque internals to eliminate WebGL sorting artifacts). All other roots use `FrontSide` and `depthWrite: true`.
-- **Station 2 Light Rebalancing:**
+- **Station 2 Light Rebalancing & Look Pass:**
   - Rebalanced Station 2 local lights in `SpatialWorld.tsx` under ACES tone mapping: directional lights at 1.4 and 0.5, point light at 0.9. Emissive hover/inspect highlighting logic unchanged.
+  - Look pass confirmed dimensional, non-blown enclosure with clear contrast against dark scene.
+- **JG-017 Smoothstep Calibration (Follow-through):**
+  - Retuned divisor in `SpatialRig.tsx` from `0.015` to `0.085` to account for the smoothstep derivative ($d\alpha/dp = 37.5$ across 0.04 transition window).
+  - Controlled 60 fps scrub probe measured peak `transitionIntensity` = **0.616** in Zone 1 (0.525–0.565) and **0.616** in Zone 2 (0.720–0.760), cleanly below 1.0 ceiling and decaying to $< 0.01$ at rest within 1 second.
+- **Performance & Zero React Re-renders:**
+  - Verified imperative `getScrollState()` in `useFrame` with 0 React subscriptions in canvas. Steady 60 fps scrub with zero per-frame React churn.
+
 
 
