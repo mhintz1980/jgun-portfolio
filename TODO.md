@@ -23,7 +23,7 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Queued
 
-- [ ] **JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement** · [plan](project/work/plans/JG-021-sequence-rechoreography.md)
+- [x] **JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement** · [plan](project/work/plans/JG-021-sequence-rechoreography.md) · [evidence](project/work/evidence/JG-021-sequence-rechoreography-verification.md)
   - Content-aligned camera segments with runtime-derived orbit continuity and framing bias vs. left text; CAD-authentic enclosure materials + ACES tone mapping; scroll-driven panel reveal + Station 2 camera arc; projection-based safe-area datum callouts (GD&T-styled per `project/context/references/media/gdt/`). Fixes the Critique-B HUD clipping/collision issues.
   - **Required proof:** fresh `:4173` telemetry (camera goal delta < ~0.8 m through 0.30→0.60; badge DOM rects vs safe area and vs each other at desktop + 390×844; panel checkpoints at 0.56/0.62/0.70 with post-reveal restore; material identities via `__threeScene`; ToneMapping present), full/reduced-motion/poster tiers, `npm run typecheck`, `npm run build`, `scripts/check-station2-contract.mjs`.
 
