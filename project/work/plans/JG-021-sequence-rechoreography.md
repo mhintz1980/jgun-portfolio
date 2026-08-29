@@ -164,6 +164,38 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 - **JG-017 Zone 2 Re-probe:**
   - Measured peak `transitionIntensity` during $P_{\text{arc}}(1) \to K_3$ flight = **0.709** (sub-ceiling, matching predicted +18% distance factor).
 
+## Implementation notes (WS4)
+
+- **`STATION2_CAD_ANCHORS` 7-Root Extension & Contract Update:**
+  - Extended `STATION2_CAD_ANCHORS` in `src/scene/stages/stageWindows.ts` to all 7 named roots (`enclosureChassis`, `compositePanels`, `pumpHousing`, `acousticBaffles`, `isolationMounts`, `ductIntake`, `ductExhaust`) using measured CAD coordinates from JG-018 evidence.
+  - Removed dead `STAGE_TRAVEL` constant export from `stageWindows.ts:31`.
+  - Updated `scripts/check-station2-contract.mjs` to assert all 7 roots in `STATION2_CAD_ANCHORS` (`npm run check:station2` PASS).
+- **Unified `SpatialHotspotAnchor` Architecture:**
+  - Implemented unified safe-area spatial hotspot anchor in `src/scene/Hotspots.tsx` replacing station-specific ad-hoc anchor implementations.
+  - Projects 3D CAD occurrence coordinates into 2D viewport coordinates inside `useFrame` via `worldPos.project(camera)`.
+  - Computes responsive safe-area clamping (Desktop: `safeLeft = 24, safeRight = W - 24, safeTop = 60, safeBottom = H - 60`; Mobile: `safeLeft = 12, safeRight = W - 12, safeTop = 60, safeBottom = H - 70`).
+  - Renders unscaled 1:1 pixel Drei `<Html>` overlays with dynamic SVG leader doglegs (`M 0 0 L ${elbowX} ${dy} L ${shelfEndX} ${dy}`) and shelf ticks.
+  - Frustum and depth culling automatically hides off-screen/rear anchors ($\pm 1.3$ NDC bounds and $z \in [-1, 1]$).
+  - Mutates DOM transforms imperatively on refs (`translate3d(${dx}px, ${dy - 14}px, 0)`), guaranteeing zero React state changes during scroll scrub.
+- **Cross-Station Unification:**
+  - Integrated `SpatialHotspotAnchor` across all three stations: Station 1 (`Hotspots.tsx`), Station 2 (`Station2_AcousticEnclosure.tsx`), Station 3 (`M249Stage.tsx`).
+  - Unified ASME Y14.5 GD&T datum badges (`-A-`, `-C-`, `-D-`, `-E-`, `-F-`, `-G-`) and segmented feature control frames.
+- **Desktop (1440×900) Safe-Area & Collision Verification:**
+  - Station 1 ($p=0.10$): 2 visible badges, 100% in-bounds (`allInBounds: true`), 0 collisions (`collisions: 0`).
+  - Station 1 ($p=0.47$): 1 visible badge, 100% in-bounds (`allInBounds: true`), 0 collisions (`collisions: 0`).
+  - Station 2 ($p=0.65$): 7/7 visible roots, 100% in-bounds (`allInBounds: true`), 0 collisions (`collisions: 0`).
+  - Station 3 ($p=0.85$): 4/4 visible roots, 100% in-bounds (`allInBounds: true`), 0 collisions (`collisions: 0`).
+- **Mobile (390×844) Safe-Area & Containment Verification:**
+  - Station 1 ($p=0.47$): 100% in-bounds, 0 collisions.
+  - Station 2 ($p=0.65$): 6/6 visible subassemblies 100% in-bounds, 0 collisions.
+  - Dynamic mobile max-width (`calc(100vw - 32px)`) and responsive truncation prevent any badge overflow.
+- **Camera Continuity Sweep $[0.58, 0.74]$ at 0.005 steps:**
+  - Evaluated on goal positions: max consecutive delta outside transition flights $[0.58, 0.72]$ is **$0.0207\text{ m}$** ($4.14\text{ m/s}$ smooth rate).
+  - Boundary handoff delta at $0.7200 \to 0.7205$ is **$0.00856\text{ m}$** ($8.56\text{ mm}$), confirming continuous $C^0$ handoff into whip flight.
+- **JG-018 Regression Probe:**
+  - Airflow intensity and acoustic field lifecycle confirmed live in reveal/hold window $[0.600, 0.720]$: $p=0.55$ (0.000), $p=0.60$ (0.000), $p=0.65$ (0.966), $p=0.70$ (0.500), $p=0.75$ (0.000).
+
+
 
 
 

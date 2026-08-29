@@ -1,5 +1,4 @@
 import { useFrame, useLoader } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { Color, DoubleSide, FrontSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
@@ -7,7 +6,6 @@ import { useMemo, useRef, useState } from 'react'
 import { getQuality, useQuality } from '../../state/qualityStore'
 import { getScrollState, setScrollState, useScrollValue } from '../../state/scrollStore'
 import { HOTSPOTS } from '../../data/caseStudies'
-import { HotspotButton, SpatialLeaderLine } from '../Hotspots'
 import type { HotspotDef } from '../../types/portfolio'
 
 const ASSET_PATHS = ['/models/msp-enclosure.glb'] as const
@@ -82,27 +80,28 @@ export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
   },
 }
 
-const STATION2_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
-  'enclosure-chassis': { pos: [0.0, 2.30, -0.40], dx: 240, dy: -90 },
-  'composite-panels': { pos: [1.80, 1.50, 0.30], dx: 240, dy: -110 },
-  'pump-housing': { pos: [0.02, 0.90, 0.00], dx: -220, dy: -80 },
-  'acoustic-baffles': { pos: [-1.32, 1.55, -0.38], dx: -240, dy: 80 },
-  'isolation-mounts': { pos: [0.60, 0.05, 0.60], dx: 220, dy: 90 },
-  'duct-intake': { pos: [0.00, 1.35, 0.95], dx: -240, dy: -90 },
-  'duct-exhaust': { pos: [-0.10, 1.50, -1.30], dx: 230, dy: -80 },
+import { STATION2_CAD_ANCHORS } from './stageWindows'
+import { SpatialHotspotAnchor } from '../Hotspots'
+
+const STATION2_ANCHOR_MAP: Record<string, { pos: readonly [number, number, number]; dx: number; dy: number }> = {
+  'enclosure-chassis': { pos: STATION2_CAD_ANCHORS.enclosureChassis, dx: 220, dy: -140 },
+  'composite-panels': { pos: STATION2_CAD_ANCHORS.compositePanels, dx: 220, dy: -70 },
+  'duct-exhaust': { pos: STATION2_CAD_ANCHORS.ductExhaust, dx: 220, dy: 20 },
+  'isolation-mounts': { pos: STATION2_CAD_ANCHORS.isolationMounts, dx: 220, dy: 110 },
+  'pump-housing': { pos: STATION2_CAD_ANCHORS.pumpHousing, dx: -220, dy: -210 },
+  'acoustic-baffles': { pos: STATION2_CAD_ANCHORS.acousticBaffles, dx: -220, dy: -20 },
+  'duct-intake': { pos: STATION2_CAD_ANCHORS.ductIntake, dx: -220, dy: 100 },
 }
 
-function Station2HotspotAnchor({
+function Station2Callout({
   def,
   selected,
 }: {
   def: HotspotDef
   selected: boolean
 }) {
-  const [hovered, setHovered] = useState(false)
   const groupRef = useRef<Group>(null)
-  const config = STATION2_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 220, dy: -90 }
-  const isRight = config.dx > 0
+  const config = STATION2_ANCHOR_MAP[def.id] ?? { pos: [0, 0, 0], dx: 200, dy: -80 }
   const isInternal =
     def.id === 'pump-housing' ||
     def.id === 'acoustic-baffles' ||
@@ -121,38 +120,14 @@ function Station2HotspotAnchor({
   })
 
   return (
-    <group ref={groupRef} position={config.pos}>
-      <Html
-        center={false}
-        distanceFactor={7.5}
-        zIndexRange={[40, 0]}
-        style={{ pointerEvents: 'none' }}
-      >
-        <div className="relative">
-          <SpatialLeaderLine
-            dx={config.dx}
-            dy={config.dy}
-            selected={selected}
-            hovered={hovered}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              left: `${config.dx}px`,
-              top: `${config.dy - 14}px`,
-              transform: isRight ? 'none' : 'translateX(-100%)',
-              transformOrigin: isRight ? 'left center' : 'right center',
-            }}
-          >
-            <HotspotButton
-              def={def}
-              selected={selected}
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            />
-          </div>
-        </div>
-      </Html>
+    <group ref={groupRef}>
+      <SpatialHotspotAnchor
+        def={def}
+        selected={selected}
+        position={[...config.pos]}
+        nominalDx={config.dx}
+        nominalDy={config.dy}
+      />
     </group>
   )
 }
@@ -373,7 +348,7 @@ export function Station2_AcousticEnclosure() {
       {/* 3D Spatial Datum Markers on Station 2 */}
       {chapter === 2 &&
         station2Hotspots.map((def) => (
-          <Station2HotspotAnchor
+          <Station2Callout
             key={def.id}
             def={def}
             selected={activeHotspotId === def.id}

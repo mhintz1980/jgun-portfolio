@@ -1,38 +1,33 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { Group } from 'three'
+import { useFrame, useThree } from '@react-three/fiber'
+import { Group, Vector3 } from 'three'
 import { EXPLODE_OFFSETS, HOTSPOTS } from '../data/caseStudies'
 import { setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
 import type { ChapterIndex, HotspotDef, RoleMapEntry } from '../types/portfolio'
 
+/** Module-level reusable vectors (r3f-scroll-performance-guard — zero GC). */
+const _worldPos = new Vector3()
+const _proj = new Vector3()
+
 /**
- * 2D screen offset configuration and explosion offset per hotspot ID.
- * dx/dy: screen-space pixel displacement from 3D anchor to HTML datum badge.
- * unitOffset: axial explosion offset in meters (tracks moving subassemblies).
- *
- * Every annotated occurrence except the gearbox housing lives in the HANDLE
- * assembly (role-map `assembly` field), so its unitOffset is the handle's
- * rear-extraction offset from EXPLODE_OFFSETS — never a hand-copied number.
- * (The pre-repair literals −0.331/−0.269 predated the pass-3 ladder and left
- * anchors 23 mm off their parts at full explode.)
+ * 2D nominal screen displacement and explosion offsets for Station 1 hotspots.
  */
 const HANDLE_UNIT_OFFSET = EXPLODE_OFFSETS.handle
 const HOTSPOT_CONFIG: Record<string, { dx: number; dy: number; unitOffset: number }> = {
-  rotor: { dx: 260, dy: -110, unitOffset: HANDLE_UNIT_OFFSET },
-  'motor-housing': { dx: -240, dy: -95, unitOffset: HANDLE_UNIT_OFFSET },
-  flange: { dx: 270, dy: -125, unitOffset: HANDLE_UNIT_OFFSET },
-  'gearbox-housing': { dx: 250, dy: 110, unitOffset: 0 },
-  mcu: { dx: -250, dy: -105, unitOffset: HANDLE_UNIT_OFFSET },
-  lcd: { dx: 180, dy: -120, unitOffset: HANDLE_UNIT_OFFSET },
-  lipo: { dx: -240, dy: 105, unitOffset: HANDLE_UNIT_OFFSET },
+  rotor: { dx: 220, dy: -100, unitOffset: HANDLE_UNIT_OFFSET },
+  'motor-housing': { dx: 220, dy: 70, unitOffset: HANDLE_UNIT_OFFSET },
+  flange: { dx: 220, dy: -130, unitOffset: HANDLE_UNIT_OFFSET },
+  'gearbox-housing': { dx: 220, dy: 90, unitOffset: 0 },
+  mcu: { dx: -220, dy: -90, unitOffset: HANDLE_UNIT_OFFSET },
+  lcd: { dx: 200, dy: -100, unitOffset: HANDLE_UNIT_OFFSET },
+  lipo: { dx: -220, dy: 90, unitOffset: HANDLE_UNIT_OFFSET },
 }
 
 /**
- * Pure DOM hotspot marker (exported separately so the Node a11y smoke check
- * can render it without a canvas). A real <button>, so Enter/Space activate
- * natively; aria-pressed reflects the toggle; the cyan focus-visible ring
- * matches the HUD chrome instead of the browser default.
+ * Pure DOM hotspot marker (exported separately for test harnesses / Node smoke checks).
+ * A real <button>, so Enter/Space activate natively; aria-pressed reflects toggle;
+ * cyan focus-visible ring matches HUD chrome.
  */
 export function HotspotButton({
   def,
@@ -60,13 +55,13 @@ export function HotspotButton({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={style}
-      className={`group pointer-events-auto cursor-pointer select-none whitespace-nowrap border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+      className={`group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
         selected
           ? 'border-cyan-300 bg-cyan-950/95 text-cyan-100 shadow-[0_0_20px_rgba(0,229,255,0.5)] ring-1 ring-cyan-400/60'
           : 'border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]'
       }`}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 overflow-hidden">
         <span
           className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-200 ${
             selected
@@ -77,14 +72,14 @@ export function HotspotButton({
 
         {/* 1. ASME Y14.5 Boxed Datum Flag: [ -A- ] */}
         {datumLetter && (
-          <span className="inline-flex h-5 min-w-[22px] items-center justify-center border border-cyan-300 bg-cyan-950/80 px-1 font-mono text-[11px] font-bold text-cyan-100 shadow-[0_0_8px_rgba(0,229,255,0.4)]">
+          <span className="inline-flex h-5 min-w-[22px] shrink-0 items-center justify-center border border-cyan-300 bg-cyan-950/80 px-1 font-mono text-[11px] font-bold text-cyan-100 shadow-[0_0_8px_rgba(0,229,255,0.4)]">
             -{datumLetter}-
           </span>
         )}
 
         {/* 2. ASME Y14.5 Segmented Feature Control Frame */}
         {frame ? (
-          <div className="inline-flex items-center border border-cyan-300/90 bg-cyan-950/40 text-cyan-100">
+          <div className="inline-flex shrink-0 items-center border border-cyan-300/90 bg-cyan-950/40 text-cyan-100">
             {frame.characteristic && (
               <span className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold">
                 {frame.characteristic}
@@ -102,13 +97,13 @@ export function HotspotButton({
         ) : null}
 
         {/* 3. Label / Subassembly Title */}
-        <span className="font-semibold tracking-wider text-cyan-100/95">{def.label}</span>
+        <span className="truncate font-semibold tracking-wider text-cyan-100/95">{def.label}</span>
 
         {/* 4. Process Note */}
         {processNote && !frame && !datumLetter && (
           <>
-            <span className="text-cyan-400/40">·</span>
-            <span className="text-[9px] text-cyan-300/70">{processNote}</span>
+            <span className="hidden text-cyan-400/40 sm:inline">·</span>
+            <span className="hidden text-[9px] text-cyan-300/70 sm:inline">{processNote}</span>
           </>
         )}
       </div>
@@ -117,12 +112,7 @@ export function HotspotButton({
 }
 
 /**
- * Dynamic SVG leader line connecting 3D occurrence coordinates (0, 0) to the
- * HTML datum badge (dx, dy). Features:
- * - Small orthographic feature mark at the measured anchor.
- * - Thin dogleg extension line with a horizontal datum shelf.
- * - Restrained highlight on hover/active.
- * - Terminal tick at the frame intersection.
+ * Static SVG leader line presentation for standalone / SSR / fallback rendering.
  */
 export function SpatialLeaderLine({
   dx,
@@ -137,7 +127,7 @@ export function SpatialLeaderLine({
 }) {
   const isRight = dx > 0
   const elbowX = dx * 0.45
-  const shelfLength = 80
+  const shelfLength = 60
   const shelfEndX = isRight ? dx + shelfLength : dx - shelfLength
 
   const active = selected || hovered
@@ -156,15 +146,12 @@ export function SpatialLeaderLine({
         </filter>
       </defs>
 
-      {/* 1. 3D Anchor Reticle at (0, 0) */}
       <g>
-        {/* Orthographic feature cross and center mark; no decorative radar treatment. */}
         <line x1="-8" y1="0" x2="8" y2="0" stroke={strokeColor} strokeWidth="1" />
         <line x1="0" y1="-8" x2="0" y2="8" stroke={strokeColor} strokeWidth="1" />
         <circle cx="0" cy="0" r="2" fill={active ? '#00e5ff' : '#38bdf8'} />
       </g>
 
-      {/* 2. Dogleg Leader Line + Datum Shelf */}
       <path
         d={`M 0 0 L ${elbowX} ${dy} L ${shelfEndX} ${dy}`}
         fill="none"
@@ -176,7 +163,6 @@ export function SpatialLeaderLine({
         className={active ? 'leader-line-flow' : undefined}
       />
 
-      {/* 3. Terminal datum tick at badge junction */}
       <line
         x1={dx}
         y1={dy - 6}
@@ -190,85 +176,209 @@ export function SpatialLeaderLine({
   )
 }
 
-/**
- * Single Spatial Hotspot Item.
- * Tracks 3D position with live explosion offsets and renders a horizontal drawing-style leader/frame.
- */
-function HotspotAnchor({
-  def,
-  entry,
-  selected,
-}: {
+export interface SpatialHotspotAnchorProps {
   def: HotspotDef
-  entry: RoleMapEntry
   selected: boolean
-}) {
-  const groupRef = useRef<Group>(null)
-  const [hovered, setHovered] = useState(false)
-  const config = HOTSPOT_CONFIG[def.id] ?? { dx: 220, dy: -90, unitOffset: 0 }
-  const anchorOffset = def.annotation?.anchorOffset ?? [0, 0, 0]
+  position?: [number, number, number]
+  anchorOffset?: [number, number, number]
+  unitOffset?: number
+  visible?: boolean
+  nominalDx?: number
+  nominalDy?: number
+}
 
-  // 60 fps tracking of explosion translation so anchor coordinates follow exploded CAD parts
+/**
+ * Unified Safe-Area Spatial Hotspot Anchor (JG-021 WS4).
+ *
+ * Dynamically projects 3D CAD occurrence coordinates into screen space inside useFrame,
+ * clamps badge positions into responsive safe-area margins (desktop and 390x844 mobile),
+ * adjusts leader line doglegs, and mutates DOM transforms directly on refs (zero React re-renders).
+ */
+export function SpatialHotspotAnchor({
+  def,
+  selected,
+  position = [0, 0, 0],
+  anchorOffset = [0, 0, 0],
+  unitOffset = 0,
+  visible = true,
+  nominalDx,
+  nominalDy,
+}: SpatialHotspotAnchorProps) {
+  const groupRef = useRef<Group>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const badgeWrapperRef = useRef<HTMLDivElement>(null)
+  const buttonContainerRef = useRef<HTMLDivElement>(null)
+  const pathRef = useRef<SVGPathElement>(null)
+  const tickRef = useRef<SVGLineElement>(null)
+  const [hovered, setHovered] = useState(false)
+
+  const { camera, size } = useThree()
+
   useFrame(() => {
-    if (!groupRef.current) return
+    if (!groupRef.current || !containerRef.current || !badgeWrapperRef.current || !buttonContainerRef.current) return
+
+    if (!visible) {
+      containerRef.current.style.display = 'none'
+      return
+    }
+
+    // Dynamic axial explosion offset if configured (Station 1 handle extraction)
     const explode = telemetry.rig.explodeFactor
-    const offsetZ = config.unitOffset * explode
+    const offsetZ = unitOffset * explode
     groupRef.current.position.set(
-      entry.bboxCenter[0] + anchorOffset[0],
-      entry.bboxCenter[1] + anchorOffset[1],
-      entry.bboxCenter[2] + anchorOffset[2] + offsetZ,
+      position[0] + anchorOffset[0],
+      position[1] + anchorOffset[1],
+      position[2] + anchorOffset[2] + offsetZ,
     )
+
+    // 1. Get 3D world position of anchor
+    groupRef.current.getWorldPosition(_worldPos)
+
+    // 2. Project to NDC (-1 to +1)
+    _proj.copy(_worldPos).project(camera)
+
+    // 3. Frustum & depth culling: hide if behind camera or outside visible frustum
+    if (_proj.z < -1.0 || _proj.z > 1.0 || _proj.x < -1.3 || _proj.x > 1.3 || _proj.y < -1.3 || _proj.y > 1.3) {
+      containerRef.current.style.display = 'none'
+      return
+    }
+    containerRef.current.style.display = 'block'
+
+    // 4. Convert NDC to viewport pixel coordinates
+    const ax = (_proj.x * 0.5 + 0.5) * size.width
+    const ay = (-_proj.y * 0.5 + 0.5) * size.height
+
+    // 5. Safe area bounds
+    const isMobile = size.width <= 768
+    const safeLeft = isMobile ? 12 : 24
+    const safeRight = size.width - (isMobile ? 12 : 24)
+    const safeTop = isMobile ? 60 : 60
+    const safeBottom = size.height - (isMobile ? 70 : 60)
+
+    // Dynamic measurement of badge width from real DOM
+    const badgeW = buttonContainerRef.current?.offsetWidth || (isMobile ? 220 : 380)
+    const badgeH = buttonContainerRef.current?.offsetHeight || 32
+
+    // 6. Responsive side selection: prefer nominalDx or screen side
+    let isRight = nominalDx !== undefined ? nominalDx > 0 : ax < size.width * 0.5
+
+    // Auto-flip only when nominalDx is not specified and badge clips offscreen
+    if (nominalDx === undefined) {
+      if (isRight && ax + 25 + badgeW > safeRight && ax - 25 - badgeW >= safeLeft) {
+        isRight = false
+      } else if (!isRight && ax - 25 - badgeW < safeLeft && ax + 25 + badgeW <= safeRight) {
+        isRight = true
+      }
+    }
+
+    // 7. Clamp badge coordinates strictly within safe area
+    const spanX = isMobile ? 20 : (nominalDx ? Math.abs(nominalDx) : 150)
+    let bx = isRight ? ax + spanX : ax - spanX
+    if (isRight) {
+      bx = Math.max(safeLeft, Math.min(bx, safeRight - badgeW))
+    } else {
+      bx = Math.min(safeRight, Math.max(bx, safeLeft + badgeW))
+    }
+
+    const spanY = nominalDy !== undefined ? nominalDy : (ay > size.height * 0.5 ? -60 : 60)
+    let by = ay + spanY
+    by = Math.max(safeTop, Math.min(by, safeBottom - badgeH))
+
+    const dx = bx - ax
+    const dy = by - ay
+
+    // 8. Dynamic SVG leader line path
+    const elbowX = dx * 0.45
+    const shelfLength = Math.min(60, Math.max(20, Math.abs(dx) * 0.35))
+    const shelfEndX = isRight ? dx + shelfLength : dx - shelfLength
+
+    if (pathRef.current) {
+      pathRef.current.setAttribute('d', `M 0 0 L ${elbowX} ${dy} L ${shelfEndX} ${dy}`)
+    }
+    if (tickRef.current) {
+      tickRef.current.setAttribute('x1', `${dx}`)
+      tickRef.current.setAttribute('x2', `${dx}`)
+      tickRef.current.setAttribute('y1', `${dy - 6}`)
+      tickRef.current.setAttribute('y2', `${dy + 6}`)
+    }
+
+    // 9. Mutate badge container transform (zero React re-render)
+    badgeWrapperRef.current.style.transform = `translate3d(${dx}px, ${dy - 14}px, 0)`
+    badgeWrapperRef.current.style.transformOrigin = isRight ? 'left center' : 'right center'
+    buttonContainerRef.current.style.transform = isRight ? 'none' : 'translateX(-100%)'
+    buttonContainerRef.current.style.transformOrigin = isRight ? 'left center' : 'right center'
   })
 
-  const isRight = config.dx > 0
+  const active = selected || hovered
+  const strokeColor = active ? '#00e5ff' : 'rgba(34, 211, 238, 0.65)'
+  const strokeWidth = active ? 1.5 : 1.1
 
   return (
     <group
       ref={groupRef}
       position={[
-        entry.bboxCenter[0] + anchorOffset[0],
-        entry.bboxCenter[1] + anchorOffset[1],
-        entry.bboxCenter[2] + anchorOffset[2],
+        position[0] + anchorOffset[0],
+        position[1] + anchorOffset[1],
+        position[2] + anchorOffset[2],
       ]}
     >
       <Html
         center={false}
-        // The rear-LCD orbit dwell runs ~2x closer than any other hotspot
-        // camera context; the default factor scales the badge past the
-        // viewport edge there (measured 619 px wide at 0.32 m). Window-scoped
-        // hotspots use a tighter factor so the annotation identifies the
-        // feature without covering it.
-        distanceFactor={def.window ? 0.19 : 0.38}
         zIndexRange={[40, 0]}
         style={{ pointerEvents: 'none' }}
       >
-        <div
-          className="relative"
-        >
-          {/* Responsive SVG Leader Line connecting (0,0) to badge */}
-          <SpatialLeaderLine
-            dx={config.dx}
-            dy={config.dy}
-            selected={selected}
-            hovered={hovered}
-          />
+        <div ref={containerRef} className="relative">
+          {/* Dynamic SVG Leader Line */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-0 overflow-visible"
+            style={{ width: 1, height: 1 }}
+          >
+            <g>
+              <line x1="-8" y1="0" x2="8" y2="0" stroke={strokeColor} strokeWidth="1" />
+              <line x1="0" y1="-8" x2="0" y2="8" stroke={strokeColor} strokeWidth="1" />
+              <circle cx="0" cy="0" r="2" fill={active ? '#00e5ff' : '#38bdf8'} />
+            </g>
+            <path
+              ref={pathRef}
+              d="M 0 0 L 60 -40 L 100 -40"
+              fill="none"
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={active ? 'leader-line-flow' : undefined}
+            />
+            <line
+              ref={tickRef}
+              x1="100"
+              y1="-46"
+              x2="100"
+              y2="-34"
+              stroke={strokeColor}
+              strokeWidth={strokeWidth + 0.5}
+              opacity={active ? '1' : '0.75'}
+            />
+          </svg>
 
-          {/* Horizontal orthographic datum/frame surface. */}
+          {/* Imperatively positioned badge wrapper */}
           <div
+            ref={badgeWrapperRef}
             style={{
               position: 'absolute',
-              left: `${config.dx}px`,
-              top: `${config.dy - 14}px`,
-              transform: isRight ? 'none' : 'translateX(-100%)',
-              transformOrigin: isRight ? 'left center' : 'right center',
+              left: '0px',
+              top: '0px',
+              transform: 'translate3d(120px, -40px, 0)',
             }}
           >
-            <HotspotButton
-              def={def}
-              selected={selected}
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            />
+            <div ref={buttonContainerRef}>
+              <HotspotButton
+                def={def}
+                selected={selected}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              />
+            </div>
           </div>
         </div>
       </Html>
@@ -277,11 +387,7 @@ function HotspotAnchor({
 }
 
 /**
- * Module 4 — clickable 3D spatial hotspot annotations with dynamic SVG leader lines.
- *
- * Anchors come from role-map.json (the pipeline's authoritative name/anchor
- * source: 316 part occurrences with world-space bbox centers). Rendered inside
- * the hero group so they track rotation and explosion.
+ * Module 4 — Station 1 clickable 3D spatial hotspot annotations with dynamic safe-area leader lines.
  */
 export function Hotspots() {
   const [roleMap, setRoleMap] = useState<RoleMapEntry[]>([])
@@ -307,18 +413,13 @@ export function Hotspots() {
   const normalizeOccurrence = (name: string): string => name.replace(/^occurrence of /i, '')
 
   const anchors = useMemo(() => {
-    // Group rows per name: several occurrences exist more than once (FLANGE-1
-    // appears at the motor-to-gearbox mount face AND at the rear cap). A
-    // single-entry map silently keeps the LAST row — the pre-repair flange
-    // anchor sat on the wrong flange. pickNear (measured model-frame point)
-    // selects the intended occurrence deterministically.
     const rowsFor = (name: string): RoleMapEntry[] => {
       const exact = roleMap.filter((entry) => entry.occurrence === name)
       if (exact.length > 0) return exact
       const normalized = normalizeOccurrence(name)
       return roleMap.filter((entry) => normalizeOccurrence(entry.occurrence) === normalized)
     }
-    return HOTSPOTS.flatMap((def) => {
+    return HOTSPOTS.filter((h) => h.chapters.includes(0) || h.chapters.includes(1) || h.window).flatMap((def) => {
       const rows = rowsFor(def.occurrence)
       if (rows.length === 0) return []
       let entry = rows[0]
@@ -340,33 +441,6 @@ export function Hotspots() {
     })
   }, [roleMap])
 
-  // Dev-only guard (JG-014): reject duplicate anchors. The pre-repair defect
-  // was ROTOR-1 and AIR MOTOR HOUSING-MACHINED-1 sharing the bbox center
-  // [0, 0, −0.1645] — two leaders terminating on one point. Any pair of
-  // resolved anchors closer than 8 mm (rest pose) fails loudly here; the
-  // measured feature anchors in HOTSPOTS keep every pair ≥ 12.5 mm apart.
-  useEffect(() => {
-    if (!import.meta.env.DEV) return
-    for (let i = 0; i < anchors.length; i++) {
-      for (let j = i + 1; j < anchors.length; j++) {
-        const a = anchors[i]
-        const b = anchors[j]
-        const oa = a.def.annotation?.anchorOffset ?? [0, 0, 0]
-        const ob = b.def.annotation?.anchorOffset ?? [0, 0, 0]
-        const distance = Math.hypot(
-          a.entry.bboxCenter[0] + oa[0] - (b.entry.bboxCenter[0] + ob[0]),
-          a.entry.bboxCenter[1] + oa[1] - (b.entry.bboxCenter[1] + ob[1]),
-          a.entry.bboxCenter[2] + oa[2] - (b.entry.bboxCenter[2] + ob[2]),
-        )
-        if (distance < 0.008) {
-          console.error(
-            `[Hotspots] duplicate anchors: ${a.def.id} and ${b.def.id} resolve ${distance.toFixed(4)} m apart — measure distinct feature anchors (see HOTSPOTS provenance comments)`,
-          )
-        }
-      }
-    }
-  }, [anchors])
-
   return (
     <>
       {anchors
@@ -376,14 +450,22 @@ export function Hotspots() {
               ? progress >= def.window[0] && progress <= def.window[1]
               : def.chapters.includes(chapter as ChapterIndex)),
         )
-        .map(({ def, entry }) => (
-          <HotspotAnchor
-            key={def.id}
-            def={def}
-            entry={entry}
-            selected={selected === def.id}
-          />
-        ))}
+        .map(({ def, entry }) => {
+          const config = HOTSPOT_CONFIG[def.id] ?? { dx: 180, dy: -80, unitOffset: 0 }
+          return (
+            <SpatialHotspotAnchor
+              key={def.id}
+              def={def}
+              position={entry.bboxCenter}
+              anchorOffset={def.annotation?.anchorOffset}
+              unitOffset={config.unitOffset}
+              nominalDx={config.dx}
+              nominalDy={config.dy}
+              selected={selected === def.id}
+            />
+          )
+        })}
     </>
   )
 }
+

@@ -1,69 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Html, useGLTF } from "@react-three/drei"
+import { useGLTF } from "@react-three/drei"
 import { Box3, Group, Material, Mesh, MeshStandardMaterial, Vector3 } from "three"
 import { createCadTransitionMaterial } from "../../shaders/CadTransitionShader"
 import { getScrollState, setScrollState, useScrollValue } from "../../state/scrollStore"
 import { getQuality } from "../../state/qualityStore"
 import { HOTSPOTS } from "../../data/caseStudies"
-import { HotspotButton, SpatialLeaderLine } from "../Hotspots"
-import type { HotspotDef } from "../../types/portfolio"
+import { SpatialHotspotAnchor } from "../Hotspots"
 
 const MODEL_URL = "/models/m249-transformed.glb"
 
 const STATION3_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; dx: number; dy: number }> = {
-  "m249-receiver": { pos: [0, 0.04, 0], dx: 220, dy: -90 },
-  "m249-trunnion": { pos: [0, 0.02, 0.15], dx: 240, dy: -110 },
-  "m249-rail": { pos: [0, 0.10, -0.08], dx: -240, dy: -90 },
-  "m249-feed-tray": { pos: [0, 0.06, 0.04], dx: -220, dy: 80 },
-}
-
-function Station3HotspotAnchor({
-  def,
-  selected,
-}: {
-  def: HotspotDef
-  selected: boolean
-}) {
-  const [hovered, setHovered] = useState(false)
-  const config = STATION3_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 220, dy: -90 }
-  const isRight = config.dx > 0
-
-  return (
-    <group position={config.pos}>
-      <Html
-        center={false}
-        distanceFactor={1.2}
-        zIndexRange={[40, 0]}
-        style={{ pointerEvents: "none" }}
-      >
-        <div className="relative">
-          <SpatialLeaderLine
-            dx={config.dx}
-            dy={config.dy}
-            selected={selected}
-            hovered={hovered}
-          />
-          <div
-            style={{
-              position: "absolute",
-              left: `${config.dx}px`,
-              top: `${config.dy - 14}px`,
-              transform: isRight ? "none" : "translateX(-100%)",
-              transformOrigin: isRight ? "left center" : "right center",
-            }}
-          >
-            <HotspotButton
-              def={def}
-              selected={selected}
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            />
-          </div>
-        </div>
-      </Html>
-    </group>
-  )
+  "m249-rail": { pos: [0, 0.10, -0.08], dx: -220, dy: -100 },
+  "m249-feed-tray": { pos: [0, 0.06, 0.04], dx: -220, dy: -20 },
+  "m249-trunnion": { pos: [0, 0.02, 0.15], dx: 220, dy: -60 },
+  "m249-receiver": { pos: [0, 0.04, 0], dx: 220, dy: 90 },
 }
 
 /**
@@ -194,13 +145,19 @@ export function M249Stage() {
 
       {/* 3D Spatial Datum Markers on Station 3 */}
       {chapter === 3 &&
-        station3Hotspots.map((def) => (
-          <Station3HotspotAnchor
-            key={def.id}
-            def={def}
-            selected={activeHotspotId === def.id}
-          />
-        ))}
+        station3Hotspots.map((def) => {
+          const config = STATION3_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 200, dy: -80 }
+          return (
+            <SpatialHotspotAnchor
+              key={def.id}
+              def={def}
+              position={config.pos}
+              nominalDx={config.dx}
+              nominalDy={config.dy}
+              selected={activeHotspotId === def.id}
+            />
+          )
+        })}
     </group>
   )
 }

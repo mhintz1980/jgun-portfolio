@@ -27,22 +27,23 @@ export const STAGE_TRANSITIONS = {
   pointCloudIn: [0.72, 0.76] as FadeRange,
 } as const
 
-/** Vertical enter/exit travel per stage (m) — clears the 28–42° frustum. */
-export const STAGE_TRAVEL = 0.5
-
 /**
  * Measured RL-300 / MSP SAFE enclosure subassembly anchor positions (m, model frame).
  * Extracted from the authoritative 7 named roots in public/models/msp-enclosure.glb:
- *   - DUCT_INTAKE: [0.0, 1.158, 0.893] (laminar inlet port, +Z)
+ *   - ENCLOSURE_CHASSIS: [0.0, 2.30, -0.40] (welded unibody chassis top framework)
+ *   - COMPOSITE_PANELS: [1.80, 1.50, 0.30] (5-layer composite acoustic wall)
  *   - PUMP_HOUSING: [0.022, 0.943, -0.055] (vibration / thermal noise source)
  *   - ACOUSTIC_BAFFLES: [-1.319, 1.590, -0.433] (labyrinth sound absorption wall)
+ *   - DUCT_INTAKE: [0.0, 1.158, 0.893] (laminar inlet port, +Z)
  *   - DUCT_EXHAUST: [-0.101, 1.282, -1.225] (attenuated outlet port, -Z)
  *   - ISOLATION_MOUNTS: [0.0, 0.025, -0.055] (structure-borne decoupling base)
  */
 export const STATION2_CAD_ANCHORS = {
-  ductIntake: [0.0, 1.158, 0.893] as const,
+  enclosureChassis: [0.0, 2.30, -0.40] as const,
+  compositePanels: [1.80, 1.50, 0.30] as const,
   pumpHousing: [0.022, 0.943, -0.055] as const,
   acousticBaffles: [-1.319, 1.590, -0.433] as const,
+  ductIntake: [0.0, 1.158, 0.893] as const,
   ductExhaust: [-0.101, 1.282, -1.225] as const,
   isolationMounts: [0.0, 0.025, -0.055] as const,
 } as const

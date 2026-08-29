@@ -34,6 +34,24 @@ const acousticBafflePath = new URL('../src/scene/stages/AcousticBaffleField.tsx'
 const airflowText = await readFile(airflowPath, 'utf8')
 const acousticBaffleText = await readFile(acousticBafflePath, 'utf8')
 
+const stageWindowsPath = new URL('../src/scene/stages/stageWindows.ts', import.meta.url)
+const stageWindows = await readFile(stageWindowsPath, 'utf8')
+
+const expectedAnchors = [
+  'enclosureChassis',
+  'compositePanels',
+  'pumpHousing',
+  'acousticBaffles',
+  'ductIntake',
+  'ductExhaust',
+  'isolationMounts',
+]
+for (const key of expectedAnchors) {
+  if (!stageWindows.includes(key)) {
+    throw new Error(`STATION2_CAD_ANCHORS missing anchor key: ${key}`)
+  }
+}
+
 if (!spatialWorld.includes('<AcousticBaffleField />')) {
   throw new Error('SpatialWorld does not mount AcousticBaffleField')
 }
@@ -44,5 +62,5 @@ if (airflowText.length === 0 || acousticBaffleText.length === 0) {
   throw new Error('AirflowField or AcousticBaffleField component is empty')
 }
 
-console.log(`Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, AirflowField & AcousticBaffleField mounted.`)
+console.log(`Stage2 contract passed: ${asset.length} bytes, ${requiredNodes.length} named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.`)
 
