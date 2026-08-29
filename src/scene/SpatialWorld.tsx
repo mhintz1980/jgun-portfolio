@@ -66,7 +66,6 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
     const dominant = alphas.indexOf(Math.max(...alphas))
     telemetry.stage.active = alphas[dominant] > 0.25 ? dominant : -1
     telemetry.stage.alpha = alphas
-    telemetry.stage.y = [wrench.y, enclosure.y, cloud.y]
   })
 
   return (

@@ -140,5 +140,30 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 - **Performance & Zero React Re-renders:**
   - Verified imperative `getScrollState()` in `useFrame` with 0 React subscriptions in canvas. Steady 60 fps scrub with zero per-frame React churn.
 
+## Implementation notes (WS3)
+
+- **Station 2 Camera Arc & Handoff Design Decision:**
+  - Replaced static hold with continuous 40.1° azimuth orbit arc across $p \in [0.600, 0.720]$ around $T_2 = [28.0, 1.2, -6.35]$ at radius $R \approx 6.905\text{ m}$.
+  - Starts at $K_2 = [32.6, 2.8, -1.2]$ ($p=0.600$, $\Delta = 0.000\text{ m}$) and ends at $P_{\text{arc}}(1) = [28.2023, 2.4, 0.5520]$ at $p=0.720$.
+  - **Design Decision**: Segment 3 ($[0.720, 0.760]$) is explicitly defined in `PATH_SEGMENTS`/`baseAt` to interpolate directly from $P_{\text{arc}}(1) \to K_3$, superseding the plan's literal parenthetical ("arc end = baseAt(0.735)"). This eliminates the ~4.7 m teleport that would have occurred under a naive $K_2 \to K_3$ path. Probed delta across $0.720 \to 0.7205$ is $0.029\text{ m}$ and $0.7205 \to 0.725$ is $0.647\text{ m}$ (continuous $C^0$ handoff).
+- **Composite Panels Cutaway Lifecycle (Amendment A):**
+  - $[0.000, 0.585]$: Fully assembled ($y = 0$, opacity = $0.68$).
+  - $[0.585, 0.645]$: Panel reveal lift ($y: 0 \to 0.55\text{ m}$, opacity: $0.68 \to 0.42$).
+  - $[0.645, 0.700]$: Hold lifted ($y = 0.55\text{ m}$, opacity = $0.42$) during internal callouts and arc inspection.
+  - $[0.700, 0.715]$: Restore assembled ($y: 0.55\text{ m} \to 0$, opacity: $0.42 \to 0.68$) before flight to Station 3.
+  - $[0.715, 1.000]$: Fully assembled ($y = 0$, opacity = $0.68$).
+  - Mutated imperatively in `useFrame` via panel root and material refs (0 React re-renders). Pinned fully assembled in reduced motion.
+  - Probed measurements: $p=0.565$ ($y=0, \text{op}=0.68$), $p=0.615$ ($y=0.275, \text{op}=0.55$), $p=0.660$ ($y=0.55, \text{op}=0.42$), $p=0.7075$ ($y=0.276, \text{op}=0.549$), $p=0.715$ ($y=0, \text{op}=0.68$).
+- **Airflow Sync Tracking:**
+  - `airflowIntensity(progress)` smoothly tracks reveal and hold progress: $p=0.565$ (0.191), $p=0.585$ (0.142), $p=0.645$ (0.440), $p=0.700$ (0.785), $p=0.715$ (0.931).
+- **Progressive Callout Gating:**
+  - External subassemblies (`enclosure-chassis`, `composite-panels`, `isolation-mounts`) visible from station entrance ($[0.565, 0.720]$).
+  - Internal subassemblies (`pump-housing`, `acoustic-baffles`, `duct-intake`, `duct-exhaust`) visible only during lifted reveal ($[0.610, 0.700]$).
+- **`stageEnvelope.y` Disposition:**
+  - Removed dead computed `y` property and `STAGE_TRAVEL` constant from `stageWindows.ts`, `StageEnvelope`, `SpatialRig.tsx`, `SpatialWorld.tsx`, and `scrollStore.ts` (smallest clean change).
+- **JG-017 Zone 2 Re-probe:**
+  - Measured peak `transitionIntensity` during $P_{\text{arc}}(1) \to K_3$ flight = **0.709** (sub-ceiling, matching predicted +18% distance factor).
+
+
 
 

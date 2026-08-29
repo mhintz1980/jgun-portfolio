@@ -31,7 +31,6 @@ export function SpatialRig() {
     if (reducedMotion) {
       telemetry.stage.active = 0
       telemetry.stage.alpha = [1, 0, 0]
-      telemetry.stage.y = [0, 0, 0]
       telemetry.stage.transitionIntensity = 0
       prevAlpha[0] = 1; prevAlpha[1] = 0; prevAlpha[2] = 0
       return
@@ -45,7 +44,6 @@ export function SpatialRig() {
     const dominant = alphas.indexOf(Math.max(...alphas))
     telemetry.stage.active = alphas[dominant] > 0.25 ? dominant : -1
     telemetry.stage.alpha = alphas
-    telemetry.stage.y = [s1Env.y, s2Env.y, s3Env.y]
 
     // JG-017 — compute per-frame max absolute alpha change, scale to 0..1
     // using an empirical denominator (0.04 ≈ max delta per frame at 30 fps

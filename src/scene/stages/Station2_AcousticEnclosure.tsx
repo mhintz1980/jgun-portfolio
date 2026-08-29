@@ -1,11 +1,11 @@
-import { useLoader } from '@react-three/fiber'
+import { useFrame, useLoader } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { Color, DoubleSide, FrontSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
-import { useMemo, useState } from 'react'
-import { useQuality } from '../../state/qualityStore'
-import { setScrollState, useScrollValue } from '../../state/scrollStore'
+import { useMemo, useRef, useState } from 'react'
+import { getQuality, useQuality } from '../../state/qualityStore'
+import { getScrollState, setScrollState, useScrollValue } from '../../state/scrollStore'
 import { HOTSPOTS } from '../../data/caseStudies'
 import { HotspotButton, SpatialLeaderLine } from '../Hotspots'
 import type { HotspotDef } from '../../types/portfolio'
@@ -100,11 +100,28 @@ function Station2HotspotAnchor({
   selected: boolean
 }) {
   const [hovered, setHovered] = useState(false)
+  const groupRef = useRef<Group>(null)
   const config = STATION2_HOTSPOT_CONFIG[def.id] ?? { pos: [0, 0, 0], dx: 220, dy: -90 }
   const isRight = config.dx > 0
+  const isInternal =
+    def.id === 'pump-housing' ||
+    def.id === 'acoustic-baffles' ||
+    def.id === 'duct-intake' ||
+    def.id === 'duct-exhaust'
+
+  useFrame(() => {
+    if (!groupRef.current) return
+    const { progress } = getScrollState()
+    // Internal subassemblies visible only during lifted reveal [0.610, 0.700]
+    // External subassemblies visible from entry [0.565, 0.720]
+    const isVisible = isInternal
+      ? progress >= 0.610 && progress <= 0.700
+      : progress >= 0.565 && progress <= 0.720
+    groupRef.current.visible = isVisible
+  })
 
   return (
-    <group position={config.pos}>
+    <group ref={groupRef} position={config.pos}>
       <Html
         center={false}
         distanceFactor={7.5}
@@ -140,7 +157,11 @@ function Station2HotspotAnchor({
   )
 }
 
-function cloneMaterials(root: Object3D, lite: boolean): void {
+function cloneMaterials(
+  root: Object3D,
+  lite: boolean,
+  panelMaterialsCollector?: MeshStandardMaterial[],
+): void {
   const meta = ENCLOSURE_SUBASSEMBLIES[root.name]
   const roleColor = new Color(meta?.roleColor ?? '#6b7280')
   const isPanels = root.name === 'COMPOSITE_PANELS'
@@ -172,6 +193,9 @@ function cloneMaterials(root: Object3D, lite: boolean): void {
         clone.transparent = true
         clone.opacity = 0.68
         clone.depthWrite = false
+        if (panelMaterialsCollector) {
+          panelMaterialsCollector.push(clone)
+        }
       }
 
       clone.userData.baseColor = clone.color.clone()
@@ -206,6 +230,9 @@ export function Station2_AcousticEnclosure() {
   const activeHotspotId = useScrollValue('hotspotId')
   const chapter = useScrollValue('chapter')
 
+  const panelsRootRef = useRef<Object3D | null>(null)
+  const panelMaterialsRef = useRef<MeshStandardMaterial[]>([])
+
   const gltfs = useLoader(GLTFLoader, [...ASSET_PATHS], (loader) => {
     const draco = new DRACOLoader()
     draco.setDecoderPath('/draco/')
@@ -213,6 +240,9 @@ export function Station2_AcousticEnclosure() {
   })
 
   const scene = useMemo(() => {
+    panelMaterialsRef.current = []
+    panelsRootRef.current = null
+
     const roots = gltfs.map((gltf) => gltf.scene)
     const missing = REQUIRED_NODES.filter((name) => !findStableNode(roots, name))
     if (missing.length > 0 && import.meta.env.DEV) {
@@ -224,11 +254,59 @@ export function Station2_AcousticEnclosure() {
       const source = findStableNode(roots, name)
       if (!source) continue
       const clone = source.clone(true)
-      cloneMaterials(clone, tier === 'lite')
+      if (name === 'COMPOSITE_PANELS') {
+        panelsRootRef.current = clone
+      }
+      cloneMaterials(clone, tier === 'lite', panelMaterialsRef.current)
       group.add(clone)
     }
     return group
   }, [gltfs, tier])
+
+  // Animate COMPOSITE_PANELS cutaway reveal and restore in useFrame (zero React re-renders)
+  useFrame(() => {
+    const { progress } = getScrollState()
+    const { reducedMotion } = getQuality()
+
+    if (reducedMotion) {
+      if (panelsRootRef.current) panelsRootRef.current.position.y = 0
+      panelMaterialsRef.current.forEach((m) => {
+        m.opacity = 0.68
+      })
+      return
+    }
+
+    // Panel Cutaway Lifecycle:
+    // - [0.000, 0.585]: Assembled (y = 0, opacity = 0.68)
+    // - [0.585, 0.645]: Lift reveal (y: 0 -> 0.55m, opacity: 0.68 -> 0.42)
+    // - [0.645, 0.700]: Hold lifted (y = 0.55m, opacity = 0.42)
+    // - [0.700, 0.715]: Restore assembled (y: 0.55m -> 0, opacity: 0.42 -> 0.68)
+    // - [0.715, 1.000]: Assembled (y = 0, opacity = 0.68)
+    let panelY = 0
+    let panelOpacity = 0.68
+
+    if (progress >= 0.585 && progress <= 0.645) {
+      const u = (progress - 0.585) / (0.645 - 0.585)
+      const s = u * u * (3 - 2 * u)
+      panelY = 0.55 * s
+      panelOpacity = 0.68 - (0.68 - 0.42) * s
+    } else if (progress > 0.645 && progress < 0.700) {
+      panelY = 0.55
+      panelOpacity = 0.42
+    } else if (progress >= 0.700 && progress <= 0.715) {
+      const u = (progress - 0.700) / (0.715 - 0.700)
+      const s = u * u * (3 - 2 * u)
+      panelY = 0.55 * (1 - s)
+      panelOpacity = 0.42 + (0.68 - 0.42) * s
+    }
+
+    if (panelsRootRef.current) {
+      panelsRootRef.current.position.y = panelY
+    }
+    panelMaterialsRef.current.forEach((mat) => {
+      mat.opacity = panelOpacity
+    })
+  })
 
   // Update emissive highlighting on hover / inspect
   useMemo(() => {

@@ -193,8 +193,6 @@ export interface TelemetryStage {
   active: number
   /** Cross-fade alpha per stage, 0..1 (order: wrench, enclosure, cloud). */
   alpha: [number, number, number]
-  /** Stage-group Y offsets (m), same order. */
-  y: [number, number, number]
   /** CH.03 airflow field intensity 0..1 (scroll-bound, damped). */
   flow: number
   /**
@@ -236,7 +234,7 @@ export const telemetry: {
     ringSwitchRotZ: 0,
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
-  stage: { active: 0, alpha: [1, 0, 0], y: [0, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0 },
+  stage: { active: 0, alpha: [1, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0 },
 }
 
 // Exposed for headless verification probes (docs/animation-spec.md §11 —

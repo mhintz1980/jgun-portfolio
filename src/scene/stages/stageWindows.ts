@@ -55,8 +55,6 @@ export const ENCLOSURE_HALF: readonly [number, number, number] = [1.2, 1.1, 1.6]
 export interface StageEnvelope {
   /** Cross-fade alpha 0..1 (visibility gate at ≤ 0.001). */
   alpha: number
-  /** Vertical offset (m): enters from +travel, exits to −travel. */
-  y: number
   active: boolean
 }
 
@@ -75,14 +73,12 @@ export function stageEnvelope(
   progress: number,
   fadeIn: FadeRange | undefined,
   fadeOut: FadeRange | undefined,
-  travel: number = STAGE_TRAVEL,
 ): StageEnvelope {
   const tIn = fadeIn ? segment(progress, fadeIn) : 1
   const tOut = fadeOut ? segment(progress, fadeOut) : 0
   const alpha = Math.min(tIn, 1 - tOut)
   return {
     alpha,
-    y: travel * (1 - tIn) - travel * tOut,
     active: alpha > 0.001,
   }
 }

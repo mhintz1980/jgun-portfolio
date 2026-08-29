@@ -257,43 +257,114 @@ export interface CameraPose {
   fov: number
 }
 
+/** Station 2 Orbit Arc constants (JG-021 WS3.3 & Arc Handoff Fix). */
+const S2_ARC_CENTER: readonly [number, number, number] = [28.0, 1.2, -6.35]
+const S2_ARC_RADIUS = 6.905251624669818 // hypot(32.6 - 28.0, -1.2 - (-6.35))
+const S2_ARC_START_AZIMUTH = 0.8415277881079375 // Math.atan2(5.15, 4.6)
+const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
+
+/** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */
+export const S2_ARC_END_POSE: CameraPose = {
+  position: [
+    S2_ARC_CENTER[0] + S2_ARC_RADIUS * Math.cos(S2_ARC_START_AZIMUTH + S2_ARC_SWEEP),
+    2.4,
+    S2_ARC_CENTER[2] + S2_ARC_RADIUS * Math.sin(S2_ARC_START_AZIMUTH + S2_ARC_SWEEP),
+  ],
+  target: [28.0, 1.2, -6.35],
+  fov: 35.0,
+}
+
 const smoothstep = (t: number): number => t * t * (3 - 2 * t)
 const lerpN = (a: number, b: number, t: number): number => a + (b - a) * t
 
 /**
  * Returns the base camera pose (position, target, FOV) at any global scroll progress.
- * Interpolates smoothly along PATH_SEGMENTS. Continuous by construction across boundaries.
+ * Interpolates smoothly along PATH_SEGMENTS and Station 2 orbit arc. Continuous by construction across boundaries.
  */
 export function baseAt(progress: number): CameraPose {
   const p = Math.max(0, Math.min(1, progress))
-  if (p <= PATH_SEGMENTS[0].startProgress) {
-    const k = CAMERA_PATH[0]
-    return { position: [...k.position], target: [...k.target], fov: k.fov }
-  }
-  for (const seg of PATH_SEGMENTS) {
-    if (p <= seg.endProgress || seg === PATH_SEGMENTS[PATH_SEGMENTS.length - 1]) {
-      const from = CAMERA_PATH[seg.fromIndex]
-      const to = CAMERA_PATH[seg.toIndex]
-      const span = seg.endProgress - seg.startProgress
-      const u = span > 0 ? Math.max(0, Math.min(1, (p - seg.startProgress) / span)) : 0
-      const t = smoothstep(u)
-      return {
-        position: [
-          lerpN(from.position[0], to.position[0], t),
-          lerpN(from.position[1], to.position[1], t),
-          lerpN(from.position[2], to.position[2], t),
-        ],
-        target: [
-          lerpN(from.target[0], to.target[0], t),
-          lerpN(from.target[1], to.target[1], t),
-          lerpN(from.target[2], to.target[2], t),
-        ],
-        fov: lerpN(from.fov, to.fov, t),
-      }
+
+  if (p <= 0.525) {
+    // Segment 0 [0.000, 0.525]: K0 -> K1 (All JGun wrench beats)
+    const u = p / 0.525
+    const t = smoothstep(u)
+    const from = CAMERA_PATH[0]
+    const to = CAMERA_PATH[1]
+    return {
+      position: [
+        lerpN(from.position[0], to.position[0], t),
+        lerpN(from.position[1], to.position[1], t),
+        lerpN(from.position[2], to.position[2], t),
+      ],
+      target: [
+        lerpN(from.target[0], to.target[0], t),
+        lerpN(from.target[1], to.target[1], t),
+        lerpN(from.target[2], to.target[2], t),
+      ],
+      fov: lerpN(from.fov, to.fov, t),
     }
   }
-  const last = CAMERA_PATH[CAMERA_PATH.length - 1]
-  return { position: [...last.position], target: [...last.target], fov: last.fov }
+
+  if (p <= 0.600) {
+    // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2)
+    const u = (p - 0.525) / (0.600 - 0.525)
+    const t = smoothstep(u)
+    const from = CAMERA_PATH[1]
+    const to = CAMERA_PATH[2]
+    return {
+      position: [
+        lerpN(from.position[0], to.position[0], t),
+        lerpN(from.position[1], to.position[1], t),
+        lerpN(from.position[2], to.position[2], t),
+      ],
+      target: [
+        lerpN(from.target[0], to.target[0], t),
+        lerpN(from.target[1], to.target[1], t),
+        lerpN(from.target[2], to.target[2], t),
+      ],
+      fov: lerpN(from.fov, to.fov, t),
+    }
+  }
+
+  if (p <= 0.720) {
+    // Segment 2 [0.600, 0.720]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
+    const u = (p - 0.600) / (0.720 - 0.600)
+    const t = smoothstep(u)
+    const azimuth = S2_ARC_START_AZIMUTH + S2_ARC_SWEEP * t
+    return {
+      position: [
+        S2_ARC_CENTER[0] + S2_ARC_RADIUS * Math.cos(azimuth),
+        lerpN(2.8, 2.4, t),
+        S2_ARC_CENTER[2] + S2_ARC_RADIUS * Math.sin(azimuth),
+      ],
+      target: [...S2_ARC_CENTER],
+      fov: lerpN(36.0, 35.0, t),
+    }
+  }
+
+  if (p <= 0.760) {
+    // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3
+    const u = (p - 0.720) / (0.760 - 0.720)
+    const t = smoothstep(u)
+    const to = CAMERA_PATH[3]
+    return {
+      position: [
+        lerpN(S2_ARC_END_POSE.position[0], to.position[0], t),
+        lerpN(S2_ARC_END_POSE.position[1], to.position[1], t),
+        lerpN(S2_ARC_END_POSE.position[2], to.position[2], t),
+      ],
+      target: [
+        lerpN(S2_ARC_END_POSE.target[0], to.target[0], t),
+        lerpN(S2_ARC_END_POSE.target[1], to.target[1], t),
+        lerpN(S2_ARC_END_POSE.target[2], to.target[2], t),
+      ],
+      fov: lerpN(S2_ARC_END_POSE.fov, to.fov, t),
+    }
+  }
+
+  // Segment 4 [0.760, 1.000]: Station 3 M249 base pose
+  const k3 = CAMERA_PATH[3]
+  return { position: [...k3.position], target: [...k3.target], fov: k3.fov }
 }
 
 /**
