@@ -27,6 +27,10 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - Content-aligned camera segments with runtime-derived orbit continuity and framing bias vs. left text; CAD-authentic enclosure materials + ACES tone mapping; scroll-driven panel reveal + Station 2 camera arc; projection-based safe-area datum callouts (GD&T-styled per `project/context/references/media/gdt/`). Fixes the Critique-B HUD clipping/collision issues.
   - **Required proof:** fresh `:4173` telemetry (camera goal delta < ~0.8 m through 0.30→0.60; badge DOM rects vs safe area and vs each other at desktop + 390×844; panel checkpoints at 0.56/0.62/0.70 with post-reveal restore; material identities via `__threeScene`; ToneMapping present), full/reduced-motion/poster tiers, `npm run typecheck`, `npm run build`, `scripts/check-station2-contract.mjs`.
 
+- [ ] **JG-022 — Reduced-motion chapter stranding fix** · [plan](project/work/plans/JG-022-reduced-motion-chapter-stranding.md)
+  - The reduced-motion tier unmounts `ScrollRig` but the static chapter renderer depends on it, stranding visitors on CH.01; give the static tier its own scroll-progress source so all four chapters and stations render. No file overlap with JG-021.
+  - **Required proof:** DevTools reduced-motion emulation DOM probes (all four chapters render and advance), full-motion/lite/poster regression, keyboard pass, `npm run typecheck`, `npm run build`.
+
 - [x] **JG-017 — Post-processing and whip-pan camera effects** · [plan](project/work/plans/JG-017-whip-pan-camera-fx.md)
   - Added restrained velocity-driven chromatic aberration (full tier) and bloom (full + lite) during station transitions. Quality tiers and reduced motion have safe fallbacks. `transitionIntensity` telemetry field confirmed live via DevTools probes.
   - **Required proof:** `:4173` telemetry at both transition zones (intensity 0.491/0.493 during active scroll, near-zero at rest), canvas liveness, console clean, `npm run typecheck`, and `npm run build` ([evidence](project/work/evidence/JG-017-whip-pan-camera-fx-verification.md)).

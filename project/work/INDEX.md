@@ -16,6 +16,7 @@ This is the stable registry for work accepted after the `JG-###` protocol was es
 | JG-019 | verified | Deployment readiness and studiomark.dev hosting | [Queued](../../TODO.md#queued) | [plan](plans/JG-019-deployment-and-hosting.md) | [evidence](evidence/JG-019-deployment-and-hosting-verification.md) |
 | JG-020 | verified | Multi-station subassembly inspection, spatial hotspots, and interactive CAD anchors | [Active](../../TODO.md#active) | [plan](plans/JG-020-multi-station-hotspots-inspection.md) | [evidence](evidence/JG-020-multi-station-hotspots-inspection-verification.md) |
 | JG-021 | in-progress | Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement | [Queued](../../TODO.md#queued) | [plan](plans/JG-021-sequence-rechoreography.md) | — |
+| JG-022 | queued | Reduced-motion chapter stranding fix | [Queued](../../TODO.md#queued) | [plan](plans/JG-022-reduced-motion-chapter-stranding.md) | — |
 
 ## Legacy Work
 
