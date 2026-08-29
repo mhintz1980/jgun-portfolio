@@ -103,7 +103,7 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
     - Segment 4 `[0.760, 1.000]`: Station 3 M249 continuous zoom-out.
   - 100% match with measured geometry.
 - **Framing Bias Convention (Amendment 1):**
-  - `goalTarget` is shifted toward **camera-left** (negative camera-right vector `scratchRight.current`), placing the rendered subject cleanly in screen-right (~62–65% screen-x) clear of narrative panels.
+  - `goalTarget` is shifted toward **camera-left** (negative camera-right vector `scratchRight.current`), placing the rendered subject cleanly in screen-right (measured screen-x: 0.570 in CH.01/02 and 0.610 in CH.03/04; note: plan prose cited "~62–65% screen-x", but 0.14/0.22 bias constants geometrically yield $x_{\text{NDC}} \in [+0.14, +0.22] \implies \text{screen-}x \in [0.570, 0.610]$) clear of narrative panels.
   - Evaluated via `framingBias(progress)` (≈0.14 in CH.01/02, ≈0.22 in CH.03/04, 0 outside with ±0.035 smoothstep ramps).
 - **LookAt Centroid Tracking:**
   - During segment 0 (`progress <= 0.525`), `goalTarget` tracks the exploded-train centroid (`centroidZ = -0.152 * explodeFactor` rotated by hero yaw `0.85π`) weighted by `telemetry.rig.explodeFactor * 0.7`.
