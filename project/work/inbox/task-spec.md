@@ -1,5 +1,9 @@
 # TASK SPECIFICATION: Multi-Station WebGL Experience & GD&T Scrollytelling Architecture
 
+> **TRIAGED 2026-08-28: SUPERSEDED — do not implement from this document.**
+> Every capability described here (multi-station world at `[0,0,0]` / `[28,0,-6]` / `[56,0,-12]`, datum leader lines, whip-pan post-processing, wheel-release inspection, kinematic idling, airflow/acoustic interaction) was implemented and telemetry-verified as **JG-014, JG-016, JG-017, JG-018, and JG-020** — see [`../INDEX.md`](../INDEX.md) for plans and evidence. The sample code below predates the real CAD rig and does not match measured reality (animation-spec §5 wins over any numbers here). Retained for history only.
+
+
 ## 1. Executive Summary & Core Objectives
 Upgrade the existing React 19 / React Three Fiber (R3F) / GSAP / Lenis portfolio application into a seamless multi-station 3D world representing three distinct engineering milestones.
 
