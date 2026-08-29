@@ -53,13 +53,6 @@ export interface HotspotAnnotation {
   datum?: DatumLabel
   frame?: FeatureControlFrame
   processNote?: string
-  /**
-   * Measured model-frame (role-map) correction from the occurrence bbox
-   * center to the actual feature point the leader terminates on, in meters.
-   * Derive from the role-map bbox extents (faces/axes) and record the
-   * derivation next to the data — never eyeball it.
-   */
-  anchorOffset?: [number, number, number]
 }
 
 export interface HotspotDef {

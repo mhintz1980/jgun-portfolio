@@ -14,14 +14,14 @@ const _proj = new Vector3()
  * 2D nominal screen displacement and explosion offsets for Station 1 hotspots.
  */
 const HANDLE_UNIT_OFFSET = EXPLODE_OFFSETS.handle
-const HOTSPOT_CONFIG: Record<string, { dx: number; dy: number; unitOffset: number }> = {
-  rotor: { dx: 220, dy: -100, unitOffset: HANDLE_UNIT_OFFSET },
-  'motor-housing': { dx: 220, dy: 70, unitOffset: HANDLE_UNIT_OFFSET },
-  flange: { dx: 220, dy: -130, unitOffset: HANDLE_UNIT_OFFSET },
-  'gearbox-housing': { dx: 220, dy: 90, unitOffset: 0 },
-  mcu: { dx: -220, dy: -90, unitOffset: HANDLE_UNIT_OFFSET },
-  lcd: { dx: 200, dy: -100, unitOffset: HANDLE_UNIT_OFFSET },
-  lipo: { dx: -220, dy: 90, unitOffset: HANDLE_UNIT_OFFSET },
+const HOTSPOT_CONFIG: Record<string, { dx: number; dy: number; unitOffset: number; offset?: [number, number, number] }> = {
+  rotor: { dx: 220, dy: -100, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0, -0.0315] },
+  'motor-housing': { dx: 220, dy: 70, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0, -0.019] },
+  flange: { dx: 220, dy: -130, unitOffset: HANDLE_UNIT_OFFSET, offset: [0, 0.028, 0] },
+  'gearbox-housing': { dx: 220, dy: 90, unitOffset: 0, offset: [0, 0.032, 0] },
+  mcu: { dx: -220, dy: -90, unitOffset: HANDLE_UNIT_OFFSET, offset: [-0.003, 0, 0.002] },
+  lcd: { dx: 200, dy: -100, unitOffset: HANDLE_UNIT_OFFSET, offset: [-0.003, 0, -0.006] },
+  lipo: { dx: -220, dy: 90, unitOffset: HANDLE_UNIT_OFFSET, offset: [0.003, 0, 0.004] },
 }
 
 /**
@@ -457,7 +457,7 @@ export function Hotspots() {
               key={def.id}
               def={def}
               position={entry.bboxCenter}
-              anchorOffset={def.annotation?.anchorOffset}
+              anchorOffset={config.offset}
               unitOffset={config.unitOffset}
               nominalDx={config.dx}
               nominalDy={config.dy}

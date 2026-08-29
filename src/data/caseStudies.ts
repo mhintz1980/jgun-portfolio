@@ -436,15 +436,6 @@ export const LCD_ORBIT_KEYFRAMES = {
  * Hotspots anchored via role-map.json `occurrence` names. All of these are
  * real node identities confirmed in the GLB audit — never guessed labels.
  *
- * anchorOffset provenance (role-map bbox spans, model frame, 2026-08-27):
- *   ROTOR-1 z ∈ [−0.196, −0.133] → rear (air-inlet/vane) face center z −0.196.
- *   AIR MOTOR HOUSING-MACHINED-1 z ∈ [−0.1835, −0.1455] → rear bore face z −0.1835.
- *     Both raw bbox centers sit at [0, 0, −0.1645] (0.1 mm apart) — the
- *     pre-JG-014 duplicate-anchor defect; the face anchors separate them by
- *     12.5 mm of measured feature distance.
- *   FLANGE-1 exists twice (mount face z −0.1396 AND rear cap z −0.1895) —
- *     pickNear selects the motor-to-gearbox mount-face occurrence.
- *
  * Feature-control-frame cells use ONLY owner-approved vocabulary: the HUD
  * callout strings ('RUNOUT < .0015" TIR', 'POSITION ⌖ .002" @ MMC',
  * 'FLATNESS < .0008"') and drawing-verified datum references (P000420
@@ -461,8 +452,6 @@ export const HOTSPOTS: HotspotDef[] = [
     detail:
       'Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing.',
     annotation: {
-      // Rear face of the rotor bbox (center −0.1645 − half-extent 0.0315).
-      anchorOffset: [0, 0, -0.0315],
       processNote: 'BALANCED VANE ASSEMBLY',
     },
     chapters: [0, 1],
@@ -481,8 +470,6 @@ export const HOTSPOTS: HotspotDef[] = [
         datums: ['A'],
       },
       processNote: 'RUNOUT < .0015" TIR',
-      // Rear bore face of the housing bbox (center −0.1645 − half-extent 0.019).
-      anchorOffset: [0, 0, -0.019],
     },
     chapters: [0, 1],
   },
@@ -503,8 +490,6 @@ export const HOTSPOTS: HotspotDef[] = [
         datums: [],
       },
       processNote: 'FLATNESS < .0008"',
-      // Top rim of the mount-face annulus (bbox y half-extent 0.029).
-      anchorOffset: [0, 0.028, 0],
     },
     chapters: [1],
   },
@@ -521,8 +506,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['.002" @ MMC'],
       },
       processNote: 'POSITION ⌖ .002" @ MMC',
-      // Top rim of the housing bbox (y half-extent 0.0327).
-      anchorOffset: [0, 0.032, 0],
     },
     chapters: [1],
   },
@@ -535,7 +518,6 @@ export const HOTSPOTS: HotspotDef[] = [
       'TI MSP430F6726 microcontroller — the smart-tool brain sampling pressure and driving the manometer display.',
     annotation: {
       processNote: 'DIGITAL SAMPLING CONTROLLER',
-      anchorOffset: [-0.003, 0, 0.002],
     },
     chapters: [3],
   },
@@ -550,8 +532,6 @@ export const HOTSPOTS: HotspotDef[] = [
     window: [0.44, 0.51],
     annotation: {
       processNote: 'BACKLIT DIGITAL MANOMETER',
-      // Toward the screen slab (P002115 sits at x −0.0091 / z −0.2191).
-      anchorOffset: [-0.003, 0, -0.006],
     },
     chapters: [3],
   },
@@ -563,7 +543,6 @@ export const HOTSPOTS: HotspotDef[] = [
     detail: 'Tenergy 3.7 V LiPo cell powering the electronics stack independent of the air line.',
     annotation: {
       processNote: '3.7V AUXILIARY POWER CELL',
-      anchorOffset: [0.003, 0, 0.004],
     },
     chapters: [3],
   },
@@ -577,7 +556,6 @@ export const HOTSPOTS: HotspotDef[] = [
       'Structural welded 6061-T6 aluminum framework with modular internal mounting channels engineered for industrial plant environments.',
     annotation: {
       processNote: '6061-T6 WELDED UNIBODY',
-      anchorOffset: [0, 0.35, 0],
     },
     chapters: [2],
   },
@@ -595,7 +573,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['-43 dBA', '5-LAYER'],
       },
       processNote: '-43 dBA NOISE ATTENUATION',
-      anchorOffset: [0.6, 0.2, 0.4],
     },
     chapters: [2],
   },
@@ -608,7 +585,6 @@ export const HOTSPOTS: HotspotDef[] = [
       'High-pressure continuous rotary positive displacement pump generating 115 dBA source noise, isolated via tuned acoustic chambers.',
     annotation: {
       processNote: '115 dBA CONTINUOUS DRIVE',
-      anchorOffset: [0, 0, 0],
     },
     chapters: [2],
   },
@@ -626,7 +602,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['SOUND ARRESTOR', 'CFM TUNED'],
       },
       processNote: 'INTERNAL SOUND BAFFLES',
-      anchorOffset: [0.35, 0.15, -0.25],
     },
     chapters: [2],
   },
@@ -644,7 +619,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['< 5 Hz TRANSMISSION'],
       },
       processNote: 'ELASTOMERIC SHEAR MOUNTS',
-      anchorOffset: [-0.5, -0.35, 0.35],
     },
     chapters: [2],
   },
@@ -662,7 +636,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['1,850 CFM', '650 FPM'],
       },
       processNote: '1,850 CFM LAMINAR INTAKE',
-      anchorOffset: [-1.1, 0.25, 0],
     },
     chapters: [2],
   },
@@ -680,7 +653,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['LOW BACKPRESSURE'],
       },
       processNote: 'THERMAL DISCHARGE PORT',
-      anchorOffset: [1.2, 0.2, 0],
     },
     chapters: [2],
   },
@@ -699,7 +671,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['.0015" @ MMC', 'A', 'B'],
       },
       processNote: 'MIL-SPEC INTERCHANGEABILITY',
-      anchorOffset: [0, 0.04, 0],
     },
     chapters: [3],
   },
@@ -717,7 +688,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['.0008" TIR', 'A'],
       },
       processNote: 'QUICK-CHANGE LOCKUP BORE',
-      anchorOffset: [0, 0.02, 0.15],
     },
     chapters: [3],
   },
@@ -735,7 +705,6 @@ export const HOTSPOTS: HotspotDef[] = [
         cells: ['.0010"', 'A'],
       },
       processNote: 'MIL-STD-1913 PROFILE',
-      anchorOffset: [0, 0.1, -0.08],
     },
     chapters: [3],
   },
@@ -748,7 +717,6 @@ export const HOTSPOTS: HotspotDef[] = [
       'Reverse-engineered feed guide rails reconstructed from raw 3D scan point clouds without original technical data package (TDP).',
     annotation: {
       processNote: 'DUAL-FEED GUIDE INTERFACE',
-      anchorOffset: [0, 0.06, 0.04],
     },
     chapters: [3],
   },
