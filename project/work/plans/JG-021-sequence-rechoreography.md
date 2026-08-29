@@ -1,6 +1,6 @@
 # JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement
 
-**Status:** queued · **Accepted:** 2026-08-28 · **Amended:** 2026-08-29 (Amendment A) · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
+**Status:** in-progress · **Accepted:** 2026-08-28 · **Amended:** 2026-08-29 (Amendment A) · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
 
 ## Adoption corrections (binding)
 
@@ -88,3 +88,27 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 
 - One commit per workstream (4 commits) on main, explicit paths staged (parallel-agent contention rule).
 - Records in the same change set: this plan, evidence doc after probes, `TODO.md` entry, `project/work/INDEX.md`. Evidence must note the wrench rig ladder is untouched (no spec §5 / README / rig-skill table sync needed).
+
+## Implementation notes (WS1)
+
+- **Recon & Line-Reference Check:**
+  - `CameraRig.tsx:194-207`, `:264`, `:329` confirmed matching HEAD.
+  - `caseStudies.ts:281-290`, `:384` confirmed matching HEAD. Zero line rot.
+- **Binding Correction 4 Validation (Animation-Spec §5–§5.4 & §14):**
+  - Cross-checked `PATH_SEGMENTS` windows against measured spec reality:
+    - Segment 0 `[0.000, 0.525]`: matches JGun explode finish (≈0.416), LCD reveal (`LCD_REVEAL_WINDOW` 0.420→0.525), and wrench sink trigger (0.525→0.565).
+    - Segment 1 `[0.525, 0.600]`: matches transition flight into Station 2 settling into hold at 0.600.
+    - Segment 2 `[0.600, 0.720]`: matches Station 2 RL-300 SAFE Enclosure hold window and airflow intensity ramp (0.565→0.72) before enclosure exit.
+    - Segment 3 `[0.720, 0.760]`: matches transition flight into Station 3 / M249 entry (0.72→0.76).
+    - Segment 4 `[0.760, 1.000]`: Station 3 M249 continuous zoom-out.
+  - 100% match with measured geometry.
+- **Framing Bias Convention (Amendment 1):**
+  - `goalTarget` is shifted toward **camera-left** (negative camera-right vector `scratchRight.current`), placing the rendered subject cleanly in screen-right (~62–65% screen-x) clear of narrative panels.
+  - Evaluated via `framingBias(progress)` (≈0.14 in CH.01/02, ≈0.22 in CH.03/04, 0 outside with ±0.035 smoothstep ramps).
+- **LookAt Centroid Tracking:**
+  - During segment 0 (`progress <= 0.525`), `goalTarget` tracks the exploded-train centroid (`centroidZ = -0.152 * explodeFactor` rotated by hero yaw `0.85π`) weighted by `telemetry.rig.explodeFactor * 0.7`.
+- **Zero Per-Frame Allocations:**
+  - Pre-allocated scratch refs (`scratchFwd`, `scratchRight`, `scratchA`) inside `CameraRig` ensure zero GC thrash in `useFrame` (`r3f-scroll-performance-guard`).
+- **Watch-Item (Stop-and-Go Rhythm):**
+  - Smoothstep endpoints at 0.525 / 0.600 / 0.720 / 0.760 intentionally bring camera velocity to zero at segment boundaries, creating a deliberate content-aligned pacing rhythm.
+

@@ -154,6 +154,7 @@ export interface TelemetryCamera {
   y: number
   z: number
   fov: number
+  framingBias: number
 }
 
 export interface TelemetryRig {
@@ -217,7 +218,7 @@ export const telemetry: {
   scroll: TelemetryScroll
   stage: TelemetryStage
 } = {
-  camera: { x: 0, y: 0, z: 0, fov: 42 },
+  camera: { x: 0, y: 0, z: 0, fov: 42, framingBias: 0 },
   rig: {
     handleZ: 0,
     outputZ: 0,

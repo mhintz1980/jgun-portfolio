@@ -228,6 +228,91 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   { position: [56.28, 0.42, -10.45], target: [56, 0, -12], fov: 38 },
 ]
 
+export interface CameraSegment {
+  fromIndex: number
+  toIndex: number
+  startProgress: number
+  endProgress: number
+}
+
+/**
+ * Content-aligned camera path segments (JG-021 WS1.1).
+ * Replaces uniform progress thirds with content-aligned windows:
+ *   - K0 → K1 [0.000, 0.525]: All JGun wrench beats (CH.01 shift, CH.02 explode & LCD reveal).
+ *   - K1 → K2 [0.525, 0.600]: Whip-pan flight to Station 2.
+ *   - Hold K2 [0.600, 0.720]: Station 2 RL-300 SAFE Enclosure hold window.
+ *   - K2 → K3 [0.720, 0.760]: Transition flight to Station 3.
+ *   - 0.760 → 1.000: Station 3 M249 continuous zoom-out override.
+ */
+export const PATH_SEGMENTS: readonly CameraSegment[] = [
+  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.525 },
+  { fromIndex: 1, toIndex: 2, startProgress: 0.525, endProgress: 0.600 },
+  { fromIndex: 2, toIndex: 2, startProgress: 0.600, endProgress: 0.720 },
+  { fromIndex: 2, toIndex: 3, startProgress: 0.720, endProgress: 0.760 },
+] as const
+
+export interface CameraPose {
+  position: [number, number, number]
+  target: [number, number, number]
+  fov: number
+}
+
+const smoothstep = (t: number): number => t * t * (3 - 2 * t)
+const lerpN = (a: number, b: number, t: number): number => a + (b - a) * t
+
+/**
+ * Returns the base camera pose (position, target, FOV) at any global scroll progress.
+ * Interpolates smoothly along PATH_SEGMENTS. Continuous by construction across boundaries.
+ */
+export function baseAt(progress: number): CameraPose {
+  const p = Math.max(0, Math.min(1, progress))
+  if (p <= PATH_SEGMENTS[0].startProgress) {
+    const k = CAMERA_PATH[0]
+    return { position: [...k.position], target: [...k.target], fov: k.fov }
+  }
+  for (const seg of PATH_SEGMENTS) {
+    if (p <= seg.endProgress || seg === PATH_SEGMENTS[PATH_SEGMENTS.length - 1]) {
+      const from = CAMERA_PATH[seg.fromIndex]
+      const to = CAMERA_PATH[seg.toIndex]
+      const span = seg.endProgress - seg.startProgress
+      const u = span > 0 ? Math.max(0, Math.min(1, (p - seg.startProgress) / span)) : 0
+      const t = smoothstep(u)
+      return {
+        position: [
+          lerpN(from.position[0], to.position[0], t),
+          lerpN(from.position[1], to.position[1], t),
+          lerpN(from.position[2], to.position[2], t),
+        ],
+        target: [
+          lerpN(from.target[0], to.target[0], t),
+          lerpN(from.target[1], to.target[1], t),
+          lerpN(from.target[2], to.target[2], t),
+        ],
+        fov: lerpN(from.fov, to.fov, t),
+      }
+    }
+  }
+  const last = CAMERA_PATH[CAMERA_PATH.length - 1]
+  return { position: [...last.position], target: [...last.target], fov: last.fov }
+}
+
+/**
+ * Framing bias magnitude along camera-left (shifting subject to screen-right ~62-65% screen-x).
+ * Evaluates to ≈0.14 during CH.01/02 text, ≈0.22 during CH.03/04 card, fading to 0
+ * on ±0.035 ramps matching CHAPTER_RANGES.
+ */
+export function framingBias(progress: number): number {
+  const ramp = 0.035
+  const w0 = Math.min(Math.max((0.22 - progress) / ramp, 0), 1)
+  const w1 = Math.min(Math.max((progress - 0.24) / ramp, 0), Math.max((0.46 - progress) / ramp, 0), 1)
+  const w2 = Math.min(Math.max((progress - 0.50) / ramp, 0), Math.max((0.72 - progress) / ramp, 0), 1)
+  const w3 = Math.min(Math.max((progress - 0.76) / ramp, 0), 1)
+
+  const b01 = smoothstep(Math.max(w0, w1)) * 0.14
+  const b23 = smoothstep(Math.max(w2, w3)) * 0.22
+  return Math.max(b01, b23)
+}
+
 /**
  * Shift sub-sequence camera keyframes — GSAP sub-timeline scrubbed against
  * the shift proxy (0→1 across timeline 0→0.15). Zooms tight on the P000420
@@ -247,26 +332,17 @@ export const SHIFT_CAMERA_KEYFRAMES = {
 } as const
 
 /**
- * Rear LCD orbit — JG-014 repair pass (2026-08-27), all values measured, not
- * eyeballed:
+ * Rear LCD orbit — JG-014 / JG-021 measured geometry:
  *   - The hero timeline scrubs [data-chapter="1"] across global progress
  *     ≈0.177 → 0.458 against the current 2020vh document (3×440vh sections +
  *     660vh CH.04 + 40vh footer, viewport-normalized), so the explode tween
- *     (timeline 0.35→0.85) completes at ≈0.416 — NOT the stale ≈0.518 figure
- *     from the pre-660vh layout.
- *   - Live probe at progress 0.47 (2026-08-27): explodeFactor 1, hero yaw
- *     exactly 0.85π (spin tween saturated), handleZ −0.354.
- *   - The exploded LCD cluster (role-map anchor [−0.007, −0.0005, −0.2125] +
- *     handle offset −0.354, recentered by rig.center [0.0775, 0, −0.0906],
- *     rotated 0.85π about Y) sits at world [−0.14, 0.00, 0.46]. The pre-repair
- *     dwell camera (position [−0.06, 0.08, −0.44] / target [0, 0.02, −0.22])
- *     pointed at empty space 0.68 m away on the opposite side of the model.
- *   - The dwell camera below sits 0.32 m back from the LCD along its rear
- *     normal [−0.44, 0.24, 0.86], framing the manometer screen (P002115) with
- *     the 3X button cluster (P002123–P002125) beside it.
- *   - start/return equal the base CAMERA_PATH blend at the window edges
- *     (smoothstep(0.26)/smoothstep(0.575) between the CH.02 and CH.03
- *     keyframes) so the orbit composes with the base path without pops.
+ *     (timeline 0.35→0.85) completes at ≈0.416.
+ *   - Live probe at progress 0.47: explodeFactor 1, hero yaw exactly 0.85π, handleZ −0.354.
+ *   - The exploded LCD cluster sits at world [−0.14, 0.00, 0.46].
+ *   - Dwell camera frames the manometer screen (P002115) and buttons (P002123–P002125).
+ *   - INVARIANT (JG-021 WS1.2): start and return poses are evaluated at runtime via
+ *     baseAt(LCD_REVEAL_WINDOW.start) and baseAt(LCD_REVEAL_WINDOW.end), ensuring
+ *     guaranteed C^0 continuity with the base trajectory without manual keyframe syncing.
  */
 export const LCD_REVEAL_WINDOW = {
   /** After the explode beat completes (measured ≈0.416). */
@@ -279,14 +355,10 @@ export const LCD_REVEAL_WINDOW = {
 } as const
 
 export const LCD_ORBIT_KEYFRAMES = {
-  /** Base-path blend at progress 0.420 — lateral inspection, already easing toward CH.03. */
-  start:  { position: [0.545, 0.112, 0.087] as [number,number,number], target: [0, 0.013, -0.062] as [number,number,number], fov: 34.7 },
   /** Swing around the extracted train's mid-span toward the handle rear cap. */
   arc:    { position: [0.28, 0.10, 0.50] as [number,number,number], target: [-0.05, 0.01, 0.18] as [number,number,number], fov: 34 },
   /** Dwell: 0.32 m behind the exploded rear cap, looking straight at the LCD cluster (world [−0.14, 0, 0.46]). */
   dwell:  { position: [-0.28, 0.08, 0.74] as [number,number,number], target: [-0.14, 0.00, 0.46] as [number,number,number], fov: 31 },
-  /** Base-path blend at progress 0.525 — mid interpolation toward the CH.03 macro view. */
-  return: { position: [0.398, 0.196, 0.185] as [number,number,number], target: [0, 0.006, -0.039] as [number,number,number], fov: 31.1 },
 } as const
 
 /**
@@ -381,7 +453,7 @@ export const HOTSPOTS: HotspotDef[] = [
       // Top rim of the housing bbox (y half-extent 0.0327).
       anchorOffset: [0, 0.032, 0],
     },
-    chapters: [1, 2],
+    chapters: [1],
   },
   {
     id: 'mcu',

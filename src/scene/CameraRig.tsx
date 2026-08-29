@@ -1,7 +1,14 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { PerspectiveCamera, Vector3 } from 'three'
-import { CAMERA_PATH, EXPLODE_OFFSETS, LCD_ORBIT_KEYFRAMES, LCD_REVEAL_WINDOW } from '../data/caseStudies'
+import {
+  CAMERA_PATH,
+  EXPLODE_OFFSETS,
+  LCD_ORBIT_KEYFRAMES,
+  LCD_REVEAL_WINDOW,
+  baseAt,
+  framingBias,
+} from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 
@@ -131,24 +138,6 @@ const HOTSPOT_INSPECT_FRAMES: Record<string, InspectFraming> = {
   },
 }
 
-/**
- * Module 1 — camera trajectory state machine.
- *
- * Global scroll progress selects a segment between two chapter keyframes;
- * position, look-at target and FOV are interpolated with a smoothstep-eased
- * local t, then exponentially damped so fast scrolling never snaps the camera.
- * Pointer parallax is layered on top of the goal position.
- *
- * CR-3 / CR-5 sub-sequences (2026-08-25):
- *  - Shift zoom (progress 0 → 0.15): camera dollies tight on the P000420
- *    groove area so OSHA Blue is visible before the ring switch moves, then
- *    pulls back after the Red groove is revealed.
- *  - LCD orbit: after the measured explode completion, camera arcs rearward,
- *    dwells on the emissive LCD/buttons, then returns before stage handoff.
- *  - Click-to-inspect subassembly focus (hotspotId active): dollies tight
- *    into the selected part coordinates; scrolling seamlessly releases.
- */
-
 /** Smoothly ramp 0→1 over [lo, hi] and 1→0 over [lo2, hi2]. */
 function bellWeight(p: number, lo: number, hi: number, lo2: number, hi2: number): number {
   const fadeIn = Math.min(Math.max((p - lo) / (hi - lo), 0), 1)
@@ -167,7 +156,8 @@ export function CameraRig() {
   const goalPos = useRef(new Vector3())
   const goalTarget = useRef(new Vector3())
   const scratchA = useRef(new Vector3())
-  const scratchB = useRef(new Vector3())
+  const scratchFwd = useRef(new Vector3())
+  const scratchRight = useRef(new Vector3())
 
   useFrame((state, delta) => {
     // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
@@ -184,29 +174,20 @@ export function CameraRig() {
       telemetry.camera.x = camera.position.x
       telemetry.camera.y = camera.position.y
       telemetry.camera.z = camera.position.z
+      telemetry.camera.framingBias = 0
       writeScrollTelemetry()
       return
     }
 
     const { progress, hotspotId } = getScrollState()
 
-    // ---- Base CAMERA_PATH keyframe interpolation ----
-    const segments = CAMERA_PATH.length - 1
-    const s = Math.min(progress, 0.9999) * segments
-    const index = Math.floor(s)
-    const t = smoothstep(s - index)
-    const from = CAMERA_PATH[index]
-    const to = CAMERA_PATH[Math.min(index + 1, segments)]
+    // ---- 1. Content-aligned base trajectory (PATH_SEGMENTS table) ----
+    const base = baseAt(progress)
+    goalPos.current.set(base.position[0], base.position[1], base.position[2])
+    goalTarget.current.set(base.target[0], base.target[1], base.target[2])
+    let goalFov = base.fov
 
-    goalPos.current
-      .set(from.position[0], from.position[1], from.position[2])
-      .lerp(scratchA.current.set(to.position[0], to.position[1], to.position[2]), t)
-    goalTarget.current
-      .set(from.target[0], from.target[1], from.target[2])
-      .lerp(scratchB.current.set(to.target[0], to.target[1], to.target[2]), t)
-    let goalFov = from.fov + (to.fov - from.fov) * t
-
-    // ---- CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
+    // ---- 2. CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
     const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
     if (shiftW > 0.001) {
       const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
@@ -226,15 +207,31 @@ export function CameraRig() {
       goalFov = lerpN(goalFov, grFov, shiftW)
     }
 
-    // ---- CR-5: post-explode rear LCD orbit and stable dwell ----
-    // Piecewise path: start → arc → dwell (hold) → return, each segment
-    // smoothstep-eased. The pre-repair code interpolated start→arc across the
-    // whole entry phase and then SNAPPPED to the dwell keyframe at dwellStart;
-    // this version passes through the arc and eases into the dwell. start and
-    // return equal the base CAMERA_PATH blend at the window edges (see the
-    // measurement notes in caseStudies.ts), so entry/exit are continuous.
+    // ---- 3. JG-021 WS1.3: Exploded reduction-train lookAt centroid tracking ----
+    // During segment 0 (JGun beats, progress <= 0.525), shift goalTarget toward the
+    // exploded-train centroid (midpoint of output face +0.102m and exploded handle tail -0.587m,
+    // recentered by rig.center -0.0906m -> centroidZ = -0.152m at explode=1) rotated by hero yaw.
+    if (progress <= 0.525) {
+      const explodeFactor = telemetry.rig.explodeFactor
+      if (explodeFactor > 0.001) {
+        const spinProgress = Math.min(1, Math.max(0, (progress - 0.18) / 0.17))
+        const heroYaw = spinProgress * Math.PI * 0.85
+        const centroidZ = -0.152 * explodeFactor
+        const centroidWorldX = centroidZ * Math.sin(heroYaw)
+        const centroidWorldZ = centroidZ * Math.cos(heroYaw)
+        const explodeWeight = explodeFactor * 0.7
+        goalTarget.current.x += centroidWorldX * explodeWeight
+        goalTarget.current.z += centroidWorldZ * explodeWeight
+      }
+    }
+
+    // ---- 4. CR-5 / JG-021 WS1.2: Post-explode rear LCD orbit with runtime-derived continuity ----
+    // Evaluates start and return keyframes dynamically from baseAt() so trajectory continuity
+    // is guaranteed by construction without hardcoded keyframe syncing.
     const { start, dwellStart, dwellEnd, end } = LCD_REVEAL_WINDOW
     if (progress >= start && progress <= end) {
+      const orbitStart = baseAt(start)
+      const orbitReturn = baseAt(end)
       const orbit = LCD_ORBIT_KEYFRAMES
       const midArc = start + (dwellStart - start) / 2
       const blend = (from: number, to: number, lo: number, hi: number): number =>
@@ -245,9 +242,9 @@ export function CameraRig() {
       let rearTarget: [number, number, number]
       let rearFov: number
       if (progress < midArc) {
-        rearPos = seg(orbit.start.position, orbit.arc.position, start, midArc)
-        rearTarget = seg(orbit.start.target, orbit.arc.target, start, midArc)
-        rearFov = blend(orbit.start.fov, orbit.arc.fov, start, midArc)
+        rearPos = seg(orbitStart.position, orbit.arc.position, start, midArc)
+        rearTarget = seg(orbitStart.target, orbit.arc.target, start, midArc)
+        rearFov = blend(orbitStart.fov, orbit.arc.fov, start, midArc)
       } else if (progress < dwellStart) {
         rearPos = seg(orbit.arc.position, orbit.dwell.position, midArc, dwellStart)
         rearTarget = seg(orbit.arc.target, orbit.dwell.target, midArc, dwellStart)
@@ -257,16 +254,16 @@ export function CameraRig() {
         rearTarget = [...orbit.dwell.target] as [number, number, number]
         rearFov = orbit.dwell.fov
       } else {
-        rearPos = seg(orbit.dwell.position, orbit.return.position, dwellEnd, end)
-        rearTarget = seg(orbit.dwell.target, orbit.return.target, dwellEnd, end)
-        rearFov = blend(orbit.dwell.fov, orbit.return.fov, dwellEnd, end)
+        rearPos = seg(orbit.dwell.position, orbitReturn.position, dwellEnd, end)
+        rearTarget = seg(orbit.dwell.target, orbitReturn.target, dwellEnd, end)
+        rearFov = blend(orbit.dwell.fov, orbitReturn.fov, dwellEnd, end)
       }
       goalPos.current.set(rearPos[0], rearPos[1], rearPos[2])
       goalTarget.current.set(rearTarget[0], rearTarget[1], rearTarget[2])
       goalFov = rearFov
     }
 
-    // ---- CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
+    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
     if (progress >= 0.76) {
       const t4 = smoothstep(Math.min((progress - 0.76) / 0.24, 1))
       const m249Pos: [number, number, number] = [
@@ -281,10 +278,7 @@ export function CameraRig() {
       goalFov = m249Fov
     }
 
-    // ---- Click-to-Inspect Subassembly Focus ----
-    // The LCD hotspot's own orbit dwell (already framing the rear cap) IS the
-    // inspection — don't yank the camera to the rest-frame inspect position
-    // while that window is active.
+    // ---- 6. Click-to-Inspect Subassembly Focus ----
     const inLcdWindow =
       progress >= LCD_REVEAL_WINDOW.start && progress <= LCD_REVEAL_WINDOW.end
     const inspectFrame =
@@ -293,8 +287,6 @@ export function CameraRig() {
         : null
     if (inspectFrame) {
       const explode = telemetry.rig.explodeFactor
-      // Station 1 handle parts ride the handle rear extraction offset.
-      // Station 1 gearbox housing and all Station 2/3 occurrences use fixed station frames.
       const isStation1Handle =
         hotspotId === 'rotor' ||
         hotspotId === 'motor-housing' ||
@@ -317,11 +309,42 @@ export function CameraRig() {
       goalFov = inspectFrame.fov
     }
 
+    // ---- 7. JG-021 WS1.4 + Amendment 1: Framing bias along camera-left ----
+    // Shifts goalTarget toward camera-left (negative camera-right) so the subject
+    // renders cleanly in the right-hand viewport (~62-65% screen-x) clear of the narrative text.
+    const bias = framingBias(progress)
+    telemetry.camera.framingBias = bias
+
+    if (bias > 0.0001) {
+      scratchFwd.current.subVectors(goalTarget.current, goalPos.current)
+      const dist = scratchFwd.current.length()
+      if (dist > 0.0001) {
+        scratchFwd.current.multiplyScalar(1 / dist)
+        // Camera-right vector = fwd × (0, 1, 0)
+        scratchRight.current.set(
+          scratchFwd.current.z,
+          0,
+          -scratchFwd.current.x,
+        )
+        const rightLen = scratchRight.current.length()
+        if (rightLen > 0.0001) {
+          scratchRight.current.multiplyScalar(1 / rightLen)
+          const aspect = state.size.width / Math.max(state.size.height, 1)
+          const fovRad = (goalFov * Math.PI) / 180
+          const biasMeters = bias * dist * Math.tan(fovRad / 2) * aspect
+          // Shift goalTarget along camera-left (negative camera-right)
+          goalTarget.current.addScaledVector(scratchRight.current, -biasMeters)
+        }
+      }
+    }
+
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
     goalPos.current.x += state.pointer.x * 0.03
     goalPos.current.y += state.pointer.y * 0.02
 
-    const damp = 1 - Math.exp(-6 * delta)
+    // Exponential damping with clamp to prevent overshoot on frame drops
+    const safeDelta = Math.min(delta, 0.1)
+    const damp = 1 - Math.exp(-6 * safeDelta)
     currentPos.current.lerp(goalPos.current, damp)
     currentTarget.current.lerp(goalTarget.current, damp)
 
@@ -341,3 +364,4 @@ export function CameraRig() {
 
   return null
 }
+
