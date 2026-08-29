@@ -50,7 +50,13 @@ timeline → `r3f-scroll-performance-guard`; scroll/GSAP ScrollTrigger reference
 `gsap-scrolltrigger` (official GreenSock, ~/.agents/skills — all harnesses);
 video-hero 3D landing pages (orzo-style) → `animated-3d-video-sites` (~/.agents/skills —
 all harnesses); deploy readiness → `asset-and-bundle-hygiene`; CH.04 shader →
-`glsl-transition-shader-pipeline`.
+`glsl-transition-shader-pipeline`; animation craft/review → `animate`,
+`review-animations`, `improve-animations`, `find-animation-opportunities`
+(emilkowalski, ~/.agents/skills — all harnesses); design/motion canon →
+`build-awwwards-quality-sites`, `cinematic-gsap-lenis-motion-system`,
+`build-threejs-scroll-worlds`, `scroll-scrubbed-visual-sequence` (MengTo
+subset, ~/.agents/skills — all harnesses). Per-phase activation rosters:
+`project/context/session-phases.md`.
 
 
 ## Cross-Agent Skill Locations

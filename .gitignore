@@ -10,3 +10,4 @@ public/models/*.glb
 .scratch/
 .playwright-mcp/
 .zcode/
+.archive/
