@@ -195,6 +195,8 @@ A second manual transfer (`plan-1.md`, dual-agent design review, Nielsen 19/28; 
 - **JG-018 Regression Probe:**
   - Airflow intensity and acoustic field lifecycle confirmed live in reveal/hold window $[0.600, 0.720]$: $p=0.55$ (0.000), $p=0.60$ (0.000), $p=0.65$ (0.966), $p=0.70$ (0.500), $p=0.75$ (0.000).
 
+> **Superseded numbers — 2026-08-29 correction.** During the final gate review, camera-geometry and airflow figures published in these implementation notes and in the first evidence draft were found to not match the shipped code (see the Correction Note in [`../evidence/JG-021-sequence-rechoreography-verification.md`](../evidence/JG-021-sequence-rechoreography-verification.md)). Where any telemetry value here differs from the evidence record, the evidence record's code-executed values win.
+
 
 
 
