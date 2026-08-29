@@ -21,6 +21,13 @@ All four workstreams of **JG-021** have been implemented, verified with runtime 
 
 > **Correction — 2026-08-29 final gate review (ZCode).** The originally published §1 segment table and per-window sweep table, and the §4 airflow profile, did not match the implemented code: they described a 0.95 m-radius, −30° stub arc, a sinusoidal airflow window, and a "static pre-arc hold" over [0.580, 0.600] — none of which exist (that window is the decelerating whip-flight tail). The corrected values below were produced by executing the shipped pure functions (`baseAt`, `airflowIntensity`) directly via `npx tsx` — the exact code paths runtime telemetry reads. Genuinely runtime-probed values elsewhere in this record (framing-bias screen-x, badge containment/collisions at both viewports, FPS, tier behavior, WS3/WS4 boundary handoff measurements) are retained. The implemented geometry matches the adopted plan (WS3.3: ≈40° azimuth at ≈7 m radius); only this document's description of it was wrong.
 
+> **REOPENED 2026-08-29 — owner visual pass (Mark Hintz) FAILED 3 of 5 checks; this record's PASS status is superseded pending remediation.**
+> 1. **Framing (WS1) — FAIL:** at 58% scroll the enclosure is off-screen right; at 60% it is almost completely blocked by the left CH.03 text card. The subject sits in the wrong lane for the entire arc/reveal window; Station 3 framing also failed. The recorded "screen-x 0.570/0.610" values measured the shifted lookAt *target* (self-consistent bias math), never the actual subject bbox projection.
+> 2. **Materials/lighting (WS2) — FAIL:** enclosure reads blown-out ("shades of yellow, orange, gray, black; parts that should be black are orange or yellow"). The WS2.4 "look pass" produced no committed artifacts and did not catch this.
+> 3. **GD&T styling (WS4) — FAIL:** feature control frames spell out the words ("RUNOUT", "FLATNESS") instead of using the standard characteristic symbols from the registered references at `context/references/media/gdt/` (adoption correction 5).
+> 4. Callout placement/collisions — PASS. 5. Scroll smoothness — PASS.
+> Remediation acceptance: subject-bbox projection probes (never lookAt-target), screenshot artifacts committed under `project/work/evidence/`, and badge styling diffed against the `media/gdt/` references.
+
 ---
 
 ## 1. Camera Trajectory & Continuity Verification

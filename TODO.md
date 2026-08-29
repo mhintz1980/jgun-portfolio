@@ -23,9 +23,10 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Queued
 
-- [x] **JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement** · [plan](project/work/plans/JG-021-sequence-rechoreography.md) · [evidence](project/work/evidence/JG-021-sequence-rechoreography-verification.md)
+- [ ] **JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement** · [plan](project/work/plans/JG-021-sequence-rechoreography.md) · [evidence](project/work/evidence/JG-021-sequence-rechoreography-verification.md)
   - Content-aligned camera segments with runtime-derived orbit continuity and framing bias vs. left text; CAD-authentic enclosure materials + ACES tone mapping; scroll-driven panel reveal + Station 2 camera arc; projection-based safe-area datum callouts (GD&T-styled per `project/context/references/media/gdt/`). Fixes the Critique-B HUD clipping/collision issues.
   - **Required proof:** fresh `:4173` telemetry (camera goal delta < ~0.8 m through 0.30→0.60; badge DOM rects vs safe area and vs each other at desktop + 390×844; panel checkpoints at 0.56/0.62/0.70 with post-reveal restore; material identities via `__threeScene`; ToneMapping present), full/reduced-motion/poster tiers, `npm run typecheck`, `npm run build`, `scripts/check-station2-contract.mjs`.
+  - **Reopened 2026-08-29 (remediation):** owner visual pass FAILED framing (enclosure/M249 under the left text during [0.60, 0.72]), material look (blown-out, wrong tints on black parts), and GD&T styling (words instead of characteristic symbols). Collisions/safe-area and scroll smoothness pass. Remediation requires subject-bbox projection probes (not lookAt-target), committed screenshot artifacts, and badges styled from the registered `media/gdt/` references.
 
 - [ ] **JG-022 — Reduced-motion chapter stranding fix** · [plan](project/work/plans/JG-022-reduced-motion-chapter-stranding.md)
   - The reduced-motion tier unmounts `ScrollRig` but the static chapter renderer depends on it, stranding visitors on CH.01; give the static tier its own scroll-progress source so all four chapters and stations render. No file overlap with JG-021.
