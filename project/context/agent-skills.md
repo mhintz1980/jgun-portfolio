@@ -4,6 +4,8 @@ This document is the durable lookup map for agents working in `jgun-portfolio`. 
 
 > **Canonical rule:** Prefer the harness-local copy for the agent that is currently running. If a harness-local copy is absent, read the shared copy at `C:\Users\Markimus\.agents\skills\<skill>\SKILL.md` directly. Do not substitute a generic web-development workflow for one of these project-specific skills.
 
+> 2026-08-29 (orchestrated-work policy): for **multi-session, parallel, or long agent tasks**, run with skills/plugins **deactivated** in the harness and read each `SKILL.md` from this map's paths **at the moment it is needed** (briefs carry exact path + read-timing — never load up front what is needed only at the end; invoked/menu-registered skills cost context in every session, subagent, and cron fire). Keep only the task's MCPs enabled (probes → chrome-devtools; it has no file fallback). Deactivate — do NOT uninstall — plugin caches must remain readable for single-skill direct reads (e.g. Superpowers `verification-before-completion`). Full procedure + cost model: vault `C:\vaults\markimus-SecondBrain\Skills\deactivate-skills-for-orchestration.md`.
+
 | Work type | Required skill | ZCode path | Claude Code path | Codex path | Shared fallback path |
 |---|---|---|---|---|---|
 | CAD scene roles, D1-AP identity, rigid groups, explosion ladder | `cad-scene-graph-rigging` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.codex\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.agents\skills\cad-scene-graph-rigging\SKILL.md` |
