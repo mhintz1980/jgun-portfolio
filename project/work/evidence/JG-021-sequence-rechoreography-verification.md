@@ -349,3 +349,91 @@ Reviewed live at `:4173` after commits `6bcc52f` + `ed106cb`:
 
 TODO stays unchecked; commits remain local (not pushed) pending the materials
 round-2 fix and the final owner pass.
+
+## 11. Materials round 3 — reconciliation, re-derivation, fix (2026-08-30, same day)
+
+Session opened from §10's owner screenshot
+(`JG-021-review-2026-08-30-st2-materials.png`) and reconciled it against the
+live `__threeScene` probe with GLB-table + live-perturbation evidence.
+
+### Reconciliation (answers §10 questions a/b/c)
+
+- **(a) Probe vs screenshot discrepancy.** None in values: the live probe
+  showed the remediation's dark override values AND the screenshot shows
+  them rendered — dark albedo with `MSP_STAINLESS`/`MSP_ALUMINUM`
+  metalness 1.0 reads as milky env-reflective grey under the
+  RoomEnvironment IBL, and translucent panels at 0.68 over the interior
+  read white/grey. Values dark, appearance milky — both true.
+- **(b) The cyan camera-facing panel is NOT MSP_AIRWAY_VOLUME.** The GLB
+  census (593 meshes) puts the single airway mesh (`DUCT_INTAKE_AIRWAY`)
+  in `DUCT_INTAKE`, and GLTFLoader already honors its baked alpha
+  (probe: `#59c4f9, opacity 0.22, transparent, depthWrite false`). The
+  cyan wall was `DUCT_INTAKE`'s OTHER mesh — an opaque `MSP_YELLOW_PAINT`
+  intake grille — repainted teal (`#195b71`) by the remediation's
+  finish-override + t=0.55 roleColor lerp toward cyan.
+- **(c) Root cause of both failed rounds is the repaint itself.** Round 1
+  ("wrong tints on black parts"): the structural lerp t=0.15 pulls
+  `MSP_RUBBER`/`MSP_BLACK_CHASSIS` toward grey. Round 2 (cyan wall +
+  "back how it was before colors were retained"): the functional lerp
+  t=0.55 repaints large meshes into saturated walls, and the remediation's
+  `MSP_FINISH_OVERRIDES` flattened the CAD identity to charcoal.
+
+### Re-derived per-root color assignment (owner ruling: retain CAD colors)
+
+**All 7 roots keep the baked GLB material palette — zero color writes.**
+CAD's own distribution carries the identity (yellow paint = machine
+surfaces incl. the pump's 63 meshes; stainless/aluminum = hardware;
+near-black rubber/chassis = structure; translucent cyan = the airway
+volume, the CAD author's own functional viz at alpha 0.22). `roleColor`
+stays registry/HUD documentation only (restored to the bright originals
+`#d97706`/`#0891b2`/`#f97316`; no external consumers). The one intentional
+mutation: **COMPOSITE_PANELS mostly transparent per the owner's explicit
+note** — opacity 0.35 assembled / 0.18 revealed (`PANEL_OPACITY_*`
+constants; was 0.68/0.42). Loader-delivered airway translucency untouched.
+
+### Blowout regression + root-cause attribution (live-perturbation matrix)
+
+Restoring baked colors re-lit the blowout: blown-hot 14.03% (assembled
+0.575) / 19.01% (revealed 0.65) of the subject region. Cuts that measured
+**~no-op**: Station-2-scoped punctual rig 2.95→1.1 (Δ −0.11 pt), material
+`envMapIntensity` 1.0→0.4 (identical to 2 decimals — this three version's
+`material.envMapIntensity` does not modulate `scene.environment`;
+verified live: property landed, pixels identical). Hot-pixel RGB sampling
+(`[242,224,122]` pale yellow, zero saturated yellow) + live perturbation
+matrix pinned the driver: **`scene.environmentIntensity = 0` → region hot
+56,399→464, yellowish→0** (RoomEnvironment IBL, tuned for the JGun hero's
+clearcoat shells). Hiding panels *increases* hot (they dim the internals);
+airflow particles ≈ neutral.
+
+### Fix: Station-2-scoped studio crossfade (SceneCanvas `StudioRig`)
+
+The global punctual rig + `scene.environmentIntensity` ease to floors
+while Station 2 owns the frame, riding the SAME `STAGE_TRANSITIONS`
+windows as the station swap (masked by the choreography):
+punctual ×0.25, env → 0.5. Station 2's scoped rig retuned to
+0.8/0.35/0.5 as the station key. Station 1 keeps the committed studio
+exactly (probe @0.1: 1.7/0.6/1.1, env 1.0 — identity); Station 3 keeps
+the full studio (its look passed round 2).
+
+### Verification (fresh :4173, commit pending)
+
+- Materials probe: airway `#59c4f9` op 0.22 transparent; panels baked
+  `#272728`/`#bfbfbf`/`#ffc500` op 0.35 DoubleSide depthWrite-false;
+  intake grille `#ffc500` (teal wall gone; region cyan 12.66→1.04%).
+- Blown-hot: **0.57%** assembled / **0.12%** revealed (owner-accepted
+  remediation bar ≈0.24%; owner reference capture itself 0.68%), avgL
+  59.2/57.6, warm yellow 23.7% saturated (not clipped).
+- Panel lifecycle: 0.56 → y0/op0.35; 0.62 → y0.343/op0.244 (mid-fade);
+  0.70 → y0.55/op0.18; 0.72 → restored y0/op0.35 (station visible).
+- Hero regression: studio identity at CH.01, screenshot
+  `JG-021-materials-r3-hero-regression.png`. FPS 60.0 @ Station 2;
+  console errors 0; reduced-motion: canvas live, panels pinned assembled
+  op 0.35, palette intact; `check-station2-contract` PASS; typecheck +
+  build GREEN.
+- Artifacts: `JG-021-materials-r3-before-st2-desktop.png` (dark-override
+  state), `JG-021-materials-r3-after-st2-desktop.png` (retained palette,
+  revealed). Probe scripts: `.scratch/jg021-remediation/matround3.mjs`,
+  `perturb.mjs`, `envfloor.mjs`, `verifyround3.mjs`.
+
+TODO stays unchecked pending Mark's visual ruling on the retained
+palette + 0.35/0.18 panel translucency. Commits local (not pushed).

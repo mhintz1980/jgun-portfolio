@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
-import { PMREMGenerator, PointLight } from 'three'
+import { DirectionalLight, PMREMGenerator, PointLight, SpotLight } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { SpatialRig } from './SpatialRig'
@@ -11,6 +11,7 @@ import { PostProcessingComposer } from './PostProcessingComposer'
 import { degradeQuality, forcePoster } from '../state/qualityStore'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState } from '../state/scrollStore'
+import { STAGE_TRANSITIONS } from './stages/stageWindows'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
 const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
@@ -89,6 +90,60 @@ function LcdFillLight() {
 }
 
 /**
+ * Global studio key/fill/spot — the balance tuned for the JGun hero's
+ * photoreal PBR pass (CH.01/02). JG-021 materials round 3: the MSP
+ * enclosure's retained CAD palette is bright and clips deep under this
+ * studio (blown-hot 14-19% of the St.2 subject region). Live-perturbation
+ * attribution pinned the driver on the RoomEnvironment IBL — not the
+ * punctual rig and not material.envMapIntensity, which does not modulate
+ * scene.environment in this three version (env 1.0→0: region hot
+ * 56,399→464; env 0.5 under this rig: 0.13% blown, avgL 54.9). So BOTH
+ * the punctual rig and scene.environmentIntensity ease to floors while
+ * Station 2 owns the frame, riding the SAME STAGE_TRANSITIONS windows as
+ * the station swap so the choreography masks the crossfade. Station 3
+ * keeps the full studio — its committed look passed owner review.
+ */
+const STUDIO_KEY_INTENSITY = 1.7
+const STUDIO_FILL_INTENSITY = 0.6
+const STUDIO_SPOT_INTENSITY = 1.1
+/** Punctual + environment floors while the MSP enclosure is up. */
+const STUDIO_STATION2_SCALE = 0.25
+const STUDIO_ENV_STATION2 = 0.5
+
+const smoothstep01 = (x: number) => {
+  const c = Math.min(1, Math.max(0, x))
+  return c * c * (3 - 2 * c)
+}
+
+function StudioRig() {
+  const keyRef = useRef<DirectionalLight>(null)
+  const fillRef = useRef<DirectionalLight>(null)
+  const spotRef = useRef<SpotLight>(null)
+  const scene = useThree((state) => state.scene)
+
+  useFrame(() => {
+    const { progress } = getScrollState()
+    // wrenchOut [0.525, 0.565] is when the hero sinks and the enclosure
+    // rises; enclosureOut [0.72, 0.76] is when the enclosure exits.
+    const down = smoothstep01((progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]))
+    const up = smoothstep01((progress - STAGE_TRANSITIONS.enclosureOut[0]) / (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]))
+    const k = 1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up)
+    if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k
+    if (fillRef.current) fillRef.current.intensity = STUDIO_FILL_INTENSITY * k
+    if (spotRef.current) spotRef.current.intensity = STUDIO_SPOT_INTENSITY * k
+    scene.environmentIntensity = 1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up)
+  })
+
+  return (
+    <>
+      <directionalLight ref={keyRef} position={[1.5, 2, 1]} intensity={STUDIO_KEY_INTENSITY} />
+      <directionalLight ref={fillRef} position={[-2, 1, -1.5]} intensity={STUDIO_FILL_INTENSITY} color="#7dd3fc" />
+      <spotLight ref={spotRef} position={[0, 1.2, -0.6]} intensity={STUDIO_SPOT_INTENSITY} angle={0.5} penumbra={1} />
+    </>
+  )
+}
+
+/**
  * Module 1 — core scene canvas.
  *
  * Performance safeguards:
@@ -145,11 +200,10 @@ export function SceneCanvas() {
           {/* Studio balance for the photoreal PBR pass (2026-08-24): the
               environment carries the softbox reflections the clearcoat
               shells need, so the punctual key steps back from blowing out
-              gloss highlights. */}
+              gloss highlights. StudioRig crossfades this balance per
+              station (see StudioRig notes). */}
           <ambientLight intensity={0.25} />
-          <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
-          <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
-          <spotLight position={[0, 1.2, -0.6]} intensity={1.1} angle={0.5} penumbra={1} />
+          <StudioRig />
 
           <RoomEnvironmentIbl />
 
