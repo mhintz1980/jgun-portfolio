@@ -21,15 +21,14 @@ export const STATION_TRANSFORMS = {
 }
 
 /**
- * JG-021 glow experiment 4 (Mark-directed, 2026-08-30): both additive
+ * JG-021 glow experiments (Mark-directed, 2026-08-30): the two additive
  * Station-2 particle systems (JG-018 airflow points + acoustic soundwave
- * rings) are hidden while the residual enclosure glow is attributed
- * (owner order: turn both off, then isolate culprit vs cumulative).
- * They stay MOUNTED — the Stage-2 contract asserts the mounts — so
- * restoring one system is a single-flag flip.
+ * rings) were hidden for the glow attribution and EXONERATED by it
+ * (airflow-on vs both-off bit-identical). Owner ruling: turn them back on.
+ * They stay mounted — the Stage-2 contract asserts the mounts.
  */
-const AIRFLOW_FIELD_VISIBLE = false
-const ACOUSTIC_FIELD_VISIBLE = false
+const AIRFLOW_FIELD_VISIBLE = true
+const ACOUSTIC_FIELD_VISIBLE = true
 
 /**
  * JG-016 — Multi-station spatial world.

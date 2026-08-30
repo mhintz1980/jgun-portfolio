@@ -49,14 +49,13 @@ const BLOOM_PEAK = 0.65
 
 /**
  * JG-021 glow experiment 3 (Mark-directed, 2026-08-30): the owner identified
- * the residual enclosure glow as bloom. Bloom is always-on (rest 0.25),
- * so the bright CAD paint carries a standing halo at Station 2. While this
- * flag is set, the REST bloom component eases to 0 across the same
- * wrenchOut/enclosureOut windows the StudioRig crossfade rides — transition
- * peaks, the hero and Station 3 keep their owner-passed bloom exactly.
- * Flip to false to restore the standing rest bloom everywhere.
+ * the residual enclosure glow as bloom. The rest-bloom mute was measured a
+ * visual no-op (halo persisted; clipped metrics barely moved) and the owner
+ * ordered bloom restored once the analysis closed. The flag stays as the
+ * documented revert switch; the committed behavior is bloom everywhere as
+ * JG-017 shipped it.
  */
-const BLOOM_MUTED_AT_STATION2 = true
+const BLOOM_MUTED_AT_STATION2 = false
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const smooth01 = (x: number) => {
