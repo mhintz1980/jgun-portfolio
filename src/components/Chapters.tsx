@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ASSEMBLY_IDENTITY, CASE_STUDIES, CHAPTERS } from '../data/caseStudies'
 import type { CaseStudy } from '../types/portfolio'
 import { useQuality } from '../state/qualityStore'
@@ -90,10 +90,38 @@ function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudy }) {
 export function Chapters() {
   const { tier, reducedMotion } = useQuality()
   const progress = useScrollValue('progress')
-  const activeChapter = useScrollValue('chapter')
   const [openStudy, setOpenStudy] = useState<string | null>(null)
 
   const isStaticMode = tier === 'poster' || reducedMotion
+
+  // JG-022: the reduced-motion tier unmounts ScrollRig (Lenis/ScrollTrigger),
+  // so `chapter` in the scroll store stays locked at 0 and the static card
+  // below never advances. This tier-only native-scroll listener derives the
+  // active chapter from the same CHAPTER_RANGES the full-motion path gates
+  // cards by. Deliberately local state — no store writes, so the 3D world
+  // stays pinned to Station 1 in this tier (plan: static cards only, no
+  // canvas spin-up), and the full-motion path is untouched.
+  const [staticChapter, setStaticChapter] = useState(0)
+  useEffect(() => {
+    if (!reducedMotion) return
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const p = max > 0 ? window.scrollY / max : 0
+      let chapter = 0
+      for (const chapterDef of CHAPTERS) {
+        const [start] = CHAPTER_RANGES[chapterDef.index] ?? [0, 1]
+        if (p >= start) chapter = chapterDef.index
+      }
+      setStaticChapter(chapter)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [reducedMotion])
 
   const shiftBeat = !isStaticMode && isShiftBeatOn(progress)
   const explodeBeat = !isStaticMode && isExplodeBeatOn(progress)
@@ -210,7 +238,7 @@ export function Chapters() {
         <div className="relative z-10 p-6 md:p-12">
           {CHAPTERS.map((chapterDef) => {
             const caseStudy = CASE_STUDIES.find((cs) => cs.chapter === chapterDef.index)
-            if (activeChapter !== chapterDef.index && reducedMotion) return null
+            if (staticChapter !== chapterDef.index && reducedMotion) return null
 
             return (
               <div

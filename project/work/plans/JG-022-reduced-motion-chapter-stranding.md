@@ -1,6 +1,6 @@
 # JG-022 — Reduced-motion chapter stranding fix (static tier reaches all stations)
 
-**Status:** queued · **Filed:** 2026-08-29 · **Promoted:** 2026-08-29 (triage approval — Mark Hintz) · **Origin:** unverified claim in the plan-1 dual-agent review (archived `.archive/remote-review-transfer-2026-08-29/`), confirmed by runtime probe + code trace during the JG-021 WS1 evidence pass. Independent of JG-021 — no file overlap (JG-021 owns scene/camera/station files; this task owns `App.tsx` / `Chapters.tsx` / possibly `scrollStore.ts`).
+**Status:** verified 2026-08-30 (evidence green; commit local pending Mark's batch review) · **Filed:** 2026-08-29 · **Promoted:** 2026-08-29 (triage approval — Mark Hintz) · **Origin:** unverified claim in the plan-1 dual-agent review (archived `.archive/remote-review-transfer-2026-08-29/`), confirmed by runtime probe + code trace during the JG-021 WS1 evidence pass. Independent of JG-021 — no file overlap (JG-021 owns scene/camera/station files; this task owns `App.tsx` / `Chapters.tsx` / possibly `scrollStore.ts`). Implementation note: the fix landed entirely in `Chapters.tsx` (tier-only native-scroll listener → local `staticChapter` state; `App.tsx`/`scrollStore.ts` untouched — no store writes keeps the 3D world pinned to Station 1 per the static-cards-only UX).
 
 ## Confirmed defect
 
