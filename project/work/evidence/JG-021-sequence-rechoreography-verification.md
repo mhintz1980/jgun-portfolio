@@ -437,3 +437,80 @@ the full studio (its look passed round 2).
 
 TODO stays unchecked pending Mark's visual ruling on the retained
 palette + 0.35/0.18 panel translucency. Commits local (not pushed).
+
+## 12. Enclosure glow experiments — Mark-directed (2026-08-30, after round-3 acceptance)
+
+Owner ACCEPTED materials round 3 (black skid, orange/yellow enclosure,
+assignment correct) with one residual complaint: *"there is still a glowing
+effect to the component and I do not know what is causing it."* Three
+one-variable experiments in Mark's fixed order, each committed separately
+with a STOP for owner review: (1) panels opaque, (2) airflow particles off,
+(3) bloom off. No repaints, wrench rig untouched, TODO unchecked, no push
+(commits join the 4-commit local batch for review).
+
+Suspects on file at session start:
+- **Bloom is ALWAYS-ON** on full + lite tiers — it never unmounts outside
+  transitions (`PostProcessingComposer.tsx`): rest intensity 0.25,
+  luminanceThreshold 0.6, mipmap blur; only intensity (rest 0.25 → peak
+  0.65) is transition-driven. Anything above L 0.6 at Station-2 rest —
+  saturated `#ffc500` paint + metallic speculars — receives a standing halo.
+- **AirflowField** (`stages/AirflowField.tsx`): 12,000 full-tier points with
+  `AdditiveBlending`, `depthWrite:false`, `uAlpha` = station envelope (≈1
+  through the reveal window) — additive accumulation over bright surfaces is
+  a standing brightness-add mechanism. §11's hot-pixel cuts measured it ≈
+  neutral on clipped pixels, but clipped-pixel % does not capture a halo.
+- **Translucent panels** (0.35/0.18, DoubleSide, depthWrite:false) stacking
+  a milky veil over the internals and each other.
+- **StudioRig env floor 0.5** while Station 2 is up (`scene.environmentIntensity`
+  — the only env lever that works in this three version, §11).
+
+### Baseline re-measurement (round-3 accepted state, fresh build of HEAD)
+
+Reproduces §11 exactly: blown-hot **0.57 %** assembled (p 0.575) / **0.11 %**
+revealed (p 0.65), avgL 59.2/57.6, warm 24.0/20.9, cyan 1.04/0.68 — the
+serving state is the owner-accepted state.
+
+### Experiment 1 — panels fully opaque (owner's explicit first step)
+
+Single-variable diff: `PANELS_OPAQUE` flag in `Station2_AcousticEnclosure.tsx`
+skips the translucent block so the GLB-baked panel material props stand
+(`transparent:false`, `depthWrite:true`); the cutaway lift still runs and the
+useFrame opacity writes become rendering no-ops. Live material probe: panels
+render `transparent:false, depthWrite:true, DoubleSide`, baked palette
+`#272728`/`#bfbfbf`/`#ffc500` untouched — zero repaint. Typecheck + build
+green; fresh `:4173` restart before measuring.
+
+| Metric (subject region, right 53% × mid 70%) | Base assembled | Exp1 assembled | Base revealed | Exp1 revealed |
+|---|---|---|---|---|
+| blown-hot % (L > 220) | 0.57 | 0.57 | 0.11 | 0.11 |
+| avg luminance | 59.2 | 59.6 | 57.6 | 60.4 |
+| mid band % (64–160) | 11.9 | 12.0 | 5.6 | **1.6** |
+| bright % (≥160) | 19.3 | 18.2 | 23.1 | **26.2** |
+| warm yellow-orange % | 24.0 | 24.9 | 20.9 | 21.8 |
+
+Reading: clipped-pixel metrics are flat — the 0.35-alpha panels were already
+contributing almost nothing to the hot-pixel count. The revealed-frame
+luminance MIX shifts (mid 5.6→1.6, bright 23.1→26.2) as the now-opaque
+panels occlude internals with their own surfaces. The visible change is
+spatial, not histogram-level: at the identical arc checkpoint/camera the
+translucent state shows a luminous wash and soft halo around the whole
+silhouette (the owner's "glow"), while the opaque state reads solid with
+crisp edges.
+
+Artifacts (this directory):
+- `JG-021-glow-exp1-st2-assembled.png`, `JG-021-glow-exp1-st2-revealed.png`
+  (exp1, healthy-GPU captures at p 0.575 / 0.65).
+- Before-reference at the same checkpoint and camera:
+  `JG-021-materials-r3-after-st2-desktop.png` (round-3 translucent state).
+
+Probe tooling note: a headless context-loss storm hit mid-session — four
+runs captured the app's own poster fallback ("STATIC RENDER MODE";
+`__threeScene` null) instead of the canvas. `matround3.mjs` now poster-guards
+each checkpoint (exit 2 on canvas loss) and writes per-checkpoint filenames;
+the captures above were re-taken after the storm self-recovered and
+reproduce the healthy-run numbers exactly.
+
+Status: **experiment 1 implemented, measured, committed — awaiting owner
+visual ruling at :4173.** Experiments 2 (airflow particles off) and 3 (bloom
+off) are blocked on that approval; the bloom always-on fact above is the
+input for the step-3 decision.

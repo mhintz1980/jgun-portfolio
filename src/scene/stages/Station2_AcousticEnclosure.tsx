@@ -153,6 +153,16 @@ function Station2Callout({
 const PANEL_OPACITY_ASSEMBLED = 0.35
 const PANEL_OPACITY_REVEALED = 0.18
 
+/**
+ * JG-021 glow experiment 1 (Mark-directed, 2026-08-30): while the residual
+ * enclosure glow is isolated, panels render fully opaque — skipping the
+ * translucent block keeps the GLB-baked material props (transparent=false,
+ * depthWrite=true) and turns the useFrame opacity writes into rendering
+ * no-ops. The cutaway lift still runs. Flip to false to restore the
+ * owner-approved 0.35/0.18 translucent treatment.
+ */
+const PANELS_OPAQUE = true
+
 function cloneMaterials(
   root: Object3D,
   lite: boolean,
@@ -174,9 +184,11 @@ function cloneMaterials(
       clone.side = isPanels ? DoubleSide : FrontSide
 
       if (isPanels) {
-        clone.transparent = true
-        clone.opacity = PANEL_OPACITY_ASSEMBLED
-        clone.depthWrite = false
+        if (!PANELS_OPAQUE) {
+          clone.transparent = true
+          clone.opacity = PANEL_OPACITY_ASSEMBLED
+          clone.depthWrite = false
+        }
         if (panelMaterialsCollector) {
           panelMaterialsCollector.push(clone)
         }
