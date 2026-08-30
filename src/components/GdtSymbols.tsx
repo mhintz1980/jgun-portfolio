@@ -48,12 +48,12 @@ const GLYPHS: Record<string, ReactElement> = {
       <path d="M7.5 4 V16 M12.5 4 V16" {...stroke} />
     </svg>
   ),
-  // circular runout — 45° arrow rising from a circle
+  // circular runout — bare 45° arrow, base anchored in the box's bottom-left
+  // (owner-verified against the registered references 2026-08-30: no circle)
   RUNOUT: (
     <svg viewBox="0 0 20 20" className="h-[14px] w-[14px]" aria-hidden="true" focusable="false">
-      <circle cx="6.2" cy="13.6" r="2.6" {...stroke} />
-      <path d="M8.1 11.7 L14.8 5.2" {...stroke} />
-      <path d="M14.8 5.2 L10.9 5.5 M14.8 5.2 L14.5 9.1" {...stroke} />
+      <path d="M2.4 17.6 L14.8 5.2" {...stroke} />
+      <path d="M14.8 5.2 L10.4 5.4 M14.8 5.2 L14.6 9.6" {...stroke} />
     </svg>
   ),
 }
