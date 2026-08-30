@@ -260,7 +260,7 @@ export interface CameraPose {
 /** Station 2 Orbit Arc constants (JG-021 WS3.3 & Arc Handoff Fix). */
 const S2_ARC_CENTER: readonly [number, number, number] = [28.0, 1.2, -6.35]
 const S2_ARC_RADIUS = 6.905251624669818 // hypot(32.6 - 28.0, -1.2 - (-6.35))
-const S2_ARC_START_AZIMUTH = 0.8415277881079375 // Math.atan2(5.15, 4.6)
+const S2_ARC_START_AZIMUTH = 0.8415277881079375 // azimuth of K2 about S2_ARC_CENTER (dx 4.6, dz 5.15); frozen literal ~0.00022 rad below Math.atan2(5.15, 4.6), leaving a 1.5 mm goal seam at the 0.600 boundary — absorbed below the 0.05 m continuity gate; changing it would move S2_ARC_END_POSE
 const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
 
 /** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */

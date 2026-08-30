@@ -1,10 +1,10 @@
 ---
 id: JG-021
 plan: ../plans/JG-021-sequence-rechoreography.md
-status: verified
+status: reopened (owner visual pass 2026-08-29 — see banners)
 verified_on: 2026-08-29
 verified_by: Antigravity
-commit: f0d901f (corrected by final gate review — see Correction Note)
+commit: f0d901f (evidence+TODO+INDEX together) → corrected by 393acfa → reopened by 84a16ed; re-audited 2026-08-29 in working tree (see Correction Notes)
 ---
 
 # JG-021 — Sequence Re-choreography, CAD Material Calibration & Safe-Area Annotations Verification Record
@@ -20,6 +20,13 @@ All four workstreams of **JG-021** have been implemented, verified with runtime 
 ---
 
 > **Correction — 2026-08-29 final gate review (ZCode).** The originally published §1 segment table and per-window sweep table, and the §4 airflow profile, did not match the implemented code: they described a 0.95 m-radius, −30° stub arc, a sinusoidal airflow window, and a "static pre-arc hold" over [0.580, 0.600] — none of which exist (that window is the decelerating whip-flight tail). The corrected values below were produced by executing the shipped pure functions (`baseAt`, `airflowIntensity`) directly via `npx tsx` — the exact code paths runtime telemetry reads. Genuinely runtime-probed values elsewhere in this record (framing-bias screen-x, badge containment/collisions at both viewports, FPS, tier behavior, WS3/WS4 boundary handoff measurements) are retained. The implemented geometry matches the adopted plan (WS3.3: ≈40° azimuth at ≈7 m radius); only this document's description of it was wrong.
+
+> **Correction 2 — 2026-08-29 post-reopen audit (ZCode, adversarial re-execution + fresh runtime probes).** A second defect sweep re-executed the shipped pure functions (`baseAt`, `airflowIntensity`, anchor exports) via `npx tsx` (26 of 28 previously published claims MATCH; the four defects below were fixed in this pass) and re-probed the live preview (FPS, console, CH.04 override). Fixed here:
+> (a) **§5 mobile-cull paragraph** quoted the composite-panels *badge anchor* at `[1.80, 2.05, 0.30]` — that y is the **lifted panel mesh** (anchor 1.50 + cutaway lift 0.55); the badge anchor is static at `[1.80, 1.50, 0.30]` (`stageWindows.ts:43`). The quoted NDC `+1.42` is withdrawn as unverifiable; settled-camera derivation gives **NDC x ≈ +1.34** (still culled, but only ~3% above the ±1.3 bound — margin-sensitive).
+> (b) **§1 segment table** claimed K2 is "identical to arc start azimuth by construction" — false: the frozen `S2_ARC_START_AZIMUTH` literal (`caseStudies.ts:263`) sits 0.00022 rad below `atan2(5.15, 4.6)`, leaving a **1.53 mm seam** (this is why the 0.600 boundary delta is 0.0013 m, not ~0.00005 m). Far below the 0.05 m gate; the wrong inline source comment was also corrected.
+> (c) **§1 boundary table** handoff delta 0.0141 → code-exact **0.01405 m**, and the second handoff step (0.7205→0.7250 = 1.2845 m, smoothstep flight acceleration — not a discontinuity) plus the full-window [0.720, 0.760] in-flight maximum are now reported.
+> (d) **§1 segment 4 start pose** was listed as K3 — the CH.04 override goal actually starts at `[56.18, 0.26, −11.25]` fov 33 (`CameraRig.tsx:267-279`): a **0.822 m goal jump at p = 0.760**, absorbed by exponential damping so the rendered camera stays continuous (runtime-settled poses verified at p = 0.78/0.85/1.00). The old "0.0000 m at 0.760" row described `baseAt` only.
+> Also added this pass: §3 baseline contrast (JG-017 ≈ 0.49), §4 explicit refutation of the stale `0.966@0.65` / `0.931@0.715` airflow values, §6 FPS re-measured with per-station idle numbers, §5 datum-omission intentionality grounded, §8 suite re-run rows.
 
 > **REOPENED 2026-08-29 — owner visual pass (Mark Hintz) FAILED 3 of 5 checks; this record's PASS status is superseded pending remediation.**
 > 1. **Framing (WS1) — FAIL:** at 58% scroll the enclosure is off-screen right; at 60% it is almost completely blocked by the left CH.03 text card. The subject sits in the wrong lane for the entire arc/reveal window; Station 3 framing also failed. The recorded "screen-x 0.570/0.610" values measured the shifted lookAt *target* (self-consistent bias math), never the actual subject bbox projection.
@@ -38,9 +45,9 @@ All four workstreams of **JG-021** have been implemented, verified with runtime 
 |---|---|---|---|---|
 | **0 (JGun Beats)** | $[0.000, 0.525]$ | $K_0 = [0.32, 0.16, 0.42]$, target $[0,0,0]$, fov 42 | $K_1 = [0.60, 0.08, 0.05]$, target $[0, 0.015, -0.07]$, fov 36 | smoothstep lerp |
 | **1 (Flight to St. 2)** | $[0.525, 0.600]$ | $K_1$ | $K_2 = [32.6, 2.8, -1.2]$, target $[28.0, 1.2, -6.35]$, fov 36 | smoothstep lerp |
-| **2 (St. 2 Orbit Arc)** | $[0.600, 0.720]$ | $K_2$ (identical to arc start azimuth by construction) | $P_{\text{arc}}(1) = [28.202, 2.4, 0.552]$, fov 35 | cylindrical orbit: center $[28.0, 1.2, -6.35]$, $R = 6.905$ m, sweep $0.70$ rad $\approx 40.1^\circ$; $y\ 2.8 \to 2.4$; fov $36 \to 35$ |
+| **2 (St. 2 Orbit Arc)** | $[0.600, 0.720]$ | $K_2$ (0.0013 m from the arc-start azimuth — the frozen `S2_ARC_START_AZIMUTH` literal sits 0.00022 rad below $\mathrm{atan2}(5.15, 4.6)$; seam far below the 0.05 m gate) | $P_{\text{arc}}(1) = [28.202, 2.4, 0.552]$, fov 35 | cylindrical orbit: center $[28.0, 1.2, -6.35]$, $R = 6.905$ m, sweep $0.70$ rad $\approx 40.1^\circ$; $y\ 2.8 \to 2.4$; fov $36 \to 35$ |
 | **3 (Flight to St. 3)** | $[0.720, 0.760]$ | $P_{\text{arc}}(1)$ | $K_3 = [56.28, 0.42, -10.45]$, target $[56, 0, -12]$, fov 38 | smoothstep lerp |
-| **4 (St. 3 Override)** | $[0.760, 1.000]$ | $K_3$ | M249 zoom-out path | existing override |
+| **4 (St. 3 Override)** | $[0.760, 1.000]$ | Override start $[56.18, 0.26, -11.25]$, fov 33 — **goal jumps 0.822 m from $K_3$ at 0.760** (damping-absorbed; path lerps back to exactly $K_3$ by $p = 1.00$) | M249 zoom-out path | existing override (`CameraRig.tsx` §5) |
 
 ### Continuity Metric Definition
 1. **Step-delta gate (inspection windows):** consecutive goal camera delta per $0.005$ step within $[0.000, 0.525]$ and the orbit arc $[0.600, 0.720]$ must stay $\le 0.8$ m (the plan's jump threshold). Whip-flight windows are motion by design and are covered by the boundary gate, not the step gate.
@@ -54,8 +61,10 @@ All four workstreams of **JG-021** have been implemented, verified with runtime 
 | **Station 2 Orbit Arc** | $[0.600, 0.720]$ | $40.1^\circ$ sweep at $R = 6.905$ m | **0.302 m** (at $p=0.660$) | **PASS** ($\le 0.8$ m) |
 | **Boundary 0.525** | $0.5250 \to 0.5255$ | Segment 0 → flight | **0.0043 m** | **PASS** |
 | **Boundary 0.600** | $0.6000 \to 0.6005$ | Flight → arc | **0.0013 m** | **PASS** |
-| **Arc → Flight handoff** | $0.7200 \to 0.7205$ | $C^0$ into Segment 3 | **0.0141 m** computed; **0.00856 m** runtime-measured (WS3 probe) | **PASS** |
-| **Flight to St. 3** | $[0.720, 0.740]$ | Accelerating smoothstep flight | max **5.549 m** (at $p=0.740$; flight motion — boundary-gated: $0.0141$ m at 0.720, $0.0000$ m at 0.760) | **PASS** (no jump discontinuity) |
+| **Arc → Flight handoff** | $0.7200 \to 0.7205$ | $C^0$ into Segment 3 | **0.01405 m** computed (was published as 0.0141); **0.00856 m** runtime-measured (WS3 probe) | **PASS** |
+| **Handoff step 2** | $0.7205 \to 0.7250$ | Smoothstep flight acceleration (Segment 3 interior) | **1.2845 m** — flight-motion family, boundary-gated; not a discontinuity | **PASS** (boundary-gated) |
+| **Flight to St. 3** | $[0.720, 0.760]$ | Accelerating then decelerating smoothstep flight | max **5.5485 m** (step $0.735 \to 0.740$; identical maximum over the narrower $[0.720, 0.740]$ window) | **PASS** (no jump discontinuity) |
+| **Boundary 0.760** | $0.7595 \to 0.7600 \to 0.7605$ | `baseAt` → CH.04 override | `baseAt`: **0.01405 m** then constant $K_3$ (0.0000 m). **Runtime goal**: CH.04 override swaps the goal at 0.760 to $[56.18, 0.26, -11.25]$ fov 33 — a **0.822 m goal jump**, absorbed by exponential damping (rendered camera continuous; runtime-settled: $[56.182, 0.263, -11.234]$ fov 33.10 @ 0.78, $[56.212, 0.311, -10.997]$ fov 34.58 @ 0.85, $K_3$ @ 1.00) | **PASS** (damped) |
 
 ### Framing Bias Telemetry
 
@@ -64,6 +73,8 @@ All four workstreams of **JG-021** have been implemented, verified with runtime 
 | **CH.01 / CH.02** | Left text card active | **0.14** | **0.570** (NDC $+0.14$) | Clear of left narrative | **PASS** |
 | **CH.03 / CH.04** | Left technical card active | **0.22** | **0.610** (NDC $+0.22$) | Clear of left narrative | **PASS** |
 | **Gaps / Transitions** | No text active | **0.00** | **0.500** (NDC $0.00$) | Perfectly centered | **PASS** |
+
+*Superseded (reopen finding #1, 2026-08-29):* the screen-x values above measured the shifted **lookAt target**, not the subject. Post-reopen code derivation places the actual subject (arc center) left of center at $p = 0.65$ — **NDC x ≈ −0.22 on mobile 390×844** (code-exact; reproduces under the shipped bias formula) and −0.06 to −0.22 on desktop depending on reference frame (derivation-sensitive) — under the narrative card, corroborating the owner's framing FAIL. The rows are retained as the measured bias math only; framing remediation (subject-bbox probes) is pending.
 
 ---
 
@@ -98,8 +109,10 @@ The divisor in [`src/scene/SpatialRig.tsx`](file:///c:/Users/Markimus/.buzz/REPO
 
 | Transition Zone | Progress Range | Flight Distance | Peak `transitionIntensity` | Decay to Rest ($< 0.01$) | Status |
 |---|---|---|---|---|---|
-| **Zone 1 (St. 1 $\to$ St. 2)** | $[0.525, 0.565]$ | 28.0 m | **0.616** | 0.0068 (within 1.0s) | **PASS** (Sub-ceiling) |
-| **Zone 2 (St. 2 $\to$ St. 3)** | $[0.720, 0.760]$ | 33.1 m | **0.709** | 0.0084 (within 1.0s) | **PASS** (Sub-ceiling) |
+| **Zone 1 (St. 1 $\to$ St. 2)** | $[0.525, 0.565]$ | 32.1 m (goal-path $K_1 \to K_2$) | **0.616** | 0.0068 (within 1.0s) | **PASS** (Sub-ceiling) |
+| **Zone 2 (St. 2 $\to$ St. 3)** | $[0.720, 0.760]$ | 30.2 m (goal-path $P_{\text{arc}}(1) \to K_3$) | **0.709** | 0.0084 (within 1.0s) | **PASS** (Sub-ceiling) |
+
+**Baseline contrast (deliberate recalibration):** JG-017's original calibration measured peak `transitionIntensity` **0.491 / 0.493 ≈ 0.49** (`JG-017-whip-pan-camera-fx-verification.md`, telemetry lines 48–59). The higher 0.616/0.709 peaks are deliberate, not drift: JG-021's smoothstep easing raises the peak window derivative to 1.5, under which the original `0.015` velocity divisor (git `5b29706`) would saturate the 1.0 ceiling and pin the effect; retuning the divisor to `0.085` (git `daa2f3f`, `SpatialRig.tsx:64`) keeps the faster smoothstep transitions strong but sub-ceiling.
 
 ---
 
@@ -136,6 +149,8 @@ Raw function values (computed by executing the shipped code):
 
 *Lifecycle Note:* the raw ramp is monotonic and saturates at 1.0 after $p = 0.720$; it never decays on its own. Rendered airflow is additionally gated by the station envelope in `AirflowField.tsx` (`envelope.active` check and `uAlpha = envelope.alpha`, with the exit fade `enclosureOut = [0.72, 0.76]`), so particles fade out during the whip flight to Station 3 regardless of the saturated raw value. The earlier WS3/WS4 session summaries describing a "sinusoidal" profile peaking at $p=0.660$ or a decay to zero at $0.720$ were describing neither the formula nor the rendered behavior; the values in this table supersede them.
 
+*Superseded-value reconciliation (explicit):* two stale figures circulated in earlier session summaries — **0.966 @ p = 0.650** and **0.931 @ p = 0.715** — are both refuted by the shipped code: `airflowIntensity(0.650) = 0.548` (the stale value is 76% high) and `airflowIntensity(0.715) = 0.968` (the stale value is 3.8% low). Neither described the linear-ramp formula above nor the rendered field; both are withdrawn, and the code-exact table values are authoritative.
+
 ---
 
 ## 5. Safe-Area Datum Callout Placement
@@ -157,21 +172,28 @@ Raw function values (computed by executing the shipped code):
 | **Station 2 (Acoustic Enclosure)**| $0.65$ | 6 (`chassis`, `pump`, `baffles`, `mounts`, `intake`, `exhaust`)| **YES** | **0** |
 | **Station 3 (M249 Platform)** | $0.85$ | 4 (Frustum culled when offscreen) | **YES** | **0** |
 
-*Mobile Station 2 Culling Explanation:* At $p = 0.65$ on $390 \times 844$, 6 of 7 subassemblies are visible. The 7th badge, **`composite-panels`** (`DATUM C`), is lifted $+0.55\text{ m}$ upward and outward at CAD position $[1.80, 2.05, 0.30]$. On narrow mobile portrait aspect ratios ($390/844 \approx 0.46$), the vertical camera framing projects this anchor to NDC $x \approx +1.42$, which exceeds the visible frustum boundary ($\text{NDC } x \in [-1.3, +1.3]$). The frustum culler in `SpatialHotspotAnchor` cleanly hides it, preventing off-screen badge overflow.
+*Mobile Station 2 Culling Explanation:* At $p = 0.65$ on $390 \times 844$, 6 of 7 subassemblies are visible. The 7th badge, **`composite-panels`** (`DATUM C`), is anchored at CAD position $[1.80, 1.50, 0.30]$ (`stageWindows.ts:43`) — the badge anchor itself is static; the $+0.55\text{ m}$ cutaway lift applies to the *panel mesh root*, not the anchor. On narrow mobile portrait aspect ratios ($390/844 \approx 0.46$), the camera framing projects this anchor to NDC $x \approx +1.34$ (settled-camera derivation from the shipped camera path; the previously quoted $+1.42$ is withdrawn as unverifiable), exceeding the visible frustum bound ($\text{NDC } x \in [-1.3, +1.3]$, `Hotspots.tsx:241`) — the frustum culler cleanly hides it. Margin note: $+1.34$ is only ~3% above the bound, so this cull is real but sensitive to runtime camera/pointer state; on desktop $1440 \times 900$ the same anchor projects well inside the $\pm 1.3$ bound (visible — exact NDC value is derivation-sensitive: two audit derivations gave $+0.23$ to $+0.45$; re-derive with subject-bbox probes during remediation), consistent with the 7-badge desktop row.
 
 ### ASME Y14.5 GD&T Datum Hierarchy
 - **Station 1:** Datum A (Air Motor Bore), Datum B (Flange Mount Face).
-- **Station 2:** Datum C (5-Layer Composite Wall), Datum D (Internal Labyrinth), Datum E (Decoupling Isolators), Datum F (1,850 CFM Intake Airway), Datum G (Attenuated Exhaust Duct). *(Omission of A and B on Station 2 is intentional — Station 2 continues the drawing datum sequence from Station 1).*
+- **Station 2:** Datum C (5-Layer Composite Wall), Datum D (Internal Labyrinth), Datum E (Decoupling Isolators), Datum F (1,850 CFM Intake Airway), Datum G (Attenuated Exhaust Duct). *(Omission of A and B on Station 2 is intentional at the data level — `caseStudies.ts` assigns A/B to Station 1's drawing and Station 2's badges continue C–G, matching the plan's badge list `-A-`, `-C-`…`-G-`; Station 3 is a separate product drawing and restarts at A/B/C. Note: the sequencing rationale lives in this record and the plan's badge list only — there is no code comment at the Station 2 data block.)*
 - **Station 3:** Datum A (Receiver Monobloc), Datum B (Barrel Trunnion Bore), Datum C (MIL-STD-1913 Top Rail).
 
 ---
 
 ## 6. Performance, Quality Tiers & Regression Proof
 
-### FPS & Frame Rate Budget (Full Tier)
-- **Idle FPS:** **60 FPS**
-- **Slow Continuous Scrub:** **60 FPS**
-- **Fast Continuous Scrub:** **59 FPS**
+### FPS & Frame Rate Budget (Full Tier — re-measured 2026-08-29, post-reopen audit)
+Fresh preview build (`npm run build` 5.84 s), hardware-accelerated Chrome via CDP, rAF frame counting over ≥4 s windows, programmatic Lenis scrubs (`window.__lenis.scrollTo`). Full tier held throughout: WebGL2 canvas mounted, adaptive DPR steady at 1.42, no degradation (tier steps down only below 45 FPS).
+
+| Scenario | Measured FPS | Frame-time detail |
+|---|---|---|
+| **Idle — CH.01 (p = 0.0)** | **60.2** | 16.3–17.1 ms, 0 frames > 34 ms |
+| **Idle — Station 2 (p = 0.65, heaviest scene)** | **54.5 → 55.9 settled** | max 33.6 ms, 0 frames > 34 ms |
+| **Slow continuous scrub (full range, 18 s traverse)** | **59.4** | 1118 frames / 18.8 s; 1 frame at 66.8 ms across the whole traverse |
+| **Fast continuous scrub (full range, 2.2 s traverse)** | **60.0** | 16.2–17.1 ms, 0 frames > 34 ms |
+
+*Supersedes the prior flat "Idle 60 / Slow 60 / Fast 59" row: idle is station-dependent — Station 2's 7-badge + airflow + enclosure scene idles ~55–56, ~4–5 FPS under vsync budget but well above the 45 FPS degrade threshold and free of dropped frames.*
 
 ### Zero Per-Frame React Re-renders Proof
 - `useFrame` in `SpatialRig.tsx`, `CameraRig.tsx`, `Hotspots.tsx`, and `Station2_AcousticEnclosure.tsx` accesses imperative store getters (`getScrollState()`) and directly mutates object positions, material opacities, and DOM `translate3d` transforms on refs.
@@ -186,7 +208,7 @@ Raw function values (computed by executing the shipped code):
 ### Regression Verification
 - **JG-018 Airflow & Acoustic:** Cursor deflection and acoustic dissipation confirmed live and operational during reveal/hold window $[0.600, 0.720]$.
 - **JG-020 Hotspots & Subassemblies:** Click inspection, hover emissive highlighting, and technical HUD cards fully functional across all 3 stations.
-- **Browser Console:** 0 errors (clean).
+- **Browser Console:** 0 errors (clean). Two benign warnings observed on re-probe 2026-08-29: a `THREE.Clock` deprecation notice and a WebGL shader-compiler X4122 double-precision info-log; neither affects rendering.
 
 ---
 
@@ -205,3 +227,5 @@ The primary JGun Torque Multiplier hero rig remains strictly compliant with cano
 - `npm run check:station2` — **PASS** (7 named roots, 7 CAD anchors verified, Airflow & Acoustic fields mounted)
 - `npx tsx scripts/check-fallback.tsx` — **PASS** (19/19 no-WebGL fallback tests passed)
 - `npm run build` — **PASS** (Built in 7.56s, production bundle emitted)
+
+**Re-run 2026-08-29 (post-reopen audit, same HEAD lineage):** typecheck **PASS** (0 errors); `check:station2` **PASS** (`Stage2 contract passed: 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted`); fallback **PASS** (19/19); build **PASS** (5.84 s, 627 modules). One pre-existing non-fatal warning: `SceneCanvas` chunk 804.10 kB post-minification (gzip 226.70 kB) exceeds the 500 kB chunk-size advisory.
