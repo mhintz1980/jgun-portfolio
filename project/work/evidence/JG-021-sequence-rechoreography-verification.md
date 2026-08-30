@@ -315,3 +315,37 @@ Composing the subject high on mobile pushed badge anchors into the narrow top ba
 - Headless ANGLE/Vulkan runs of this app degrade tiers below ~45 fps by design of the PerformanceMonitor; all evidence above was captured on the hardware-GPU browser or via pure-function probes.
 
 **Status: remediation complete pending Mark's owner re-review. TODO checkbox intentionally left unchecked; commit is local only (no push) until the evidence is reviewed.**
+
+---
+
+## 10. Owner re-review 2026-08-30 (post-remediation, session end)
+
+Reviewed live at `:4173` after commits `6bcc52f` + `ed106cb`:
+
+1. **Runout glyph — PASS.** "Arrow looks good enough." Bare 45° arrow, base
+   bottom-left, no circle (owner ruling implemented same day).
+2. **Framing — no complaints raised** in this pass (arc/CH.04/mobile
+   compositions stood; no revision requested).
+3. **Materials — PARTIAL FAIL, round 2.** Blowout is fixed ("It is no longer
+   blown out"), but the assigned colors are wrong: panels read white/grey with
+   the camera-facing panel reading cyan. Owner's mid-note: the panels are
+   *supposed* to be mostly transparent, which is part of why they read
+   white/grey — but regardless, the color assignment is incorrect and it
+   "is back how it was in a previous iteration before improvements were made
+   to retain colors or materials."
+   **Next session starts here:** diagnose against the owner screenshot saved at
+   `project/work/evidence/JG-021-review-2026-08-30-st2-materials.png`.
+   Open questions for that session: (a) which tier/scroll progress the
+   screenshot captures vs what the live `__threeScene` probe reports (probe
+   showed the dark override values — reconcile the discrepancy, incl. possible
+   lite-tier/full-tier material rebuild differences via the `[gltfs, tier]`
+   memo and translucent-panel/airway-volume interaction during the reveal
+   window); (b) whether COMPOSITE_PANELS translucency over the cyan
+   MSP_AIRWAY_VOLUME produces the white/cyan reads; (c) what the correct
+   per-root color assignment should be per the owner's intent.
+4. **Future work (owner-directed, not now):** JGun handle rear-endcap redesign —
+   dimmer screen light, buttons carrying symbols or text, digital display with
+   numbers/text. Filed at `project/work/inbox/jgun-handle-rear-redesign.md`.
+
+TODO stays unchecked; commits remain local (not pushed) pending the materials
+round-2 fix and the final owner pass.
