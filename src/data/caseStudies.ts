@@ -27,7 +27,7 @@ export const CHAPTERS: ChapterDef[] = [
     title: 'Inside the Reduction Train',
     subtitle:
       'Housing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.',
-    callouts: ['RUNOUT < .0015" TIR', 'POSITION ⌖ .002" @ MMC'],
+    callouts: ['RUNOUT < .0015" TIR', 'POSITION .002" @ MMC'],
     datum: 'B',
   },
   {
@@ -45,7 +45,7 @@ export const CHAPTERS: ChapterDef[] = [
     title: 'From Point Cloud to Production Code',
     subtitle:
       'The same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.',
-    callouts: ['POSITION ⌖ .002" @ MMC', 'RUNOUT < .0015" TIR'],
+    callouts: ['POSITION .002" @ MMC', 'RUNOUT < .0015" TIR'],
     datum: 'A',
   },
 ]
@@ -223,9 +223,16 @@ export const CAMERA_PATH: CameraKeyframe[] = [
   // CH.02 — x-ray & axial exploded reduction stages, lateral inspection (Station 1: [0, 0, 0])
   { position: [0.60, 0.08, 0.05], target: [0, 0.015, -0.07], fov: 36 },
   // CH.03 — acoustic enclosure / thermal airflow, macro isometric (Station 2: [28, 0, -6])
-  { position: [32.6, 2.8, -1.2], target: [28.0, 1.2, -6.35], fov: 36 },
+  // JG-021 remediation: pulled to R = 8.5 m about the arc center so the 1.6 x 3.4 m
+  // subject clears the left CH.03 card lane with margin (was R ≈ 6.905 m — subject
+  // filled ~97% of screen width and sat under the card).
+  { position: [33.662357, 2.8, -0.010622], target: [28.0, 1.2, -6.35], fov: 36 },
   // CH.04 — digital systems: M249 platform overview & continuous zoom-out (Station 3: [56, 0, -12])
-  { position: [56.28, 0.42, -10.45], target: [56, 0, -12], fov: 38 },
+  // JG-021 remediation: near pose at ~2.5 m (the CH.04 override starts here —
+  // zero goal jump at 0.760 — and dollies to ~3.5 m over a 0.18 window; the old
+  // 0.82 m / 1.63 m macro poses put the 1.18 m receiver at 131% screen width,
+  // under the CH.04 card).
+  { position: [56.43, 0.65, -9.62], target: [56, 0, -12], fov: 35 },
 ]
 
 export interface CameraSegment {
@@ -257,10 +264,10 @@ export interface CameraPose {
   fov: number
 }
 
-/** Station 2 Orbit Arc constants (JG-021 WS3.3 & Arc Handoff Fix). */
+/** Station 2 Orbit Arc constants (JG-021 WS3.3 & Arc Handoff Fix; remediation R-bump). */
 const S2_ARC_CENTER: readonly [number, number, number] = [28.0, 1.2, -6.35]
-const S2_ARC_RADIUS = 6.905251624669818 // hypot(32.6 - 28.0, -1.2 - (-6.35))
-const S2_ARC_START_AZIMUTH = 0.8415277881079375 // azimuth of K2 about S2_ARC_CENTER (dx 4.6, dz 5.15); frozen literal ~0.00022 rad below Math.atan2(5.15, 4.6), leaving a 1.5 mm goal seam at the 0.600 boundary — absorbed below the 0.05 m continuity gate; changing it would move S2_ARC_END_POSE
+const S2_ARC_RADIUS = 8.5 // hypot(33.662357 - 28.0, -0.010622 - (-6.35)) — widened from 6.905 (JG-021 remediation) for card-lane clearance
+const S2_ARC_START_AZIMUTH = 0.84174869911009054 // exact atan2(5.15, 4.6) — azimuth of K2 about S2_ARC_CENTER; the remediation K2 sits on this azimuth by construction (no goal seam at the 0.600 boundary)
 const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
 
 /** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */
@@ -306,9 +313,14 @@ export function baseAt(progress: number): CameraPose {
   }
 
   if (p <= 0.600) {
-    // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2)
+    // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2).
+    // JG-021 remediation: the TARGET leads the position (triple smoothstep)
+    // so the camera turns toward the enclosure early in the approach —
+    // previously the target lagged and the subject sat off-screen right
+    // through the arrival transit (owner visual pass finding).
     const u = (p - 0.525) / (0.600 - 0.525)
     const t = smoothstep(u)
+    const tTarget = smoothstep(smoothstep(t))
     const from = CAMERA_PATH[1]
     const to = CAMERA_PATH[2]
     return {
@@ -318,9 +330,9 @@ export function baseAt(progress: number): CameraPose {
         lerpN(from.position[2], to.position[2], t),
       ],
       target: [
-        lerpN(from.target[0], to.target[0], t),
-        lerpN(from.target[1], to.target[1], t),
-        lerpN(from.target[2], to.target[2], t),
+        lerpN(from.target[0], to.target[0], tTarget),
+        lerpN(from.target[1], to.target[1], tTarget),
+        lerpN(from.target[2], to.target[2], tTarget),
       ],
       fov: lerpN(from.fov, to.fov, t),
     }
@@ -343,9 +355,12 @@ export function baseAt(progress: number): CameraPose {
   }
 
   if (p <= 0.760) {
-    // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3
+    // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3.
+    // Target leads position (same remediation as segment 1) so the receiver
+    // is on-screen through the approach rather than snapping in at 0.760.
     const u = (p - 0.720) / (0.760 - 0.720)
     const t = smoothstep(u)
+    const tTarget = smoothstep(smoothstep(t))
     const to = CAMERA_PATH[3]
     return {
       position: [
@@ -354,9 +369,9 @@ export function baseAt(progress: number): CameraPose {
         lerpN(S2_ARC_END_POSE.position[2], to.position[2], t),
       ],
       target: [
-        lerpN(S2_ARC_END_POSE.target[0], to.target[0], t),
-        lerpN(S2_ARC_END_POSE.target[1], to.target[1], t),
-        lerpN(S2_ARC_END_POSE.target[2], to.target[2], t),
+        lerpN(S2_ARC_END_POSE.target[0], to.target[0], tTarget),
+        lerpN(S2_ARC_END_POSE.target[1], to.target[1], tTarget),
+        lerpN(S2_ARC_END_POSE.target[2], to.target[2], tTarget),
       ],
       fov: lerpN(S2_ARC_END_POSE.fov, to.fov, t),
     }
@@ -368,20 +383,48 @@ export function baseAt(progress: number): CameraPose {
 }
 
 /**
- * Framing bias magnitude along camera-left (shifting subject to screen-right ~62-65% screen-x).
- * Evaluates to ≈0.14 during CH.01/02 text, ≈0.22 during CH.03/04 card, fading to 0
- * on ±0.035 ramps matching CHAPTER_RANGES.
+ * Framing bias (JG-021 remediation) — target offsets in NDC units that push the
+ * SUBJECT clear of the left narrative text lane.
+ *
+ * Desktop/landscape: horizontal only. b01 = 0.14 during CH.01/02 (transparent
+ * caption, owner-passed — unchanged); b23 = 0.36 during the CH.03 card window and
+ * CH.04 (raised from 0.22: with the corrected shift direction the St.2 subject's
+ * unbiased NDC center sits at ≈ −0.15 with half-width ≈ 0.42, so clearing the
+ * card edge at NDC −0.16 requires ≈ 0.36).
+ *
+ * Portrait/mobile: the glass cards span ~90% of the 390px width, so no horizontal
+ * lane exists; `y` composes the subject into the free band ABOVE the vertically
+ * centered card (card top ≈ NDC y +0.68). Full clearing is geometrically
+ * impossible for the 2.6 m tall enclosure — `y` places its upper portion in the
+ * band; the small M249 receiver clears completely. Ramps mirror the card fades.
  */
-export function framingBias(progress: number): number {
+export interface FramingBiasVec {
+  x: number
+  y: number
+}
+
+export function framingBiasVec(progress: number): FramingBiasVec {
   const ramp = 0.035
   const w0 = Math.min(Math.max((0.22 - progress) / ramp, 0), 1)
   const w1 = Math.min(Math.max((progress - 0.24) / ramp, 0), Math.max((0.46 - progress) / ramp, 0), 1)
   const w2 = Math.min(Math.max((progress - 0.50) / ramp, 0), Math.max((0.72 - progress) / ramp, 0), 1)
-  const w3 = Math.min(Math.max((progress - 0.76) / ramp, 0), 1)
+  // CH.04 ramps in over 0.02 (tighter than the card fade) so the receiver is
+  // fully biased by p = 0.78, where the card is already ~57% visible.
+  const w3 = Math.min(Math.max((progress - 0.76) / 0.02, 0), 1)
 
   const b01 = smoothstep(Math.max(w0, w1)) * 0.14
-  const b23 = smoothstep(Math.max(w2, w3)) * 0.22
-  return Math.max(b01, b23)
+  const b23 = smoothstep(Math.max(w2, w3)) * 0.38
+  // Portrait vertical: w2 window (Station 2 hold) lifts the tall enclosure into
+  // the top band (~51% of its height clears the card top at NDC +0.65); w3
+  // window (CH.04) parks the small receiver fully inside the band.
+  const y2 = smoothstep(w2) * 0.75
+  const y3 = smoothstep(w3) * 0.84
+  return { x: Math.max(b01, b23), y: Math.max(y2, y3) }
+}
+
+/** Horizontal framing bias magnitude (telemetry/probe surface — the x component). */
+export function framingBias(progress: number): number {
+  return framingBiasVec(progress).x
 }
 
 /**
@@ -437,11 +480,15 @@ export const LCD_ORBIT_KEYFRAMES = {
  * real node identities confirmed in the GLB audit — never guessed labels.
  *
  * Feature-control-frame cells use ONLY owner-approved vocabulary: the HUD
- * callout strings ('RUNOUT < .0015" TIR', 'POSITION ⌖ .002" @ MMC',
+ * callout strings ('RUNOUT < .0015" TIR', 'POSITION .002" @ MMC',
  * 'FLATNESS < .0008"') and drawing-verified datum references (P000420
- * controls terminate in datum A). Literal glyph transcription from the
- * drawing PDFs requires crop verification at readable scale
- * (gdt-annotation-style.md) — invented symbols are not used.
+ * controls terminate in datum A). JG-021 remediation: Y14.5 characteristics
+ * render as canonical SVG symbols (GdtSymbols.tsx, styled per the registered
+ * references in context/references/media/gdt/) — the characteristic string
+ * is a symbol KEY ('RUNOUT', 'FLATNESS', 'POSITION', 'PROFILE',
+ * 'PARALLELISM'); Station 2's non-Y14.5 acoustic spec frames ('ATTENUATION',
+ * 'LABYRINTH', …) legitimately stay as text. Prose (detail/processNote)
+ * keeps the words where natural language belongs.
  */
 export const HOTSPOTS: HotspotDef[] = [
   {
@@ -502,10 +549,10 @@ export const HOTSPOTS: HotspotDef[] = [
       'Outer housing of the D1-AP planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
     annotation: {
       frame: {
-        characteristic: 'POSITION ⌖',
+        characteristic: 'POSITION',
         cells: ['.002" @ MMC'],
       },
-      processNote: 'POSITION ⌖ .002" @ MMC',
+      processNote: 'POSITION .002" @ MMC',
     },
     chapters: [1],
   },
@@ -667,7 +714,7 @@ export const HOTSPOTS: HotspotDef[] = [
     annotation: {
       datum: 'A',
       frame: {
-        characteristic: 'PROFILE ⌓',
+        characteristic: 'PROFILE',
         cells: ['.0015" @ MMC', 'A', 'B'],
       },
       processNote: 'MIL-SPEC INTERCHANGEABILITY',
@@ -701,7 +748,7 @@ export const HOTSPOTS: HotspotDef[] = [
     annotation: {
       datum: 'C',
       frame: {
-        characteristic: 'PARALLELISM //',
+        characteristic: 'PARALLELISM',
         cells: ['.0010"', 'A'],
       },
       processNote: 'MIL-STD-1913 PROFILE',

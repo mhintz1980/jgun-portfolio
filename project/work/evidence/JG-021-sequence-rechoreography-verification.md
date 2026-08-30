@@ -1,10 +1,10 @@
 ---
 id: JG-021
 plan: ../plans/JG-021-sequence-rechoreography.md
-status: reopened (owner visual pass 2026-08-29 — see banners)
+status: remediation implemented 2026-08-29 (owner visual pass failed framing/materials/GD&T; fixes + fresh evidence below — TODO stays unchecked pending owner re-review; not pushed)
 verified_on: 2026-08-29
 verified_by: Antigravity
-commit: f0d901f (evidence+TODO+INDEX together) → corrected by 393acfa → reopened by 84a16ed; re-audited 2026-08-29 in working tree (see Correction Notes)
+commit: f0d901f (evidence+TODO+INDEX together) → corrected by 393acfa → reopened by 84a16ed; re-audited 2026-08-29 in working tree (see Correction Notes); remediation implemented in working tree 2026-08-29 (see Remediation section)
 ---
 
 # JG-021 — Sequence Re-choreography, CAD Material Calibration & Safe-Area Annotations Verification Record
@@ -229,3 +229,89 @@ The primary JGun Torque Multiplier hero rig remains strictly compliant with cano
 - `npm run build` — **PASS** (Built in 7.56s, production bundle emitted)
 
 **Re-run 2026-08-29 (post-reopen audit, same HEAD lineage):** typecheck **PASS** (0 errors); `check:station2` **PASS** (`Stage2 contract passed: 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted`); fallback **PASS** (19/19); build **PASS** (5.84 s, 627 modules). One pre-existing non-fatal warning: `SceneCanvas` chunk 804.10 kB post-minification (gzip 226.70 kB) exceeds the 500 kB chunk-size advisory.
+
+---
+
+## 9. Remediation Record (2026-08-29, working tree — owner re-review pending, NOT pushed)
+
+All three owner-visual-pass failures were fixed. Probes below are **subject-bbox-corner NDC projections** through the live render camera (exposed as `window.__threeCamera` from `SceneCanvas` `onCreated` for exactly this purpose — never the lookAt target). All runtime numbers were re-measured after the final build; screenshots are committed alongside this file.
+
+### 9.1 Framing (fail #1)
+
+**Root cause (code):** the framing-bias block computed `(fwd.z, 0, −fwd.x)` and *subtracted* it. That vector is `up × fwd` = **camera-LEFT** in three.js' right-handed convention (true camera-right is `fwd × up` = `(−fwd.z, 0, fwd.x)`), so the lookAt target shifted toward camera-RIGHT, panning the camera right and pushing the **subject screen-LEFT** into the card lane. The old "screen-x 0.570/0.610" PASS rows measured the shifted target, which is always near screen center by construction — self-referential, measuring nothing about the subject.
+
+**Fixes:**
+1. Sign corrected — target now shifts along camera-LEFT; subject lands at NDC-x ≈ +bias.
+2. `framingBiasVec()` replaces the scalar: CH.03/04 horizontal bias raised 0.22 → **0.38** (measured requirement: unbiased St.2 subject center sits at ≈ −0.15 NDC with half-width ≈ 0.42; card edge −0.16); CH.04 ramp-in tightened to 0.02 so bias is full by p = 0.78. CH.01/02 stays 0.14 (owner-passed).
+3. St.2 arc radius 6.905 → **8.5 m** (K2 = [33.662357, 2.8, −0.010622], azimuth literal refreshed to the exact `atan2(5.15, 4.6)` = 0.84174869911009054 — the 1.5 mm goal seam is gone by construction).
+4. CH.04 override re-authored: override start === K3 = [56.34, 0.49, −10.58] fov 35 (**the 0.822 m damped goal jump at p = 0.760 is eliminated — zero boundary jump**), dollying to [56.60, 0.90, −8.67] fov 38 over a 0.18 window (old macro poses put the 1.18 m receiver at 131% screen width).
+5. Flight transits: segment-1/3 **targets now lead position** (triple-smoothstep) and the horizontal bias attenuates to 25% inside the flight windows [0.530, 0.598] / [0.722, 0.758] — fixes the owner's "off-screen right at 58%" (subject now x[−0.07, +0.66] at p = 0.58).
+6. **Portrait composition** (aspect < 0.9): the glass cards span ~90% of 390 px width, so no horizontal lane exists. A windowed (p ≥ 0.50, ramp 0.06) portrait treatment dollies the goal out (×2.0 at stations, deepening to ×2.8 across CH.04) and adds +10° FOV so the subject fits the frame, then a **vertical bias** (target down = subject up) composes it into the free band above the vertically-centered card: +0.75 (St.2 window) / +0.84 (CH.04).
+
+**Measured subject-bbox NDC (desktop 1440×900, card right edge ≈ −0.156):**
+
+| p | subject NDC x | clears card? |
+|---|---|---|
+| 0.58 | [−0.075, +0.673] | YES (+0.081) |
+| 0.60 | [−0.108, +0.739] | YES (+0.048) |
+| 0.65 | [−0.062, +0.687] | YES (+0.094) |
+| 0.70 | [−0.058, +0.439] | YES (+0.098) |
+| 0.72 | [−0.263, +0.229] | card faded out; centered ✓ |
+| 0.78 | [−0.091, +0.913] | YES (+0.065) |
+| 0.80 | [−0.071, +0.888] | YES (+0.085) |
+| 0.85 | [−0.003, +0.803] | YES (+0.153) |
+| 0.95 | [+0.062, +0.726] | YES (+0.218) |
+
+**Mobile 390×844 (card spans NDC x [−0.88, +0.88], top edge y +0.651):**
+
+| p | subject NDC | band clearance |
+|---|---|---|
+| 0.60 | x[−0.556, +0.567] y[0.446, 0.931] | on-screen; 58% of subject height above card top |
+| 0.65 | x[−0.470, +0.509] y[0.448, 0.936] | on-screen; 59% above card top |
+| 0.85 | x[−0.378, +0.580] y[0.655, 0.826] | receiver **fully** in the free band (bottom 0.655 ≥ 0.651) |
+
+Full horizontal clearing beside a 90vw × 68vh card is geometrically impossible for a 2.6 m tall subject; the band composition is the best achievable without redesigning the mobile card (recommended follow-up, out of remediation scope). CH.01's groove macro (camera inside the wrench bbox at p ≈ 0.10) and CH.02's exploded-train width are by-design states, unchanged.
+
+### 9.2 Materials (fail #2)
+
+**Root cause:** the GLB ships bright CAD display colors — `MSP_YELLOW_PAINT` #f0bc32 on 138 meshes, near-white `MSP_STAINLESS`/`MSP_PLASTIC`/`MSP_ALUMINUM` on ~214 more, coppery `MSP_STEEL_CAST` #c18b72 — kept nearly verbatim by the structural tint (t = 0.15) under ~9.3 combined light intensity. (Also corrected here: the record's "toneMappingExposure: 1.15" never existed in code — ACES lives solely in the composer's final `ToneMapping` pass; no exposure is wired.)
+
+**Fix:** `MSP_FINISH_OVERRIDES` in `Station2_AcousticEnclosure.tsx` maps each verified GLB source material to a dark industrial finish (yellow paint → #23262b charcoal, stainless → #43494f, aluminum → #4c5258, rubber → #14161a, chassis → #1b1e23, plastic → #2b2f35, machined steel → #5a6169, cast → #3c4147); functional roots still lerp toward deepened accents (intake #0e7490, exhaust #c2410c, pump #b45309 at t = 0.55); `MSP_AIRWAY_VOLUME` keeps its translucent cyan untouched. Station-2 blue rim fill raised 0.5 → 0.65 for separation on the darker surfaces. Global exposure/hero lights untouched.
+
+**Measured (live material probe + pixel histogram of the committed screenshots, subject region = right 55% × mid 70%):**
+
+| Metric | Before | After |
+|---|---|---|
+| St.2 blown-hot pixels (L > 220) | 6.54% | **0.24%** |
+| St.2 bright pixels (L > 160) | 8.8% | 1.1% |
+| St.2 mid-tone band | 2.9% | 38.3% (dimensional shading) |
+| St.3 blown-hot pixels | 29.06% | **1.54%** |
+| 9 distinct MSP material identities | ✓ | ✓ preserved (post-fix values: #363a41…#5d646d + airway #59c4f9) |
+
+### 9.3 GD&T symbols (fail #3)
+
+`src/components/GdtSymbols.tsx` renders canonical Y14.5 characteristic glyphs as SVG paths (20×20, frame-weight strokes, per the registered references — Unicode ⌖/⌓ coverage is unreliable): position (circle + extended crosshair), flatness (parallelogram), circular runout (45° arrow rising from a circle), parallelism (two bars), profile-of-a-surface (closed semicircle + underline). The FCF leading compartment and the TechnicalHUD callout lines render the symbol instead of the word; words survive in prose (`detail`, `processNote`, `title` tooltips, aria-labels). Station-2's non-Y14.5 acoustic spec frames ('ATTENUATION', 'LABYRINTH', 'ISOLATION', 'LAMINAR FLOW', 'DISCHARGE') legitimately stay as text — inventing symbols for them would be wrong.
+
+**DOM proof (live page):** p = 0.35 → RUNOUT svg (3 nodes), FLATNESS svg (1), POSITION svg (2); p = 0.85 → PROFILE svg (2), RUNOUT svg (3), PARALLELISM svg (1); HUD callouts symbol-led with `svg: true`. Zero spelled-out characteristic words render in any FCF compartment.
+
+### 9.4 Badge placement regression (introduced by the framing fix, then fixed)
+
+Composing the subject high on mobile pushed badge anchors into the narrow top band; first re-probe showed 12 badge-on-badge collisions at 390×844. Fixed by (a) mobile `safeTop` 60 → 80 (badges paint 14 px above `by`; the station-nav row ends at y ≈ 61), and (b) a per-frame cross-anchor placement registry in `Hotspots.tsx` (cleared on the shared clock epoch; stores *rendered* rects — left badges paint at `bx − badgeW`) so clamped badges stack vertically instead of overlapping. Zero React re-renders (pure ref mutation).
+
+**Re-verification (all six checkpoints):** desktop 0.10/0.35/0.65/0.85 and mobile 0.65/0.85 → 100% in-bounds, **0 collisions**.
+
+### 9.5 Regression & suite evidence
+
+- FPS (full tier, hardware Chrome via rAF counters): idle CH.01 **60.1**, idle St.2 **60.0** (baseline was ~55–56), idle St.3 **60.1**; 18 s slow scrub **59.9**; fast scrub **60.0**. Canvas mounted throughout.
+- Console: **0 errors** (one benign `THREE.Clock` deprecation warning; the X4122 info-log did not appear this session).
+- `npm run typecheck` PASS · `npm run check:station2` PASS (7 roots, 7 anchors) · `check-fallback` **19/19 PASS** · `npm run build` PASS.
+- Wrench rig untouched: no `Default.glb` re-export, no spec §5 / README / rig-skill edits (no ladder behavior changed — the same-commit 3-way sync rule did not trigger).
+- Committed screenshots (this directory): `JG-021-remediation-before-st{2,3}-{desktop,mobile}.png` (captured from the stashed failed HEAD, re-built and served separately), `JG-021-remediation-after-st{2,3}-{desktop,mobile}.png` (final build, hardware GPU), `JG-021-remediation-after-hero-p{1,35}-desktop.png` (CH.01/02 sign-flip spot-check — wrench composition unchanged in character).
+
+### 9.6 Known limitations (documented, not blocking)
+
+- Mobile CH.03 card covers ~90% width; subject clearing is vertical-band composition, not full clearance (card redesign = recommended follow-up, out of scope).
+- The m249-rail badge's label partially sits under the CH.04 card edge — pre-existing (the old centered macro put it deeper under the card) and badge placement was owner-PASSED; not a regression.
+- Headless ANGLE/Vulkan runs of this app degrade tiers below ~45 fps by design of the PerformanceMonitor; all evidence above was captured on the hardware-GPU browser or via pure-function probes.
+
+**Status: remediation complete pending Mark's owner re-review. TODO checkbox intentionally left unchecked; commit is local only (no push) until the evidence is reviewed.**

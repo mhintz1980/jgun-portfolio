@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { CHAPTERS, HOTSPOTS, MATERIAL_MODE_LABELS } from '../data/caseStudies'
+import { characteristicKey, GdtSymbol } from '../components/GdtSymbols'
 import { getScrollState, navigateToStation, setScrollState, SPATIAL_STATIONS, telemetry, useScrollValue } from '../state/scrollStore'
 import { useQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
@@ -142,11 +143,26 @@ export function TechnicalHUD() {
             </p>
           </div>
 
-          {/* Top-right: live tolerance callouts + active datum */}
+          {/* Top-right: live tolerance callouts + active datum. Callouts lead
+              with the Y14.5 characteristic symbol, not the spelled-out word
+              (JG-021 remediation) — the word stays in the title tooltip. */}
           <div className="absolute right-5 top-5 space-y-1 text-right">
-            {chapterDef.callouts.map((callout) => (
-              <p key={callout}>{callout}</p>
-            ))}
+            {chapterDef.callouts.map((callout) => {
+              const wordMatch = callout.match(/^([A-Z ]+?)\s(.*)$/)
+              const key = wordMatch ? characteristicKey(wordMatch[1]) : null
+              return (
+                <p key={callout} className="flex items-center justify-end gap-1.5" title={callout}>
+                  {key && wordMatch ? (
+                    <>
+                      <GdtSymbol name={wordMatch[1]} />
+                      <span>{wordMatch[2]}</span>
+                    </>
+                  ) : (
+                    <span>{callout}</span>
+                  )}
+                </p>
+              )
+            })}
             <p className="text-cyan-200">DATUM: {chapterDef.datum}</p>
           </div>
 

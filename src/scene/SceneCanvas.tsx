@@ -116,7 +116,11 @@ export function SceneCanvas() {
         dpr={DPR_STEPS[step]}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
         camera={{ fov: 42, near: 0.005, far: 150, position: [0.32, 0.16, 0.42] }}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, camera }) => {
+          // Camera probe surface for subject-bbox NDC verification (JG-021
+          // remediation): CameraRig mutates this same default camera each
+          // frame, so the reference stays live for the page's lifetime.
+          ;(window as any).__threeCamera = camera
           gl.domElement.addEventListener('webglcontextlost', (event) => {
             event.preventDefault()
             forcePoster()

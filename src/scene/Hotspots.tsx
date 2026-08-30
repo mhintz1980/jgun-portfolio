@@ -3,12 +3,24 @@ import { Html } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Group, Vector3 } from 'three'
 import { EXPLODE_OFFSETS, HOTSPOTS } from '../data/caseStudies'
+import { characteristicKey, GdtSymbol } from '../components/GdtSymbols'
 import { setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
 import type { ChapterIndex, HotspotDef, RoleMapEntry } from '../types/portfolio'
 
 /** Module-level reusable vectors (r3f-scroll-performance-guard — zero GC). */
 const _worldPos = new Vector3()
 const _proj = new Vector3()
+
+/**
+ * Cross-anchor placement registry (JG-021 remediation): when the portrait
+ * vertical bias composes the subject high, several badges clamp into the same
+ * top band; each newly placed badge stacks below the ones placed earlier in
+ * the SAME frame. Cleared on the clock epoch (identical for every useFrame
+ * callback in one render pass), so responsive badges can never feed each
+ * other's positions across frames and drift. Still pure ref mutation.
+ */
+const _placedBadges = new Map<string, { x: number; y: number; w: number; h: number }>()
+let _badgeFrameEpoch = -1
 
 /**
  * 2D nominal screen displacement and explosion offsets for Station 1 hotspots.
@@ -77,12 +89,22 @@ export function HotspotButton({
           </span>
         )}
 
-        {/* 2. ASME Y14.5 Segmented Feature Control Frame */}
+        {/* 2. ASME Y14.5 Segmented Feature Control Frame — the leading
+            compartment carries the characteristic SYMBOL (GdtSymbol), never
+            the spelled-out word (JG-021 remediation); non-Y14.5 spec frames
+            (e.g. 'ATTENUATION') legitimately stay as text. */}
         {frame ? (
           <div className="inline-flex shrink-0 items-center border border-cyan-300/90 bg-cyan-950/40 text-cyan-100">
             {frame.characteristic && (
-              <span className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold">
-                {frame.characteristic}
+              <span
+                className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold"
+                title={frame.characteristic}
+              >
+                {characteristicKey(frame.characteristic) ? (
+                  <GdtSymbol name={frame.characteristic} />
+                ) : (
+                  frame.characteristic
+                )}
               </span>
             )}
             {frame.cells.map((cell, idx) => (
@@ -214,8 +236,15 @@ export function SpatialHotspotAnchor({
 
   const { camera, size } = useThree()
 
-  useFrame(() => {
+  useFrame((frameState) => {
     if (!groupRef.current || !containerRef.current || !badgeWrapperRef.current || !buttonContainerRef.current) return
+
+    // Per-frame registry reset (clock epoch is shared by all useFrame calls
+    // in one render pass) — see _placedBadges note above.
+    if (frameState.clock.elapsedTime !== _badgeFrameEpoch) {
+      _badgeFrameEpoch = frameState.clock.elapsedTime
+      _placedBadges.clear()
+    }
 
     if (!visible) {
       containerRef.current.style.display = 'none'
@@ -248,11 +277,12 @@ export function SpatialHotspotAnchor({
     const ax = (_proj.x * 0.5 + 0.5) * size.width
     const ay = (-_proj.y * 0.5 + 0.5) * size.height
 
-    // 5. Safe area bounds
+    // 5. Safe area bounds (mobile safeTop clears the station-nav row — the
+    // badge renders 14 px above `by`, and the nav ends at y ≈ 61 on 390×844).
     const isMobile = size.width <= 768
     const safeLeft = isMobile ? 12 : 24
     const safeRight = size.width - (isMobile ? 12 : 24)
-    const safeTop = isMobile ? 60 : 60
+    const safeTop = isMobile ? 80 : 60
     const safeBottom = size.height - (isMobile ? 70 : 60)
 
     // Dynamic measurement of badge width from real DOM
@@ -283,6 +313,33 @@ export function SpatialHotspotAnchor({
     const spanY = nominalDy !== undefined ? nominalDy : (ay > size.height * 0.5 ? -60 : 60)
     let by = ay + spanY
     by = Math.max(safeTop, Math.min(by, safeBottom - badgeH))
+
+    // 7.5 Vertical stacking against badges placed earlier this frame (JG-021
+    // remediation): clamping alone lets several badges land on the same top
+    // rows when the subject composes high; push each subsequent badge below
+    // the live ones. The registry stores RENDERED rects — left-side badges
+    // paint at bx - badgeW (translateX(-100%)) and every badge paints 14 px
+    // above `by`, so wrapper-space comparison would miss real overlaps.
+    const renderX = isRight ? bx : bx - badgeW
+    let stacking = true
+    let guard = 0
+    while (stacking && guard++ < 12) {
+      stacking = false
+      for (const [key, rect] of _placedBadges) {
+        if (key === def.id) continue
+        const overlaps =
+          renderX < rect.x + rect.w - 4 &&
+          rect.x < renderX + badgeW - 4 &&
+          by - 14 < rect.y + rect.h + 6 &&
+          rect.y < by - 14 + badgeH + 6
+        if (overlaps) {
+          by = rect.y + 14 + rect.h + 6
+          stacking = true
+        }
+      }
+      by = Math.min(by, safeBottom - badgeH)
+    }
+    _placedBadges.set(def.id, { x: renderX, y: by - 14, w: badgeW, h: badgeH })
 
     const dx = bx - ax
     const dy = by - ay

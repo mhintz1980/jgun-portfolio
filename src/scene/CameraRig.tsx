@@ -7,7 +7,7 @@ import {
   LCD_ORBIT_KEYFRAMES,
   LCD_REVEAL_WINDOW,
   baseAt,
-  framingBias,
+  framingBiasVec,
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
@@ -175,6 +175,8 @@ export function CameraRig() {
       telemetry.camera.y = camera.position.y
       telemetry.camera.z = camera.position.z
       telemetry.camera.framingBias = 0
+      telemetry.camera.framingBiasY = 0
+      telemetry.camera.portraitDolly = 1
       writeScrollTelemetry()
       return
     }
@@ -264,15 +266,20 @@ export function CameraRig() {
     }
 
     // ---- 5. CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
+    // JG-021 remediation: override start === K3 (zero goal jump at the 0.760
+    // boundary — the old 0.822 m damped jump is gone), dollying out from the
+    // ~2.5 m near pose to a ~3.5 m overview across a 0.18 window so the 1.18 m
+    // receiver clears the left CH.04 card lane instead of filling 131% of the
+    // screen.
     if (progress >= 0.76) {
-      const t4 = smoothstep(Math.min((progress - 0.76) / 0.24, 1))
+      const t4 = smoothstep(Math.min((progress - 0.76) / 0.18, 1))
       const m249Pos: [number, number, number] = [
-        lerpN(56.18, 56.28, t4),
-        lerpN(0.26, 0.42, t4),
-        lerpN(-12 + 0.75, -12 + 1.55, t4),
+        lerpN(56.43, 56.6, t4),
+        lerpN(0.65, 0.9, t4),
+        lerpN(-9.62, -8.67, t4),
       ]
       const m249Tgt: [number, number, number] = [56, 0, -12]
-      const m249Fov = lerpN(33, 38, t4)
+      const m249Fov = lerpN(35, 38, t4)
       goalPos.current.set(m249Pos[0], m249Pos[1], m249Pos[2])
       goalTarget.current.set(m249Tgt[0], m249Tgt[1], m249Tgt[2])
       goalFov = m249Fov
@@ -309,31 +316,75 @@ export function CameraRig() {
       goalFov = inspectFrame.fov
     }
 
-    // ---- 7. JG-021 WS1.4 + Amendment 1: Framing bias along camera-left ----
-    // Shifts goalTarget toward camera-left (negative camera-right) so the subject
-    // renders cleanly in the right-hand viewport (~62-65% screen-x) clear of the narrative text.
-    const bias = framingBias(progress)
-    telemetry.camera.framingBias = bias
+    // ---- 6.5 Portrait-viewport composition (JG-021 remediation) ----
+    // On narrow portrait viewports (aspect < 0.9) the glass cards span ~90% of
+    // the width, so no horizontal lane exists. While the camera is at the
+    // stations (p >= 0.50; ramps in over 0.06 so the CH.01/02 hero framing is
+    // untouched), dolly the goal out along its view axis and widen the FOV so
+    // the subject fits the narrow frame at all; the vertical bias below then
+    // composes it into the free band above the card. CH.04 deepens the dolly
+    // progressively (x2.0 -> x2.8) because its desktop zoom path starts at a
+    // 1.55 m near pose that stays too close for portrait even at x2.
+    const aspect = state.size.width / Math.max(state.size.height, 1)
+    const portrait = aspect < 0.9
+    let portraitDolly = 1
+    if (portrait) {
+      const w = smoothstep(Math.min(Math.max((progress - 0.5) / 0.06, 0), 1))
+      const ch4 = progress >= 0.76 ? smoothstep(Math.min((progress - 0.76) / 0.24, 1)) : 0
+      portraitDolly = 1 + w * (1.0 + 0.8 * ch4)
+      goalFov += 10 * w
+      if (portraitDolly > 1) {
+        goalPos.current.sub(goalTarget.current).multiplyScalar(portraitDolly).add(goalTarget.current)
+      }
+    }
+    telemetry.camera.portraitDolly = portraitDolly
 
-    if (bias > 0.0001) {
+    // ---- 7. JG-021 WS1.4 (remediated): framing bias along TRUE camera-left ----
+    // Shifts goalTarget along camera-LEFT so the camera pans left and the
+    // SUBJECT renders screen-right (NDC-x ≈ +bias), clear of the left narrative
+    // text lane. The original implementation computed (fwd.z, 0, -fwd.x) and
+    // subtracted it — that vector is up × fwd = camera-LEFT in three.js'
+    // right-handed convention, so the net shift ran camera-RIGHT and pushed the
+    // subject UNDER the card (owner visual pass fail #1). Portrait viewports
+    // bias vertically instead: the target drops (world -Y) so the subject rises
+    // into the band above the full-width mobile card.
+    const biasVec = framingBiasVec(progress)
+    // Attenuate the horizontal bias during the pure whip-flight transits: the
+    // subject is mid-sweep there and the lane only matters once the camera
+    // settles (remediation for the "off-screen right at 58%" transit finding).
+    const att = (lo: number, hi: number): number =>
+      Math.min(Math.max((progress - lo) / 0.015, 0), Math.max((hi - progress) / 0.015, 0), 1)
+    const flightW = Math.max(att(0.53, 0.598), att(0.722, 0.758))
+    const flightAtt = 1 - 0.75 * flightW
+    const biasX = portrait ? biasVec.x * 0.25 * flightAtt : biasVec.x * flightAtt
+    const biasY = portrait ? biasVec.y : 0
+    telemetry.camera.framingBias = biasVec.x
+    telemetry.camera.framingBiasY = biasY
+
+    if (biasX > 0.0001 || biasY > 0.0001) {
       scratchFwd.current.subVectors(goalTarget.current, goalPos.current)
       const dist = scratchFwd.current.length()
       if (dist > 0.0001) {
-        scratchFwd.current.multiplyScalar(1 / dist)
-        // Camera-right vector = fwd × (0, 1, 0)
-        scratchRight.current.set(
-          scratchFwd.current.z,
-          0,
-          -scratchFwd.current.x,
-        )
-        const rightLen = scratchRight.current.length()
-        if (rightLen > 0.0001) {
-          scratchRight.current.multiplyScalar(1 / rightLen)
-          const aspect = state.size.width / Math.max(state.size.height, 1)
-          const fovRad = (goalFov * Math.PI) / 180
-          const biasMeters = bias * dist * Math.tan(fovRad / 2) * aspect
-          // Shift goalTarget along camera-left (negative camera-right)
-          goalTarget.current.addScaledVector(scratchRight.current, -biasMeters)
+        const fovRad = (goalFov * Math.PI) / 180
+        if (biasX > 0.0001) {
+          scratchFwd.current.multiplyScalar(1 / dist)
+          // Camera-LEFT = up × fwd = (fwd.z, 0, -fwd.x) normalized.
+          scratchRight.current.set(
+            scratchFwd.current.z,
+            0,
+            -scratchFwd.current.x,
+          )
+          const leftLen = scratchRight.current.length()
+          if (leftLen > 0.0001) {
+            scratchRight.current.multiplyScalar(1 / leftLen)
+            const biasMeters = biasX * dist * Math.tan(fovRad / 2) * aspect
+            goalTarget.current.addScaledVector(scratchRight.current, biasMeters)
+          }
+        }
+        if (biasY > 0.0001) {
+          // Vertical NDC needs no aspect factor; target DOWN = subject UP.
+          const biasMetersY = biasY * dist * Math.tan(fovRad / 2)
+          goalTarget.current.y -= biasMetersY
         }
       }
     }

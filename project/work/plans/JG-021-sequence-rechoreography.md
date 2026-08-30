@@ -1,6 +1,6 @@
 # JG-021 — Sequence re-choreography: camera continuity, enclosure material & animation, callout safe-area placement
 
-**Status:** in-progress (remediation) · **Accepted:** 2026-08-28 · **Amended:** 2026-08-29 (Amendment A) · **Reopened:** 2026-08-29 — owner visual pass failed framing, material look, and GD&T symbol styling; see the Visual Pass Findings section in the evidence record. · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
+**Status:** in-progress (remediation implemented 2026-08-29 — owner re-review pending, not pushed; evidence §9) · **Accepted:** 2026-08-28 · **Amended:** 2026-08-29 (Amendment A) · **Reopened:** 2026-08-29 — owner visual pass failed framing, material look, and GD&T symbol styling; see the Visual Pass Findings section in the evidence record. · **Origin:** root-cause review by a remote agent (supplied by Mark Hintz), verified against the committed baseline `5b29706 → 4a10491` and adopted with the corrections below. All line references are against that committed baseline, which is current again after the 2026-08-28 tree repair.
 
 ## Adoption corrections (binding)
 

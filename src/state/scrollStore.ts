@@ -155,6 +155,10 @@ export interface TelemetryCamera {
   z: number
   fov: number
   framingBias: number
+  /** Portrait-viewport vertical framing bias (JG-021 remediation probe surface). */
+  framingBiasY: number
+  /** Portrait-viewport dolly-out factor active at stations (1 = off). */
+  portraitDolly: number
 }
 
 export interface TelemetryRig {
@@ -216,7 +220,7 @@ export const telemetry: {
   scroll: TelemetryScroll
   stage: TelemetryStage
 } = {
-  camera: { x: 0, y: 0, z: 0, fov: 42, framingBias: 0 },
+  camera: { x: 0, y: 0, z: 0, fov: 42, framingBias: 0, framingBiasY: 0, portraitDolly: 1 },
   rig: {
     handleZ: 0,
     outputZ: 0,

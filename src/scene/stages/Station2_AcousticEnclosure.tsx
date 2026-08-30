@@ -48,7 +48,7 @@ export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
     name: 'PUMP_HOUSING',
     label: 'INTERNAL DRIVE UNIT & PUMP',
     spec: 'High-pressure continuous rotary pump generating 115 dBA source noise',
-    roleColor: '#d97706',
+    roleColor: '#b45309',
   },
   ACOUSTIC_BAFFLES: {
     id: 'acoustic-baffles',
@@ -69,14 +69,14 @@ export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
     name: 'DUCT_INTAKE',
     label: 'LAMINAR INTAKE AIRWAY',
     spec: '1,850 CFM low-velocity cooling intake with acoustic foam lining',
-    roleColor: '#0891b2',
+    roleColor: '#0e7490',
   },
   DUCT_EXHAUST: {
     id: 'duct-exhaust',
     name: 'DUCT_EXHAUST',
     label: 'ATTENUATED EXHAUST DUCT',
     spec: 'Low-backpressure thermal discharge port with integrated sound arrestor',
-    roleColor: '#f97316',
+    roleColor: '#c2410c',
   },
 }
 
@@ -132,6 +132,25 @@ function Station2Callout({
   )
 }
 
+/**
+ * GLB source material → dark industrial finish (JG-021 remediation).
+ * The CAD package ships bright display colors (yellow paint on 138 meshes,
+ * near-white stainless/plastic on ~220 more, coppery cast steel) that read
+ * blown-out and orange/yellow where the product is black — the owner visual
+ * pass failed the material look on exactly this. Keyed by the 9 verified GLB
+ * material names; MSP_AIRWAY_VOLUME keeps its functional translucent cyan.
+ */
+const MSP_FINISH_OVERRIDES: Record<string, string> = {
+  MSP_YELLOW_PAINT: '#23262b', // the dominant "should be black" mass → charcoal
+  MSP_STAINLESS: '#43494f', // dark stainless
+  MSP_ALUMINUM: '#4c5258', // extruded frame aluminum
+  MSP_RUBBER: '#14161a', // elastomer stays near-black
+  MSP_BLACK_CHASSIS: '#1b1e23', // true chassis black
+  MSP_PLASTIC: '#2b2f35', // dark composite plastic
+  MSP_STEEL_MACHINED: '#5a6169', // machined steel — mid tone to catch the key
+  MSP_STEEL_CAST: '#3c4147', // cast iron (kills the copper #c18b72)
+}
+
 function cloneMaterials(
   root: Object3D,
   lite: boolean,
@@ -141,7 +160,9 @@ function cloneMaterials(
   const roleColor = new Color(meta?.roleColor ?? '#6b7280')
   const isPanels = root.name === 'COMPOSITE_PANELS'
 
-  // Functional parts get higher role tint (t ≈ 0.55); structural roots get subtle tint (t ≈ 0.15)
+  // Functional parts get higher role tint (t ≈ 0.55) over the darkened base
+  // (deep accent hues, remediation-deepened from the bright originals);
+  // structural roots get a subtle tint (t ≈ 0.15) for hierarchy.
   const isFunctional =
     root.name === 'DUCT_INTAKE' ||
     root.name === 'DUCT_EXHAUST' ||
@@ -151,8 +172,17 @@ function cloneMaterials(
   const processMaterial = (material: Material): Material => {
     const clone = material.clone()
     if (clone instanceof MeshStandardMaterial) {
-      // Keep GLB baked source color and lerp toward role color with functional/structural weights
-      clone.color.lerp(roleColor, tintFactor)
+      // Dark industrial base from the GLB source identity, then role tint.
+      // The translucent airway volume is purely functional — never re-tinted.
+      if (clone.name === 'MSP_AIRWAY_VOLUME') {
+        // keep baked cyan + transparency
+      } else {
+        const finish = MSP_FINISH_OVERRIDES[clone.name]
+        if (finish) {
+          clone.color.set(finish)
+        }
+        clone.color.lerp(roleColor, tintFactor)
+      }
 
       // Keep GLB metalness/roughness clamped to plausible engineering range
       clone.metalness = Math.min(1, Math.max(0, clone.metalness))

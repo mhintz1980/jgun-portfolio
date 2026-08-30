@@ -87,7 +87,7 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
         visible={false}
       >
         <directionalLight position={[6, 8, 5]} intensity={1.4} color="#ffffff" />
-        <directionalLight position={[-6, 4, -5]} intensity={0.5} color="#7dd3fc" />
+        <directionalLight position={[-6, 4, -5]} intensity={0.65} color="#7dd3fc" />
         <pointLight position={[0, 4, 3]} intensity={0.9} color="#38bdf8" distance={15} decay={2} />
         <Station2_AcousticEnclosure />
         <AirflowField />

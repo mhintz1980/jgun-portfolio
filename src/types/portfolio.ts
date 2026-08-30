@@ -37,7 +37,7 @@ export type HotspotKind = 'inspect' | 'datum'
 
 export interface FeatureControlFrame {
   /**
-   * Leading characteristic cell (text form, e.g. 'RUNOUT', 'POSITION ⌖').
+   * Leading characteristic cell — a Y14.5 symbol KEY ('RUNOUT', 'POSITION', 'FLATNESS', 'PROFILE', 'PARALLELISM') rendered as its canonical glyph (GdtSymbols.tsx), or a non-Y14.5 spec word that renders as text.
    * Literal glyph transcription requires the exact frame verified in the
    * source drawing at readable scale (gdt-annotation-style.md) — use the
    * owner-approved HUD callout vocabulary otherwise.
