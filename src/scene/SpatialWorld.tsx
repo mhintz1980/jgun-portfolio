@@ -21,6 +21,17 @@ export const STATION_TRANSFORMS = {
 }
 
 /**
+ * JG-021 glow experiment 4 (Mark-directed, 2026-08-30): both additive
+ * Station-2 particle systems (JG-018 airflow points + acoustic soundwave
+ * rings) are hidden while the residual enclosure glow is attributed
+ * (owner order: turn both off, then isolate culprit vs cumulative).
+ * They stay MOUNTED — the Stage-2 contract asserts the mounts — so
+ * restoring one system is a single-flag flip.
+ */
+const AIRFLOW_FIELD_VISIBLE = false
+const ACOUSTIC_FIELD_VISIBLE = false
+
+/**
  * JG-016 — Multi-station spatial world.
  *
  * Replaces in-place stage swapping with three discrete 3D engineering stations:
@@ -95,8 +106,12 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
         <directionalLight position={[-6, 4, -5]} intensity={0.35} color="#7dd3fc" />
         <pointLight position={[0, 4, 3]} intensity={0.5} color="#38bdf8" distance={15} decay={2} />
         <Station2_AcousticEnclosure />
-        <AirflowField />
-        <AcousticBaffleField />
+        <group visible={AIRFLOW_FIELD_VISIBLE}>
+          <AirflowField />
+        </group>
+        <group visible={ACOUSTIC_FIELD_VISIBLE}>
+          <AcousticBaffleField />
+        </group>
         <ContactShadows position={[0, -0.05, 0]} opacity={0.45} scale={6.0} blur={2.0} far={2.0} />
       </group>
 

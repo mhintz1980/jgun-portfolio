@@ -554,3 +554,65 @@ Artifacts (this directory):
 Status: **experiment 3 implemented, measured, committed — awaiting owner
 visual ruling.** If the glow outlives this, next suspects in order: airflow
 additive particles (the skipped experiment 2), then the 0.5 env floor.
+
+### Experiment 4 — both particle effects off (owner ruling 2026-08-30, same day)
+
+**Owner ruling on experiment 3:** glow unaffected by the bloom mute. Bloom is
+to be RESTORED once the analysis completes (standing owner note — the mute
+stays in until he closes the analysis). Owner's next theories: the JG-018
+particle effects — airflow AND the acoustic "sound wave" rings — with order:
+turn both off; if the glow goes, isolate culprit vs cumulative. Owner also
+confirmed the panels stay opaque ("Transparency is still off, correct?" —
+yes: `PANELS_OPAQUE=true`, panels render `transparent:false`).
+
+**Change (`SpatialWorld.tsx`, single commit):** `AIRFLOW_FIELD_VISIBLE` /
+`ACOUSTIC_FIELD_VISIBLE` flags wrap each field in a `visible={false}` group —
+both systems stay MOUNTED (the Stage-2 contract asserts the mounts; contract
+re-run PASS) so restoring either is a one-flag flip. Typecheck + build green;
+fresh `:4173` restart before measuring.
+
+**Attribution (same arc frame, CAM [31.819, 2.650, 1.244] FOV 35.6°):**
+
+| Metric (subject region) | both ON (exp3 ref) | both OFF (exp4) | airflow only ON |
+|---|---|---|---|
+| avg luminance | 56.5 | 58.0 | 58.0 |
+| blown-hot % | 0.14 | 0.10 | 0.10 |
+| warm yellow-orange % | 21.74 | 21.75 | 21.76 |
+| cyan % | 0.68 | 0.68 | 0.68 |
+
+- Airflow ON vs both OFF: **bit-identical to every decimal** — the 12,000
+  additive points are pixel-invisible at this camera (consistent with §11's
+  "airflow ≈ neutral" perturbation).
+- Both ON vs both OFF: ≤ ~1.5 avgL points and that delta crosses capture
+  sessions (cross-run noise caveat: adaptive DPR and GPU state differ between
+  runs; within-run comparisons are the reliable ones). The acoustic rings —
+  additive cyan/sky-blue, opacity ≤ 0.45 — do not move the cyan share at all
+  now that opaque panels occlude them.
+- **Both owner theories are exonerated: neither particle system is the
+  glow.** The committed both-off state still renders the enclosure luminous.
+
+**What remains:** the enclosure's intrinsic brightness — baked `#ffc500`
+albedo + the Station-2-scoped rig (key 0.8 / fill 0.35 / point 0.5) + the 0.5
+env floor under ACES. Every remaining lever trades directly against the
+owner-approved material look. A second, untested candidate: the neon-cyan
+callout/HUD styling surrounding the machine (DOM, not WebGL).
+
+Artifacts (this directory):
+- `JG-021-glow-exp4-bothoff-st2-revealed.png` (committed both-off state),
+  `JG-021-glow-exp4-airon-st2-revealed.png` (airflow-only attribution frame —
+  pixel-identical to the both-off frame).
+- Before-reference at the same frame with both effects on:
+  `JG-021-glow-exp3-bloommuted-st2-revealed.png`.
+
+Probe tooling note: the evening's headless context-loss storms recurred and
+twice killed the isolation run at the SAME step — the acoustic rings' first
+draw (shader compile on a flaky context). Attribution was completed
+storm-proof via a stats-only pass (`glow-stats.mjs`, PNG decode without
+WebGL) over the captured frames.
+
+Status: **experiment 4 implemented, measured, committed — awaiting owner
+ruling.** Open items: (a) owner decision on restoring the exonerated
+particle systems (or keeping them off as a look change); (b) bloom
+restoration when the owner closes the analysis; (c) whether to test a
+light-rig/env trim (trades against the approved look) or examine the HUD
+neon next.
