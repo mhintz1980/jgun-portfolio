@@ -514,3 +514,43 @@ Status: **experiment 1 implemented, measured, committed — awaiting owner
 visual ruling at :4173.** Experiments 2 (airflow particles off) and 3 (bloom
 off) are blocked on that approval; the bloom always-on fact above is the
 input for the step-3 decision.
+
+### Experiment 3 — bloom muted at Station 2 (owner ruling 2026-08-30, same day)
+
+**Owner ruling on experiment 1:** glow persists; the owner identified the
+cause directly — *"I still see glow and it's the bloom"* — and directed that
+experiment 1's opaque panels STAY regardless ("the scene looks better").
+Experiment 2 (airflow particles off) was therefore SKIPPED, not run; it
+remains available if the glow outlives this fix.
+
+**Change (single variable, `PostProcessingComposer.tsx`):** bloom is
+always-on at rest 0.25, so bright paint carries a standing halo. With
+`BLOOM_MUTED_AT_STATION2`, the REST bloom component eases to 0 across the
+same wrenchOut/enclosureOut windows the StudioRig crossfade rides
+(`rest = 0.25 × (1 − down·(1−up))`); the transition peak term
+(`+ 0.40 × transitionIntensity`), the hero, and Station 3 keep their
+owner-passed bloom exactly. Revert = flip the flag. Typecheck + build green;
+fresh `:4173` restart before measuring.
+
+| Metric (subject region) | Exp1 assembled | Exp3 assembled | Exp1 revealed | Exp3 revealed |
+|---|---|---|---|---|
+| blown-hot % (L > 220) | 0.57 | **0.18** | 0.11 | 0.14 |
+| avg luminance | 59.6 | **58.2** | 60.4 | **56.5** |
+| warm yellow-orange % | 24.9 | 24.9 | 21.8 | 21.7 |
+
+The delta is the halo's own light: rest bloom was adding broad brightness
+(avgL down ~2–4 points) and pushing the brightest yellows over the clip
+threshold (assembled hot 0.57→0.18%). Same-frame pairs per the owner's
+standing directive — the revealed captures share the identical arc pose
+(CAM [31.819, 2.650, 1.244] FOV 35.6°) so the before/after comparison is
+direct.
+
+Artifacts (this directory):
+- `JG-021-glow-exp3-bloommuted-st2-assembled.png`,
+  `JG-021-glow-exp3-bloommuted-st2-revealed.png` (bloom muted).
+- Before pair at the same frames: `JG-021-glow-exp1-st2-assembled.png`,
+  `JG-021-glow-exp1-st2-revealed.png` (panels opaque, bloom on).
+
+Status: **experiment 3 implemented, measured, committed — awaiting owner
+visual ruling.** If the glow outlives this, next suspects in order: airflow
+additive particles (the skipped experiment 2), then the 0.5 env floor.

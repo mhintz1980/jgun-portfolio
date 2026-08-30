@@ -5,7 +5,8 @@ import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import type { ChromaticAberrationEffect, BloomEffect } from 'postprocessing'
 import { Vector2 } from 'three'
 import { useQuality } from '../state/qualityStore'
-import { telemetry } from '../state/scrollStore'
+import { getScrollState, telemetry } from '../state/scrollStore'
+import { STAGE_TRANSITIONS } from './stages/stageWindows'
 
 /**
  * JG-017 — Post-Processing Composer.
@@ -46,6 +47,23 @@ const BLOOM_REST = 0.25
 /** Bloom intensity ceiling during transitions. */
 const BLOOM_PEAK = 0.65
 
+/**
+ * JG-021 glow experiment 3 (Mark-directed, 2026-08-30): the owner identified
+ * the residual enclosure glow as bloom. Bloom is always-on (rest 0.25),
+ * so the bright CAD paint carries a standing halo at Station 2. While this
+ * flag is set, the REST bloom component eases to 0 across the same
+ * wrenchOut/enclosureOut windows the StudioRig crossfade rides — transition
+ * peaks, the hero and Station 3 keep their owner-passed bloom exactly.
+ * Flip to false to restore the standing rest bloom everywhere.
+ */
+const BLOOM_MUTED_AT_STATION2 = true
+
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
+const smooth01 = (x: number) => {
+  const c = clamp01(x)
+  return c * c * (3 - 2 * c)
+}
+
 /** Module-level scratch Vector2 — mutated in place; no per-frame alloc. */
 const _offset = new Vector2(0, 0)
 
@@ -72,7 +90,20 @@ function FxDriver({
     }
 
     if (bloomRef.current) {
-      bloomRef.current.intensity = BLOOM_REST + (BLOOM_PEAK - BLOOM_REST) * intensity
+      let rest = BLOOM_REST
+      if (BLOOM_MUTED_AT_STATION2) {
+        const { progress } = getScrollState()
+        const down = smooth01(
+          (progress - STAGE_TRANSITIONS.wrenchOut[0]) /
+            (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]),
+        )
+        const up = smooth01(
+          (progress - STAGE_TRANSITIONS.enclosureOut[0]) /
+            (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]),
+        )
+        rest *= 1 - down * (1 - up)
+      }
+      bloomRef.current.intensity = rest + (BLOOM_PEAK - BLOOM_REST) * intensity
     }
   })
 
