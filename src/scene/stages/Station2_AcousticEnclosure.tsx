@@ -127,6 +127,7 @@ function Station2Callout({
         position={[...config.pos]}
         nominalDx={config.dx}
         nominalDy={config.dy}
+        tone="dim"
       />
     </group>
   )

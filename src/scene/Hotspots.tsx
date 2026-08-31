@@ -47,16 +47,23 @@ export function HotspotButton({
   style,
   onMouseEnter,
   onMouseLeave,
+  tone = 'full',
 }: {
   def: HotspotDef
   selected: boolean
   style?: React.CSSProperties
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  /** 'dim' pulls the badge's neon chrome back ~50% at rest (JG-021 glow
+   * experiment 6: the badge glow was the last clipped pixels in the Station-2
+   * frame). Selected/hovered states keep full strength — interaction pop is
+   * unchanged, and Stations 1/3 default to 'full'. */
+  tone?: 'full' | 'dim'
 }) {
   const datumLetter = def.annotation?.datum
   const frame = def.annotation?.frame
   const processNote = def.annotation?.processNote
+  const dim = tone === 'dim'
 
   return (
     <button
@@ -70,7 +77,9 @@ export function HotspotButton({
       className={`group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
         selected
           ? 'border-cyan-300 bg-cyan-950/95 text-cyan-100 shadow-[0_0_20px_rgba(0,229,255,0.5)] ring-1 ring-cyan-400/60'
-          : 'border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]'
+          : dim
+            ? 'border-cyan-400/35 bg-black/70 text-cyan-300/70 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100'
+            : 'border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]'
       }`}
     >
       <div className="flex items-center gap-2 overflow-hidden">
@@ -78,13 +87,19 @@ export function HotspotButton({
           className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-200 ${
             selected
               ? 'bg-cyan-300 shadow-[0_0_8px_#00e5ff] ring-2 ring-cyan-400/50'
-              : 'bg-cyan-400/70 group-hover:bg-cyan-300'
+              : dim
+                ? 'bg-cyan-400/45 group-hover:bg-cyan-300'
+                : 'bg-cyan-400/70 group-hover:bg-cyan-300'
           }`}
         />
 
         {/* 1. ASME Y14.5 Boxed Datum Flag: [ -A- ] */}
         {datumLetter && (
-          <span className="inline-flex h-5 min-w-[22px] shrink-0 items-center justify-center border border-cyan-300 bg-cyan-950/80 px-1 font-mono text-[11px] font-bold text-cyan-100 shadow-[0_0_8px_rgba(0,229,255,0.4)]">
+          <span
+            className={`inline-flex h-5 min-w-[22px] shrink-0 items-center justify-center border px-1 font-mono text-[11px] font-bold text-cyan-100 ${
+              dim ? 'border-cyan-300/60 bg-cyan-950/60' : 'border-cyan-300 bg-cyan-950/80 shadow-[0_0_8px_rgba(0,229,255,0.4)]'
+            }`}
+          >
             -{datumLetter}-
           </span>
         )}
@@ -94,10 +109,16 @@ export function HotspotButton({
             the spelled-out word (JG-021 remediation); non-Y14.5 spec frames
             (e.g. 'ATTENUATION') legitimately stay as text. */}
         {frame ? (
-          <div className="inline-flex shrink-0 items-center border border-cyan-300/90 bg-cyan-950/40 text-cyan-100">
+          <div
+            className={`inline-flex shrink-0 items-center border text-cyan-100 ${
+              dim ? 'border-cyan-300/45 bg-cyan-950/25' : 'border-cyan-300/90 bg-cyan-950/40'
+            }`}
+          >
             {frame.characteristic && (
               <span
-                className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold"
+                className={`flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold ${
+                  dim ? 'border-cyan-300/40' : 'border-cyan-300/70'
+                }`}
                 title={frame.characteristic}
               >
                 {characteristicKey(frame.characteristic) ? (
@@ -110,7 +131,9 @@ export function HotspotButton({
             {frame.cells.map((cell, idx) => (
               <span
                 key={`${cell}-${idx}`}
-                className="flex h-5 items-center justify-center border-r border-cyan-300/70 px-1.5 font-mono text-[10px] font-semibold last:border-r-0"
+                className={`flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold last:border-r-0 ${
+                  dim ? 'border-cyan-300/40' : 'border-cyan-300/70'
+                }`}
               >
                 {cell}
               </span>
@@ -119,13 +142,17 @@ export function HotspotButton({
         ) : null}
 
         {/* 3. Label / Subassembly Title */}
-        <span className="truncate font-semibold tracking-wider text-cyan-100/95">{def.label}</span>
+        <span className={`truncate font-semibold tracking-wider ${dim ? 'text-cyan-100/70' : 'text-cyan-100/95'}`}>
+          {def.label}
+        </span>
 
         {/* 4. Process Note */}
         {processNote && !frame && !datumLetter && (
           <>
             <span className="hidden text-cyan-400/40 sm:inline">·</span>
-            <span className="hidden text-[9px] text-cyan-300/70 sm:inline">{processNote}</span>
+            <span className={`hidden text-[9px] sm:inline ${dim ? 'text-cyan-300/45' : 'text-cyan-300/70'}`}>
+              {processNote}
+            </span>
           </>
         )}
       </div>
@@ -207,6 +234,9 @@ export interface SpatialHotspotAnchorProps {
   visible?: boolean
   nominalDx?: number
   nominalDy?: number
+  /** 'dim' pulls the badge + leader-line neon back at rest (Station 2 glow
+   * fix); selected/hovered keep full strength. Default 'full'. */
+  tone?: 'full' | 'dim'
 }
 
 /**
@@ -225,6 +255,7 @@ export function SpatialHotspotAnchor({
   visible = true,
   nominalDx,
   nominalDy,
+  tone = 'full',
 }: SpatialHotspotAnchorProps) {
   const groupRef = useRef<Group>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -367,8 +398,14 @@ export function SpatialHotspotAnchor({
   })
 
   const active = selected || hovered
-  const strokeColor = active ? '#00e5ff' : 'rgba(34, 211, 238, 0.65)'
-  const strokeWidth = active ? 1.5 : 1.1
+  const dim = tone === 'dim'
+  const strokeColor = active
+    ? '#00e5ff'
+    : dim
+      ? 'rgba(34, 211, 238, 0.32)'
+      : 'rgba(34, 211, 238, 0.65)'
+  const strokeWidth = active ? 1.5 : dim ? 0.9 : 1.1
+  const restTickOpacity = dim ? '0.4' : '0.75'
 
   return (
     <group
@@ -414,7 +451,7 @@ export function SpatialHotspotAnchor({
               y2="-34"
               stroke={strokeColor}
               strokeWidth={strokeWidth + 0.5}
-              opacity={active ? '1' : '0.75'}
+              opacity={active ? '1' : restTickOpacity}
             />
           </svg>
 
@@ -434,6 +471,7 @@ export function SpatialHotspotAnchor({
                 selected={selected}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
+                tone={tone}
               />
             </div>
           </div>
