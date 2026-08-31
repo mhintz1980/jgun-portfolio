@@ -1,6 +1,6 @@
 # Skill roster — scrubbed-backgrounds planning & build
 
-*Companion to [`2026-08-31-scrubbed-backgrounds-plan.md`](2026-08-31-scrubbed-backgrounds-plan.md)
+*Companion to [`JG-023-scrubbed-backgrounds.md`](JG-023-scrubbed-backgrounds.md)
 (2026-08-31 owner kickoff: backgrounds that scrub along with the scroll animations).
 Revised 2026-08-31 after the verification review — the renderer decision (procedural GL)
 forced several re-prioritizations, and the `/unlazy` orchestrated protocol added roles.

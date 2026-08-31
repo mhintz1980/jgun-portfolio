@@ -1,8 +1,9 @@
-# Scrubbed backgrounds — scroll-scrubbed procedural backdrop layers
+# JG-023 — Scroll-scrubbed procedural backdrop layers (per-chapter GL backdrops behind all three stations)
 
-**Status:** proposal (untriaged). Not an implementation authorization. Suggested ID at
-triage: **JG-023** (next free; INDEX highest is JG-022). Companion skill roster:
-[`scrubbed-backgrounds-skill-roster.md`](scrubbed-backgrounds-skill-roster.md).
+**Status:** queued 2026-08-31 · **Filed:** 2026-08-31 (owner kickoff: "backgrounds that scrub
+along with the scroll animations") · **Promoted:** 2026-08-31 (triage — assigned JG-023;
+INDEX highest was JG-022). Companion skill roster:
+[`JG-023-scrubbed-backgrounds-skill-roster.md`](JG-023-scrubbed-backgrounds-skill-roster.md).
 
 **Source material:** 2026-08-31 owner kickoff ("backgrounds that scrub along with the
 scroll animations"); full architecture design from the 2026-08-31 plan-mode session
@@ -203,7 +204,7 @@ Either way: `SCRUBBED_BACKGROUNDS` flag ON for the pilot chapter only, owner rul
 ## Execution protocol (`/unlazy`, orchestrated, adversarial verification)
 
 **Binding on whoever builds this.** Skill activation timing lives in the companion
-[`scrubbed-backgrounds-skill-roster.md`](scrubbed-backgrounds-skill-roster.md); this section
+[`JG-023-scrubbed-backgrounds-skill-roster.md`](JG-023-scrubbed-backgrounds-skill-roster.md); this section
 is the discipline the roster is activated inside.
 
 ### Gates, and how they relate to this document
@@ -343,7 +344,9 @@ GLB load mean wall-clock capture races the scene. Harness:
 ## P0 (at build kickoff, not planning)
 
 `git worktree add` from `origin/main @ 287bf05` (HEAD level with origin; worktree isolates
-this work from concurrent main activity). The worktree needs `npm install` +
+this work from concurrent main activity). **Triage note 2026-08-31:** origin/main advanced
+to `a0857bd` (docs-only: inbox intakes + push notes), code identical to the pinned
+`287bf05` — the worktree branches from `a0857bd`. The worktree needs `npm install` +
 `scripts/sync-assets.ps1` — `Default.glb`, `jgun-gearbox.glb`, `jgun-handle.glb` are NOT
 in git (only `m249-transformed.glb` + `msp-enclosure.glb` are committed). Serve `:4173`
 from the worktree; restart the server after every rebuild (stale server + rotated hashes →
