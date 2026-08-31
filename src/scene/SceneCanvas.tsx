@@ -108,7 +108,10 @@ const STUDIO_FILL_INTENSITY = 0.6
 const STUDIO_SPOT_INTENSITY = 1.1
 /** Punctual + environment floors while the MSP enclosure is up. */
 const STUDIO_STATION2_SCALE = 0.25
-const STUDIO_ENV_STATION2 = 0.5
+/** JG-021 glow experiment 5: env floor 0.5 → 0.35 (−30%) — after bloom and
+ * both particle systems were exonerated, the residual halo points at the
+ * station's light level. Revert value: 0.5. */
+const STUDIO_ENV_STATION2 = 0.35
 
 const smoothstep01 = (x: number) => {
   const c = Math.min(1, Math.max(0, x))

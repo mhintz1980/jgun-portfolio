@@ -101,9 +101,13 @@ export function SpatialWorld({ children }: { children: ReactNode }) {
             (SceneCanvas StudioRig), so this scoped rig IS the station key —
             retuned for bright baked albedo (#ffc500 paint, silver metals)
             to hold ACES below clipping. Stations 1/3 keep their tuned rigs. */}
-        <directionalLight position={[6, 8, 5]} intensity={0.8} color="#ffffff" />
-        <directionalLight position={[-6, 4, -5]} intensity={0.35} color="#7dd3fc" />
-        <pointLight position={[0, 4, 3]} intensity={0.5} color="#38bdf8" distance={15} decay={2} />
+        {/* JG-021 glow experiment 5: rig trimmed ×0.7 (key 0.8→0.55,
+            fill 0.35→0.25, point 0.5→0.35) with the env floor cut to 0.35 —
+            residual-glow test after bloom + particles were exonerated.
+            Revert values: 0.8 / 0.35 / 0.5. */}
+        <directionalLight position={[6, 8, 5]} intensity={0.55} color="#ffffff" />
+        <directionalLight position={[-6, 4, -5]} intensity={0.25} color="#7dd3fc" />
+        <pointLight position={[0, 4, 3]} intensity={0.35} color="#38bdf8" distance={15} decay={2} />
         <Station2_AcousticEnclosure />
         <group visible={AIRFLOW_FIELD_VISIBLE}>
           <AirflowField />

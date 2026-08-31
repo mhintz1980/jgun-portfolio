@@ -616,3 +616,56 @@ particle systems (or keeping them off as a look change); (b) bloom
 restoration when the owner closes the analysis; (c) whether to test a
 light-rig/env trim (trades against the approved look) or examine the HUD
 neon next.
+
+### Experiments 5 & 6 — restoration, light trim, HUD neon (owner rulings 2026-08-30, evening)
+
+**Owner rulings:** "turn them all back on" — bloom and both particle systems
+restored (`38fb4f1`; panels stay opaque). Owner then approved testing (a) the
+Station-2 lighting level ("it could Definitely be something with the
+lighting") and (b) the HUD neon ("hell yeah, let's check that"), with before/
+after pairs; if neither explains the glow, the fallback is transplanting the
+JGun gearbox-housing material onto the RL-300's bright meshes.
+
+**Experiment 5 — Station-2 light trim (−30%):** env floor 0.5 → 0.35
+(`STUDIO_ENV_STATION2`) and scoped rig ×0.7 (key 0.8→0.55, fill 0.35→0.25,
+point 0.5→0.35). Typecheck + build green; fresh `:4173`.
+
+| Metric (revealed 0.65, headed captures) | restored (all on) | light trim |
+|---|---|---|
+| avg luminance | 48.6 | **45.4** |
+| blown-hot % | 0.26 | 0.21 |
+| warm yellow-orange % | 17.7 | 19.1 |
+
+The trim visibly deepens the paint and calms the luminous wash while keeping
+the approved identity (yellow body, black skid, silver hardware all read).
+
+**Experiment 6 — HUD neon (live DOM toggle, no code change):** hiding the
+seven datum badge portals at the same frame removes the cyan leader-line
+network around the machine — the scene reads dramatically cleaner; the
+badge glow is a large part of the *scene's* glowing impression, though the
+DOM overlays cannot make the 3D model itself glow.
+
+| Metric | trim (badges on) | trim (badges hidden) |
+|---|---|---|
+| avg luminance | 45.4 | 48.1 |
+| blown-hot % | 0.21 | **0.00** |
+
+(The blown-hot % to 0 with badges hidden shows the last clipped pixels in
+the subject region were badge DOM, not the machine.)
+
+Artifacts (this directory, all at the identical arc frame):
+- `JG-021-glow-exp5-restored-st2-revealed.png` (bloom + particles restored),
+  `JG-021-glow-exp5-lighttrim-st2-revealed.png` (light trim),
+  `JG-021-glow-exp6-hudhidden-st2-revealed.png` (trim + badges hidden).
+
+Capture-infrastructure note: the evening headless context-storms spread to
+every virtualized GPU path (MCP browser poster-locked on arrival; headless
+vulkan died in the panel-lift window; PMREM bakes hung new instances).
+Capture moved to a HEADED Chrome with a debug port
+(`.scratch/jg021-remediation/matshot.mjs`, `hud-hide.mjs`, `headed-diag.mjs`)
+— the hardware GPU path, which held. Absolute headed metrics differ from
+headless (adaptive DPR/viewport); within-headed A/B pairs are the evidence.
+
+Status: **experiments 5–6 measured, exp5 committed — awaiting owner ruling:**
+keep the trim / deepen it / revert; adopt any badge-visual changes; or
+proceed to the gearbox-material transplant fallback.
