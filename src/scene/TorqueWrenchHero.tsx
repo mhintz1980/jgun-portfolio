@@ -320,8 +320,15 @@ export function TorqueWrenchHero() {
     //    switcher owns everything else. In the lite tier the dissolve shader
     //    is retired: chapter 4 falls back to a plain opacity ramp into the
     //    blueprint wireframe instead of the GLSL scanline dissolve.
-    const wantCad = chapter === 3 && tier === 'full'
-    const wantLiteFade = chapter === 3 && tier !== 'full'
+    //    `chapter` is written by ScrollTrigger callbacks (ScrollRig) and can
+    //    LAG progress on fast multi-chapter bounces — a stale chapter===3 at
+    //    ~0.53 flashed the dissolve onto the visible exploded wrench (owner
+    //    report 2026-08-30; housing rear + square drive = the sweep's Z
+    //    ends). AND-gate both chapter-4 surfaces on raw progress (CH.04
+    //    starts at 0.760; 0.755 tolerates entry-side lag invisibly) so a
+    //    laggy chapter can never activate them outside the window.
+    const wantCad = chapter === 3 && progress >= 0.755 && tier === 'full'
+    const wantLiteFade = chapter === 3 && progress >= 0.755 && tier !== 'full'
     if (wantCad && surface.current !== 'cad') {
       for (const mesh of rig.meshes) mesh.material = cadMaterial
       surface.current = 'cad'

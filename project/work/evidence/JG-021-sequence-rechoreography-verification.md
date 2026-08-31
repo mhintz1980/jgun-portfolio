@@ -669,3 +669,42 @@ headless (adaptive DPR/viewport); within-headed A/B pairs are the evidence.
 Status: **experiments 5–6 measured, exp5 committed — awaiting owner ruling:**
 keep the trim / deepen it / revert; adopt any badge-visual changes; or
 proceed to the gearbox-material transplant fallback.
+
+### Experiments 7 + hardening — owner approved the full recommendation set (2026-08-30, night)
+
+**Owner ruling:** "go with your recommendations" — adopt the light trim
+(committed `bca32ff`), dial back the Station-2 badge neon, and ship the
+~53% dissolve-flash hardening as its own commit. Transplant fallback stays
+unimplemented unless the owner's eyes ask for it later.
+
+**7a — Station-2 badge dial-back (`Hotspots.tsx`, `Station2_AcousticEnclosure.tsx`):**
+new `tone: 'full' | 'dim'` prop on `HotspotButton` + `SpatialHotspotAnchor`
+(default `'full'` — Stations 1/3 and all selected/hovered interaction states
+keep full strength). `tone="dim"` at rest: badge border/opacity −~50%, datum
+box and FCF-frame glow shadows removed, label/leader-line/tick opacity
+halved (0.65→0.32 stroke, 0.75→0.4 tick). Typecheck + build + Stage-2
+contract green; fresh `:4173`.
+
+**7b — wipe-sweep hardening (`TorqueWrenchHero.tsx`):** the wrench's CAD
+dissolve / blueprint surfaces were gated on the stored `chapter` flag, which
+ScrollTrigger callbacks write and which LAGS `progress` — the owner's ~53%
+flash (dissolve on the exploded wrench's housing rear + square drive, the
+sweep's Z ends, after a fast multi-chapter bounce). Both chapter-4 branches
+are now AND-gated on raw progress: `chapter === 3 && progress >= 0.755`
+(CH.04 starts 0.760; 0.755 tolerates entry-side lag invisibly). Live smoke
+frames prove both ends: CH.02 (p 0.35) wrench renders normal photoreal live
+materials — no dissolve/blueprint; CH.04 (p 0.85) the M249 dissolve still
+fully engages with Station-3 badges at full tone.
+
+Artifacts (this directory, revealed arc frame CAM [31.818, 2.650, 1.244]):
+- `JG-021-glow-exp7-badgedim-st2-revealed.png` — trim + dimmed badges
+  (combined state; avgL 45.4, hot 0.15).
+- `JG-021-glow-exp7-smoke-ch02-wrench.png` (live materials, no dissolve),
+  `JG-021-glow-exp7-smoke-ch04-dissolve.png` (dissolve engaged).
+
+Status: **glow work COMPLETE pending final owner visual ruling.** Cumulative
+state: panels opaque (flag-revertible), light trim committed, badges dimmed
+at Station 2, dissolve race hardened, bloom + both particle systems live.
+The gearbox-material transplant remains designed-but-unimplemented fallback.
+TODO stays unchecked; all commits local (11 total) pending Mark's batch
+review.
