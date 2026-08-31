@@ -2,15 +2,15 @@
 id: JG-023
 plan: ../plans/JG-023-scrubbed-backgrounds.md # FILE MISSING — see "Plan-file gap" below
 verified_on: 2026-08-31
-verified_by: L6 verification leaf (unlazy orchestrated run; independent re-measurement of L5 raw artifacts)
-commit: 3423e22 (branch `jg-023-scrubbed-backgrounds`; records commit pending driver)
-status: partial # AC 1–8 verified (AC 5 via disclosed deviation); AC 9 owner ruling PENDING
+verified_by: L6 verification leaf (unlazy orchestrated run; independent re-measurement of L5 raw artifacts) + X1 extension leaf (solo /unlazy + adversarial subagent, same day)
+commit: 3423e22 (pilot, branch `jg-023-scrubbed-backgrounds`) + X1 extension commit (flags [true,true,false,true] + this addendum — see §Addendum X1 below)
+status: verified # AC 1–8 verified (AC 5 via disclosed deviation); AC 9 RESOLVED: CH.01 accepted 2026-08-31; CH.02+CH.04 armed + re-verified (X1 addendum); CH.03 arm deferred to post-JG-021
 ---
 
 # JG-023 — Scroll-scrubbed procedural backdrop layers · Verification
 
 **Date:** 2026-08-31 · **Orchestrator contract:** root `PLAN.md` (JG-023 tree, leaves L1–L6)
-**Status:** AC 1–8 verified (AC 5 with a disclosed, adversary-upheld deviation) · **AC 9 owner ruling PENDING** (§ below)
+**Status:** AC 1–8 verified (AC 5 with a disclosed, adversary-upheld deviation) · **AC 9 RESOLVED 2026-08-31: CH.01 ACCEPTED** (§ below) · **X1 extension: CH.02 + CH.04 armed and re-verified the same day — see §Addendum X1 (end of file); CH.03 arm deliberately deferred**
 **Raw evidence:** `.scratch/jg023-verify/` (gitignored scratch — this file + the `JG-023-*.png` captures alongside it are the permanent record). Independent L6 re-measurement archive: `.scratch/jg023-verify/raw/g8_bundle.json`, `.scratch/jg023-verify/raw/g8_remeasure.json`.
 
 **Plan-file gap (for the driver):** `PLAN.md` names `project/work/plans/JG-023-scrubbed-backgrounds.md` as the binding contract, but no JG-023 plan file exists under `project/work/plans/` (verified `find . -name "JG-023*"`), and `TODO.md`/`project/work/INDEX.md` have no JG-023 entries. This evidence file cites the orchestrator `PLAN.md` contract instead; the records commit should also add the plan file + TODO/INDEX rows or correct the reference.
@@ -160,11 +160,13 @@ Measured divergence (archived; decomposition per L5 adversary remediation):
 - **Media**: 8 files (5 GLBs 20,119,992 B, `models/role-map.json` 78,395 B, og-image.png 68,525 B, favicon.svg 495 B = 20,267,407 B) — **ALL sha1-identical** baseline vs current. Standalone `draco/` decoder copies also identical (informational, excluded from the gate's min-JS definition).
 - **Dependencies**: `git diff a0857bd HEAD -- package.json package-lock.json` EMPTY — no new dependencies.
 
-## AC 9 — Owner ruling on the pilot chapter: **PENDING**
+## AC 9 — Owner ruling on the pilot chapter: **RESOLVED 2026-08-31 — CH.01 ACCEPTED**
 
-Owner was unavailable when the pilot-chapter decision came up (PLAN.md driver note). Safe-branch default armed: `BACKDROP_CHAPTER_FLAGS = [true, false, false, false]` — CH.01 only. Do not flip chapter flags without the owner.
+**Ruling recorded:** Mark reviewed CH.01 at `?chapter=0` on :4173 and accepted the look (owner ruling 2026-08-31, relayed with the X1 extension order: "CH.01 accepted"). CH.02 + CH.04 were armed in the same ruling (`BACKDROP_CHAPTER_FLAGS → [true, true, false, true]`) and re-verified the same day — **see §Addendum X1**. CH.03 (index 2) stays `false` until the JG-021 Station-2 materials ruling closes: arming the backdrop there would confound that open visual ruling. Flip index 2 to `true` + rebuild + smoke once JG-021 is checked.
 
-**Stop-point instructions for Mark:**
+The original stop-point instructions below are retained as provenance.
+
+**Stop-point instructions for Mark (historical):**
 
 1. Serve `:4173` (already running, flag-ON HEAD build; if restarting after any rebuild: `cd C:\Users\Markimus\.buzz\REPOS\jgun-portfolio-jg023 && npm run preview` — RESTART after EVERY rebuild, stale server + rotated hashes = canvas never mounts).
 2. Visit **`http://localhost:4173/?chapter=0`** — seeds progress 0.0 via the scrollStore deep-link seeding (`src/state/scrollStore.ts:66-75`), landing in CH.01 where the backdrop is ARMED (alpha 1, warm key pool). Scrub through the page and rule the look.
@@ -212,7 +214,7 @@ Every leaf was re-attacked by a dedicated adversarial reviewer after the parent 
 | 6 | Bloom safety < 0.6 linear | `node .scratch/jg023-verify/bloom-gate.mjs` (+ L6 pixel-luminance recompute) | backdrop max 0.032433 linear (18.5× margin); 0 backdrop px >204 | `[x]` |
 | 7 | Tier behavior full/lite/reduced/poster | `tier-matrix.mjs` + `g6-authentic-ab.mjs` (+ L6 re-diff/re-read) | all four tiers behave per contract; authentic A/B mesh-match r 0.99402 | `[x]` |
 | 8 | Bundle ≤ +10 KB min-JS; media +0; no deps | `node .scratch/jg023-verify/bundle-delta.mjs` | +6,285 B; media sha1-identical; deps unchanged | `[x]` |
-| 9 | Owner ruling on pilot chapter | Mark scrubs `:4173/?chapter=0` (instructions above) | **PENDING** | `[ ]` |
+| 9 | Owner ruling on pilot chapter | Mark scrubs `:4173/?chapter=0` (instructions above) | **RESOLVED 2026-08-31: CH.01 ACCEPTED; CH.02+CH.04 armed+verified (§Addendum X1); CH.03 deferred** | `[x]` |
 
 ## Required Project Checks
 
@@ -243,3 +245,43 @@ The L6 adversarial audit (`.scratch/jg023-verify/adversary-L6.md`; independent P
 3. **Churn-control ratio range**: 0.003–0.88× (not 0.02–0.88×). **CameraRig citation**: :166 (not :165). **BootSequence chunk rehash note**: size-identical re-hash includes a minifier local rename — content-equivalent.
 4. **Plan-file gap (previous section) resolves at merge**: the JG-023 plan + TODO/INDEX rows were committed on `main` at triage (`bc76efc`) AFTER this branch's base `a0857bd`; this worktree never saw them. Records + merge commits reconcile.
 5. Scratch-only staleness (never copied into this file; no action): `manifest.md` g2fwd↔g5on @0.30/0.95 entries are stale (correct: 35,883 / 586,833).
+
+---
+
+# §Addendum X1 — CH.02 + CH.04 armed (2026-08-31, same day as the pilot)
+
+**Scope.** The owner accepted CH.01 (AC 9) and armed CH.02 + CH.04 in the same ruling: `BACKDROP_CHAPTER_FLAGS = [true, true, false, true]` — one hunk in `backdropConfig.ts` (comment update included). CH.03 (index 2) deliberately stays `false` until the JG-021 Station-2 materials ruling closes (arming there would confound that open visual ruling). This addendum records the re-verification of every measurement the CH.01-only regime could not represent, because the backdrop was previously invisible for ~78% of the scroll; under `[T,T,F,T]` it is live for most of the page. **The CH.01-era sections above remain as provenance, scoped to the `[true,false,false,false]` pilot regime; where numbers differ, this addendum governs the shipped regime.**
+
+**Leaf:** solo `/unlazy` + dedicated adversarial subagent. Gates ledger: `.scratch/jg023-verify/GATES-X1.md` (gitignored scratch; 15/15 checked at close). Raw artifacts: `.scratch/jg023-verify/raw/x1*/` + `raw/x1_telemetry_alpha.json` + `raw/x1_uniform_probe.json` + `raw/g4_x1on*.json` / `raw/g4_x1off*.json`.
+
+**Regime math.** With flags `[T,T,F,T]` the envelope is `α = w0 + w1 + w3 = 1 − t23·(1−t34)` with `t12 = ss01((p−0.22)/0.02)` (CHAPTER_BLEND_12), `t23 = ss01((p−0.525)/0.04)` (wrenchOut), `t34 = ss01((p−0.72)/0.04)` (enclosureOut). Extended checkpoint set (canonical 6 + the three blend midpoints): **0.10, 0.23, 0.30, 0.50, 0.545, 0.65, 0.74, 0.80, 0.95**. Full-alpha rows: CH.02 @0.30/@0.50, CH.04 @0.80/@0.95; blends @0.545/@0.74 sit at α = 0.5; CH.01→CH.02 handoff @0.23 stays α = 1 (both chapters armed).
+
+## X1 results by AC
+
+| AC | Measurement (X1 regime) | Result |
+|---|---|---|
+| 1 | `npm run typecheck` GREEN ×2 + build GREEN ×3 (variant arms) + `scripts/check-station2-contract.mjs` PASS on the flipped tree | PASS |
+| 4 | `backdropAlpha` vs the `[T,T,F,T]` envelope at all 9 checkpoints (achieved progress), re-run identically after the final :4173 restart | PASS — worst err **0.000000** (blends 0.50018 / 0.49951; 0.65 → 0) |
+| 3 | fwd↔rev state identity: dProgress **exactly 0** (bit-equal double), dCamera ≤ 4.39e-11, dFov ≤ 2.37e-10, `backdropAlpha` bit-equal — all 9 checkpoints. Whole frame: **0 differing px EXACTLY @0.74**; @0.10 reproduces the L5 model-strip signature (221,314 px, bbox y594–798; adversary proved the flip-set is 100.000% index-identical across eras on byte-different PNGs — deterministic approach-path rasterization, not carried data). Strict backdrop mask (see method note): fwd↔rev residuals are quantization film only — maxΔ ≤ 4, exact 0 @0.74/0.80/0.95 | PASS |
+| 5 | 10-scrub battery, flag-ON (backdrop live) vs flag-OFF build: mean 16.674 vs 16.672, p50 16.7 both, p95 16.8 both, max 17.7 vs 17.0; **Δ(ON−OFF) = +0.002 ms mean, 0.0 p50/p95**; 0 frames >50 ms both arms; 0 DPR step-downs, 0 poster fallbacks, 0 console faults | PASS — the gate most at risk did not move; p95 16.8 = the 16.80 ms display vsync quantum (same disclosed deviation as the pilot, upheld) |
+| 6 | **Analytic (pre-tonemap) bound from live uniforms:** gradient shader is a pure convex mix of uTop/uBottom/uAccent, grid paints uAccent alpha-weighted only (adversary read both shaders) → worst uniform linear luminance **0.054543** (11.0× margin vs the 0.6 bloom threshold); CH.02 full-alpha 0.052619 (11.4×), CH.04 full-alpha 0.015935 (37.7×); all nine checkpoints under the 0.45 design bound. **Pixel side (post-tonemap PNGs, strict backdrop mask):** worst px 0.213 (@0.50, a wash+in-canvas-sprite blend), pure-wash maxima CH.02 0.0232 / CH.04 0.0056; **0 px >204/255 at all 9 checkpoints**; bloom-on vs bloom-off delta inside the strict mask is film-class (maxΔ ≤ 5, exact 0 @0.65/@0.74) — no backdrop self-bloom signature. Method validation: @0.10 the strict mask reproduces the pilot's 0.0324 luminance figure (0.031315 at the same accent-pool neighborhood) | PASS |
+| 7 | lite @0.50/@0.95: `gridUAlpha` forced 0 (uniform-level proof), gradient α 1, full tier's grid provably visible (134,413 / 602,723 differing px; maxΔ up to 244 EXPECTED — setTier lite also removes ChromaticAberration, documented tier semantics). reduced @held-0.50: progress freezes at 0.500018, α 1, static recheck **0 px**. poster: no canvas, StaticPoster + 48px grid DOM, telemetry frozen 0 | PASS |
+| 2 | spot canary only (archive proved all 6 in the pilot): fresh flag-off build vs a0857bd @0.50 = 12,131 px (maxΔ 213) — inside the cross-session uTime fingerprint class (cf. pilot 11,857/Δ221) | PASS |
+| — | **CH.03 genuinely dark @0.65:** telemetry α bit-0 across the whole [0.565, 0.72] hold (not merely ≤0.001), both meshes `visible=false`-culled, strict backdrop mask = 1 quantization-collision px at luminance 0.000000 | PASS |
+| 8 | Cheap confirm (no new code): min-JS 2,392,282 B / 9 files = **+18 B** vs the pilot record (SceneCanvas chunk 812,444, minifier codegen around the changed boolean literal — NOT byte-identical, gate ≤ 10,240 B passes with huge headroom; cumulative vs a0857bd +6,303 B; index chunk 226,470 EXACT). Media: all 6 binaries (5 GLBs + og-image) sha1-identical to the a0857bd build; the 2 text diffs vs the stale mainref copy are EOL phantoms (0 commits touch them in a0857bd..HEAD; dist copies byte-match committed `public/`). No dependency changes | PASS |
+
+## X1 method notes and amended gates (disclosed, adversary-reviewed)
+
+1. **Strict backdrop mask.** Backdrop-attributable pixels = changed-vs-flagoff ∧ outside a 25 px dilation of the fwd↔fwd2 cross-session churn set. The naive churn-subtracted mask is UNSOUND: 8-bit quantization collisions leak model pixels (it produced 0.88-luminance model speculars and 5,159 "backdrop" px at culled 0.65 — impossible). The adversary proved the dilation over-attributes (leaks model px in, never hides the wash) and the analytic uniform bound covers the mask's blind spot.
+2. **Pairwise whole-frame determinism counts are NOT bracket-able** — fwd↔rev residuals exceed the fwd↔fwd2 control by up to 10× at 0.23–0.55 (visit jitter + uTime phase luck). This reproduces the L5-adversary finding; the binding checks are state identity + the strict-mask quantization-film result, not a whole-frame bracket.
+3. **Perf gate remains quantum-aware:** p95 16.8 equals this display's 16.80 ms vsync quantum; the plan's 16.7 literal stays un-meetable on this machine (pilot deviation upheld; hard decline criteria are the real gate and are green).
+4. **Bundle expectation corrected:** the flip is one hunk, but minifier codegen shifts the SceneCanvas chunk +18 B — "byte-identical sizes" was the wrong expectation; the ≤10 KB gate is the contract and passes.
+5. **Capture infrastructure:** served arms — :4173 flag-ON (evidence build; byte-identical snapshot restored + restarted + re-probed at close), :4174 a0857bd mainref, :4175 flag-off, :4176 bloom-off (`VITE_X1_BLOOM_OFF` temporary bypass, reverted), :4177 tier-handle (`VITE_X1_HANDLE` temporary store handle, reverted). All three temporary patches reverted — `git diff -- src/` at close is exactly the flag hunk. Scratch variant servers were killed at close; :4173 and :4174 left serving.
+
+## X1 adversarial layer
+
+A dedicated adversarial subagent (fresh context; inputs: gates ledger, the diff, raw artifacts; brief: refute, not confirm) attacked six targets — perf visibility at sampled checkpoints, full-alpha bloom sampling, carried-forward numbers, CH.03 darkness, bloom-method soundness (shader convexity + pre/post-tonemap domains), and 8 independent spot re-measures. **Verdict: 6/6 COULD-NOT-REFUTE, 8/8 re-measures exact, zero non-reproducing numbers.** It confirmed the flipped build was provably the one measured (the served chunk's minified envelope folds CH.02 unconditional) and explained the one suspicious cross-era identity (221,314 @0.10) as a deterministic rasterization signature. Four ledger citation/label defects were found and fixed (two artifact paths, one mislabeled neutral px, one census derivation citation) — no verdict flipped. Verdict file: `.scratch/jg023-verify/adversary-X1.md` (+ `adversary-remeasure.mjs`).
+
+## X1 status and follow-up
+
+**verified** for the `[true, true, false, true]` regime. Remaining work (intentionally NOT done here): arm CH.03 — flip `BACKDROP_CHAPTER_FLAGS[2]` to `true`, rebuild, restart, smoke (`?chapter=2`) — gated on the JG-021 Station-2 materials ruling closing. The uniform-probe tooling (`x1-uniform-probe.mjs`) should re-run as part of that smoke.

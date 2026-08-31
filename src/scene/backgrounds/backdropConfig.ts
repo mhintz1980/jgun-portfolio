@@ -3,10 +3,11 @@ import { STAGE_TRANSITIONS } from '../stages/stageWindows'
 /** JG-023 master switch. Documented revert value: false (plan §Revert). */
 export const SCRUBBED_BACKGROUNDS = true
 
-/** Per-chapter pilot gate, chapter-indexed. OWNER RULING PENDING — default arms
- * CH.01 only (safe branch: clean attribution vs the open JG-021 Station-2
- * ruling). Remaining chapters flip per-const after the owner's ?chapter= ruling. */
-export const BACKDROP_CHAPTER_FLAGS: readonly boolean[] = [true, false, false, false]
+/** Per-chapter gate, chapter-indexed. Owner ruling 2026-08-31: CH.01 accepted,
+ * CH.02 + CH.04 armed. CH.03 (index 2) stays FALSE until the JG-021 Station-2
+ * materials ruling closes — arming it there would confound that ruling. Flip
+ * index 2 to true once JG-021 is checked. Revert value: [true, false, false, false]. */
+export const BACKDROP_CHAPTER_FLAGS: readonly boolean[] = [true, true, false, true]
 
 export interface BackdropPaletteSet {
   top: string; bottom: string; accent: string; accentAlpha: number
