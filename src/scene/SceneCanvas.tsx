@@ -4,6 +4,7 @@ import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { DirectionalLight, PMREMGenerator, PointLight, SpotLight } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
+import { BackdropRig } from './backgrounds/BackdropRig'
 import { SpatialRig } from './SpatialRig'
 import { SpatialWorld } from './SpatialWorld'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
@@ -219,6 +220,9 @@ export function SceneCanvas() {
           </Suspense>
 
           <CameraRig />
+          {/* JG-023 — scroll-scrubbed procedural backdrop (camera-locked layers).
+              Flag-gated in backdropConfig; flag-off = module no-op. */}
+          <BackdropRig />
           <SpatialRig />
           {/* JG-017 — restrained post-processing FX (transition chromatic aberration + bloom).
               Returns null for poster and reduced-motion tiers; safe to always mount. */}

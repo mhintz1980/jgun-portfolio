@@ -212,6 +212,9 @@ export interface TelemetryStage {
    * without per-frame allocation in the composer's own useFrame.
    */
   transitionIntensity: number
+  /** JG-023 — procedural backdrop visibility 0..1, written per frame by
+   * BackdropRig (flag/chapter envelope across the palette blend windows). */
+  backdropAlpha: number
 }
 
 export const telemetry: {
@@ -238,7 +241,7 @@ export const telemetry: {
     ringSwitchRotZ: 0,
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
-  stage: { active: 0, alpha: [1, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0 },
+  stage: { active: 0, alpha: [1, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0, backdropAlpha: 0 },
 }
 
 // Exposed for headless verification probes (docs/animation-spec.md §11 —
