@@ -1,0 +1,245 @@
+---
+id: JG-023
+plan: ../plans/JG-023-scrubbed-backgrounds.md # FILE MISSING — see "Plan-file gap" below
+verified_on: 2026-08-31
+verified_by: L6 verification leaf (unlazy orchestrated run; independent re-measurement of L5 raw artifacts)
+commit: 3423e22 (branch `jg-023-scrubbed-backgrounds`; records commit pending driver)
+status: partial # AC 1–8 verified (AC 5 via disclosed deviation); AC 9 owner ruling PENDING
+---
+
+# JG-023 — Scroll-scrubbed procedural backdrop layers · Verification
+
+**Date:** 2026-08-31 · **Orchestrator contract:** root `PLAN.md` (JG-023 tree, leaves L1–L6)
+**Status:** AC 1–8 verified (AC 5 with a disclosed, adversary-upheld deviation) · **AC 9 owner ruling PENDING** (§ below)
+**Raw evidence:** `.scratch/jg023-verify/` (gitignored scratch — this file + the `JG-023-*.png` captures alongside it are the permanent record). Independent L6 re-measurement archive: `.scratch/jg023-verify/raw/g8_bundle.json`, `.scratch/jg023-verify/raw/g8_remeasure.json`.
+
+**Plan-file gap (for the driver):** `PLAN.md` names `project/work/plans/JG-023-scrubbed-backgrounds.md` as the binding contract, but no JG-023 plan file exists under `project/work/plans/` (verified `find . -name "JG-023*"`), and `TODO.md`/`project/work/INDEX.md` have no JG-023 entries. This evidence file cites the orchestrator `PLAN.md` contract instead; the records commit should also add the plan file + TODO/INDEX rows or correct the reference.
+
+## What was built (module map)
+
+Seven files, +510/−1 lines vs `a0857bd` (`git diff a0857bd HEAD --stat`):
+
+| File | LOC | Role |
+|---|---|---|
+| `src/scene/backgrounds/backdropConfig.ts` | +37 | Master switch `SCRUBBED_BACKGROUNDS` (documented revert `false`); per-chapter pilot gate `BACKDROP_CHAPTER_FLAGS = [true, false, false, false]` (CH.01 armed; owner ruling open); 4 chapter palettes (sRGB hex, authored dark under the bloom constraint); blend windows `[0.22,0.24]` + `STAGE_TRANSITIONS.wrenchOut/enclosureOut` imported from `stageWindows` |
+| `src/scene/backgrounds/BackdropRig.tsx` | +137 | Renders `null`; one `useFrame`: reads `progress` from the scroll store (never the ScrollTrigger chapter channel), piecewise palette lerp into module-scope scratch Colors (zero allocation), `backdropAlpha` envelope × chapter flags → `telemetry.stage.backdropAlpha`, camera-lock `syncToCamera` per layer |
+| `src/scene/backgrounds/layers/types.ts` | +19 | `BackdropLayerHandle` imperative interface (`setAlpha`/`setPalette`/`syncToCamera`, mutate-in-place) |
+| `src/scene/backgrounds/layers/BackdropGradientLayer.tsx` | +146 | Gradient plane, depth 60, `renderOrder` −1000, raw ShaderMaterial, `depthTest: true` (contract amendment — transparent pass must not veil opaque content) |
+| `src/scene/backgrounds/layers/BackdropGridLayer.tsx` | +163 | Grid plane + hash-noise dust (`BACKDROP_DUST` module const, revert `false`), depth 55, `renderOrder` −999; consumes pre-scaled accent only |
+| `src/scene/SceneCanvas.tsx` | +4 | `<BackdropRig />` mounted immediately after `<CameraRig />` (useFrame subscription order = camera-pose freshness), inside `<PerformanceMonitor>` |
+| `src/state/scrollStore.ts` | +5/−1 | `TelemetryStage.backdropAlpha` field + initializer (JG-017 two-line precedent) |
+
+`PostProcessingComposer.tsx` untouched by design. Flag-off (`SCRUBBED_BACKGROUNDS = false`) makes BackdropRig return null at component level ⇒ module no-op; AC 2 proves the rendered result pixel-equivalent. Two sanctioned temporary src patches during L5 (bloom force-off bypass; tier handle) were applied, captured, and REVERTED — `git diff --stat 3423e22 -- src/` is empty at close.
+
+## Environment
+
+| Field | Value |
+|---|---|
+| Branch / commit | `jg-023-scrubbed-backgrounds` @ `3423e22` (src diff vs `3423e22` empty) |
+| Build / servers | `:4173` = flag-ON HEAD build (`dist/`, NOT rebuilt by L6 — dist is the evidence); `:4174` = a0857bd main reference (`.scratch/jg023-verify/mainref/`) |
+| Viewport / harness | Deterministic 1280×800 @ DPR 1 (`Emulation.setDeviceMetricsOverride`), headed Chrome, isolated profile, debug port 9229; zero-dep CDP client over Node 22 WebSocket |
+| Scrub / settle | `window.__lenis.scrollTo(max*p, {duration:0})`; capture gated on 17 telemetry channels frozen at toFixed(7) ≥60 consecutive rAF frames |
+| Checkpoints | 0.10 / 0.30 / 0.50 / 0.65 / 0.80 / 0.95 (+ 0.0 via `?chapter=0` for the authentic reduced A/B) |
+| Baseline | `.scratch/jg023-verify/baseline/dist/` — pristine a0857bd build produced in THIS worktree by L1 before any JG-023 code existed (provenance: `baseline/manifest.md`) |
+
+## AC 1 — Module implemented per contract (build leaves L2/L3/L4)
+
+Leaf gates: L3 6/6, L2 7/7, L4 4/4, all parent re-run ALL MET; integration B1–B4 met at `3423e22` (tree green, surface exact, live smoke envelope-exact + reversible, console clean). Full-tree `npm run typecheck` + `npm run build` GREEN at the integration commit (L4/branch-integration gates; L6 did not rebuild — see Environment). Zero-allocation useFrame contract and accent pre-scaling verified by the L2/L3 adversaries (see §Adversarial layer).
+
+## AC 2 — Flag-off parity vs the pre-feature reference
+
+`node .scratch/jg023-verify/parity.mjs`; all 6 checkpoints RE-DIFFED by L6 from the archived PNGs (`.scratch/jg023-verify/raw/g8_remeasure.json` §ac2Parity — all `ok`):
+
+| checkpoint | flag-off vs a0857bd px (maxΔ) | L6 re-diff |
+|---|---|---|
+| 0.10 | 350 (Δ1), bbox [535,731]–[1031,754] | ok |
+| 0.30 | 38,621 (Δ167) | ok |
+| 0.50 | 11,857 (Δ221) | ok |
+| 0.65 | 12,473 (Δ199) | ok |
+| 0.80 | 1,428 (Δ220) | ok |
+| 0.95 | 38,585 (Δ14) | ok |
+
+The static 0.10 checkpoint sits at maxΔ1 — far below the 14.6k-px cross-session noise floor measured flag-ON; the rest match the known uTime-phase fingerprints of the pre-existing CAD shaders. Flag-off is pixel-equivalent to the pre-feature build. Captures: `JG-023-ac2-flagoff-p010.png` vs `JG-023-ac2-mainref-p010.png` (this directory).
+
+## AC 3 — Scrub determinism (flag ON, forward vs reverse)
+
+L6 re-diffs of the archived same-frame pairs: @0.10 = 221,314 px maxΔ5 [ok], @0.95 = 542,818 px maxΔ236 [ok] (`g8_remeasure.json` §g2FwdRevP010/P095). Full archived table (`raw/g2/g2_determinism.json`, forward `raw/g2/fwd/`, reverse `raw/g2/rev/` + `rev2` controls, cross-session `fwd2/`):
+
+| checkpoint | fwd↔rev px (maxΔ) | different-path bracket (uTime-decorrelated) |
+|---|---|---|
+| 0.10 | 221,314 (Δ5) — y<594 has **0 px**; residuals confined to the y594–798 model strip | 39,876 (Δ1) |
+| 0.30 | 74,275 (Δ191) | 78,084 ≥ |
+| 0.50 | 24,531 (Δ214) | 20,284 ≈ |
+| 0.65 | 13,513 (Δ199) | 14,956 ≈ |
+| 0.80 | 54,999 (Δ243) | 55,995 ≈ |
+| 0.95 | 542,818 (Δ236) | 586,833 ≥ |
+
+State identity fwd vs rev: progress delta EXACTLY 0 (bit-equal double), camera ≤ 4.3e-11, fov ≤ 2.4e-10, `backdropAlpha` bit-equal — all 6 checkpoints. Whole-frame STRICT 0-px equality is unattainable on this build for reasons independent of JG-023: both backdrop layers are pure functions of uniforms (no time input; grid dust static by construction), the layers are culled at backdropAlpha 0 (0.30–0.95), and the residuals are the pre-existing uTime channels (wrench inner-core CAD shader, M249Stage CAD shader, AirflowField, BaffleField), bounded above by the different-path churn controls. Captures: `JG-023-ac3-fwd-p010.png` vs `JG-023-ac3-rev-p010.png` (this directory). See §Disclosed deviations for the bracketing correction made by the L5 adversary.
+
+## AC 4 — Telemetry envelope (`backdropAlpha`)
+
+`node .scratch/jg023-verify/telemetry-alpha.mjs` → `raw/g3_telemetry_alpha.json`. L6 recomputed `expected = 1 − smoothstep01((p−0.22)/0.02)` at each ACHIEVED progress and re-derived err (`g8_remeasure.json` §g3Alpha — all `ok`, worstErr 0):
+
+| target | achieved progress | measured | expected (recomputed) | err |
+|---|---|---|---|---|
+| 0.10 | 0.099995 | 1 | 1 | 0 |
+| 0.30 | 0.299984 | 0 | 0 | 0 |
+| 0.50 | 0.500018 | 0 | 0 | 0 |
+| 0.65 | 0.649987 | 0 | 0 | 0 |
+| 0.80 | 0.800002 | 0 | 0 | 0 |
+| 0.95 | 0.950017 | 0 | 0 | 0 |
+
+All six are outside the [0.22, 0.24] blend window, so the envelope is exactly 1 or 0. PASS (gate ±0.02).
+
+## AC 5 — Scrub performance (10 full-page scrubs per battery)
+
+`node .scratch/jg023-verify/perf-scrub.mjs`; L6 RECOMPUTED every statistic from the raw rAF-delta arrays (`raw/g4_*_deltas.json`, same estimator: sorted, `ds[⌊p·n⌋]`) — every value matches the archived summaries (`g8_remeasure.json` §g4):
+
+| metric | flag ON | flag OFF | ON−OFF (recomputed from raw) |
+|---|---|---|---|
+| frames | 1231 | 1232 | — |
+| mean ms | 16.672 | 16.669 | +0.003 |
+| p50 ms | 16.7 | 16.7 | 0.0 |
+| p95 ms | **16.8** | **16.8** | 0.0 |
+| max ms | 16.9 | 16.9 | 0.0 |
+| frames >50 ms | 0 | 0 | 0 |
+| frames >16.7 ms | 609 | 612 | — |
+| DPR step (canvas.width/clientHeight) | 1.58125 → 1.58125 | same | — |
+| poster fallback / console faults | none / 0 | none / 0 | — |
+
+Blank-page rAF cadence baseline (`raw/g4_blankpage.json`): the archived 3000-sample battery is the OCCLUSION-THROTTLED variant (mean 32.952 / p50 33.4 / p95 33.5 / max 283.5 — the machine throttles to 30 Hz when occluded); the unthrottled cadence p50 16.699 / p95 16.800 / max 47.3 is attested in the file's environmentNote and by the adversary's independent re-measure (p95 16.80 / mean 16.68). The raw unthrottled array was not archived, so this figure is NOT independently recomputable — flagged accordingly in `g8_remeasure.json`. Disclosed deviation: **the 16.7 ms p95 gate literal is below this display's 16.80 ms vsync quantum** — no build can measure p95 < 16.8 here; the hard decline criteria (zero frames >50 ms, zero DPR step-downs, zero poster fallbacks, zero console faults, ON−OFF delta ≤ 0.003 ms) are all green. Ruled UPHELD-as-disclosed by the L5 adversary; flagged for the owner in §AC 9 (gate thresholds should be quantum-aware on this display).
+
+## AC 6 — Bloom safety (backdrop must stay under the 0.6-linear threshold)
+
+`node .scratch/jg023-verify/bloom-gate.mjs` (bloom force-off via temporary `VITE_JG023_BLOOM_OFF` bypass, captured, then REVERTED — `git diff --stat 3423e22 -- src/scene/PostProcessingComposer.tsx` empty). All 6 checkpoints RE-DIFFED by L6 from the archived PNGs (`g8_remeasure.json` §ac6Bloom — all `ok`):
+
+| checkpoint | bloom-on vs off px (maxΔ) | re-diff |
+|---|---|---|
+| 0.10 | 43,496 (Δ1) | ok |
+| 0.30 | 189,473 (Δ175) | ok |
+| 0.50 | 543,253 (Δ221) | ok |
+| 0.65 | 34,784 (Δ197, airflow bbox) | ok |
+| 0.80 | 179,346 (Δ246) | ok |
+| 0.95 | 587,001 (Δ246) | ok |
+
+Backdrop-only luminance, RECOMPUTED BY L6 FROM PIXELS (`g8_remeasure.json` §backdropLuminance; no luminance JSON was archived by L5 — this is the primary measurement now):
+
+- Backdrop-visible footprint at 0.10 (flag-ON `raw/g5_on/` vs pre-backdrop `raw/parity_flagoff/` changed-px map): **221,314 px, 100% at y≥594, 0 px at y<594** [matches claim].
+- Max linear Rec.709 luminance (sRGB EOTF) over exactly those 221,314 px: **0.032433** at (661, 639) rgb(75,43,9) — claim 0.0324 (ratio 1.001, rounding) ⇒ **18.5× margin** vs the 0.6 bloom threshold. Analytic authored peak (accent-pool convex mix, accent pre-scaled ×0.10): ≤ 0.0545 linear ⇒ ≥11× margin.
+- Backdrop-visible px >204/255: **0** (204/255 sRGB ≈ 0.60 linear — the bloom threshold in 8-bit terms).
+- Attribution of the 43,496 @0.10 changed px: all maxΔ1 and the pixel-set intersection with the backdrop-visible map is TOTAL — the model's legal-specular HALO FRINGE at rest bloom intensity 0.25 (magnitude matches the 39,876-px Δ1 cross-session jitter control), not backdrop self-bloom; a backdrop bloom would require >0.6-linear sources, which measurably do not exist. Full-frame deltas at 0.30–0.95 = model speculars + uTime phase decorrelation across builds.
+- DISCREPANCY (narrative color only, reported to driver): L5's gloss that the 9,177 full-frame >204 px are "cool neutral model speculars (180,180,183-class)" does NOT reproduce — the count 9,177 reproduces EXACTLY at threshold >204, but L6 classification of that exact set finds 9,177 warm-dominant, 0 neutral (spread ≤12), 0 cool; mean rgb [242, 86, 99] (warm model paint/highlights at the CH.01 close-up). The count, the 0-in-mask result, and the bloom verdict are unaffected. Captures: `JG-023-ac6-bloom-on-p010.png` vs `JG-023-ac6-bloom-off-p010.png`.
+
+## AC 7 — Tier behavior (full / lite / reduced / poster)
+
+`node .scratch/jg023-verify/tier-matrix.mjs` + `g6-authentic-ab.mjs`; L6 re-read the archived matrix (`raw/g6_tier_matrix.json`) and re-diffed the full-vs-lite pair (`g8_remeasure.json` §ac7FullVsLite [ok] §tiers):
+
+| tier | canvas | backdropAlpha @0.10 | evidence |
+|---|---|---|---|
+| full | yes | 1 | `raw/g5_on/fwd_p010.png` (= `JG-023-ac6-bloom-on-p010.png`) |
+| lite | yes | 1 (grid forced 0) | full-vs-lite 59,890 px Δ≤15, bbox y594+ [re-diff ok] ⇒ grid PROVABLY visible in full; `JG-023-ac7-lite-p010.png` |
+| reduced | yes | 1, static (authentic-session recheck 0 px) | `raw/g6_reduced_authentic_p000.png` + `_again.png`; camera pinned to hero keyframe [0.32, 0.16, 0.42] fov 42 (`src/scene/CameraRig.tsx:165`) |
+| poster | **no** | telemetry frozen 0 | StaticPoster text + 48px grid DOM verified; `raw/g6_poster_page.png` |
+
+### Authentic reduced A/B (matched checkpoint 0.0 via `?chapter=0` seed in BOTH tiers)
+
+Route: `Emulation.setEmulatedMedia(prefers-reduced-motion: reduce)` applied BEFORE page load (authentic boot — Lenis never mounts, `src/App.tsx:43`); `?chapter=0` seeds progress 0.0 in both tiers via the scrollStore DOMContentLoaded seeding (`src/state/scrollStore.ts:66-75` — verified present). Probes: media=true, `__lenis` undefined, gear 0, backdropAlpha 1, camera EXACTLY [0.32, 0.16, 0.42] fov 42 in BOTH tiers. Captures: `JG-023-ac7-full-authentic-p000.png` vs `JG-023-ac7-reduced-authentic-p000.png`; static recheck 0 px.
+
+Measured divergence (archived; decomposition per L5 adversary remediation):
+- Whole frame: 1,009,966 px maxΔ239 — dominated by pipeline differences (composer + bloom in full vs raw path in reduced), NOT mesh content.
+- Mesh content matches: model-free rows (602 of 799) profile r = 0.99402, high-pass line-structure r = 0.99044; bands 0.95198–0.99891; max per-pixel Δ in model-free rows ≤ 92. The only >64-delta cluster is the model band y279–475 (bloom halo + metal tone), 1.3% of the frame.
+- Known encoding divergence (see §Pre-existing findings): reduced-tier backdrop renders raw-linear (unencoded) — tone ratio reduced/full 0.264–0.477 (mean 0.322) on model-free rows.
+- Content honesty: at 0.0 both tiers hold the rest pose (full: timeline at progress 0; authentic reduced: no timeline is ever created, `src/scene/TorqueWrenchHero.tsx:101`) — NO displaced silhouette. The earlier flip-route A/B (setReducedMotion after a scrub) froze the hero GSAP timeline mid-scrub and was INVALID; it is superseded and kept as provenance (`raw/g6_fliproute-ARTIFACT_*`).
+
+## AC 8 — Bundle / asset hygiene (G1 audit, measured by L6)
+
+`node .scratch/jg023-verify/bundle-delta.mjs` → `.scratch/jg023-verify/raw/g8_bundle.json`. Current `dist/` (3423e22 flag-ON build) vs pristine a0857bd baseline built in THIS worktree (`baseline/dist/`, provenance `baseline/manifest.md`):
+
+- **min-JS** (`dist/assets/*.js`): baseline **2,385,979 B** / 9 files → current **2,392,264 B** / 9 files = **delta +6,285 B** — gate ≤ 10,240 B (10 KB): **PASS**.
+- Per-chunk: `SceneCanvas` 806,157 → 812,426 (**+6,269**, the new module ships here); `index` 226,454 → 226,470 (**+16**, scrollStore telemetry field). 5 chunks byte-identical (same hash): draco_decoder 719,410, vanilla 380,071, ScrollTrigger 114,013, draco_wasm_wrapper 58,763 + 58,456. 2 chunks re-hashed at IDENTICAL size (ScrollRig 19,645, BootSequence 3,010 — content shift limited to rotated chunk-hash import specifiers). Code-splitting intact: three/GSAP stack stays in the lazy canvas chunk; `StaticPoster` three-free; initial `index` chunk 226 KB.
+- **Media**: 8 files (5 GLBs 20,119,992 B, `models/role-map.json` 78,395 B, og-image.png 68,525 B, favicon.svg 495 B = 20,267,407 B) — **ALL sha1-identical** baseline vs current. Standalone `draco/` decoder copies also identical (informational, excluded from the gate's min-JS definition).
+- **Dependencies**: `git diff a0857bd HEAD -- package.json package-lock.json` EMPTY — no new dependencies.
+
+## AC 9 — Owner ruling on the pilot chapter: **PENDING**
+
+Owner was unavailable when the pilot-chapter decision came up (PLAN.md driver note). Safe-branch default armed: `BACKDROP_CHAPTER_FLAGS = [true, false, false, false]` — CH.01 only. Do not flip chapter flags without the owner.
+
+**Stop-point instructions for Mark:**
+
+1. Serve `:4173` (already running, flag-ON HEAD build; if restarting after any rebuild: `cd C:\Users\Markimus\.buzz\REPOS\jgun-portfolio-jg023 && npm run preview` — RESTART after EVERY rebuild, stale server + rotated hashes = canvas never mounts).
+2. Visit **`http://localhost:4173/?chapter=0`** — seeds progress 0.0 via the scrollStore deep-link seeding (`src/state/scrollStore.ts:66-75`), landing in CH.01 where the backdrop is ARMED (alpha 1, warm key pool). Scrub through the page and rule the look.
+3. CH.03 preview (optional, one-const flip): set `BACKDROP_CHAPTER_FLAGS[2]` to `true` in `src/scene/backgrounds/backdropConfig.ts`, rebuild, restart :4173, visit `http://localhost:4173/?chapter=2`. The revert is documented in the same file (`false`). Chapter 1/3 seeds map to progress 0.35/0.85 in the same store block.
+4. Record the ruling; remaining chapters flip per-const afterward.
+
+## Revert instructions
+
+Set `SCRUBBED_BACKGROUNDS = false` in `src/scene/backgrounds/backdropConfig.ts` (documented revert value) + rebuild + restart the preview. BackdropRig then returns null at component level ⇒ module no-op: no meshes, no useFrame work, telemetry `backdropAlpha` stays 0. AC 2 proves flag-off pixel-equivalent to a0857bd (350 px maxΔ1 at the static checkpoint — inside session noise). Finer switches: per-chapter `BACKDROP_CHAPTER_FLAGS` (each `false` zeroes that chapter's envelope) and `BACKDROP_DUST` in `BackdropGridLayer.tsx` (drops dust specks if the perf fallback ever fires).
+
+## Disclosed deviations and adversary corrections (all REMEDIATED before close)
+
+1. **AC 5 p95 16.8 vs the 16.7 gate literal** — display vsync quantum is 16.80 ms (blank-page unthrottled p95 16.800; adversary re-measure 16.80); the literal threshold is below the quantum. Hard decline criteria all green; ON−OFF ≤ 0.003 ms. UPHELD as disclosed.
+2. **AC 3 whole-frame determinism** — strict 0-px whole-frame equality is unattainable for reasons independent of JG-023 (pre-existing uTime channels). The L5 adversary REFUTED the original same-path churn bracket (rev↔rev controls sit at 0.02–0.88× of the fwd↔rev counts and bracket nothing); the correct bracket is DIFFERENT-PATH pairs (uTime-decorrelated), which equal or exceed the residuals at 0.30/0.80/0.95 and match at 0.50/0.65, independently reproduced from archived captures. At 0.10 — the only checkpoint where the backdrop is visible — y<594 has exactly 0 differing px.
+3. **AC 6 luminance bookkeeping** — the earlier "pure-backdrop max 0.2195" was the y594–798 MODEL-blend strip (neutral-gray model content), and L5's >204 claim needed scoping to backdrop rows. Remediated: true backdrop-only max 0.032433 linear (L6 recompute from pixels), 0 backdrop-visible px >204.
+4. **AC 7 A/B validity** — the flip-route matched-pose A/B was refuted (froze the hero timeline mid-scrub; authentic reduced never builds it) and REDONE authentically at matched checkpoint 0.0; mesh content matches (r = 0.99402 on model-free rows).
+5. **AC 6 color gloss (L6 finding, reported)** — the 9,177 full-frame >204 px are warm-dominant (mean rgb [242,86,99], 0 neutral), not "cool neutral 180,180,183-class" as L5 glossed. Count exact; verdict unaffected.
+
+## Adversarial layer summary
+
+Every leaf was re-attacked by a dedicated adversarial reviewer after the parent re-run (verdicts in `.scratch/jg023-verify/adversary-L*.md`):
+
+| adversary | verdict | outcome |
+|---|---|---|
+| L1 (baseline) | 5/5 could-not-refute | baseline numbers re-measured exact — L1 VERIFIED |
+| L3 (layers) | 6/6 could-not-refute | luminance reproduced exactly; peak formula proven bound — L3 VERIFIED |
+| L2 (rig) | 7/7 could-not-refute | envelope math replayed exactly; accent-corruption disproven via three r185 `Color.js:798` — L2 VERIFIED |
+| L4 (mount) | 4/4 could-not-refute | subscription-order mechanism confirmed in fiber 9.7.0 source — L4 VERIFIED |
+| L5 (verification) | verdicts upheld 7/7; THREE evidence lines refuted | churn-bracket, bloom mislabels, flip-route A/B — all remediated (see §Disclosed deviations); G4 deviation upheld as disclosed |
+
+## Pre-existing findings (NOT JG-023 — routed to intake, owner's call)
+
+1. **BootSequence dead unmount timer** — `src/components/BootSequence.tsx:109-118`: the completion effect's cleanup (`:117 clearTimeout`) fires when `phase` flips `boot→ready` (phase is a dependency, `:118`), and the re-run early-returns at `:110`, so the `:116` timer that would unmount the panel is always cleared first. The boot panel never unmounts — it only fades to `opacity-0` (visually gone, DOM-resident); L5's bootWait gates on computed opacity. Last touched 2026-08-20. Route to boot-owner.
+2. **Reduced-tier backdrop raw-linear encoding** — the backdrop layers are raw ShaderMaterials without a `colorspace_fragment` include: the composer's final pass output-encodes them in the full tier, the reduced raw path does not ⇒ visibly darker backdrop in reduced tier (tone ratio 0.264–0.477, mean 0.322). Candidate fix: `#include <colorspace_fragment>` in the layer shaders. Owner's call (visual signature change in a verified tier).
+
+## Verification table
+
+| AC | Criterion | Command / probe | Result | Pass |
+|---|---|---|---|---|
+| 1 | Module per contract; flag-off no-op | L2/L3/L4 + integration gates; `git diff --stat 3423e22 -- src/` empty at close | contract verified @ 3423e22 | `[x]` |
+| 2 | Flag-off pixel parity vs a0857bd | `node .scratch/jg023-verify/parity.mjs` (+ L6 re-diff `g8-remeasure.mjs`) | 350 px maxΔ1 @0.10; uTime fingerprints elsewhere | `[x]` |
+| 3 | Scrub determinism | `node .scratch/jg023-verify/determinism.mjs` (+ L6 re-diffs @0.10/0.95) | state identity bit-equal; residuals bounded by pre-existing uTime channels (different-path bracket) | `[x]` |
+| 4 | backdropAlpha envelope ±0.02 | `node .scratch/jg023-verify/telemetry-alpha.mjs` (+ L6 formula recompute) | err 0.000000 all 6 checkpoints | `[x]` |
+| 5 | Scrub perf; no declines | `node .scratch/jg023-verify/perf-scrub.mjs` (+ L6 recompute from raw arrays) | p95 16.8 (vsync-quantum deviation, disclosed); 0× >50 ms; 0 declines/fallbacks/faults; Δ(ON−OFF) ≤ 0.003 ms | `[x]` |
+| 6 | Bloom safety < 0.6 linear | `node .scratch/jg023-verify/bloom-gate.mjs` (+ L6 pixel-luminance recompute) | backdrop max 0.032433 linear (18.5× margin); 0 backdrop px >204 | `[x]` |
+| 7 | Tier behavior full/lite/reduced/poster | `tier-matrix.mjs` + `g6-authentic-ab.mjs` (+ L6 re-diff/re-read) | all four tiers behave per contract; authentic A/B mesh-match r 0.99402 | `[x]` |
+| 8 | Bundle ≤ +10 KB min-JS; media +0; no deps | `node .scratch/jg023-verify/bundle-delta.mjs` | +6,285 B; media sha1-identical; deps unchanged | `[x]` |
+| 9 | Owner ruling on pilot chapter | Mark scrubs `:4173/?chapter=0` (instructions above) | **PENDING** | `[ ]` |
+
+## Required Project Checks
+
+- [x] `npm run typecheck` + `npm run build` GREEN at the integration commit (L4 / branch-integration gates, `3423e22`). L6 deliberately did NOT rebuild: `dist/` is the audited evidence artifact.
+- [x] The `:4173` preview serves the current build (restarted by L5 after the final rebuild; L6 killed no servers).
+- [x] Runtime telemetry used for every WebGL/scene/perf claim on this page; the PNG pairs are same-frame supporting evidence only.
+- [x] Reduced-motion, lite, and poster-tier behavior explicitly checked (AC 7).
+- [x] No protected `.scratch/` or parallel-session file committed by this work: `.scratch/` is untracked scratch; this records commit must NOT include it (see below).
+
+## Result
+
+**partial** — AC 1–8 verified with measured evidence (AC 5 via a disclosed, adversary-upheld deviation); AC 9 (owner ruling) intentionally open. TODO/INDEX status flips to `verified` only after Mark's `?chapter=0` ruling is recorded.
+
+## Residual Risk and Follow-up
+
+- Gate literal `p95 ≤ 16.7 ms` is un-meetable on this 16.80 ms-quantum display — recommend making the perf gate quantum-aware (e.g. p95 ≤ display quantum + ε, hard criteria unchanged) so future work doesn't inherit a false-red.
+- The two pre-existing findings above belong in `project/work/inbox/` (boot-owner; colorspace fix).
+- Missing `project/work/plans/JG-023-scrubbed-backgrounds.md` + absent TODO/INDEX JG-023 rows — records-commit owner should add them (see Plan-file gap).
+- L5's "cool neutral" color gloss is corrected here; no action beyond the record.
+- Raw artifacts live in gitignored `.scratch/jg023-verify/`; the nine `JG-023-*.png` copies in this directory are the permanent visual record (key same-frame pairs: AC 2 parity, AC 3 determinism, AC 6 bloom on/off, AC 7 lite + authentic reduced A/B).
+
+## Erratum (L6-adversary corrections, 2026-08-31 — appended by driver before records commit)
+
+The L6 adversarial audit (`.scratch/jg023-verify/adversary-L6.md`; independent PNG decoder + raw-array replay) could not refute any gate verdict or load-bearing number — every PNG-diff count, the luminance figure (0.032433 linear @ rgb(75,43,9), 18.50× margin), and all bundle bytes reproduce exactly — but corrected:
+
+1. **AC 3 state-identity bound**: camera delta is ≤ **4.39e-11** (max single row 4.3878e-11, `g2_determinism.json` @0.8), not "≤ 4.3e-11" as a stricter bound implies. dProgress = 0 exact and fov ≤ 2.3664e-10 hold as stated.
+2. **AC 3 bracket cells @0.50 / @0.65**: correct values are **20,296** and **15,239** (the stated 20,284 / 14,956 were carried from the L5 manifest without L6 re-measurement — the other four bracket values reproduce exactly; the AC 3 conclusion is unaffected).
+3. **Churn-control ratio range**: 0.003–0.88× (not 0.02–0.88×). **CameraRig citation**: :166 (not :165). **BootSequence chunk rehash note**: size-identical re-hash includes a minifier local rename — content-equivalent.
+4. **Plan-file gap (previous section) resolves at merge**: the JG-023 plan + TODO/INDEX rows were committed on `main` at triage (`bc76efc`) AFTER this branch's base `a0857bd`; this worktree never saw them. Records + merge commits reconcile.
+5. Scratch-only staleness (never copied into this file; no action): `manifest.md` g2fwd↔g5on @0.30/0.95 entries are stale (correct: 35,883 / 586,833).
