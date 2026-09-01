@@ -226,10 +226,10 @@ for every change.
 
 1. **JG-021 final visual ruling** — already pending; gates CH.03 backdrop arm + W3/W5/W6.
 2. **Round-table session** — gates all background layout (W5, B1 sheet, B5 table, C3 backdrop).
-3. **Plan4 elaboration sheet** — the 22-row yes/no table in `animation-redo.md` (slow-mo?
+3. **Plan4 elaboration sheet** — the 24-row yes/no table in `animation-redo.md` (slow-mo?
    thermal flash? orbit range? clamshell vs dictated cross-section? paint-strip narrative?
    3D text? cursor states? sound? scanline ghost? explosion lines? hex pull-through? ribbon
-   tracers? heat shimmer? etc.).
+   tracers? heat shimmer? etc.) — agent leans recorded; Mark's rulings pending.
 4. **Camera-rail promotion** — confirm `camera-rail` (W2) as the next JG-### after JG-021
    closes, before redo beats are authored.
 5. **W1 prefetch thresholds** — idle-based vs scroll-percent (25%/55% proposed) — either is

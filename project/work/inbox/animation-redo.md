@@ -81,32 +81,38 @@ use the repo numbering; owner labels are kept in brackets where they originated.
 ## Agent elaborations from the same dictation session — NOT owner-ruled
 
 `Plan4.md` expanded the dictation into a cinematic direction. These additions are recorded so
-they are not lost, but none is owner-approved. Each needs an explicit Mark yes/no at triage:
+they are not lost, but none is owner-approved. Each carries the agent's **lean** (2026-09-01
+review, delivered in chat the same day); the **ruling** column is Mark's to fill. Row
+numbering matches the in-chat review list of 2026-09-01; rows 23–24 (clamshell peel,
+point-cloud→M249) were in the original Plan4 set without chat numbers and are added here for
+completeness — nothing is built either way.
 
-| # | Elaboration (Plan4) | Note / tension |
-|---|---|---|
-| 1 | B4 "inspection theater": global time dilation to 0.15x on click | Not dictated; new global timescale system |
-| 2 | B4 orbit range ±120° | Conflicts with "slight scroll partially orbits" (dictated); Plan3 suggests 45–75° as a starting point (the filed camera intake leaves the range open) |
-| 3 | B4 heatmap/thermal flash on the inspected part | Only surviving heatmap candidate anywhere; new shader |
-| 4 | B1 drawing as a physical 3D sheet with 3D-geometry dimension lines | Owner ruled B1 = in-app render + SVG overlay |
-| 5 | C3 "clamshell peel" hinge-open of the shell | Differs from dictated "cross-section showing ONLY the chamber geometry, internals vague" — clamshell reveals everything |
-| 6 | C1 paint-strip narrative + falling flake particles | Dictated beat is a recolor at the choke point |
-| 7 | 3D text replaces DOM headlines (drei `<Text>`) | A11y/SEO tradeoff; contradicts text-restraint direction |
-| 8 | Per-beat post-processing value table (bloom/CA/grain/vignette) | Pre-optimizes values against a look that is owner-locked; grain/vignette/DOF passes don't exist yet |
-| 9 | Cursor state system (custom DOM cursor) | Not dictated; a11y implications |
-| 10 | Sound design layer | Plan4 itself defers to post-CH.03; Web Audio absent from repo |
-| 11 | C6 point-cloud freeze → dissolve into M249 | Out of scope (CH.04 deferred) |
-| 12 | Camera shake on B2, orbital drift, DOF rack-focus passes | New post/DOF stack on a ~vsync-quantum frame budget; DOF absent today |
-| 13 | B3 scanline ghost sweep (inverted CAD-dissolve sweep instead of opacity fade) | Interacts with the open ghost regression (`animation-spec.md` §5.2); replaces the measured §5.2 mechanism |
-| 14 | B3 metal-shaving particles at gear contact points | New particle system; CH.01/02 has none today |
-| 15 | B3 explosion lines (origin → exploded position traces) | New line-render pass over the existing ladder |
-| 16 | B3 ring-switch axial pre-translate (2 mm) before rotation | Secondary motion on a measured beat (§5.4 windows) |
-| 17 | B4 3D-geometry HUD materialization (torus reticle, orbiting 3D part name, anchored data plane) | Replaces/extends the DOM badge + HUD card system |
-| 18 | B5→C1 transition grammar: drawing page-turn reveals RL-300 spec sheet; table morphs into mounting skid | Cross-chapter shared-element mechanic; background layout is round-table territory |
-| 19 | C2 hex-pulse sequence, intake vortex, first-person pull-through the duct | Sub-beat expansion of the dictated intake highlight |
-| 20 | C4 capsule tracers + ribbon trails + curl-noise turbulence + density encoding | Replaces the existing single-draw shader points approach with a richer particle model |
-| 21 | C6 plume smoke physics + heat-shimmer refraction pass | New particle physics + new post pass |
-| 22 | B2 drawing-sheet bulge (vertex displacement as the model emerges) | Part of the dictated rise beat — the embellishment is the sheet deformation mechanic |
+| # | Elaboration (Plan4) | Note / tension | Agent lean | Mark ruling |
+|---|---|---|---|---|
+| 1 | B4 "inspection theater": global time dilation to 0.15x on click | Not dictated; a scrubbed scroll-tied timeline does not want a global timescale | ❌ No | |
+| 2 | B4 orbit range ±120° | Conflicts with "slight scroll partially orbits" (dictated); Plan3 suggests 45–75° as a starting point (the filed camera intake leaves the range open) | ❌ No — keep dictated; 45–75° start | |
+| 3 | B4 heatmap/thermal flash on the inspected part | Only surviving heatmap candidate anywhere; new shader; re-opens look discipline for a garnish | ❌ No for now | |
+| 4 | B1 drawing as a physical 3D sheet with 3D-geometry dimension lines | Owner ruled B1 = in-app render + SVG overlay; SVG is sharper, cheaper, accessible | ❌ No — owner ruling stands | |
+| 5 | B2 drawing-sheet bulge (vertex displacement as the model emerges) | Part of the dictated rise beat — but the pond-ripple is already that beat's one flourish (one-trick rule) | ❌ No | |
+| 6 | B3 scanline ghost sweep (inverted CAD-dissolve sweep instead of opacity fade) | Interacts with the open ghost regression (`animation-spec.md` §5.2 — `ghostCount` = 0); replaces the measured §5.2 mechanism | ❌ No for now — fix the regression first | |
+| 7 | B3 metal-shaving particles at gear contact points | New particle system; CH.01/02 has none today; explode already reads | ❌ No | |
+| 8 | B3 explosion lines (origin → exploded position traces) | Cheap, engineering-authentic assembly-diagram language; helps the ladder read | ✅ Yes | |
+| 9 | B3 ring-switch axial pre-translate (2 mm) before rotation | Tiny real-mechanism detail on a measured beat (§5.4 windows) | ✅ Yes | |
+| 10 | B4 3D-geometry HUD materialization (torus reticle, orbiting 3D part name, anchored data plane) | Replaces the DOM badge + HUD card system — built, accessible, freshly tone-tuned; a11y + perf re-open | ❌ No | |
+| 11 | B5→C1 transition grammar: drawing page-turn reveals RL-300 spec sheet; table morphs into mounting skid | Best idea in Plan4, but cross-chapter transitions/background layout are round-table territory | 🅿️ Yes as principle — design at round-table | |
+| 12 | C1 paint-strip narrative + falling flake particles | Dictated beat is a recolor at the choke point; flakes are a particle system for a background moment | ❌ No | |
+| 13 | C2 hex-pulse sequence, intake vortex, first-person pull-through the duct | Pulse = cheap and story-driven; the C5 follow-cam already provides the "inside the duct" moment | ✅ pulse · optional vortex · ❌ pull-through | |
+| 14 | C4 capsule tracers + ribbon trails + curl-noise turbulence + density encoding | Replaces the existing single-draw shader points with a richer particle model; build the dictated S-path particles first, upgrade only if the flow doesn't read | ❌ No for v1 | |
+| 15 | C6 plume smoke physics + heat-shimmer refraction pass | The plume rise itself is dictated; smoke physics + a refraction post pass are new always-on-cost systems | ✅ plume · ❌ smoke/shimmer for v1 | |
+| 16 | Camera shake on B2 (emissive pulse) | 6-frame one-shot; sells the creation moment; cheap | ✅ Yes, tiny | |
+| 17 | Orbital drift when scroll rests (~0.3°/sec) | Keeps the scene alive; complements the existing model idle-motion; cheap | ✅ Yes | |
+| 18 | DOF rack-focus (depth-of-field pass animating per beat) | A per-frame post pass against a ~0-headroom vsync budget — the biggest perf item in Plan4 | ❌ No | |
+| 19 | 3D text replaces DOM headlines (drei `<Text>`) | A11y/SEO tradeoff; contradicts the text-restraint direction; better-styled DOM text gets the depth feel | ❌ No | |
+| 20 | Cursor state system (custom DOM cursor) | Not dictated; a11y implications; chrome for chrome's sake | ❌ No for now | |
+| 21 | Sound design layer | Plan4 itself defers to post-CH.03; Web Audio absent from repo; needs prominent mute | 🅿️ Defer — fenced experiment after visuals lock | |
+| 22 | Per-beat post-processing value table (bloom/CA/grain/vignette) | Pre-optimizes values against a look that is owner-locked; the principle (post breathes with beats) is already partly live via transition-driven bloom/CA | ❌ No as literal table | |
+| 23 | C3 "clamshell peel" hinge-open of the shell | Differs from the dictated "cross-section showing ONLY the chamber geometry, internals vague" — clamshell reveals everything the owner wants vague | ❌ No — keep dictated cross-section | |
+| 24 | C6 point-cloud freeze → dissolve into M249 | Out of scope (CH.04 deferred); the plume remains the chapter-exit image regardless — revisit when M249 un-defers | ❌ No for now | |
 
 ## Reuse vs new build (verified against repo 2026-09-01)
 
