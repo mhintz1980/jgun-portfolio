@@ -708,3 +708,35 @@ at Station 2, dissolve race hardened, bloom + both particle systems live.
 The gearbox-material transplant remains designed-but-unimplemented fallback.
 TODO stays unchecked; all commits local (11 total) pending Mark's batch
 review.
+
+## 13. Owner final ruling — PASS (2026-09-01)
+
+Mark Hintz, 2026-09-01 (dictated in session, verbatim):
+
+> "The lighting and the glowing effect are gone from station 2. It's good to
+> go. We are going to change some materials in it, like the color of the
+> enclosure, but the problem I saw is that it's fixed."
+
+**Verdict: PASS.** The owner approved the cumulative §12 end-state (panels
+opaque `PANELS_OPAQUE`, Station-2 light trim env 0.35 / rig ×0.7, badges
+`tone="dim"` at rest, bloom + airflow + acoustic fields live, wipe-sweep
+progress-gated) as the final JG-021 look. The formerly-reported glow problem
+is confirmed resolved.
+
+**Disposition:**
+- JG-021 closes **verified** — this record + the plan status + TODO + INDEX
+  flip in the same commit. JG-021 becomes the visual **baseline record**;
+  approved reference frames for future comparisons are the §12 exp7 artifact
+  set plus fresh same-frame captures at the next build.
+- The upcoming enclosure material change (recolor toward dark blue) is NOT a
+  JG-021 reopen: it is beat **C1** of the owner animation spec
+  (`project/work/inbox/animation-redo.md`, single choke point
+  `cloneMaterials`), sequenced under the redo.
+- Unblocked by this ruling: the JG-023 follow-up (arm the CH.03 backdrop
+  layer — one-const flip of `BACKDROP_CHAPTER_FLAGS[2]` + rebuild +
+  `?chapter=2` smoke + uniform re-probe), and Gate 0 of
+  `project/work/inbox/five-plans-synthesis.md` (baseline frames → camera-rail
+  promotion triage → narrative-layer/backdrop-evolution/inspection work).
+
+No new telemetry was run for this section: the ruling judges the already-
+verified §12 state at the §12 artifacts.
