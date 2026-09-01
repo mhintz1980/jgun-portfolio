@@ -285,3 +285,33 @@ A dedicated adversarial subagent (fresh context; inputs: gates ledger, the diff,
 ## X1 status and follow-up
 
 **verified** for the `[true, true, false, true]` regime. Remaining work (intentionally NOT done here): arm CH.03 — flip `BACKDROP_CHAPTER_FLAGS[2]` to `true`, rebuild, restart, smoke (`?chapter=2`) — gated on the JG-021 Station-2 materials ruling closing. The uniform-probe tooling (`x1-uniform-probe.mjs`) should re-run as part of that smoke.
+
+## X2 — CH.03 arm (2026-09-01, after the JG-021 ruling closed)
+
+Owner gate satisfied: JG-021 closed **verified** 2026-09-01 (owner final ruling PASS,
+JG-021 evidence §13). The defined follow-up was executed the same day with owner
+authorization ("run it"); Mark separately ordered the batch push. Change: one hunk in
+`src/scene/backgrounds/backdropConfig.ts` — `BACKDROP_CHAPTER_FLAGS`
+`[true,true,false,true]` → `[true,true,true,true]` + comment update. No new code paths:
+CH.03 renders the pre-authored "deep teal hush" palette (`backdropConfig.ts:21`), the
+darkest and lowest-accent of the four, through the exact X1-verified layer machinery.
+
+| Gate | Measurement (X2 regime `[T,T,T,T]`) | Result |
+|---|---|---|
+| build | `npm run typecheck` GREEN + build GREEN (14.6 s); fresh `:4173` (ports verified free before start — no orphan listener) | PASS |
+| envelope (AC 4) | `backdropAlpha` **1.00000 at all 9 extended checkpoints**, including the CH.03 set 0.50 / 0.545 / 0.65 that measured bit-dark `α=0` before the arm; console faults 0 at every boot across 5 harness runs | PASS |
+| bloom (AC 6, analytic) | worst uniform linear luminance **0.054543 — identical bound to X1** (the CH.01 accent remains the max contributor); CH.03's own palette at 0.65: **0.035985 (16.7× margin** vs the 0.6 bloom threshold); all 9 checkpoints under the 0.45 design bound | PASS |
+| determinism (AC 3) | fwd↔rev state identity **exact**: dProgress 0 (bit-equal double), dCamera ≤ 2.5e-11, dFov ≤ 2.4e-10, `backdropAlpha` bit-equal @1 — all 9 checkpoints; @0.74 exactly **0 differing px**; @0.65 fwd↔rev 14,627 px vs the cross-session bracket 15,526 px (residuals INSIDE the pre-existing uTime churn envelope — the same signature class X1 established, now including the enclosure's own live channels) | PASS |
+| perf (AC 5) | 10-scrub battery: mean **16.672** / p50 16.7 / p95 **16.8** / max **17.3** — statistically identical to the X1 flag-ON battery (16.674/16.7/16.8/17.7); **0 frames >50 ms; 0 DPR declines; 0 poster fallbacks**; canary Δ210,604 px maxΔ2 in the y594–798 model strip = visit-jitter signature, not a tier change. p95 16.8 = the display's 16.80 ms vsync quantum (standing disclosed deviation, upheld) | PASS (quantum-aware) |
+| bundle (AC 8) | min JS **2,392,292 B = +10 B** vs the X1 record (minifier codegen around the changed boolean literal — same class as X1's +18 B; gate ≤ +10,240 B passes with ~1000× headroom); index chunk 226,470 EXACT; media untouched (no build inputs changed) | PASS |
+
+Artifacts: `.scratch/jg023-verify/raw/x1/g2/` (fwd/rev/fwd2 captures + `x1_determinism.json`),
+`raw/g4_ch03arm.json` (+ canary pair), `raw/x1_uniform_probe.json`, `raw/x1_probe_raw.json`;
+evidence frames in this directory: `JG-023-x2-ch03arm-p065.png` (CH.03 rest, backdrop live
+behind the enclosure) and `JG-023-x2-ch03arm-p010.png` (CH.01 reference). Harness unchanged
+from X1; same headed-Chrome CDP machinery, `?chapter` deep links unused (checkpoints via
+settle-gated scrub).
+
+**Regime is now `[true, true, true, true]` — all four chapters armed. Status: verified.**
+The remaining backdrop work is design evolution, not arming: see
+`project/work/inbox/five-plans-synthesis.md` W5 (round-table-gated).

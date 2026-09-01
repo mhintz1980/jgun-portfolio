@@ -3,11 +3,11 @@ import { STAGE_TRANSITIONS } from '../stages/stageWindows'
 /** JG-023 master switch. Documented revert value: false (plan §Revert). */
 export const SCRUBBED_BACKGROUNDS = true
 
-/** Per-chapter gate, chapter-indexed. Owner ruling 2026-08-31: CH.01 accepted,
- * CH.02 + CH.04 armed. CH.03 (index 2) stays FALSE until the JG-021 Station-2
- * materials ruling closes — arming it there would confound that ruling. Flip
- * index 2 to true once JG-021 is checked. Revert value: [true, false, false, false]. */
-export const BACKDROP_CHAPTER_FLAGS: readonly boolean[] = [true, true, false, true]
+/** Per-chapter gate, chapter-indexed. Owner rulings: CH.01 accepted 2026-08-31;
+ * CH.02 + CH.04 armed same day (X1); CH.03 (index 2) armed 2026-09-01 after the
+ * JG-021 Station-2 ruling closed (owner PASS, evidence §13) per the defined
+ * follow-up. Revert value: [true, false, false, false]. */
+export const BACKDROP_CHAPTER_FLAGS: readonly boolean[] = [true, true, true, true]
 
 export interface BackdropPaletteSet {
   top: string; bottom: string; accent: string; accentAlpha: number
