@@ -23,6 +23,16 @@ The CH.04 rear electronics stack renders dark-anodized instead of PCB green / ba
 chrome / rotor steel. Nobody has flagged it visually — the approved baseline was closed
 (JG-021 §13) with this look.
 
+**Visibility correction (owner-reported + spec-verified 2026-09-02):** the handle assembly
+never disassembles — it rides rearward as one rigid unit (`EXPLODE_OFFSETS.handle −0.354`,
+animation-spec §5.3) so the gearbox internals can extract. The electronics meshes named by
+the override table (PCB/MCU/battery/USB) stay hidden inside the handle shell at all times;
+the only handle-rear view is the assembled back face during the LCD orbit dwell
+(`LCD_REVEAL_WINDOW`). The dead table's *visible* impact is therefore limited to extracted
+gearbox parts (e.g., the air-motor rotor rendering generic steel instead of `rotorSteel`).
+This strengthens the DELETE recommendation — the table's largest intended effects are on
+geometry that is never on screen.
+
 ## Candidate fix (needs owner ruling first)
 
 Pass the mesh's nearest *node* name into `materialRoleFor` (walk up to the first
