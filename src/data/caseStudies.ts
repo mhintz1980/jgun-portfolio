@@ -153,13 +153,13 @@ export const EXPLODE_OFFSETS = {
 } as const
 
 /**
- * Gearbox radial fasteners (96452A194 button-head bolts, owner spec
+ * Gearbox radial fasteners (90910A815 button-head Torx screws, owner spec
  * 2026-09-02): four bolts on a 90°-spaced bolt circle concentric with the
  * drivetrain, threading through the P000245 housing into the clutch housing.
  * They pop outward along their own radial axes on the LEADING edge of the
  * explode envelope (fully out by explode=0.35, ahead of the rear extraction),
- * then ride with the clutch housing. Owner-verified placement: azimuths
- * −90.5°/−0.5°/+89.5°/+179.5°, station z=+16 mm, head seat r=72.5 mm.
+ * then ride with the clutch housing. CAD-true placement (JGUN-1.glb): node
+ * origins at azimuths 0°/90°/180°/−90°, r 32.3 mm, z −69.6 mm, shanks radial.
  */
 export const GB_FASTENER_POP_M = 0.045
 /** explode value at which the radial pop completes (leading edge). */

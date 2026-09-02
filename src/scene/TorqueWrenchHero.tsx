@@ -186,7 +186,7 @@ export function TorqueWrenchHero() {
       }
     }
     offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
-    // Gearbox radial bolts (96452A194): pop outward along their own radial
+    // Gearbox radial bolts (90910A815): pop outward along their own radial
     // axes on the explode's LEADING edge (fully out by
     // GB_FASTENER_POP_COMPLETE, ahead of the rear extraction), then ride the
     // clutch — their groups are clutch-static children, so the offsetZ above

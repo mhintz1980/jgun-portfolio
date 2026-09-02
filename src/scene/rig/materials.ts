@@ -102,7 +102,7 @@ const unitDefaultRole = (unitKey: string): MaterialRole => {
   // Handle fasteners (2026-09-01 Fine re-export) — the handle unit default is
   // anodized aluminum; black-oxide socket/button-head screws are their own unit.
   if (unitKey === 'fastener') return 'blackOxideSteel'
-  // Gearbox radial bolts (96452A194) — same black-oxide family, own units
+  // Gearbox radial bolts (90910A815) — same black-oxide family, own units
   // for the per-bolt radial pop (keys are `gb-fastener-${i}`).
   if (unitKey.startsWith('gb-fastener')) return 'blackOxideSteel'
   if (unitKey.endsWith('-carrier')) return 'cageSteel'

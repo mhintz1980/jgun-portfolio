@@ -1,5 +1,41 @@
 # JG-024 Verification — Fine-tessellation JGun re-export with missing fasteners
 
+> **§8 Addendum (2026-09-02, later session):** the §7 stopgap was replaced by the
+> owner-supplied corrected source `C:\Projects\CAD\JGUN-1.glb` (Fine + Onshape
+> Draco, 41 MB, 345 nodes, 13 screws). §1 pipeline re-run unchanged
+> (`prune → weld → simplify --ratio 0.033 --error 0.004 --lock-border → dedup →
+> draco`, NO join) → `jgun-full-jg1.glb` **10.18 MB / ≈562K tris** installed as
+> `optimized/jgun-full.glb` → sync-assets → build → :4173 restart. Stopgap
+> artifact preserved byte-identical (scratch `jgun-full-fine-gbfix.glb`).
+> Static: output signature vs JGUN-1 source **0/0** (345 name-paths identical);
+> world parity JGUN-1 vs JGUN.glb **Δcenter 0.00 mm** on all common paths except
+> the `91251A344` radial handle screws, where JGUN-1 *fixed* a 1.8 mm skew
+> (occurrences now exactly paired at z −227.7/−210.7; per-occurrence dims
+> identical 6.7×6.7×17.6 in both files).
+> Rig retarget: `GB_FASTENER_RE` `/96452A/` → **`/90910A815/i`** with (a)
+> HANDLE-ASSY ancestry exclusion (keeps the 2 rear `90910A815` in `fastener`)
+> and (b) `occurrence_of_*` wrapper skip. **Runtime catch:** GLTFLoader expands
+> the bolt's multi-primitive mesh def into a Group of per-primitive Meshes, so
+> the stopgap-era `isMesh` leaf guard tagged nothing (gbN 0, bolts fell to
+> `static`) — fix tags the bolt GROUP itself (its prim meshes resolve via the
+> ancestor walk), mirroring the `FASTENER_RE` pattern.
+> Telemetry (:4173, fresh build): **ladder @0.52 byte-identical to gate**
+> (`stageZ [−0.255,−0.230,−0.142,−0.099,−0.177]`, outZ +0.050, hdl −0.354,
+> clt −0.291, brg −0.197, gear 25.133, explode 1); planets 4/4/4/5/4; fastener
+> bucket `#0d0d0d` 161,300 tris (harder simplification vs the 383K Fine run —
+> Onshape pre-quantization makes weld cut deeper; same flags); perf rest
+> p50 16.7 / p95 16.8 / max 16.8-16.9. **Bolt model-frame verification
+> (Default-node local):** REST az {0°,90°,180°,−90°} / r 27.4 mm / z −69.6 mm
+> all four = CAD-true spec; FULL explode r 72.4 = 27.4+45 pop, z −360.6 =
+> −69.6−291 clutch ride, azimuths frozen (pure radial pop + pure clutch
+> carry); mid-pop envelope verified at explode 0.279→pop 40.2 and
+> 0.343→complete (scroll p≈0.335). Note: scroll progress ≠ explode progress
+> (explode 0.087 at scroll 0.30). Console: no errors captured (Log domain).
+> Same-pose pixel diffs vs the stopgap captures: explode-052 34.99% /
+> ringswitch-035 11.49% changed — global re-tessellation from the deeper
+> simplify, not localized damage. **Owner visual ruling pending — browser
+> handed over at `?chapter=2`; TODO stays unchecked.**
+
 > **§7 Addendum (2026-09-02, session close):** owner-supplied `C:\Projects\CAD\JGUN-1.glb`
 > (Fine + Onshape-Draco, 41 MB, 13 screws = 9 rear + **4 new `90910A815` button-head
 > bolts at TOP LEVEL under `Default`**) supersedes the §-gbfix stopgap below. Next

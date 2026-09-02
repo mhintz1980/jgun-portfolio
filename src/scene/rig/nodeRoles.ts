@@ -73,13 +73,20 @@ const LCD_HOUSING_RE = /P001924/i
  * hosts at a screw node inside HANDLE ASSY, so it rides with the handle
  * explosion rigidly. Tagging is by NODE name — mesh names are generic. */
 const FASTENER_RE = /91251A|96006A|90910A/i
-/** Gearbox radial bolts (owner spec 2026-09-02): four 96452A194 button-head
- * bolts on a 90° bolt circle concentric with the drivetrain, axes radial,
- * threading through P000245 into the clutch housing. Injected into the GLB
- * by the JG-024 patch step (see source-register). Each gets its OWN unit so
- * it can pop along its own radial direction; the groups are children of the
- * clutch-static group so they ride its rear extraction. */
-const GB_FASTENER_RE = /96452A/i
+/** Gearbox radial bolts (owner spec 2026-09-02, CAD-true from the Fine
+ * re-export JGUN-1.glb): four 90910A815 button-head Torx screws on a 90° bolt
+ * circle concentric with the drivetrain — node origins at az
+ * 0°/90°/180°/−90°, r 32.3 mm, z −69.6 mm, shank axes radial. They are
+ * TOP-LEVEL nodes under the Default root; the handle's two rear 90910A815
+ * screws share the name and are excluded by their HANDLE ASSY ancestry (they
+ * stay 'fastener'). Each bolt gets its OWN unit so it can pop along its own
+ * radial direction; the groups are children of the clutch-static group so
+ * they ride its rear extraction. */
+const GB_FASTENER_RE = /90910A815/i
+/** Onshape occurrence wrappers (`occurrence of X` → sanitized
+ * `occurrence_of_X`) share the part node's name — exclude them from unit
+ * allocation so the actual part node owns the tag. */
+const GB_OCCURRENCE_RE = /^occurrence[\s_]*of/i
 
 interface StageDef {
   /** Cage sub-assembly node — fallback carrier bucket for unlisted hardware. */
@@ -126,7 +133,7 @@ export interface WrenchRig {
    *  120° cam rotation while the fork train goes −Z. */
   clutch: { static: Object3D | null; sliding: Object3D | null; ringSwitch: Object3D | null }
   stages: Record<StageId, StageNodes>
-  /** Gearbox radial bolts (96452A194): one group per bolt (child of the
+  /** Gearbox radial bolts (90910A815): one group per bolt (child of the
    * clutch-static group) + its outward radial direction for the pop. */
   gbFasteners: { group: Object3D; dir: Vector3 }[]
   /** All meshes in the model (post-consolidation). */
@@ -243,17 +250,23 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
         unitOfNode.set(node, 'lcd-housing')
         return
       }
-      if (FASTENER_RE.test(name)) {
-        unitOfNode.set(node, 'fastener')
-        return
-      }
-      // Tag only the mesh-bearing leaf (the wrapper shares the name); each
-      // leaf allocates the next gb-fastener index.
-      if (GB_FASTENER_RE.test(name)) {
-        if ((node as Mesh).isMesh) {
+      // Gearbox bolts BEFORE the handle-fastener rule: 90910A815 names exist
+      // in both populations, so the quartet is picked out by its lack of a
+      // HANDLE ASSY ancestor; the two rear screws fall through to 'fastener'.
+      // GLTFLoader expands the bolt's multi-primitive mesh def into a Group
+      // of per-primitive Meshes, so tag the bolt GROUP itself (its prim
+      // meshes resolve to it via the ancestor walk); skip the identically
+      // named `occurrence_of_*` wrapper above it so each bolt allocates
+      // exactly one unit.
+      if (GB_FASTENER_RE.test(name) && !hasAncestorMatching(node, HANDLE_RE)) {
+        if (!GB_OCCURRENCE_RE.test(name)) {
           unitOfNode.set(node, `gb-fastener-${gbFastenerNodes.length}`)
           gbFastenerNodes.push(node)
         }
+        return
+      }
+      if (FASTENER_RE.test(name)) {
+        unitOfNode.set(node, 'fastener')
         return
       }
       for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {
@@ -355,7 +368,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   }
 
   const groupsByKey = new Map<string, Group>()
-  /** Gearbox radial bolts (96452A194): one group per bolt, parented to the
+  /** Gearbox radial bolts (90910A815): one group per bolt, parented to the
    * clutch-static unit (they thread into the clutch housing) so the rear
    * extraction carries them; each group pops along its own radial direction
    * (dir from the bolt's world azimuth) on the explode's leading edge —
@@ -377,7 +390,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       const wp = node.getWorldPosition(new Vector3())
       const dir = new Vector3(wp.x, wp.y, 0).normalize()
       const group = new Group()
-      group.name = `MERGED GB Fastener ${i + 1} (96452A194)`
+      group.name = `MERGED GB Fastener ${i + 1} (90910A815)`
       clutchStaticGroup!.add(group)
       groupsByKey.set(`gb-fastener-${i}`, group)
       gbFasteners.push({ group, dir })
