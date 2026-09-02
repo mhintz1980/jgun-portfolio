@@ -44,7 +44,6 @@ list goes through Task Intake.
 | # | Item | Source | Size | Why this position | Gates |
 |---|---|---|---|---|---|
 | **P0** | **Asset staging** — defer enclosure + M249 GLB fetches off the boot path (idle/scroll prefetch) | synthesis W1 | M | Invisible perf headroom before adding visual work; zero visual risk; no dependencies | none |
-| **P0** | **Dead `ROLE_OVERRIDES` resolution** — delete the dead table or implement real per-part overrides | inbox/dead-role-overrides.md | S | 30-min hygiene decision; JG-025 depends on the unit-role material path staying authoritative | owner pick: delete vs implement |
 | **P1** | **JG-025 handle-rear realism** — red button/LCD cluster per owner reference, LCD data readout, button symbols, reveal framing, soft-sharp light canon | plans/JG-025 | M | Fully specified (owner rulings recorded 09-02); independent of camera work; **sets the realism canon** the redo inherits; first visible win. Framing is verify-and-adjust only — the later camera rail preserves authored holds, so no wasted work | none — ready to build |
 | **P2** | **Camera rail** — one tangent-continuous camera path (Catmull-Rom/Bézier), scroll→arc-length, goal-pure-function + damp preserved, authored holds explicit | synthesis W2 + intake | L | The structural spine: redo beats, orbit, and polish all choreograph against it. Straight-lerp velocity stalls at every segment join are the #1 cinematic defect | none — gate (JG-021 close) cleared 09-01 |
 | **P3** | **Inspection-orbit + cutaway** — bounded scroll orbit on a selected subassembly (scroll past bound releases; no exit button, ever); P000245 cutaway via plain clipping plane first | synthesis W6 + intake | M | Redo beat B4 (clickable subassembly inspection) needs the orbit to exist before it can be choreographed | P2 |
@@ -61,7 +60,6 @@ schedule it while P0–P2 are building.
 | Input | Needed by | Status |
 |---|---|---|
 | This roadmap's final decision (after agent critiques) | before P0 starts | pending |
-| Dead `ROLE_OVERRIDES`: delete or implement | P0 | pending |
 | 24-row Plan4 elaboration rulings (one yes/no each, `animation-redo.md`) | P4 planning | sheet awaits Mark |
 | Round-table session (background/layout) | between P3 and P4 | unscheduled — Mark's call |
 | Flow-path overlays (C4 spline control points) | beat C4 only | pending |
@@ -79,7 +77,15 @@ schedule it while P0–P2 are building.
    (fenced experiment in the synthesis).
 5. **Per-station lighting principles doc** — documentation-only (JGun warm key/edge;
    enclosure palette locked; M249 neutral); no code unless the owner reopens the locked look.
-6. **Parking:** gearbox-material transplant (designed-but-unimplemented glow fallback,
+6. **Handle open-up — internals reveal** (owner-suggested 2026-09-02) — extend the
+   rear-extraction ladder so the handle assembly disassembles (LCD cluster, PCB, battery,
+   chrome fittings separate), exposing the electronics that are permanently hidden today.
+   Carries the dormant `ROLE_OVERRIDES` table as its material vocabulary: the plumbing fix
+   (feed each mesh's nearest real node name into `materialRoleFor`, per
+   [inbox/dead-role-overrides.md](dead-role-overrides.md)) rides this work so
+   PCB/battery/chrome/rotorSteel finally apply — which is why the table is kept, not deleted.
+   Natural companion to the redo beats or JG-025's realism canon if pulled forward.
+7. **Parking:** gearbox-material transplant (designed-but-unimplemented glow fallback,
    JG-021 §12) — available on request if the approved look ever regresses.
 
 Explicitly NOT planned (do not resurrect without new owner direction): the synthesis §6 list —

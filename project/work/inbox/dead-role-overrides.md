@@ -30,8 +30,14 @@ the override table (PCB/MCU/battery/USB) stay hidden inside the handle shell at 
 the only handle-rear view is the assembled back face during the LCD orbit dwell
 (`LCD_REVEAL_WINDOW`). The dead table's *visible* impact is therefore limited to extracted
 gearbox parts (e.g., the air-motor rotor rendering generic steel instead of `rotorSteel`).
-This strengthens the DELETE recommendation — the table's largest intended effects are on
-geometry that is never on screen.
+
+**Owner disposition (2026-09-02, same session):** KEEP the table — do not delete. It is the
+dormant material vocabulary for the "handle open-up — internals reveal" nice-to-have
+([upgrade-roadmap-2026-09.md](upgrade-roadmap-2026-09.md) §4 item 6): when that feature
+builds, fix the plumbing (nearest real node name into `materialRoleFor`, candidate fix below)
+so PCB/battery/chrome/rotorSteel/polymer finally apply to the exposed parts. Until then the
+table stays dead code by design (no runtime cost beyond the no-op match loop); the roadmap's
+P0 "resolve" task is removed, and JG-025 continues through unit-default roles only.
 
 ## Candidate fix (needs owner ruling first)
 
