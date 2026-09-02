@@ -35,6 +35,10 @@
 > ringswitch-035 11.49% changed — global re-tessellation from the deeper
 > simplify, not localized damage. **Owner visual ruling pending — browser
 > handed over at `?chapter=2`; TODO stays unchecked.**
+>
+> **CLOSED 2026-09-02: owner visual ruling PASS — Mark: "looks good. commit and
+> push changes." All three JG-024 commits (`65c8a8a`, `b745450`, `c9c2097`)
+> pushed to origin together with the closing docs commit.**
 
 > **§7 Addendum (2026-09-02, session close):** owner-supplied `C:\Projects\CAD\JGUN-1.glb`
 > (Fine + Onshape-Draco, 41 MB, 13 screws = 9 rear + **4 new `90910A815` button-head
