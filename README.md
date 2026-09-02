@@ -20,7 +20,9 @@ npm run sync-assets   # copies GLBs + role-map.json from C:\Projects\CAD\RL300-S
 npm run dev
 ```
 
-The large JGun GLBs are gitignored (16 MB); `public/models/role-map.json` and
+The large JGun GLBs are gitignored (~22 MB; `Default.glb` 13.7 MB / 1.29 M tris since the
+JG-024 Fine re-export with fasteners — pre-Fine original kept at
+`C:\Projects\CAD\RL300-SAFE\optimized\jgun-full-medium-nofasteners.glb`); `public/models/role-map.json` and
 `public/models/m249-transformed.glb` (871 KB) **are** committed.
 Deploy to studiomark.dev (Cloudflare Pages direct upload — the gitignored
 GLBs rule out git-checkout deploys): `scripts/deploy-studiomark.ps1`, full

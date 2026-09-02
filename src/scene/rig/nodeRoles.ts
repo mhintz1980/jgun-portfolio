@@ -66,6 +66,13 @@ const CLUTCH_STATIC_RE = /(A000881|P000420|P001835)/i
 const LCD_SCREEN_RE = /P002115/i
 const LCD_BUTTONS_RE = /(P002123|P002124|P002125)/i
 const LCD_HOUSING_RE = /P001924/i
+/** Handle fasteners (2026-09-01 Fine re-export): 9 McMaster black-oxide
+ * socket/button-head screws — 91251A148, 96006A253, 91251A344, 90910A815 —
+ * direct children of HANDLE ASSY. Own unit so they get the blackOxideSteel
+ * default (the handle unit default is anodized aluminum); the merged bucket
+ * hosts at a screw node inside HANDLE ASSY, so it rides with the handle
+ * explosion rigidly. Tagging is by NODE name — mesh names are generic. */
+const FASTENER_RE = /91251A|96006A|90910A/i
 
 interface StageDef {
   /** Cage sub-assembly node — fallback carrier bucket for unlisted hardware. */
@@ -222,6 +229,10 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       }
       if (LCD_HOUSING_RE.test(name)) {
         unitOfNode.set(node, 'lcd-housing')
+        return
+      }
+      if (FASTENER_RE.test(name)) {
+        unitOfNode.set(node, 'fastener')
         return
       }
       for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {

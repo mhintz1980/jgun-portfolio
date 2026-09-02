@@ -99,6 +99,9 @@ const unitDefaultRole = (unitKey: string): MaterialRole => {
   if (unitKey === 'lcd-screen') return 'lcdScreen'
   if (unitKey === 'lcd-buttons') return 'buttonBacklit'
   if (unitKey === 'lcd-housing') return 'anodizedAluminum'
+  // Handle fasteners (2026-09-01 Fine re-export) — the handle unit default is
+  // anodized aluminum; black-oxide socket/button-head screws are their own unit.
+  if (unitKey === 'fastener') return 'blackOxideSteel'
   if (unitKey.endsWith('-carrier')) return 'cageSteel'
   if (/^-stage\d+-planet/.test(unitKey) || unitKey.includes('-planet-')) return 'planetSteel'
   return 'steelDark'
