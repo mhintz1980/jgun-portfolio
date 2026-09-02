@@ -9,6 +9,8 @@ import { buildWrenchRig } from './rig/nodeRoles'
 import {
   CLUTCH_SHIFT_DISTANCE,
   EXPLODE_OFFSETS,
+  GB_FASTENER_POP_COMPLETE,
+  GB_FASTENER_POP_M,
   GEAR_RATIOS,
   RING_SWITCH_ROTATION,
   RING_SWITCH_TRAVEL_Z,
@@ -184,6 +186,18 @@ export function TorqueWrenchHero() {
       }
     }
     offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
+    // Gearbox radial bolts (96452A194): pop outward along their own radial
+    // axes on the explode's LEADING edge (fully out by
+    // GB_FASTENER_POP_COMPLETE, ahead of the rear extraction), then ride the
+    // clutch — their groups are clutch-static children, so the offsetZ above
+    // already carries them.
+    for (const f of rig.gbFasteners) {
+      const base = rig.basePositions.get(f.group)
+      if (!base) continue
+      const t = MathUtils.clamp(explode / GB_FASTENER_POP_COMPLETE, 0, 1)
+      const pop = GB_FASTENER_POP_M * t * t * (3 - 2 * t)
+      f.group.position.set(base.x + f.dir.x * pop, base.y + f.dir.y * pop, base.z)
+    }
   }
 
   /**

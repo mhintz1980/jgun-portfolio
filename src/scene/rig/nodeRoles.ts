@@ -73,6 +73,13 @@ const LCD_HOUSING_RE = /P001924/i
  * hosts at a screw node inside HANDLE ASSY, so it rides with the handle
  * explosion rigidly. Tagging is by NODE name — mesh names are generic. */
 const FASTENER_RE = /91251A|96006A|90910A/i
+/** Gearbox radial bolts (owner spec 2026-09-02): four 96452A194 button-head
+ * bolts on a 90° bolt circle concentric with the drivetrain, axes radial,
+ * threading through P000245 into the clutch housing. Injected into the GLB
+ * by the JG-024 patch step (see source-register). Each gets its OWN unit so
+ * it can pop along its own radial direction; the groups are children of the
+ * clutch-static group so they ride its rear extraction. */
+const GB_FASTENER_RE = /96452A/i
 
 interface StageDef {
   /** Cage sub-assembly node — fallback carrier bucket for unlisted hardware. */
@@ -119,6 +126,9 @@ export interface WrenchRig {
    *  120° cam rotation while the fork train goes −Z. */
   clutch: { static: Object3D | null; sliding: Object3D | null; ringSwitch: Object3D | null }
   stages: Record<StageId, StageNodes>
+  /** Gearbox radial bolts (96452A194): one group per bolt (child of the
+   * clutch-static group) + its outward radial direction for the pop. */
+  gbFasteners: { group: Object3D; dir: Vector3 }[]
   /** All meshes in the model (post-consolidation). */
   meshes: Mesh[]
   /** Per-mesh material as loaded (post ghost-clone) — restored on mode switches. */
@@ -170,6 +180,8 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   // traversed first and allocates it, the leaf reuses it via the ancestor walk.
   const unitOfNode = new Map<Object3D, string>()
   const stagePlanets = new Map<StageId, Object3D[]>()
+  /** gb-fastener leaves in tagging order — index i owns key `gb-fastener-${i}`. */
+  const gbFastenerNodes: Object3D[] = []
   for (const id of STAGE_IDS) stagePlanets.set(id, [])
 
   if (gearbox) {
@@ -233,6 +245,15 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       }
       if (FASTENER_RE.test(name)) {
         unitOfNode.set(node, 'fastener')
+        return
+      }
+      // Tag only the mesh-bearing leaf (the wrapper shares the name); each
+      // leaf allocates the next gb-fastener index.
+      if (GB_FASTENER_RE.test(name)) {
+        if ((node as Mesh).isMesh) {
+          unitOfNode.set(node, `gb-fastener-${gbFastenerNodes.length}`)
+          gbFastenerNodes.push(node)
+        }
         return
       }
       for (const [id, def] of Object.entries(STAGE_DEFS) as [StageId, StageDef][]) {
@@ -334,6 +355,12 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   }
 
   const groupsByKey = new Map<string, Group>()
+  /** Gearbox radial bolts (96452A194): one group per bolt, parented to the
+   * clutch-static unit (they thread into the clutch housing) so the rear
+   * extraction carries them; each group pops along its own radial direction
+   * (dir from the bolt's world azimuth) on the explode's leading edge —
+   * driven in TorqueWrenchHero's applyExplosion. */
+  const gbFasteners: { group: Group; dir: Vector3 }[] = []
   if (gearbox) {
     groupsByKey.set('housing', housingGroup!)
     groupsByKey.set('output', outputGroup!)
@@ -345,6 +372,15 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       const key = `${id}-carrier`
       if (stages[id].carrier) groupsByKey.set(key, stages[id].carrier as Group)
       stages[id].planets.forEach((planet, i) => groupsByKey.set(`${id}-planet-${i}`, planet as Group))
+    }
+    for (const [i, node] of gbFastenerNodes.entries()) {
+      const wp = node.getWorldPosition(new Vector3())
+      const dir = new Vector3(wp.x, wp.y, 0).normalize()
+      const group = new Group()
+      group.name = `MERGED GB Fastener ${i + 1} (96452A194)`
+      clutchStaticGroup!.add(group)
+      groupsByKey.set(`gb-fastener-${i}`, group)
+      gbFasteners.push({ group, dir })
     }
   }
 
@@ -499,6 +535,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   if (clutchStaticGroup) basePositions.set(clutchStaticGroup, clutchStaticGroup.position.clone())
   if (clutchSlidingGroup) basePositions.set(clutchSlidingGroup, clutchSlidingGroup.position.clone())
   if (ringSwitchGroup) basePositions.set(ringSwitchGroup, ringSwitchGroup.position.clone())
+  for (const { group } of gbFasteners) basePositions.set(group, group.position.clone())
   for (const id of STAGE_IDS) {
     const carrier = stages[id].carrier
     if (carrier) basePositions.set(carrier, carrier.position.clone())
@@ -512,6 +549,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     bearing: bearingGroup,
     clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup, ringSwitch: ringSwitchGroup },
     stages,
+    gbFasteners,
     meshes: finalMeshes,
     originalMaterials,
     ghostMaterials,

@@ -1,5 +1,18 @@
 # JG-024 Verification — Fine-tessellation JGun re-export with missing fasteners
 
+> **§7 Addendum (2026-09-02, session close):** owner-supplied `C:\Projects\CAD\JGUN-1.glb`
+> (Fine + Onshape-Draco, 41 MB, 13 screws = 9 rear + **4 new `90910A815` button-head
+> bolts at TOP LEVEL under `Default`**) supersedes the §-gbfix stopgap below. Next
+> session re-runs the §1 pipeline from JGUN-1 and retargets `GB_FASTENER_RE` from
+> `/96452A/` to those four top-level `90910A815` nodes (disambiguated from the 2 rear
+> `90910A815` by parent: scene root vs HANDLE ASSY); CAD-true world positions from the
+> file replace the injected best-guess (az −90.5°+k·90°, z+16, seat r 72.5); the
+> `inject-gbfasteners.mjs` stopgap step is dropped. Stopgap state (live on :4173 at
+> close): injected 96452A194 quartet + per-bolt radial-pop rig code, committed;
+> per-prim merge for injected screws fell back to leftovers (31 meshes/bolt — cosmetic
+> draw-call cost only, visually correct); ladder/perf unaffected (p95 16.8). Owner
+> visual ruling still pending for everything.
+
 **Date:** 2026-09-01/02 · **Status:** implemented + machine-verified; **owner visual ruling pending**
 (Mark's stop point: `?chapter=` walk at the back plate + Ring-Switch zoom on the preview)
 
