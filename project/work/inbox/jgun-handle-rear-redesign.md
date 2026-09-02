@@ -1,6 +1,6 @@
 # JGun Handle Rear Endcap — Screen/Button Detail Pass
 
-**Status:** intake (owner-directed 2026-08-30, JG-021 re-review — explicitly deferred: "don't worry about it now")
+**Status:** superseded by [JG-025](../plans/JG-025-handle-rear-realism.md) (triaged 2026-09-02 with the owner's reference render and expanded realism dictation — this intake's three items are folded into that plan)
 **Type:** visual fidelity pass on the Station 1 handle rear (LCD endcap cluster)
 
 ## What the owner wants
