@@ -67,9 +67,10 @@ before/after pairs, reduced-motion + poster tiers read correctly, `npm run typec
 `npm run build`, `scripts/check-station2-contract.mjs`, committed capture artifacts, and the
 **owner visual ruling at the preview stop point** before close.
 
-## Open items for Mark
+## Owner rulings (2026-09-02, recorded in chat)
 
-1. **LCD data content** — what should the screen show? Proposal: torque Nm readout + battery
-   bar + units/mode glyphs, matching a real torque-wrench LCD.
-2. **Red confirmation** — sampled from the reference vs. a specific brand red.
-3. **Fill light** — rich (per 09-02 "rendered LCD lights") vs. dimmer (per 08-30 note).
+1. **LCD data content** — proposal accepted for now: torque Nm readout + battery bar +
+   units/mode glyphs, matching a real torque-wrench LCD.
+2. **Red** — sample from the reference render (no brand red specified).
+3. **Fill light / bloom** — soft, never squint-inducing; "not too much bloom and brightness",
+   but **still very sharp and legible**. This is the realism light-canon for the pass.
