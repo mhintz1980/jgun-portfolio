@@ -21,6 +21,8 @@ import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
+import { DrawingLinework } from './drawing/DrawingLinework'
+import { drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -67,6 +69,7 @@ export function TorqueWrenchHero() {
   const { scene } = useGLTF(MODEL_URL)
   const group = useRef<Group>(null)
   const inner = useRef<Group>(null)
+  const modelRoot = useRef<Group>(null)
   const rig = useMemo(() => {
     const r = buildWrenchRig(scene)
     if (typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__rig = r
@@ -112,17 +115,17 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      // 1. Initial lateral rotation to inspection angle
-      .to(anim, { spin: 1, duration: 0.35 }, 0)
+      // B1/B2 reserve the intro; retained B3 channels keep their order.
+      .to(anim, { spin: 1, duration: 0.35 }, 0.12)
       // 2. Continuous gear sweep through the extraction
-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0)
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0.12)
       // 3. Housing ghost in: outer shell fades to transparent (0.15) to reveal internals
-      .to(anim, { ghost: 1, duration: 0.20 }, 0.15)
+      .to(anim, { ghost: 1, duration: 0.20 }, 0.27)
       // 4. Rear extraction: reduction stages extract rearward out of the housing
-      .to(anim, { explode: 1, duration: 0.50 }, 0.35)
+      .to(anim, { explode: 1, duration: 0.50 }, 0.47)
       // 5. Housing ghost out: transitions back away from transparency to solid opaque
       //    around the ~40% global progress mark as components clear the shell.
-      .to(anim, { ghost: 0, duration: 0.25 }, 0.42)
+      .to(anim, { ghost: 0, duration: 0.25 }, 0.54)
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -263,6 +266,7 @@ export function TorqueWrenchHero() {
     // The material-mode switcher (an explicit user action, not motion) is the
     // only thing that still mutates the scene.
     if (reducedMotion) {
+      if (modelRoot.current) modelRoot.current.visible = false
       if (group.current) {
         group.current.rotation.y = 0
         group.current.rotation.x = 0
@@ -278,6 +282,17 @@ export function TorqueWrenchHero() {
       }
       lastMode.current = materialMode
       return
+    }
+
+    // B2: the PBR model starts just below the live edge elevation and rises
+    // into the exact same local frame. The linework is a clone of this GLB's
+    // geometry, so at handoff=1 both representations have identical matrices.
+    const intro = drawingIntroState(progress)
+    if (modelRoot.current) {
+      const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
+      const forceModel = proofMode === 'model' || proofMode === 'registered'
+      modelRoot.current.visible = proofMode === 'lines' ? false : forceModel || intro.modelOpacity > 0.001
+      modelRoot.current.position.y = forceModel ? 0 : (1 - intro.modelOpacity) * -0.045
     }
 
     // 1. Lateral rotation + hover parallax.
@@ -312,16 +327,19 @@ export function TorqueWrenchHero() {
     applyGearRotation(anim.gearRotation, idleAngle.current)
 
     // 4. Clutch shift window in CH.01:
-    // 0.05 → 0.10: ring switch travels +Z down gearbox and rotates +120°
-    // 0.10 → 0.12: pauses at bottom of travel (holding groove reveal)
-    // 0.12 → 0.17: reverses back towards handle as camera pulls back
+    // B3 is remapped after B1/B2. Values preserve the old 0.05→0.17 local
+    // order while giving the shared drawing/model handoff room to settle.
     let shiftAmount = 0
-    if (progress >= 0.05 && progress < 0.10) {
-      shiftAmount = MathUtils.smoothstep(progress, 0.05, 0.10)
-    } else if (progress >= 0.10 && progress <= 0.12) {
+    const shiftInStart = remapHeroProgress(0.05)
+    const shiftInEnd = remapHeroProgress(0.10)
+    const shiftHoldEnd = remapHeroProgress(0.12)
+    const shiftOutEnd = remapHeroProgress(0.17)
+    if (progress >= shiftInStart && progress < shiftInEnd) {
+      shiftAmount = MathUtils.smoothstep(progress, shiftInStart, shiftInEnd)
+    } else if (progress >= shiftInEnd && progress <= shiftHoldEnd) {
       shiftAmount = 1
-    } else if (progress > 0.12 && progress <= 0.17) {
-      shiftAmount = 1 - MathUtils.smoothstep(progress, 0.12, 0.17)
+    } else if (progress > shiftHoldEnd && progress <= shiftOutEnd) {
+      shiftAmount = 1 - MathUtils.smoothstep(progress, shiftHoldEnd, shiftOutEnd)
     }
     applyShift(shiftAmount)
 
@@ -341,8 +359,8 @@ export function TorqueWrenchHero() {
     //    ends). AND-gate both chapter-4 surfaces on raw progress (CH.04
     //    starts at 0.760; 0.755 tolerates entry-side lag invisibly) so a
     //    laggy chapter can never activate them outside the window.
-    const wantCad = chapter === 3 && progress >= 0.755 && tier === 'full'
-    const wantLiteFade = chapter === 3 && progress >= 0.755 && tier !== 'full'
+    const wantCad = chapter === 3 && progress >= 0.775 && tier === 'full'
+    const wantLiteFade = chapter === 3 && progress >= 0.775 && tier !== 'full'
     if (wantCad && surface.current !== 'cad') {
       for (const mesh of rig.meshes) mesh.material = cadMaterial
       surface.current = 'cad'
@@ -371,10 +389,13 @@ export function TorqueWrenchHero() {
   // Recenter the wrench midpoint at the group origin so camera keyframes and
   // explosion offsets work in a clean local space.
   return (
-    <group ref={group}>
+      <group ref={group}>
       <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
-        <primitive object={scene} />
-        <Hotspots />
+        <DrawingLinework />
+        <group ref={modelRoot}>
+          <primitive object={scene} />
+          <Hotspots />
+        </group>
       </group>
     </group>
   )

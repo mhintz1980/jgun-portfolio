@@ -217,11 +217,19 @@ export interface TelemetryStage {
   backdropAlpha: number
 }
 
+export interface TelemetryDrawing {
+  /** B1 edge-field opacity, written by DrawingLinework every frame. */
+  lineOpacity: number
+  /** Source trace used by the telemetry proof; never an authored raster. */
+  edgeSource: string
+}
+
 export const telemetry: {
   camera: TelemetryCamera
   rig: TelemetryRig
   scroll: TelemetryScroll
   stage: TelemetryStage
+  drawing: TelemetryDrawing
 } = {
   camera: { x: 0, y: 0, z: 0, fov: 42, framingBias: 0, framingBiasY: 0, portraitDolly: 1 },
   rig: {
@@ -242,6 +250,7 @@ export const telemetry: {
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
   stage: { active: 0, alpha: [1, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0, backdropAlpha: 0 },
+  drawing: { lineOpacity: 1, edgeSource: 'Default.glb:crease+boundary' },
 }
 
 // Exposed for headless verification probes (docs/animation-spec.md §11 —

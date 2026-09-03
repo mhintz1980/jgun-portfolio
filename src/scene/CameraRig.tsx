@@ -11,6 +11,7 @@ import {
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
+import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
 
 const smoothstep = (t: number): number => t * t * (3 - 2 * t)
 
@@ -158,6 +159,9 @@ export function CameraRig() {
   const scratchA = useRef(new Vector3())
   const scratchFwd = useRef(new Vector3())
   const scratchRight = useRef(new Vector3())
+  const shakeFrames = useRef(0)
+  const wasPulsing = useRef(false)
+  const restOrbit = useRef(0)
 
   useFrame((state, delta) => {
     // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
@@ -181,7 +185,7 @@ export function CameraRig() {
       return
     }
 
-    const { progress, hotspotId } = getScrollState()
+    const { progress, hotspotId, velocity } = getScrollState()
 
     // ---- 1. Content-aligned base trajectory (PATH_SEGMENTS table) ----
     const base = baseAt(progress)
@@ -189,10 +193,19 @@ export function CameraRig() {
     goalTarget.current.set(base.target[0], base.target[1], base.target[2])
     let goalFov = base.fov
 
-    // ---- 2. CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
-    const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
+    // B1: lock the live camera to the large drawing elevation. The linework
+    // shares the hero's frame, which makes B2's return to the PBR model a
+    // matrix-identical handoff rather than an eye-matched approximation.
+    if (progress <= DRAWING_INTRO_WINDOW.releaseEnd) {
+      goalPos.current.set(0.20, 0.10, 0.30)
+      goalTarget.current.set(0, 0, 0)
+      goalFov = 27
+    }
+
+    // ---- 2. B3 remap: shift groove reveal after the B1/B2 handoff ----
+    const shiftW = bellWeight(progress, 0.145, 0.165, 0.225, 0.29)
     if (shiftW > 0.001) {
-      const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
+      const orbitT = smoothstep(Math.min(Math.max((progress - 0.16) / 0.08, 0), 1))
       const grPos: [number, number, number] = [
         lerpN(0.16, 0.12, orbitT),
         lerpN(0.06, 0.05, orbitT),
@@ -210,10 +223,10 @@ export function CameraRig() {
     }
 
     // ---- 3. JG-021 WS1.3: Exploded reduction-train lookAt centroid tracking ----
-    // During segment 0 (JGun beats, progress <= 0.525), shift goalTarget toward the
+    // During segment 0 (JGun beats, progress <= 0.545), shift goalTarget toward the
     // exploded-train centroid (midpoint of output face +0.102m and exploded handle tail -0.587m,
     // recentered by rig.center -0.0906m -> centroidZ = -0.152m at explode=1) rotated by hero yaw.
-    if (progress <= 0.525) {
+    if (progress <= 0.545) {
       const explodeFactor = telemetry.rig.explodeFactor
       if (explodeFactor > 0.001) {
         const spinProgress = Math.min(1, Math.max(0, (progress - 0.18) / 0.17))
@@ -265,14 +278,14 @@ export function CameraRig() {
       goalFov = rearFov
     }
 
-    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
-    // JG-021 remediation: override start === K3 (zero goal jump at the 0.760
+    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.78 → 1.00, Station 3: [56, 0, -12]) ----
+    // JG-021 remediation: override start === K3 (zero goal jump at the 0.780
     // boundary — the old 0.822 m damped jump is gone), dollying out from the
     // ~2.5 m near pose to a ~3.5 m overview across a 0.18 window so the 1.18 m
     // receiver clears the left CH.04 card lane instead of filling 131% of the
     // screen.
-    if (progress >= 0.76) {
-      const t4 = smoothstep(Math.min((progress - 0.76) / 0.18, 1))
+    if (progress >= 0.78) {
+      const t4 = smoothstep(Math.min((progress - 0.78) / 0.18, 1))
       const m249Pos: [number, number, number] = [
         lerpN(56.43, 56.6, t4),
         lerpN(0.65, 0.9, t4),
@@ -330,7 +343,7 @@ export function CameraRig() {
     let portraitDolly = 1
     if (portrait) {
       const w = smoothstep(Math.min(Math.max((progress - 0.5) / 0.06, 0), 1))
-      const ch4 = progress >= 0.76 ? smoothstep(Math.min((progress - 0.76) / 0.24, 1)) : 0
+      const ch4 = progress >= 0.78 ? smoothstep(Math.min((progress - 0.78) / 0.22, 1)) : 0
       portraitDolly = 1 + w * (1.0 + 0.8 * ch4)
       goalFov += 10 * w
       if (portraitDolly > 1) {
@@ -392,6 +405,30 @@ export function CameraRig() {
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
     goalPos.current.x += state.pointer.x * 0.03
     goalPos.current.y += state.pointer.y * 0.02
+
+    // B2 garnish #16: exactly six rendered frames of a sub-pixel camera shake
+    // when the drawing lines pulse. It is frame-counted, not timer-based.
+    const pulsing = progress >= DRAWING_INTRO_WINDOW.pulseStart && progress <= DRAWING_INTRO_WINDOW.pulsePeak
+    if (pulsing && !wasPulsing.current) shakeFrames.current = 6
+    wasPulsing.current = pulsing
+    if (shakeFrames.current > 0) {
+      const phase = (7 - shakeFrames.current) * Math.PI * 1.7
+      goalPos.current.x += Math.sin(phase) * 0.0018
+      goalPos.current.y += Math.cos(phase * 0.7) * 0.0012
+      shakeFrames.current -= 1
+    }
+
+    // B2 garnish #17: at scroll rest only, orbit the settled JGun view at
+    // 0.3°/s. This stays outside the drawing handoff and reduced-motion path.
+    if (
+      Math.abs(velocity) < 0.001 &&
+      progress > DRAWING_INTRO_WINDOW.releaseEnd &&
+      progress < 0.545
+    ) {
+      restOrbit.current += delta * (0.3 * Math.PI / 180)
+      goalPos.current.x += Math.sin(restOrbit.current) * 0.003
+      goalPos.current.z += (Math.cos(restOrbit.current) - 1) * 0.003
+    }
 
     // Exponential damping with clamp to prevent overshoot on frame drops
     const safeDelta = Math.min(delta, 0.1)

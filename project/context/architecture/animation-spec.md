@@ -124,6 +124,27 @@ render loop. `useFrame` applies the proxy each frame:
 | 4. ghost | 0.35 → 0.60 | housing materials lerp opacity 1 → **0.15** (`GHOST_OPACITY`); `depthWrite` off below 0.5 |
 | 5. explode | 0.60 → 1.00 | rear extraction ladder (§5.3) — overlaps the gear sweep's tail |
 
+### 5.0 B1/B2 drawing-to-model prelude (2026-09-03)
+
+`DrawingLinework` derives boundary/silhouette and 22° crease edges directly
+from `Default.glb` at runtime. `EngineeringDrawingOverlay` supplies only SVG
+dimensions, datums, and Y14.5 feature-control frames; it contains no authored
+model art. The primary linework and PBR model share the same hero-local frame.
+At `handoff=1` the model root is `[0,0,0]`, so their registered handoff is a
+matrix identity, not a visual estimate.
+
+| B1/B2 cue | Global window | Tier / motion fallback |
+|---|---:|---|
+| focus rack onto line drawing | 0.000 → 0.032 | full/lite linework + SVG; reduced-motion holds this static drawing; poster uses DOM engineering poster |
+| emissive line pulse | 0.052 → 0.068 | full/lite; reduced-motion does not pulse |
+| model rise and registered handoff | 0.068 → 0.084 | full/lite live GLB; reduced-motion stays static |
+| ripple dissipation | 0.068 → 0.120 | full-only post pass; lite/poster/reduced omit it |
+
+The retained hero proxy windows move by +0.12 timeline units: spin and gear
+rotation `0.00 → 0.12`; ghost `0.15 → 0.27`; explode `0.35 → 0.47`; ghost-out
+`0.42 → 0.54`. The explosion ladder itself is unchanged (part-number identity
+and every offset in §§5.1–5.4 remain canonical).
+
 ### 5.1 Rig classification (`src/scene/rig/nodeRoles.ts`)
 
 Node identity comes from NODE names — mesh names are generic. The two
@@ -439,9 +460,9 @@ live in `src/scene/stages/stageWindows.ts`:
 
 | Stage | Content | Fade in | Fade out |
 |---|---|---|---|
-| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.525 → 0.565 |
-| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.525 → 0.565 | 0.72 → 0.76 |
-| 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.72 → 0.76 | — (holds to end) |
+| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.545 → 0.585 |
+| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.545 → 0.585 | 0.74 → 0.78 |
+| 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.74 → 0.78 | — (holds to end) |
 
 Vertical travel ±0.5 m; cross-fades are smoothstep over the overlapping
 windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
@@ -449,16 +470,14 @@ windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
 **Window provenance (remeasured 2026-08-27, JG-014 repair):** the document is
 now 3×440vh chapter sections + 660vh CH.04 + 40vh footer = 2020vh — the old
 1800vh figures (explode done ≈0.518, flip ≈0.74) were stale. Against the
-current layout the hero timeline scrubs [data-chapter="1"]'s viewport transit
-at global progress ≈0.177 → 0.458, so `explodeFactor` reaches 1 at ≈0.416
-(live-probed: gearRotation 8π, explodeFactor 1 by 0.47). The rear-LCD orbit
-(`LCD_REVEAL_WINDOW` in caseStudies.ts) runs 0.420 → 0.525 — arc, dwell
-0.458–0.488 on the measured LCD world position [−0.14, 0, 0.46] (camera
-[−0.28, 0.08, 0.74], fov 31), then return — and the wrench sinks only after
-it: 0.525–0.565. S2→S3 holds at the mission's ~0.72 mark. Measured on the
-live page (§11 method): 0.473 → alphas [1, 0, 0], camera exactly on the dwell
-keyframe, LCD anchor projecting at viewport center; 0.545 → [0.50, 0.50, 0];
-0.60 → [0, 1, 0].
+current layout has the B1/B2 prelude at global 0.000 → 0.120, then the hero
+timeline scrubs [data-chapter="1"]'s viewport transit at global progress
+≈0.177 → 0.458. The shifted proxy completes its explosion before the
+rear-LCD orbit (`LCD_REVEAL_WINDOW` in caseStudies.ts), now 0.460 → 0.545
+(dwell 0.490–0.515) on the measured LCD world position [−0.14, 0, 0.46]. The
+wrench sinks only after it: 0.545–0.585. S2→S3 holds at the mission's ~0.74
+mark. Fresh telemetry/capture evidence is required for these post-rewindow
+measurements before any visual-success claim.
 
 ### 14.1 CH.03 airflow field (`src/scene/stages/AirflowField.tsx`)
 

@@ -7,6 +7,8 @@ import { Vector2 } from 'three'
 import { useQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
+import { PondRipple, type PondRippleEffect } from './PondRipplePass'
+import { drawingIntroState } from './drawing/introTimeline'
 
 /**
  * JG-017 — Post-Processing Composer.
@@ -74,10 +76,12 @@ function FxDriver({
   aberrationRef,
   bloomRef,
   enableAberration,
+  rippleRef,
 }: {
   aberrationRef: React.RefObject<ChromaticAberrationEffect | null>
   bloomRef: React.RefObject<BloomEffect | null>
   enableAberration: boolean
+  rippleRef: React.RefObject<PondRippleEffect | null>
 }) {
   useFrame(() => {
     const intensity = telemetry.stage.transitionIntensity
@@ -104,6 +108,12 @@ function FxDriver({
       }
       bloomRef.current.intensity = rest + (BLOOM_PEAK - BLOOM_REST) * intensity
     }
+
+    // B2: full-tier-only, one short pond-ripple after the drawing's emissive
+    // line pulse. Lite keeps the line/model handoff but skips this extra pass.
+    if (rippleRef.current) {
+      rippleRef.current.intensity = drawingIntroState(getScrollState().progress).ripple
+    }
   })
 
   return null
@@ -114,6 +124,7 @@ export function PostProcessingComposer() {
 
   const aberrationRef = useRef<ChromaticAberrationEffect | null>(null)
   const bloomRef = useRef<BloomEffect | null>(null)
+  const rippleRef = useRef<PondRippleEffect | null>(null)
 
   // Poster: canvas unmounted — component never reaches this anyway.
   // Reduced motion: static hero pose — no motion effects.
@@ -131,6 +142,7 @@ export function PostProcessingComposer() {
             offset={new Vector2(0, 0)}
           />
         )}
+        {tier === 'full' && <PondRipple ref={rippleRef} />}
         <Bloom
           ref={bloomRef as React.RefObject<BloomEffect>}
           luminanceThreshold={0.6}
@@ -144,6 +156,7 @@ export function PostProcessingComposer() {
         aberrationRef={aberrationRef}
         bloomRef={bloomRef}
         enableAberration={enableAberration}
+        rippleRef={rippleRef}
       />
     </>
   )

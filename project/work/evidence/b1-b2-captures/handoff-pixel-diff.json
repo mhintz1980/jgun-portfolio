@@ -1,0 +1,9 @@
+{
+  "capture_size": [
+    1280,
+    720
+  ],
+  "same_scroll_checkpoint": 0.083984375,
+  "raw_changed_pixels": 916785,
+  "cyan_edge_mask_changed_pixels": 32230
+}

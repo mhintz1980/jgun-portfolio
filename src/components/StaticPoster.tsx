@@ -20,13 +20,13 @@ export function StaticPoster() {
 
       <div className="absolute left-1/2 top-1/2 w-[min(52rem,84vw)] -translate-x-1/2 -translate-y-1/2 select-none">
         <p className="font-mono text-xs tracking-[0.4em] text-cyan-400">
-          DWG NO. RL-300 · REV C · SCALE 1:1
+          DWG NO. JG-D1-AP-001 · REV 01 · SCALE 1:1
         </p>
         <h1 className="mt-4 text-4xl font-semibold text-zinc-100 md:text-6xl">
-          Industrial Pneumatic Torque Wrench
+          JGun Torque Multiplier
         </h1>
         <p className="mt-3 max-w-xl text-zinc-400">
-          Multi-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&amp;T
+          Multi-stage planetary reduction · ASME Y14.5 GD&amp;T · STATIC ENGINEERING VIEW
         </p>
         <p className="mt-8 font-mono text-[10px] tracking-widest text-cyan-400/60">
           STATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE
@@ -34,7 +34,7 @@ export function StaticPoster() {
       </div>
 
       <div className="absolute bottom-8 right-8 hidden border border-cyan-400/30 font-mono text-[10px] tracking-widest text-cyan-300/80 md:block">
-        <div className="border-b border-cyan-400/30 px-4 py-2">TITLE: PLANETARY REDUCTION ASSY</div>
+        <div className="border-b border-cyan-400/30 px-4 py-2">TITLE: JGUN PLANETARY REDUCTION ASSY</div>
         <div className="flex divide-x divide-cyan-400/30">
           <span className="px-4 py-2">TOL ±.0015&quot;</span>
           <span className="px-4 py-2">MAT&apos;L: 4140 HT</span>
