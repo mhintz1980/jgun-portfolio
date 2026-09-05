@@ -31,7 +31,7 @@ export interface SpatialStation {
 }
 
 export const SPATIAL_STATIONS: readonly SpatialStation[] = [
-  { id: 'jgun', index: 0, label: 'STATION 01', name: 'D1-AP TORQUE MULTIPLIER', position: [0, 0, 0], scrollProgress: 0.0 },
+  { id: 'jgun', index: 0, label: 'STATION 01', name: 'PTG-HP-1000 TORQUE GUN', position: [0, 0, 0], scrollProgress: 0.0 },
   { id: 'enclosure', index: 1, label: 'STATION 02', name: 'RL-300 ACOUSTIC SAFE ENCLOSURE', position: [28, 0, -6], scrollProgress: 0.60 },
   { id: 'm249', index: 2, label: 'STATION 03', name: 'M249 / MK46 PLATFORM', position: [56, 0, -12], scrollProgress: 0.85 },
 ] as const

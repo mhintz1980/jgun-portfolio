@@ -614,10 +614,21 @@ station visibility combinations at startup, which is what makes that separation 
 | **poster** | canvas unmounted (0 canvas elements), original DOM engineering poster, text length > 100 | `desktop-poster.png`, `mobile-poster.png` |
 | **reduced motion** | holds the fully focused registered phase-.20 frame; `phase = 0.2`, `focus = 1`, `pulse = 0`, `waveEnabled = 0`, `cameraUp = [-1, 0, 0]` (print readable), `backdropAlpha = 0.55`; two reads agree to ≤ 1e-6 | `desktop-reduced-motion.png`, `mobile-reduced-motion.png` |
 
-The `StaticPoster` copy that the first attempt rewrote to RL-300 wording is left as it stands in
-the working tree and is flagged for Mark: the poster now reads "Industrial Pneumatic Torque
-Wrench / DWG NO. RL-300 · REV C" where `main` read "JGun Torque Multiplier / DWG NO.
-JG-D1-AP-001". That is a copy decision, not a JG-026 mechanism, and it is his call.
+**Correction (2026-09-05, post-commit):** an earlier draft of this section stated the direction
+of the `StaticPoster` copy change backwards. The history is:
+
+| Commit | Poster reads |
+|---|---|
+| `6af1530` … `main` | "Industrial Pneumatic Torque Wrench / DWG NO. RL-300 · REV C · SCALE 1:1" |
+| `5dfd0aa` (first B1/B2 attempt) | "JGun Torque Multiplier / DWG NO. JG-D1-AP-001 · REV 01" |
+| this branch | reverted to `main`'s RL-300 wording — `git diff main -- src/components/StaticPoster.tsx` is empty |
+
+So the RL-300 wording is `main`'s, not a rewrite, and the tree currently matches `main`. Nothing
+is pending here mechanically. What remains is a genuine copy question for Mark: the poster is the
+only surface in the app carrying a drawing number at all (`#sheet-furniture` in
+`EngineeringDrawingOverlay` is still an empty hand-drawn slot), and `ASSEMBLY_IDENTITY.machine` in
+`src/data/caseStudies.ts` also reads "Industrial Pneumatic Torque Wrench". If he wants the poster
+to carry JGun branding, both surfaces should move together.
 
 ---
 
@@ -659,4 +670,6 @@ JG-D1-AP-001". That is a copy decision, not a JG-026 mechanism, and it is his ca
    Adding it later cannot re-window anything.
 4. **Downstream scroll-jacking candidates** (Item 5) are proposals only.
 5. **`StaticPoster` copy** — flagged in §11, his call.
-6. Nothing is committed on this branch.
+6. ~~Nothing is committed on this branch.~~ **Closed 2026-09-05** — committed as `44cbbed`
+   (76 files). PNG captures under `b1-b2-rebuild/` are gitignored; the machine-readable
+   JSON/SVG evidence this document cites is committed.

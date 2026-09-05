@@ -152,7 +152,7 @@ export function EngineeringDrawingOverlay() {
   const tables = zoneRect(SHEET_ZONES.tables)
 
   return (
-    <section className="sr-only" aria-label="JGUN engineering reference drawing">
+    <section className="sr-only" aria-label="High-Precision Industrial Torque Gun engineering reference drawing">
       <p>
         ANSI C general arrangement, third-angle projection. Side elevation at 1:1 with plan and
         end views projected on shared axes, and section A–A taken on the horizontal cutting plane
@@ -404,14 +404,14 @@ export function EngineeringDrawingOverlay() {
             y={zoneRect(SHEET_ZONES.titleBlock).y + FONT * 1.8}
             className="strong"
           >
-            JGUN / D1-AP
+            PTG-HP-1000 REV03
           </text>
           <text
             x={zoneRect(SHEET_ZONES.titleBlock).x + 14}
             y={zoneRect(SHEET_ZONES.titleBlock).y + FONT * 3.2}
             className="micro"
           >
-            PNEUMATIC TORQUE MULTIPLIER · SHEET 01
+            HIGH-PRECISION INDUSTRIAL TORQUE GUN · SHEET 01
           </text>
           <text
             x={zoneRect(SHEET_ZONES.titleBlock).x + zoneRect(SHEET_ZONES.titleBlock).width - 14}

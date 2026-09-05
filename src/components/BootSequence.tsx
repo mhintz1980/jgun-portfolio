@@ -18,7 +18,7 @@ import { useQuality } from '../state/qualityStore'
  */
 
 const ITEM_LABELS: Array<[RegExp, string]> = [
-  [/Default\.glb/i, 'LOADING ASSY · RL-300 FULL'],
+  [/Default\.glb/i, 'LOADING ASSY · PTG-HP-1000 FULL'],
   [/gearbox/i, 'GEARBOX STAGE 1-2 · PLANETARY CLUSTER'],
   [/handle/i, 'HANDLE ASSY · MOTOR HOUSING'],
 ]
@@ -54,7 +54,7 @@ export function BootPanel({ progress, loaded, total, log, faults, reducedMotion,
       }`}
     >
       <div className="w-[min(24rem,80vw)] border border-cyan-400/40 bg-black/70 p-5 backdrop-blur">
-        <p className="text-cyan-200">RL-300 SYSTEM BOOT</p>
+        <p className="text-cyan-200">PTG-HP-1000 SYSTEM BOOT</p>
 
         {reducedMotion ? (
           <p className="mt-3">INITIALIZING ASSEMBLY — {pct}%</p>
