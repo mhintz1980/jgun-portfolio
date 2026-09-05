@@ -3,6 +3,21 @@ import { ASSEMBLY_IDENTITY, CASE_STUDIES, CHAPTERS } from '../data/caseStudies'
 import type { CaseStudy } from '../types/portfolio'
 import { useQuality } from '../state/qualityStore'
 import { useScrollValue } from '../state/scrollStore'
+import { DRAWING_INTRO_WINDOW, pacedProgress } from '../scene/drawing/introTimeline'
+
+/**
+ * Scroll-track heights, in vh, for the empty sections that give Lenis and ScrollTrigger
+ * their distance. JG-026 pacing ruling (2026-09-05) sets these; the derivation is in
+ * `project/work/evidence/JG-026-b1-b2-verification.md` (pacing table).
+ *
+ * `intro` is a dedicated track so the drawing sequence no longer has to share chapter 0's
+ * section, and so `[data-chapter="1"]` — the element the hero GSAP ScrollTrigger measures
+ * — still opens at paced progress 0.17703 and closes at 0.45843, i.e. within 1e-4 of the
+ * window the retained CH.02 timeline was authored and verified against.
+ *
+ * Document height 3120vh (scroll distance 3020vh), up from 2020vh / 1920vh.
+ */
+const SCROLL_TRACK_VH = { intro: 906, chapters: [237, 576, 541, 811], footer: 49 } as const
 
 /**
  * Chapter active scroll progress ranges [start, end] on the global 0..1 scroll timeline.
@@ -106,7 +121,9 @@ export function Chapters() {
     if (!reducedMotion) return
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight
-      const p = max > 0 ? window.scrollY / max : 0
+      // CHAPTER_RANGES are authored on the paced progress axis, so raw scroll has to be
+      // mapped the same way ScrollRig maps it in the full-motion tier (JG-026 pacing).
+      const p = max > 0 ? pacedProgress(window.scrollY / max) : 0
       let chapter = 0
       for (const chapterDef of CHAPTERS) {
         const [start] = CHAPTER_RANGES[chapterDef.index] ?? [0, 1]
@@ -123,7 +140,9 @@ export function Chapters() {
     }
   }, [reducedMotion])
 
-  const shiftBeat = !isStaticMode && isShiftBeatOn(progress)
+  // The shift beat's window opens at 0.04, inside the intro band the drawing owns.
+  const shiftBeat =
+    !isStaticMode && progress > DRAWING_INTRO_WINDOW.releaseEnd && isShiftBeatOn(progress)
   const explodeBeat = !isStaticMode && isExplodeBeatOn(progress)
   const lcdBeat = !isStaticMode && isLcdBeatOn(progress)
 
@@ -138,7 +157,13 @@ export function Chapters() {
 
             const fadeIn = Math.min(Math.max((progress - start) / 0.035, 0), 1)
             const fadeOut = Math.min(Math.max((end - progress) / 0.035, 0), 1)
-            const opacity = Math.min(fadeIn, fadeOut)
+            // CH.01's range opens at 0.00, which the B1/B2 intro now owns outright:
+            // hold its card back until the drawing has handed off.
+            const afterIntro =
+              chapterDef.index === 0
+                ? Math.min(Math.max((progress - DRAWING_INTRO_WINDOW.releaseEnd) / 0.02, 0), 1)
+                : 1
+            const opacity = Math.min(fadeIn, fadeOut) * afterIntro
 
             if (opacity <= 0.001) return null
 
@@ -234,7 +259,11 @@ export function Chapters() {
           })}
         </div>
       ) : (
-        /* Reduced Motion / Poster Tier Static Fallback */
+        /* Reduced Motion / Poster Tier Static Fallback.
+           JG-022: exactly one card at a time, in normal document flow. The card's own
+           translucent panel already reads over the static drawing frame behind it, so
+           nothing is pushed below the fold — stranding the copy a viewport down is the
+           defect JG-022 exists to prevent. */
         <div className="relative z-10 p-6 md:p-12">
           {CHAPTERS.map((chapterDef) => {
             const caseStudy = CASE_STUDIES.find((cs) => cs.chapter === chapterDef.index)
@@ -295,21 +324,29 @@ export function Chapters() {
         </BeatCaption>
       )}
 
-      {/* 3. Scroll Sections: Provides the scroll height for Lenis + ScrollTrigger */}
+      {/* 3. Scroll Sections: Provides the scroll height for Lenis + ScrollTrigger.
+             The intro track carries no `data-chapter`, so ScrollRig's per-chapter
+             triggers and the hero timeline's `[data-chapter="1"]` selector are
+             unaffected by its presence. */}
       <div className="relative z-0">
+        <section
+          data-intro="b1b2"
+          className="pointer-events-none"
+          style={{ minHeight: `${SCROLL_TRACK_VH.intro}vh` }}
+        />
         {CHAPTERS.map((chapterDef) => (
           <section
             key={chapterDef.index}
             data-chapter={chapterDef.index}
-            className={`pointer-events-none ${
-              chapterDef.index === 3
-                ? 'min-h-[660vh]'
-                : 'min-h-[440vh]'
-            }`}
+            className="pointer-events-none"
+            style={{ minHeight: `${SCROLL_TRACK_VH.chapters[chapterDef.index] ?? 576}vh` }}
           />
         ))}
 
-        <footer className="pointer-events-none flex h-[40vh] items-end px-[8vw] pb-16">
+        <footer
+          className="pointer-events-none flex items-end px-[8vw] pb-16"
+          style={{ height: `${SCROLL_TRACK_VH.footer}vh` }}
+        >
           <p className="font-mono text-xs tracking-widest text-zinc-500">
             BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .0015" TIR
           </p>

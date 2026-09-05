@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
-import { DirectionalLight, PMREMGenerator, PointLight, SpotLight } from 'three'
+import { DirectionalLight, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { BackdropRig } from './backgrounds/BackdropRig'
@@ -9,10 +9,11 @@ import { SpatialRig } from './SpatialRig'
 import { SpatialWorld } from './SpatialWorld'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { PostProcessingComposer } from './PostProcessingComposer'
-import { degradeQuality, forcePoster } from '../state/qualityStore'
+import { degradeQuality, forcePoster, getQuality } from '../state/qualityStore'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
-import { getScrollState } from '../state/scrollStore'
+import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
+import { drawingIntroState } from './drawing/introTimeline'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
 const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
@@ -126,16 +127,18 @@ function StudioRig() {
   const scene = useThree((state) => state.scene)
 
   useFrame(() => {
+    telemetry.performance.tier=getQuality().tier
     const { progress } = getScrollState()
     // wrenchOut [0.525, 0.565] is when the hero sinks and the enclosure
     // rises; enclosureOut [0.72, 0.76] is when the enclosure exits.
     const down = smoothstep01((progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]))
     const up = smoothstep01((progress - STAGE_TRANSITIONS.enclosureOut[0]) / (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]))
-    const k = 1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up)
+    const activation=getQuality().reducedMotion?0:drawingIntroState(progress).pbr
+    const k = activation*(1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
     if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k
     if (fillRef.current) fillRef.current.intensity = STUDIO_FILL_INTENSITY * k
     if (spotRef.current) spotRef.current.intensity = STUDIO_SPOT_INTENSITY * k
-    scene.environmentIntensity = 1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up)
+    scene.environmentIntensity = activation*(1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
   })
 
   return (
@@ -160,6 +163,42 @@ function StudioRig() {
  *  - WebGL context loss bails straight to the static poster.
  *  - Frustum culling stays enabled on every mesh (asserted in buildWrenchRig).
  */
+function WarmStationPrograms() {
+  const {gl,scene,camera}=useThree()
+  useEffect(()=>{
+    let cancelled=false
+    const stations=['station-1-jgun','station-2-enclosure','station-3-m249'].map(name=>scene.getObjectByName(name))
+    if(stations.some(station=>!station))return
+    const warm=async()=>{
+      const target=new WebGLRenderTarget(1,1)
+      try{
+      for(const combination of [[true,false,false],[true,true,false],[false,true,false],[false,true,true],[false,false,true]]){
+        if(cancelled)return
+        const previous=stations.map(station=>station!.visible)
+        let pending:Promise<unknown>
+        // compileAsync collects lights synchronously; restore visibility before yielding.
+        try{stations.forEach((station,i)=>{station!.visible=combination[i]});pending=gl.compileAsync(scene,camera)}
+        finally{stations.forEach((station,i)=>{station!.visible=previous[i]})}
+        await pending
+        if(cancelled)return
+        // compileAsync does not upload vertex buffers or texture images. A 1px
+        // offscreen render prepares those too, including frustum-culled stations.
+        const flags:{object:typeof scene;visible:boolean;frustumCulled:boolean}[]=[]
+        scene.traverse(object=>{flags.push({object:object as typeof scene,visible:object.visible,frustumCulled:object.frustumCulled});object.visible=true;object.frustumCulled=false})
+        stations.forEach((station,i)=>{station!.visible=combination[i]})
+        const previousTarget=gl.getRenderTarget(),viewport=gl.getViewport(new Vector4())
+        try{gl.setRenderTarget(target);gl.setViewport(0,0,1,1);gl.render(scene,camera)}
+        finally{gl.setRenderTarget(previousTarget);gl.setViewport(viewport);flags.forEach(({object,visible,frustumCulled})=>{object.visible=visible;object.frustumCulled=frustumCulled})}
+      }
+      if(!cancelled)telemetry.performance.warmReady=true
+      }finally{target.dispose()}
+    }
+    void warm().catch(error=>{console.error('Station shader preparation failed',error)})
+    return()=>{cancelled=true}
+  },[gl,scene,camera])
+  return null
+}
+
 export function SceneCanvas() {
   const [step, setStep] = useState(0)
   const stepRef = useRef(0)
@@ -190,6 +229,7 @@ export function SceneCanvas() {
           bounds={() => [45, 60] as [number, number]}
           flipflops={3}
           onDecline={() => {
+            telemetry.performance.declines++
             if (stepRef.current < DPR_STEPS.length - 1) setDprStep(stepRef.current + 1)
             else degradeQuality()
           }}
@@ -216,6 +256,7 @@ export function SceneCanvas() {
               <TorqueWrenchHero />
             </SpatialWorld>
             <LcdFillLight />
+            <WarmStationPrograms />
             <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
           </Suspense>
 

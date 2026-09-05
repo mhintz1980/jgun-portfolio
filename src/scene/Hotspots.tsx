@@ -541,7 +541,7 @@ export function Hotspots() {
       {anchors
         .filter(
           ({ def }) =>
-            (def.window
+            progress>0.12 && (def.window
               ? progress >= def.window[0] && progress <= def.window[1]
               : def.chapters.includes(chapter as ChapterIndex)),
         )

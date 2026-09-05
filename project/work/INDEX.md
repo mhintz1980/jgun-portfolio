@@ -8,6 +8,7 @@ This is the stable registry for work accepted after the `JG-###` protocol was es
 
 | ID | Status | Title | TODO entry | Plan | Evidence |
 |---|---|---|---|---|---|
+| JG-026 | in-progress; machine gates complete, owner visual ruling open | B1/B2 engineering drawing extraction rebuild | [Active](../../TODO.md#active) | [plan](plans/JG-026-b1-b2-engineering-drawing.md) | [evidence](evidence/JG-026-b1-b2-verification.md) |
 | JG-014 | verified | Opening sequence, print-authentic GD&T annotations, and rear-LCD reveal | [Active](../../TODO.md#active) | [plan](plans/JG-014-opening-gdt-lcd-repair.md) | [evidence](evidence/JG-014-opening-gdt-lcd-verification.md) |
 | JG-015 | verified | RL-300 / MSP Acoustic SAFE asset ingestion | [Active](../../TODO.md#active) | [plan](plans/JG-015-msp-acoustic-safe-asset-ingestion.md) | [evidence](evidence/JG-015-msp-acoustic-safe-asset-ingestion-verification.md) |
 | JG-016 | verified | Multi-station spatial world and navigation rig | [Active](../../TODO.md#active) | [plan](plans/JG-016-multi-station-spatial-world.md) | [evidence](evidence/JG-016-multi-station-spatial-world-verification.md) |

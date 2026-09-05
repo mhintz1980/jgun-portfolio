@@ -2,7 +2,6 @@ import { Suspense, lazy } from 'react'
 import { Chapters } from './components/Chapters'
 import { StaticPoster } from './components/StaticPoster'
 import { TechnicalHUD } from './components/TechnicalHUD'
-import { EngineeringDrawingOverlay } from './components/EngineeringDrawingOverlay'
 import { useQuality } from './state/qualityStore'
 
 // The canvas world (three/R3F/drei/GSAP/Lenis + the dissolve shader) is code-
@@ -16,6 +15,7 @@ const ScrollRig = lazy(() => import('./scene/ScrollRig').then((m) => ({ default:
 const BootSequence = lazy(() =>
   import('./components/BootSequence').then((m) => ({ default: m.BootSequence })),
 )
+const EngineeringDrawingOverlay=lazy(()=>import('./components/EngineeringDrawingOverlay').then(m=>({default:m.EngineeringDrawingOverlay})))
 
 export default function App() {
   const { tier, reducedMotion } = useQuality()
@@ -49,7 +49,7 @@ export default function App() {
 
       {/* Telemetry overlay (DOM; hides its canvas-bound readouts per tier) */}
       {canvasActive && <TechnicalHUD />}
-      {canvasActive && <EngineeringDrawingOverlay />}
+      {canvasActive && <Suspense fallback={null}><EngineeringDrawingOverlay /></Suspense>}
 
       {/* GLB stream-in boot readout (poster tier: nothing streams, no boot) */}
       {canvasActive && (

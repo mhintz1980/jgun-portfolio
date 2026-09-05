@@ -1,6 +1,15 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { PerspectiveCamera, Vector3 } from 'three'
+import { Matrix4, PerspectiveCamera, Vector3 } from 'three'
+import { drawingRuntime } from './drawing/extractionPose'
+import {
+  DRAWING_INTRO_WINDOW,
+  drawingIntroState,
+  remapHeroProgress,
+  smooth01,
+} from './drawing/introTimeline'
+import { SHEET_FOV, SHEET_UP_WORLD } from './drawing/drawingGeometry'
+import { introCameraPose } from './drawing/sheetCamera'
 import {
   CAMERA_PATH,
   EXPLODE_OFFSETS,
@@ -11,7 +20,6 @@ import {
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
-import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
 
 const smoothstep = (t: number): number => t * t * (3 - 2 * t)
 
@@ -159,6 +167,9 @@ export function CameraRig() {
   const scratchA = useRef(new Vector3())
   const scratchFwd = useRef(new Vector3())
   const scratchRight = useRef(new Vector3())
+  const orthographic = useRef(new Matrix4())
+  const introPos = useRef(new Vector3())
+  const introTarget = useRef(new Vector3())
   const shakeFrames = useRef(0)
   const wasPulsing = useRef(false)
   const restOrbit = useRef(0)
@@ -166,7 +177,7 @@ export function CameraRig() {
   useFrame((state, delta) => {
     // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
     // scroll interpolation, no pointer parallax, no damped drift.
-    if (getQuality().reducedMotion) {
+    if (getQuality().reducedMotion && !drawingRuntime.ready) {
       const hero = CAMERA_PATH[0]
       camera.position.set(hero.position[0], hero.position[1], hero.position[2])
       camera.lookAt(scratchA.current.set(hero.target[0], hero.target[1], hero.target[2]))
@@ -185,7 +196,11 @@ export function CameraRig() {
       return
     }
 
-    const { progress, hotspotId, velocity } = getScrollState()
+    const { hotspotId, velocity } = getScrollState()
+    // Reduced motion parks the sequence on the fully focused registered frame (intro t=0.20).
+    const progress = getQuality().reducedMotion
+      ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2
+      : getScrollState().progress
 
     // ---- 1. Content-aligned base trajectory (PATH_SEGMENTS table) ----
     const base = baseAt(progress)
@@ -193,19 +208,10 @@ export function CameraRig() {
     goalTarget.current.set(base.target[0], base.target[1], base.target[2])
     let goalFov = base.fov
 
-    // B1: lock the live camera to the large drawing elevation. The linework
-    // shares the hero's frame, which makes B2's return to the PBR model a
-    // matrix-identical handoff rather than an eye-matched approximation.
-    if (progress <= DRAWING_INTRO_WINDOW.releaseEnd) {
-      goalPos.current.set(0.20, 0.10, 0.30)
-      goalTarget.current.set(0, 0, 0)
-      goalFov = 27
-    }
-
-    // ---- 2. B3 remap: shift groove reveal after the B1/B2 handoff ----
-    const shiftW = bellWeight(progress, 0.145, 0.165, 0.225, 0.29)
+    // ---- 2. CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
+    const shiftW = bellWeight(progress, remapHeroProgress(0.035), remapHeroProgress(0.055), remapHeroProgress(0.115), 0.18)
     if (shiftW > 0.001) {
-      const orbitT = smoothstep(Math.min(Math.max((progress - 0.16) / 0.08, 0), 1))
+      const orbitT = smoothstep(Math.min(Math.max((progress - remapHeroProgress(0.05)) / (remapHeroProgress(0.10)-remapHeroProgress(0.05)), 0), 1))
       const grPos: [number, number, number] = [
         lerpN(0.16, 0.12, orbitT),
         lerpN(0.06, 0.05, orbitT),
@@ -223,11 +229,12 @@ export function CameraRig() {
     }
 
     // ---- 3. JG-021 WS1.3: Exploded reduction-train lookAt centroid tracking ----
-    // During segment 0 (JGun beats, progress <= 0.545), shift goalTarget toward the
+    // During segment 0 (JGun beats, progress <= 0.525), shift goalTarget toward the
     // exploded-train centroid (midpoint of output face +0.102m and exploded handle tail -0.587m,
     // recentered by rig.center -0.0906m -> centroidZ = -0.152m at explode=1) rotated by hero yaw.
-    if (progress <= 0.545) {
-      const explodeFactor = telemetry.rig.explodeFactor
+    if (progress <= 0.525) {
+      // telemetry.rig.explodeFactor is written by the hero's GSAP proxy every frame.
+      const explodeFactor = progress <= DRAWING_INTRO_WINDOW.releaseEnd ? 0 : telemetry.rig.explodeFactor
       if (explodeFactor > 0.001) {
         const spinProgress = Math.min(1, Math.max(0, (progress - 0.18) / 0.17))
         const heroYaw = spinProgress * Math.PI * 0.85
@@ -278,14 +285,14 @@ export function CameraRig() {
       goalFov = rearFov
     }
 
-    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.78 → 1.00, Station 3: [56, 0, -12]) ----
-    // JG-021 remediation: override start === K3 (zero goal jump at the 0.780
+    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
+    // JG-021 remediation: override start === K3 (zero goal jump at the 0.760
     // boundary — the old 0.822 m damped jump is gone), dollying out from the
     // ~2.5 m near pose to a ~3.5 m overview across a 0.18 window so the 1.18 m
     // receiver clears the left CH.04 card lane instead of filling 131% of the
     // screen.
-    if (progress >= 0.78) {
-      const t4 = smoothstep(Math.min((progress - 0.78) / 0.18, 1))
+    if (progress >= 0.76) {
+      const t4 = smoothstep(Math.min((progress - 0.76) / 0.18, 1))
       const m249Pos: [number, number, number] = [
         lerpN(56.43, 56.6, t4),
         lerpN(0.65, 0.9, t4),
@@ -343,7 +350,7 @@ export function CameraRig() {
     let portraitDolly = 1
     if (portrait) {
       const w = smoothstep(Math.min(Math.max((progress - 0.5) / 0.06, 0), 1))
-      const ch4 = progress >= 0.78 ? smoothstep(Math.min((progress - 0.78) / 0.22, 1)) : 0
+      const ch4 = progress >= 0.76 ? smoothstep(Math.min((progress - 0.76) / 0.24, 1)) : 0
       portraitDolly = 1 + w * (1.0 + 0.8 * ch4)
       goalFov += 10 * w
       if (portraitDolly > 1) {
@@ -369,9 +376,12 @@ export function CameraRig() {
       Math.min(Math.max((progress - lo) / 0.015, 0), Math.max((hi - progress) / 0.015, 0), 1)
     const flightW = Math.max(att(0.53, 0.598), att(0.722, 0.758))
     const flightAtt = 1 - 0.75 * flightW
-    const biasX = portrait ? biasVec.x * 0.25 * flightAtt : biasVec.x * flightAtt
-    const biasY = portrait ? biasVec.y : 0
-    telemetry.camera.framingBias = biasVec.x
+    // Card-avoidance framing bias belongs to the chapter cards; hold it off until the
+    // drawing has handed off, otherwise the sheet is nudged off-centre for no reason.
+    const afterIntro = smooth01((progress - DRAWING_INTRO_WINDOW.releaseEnd) / 0.03)
+    const biasX = (portrait ? biasVec.x * 0.25 * flightAtt : biasVec.x * flightAtt) * afterIntro
+    const biasY = (portrait ? biasVec.y : 0) * afterIntro
+    telemetry.camera.framingBias = biasX
     telemetry.camera.framingBiasY = biasY
 
     if (biasX > 0.0001 || biasY > 0.0001) {
@@ -402,13 +412,45 @@ export function CameraRig() {
       }
     }
 
+    // ---- 6. B1/B2 intro: the drawing owns the frame up to the handoff ----
+    // The intro pose is authored over the sheet (sheetCamera) and blended into whatever the
+    // main trajectory already wants, so the last intro frame and the first CH.01 frame are
+    // the same camera. `perspective` also carries the roll: the up vector starts on the
+    // sheet's printed-up axis (world -X) so the print reads right-way-up from the moment it
+    // appears until the model has left it, and finishes on world up for CH.01.
+    const layout = drawingRuntime.layout
+    const reducedMotion = getQuality().reducedMotion
+    const intro = drawingIntroState(progress, drawingRuntime.extraction?.crossing)
+    const introActive = progress <= DRAWING_INTRO_WINDOW.releaseEnd && layout !== null
+    const introBlend = introActive ? (reducedMotion ? 0 : intro.perspective) : 1
+    if (introActive && layout) {
+      const framing = introCameraPose(layout, aspect, intro.t, introPos.current, introTarget.current)
+      telemetry.camera.sheetDistance = framing
+      goalPos.current.lerpVectors(introPos.current, goalPos.current, introBlend)
+      goalTarget.current.lerpVectors(introTarget.current, goalTarget.current, introBlend)
+      goalFov = SHEET_FOV + (goalFov - SHEET_FOV) * introBlend
+      camera.up
+        .set(
+          SHEET_UP_WORLD.x * (1 - introBlend),
+          SHEET_UP_WORLD.y * (1 - introBlend) + introBlend,
+          SHEET_UP_WORLD.z * (1 - introBlend),
+        )
+        .normalize()
+    } else {
+      camera.up.set(0, 1, 0)
+      telemetry.camera.sheetDistance = 0
+    }
+
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
-    goalPos.current.x += state.pointer.x * 0.03
-    goalPos.current.y += state.pointer.y * 0.02
+    // Suppressed while the sheet is being read — a drifting camera over a flat print reads
+    // as a wobble, not as depth.
+    const parallax = introActive ? introBlend : 1
+    goalPos.current.x += state.pointer.x * 0.03 * parallax
+    goalPos.current.y += state.pointer.y * 0.02 * parallax
 
     // B2 garnish #16: exactly six rendered frames of a sub-pixel camera shake
     // when the drawing lines pulse. It is frame-counted, not timer-based.
-    const pulsing = progress >= DRAWING_INTRO_WINDOW.pulseStart && progress <= DRAWING_INTRO_WINDOW.pulsePeak
+    const pulsing = intro.pulse > 0 && introActive
     if (pulsing && !wasPulsing.current) shakeFrames.current = 6
     wasPulsing.current = pulsing
     if (shakeFrames.current > 0) {
@@ -425,7 +467,7 @@ export function CameraRig() {
       progress > DRAWING_INTRO_WINDOW.releaseEnd &&
       progress < 0.545
     ) {
-      restOrbit.current += delta * (0.3 * Math.PI / 180)
+      restOrbit.current += delta * ((0.3 * Math.PI) / 180)
       goalPos.current.x += Math.sin(restOrbit.current) * 0.003
       goalPos.current.z += (Math.cos(restOrbit.current) - 1) * 0.003
     }
@@ -441,12 +483,44 @@ export function CameraRig() {
     if (camera instanceof PerspectiveCamera) {
       camera.fov += (goalFov - camera.fov) * damp
       camera.updateProjectionMatrix()
+      // While the sheet is the subject the projection is blended toward a true orthographic
+      // matrix, which is what makes the print register to the model's own projection rather
+      // than to a perspective approximation of it.
+      if (introActive && layout && introBlend < 1) {
+        const half = layout.fitDistance * Math.tan((SHEET_FOV * Math.PI) / 360)
+        orthographic.current.makeOrthographic(
+          -half * aspect,
+          half * aspect,
+          half,
+          -half,
+          camera.near,
+          camera.far,
+        )
+        for (let i = 0; i < 16; i += 1) {
+          camera.projectionMatrix.elements[i] =
+            orthographic.current.elements[i] * layout.fitDistance * (1 - introBlend) +
+            camera.projectionMatrix.elements[i] * introBlend
+        }
+        camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert()
+      }
       telemetry.camera.fov = camera.fov
     }
 
     telemetry.camera.x = camera.position.x
     telemetry.camera.y = camera.position.y
     telemetry.camera.z = camera.position.z
+    // Preallocated goal readout — no per-frame object or array allocation (repo rule).
+    telemetry.camera.goal.position[0] = goalPos.current.x
+    telemetry.camera.goal.position[1] = goalPos.current.y
+    telemetry.camera.goal.position[2] = goalPos.current.z
+    telemetry.camera.goal.target[0] = goalTarget.current.x
+    telemetry.camera.goal.target[1] = goalTarget.current.y
+    telemetry.camera.goal.target[2] = goalTarget.current.z
+    telemetry.camera.goal.fov = goalFov
+    telemetry.camera.up[0] = camera.up.x
+    telemetry.camera.up[1] = camera.up.y
+    telemetry.camera.up[2] = camera.up.z
+    camera.updateMatrixWorld()
     writeScrollTelemetry()
   })
 

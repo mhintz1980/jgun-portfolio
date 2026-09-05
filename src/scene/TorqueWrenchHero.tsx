@@ -22,7 +22,11 @@ import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
 import { DrawingLinework } from './drawing/DrawingLinework'
-import { drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+import { DrawingProofRenderer } from './drawing/DrawingProofRenderer'
+import { DRAWING_INTRO_WINDOW, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+import { snapshotDrawing } from './drawing/drawingGeometry'
+import { drawingRuntime } from './drawing/extractionPose'
+import { introPbrActivation } from './rig/materials'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -76,6 +80,7 @@ export function TorqueWrenchHero() {
     return r
   }, [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
+  const drawing = useMemo(() => snapshotDrawing(rig), [rig])
   const idleAngle = useRef(0)
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
@@ -261,6 +266,46 @@ export function TorqueWrenchHero() {
     const { progress, chapter, chapterProgress, materialMode } = getScrollState()
     const { tier, reducedMotion } = getQuality()
 
+    const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
+    const proof = proofMode !== undefined && proofMode !== 'normal'
+    // Reduced motion parks the drawing at its fully focused frame (intro t = 0.20).
+    const intro = drawingIntroState(
+      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2 : progress,
+      drawingRuntime.extraction?.crossing,
+    )
+    introPbrActivation.value = proof ? 1 : intro.pbr
+
+    // B1/B2: while the drawing owns the frame the model IS the extraction pose —
+    // it is parented to the sheet, registered to the primary elevation, and the
+    // retained mechanism channels are all held at rest.
+    if ((progress <= DRAWING_INTRO_WINDOW.releaseEnd || reducedMotion || proof) && drawingRuntime.ready) {
+      if (group.current) {
+        group.current.matrixAutoUpdate = false
+        group.current.matrix.copy(drawingRuntime.modelMatrix)
+      }
+      if (modelRoot.current) modelRoot.current.visible = !proof
+      if (surface.current !== 'live' || lastMode.current !== materialMode) {
+        applyLiveMaterials(materialMode)
+        surface.current = 'live'
+      }
+      lastMode.current = materialMode
+      blueprintMaterial.opacity = 0.35
+      for (const material of rig.ghostMaterials.values()) {
+        material.opacity = 1
+        material.depthWrite = true
+      }
+      applyGearRotation(0, 0)
+      applyExplosion(0, 0)
+      anim.spin = 0
+      anim.ghost = 0
+      anim.explode = 0
+      anim.gearRotation = 0
+      anim.shift = 0
+      idleAngle.current = 0
+      writeRigTelemetry(0, 1, 0)
+      return
+    }
+
     // Reduced motion: hold the hero pose — no spin, no parallax, no ghost
     // fade, no gear rotation, no clutch shift, no scroll-driven explosion.
     // The material-mode switcher (an explicit user action, not motion) is the
@@ -284,19 +329,18 @@ export function TorqueWrenchHero() {
       return
     }
 
-    // B2: the PBR model starts just below the live edge elevation and rises
-    // into the exact same local frame. The linework is a clone of this GLB's
-    // geometry, so at handoff=1 both representations have identical matrices.
-    const intro = drawingIntroState(progress)
+    // The extraction ends at identity, exactly where the retained mechanism begins.
     if (modelRoot.current) {
-      const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
-      const forceModel = proofMode === 'model' || proofMode === 'registered'
-      modelRoot.current.visible = proofMode === 'lines' ? false : forceModel || intro.modelOpacity > 0.001
-      modelRoot.current.position.y = forceModel ? 0 : (1 - intro.modelOpacity) * -0.045
+      modelRoot.current.visible = true
+      modelRoot.current.position.set(0, 0, 0)
     }
 
     // 1. Lateral rotation + hover parallax.
     if (group.current) {
+      group.current.matrixAutoUpdate = true
+      group.current.position.set(0, 0, 0)
+      group.current.scale.set(1, 1, 1)
+      group.current.rotation.z = 0
       group.current.rotation.y = anim.spin * Math.PI * 0.85 + state.pointer.x * 0.08
       group.current.rotation.x = MathUtils.lerp(
         group.current.rotation.x,
@@ -324,7 +368,7 @@ export function TorqueWrenchHero() {
     } else if (anim.explode === 0 && anim.gearRotation === 0) {
       idleAngle.current = 0
     }
-    applyGearRotation(anim.gearRotation, idleAngle.current)
+    applyGearRotation(materialMode === 'exploded' ? 0 : anim.gearRotation, idleAngle.current)
 
     // 4. Clutch shift window in CH.01:
     // B3 is remapped after B1/B2. Values preserve the old 0.05→0.17 local
@@ -359,8 +403,8 @@ export function TorqueWrenchHero() {
     //    ends). AND-gate both chapter-4 surfaces on raw progress (CH.04
     //    starts at 0.760; 0.755 tolerates entry-side lag invisibly) so a
     //    laggy chapter can never activate them outside the window.
-    const wantCad = chapter === 3 && progress >= 0.775 && tier === 'full'
-    const wantLiteFade = chapter === 3 && progress >= 0.775 && tier !== 'full'
+    const wantCad = chapter === 3 && progress >= 0.755 && tier === 'full'
+    const wantLiteFade = chapter === 3 && progress >= 0.755 && tier !== 'full'
     if (wantCad && surface.current !== 'cad') {
       for (const mesh of rig.meshes) mesh.material = cadMaterial
       surface.current = 'cad'
@@ -389,15 +433,18 @@ export function TorqueWrenchHero() {
   // Recenter the wrench midpoint at the group origin so camera keyframes and
   // explosion offsets work in a clean local space.
   return (
-      <group ref={group}>
-      <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
-        <DrawingLinework />
-        <group ref={modelRoot}>
-          <primitive object={scene} />
-          <Hotspots />
+    <>
+      <DrawingLinework data={drawing} />
+      <DrawingProofRenderer meshes={rig.meshes} modelFrame={group} />
+      <group ref={group} name="jgun-live-registered-model">
+        <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
+          <group ref={modelRoot}>
+            <primitive object={scene} />
+            <Hotspots />
+          </group>
         </group>
       </group>
-    </group>
+    </>
   )
 }
 

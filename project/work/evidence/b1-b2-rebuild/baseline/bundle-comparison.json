@@ -1,0 +1,22 @@
+{
+  "mainCommit": "4158a6c8045b1b39c898188cd42d65ea7c6c066c",
+  "failedCommit": "5dfd0aad3a31d71d16bbd585e0878965f7091156",
+  "main": {
+    "allAssetBytes": 2910897,
+    "jsBytes": 2393177,
+    "appJsBytes": 1556548,
+    "cssBytes": 39553
+  },
+  "failed": {
+    "allAssetBytes": 2918632,
+    "jsBytes": 2400026,
+    "appJsBytes": 1563397,
+    "cssBytes": 40439
+  },
+  "failedMinusMain": {
+    "allAssetBytes": 7735,
+    "jsBytes": 6849,
+    "appJsBytes": 6849,
+    "cssBytes": 886
+  }
+}

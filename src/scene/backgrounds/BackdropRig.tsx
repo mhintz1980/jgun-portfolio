@@ -14,6 +14,10 @@ import { BackdropGridLayer } from './layers/BackdropGridLayer'
 import type { BackdropLayerHandle } from './layers/types'
 import { getScrollState, telemetry } from '../../state/scrollStore'
 import { useQuality } from '../../state/qualityStore'
+import { DRAWING_INTRO_WINDOW } from '../drawing/introTimeline'
+
+/** Backdrop wash level while the B1/B2 sheet owns the frame (JG-026 Item 7.5). */
+const INTRO_BACKDROP_LEVEL = 0.55
 
 /**
  * JG-023 — mounts the two camera-locked backdrop layers and drives them from
@@ -106,11 +110,25 @@ export function BackdropRig() {
     const w1 = t12 * (1 - t23)
     const w2 = t23 * (1 - t34)
     const w3 = t34
+    // JG-026 declared change to the JG-023 envelope: while the B1/B2 drawing owns the frame
+    // the backdrop is held at INTRO_BACKDROP_LEVEL rather than full. The ANSI C sheet fills
+    // ~67% of a 16:9 viewport and the wash lives in the dark margins either side of it (owner
+    // ruling, Item 7.5) — at full strength it competes with the print, at zero the margins go
+    // dead black. The chapter-weight envelope itself is untouched: this is a single named
+    // multiplier that reaches 1.0 exactly at the handoff, so every JG-023 checkpoint from
+    // 0.120 upward is bit-identical to its verified value. See the JG-023 evidence addendum.
+    const introFactor =
+      progress >= DRAWING_INTRO_WINDOW.releaseEnd
+        ? 1
+        : INTRO_BACKDROP_LEVEL +
+          (1 - INTRO_BACKDROP_LEVEL) *
+            smoothstep01((progress - (DRAWING_INTRO_WINDOW.releaseEnd - 0.012)) / 0.012)
     const backdropAlpha =
-      (BACKDROP_CHAPTER_FLAGS[0] ? w0 : 0) +
-      (BACKDROP_CHAPTER_FLAGS[1] ? w1 : 0) +
-      (BACKDROP_CHAPTER_FLAGS[2] ? w2 : 0) +
-      (BACKDROP_CHAPTER_FLAGS[3] ? w3 : 0)
+      introFactor *
+      ((BACKDROP_CHAPTER_FLAGS[0] ? w0 : 0) +
+        (BACKDROP_CHAPTER_FLAGS[1] ? w1 : 0) +
+        (BACKDROP_CHAPTER_FLAGS[2] ? w2 : 0) +
+        (BACKDROP_CHAPTER_FLAGS[3] ? w3 : 0))
 
     telemetry.stage.backdropAlpha = backdropAlpha
 

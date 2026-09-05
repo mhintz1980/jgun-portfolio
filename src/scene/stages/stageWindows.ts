@@ -9,8 +9,7 @@
  * timeline scrubs [data-chapter="1"]'s viewport transit at global progress
  * ≈0.177 → 0.458, so the explode tween (timeline 0.35→0.85) completes at
  * ≈0.416 (live-probed: gearRotation 8π and explodeFactor 1 by 0.47). The
- * B1/B2 reserve 0.000 → 0.120 for the drawing-to-model handoff. The retained
- * rear-LCD orbit (LCD_REVEAL_WINDOW, caseStudies.ts) now runs 0.460 → 0.545 —
+ * rear-LCD orbit (LCD_REVEAL_WINDOW, caseStudies.ts) runs 0.420 → 0.525 —
  * after the explode beat, before this handoff — so the wrench sinks only
  * after the camera has returned from the LCD dwell. Overlapping ranges are
  * the cross-fade regions.
@@ -19,13 +18,13 @@ export type FadeRange = readonly [start: number, end: number]
 
 export const STAGE_TRANSITIONS = {
   /** Wrench stage (CH.01+02) sinks out — after the explosion ladder AND the rear-LCD orbit return (LCD_REVEAL_WINDOW.end = 0.525). */
-  wrenchOut: [0.545, 0.585] as FadeRange,
+  wrenchOut: [0.525, 0.565] as FadeRange,
   /** MSP enclosure stage (CH.03) enters as the wrench leaves. */
-  enclosureIn: [0.545, 0.585] as FadeRange,
+  enclosureIn: [0.525, 0.565] as FadeRange,
   /** MSP enclosure stage exits upward-window as the point cloud arrives. */
-  enclosureOut: [0.74, 0.78] as FadeRange,
+  enclosureOut: [0.72, 0.76] as FadeRange,
   /** M249 point-cloud stage (CH.04) enters and holds to the end. */
-  pointCloudIn: [0.74, 0.78] as FadeRange,
+  pointCloudIn: [0.72, 0.76] as FadeRange,
 } as const
 
 /**

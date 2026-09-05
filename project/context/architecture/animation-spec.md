@@ -88,62 +88,142 @@ labels 0.04–0.18, driveline-order ladder 0.19–0.42, rear-LCD readout
 
 ## 4. Camera (`src/scene/CameraRig.tsx`, `CAMERA_PATH`)
 
-Four keyframes — one per chapter, in the hero group's space (model recentered
-at the origin):
+The main path retains four world-space keyframes across three stations:
 
 | Keyframe | Position (m) | Target (m) | FOV |
 |---|---|---|---|
 | CH.01 | (0.32, 0.16, 0.42) | (0, 0, 0) | 42° |
-| CH.02 | (0.55, 0.04, 0.04) | (0, 0, 0.03) | 34° |
-| CH.03 | (0.27, 0.27, 0.27) | (0, 0, -0.02) | 28° |
-| CH.04 | (0.06, 0.03, -0.46) | (0, 0, -0.11) | 50° |
+| CH.02 | (0.60, 0.08, 0.05) | (0, 0.015, -0.07) | 36° |
+| CH.03 | (33.662357, 2.8, -0.010622) | (28, 1.2, -6.35) | 36° |
+| CH.04 | (56.43, 0.65, -9.62) | (56, 0, -12) | 35° |
+
+`PATH_SEGMENTS` is unchanged by JG-026: `0.000–0.525`, `0.525–0.600`,
+`0.600–0.720`, and `0.720–0.760`. `baseAt(progress)` owns their
+interpolation, including the station-2 arc.
 
 Global `progress` selects a segment between adjacent keyframes; local `t` is
 smoothstep-eased, and position/target/FOV are then exponentially damped
-(`1 - e^-6·Δ`) so fast scrolling never snaps. Pointer parallax is layered on
-the goal position (±0.03 x, ±0.02 y) before damping; the hero object adds its
-own object-space parallax. Near/far planes: 0.005 / 20; canvas default camera
-matches the CH.01 keyframe so first paint equals keyframe 0.
+(`1 - e^-6·Δ`, Δ clamped to 0.1 s) so fast scrolling never snaps. Pointer
+parallax is layered on the goal position (±0.03 x, ±0.02 y) before damping;
+the hero object adds its own object-space parallax. The six-frame pulse shake
+and the 0.3°/s scroll-rest orbit are retained. Near/far are `0.005 / 150`.
 
-Reduced motion: camera pins to the CH.01 keyframe — no interpolation, no
-parallax, no drift.
+During global `0.000–0.120` the sheet owns the frame. The camera begins
+directly above the sheet in a registered orthographic side elevation looking
+along the model's +Y; its projection, orientation and roll blend into the
+CH.01 perspective across the intro, and the intro releases to `baseAt(0.12)`
+in position, target and FOV (measured release delta 5.55e-17 m). The camera's
+up vector starts on the sheet's printed-up axis — world −X — so the print
+reads right-way-up from the moment it appears until the model has left it;
+pointer parallax is suppressed while the sheet is being read.
+
+Reduced motion holds the registered drawing at normalized intro phase `.20`
+(global `.024`), fully focused and without scroll response. The camera layer
+itself is NOT deleted in that tier: it damps to the pinned goal and settles,
+measured residual ≤ 1e-6 across two reads
+([JG-026 verification](../../work/evidence/JG-026-b1-b2-verification.md)).
+
+### 4.1 Scroll pacing (`src/scene/drawing/introTimeline.ts`, `ScrollRig.tsx`)
+
+Raw document scroll and the progress axis are NOT the same number. Owner
+pacing ruling 2026-09-05: the intro needed several times more animation time
+without taking scroll from any other chapter, so `pacedProgress()` stretches
+the intro's `0.000–0.120` of progress over `INTRO_SCROLL_SHARE = 0.30` of the
+document and the remaining `0.120–1.000` over the other 0.70, with a C1 blend
+of half-width 0.025 raw at the junction. Every downstream window in this repo
+is authored on the progress axis and is therefore unchanged; each downstream
+chapter keeps its progress span exactly and gains absolute distance.
+
+Document height is 3120vh (scroll distance 3020vh), up from 2020vh/1920vh.
+Section track heights live in `SCROLL_TRACK_VH` (`Chapters.tsx`) and are set
+so `[data-chapter="1"]` — the element the hero GSAP ScrollTrigger measures —
+still opens at paced 0.17703 and closes at 0.45843, within 1e-4 of the window
+the retained CH.02 timeline was authored and verified against.
 
 ## 5. The hero animation timeline (`src/scene/TorqueWrenchHero.tsx`)
 
-One GSAP timeline, scrubbed (`scrub: 0.6`) across the CH.01 section's full
+One GSAP timeline, scrubbed (`scrub: 0.6`) across the CH.02 section's full
 pass through the viewport (`trigger: '[data-chapter="1"]'`,
 `start: 'top bottom'`, `end: 'bottom top'`), animating a plain proxy object
 (`{ spin, ghost, explode, gearRotation, shift }`) so GSAP never fights the R3F
 render loop. `useFrame` applies the proxy each frame:
 
-| Stage | Timeline window | Effect |
-|---|---|---|
-| 1. shift | 0 → 0.15 | two-speed clutch slide: ring switch / fork / cam / pins travel −0.015 m together |
-| 2. spin | 0.15 → 0.45 | hero group yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
-| 3. gearRotation | 0.15 → 1.00 | epicyclic sweep 0 → 8π rad — spins up AND keeps turning through the extraction (§5.4) |
-| 4. ghost | 0.35 → 0.60 | housing materials lerp opacity 1 → **0.15** (`GHOST_OPACITY`); `depthWrite` off below 0.5 |
-| 5. explode | 0.60 → 1.00 | rear extraction ladder (§5.3) — overlaps the gear sweep's tail |
-
-### 5.0 B1/B2 drawing-to-model prelude (2026-09-03)
-
-`DrawingLinework` derives boundary/silhouette and 22° crease edges directly
-from `Default.glb` at runtime. `EngineeringDrawingOverlay` supplies only SVG
-dimensions, datums, and Y14.5 feature-control frames; it contains no authored
-model art. The primary linework and PBR model share the same hero-local frame.
-At `handoff=1` the model root is `[0,0,0]`, so their registered handoff is a
-matrix identity, not a visual estimate.
-
-| B1/B2 cue | Global window | Tier / motion fallback |
+| Channel | Proxy timeline time | Effect |
 |---|---:|---|
-| focus rack onto line drawing | 0.000 → 0.032 | full/lite linework + SVG; reduced-motion holds this static drawing; poster uses DOM engineering poster |
-| emissive line pulse | 0.052 → 0.068 | full/lite; reduced-motion does not pulse |
-| model rise and registered handoff | 0.068 → 0.084 | full/lite live GLB; reduced-motion stays static |
-| ripple dissipation | 0.068 → 0.120 | full-only post pass; lite/poster/reduced omit it |
+| spin | 0.12 → 0.47 | hero yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
+| gearRotation | 0.12 → 1.02 | epicyclic sweep 0 → 8π, plus the wall-clock idle accumulation of §5.4 |
+| ghost in | 0.27 → 0.47 | opacity 1 → 0.15; depth-write disabled below 0.5 |
+| explode | 0.47 → 0.97 | unchanged rear-extraction ladder in §5.3 |
+| ghost out | 0.54 → 0.79 | opacity returns to 1 while the stages extract |
 
-The retained hero proxy windows move by +0.12 timeline units: spin and gear
-rotation `0.00 → 0.12`; ghost `0.15 → 0.27`; explode `0.35 → 0.47`; ghost-out
-`0.42 → 0.54`. The explosion ladder itself is unchanged (part-number identity
-and every offset in §§5.1–5.4 remain canonical).
+CH.01 clutch cues alone use `remapHeroProgress(p) = .12 + p/3` on the
+original `0≤p≤.18` interval. It maps that opening interval to `.12–.18`;
+it is not a global re-windowing function and must not be applied downstream.
+
+### 5.0 JG-026 B1/B2 engineering drawing and extraction (2026-09-05)
+
+`snapshotDrawing()` consolidates the rest geometry of `Default.glb` once.
+`renderDrawing()` produces the print with a hidden-line pass: opaque depth
+occluders plus depth-tested 22° crease edges, then depth-discontinuity
+silhouettes. Occluded and back-facing lines never enter the pass — they fail
+the opaque scene's depth test. `EngineeringDrawingOverlay` supplies only
+generated SVG annotation; it contains no authored model art.
+
+**Sheet.** ANSI C proportion 22:17 (owner ruling 2026-09-05), landscape on
+every viewport, 0.905882 × 0.700 m in world units. Desktop fits it to 92% of
+viewport height, which puts it at 66.97% of width on 16:9 and leaves the
+backdrop wash in the margins either side. Narrow viewports (390 × 844) cannot
+read a fitted C sheet, so the intro becomes a scroll-driven camera push-in and
+pan across it (`sheetCamera.ts`): whole sheet → title block → view block →
+settle on the primary elevation before the pulse.
+
+**Projection.** True third angle. The primary side elevation is 1:1 — that is
+what lets the 3D model register to a view the code projected — and the plan,
+end and section views are derived from the primary frame by unfolds about
+shared axes, so alignment is structural: plan above and section below share
+the elevation's vertical centreline, the end view shares its horizontal
+centreline (measured deviation 0.000000 on both viewports). Section A–A is a
+bottom half-section on the horizontal cutting plane through model X = 0; its
+cutting-plane line and arrows are drawn on the parent elevation, and the view
+sits below it, which is where third angle puts a view of the underside.
+
+**Orientation.** `SIDE_ROTATION` maps model → sheet as `(-z, -x, y)`: the view
+direction is unchanged, but the in-plane orientation is rotated 180° from the
+first attempt. That puts the tool grip-down on its own elevation and puts the
+sheet's printed-up axis on world −X, which is what makes the print readable
+from the CH.01 hero camera. `SHEET_ROTATION` is forced to be this matrix's
+inverse — that identity is what lands the extracted model exactly on world
+identity at the handoff (measured residual 5.5e-17).
+
+| Owner phase | Normalized intro | Global interval | Effect and fallback |
+|---|---:|---:|---|
+| 1 — focus rack | 0.00 → 0.14 | 0.0000 → 0.0168 | Scene-plane focus rack; full/lite. Reduced holds phase .20 fully focused. |
+| RESERVED — opening text | 0.14 → 0.30 | 0.0168 → 0.0360 | Reserved for JG-026 Item 6. Nothing else is authored here. |
+| 2 — ordered excitation | 0.30 → 0.56 | 0.0360 → 0.0672 | Traced profile pulse and PBR activation; full/lite. Reduced omits pulse. |
+| 3 — spatial extraction | 0.56 → 0.88 | 0.0672 → 0.1056 | Local +Z lift, pitch/yaw, camera orbit and lighting; full/lite. |
+| 4 — detachment / shockwave | 0.88 → 0.96 | 0.1056 → 0.1152 | Solved vertex crossing triggers a single plane-local pass; full only. |
+| 5 — print fade | 0.96 → 1.00 | 0.1152 → 0.1200 | Print fades only after the front has cleared the sheet. |
+
+Scroll time and pose time are separate axes. `introPoseTime()` reparameterizes
+one onto the other so pacing changes never re-solve the geometry:
+`relativePose()` and the 44-step bisection in `solveExtraction()` still work on
+the pose axis where the extraction starts at 0.4. No phase boundary triggers
+the wave — `solveExtraction()` finds the actual lowest-transformed-vertex
+Z = 0 crossing and its contact point. Current evidence reports crossing
+`0.8888459503339448`, contact Z `-8.3e-15 m`, travel `0.22 m`, identical on
+both viewports; these are revision-specific, not constants to hand-pick.
+
+**Shockwave.** Front reach 0.78 m at wave time 1 against a 0.650 m far-corner
+distance from the contact point, radial attenuation `exp(-1.1 r)`, temporal
+`exp(-1.4 t)`, amplitude 0.022 m — one pass out, then done. The print is held
+fully opaque until the front has crossed (measured opacity 1.000000 at every
+frame with wave time < 1).
+
+Reduced motion is the static registered phase-.20 frame with no lift or wave.
+Lite keeps focus, excitation and lift but omits the plane displacement.
+Poster retains the original DOM engineering poster. The canonical part
+identities and every ladder/rotation value in §§5.1–5.4 are unchanged.
+Mark's `?chapter=0` visual ruling is still open.
 
 ### 5.1 Rig classification (`src/scene/rig/nodeRoles.ts`)
 
@@ -233,6 +313,13 @@ on its rear side too (15 + 7 + 15 mm where only 16 mm existed) shifts
 stage 2, stage 1, clutch, and handle ~22 mm further back. Units ahead of
 the bearing are untouched.
 
+**JG-026 synchronized ladder version (2026-09-05):** the numeric offsets in
+this table are unchanged. Timing follows §4.1's pacing map, §5's retained GSAP
+timeline and §5.0's intro. The same unchanged ladder is recorded in both
+READMEs and in the skills registered in
+[`agent-skills.md`](../agent-skills.md), which must accompany any
+behavior/table change in the same commit.
+
 | Unit | Offset | Exploded span (m, model frame) |
 |---|---|---|
 | output spindle | +0.050 | ≈ [+0.043, +0.102] (through snout) |
@@ -269,11 +356,13 @@ read as motion during scroll scrub instead of appearing frozen.
 `rotation.z = −carrier display angle · 3.5` (counter-rotation on its pin;
 planet groups are carrier children, so they also revolve with it).
 
-**Clutch Shift & Speed Indicator Grooves (CH.01 5%→17% scroll):**
-- **Ring Switch (P003068)**: Keyed to CH.01 scroll progress $0.05 \to 0.17$.
-  - $0.05 \to 0.10$: Slides $+9.525\text{ mm}$ ($+Z$, away from handle) along the helical cam groove in `P000420`, rotating $+120^\circ$ simultaneously (`RING_SWITCH_ROTATION`).
-  - $0.10 \to 0.12$: Pauses at the bottom of travel.
-  - $0.12 \to 0.17$: Reverses back to home against the handle as camera pulls back.
+**Clutch Shift & Speed Indicator Grooves (JG-026 opening remap):**
+- The original `.05/.10/.12/.17` cues map to global
+  `.1366666667/.1533333333/.1600000000/.1766666667`.
+- **Ring switch P003068:** `.1366666667–.1533333333` travels +9.525 mm
+  along P000420's cam with +120° rotation; `.1533333333–.1600000000`
+  holds; `.1600000000–.1766666667` returns to its base pose.
+  P000724/P000297 retain their separate `shift × -0.015 m` fork travel.
 - **P000420 Speed Indicator Grooves** (Mark spec 2026-08-25):
   - Two circumferential grooves on `P000420` OD flank the helical cam slots:
     - **Lower Groove (near gearbox, $+Z$)**: `#005DAA` OSHA Safety Blue. Exposed when ring switch is seated against handle (shift = 0 / low speed).
@@ -351,7 +440,8 @@ alone. `ContactShadows` under the model (opacity 0.4, far 0.4).
 One-way tier ladder — a struggling device never thrashes:
 
 - **full** — everything on.
-- **lite** — the dissolve shader is off (opacity-ramp fallback).
+- **lite** — the dissolve shader is off (opacity-ramp fallback). JG-026 keeps
+  drawing focus, ordered pulse and extraction, and omits plane displacement.
 - **poster** — no canvas at all; `StaticPoster` + native scroll behind the
   always-DOM narrative. Entered on: no WebGL2, context loss, or sustained
   decline in lite.
@@ -361,13 +451,11 @@ DPR staircase 2 → 1.5 → 1.25 → 1 (clamped to device ratio) walks down whil
 [45, 60], thrash guard after 3 flip-flops). Only DPR recovers; tiers never
 upgrade at runtime.
 
-`prefers-reduced-motion` is orthogonal to tier: the canvas may render (static
-hero pose, mode switcher still live) but Lenis/ScrollTrigger never mount, the
-camera pins to the CH.01 keyframe, and spin/ghost-fade/gear-rotation/
-clutch-shift/explosion-scroll/pointer-parallax/dissolve are all skipped.
-Explosion in reduced motion is
-only reachable via the explicit `[ EXPLODED ASSEMBLY ]` switcher — a user
-action, not motion.
+`prefers-reduced-motion` is orthogonal to tier. JG-026 pins the drawing
+and live model to registered normalized phase `.20` (global `.024`),
+fully focused. Lenis/ScrollTrigger do not mount; pulse, extraction,
+shockwave, camera motion, gear/shift motion and dissolve are skipped.
+The original DOM poster is retained when the canvas is unavailable.
 
 ## 10. Boot + code splitting (`App.tsx`)
 
@@ -453,31 +541,28 @@ asserted.
 
 ## 14. Multi-chapter stage orchestration (2026-08-24, orzo-style upgrade)
 
-`src/scene/StageManager.tsx` wraps the hero in three scroll-keyed stages on
-the fixed canvas. Stage state comes from **global scroll progress** via
-`getScrollState()` inside `useFrame` (zero React re-renders); the windows
-live in `src/scene/stages/stageWindows.ts`:
+`SpatialWorld` gates the three station groups and `SpatialRig` publishes
+stage telemetry from global scroll progress. JG-026 leaves main's windows
+in `src/scene/stages/stageWindows.ts`; it does not add .020 to later beats.
 
 | Stage | Content | Fade in | Fade out |
 |---|---|---|---|
-| 0 — wrench (CH.01+02) | `TorqueWrenchHero` passed as children; exits by sinking (no material fade — the ghost system owns wrench opacity) | — (alpha 1 at top) | 0.545 → 0.585 |
-| 1 — MSP enclosure (CH.03) | 5-layer composite-wall bounding-box placeholder (`ENCLOSURE_HALF` ≈ 0.14×0.10×0.19 m half-extents, camera-fit to the CH.03 keyframe) + `AirflowField` | 0.545 → 0.585 | 0.74 → 0.78 |
-| 2 — M249 point cloud (CH.04) | Rejection-sampled scan points in two datum boxes | 0.74 → 0.78 | — (holds to end) |
+| 0 — wrench (CH.01+02) | `TorqueWrenchHero`, drawing intro and retained mechanism | — (active at top) | 0.525 → 0.565 |
+| 1 — MSP enclosure (CH.03) | `Station2_AcousticEnclosure`, airflow and acoustic fields | 0.525 → 0.565 | 0.720 → 0.760 |
+| 2 — M249 (CH.04) | `M249Stage` | 0.720 → 0.760 | — (holds to end) |
 
-Vertical travel ±0.5 m; cross-fades are smoothstep over the overlapping
-windows; `visible=false` at alpha ≤ 0.001 so inactive stages cost nothing.
+**Window provenance:** document layout supplies the same CH.02 viewport
+transit used by main's settled GSAP timeline (historically measured
+approximately global `.177–.458`; the current runtime measures the DOM).
+JG-026 samples its .9-duration proxy directly. The LCD window is restored
+to `.420–.525`, with dwell `.458–.488`. Wrench/enclosure transition is
+`.525–.565`, and enclosure/M249 transition is `.720–.760`.
+Camera segments remain `0–.525/.525–.600/.600–.720/.720–.760`.
 
-**Window provenance (remeasured 2026-08-27, JG-014 repair):** the document is
-now 3×440vh chapter sections + 660vh CH.04 + 40vh footer = 2020vh — the old
-1800vh figures (explode done ≈0.518, flip ≈0.74) were stale. Against the
-current layout has the B1/B2 prelude at global 0.000 → 0.120, then the hero
-timeline scrubs [data-chapter="1"]'s viewport transit at global progress
-≈0.177 → 0.458. The shifted proxy completes its explosion before the
-rear-LCD orbit (`LCD_REVEAL_WINDOW` in caseStudies.ts), now 0.460 → 0.545
-(dwell 0.490–0.515) on the measured LCD world position [−0.14, 0, 0.46]. The
-wrench sinks only after it: 0.545–0.585. S2→S3 holds at the mission's ~0.74
-mark. Fresh telemetry/capture evidence is required for these post-rewindow
-measurements before any visual-success claim.
+The opening `0–.120` drawing window and early clutch remap do not authorize
+changes to the later ladder, LCD or station boundaries. Final runtime
+comparison against main and Mark's visual ruling are still required;
+see [JG-026 verification](../../work/evidence/JG-026-b1-b2-verification.md).
 
 ### 14.1 CH.03 airflow field (`src/scene/stages/AirflowField.tsx`)
 

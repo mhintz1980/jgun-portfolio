@@ -7,8 +7,7 @@ import { Vector2 } from 'three'
 import { useQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
-import { PondRipple, type PondRippleEffect } from './PondRipplePass'
-import { drawingIntroState } from './drawing/introTimeline'
+import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
 
 /**
  * JG-017 — Post-Processing Composer.
@@ -59,6 +58,13 @@ const BLOOM_PEAK = 0.65
  */
 const BLOOM_MUTED_AT_STATION2 = false
 
+/**
+ * Extra bloom while the ordered excitation runs on the drawing (JG-026 Item 3). Held below
+ * BLOOM_PEAK so the intro cannot outshine a station transition — the JG-021 light canon still
+ * governs; the excitation's own peak linear luminance is reported in the evidence.
+ */
+const INTRO_PULSE_BLOOM = 0.3
+
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const smooth01 = (x: number) => {
   const c = clamp01(x)
@@ -76,15 +82,17 @@ function FxDriver({
   aberrationRef,
   bloomRef,
   enableAberration,
-  rippleRef,
 }: {
   aberrationRef: React.RefObject<ChromaticAberrationEffect | null>
   bloomRef: React.RefObject<BloomEffect | null>
   enableAberration: boolean
-  rippleRef: React.RefObject<PondRippleEffect | null>
 }) {
   useFrame(() => {
-    const intensity = telemetry.stage.transitionIntensity
+    const mode = (window as unknown as Record<string, string | undefined>).__drawingProofMode
+    const proof = mode !== undefined && mode !== 'normal'
+    // Station transition FX belong to the station transitions, not to the drawing intro.
+    const introOwnsFrame = getScrollState().progress <= DRAWING_INTRO_WINDOW.releaseEnd
+    const intensity = proof || introOwnsFrame ? 0 : telemetry.stage.transitionIntensity
 
     if (enableAberration && aberrationRef.current) {
       const offset = intensity * MAX_ABERRATION
@@ -106,13 +114,13 @@ function FxDriver({
         )
         rest *= 1 - down * (1 - up)
       }
-      bloomRef.current.intensity = rest + (BLOOM_PEAK - BLOOM_REST) * intensity
-    }
-
-    // B2: full-tier-only, one short pond-ripple after the drawing's emissive
-    // line pulse. Lite keeps the line/model handoff but skips this extra pass.
-    if (rippleRef.current) {
-      rippleRef.current.intensity = drawingIntroState(getScrollState().progress).ripple
+      // JG-026 Item 3: the ordered excitation is the only bright thing on the sheet, and it
+      // was being rendered with bloom forced to zero — which is most of why nobody could see
+      // it. During the intro, bloom follows the excitation instead of the station transitions.
+      const pulseBoost = introOwnsFrame ? telemetry.drawing.pulse * INTRO_PULSE_BLOOM : 0
+      bloomRef.current.intensity = proof
+        ? 0
+        : rest + (BLOOM_PEAK - BLOOM_REST) * intensity + pulseBoost
     }
   })
 
@@ -124,7 +132,6 @@ export function PostProcessingComposer() {
 
   const aberrationRef = useRef<ChromaticAberrationEffect | null>(null)
   const bloomRef = useRef<BloomEffect | null>(null)
-  const rippleRef = useRef<PondRippleEffect | null>(null)
 
   // Poster: canvas unmounted — component never reaches this anyway.
   // Reduced motion: static hero pose — no motion effects.
@@ -142,7 +149,6 @@ export function PostProcessingComposer() {
             offset={new Vector2(0, 0)}
           />
         )}
-        {tier === 'full' && <PondRipple ref={rippleRef} />}
         <Bloom
           ref={bloomRef as React.RefObject<BloomEffect>}
           luminanceThreshold={0.6}
@@ -156,7 +162,6 @@ export function PostProcessingComposer() {
         aberrationRef={aberrationRef}
         bloomRef={bloomRef}
         enableAberration={enableAberration}
-        rippleRef={rippleRef}
       />
     </>
   )

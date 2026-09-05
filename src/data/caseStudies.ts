@@ -258,17 +258,17 @@ export interface CameraSegment {
 /**
  * Content-aligned camera path segments (JG-021 WS1.1).
  * Replaces uniform progress thirds with content-aligned windows:
- *   - K0 → K1 [0.000, 0.545]: B1/B2 drawing handoff plus all retained JGun beats.
- *   - K1 → K2 [0.545, 0.620]: Whip-pan flight to Station 2.
- *   - Hold K2 [0.620, 0.740]: Station 2 RL-300 SAFE Enclosure hold window.
- *   - K2 → K3 [0.740, 0.780]: Transition flight to Station 3.
- *   - 0.780 → 1.000: Station 3 M249 continuous zoom-out override.
+ *   - K0 → K1 [0.000, 0.525]: All JGun wrench beats (CH.01 shift, CH.02 explode & LCD reveal).
+ *   - K1 → K2 [0.525, 0.600]: Whip-pan flight to Station 2.
+ *   - Hold K2 [0.600, 0.720]: Station 2 RL-300 SAFE Enclosure hold window.
+ *   - K2 → K3 [0.720, 0.760]: Transition flight to Station 3.
+ *   - 0.760 → 1.000: Station 3 M249 continuous zoom-out override.
  */
 export const PATH_SEGMENTS: readonly CameraSegment[] = [
-  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.545 },
-  { fromIndex: 1, toIndex: 2, startProgress: 0.545, endProgress: 0.620 },
-  { fromIndex: 2, toIndex: 2, startProgress: 0.620, endProgress: 0.740 },
-  { fromIndex: 2, toIndex: 3, startProgress: 0.740, endProgress: 0.780 },
+  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.525 },
+  { fromIndex: 1, toIndex: 2, startProgress: 0.525, endProgress: 0.600 },
+  { fromIndex: 2, toIndex: 2, startProgress: 0.600, endProgress: 0.720 },
+  { fromIndex: 2, toIndex: 3, startProgress: 0.720, endProgress: 0.760 },
 ] as const
 
 export interface CameraPose {
@@ -283,7 +283,7 @@ const S2_ARC_RADIUS = 8.5 // hypot(33.662357 - 28.0, -0.010622 - (-6.35)) — wi
 const S2_ARC_START_AZIMUTH = 0.84174869911009054 // exact atan2(5.15, 4.6) — azimuth of K2 about S2_ARC_CENTER; the remediation K2 sits on this azimuth by construction (no goal seam at the 0.600 boundary)
 const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
 
-/** Arc end pose at p=0.740 (derived for exact C0 handoff into Segment 3). */
+/** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */
 export const S2_ARC_END_POSE: CameraPose = {
   position: [
     S2_ARC_CENTER[0] + S2_ARC_RADIUS * Math.cos(S2_ARC_START_AZIMUTH + S2_ARC_SWEEP),
@@ -304,9 +304,9 @@ const lerpN = (a: number, b: number, t: number): number => a + (b - a) * t
 export function baseAt(progress: number): CameraPose {
   const p = Math.max(0, Math.min(1, progress))
 
-  if (p <= 0.545) {
-    // Segment 0 [0.000, 0.545]: K0 -> K1 (B1/B2 plus retained JGun beats)
-    const u = p / 0.545
+  if (p <= 0.525) {
+    // Segment 0 [0.000, 0.525]: K0 -> K1 (All JGun wrench beats)
+    const u = p / 0.525
     const t = smoothstep(u)
     const from = CAMERA_PATH[0]
     const to = CAMERA_PATH[1]
@@ -325,13 +325,13 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.620) {
-    // Segment 1 [0.545, 0.620]: K1 -> K2 (Flight into Station 2).
+  if (p <= 0.600) {
+    // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2).
     // JG-021 remediation: the TARGET leads the position (triple smoothstep)
     // so the camera turns toward the enclosure early in the approach —
     // previously the target lagged and the subject sat off-screen right
     // through the arrival transit (owner visual pass finding).
-    const u = (p - 0.545) / (0.620 - 0.545)
+    const u = (p - 0.525) / (0.600 - 0.525)
     const t = smoothstep(u)
     const tTarget = smoothstep(smoothstep(t))
     const from = CAMERA_PATH[1]
@@ -351,9 +351,9 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.740) {
-    // Segment 2 [0.620, 0.740]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
-    const u = (p - 0.620) / (0.740 - 0.620)
+  if (p <= 0.720) {
+    // Segment 2 [0.600, 0.720]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
+    const u = (p - 0.600) / (0.720 - 0.600)
     const t = smoothstep(u)
     const azimuth = S2_ARC_START_AZIMUTH + S2_ARC_SWEEP * t
     return {
@@ -367,11 +367,11 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  if (p <= 0.780) {
-    // Segment 3 [0.740, 0.780]: Handoff flight from S2_ARC_END_POSE -> K3.
+  if (p <= 0.760) {
+    // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3.
     // Target leads position (same remediation as segment 1) so the receiver
-    // is on-screen through the approach rather than snapping in at 0.780.
-    const u = (p - 0.740) / (0.780 - 0.740)
+    // is on-screen through the approach rather than snapping in at 0.760.
+    const u = (p - 0.720) / (0.760 - 0.720)
     const t = smoothstep(u)
     const tTarget = smoothstep(smoothstep(t))
     const to = CAMERA_PATH[3]
@@ -390,7 +390,7 @@ export function baseAt(progress: number): CameraPose {
     }
   }
 
-  // Segment 4 [0.780, 1.000]: Station 3 M249 base pose
+  // Segment 4 [0.760, 1.000]: Station 3 M249 base pose
   const k3 = CAMERA_PATH[3]
   return { position: [...k3.position], target: [...k3.target], fov: k3.fov }
 }
@@ -472,13 +472,13 @@ export const SHIFT_CAMERA_KEYFRAMES = {
  *     guaranteed C^0 continuity with the base trajectory without manual keyframe syncing.
  */
 export const LCD_REVEAL_WINDOW = {
-  /** After the B1/B2-shifted explode beat completes. */
-  start: 0.460,
+  /** After the explode beat completes (measured ≈0.416). */
+  start: 0.420,
   /** Stable rear LCD/buttons dwell before the wrench stage handoff. */
-  dwellStart: 0.490,
-  dwellEnd: 0.515,
+  dwellStart: 0.458,
+  dwellEnd: 0.488,
   /** Before the wrench sink window (STAGE_TRANSITIONS.wrenchOut 0.525–0.565). */
-  end: 0.545,
+  end: 0.525,
 } as const
 
 export const LCD_ORBIT_KEYFRAMES = {

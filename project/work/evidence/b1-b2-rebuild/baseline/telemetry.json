@@ -1,0 +1,3346 @@
+{
+  "commit": "5dfd0aad3a31d71d16bbd585e0878965f7091156",
+  "capturedAt": "2026-09-03T19:14:13.953Z",
+  "viewportRuns": [
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "label": "desktop",
+      "rows": [
+        {
+          "name": "intro-0.00",
+          "requestedProgress": 0,
+          "telemetry": {
+            "camera": {
+              "x": 0.2005672766036546,
+              "y": 0.1002836383018273,
+              "z": 0.3005672766036546,
+              "fov": 27.070909575456824,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 0,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0,
+              "chapter": 0,
+              "chapterProgress": 0.13043478260869565,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.2005672766036546,
+              0.1002836383018273,
+              0.3005672766036546
+            ],
+            "quaternion": [
+              -0.1276509717066844,
+              0.3163704051194457,
+              0.04300742687070761,
+              0.9390236192028708
+            ],
+            "fov": 27.070909575456824
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 0,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.20",
+          "requestedProgress": 0.024,
+          "telemetry": {
+            "camera": {
+              "x": 0.2000000000031549,
+              "y": 0.10000000000157745,
+              "z": 0.30000000000315485,
+              "fov": 27.000000000394362,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.024016203703703703,
+              "chapter": 0,
+              "chapterProgress": 0.23067632850241546,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.2000000000031549,
+              0.10000000000157745,
+              0.30000000000315485
+            ],
+            "quaternion": [
+              -0.1275723590853944,
+              0.31637030616973,
+              0.04298038052551833,
+              0.9390355741191813
+            ],
+            "fov": 27.000000000394362
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 498,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.40",
+          "requestedProgress": 0.048,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000012,
+              "y": 0.10000000000000006,
+              "z": 0.3000000000000002,
+              "fov": 27.000000000000014,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.047984182098765434,
+              "chapter": 0,
+              "chapterProgress": 0.3307165861513688,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000012,
+              0.10000000000000006,
+              0.3000000000000002
+            ],
+            "quaternion": [
+              -0.12757235908495623,
+              0.31637030616972944,
+              0.04298038052536757,
+              0.9390355741192478
+            ],
+            "fov": 27.000000000000014
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 995,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.85",
+          "requestedProgress": 0.102,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000007,
+              "y": 0.10000000000000003,
+              "z": 0.3000000000000001,
+              "fov": 27.000000000000007,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10199652777777778,
+              "chapter": 0,
+              "chapterProgress": 0.5561594202898551,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000007,
+              0.10000000000000003,
+              0.3000000000000001
+            ],
+            "quaternion": [
+              -0.12757235908495623,
+              0.31637030616972944,
+              0.042980380525367574,
+              0.9390355741192478
+            ],
+            "fov": 27.000000000000007
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2115,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-1.00",
+          "requestedProgress": 0.12,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000004,
+              "y": 0.10000000000000002,
+              "z": 0.30000000000000004,
+              "fov": 27.000000000000004,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.11998456790123457,
+              "chapter": 0,
+              "chapterProgress": 0.6312399355877617,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000004,
+              0.10000000000000002,
+              0.30000000000000004
+            ],
+            "quaternion": [
+              -0.12757235908495626,
+              0.3163703061697295,
+              0.04298038052536758,
+              0.9390355741192478
+            ],
+            "fov": 27.000000000000004
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2488,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.10",
+          "requestedProgress": 0.1,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000004,
+              "y": 0.10000000000000002,
+              "z": 0.30000000000000004,
+              "fov": 27.000000000000004,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10001929012345678,
+              "chapter": 0,
+              "chapterProgress": 0.5479066022544283,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000004,
+              0.10000000000000002,
+              0.30000000000000004
+            ],
+            "quaternion": [
+              -0.12757235908495626,
+              0.3163703061697295,
+              0.04298038052536758,
+              0.9390355741192478
+            ],
+            "fov": 27.000000000000004
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2074,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.30",
+          "requestedProgress": 0.3,
+          "telemetry": {
+            "camera": {
+              "x": 0.48112803883466365,
+              "y": 0.1139634058893148,
+              "z": 0.20708077159279514,
+              "fov": 38.54725415138434,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                51.52281286928049,
+                14.426387603398538,
+                9.660527412990092,
+                6.440351608660062,
+                3.220175804330031
+              ],
+              "planetRot": -180.32984504248174,
+              "gearRotation": 9.098399,
+              "shift": 0,
+              "ghostOpacity": 0.2527973,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.3000096450617284,
+              "chapter": 1,
+              "chapterProgress": 0.42612721417069244,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.48112803883466365,
+              0.1139634058893148,
+              0.20708077159279514
+            ],
+            "quaternion": [
+              -0.07935088930960137,
+              0.5556053824993602,
+              0.053379704768338934,
+              0.825927782812977
+            ],
+            "fov": 38.54725415138434
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 6221,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.50",
+          "requestedProgress": 0.5,
+          "telemetry": {
+            "camera": {
+              "x": -0.27999989629895605,
+              "y": 0.08000000462739577,
+              "z": 0.7399999273916126,
+              "fov": 31.000001028287183,
+              "framingBias": 0,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                119.01609563115896,
+                33.32450677672452,
+                22.315517930842308,
+                14.87701195389487,
+                7.438505976947435
+              ],
+              "planetRot": -416.5563347090564,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.5,
+              "chapter": 2,
+              "chapterProgress": 0.30434782608695654,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              -0.27999989629895605,
+              0.08000000462739577,
+              0.7399999273916126
+            ],
+            "quaternion": [
+              -0.1214341797679645,
+              -0.22795739023531367,
+              -0.028666706110398284,
+              0.9656435098844535
+            ],
+            "fov": 31.000001028287183
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 10368,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.65",
+          "requestedProgress": 0.65,
+          "telemetry": {
+            "camera": {
+              "x": 32.93690487143702,
+              "y": 2.73753194289967,
+              "z": 0.5689610913907128,
+              "fov": 35.84385720672347,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                155.6370128753746,
+                43.5783636051049,
+                29.181939914132737,
+                19.454626609421826,
+                9.727313304710913
+              ],
+              "planetRot": -544.7295450638111,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.6499807098765432,
+              "chapter": 2,
+              "chapterProgress": 0.9303542673107891,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 1,
+              "alpha": [
+                0,
+                1,
+                0
+              ],
+              "flow": 0.41897320638590285,
+              "acousticWave": 0.41897320638590285,
+              "transitionIntensity": 0.006168585546801772,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              32.93690487143702,
+              2.73753194289967,
+              0.5689610913907128
+            ],
+            "quaternion": [
+              -0.07972771576785444,
+              0.40542400652305,
+              0.035522227811761856,
+              0.9099522172095234
+            ],
+            "fov": 35.84385720672347
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 13478,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.80",
+          "requestedProgress": 0.8,
+          "telemetry": {
+            "camera": {
+              "x": 56.43583210158649,
+              "y": 0.658581611454608,
+              "z": -9.587389569071902,
+              "fov": 35.102976039353585,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                192.56580620114033,
+                53.9184257363193,
+                36.106088662713816,
+                24.07072577514254,
+                12.03536288757127
+              ],
+              "planetRot": -673.9803217039912,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.8000096450617284,
+              "chapter": 3,
+              "chapterProgress": 0.4059095860566449,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0.0005964164289196017,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.43583210158649,
+              0.658581611454608,
+              -9.587389569071902
+            ],
+            "quaternion": [
+              -0.12539713642983222,
+              0.19531617960851078,
+              0.02518817772707163,
+              0.9723644912588711
+            ],
+            "fov": 35.102976039353585
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 16589,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.95",
+          "requestedProgress": 0.95,
+          "telemetry": {
+            "camera": {
+              "x": 56.598481331493645,
+              "y": 0.8977666639614622,
+              "z": -8.678486676946427,
+              "fov": 37.9731999675374,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                227.98914832565785,
+                63.8369615311842,
+                42.747965311060845,
+                28.49864354070723,
+                14.249321770353616
+              ],
+              "planetRot": -797.9620191398025,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.9499903549382716,
+              "chapter": 3,
+              "chapterProgress": 0.8293845315904139,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 1.8955787907726764e-7,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.598481331493645,
+              0.8977666639614622,
+              -8.678486676946427
+            ],
+            "quaternion": [
+              -0.1235062194479932,
+              0.20402997695660038,
+              0.02595702898880559,
+              0.9707956607375351
+            ],
+            "fov": 37.9731999675374
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 19699,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.95",
+          "requestedProgress": 0.95,
+          "telemetry": {
+            "camera": {
+              "x": 56.59848135594514,
+              "y": 0.8977666999193696,
+              "z": -8.678486540306396,
+              "fov": 37.97320039903242,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                262.99403030931705,
+                73.63832848660878,
+                49.31138068299695,
+                32.87425378866463,
+                16.437126894332316
+              ],
+              "planetRot": -920.4791060826096,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.9499903549382716,
+              "chapter": 3,
+              "chapterProgress": 0.8293845315904139,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 6.6260407338585e-11,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.59848135594514,
+              0.8977666999193696,
+              -8.678486540306396
+            ],
+            "quaternion": [
+              -0.12350621923994375,
+              0.20402997790349683,
+              0.025957029070217547,
+              0.9707956605628196
+            ],
+            "fov": 37.97320039903242
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 19699,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.80",
+          "requestedProgress": 0.8,
+          "telemetry": {
+            "camera": {
+              "x": 56.43583532758357,
+              "y": 0.6585813640934799,
+              "z": -9.587390816444776,
+              "fov": 35.10297636912176,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                295.9015850369911,
+                82.8524438103575,
+                55.48154719443583,
+                36.98769812962389,
+                18.493849064811943
+              ],
+              "planetRot": -1035.6555476294689,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.8000096450617284,
+              "chapter": 3,
+              "chapterProgress": 0.4059095860566449,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 3.731322507456095e-14,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.43583532758357,
+              0.6585813640934799,
+              -9.587390816444776
+            ],
+            "quaternion": [
+              -0.1253971515901233,
+              0.19531608286428345,
+              0.02518816783666136,
+              0.9723645089927277
+            ],
+            "fov": 35.10297636912176
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 16589,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.65",
+          "requestedProgress": 0.65,
+          "telemetry": {
+            "camera": {
+              "x": 32.937413174261714,
+              "y": 2.7375720046149805,
+              "z": 0.5689569398382165,
+              "fov": 35.84393069285922,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                328.77018401246306,
+                92.05565152348967,
+                61.64440950233683,
+                41.09627300155788,
+                20.54813650077894
+              ],
+              "planetRot": -1150.6956440436206,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.6499807098765432,
+              "chapter": 2,
+              "chapterProgress": 0.9303542673107891,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 1,
+              "alpha": [
+                0,
+                1,
+                0
+              ],
+              "flow": 0.4192303841198292,
+              "acousticWave": 0.41921839986164544,
+              "transitionIntensity": 0.0006198704835689884,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              32.937413174261714,
+              2.7375720046149805,
+              0.5689569398382165
+            ],
+            "quaternion": [
+              -0.0797276584553133,
+              0.4054242394530057,
+              0.035522226538570054,
+              0.909952118500159
+            ],
+            "fov": 35.84393069285922
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 13478,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.50",
+          "requestedProgress": 0.5,
+          "telemetry": {
+            "camera": {
+              "x": -0.2799953027145619,
+              "y": 0.08000037580815154,
+              "z": 0.7399999758127719,
+              "fov": 31.000000684981863,
+              "framingBias": 0,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                362.09117233379897,
+                101.38552825346372,
+                67.8920948125873,
+                45.26139654172487,
+                22.630698270862435
+              ],
+              "planetRot": -1267.3191031682964,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.5,
+              "chapter": 2,
+              "chapterProgress": 0.30434782608695654,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0.0005866143977902655,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              -0.2799953027145619,
+              0.08000037580815154,
+              0.7399999758127719
+            ],
+            "quaternion": [
+              -0.12143440162876129,
+              -0.22795566818350932,
+              -0.028666530533549416,
+              0.9656438937161275
+            ],
+            "fov": 31.000000684981863
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 10368,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.30",
+          "requestedProgress": 0.3,
+          "telemetry": {
+            "camera": {
+              "x": 0.48112797011589287,
+              "y": 0.11396340299728658,
+              "z": 0.2070808324782905,
+              "fov": 38.54725454641538,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                363.1411580879428,
+                101.67952426462399,
+                68.08896714148928,
+                45.39264476099285,
+                22.696322380496426
+              ],
+              "planetRot": -1270.9940533077997,
+              "gearRotation": 9.098399,
+              "shift": 0,
+              "ghostOpacity": 0.2527973,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.3000096450617284,
+              "chapter": 1,
+              "chapterProgress": 0.42612721417069244,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 3.148583892165348e-7,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.48112797011589287,
+              0.11396340299728658,
+              0.2070808324782905
+            ],
+            "quaternion": [
+              -0.07935089423687045,
+              0.5556053707568007,
+              0.05337970648199356,
+              0.82592779012811
+            ],
+            "fov": 38.54725454641538
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 6221,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "reverse-0.10",
+          "requestedProgress": 0.1,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000004216205175,
+              "y": 0.10000000209415563,
+              "z": 0.2999999860644855,
+              "fov": 27.00000173179471,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10001929012345678,
+              "chapter": 0,
+              "chapterProgress": 0.5479066022544283,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 1.6899654293087348e-10,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000004216205175,
+              0.10000000209415563,
+              0.2999999860644855
+            ],
+            "quaternion": [
+              -0.12757235226270058,
+              0.316370360290079,
+              0.042980386383804824,
+              0.9390355565442587
+            ],
+            "fov": 27.00000173179471
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2074,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "release-left",
+          "requestedProgress": 0.1199,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000634,
+              "y": 0.10000000000000032,
+              "z": 0.2999999999999979,
+              "fov": 27.00000000000026,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.11988811728395062,
+              "chapter": 0,
+              "chapterProgress": 0.6308373590982287,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 9.516702804104815e-14,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000634,
+              0.10000000000000032,
+              0.2999999999999979
+            ],
+            "quaternion": [
+              -0.12757235908495523,
+              0.31637030616973766,
+              0.04298038052536846,
+              0.9390355741192451
+            ],
+            "fov": 27.00000000000026
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2486,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "release-right",
+          "requestedProgress": 0.1201,
+          "telemetry": {
+            "camera": {
+              "x": 0.35478890182322664,
+              "y": 0.15006029963281337,
+              "z": 0.3740289094085904,
+              "fov": 41.25452089867244,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.12008101851851852,
+              "chapter": 0,
+              "chapterProgress": 0.6316425120772947,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 5.3560796301483565e-17,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.35478890182322664,
+              0.15006029963281337,
+              0.3740289094085904
+            ],
+            "quaternion": [
+              -0.12522722253010504,
+              0.40598773965647456,
+              0.05627038948479022,
+              0.9035074660749917
+            ],
+            "fov": 41.25452089867244
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 2490,
+            "max": 20736
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        }
+      ],
+      "runtime": {
+        "sampleCount": 2848,
+        "p95Ms": 16.89999999999418,
+        "maxMs": 5087.5999999999985,
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": true
+      },
+      "errors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "mobile",
+      "rows": [
+        {
+          "name": "intro-0.00",
+          "requestedProgress": 0,
+          "telemetry": {
+            "camera": {
+              "x": 0.20027414221986675,
+              "y": 0.10013707110993338,
+              "z": 0.3002741422198667,
+              "fov": 27.03426777748334,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 0,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0,
+              "chapter": 0,
+              "chapterProgress": 0.13034518289541475,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20027414221986675,
+              0.10013707110993338,
+              0.3002741422198667
+            ],
+            "quaternion": [
+              -0.129030596000585,
+              0.28913869063491265,
+              0.03936518657918798,
+              0.9477343008244704
+            ],
+            "fov": 27.03426777748334
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 0,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.20",
+          "requestedProgress": 0.024,
+          "telemetry": {
+            "camera": {
+              "x": 0.2000000000117889,
+              "y": 0.10000000000589444,
+              "z": 0.30000000001178884,
+              "fov": 27.000000001473612,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.02400493674791731,
+              "chapter": 0,
+              "chapterProgress": 0.23055126223596084,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.2000000000117889,
+              0.10000000000589444,
+              0.30000000001178884
+            ],
+            "quaternion": [
+              -0.12899601369560548,
+              0.28904683297788125,
+              0.03934073267861358,
+              0.9477680431141419
+            ],
+            "fov": 27.000000001473612
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 389,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.40",
+          "requestedProgress": 0.048,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000000000000015,
+              "y": 0.10000000000000007,
+              "z": 0.30000000000000027,
+              "fov": 27.000000000000018,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.04800987349583462,
+              "chapter": 0,
+              "chapterProgress": 0.33075734157650694,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000000000000015,
+              0.10000000000000007,
+              0.30000000000000027
+            ],
+            "quaternion": [
+              -0.1289960136941165,
+              0.28904683297392675,
+              0.039340732677560976,
+              0.9477680431155943
+            ],
+            "fov": 27.000000000000018
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 778,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-0.85",
+          "requestedProgress": 0.102,
+          "telemetry": {
+            "camera": {
+              "x": 0.2000000000000001,
+              "y": 0.10000000000000005,
+              "z": 0.30000000000000016,
+              "fov": 27.00000000000001,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10200555384140697,
+              "chapter": 0,
+              "chapterProgress": 0.5561566202988151,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.2000000000000001,
+              0.10000000000000005,
+              0.30000000000000016
+            ],
+            "quaternion": [
+              -0.12899601369411653,
+              0.2890468329739268,
+              0.03934073267756098,
+              0.9477680431155943
+            ],
+            "fov": 27.00000000000001
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1653,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "intro-1.00",
+          "requestedProgress": 0.12,
+          "telemetry": {
+            "camera": {
+              "x": 0.3547590751987912,
+              "y": 0.1500688215085407,
+              "z": 0.3740683231121744,
+              "fov": 41.255160037462296,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.12002468373958655,
+              "chapter": 0,
+              "chapterProgress": 0.6313755795981453,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.3547590751987912,
+              0.1500688215085407,
+              0.3740683231121744
+            ],
+            "quaternion": [
+              -0.12822809929714984,
+              0.3645145372009207,
+              0.050754176020086604,
+              0.9209292699965405
+            ],
+            "fov": 41.255160037462296
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1945,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.10",
+          "requestedProgress": 0.1,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000002778733028,
+              "y": 0.10000000898996636,
+              "z": 0.30000001329912934,
+              "fov": 27.000002559545145,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10003085467448318,
+              "chapter": 0,
+              "chapterProgress": 0.5479134466769706,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000002778733028,
+              0.10000000898996636,
+              0.30000001329912934
+            ],
+            "quaternion": [
+              -0.1289960140434239,
+              0.2890468527593593,
+              0.03934073573469745,
+              0.9477680369070645
+            ],
+            "fov": 27.000002559545145
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1621,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.30",
+          "requestedProgress": 0.3,
+          "telemetry": {
+            "camera": {
+              "x": 0.4811442135973888,
+              "y": 0.1139587833381154,
+              "z": 0.20705939428204173,
+              "fov": 38.54690732747479,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                51.32134302886565,
+                14.369976048082384,
+                9.62275181791231,
+                6.415167878608206,
+                3.207583939304103
+              ],
+              "planetRot": -179.62470060102976,
+              "gearRotation": 9.10008,
+              "shift": 0,
+              "ghostOpacity": 0.25254145,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.3000308546744832,
+              "chapter": 1,
+              "chapterProgress": 0.42621684264743753,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.4811442135973888,
+              0.1139587833381154,
+              0.20705939428204173
+            ],
+            "quaternion": [
+              -0.08179244288652388,
+              0.5209995486957186,
+              0.0502437333020705,
+              0.848142107084292
+            ],
+            "fov": 38.54690732747479
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 4862,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "forward-0.50",
+          "requestedProgress": 0.5,
+          "telemetry": {
+            "camera": {
+              "x": -0.28000000757519294,
+              "y": 0.08000006806130366,
+              "z": 0.7400001496224591,
+              "fov": 31.00000895647866,
+              "framingBias": 8.854323539163903e-7,
+              "framingBiasY": 0.0000017475638564139282,
+              "portraitDolly": 1.0000007930704664
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                117.55211345458612,
+                32.91459176728412,
+                22.0410212727349,
+                14.694014181823265,
+                7.3470070909116325
+              ],
+              "planetRot": -411.4323970910514,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.5000308546744832,
+              "chapter": 2,
+              "chapterProgress": 0.3044822256568779,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              -0.28000000757519294,
+              0.08000006806130366,
+              0.7400001496224591
+            ],
+            "quaternion": [
+              -0.12143417744668425,
+              -0.22795739068105153,
+              -0.02866670561249134,
+              0.965643510085922
+            ],
+            "fov": 31.00000895647866
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 8103,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.65",
+          "requestedProgress": 0.65,
+          "telemetry": {
+            "camera": {
+              "x": 37.87441722828535,
+              "y": 4.275110046616865,
+              "z": 7.488158136074234,
+              "fov": 45.84387465510413,
+              "framingBias": 0.38,
+              "framingBiasY": 0.75,
+              "portraitDolly": 2
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                151.3770132341108,
+                42.38556370555102,
+                28.383189981395773,
+                18.92212665426385,
+                9.461063327131924
+              ],
+              "planetRot": -529.8195463193878,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.6499845726627584,
+              "chapter": 2,
+              "chapterProgress": 0.9304482225656878,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 1,
+              "alpha": [
+                0,
+                1,
+                0
+              ],
+              "flow": 0.4192042457692636,
+              "acousticWave": 0.4192042457692636,
+              "transitionIntensity": 0.0018321123033778592,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              37.87441722828535,
+              4.275110046616865,
+              7.488158136074234
+            ],
+            "quaternion": [
+              -0.2192822100458522,
+              0.3054319457121208,
+              0.07250185900885134,
+              0.923780341496925
+            ],
+            "fov": 45.84387465510413
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 10533,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.80",
+          "requestedProgress": 0.8,
+          "telemetry": {
+            "camera": {
+              "x": 56.879777854995055,
+              "y": 1.3294181186001772,
+              "z": -7.129887615427581,
+              "fov": 45.1028807598209,
+              "framingBias": 0.38,
+              "framingBiasY": 0.84,
+              "portraitDolly": 2.0186326070623593
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                187.06299250566684,
+                52.37763790158672,
+                35.074311094812536,
+                23.382874063208355,
+                11.691437031604178
+              ],
+              "planetRot": -654.7204737698339,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.8,
+              "chapter": 3,
+              "chapterProgress": 0.4059233449477352,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0.0006005201956133837,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.879777854995055,
+              1.3294181186001772,
+              -7.129887615427581
+            ],
+            "quaternion": [
+              -0.2759523053401273,
+              0.09476855685355709,
+              0.027352462398426508,
+              0.9560967987657453
+            ],
+            "fov": 45.1028807598209
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 12964,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "forward-0.95",
+          "requestedProgress": 0.95,
+          "telemetry": {
+            "camera": {
+              "x": 57.61285243873583,
+              "y": 2.41939843813703,
+              "z": -3.0488246790573665,
+              "fov": 47.97333148570548,
+              "framingBias": 0.38,
+              "framingBiasY": 0.84,
+              "portraitDolly": 2.69487503444861
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                221.02109581699943,
+                61.88590682875984,
+                41.44145546568739,
+                27.62763697712493,
+                13.813818488562465
+              ],
+              "planetRot": -773.573835359498,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.9500154273372416,
+              "chapter": 3,
+              "chapterProgress": 0.8294425087108014,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 2.66318885481952e-7,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              57.61285243873583,
+              2.41939843813703,
+              -3.0488246790573665
+            ],
+            "quaternion": [
+              -0.283696294759207,
+              0.0949650185446317,
+              0.02824673013638482,
+              0.9537820400014445
+            ],
+            "fov": 47.97333148570548
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 15395,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.95",
+          "requestedProgress": 0.95,
+          "telemetry": {
+            "camera": {
+              "x": 57.61285254861228,
+              "y": 2.419398601508354,
+              "z": -3.0488240673686264,
+              "fov": 47.97333191594194,
+              "framingBias": 0.38,
+              "framingBiasY": 0.84,
+              "portraitDolly": 2.69487503444861
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                254.76808410186112,
+                71.33506354852112,
+                47.769015769098964,
+                31.84601051273264,
+                15.92300525636632
+              ],
+              "planetRot": -891.6882943565139,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.9500154273372416,
+              "chapter": 3,
+              "chapterProgress": 0.8294425087108014,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 1.23914590810719e-10,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              57.61285254861228,
+              2.419398601508354,
+              -3.0488240673686264
+            ],
+            "quaternion": [
+              -0.2836962953833857,
+              0.09496501856051154,
+              0.028246730208864385,
+              0.953782039812059
+            ],
+            "fov": 47.97333191594194
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 15395,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.80",
+          "requestedProgress": 0.8,
+          "telemetry": {
+            "camera": {
+              "x": 56.87978056531112,
+              "y": 1.3294178791376898,
+              "z": -7.129889003045592,
+              "fov": 45.10288108918932,
+              "framingBias": 0.38,
+              "framingBiasY": 0.84,
+              "portraitDolly": 2.0186326070623593
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                287.6756388295354,
+                80.5491788722699,
+                53.939182280537885,
+                35.95945485369192,
+                17.97972742684596
+              ],
+              "planetRot": -1006.8647359033739,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.8,
+              "chapter": 3,
+              "chapterProgress": 0.4059233449477352,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 2,
+              "alpha": [
+                0,
+                0,
+                1
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 6.978002705772711e-14,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              56.87978056531112,
+              1.3294178791376898,
+              -7.129889003045592
+            ],
+            "quaternion": [
+              -0.275952320919119,
+              0.09476846069269215,
+              0.027352436022671858,
+              0.956096804555331
+            ],
+            "fov": 45.10288108918932
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 12964,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.65",
+          "requestedProgress": 0.65,
+          "telemetry": {
+            "camera": {
+              "x": 37.87447151583854,
+              "y": 4.275115219459787,
+              "z": 7.488164894955053,
+              "fov": 45.843894489331745,
+              "framingBias": 0.38,
+              "framingBiasY": 0.75,
+              "portraitDolly": 2
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                320.4738661315145,
+                89.73268251682407,
+                60.088849899658975,
+                40.059233266439314,
+                20.029616633219657
+              ],
+              "planetRot": -1121.6585314603008,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.6499845726627584,
+              "chapter": 2,
+              "chapterProgress": 0.9304482225656878,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 1,
+              "alpha": [
+                0,
+                1,
+                0
+              ],
+              "flow": 0.4192553068459397,
+              "acousticWave": 0.41924304880840246,
+              "transitionIntensity": 0.0006177488523104105,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              37.87447151583854,
+              4.275115219459787,
+              7.488164894955053
+            ],
+            "quaternion": [
+              -0.21928221266358328,
+              0.305431946622973,
+              0.07250186017012987,
+              0.9237803404832425
+            ],
+            "fov": 45.843894489331745
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 10533,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.50",
+          "requestedProgress": 0.5,
+          "telemetry": {
+            "camera": {
+              "x": -0.27999492196494585,
+              "y": 0.08000063398755387,
+              "z": 0.7400011398202128,
+              "fov": 31.000009949495347,
+              "framingBias": 8.854323539163903e-7,
+              "framingBiasY": 0.0000017475638564139282,
+              "portraitDolly": 1.0000007930704664
+            },
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.291,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                353.84511993530816,
+                99.0766335818863,
+                66.34595998787029,
+                44.23063999191352,
+                22.11531999595676
+              ],
+              "planetRot": -1238.4579197735786,
+              "gearRotation": 25.132741,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.291,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.5000308546744832,
+              "chapter": 2,
+              "chapterProgress": 0.3044822256568779,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 0.0005787896595799787,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              -0.27999492196494585,
+              0.08000063398755387,
+              0.7400011398202128
+            ],
+            "quaternion": [
+              -0.12143554593651122,
+              -0.22795428399512335,
+              -0.028666621247222454,
+              0.9656440738790044
+            ],
+            "fov": 31.000009949495347
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 8103,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": -0.197
+          }
+        },
+        {
+          "name": "reverse-0.30",
+          "requestedProgress": 0.3,
+          "telemetry": {
+            "camera": {
+              "x": 0.48114413747597906,
+              "y": 0.113958780133792,
+              "z": 0.20705946166308983,
+              "fov": 38.54690775970578,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                354.68735266298245,
+                99.3124587456351,
+                66.50387862430921,
+                44.335919082872806,
+                22.167959541436403
+              ],
+              "planetRot": -1241.4057343204386,
+              "gearRotation": 9.10008,
+              "shift": 0,
+              "ghostOpacity": 0.25254145,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.3000308546744832,
+              "chapter": 1,
+              "chapterProgress": 0.42621684264743753,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 3.2593383750842274e-7,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.48114413747597906,
+              0.113958780133792,
+              0.20705946166308983
+            ],
+            "quaternion": [
+              -0.0817924480757447,
+              0.5209995341777547,
+              0.05024373459552666,
+              0.848142115425377
+            ],
+            "fov": 38.54690775970578
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 4862,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "reverse-0.10",
+          "requestedProgress": 0.1,
+          "telemetry": {
+            "camera": {
+              "x": 0.20000004213918385,
+              "y": 0.10000000209220654,
+              "z": 0.29999998606964223,
+              "fov": 27.000001730703946,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.10003085467448318,
+              "chapter": 0,
+              "chapterProgress": 0.5479134466769706,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 1.834382793904176e-10,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.20000004213918385,
+              0.10000000209220654,
+              0.29999998606964223
+            ],
+            "quaternion": [
+              -0.1289960068436886,
+              0.28904688516660704,
+              0.03934073832377389,
+              0.9477680278960701
+            ],
+            "fov": 27.000001730703946
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1621,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "release-left",
+          "requestedProgress": 0.1199,
+          "telemetry": {
+            "camera": {
+              "x": 0.200000000000007,
+              "y": 0.10000000000000034,
+              "z": 0.29999999999999766,
+              "fov": 27.000000000000288,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.11990126504165381,
+              "chapter": 0,
+              "chapterProgress": 0.63086038124678,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 1.0831699957738069e-13,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.200000000000007,
+              0.10000000000000034,
+              0.29999999999999766
+            ],
+            "quaternion": [
+              -0.12899601369411537,
+              0.28904683297393546,
+              0.039340732677561906,
+              0.9477680431155917
+            ],
+            "fov": 27.000000000000288
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1943,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        },
+        {
+          "name": "release-right",
+          "requestedProgress": 0.1201,
+          "telemetry": {
+            "camera": {
+              "x": 0.35479174791420365,
+              "y": 0.15005948645548106,
+              "z": 0.3740251484775968,
+              "fov": 41.25445990942796,
+              "framingBias": 0.14,
+              "framingBiasY": 0,
+              "portraitDolly": 1
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "scroll": {
+              "progress": 0.12008639308855291,
+              "chapter": 0,
+              "chapterProgress": 0.631633178773828,
+              "materialMode": "solid"
+            },
+            "stage": {
+              "active": 0,
+              "alpha": [
+                1,
+                0,
+                0
+              ],
+              "flow": 0,
+              "acousticWave": 0,
+              "transitionIntensity": 5.813787752256253e-17,
+              "backdropAlpha": 1
+            },
+            "drawing": {
+              "lineOpacity": 0,
+              "edgeSource": "Default.glb:crease+boundary"
+            }
+          },
+          "camera": {
+            "position": [
+              0.35479174791420365,
+              0.15005948645548106,
+              0.3740251484775968
+            ],
+            "quaternion": [
+              -0.12821753276979997,
+              0.3645570619336082,
+              0.05075676875612671,
+              0.9209137654037958
+            ],
+            "fov": 41.25445990942796
+          },
+          "canvas": true,
+          "scroll": {
+            "y": 1946,
+            "max": 16205
+          },
+          "rig": {
+            "bearingZ": 0
+          }
+        }
+      ],
+      "runtime": {
+        "sampleCount": 2831,
+        "p95Ms": 16.80000000000291,
+        "maxMs": 4603.799999999999,
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "canvas": true
+      },
+      "errors": []
+    }
+  ]
+}

@@ -6,6 +6,10 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Active
 
+- [ ] **JG-026 — Rebuild B1/B2 engineering drawing → 3D extraction** · [plan](project/work/plans/JG-026-b1-b2-engineering-drawing.md)
+  - Owner-authorized 2026-09-03; owner pacing/realism rulings 2026-09-05. Branch `codex/b1-b2-engineering-drawing`. Hidden-line ANSI C third-angle print, projected GD&T, ordered excitation, vertex-solved detachment and single shockwave pass, owner-paced intro (document 2020vh → 3120vh with no downstream chapter losing distance).
+  - **Machine gates complete** ([evidence](project/work/evidence/JG-026-b1-b2-verification.md)); **Mark's `?chapter=0` visual ruling is still required** and the mobile arrangement is provisional pending it.
+
 - [x] **JG-014 — Opening sequence, print-authentic GD&T annotations, and rear-LCD reveal** · [plan](project/work/plans/JG-014-opening-gdt-lcd-repair.md)
   - Correct tilted and duplicated opening callouts, replace opaque narrative cards with non-occluding beat copy, use the supplied gearbox drawings for datum/feature-control language, and add a real rear-LCD/buttons reveal before the JGun exit.
   - **Required proof:** fresh `:4173` telemetry, full/reduced-motion/poster behavior, accessibility checks, `npm run typecheck`, and `npm run build`.
