@@ -25,8 +25,6 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 - [x] **JG-020 — Multi-station subassembly inspection, spatial hotspots, and interactive CAD anchors** · [plan](project/work/plans/JG-020-multi-station-hotspots-inspection.md)
   - Expand subassembly inspection, spatial datum annotations, and camera dollying across all 3 stations (JGun, RL-300 SAFE Enclosure, and M249 Receiver Platform) with interactive hovering, rich engineering HUD cards, and continuous scroll release ([evidence](project/work/evidence/JG-020-multi-station-hotspots-inspection-verification.md)).
 
-## Queued
-
 - [ ] **JG-025 — Handle-rear realism pass: red button/LCD cluster, rendered screen, reveal-beat framing** · [plan](project/work/plans/JG-025-handle-rear-realism.md)
   - Make the JG-014 rear-LCD reveal the most realistic portion of the assembly per the owner's
     reference render ([reference image](project/context/references/media/handle-rear/handle-rear-owner-reference.png)):
@@ -36,6 +34,10 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - **Required proof:** telemetry material identity at the reveal dwell, same-frame before/after
     pairs, reduced-motion/poster tiers, `npm run typecheck`, `npm run build`,
     `scripts/check-station2-contract.mjs`, owner visual ruling at the stop point.
+  - **Active 2026-09-05** on branch `zcode/jg-025-handle-rear` (worktree `jgun-portfolio-jg025`,
+    off `main` @ `4158a6c`) — parallel track while JG-026 finishes on the codex tree.
+
+## Queued
 
 - [x] **JG-024 — Fine-tessellation JGun re-export with missing fasteners** · [plan](project/work/plans/JG-024-fine-jgun-fastener-reswap.md) · [evidence](project/work/evidence/JG-024-fine-jgun-fastener-reswap-verification.md)
   - Replace `Default.glb` with the Fine-tessellation Onshape re-export (`C:\Projects\CAD\JGUN.glb`, 10.95 M tris) carrying the 9 missing screws (5 handle back-plate + 4 radial `91251A344`): quadric-simplify back to the ~333 K-triangle approved baseline density + Draco via gltf-transform, hierarchy/names/world-transforms preserved (forensics in the plan), one `blackOxideSteel` role-override line for the fastener names.
