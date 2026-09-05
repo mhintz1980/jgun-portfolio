@@ -9,9 +9,16 @@
 # jgun-handle -> ptg-handle). The public designation is PTG-HP-1000; see
 # ASSEMBLY_IDENTITY in src/data/caseStudies.ts.
 #
-# ptg-gearbox.glb / ptg-handle.glb have NO runtime consumers — they are staged
-# derivatives kept for JG-024. Nothing loads them; only Default.glb,
-# m249-transformed.glb and msp-enclosure.glb are fetched.
+# NOT synced here (removed 2026-09-05): the split derivatives jgun-gearbox.glb and
+# jgun-handle.glb. Nothing has ever loaded them — only Default.glb,
+# m249-transformed.glb and msp-enclosure.glb are fetched — and JG-024 does not use
+# them either (its pipeline reduces JGUN.glb into jgun-full.glb -> Default.glb).
+# They were ~8 MB of dead payload shipped on every deploy.
+#
+# To bring them back, restore these two lines and run `npm run sync-assets`; the
+# sources are untouched in $src:
+#   Copy-Item (Join-Path $src 'jgun-gearbox.glb') (Join-Path $dst 'ptg-gearbox.glb') -Force
+#   Copy-Item (Join-Path $src 'jgun-handle.glb')  (Join-Path $dst 'ptg-handle.glb')  -Force
 #
 # NOT synced here: public/models/m249-transformed.glb. It is 871 KB, so it is
 # committed to the repo directly (force-added past the public/models/*.glb
@@ -35,8 +42,6 @@ $dst = Join-Path $PSScriptRoot '..\public\models'
 
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
 Copy-Item (Join-Path $src 'jgun-full.glb') (Join-Path $dst 'Default.glb') -Force
-Copy-Item (Join-Path $src 'jgun-gearbox.glb') (Join-Path $dst 'ptg-gearbox.glb') -Force
-Copy-Item (Join-Path $src 'jgun-handle.glb') (Join-Path $dst 'ptg-handle.glb') -Force
 Copy-Item (Join-Path $src 'role-map.json') $dst -Force
 
 Write-Host "Assets synced: $((Get-ChildItem $dst | Measure-Object).Count) files in $dst"

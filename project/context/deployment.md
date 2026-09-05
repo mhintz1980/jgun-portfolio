@@ -10,8 +10,7 @@ Selected 2026-08-27 (JG-019). Build locally, upload `dist/` with
 
 Why this model, in order of deciding weight:
 
-1. **The hero GLBs are not in git.** `Default.glb` (8.43 MB), `ptg-gearbox.glb`,
-   and `ptg-handle.glb` are gitignored and synced from
+1. **The hero GLBs are not in git.** `Default.glb` (8.43 MB) is gitignored and synced from
    `C:\Projects\CAD\RL300-SAFE\optimized\` by `npm run sync-assets`. Any
    git-checkout build (GitHub Actions → Pages, Netlify git integration) produces
    a bundle whose hero asset 404s. Only a machine with the CAD source can build
