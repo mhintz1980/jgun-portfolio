@@ -49,7 +49,7 @@ useGLTF.setDecoderPath('/draco/')
  * Module 2 — exploded torque wrench & planetary kinematic rig.
  *
  * Loads /models/Default.glb (jgun-full.glb renamed; the split
- * jgun-gearbox.glb / jgun-handle.glb derivatives live alongside it for a
+ * ptg-gearbox.glb / ptg-handle.glb derivatives live alongside it for a
  * future streaming pass). Node identity comes from buildWrenchRig — the
  * D1-AP 2-speed part-number table, never guessed mesh names.
  *

@@ -42,7 +42,10 @@ tessellation settings decide quality).
 - Bbox identical `[0.148, 0.272, 0.253]`. Materials 36 = 36, images 0 in both
   (untextured — the msp/m249 texture traps do not apply).
 - Only `Default.glb` is loaded at runtime (`MODEL_URL`, single `useGLTF`); the split
-  `jgun-gearbox.glb`/`jgun-handle.glb` derivatives have no runtime consumers.
+  derivatives have no runtime consumers. **Renamed 2026-09-05** to
+  `ptg-gearbox.glb`/`ptg-handle.glb` in `public/models/` — `jgun` is an in-house
+  designation and shipped filenames are visible in the network tab. The CAD-side
+  source names are unchanged; `scripts/sync-assets.ps1` renames on copy.
 
 ## Rig impact analysis (`src/scene/rig/nodeRoles.ts`)
 
