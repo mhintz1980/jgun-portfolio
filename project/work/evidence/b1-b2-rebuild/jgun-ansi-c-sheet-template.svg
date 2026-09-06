@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JGUN D1-AP — ANSI C sheet template (22 : 17), JG-026.
+  UNITS      : millimetres of the WORLD sheet. 1 user unit = 1 mm.
+  SHEET      : 905.882 x 700.000 mm.
+  ORIGIN     : SVG user space starts top-left as usual. Sheet-space origin (0,0) — the
+               origin every code constant is written against — is the SHEET CENTRE, at
+               (452.941, 350.000) in this file, with sheet +Y pointing UP.
+  SCALE NOTE : a physical ANSI C sheet is 558.8 x 431.8 mm; this world sheet carries the same
+               layout at 1:1.621 because the primary elevation is drawn 1:1 in world
+               millimetres and the JGun is 283 mm long.
+  CONTRACT   : draw only inside zone-titleBlock, zone-revisionBlock and zone-notes, and put
+               everything you draw inside a single <g id="sheet-furniture"> element. Do not
+               introduce dimensions, part numbers, tolerance values or view labels — all of
+               those are generated from Default.glb at render time and a hand-drawn copy
+               would go stale.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="905.882mm" height="700.000mm" viewBox="0 0 905.882 700.000">
+  <g id="sheet-outline" fill="none" stroke="#b3dae2" stroke-width="1">
+    <rect x="0" y="0" width="905.882" height="700.000"/>
+    <g id="zone-border">
+      <rect x="28.041" y="28.000" width="849.900" height="644.000" fill="none" stroke="#b3dae2" stroke-width="1"/>
+      <text x="34.041" y="42.000" font-size="9" font-family="monospace" fill="#7aa7b4">SHEET BORDER</text>
+    </g>
+  </g>
+  <g id="reserved-hand-drawn" fill="none" stroke="#e0b25a" stroke-width="1" stroke-dasharray="6 4">
+    <g id="zone-titleBlock">
+      <rect x="563.841" y="586.000" width="300.000" height="86.000" fill="none" stroke="#e0b25a" stroke-dasharray="6 4"/>
+      <text x="569.841" y="600.000" font-size="9" font-family="monospace" fill="#7aa7b4">TITLE BLOCK — DRAW HERE</text>
+    </g>
+    <g id="zone-revisionBlock">
+      <rect x="663.841" y="28.000" width="200.000" height="80.000" fill="none" stroke="#e0b25a" stroke-dasharray="6 4"/>
+      <text x="669.841" y="42.000" font-size="9" font-family="monospace" fill="#7aa7b4">REVISION BLOCK — DRAW HERE</text>
+    </g>
+    <g id="zone-notes">
+      <rect x="28.041" y="586.000" width="340.000" height="86.000" fill="none" stroke="#e0b25a" stroke-dasharray="6 4"/>
+      <text x="34.041" y="600.000" font-size="9" font-family="monospace" fill="#7aa7b4">GENERAL NOTES — DRAW HERE</text>
+    </g>
+  </g>
+  <g id="reserved-generated" fill="none" stroke="#4d7f8c" stroke-width="1" stroke-dasharray="2 5">
+    <g id="zone-views">
+      <rect x="168.041" y="40.000" width="440.100" height="546.000" fill="none" stroke="#4d7f8c" stroke-dasharray="2 5"/>
+      <text x="174.041" y="54.000" font-size="9" font-family="monospace" fill="#7aa7b4">GENERATED VIEWS — DO NOT DRAW</text>
+    </g>
+    <g id="zone-callouts">
+      <rect x="38.041" y="44.000" width="120.000" height="538.000" fill="none" stroke="#4d7f8c" stroke-dasharray="2 5"/>
+      <text x="44.041" y="58.000" font-size="9" font-family="monospace" fill="#7aa7b4">GENERATED CALLOUT LANE — DO NOT DRAW</text>
+    </g>
+    <g id="zone-tables">
+      <rect x="627.941" y="130.000" width="235.900" height="438.000" fill="none" stroke="#4d7f8c" stroke-dasharray="2 5"/>
+      <text x="633.941" y="144.000" font-size="9" font-family="monospace" fill="#7aa7b4">GENERATED GD&T / TABLES — DO NOT DRAW</text>
+    </g>
+  </g>
+  <g id="view-windows" fill="none" stroke="#4d7f8c" stroke-width="1" stroke-dasharray="2 5">
+    <g id="view-front">
+      <rect x="201.041" y="188.745" width="293.069" height="248.509"/>
+      <text x="205.041" y="200.745" font-size="8" font-family="monospace" fill="#4d7f8c">01 / SIDE ELEVATION · 1:1</text>
+    </g>
+    <g id="view-top">
+      <rect x="201.041" y="76.881" width="293.069" height="89.865"/>
+      <text x="205.041" y="88.881" font-size="8" font-family="monospace" fill="#4d7f8c">02 / PLAN · THIRD ANGLE</text>
+    </g>
+    <g id="view-right">
+      <rect x="516.110" y="188.745" width="89.865" height="248.509"/>
+      <text x="520.110" y="200.745" font-size="8" font-family="monospace" fill="#4d7f8c">03 / END · THIRD ANGLE</text>
+    </g>
+    <g id="view-section">
+      <rect x="201.041" y="459.255" width="293.069" height="89.865"/>
+      <text x="205.041" y="471.255" font-size="8" font-family="monospace" fill="#4d7f8c">04 / SECTION A–A</text>
+    </g>
+  </g>
+  <!-- Replace this element wholesale with your Inkscape furniture. -->
+  <g id="sheet-furniture"/>
+</svg>

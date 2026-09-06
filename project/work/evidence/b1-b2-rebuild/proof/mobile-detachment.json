@@ -1,0 +1,685 @@
+{
+  "samples": [
+    {
+      "local": 0.8,
+      "cameraGoal": {
+        "position": [
+          0.28173799687085055,
+          0.3355609830234799,
+          0.3166804998417201
+        ],
+        "target": [
+          0,
+          0.0010800126315512787,
+          -0.005040058947239301
+        ],
+        "fov": 41.56799494737949
+      },
+      "drawing": {
+        "lineOpacity": 1,
+        "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+        "phase": 0.8,
+        "focus": 1,
+        "pulseHead": 1,
+        "pulse": 0,
+        "pbr": 1,
+        "travel": 0.22,
+        "localZ": 0.0035252804796637033,
+        "minZ": -0.08167560164648764,
+        "crossing": 0.8995644443072877,
+        "contact": [
+          0.10199077306044313,
+          0.04664418095328998,
+          -1.9290125052862095e-15
+        ],
+        "waveTime": 0,
+        "waveEnabled": 0,
+        "profilePoints": 1195,
+        "planeMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.02851851851851856,
+          -0.046684423425683345,
+          0,
+          1
+        ],
+        "modelMatrix": [
+          0.855219846220596,
+          0.3665567198256944,
+          -0.3663812028216616,
+          0,
+          -0.22211338521420165,
+          0.8979561782453113,
+          0.37992149986511975,
+          0,
+          0.46825704344847585,
+          -0.2435382374529756,
+          0.8493670985852879,
+          0,
+          0.08148148148148143,
+          -0.04315914294601964,
+          0,
+          1
+        ],
+        "annotationsReady": true
+      },
+      "rig": {
+        "handleZ": 0,
+        "outputZ": 0,
+        "clutchZ": 0,
+        "slidingZ": 0,
+        "stageZ": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "stageRot": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "planetRot": 0,
+        "gearRotation": 0,
+        "shift": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "explodeFactor": 0,
+        "ringSwitchZ": 0,
+        "ringSwitchRotZ": 0
+      },
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": true
+      },
+      "scroll": {
+        "progress": 0.096,
+        "chapter": 0,
+        "chapterProgress": 0.5311695002575991,
+        "materialMode": "solid"
+      },
+      "canvas": true,
+      "actualCamera": {
+        "x": 0.28173799687085055,
+        "y": 0.3355609830234799,
+        "z": 0.3166804998417201,
+        "fov": 41.56799494737949,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.28173799687085055,
+            0.3355609830234799,
+            0.3166804998417201
+          ],
+          "target": [
+            0,
+            0.0010800126315512787,
+            -0.005040058947239301
+          ],
+          "fov": 41.56799494737949
+        }
+      }
+    },
+    {
+      "local": 0.85,
+      "cameraGoal": {
+        "position": [
+          0.31730629780892067,
+          0.23935794988475456,
+          0.3501024136472062
+        ],
+        "target": [
+          0,
+          0.0013497376724136037,
+          -0.006298775804596818
+        ],
+        "fov": 41.46010493103456
+      },
+      "drawing": {
+        "lineOpacity": 1,
+        "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+        "phase": 0.85,
+        "focus": 1,
+        "pulseHead": 1,
+        "pulse": 0,
+        "pbr": 1,
+        "travel": 0.22,
+        "localZ": 0.029677865356206895,
+        "minZ": -0.04826037395429572,
+        "crossing": 0.8995644443072877,
+        "contact": [
+          0.10199077306044313,
+          0.04664418095328998,
+          -1.9290125052862095e-15
+        ],
+        "waveTime": 0,
+        "waveEnabled": 0,
+        "profilePoints": 1195,
+        "planeMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.05500000000000001,
+          -0.09003424517810346,
+          0,
+          1
+        ],
+        "modelMatrix": [
+          0.9361280687195738,
+          0.26533669653664993,
+          -0.2307827472459298,
+          0,
+          -0.18682475256600617,
+          0.9312453486778265,
+          0.31285557753468934,
+          0,
+          0.29792742536398276,
+          -0.2497569579349716,
+          0.9213363724390009,
+          0,
+          0.05499999999999998,
+          -0.060356379821896566,
+          0,
+          1
+        ],
+        "annotationsReady": true
+      },
+      "rig": {
+        "handleZ": 0,
+        "outputZ": 0,
+        "clutchZ": 0,
+        "slidingZ": 0,
+        "stageZ": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "stageRot": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "planetRot": 0,
+        "gearRotation": 0,
+        "shift": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "explodeFactor": 0,
+        "ringSwitchZ": 0,
+        "ringSwitchRotZ": 0
+      },
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": true
+      },
+      "scroll": {
+        "progress": 0.102,
+        "chapter": 0,
+        "chapterProgress": 0.5561566202988151,
+        "materialMode": "solid"
+      },
+      "canvas": true,
+      "actualCamera": {
+        "x": 0.31730629780892067,
+        "y": 0.23935794988475456,
+        "z": 0.3501024136472062,
+        "fov": 41.46010493103456,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.31730629780892067,
+            0.23935794988475456,
+            0.3501024136472062
+          ],
+          "target": [
+            0,
+            0.0013497376724136037,
+            -0.006298775804596818
+          ],
+          "fov": 41.46010493103456
+        }
+      }
+    },
+    {
+      "local": 0.9,
+      "cameraGoal": {
+        "position": [
+          0.34250492745978933,
+          0.1745720719439332,
+          0.3706305634160071
+        ],
+        "target": [
+          0,
+          0.001604891265253552,
+          -0.007489492571183244
+        ],
+        "fov": 41.35804349389858
+      },
+      "drawing": {
+        "lineOpacity": 1,
+        "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+        "phase": 0.9,
+        "focus": 1,
+        "pulseHead": 1,
+        "pulse": 0,
+        "pbr": 1,
+        "travel": 0.22,
+        "localZ": 0.06616416936855259,
+        "minZ": 0.0004942152869284039,
+        "crossing": 0.8995644443072877,
+        "contact": [
+          0.10199077306044313,
+          0.04664418095328998,
+          -1.9290125052862095e-15
+        ],
+        "waveTime": 0.004336668321375833,
+        "waveEnabled": 1,
+        "profilePoints": 1195,
+        "planeMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.08148148148148152,
+          -0.1333840669305237,
+          0,
+          1
+        ],
+        "modelMatrix": [
+          0.9799061942230254,
+          0.16424722561832783,
+          -0.11316668856173515,
+          0,
+          -0.13602580583724766,
+          0.9652567178334819,
+          0.22310636213174542,
+          0,
+          0.14587950736712144,
+          -0.20322971621791988,
+          0.968202898041681,
+          0,
+          0.02851851851851847,
+          -0.06721989756197112,
+          0,
+          1
+        ],
+        "annotationsReady": true
+      },
+      "rig": {
+        "handleZ": 0,
+        "outputZ": 0,
+        "clutchZ": 0,
+        "slidingZ": 0,
+        "stageZ": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "stageRot": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "planetRot": 0,
+        "gearRotation": 0,
+        "shift": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "explodeFactor": 0,
+        "ringSwitchZ": 0,
+        "ringSwitchRotZ": 0
+      },
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": true
+      },
+      "scroll": {
+        "progress": 0.108,
+        "chapter": 0,
+        "chapterProgress": 0.5811437403400309,
+        "materialMode": "solid"
+      },
+      "canvas": true,
+      "actualCamera": {
+        "x": 0.34250492745978933,
+        "y": 0.1745720719439332,
+        "z": 0.3706305634160071,
+        "fov": 41.35804349389858,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.34250492745978933,
+            0.1745720719439332,
+            0.3706305634160071
+          ],
+          "target": [
+            0,
+            0.001604891265253552,
+            -0.007489492571183244
+          ],
+          "fov": 41.35804349389858
+        }
+      }
+    },
+    {
+      "local": 0.95,
+      "cameraGoal": {
+        "position": [
+          0.3538732930612245,
+          0.15032191626822158,
+          0.37523886274052476
+        ],
+        "target": [
+          0,
+          0.0018146406997084543,
+          -0.00846832326530612
+        ],
+        "fov": 41.27414372011662
+      },
+      "drawing": {
+        "lineOpacity": 0.9259259259259258,
+        "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+        "phase": 0.95,
+        "focus": 1,
+        "pulseHead": 1,
+        "pulse": 0,
+        "pbr": 1,
+        "travel": 0.22,
+        "localZ": 0.11540317399818217,
+        "minZ": 0.0652975895962204,
+        "crossing": 0.8995644443072877,
+        "contact": [
+          0.10199077306044313,
+          0.04664418095328998,
+          -1.9290125052862095e-15
+        ],
+        "waveTime": 0.5021683341606874,
+        "waveEnabled": 1,
+        "profilePoints": 1195,
+        "planeMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.10185185185185185,
+          -0.16673008366315456,
+          0,
+          1
+        ],
+        "modelMatrix": [
+          0.9966389132948416,
+          0.07595288656596332,
+          -0.030692597296009965,
+          0,
+          -0.07191538118969555,
+          0.9906182286883284,
+          0.11620543420485664,
+          0,
+          0.039230784529727565,
+          -0.11360758783063916,
+          0.9927508557198456,
+          0,
+          0.00814814814814814,
+          -0.05132690966497239,
+          0,
+          1
+        ],
+        "annotationsReady": true
+      },
+      "rig": {
+        "handleZ": 0,
+        "outputZ": 0,
+        "clutchZ": 0,
+        "slidingZ": 0,
+        "stageZ": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "stageRot": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "planetRot": 0,
+        "gearRotation": 0,
+        "shift": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "explodeFactor": 0,
+        "ringSwitchZ": 0,
+        "ringSwitchRotZ": 0
+      },
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": true
+      },
+      "scroll": {
+        "progress": 0.11399999999999999,
+        "chapter": 0,
+        "chapterProgress": 0.6061308603812467,
+        "materialMode": "solid"
+      },
+      "canvas": true,
+      "actualCamera": {
+        "x": 0.3538732930612245,
+        "y": 0.15032191626822158,
+        "z": 0.37523886274052476,
+        "fov": 41.27414372011662,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.3538732930612245,
+            0.15032191626822158,
+            0.37523886274052476
+          ],
+          "target": [
+            0,
+            0.0018146406997084543,
+            -0.00846832326530612
+          ],
+          "fov": 41.27414372011662
+        }
+      }
+    },
+    {
+      "local": 1,
+      "cameraGoal": {
+        "position": [
+          0.35719836734693877,
+          0.14937189504373177,
+          0.3708450145772595
+        ],
+        "target": [
+          0,
+          0.0019927696793002915,
+          -0.009299591836734693
+        ],
+        "fov": 41.202892128279885
+      },
+      "drawing": {
+        "lineOpacity": 0,
+        "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+        "phase": 1,
+        "focus": 1,
+        "pulseHead": 1,
+        "pulse": 0,
+        "pbr": 1,
+        "travel": 0.22,
+        "localZ": 0.1800684903562069,
+        "minZ": 0.14013516649603844,
+        "crossing": 0.8995644443072877,
+        "contact": [
+          0.10199077306044313,
+          0.04664418095328998,
+          -1.9290125052862095e-15
+        ],
+        "waveTime": 1,
+        "waveEnabled": 1,
+        "profilePoints": 1195,
+        "planeMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.10999999999999999,
+          -0.1800684903562069,
+          0,
+          1
+        ],
+        "modelMatrix": [
+          1,
+          3.4290110376125894e-17,
+          0,
+          0,
+          -3.4290110376125894e-17,
+          1,
+          5.5109105961630896e-17,
+          0,
+          1.889697326153941e-33,
+          -5.5109105961630896e-17,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "annotationsReady": true
+      },
+      "rig": {
+        "handleZ": 0,
+        "outputZ": 0,
+        "clutchZ": 0,
+        "slidingZ": 0,
+        "stageZ": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "stageRot": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "planetRot": 0,
+        "gearRotation": 0,
+        "shift": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "explodeFactor": 0,
+        "ringSwitchZ": 0,
+        "ringSwitchRotZ": 0
+      },
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": true
+      },
+      "scroll": {
+        "progress": 0.12,
+        "chapter": 0,
+        "chapterProgress": 0.6313755795981453,
+        "materialMode": "solid"
+      },
+      "canvas": true,
+      "actualCamera": {
+        "x": 0.35719836734693877,
+        "y": 0.14937189504373177,
+        "z": 0.3708450145772595,
+        "fov": 41.202892128279885,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.35719836734693877,
+            0.14937189504373177,
+            0.3708450145772595
+          ],
+          "target": [
+            0,
+            0.0019927696793002915,
+            -0.009299591836734693
+          ],
+          "fov": 41.202892128279885
+        }
+      }
+    }
+  ],
+  "note": "Computed crossing and contact/ripple origin are taken from rendered drawing telemetry; no progress value is assumed by this harness."
+}

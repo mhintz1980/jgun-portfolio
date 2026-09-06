@@ -21,6 +21,12 @@ import { getScrollState, telemetry } from '../state/scrollStore'
 import { getQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
+import { DrawingLinework } from './drawing/DrawingLinework'
+import { DrawingProofRenderer } from './drawing/DrawingProofRenderer'
+import { DRAWING_INTRO_WINDOW, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+import { snapshotDrawing } from './drawing/drawingGeometry'
+import { drawingRuntime } from './drawing/extractionPose'
+import { introPbrActivation } from './rig/materials'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,7 +49,7 @@ useGLTF.setDecoderPath('/draco/')
  * Module 2 — exploded torque wrench & planetary kinematic rig.
  *
  * Loads /models/Default.glb (jgun-full.glb renamed; the split
- * jgun-gearbox.glb / jgun-handle.glb derivatives live alongside it for a
+ * split gearbox/handle derivatives (no longer synced — see sync-assets.ps1) live alongside it for a
  * future streaming pass). Node identity comes from buildWrenchRig — the
  * D1-AP 2-speed part-number table, never guessed mesh names.
  *
@@ -67,12 +73,14 @@ export function TorqueWrenchHero() {
   const { scene } = useGLTF(MODEL_URL)
   const group = useRef<Group>(null)
   const inner = useRef<Group>(null)
+  const modelRoot = useRef<Group>(null)
   const rig = useMemo(() => {
     const r = buildWrenchRig(scene)
     if (typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__rig = r
     return r
   }, [scene])
   const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
+  const drawing = useMemo(() => snapshotDrawing(rig), [rig])
   const idleAngle = useRef(0)
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
@@ -112,17 +120,17 @@ export function TorqueWrenchHero() {
       },
     })
     timeline
-      // 1. Initial lateral rotation to inspection angle
-      .to(anim, { spin: 1, duration: 0.35 }, 0)
+      // B1/B2 reserve the intro; retained B3 channels keep their order.
+      .to(anim, { spin: 1, duration: 0.35 }, 0.12)
       // 2. Continuous gear sweep through the extraction
-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0)
+      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0.12)
       // 3. Housing ghost in: outer shell fades to transparent (0.15) to reveal internals
-      .to(anim, { ghost: 1, duration: 0.20 }, 0.15)
+      .to(anim, { ghost: 1, duration: 0.20 }, 0.27)
       // 4. Rear extraction: reduction stages extract rearward out of the housing
-      .to(anim, { explode: 1, duration: 0.50 }, 0.35)
+      .to(anim, { explode: 1, duration: 0.50 }, 0.47)
       // 5. Housing ghost out: transitions back away from transparency to solid opaque
       //    around the ~40% global progress mark as components clear the shell.
-      .to(anim, { ghost: 0, duration: 0.25 }, 0.42)
+      .to(anim, { ghost: 0, duration: 0.25 }, 0.54)
 
     return () => {
       timeline.scrollTrigger?.kill()
@@ -258,11 +266,52 @@ export function TorqueWrenchHero() {
     const { progress, chapter, chapterProgress, materialMode } = getScrollState()
     const { tier, reducedMotion } = getQuality()
 
+    const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
+    const proof = proofMode !== undefined && proofMode !== 'normal'
+    // Reduced motion parks the drawing at its fully focused frame (intro t = 0.20).
+    const intro = drawingIntroState(
+      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2 : progress,
+      drawingRuntime.extraction?.crossing,
+    )
+    introPbrActivation.value = proof ? 1 : intro.pbr
+
+    // B1/B2: while the drawing owns the frame the model IS the extraction pose —
+    // it is parented to the sheet, registered to the primary elevation, and the
+    // retained mechanism channels are all held at rest.
+    if ((progress <= DRAWING_INTRO_WINDOW.releaseEnd || reducedMotion || proof) && drawingRuntime.ready) {
+      if (group.current) {
+        group.current.matrixAutoUpdate = false
+        group.current.matrix.copy(drawingRuntime.modelMatrix)
+      }
+      if (modelRoot.current) modelRoot.current.visible = !proof
+      if (surface.current !== 'live' || lastMode.current !== materialMode) {
+        applyLiveMaterials(materialMode)
+        surface.current = 'live'
+      }
+      lastMode.current = materialMode
+      blueprintMaterial.opacity = 0.35
+      for (const material of rig.ghostMaterials.values()) {
+        material.opacity = 1
+        material.depthWrite = true
+      }
+      applyGearRotation(0, 0)
+      applyExplosion(0, 0)
+      anim.spin = 0
+      anim.ghost = 0
+      anim.explode = 0
+      anim.gearRotation = 0
+      anim.shift = 0
+      idleAngle.current = 0
+      writeRigTelemetry(0, 1, 0)
+      return
+    }
+
     // Reduced motion: hold the hero pose — no spin, no parallax, no ghost
     // fade, no gear rotation, no clutch shift, no scroll-driven explosion.
     // The material-mode switcher (an explicit user action, not motion) is the
     // only thing that still mutates the scene.
     if (reducedMotion) {
+      if (modelRoot.current) modelRoot.current.visible = false
       if (group.current) {
         group.current.rotation.y = 0
         group.current.rotation.x = 0
@@ -280,8 +329,18 @@ export function TorqueWrenchHero() {
       return
     }
 
+    // The extraction ends at identity, exactly where the retained mechanism begins.
+    if (modelRoot.current) {
+      modelRoot.current.visible = true
+      modelRoot.current.position.set(0, 0, 0)
+    }
+
     // 1. Lateral rotation + hover parallax.
     if (group.current) {
+      group.current.matrixAutoUpdate = true
+      group.current.position.set(0, 0, 0)
+      group.current.scale.set(1, 1, 1)
+      group.current.rotation.z = 0
       group.current.rotation.y = anim.spin * Math.PI * 0.85 + state.pointer.x * 0.08
       group.current.rotation.x = MathUtils.lerp(
         group.current.rotation.x,
@@ -309,19 +368,22 @@ export function TorqueWrenchHero() {
     } else if (anim.explode === 0 && anim.gearRotation === 0) {
       idleAngle.current = 0
     }
-    applyGearRotation(anim.gearRotation, idleAngle.current)
+    applyGearRotation(materialMode === 'exploded' ? 0 : anim.gearRotation, idleAngle.current)
 
     // 4. Clutch shift window in CH.01:
-    // 0.05 → 0.10: ring switch travels +Z down gearbox and rotates +120°
-    // 0.10 → 0.12: pauses at bottom of travel (holding groove reveal)
-    // 0.12 → 0.17: reverses back towards handle as camera pulls back
+    // B3 is remapped after B1/B2. Values preserve the old 0.05→0.17 local
+    // order while giving the shared drawing/model handoff room to settle.
     let shiftAmount = 0
-    if (progress >= 0.05 && progress < 0.10) {
-      shiftAmount = MathUtils.smoothstep(progress, 0.05, 0.10)
-    } else if (progress >= 0.10 && progress <= 0.12) {
+    const shiftInStart = remapHeroProgress(0.05)
+    const shiftInEnd = remapHeroProgress(0.10)
+    const shiftHoldEnd = remapHeroProgress(0.12)
+    const shiftOutEnd = remapHeroProgress(0.17)
+    if (progress >= shiftInStart && progress < shiftInEnd) {
+      shiftAmount = MathUtils.smoothstep(progress, shiftInStart, shiftInEnd)
+    } else if (progress >= shiftInEnd && progress <= shiftHoldEnd) {
       shiftAmount = 1
-    } else if (progress > 0.12 && progress <= 0.17) {
-      shiftAmount = 1 - MathUtils.smoothstep(progress, 0.12, 0.17)
+    } else if (progress > shiftHoldEnd && progress <= shiftOutEnd) {
+      shiftAmount = 1 - MathUtils.smoothstep(progress, shiftHoldEnd, shiftOutEnd)
     }
     applyShift(shiftAmount)
 
@@ -371,12 +433,18 @@ export function TorqueWrenchHero() {
   // Recenter the wrench midpoint at the group origin so camera keyframes and
   // explosion offsets work in a clean local space.
   return (
-    <group ref={group}>
-      <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
-        <primitive object={scene} />
-        <Hotspots />
+    <>
+      <DrawingLinework data={drawing} />
+      <DrawingProofRenderer meshes={rig.meshes} modelFrame={group} />
+      <group ref={group} name="jgun-live-registered-model">
+        <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
+          <group ref={modelRoot}>
+            <primitive object={scene} />
+            <Hotspots />
+          </group>
+        </group>
       </group>
-    </group>
+    </>
   )
 }
 

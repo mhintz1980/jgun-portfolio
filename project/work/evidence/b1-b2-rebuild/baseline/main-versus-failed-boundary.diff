@@ -1,0 +1,487 @@
+diff --git a/src/data/caseStudies.ts b/src/data/caseStudies.ts
+index 68e7842..f90c5b0 100644
+--- a/src/data/caseStudies.ts
++++ b/src/data/caseStudies.ts
+@@ -258,17 +258,17 @@ export interface CameraSegment {
+ /**
+  * Content-aligned camera path segments (JG-021 WS1.1).
+  * Replaces uniform progress thirds with content-aligned windows:
+- *   - K0 → K1 [0.000, 0.525]: All JGun wrench beats (CH.01 shift, CH.02 explode & LCD reveal).
+- *   - K1 → K2 [0.525, 0.600]: Whip-pan flight to Station 2.
+- *   - Hold K2 [0.600, 0.720]: Station 2 RL-300 SAFE Enclosure hold window.
+- *   - K2 → K3 [0.720, 0.760]: Transition flight to Station 3.
+- *   - 0.760 → 1.000: Station 3 M249 continuous zoom-out override.
++ *   - K0 → K1 [0.000, 0.545]: B1/B2 drawing handoff plus all retained JGun beats.
++ *   - K1 → K2 [0.545, 0.620]: Whip-pan flight to Station 2.
++ *   - Hold K2 [0.620, 0.740]: Station 2 RL-300 SAFE Enclosure hold window.
++ *   - K2 → K3 [0.740, 0.780]: Transition flight to Station 3.
++ *   - 0.780 → 1.000: Station 3 M249 continuous zoom-out override.
+  */
+ export const PATH_SEGMENTS: readonly CameraSegment[] = [
+-  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.525 },
+-  { fromIndex: 1, toIndex: 2, startProgress: 0.525, endProgress: 0.600 },
+-  { fromIndex: 2, toIndex: 2, startProgress: 0.600, endProgress: 0.720 },
+-  { fromIndex: 2, toIndex: 3, startProgress: 0.720, endProgress: 0.760 },
++  { fromIndex: 0, toIndex: 1, startProgress: 0.000, endProgress: 0.545 },
++  { fromIndex: 1, toIndex: 2, startProgress: 0.545, endProgress: 0.620 },
++  { fromIndex: 2, toIndex: 2, startProgress: 0.620, endProgress: 0.740 },
++  { fromIndex: 2, toIndex: 3, startProgress: 0.740, endProgress: 0.780 },
+ ] as const
+ 
+ export interface CameraPose {
+@@ -283,7 +283,7 @@ const S2_ARC_RADIUS = 8.5 // hypot(33.662357 - 28.0, -0.010622 - (-6.35)) — wi
+ const S2_ARC_START_AZIMUTH = 0.84174869911009054 // exact atan2(5.15, 4.6) — azimuth of K2 about S2_ARC_CENTER; the remediation K2 sits on this azimuth by construction (no goal seam at the 0.600 boundary)
+ const S2_ARC_SWEEP = 0.70 // ~40.1 deg sweep
+ 
+-/** Arc end pose at p=0.720 (derived for exact C0 handoff into Segment 3). */
++/** Arc end pose at p=0.740 (derived for exact C0 handoff into Segment 3). */
+ export const S2_ARC_END_POSE: CameraPose = {
+   position: [
+     S2_ARC_CENTER[0] + S2_ARC_RADIUS * Math.cos(S2_ARC_START_AZIMUTH + S2_ARC_SWEEP),
+@@ -304,9 +304,9 @@ const lerpN = (a: number, b: number, t: number): number => a + (b - a) * t
+ export function baseAt(progress: number): CameraPose {
+   const p = Math.max(0, Math.min(1, progress))
+ 
+-  if (p <= 0.525) {
+-    // Segment 0 [0.000, 0.525]: K0 -> K1 (All JGun wrench beats)
+-    const u = p / 0.525
++  if (p <= 0.545) {
++    // Segment 0 [0.000, 0.545]: K0 -> K1 (B1/B2 plus retained JGun beats)
++    const u = p / 0.545
+     const t = smoothstep(u)
+     const from = CAMERA_PATH[0]
+     const to = CAMERA_PATH[1]
+@@ -325,13 +325,13 @@ export function baseAt(progress: number): CameraPose {
+     }
+   }
+ 
+-  if (p <= 0.600) {
+-    // Segment 1 [0.525, 0.600]: K1 -> K2 (Flight into Station 2).
++  if (p <= 0.620) {
++    // Segment 1 [0.545, 0.620]: K1 -> K2 (Flight into Station 2).
+     // JG-021 remediation: the TARGET leads the position (triple smoothstep)
+     // so the camera turns toward the enclosure early in the approach —
+     // previously the target lagged and the subject sat off-screen right
+     // through the arrival transit (owner visual pass finding).
+-    const u = (p - 0.525) / (0.600 - 0.525)
++    const u = (p - 0.545) / (0.620 - 0.545)
+     const t = smoothstep(u)
+     const tTarget = smoothstep(smoothstep(t))
+     const from = CAMERA_PATH[1]
+@@ -351,9 +351,9 @@ export function baseAt(progress: number): CameraPose {
+     }
+   }
+ 
+-  if (p <= 0.720) {
+-    // Segment 2 [0.600, 0.720]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
+-    const u = (p - 0.600) / (0.720 - 0.600)
++  if (p <= 0.740) {
++    // Segment 2 [0.620, 0.740]: Station 2 Orbit Arc around [28.0, 1.2, -6.35]
++    const u = (p - 0.620) / (0.740 - 0.620)
+     const t = smoothstep(u)
+     const azimuth = S2_ARC_START_AZIMUTH + S2_ARC_SWEEP * t
+     return {
+@@ -367,11 +367,11 @@ export function baseAt(progress: number): CameraPose {
+     }
+   }
+ 
+-  if (p <= 0.760) {
+-    // Segment 3 [0.720, 0.760]: Handoff flight from S2_ARC_END_POSE -> K3.
++  if (p <= 0.780) {
++    // Segment 3 [0.740, 0.780]: Handoff flight from S2_ARC_END_POSE -> K3.
+     // Target leads position (same remediation as segment 1) so the receiver
+-    // is on-screen through the approach rather than snapping in at 0.760.
+-    const u = (p - 0.720) / (0.760 - 0.720)
++    // is on-screen through the approach rather than snapping in at 0.780.
++    const u = (p - 0.740) / (0.780 - 0.740)
+     const t = smoothstep(u)
+     const tTarget = smoothstep(smoothstep(t))
+     const to = CAMERA_PATH[3]
+@@ -390,7 +390,7 @@ export function baseAt(progress: number): CameraPose {
+     }
+   }
+ 
+-  // Segment 4 [0.760, 1.000]: Station 3 M249 base pose
++  // Segment 4 [0.780, 1.000]: Station 3 M249 base pose
+   const k3 = CAMERA_PATH[3]
+   return { position: [...k3.position], target: [...k3.target], fov: k3.fov }
+ }
+@@ -472,13 +472,13 @@ export const SHIFT_CAMERA_KEYFRAMES = {
+  *     guaranteed C^0 continuity with the base trajectory without manual keyframe syncing.
+  */
+ export const LCD_REVEAL_WINDOW = {
+-  /** After the explode beat completes (measured ≈0.416). */
+-  start: 0.420,
++  /** After the B1/B2-shifted explode beat completes. */
++  start: 0.460,
+   /** Stable rear LCD/buttons dwell before the wrench stage handoff. */
+-  dwellStart: 0.458,
+-  dwellEnd: 0.488,
++  dwellStart: 0.490,
++  dwellEnd: 0.515,
+   /** Before the wrench sink window (STAGE_TRANSITIONS.wrenchOut 0.525–0.565). */
+-  end: 0.525,
++  end: 0.545,
+ } as const
+ 
+ export const LCD_ORBIT_KEYFRAMES = {
+diff --git a/src/scene/CameraRig.tsx b/src/scene/CameraRig.tsx
+index 068d1e5..bbfcb8b 100644
+--- a/src/scene/CameraRig.tsx
++++ b/src/scene/CameraRig.tsx
+@@ -11,6 +11,7 @@ import {
+ } from '../data/caseStudies'
+ import { getScrollState, telemetry } from '../state/scrollStore'
+ import { getQuality } from '../state/qualityStore'
++import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
+ 
+ const smoothstep = (t: number): number => t * t * (3 - 2 * t)
+ 
+@@ -158,6 +159,9 @@ export function CameraRig() {
+   const scratchA = useRef(new Vector3())
+   const scratchFwd = useRef(new Vector3())
+   const scratchRight = useRef(new Vector3())
++  const shakeFrames = useRef(0)
++  const wasPulsing = useRef(false)
++  const restOrbit = useRef(0)
+ 
+   useFrame((state, delta) => {
+     // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
+@@ -181,7 +185,7 @@ export function CameraRig() {
+       return
+     }
+ 
+-    const { progress, hotspotId } = getScrollState()
++    const { progress, hotspotId, velocity } = getScrollState()
+ 
+     // ---- 1. Content-aligned base trajectory (PATH_SEGMENTS table) ----
+     const base = baseAt(progress)
+@@ -189,10 +193,19 @@ export function CameraRig() {
+     goalTarget.current.set(base.target[0], base.target[1], base.target[2])
+     let goalFov = base.fov
+ 
+-    // ---- 2. CR-3: Shift groove reveal & handle orbit sub-sequence (progress 0.035 → 0.18) ----
+-    const shiftW = bellWeight(progress, 0.035, 0.055, 0.115, 0.18)
++    // B1: lock the live camera to the large drawing elevation. The linework
++    // shares the hero's frame, which makes B2's return to the PBR model a
++    // matrix-identical handoff rather than an eye-matched approximation.
++    if (progress <= DRAWING_INTRO_WINDOW.releaseEnd) {
++      goalPos.current.set(0.20, 0.10, 0.30)
++      goalTarget.current.set(0, 0, 0)
++      goalFov = 27
++    }
++
++    // ---- 2. B3 remap: shift groove reveal after the B1/B2 handoff ----
++    const shiftW = bellWeight(progress, 0.145, 0.165, 0.225, 0.29)
+     if (shiftW > 0.001) {
+-      const orbitT = smoothstep(Math.min(Math.max((progress - 0.05) / 0.05, 0), 1))
++      const orbitT = smoothstep(Math.min(Math.max((progress - 0.16) / 0.08, 0), 1))
+       const grPos: [number, number, number] = [
+         lerpN(0.16, 0.12, orbitT),
+         lerpN(0.06, 0.05, orbitT),
+@@ -210,10 +223,10 @@ export function CameraRig() {
+     }
+ 
+     // ---- 3. JG-021 WS1.3: Exploded reduction-train lookAt centroid tracking ----
+-    // During segment 0 (JGun beats, progress <= 0.525), shift goalTarget toward the
++    // During segment 0 (JGun beats, progress <= 0.545), shift goalTarget toward the
+     // exploded-train centroid (midpoint of output face +0.102m and exploded handle tail -0.587m,
+     // recentered by rig.center -0.0906m -> centroidZ = -0.152m at explode=1) rotated by hero yaw.
+-    if (progress <= 0.525) {
++    if (progress <= 0.545) {
+       const explodeFactor = telemetry.rig.explodeFactor
+       if (explodeFactor > 0.001) {
+         const spinProgress = Math.min(1, Math.max(0, (progress - 0.18) / 0.17))
+@@ -265,14 +278,14 @@ export function CameraRig() {
+       goalFov = rearFov
+     }
+ 
+-    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.76 → 1.00, Station 3: [56, 0, -12]) ----
+-    // JG-021 remediation: override start === K3 (zero goal jump at the 0.760
++    // ---- 5. CH.04 M249 continuous zoom-out (progress 0.78 → 1.00, Station 3: [56, 0, -12]) ----
++    // JG-021 remediation: override start === K3 (zero goal jump at the 0.780
+     // boundary — the old 0.822 m damped jump is gone), dollying out from the
+     // ~2.5 m near pose to a ~3.5 m overview across a 0.18 window so the 1.18 m
+     // receiver clears the left CH.04 card lane instead of filling 131% of the
+     // screen.
+-    if (progress >= 0.76) {
+-      const t4 = smoothstep(Math.min((progress - 0.76) / 0.18, 1))
++    if (progress >= 0.78) {
++      const t4 = smoothstep(Math.min((progress - 0.78) / 0.18, 1))
+       const m249Pos: [number, number, number] = [
+         lerpN(56.43, 56.6, t4),
+         lerpN(0.65, 0.9, t4),
+@@ -330,7 +343,7 @@ export function CameraRig() {
+     let portraitDolly = 1
+     if (portrait) {
+       const w = smoothstep(Math.min(Math.max((progress - 0.5) / 0.06, 0), 1))
+-      const ch4 = progress >= 0.76 ? smoothstep(Math.min((progress - 0.76) / 0.24, 1)) : 0
++      const ch4 = progress >= 0.78 ? smoothstep(Math.min((progress - 0.78) / 0.22, 1)) : 0
+       portraitDolly = 1 + w * (1.0 + 0.8 * ch4)
+       goalFov += 10 * w
+       if (portraitDolly > 1) {
+@@ -393,6 +406,30 @@ export function CameraRig() {
+     goalPos.current.x += state.pointer.x * 0.03
+     goalPos.current.y += state.pointer.y * 0.02
+ 
++    // B2 garnish #16: exactly six rendered frames of a sub-pixel camera shake
++    // when the drawing lines pulse. It is frame-counted, not timer-based.
++    const pulsing = progress >= DRAWING_INTRO_WINDOW.pulseStart && progress <= DRAWING_INTRO_WINDOW.pulsePeak
++    if (pulsing && !wasPulsing.current) shakeFrames.current = 6
++    wasPulsing.current = pulsing
++    if (shakeFrames.current > 0) {
++      const phase = (7 - shakeFrames.current) * Math.PI * 1.7
++      goalPos.current.x += Math.sin(phase) * 0.0018
++      goalPos.current.y += Math.cos(phase * 0.7) * 0.0012
++      shakeFrames.current -= 1
++    }
++
++    // B2 garnish #17: at scroll rest only, orbit the settled JGun view at
++    // 0.3°/s. This stays outside the drawing handoff and reduced-motion path.
++    if (
++      Math.abs(velocity) < 0.001 &&
++      progress > DRAWING_INTRO_WINDOW.releaseEnd &&
++      progress < 0.545
++    ) {
++      restOrbit.current += delta * (0.3 * Math.PI / 180)
++      goalPos.current.x += Math.sin(restOrbit.current) * 0.003
++      goalPos.current.z += (Math.cos(restOrbit.current) - 1) * 0.003
++    }
++
+     // Exponential damping with clamp to prevent overshoot on frame drops
+     const safeDelta = Math.min(delta, 0.1)
+     const damp = 1 - Math.exp(-6 * safeDelta)
+diff --git a/src/scene/TorqueWrenchHero.tsx b/src/scene/TorqueWrenchHero.tsx
+index ba2edfd..c6acff8 100644
+--- a/src/scene/TorqueWrenchHero.tsx
++++ b/src/scene/TorqueWrenchHero.tsx
+@@ -21,6 +21,8 @@ import { getScrollState, telemetry } from '../state/scrollStore'
+ import { getQuality } from '../state/qualityStore'
+ import type { MaterialMode } from '../types/portfolio'
+ import { Hotspots } from './Hotspots'
++import { DrawingLinework } from './drawing/DrawingLinework'
++import { drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+ 
+ gsap.registerPlugin(ScrollTrigger)
+ 
+@@ -67,6 +69,7 @@ export function TorqueWrenchHero() {
+   const { scene } = useGLTF(MODEL_URL)
+   const group = useRef<Group>(null)
+   const inner = useRef<Group>(null)
++  const modelRoot = useRef<Group>(null)
+   const rig = useMemo(() => {
+     const r = buildWrenchRig(scene)
+     if (typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__rig = r
+@@ -112,17 +115,17 @@ export function TorqueWrenchHero() {
+       },
+     })
+     timeline
+-      // 1. Initial lateral rotation to inspection angle
+-      .to(anim, { spin: 1, duration: 0.35 }, 0)
++      // B1/B2 reserve the intro; retained B3 channels keep their order.
++      .to(anim, { spin: 1, duration: 0.35 }, 0.12)
+       // 2. Continuous gear sweep through the extraction
+-      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0)
++      .to(anim, { gearRotation: GEAR_ROTATION_SWEEP, duration: 0.9 }, 0.12)
+       // 3. Housing ghost in: outer shell fades to transparent (0.15) to reveal internals
+-      .to(anim, { ghost: 1, duration: 0.20 }, 0.15)
++      .to(anim, { ghost: 1, duration: 0.20 }, 0.27)
+       // 4. Rear extraction: reduction stages extract rearward out of the housing
+-      .to(anim, { explode: 1, duration: 0.50 }, 0.35)
++      .to(anim, { explode: 1, duration: 0.50 }, 0.47)
+       // 5. Housing ghost out: transitions back away from transparency to solid opaque
+       //    around the ~40% global progress mark as components clear the shell.
+-      .to(anim, { ghost: 0, duration: 0.25 }, 0.42)
++      .to(anim, { ghost: 0, duration: 0.25 }, 0.54)
+ 
+     return () => {
+       timeline.scrollTrigger?.kill()
+@@ -263,6 +266,7 @@ export function TorqueWrenchHero() {
+     // The material-mode switcher (an explicit user action, not motion) is the
+     // only thing that still mutates the scene.
+     if (reducedMotion) {
++      if (modelRoot.current) modelRoot.current.visible = false
+       if (group.current) {
+         group.current.rotation.y = 0
+         group.current.rotation.x = 0
+@@ -280,6 +284,17 @@ export function TorqueWrenchHero() {
+       return
+     }
+ 
++    // B2: the PBR model starts just below the live edge elevation and rises
++    // into the exact same local frame. The linework is a clone of this GLB's
++    // geometry, so at handoff=1 both representations have identical matrices.
++    const intro = drawingIntroState(progress)
++    if (modelRoot.current) {
++      const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
++      const forceModel = proofMode === 'model' || proofMode === 'registered'
++      modelRoot.current.visible = proofMode === 'lines' ? false : forceModel || intro.modelOpacity > 0.001
++      modelRoot.current.position.y = forceModel ? 0 : (1 - intro.modelOpacity) * -0.045
++    }
++
+     // 1. Lateral rotation + hover parallax.
+     if (group.current) {
+       group.current.rotation.y = anim.spin * Math.PI * 0.85 + state.pointer.x * 0.08
+@@ -312,16 +327,19 @@ export function TorqueWrenchHero() {
+     applyGearRotation(anim.gearRotation, idleAngle.current)
+ 
+     // 4. Clutch shift window in CH.01:
+-    // 0.05 → 0.10: ring switch travels +Z down gearbox and rotates +120°
+-    // 0.10 → 0.12: pauses at bottom of travel (holding groove reveal)
+-    // 0.12 → 0.17: reverses back towards handle as camera pulls back
++    // B3 is remapped after B1/B2. Values preserve the old 0.05→0.17 local
++    // order while giving the shared drawing/model handoff room to settle.
+     let shiftAmount = 0
+-    if (progress >= 0.05 && progress < 0.10) {
+-      shiftAmount = MathUtils.smoothstep(progress, 0.05, 0.10)
+-    } else if (progress >= 0.10 && progress <= 0.12) {
++    const shiftInStart = remapHeroProgress(0.05)
++    const shiftInEnd = remapHeroProgress(0.10)
++    const shiftHoldEnd = remapHeroProgress(0.12)
++    const shiftOutEnd = remapHeroProgress(0.17)
++    if (progress >= shiftInStart && progress < shiftInEnd) {
++      shiftAmount = MathUtils.smoothstep(progress, shiftInStart, shiftInEnd)
++    } else if (progress >= shiftInEnd && progress <= shiftHoldEnd) {
+       shiftAmount = 1
+-    } else if (progress > 0.12 && progress <= 0.17) {
+-      shiftAmount = 1 - MathUtils.smoothstep(progress, 0.12, 0.17)
++    } else if (progress > shiftHoldEnd && progress <= shiftOutEnd) {
++      shiftAmount = 1 - MathUtils.smoothstep(progress, shiftHoldEnd, shiftOutEnd)
+     }
+     applyShift(shiftAmount)
+ 
+@@ -341,8 +359,8 @@ export function TorqueWrenchHero() {
+     //    ends). AND-gate both chapter-4 surfaces on raw progress (CH.04
+     //    starts at 0.760; 0.755 tolerates entry-side lag invisibly) so a
+     //    laggy chapter can never activate them outside the window.
+-    const wantCad = chapter === 3 && progress >= 0.755 && tier === 'full'
+-    const wantLiteFade = chapter === 3 && progress >= 0.755 && tier !== 'full'
++    const wantCad = chapter === 3 && progress >= 0.775 && tier === 'full'
++    const wantLiteFade = chapter === 3 && progress >= 0.775 && tier !== 'full'
+     if (wantCad && surface.current !== 'cad') {
+       for (const mesh of rig.meshes) mesh.material = cadMaterial
+       surface.current = 'cad'
+@@ -371,10 +389,13 @@ export function TorqueWrenchHero() {
+   // Recenter the wrench midpoint at the group origin so camera keyframes and
+   // explosion offsets work in a clean local space.
+   return (
+-    <group ref={group}>
++      <group ref={group}>
+       <group ref={inner} position={[-rig.center.x, -rig.center.y, -rig.center.z]}>
+-        <primitive object={scene} />
+-        <Hotspots />
++        <DrawingLinework />
++        <group ref={modelRoot}>
++          <primitive object={scene} />
++          <Hotspots />
++        </group>
+       </group>
+     </group>
+   )
+diff --git a/src/scene/drawing/introTimeline.ts b/src/scene/drawing/introTimeline.ts
+new file mode 100644
+index 0000000..dbad873
+--- /dev/null
++++ b/src/scene/drawing/introTimeline.ts
+@@ -0,0 +1,69 @@
++/**
++ * B1/B2 own the first 0.120 of the established JGun stage.  The retained
++ * hero animation still reaches the same global stage boundary (0.525); its
++ * local cues are remapped rather than reordered.
++ */
++export const DRAWING_INTRO_WINDOW = {
++  focusStart: 0.0,
++  focusEnd: 0.032,
++  pulseStart: 0.052,
++  pulsePeak: 0.068,
++  handoff: 0.084,
++  releaseEnd: 0.12,
++  heroEnd: 0.525,
++} as const
++
++const clamp01 = (value: number): number => Math.min(1, Math.max(0, value))
++const smooth01 = (value: number): number => {
++  const clamped = clamp01(value)
++  return clamped * clamped * (3 - 2 * clamped)
++}
++
++export interface DrawingIntroState {
++  focus: number
++  drawingOpacity: number
++  modelOpacity: number
++  pulse: number
++  handoff: number
++  ripple: number
++}
++
++/** Pure scroll-to-state mapping, shared by linework, SVG, model and post FX. */
++export function drawingIntroState(progress: number): DrawingIntroState {
++  const focus = smooth01(
++    (progress - DRAWING_INTRO_WINDOW.focusStart) /
++      (DRAWING_INTRO_WINDOW.focusEnd - DRAWING_INTRO_WINDOW.focusStart),
++  )
++  const handoff = smooth01(
++    (progress - DRAWING_INTRO_WINDOW.pulsePeak) /
++      (DRAWING_INTRO_WINDOW.handoff - DRAWING_INTRO_WINDOW.pulsePeak),
++  )
++  const pulse = Math.sin(
++    Math.PI * clamp01(
++      (progress - DRAWING_INTRO_WINDOW.pulseStart) /
++        (DRAWING_INTRO_WINDOW.handoff - DRAWING_INTRO_WINDOW.pulseStart),
++    ),
++  )
++  const ripple = Math.sin(
++    Math.PI * clamp01(
++      (progress - DRAWING_INTRO_WINDOW.pulsePeak) /
++        (DRAWING_INTRO_WINDOW.releaseEnd - DRAWING_INTRO_WINDOW.pulsePeak),
++    ),
++  )
++
++  return {
++    focus,
++    drawingOpacity: 1 - handoff,
++    modelOpacity: handoff,
++    pulse,
++    handoff,
++    ripple,
++  }
++}
++
++/** Remap a pre-intro [0, 0.85] cue into the retained [0.12, 0.525] window. */
++export function remapHeroProgress(previousLocalProgress: number): number {
++  const local = clamp01(previousLocalProgress / 0.85)
++  return DRAWING_INTRO_WINDOW.releaseEnd +
++    local * (DRAWING_INTRO_WINDOW.heroEnd - DRAWING_INTRO_WINDOW.releaseEnd)
++}
+diff --git a/src/scene/stages/stageWindows.ts b/src/scene/stages/stageWindows.ts
+index 5966a2d..1b9126b 100644
+--- a/src/scene/stages/stageWindows.ts
++++ b/src/scene/stages/stageWindows.ts
+@@ -9,7 +9,8 @@
+  * timeline scrubs [data-chapter="1"]'s viewport transit at global progress
+  * ≈0.177 → 0.458, so the explode tween (timeline 0.35→0.85) completes at
+  * ≈0.416 (live-probed: gearRotation 8π and explodeFactor 1 by 0.47). The
+- * rear-LCD orbit (LCD_REVEAL_WINDOW, caseStudies.ts) runs 0.420 → 0.525 —
++ * B1/B2 reserve 0.000 → 0.120 for the drawing-to-model handoff. The retained
++ * rear-LCD orbit (LCD_REVEAL_WINDOW, caseStudies.ts) now runs 0.460 → 0.545 —
+  * after the explode beat, before this handoff — so the wrench sinks only
+  * after the camera has returned from the LCD dwell. Overlapping ranges are
+  * the cross-fade regions.
+@@ -18,13 +19,13 @@ export type FadeRange = readonly [start: number, end: number]
+ 
+ export const STAGE_TRANSITIONS = {
+   /** Wrench stage (CH.01+02) sinks out — after the explosion ladder AND the rear-LCD orbit return (LCD_REVEAL_WINDOW.end = 0.525). */
+-  wrenchOut: [0.525, 0.565] as FadeRange,
++  wrenchOut: [0.545, 0.585] as FadeRange,
+   /** MSP enclosure stage (CH.03) enters as the wrench leaves. */
+-  enclosureIn: [0.525, 0.565] as FadeRange,
++  enclosureIn: [0.545, 0.585] as FadeRange,
+   /** MSP enclosure stage exits upward-window as the point cloud arrives. */
+-  enclosureOut: [0.72, 0.76] as FadeRange,
++  enclosureOut: [0.74, 0.78] as FadeRange,
+   /** M249 point-cloud stage (CH.04) enters and holds to the end. */
+-  pointCloudIn: [0.72, 0.76] as FadeRange,
++  pointCloudIn: [0.74, 0.78] as FadeRange,
+ } as const
+ 
+ /**

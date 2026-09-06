@@ -11,3 +11,6 @@ public/models/*.glb
 .playwright-mcp/
 .zcode/
 .archive/
+.playwright-cli/
+critique-*.png
+project/work/evidence/b1-b2-rebuild/**/*.png

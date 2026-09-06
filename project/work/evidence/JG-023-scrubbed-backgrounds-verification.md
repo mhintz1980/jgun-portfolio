@@ -315,3 +315,64 @@ settle-gated scrub).
 **Regime is now `[true, true, true, true]` — all four chapters armed. Status: verified.**
 The remaining backdrop work is design evolution, not arming: see
 `project/work/inbox/five-plans-synthesis.md` W5 (round-table-gated).
+
+---
+
+## Addendum — declared JG-026 change to the backdrop envelope (2026-09-05)
+
+**Declared by JG-026 on branch `codex/b1-b2-engineering-drawing`. Not silent, not a regression
+left to be discovered.**
+
+### What changed
+
+`BackdropRig` now multiplies the visibility envelope by one named constant while the B1/B2
+drawing owns the frame:
+
+```ts
+const INTRO_BACKDROP_LEVEL = 0.55
+const introFactor = progress >= DRAWING_INTRO_WINDOW.releaseEnd
+  ? 1
+  : INTRO_BACKDROP_LEVEL + (1 - INTRO_BACKDROP_LEVEL)
+      * smoothstep01((progress - (DRAWING_INTRO_WINDOW.releaseEnd - 0.012)) / 0.012)
+```
+
+**The chapter-weight envelope itself (`w0..w3`, the three blend windows, the palette lerp, the
+flag gating) is untouched.** This is a single multiplier that reaches exactly 1.0 at progress
+0.120 and stays there.
+
+### Why
+
+Owner ruling 2026-09-05 (JG-026 Item 7.5): the ANSI C sheet fills ~67% of a 16:9 viewport by
+design, and *"the backdrop wash lives"* in the dark margins either side of it. At full strength
+the wash competes with the print; at zero those margins go dead black.
+
+An intermediate build on this branch had multiplied the envelope by
+`smoothstep01((progress − 0.108) / 0.012)`, forcing it to **0** below progress 0.108. That was
+both an undeclared change to a JG-023 gate and the wrong behaviour for Item 7.5. It is replaced.
+
+### Re-measurement
+
+Fresh `:4173` run, 2026-09-05, ANGLE (AMD Radeon 780M, D3D11), 1920×1080 and 390×844.
+Raw: `b1-b2-rebuild/proof/report.json → viewports.*.jg023`.
+
+| progress | 0.02 | 0.10 | 0.115 | **0.120** | 0.20 | 0.30 | 0.40 | 0.50 | 0.60 | 0.70 | 0.80 | 0.90 | 1.00 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| desktop `backdropAlpha` | 0.550000 | 0.550000 | 0.830940 | **1.000000** | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 |
+| mobile `backdropAlpha` | 0.550000 | 0.550000 | 0.830720 | **1.000000** | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 |
+
+### Effect on the X2 gate
+
+X2 was verified on "alpha 1.00000 at all 9 checkpoints, envelope err 0.000000".
+
+* **Every checkpoint at progress ≥ 0.120 is bit-identical to its verified value (1.000000).**
+  The envelope arithmetic is unchanged, so envelope error remains 0.000000 there.
+* **The 0.10 checkpoint now reads 0.550000.** That checkpoint falls inside the progress band
+  JG-026 reserves for the B1/B2 intro (`0.000–0.120`), which did not exist when JG-023 was
+  verified. Its value is now governed by JG-026, by owner ruling, and is stated here rather
+  than being allowed to look like drift.
+* Reduced motion reads 0.550000 (progress is pinned at 0 in that tier), so the wash is present
+  behind the static drawing frame rather than absent.
+
+No other JG-023 behaviour, constant, flag or palette is touched by JG-026.
+
+Full context: [JG-026 verification §7](JG-026-b1-b2-verification.md).

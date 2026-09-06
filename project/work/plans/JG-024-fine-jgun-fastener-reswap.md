@@ -42,7 +42,11 @@ tessellation settings decide quality).
 - Bbox identical `[0.148, 0.272, 0.253]`. Materials 36 = 36, images 0 in both
   (untextured — the msp/m249 texture traps do not apply).
 - Only `Default.glb` is loaded at runtime (`MODEL_URL`, single `useGLTF`); the split
-  `jgun-gearbox.glb`/`jgun-handle.glb` derivatives have no runtime consumers.
+  derivatives have no runtime consumers. **Dropped from the sync 2026-09-05** (Mark's
+  call) — nothing loads them and this plan does not use them either, so they were
+  ~8 MB of dead payload on every deploy. Sources remain untouched at
+  `C:\Projects\CAD\RL300-SAFE\optimized\`; `scripts/sync-assets.ps1` carries the two
+  commented-out lines needed to restore them.
 
 ## Rig impact analysis (`src/scene/rig/nodeRoles.ts`)
 

@@ -1,0 +1,2543 @@
+{
+  "visualApproval": "pending Mark",
+  "failures": [],
+  "viewports": [
+    {
+      "viewport": {
+        "label": "desktop",
+        "width": 1920,
+        "height": 1080
+      },
+      "projectionMaxPixels": 0.000025217236592272967,
+      "registration": {
+        "sourceTriangles": 840975,
+        "primaryMatrix": [
+          2.207792207792208,
+          0,
+          0,
+          0,
+          0,
+          2.857142857142857,
+          0,
+          0,
+          0,
+          0,
+          -0.5012531328320802,
+          0,
+          0,
+          0,
+          -1.0050125313283207,
+          1
+        ],
+        "planeMatrix": [
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "profilePoints": 2449,
+        "perimeter": 1.2599999999999694,
+        "sheet": {
+          "width": 0.9058823529411764,
+          "height": 0.7,
+          "aspect": 1.2941176470588234
+        },
+        "views": [
+          {
+            "name": "front",
+            "rect": [
+              -0.2519,
+              -0.08725456672906876,
+              0.2930692678689957,
+              0.24850913345813752
+            ],
+            "label": "01 / SIDE ELEVATION · 1:1"
+          },
+          {
+            "name": "top",
+            "rect": [
+              -0.2519,
+              0.18325456672906876,
+              0.2930692678689957,
+              0.08986483350396156
+            ],
+            "label": "02 / PLAN · THIRD ANGLE"
+          },
+          {
+            "name": "right",
+            "rect": [
+              0.06316926786899565,
+              -0.08725456672906876,
+              0.08986483350396156,
+              0.24850913345813752
+            ],
+            "label": "03 / END · THIRD ANGLE"
+          },
+          {
+            "name": "section",
+            "rect": [
+              -0.2519,
+              -0.19911940023303032,
+              0.2930692678689957,
+              0.08986483350396156
+            ],
+            "label": "04 / SECTION A–A"
+          }
+        ],
+        "bounds": {
+          "min": [
+            -0.11518211662769318,
+            -0.03993332386016846,
+            -0.1406710296869278
+          ],
+          "max": [
+            0.12332701683044434,
+            0.039931509643793106,
+            0.14239823818206787
+          ]
+        },
+        "projectedFeatures": [
+          {
+            "id": "P000245",
+            "expected": [
+              -0.30780411944357033,
+              0.30101989041656935,
+              -0.9868546807200298
+            ],
+            "actual": [
+              -0.30780412158456116,
+              0.30101988751660297,
+              -0.986756470643595
+            ],
+            "errorPixels": 0.0000025839442089318953
+          },
+          {
+            "id": "P000245:minZ",
+            "expected": [
+              -0.18032181764851596,
+              0.30101989041656274,
+              -0.9868546804940184
+            ],
+            "actual": [
+              -0.18032183854288042,
+              0.3010198621152014,
+              -0.985896228403521
+            ],
+            "errorPixels": 0.000025217236592272967
+          },
+          {
+            "id": "P000245:maxZ",
+            "expected": [
+              -0.3349583858520814,
+              0.29833837401297236,
+              -0.9868546807702087
+            ],
+            "actual": [
+              -0.3349584026309043,
+              0.2983383512861012,
+              -0.9860850140087597
+            ],
+            "errorPixels": 0.00002025022335235099
+          },
+          {
+            "id": "P003068",
+            "expected": [
+              -0.12171704887843542,
+              0.3009177859146612,
+              -0.9868546803901964
+            ],
+            "actual": [
+              -0.12171704957958593,
+              0.3009177849649547,
+              -0.9868225176903369
+            ],
+            "errorPixels": 8.462127750836373e-7
+          },
+          {
+            "id": "P003068:minZ",
+            "expected": [
+              -0.12096472948289327,
+              0.3912698694868134,
+              -0.9868546803202123
+            ],
+            "actual": [
+              -0.12096474390881984,
+              0.39126984994693403,
+              -0.9861929440193806
+            ],
+            "errorPixels": 0.0000174105321130458
+          },
+          {
+            "id": "P003068:maxZ",
+            "expected": [
+              -0.16118810529719413,
+              0.38306532994087084,
+              -0.9868546803977576
+            ],
+            "actual": [
+              -0.161188119472158,
+              0.38306531074091976,
+              -0.9862044560871337
+            ],
+            "errorPixels": 0.000017107647300301675
+          },
+          {
+            "id": "P000095",
+            "expected": [
+              -0.3311464833258476,
+              0.3010615672799417,
+              -0.9868546807613814
+            ],
+            "actual": [
+              -0.33114649042840355,
+              0.3010615576595485,
+              -0.986528877142041
+            ],
+            "errorPixels": 0.000008572016326563245
+          },
+          {
+            "id": "P000095:minZ",
+            "expected": [
+              -0.27999559999076057,
+              0.3058962818997726,
+              -0.9868546806670233
+            ],
+            "actual": [
+              -0.27999561005554324,
+              0.3058962682670511,
+              -0.986392995795674
+            ],
+            "errorPixels": 0.000012147103420848207
+          },
+          {
+            "id": "P000095:maxZ",
+            "expected": [
+              -0.3663361866988193,
+              0.30101989041657257,
+              -0.9868546808238003
+            ],
+            "actual": [
+              -0.36633619581684285,
+              0.3010198780662339,
+              -0.9864364250462476
+            ],
+            "errorPixels": 0.000011004467583128509
+          },
+          {
+            "id": "A000606",
+            "expected": [
+              -0.21616019986069426,
+              0.27332567015900117,
+              -0.9868546805785979
+            ],
+            "actual": [
+              -0.21616020433959937,
+              0.27332566409233605,
+              -0.9866492272864865
+            ],
+            "errorPixels": 0.000005405553731394754
+          },
+          {
+            "id": "A000606:minZ",
+            "expected": [
+              -0.20744705632892918,
+              0.26626300803427383,
+              -0.9868546805685168
+            ],
+            "actual": [
+              -0.2074470635348833,
+              0.26626299827382804,
+              -0.9865241339377325
+            ],
+            "errorPixels": 0.000008696806744999043
+          },
+          {
+            "id": "A000606:maxZ",
+            "expected": [
+              -0.2557626962558472,
+              0.2954060177682169,
+              -0.9868546806320317
+            ],
+            "actual": [
+              -0.2557627084562059,
+              0.29540600124286326,
+              -0.9862950340652655
+            ],
+            "errorPixels": 0.000014724512596457737
+          },
+          {
+            "id": "K000004",
+            "expected": [
+              -0.20473627412457374,
+              0.2979843602746101,
+              -0.9868546805396087
+            ],
+            "actual": [
+              -0.20473627736685268,
+              0.2979843558829519,
+              -0.986705952923904
+            ],
+            "errorPixels": 0.0000039130797729707164
+          },
+          {
+            "id": "K000004:minZ",
+            "expected": [
+              -0.20399820971201393,
+              0.22968955659615367,
+              -0.9868546805901911
+            ],
+            "actual": [
+              -0.2039982239098443,
+              0.22968953736523004,
+              -0.9862034073642845
+            ],
+            "errorPixels": 0.000017135244662442796
+          },
+          {
+            "id": "K000004:maxZ",
+            "expected": [
+              -0.21434820865445706,
+              0.3061436023660449,
+              -0.9868546805504502
+            ],
+            "actual": [
+              -0.2143482120552482,
+              0.3061435977596823,
+              -0.9866986817701097
+            ],
+            "errorPixels": 0.000004104386849081091
+          },
+          {
+            "id": "A000591",
+            "expected": [
+              -0.18263420943202582,
+              0.31869131229859393,
+              -0.9868546804846909
+            ],
+            "actual": [
+              -0.1826342161014935,
+              0.31869130326481765,
+              -0.9865487431968717
+            ],
+            "errorPixels": 0.000008049325661905173
+          },
+          {
+            "id": "A000591:minZ",
+            "expected": [
+              -0.17358327568141366,
+              0.3156853463132357,
+              -0.9868546804709287
+            ],
+            "actual": [
+              -0.17358328343997287,
+              0.31568533580428776,
+              -0.9864987851141678
+            ],
+            "errorPixels": 0.000009363741296131895
+          },
+          {
+            "id": "A000591:maxZ",
+            "expected": [
+              -0.20400340936577568,
+              0.3055697239367465,
+              -0.986854680532546
+            ],
+            "actual": [
+              -0.20400342131874535,
+              0.30556970774648073,
+              -0.9863063820299893
+            ],
+            "errorPixels": 0.000014425940755285557
+          },
+          {
+            "id": "HANDLE",
+            "expected": [
+              0.0047899322687492635,
+              0.32246930920825567,
+              -0.986854680149539
+            ],
+            "actual": [
+              0.004789932210613691,
+              0.3224693091295113,
+              -0.9868520133939805
+            ],
+            "errorPixels": 7.016331849668082e-8
+          },
+          {
+            "id": "HANDLE:minZ",
+            "expected": [
+              0.052201943080427846,
+              0.21135442439514449,
+              -0.986854680149909
+            ],
+            "actual": [
+              0.05220192984153586,
+              0.2113544064631003,
+              -0.9862473946913114
+            ],
+            "errorPixels": 0.000015977909841190524
+          },
+          {
+            "id": "HANDLE:maxZ",
+            "expected": [
+              -0.137012579521217,
+              0.09431536157390924,
+              -0.9868546805742917
+            ],
+            "actual": [
+              -0.13701259118685283,
+              0.09431534577283643,
+              -0.9863195624562198
+            ],
+            "errorPixels": 0.000014079159898192877
+          }
+        ],
+        "crossing": 0.8888459503339448,
+        "contact": [
+          0.010016959952793378,
+          0.10634234769398712,
+          -8.298917109073045e-15
+        ],
+        "travel": 0.22,
+        "exactContact": [
+          0.010016959952793378,
+          0.10634234769398712,
+          -8.298917109073045e-15
+        ]
+      },
+      "release": {
+        "expected": {
+          "position": [
+            0.35719836734693877,
+            0.14937189504373177,
+            0.3708450145772595
+          ],
+          "target": [
+            0,
+            0.0019927696793002915,
+            -0.009299591836734693
+          ],
+          "fov": 41.202892128279885
+        },
+        "actual": {
+          "position": [
+            0.35719836734693877,
+            0.14937189504373183,
+            0.3708450145772595
+          ],
+          "target": [
+            0,
+            0.0019927696793002915,
+            -0.009299591836734693
+          ],
+          "fov": 41.202892128279885
+        },
+        "releaseDelta": {
+          "positionMeters": 5.551115123125783e-17,
+          "targetMeters": 0,
+          "fovDegrees": 0
+        },
+        "adjacent": {
+          "before": {
+            "position": [
+              0.35719836170446445,
+              0.1493718966559201,
+              0.3708450220333261
+            ],
+            "target": [
+              0,
+              0.0019927693770261054,
+              -0.009299590426121825
+            ],
+            "fov": 41.20289224918956
+          },
+          "at": {
+            "position": [
+              0.35719836734693877,
+              0.14937189504373183,
+              0.3708450145772595
+            ],
+            "target": [
+              0,
+              0.0019927696793002915,
+              -0.009299591836734693
+            ],
+            "fov": 41.202892128279885
+          },
+          "after": {
+            "position": [
+              0.35729312494223286,
+              0.14937189343160345,
+              0.3708435104257218
+            ],
+            "target": [
+              0,
+              0.0019927699815743523,
+              -0.00929959324734698
+            ],
+            "fov": 41.20289200737026
+          }
+        }
+      },
+      "detachment": {
+        "crossing": 0.8888459503339448,
+        "contacts": [
+          {
+            "t": 0.8888449503339447,
+            "point": [
+              0.010016828145088044,
+              0.10634245233052284,
+              -9.32713206162894e-7
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          },
+          {
+            "t": 0.8888459503339448,
+            "point": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          },
+          {
+            "t": 0.8888469503339448,
+            "point": [
+              0.010017091760505858,
+              0.1063422430574968,
+              9.327189652713619e-7
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          }
+        ],
+        "contactProjection": {
+          "contactPixels": [
+            947.0283295094358,
+            684.3350664124649
+          ],
+          "originPixels": [
+            947.0283295094358,
+            684.3350664124649
+          ],
+          "differencePixels": 0
+        },
+        "contactFile": "desktop-computed-contact.png",
+        "waveFile": "desktop-surface-wave.png"
+      },
+      "pulse": [
+        {
+          "head": 0.15384615384615394,
+          "arc": 0.15400326251983643,
+          "vertex": 754,
+          "pixels": [
+            956.0295993065055,
+            466.6237234063804
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.34615384615384615,
+          "arc": 0.3464052379131317,
+          "vertex": 1696,
+          "pixels": [
+            869.407058033785,
+            330.21681392081
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.5384615384615383,
+          "arc": 0.538807213306427,
+          "vertex": 2638,
+          "pixels": [
+            610.0482274091396,
+            387.41142602663797
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.7307692307692306,
+          "arc": 0.7308006286621094,
+          "vertex": 3578,
+          "pixels": [
+            848.8068727668563,
+            465.47675278809743
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.923076923076923,
+          "arc": 0.923202633857727,
+          "vertex": 4520,
+          "pixels": [
+            915.805142842463,
+            606.7170128992724
+          ],
+          "visible": true,
+          "intensity": 1
+        }
+      ],
+      "lite": [
+        {
+          "local": 0.2,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0,
+                0.9910664920030766,
+                0
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "fov": 42
+            },
+            "cameraUp": [
+              -1,
+              0,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.2,
+              "poseT": 0.14285714285714288,
+              "focus": 1,
+              "pulseHead": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "travel": 0.22,
+              "localZ": -0.039931509643793106,
+              "minZ": -0.07986483350396156,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.037000000000000005,
+                -0.039931509643793106,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              2.220446049250313e-16,
+              1.9540102774717738e-7,
+              -0.9999999999999808,
+              0,
+              -0.9999999999999871,
+              1.5910753914383235e-7,
+              3.097522238704187e-14,
+              0,
+              1.5910753903281005e-7,
+              0.9999999999999681,
+              1.9540102791371083e-7,
+              0,
+              1.5768608740537906e-7,
+              0.9910660953818619,
+              1.9225977394445688e-7,
+              1
+            ]
+          },
+          "file": "desktop-lite-0.2.png"
+        },
+        {
+          "local": 0.3,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0,
+                0.9910664920030766,
+                0
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "fov": 42
+            },
+            "cameraUp": [
+              -1,
+              0,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.3,
+              "poseT": 0.2142857142857143,
+              "focus": 1,
+              "pulseHead": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "travel": 0.22,
+              "localZ": -0.039931509643793106,
+              "minZ": -0.07986483350396156,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.037000000000000005,
+                -0.039931509643793106,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              1.1102230246251565e-16,
+              3.9371951809918926e-8,
+              -0.9999999999999991,
+              0,
+              -0.9999999999999994,
+              3.2059065846468116e-8,
+              1.2212453270876722e-15,
+              0,
+              3.2059065790956964e-8,
+              0.9999999999999987,
+              3.937195192094123e-8,
+              0,
+              3.1772663069497046e-8,
+              0.9910664120866273,
+              3.873902333343402e-8,
+              1
+            ]
+          },
+          "file": "desktop-lite-0.3.png"
+        },
+        {
+          "local": 0.65,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0.09571884142333538,
+                0.7534533537365992,
+                0.11312253438025947
+              ],
+              "target": [
+                0,
+                0.0002544090506007093,
+                -0.0011872422361366437
+              ],
+              "fov": 41.898236379759716
+            },
+            "cameraUp": [
+              -0.929372549662068,
+              0.36914314829700806,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.65,
+              "poseT": 0.6506603596754621,
+              "focus": 1,
+              "pulseHead": 1,
+              "pulse": 0,
+              "pbr": 0.9719999999999998,
+              "travel": 0.22,
+              "localZ": -0.03323019031423021,
+              "minZ": -0.11988671735391607,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                0.9635817590534015,
+                -0.2674138994509308,
+                0,
+                0,
+                0.24250213405586,
+                0.8738163326122351,
+                -0.42147091458184577,
+                0,
+                0.11270718077348155,
+                0.4061216852626209,
+                0.9068419201611395,
+                0,
+                -0.037000000000000005,
+                -0.03323019031423021,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              0.05670301221825913,
+              0.14275823154762235,
+              -0.9881320031912595,
+              0,
+              -0.9905774467144637,
+              0.131626155584331,
+              -0.03782693784518182,
+              0,
+              0.12466391003826938,
+              0.9809661780568608,
+              0.14887668401225684,
+              0,
+              0.09571867054949044,
+              0.7534537779150561,
+              0.11312233243796682,
+              1
+            ]
+          },
+          "file": "desktop-lite-0.65.png"
+        },
+        {
+          "local": 0.95,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0.34533344577147795,
+                0.17061118484892857,
+                0.3661834108377788
+              ],
+              "target": [
+                0,
+                0.0017708488827922568,
+                -0.008263961453030532
+              ],
+              "fov": 41.2916604468831
+            },
+            "cameraUp": [
+              -0.0247217214952582,
+              0.9996943715387772,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.95,
+              "poseT": 0.961484552086325,
+              "focus": 1,
+              "pulseHead": 1,
+              "pulse": 0,
+              "pbr": 1,
+              "travel": 0.22,
+              "localZ": 0.1287894076972519,
+              "minZ": 0.08370605781236912,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0.8967366157920061,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.03532701750483561,
+                -0.17192655975359575,
+                -0.10060119274052451,
+                1
+              ],
+              "modelMatrix": [
+                0.9984276693402532,
+                -0.056055232546035734,
+                0,
+                0,
+                0.05582767628304498,
+                0.994374551388864,
+                -0.09001401063740615,
+                0,
+                0.005045756298681136,
+                0.08987247884867418,
+                0.9959404991709941,
+                0,
+                -0.001672982495164392,
+                -0.04313715205634386,
+                0.004764173324977666,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              0.7309119486577709,
+              0.018074925844046325,
+              -0.6822323800326634,
+              0,
+              -0.22726357702345676,
+              0.9490419982558244,
+              -0.21833586994604254,
+              0,
+              0.6435207765626557,
+              0.314630867211601,
+              0.6977739086049811,
+              0,
+              0.34533328246493883,
+              0.17061156616451612,
+              0.36618324527655943,
+              1
+            ]
+          },
+          "file": "desktop-lite-0.95.png"
+        }
+      ],
+      "poster": {
+        "canvas": 0,
+        "text": "DWG NO. RL-300 · REV C · SCALE 1:1\n\nIndustrial Pneumatic Torque Wrench\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTOL ±.0015\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nCH.02 X-RAY / EXPLODE\n\nInside the Reduction Train\n\nHousing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.\n\nZero to Prototype: Planetary Reduction at Full Torque\n\nA multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.\n\n▸\nDesigned and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.\n▸\nControlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.\n▸\nTook the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.\n7-AXIS MILL-TURN\nHEAT-TREAT CONTROL\nASME Y14.5\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .0015\" TIR",
+        "file": "desktop-poster.png"
+      },
+      "reduced": {
+        "staticIdentity": true,
+        "staticResidual": 2.9695355940884127e-7,
+        "frame": {
+          "cameraGoal": {
+            "position": [
+              0,
+              0.9910664920030766,
+              0
+            ],
+            "target": [
+              0,
+              0,
+              0
+            ],
+            "fov": 42
+          },
+          "cameraUp": [
+            -1,
+            0,
+            0
+          ],
+          "drawing": {
+            "lineOpacity": 1,
+            "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+            "phase": 0.2,
+            "poseT": 0.14285714285714288,
+            "focus": 1,
+            "pulseHead": 0,
+            "pulse": 0,
+            "pbr": 0,
+            "travel": 0.22,
+            "localZ": -0.039931509643793106,
+            "minZ": -0.07986483350396156,
+            "crossing": 0.8888459503339448,
+            "contact": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ],
+            "waveTime": 0,
+            "waveEnabled": 0,
+            "pulseLuminance": 0,
+            "profilePoints": 2449,
+            "planeMatrix": [
+              0,
+              0,
+              -1,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "modelMatrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              -0.037000000000000005,
+              -0.039931509643793106,
+              0.10536536606550218,
+              1
+            ],
+            "annotationsReady": true,
+            "leaderCrossings": 0
+          },
+          "rig": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "stageRot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "planetRot": 0,
+            "gearRotation": 0,
+            "shift": 0,
+            "ghostOpacity": 1,
+            "ghostCount": 1,
+            "explodeFactor": 0,
+            "ringSwitchZ": 0,
+            "ringSwitchRotZ": 0
+          },
+          "actualCamera": [
+            -2.220446049250313e-16,
+            2.0076585288686388e-7,
+            -0.99999999999998,
+            0,
+            -0.9999999999999885,
+            1.5296445921020307e-7,
+            3.0753177782116836e-14,
+            0,
+            1.5296445937673653e-7,
+            0.9999999999999682,
+            2.0076585283135273e-7,
+            0,
+            1.5159788982298235e-7,
+            0.9910660982908063,
+            1.9897223039266428e-7,
+            1
+          ]
+        },
+        "file": "desktop-reduced-motion.png"
+      },
+      "errors": []
+    },
+    {
+      "viewport": {
+        "label": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "projectionMaxPixels": 0.0000025524188547295367,
+      "registration": {
+        "sourceTriangles": 840975,
+        "primaryMatrix": [
+          2.207792207792208,
+          0,
+          0,
+          0,
+          0,
+          2.857142857142857,
+          0,
+          0,
+          0,
+          0,
+          -0.5012531328320802,
+          0,
+          0,
+          0,
+          -1.0050125313283207,
+          1
+        ],
+        "planeMatrix": [
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "profilePoints": 2449,
+        "perimeter": 1.2599999999999694,
+        "sheet": {
+          "width": 0.9058823529411764,
+          "height": 0.7,
+          "aspect": 1.2941176470588234
+        },
+        "views": [
+          {
+            "name": "front",
+            "rect": [
+              -0.2519,
+              -0.08725456672906876,
+              0.2930692678689957,
+              0.24850913345813752
+            ],
+            "label": "01 / SIDE ELEVATION · 1:1"
+          },
+          {
+            "name": "top",
+            "rect": [
+              -0.2519,
+              0.18325456672906876,
+              0.2930692678689957,
+              0.08986483350396156
+            ],
+            "label": "02 / PLAN · THIRD ANGLE"
+          },
+          {
+            "name": "right",
+            "rect": [
+              0.06316926786899565,
+              -0.08725456672906876,
+              0.08986483350396156,
+              0.24850913345813752
+            ],
+            "label": "03 / END · THIRD ANGLE"
+          },
+          {
+            "name": "section",
+            "rect": [
+              -0.2519,
+              -0.19911940023303032,
+              0.2930692678689957,
+              0.08986483350396156
+            ],
+            "label": "04 / SECTION A–A"
+          }
+        ],
+        "bounds": {
+          "min": [
+            -0.11518211662769318,
+            -0.03993332386016846,
+            -0.1406710296869278
+          ],
+          "max": [
+            0.12332701683044434,
+            0.039931509643793106,
+            0.14239823818206787
+          ]
+        },
+        "projectedFeatures": [
+          {
+            "id": "P000245",
+            "expected": [
+              -1.1842127719798727,
+              0.30101989034801724,
+              -0.9639781432810082
+            ],
+            "actual": [
+              -1.1842127730467293,
+              0.3010198899724145,
+              -0.9638799332045734
+            ],
+            "errorPixels": 2.615397421179701e-7
+          },
+          {
+            "id": "P000245:minZ",
+            "expected": [
+              -0.6937509476378654,
+              0.3010198903480168,
+              -0.9639781432517353
+            ],
+            "actual": [
+              -0.6937509580495316,
+              0.3010198866824335,
+              -0.963019691161238
+            ],
+            "errorPixels": 0.0000025524188547295367
+          },
+          {
+            "id": "P000245:maxZ",
+            "expected": [
+              -1.2886832031994,
+              0.29833837394441887,
+              -0.9639781432875073
+            ],
+            "actual": [
+              -1.288683211560291,
+              0.29833837100084176,
+              -0.9632084765260583
+            ],
+            "errorPixels": 0.0000020496715479109702
+          },
+          {
+            "id": "P003068",
+            "expected": [
+              -0.46828120476858276,
+              0.30091778584611806,
+              -0.9639781432382883
+            ],
+            "actual": [
+              -0.46828120511796617,
+              0.30091778572311245,
+              -0.9639459805384288
+            ],
+            "errorPixels": 8.565128907967467e-8
+          },
+          {
+            "id": "P003068:minZ",
+            "expected": [
+              -0.4653868112878415,
+              0.39126986941827124,
+              -0.9639781432292239
+            ],
+            "actual": [
+              -0.4653868184762838,
+              0.3912698668874723,
+              -0.9633164069283923
+            ],
+            "errorPixels": 0.0000017622458691461446
+          },
+          {
+            "id": "P003068:maxZ",
+            "expected": [
+              -0.6201379414862258,
+              0.3830653298723266,
+              -0.9639781432392676
+            ],
+            "actual": [
+              -0.6201379485496133,
+              0.3830653273855551,
+              -0.9633279189286436
+            ],
+            "errorPixels": 0.0000017315886906664708
+          },
+          {
+            "id": "P000095",
+            "expected": [
+              -1.2740176955884992,
+              0.3010615672113883,
+              -0.963978143286364
+            ],
+            "actual": [
+              -1.2740176991277044,
+              0.3010615659653581,
+              -0.9636523396670236
+            ],
+            "errorPixels": 8.676357527410472e-7
+          },
+          {
+            "id": "P000095:minZ",
+            "expected": [
+              -1.0772252373101436,
+              0.3058962818312218,
+              -0.9639781432741429
+            ],
+            "actual": [
+              -1.077225242325427,
+              0.3058962800655161,
+              -0.9635164584027935
+            ],
+            "errorPixels": 0.0000012294961563262926
+          },
+          {
+            "id": "P000095:maxZ",
+            "expected": [
+              -1.4094028107875356,
+              0.3010198903480175,
+              -0.9639781432944485
+            ],
+            "actual": [
+              -1.4094028153310487,
+              0.3010198887484057,
+              -0.9635598875168958
+            ],
+            "errorPixels": 0.000001113841723983782
+          },
+          {
+            "id": "A000606",
+            "expected": [
+              -0.8316317206843796,
+              0.2733256700904531,
+              -0.9639781432626899
+            ],
+            "actual": [
+              -0.8316317229162191,
+              0.2733256693047006,
+              -0.9637726899705785
+            ],
+            "errorPixels": 5.471351981379438e-7
+          },
+          {
+            "id": "A000606:minZ",
+            "expected": [
+              -0.7981097006692921,
+              0.2662630079657262,
+              -0.9639781432613843
+            ],
+            "actual": [
+              -0.7981097042600206,
+              0.2662630067015564,
+              -0.9636475966305998
+            ],
+            "errorPixels": 8.802667034507702e-7
+          },
+          {
+            "id": "A000606:maxZ",
+            "expected": [
+              -0.9839941455619167,
+              0.29540601769966723,
+              -0.9639781432696107
+            ],
+            "actual": [
+              -0.9839941516413578,
+              0.2954060155593087,
+              -0.9634184967028445
+            ],
+            "errorPixels": 0.000001490374375915264
+          },
+          {
+            "id": "K000004",
+            "expected": [
+              -0.7876805260574354,
+              0.2979843602060629,
+              -0.9639781432576402
+            ],
+            "actual": [
+              -0.7876805276730636,
+              0.2979843596372568,
+              -0.9638294156419352
+            ],
+            "errorPixels": 3.9607107017112404e-7
+          },
+          {
+            "id": "K000004:minZ",
+            "expected": [
+              -0.7848409756793137,
+              0.22968955652760575,
+              -0.9639781432641915
+            ],
+            "actual": [
+              -0.7848409827540955,
+              0.22968955403682265,
+              -0.9633268700382849
+            ],
+            "errorPixels": 0.000001734382022682472
+          },
+          {
+            "id": "K000004:maxZ",
+            "expected": [
+              -0.8246604587900698,
+              0.3061436022974974,
+              -0.9639781432590443
+            ],
+            "actual": [
+              -0.8246604604846847,
+              0.3061436017008828,
+              -0.9638221444787038
+            ],
+            "errorPixels": 4.1543465857563683e-7
+          },
+          {
+            "id": "A000591",
+            "expected": [
+              -0.7026473973941383,
+              0.318691312230048,
+              -0.9639781432505271
+            ],
+            "actual": [
+              -0.7026474007175355,
+              0.31869131105999615,
+              -0.963672205962708
+            ],
+            "errorPixels": 8.147304696665855e-7
+          },
+          {
+            "id": "A000591:minZ",
+            "expected": [
+              -0.6678257992835201,
+              0.3156853462446902,
+              -0.9639781432487448
+            ],
+            "actual": [
+              -0.6678258031496118,
+              0.31568534488357464,
+              -0.9636222478919837
+            ],
+            "errorPixels": 9.477719546896564e-7
+          },
+          {
+            "id": "A000591:maxZ",
+            "expected": [
+              -0.7848609802731593,
+              0.3055697238681994,
+              -0.9639781432567254
+            ],
+            "actual": [
+              -0.7848609862293267,
+              0.3055697217712414,
+              -0.9634298447541686
+            ],
+            "errorPixels": 0.0000014601537679608783
+          },
+          {
+            "id": "HANDLE",
+            "expected": [
+              0.018428274835865587,
+              0.32246930913971894,
+              -0.9639781432071184
+            ],
+            "actual": [
+              0.01842827480689662,
+              0.32246930912952004,
+              -0.9639754764515599
+            ],
+            "errorPixels": 7.101723131618904e-9
+          },
+          {
+            "id": "HANDLE:minZ",
+            "expected": [
+              0.2008361933546458,
+              0.2113544243266089,
+              -0.9639781432071662
+            ],
+            "actual": [
+              0.2008361867577032,
+              0.21135442200405627,
+              -0.9633708577485688
+            ],
+            "errorPixels": 0.0000016172397766362975
+          },
+          {
+            "id": "HANDLE:maxZ",
+            "expected": [
+              -0.5271275995834339,
+              0.09431536150536324,
+              -0.9639781432621323
+            ],
+            "actual": [
+              -0.5271276053964228,
+              0.09431535945881332,
+              -0.9634430251440602
+            ],
+            "errorPixels": 0.0000014250535937306445
+          }
+        ],
+        "crossing": 0.8888459503339448,
+        "contact": [
+          0.010016959952793378,
+          0.10634234769398712,
+          -8.298917109073045e-15
+        ],
+        "travel": 0.22,
+        "exactContact": [
+          0.010016959952793378,
+          0.10634234769398712,
+          -8.298917109073045e-15
+        ]
+      },
+      "release": {
+        "expected": {
+          "position": [
+            0.35719836734693877,
+            0.14937189504373177,
+            0.3708450145772595
+          ],
+          "target": [
+            0,
+            0.0019927696793002915,
+            -0.009299591836734693
+          ],
+          "fov": 41.202892128279885
+        },
+        "actual": {
+          "position": [
+            0.35719836734693877,
+            0.14937189504373172,
+            0.3708450145772595
+          ],
+          "target": [
+            0,
+            0.0019927696793002915,
+            -0.009299591836734691
+          ],
+          "fov": 41.202892128279885
+        },
+        "releaseDelta": {
+          "positionMeters": 5.551115123125783e-17,
+          "targetMeters": 1.734723475976807e-18,
+          "fovDegrees": 0
+        },
+        "adjacent": {
+          "before": {
+            "position": [
+              0.35719836170446345,
+              0.14937189665591188,
+              0.37084502203333364
+            ],
+            "target": [
+              -9.8879238130678e-16,
+              0.0019927693770261054,
+              -0.009299590426114307
+            ],
+            "fov": 41.20289224918956
+          },
+          "at": {
+            "position": [
+              0.35719836734693877,
+              0.14937189504373172,
+              0.3708450145772595
+            ],
+            "target": [
+              0,
+              0.0019927696793002915,
+              -0.009299591836734691
+            ],
+            "fov": 41.202892128279885
+          },
+          "after": {
+            "position": [
+              0.357293118662182,
+              0.14937189343160345,
+              0.3708435106241632
+            ],
+            "target": [
+              0,
+              0.0019927699815743523,
+              -0.00929959324734698
+            ],
+            "fov": 41.20289200737026
+          }
+        }
+      },
+      "detachment": {
+        "crossing": 0.8888459503339448,
+        "contacts": [
+          {
+            "t": 0.8888449503339447,
+            "point": [
+              0.010016828145088044,
+              0.10634245233052284,
+              -9.32713206162894e-7
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          },
+          {
+            "t": 0.8888459503339448,
+            "point": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          },
+          {
+            "t": 0.8888469503339448,
+            "point": [
+              0.010017091760505858,
+              0.1063422430574968,
+              9.327189652713619e-7
+            ],
+            "rippleOrigin": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ]
+          }
+        ],
+        "contactProjection": {
+          "contactPixels": [
+            198.46248768374377,
+            536.6651227553195
+          ],
+          "originPixels": [
+            198.46248768374377,
+            536.6651227553195
+          ],
+          "differencePixels": 0
+        },
+        "contactFile": "mobile-computed-contact.png",
+        "waveFile": "mobile-surface-wave.png"
+      },
+      "pulse": [
+        {
+          "head": 0.15384615384615394,
+          "arc": 0.15400326251983643,
+          "vertex": 754,
+          "pixels": [
+            308.77442654420076,
+            380.0288379328644
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.34615384615384615,
+          "arc": 0.3464052379131317,
+          "vertex": 1696,
+          "pixels": [
+            241.08055502415388,
+            273.4293695032399
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.5384615384615383,
+          "arc": 0.538807213306427,
+          "vertex": 2638,
+          "pixels": [
+            38.396446653259616,
+            318.125901642976
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.7307692307692306,
+          "arc": 0.7308006286621094,
+          "vertex": 3578,
+          "pixels": [
+            223.97729122786345,
+            378.94966719977447
+          ],
+          "visible": true,
+          "intensity": 1
+        },
+        {
+          "head": 0.923076923076923,
+          "arc": 0.923202633857727,
+          "vertex": 4520,
+          "pixels": [
+            271.22409204885884,
+            488.9367623973948
+          ],
+          "visible": true,
+          "intensity": 1
+        }
+      ],
+      "lite": [
+        {
+          "local": 0.2,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0,
+                1.0043569181062506,
+                -0.14623599999999998
+              ],
+              "target": [
+                0,
+                0,
+                -0.14623599999999998
+              ],
+              "fov": 42
+            },
+            "cameraUp": [
+              -1,
+              0,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.2,
+              "poseT": 0.14285714285714288,
+              "focus": 1,
+              "pulseHead": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "travel": 0.22,
+              "localZ": -0.039931509643793106,
+              "minZ": -0.07986483350396156,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.037000000000000005,
+                -0.039931509643793106,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              -4.440892098500626e-16,
+              3.569939865943894e-8,
+              -0.9999999999999996,
+              0,
+              -0.9999999999999997,
+              2.9068647044994123e-8,
+              1.1657341758564144e-15,
+              0,
+              2.9068647100505274e-8,
+              0.9999999999999991,
+              3.569939854841664e-8,
+              0,
+              9.863866453050744e-9,
+              1.0043566639942223,
+              -0.14623560053512877,
+              1
+            ]
+          },
+          "file": "mobile-lite-0.2.png"
+        },
+        {
+          "local": 0.3,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                -0.013857064350873971,
+                0.8756822858336104,
+                0.10536536606550218
+              ],
+              "target": [
+                -0.013857064350873971,
+                0,
+                0.10536536606550218
+              ],
+              "fov": 42
+            },
+            "cameraUp": [
+              -1,
+              0,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.3,
+              "poseT": 0.2142857142857143,
+              "focus": 1,
+              "pulseHead": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "travel": 0.22,
+              "localZ": -0.039931509643793106,
+              "minZ": -0.07986483350396156,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.037000000000000005,
+                -0.039931509643793106,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              -2.220446049250313e-16,
+              4.8960835385969403e-14,
+              -1,
+              0,
+              -1,
+              3.9745984281580604e-14,
+              1.1102230246251565e-16,
+              0,
+              3.985700658404312e-14,
+              1,
+              4.884981308350689e-14,
+              0,
+              -0.013857041985672405,
+              0.8756824935131221,
+              0.10536495998341022,
+              1
+            ]
+          },
+          "file": "mobile-lite-0.3.png"
+        },
+        {
+          "local": 0.65,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0.08580107512536571,
+                0.6708706679462036,
+                0.1885345444624503
+              ],
+              "target": [
+                -0.009917766297969673,
+                0.0002544090506007093,
+                0.07422476784605417
+              ],
+              "fov": 41.898236379759716
+            },
+            "cameraUp": [
+              -0.929372549662068,
+              0.36914314829700806,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.65,
+              "poseT": 0.6506603596754621,
+              "focus": 1,
+              "pulseHead": 1,
+              "pulse": 0,
+              "pbr": 0.9719999999999998,
+              "travel": 0.22,
+              "localZ": -0.03323019031423021,
+              "minZ": -0.11988671735391607,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "modelMatrix": [
+                0.9635817590534015,
+                -0.2674138994509308,
+                0,
+                0,
+                0.24250213405586,
+                0.8738163326122351,
+                -0.42147091458184577,
+                0,
+                0.11270718077348155,
+                0.4061216852626209,
+                0.9068419201611395,
+                0,
+                -0.037000000000000005,
+                -0.03323019031423021,
+                0.10536536606550218,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              0.06312760274647089,
+              0.15893308974906717,
+              -0.985269089515295,
+              0,
+              -0.9882317178304424,
+              0.147781915322876,
+              -0.03947882188458629,
+              0,
+              0.13933046201522592,
+              0.976166368241765,
+              0.16639183834643578,
+              0,
+              0.08580087858729997,
+              0.6708710718601528,
+              0.1885343804420744,
+              1
+            ]
+          },
+          "file": "mobile-lite-0.65.png"
+        },
+        {
+          "local": 0.95,
+          "frame": {
+            "cameraGoal": {
+              "position": [
+                0.3449990401642704,
+                0.16782667547888863,
+                0.3687261405477373
+              ],
+              "target": [
+                -0.0003344056072074955,
+                0.0017708488827922568,
+                -0.005721231743072014
+              ],
+              "fov": 41.2916604468831
+            },
+            "cameraUp": [
+              -0.0247217214952582,
+              0.9996943715387772,
+              0
+            ],
+            "drawing": {
+              "lineOpacity": 1,
+              "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+              "phase": 0.95,
+              "poseT": 0.961484552086325,
+              "focus": 1,
+              "pulseHead": 1,
+              "pulse": 0,
+              "pbr": 1,
+              "travel": 0.22,
+              "localZ": 0.1287894076972519,
+              "minZ": 0.08370605781236912,
+              "crossing": 0.8888459503339448,
+              "contact": [
+                0.010016959952793378,
+                0.10634234769398712,
+                -8.298917109073045e-15
+              ],
+              "waveTime": 0.8967366157920061,
+              "waveEnabled": 0,
+              "pulseLuminance": 0,
+              "profilePoints": 2449,
+              "planeMatrix": [
+                0,
+                0,
+                -1,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.03532701750483561,
+                -0.17192655975359575,
+                -0.10060119274052451,
+                1
+              ],
+              "modelMatrix": [
+                0.9984276693402532,
+                -0.056055232546035734,
+                0,
+                0,
+                0.05582767628304498,
+                0.994374551388864,
+                -0.09001401063740615,
+                0,
+                0.005045756298681136,
+                0.08987247884867418,
+                0.9959404991709941,
+                0,
+                -0.001672982495164392,
+                -0.04313715205634386,
+                0.004764173324977666,
+                1
+              ],
+              "annotationsReady": true,
+              "leaderCrossings": 0
+            },
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "actualCamera": [
+              0.7309789767833834,
+              0.018076583401296767,
+              -0.6821605182310494,
+              0,
+              -0.2240655044923862,
+              0.9505829051355723,
+              -0.21491112153769046,
+              0,
+              0.6445652683765163,
+              0.309944152383218,
+              0.6989064581230869,
+              0,
+              0.34499887038432164,
+              0.16782700498296413,
+              0.36872602251855807,
+              1
+            ]
+          },
+          "file": "mobile-lite-0.95.png"
+        }
+      ],
+      "poster": {
+        "canvas": 0,
+        "text": "DWG NO. RL-300 · REV C · SCALE 1:1\n\nIndustrial Pneumatic Torque Wrench\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nCH.02 X-RAY / EXPLODE\n\nInside the Reduction Train\n\nHousing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.\n\nZero to Prototype: Planetary Reduction at Full Torque\n\nA multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.\n\n▸\nDesigned and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.\n▸\nControlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.\n▸\nTook the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.\n7-AXIS MILL-TURN\nHEAT-TREAT CONTROL\nASME Y14.5\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .0015\" TIR",
+        "file": "mobile-poster.png"
+      },
+      "reduced": {
+        "staticIdentity": true,
+        "staticResidual": 2.9600170381449686e-7,
+        "frame": {
+          "cameraGoal": {
+            "position": [
+              0,
+              1.0043569181062506,
+              -0.14623599999999998
+            ],
+            "target": [
+              0,
+              0,
+              -0.14623599999999998
+            ],
+            "fov": 42
+          },
+          "cameraUp": [
+            -1,
+            0,
+            0
+          ],
+          "drawing": {
+            "lineOpacity": 1,
+            "edgeSource": "Default.glb:orthographic-depth+crease+silhouette",
+            "phase": 0.2,
+            "poseT": 0.14285714285714288,
+            "focus": 1,
+            "pulseHead": 0,
+            "pulse": 0,
+            "pbr": 0,
+            "travel": 0.22,
+            "localZ": -0.039931509643793106,
+            "minZ": -0.07986483350396156,
+            "crossing": 0.8888459503339448,
+            "contact": [
+              0.010016959952793378,
+              0.10634234769398712,
+              -8.298917109073045e-15
+            ],
+            "waveTime": 0,
+            "waveEnabled": 0,
+            "pulseLuminance": 0,
+            "profilePoints": 2449,
+            "planeMatrix": [
+              0,
+              0,
+              -1,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "modelMatrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              -0.037000000000000005,
+              -0.039931509643793106,
+              0.10536536606550218,
+              1
+            ],
+            "annotationsReady": true,
+            "leaderCrossings": 0
+          },
+          "rig": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "stageRot": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "planetRot": 0,
+            "gearRotation": 0,
+            "shift": 0,
+            "ghostOpacity": 1,
+            "ghostCount": 1,
+            "explodeFactor": 0,
+            "ringSwitchZ": 0,
+            "ringSwitchRotZ": 0
+          },
+          "actualCamera": [
+            1.1102230246251565e-16,
+            2.0935224931406538e-7,
+            -0.999999999999978,
+            0,
+            -0.9999999999999871,
+            1.5950647580531552e-7,
+            3.3362201889985954e-14,
+            0,
+            1.5950647563878206e-7,
+            0.9999999999999651,
+            2.0935224942508768e-7,
+            0,
+            1.6020136476908595e-7,
+            1.0043564953964677,
+            -0.14623571652568748,
+            1
+          ]
+        },
+        "file": "mobile-reduced-motion.png"
+      },
+      "errors": []
+    }
+  ],
+  "status": "supplemental-gates-passed-owner-pending"
+}

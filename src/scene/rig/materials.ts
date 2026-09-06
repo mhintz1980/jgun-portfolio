@@ -119,6 +119,8 @@ export function materialRoleFor(unitKey: string, nodeName: string): MaterialRole
 }
 
 const roleMaterials = new Map<MaterialRole, Material>()
+/** All live role cases share the B1 flat-to-PBR activation; no node-name override path. */
+export const introPbrActivation = { value: 1 }
 
 const KNURL_TEXTURE_SIZE = 256
 const KNURL_REPEAT = new Vector2(30, 8)
@@ -393,6 +395,18 @@ export function roleMaterial(role: MaterialRole): Material {
       break
   }
 
+  const ready=material as MeshStandardMaterial
+  const compile=ready.onBeforeCompile.bind(ready)
+  const cacheKey=ready.customProgramCacheKey.bind(ready)
+  const originalKey=cacheKey()
+  ready.onBeforeCompile=(shader,renderer)=>{
+    compile(shader,renderer)
+    shader.uniforms.uIntroPbr=introPbrActivation
+    shader.fragmentShader='uniform float uIntroPbr;\n'+shader.fragmentShader
+    shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',
+      'outgoingLight = mix(vec3(0.004, 0.021, 0.037), outgoingLight, uIntroPbr);\n#include <opaque_fragment>')
+  }
+  ready.customProgramCacheKey=()=>originalKey+'-intro-pbr-v1'
   roleMaterials.set(role, material as Material)
   return material as Material
 }

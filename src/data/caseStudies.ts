@@ -51,12 +51,27 @@ export const CHAPTERS: ChapterDef[] = [
 ]
 
 /**
- * CH.01 machine-identity lines, reused verbatim from StaticPoster.tsx (same
- * Honey-drafted vocabulary) so the full-tier opening viewport names the machine
- * itself, not just the role title.
+ * CH.01 machine identity — the ONLY place the station-1 tool is named for the
+ * visitor. Every displayed surface (StaticPoster, BootSequence, the drawing
+ * sheet title block, the HUD station list) reads from here so the public
+ * nomenclature cannot drift apart again.
+ *
+ * Nomenclature rule (Mark, 2026-09-05):
+ *  - `PTG-HP-1000 REV03` and "High-Precision Industrial Torque Gun" are the
+ *    only public designations for this machine.
+ *  - `D1-AP` is the in-house part number shared between Mark and his partner.
+ *    It must NEVER reach the screen. It stays in source comments and in
+ *    `nodeRoles.ts`, which substring-matches the CAD node names exported under
+ *    that number — renaming it there would break role classification for all
+ *    316 occurrences in `role-map.json`.
+ *  - `JGUN` is likewise in-house and is never displayed.
+ *  - `RL300` designates the station-2 acoustic enclosure ONLY, never this tool
+ *    and never the site as a whole.
  */
 export const ASSEMBLY_IDENTITY = {
-  machine: 'Industrial Pneumatic Torque Wrench',
+  machine: 'High-Precision Industrial Torque Gun',
+  drawingNumber: 'PTG-HP-1000',
+  revision: 'REV03',
   spec: 'Multi-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T',
 } as const
 
@@ -559,7 +574,7 @@ export const HOTSPOTS: HotspotDef[] = [
     kind: 'inspect',
     label: 'GEARBOX HOUSING',
     detail:
-      'Outer housing of the D1-AP planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
+      'Outer housing of the planetary gearbox — ring gears and 4-planet carriers run inside this shell.',
     annotation: {
       frame: {
         characteristic: 'POSITION',

@@ -5,6 +5,8 @@
  * a blueprint grid, so the site still opens with intent instead of a blank
  * void. The case-study narrative in <Chapters> renders on top as usual.
  */
+import { ASSEMBLY_IDENTITY } from '../data/caseStudies'
+
 export function StaticPoster() {
   return (
     <div
@@ -20,13 +22,13 @@ export function StaticPoster() {
 
       <div className="absolute left-1/2 top-1/2 w-[min(52rem,84vw)] -translate-x-1/2 -translate-y-1/2 select-none">
         <p className="font-mono text-xs tracking-[0.4em] text-cyan-400">
-          DWG NO. RL-300 · REV C · SCALE 1:1
+          DWG NO. {ASSEMBLY_IDENTITY.drawingNumber} · {ASSEMBLY_IDENTITY.revision} · SCALE 1:1
         </p>
         <h1 className="mt-4 text-4xl font-semibold text-zinc-100 md:text-6xl">
-          Industrial Pneumatic Torque Wrench
+          {ASSEMBLY_IDENTITY.machine}
         </h1>
         <p className="mt-3 max-w-xl text-zinc-400">
-          Multi-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&amp;T
+          {ASSEMBLY_IDENTITY.spec}
         </p>
         <p className="mt-8 font-mono text-[10px] tracking-widest text-cyan-400/60">
           STATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE

@@ -31,7 +31,7 @@ export interface SpatialStation {
 }
 
 export const SPATIAL_STATIONS: readonly SpatialStation[] = [
-  { id: 'jgun', index: 0, label: 'STATION 01', name: 'D1-AP TORQUE MULTIPLIER', position: [0, 0, 0], scrollProgress: 0.0 },
+  { id: 'jgun', index: 0, label: 'STATION 01', name: 'PTG-HP-1000 TORQUE GUN', position: [0, 0, 0], scrollProgress: 0.0 },
   { id: 'enclosure', index: 1, label: 'STATION 02', name: 'RL-300 ACOUSTIC SAFE ENCLOSURE', position: [28, 0, -6], scrollProgress: 0.60 },
   { id: 'm249', index: 2, label: 'STATION 03', name: 'M249 / MK46 PLATFORM', position: [56, 0, -12], scrollProgress: 0.85 },
 ] as const
@@ -115,6 +115,13 @@ export function getScrollState(): ScrollState {
 }
 
 export function setScrollState(patch: Partial<ScrollState>): void {
+  // Headless proof probes pin progress so a captured frame is a pure function of the value
+  // asked for. Real sessions never set this flag.
+  const proofProgress =
+    typeof window !== 'undefined'
+      ? (window as unknown as Record<string, unknown>).__drawingProofProgress
+      : undefined
+  if (typeof proofProgress === 'number') patch = { ...patch, progress: proofProgress, velocity: 0 }
   let changed = false
   for (const key of Object.keys(patch) as (keyof ScrollState)[]) {
     const next = patch[key]
@@ -150,6 +157,12 @@ export function useScrollValue<K extends keyof ScrollState>(key: K): ScrollState
  * reconciliation.
  */
 export interface TelemetryCamera {
+  /** Undamped goal the rig is steering toward, preallocated and mutated in place. */
+  goal: { position: number[]; target: number[]; fov: number }
+  /** Camera up vector — non-(0,1,0) only while the sheet owns the frame. */
+  up: number[]
+  /** Height above the sheet during the B1/B2 intro; 0 outside it. */
+  sheetDistance: number
   x: number
   y: number
   z: number
@@ -217,13 +230,62 @@ export interface TelemetryStage {
   backdropAlpha: number
 }
 
+/**
+ * B1/B2 drawing telemetry. Every field is preallocated and mutated in place — the frame
+ * loop must not build objects or call `toArray()` (repo rule: zero per-frame allocation).
+ */
+export interface TelemetryDrawing {
+  /** B1 edge-field opacity, written by DrawingLinework every frame. */
+  lineOpacity: number
+  /** Source trace used by the telemetry proof; never an authored raster. */
+  edgeSource: string
+  /** Intro-normalized scroll time and the pose time it maps to. */
+  phase: number
+  poseT: number
+  focus: number
+  pulseHead: number
+  pulse: number
+  pbr: number
+  travel: number
+  /** Sheet-local Z of the model's origin during the lift. */
+  localZ: number
+  /** Lowest supported vertex, sheet-local. Negative means still embedded in the sheet. */
+  minZ: number
+  /** Solved detachment pose time. */
+  crossing: number
+  contact: number[]
+  waveTime: number
+  waveEnabled: number
+  /** Peak linear luminance the excitation writes, against the 0.6 bloom threshold. */
+  pulseLuminance: number
+  profilePoints: number
+  planeMatrix: number[]
+  modelMatrix: number[]
+  annotationsReady: boolean
+  /** Leader crossings counted in the SVG annotation layer (target: 0). */
+  leaderCrossings: number
+}
+
 export const telemetry: {
   camera: TelemetryCamera
   rig: TelemetryRig
   scroll: TelemetryScroll
   stage: TelemetryStage
+  drawing: TelemetryDrawing
+  performance: { declines: number; tier: string; warmReady: boolean }
 } = {
-  camera: { x: 0, y: 0, z: 0, fov: 42, framingBias: 0, framingBiasY: 0, portraitDolly: 1 },
+  camera: {
+    x: 0,
+    y: 0,
+    z: 0,
+    fov: 42,
+    framingBias: 0,
+    framingBiasY: 0,
+    portraitDolly: 1,
+    goal: { position: [0, 0, 0], target: [0, 0, 0], fov: 42 },
+    up: [0, 1, 0],
+    sheetDistance: 0,
+  },
   rig: {
     handleZ: 0,
     outputZ: 0,
@@ -242,6 +304,30 @@ export const telemetry: {
   },
   scroll: { progress: 0, chapter: 0, chapterProgress: 0, materialMode: state.materialMode },
   stage: { active: 0, alpha: [1, 0, 0], flow: 0, acousticWave: 0, transitionIntensity: 0, backdropAlpha: 0 },
+  drawing: {
+    lineOpacity: 1,
+    edgeSource: 'Default.glb:crease+boundary',
+    phase: 0,
+    poseT: 0,
+    focus: 0,
+    pulseHead: 0,
+    pulse: 0,
+    pbr: 0,
+    travel: 0,
+    localZ: 0,
+    minZ: 0,
+    crossing: 0,
+    contact: [0, 0, 0],
+    waveTime: 0,
+    waveEnabled: 0,
+    pulseLuminance: 0,
+    profilePoints: 0,
+    planeMatrix: new Array(16).fill(0),
+    modelMatrix: new Array(16).fill(0),
+    annotationsReady: false,
+    leaderCrossings: 0,
+  },
+  performance: { declines: 0, tier: 'full', warmReady: false },
 }
 
 // Exposed for headless verification probes (docs/animation-spec.md §11 —

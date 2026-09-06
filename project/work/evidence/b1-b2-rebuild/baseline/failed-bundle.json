@@ -1,0 +1,50 @@
+[
+  {
+    "name": "BootSequence-Dki0nPKD.js",
+    "bytes": 3010
+  },
+  {
+    "name": "draco_decoder-C32yEggz.wasm",
+    "bytes": 285747
+  },
+  {
+    "name": "draco_decoder-fzg4nYZr.js",
+    "bytes": 719410
+  },
+  {
+    "name": "draco_decoder-Z1_iN-Ht.wasm",
+    "bytes": 192420
+  },
+  {
+    "name": "draco_wasm_wrapper-DxJM36Ib.js",
+    "bytes": 58763
+  },
+  {
+    "name": "draco_wasm_wrapper-fZCQGLGb.js",
+    "bytes": 58456
+  },
+  {
+    "name": "index-BN4xyTgV.css",
+    "bytes": 40439
+  },
+  {
+    "name": "index-R6lUmRNM.js",
+    "bytes": 230561
+  },
+  {
+    "name": "SceneCanvas-BZSw-WRw.js",
+    "bytes": 816097
+  },
+  {
+    "name": "ScrollRig-CCSAVYRM.js",
+    "bytes": 19645
+  },
+  {
+    "name": "ScrollTrigger-a3sj5zmn.js",
+    "bytes": 114013
+  },
+  {
+    "name": "vanilla-BJ_7VGhu.js",
+    "bytes": 380071
+  }
+]

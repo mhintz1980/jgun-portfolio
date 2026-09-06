@@ -103,6 +103,7 @@ export function TechnicalHUD() {
 
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
+  const modeControlsRef=useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Reduced motion: ScrollRig never mounts, so scroll/camera telemetry is
@@ -112,6 +113,7 @@ export function TechnicalHUD() {
     let frame = 0
     const tick = (): void => {
       const { progress } = getScrollState()
+      if(modeControlsRef.current)modeControlsRef.current.style.visibility=progress<=.12?'hidden':'visible'
       if (progressRef.current) {
         progressRef.current.textContent = `SCROLL // ${String(Math.round(progress * 100)).padStart(3, '0')}%`
       }
@@ -197,7 +199,7 @@ export function TechnicalHUD() {
       )}
 
       {/* Bottom-right: material mode switcher */}
-      <div className="pointer-events-auto absolute bottom-5 right-5 flex flex-col items-end gap-1">
+      <div ref={modeControlsRef} style={{visibility:'hidden'}} className="pointer-events-auto absolute bottom-5 right-5 flex flex-col items-end gap-1">
         {MODES.map((mode) => (
           <button
             key={mode}

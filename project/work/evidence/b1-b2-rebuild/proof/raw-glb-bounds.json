@@ -1,0 +1,26 @@
+{
+  "asset": "public/models/Default.glb",
+  "bytes": 10671700,
+  "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+  "generator": "glTF-Transform v4.5.0",
+  "extensions": ["KHR_draco_mesh_compression"],
+  "nodeCount": 345,
+  "uniqueMeshCount": 101,
+  "meshInstances": 162,
+  "primitiveInstances": 15516,
+  "transformCounts": {"translation": 162, "rotation": 162, "scale": 0, "matrix": 0},
+  "method": "Union every POSITION accessor min/max box after its complete GLTF node hierarchy world transform. Rotated local boxes conservatively overbound the actual vertices. No application code, model mutation, or re-export was used.",
+  "worldBoundsMeters": {
+    "min": [-0.046393298138067654, -0.04635472646612452, -0.2330312772581852],
+    "max": [0.20143017122118628, 0.04635472646612423, 0.05176519975066185],
+    "size": [0.24782346935925392, 0.09270945293224875, 0.284796477008847],
+    "diagonal": 0.38874226416085067
+  },
+  "extremeNodes": {
+    "negativeXAndYPositiveY": "P003068-2",
+    "positiveX": "K000138-1",
+    "negativeZ": "P001924-1",
+    "positiveZ": "P000095-1"
+  },
+  "interpretation": "The current GLB at unit scale cannot span 0.412 m along any axis or between any two points: even its conservative world-box diagonal is only 0.388742 m. A rotated long axis cannot explain 0.412 m. The application-reported tight size [0.2385,0.07986,0.28307] is consistent with this conservative metadata box. The source does not establish where the owner's 412 mm reference originated; it could refer to another source/revision, an added scale, or a different measurement definition. No inference among those alternatives was made."
+}
