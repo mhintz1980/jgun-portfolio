@@ -34,8 +34,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - **Required proof:** telemetry material identity at the reveal dwell, same-frame before/after
     pairs, reduced-motion/poster tiers, `npm run typecheck`, `npm run build`,
     `scripts/check-station2-contract.mjs`, owner visual ruling at the stop point.
-  - **Active 2026-09-05** on branch `zcode/jg-025-handle-rear` (worktree `jgun-portfolio-jg025`,
-    off `main` @ `4158a6c`) — parallel track while JG-026 finishes on the codex tree.
+  - **Active 2026-09-05** — built on `zcode/jg-025-handle-rear` (worktree `jgun-portfolio-jg025`);
+    **merged into `main` with JG-026 and pushed 2026-09-05 per Mark's order** (rebase clean,
+    integrated re-verification in the [evidence addendum](project/work/evidence/JG-025-handle-rear-verification.md)).
+    Checkbox awaits Mark's visual ruling at the `:4174` dwell (scroll ≈47% logical; raw offset
+    18,990 px under the JG-026 scroll mapping).
 
 ## Queued
 

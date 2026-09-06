@@ -98,3 +98,34 @@ Preview `http://localhost:4174` at the LCD reveal dwell (scroll ≈ 47% or
 Mark's visual pass on: red shade vs reference, readout content/legibility,
 button symbol visibility, bezel presence, fill-light level (canon: soft,
 never squint-inducing, still sharp and legible).
+
+## Addendum — integration with JG-026 and push (2026-09-05, Mark's order)
+
+Merged for push (all on `main`): roundtable-prep intake `06cf011` → JG-026
+branch merge `93370ac` (codex/b1-b2-engineering-drawing, 5 commits, clean —
+no conflicts) → JG-025 rebased + merged `31c09e4` (rebase clean).
+
+**Integrated-build verification** (fresh `npm ci`, `:4174` restart):
+
+- `npm run typecheck` clean; `npm test` 10/10 (JG-026 introTimeline suite);
+  `npm run build` clean; `check-station2-contract` green.
+- Dwell re-verified at natural progress 0.4746 (raw offset 18,990 / 32,625 —
+  JG-026's intro changed the physical↔logical scroll mapping; the
+  `window.__drawingProofProgress` pin drives the camera but not the GSAP rig,
+  so the suite probes natural scroll): camera at the exact dwell pose
+  [−0.28, 0.08, 0.74] fov 31; explode 1.0; ladder byte-identical
+  (`stageZ`/`handleZ`/`clutchZ`/`outputZ`/`bearingZ` exact); `ghostCount` 1;
+  buttons ×3 `#2e0606` + emissive `#d81414` @ 1.15 with symbols + bezel +
+  readout all live.
+- Perf at the dwell, steady state (3×3 s rAF, A/B with the JG-025 decals
+  hidden/restored at runtime): p50 16.7 / p95 16.8 / max 16.9 ms with AND
+  without the decals — the cluster adds zero measurable frame cost. Initial
+  samples showed transient ~33 ms doubles for ~1 s after big scroll jumps
+  (post-scroll compositing), gone at rest; recorded for honesty.
+- Tiers on the integrated boot path: reduced-motion (canvas present,
+  `handleZ` 0 across the full scroll, cluster builds); poster (WebGL denied
+  → `STATIC RENDER MODE`, all chapters). Console clean (known Clock warning
+  only).
+
+Capture: [integrated-dwell-after-jg026-merge-1920x1080.png](jg-025-handle-rear/integrated-dwell-after-jg026-merge-1920x1080.png).
+**Visual ruling still pending — checkbox stays unchecked.**
