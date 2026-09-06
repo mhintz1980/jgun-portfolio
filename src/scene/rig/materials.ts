@@ -42,6 +42,8 @@ export type MaterialRole =
   | 'display'
   | 'lcdScreen'
   | 'buttonBacklit'
+  | 'lcdButtonRed'
+  | 'lcdBezelRed'
   | 'battery'
   | 'polymer'
   | 'grooveBlue'
@@ -57,12 +59,14 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   // Separator classes are [\s_]* because GLTFLoader mangles spaces into
   // underscores (see the rig's regex invariants).
   [/MANOMETER[\s_]*LCD|BK11356/i, 'display'],
-  // Rear handle digital LCD screen (P002115) — warm emissive white.
+  // Rear handle digital LCD screen (P002115) — dark unlit field; the JG-025
+  // data readout lives on a decal plane in front of the panel (lcdCluster.ts).
   [/P002115/i, 'lcdScreen'],
-  // Rear handle buttons (P002123/P002124/P002125) — cool-blue backlit.
-  [/(P002123|P002124|P002125)/i, 'buttonBacklit'],
-  // LCD housing (P001924) — anodized aluminum, matches handle finish.
-  [/P001924/i, 'anodizedAluminum'],
+  // Rear handle buttons (P002123/P002124/P002125) — red backlit (JG-025).
+  [/(P002123|P002124|P002125)/i, 'lcdButtonRed'],
+  // LCD housing (P001924) — glossy black endcap cap; the red bezel is a
+  // code-side ring around the screen (JG-025).
+  [/P001924/i, 'shellBlack'],
   // Ring switch (P003068) — anodized aluminum with knurled OD.
   [/P003068/i, 'ringSwitch'],
   // Ring switch pins (P000464) & ball-nose plungers (K000156) — machined clutch steel.
@@ -95,10 +99,13 @@ const unitDefaultRole = (unitKey: string): MaterialRole => {
   if (unitKey === 'clutch-static') return 'blackOxideSteel'
   if (unitKey === 'clutch-sliding') return 'clutchSteel'
   // LCD parts fall back to their ROLE_OVERRIDES entries above; these unit
-  // defaults are the safety net when no override matches.
+  // defaults are the safety net when no override matches. JG-025: the housing
+  // becomes the glossy black cap; buttons are per-part units
+  // (`lcd-button-${i}`) so each bakes into its own occurrence frame.
   if (unitKey === 'lcd-screen') return 'lcdScreen'
-  if (unitKey === 'lcd-buttons') return 'buttonBacklit'
-  if (unitKey === 'lcd-housing') return 'anodizedAluminum'
+  if (unitKey === 'lcd-buttons') return 'lcdButtonRed'
+  if (unitKey.startsWith('lcd-button')) return 'lcdButtonRed'
+  if (unitKey === 'lcd-housing') return 'shellBlack'
   // Handle fasteners (2026-09-01 Fine re-export) — the handle unit default is
   // anodized aluminum; black-oxide socket/button-head screws are their own unit.
   if (unitKey === 'fastener') return 'blackOxideSteel'
@@ -328,15 +335,16 @@ export function roleMaterial(role: MaterialRole): Material {
         metalness: 0.15,
       })
       break
-    // Rear handle digital LCD screen (P002115) — warm white emissive,
-    // casts soft warm fill onto the anodized LCD housing face.
+    // Rear handle digital LCD screen (P002115) — JG-025: dim dark field; the
+    // white data readout is a MeshBasicMaterial decal (lcdCluster.ts) so the
+    // digits stay crisp and self-lit like a real backlit LCD segment panel.
     case 'lcdScreen':
       material = new MeshStandardMaterial({
         color: '#0a0a08',
         roughness: 0.35,
         metalness: 0,
-        emissive: '#fffde0',
-        emissiveIntensity: 5,
+        emissive: '#141a22',
+        emissiveIntensity: 0.6,
       })
       break
     // Rear handle buttons (P002123/P002124/P002125) — cool blue backlit.
@@ -347,6 +355,32 @@ export function roleMaterial(role: MaterialRole): Material {
         metalness: 0,
         emissive: '#c8e6ff',
         emissiveIntensity: 1.5,
+      })
+      break
+    // JG-025 — red backlit button bodies, owner ruling 2026-09-02: red
+    // sampled from the reference render (pixel-average #ad0707, speculars
+    // #f30101). Dark button base with a red emissive glow through it; the
+    // dark ▲/⏎/▼ symbols are decal planes (lcdCluster.ts).
+    case 'lcdButtonRed':
+      material = new MeshStandardMaterial({
+        color: '#2e0606',
+        roughness: 0.38,
+        metalness: 0.05,
+        emissive: '#d81414',
+        emissiveIntensity: 1.15,
+      })
+      break
+    // JG-025 — glossy signal-red enamel bezel ring around the LCD (sampled
+    // average #ad0707; the reference's brighter #f30101 reads as clearcoat
+    // specular, so the paint base sits at the average).
+    case 'lcdBezelRed':
+      material = new MeshPhysicalMaterial({
+        color: '#ad0707',
+        roughness: 0.32,
+        metalness: 0.05,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.22,
+        envMapIntensity: 1.05,
       })
       break
     // Emissive display segments — reference calls for intensity 2.5–4.0.
