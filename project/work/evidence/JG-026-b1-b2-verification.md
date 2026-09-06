@@ -660,9 +660,13 @@ to carry JGun branding, both surfaces should move together.
 
 ## 13. What is still open
 
-1. **Mark's `?chapter=0` visual ruling.** Not self-certified. Preview is running at
-   `http://localhost:4173/?chapter=0`.
-2. **Mobile arrangement (7.5)** is provisional pending his ruling.
+1. ~~**Mark's `?chapter=0` visual ruling.** Not self-certified. Preview is running at
+   `http://localhost:4173/?chapter=0`.~~ **Closed 2026-09-06 — owner PASS**
+   ("yes. it all looks good. commit and push.") at `http://localhost:4173/?chapter=0`, fresh
+   build of `main` (`54f01da`). The same ruling accepted the perf p95 16.80 ms vs the 16.7
+   gate (60 Hz vsync quantum, 0 declined frames).
+2. ~~**Mobile arrangement (7.5)** is provisional pending his ruling.~~ **Confirmed 2026-09-06**
+   by the same ruling ("it all looks good").
 3. **Item 6 opening/onboarding** is a design proposal with its scroll window reserved
    (normalized 0.14 → 0.30 of the intro, 145.0vh of absolute scroll, currently carrying nothing
    but the held focused print) — see

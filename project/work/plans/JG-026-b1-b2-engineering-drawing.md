@@ -1,7 +1,8 @@
 # JG-026 — B1/B2 engineering drawing extraction
 
-Status: in-progress; owner specification authorized 2026-09-03, owner pacing/realism rulings
-2026-09-05. Visual acceptance is Mark's gate and is still open.
+Status: verified (owner visual PASS 2026-09-06 at `?chapter=0`, "yes. it all looks good." —
+[evidence](../evidence/JG-026-b1-b2-verification.md); owner specification authorized 2026-09-03,
+owner pacing/realism rulings 2026-09-05).
 
 ## Scope and architecture
 
