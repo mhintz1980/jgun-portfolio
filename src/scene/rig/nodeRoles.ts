@@ -3,6 +3,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StageId } from '../../data/caseStudies'
 import { STAGE_IDS } from '../../data/caseStudies'
 import { materialRoleFor, roleMaterial } from './materials'
+import { buildLcdCluster, type LcdClusterParts } from './lcdCluster'
 
 /**
  * Classifies the loaded GLB scene into rig roles by REAL node identity, then
@@ -136,6 +137,9 @@ export interface WrenchRig {
   /** Gearbox radial bolts (90910A815): one group per bolt (child of the
    * clutch-static group) + its outward radial direction for the pop. */
   gbFasteners: { group: Object3D; dir: Vector3 }[]
+  /** JG-025 rear LCD cluster dressing — red bezel ring, data readout decal,
+   * button symbol decals, and the per-button merged meshes (probe surface). */
+  lcdCluster: LcdClusterParts | null
   /** All meshes in the model (post-consolidation). */
   meshes: Mesh[]
   /** Per-mesh material as loaded (post ghost-clone) — restored on mode switches. */
@@ -189,6 +193,8 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const stagePlanets = new Map<StageId, Object3D[]>()
   /** gb-fastener leaves in tagging order — index i owns key `gb-fastener-${i}`. */
   const gbFastenerNodes: Object3D[] = []
+  /** lcd-button part nodes in tagging order — index i owns key `lcd-button-${i}`. */
+  const lcdButtonNodes: Object3D[] = []
   for (const id of STAGE_IDS) stagePlanets.set(id, [])
 
   if (gearbox) {
@@ -243,7 +249,16 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
         return
       }
       if (LCD_BUTTONS_RE.test(name)) {
-        unitOfNode.set(node, 'lcd-buttons')
+        // JG-025: each button is its own unit. A shared 'lcd-buttons' bucket
+        // merged all three parts into the first part's bake frame, cancelling
+        // the CAD's ~9.9 mm occurrence offsets — the buttons rendered stacked
+        // into one blob. Per-part units bake each into its own node so each
+        // rides its own placement. Skip `occurrence_of_*` wrappers so exactly
+        // the part node allocates (gb-fastener pattern).
+        if (!GB_OCCURRENCE_RE.test(name)) {
+          unitOfNode.set(node, `lcd-button-${lcdButtonNodes.length}`)
+          lcdButtonNodes.push(node)
+        }
         return
       }
       if (LCD_HOUSING_RE.test(name)) {
@@ -523,6 +538,15 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     makeGroove(-0.08645, 'grooveBlue', 'P000420 Speed Indicator (Blue)')
   }
 
+  // ---- JG-025: rear LCD cluster dressing. Measured off the consolidated
+  // screen/button meshes in their part-node local frames (rest pose, world
+  // matrices refreshed above): a glossy red bezel ring + white-on-dark data
+  // readout around/on the P002115 screen face, and dark ▲/⏎/▼ symbol decals
+  // on the P00212x button caps. Everything parents to the part nodes so it
+  // rides the handle explosion rigidly, registers into finalMeshes for the
+  // material-mode switcher and the CH.04 dissolve, and never ghosts.
+  const lcdCluster = buildLcdCluster(root, finalMeshes)
+
   // Drop consumed originals before first render so their buffers never reach
   // the GPU. Named assembly/occurrence nodes stay — identity skeleton intact.
   for (const mesh of consumed) mesh.removeFromParent()
@@ -563,6 +587,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     clutch: { static: clutchStaticGroup, sliding: clutchSlidingGroup, ringSwitch: ringSwitchGroup },
     stages,
     gbFasteners,
+    lcdCluster,
     meshes: finalMeshes,
     originalMaterials,
     ghostMaterials,

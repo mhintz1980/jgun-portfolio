@@ -60,9 +60,14 @@ function RoomEnvironmentIbl() {
 }
 
 /**
- * CR-5 — Warm fill light behind the handle LCD face.
+ * CR-5 / JG-025 — soft fill behind the handle LCD face.
  * Activates only during the shared post-explode rear-LCD reveal window so the
- * dwell has stable warm reflections without lighting the pre-explode ghost beat.
+ * dwell has stable reflections without lighting the pre-explode ghost beat.
+ * JG-025 retune (owner light canon 2026-09-02: soft, never squint-inducing,
+ * still sharp and legible): cool-neutral to match the reference's studio mood
+ * — the screen readout is now the warm/bright element, so the fill no longer
+ * needs the old warm cast, and the peak steps down with the emissive @ 5
+ * screen gone.
  */
 function LcdFillLight() {
   const lightRef = useRef<PointLight>(null)
@@ -74,7 +79,7 @@ function LcdFillLight() {
     const fadeIn = Math.min(Math.max((progress - LCD_REVEAL_WINDOW.start) / 0.02, 0), 1)
     const fadeOut = Math.min(Math.max((LCD_REVEAL_WINDOW.end - progress) / 0.02, 0), 1)
     const w = Math.min(fadeIn, fadeOut)
-    lightRef.current.intensity = w * 2.8
+    lightRef.current.intensity = w * 2.4
   })
 
   return (
@@ -83,7 +88,7 @@ function LcdFillLight() {
       // Behind/above the rear cap at the measured dwell: the exploded LCD
       // cluster sits at world [−0.14, 0, 0.46] (see LCD_ORBIT_KEYFRAMES notes).
       position={[-0.24, 0.08, 0.56]}
-      color="#ffe8c0"
+      color="#e6eef7"
       intensity={0}
       distance={0.35}
       decay={2}
