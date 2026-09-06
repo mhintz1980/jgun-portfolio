@@ -1,6 +1,7 @@
 # JG-025 — Handle-rear realism pass: verification record
 
-**Status:** implemented + machine-verified 2026-09-05 · **owner visual ruling PENDING** (stop point below)
+**Status:** CLOSED VERIFIED 2026-09-05 — owner visual ruling PASS
+**Ruling (verbatim, 2026-09-05, at the `:4174` dwell):** "i approve. check it off."
 **Branch:** `zcode/jg-025-handle-rear` (worktree `jgun-portfolio-jg025`, off `main` @ `4158a6c`)
 **Plan:** [JG-025-handle-rear-realism.md](../plans/JG-025-handle-rear-realism.md) · **Owner reference:** [handle-rear-owner-reference.png](../context/references/media/handle-rear/handle-rear-owner-reference.png)
 
@@ -128,4 +129,9 @@ no conflicts) → JG-025 rebased + merged `31c09e4` (rebase clean).
   only).
 
 Capture: [integrated-dwell-after-jg026-merge-1920x1080.png](jg-025-handle-rear/integrated-dwell-after-jg026-merge-1920x1080.png).
-**Visual ruling still pending — checkbox stays unchecked.**
+
+## Final ruling — CLOSED VERIFIED
+
+**2026-09-05, owner visual pass at the `:4174` dwell (integrated main build):
+PASS — "i approve. check it off."** TODO checkbox flipped to `[x]` with this
+evidence record in the same commit.

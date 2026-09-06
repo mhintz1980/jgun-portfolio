@@ -25,7 +25,7 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 - [x] **JG-020 — Multi-station subassembly inspection, spatial hotspots, and interactive CAD anchors** · [plan](project/work/plans/JG-020-multi-station-hotspots-inspection.md)
   - Expand subassembly inspection, spatial datum annotations, and camera dollying across all 3 stations (JGun, RL-300 SAFE Enclosure, and M249 Receiver Platform) with interactive hovering, rich engineering HUD cards, and continuous scroll release ([evidence](project/work/evidence/JG-020-multi-station-hotspots-inspection-verification.md)).
 
-- [ ] **JG-025 — Handle-rear realism pass: red button/LCD cluster, rendered screen, reveal-beat framing** · [plan](project/work/plans/JG-025-handle-rear-realism.md)
+- [x] **JG-025 — Handle-rear realism pass: red button/LCD cluster, rendered screen, reveal-beat framing** · [plan](project/work/plans/JG-025-handle-rear-realism.md) · [evidence](project/work/evidence/JG-025-handle-rear-verification.md)
   - Make the JG-014 rear-LCD reveal the most realistic portion of the assembly per the owner's
     reference render ([reference image](project/context/references/media/handle-rear/handle-rear-owner-reference.png)):
     red buttons + red LCD bezel + glossy black cap (code-side material swap on the live
@@ -37,8 +37,9 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
   - **Active 2026-09-05** — built on `zcode/jg-025-handle-rear` (worktree `jgun-portfolio-jg025`);
     **merged into `main` with JG-026 and pushed 2026-09-05 per Mark's order** (rebase clean,
     integrated re-verification in the [evidence addendum](project/work/evidence/JG-025-handle-rear-verification.md)).
-    Checkbox awaits Mark's visual ruling at the `:4174` dwell (scroll ≈47% logical; raw offset
-    18,990 px under the JG-026 scroll mapping).
+  - **CLOSED VERIFIED 2026-09-05 — owner visual ruling PASS at the `:4174` dwell**
+    ("i approve. check it off."). Also fixed the pre-existing lcd-buttons merge-stack defect
+    (per-part `lcd-button-N` units — the three buttons rendered stacked as one blob before).
 
 ## Queued
 

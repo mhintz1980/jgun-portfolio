@@ -1,6 +1,6 @@
 # JG-025 — Handle-rear realism pass: red button/LCD cluster, rendered screen, reveal-beat framing
 
-**Status:** queued (triaged 2026-09-02 from [inbox/jgun-handle-rear-redesign.md](../inbox/jgun-handle-rear-redesign.md))
+**Status:** verified (implemented 2026-09-05, merged with JG-026 + pushed, owner visual PASS — [evidence](../evidence/JG-025-handle-rear-verification.md); triaged 2026-09-02 from [inbox/jgun-handle-rear-redesign.md](../inbox/jgun-handle-rear-redesign.md))
 **Owner dictation:** 2026-09-02 (chat, with reference render) + 2026-08-30 intake (JG-021 re-review)
 **Type:** visual fidelity + feature pass on the Station 1 handle rear (LCD endcap cluster)
 **Owner reference:** [`project/context/references/media/handle-rear/handle-rear-owner-reference.png`](../../context/references/media/handle-rear/handle-rear-owner-reference.png) (CAD render of the back face — glossy black cap, red LCD bezel, three red buttons with dark arrow/enter symbols, blank white LCD)
