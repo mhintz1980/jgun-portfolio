@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import type { MaterialMode } from '../types/portfolio'
+import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 
 /**
  * Minimal external store bridging the DOM scroll world (Lenis + ScrollTrigger)
@@ -73,6 +74,11 @@ function initialScrollProgress(): number {
   if (chapter === '1') return 0.35
   if (chapter === '2') return 0.60
   if (chapter === '3') return 0.85
+  // ?dwell=<key> deep-links to a dwell window midpoint. Like every value above, it is
+  // PACED progress — ScrollRig converts it to raw scroll via rawScrollFor() on mount —
+  // never a raw scroll fraction. 'lcd' is currently the only dwell key.
+  const dwell = params.get('dwell')
+  if (dwell === 'lcd') return (LCD_REVEAL_WINDOW.dwellStart + LCD_REVEAL_WINDOW.dwellEnd) / 2
   return 0
 }
 

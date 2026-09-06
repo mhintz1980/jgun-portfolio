@@ -22,11 +22,13 @@ import { roleMaterial } from './materials'
  * P002123/24/25, endcap housing P001924) with zero UVs and fused
  * single-material button meshes, so the reference's look is built code-side:
  * a glossy red bezel ring around the screen, a white-on-dark data readout
- * (torque Nm + battery bar + units/mode glyphs, owner ruling 2026-09-02) on
- * a decal plane over the screen face, and dark ▲/⏎/▼ symbol decals on the
- * button caps. Placements are measured off the consolidated meshes AT BUILD
- * TIME (rest pose) in world space, then parented to the part nodes so the
- * whole cluster rides the handle explosion rigidly.
+ * (dual-unit torque 1,250 N·m / 922 FT-LB, owner ruling 2026-09-06) on
+ * a decal plane over the screen face, and luminous laser-etched white
+ * ▲/⏎/▼ symbols on the button caps (owner ruling 2026-09-06). Placements are measured AT BUILD TIME (rest pose) off the
+ * union bounds of each part's mesh descendants — multi-primitive parts and
+ * appended consolidation meshes make any single child an unstable basis —
+ * then parented to the part nodes so the whole cluster rides the handle
+ * explosion rigidly.
  *
  * Zero per-frame work: canvases draw once here, all geometry is static.
  */
@@ -59,8 +61,9 @@ function roundedRectPath(target: Shape, w: number, h: number, r: number): void {
 
 /**
  * The LCD readout — dark field, white digits (plan A: "white readout on dark
- * field"). Content per the owner ruling: torque Nm readout + battery bar +
- * units/mode glyphs, matching a real torque-wrench display.
+ * field"). Dual-unit industrial content per the owner ruling 2026-09-06:
+ * primary torque readout 1,250 N·m, PEAK (left) / CAL OK (right) status row,
+ * and a full battery (4/4 bars) + STAGE 5 mode + 922 FT-LB secondary unit.
  */
 function createLcdReadoutTexture(): CanvasTexture {
   const canvas = document.createElement('canvas')
@@ -83,18 +86,18 @@ function createLcdReadoutTexture(): CanvasTexture {
   ctx.textAlign = 'left'
   ctx.textBaseline = 'alphabetic'
   ctx.fillStyle = dimInk
-  ctx.fillText('AUTO', 22, 44)
+  ctx.fillText('PEAK', 22, 44)
   ctx.textAlign = 'right'
-  ctx.fillText('PEAK', READOUT_W - 22, 44)
+  ctx.fillText('CAL OK', READOUT_W - 22, 44)
 
   // Main torque readout.
   ctx.textAlign = 'right'
   ctx.fillStyle = ink
   ctx.font = 'bold 118px Consolas, "Courier New", monospace'
-  ctx.fillText('125.4', 396, 176)
+  ctx.fillText('1,250', 396, 176)
   ctx.font = 'bold 46px Consolas, "Courier New", monospace'
   ctx.fillStyle = dimInk
-  ctx.fillText('Nm', READOUT_W - 24, 176)
+  ctx.fillText('N·m', READOUT_W - 24, 176)
 
   // Bottom row: battery bar + mode glyph + secondary units.
   ctx.strokeStyle = ink
@@ -102,18 +105,18 @@ function createLcdReadoutTexture(): CanvasTexture {
   ctx.strokeRect(24, 204, 72, 30)
   ctx.fillStyle = ink
   ctx.fillRect(96, 212, 6, 14) // battery nub
+  // 4 of 4 bars bright — full charge (owner ruling 2026-09-06).
   for (let i = 0; i < 4; i += 1) {
-    ctx.fillStyle = i < 3 ? ink : '#233039'
     ctx.fillRect(30 + i * 17, 210, 13, 18)
   }
   ctx.font = 'bold 30px Consolas, "Courier New", monospace'
   ctx.textAlign = 'center'
   ctx.fillStyle = ink
-  ctx.fillText('TRACK', 250, 230)
+  ctx.fillText('STAGE 5', 250, 230)
   ctx.textAlign = 'right'
   ctx.fillStyle = dimInk
   ctx.font = 'bold 26px Consolas, "Courier New", monospace'
-  ctx.fillText('kgf·m', READOUT_W - 24, 230)
+  ctx.fillText('922 FT-LB', READOUT_W - 24, 230)
 
   const texture = new CanvasTexture(canvas)
   texture.colorSpace = SRGBColorSpace
@@ -123,16 +126,30 @@ function createLcdReadoutTexture(): CanvasTexture {
   return texture
 }
 
-/** Dark button symbol — ▲ / ⏎ / ▼ per the reference render. */
+/**
+ * Luminous laser-etched button symbol — ▲ / ⏎ / ▼. Crisp pure-white glyph
+ * with a soft translucent-white outline for clean antialiased edges, over a
+ * faint radial aura of LED light diffusing through the translucent etched
+ * silicone membrane ("crisp white Option A with a soft touch of B", owner
+ * ruling 2026-09-06).
+ */
 function createButtonSymbolTexture(kind: 'up' | 'enter' | 'down'): CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = SYMBOL_SIZE
   canvas.height = SYMBOL_SIZE
   const ctx = canvas.getContext('2d')!
 
-  ctx.fillStyle = '#1c0505'
-  ctx.strokeStyle = '#380909'
-  ctx.lineWidth = 5
+  // Aura first so the glyph sits on top: soft radial LED glow behind the
+  // glyph center, fading to faintly warm full transparency at the edge.
+  const aura = ctx.createRadialGradient(64, 64, 0, 64, 64, 58)
+  aura.addColorStop(0, 'rgba(255, 255, 255, 0.25)')
+  aura.addColorStop(1, 'rgba(255, 200, 200, 0)')
+  ctx.fillStyle = aura
+  ctx.fillRect(0, 0, SYMBOL_SIZE, SYMBOL_SIZE)
+
+  ctx.fillStyle = '#ffffff'
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)'
+  ctx.lineWidth = 4
   ctx.lineJoin = 'round'
 
   const path = new Path2D()
@@ -170,33 +187,59 @@ function createButtonSymbolTexture(kind: 'up' | 'enter' | 'down'): CanvasTexture
   return texture
 }
 
+/**
+ * One measured cluster part. GLTFLoader expands multi-primitive parts into
+ * one mesh child per primitive (screen P002115: 22; buttons P002123/24/25:
+ * 112-118) and consolidation appends a merged mesh as a further child, so
+ * any single child is an unstable measurement basis — primitive 0 of the
+ * screen is a zero-thickness edge sliver. `bounds` carries the real
+ * measurement: the union AABB of ALL mesh descendants in the part node's
+ * local frame (child-order independent; identical pre/post consolidation).
+ * `mesh` is the first direct mesh child, kept only as the identity
+ * reference exported in `buttonMeshes`.
+ */
 interface PartMesh {
   node: Object3D
   mesh: Mesh
+  bounds: Box3
 }
 
 function findPartMesh(root: Object3D, nameRe: RegExp): PartMesh | null {
   let found: PartMesh | null = null
   root.traverse((node) => {
     if (found || !nameRe.test(node.name)) return
+    let mesh: Mesh | null = null
     for (const child of node.children) {
       if ((child as Mesh).isMesh) {
-        found = { node, mesh: child as Mesh }
-        return
+        mesh = child as Mesh
+        break
       }
     }
+    if (!mesh) return
+    // Union AABB over every mesh descendant, expressed in the part node's
+    // local frame. updateWorldMatrix(true, true) is required here, before
+    // the caller's root-wide refresh: consolidation adds merged meshes with
+    // stale identity world matrices, and each mesh's node-relative
+    // transform must resolve as inverse(node world) x mesh world.
+    node.updateWorldMatrix(true, true)
+    const nodeInverse = node.matrixWorld.clone().invert()
+    const meshToNode = new Matrix4()
+    const bounds = new Box3()
+    node.traverse((descendant) => {
+      const descendantMesh = descendant as Mesh
+      if (!descendantMesh.isMesh) return
+      descendantMesh.geometry.computeBoundingBox()
+      meshToNode.multiplyMatrices(nodeInverse, descendantMesh.matrixWorld)
+      bounds.union(new Box3().copy(descendantMesh.geometry.boundingBox!).applyMatrix4(meshToNode))
+    })
+    found = { node, mesh, bounds }
   })
   return found
 }
 
-/** World-space center of a part node's consolidated mesh (rest pose). */
+/** World-space center of a part node's union bounds (rest pose). */
 function worldMeshCenter(part: PartMesh): Vector3 {
-  const geometry = part.mesh.geometry
-  geometry.computeBoundingBox()
-  const bb = geometry.boundingBox!
-  return part.node.localToWorld(
-    new Vector3((bb.min.x + bb.max.x) / 2, (bb.min.y + bb.max.y) / 2, (bb.min.z + bb.max.z) / 2),
-  )
+  return part.node.localToWorld(part.bounds.getCenter(new Vector3()))
 }
 
 /** World-space unit direction of a node-local axis (0=x, 1=y, 2=z). */
@@ -257,13 +300,15 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
 
   const WORLD_UP = new Vector3(0, 1, 0)
 
-  // ---- Screen: bezel ring + data readout on the panel face.
-  screen.mesh.geometry.computeBoundingBox()
-  const sbb = screen.mesh.geometry.boundingBox!
+  // ---- Screen: bezel ring + data readout on the panel face. Extents come
+  // from the union bounds in the screen node's local frame: the smallest
+  // extent is the panel normal axis, the two larger extents size the
+  // bezel/readout to the real panel.
+  const sSize = screen.bounds.getSize(new Vector3())
   const axes = [
-    { axis: 0, size: sbb.max.x - sbb.min.x },
-    { axis: 1, size: sbb.max.y - sbb.min.y },
-    { axis: 2, size: sbb.max.z - sbb.min.z },
+    { axis: 0, size: sSize.x },
+    { axis: 1, size: sSize.y },
+    { axis: 2, size: sSize.z },
   ].sort((a, b) => b.size - a.size)
   const longHalf = axes[0].size / 2
   const shortHalf = axes[1].size / 2
@@ -310,7 +355,7 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
     decalBasis(screenNormal, WORLD_UP),
   )
 
-  // ---- Buttons: dark ▲/⏎/▼ symbol decals on each cap.
+  // ---- Buttons: luminous white ▲/⏎/▼ symbol decals on each cap.
   const symbols: Mesh[] = []
   const buttonMeshes: Mesh[] = []
   const WORLD_UP_CLONE = WORLD_UP.clone()
@@ -322,15 +367,25 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
   for (let i = 0; i < ordered.length; i += 1) {
     const part = ordered[i]
     buttonMeshes.push(part.mesh)
-    part.mesh.geometry.computeBoundingBox()
-    const bb = part.mesh.geometry.boundingBox!
-    const extents = [
-      { axis: 0, size: bb.max.x - bb.min.x },
-      { axis: 1, size: bb.max.y - bb.min.y },
-      { axis: 2, size: bb.max.z - bb.min.z },
-    ].sort((a, b) => b.size - a.size)
-    const capAxis = extents[0].axis
-    const capHalf = extents[0].size / 2
+    // Cap axis = the button-local axis most aligned with the screen normal:
+    // the buttons sit coplanar with the screen on the rear face, so their
+    // cap normal tracks the screen's, not their own longest extent. Axes
+    // with a degenerate union extent (< 1e-6 m) are skipped; a part reduced
+    // to a point has no placeable cap.
+    const size = part.bounds.getSize(new Vector3())
+    const extents = [size.x, size.y, size.z]
+    let capAxis = -1
+    let capAlign = -1
+    for (let axis = 0; axis < 3; axis += 1) {
+      if (extents[axis] < 1e-6) continue
+      const align = Math.abs(worldAxis(part.node, axis).dot(screenNormal))
+      if (align > capAlign) {
+        capAlign = align
+        capAxis = axis
+      }
+    }
+    if (capAxis < 0) continue
+    const capHalf = extents[capAxis] / 2
 
     const center = worldMeshCenter(part)
     const capNormalRaw = worldAxis(part.node, capAxis)
