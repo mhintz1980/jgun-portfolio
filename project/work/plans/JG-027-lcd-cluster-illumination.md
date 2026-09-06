@@ -1,6 +1,6 @@
 # JG-027 — LCD Cluster Restoration & Illumination
 
-**Status:** implemented + machine-verified 2026-09-06 (branch `zcode/jg-027-lcd-cluster`) — all visibility gates PASS ([evidence](../evidence/JG-027-lcd-cluster-verification.md)); **owner visual ruling PENDING** at `http://localhost:4173/?dwell=lcd`.
+**Status: verified** — CLOSED VERIFIED 2026-09-06, owner visual ruling PASS ("Looks good, pass it.") at `?dwell=lcd`, round 2 after rev 1 (bezel+readout rotated 90° CW per the owner's portrait-window defect report; buttons ruled correct as-is). Merged into `main` (`7a526ba`). Machine record: [evidence](../evidence/JG-027-lcd-cluster-verification.md).
 
 **Objective:** make the rear LCD cluster actually visible (it has never been), light
 the button symbols white, ship the owner-ruled dual-unit readout, and leave a

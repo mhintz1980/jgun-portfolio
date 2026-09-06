@@ -1,6 +1,6 @@
 # JG-027 — LCD Cluster Restoration & Illumination — Verification
 
-**Status: machine-verified 2026-09-06 (branch `zcode/jg-027-lcd-cluster`) — owner visual ruling PENDING at `http://localhost:4173/?dwell=lcd`.**
+**Status: CLOSED VERIFIED 2026-09-06 — owner visual ruling PASS ("Looks good, pass it.") at `?dwell=lcd`** (round 2, after rev 1). Merged into `main` (`7a526ba`); all gates as recorded below.
 
 **Revision 1 (owner defect report + ruling, 2026-09-06):** owner observed the endcap window reads **portrait** from the dwell camera while the bezel/readout dressing was world-up-based **landscape** — only the middle slice of the readout (",250") showed through the window. Ruling: rotate the LCD dressing **90° clockwise** from the viewer; button symbols are correct as-is. Implemented as a −90° right-handed rotation about the screen normal applied to the bezel + readout basis (`lcdCluster.ts` `READOUT_BASIS`). New probe gates: bezel/readout long axis vertical on screen (`longAxisUpDot` = 1.0, threshold 0.8) and text baseline flowing **top-to-bottom** (`readsTopToBottom: true`); symbol gates unchanged (horizontal, untouched). Re-run PASS: facing 0.924–0.973 all surfaces, readout 1,734 white px in its (now portrait) rect, symbols 459–604 white px each, zero failures, both viewports + `?dwell=lcd` (paced 0.47299) + reduced-motion green.
 
