@@ -1,0 +1,280 @@
+{
+  "startedAt": "2026-09-06T22:00:25.663Z",
+  "mode": "after",
+  "dwell": 0.473,
+  "failures": [],
+  "viewports": [
+    {
+      "leg": "desktop",
+      "errors": [],
+      "settled": {
+        "progress": 0.47299134517677566,
+        "explodeFactor": 1
+      },
+      "surfaces": [
+        {
+          "key": "bezel",
+          "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+          "facingDot": 0.924,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 908,
+            "y1": 423,
+            "x2": 1045,
+            "y2": 686
+          },
+          "camDist": 0.3135,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
+          "texture": null
+        },
+        {
+          "key": "readout",
+          "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+          "facingDot": 0.924,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 931,
+            "y1": 447,
+            "x2": 1024,
+            "y2": 663
+          },
+          "camDist": 0.3131,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
+          "texture": {
+            "size": "512x256",
+            "brightWhitePx": 11857
+          }
+        },
+        {
+          "key": "symbol-up",
+          "name": "JG-025 Button Symbol Decal (up)",
+          "facingDot": 0.973,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 842,
+            "y1": 481,
+            "x2": 897,
+            "y2": 535
+          },
+          "camDist": 0.3026,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9860
+          }
+        },
+        {
+          "key": "symbol-enter",
+          "name": "JG-025 Button Symbol Decal (enter)",
+          "facingDot": 0.965,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 843,
+            "y1": 543,
+            "x2": 898,
+            "y2": 597
+          },
+          "camDist": 0.3051,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9860
+          }
+        },
+        {
+          "key": "symbol-down",
+          "name": "JG-025 Button Symbol Decal (down)",
+          "facingDot": 0.956,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 843,
+            "y1": 604,
+            "x2": 898,
+            "y2": 657
+          },
+          "camDist": 0.3078,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9861
+          }
+        }
+      ],
+      "screenshot": "dwell-after-desktop-1920x1080.png",
+      "pixelCounts": {
+        "bezel": {
+          "whitePx": 1749,
+          "redPx": 268,
+          "sampledPx": 38467
+        },
+        "readout": {
+          "whitePx": 1734,
+          "redPx": 0,
+          "sampledPx": 21978
+        },
+        "symbol-up": {
+          "whitePx": 604,
+          "redPx": 112,
+          "sampledPx": 3660
+        },
+        "symbol-enter": {
+          "whitePx": 459,
+          "redPx": 108,
+          "sampledPx": 3660
+        },
+        "symbol-down": {
+          "whitePx": 558,
+          "redPx": 113,
+          "sampledPx": 3599
+        }
+      }
+    },
+    {
+      "leg": "mobile",
+      "errors": [],
+      "settled": {
+        "progress": 0.47300516189056346,
+        "explodeFactor": 1
+      },
+      "surfaces": [
+        {
+          "key": "bezel",
+          "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+          "facingDot": 0.924,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 154,
+            "y1": 330,
+            "x2": 261,
+            "y2": 536
+          },
+          "camDist": 0.3135,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
+          "texture": null
+        },
+        {
+          "key": "readout",
+          "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+          "facingDot": 0.924,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 172,
+            "y1": 349,
+            "x2": 245,
+            "y2": 518
+          },
+          "camDist": 0.3131,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
+          "texture": {
+            "size": "512x256",
+            "brightWhitePx": 11857
+          }
+        },
+        {
+          "key": "symbol-up",
+          "name": "JG-025 Button Symbol Decal (up)",
+          "facingDot": 0.973,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 103,
+            "y1": 376,
+            "x2": 146,
+            "y2": 418
+          },
+          "camDist": 0.3026,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9860
+          }
+        },
+        {
+          "key": "symbol-enter",
+          "name": "JG-025 Button Symbol Decal (enter)",
+          "facingDot": 0.965,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 103,
+            "y1": 425,
+            "x2": 146,
+            "y2": 466
+          },
+          "camDist": 0.3051,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9860
+          }
+        },
+        {
+          "key": "symbol-down",
+          "name": "JG-025 Button Symbol Decal (down)",
+          "facingDot": 0.956,
+          "inFrame": true,
+          "rectPx": {
+            "x1": 104,
+            "y1": 472,
+            "x2": 147,
+            "y2": 513
+          },
+          "camDist": 0.3078,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
+          "texture": {
+            "size": "128x128",
+            "brightWhitePx": 9861
+          }
+        }
+      ],
+      "screenshot": "dwell-after-mobile-390x844.png",
+      "pixelCounts": {
+        "bezel": {
+          "whitePx": 1009,
+          "redPx": 179,
+          "sampledPx": 23956
+        },
+        "readout": {
+          "whitePx": 999,
+          "redPx": 0,
+          "sampledPx": 13825
+        },
+        "symbol-up": {
+          "whitePx": 363,
+          "redPx": 70,
+          "sampledPx": 2352
+        },
+        "symbol-enter": {
+          "whitePx": 281,
+          "redPx": 69,
+          "sampledPx": 2303
+        },
+        "symbol-down": {
+          "whitePx": 346,
+          "redPx": 91,
+          "sampledPx": 2303
+        }
+      }
+    }
+  ],
+  "dwellLink": {
+    "paced": 0.47299134517677566,
+    "inWindow": true,
+    "errors": []
+  },
+  "reducedMotion": {
+    "hasRig": true,
+    "hasCluster": true,
+    "clusterBuilt": true,
+    "errors": []
+  },
+  "finishedAt": "2026-09-06T22:01:28.314Z"
+}

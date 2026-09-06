@@ -6,6 +6,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Active
 
+- [ ] **JG-027 — LCD cluster restoration & illumination** · [plan](project/work/plans/JG-027-lcd-cluster-illumination.md)
+  - Fix the rear-LCD cluster dressing that has been invisible since JG-025 (`findPartMesh` measured primitive 0 of multi-primitive meshes → decals mounted inside the handle; NOT a JG-026 regression — JG-025's approved frames already show the blank LCD), then light the button symbols white (▲/⏎/▼, ruled Option A + touch of B) and ship the ruled dual-unit readout (`1,250 N·m` + `922 FT-LB`, `PEAK / STAGE 5 / CAL OK`, 4 bars). Adds the `?dwell=lcd` deep-link (paced 0.473) as the one-URL ruling stop.
+  - **Required proof:** `verify-jg027-lcd-cluster.mjs` (facingDot > 0.5 + zero occluders + rear-panel pixel assertion for bezel/readout/3 symbols at the dwell), fresh `:4173` telemetry, same-frame before/after pairs, reduced-motion/poster tiers, `npm run typecheck`, `npm run build`, `scripts/check-station2-contract.mjs`, owner visual ruling at `?dwell=lcd`.
+  - Owner rulings 2026-09-06: dual readout YES; glow = crisp white with soft halo. Branch `zcode/jg-027-lcd-cluster`.
+
 - [x] **JG-026 — Rebuild B1/B2 engineering drawing → 3D extraction** · [plan](project/work/plans/JG-026-b1-b2-engineering-drawing.md)
   - Owner-authorized 2026-09-03; owner pacing/realism rulings 2026-09-05. Branch `codex/b1-b2-engineering-drawing`. Hidden-line ANSI C third-angle print, projected GD&T, ordered excitation, vertex-solved detachment and single shockwave pass, owner-paced intro (document 2020vh → 3120vh with no downstream chapter losing distance).
   - **CLOSED VERIFIED 2026-09-06 — owner visual ruling PASS at `?chapter=0`** ("yes. it all looks good.") — mobile arrangement confirmed by the same ruling; perf p95 16.80 ms accepted as vsync quantum (0 declined frames).
