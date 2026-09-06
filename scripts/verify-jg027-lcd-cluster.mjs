@@ -133,6 +133,16 @@ function probeCluster() {
       }
     }
     const rect = { x1, x2, y1, y2 }
+    // Owner ruling 2026-09-06: bezel + readout rotate 90° CW about the screen
+    // normal — their long axis must read vertical on screen (|world-Y| component)
+    // and the canvas +X (text baseline) must flow DOWN-screen (reads top-to-bottom).
+    const m = mesh.matrixWorld.elements
+    const longAxis = new V(m[0], m[1], m[2]).normalize()
+    const baselineEnd = pos.clone().addScaledVector(longAxis, 0.005).project(cam)
+    const baselineStart = pos.clone().project(cam)
+    const longAxisUpDot = Math.abs(longAxis.y)
+    const readsTopToBottom =
+      (-baselineEnd.y * 0.5 + 0.5) * innerHeight - (-baselineStart.y * 0.5 + 0.5) * innerHeight > 0
     // Texture content stats (proves the canvas is drawn, independent of placement).
     let texture = null
     const img = mesh.material?.map?.image
@@ -156,6 +166,8 @@ function probeCluster() {
       inFrame: Math.abs(ndc.x) < 1 && Math.abs(ndc.y) < 1 && ndc.z < 1,
       rectPx: { x1: Math.round(rect.x1), y1: Math.round(rect.y1), x2: Math.round(rect.x2), y2: Math.round(rect.y2) },
       camDist: +camPos.distanceTo(pos).toFixed(4),
+      longAxisUpDot: +longAxisUpDot.toFixed(3),
+      readsTopToBottom,
       texture,
     })
   }
@@ -245,6 +257,10 @@ for (const leg of legSpecs) {
       }
       if (leg.assert && s.facingDot <= 0.5) fail(`${leg.label}: ${s.key} facingDot ${s.facingDot} <= 0.5 (backfaced/edge-on)`)
       if (leg.assert && !s.inFrame) fail(`${leg.label}: ${s.key} not in frame at dwell`)
+      if (leg.assert && (s.key === 'bezel' || s.key === 'readout')) {
+        if (s.longAxisUpDot < 0.8) fail(`${leg.label}: ${s.key} long axis not vertical (upDot ${s.longAxisUpDot}) — 90° CW ruling violated`)
+        if (!s.readsTopToBottom) fail(`${leg.label}: ${s.key} text baseline flows up-screen — rotation direction wrong (should read top-to-bottom)`)
+      }
       if (leg.assert && s.texture && s.texture.brightWhitePx < 20 && (s.key === 'readout' || s.key.startsWith('symbol'))) {
         fail(`${leg.label}: ${s.key} texture has only ${s.texture.brightWhitePx} bright pixels (blank canvas?)`)
       }

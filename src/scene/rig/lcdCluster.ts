@@ -328,6 +328,13 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
   const holePath = new Shape()
   roundedRectPath(holePath, 2 * (longHalf - 0.0004), 2 * (shortHalf - 0.0004), 0.0012)
   outer.holes.push(holePath)
+  // Owner ruling 2026-09-06: the endcap window reads portrait from the dwell
+  // camera, so the bezel + readout dressing rotates 90° clockwise about the
+  // screen normal (−90° right-handed, normal toward the viewer) to read
+  // vertically through it. The button symbols are ruled correct as-is.
+  const READOUT_BASIS = decalBasis(screenNormal, WORLD_UP).multiply(
+    new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), -Math.PI / 2),
+  )
   const bezel = new Mesh(
     new ShapeGeometry(outer, 6),
     roleMaterial('lcdBezelRed'),
@@ -338,7 +345,7 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
     screen.node,
     bezel,
     screenFace.clone().addScaledVector(screenNormal, 0.0002),
-    decalBasis(screenNormal, WORLD_UP),
+    READOUT_BASIS.clone(),
   )
 
   // Data readout: white-on-dark canvas LCD over the panel face.
@@ -352,7 +359,7 @@ export function buildLcdCluster(root: Object3D, finalMeshes: Mesh[]): LcdCluster
     screen.node,
     readout,
     screenFace.clone().addScaledVector(screenNormal, 0.0006),
-    decalBasis(screenNormal, WORLD_UP),
+    READOUT_BASIS.clone(),
   )
 
   // ---- Buttons: luminous white ▲/⏎/▼ symbol decals on each cap.

@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-06T21:38:51.785Z",
+  "startedAt": "2026-09-06T22:00:25.663Z",
   "mode": "after",
   "dwell": 0.473,
   "failures": [],
@@ -18,12 +18,14 @@
           "facingDot": 0.924,
           "inFrame": true,
           "rectPx": {
-            "x1": 848,
-            "y1": 478,
-            "x2": 1101,
-            "y2": 633
+            "x1": 908,
+            "y1": 423,
+            "x2": 1045,
+            "y2": 686
           },
           "camDist": 0.3135,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
           "texture": null
         },
         {
@@ -32,12 +34,14 @@
           "facingDot": 0.924,
           "inFrame": true,
           "rectPx": {
-            "x1": 872,
-            "y1": 502,
-            "x2": 1080,
-            "y2": 610
+            "x1": 931,
+            "y1": 447,
+            "x2": 1024,
+            "y2": 663
           },
           "camDist": 0.3131,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
           "texture": {
             "size": "512x256",
             "brightWhitePx": 11857
@@ -55,6 +59,8 @@
             "y2": 535
           },
           "camDist": 0.3026,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9860
@@ -72,6 +78,8 @@
             "y2": 597
           },
           "camDist": 0.3051,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9860
@@ -89,6 +97,8 @@
             "y2": 657
           },
           "camDist": 0.3078,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9861
@@ -98,14 +108,14 @@
       "screenshot": "dwell-after-desktop-1920x1080.png",
       "pixelCounts": {
         "bezel": {
-          "whitePx": 2475,
-          "redPx": 927,
-          "sampledPx": 41699
+          "whitePx": 1749,
+          "redPx": 268,
+          "sampledPx": 38467
         },
         "readout": {
-          "whitePx": 1507,
-          "redPx": 726,
-          "sampledPx": 24396
+          "whitePx": 1734,
+          "redPx": 0,
+          "sampledPx": 21978
         },
         "symbol-up": {
           "whitePx": 604,
@@ -119,7 +129,7 @@
         },
         "symbol-down": {
           "whitePx": 558,
-          "redPx": 111,
+          "redPx": 113,
           "sampledPx": 3599
         }
       }
@@ -138,12 +148,14 @@
           "facingDot": 0.924,
           "inFrame": true,
           "rectPx": {
-            "x1": 108,
-            "y1": 374,
-            "x2": 305,
-            "y2": 495
+            "x1": 154,
+            "y1": 330,
+            "x2": 261,
+            "y2": 536
           },
           "camDist": 0.3135,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
           "texture": null
         },
         {
@@ -152,12 +164,14 @@
           "facingDot": 0.924,
           "inFrame": true,
           "rectPx": {
-            "x1": 126,
-            "y1": 392,
-            "x2": 289,
-            "y2": 477
+            "x1": 172,
+            "y1": 349,
+            "x2": 245,
+            "y2": 518
           },
           "camDist": 0.3131,
+          "longAxisUpDot": 1,
+          "readsTopToBottom": true,
           "texture": {
             "size": "512x256",
             "brightWhitePx": 11857
@@ -175,6 +189,8 @@
             "y2": 418
           },
           "camDist": 0.3026,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9860
@@ -192,6 +208,8 @@
             "y2": 466
           },
           "camDist": 0.3051,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9860
@@ -209,6 +227,8 @@
             "y2": 513
           },
           "camDist": 0.3078,
+          "longAxisUpDot": 0,
+          "readsTopToBottom": false,
           "texture": {
             "size": "128x128",
             "brightWhitePx": 9861
@@ -218,14 +238,14 @@
       "screenshot": "dwell-after-mobile-390x844.png",
       "pixelCounts": {
         "bezel": {
-          "whitePx": 1502,
-          "redPx": 573,
-          "sampledPx": 25781
+          "whitePx": 1009,
+          "redPx": 179,
+          "sampledPx": 23956
         },
         "readout": {
-          "whitePx": 926,
-          "redPx": 450,
-          "sampledPx": 15379
+          "whitePx": 999,
+          "redPx": 0,
+          "sampledPx": 13825
         },
         "symbol-up": {
           "whitePx": 363,
@@ -256,5 +276,5 @@
     "clusterBuilt": true,
     "errors": []
   },
-  "finishedAt": "2026-09-06T21:39:53.549Z"
+  "finishedAt": "2026-09-06T22:01:28.314Z"
 }
