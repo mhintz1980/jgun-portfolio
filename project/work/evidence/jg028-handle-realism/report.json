@@ -1,0 +1,885 @@
+{
+  "startedAt": "2026-09-07T01:13:15.484Z",
+  "failures": [],
+  "assertions": {
+    "anodizedAluminum": {
+      "pass": true,
+      "count": 1,
+      "sample": {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#040404",
+        "roughness": 0.26,
+        "metalness": 0.98,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      }
+    },
+    "stainlessSteel": {
+      "pass": true,
+      "count": 1,
+      "sample": {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#c2c6cb",
+        "roughness": 0.28,
+        "metalness": 0.92,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1.25,
+        "type": "MeshStandardMaterial"
+      }
+    },
+    "blackOxideSteel": {
+      "pass": true,
+      "count": 8
+    },
+    "blueGroove": {
+      "pass": true,
+      "details": {
+        "found": true,
+        "parent": "MERGED Clutch Static",
+        "color": "#005daa"
+      }
+    },
+    "explosionOffset": {
+      "pass": true,
+      "explosionCheck": {
+        "baseZ": 0,
+        "currentZ": -0.354,
+        "deltaZ": -0.354,
+        "expectedDeltaZ": -0.354,
+        "stainlessMeshes": [
+          {
+            "pos": [
+              0,
+              0,
+              0
+            ],
+            "worldPos": {
+              "x": -0.05049666564765429,
+              "y": 1.457167719820518e-16,
+              "z": 0.2698543144705942
+            }
+          }
+        ]
+      }
+    }
+  },
+  "telemetry": {},
+  "probe": {
+    "handleMeshes": [
+      {
+        "name": "",
+        "parentName": "91251A148_NO_THREADS_Black-Oxide_Alloy_Steel_Socket_Head_Screw",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "P002124-1",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (enter)",
+        "parentName": "P002124-1",
+        "colorHex": "#ffffff",
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "P001924-1",
+        "colorHex": "#0a0a0a",
+        "roughness": 0.18,
+        "metalness": 0.18,
+        "clearcoat": 1,
+        "clearcoatRoughness": 0.1,
+        "envMapIntensity": 1.2,
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "P002123-1",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (up)",
+        "parentName": "P002123-1",
+        "colorHex": "#ffffff",
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "P002115-1",
+        "colorHex": "#0a0a08",
+        "roughness": 0.35,
+        "metalness": 0,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+        "parentName": "P002115-1",
+        "colorHex": "#ad0707",
+        "roughness": 0.32,
+        "metalness": 0.05,
+        "clearcoat": 0.8,
+        "clearcoatRoughness": 0.22,
+        "envMapIntensity": 1.05,
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+        "parentName": "P002115-1",
+        "colorHex": "#ffffff",
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "P002125-2",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (down)",
+        "parentName": "P002125-2",
+        "colorHex": "#ffffff",
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#040404",
+        "roughness": 0.26,
+        "metalness": 0.98,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#c2c6cb",
+        "roughness": 0.28,
+        "metalness": 0.92,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1.25,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#c9cdd2",
+        "roughness": 0.18,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1.3,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#3a3d40",
+        "roughness": 0.42,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 0.95,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#10161a",
+        "roughness": 0.55,
+        "metalness": 0.15,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#c9cbc6",
+        "roughness": 0.55,
+        "metalness": 0,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#7a7e82",
+        "roughness": 0.3,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#1a2026",
+        "roughness": 0.6,
+        "metalness": 0.1,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "colorHex": "#05080b",
+        "roughness": 0.4,
+        "metalness": 0,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      }
+    ],
+    "allRigMeshes": [
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#4a4d50",
+        "roughness": 0.45,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#6e7276",
+        "roughness": 0.32,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#6e7276",
+        "roughness": 0.32,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#6e7276",
+        "roughness": 0.32,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#6e7276",
+        "roughness": 0.32,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#63666a",
+        "roughness": 0.35,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#63666a",
+        "roughness": 0.35,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#1c1c1e",
+        "roughness": 0.52,
+        "metalness": 0.82,
+        "clearcoat": 0.2,
+        "envMapIntensity": 1,
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#6e7276",
+        "roughness": 0.32,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#3a3d40",
+        "roughness": 0.42,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 0.95,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#585c60",
+        "roughness": 0.38,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#040404",
+        "roughness": 0.26,
+        "metalness": 0.98,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0d0d0d",
+        "roughness": 0.28,
+        "metalness": 0.96,
+        "clearcoat": null,
+        "envMapIntensity": 1.2,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#c2c6cb",
+        "roughness": 0.28,
+        "metalness": 0.92,
+        "clearcoat": null,
+        "envMapIntensity": 1.25,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#c9cdd2",
+        "roughness": 0.18,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 1.3,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#3a3d40",
+        "roughness": 0.42,
+        "metalness": 0.9,
+        "clearcoat": null,
+        "envMapIntensity": 0.95,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#10161a",
+        "roughness": 0.55,
+        "metalness": 0.15,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#c9cbc6",
+        "roughness": 0.55,
+        "metalness": 0,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#7a7e82",
+        "roughness": 0.3,
+        "metalness": 0.95,
+        "clearcoat": null,
+        "envMapIntensity": 1.05,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0a0a0a",
+        "roughness": 0.18,
+        "metalness": 0.18,
+        "clearcoat": 1,
+        "envMapIntensity": 1.2,
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#1a2026",
+        "roughness": 0.6,
+        "metalness": 0.1,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#05080b",
+        "roughness": 0.4,
+        "metalness": 0,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#0a0a08",
+        "roughness": 0.35,
+        "metalness": 0,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "",
+        "colorHex": "#2e0606",
+        "roughness": 0.38,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "P000420 Speed Indicator (Red)",
+        "colorHex": "#c8102e",
+        "roughness": 0.45,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "P000420 Speed Indicator (Blue)",
+        "colorHex": "#005daa",
+        "roughness": 0.45,
+        "metalness": 0.05,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
+      },
+      {
+        "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+        "colorHex": "#ad0707",
+        "roughness": 0.32,
+        "metalness": 0.05,
+        "clearcoat": 0.8,
+        "envMapIntensity": 1.05,
+        "type": "MeshPhysicalMaterial"
+      },
+      {
+        "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+        "colorHex": "#ffffff",
+        "roughness": null,
+        "metalness": null,
+        "clearcoat": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (up)",
+        "colorHex": "#ffffff",
+        "roughness": null,
+        "metalness": null,
+        "clearcoat": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (enter)",
+        "colorHex": "#ffffff",
+        "roughness": null,
+        "metalness": null,
+        "clearcoat": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      },
+      {
+        "name": "JG-025 Button Symbol Decal (down)",
+        "colorHex": "#ffffff",
+        "roughness": null,
+        "metalness": null,
+        "clearcoat": null,
+        "envMapIntensity": null,
+        "type": "MeshBasicMaterial"
+      }
+    ],
+    "blueGroove": {
+      "found": true,
+      "parent": "MERGED Clutch Static",
+      "color": "#005daa"
+    },
+    "fastenerCount": 8,
+    "telemetry": {
+      "handleZ": -0.111158832,
+      "outputZ": 0.0157004,
+      "clutchZ": -0.09137632799999999,
+      "slidingZ": -0.09137632799999999,
+      "stageZ": [
+        -0.08007204,
+        -0.07222184000000001,
+        -0.044589135999999994,
+        -0.031086792000000002,
+        -0.055579416
+      ],
+      "stageRot": [
+        62.96570969474784,
+        17.630398714529395,
+        11.80607056776522,
+        7.87071371184348,
+        3.93535685592174
+      ],
+      "planetRot": -220.37998393161743,
+      "gearRotation": 14.158228,
+      "shift": 0,
+      "ghostOpacity": 0.44581445000000003,
+      "ghostCount": 1,
+      "explodeFactor": 0.314008,
+      "ringSwitchZ": -0.09137632799999999,
+      "ringSwitchRotZ": 0
+    }
+  },
+  "pageErrors": [],
+  "explosionCheck": {
+    "baseZ": 0,
+    "currentZ": -0.354,
+    "deltaZ": -0.354,
+    "expectedDeltaZ": -0.354,
+    "stainlessMeshes": [
+      {
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "worldPos": {
+          "x": -0.05049666564765429,
+          "y": 1.457167719820518e-16,
+          "z": 0.2698543144705942
+        }
+      }
+    ]
+  }
+}

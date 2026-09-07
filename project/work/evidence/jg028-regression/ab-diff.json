@@ -1,0 +1,1232 @@
+{
+ "rest": {
+  "phase": "AtRest",
+  "meshCount": [
+   50,
+   60
+  ],
+  "ghostMaterials": [
+   1,
+   1
+  ],
+  "lcdCluster": [
+   true,
+   true
+  ],
+  "onlyInBaseline": [
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#0d0d0d",
+     "roughness": 0.28,
+     "metalness": 0.96,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 17102,
+    "bbox": [
+     0.0753,
+     0.0754,
+     0.0272
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshPhysicalMaterial",
+     "color": "#1a1a1e",
+     "roughness": 0.48,
+     "metalness": 0.82,
+     "clearcoat": 0.25,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 299183,
+    "bbox": [
+     0.2383,
+     0.0799,
+     0.1263
+    ]
+   }
+  ],
+  "onlyInCurrent": [
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#63666a",
+     "roughness": 0.35,
+     "metalness": 0.9,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 1608,
+    "bbox": [
+     0.0645,
+     0.0631,
+     0.005
+    ]
+   },
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#0d0d0d",
+     "roughness": 0.28,
+     "metalness": 0.96,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 15406,
+    "bbox": [
+     0.0753,
+     0.0754,
+     0.0272
+    ]
+   },
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "MeshPhysicalMaterial",
+     "color": "#1c1c1e",
+     "roughness": 0.52,
+     "metalness": 0.82,
+     "clearcoat": 0.2,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 88,
+    "bbox": [
+     0.0689,
+     0.0445,
+     0.0004
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#040404",
+     "roughness": 0.26,
+     "metalness": 0.98,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 297165,
+    "bbox": [
+     0.2383,
+     0.0799,
+     0.1263
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#c2c6cb",
+     "roughness": 0.28,
+     "metalness": 0.92,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.25,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 6,
+    "bbox": [
+     0.0001,
+     0,
+     0.002
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#c9cdd2",
+     "roughness": 0.18,
+     "metalness": 0.9,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.3,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 693,
+    "bbox": [
+     0.0195,
+     0.0316,
+     0.0764
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#3a3d40",
+     "roughness": 0.42,
+     "metalness": 0.9,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 0.95,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 200,
+    "bbox": [
+     0.0338,
+     0.0392,
+     0.0817
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#10161a",
+     "roughness": 0.55,
+     "metalness": 0.15,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 649,
+    "bbox": [
+     0.0239,
+     0.0404,
+     0.0116
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#c9cbc6",
+     "roughness": 0.55,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 348,
+    "bbox": [
+     0.0379,
+     0.0345,
+     0
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#7a7e82",
+     "roughness": 0.3,
+     "metalness": 0.95,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.05,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 60,
+    "bbox": [
+     0.011,
+     0.0141,
+     0.0008
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#1a2026",
+     "roughness": 0.6,
+     "metalness": 0.1,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 59,
+    "bbox": [
+     0.001,
+     0.001,
+     0.0004
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "MeshStandardMaterial",
+     "color": "#05080b",
+     "roughness": 0.4,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#35e0ff",
+     "emissiveIntensity": 3,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 3,
+    "bbox": [
+     0.0012,
+     0.0011,
+     0.0004
+    ]
+   }
+  ],
+  "materialChanged": [],
+  "handleMaterials": {
+   "before": [
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#0d0d0d",
+     "roughness": 0.28,
+     "metalness": 0.96,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#2e0606",
+     "roughness": 0.38,
+     "metalness": 0.05,
+     "clearcoat": null,
+     "emissive": "#d81414",
+     "emissiveIntensity": 1.15,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshBasicMaterial",
+     "color": "#ffffff",
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": true,
+     "opacity": 1
+    },
+    {
+     "type": "MeshPhysicalMaterial",
+     "color": "#0a0a0a",
+     "roughness": 0.18,
+     "metalness": 0.18,
+     "clearcoat": 1,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#0a0a08",
+     "roughness": 0.35,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#141a22",
+     "emissiveIntensity": 0.6,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshPhysicalMaterial",
+     "color": "#ad0707",
+     "roughness": 0.32,
+     "metalness": 0.05,
+     "clearcoat": 0.8,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.05,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshBasicMaterial",
+     "color": "#ffffff",
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshPhysicalMaterial",
+     "color": "#1a1a1e",
+     "roughness": 0.48,
+     "metalness": 0.82,
+     "clearcoat": 0.25,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    }
+   ],
+   "after": [
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#0d0d0d",
+     "roughness": 0.28,
+     "metalness": 0.96,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#2e0606",
+     "roughness": 0.38,
+     "metalness": 0.05,
+     "clearcoat": null,
+     "emissive": "#d81414",
+     "emissiveIntensity": 1.15,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshBasicMaterial",
+     "color": "#ffffff",
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": true,
+     "opacity": 1
+    },
+    {
+     "type": "MeshPhysicalMaterial",
+     "color": "#0a0a0a",
+     "roughness": 0.18,
+     "metalness": 0.18,
+     "clearcoat": 1,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.2,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#0a0a08",
+     "roughness": 0.35,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#141a22",
+     "emissiveIntensity": 0.6,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshPhysicalMaterial",
+     "color": "#ad0707",
+     "roughness": 0.32,
+     "metalness": 0.05,
+     "clearcoat": 0.8,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.05,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshBasicMaterial",
+     "color": "#ffffff",
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#040404",
+     "roughness": 0.26,
+     "metalness": 0.98,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#c2c6cb",
+     "roughness": 0.28,
+     "metalness": 0.92,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.25,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#c9cdd2",
+     "roughness": 0.18,
+     "metalness": 0.9,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.3,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#3a3d40",
+     "roughness": 0.42,
+     "metalness": 0.9,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 0.95,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#10161a",
+     "roughness": 0.55,
+     "metalness": 0.15,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#c9cbc6",
+     "roughness": 0.55,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#7a7e82",
+     "roughness": 0.3,
+     "metalness": 0.95,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1.05,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#1a2026",
+     "roughness": 0.6,
+     "metalness": 0.1,
+     "clearcoat": null,
+     "emissive": "#000000",
+     "emissiveIntensity": 1,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    },
+    {
+     "type": "MeshStandardMaterial",
+     "color": "#05080b",
+     "roughness": 0.4,
+     "metalness": 0,
+     "clearcoat": null,
+     "emissive": "#35e0ff",
+     "emissiveIntensity": 3,
+     "envMapIntensity": 1,
+     "transparent": false,
+     "opacity": 1
+    }
+   ]
+  }
+ },
+ "end": {
+  "phase": "AtEnd",
+  "meshCount": [
+   50,
+   60
+  ],
+  "ghostMaterials": [
+   1,
+   1
+  ],
+  "lcdCluster": [
+   true,
+   true
+  ],
+  "onlyInBaseline": [
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 17102,
+    "bbox": [
+     0.0753,
+     0.0754,
+     0.0272
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 299183,
+    "bbox": [
+     0.2383,
+     0.0799,
+     0.1263
+    ]
+   }
+  ],
+  "onlyInCurrent": [
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 1608,
+    "bbox": [
+     0.0645,
+     0.0631,
+     0.005
+    ]
+   },
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 15406,
+    "bbox": [
+     0.0753,
+     0.0754,
+     0.0272
+    ]
+   },
+   {
+    "parent": "MERGED Ring Switch (P003068)",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 88,
+    "bbox": [
+     0.0689,
+     0.0445,
+     0.0004
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 297165,
+    "bbox": [
+     0.2383,
+     0.0799,
+     0.1263
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 6,
+    "bbox": [
+     0.0001,
+     0,
+     0.002
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 693,
+    "bbox": [
+     0.0195,
+     0.0316,
+     0.0764
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 200,
+    "bbox": [
+     0.0338,
+     0.0392,
+     0.0817
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 649,
+    "bbox": [
+     0.0239,
+     0.0404,
+     0.0116
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 348,
+    "bbox": [
+     0.0379,
+     0.0345,
+     0
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 60,
+    "bbox": [
+     0.011,
+     0.0141,
+     0.0008
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 59,
+    "bbox": [
+     0.001,
+     0.001,
+     0.0004
+    ]
+   },
+   {
+    "parent": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+    "name": null,
+    "mat": {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    },
+    "verts": 3,
+    "bbox": [
+     0.0012,
+     0.0011,
+     0.0004
+    ]
+   }
+  ],
+  "materialChanged": [],
+  "handleMaterials": {
+   "before": [
+    {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    }
+   ],
+   "after": [
+    {
+     "type": "ShaderMaterial",
+     "color": null,
+     "roughness": null,
+     "metalness": null,
+     "clearcoat": null,
+     "emissive": null,
+     "emissiveIntensity": null,
+     "envMapIntensity": null,
+     "transparent": false,
+     "opacity": 1
+    }
+   ]
+  }
+ },
+ "telemetryDiffs": {
+  "stop_0.1": {
+   "baselineReached": 0.1,
+   "currentReached": 0.1,
+   "diffs": []
+  },
+  "stop_0.22": {
+   "baselineReached": 0.21999018886436106,
+   "currentReached": 0.21999018886436106,
+   "diffs": []
+  },
+  "stop_0.35": {
+   "baselineReached": 0.3499982480114931,
+   "currentReached": 0.3499982480114931,
+   "diffs": [
+    {
+     "path": "stop_0.35.rig.stageRot[0]",
+     "before": 61.080754102968456,
+     "after": 61.07572755427331,
+     "delta": -0.00503
+    },
+    {
+     "path": "stop_0.35.rig.stageRot[1]",
+     "before": 17.10261114883117,
+     "after": 17.10120371519653,
+     "delta": -0.00141
+    },
+    {
+     "path": "stop_0.35.rig.planetRot",
+     "before": -213.7826393603896,
+     "after": -213.76504643995656,
+     "delta": 0.01759
+    }
+   ]
+  },
+  "stop_0.5": {
+   "baselineReached": 0.5000105119310418,
+   "currentReached": 0.5000105119310418,
+   "diffs": [
+    {
+     "path": "stop_0.5.rig.stageRot[0]",
+     "before": 119.56775930120415,
+     "after": 119.98370616846454,
+     "delta": 0.41595
+    },
+    {
+     "path": "stop_0.5.rig.stageRot[1]",
+     "before": 33.478972604337166,
+     "after": 33.59543772717007,
+     "delta": 0.11647
+    },
+    {
+     "path": "stop_0.5.rig.stageRot[2]",
+     "before": 22.418954868975778,
+     "after": 22.4969449065871,
+     "delta": 0.07799
+    },
+    {
+     "path": "stop_0.5.rig.stageRot[3]",
+     "before": 14.945969912650519,
+     "after": 14.997963271058067,
+     "delta": 0.05199
+    },
+    {
+     "path": "stop_0.5.rig.stageRot[4]",
+     "before": 7.472984956325259,
+     "after": 7.4989816355290335,
+     "delta": 0.026
+    },
+    {
+     "path": "stop_0.5.rig.planetRot",
+     "before": -418.4871575542145,
+     "after": -419.94297158962587,
+     "delta": -1.45581
+    }
+   ]
+  },
+  "stop_0.518": {
+   "baselineReached": 0.5180104418515015,
+   "currentReached": 0.5180104418515015,
+   "diffs": [
+    {
+     "path": "stop_0.518.rig.stageRot[0]",
+     "before": 155.898393384303,
+     "after": 157.78460561344338,
+     "delta": 1.88621
+    },
+    {
+     "path": "stop_0.518.rig.stageRot[1]",
+     "before": 43.651550147604844,
+     "after": 44.17968957176415,
+     "delta": 0.52814
+    },
+    {
+     "path": "stop_0.518.rig.stageRot[2]",
+     "before": 29.230948759556814,
+     "after": 29.584613552520636,
+     "delta": 0.35366
+    },
+    {
+     "path": "stop_0.518.rig.stageRot[3]",
+     "before": 19.487299173037876,
+     "after": 19.723075701680422,
+     "delta": 0.23578
+    },
+    {
+     "path": "stop_0.518.rig.stageRot[4]",
+     "before": 9.743649586518938,
+     "after": 9.861537850840211,
+     "delta": 0.11789
+    },
+    {
+     "path": "stop_0.518.rig.planetRot",
+     "before": -545.6443768450605,
+     "after": -552.2461196470518,
+     "delta": -6.60174
+    }
+   ]
+  },
+  "stop_0.555": {
+   "baselineReached": 0.5550124391183995,
+   "currentReached": 0.5550124391183995,
+   "diffs": [
+    {
+     "path": "stop_0.555.rig.stageRot[0]",
+     "before": 191.99529297405005,
+     "after": 194.0536644819552,
+     "delta": 2.05837
+    },
+    {
+     "path": "stop_0.555.rig.stageRot[1]",
+     "before": 53.758682032734015,
+     "after": 54.335026054947456,
+     "delta": 0.57634
+    },
+    {
+     "path": "stop_0.555.rig.stageRot[2]",
+     "before": 35.999117432634385,
+     "after": 36.385062090366596,
+     "delta": 0.38594
+    },
+    {
+     "path": "stop_0.555.rig.stageRot[3]",
+     "before": 23.999411621756256,
+     "after": 24.2567080602444,
+     "delta": 0.2573
+    },
+    {
+     "path": "stop_0.555.rig.stageRot[4]",
+     "before": 11.999705810878128,
+     "after": 12.1283540301222,
+     "delta": 0.12865
+    },
+    {
+     "path": "stop_0.555.rig.planetRot",
+     "before": -671.9835254091752,
+     "after": -679.1878256868432,
+     "delta": -7.2043
+    }
+   ]
+  },
+  "stop_0.64": {
+   "baselineReached": 0.6400014015908057,
+   "currentReached": 0.6400014015908057,
+   "diffs": [
+    {
+     "path": "stop_0.64.rig.stageRot[0]",
+     "before": 229.22567919044073,
+     "after": 231.28530733720498,
+     "delta": 2.05963
+    },
+    {
+     "path": "stop_0.64.rig.stageRot[1]",
+     "before": 64.18319017332341,
+     "after": 64.75988605441741,
+     "delta": 0.5767
+    },
+    {
+     "path": "stop_0.64.rig.stageRot[2]",
+     "before": 42.97981484820764,
+     "after": 43.36599512572594,
+     "delta": 0.38618
+    },
+    {
+     "path": "stop_0.64.rig.stageRot[3]",
+     "before": 28.65320989880509,
+     "after": 28.910663417150623,
+     "delta": 0.25745
+    },
+    {
+     "path": "stop_0.64.rig.stageRot[4]",
+     "before": 14.326604949402546,
+     "after": 14.455331708575311,
+     "delta": 0.12873
+    },
+    {
+     "path": "stop_0.64.rig.planetRot",
+     "before": -802.2898771665425,
+     "after": -809.4985756802174,
+     "delta": -7.2087
+    }
+   ]
+  },
+  "stop_0.9": {
+   "baselineReached": 0.9000175198850696,
+   "currentReached": 0.9000175198850696,
+   "diffs": [
+    {
+     "path": "stop_0.9.rig.stageRot[0]",
+     "before": 267.23518038791764,
+     "after": 269.08746341917026,
+     "delta": 1.85228
+    },
+    {
+     "path": "stop_0.9.rig.stageRot[1]",
+     "before": 74.82585050861694,
+     "after": 75.34448975736768,
+     "delta": 0.51864
+    },
+    {
+     "path": "stop_0.9.rig.stageRot[2]",
+     "before": 50.10659632273455,
+     "after": 50.453899391094424,
+     "delta": 0.3473
+    },
+    {
+     "path": "stop_0.9.rig.stageRot[3]",
+     "before": 33.404397548489705,
+     "after": 33.63593292739628,
+     "delta": 0.23154
+    },
+    {
+     "path": "stop_0.9.rig.stageRot[4]",
+     "before": 16.702198774244852,
+     "after": 16.81796646369814,
+     "delta": 0.11577
+    },
+    {
+     "path": "stop_0.9.rig.planetRot",
+     "before": -935.3231313577118,
+     "after": -941.8061219670959,
+     "delta": -6.48299
+    }
+   ]
+  }
+ },
+ "pageErrors": {
+  "baseline": [],
+  "current": []
+ }
+}

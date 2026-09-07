@@ -1,0 +1,14 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "changedPxOver8": 4,
+  "changedFrac": 0.000002,
+  "meanAbsDeltaWhereAny": 0.0001,
+  "maxDelta": 14,
+  "changedRegion": {
+    "x": 849,
+    "y": 330,
+    "w": 3,
+    "h": 3
+  }
+}

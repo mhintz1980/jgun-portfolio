@@ -30,6 +30,7 @@ export type MaterialRole =
   | 'barrelBlack'
   | 'blackOxideSteel'
   | 'anodizedAluminum'
+  | 'stainlessSteel'
   | 'ringSwitch'
   | 'toolSteel'
   | 'cageSteel'
@@ -62,6 +63,8 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   // Rear handle digital LCD screen (P002115) — dark unlit field; the JG-025
   // data readout lives on a decal plane in front of the panel (lcdCluster.ts).
   [/P002115/i, 'lcdScreen'],
+  // Reversing valve spool / shuttle (P001928) — machined stainless steel (JG-028).
+  [/P001928/i, 'stainlessSteel'],
   // Rear handle buttons (P002123/P002124/P002125) — red backlit (JG-025).
   [/(P002123|P002124|P002125)/i, 'lcdButtonRed'],
   // LCD housing (P001924) — glossy black endcap cap; the red bezel is a
@@ -235,16 +238,23 @@ export function roleMaterial(role: MaterialRole): Material {
         envMapIntensity: 1.2,
       })
       break
-    // Anodized aluminum — handle assembly and ring switch base finish.
-    // Slightly warmer and more matte than black oxide steel.
+    // Anodized aluminum — handle assembly (body, top cap, collar adapter, trigger blade).
+    // Deep obsidian satin black (#040404, roughness 0.26, metalness 0.98) matching the gearbox.
     case 'anodizedAluminum':
-      material = new MeshPhysicalMaterial({
-        color: '#1a1a1e',
-        roughness: 0.48,
-        metalness: 0.82,
-        clearcoat: 0.25,
-        clearcoatRoughness: 0.35,
+      material = new MeshStandardMaterial({
+        color: '#040404',
+        roughness: 0.26,
+        metalness: 0.98,
         envMapIntensity: 1.0,
+      })
+      break
+    // Stainless steel — reversing valve spool (P001928, JG-028).
+    case 'stainlessSteel':
+      material = new MeshStandardMaterial({
+        color: '#c2c6cb',
+        roughness: 0.28,
+        metalness: 0.92,
+        envMapIntensity: 1.25,
       })
       break
     // Ring switch (P003068) — anodized aluminum OD with knurled normal map.

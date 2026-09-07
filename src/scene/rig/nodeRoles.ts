@@ -457,7 +457,17 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const unit = unitOf(mesh)
     const ghost = unit.key === 'housing' && housingMeshSet.has(mesh)
-    const role = materialRoleFor(unit.key, mesh.name)
+    // Resolve nearest non-generic node name for ROLE_OVERRIDES matching
+    let nodeName = mesh.name
+    let curr: Object3D | null = mesh
+    while (curr) {
+      if (curr.name && !/^mesh\d+_mesh$/i.test(curr.name)) {
+        nodeName = curr.name
+        break
+      }
+      curr = curr.parent
+    }
+    const role = materialRoleFor(unit.key, nodeName)
     const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const bucket = buckets.get(key)
     if (bucket) bucket.sources.push(mesh)
