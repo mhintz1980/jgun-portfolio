@@ -1,5 +1,7 @@
 import {
   DataTexture,
+  LinearFilter,
+  LinearMipmapLinearFilter,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   NoColorSpace,
@@ -133,7 +135,11 @@ const roleMaterials = new Map<MaterialRole, Material>()
 export const introPbrActivation = { value: 1 }
 
 const KNURL_TEXTURE_SIZE = 256
-const KNURL_REPEAT = new Vector2(30, 8)
+// Knurl pitch for the P003068 ring switch: Ø93 mm OD × 27.2 mm tall at a
+// ~1.6 mm diamond pitch → 182 wraps around the circumference × 17 up the
+// height (JG-029; the UVs are synthesized cylindrically in nodeRoles.ts —
+// the integer u-repeat keeps the θ = ±π seam continuous).
+const KNURL_REPEAT = new Vector2(182, 17)
 
 /**
  * A seamless tangent-space diamond-knurl normal texture. Its height field is
@@ -172,6 +178,12 @@ export function createDiamondKnurlNormalMap(): DataTexture {
   texture.wrapS = RepeatWrapping
   texture.wrapT = RepeatWrapping
   texture.repeat.copy(KNURL_REPEAT)
+  // 182 wraps across a ~150 px on-screen ring needs filtered mip chains —
+  // DataTexture defaults (nearest, no mips) would shimmer badly.
+  texture.generateMipmaps = true
+  texture.minFilter = LinearMipmapLinearFilter
+  texture.magFilter = LinearFilter
+  texture.anisotropy = 8
   texture.needsUpdate = true
   return texture
 }

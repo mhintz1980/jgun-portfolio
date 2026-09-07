@@ -1,8 +1,8 @@
-import { Box3, CylinderGeometry, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
+import { Box3, BufferAttribute, BufferGeometry, CylinderGeometry, Group, Material, Matrix4, Mesh, Object3D, Vector3 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StageId } from '../../data/caseStudies'
 import { STAGE_IDS } from '../../data/caseStudies'
-import { materialRoleFor, roleMaterial } from './materials'
+import { materialRoleFor, roleMaterial, type MaterialRole } from './materials'
 import { buildLcdCluster, type LcdClusterParts } from './lcdCluster'
 
 /**
@@ -164,6 +164,28 @@ function hasAncestorMatching(node: Object3D, re: RegExp): boolean {
     current = current.parent
   }
   return false
+}
+
+/**
+ * The CAD export carries no UVs, so the ring switch's knurled-OD normal map
+ * has nothing to sample (JG-029). Synthesize cylindrical UVs in the unit bake
+ * frame (gear axis = local Z): u wraps the circumference, v spans the axial
+ * height. The knurl texture repeats an integer number of times in u, so the
+ * θ = ±π seam is continuous; the OD mask in the material keeps end faces
+ * smooth.
+ */
+function attachCylindricalUvs(geometry: BufferGeometry): void {
+  geometry.computeBoundingBox()
+  const bb = geometry.boundingBox
+  if (!bb) return
+  const pos = geometry.attributes.position as BufferAttribute
+  const uvs = new Float32Array(pos.count * 2)
+  const zSpan = Math.max(bb.max.z - bb.min.z, 1e-6)
+  for (let i = 0; i < pos.count; i += 1) {
+    uvs[i * 2] = Math.atan2(pos.getY(i), pos.getX(i)) / (Math.PI * 2) + 0.5
+    uvs[i * 2 + 1] = (pos.getZ(i) - bb.min.z) / zSpan
+  }
+  geometry.setAttribute('uv', new BufferAttribute(uvs, 2))
 }
 
 export function buildWrenchRig(root: Object3D): WrenchRig {
@@ -443,6 +465,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   // original CAD material.
   interface Bucket {
     unit: Unit
+    role: MaterialRole
     material: Material
     ghost: boolean
     sources: Mesh[]
@@ -457,11 +480,16 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const unit = unitOf(mesh)
     const ghost = unit.key === 'housing' && housingMeshSet.has(mesh)
-    // Resolve nearest non-generic node name for ROLE_OVERRIDES matching
+    // Resolve nearest non-generic node name for ROLE_OVERRIDES matching.
+    // The suffix variant matters: multi-primitive CAD parts expand to prim
+    // meshes named after the mesh def, and GLTFLoader uniquifies duplicates
+    // (`mesh2534_mesh`, `mesh2534_mesh_1`, …) — treating the suffixed ones as
+    // identity stopped the walk at prim ≥ 1 and only prim-0 of each part ever
+    // matched its override (JG-029).
     let nodeName = mesh.name
     let curr: Object3D | null = mesh
     while (curr) {
-      if (curr.name && !/^mesh\d+_mesh$/i.test(curr.name)) {
+      if (curr.name && !/^mesh\d+_mesh(_\d+)?$/i.test(curr.name)) {
         nodeName = curr.name
         break
       }
@@ -471,7 +499,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const bucket = buckets.get(key)
     if (bucket) bucket.sources.push(mesh)
-    else buckets.set(key, { unit, material: roleMaterial(role), ghost, sources: [mesh] })
+    else buckets.set(key, { unit, role, material: roleMaterial(role), ghost, sources: [mesh] })
   }
 
   const frameInverses = new Map<Object3D, Matrix4>()
@@ -510,6 +538,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     // applyMatrix4 runs normals through the normal matrix without renormalizing.
     merged.normalizeNormals()
+    if (bucket.unit.key === 'ring-switch' && bucket.role === 'ringSwitch') attachCylindricalUvs(merged)
     if (geometries.length > 1) for (const geometry of geometries) geometry.dispose()
 
     let material = bucket.material
