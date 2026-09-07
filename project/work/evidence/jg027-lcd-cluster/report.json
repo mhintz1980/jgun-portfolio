@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-09-07T02:16:41.263Z",
+  "startedAt": "2026-09-07T03:43:04.939Z",
   "mode": "after",
   "dwell": 0.473,
   "failures": [],
@@ -108,7 +108,7 @@
       "screenshot": "dwell-after-desktop-1920x1080.png",
       "pixelCounts": {
         "bezel": {
-          "whitePx": 1736,
+          "whitePx": 1732,
           "redPx": 273,
           "sampledPx": 38467
         },
@@ -118,7 +118,7 @@
           "sampledPx": 21978
         },
         "symbol-up": {
-          "whitePx": 602,
+          "whitePx": 601,
           "redPx": 116,
           "sampledPx": 3660
         },
@@ -128,8 +128,8 @@
           "sampledPx": 3660
         },
         "symbol-down": {
-          "whitePx": 558,
-          "redPx": 150,
+          "whitePx": 554,
+          "redPx": 156,
           "sampledPx": 3599
         }
       }
@@ -238,12 +238,12 @@
       "screenshot": "dwell-after-mobile-390x844.png",
       "pixelCounts": {
         "bezel": {
-          "whitePx": 1001,
+          "whitePx": 995,
           "redPx": 180,
           "sampledPx": 23956
         },
         "readout": {
-          "whitePx": 996,
+          "whitePx": 995,
           "redPx": 0,
           "sampledPx": 13825
         },
@@ -253,13 +253,13 @@
           "sampledPx": 2352
         },
         "symbol-enter": {
-          "whitePx": 280,
+          "whitePx": 279,
           "redPx": 69,
           "sampledPx": 2303
         },
         "symbol-down": {
-          "whitePx": 346,
-          "redPx": 106,
+          "whitePx": 343,
+          "redPx": 110,
           "sampledPx": 2303
         }
       }
@@ -276,5 +276,5 @@
     "clusterBuilt": true,
     "errors": []
   },
-  "finishedAt": "2026-09-07T02:17:58.428Z"
+  "finishedAt": "2026-09-07T03:44:01.676Z"
 }

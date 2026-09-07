@@ -6,6 +6,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Active
 
+- [x] **JG-030 — P001924 LCD housing → handle anodized finish** · [plan](project/work/plans/JG-030-p001924-handle-finish.md) · [evidence](project/work/evidence/JG-030-p001924-handle-finish-verification.md)
+  - Owner ruling 2026-09-06 (rear-panel screenshot): P001924 must be identical in material/finish/color to the Handle; the JG-025 glossy `shellBlack` showed distinct white speculars against the satin body. Superseded.
+  - Fix: `/P001924/i` override + `lcd-housing` unit default re-pointed `shellBlack` → `anodizedAluminum` (shared handle material instance). `shellBlack` stays in the finish library, unused.
+  - **CLOSED VERIFIED 2026-09-06 — A/B census vs HEAD `9b6444e`:** exactly one delta (P001924-1 9,165 v `#0a0a0a`+clearcoat → `#040404`/r0.26/m0.98); zero other changes; `verify-jg028` 5/5, `verify-jg027` pixel gates PASS, tests 10/10, station2 green, 0 console errors. Live assertion at `?dwell=lcd` + rear-panel capture in evidence.
+
 - [x] **JG-029 — Ring switch knurl restoration (OD only)** · [plan](project/work/plans/JG-029-ring-switch-knurl.md) · [evidence](project/work/evidence/JG-029-ring-switch-knurl-verification.md)
   - Owner report 2026-09-06: ring switch renders plain black, no knurl on the OD. Root cause (both proven): (1) GLTFLoader uniquifies multi-primitive mesh-def names (`meshN_mesh_2`…), which defeated the JG-028 generic-name test — only prim-0 of each multi-prim part ever matched its `ROLE_OVERRIDES` entry; (2) the CAD export has no UVs, so the knurl normal map could never sample on any bucket.
   - Fix: broaden the generic test to `meshN_mesh(_N)?` (full prim routing through part nodes); synthesize cylindrical UVs on the merged ringSwitch bucket; retune `KNURL_REPEAT` to (182, 17) ≈ 1.6 mm diamond pitch on the Ø93 × 27.2 mm ring + mipmaps/anisotropy. OD-only stays enforced by the existing object-normal mask.

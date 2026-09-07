@@ -1,13 +1,13 @@
 {
-  "startedAt": "2026-09-07T02:16:08.533Z",
+  "startedAt": "2026-09-07T03:42:36.631Z",
   "failures": [],
   "assertions": {
     "anodizedAluminum": {
       "pass": true,
-      "count": 1,
+      "count": 2,
       "sample": {
         "name": "",
-        "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+        "parentName": "P001924-1",
         "colorHex": "#040404",
         "roughness": 0.26,
         "metalness": 0.98,
@@ -105,13 +105,13 @@
       {
         "name": "",
         "parentName": "P001924-1",
-        "colorHex": "#0a0a0a",
-        "roughness": 0.18,
-        "metalness": 0.18,
-        "clearcoat": 1,
-        "clearcoatRoughness": 0.1,
-        "envMapIntensity": 1.2,
-        "type": "MeshPhysicalMaterial"
+        "colorHex": "#040404",
+        "roughness": 0.26,
+        "metalness": 0.98,
+        "clearcoat": null,
+        "clearcoatRoughness": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "",
@@ -701,12 +701,12 @@
       },
       {
         "name": "",
-        "colorHex": "#0a0a0a",
-        "roughness": 0.18,
-        "metalness": 0.18,
-        "clearcoat": 1,
-        "envMapIntensity": 1.2,
-        "type": "MeshPhysicalMaterial"
+        "colorHex": "#040404",
+        "roughness": 0.26,
+        "metalness": 0.98,
+        "clearcoat": null,
+        "envMapIntensity": 1,
+        "type": "MeshStandardMaterial"
       },
       {
         "name": "",
@@ -836,13 +836,13 @@
         -0.055579416
       ],
       "stageRot": [
-        64.43597505662785,
-        18.0420730158558,
-        12.08174532311772,
-        8.054496882078482,
-        4.027248441039241
+        62.9682229690954,
+        17.631102431346715,
+        11.806541806705388,
+        7.871027871136925,
+        3.9355139355684625
       ],
-      "planetRot": -225.5259126981975,
+      "planetRot": -220.3887803918339,
       "gearRotation": 14.158228,
       "shift": 0,
       "ghostOpacity": 0.44581445000000003,

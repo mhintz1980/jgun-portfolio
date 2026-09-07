@@ -69,9 +69,10 @@ const ROLE_OVERRIDES: readonly (readonly [RegExp, MaterialRole])[] = [
   [/P001928/i, 'stainlessSteel'],
   // Rear handle buttons (P002123/P002124/P002125) — red backlit (JG-025).
   [/(P002123|P002124|P002125)/i, 'lcdButtonRed'],
-  // LCD housing (P001924) — glossy black endcap cap; the red bezel is a
-  // code-side ring around the screen (JG-025).
-  [/P001924/i, 'shellBlack'],
+  // LCD housing (P001924) — owner ruling 2026-09-06 (JG-030): identical
+  // anodized finish to the handle body (supersedes the JG-025 glossy
+  // shellBlack); the red bezel is a code-side ring around the screen (JG-025).
+  [/P001924/i, 'anodizedAluminum'],
   // Ring switch (P003068) — anodized aluminum with knurled OD.
   [/P003068/i, 'ringSwitch'],
   // Ring switch pins (P000464) & ball-nose plungers (K000156) — machined clutch steel.
@@ -104,13 +105,13 @@ const unitDefaultRole = (unitKey: string): MaterialRole => {
   if (unitKey === 'clutch-static') return 'blackOxideSteel'
   if (unitKey === 'clutch-sliding') return 'clutchSteel'
   // LCD parts fall back to their ROLE_OVERRIDES entries above; these unit
-  // defaults are the safety net when no override matches. JG-025: the housing
-  // becomes the glossy black cap; buttons are per-part units
+  // defaults are the safety net when no override matches. JG-030: the housing
+  // matches the handle's anodized finish; buttons are per-part units
   // (`lcd-button-${i}`) so each bakes into its own occurrence frame.
   if (unitKey === 'lcd-screen') return 'lcdScreen'
   if (unitKey === 'lcd-buttons') return 'lcdButtonRed'
   if (unitKey.startsWith('lcd-button')) return 'lcdButtonRed'
-  if (unitKey === 'lcd-housing') return 'shellBlack'
+  if (unitKey === 'lcd-housing') return 'anodizedAluminum'
   // Handle fasteners (2026-09-01 Fine re-export) — the handle unit default is
   // anodized aluminum; black-oxide socket/button-head screws are their own unit.
   if (unitKey === 'fastener') return 'blackOxideSteel'
