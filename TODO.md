@@ -6,6 +6,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Active
 
+- [ ] **JG-032 — Station-2 thermal visualization, dark-blue recolor & gated JGUN polish** · [plan](project/work/plans/JG-032-station2-thermal-visualization.md)
+  - From `docs/kimi-visual-enhancement-brief.md` (audited vs `main@0ddd8cd`; owner rulings 2026-09-08: 6 acoustic / 5 thermal ring split; dark-blue recolor supersedes JG-021 round 3; three revertible commits — airflow / recolor / `PANELS_OPAQUE` flip — each with an A/B census).
+  - **Required proof:** `verify-jg032-station2-thermal.mjs` (airway AABB uniforms resolved, cool→hot ramp samples, 6/5 pools, A/B material census = exactly the allow-listed delta, yellow grille/pump/mounts/airway unchanged, CH.04 telemetry byte-identical, 0 console errors), unit tests incl. allow-list negatives + JGUN gate CH.04 inertness, `npm run typecheck`, `npm test`, `npm run check:station2`, fresh `:4173`, owner visual ruling.
+  - **In progress 2026-09-08** — Commit 1 landed: airway-box (`uAirwayMin`/`uAirwayMax` = measured AABB x[−0.6,0.6] y[1.2,1.855] z[0.431,1.3]) driven +Z→−Z thermal route, cool→hot ramp, baffle deflection, pump pulse in internals window, 6 acoustic rings retained + 5 thermal boundary shells (exhaust pool converted), grille aperture = slot lattice (ray-grid probe: no hex perforations); 27/27 tests, typecheck/build/station2 green, runtime smoke PASS (0 console errors). Recolor, panels flip, JGUN gates, probe pending.
+
 - [x] **JG-031 — Internal cage rotation tuning (65% stage progression)** · [plan](project/work/plans/JG-031-internal-cage-rotation-tuning.md) · [evidence](project/work/evidence/JG-031-gear-rotation-verification.md)
   - Owner request 2026-09-07: internal cages rotation retuned to approximately 65% of the previous cage's speed along the physical driveline from motor to snout (stage1: 8.0 → stage2: 5.2 → stage5: 3.38 → stage3: 2.20 → stage4: 1.43).
   - Enforces strictly monotonic reduction along the physical driveline (`8.0 > 5.2 > 3.38 > 2.20 > 1.43`) with ratios within [0.64, 0.66]; eliminates mid-stack speed reversal where Stage 5 (A000606) sat physically between Stage 2 and Stage 3; Stage 4 animation at snout boosted to 1.43 turns for clear visibility during quick scroll scrub.

@@ -2,39 +2,55 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import {
   AdditiveBlending,
+  BackSide,
   DoubleSide,
   Group,
   MeshBasicMaterial,
   RingGeometry,
+  SphereGeometry,
   Vector3,
 } from 'three'
 import { getQuality } from '../../state/qualityStore'
 import { getScrollState, telemetry } from '../../state/scrollStore'
 import { airflowIntensity, stageEnvelope, STAGE_TRANSITIONS, STATION2_CAD_ANCHORS } from './stageWindows'
+import {
+  ACOUSTIC_RING_COUNT,
+  THERMAL_SHELL_COLORS,
+  THERMAL_SHELL_COUNT,
+  THERMAL_SHELL_OPACITY_MAX,
+  THERMAL_SHELL_OPACITY_MIN,
+  THERMAL_SHELL_RADII,
+} from './airflowRoute'
 
 /**
- * JG-018 — CH.03 Acoustic Baffle Soundwave System.
+ * JG-018 → JG-032 — CH.03 Acoustic Baffle Soundwave + Thermal Boundary System.
  *
- * Visualizes noise attenuation across the RL-300 / MSP SAFE enclosure:
- * - 115 dBA noise is generated at the PUMP_HOUSING ([0.022, 0.943, -0.055]).
- * - Acoustic sound pressure waves expand spherically and are absorbed/deflected by
- *   the ACOUSTIC_BAFFLES ([-1.319, 1.590, -0.433]) and 5-layer composite walls.
- * - Residual attenuated sound waves exit through the DUCT_EXHAUST ([-0.101, 1.282, -1.225])
- *   as restrained, dissipating additive acoustic wave rings (-43 dBA attenuation).
+ * CH.03 is THERMAL / ACOUSTIC — both halves of the authored story render:
+ *
+ * - ACOUSTIC (JG-018, retained byte-for-byte in behavior): 115 dBA noise at
+ *   the PUMP_HOUSING ([0.022, 0.943, -0.055]) radiates as expanding pressure
+ *   wavefronts absorbed/deflected by the ACOUSTIC_BAFFLES and 5-layer
+ *   composite walls — 6 restrained additive rings (−43 dBA attenuation).
+ * - THERMAL (JG-032, owner ruling 2026-09-08 — split approved 6 acoustic /
+ *   5 thermal, no third pool, counts fixed): the former 5-ring exhaust pool
+ *   is converted into nested thermal boundary shells around PUMP_HOUSING at
+ *   radii 0.25–0.65 m, #fbbf24 → #f97316 → #ea580c, opacity 0.06–0.10,
+ *   additive BackSide, gentle scale/opacity undulation — the heat-soak
+ *   boundary the airflow field's cool→hot ramp picks up from.
  *
  * Performance Contract (r3f-scroll-performance-guard):
- * - Pooled ring meshes with reused geometries & materials.
+ * - Pooled meshes with reused geometries & materials.
  * - Zero per-frame memory allocation.
  * - Reduced motion renders clean static contour arcs with zero rAF loops.
  * - Synchronizes telemetry.stage.acousticWave for runtime verification.
  */
 
-const RING_COUNT = 6
-const EXHAUST_RING_COUNT = 5
+const RING_COUNT = ACOUSTIC_RING_COUNT
+const SHELL_COUNT = THERMAL_SHELL_COUNT
 
 export function AcousticBaffleField() {
   const groupRef = useRef<Group>(null)
-  const exhaustRingsRef = useRef<Group>(null)
+  const thermalShellsRef = useRef<Group>(null)
   const waveIntensity = useRef(0)
 
   const { reducedMotion, tier } = getQuality()
@@ -49,11 +65,9 @@ export function AcousticBaffleField() {
     })
   }, [])
 
-  const exhaustGeometries = useMemo(() => {
-    return Array.from({ length: EXHAUST_RING_COUNT }, (_, i) => {
-      const inner = 0.22 + i * 0.14
-      const outer = inner + 0.022
-      return new RingGeometry(inner, outer, 40)
+  const shellGeometries = useMemo(() => {
+    return Array.from({ length: SHELL_COUNT }, (_, i) => {
+      return new SphereGeometry(THERMAL_SHELL_RADII[i], 32, 18)
     })
   }, [])
 
@@ -71,13 +85,13 @@ export function AcousticBaffleField() {
     })
   }, [])
 
-  const exhaustMaterials = useMemo(() => {
-    return Array.from({ length: EXHAUST_RING_COUNT }, () => {
+  const thermalMaterials = useMemo(() => {
+    return Array.from({ length: SHELL_COUNT }, (_, i) => {
       return new MeshBasicMaterial({
-        color: '#38bdf8',
+        color: THERMAL_SHELL_COLORS[i],
         transparent: true,
         opacity: 0,
-        side: DoubleSide,
+        side: BackSide,
         depthWrite: false,
         blending: AdditiveBlending,
       })
@@ -87,11 +101,11 @@ export function AcousticBaffleField() {
   useEffect(() => {
     return () => {
       ringGeometries.forEach((g) => g.dispose())
-      exhaustGeometries.forEach((g) => g.dispose())
+      shellGeometries.forEach((g) => g.dispose())
       baffleMaterials.forEach((m) => m.dispose())
-      exhaustMaterials.forEach((m) => m.dispose())
+      thermalMaterials.forEach((m) => m.dispose())
     }
-  }, [ringGeometries, exhaustGeometries, baffleMaterials, exhaustMaterials])
+  }, [ringGeometries, shellGeometries, baffleMaterials, thermalMaterials])
 
   useFrame((_state, delta) => {
     const safeDelta = Math.min(delta, 0.1)
@@ -110,7 +124,7 @@ export function AcousticBaffleField() {
         baffleMaterials.forEach((m) => {
           m.opacity = 0
         })
-        exhaustMaterials.forEach((m) => {
+        thermalMaterials.forEach((m) => {
           m.opacity = 0
         })
       }
@@ -142,26 +156,28 @@ export function AcousticBaffleField() {
       })
     }
 
-    // 2. Attenuated exhaust soundwave dissipation at DUCT_EXHAUST outlet
-    exhaustMaterials.forEach((mat, i) => {
-      const phase = (i / EXHAUST_RING_COUNT) * Math.PI * 2 + 1.2
-      const wave = (Math.sin(time + phase) + 1) * 0.5
-      const dissipation = Math.exp(-i * 0.42)
-      mat.opacity = wave * envelope.alpha * waveIntensity.current * 0.32 * dissipation
+    // 2. Thermal boundary shells nested around PUMP_HOUSING (JG-032):
+    // gentle undulation inside the 0.06–0.10 opacity band — heat-soak boundary
+    thermalMaterials.forEach((mat, i) => {
+      const phase = (i / SHELL_COUNT) * Math.PI * 2
+      const undulate = 0.5 + 0.5 * Math.sin(time * 0.54 + phase)
+      mat.opacity =
+        (THERMAL_SHELL_OPACITY_MIN +
+          (THERMAL_SHELL_OPACITY_MAX - THERMAL_SHELL_OPACITY_MIN) * undulate) *
+        envelope.alpha *
+        waveIntensity.current
     })
 
-    if (exhaustRingsRef.current) {
-      exhaustRingsRef.current.children.forEach((child, i) => {
-        const phase = (i / EXHAUST_RING_COUNT) * Math.PI * 2 + 1.2
-        const wave = (Math.sin(time + phase) + 1) * 0.5
-        const scale = 0.92 + wave * 0.30
-        child.scale.set(scale, scale, 1)
+    if (thermalShellsRef.current) {
+      thermalShellsRef.current.children.forEach((child, i) => {
+        const phase = (i / SHELL_COUNT) * Math.PI * 2
+        const breathe = 1 + 0.03 * Math.sin(time * 0.54 + phase)
+        child.scale.set(breathe, breathe, breathe)
       })
     }
   })
 
   const pumpPos = new Vector3(...STATION2_CAD_ANCHORS.pumpHousing)
-  const exhaustPos = new Vector3(...STATION2_CAD_ANCHORS.ductExhaust)
 
   // Static Fallback for Reduced-Motion & Poster Tiers
   if (isStaticMode) {
@@ -181,14 +197,15 @@ export function AcousticBaffleField() {
             </mesh>
           ))}
         </group>
-        <group position={[exhaustPos.x, exhaustPos.y, exhaustPos.z - 0.2]} rotation={[0, Math.PI, 0]}>
-          {exhaustGeometries.slice(0, 2).map((geo, i) => (
-            <mesh key={`static-exhaust-${i}`} geometry={geo} position={[0, 0, i * 0.1]}>
+        {/* Static thermal boundary contours around the pump (heat-soak boundary) */}
+        <group position={[pumpPos.x, pumpPos.y, pumpPos.z]}>
+          {shellGeometries.slice(0, 2).map((geo, i) => (
+            <mesh key={`static-thermal-${i}`} geometry={geo}>
               <meshBasicMaterial
-                color="#38bdf8"
+                color={THERMAL_SHELL_COLORS[i]}
                 transparent
-                opacity={0.2 / (i + 1)}
-                side={DoubleSide}
+                opacity={0.05 / (i + 1)}
+                side={BackSide}
                 depthWrite={false}
               />
             </mesh>
@@ -216,18 +233,16 @@ export function AcousticBaffleField() {
         ))}
       </group>
 
-      {/* 2. Dissipating Exhaust Soundwave Baffles: Emitting out rearward from DUCT_EXHAUST */}
+      {/* 2. Thermal Boundary Shells: nested heat-soak boundary around PUMP_HOUSING (JG-032) */}
       <group
-        ref={exhaustRingsRef}
-        position={[exhaustPos.x, exhaustPos.y, exhaustPos.z - 0.15]}
-        rotation={[0, Math.PI, 0]}
+        ref={thermalShellsRef}
+        position={[pumpPos.x, pumpPos.y, pumpPos.z]}
       >
-        {exhaustGeometries.map((geo, i) => (
+        {shellGeometries.map((geo, i) => (
           <mesh
-            key={`exhaust-wave-${i}`}
+            key={`thermal-shell-${i}`}
             geometry={geo}
-            material={exhaustMaterials[i]}
-            position={[0, 0, i * 0.18]}
+            material={thermalMaterials[i]}
           />
         ))}
       </group>
