@@ -21,6 +21,7 @@ import {
   rawScrollFor,
 } from './introTimeline'
 import {
+  PAPER_GRAIN_MIX,
   PRINT_TARGET_HEIGHT,
   PRINT_TARGET_WIDTH,
   SHEET_HEIGHT,
@@ -29,6 +30,7 @@ import {
   type DrawingLayout,
   type RenderedDrawing,
   makeDrawingLayout,
+  makePaperGrainTexture,
   renderDrawing,
 } from './drawingGeometry'
 import {
@@ -79,12 +81,19 @@ void main(){
 }`
 
 const fragment = /* glsl */ `${wave}
-uniform sampler2D uPrint,uAnnotations,uMask,uEdges;
-uniform vec2 uTexel; uniform float uFocus,uContrast,uOpacity,uMode;
+uniform sampler2D uPrint,uAnnotations,uMask,uEdges,uGrain;
+uniform vec2 uTexel; uniform vec2 uSheetHalf; uniform float uFocus,uContrast,uOpacity,uMode;
 varying vec2 vUv; varying vec2 vPlane;
 vec3 paper(vec2 uv) {
  vec4 a = texture2D(uAnnotations, uv);
  return mix(texture2D(uPrint, uv).rgb, a.rgb, a.a);
+}
+// JG-032: faint cyan registration cross (0.4 px arms ≈ 0.000206 m at
+// 1943 px/m, 4 mm arm length) inset 6 mm from a sheet corner.
+float regCross(vec2 p, vec2 corner){
+ vec2 d = abs(p - corner);
+ float arm = 0.004; float th = 0.000103;
+ return max(step(d.y, th) * step(d.x, arm), step(d.x, th) * step(d.y, arm));
 }
 void main(){
  if(uMode > 1.5){ gl_FragColor = vec4(texture2D(uEdges, vUv).rgb, 1.0); return; }
@@ -103,6 +112,13 @@ void main(){
  // The front also lights the paper it passes over. Displacement alone is invisible at the
  // oblique viewing angle the wave happens at.
  c += vec3(0.18, 0.55, 0.75) * uWaveEnabled * waveFront(vPlane) * 1.15;
+ // JG-032: procedural paper grain, mixed at ${PAPER_GRAIN_MIX}
+ c += (texture2D(uGrain, vUv * 4.0).r - 0.5) * ${(PAPER_GRAIN_MIX * 2).toFixed(2)};
+ // JG-032: registration crosses, 6 mm inset from the sheet corners
+ vec2 inset = uSheetHalf - vec2(0.006);
+ float crosses = regCross(vPlane, inset) + regCross(vPlane, -inset)
+  + regCross(vPlane, vec2(inset.x, -inset.y)) + regCross(vPlane, vec2(-inset.x, inset.y));
+ c = mix(c, vec3(0.30, 0.85, 1.0), min(crosses, 1.0) * 0.35);
  gl_FragColor = vec4(c * uContrast, uOpacity);
 }`
 
@@ -185,13 +201,18 @@ function DrawingPrint({
   const group = useRef<Group>(null)
   const plane = useRef<Mesh>(null)
   const empty = useMemo(() => new CanvasTexture(document.createElement('canvas')), [])
+  // JG-032: procedural paper grain (deterministic seed, tiled by the shader)
+  const grain = useMemo(() => makePaperGrainTexture(), [])
+  useEffect(() => () => grain.dispose(), [grain])
   const uniforms = useMemo(
     () => ({
       uPrint: { value: rendered.target.texture },
       uMask: { value: rendered.mask.texture },
       uAnnotations: { value: empty },
       uEdges: { value: rendered.edgeMask.texture },
+      uGrain: { value: grain },
       uTexel: { value: new Vector2(1 / rendered.target.width, 1 / rendered.target.height) },
+      uSheetHalf: { value: new Vector2(SHEET_WIDTH / 2, SHEET_HEIGHT / 2) },
       uFocus: { value: 1 },
       uContrast: { value: 1 },
       uOpacity: { value: 1 },
@@ -203,7 +224,7 @@ function DrawingPrint({
       uPulse: { value: 0 },
       uPulseGain: { value: PULSE_GAIN },
     }),
-    [rendered, extraction, empty],
+    [rendered, extraction, empty, grain],
   )
   const material = useMemo(
     () =>

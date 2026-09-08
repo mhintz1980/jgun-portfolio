@@ -1,6 +1,7 @@
 import {
   Box3,
   BufferGeometry,
+  CanvasTexture,
   Color,
   DepthTexture,
   EdgesGeometry,
@@ -14,6 +15,7 @@ import {
   OrthographicCamera,
   Plane,
   PlaneGeometry,
+  RepeatWrapping,
   Scene,
   ShaderMaterial,
   Vector2,
@@ -29,6 +31,49 @@ import type { WrenchRig } from '../rig/nodeRoles'
 
 export const PAPER = '#08283a'
 export const INK = '#b3dae2'
+
+/**
+ * JG-032 — procedural paper grain for the drawing sheet. Deterministic LCG
+ * (fixed seed) so intro frames are reproducible; tiled by the sheet shader
+ * and mixed at PAPER_GRAIN_MIX. fillPaperGrain is the pure, node-testable
+ * core; makePaperGrainTexture is the browser wrapper.
+ */
+export const PAPER_GRAIN_SIZE = 256
+export const PAPER_GRAIN_MIX = 0.06
+export const PAPER_GRAIN_SEED = 0x2f6e2b1
+
+export function fillPaperGrain(
+  data: Uint8ClampedArray,
+  size: number,
+  seed: number = PAPER_GRAIN_SEED,
+): void {
+  let s = seed >>> 0
+  const next = (): number => {
+    s = (Math.imul(s, 1664525) + 1013904223) >>> 0
+    return s / 0xffffffff
+  }
+  for (let i = 0; i < size * size; i++) {
+    const v = Math.floor(next() * 256)
+    data[i * 4] = v
+    data[i * 4 + 1] = v
+    data[i * 4 + 2] = v
+    data[i * 4 + 3] = 255
+  }
+}
+
+export function makePaperGrainTexture(): CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = PAPER_GRAIN_SIZE
+  canvas.height = PAPER_GRAIN_SIZE
+  const ctx = canvas.getContext('2d')!
+  const image = ctx.createImageData(PAPER_GRAIN_SIZE, PAPER_GRAIN_SIZE)
+  fillPaperGrain(image.data, PAPER_GRAIN_SIZE)
+  ctx.putImageData(image, 0, 0)
+  const texture = new CanvasTexture(canvas)
+  texture.wrapS = RepeatWrapping
+  texture.wrapT = RepeatWrapping
+  return texture
+}
 
 /**
  * Annotation raster size. Fixed rather than viewport-derived so the print is identical on

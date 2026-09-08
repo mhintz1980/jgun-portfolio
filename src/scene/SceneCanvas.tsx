@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
-import { DirectionalLight, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
+import { DirectionalLight, Group, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { BackdropRig } from './backgrounds/BackdropRig'
@@ -14,6 +14,7 @@ import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
 import { drawingIntroState } from './drawing/introTimeline'
+import { explodeShadowOpacity, lcdMicroRimIntensity, studioSpotNudge } from './jgunVisualGates'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
 const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
@@ -142,7 +143,15 @@ function StudioRig() {
     const k = activation*(1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
     if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k
     if (fillRef.current) fillRef.current.intensity = STUDIO_FILL_INTENSITY * k
-    if (spotRef.current) spotRef.current.intensity = STUDIO_SPOT_INTENSITY * k
+    if (spotRef.current) {
+      // JG-032: explode-hold rim nudge (+0.3 intensity, +0.1 Y) — progress-gated
+      // (jgunVisualGates): full 0.49–0.525, faded out by the wrench-sink
+      // boundary 0.565, exactly zero at CH.04 progress values. Resting values
+      // (STUDIO_SPOT_INTENSITY at y 1.2) are unchanged outside the window.
+      const nudge = studioSpotNudge(progress)
+      spotRef.current.intensity = (STUDIO_SPOT_INTENSITY + nudge.intensity) * k
+      spotRef.current.position.y = 1.2 + nudge.y
+    }
     scene.environmentIntensity = activation*(1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
   })
 
@@ -204,6 +213,76 @@ function WarmStationPrograms() {
   return null
 }
 
+/**
+ * JG-032 — micro-rim point light for the rear-LCD dwell: a tight cool rim
+ * ([−0.30, 0.12, 0.50], #c8e6ff, peak 0.8) active ONLY inside
+ * LCD_REVEAL_WINDOW (0.420–0.525) with the same 0.02 ease as LcdFillLight.
+ * The canvas is global, so the gate (jgunVisualGates) is what keeps CH.04
+ * inert — intensity is exactly 0 outside the window.
+ */
+function LcdMicroRimLight() {
+  const lightRef = useRef<PointLight>(null)
+
+  useFrame(() => {
+    if (!lightRef.current) return
+    const { progress } = getScrollState()
+    lightRef.current.intensity = lcdMicroRimIntensity(progress, [
+      LCD_REVEAL_WINDOW.start,
+      LCD_REVEAL_WINDOW.end,
+    ])
+  })
+
+  return (
+    <pointLight
+      ref={lightRef}
+      position={[-0.3, 0.12, 0.5]}
+      color="#c8e6ff"
+      intensity={0}
+      distance={0.5}
+      decay={2}
+    />
+  )
+}
+
+/**
+ * JG-032 — secondary, wider contact shadow beneath the primary one for
+ * stronger depth separation during the explode. Opacity is driven per frame
+ * (peak 0.12 × telemetry.rig.explodeFactor) through the drei ContactShadows
+ * shader uniform; the group hides outside the gate window so the pass is
+ * provably inert at CH.04 progress values (zero opacity, not just unseen).
+ */
+function ExplodeShadow() {
+  const groupRef = useRef<Group>(null)
+  const shadowMaterial = useRef<MeshBasicMaterial | null>(null)
+
+  const attachRef = (group: Group | null) => {
+    groupRef.current = group
+    shadowMaterial.current = null
+    group?.traverse((object) => {
+      const material = (object as Mesh).material as MeshBasicMaterial | undefined
+      if (material && 'opacity' in material) shadowMaterial.current = material
+    })
+  }
+
+  useFrame(() => {
+    const { progress } = getScrollState()
+    const opacity = explodeShadowOpacity(progress, telemetry.rig.explodeFactor ?? 0)
+    if (groupRef.current) groupRef.current.visible = opacity > 0.001
+    if (shadowMaterial.current) shadowMaterial.current.opacity = opacity
+  })
+
+  return (
+    <ContactShadows
+      ref={attachRef}
+      position={[0, -0.18, 0]}
+      opacity={0.12}
+      scale={1.6}
+      blur={4}
+      far={0.4}
+    />
+  )
+}
+
 export function SceneCanvas() {
   const [step, setStep] = useState(0)
   const stepRef = useRef(0)
@@ -261,8 +340,10 @@ export function SceneCanvas() {
               <TorqueWrenchHero />
             </SpatialWorld>
             <LcdFillLight />
+            <LcdMicroRimLight />
             <WarmStationPrograms />
             <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
+            <ExplodeShadow />
           </Suspense>
 
           <CameraRig />
