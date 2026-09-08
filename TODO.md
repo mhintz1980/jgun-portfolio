@@ -6,10 +6,11 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
 
 ## Active
 
-- [ ] **JG-031 — Internal cage rotation tuning (65% stage progression)** · [plan](project/work/plans/JG-031-internal-cage-rotation-tuning.md) · [evidence](project/work/evidence/JG-031-gear-rotation-verification.md)
+- [x] **JG-031 — Internal cage rotation tuning (65% stage progression)** · [plan](project/work/plans/JG-031-internal-cage-rotation-tuning.md) · [evidence](project/work/evidence/JG-031-gear-rotation-verification.md)
   - Owner request 2026-09-07: internal cages rotation retuned to approximately 65% of the previous cage's speed along the physical driveline from motor to snout (stage1: 8.0 → stage2: 5.2 → stage5: 3.38 → stage3: 2.20 → stage4: 1.43).
   - Enforces strictly monotonic reduction along the physical driveline (`8.0 > 5.2 > 3.38 > 2.20 > 1.43`) with ratios within [0.64, 0.66]; eliminates mid-stack speed reversal where Stage 5 (A000606) sat physically between Stage 2 and Stage 3; Stage 4 animation at snout boosted to 1.43 turns for clear visibility during quick scroll scrub.
-  - Machine gates verified: `gearRotation.test.ts` (15/15 tests PASS), `typecheck` PASS, `check:station2` PASS, `npm run build` clean, `verify-jg031-gear-rotation.mjs` PASS (physical driveline monotonicity, 65% ratio tolerance, planet counter-rotation, static exploded at rest, 0 console errors). Awaits owner visual review at `:4173` CH.02.
+  - Machine gates verified: `gearRotation.test.ts` (15/15 tests PASS), `typecheck` PASS, `check:station2` PASS, `npm run build` clean, `verify-jg031-gear-rotation.mjs` PASS (physical driveline monotonicity, 65% ratio tolerance, planet counter-rotation, static exploded at rest, 0 console errors).
+  - **CLOSED VERIFIED 2026-09-08 — owner visual ruling PASS ("yes i approve and close it out") of the rotating cages/planets on the live site** (deployed `ff84a56` 09-07 evening via `deploy-studiomark.ps1`; all machine gates independently re-verified pre-ship).
 
 - [x] **JG-030 — P001924 LCD housing → handle anodized finish** · [plan](project/work/plans/JG-030-p001924-handle-finish.md) · [evidence](project/work/evidence/JG-030-p001924-handle-finish-verification.md)
   - Owner ruling 2026-09-06 (rear-panel screenshot): P001924 must be identical in material/finish/color to the Handle; the JG-025 glossy `shellBlack` showed distinct white speculars against the satin body. Superseded.

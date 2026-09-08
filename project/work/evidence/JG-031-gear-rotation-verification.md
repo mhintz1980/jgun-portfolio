@@ -1,7 +1,7 @@
 # JG-031 Internal Cage Rotation Tuning (65% Stage Progression) — VERIFICATION
 
 **Date:** 2026-09-07  
-**Status:** Verification complete, all automated machine gates PASS. Pending owner visual ruling at `:4173` CH.02.
+**Status:** CLOSED VERIFIED. All automated machine gates PASS (independently re-verified 2026-09-07 pre-ship); **owner visual ruling 2026-09-08: PASS — "yes i approve and close it out"** (cages/planets rotation on the live site, deployed `ff84a56`).
 
 ---
 
