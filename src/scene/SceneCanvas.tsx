@@ -308,6 +308,8 @@ export function SceneCanvas() {
           // remediation): CameraRig mutates this same default camera each
           // frame, so the reference stays live for the page's lifetime.
           ;(window as any).__threeCamera = camera
+          // JG-032 rev2: local clipping for the Station-2 cross-section cut
+          gl.localClippingEnabled = true
           gl.domElement.addEventListener('webglcontextlost', (event) => {
             event.preventDefault()
             forcePoster()

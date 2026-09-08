@@ -1,7 +1,7 @@
 import { useFrame, useLoader } from '@react-three/fiber'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { DoubleSide, FrontSide, Group, Material, Mesh, MeshStandardMaterial, Object3D } from 'three'
+import { DoubleSide, FrontSide, Group, Material, Mesh, MeshStandardMaterial, Object3D, Plane, Vector3 } from 'three'
 import { useMemo, useRef, useState } from 'react'
 import { getQuality, useQuality } from '../../state/qualityStore'
 import { getScrollState, setScrollState, useScrollValue } from '../../state/scrollStore'
@@ -112,7 +112,7 @@ function Station2Callout({
   useFrame(() => {
     if (!groupRef.current) return
     const { progress } = getScrollState()
-    // Internal subassemblies visible only during lifted reveal [0.610, 0.700]
+    // Internal subassemblies visible only during the cross-section hold [0.610, 0.700]
     // External subassemblies visible from entry [0.565, 0.720]
     const isVisible = isInternal
       ? progress >= 0.610 && progress <= 0.700
@@ -167,8 +167,8 @@ const PANEL_OPACITY_REVEALED = 0.18
  * enclosure glow is isolated, panels render fully opaque — skipping the
  * translucent block keeps the GLB-baked material props (transparent=false,
  * depthWrite=true) and turns the useFrame opacity writes into rendering
- * no-ops. The cutaway lift still runs. Flip to false to restore the
- * owner-approved 0.35/0.18 translucent treatment.
+ * no-ops. The cutaway is now driven by the cross-section clipping plane
+ * (JG-032 rev2), not a lift. Flip to false to disable panel translucency.
  *
  * JG-032 (2026-09-08, isolated revert-gated commit): flipped to false —
  * the translucent treatment is restored now that the JG-021 glow drivers
@@ -181,11 +181,30 @@ const PANEL_OPACITY_REVEALED = 0.18
 const PANELS_OPAQUE = false
 
 /**
- * Resolve the nearest non-generic ancestor node name for a mesh — the
- * GLTFLoader prim-uniquification trap (cad-scene-graph-rigging §8):
- * multi-primitive parts arrive as `meshN_mesh(_N)?` children whose own names
- * carry no part number, so the part identity lives on the ancestors.
+ * JG-032 rev2 (owner ruling 2026-09-08, superseding the panel-lift): the
+ * enclosure is revealed by an ANIMATED CROSS-SECTION, not a vertical lift.
+ * A single world-space clipping plane (normal −X) sweeps across the
+ * enclosure shell — ENCLOSURE_CHASSIS and COMPOSITE_PANELS only. The engine/
+ * pump, skid/isolation mounts, baffles, and both ducts are NEVER clipped.
+ *
+ * Choreography (same windows as the retired lift, timing preserved):
+ *   p ≤ 0.585       closed (plane parked beyond the +X extent)
+ *   0.585–0.645     cut opens (plane sweeps +X → mid)
+ *   0.645–0.700     hold open (internals window [0.610, 0.700] unchanged)
+ *   0.700–0.715     cut closes
+ *   p ≥ 0.715       closed
+ * Panels also fade 0.35 → 0.18 with the cut so the interior stays readable.
+ *
+ * Clipping planes are world-space: the constant rides the Station-2 origin
+ * x = 28. Chassis clones go DoubleSide so the cut members read solid from
+ * the sectioned side instead of hollow.
  */
+const CUT_STATION_X = 28
+const CUT_CLOSED_X = CUT_STATION_X + 1.3 // parked beyond the shell (+X extent ≈ 1.2)
+const CUT_OPEN_X = CUT_STATION_X + 0.0 // mid-section
+const CUT_PLANE = new Plane(new Vector3(-1, 0, 0), CUT_CLOSED_X)
+const CUT_ROOTS = new Set<string>(['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS'])
+
 function resolvePartNodeName(object: Object3D): string {
   let cur: Object3D | null = object
   while (cur) {
@@ -204,6 +223,8 @@ function cloneMaterials(
   // JG-032 recolor scope gate: only the chassis and panel roots are even
   // eligible — the per-mesh allow-list predicate decides inside them.
   const recolorScope = isPanels || root.name === 'ENCLOSURE_CHASSIS'
+  // JG-032 rev2: only the enclosure shell is sectioned
+  const cutScope = CUT_ROOTS.has(root.name)
 
   const processMaterial = (material: Material, partNodeName: string): Material => {
     const clone = material.clone()
@@ -228,8 +249,14 @@ function cloneMaterials(
         clone.roughness = Math.max(clone.roughness, 0.62)
       }
 
-      // DoubleSide only on composite panels
-      clone.side = isPanels ? DoubleSide : FrontSide
+      // DoubleSide on composite panels (always) and on the chassis (so the
+      // cross-section cut reads solid from the sectioned side)
+      clone.side = isPanels || (cutScope && root.name === 'ENCLOSURE_CHASSIS') ? DoubleSide : FrontSide
+
+      if (cutScope) {
+        clone.clippingPlanes = [CUT_PLANE]
+        clone.clipShadows = true
+      }
 
       if (isPanels) {
         if (!PANELS_OPAQUE) {
@@ -308,46 +335,40 @@ export function Station2_AcousticEnclosure() {
     return group
   }, [gltfs, tier])
 
-  // Animate COMPOSITE_PANELS cutaway reveal and restore in useFrame (zero React re-renders)
+  // Animate the cross-section cut sweep + panel fade in useFrame (zero React re-renders)
   useFrame(() => {
     const { progress } = getScrollState()
     const { reducedMotion } = getQuality()
 
     if (reducedMotion) {
-      if (panelsRootRef.current) panelsRootRef.current.position.y = 0
+      CUT_PLANE.constant = CUT_CLOSED_X
       panelMaterialsRef.current.forEach((m) => {
         m.opacity = PANEL_OPACITY_ASSEMBLED
       })
       return
     }
 
-    // Panel Cutaway Lifecycle:
-    // - [0.000, 0.585]: Assembled (y = 0, opacity = PANEL_OPACITY_ASSEMBLED)
-    // - [0.585, 0.645]: Lift reveal (y: 0 -> 0.55m, opacity fades ASSEMBLED -> REVEALED)
-    // - [0.645, 0.700]: Hold lifted (y = 0.55m, opacity = PANEL_OPACITY_REVEALED)
-    // - [0.700, 0.715]: Restore assembled (y: 0.55m -> 0, opacity REVEALED -> ASSEMBLED)
-    // - [0.715, 1.000]: Assembled (y = 0, opacity = PANEL_OPACITY_ASSEMBLED)
-    let panelY = 0
+    // Cross-section lifecycle (JG-032 rev2 — the vertical panel lift is retired):
+    // - [0.000, 0.585]: closed (plane parked beyond the shell, opacity 0.35)
+    // - [0.585, 0.645]: cut opens (plane sweeps in, opacity 0.35 → 0.18)
+    // - [0.645, 0.700]: hold open (opacity 0.18)
+    // - [0.700, 0.715]: cut closes (opacity 0.18 → 0.35)
+    // - [0.715, 1.000]: closed
+    let cut = 0 // 0 = closed, 1 = fully open
     let panelOpacity = PANEL_OPACITY_ASSEMBLED
 
     if (progress >= 0.585 && progress <= 0.645) {
       const u = (progress - 0.585) / (0.645 - 0.585)
-      const s = u * u * (3 - 2 * u)
-      panelY = 0.55 * s
-      panelOpacity = PANEL_OPACITY_ASSEMBLED - (PANEL_OPACITY_ASSEMBLED - PANEL_OPACITY_REVEALED) * s
+      cut = u * u * (3 - 2 * u)
     } else if (progress > 0.645 && progress < 0.700) {
-      panelY = 0.55
-      panelOpacity = PANEL_OPACITY_REVEALED
+      cut = 1
     } else if (progress >= 0.700 && progress <= 0.715) {
       const u = (progress - 0.700) / (0.715 - 0.700)
-      const s = u * u * (3 - 2 * u)
-      panelY = 0.55 * (1 - s)
-      panelOpacity = PANEL_OPACITY_REVEALED + (PANEL_OPACITY_ASSEMBLED - PANEL_OPACITY_REVEALED) * s
+      cut = 1 - u * u * (3 - 2 * u)
     }
+    panelOpacity = PANEL_OPACITY_ASSEMBLED - (PANEL_OPACITY_ASSEMBLED - PANEL_OPACITY_REVEALED) * cut
 
-    if (panelsRootRef.current) {
-      panelsRootRef.current.position.y = panelY
-    }
+    CUT_PLANE.constant = CUT_CLOSED_X + (CUT_OPEN_X - CUT_CLOSED_X) * cut
     panelMaterialsRef.current.forEach((mat) => {
       mat.opacity = panelOpacity
     })
