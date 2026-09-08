@@ -81,6 +81,7 @@ export const ENCLOSURE_SUBASSEMBLIES: Record<string, EnclosureSubassembly> = {
 }
 
 import { STATION2_CAD_ANCHORS } from './stageWindows'
+import { recolorSpecFor } from './recolorAllowList'
 import { SpatialHotspotAnchor } from '../Hotspots'
 
 const STATION2_ANCHOR_MAP: Record<string, { pos: readonly [number, number, number]; dx: number; dy: number }> = {
@@ -134,22 +135,29 @@ function Station2Callout({
 }
 
 /**
- * Material treatment — JG-021 materials round 3 (2026-08-30 owner ruling):
- * RETAIN the GLB's baked CAD palette. Both repaint attempts failed owner
- * review — the role-tint lerp pulled black/rubber toward grey (round 1
- * "wrong tints on black parts") and repainted large meshes into saturated
- * walls (round 2: DUCT_INTAKE's biggest face, an opaque MSP_YELLOW_PAINT
- * intake grille, lerped teal and read as "the cyan camera-facing panel");
- * the remediation's dark finish matrix flattened the whole identity to
- * charcoal under metalness-1 env reflections (milky grey). Subassembly
- * identity in 3D comes from the CAD's own material distribution; roleColor
- * above is registry/HUD documentation only. The loader already delivers
- * MSP_AIRWAY_VOLUME as the CAD author baked it — translucent cyan at
- * alpha 0.22 — so no code touches it.
+ * Material treatment — JG-032 dark-blue recolor (2026-09-08 owner ruling):
+ * the owner APPROVED the dark-blue enclosure treatment, SUPERSEDING the
+ * JG-021 materials round-3 ruling (2026-08-30: "RETAIN the GLB's baked CAD
+ * palette") that previously occupied this block. JG-021's failure catalogue
+ * remains the binding constraint (see recolorAllowList.ts for the full
+ * mapping): (1) no tint-lerps that pull black/rubber toward grey — the
+ * recolor only SETs explicit finishes on allow-listed part numbers;
+ * (2) no MSP_YELLOW_PAINT mesh is ever repainted — the intake grille
+ * G2RL300-SAF-1003-2 stays canary, protected by material gate AND absence
+ * from the allow-list; (3) the finish matrix sits below the milky-grey
+ * metalness/env band that flattened the remediation to charcoal.
  *
- * The one intentional mutation is COMPOSITE_PANELS translucency: the owner
- * confirmed the acoustic walls are meant to be mostly transparent, showing
- * the internals; 0.68 rest read as "mostly opaque".
+ * The predicate (recolorSpecFor) is evaluated PER MESH inside the traverse
+ * below — never on a root, which is what repainted all 191 chassis children
+ * in the rejected draft. Part numbers are the stable key (AGENTS.md).
+ *
+ * The loader already delivers MSP_AIRWAY_VOLUME as the CAD author baked it —
+ * translucent cyan at alpha 0.22 — so no code touches it.
+ *
+ * The one intentional mutation from JG-021 that survives: COMPOSITE_PANELS
+ * translucency — the owner confirmed the acoustic walls are meant to be
+ * mostly transparent, showing the internals; 0.68 rest read as "mostly
+ * opaque".
  */
 const PANEL_OPACITY_ASSEMBLED = 0.35
 const PANEL_OPACITY_REVEALED = 0.18
@@ -164,19 +172,50 @@ const PANEL_OPACITY_REVEALED = 0.18
  */
 const PANELS_OPAQUE = true
 
+/**
+ * Resolve the nearest non-generic ancestor node name for a mesh — the
+ * GLTFLoader prim-uniquification trap (cad-scene-graph-rigging §8):
+ * multi-primitive parts arrive as `meshN_mesh(_N)?` children whose own names
+ * carry no part number, so the part identity lives on the ancestors.
+ */
+function resolvePartNodeName(object: Object3D): string {
+  let cur: Object3D | null = object
+  while (cur) {
+    if (cur.name && !/^mesh\d+_mesh(_\d+)?$/i.test(cur.name)) return cur.name
+    cur = cur.parent
+  }
+  return object.name
+}
+
 function cloneMaterials(
   root: Object3D,
   lite: boolean,
   panelMaterialsCollector?: MeshStandardMaterial[],
 ): void {
   const isPanels = root.name === 'COMPOSITE_PANELS'
+  // JG-032 recolor scope gate: only the chassis and panel roots are even
+  // eligible — the per-mesh allow-list predicate decides inside them.
+  const recolorScope = isPanels || root.name === 'ENCLOSURE_CHASSIS'
 
-  const processMaterial = (material: Material): Material => {
+  const processMaterial = (material: Material, partNodeName: string): Material => {
     const clone = material.clone()
     if (clone instanceof MeshStandardMaterial) {
       // Keep GLB metalness/roughness clamped to plausible engineering range
       clone.metalness = Math.min(1, Math.max(0, clone.metalness))
       clone.roughness = Math.min(1, Math.max(0.1, clone.roughness))
+
+      // JG-032 dark-blue recolor (owner ruling 2026-09-08): per-mesh
+      // part-number allow-list + material gate — SET, never lerp.
+      if (recolorScope) {
+        const spec = recolorSpecFor(partNodeName, clone.name ?? '')
+        if (spec) {
+          clone.color.set(spec.color)
+          clone.roughness = spec.roughness
+          clone.metalness = spec.metalness
+          clone.envMapIntensity = spec.envMapIntensity
+        }
+      }
+
       if (lite) {
         clone.roughness = Math.max(clone.roughness, 0.62)
       }
@@ -205,10 +244,11 @@ function cloneMaterials(
     if (isPanels) {
       object.renderOrder = 10 // render panels after opaque internals to prevent sorting artifacts
     }
+    const partNodeName = recolorScope ? resolvePartNodeName(object) : ''
     if (Array.isArray(object.material)) {
-      object.material = object.material.map(processMaterial)
+      object.material = object.material.map((m) => processMaterial(m, partNodeName))
     } else if (object.material) {
-      object.material = processMaterial(object.material)
+      object.material = processMaterial(object.material, partNodeName)
     }
   })
 }
