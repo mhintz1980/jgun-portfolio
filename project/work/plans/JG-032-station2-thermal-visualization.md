@@ -33,8 +33,8 @@ acceptance:
   - Three revertible commits (airflow / recolor / PANELS_OPAQUE flip), each with A/B census
   - All JGUN additions progress-gated, provably inert at CH.04 progress values; CH.04 telemetry byte-identical to baseline
   - Bloom threshold 0.6 unchanged; JGUN sequencing/timing untouched; 7 GLB roots untouched
-verification: null
-commits: []
+verification: ../evidence/JG-032-station2-thermal-verification.md
+commits: [477c9c3, 3edecce, 7f7a0c2, abae74c, 15dc719]
 replaces: null
 ---
 
@@ -224,8 +224,7 @@ Each step is independently reviewable; commits are sequenced so any one is rever
 
 ## Verification Record
 
-_To be filled: `../evidence/JG-032-station2-thermal-verification.md` — linked only after
-evidence exists._
+[`../evidence/JG-032-station2-thermal-verification.md`](../evidence/JG-032-station2-thermal-verification.md) — machine gates green 2026-09-08; owner visual ruling pending (TODO stays unchecked until then).
 
 ## Change Log
 
@@ -236,3 +235,5 @@ evidence exists._
 | 2026-09-08 | Blueprint-opacity item DROPPED | The corrected lever (`blueprintMaterial.opacity = lerp(0.08, 0.35, chapterProgress)`, `TorqueWrenchHero.tsx:409`) is the **lite-tier CH.04 fade ramp** (`wantLiteFade` = chapter 3 && progress ≥ 0.755) — retuning it would alter CH.04, the protected boundary. The brief explicitly permits dropping the item ("Either retune that value or drop this item"). |
 | 2026-09-08 | Aperture lattice = 8×4 slot array from the `G2RL300-SAF-1003-2` AABB | Ray-grid probe (`.scratch/probe-jg032-grille-rays.mjs`, 64×64 −Z rays through the grille volume): the plate is a closed-manifold solid with **no hex perforations** — per the brief, the lattice derives from the grille AABB, never an invented hex pattern. |
 | 2026-09-08 | Ring constants live in `airflowRoute.ts` (not a separate `thermalShells.ts`) | One pure module for the Station-2 thermal constants keeps the test surface small; no scope drift (both are new `src/scene/stages/` modules as scoped). |
+| 2026-09-08 | Secondary explode shadow implemented as a baked radial-gradient plane instead of a second drei `ContactShadows` | drei ContactShadows re-renders the whole scene into its RT every frame regardless of visibility — the second pass cost +2.2 ms p95. The gradient bakes the "scale 1.6, blur 4" softness once; zero per-frame cost, zero leak risk. Same visual spec. |
+| 2026-09-08 | Probe runs headed at 1280×720 (`--disable-backgrounding-occluded-windows`) | At 1920×1080 under the probe browser the sweep sustains <45 FPS and the one-way quality ladder legitimately escalates to poster mid-run (canvas unmounts) — the ladder working as designed. Blank-page rAF control: p50 16.7 ms. |
