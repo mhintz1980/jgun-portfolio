@@ -169,8 +169,16 @@ const PANEL_OPACITY_REVEALED = 0.18
  * depthWrite=true) and turns the useFrame opacity writes into rendering
  * no-ops. The cutaway lift still runs. Flip to false to restore the
  * owner-approved 0.35/0.18 translucent treatment.
+ *
+ * JG-032 (2026-09-08, isolated revert-gated commit): flipped to false —
+ * the translucent treatment is restored now that the JG-021 glow drivers
+ * (IBL blowout, additive wash) are resolved and the recolor landed. If
+ * clipping/sorting artifacts or a glow regression appear at owner review,
+ * revert this single const to true (or fall back to fading panel opacity
+ * to 0.15 during the hold window only). COMPOSITE_PANELS renderOrder = 10
+ * and DoubleSide are untouched.
  */
-const PANELS_OPAQUE = true
+const PANELS_OPAQUE = false
 
 /**
  * Resolve the nearest non-generic ancestor node name for a mesh — the
