@@ -198,23 +198,33 @@ export const GEAR_RATIOS = {
   planetMultiplier: 3.5,
 } as const
 
+export const DRIVELINE_STAGE_IDS: readonly StageId[] = ['stage1', 'stage2', 'stage5', 'stage3', 'stage4']
+
 /**
- * Display rotation turns (pass 3, 2026-08-25) — visual multiplier for the
+ * Display rotation turns (JG-031, 2026-09-07) — visual multiplier for the
  * scroll-scrub gear sweep: across the full gearRotation proxy sweep each
- * carrier completes ROTATION_TURNS[stage] revolutions instead of its raw
- * ratio fraction. Stage 1/2 are exactly 2× their kinematic turns (4 → 8,
- * 1.12 → 2.24); the slow tail (0.32 / 0.088 / 0.024 turns at the true
- * ratios) is boosted to 1.5 / 1 / 0.5 so the reduction stages still read as
- * motion instead of appearing frozen. GEAR_RATIOS remains the kinematic
- * reference; planet counter-rotation stays pegged to the carrier's display
- * angle (see applyGearRotation).
+ * carrier completes ROTATION_TURNS[stage] revolutions.
+ *
+ * Mapped to the physical visual driveline order from motor to snout
+ * (Stage 1 [P001836] → Stage 2 [P001837] → Stage 5 [A000606] → Stage 3 [P003045] → Stage 4 [P003047]),
+ * with each successive physical cage rotating at ~65% of the preceding cage's speed:
+ *   - Pos 1 (Stage 1, P001836): 8.0 turns
+ *   - Pos 2 (Stage 2, P001837): 5.2 turns (65% of Pos 1)
+ *   - Pos 3 (Stage 5, P001849 / A000606): 3.38 turns (65% of Pos 2)
+ *   - Pos 4 (Stage 3, P003045): 2.20 turns (65% of Pos 3)
+ *   - Pos 5 (Stage 4, P003047): 1.43 turns (65% of Pos 4)
+ *
+ * This ensures that when viewing the exploded assembly from left (motor) to right (snout),
+ * each cage visibly slows down at a consistent rate without mid-stack speed jumps or reversals.
+ * GEAR_RATIOS remains the kinematic reference; planet counter-rotation stays pegged to the
+ * carrier's display angle (see applyGearRotation).
  */
 export const ROTATION_TURNS = {
   stage1: 8,
-  stage2: 2.24,
-  stage3: 1.5,
-  stage4: 1,
-  stage5: 0.5,
+  stage2: 5.2,
+  stage3: 2.2,
+  stage4: 1.43,
+  stage5: 3.38,
 } as const
 
 /**

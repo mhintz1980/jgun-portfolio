@@ -345,13 +345,24 @@ fully opens in) exploded mode: `explode = max(anim.explode, mode ===
 
 The proxy's `gearRotation` channel (0 → 8π across CH.02 timeline — spin-up
 AND spin-through-extraction) drives kinematically-staged rotation via
-`ROTATION_TURNS` (`caseStudies.ts`, pass 3): the sweep is normalized 0..1
+`ROTATION_TURNS` (`caseStudies.ts`, retuned JG-031): the sweep is normalized 0..1
 and each carrier completes its display turns — `carrier rotation.z =
-(gearRotation / 8π) · ROTATION_TURNS[stage] · 2π` with turns
-8 / 2.24 / 1.5 / 1 / 0.5. Stages 1/2 are exactly 2× their kinematic turns;
-the slow tail (0.32 / 0.088 / 0.024 turns at the cumulative `GEAR_RATIOS`
-1.0 / 0.28 / 0.08 / 0.022 / 0.006) is boosted so the reduction stages still
-read as motion during scroll scrub instead of appearing frozen.
+(gearRotation / 8π) · ROTATION_TURNS[stage] · 2π`.
+
+JG-031 display turns map to the physical visual driveline order from motor to snout
+(Stage 1 [P001836] → Stage 2 [P001837] → Stage 5 [A000606] → Stage 3 [P003045] → Stage 4 [P003047]),
+with `ROTATION_TURNS = { stage1: 8, stage2: 5.2, stage5: 3.38, stage3: 2.2, stage4: 1.43 }`.
+Each successive physical cage in space turns at ~65% of the preceding cage's speed:
+- Pos 1 (Stage 1): 8.0 turns
+- Pos 2 (Stage 2): 5.2 turns (65% of Pos 1)
+- Pos 3 (Stage 5, A000606): 3.38 turns (65% of Pos 2)
+- Pos 4 (Stage 3): 2.20 turns (65% of Pos 3)
+- Pos 5 (Stage 4): 1.43 turns (65% of Pos 4)
+
+This enforces strictly monotonic reduction across the physical visual assembly
+from motor to snout, eliminating mid-stack speed jumps or reversals while ensuring
+the final reduction stage completes >1.0 turn (1.43 turns) so motion remains clearly
+perceptible during quick scroll scrub.
 `GEAR_RATIOS` remains the kinematic reference; each planet
 `rotation.z = −carrier display angle · 3.5` (counter-rotation on its pin;
 planet groups are carrier children, so they also revolve with it).
@@ -532,12 +543,20 @@ canvas world (three/R3F/drei/GSAP/Lenis + shader) streams in behind Suspense
    Re-derived against the measured ladder: K000004 = −0.197 (15 mm behind
    A000606), with stage 2 / stage 1 / clutch / handle shifted to
    −0.230 / −0.255 / −0.291 / −0.354 to keep the ≥15 mm gap rule.
-   `ROTATION_TURNS` = { 8, 2.24, 1.5, 1, 0.5 } now scales the scroll
-   scrub's carrier display angles (planets still counter-rotate ×3.5).
+   `ROTATION_TURNS` = { 8, 2.24, 1.5, 1, 0.5 } scaled the scroll
+   scrub's carrier display angles (planets counter-rotate ×3.5).
+7. **Internal cage rotation tuning (65% stage progression)** —
+   **IMPLEMENTED 2026-09-07 (JG-031)** (see §5.4): retuned `ROTATION_TURNS`
+   to { stage1: 8, stage2: 5.2, stage5: 3.38, stage3: 2.2, stage4: 1.43 }, mapped to the
+   physical visual driveline order from motor to snout (P001836 → P001837 → A000606 →
+   P003045 → P003047). Each successive physical cage along the wrench now turns at ~65%
+   of the preceding cage's speed (strictly monotonic decrease from 8.0 down to 1.43).
+   The slowest physical stage at the snout completes 1.43 turns across the sweep (up from 0.5),
+   providing clearly perceptible animation during fast scroll scrub without mid-stack reversals.
 
 Verification of both: `window.__telemetry` probes on vite preview (§11),
 2026-08-23 — static exploded mode, mid-scrub, and full-scroll states all
-asserted.
+asserted; JG-031 verified via `verify-jg031-gear-rotation.mjs`.
 
 ## 14. Multi-chapter stage orchestration (2026-08-24, orzo-style upgrade)
 

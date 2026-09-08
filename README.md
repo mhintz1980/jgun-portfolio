@@ -107,8 +107,8 @@ removing the layers that need to settle.
 | Clutch A000881 / P000724 / P000297 | -0.291 |
 | Handle assembly | -0.354 |
 
-Clutch sliding adds `shift × -0.015 m`. Display turns remain
-`8 / 2.24 / 1.5 / 1 / 0.5`; planets counter-rotate by multiplier `3.5`.
+Clutch sliding adds `shift × -0.015 m`. Display turns along the physical driveline from motor to snout (stage1 → stage2 → stage5 → stage3 → stage4) are
+`8.0 / 5.2 / 3.38 / 2.20 / 1.43` (`stage1: 8`, `stage2: 5.2`, `stage5: 3.38`, `stage3: 2.2`, `stage4: 1.43`, JG-031 ~65% stage progression); planets counter-rotate by multiplier `3.5`.
 Part numbers identify units; stage names cannot reorder them.
 
 **Sheet and projection (owner rulings 2026-09-05).** ANSI C proportion

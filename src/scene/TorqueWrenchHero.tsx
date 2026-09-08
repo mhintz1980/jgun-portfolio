@@ -33,10 +33,9 @@ gsap.registerPlugin(ScrollTrigger)
 const MODEL_URL = '/models/Default.glb'
 const GHOST_OPACITY = 0.15
 /** Total gearRotation proxy sweep across the gear-rotation window. The
- * per-carrier DISPLAY angles come from ROTATION_TURNS (pass 3): the sweep's
- * scroll-driven shape is kept, but each carrier completes its display turns
- * instead of its raw ratio fraction (0.32/0.088/0.024-turn tails would read
- * as frozen). */
+ * per-carrier DISPLAY angles come from ROTATION_TURNS (JG-031): the sweep's
+ * scroll-driven shape is kept, with each carrier completing its display turns
+ * (8 / 5.2 / 3.38 / 2.2 / 1.43) at ~65% speed of the previous stage. */
 const GEAR_ROTATION_SWEEP = Math.PI * 8
 
 // Draco decoders are vendored with the site (public/draco, copied from
@@ -211,21 +210,15 @@ export function TorqueWrenchHero() {
   /**
    * Epicyclic rotation: each carrier turns about the gear-train axis while
    * each planet counter-rotates on its own pin (planet groups are carrier
-   * children, so they also revolve with it). Pass-3 display turns: the proxy
-   * sweep is normalized 0..1 and remapped through ROTATION_TURNS so stage 1/2
-   * spin exactly 2× their kinematic turns and the slow tail (0.32/0.088/0.024
-   * turns at the true ratios) still reads as motion; GEAR_RATIOS keeps the
-   * kinematic reference, and planets stay pegged to their carrier's display
-   * angle via the multiplier.
-  /**
-   * Epicyclic rotation: each carrier turns about the gear-train axis while
-   * each planet counter-rotates on its own pin (planet groups are carrier
-   * children, so they also revolve with it). Pass-3 display turns: the proxy
-   * sweep is normalized 0..1 and remapped through ROTATION_TURNS so stage 1/2
-   * spin exactly 2× their kinematic turns and the slow tail (0.32/0.088/0.024
-   * turns at the true ratios) still reads as motion; GEAR_RATIOS keeps the
-   * kinematic reference, and planets stay pegged to their carrier's display
-   * angle via the multiplier.
+   * children, so they also revolve with it). JG-031 display turns: the proxy
+   * sweep is normalized 0..1 and remapped through ROTATION_TURNS mapped to the
+   * physical driveline order from motor to snout (stage1: 8.0 → stage2: 5.2 →
+   * stage5 [A000606]: 3.38 → stage3: 2.20 → stage4: 1.43), so each successive
+   * physical cage spins at ~65% of the preceding cage's speed. This provides
+   * strictly monotonic reduction across the physical visual assembly and clear,
+   * perceptible motion even during fast scroll scrub. GEAR_RATIOS keeps the
+   * kinematic reference, and planets stay pegged to their carrier's display angle
+   * via the multiplier.
    *
    * Continuous Kinematic Idling (Milestone 4):
    * When scroll pauses during CH.02 explosion range, idle rotation accumulates

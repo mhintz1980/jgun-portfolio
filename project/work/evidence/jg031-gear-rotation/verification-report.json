@@ -1,0 +1,114 @@
+{
+  "startedAt": "2026-09-08T02:45:06.358Z",
+  "failures": [],
+  "assertions": {
+    "stageCount035": true,
+    "monotonic035": true,
+    "ratios035": [
+      0.65,
+      0.65,
+      0.650887573964497,
+      0.65
+    ],
+    "ratiosOk035": true,
+    "planetRot035": true,
+    "monotonic050": true,
+    "ratios050": [
+      0.6500000000000001,
+      0.6499999999999999,
+      0.6508875739644971,
+      0.6499999999999999
+    ],
+    "ratiosOk050": true,
+    "explodedAtRest": true,
+    "zeroErrors": true
+  },
+  "telemetry": {
+    "progress_0.35": {
+      "handleZ": -0.111158832,
+      "outputZ": 0.0157004,
+      "clutchZ": -0.09137632799999999,
+      "slidingZ": -0.09137632799999999,
+      "stageZ": [
+        -0.08007204,
+        -0.07222184000000001,
+        -0.044589135999999994,
+        -0.031086792000000002,
+        -0.055579416
+      ],
+      "stageRot": [
+        60.26519665002166,
+        39.17237782251408,
+        16.572929078755955,
+        10.772403901191371,
+        25.46204558463415
+      ],
+      "planetRot": -210.9281882750758,
+      "gearRotation": 14.158228,
+      "shift": 0,
+      "ghostOpacity": 0.44581445000000003,
+      "ghostCount": 1,
+      "explodeFactor": 0.314008,
+      "ringSwitchZ": -0.09137632799999999,
+      "ringSwitchRotZ": 0
+    },
+    "progress_0.50": {
+      "handleZ": -0.354,
+      "outputZ": 0.05,
+      "clutchZ": -0.291,
+      "slidingZ": -0.291,
+      "stageZ": [
+        -0.255,
+        -0.23,
+        -0.142,
+        -0.099,
+        -0.177
+      ],
+      "stageRot": [
+        117.22036127066669,
+        76.19323482593336,
+        32.23559934943334,
+        20.95313957713167,
+        49.525602636856675
+      ],
+      "planetRot": -410.2712644473334,
+      "gearRotation": 25.132741,
+      "shift": 0,
+      "ghostOpacity": 1,
+      "ghostCount": 1,
+      "explodeFactor": 1,
+      "ringSwitchZ": -0.291,
+      "ringSwitchRotZ": 0
+    },
+    "view_exploded": {
+      "handleZ": 0,
+      "outputZ": 0,
+      "clutchZ": 0,
+      "slidingZ": 0,
+      "stageZ": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stageRot": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "planetRot": 0,
+      "gearRotation": 0,
+      "shift": 0,
+      "ghostOpacity": 1,
+      "ghostCount": 0,
+      "explodeFactor": 0,
+      "ringSwitchZ": 0,
+      "ringSwitchRotZ": 0
+    }
+  },
+  "completedAt": "2026-09-08T02:45:35.327Z",
+  "status": "PASS"
+}
