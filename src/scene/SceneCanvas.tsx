@@ -1,7 +1,7 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
-import { DirectionalLight, Group, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
+import { CanvasTexture, DirectionalLight, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
 import { BackdropRig } from './backgrounds/BackdropRig'
@@ -246,40 +246,45 @@ function LcdMicroRimLight() {
 
 /**
  * JG-032 — secondary, wider contact shadow beneath the primary one for
- * stronger depth separation during the explode. Opacity is driven per frame
- * (peak 0.12 × telemetry.rig.explodeFactor) through the drei ContactShadows
- * shader uniform; the group hides outside the gate window so the pass is
- * provably inert at CH.04 progress values (zero opacity, not just unseen).
+ * stronger depth separation during the explode. Implemented as a baked
+ * radial-gradient plane (NOT a second drei ContactShadows): ContactShadows
+ * re-renders the whole scene into its RT every frame regardless of
+ * visibility, which cost +2.2 ms p95 at the hold — the gradient bakes the
+ * "scale 1.6, blur 4" softness once. Opacity is driven per frame (peak
+ * 0.12 × telemetry.rig.explodeFactor); the mesh hides outside the gate
+ * window so the effect is provably inert at CH.04 progress values (zero
+ * opacity, zero extra passes — not just unseen).
  */
 function ExplodeShadow() {
-  const groupRef = useRef<Group>(null)
-  const shadowMaterial = useRef<MeshBasicMaterial | null>(null)
-
-  const attachRef = (group: Group | null) => {
-    groupRef.current = group
-    shadowMaterial.current = null
-    group?.traverse((object) => {
-      const material = (object as Mesh).material as MeshBasicMaterial | undefined
-      if (material && 'opacity' in material) shadowMaterial.current = material
-    })
-  }
+  const meshRef = useRef<Mesh>(null)
+  const texture = useMemo(() => {
+    const canvas = document.createElement('canvas')
+    canvas.width = 256
+    canvas.height = 256
+    const ctx = canvas.getContext('2d')!
+    const grad = ctx.createRadialGradient(128, 128, 8, 128, 128, 128)
+    grad.addColorStop(0, 'rgba(0,0,0,1)')
+    grad.addColorStop(0.55, 'rgba(0,0,0,0.55)')
+    grad.addColorStop(1, 'rgba(0,0,0,0)')
+    ctx.fillStyle = grad
+    ctx.fillRect(0, 0, 256, 256)
+    return new CanvasTexture(canvas)
+  }, [])
+  useEffect(() => () => texture.dispose(), [texture])
 
   useFrame(() => {
+    if (!meshRef.current) return
     const { progress } = getScrollState()
     const opacity = explodeShadowOpacity(progress, telemetry.rig.explodeFactor ?? 0)
-    if (groupRef.current) groupRef.current.visible = opacity > 0.001
-    if (shadowMaterial.current) shadowMaterial.current.opacity = opacity
+    meshRef.current.visible = opacity > 0.001
+    ;(meshRef.current.material as MeshBasicMaterial).opacity = opacity
   })
 
   return (
-    <ContactShadows
-      ref={attachRef}
-      position={[0, -0.18, 0]}
-      opacity={0.12}
-      scale={1.6}
-      blur={4}
-      far={0.4}
-    />
+    <mesh ref={meshRef} position={[0, -0.18, 0]} rotation={[-Math.PI / 2, 0, 0]} visible={false}>
+      <planeGeometry args={[1.6, 1.6]} />
+      <meshBasicMaterial map={texture} transparent opacity={0} depthWrite={false} />
+    </mesh>
   )
 }
 
