@@ -54,6 +54,8 @@ C:\Users\Markimus\.claude\agents\codebase-memory-auditor.md
 
 Before making exhaustive or negative codebase claims, agents must check that the JGUN project is indexed and use the skill’s coverage guidance. A graph result is evidence only for indexed paths; it is not proof that unindexed source is absent.
 
+**Multi-project registry (2026-09-09):** the Windows cbm instance also indexes `open-montage`, `presenton`, `cli-anything`, and `msp-render-pipeline` alongside this repo — one service, per-project queries. Cross-repo runtime edges are zero (no shared routes); cross-project discovery = same semantic/structural query per project. Registry + findings: vault `06-AI-Agents/codebase-memory-mcp-projects.md`.
+
 ## Mandatory Invocation Rules
 
 | Change or task | Read before work | Required verification |
