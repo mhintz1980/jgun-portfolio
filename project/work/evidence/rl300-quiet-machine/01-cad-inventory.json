@@ -1,0 +1,10198 @@
+{
+ "capturedAt": "2026-09-11T04:00:05.074Z",
+ "gitRev": "3e3e49f",
+ "method": "read-only Blender 5.1 python inspection + direct glTF JSON-chunk parse",
+ "glb": {
+  "Default": {
+   "file": "public/models/Default.glb",
+   "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+   "bytes": 10671700,
+   "counts": {
+    "nodes": 345,
+    "meshes": 101,
+    "materials": 36,
+    "accessors": 32022,
+    "bufferViews": 10674,
+    "images": 0,
+    "textures": 0,
+    "samplers": 0,
+    "animations": 0,
+    "skins": 0,
+    "cameras": 0,
+    "sceneRoots": 1,
+    "totalTris": 561703,
+    "trisIncomplete": false
+   },
+   "roots": [
+    {
+     "node": 0,
+     "name": "Default",
+     "descendantNodes": 345,
+     "meshNodes": 162,
+     "tris": 840719,
+     "verts": 830576,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "0.752941_0.752941_0.752941_0.000000_0.000000",
+       "tris": 211212
+      },
+      {
+       "material": "0.792157_0.819608_0.933333_0.000000_0.000000",
+       "tris": 120812
+      },
+      {
+       "material": "0.647059_0.619608_0.588235_0.000000_0.000000",
+       "tris": 107814
+      },
+      {
+       "material": "0.000000_0.000000_0.000000_0.000000_0.000000",
+       "tris": 88754
+      },
+      {
+       "material": "0.776471_0.756863_0.737255_0.000000_0.000000",
+       "tris": 65666
+      },
+      {
+       "material": "0.015686_0.015686_0.015686_0.000000_0.000000",
+       "tris": 41724
+      },
+      {
+       "material": "1.000000_0.000000_0.000000_0.000000_0.000000",
+       "tris": 31672
+      },
+      {
+       "material": "0.250980_0.250980_0.250980_0.000000_0.000000",
+       "tris": 27262
+      },
+      {
+       "material": "0.796078_0.823529_0.937255_0.000000_0.000000",
+       "tris": 21692
+      },
+      {
+       "material": "0.450980_0.450980_0.450980_0.000000_0.000000",
+       "tris": 21558
+      },
+      {
+       "material": "0.447059_0.447059_0.447059_0.000000_0.000000",
+       "tris": 21558
+      },
+      {
+       "material": "0.584314_0.584314_0.627451_0.000000_0.000000",
+       "tris": 20024
+      },
+      {
+       "material": "1.000000_0.752941_0.752941_0.000000_0.000000",
+       "tris": 19776
+      },
+      {
+       "material": "1.000000_1.000000_1.000000_0.000000_0.000000",
+       "tris": 19378
+      },
+      {
+       "material": "0.000000_0.000000_1.000000_0.000000_0.000000",
+       "tris": 17888
+      },
+      {
+       "material": "0.686275_0.686275_0.686275_0.000000_0.000000",
+       "tris": 17410
+      },
+      {
+       "material": "0.094118_0.094118_0.094118_0.000000_0.000000",
+       "tris": 15808
+      },
+      {
+       "material": "0.501961_0.501961_0.501961_0.000000_0.000000",
+       "tris": 15788
+      },
+      {
+       "material": "0.501961_1.000000_0.501961_0.000000_0.000000",
+       "tris": 13516
+      },
+      {
+       "material": "0.686275_0.607843_0.529412_0.000000_0.000000",
+       "tris": 12858
+      },
+      {
+       "material": "0.000000_1.000000_0.000000_0.000000_0.000000",
+       "tris": 9418
+      },
+      {
+       "material": "1.000000_0.501961_1.000000_0.000000_0.000000",
+       "tris": 8150
+      },
+      {
+       "material": "0.298039_0.298039_0.298039_0.000000_0.000000",
+       "tris": 7850
+      },
+      {
+       "material": "0.619608_0.407843_0.200000_0.000000_0.000000",
+       "tris": 7116
+      },
+      {
+       "material": "0.910000_0.910000_0.910000_0.000000_0.000000",
+       "tris": 4977
+      },
+      {
+       "material": "1.000000_0.949020_0.909804_0.000000_0.000000",
+       "tris": 3924
+      },
+      {
+       "material": "0.501961_0.000000_0.000000_0.000000_0.000000",
+       "tris": 3900
+      },
+      {
+       "material": "0.866667_0.909804_1.000000_0.000000_0.000000",
+       "tris": 3488
+      },
+      {
+       "material": "0.843137_0.815686_0.752941_0.000000_0.000000",
+       "tris": 3254
+      },
+      {
+       "material": "0.000000_0.752941_0.752941_0.000000_0.000000",
+       "tris": 1856
+      },
+      {
+       "material": "1.000000_0.752941_1.000000_0.000000_0.000000",
+       "tris": 1368
+      },
+      {
+       "material": "0.694118_0.098039_0.098039_0.000000_0.000000",
+       "tris": 1174
+      },
+      {
+       "material": "0.098039_0.098039_0.098039_0.000000_0.000000",
+       "tris": 1160
+      },
+      {
+       "material": "0.827451_0.666667_0.129412_0.000000_0.000000",
+       "tris": 712
+      },
+      {
+       "material": "0.294118_0.294118_0.294118_0.000000_0.000000",
+       "tris": 572
+      },
+      {
+       "material": "0.000000_0.752941_0.000000_0.000000_0.000000",
+       "tris": 228
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.0574,
+       -0.2246,
+       -0.1046
+      ],
+      "max": [
+       0.0903,
+       0.0478,
+       0.148
+      ]
+     }
+    }
+   ],
+   "materials": [
+    {
+     "index": 0,
+     "name": "0.752941_0.752941_0.752941_0.000000_0.000000",
+     "baseColorFactor": [
+      0.7529,
+      0.7529,
+      0.7529,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 17,
+     "tris": 211212
+    },
+    {
+     "index": 3,
+     "name": "0.792157_0.819608_0.933333_0.000000_0.000000",
+     "baseColorFactor": [
+      0.7922,
+      0.8196,
+      0.9333,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 37,
+     "tris": 120812
+    },
+    {
+     "index": 4,
+     "name": "0.647059_0.619608_0.588235_0.000000_0.000000",
+     "baseColorFactor": [
+      0.6471,
+      0.6196,
+      0.5882,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 22,
+     "tris": 107814
+    },
+    {
+     "index": 20,
+     "name": "0.000000_0.000000_0.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 11,
+     "tris": 88754
+    },
+    {
+     "index": 9,
+     "name": "0.776471_0.756863_0.737255_0.000000_0.000000",
+     "baseColorFactor": [
+      0.7765,
+      0.7569,
+      0.7373,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 17,
+     "tris": 65666
+    },
+    {
+     "index": 2,
+     "name": "0.015686_0.015686_0.015686_0.000000_0.000000",
+     "baseColorFactor": [
+      0.0157,
+      0.0157,
+      0.0157,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 3,
+     "tris": 41724
+    },
+    {
+     "index": 13,
+     "name": "1.000000_0.000000_0.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      1,
+      0,
+      0,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 4,
+     "tris": 31672
+    },
+    {
+     "index": 22,
+     "name": "0.250980_0.250980_0.250980_0.000000_0.000000",
+     "baseColorFactor": [
+      0.251,
+      0.251,
+      0.251,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 3,
+     "tris": 27262
+    },
+    {
+     "index": 8,
+     "name": "0.796078_0.823529_0.937255_0.000000_0.000000",
+     "baseColorFactor": [
+      0.7961,
+      0.8235,
+      0.9373,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 15,
+     "tris": 21692
+    },
+    {
+     "index": 33,
+     "name": "0.450980_0.450980_0.450980_0.000000_0.000000",
+     "baseColorFactor": [
+      0.451,
+      0.451,
+      0.451,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 3,
+     "tris": 21558
+    },
+    {
+     "index": 34,
+     "name": "0.447059_0.447059_0.447059_0.000000_0.000000",
+     "baseColorFactor": [
+      0.4471,
+      0.4471,
+      0.4471,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 3,
+     "tris": 21558
+    },
+    {
+     "index": 15,
+     "name": "0.584314_0.584314_0.627451_0.000000_0.000000",
+     "baseColorFactor": [
+      0.5843,
+      0.5843,
+      0.6275,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 2,
+     "tris": 20024
+    },
+    {
+     "index": 19,
+     "name": "1.000000_0.752941_0.752941_0.000000_0.000000",
+     "baseColorFactor": [
+      1,
+      0.7529,
+      0.7529,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 19776
+    },
+    {
+     "index": 6,
+     "name": "1.000000_1.000000_1.000000_0.000000_0.000000",
+     "baseColorFactor": null,
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 5,
+     "tris": 19378
+    },
+    {
+     "index": 12,
+     "name": "0.000000_0.000000_1.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0,
+      0,
+      1,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 2,
+     "tris": 17888
+    },
+    {
+     "index": 7,
+     "name": "0.686275_0.686275_0.686275_0.000000_0.000000",
+     "baseColorFactor": [
+      0.6863,
+      0.6863,
+      0.6863,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 6,
+     "tris": 17410
+    },
+    {
+     "index": 14,
+     "name": "0.094118_0.094118_0.094118_0.000000_0.000000",
+     "baseColorFactor": [
+      0.0941,
+      0.0941,
+      0.0941,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 15808
+    },
+    {
+     "index": 29,
+     "name": "0.501961_0.501961_0.501961_0.000000_0.000000",
+     "baseColorFactor": [
+      0.502,
+      0.502,
+      0.502,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 15788
+    },
+    {
+     "index": 11,
+     "name": "0.501961_1.000000_0.501961_0.000000_0.000000",
+     "baseColorFactor": [
+      0.502,
+      1,
+      0.502,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 13516
+    },
+    {
+     "index": 5,
+     "name": "0.686275_0.607843_0.529412_0.000000_0.000000",
+     "baseColorFactor": [
+      0.6863,
+      0.6078,
+      0.5294,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 12858
+    },
+    {
+     "index": 24,
+     "name": "0.000000_1.000000_0.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0,
+      1,
+      0,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 2,
+     "tris": 9418
+    },
+    {
+     "index": 17,
+     "name": "1.000000_0.501961_1.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      1,
+      0.502,
+      1,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 8150
+    },
+    {
+     "index": 28,
+     "name": "0.298039_0.298039_0.298039_0.000000_0.000000",
+     "baseColorFactor": [
+      0.298,
+      0.298,
+      0.298,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 7850
+    },
+    {
+     "index": 21,
+     "name": "0.619608_0.407843_0.200000_0.000000_0.000000",
+     "baseColorFactor": [
+      0.6196,
+      0.4078,
+      0.2,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 2,
+     "tris": 7116
+    },
+    {
+     "index": 16,
+     "name": "0.910000_0.910000_0.910000_0.000000_0.000000",
+     "baseColorFactor": [
+      0.91,
+      0.91,
+      0.91,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 4977
+    },
+    {
+     "index": 10,
+     "name": "1.000000_0.949020_0.909804_0.000000_0.000000",
+     "baseColorFactor": [
+      1,
+      0.949,
+      0.9098,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 3,
+     "tris": 3924
+    },
+    {
+     "index": 32,
+     "name": "0.501961_0.000000_0.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0.502,
+      0,
+      0,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 3900
+    },
+    {
+     "index": 26,
+     "name": "0.866667_0.909804_1.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0.8667,
+      0.9098,
+      1,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 3488
+    },
+    {
+     "index": 25,
+     "name": "0.843137_0.815686_0.752941_0.000000_0.000000",
+     "baseColorFactor": [
+      0.8431,
+      0.8157,
+      0.7529,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 3254
+    },
+    {
+     "index": 18,
+     "name": "0.000000_0.752941_0.752941_0.000000_0.000000",
+     "baseColorFactor": [
+      0,
+      0.7529,
+      0.7529,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 1856
+    },
+    {
+     "index": 31,
+     "name": "1.000000_0.752941_1.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      1,
+      0.7529,
+      1,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 6,
+     "tris": 1368
+    },
+    {
+     "index": 35,
+     "name": "0.694118_0.098039_0.098039_0.000000_0.000000",
+     "baseColorFactor": [
+      0.6941,
+      0.098,
+      0.098,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 1174
+    },
+    {
+     "index": 1,
+     "name": "0.098039_0.098039_0.098039_0.000000_0.000000",
+     "baseColorFactor": [
+      0.098,
+      0.098,
+      0.098,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 1160
+    },
+    {
+     "index": 27,
+     "name": "0.827451_0.666667_0.129412_0.000000_0.000000",
+     "baseColorFactor": [
+      0.8275,
+      0.6667,
+      0.1294,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 712
+    },
+    {
+     "index": 30,
+     "name": "0.294118_0.294118_0.294118_0.000000_0.000000",
+     "baseColorFactor": [
+      0.2941,
+      0.2941,
+      0.2941,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 572
+    },
+    {
+     "index": 23,
+     "name": "0.000000_0.752941_0.000000_0.000000_0.000000",
+     "baseColorFactor": [
+      0,
+      0.7529,
+      0,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 228
+    }
+   ]
+  },
+  "ext-msp-enclosure-draco": {
+   "file": "C:/Projects/CAD/RL300-SAFE/msp-enclosure-draco.glb",
+   "sha256": "f429a200be18e9d08bd586d1f9581b1266501d63342dfe8ce80573b87b9b8ed3",
+   "bytes": 2380776,
+   "counts": {
+    "nodes": 555,
+    "meshes": 193,
+    "materials": 9,
+    "accessors": 639,
+    "bufferViews": 214,
+    "images": 0,
+    "textures": 0,
+    "samplers": 0,
+    "animations": 0,
+    "skins": 0,
+    "cameras": 0,
+    "sceneRoots": 7,
+    "totalTris": 293231,
+    "trisIncomplete": false
+   },
+   "roots": [
+    {
+     "node": 191,
+     "name": "ENCLOSURE_CHASSIS",
+     "descendantNodes": 192,
+     "meshNodes": 191,
+     "tris": 88558,
+     "verts": 85752,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 26720
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 21360
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 19686
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 18404
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3024
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 980
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -1.4097,
+       -0.8182,
+       -1.0668
+      ],
+      "max": [
+       1.4097,
+       0.7335,
+       0.9597
+      ]
+     }
+    },
+    {
+     "node": 388,
+     "name": "COMPOSITE_PANELS",
+     "descendantNodes": 197,
+     "meshNodes": 196,
+     "tris": 87000,
+     "verts": 99321,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 57726
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 18576
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 13098
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7294,
+       -0.6894
+      ],
+      "max": [
+       0.7692,
+       0.7651,
+       1.9321
+      ]
+     }
+    },
+    {
+     "node": 533,
+     "name": "PUMP_HOUSING",
+     "descendantNodes": 145,
+     "meshNodes": 144,
+     "tris": 213504,
+     "verts": 275940,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_STEEL_CAST",
+       "tris": 151655
+      },
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 28188
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 16560
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 11843
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3199
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 1967
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 800
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 460
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.581,
+       -0.2906,
+       -0.8711
+      ],
+      "max": [
+       0.5923,
+       0.7092,
+       0.6731
+      ]
+     }
+    },
+    {
+     "node": 539,
+     "name": "ACOUSTIC_BAFFLES",
+     "descendantNodes": 6,
+     "meshNodes": 5,
+     "tris": 2158,
+     "verts": 2309,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 2158
+      }
+     ],
+     "bbox": {
+      "min": [
+       -2.3752,
+       -0.0925,
+       -0.637
+      ],
+      "max": [
+       -0.2626,
+       1.4033,
+       0.637
+      ]
+     }
+    },
+    {
+     "node": 546,
+     "name": "ISOLATION_MOUNTS",
+     "descendantNodes": 7,
+     "meshNodes": 6,
+     "tris": 864,
+     "verts": 588,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_RUBBER",
+       "tris": 864
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.055,
+       -0.05,
+       -0.055
+      ],
+      "max": [
+       0.055,
+       0,
+       0.055
+      ]
+     }
+    },
+    {
+     "node": 549,
+     "name": "DUCT_INTAKE",
+     "descendantNodes": 3,
+     "meshNodes": 2,
+     "tris": 7202,
+     "verts": 8330,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 7174
+      },
+      {
+       "material": "MSP_AIRWAY_VOLUME",
+       "tris": 28
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7017,
+       -0.0601
+      ],
+      "max": [
+       0.6858,
+       1.855,
+       1.3
+      ]
+     }
+    },
+    {
+     "node": 554,
+     "name": "DUCT_EXHAUST",
+     "descendantNodes": 5,
+     "meshNodes": 4,
+     "tris": 16606,
+     "verts": 16135,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 16606
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 2896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.3302,
+       -0.7017,
+       -0.6858
+      ],
+      "max": [
+       0.3302,
+       1.1206,
+       0.6858
+      ]
+     }
+    }
+   ],
+   "materials": [
+    {
+     "index": 7,
+     "name": "MSP_STEEL_CAST",
+     "baseColorFactor": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "metallicFactor": 0.8999999761581421,
+     "roughnessFactor": 0.550000011920929,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 36,
+     "tris": 151655
+    },
+    {
+     "index": 1,
+     "name": "MSP_YELLOW_PAINT",
+     "baseColorFactor": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "metallicFactor": 0.05000000074505806,
+     "roughnessFactor": 0.41999998688697815,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 138,
+     "tris": 138572
+    },
+    {
+     "index": 4,
+     "name": "MSP_BLACK_CHASSIS",
+     "baseColorFactor": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "metallicFactor": 0.10000000149011612,
+     "roughnessFactor": 0.47999998927116394,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 155,
+     "tris": 54822
+    },
+    {
+     "index": 5,
+     "name": "MSP_PLASTIC",
+     "baseColorFactor": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.3499999940395355,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 103,
+     "tris": 31962
+    },
+    {
+     "index": 0,
+     "name": "MSP_STAINLESS",
+     "baseColorFactor": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.2199999988079071,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 99,
+     "tris": 26223
+    },
+    {
+     "index": 6,
+     "name": "MSP_STEEL_MACHINED",
+     "baseColorFactor": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "metallicFactor": 0.949999988079071,
+     "roughnessFactor": 0.30000001192092896,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 12739
+    },
+    {
+     "index": 2,
+     "name": "MSP_ALUMINUM",
+     "baseColorFactor": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 6223
+    },
+    {
+     "index": 3,
+     "name": "MSP_RUBBER",
+     "baseColorFactor": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.75,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 14,
+     "tris": 2644
+    },
+    {
+     "index": 8,
+     "name": "MSP_AIRWAY_VOLUME",
+     "baseColorFactor": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "BLEND",
+     "meshNodes": 1,
+     "tris": 28
+    }
+   ]
+  },
+  "ext-msp-enclosure": {
+   "file": "C:/Projects/CAD/RL300-SAFE/msp-enclosure.glb",
+   "sha256": "750d9e0bfcf360fad031b46b30db157d0f6440b86081cce3727bca2317d277db",
+   "bytes": 10603764,
+   "counts": {
+    "nodes": 555,
+    "meshes": 193,
+    "materials": 9,
+    "accessors": 639,
+    "bufferViews": 639,
+    "images": 0,
+    "textures": 0,
+    "samplers": 0,
+    "animations": 0,
+    "skins": 0,
+    "cameras": 0,
+    "sceneRoots": 7,
+    "totalTris": 293231,
+    "trisIncomplete": false
+   },
+   "roots": [
+    {
+     "node": 191,
+     "name": "ENCLOSURE_CHASSIS",
+     "descendantNodes": 192,
+     "meshNodes": 191,
+     "tris": 88558,
+     "verts": 85676,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 26720
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 21360
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 19686
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 18404
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3024
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 980
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -1.4097,
+       -0.8182,
+       -1.0668
+      ],
+      "max": [
+       1.4097,
+       0.7335,
+       0.9597
+      ]
+     }
+    },
+    {
+     "node": 388,
+     "name": "COMPOSITE_PANELS",
+     "descendantNodes": 197,
+     "meshNodes": 196,
+     "tris": 87000,
+     "verts": 99319,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 57726
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 18576
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 13098
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7294,
+       -0.6894
+      ],
+      "max": [
+       0.7692,
+       0.7651,
+       1.9321
+      ]
+     }
+    },
+    {
+     "node": 533,
+     "name": "PUMP_HOUSING",
+     "descendantNodes": 145,
+     "meshNodes": 144,
+     "tris": 213504,
+     "verts": 275693,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_STEEL_CAST",
+       "tris": 151655
+      },
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 28188
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 16560
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 11843
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3199
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 1967
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 800
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 460
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.581,
+       -0.2906,
+       -0.8711
+      ],
+      "max": [
+       0.5923,
+       0.7092,
+       0.6731
+      ]
+     }
+    },
+    {
+     "node": 539,
+     "name": "ACOUSTIC_BAFFLES",
+     "descendantNodes": 6,
+     "meshNodes": 5,
+     "tris": 2158,
+     "verts": 2303,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 2158
+      }
+     ],
+     "bbox": {
+      "min": [
+       -2.3752,
+       -0.0925,
+       -0.637
+      ],
+      "max": [
+       -0.2626,
+       1.4033,
+       0.637
+      ]
+     }
+    },
+    {
+     "node": 546,
+     "name": "ISOLATION_MOUNTS",
+     "descendantNodes": 7,
+     "meshNodes": 6,
+     "tris": 864,
+     "verts": 588,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_RUBBER",
+       "tris": 864
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.055,
+       -0.05,
+       -0.055
+      ],
+      "max": [
+       0.055,
+       0,
+       0.055
+      ]
+     }
+    },
+    {
+     "node": 549,
+     "name": "DUCT_INTAKE",
+     "descendantNodes": 3,
+     "meshNodes": 2,
+     "tris": 7202,
+     "verts": 8330,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 7174
+      },
+      {
+       "material": "MSP_AIRWAY_VOLUME",
+       "tris": 28
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7017,
+       -0.0601
+      ],
+      "max": [
+       0.6858,
+       1.855,
+       1.3
+      ]
+     }
+    },
+    {
+     "node": 554,
+     "name": "DUCT_EXHAUST",
+     "descendantNodes": 5,
+     "meshNodes": 4,
+     "tris": 16606,
+     "verts": 16135,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 16606
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 2896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.3302,
+       -0.7017,
+       -0.6858
+      ],
+      "max": [
+       0.3302,
+       1.1206,
+       0.6858
+      ]
+     }
+    }
+   ],
+   "materials": [
+    {
+     "index": 7,
+     "name": "MSP_STEEL_CAST",
+     "baseColorFactor": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "metallicFactor": 0.8999999761581421,
+     "roughnessFactor": 0.550000011920929,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 36,
+     "tris": 151655
+    },
+    {
+     "index": 1,
+     "name": "MSP_YELLOW_PAINT",
+     "baseColorFactor": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "metallicFactor": 0.05000000074505806,
+     "roughnessFactor": 0.41999998688697815,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 138,
+     "tris": 138572
+    },
+    {
+     "index": 4,
+     "name": "MSP_BLACK_CHASSIS",
+     "baseColorFactor": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "metallicFactor": 0.10000000149011612,
+     "roughnessFactor": 0.47999998927116394,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 155,
+     "tris": 54822
+    },
+    {
+     "index": 5,
+     "name": "MSP_PLASTIC",
+     "baseColorFactor": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.3499999940395355,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 103,
+     "tris": 31962
+    },
+    {
+     "index": 0,
+     "name": "MSP_STAINLESS",
+     "baseColorFactor": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.2199999988079071,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 99,
+     "tris": 26223
+    },
+    {
+     "index": 6,
+     "name": "MSP_STEEL_MACHINED",
+     "baseColorFactor": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "metallicFactor": 0.949999988079071,
+     "roughnessFactor": 0.30000001192092896,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 12739
+    },
+    {
+     "index": 2,
+     "name": "MSP_ALUMINUM",
+     "baseColorFactor": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 6223
+    },
+    {
+     "index": 3,
+     "name": "MSP_RUBBER",
+     "baseColorFactor": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.75,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 14,
+     "tris": 2644
+    },
+    {
+     "index": 8,
+     "name": "MSP_AIRWAY_VOLUME",
+     "baseColorFactor": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "BLEND",
+     "meshNodes": 1,
+     "tris": 28
+    }
+   ]
+  },
+  "m249-transformed": {
+   "file": "public/models/m249-transformed.glb",
+   "sha256": "1c251f45b05b736a08858e47c53c8fa779870b636bb1a174d1422d8003305423",
+   "bytes": 892092,
+   "counts": {
+    "nodes": 1,
+    "meshes": 1,
+    "materials": 1,
+    "accessors": 5,
+    "bufferViews": 4,
+    "images": 3,
+    "textures": 3,
+    "samplers": 1,
+    "animations": 0,
+    "skins": 0,
+    "cameras": 0,
+    "sceneRoots": 1,
+    "totalTris": 50000,
+    "trisIncomplete": false
+   },
+   "roots": [
+    {
+     "node": 0,
+     "name": "Object_4",
+     "descendantNodes": 1,
+     "meshNodes": 1,
+     "tris": 50000,
+     "verts": 37141,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "Material.001",
+       "tris": 50000
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.5725,
+       -0.1154,
+       -0.3408
+      ],
+      "max": [
+       0.61,
+       0.1343,
+       0
+      ]
+     }
+    }
+   ],
+   "materials": [
+    {
+     "index": 0,
+     "name": "Material.001",
+     "baseColorFactor": null,
+     "metallicFactor": null,
+     "roughnessFactor": null,
+     "hasBaseColorTexture": true,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 1,
+     "tris": 50000
+    }
+   ]
+  },
+  "msp-enclosure": {
+   "file": "public/models/msp-enclosure.glb",
+   "sha256": "f429a200be18e9d08bd586d1f9581b1266501d63342dfe8ce80573b87b9b8ed3",
+   "bytes": 2380776,
+   "counts": {
+    "nodes": 555,
+    "meshes": 193,
+    "materials": 9,
+    "accessors": 639,
+    "bufferViews": 214,
+    "images": 0,
+    "textures": 0,
+    "samplers": 0,
+    "animations": 0,
+    "skins": 0,
+    "cameras": 0,
+    "sceneRoots": 7,
+    "totalTris": 293231,
+    "trisIncomplete": false
+   },
+   "roots": [
+    {
+     "node": 191,
+     "name": "ENCLOSURE_CHASSIS",
+     "descendantNodes": 192,
+     "meshNodes": 191,
+     "tris": 88558,
+     "verts": 85752,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 26720
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 21360
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 19686
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 18404
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3024
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 980
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -1.4097,
+       -0.8182,
+       -1.0668
+      ],
+      "max": [
+       1.4097,
+       0.7335,
+       0.9597
+      ]
+     }
+    },
+    {
+     "node": 388,
+     "name": "COMPOSITE_PANELS",
+     "descendantNodes": 197,
+     "meshNodes": 196,
+     "tris": 87000,
+     "verts": 99321,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 57726
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 18576
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 13098
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7294,
+       -0.6894
+      ],
+      "max": [
+       0.7692,
+       0.7651,
+       1.9321
+      ]
+     }
+    },
+    {
+     "node": 533,
+     "name": "PUMP_HOUSING",
+     "descendantNodes": 145,
+     "meshNodes": 144,
+     "tris": 213504,
+     "verts": 275940,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_STEEL_CAST",
+       "tris": 151655
+      },
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 28188
+      },
+      {
+       "material": "MSP_BLACK_CHASSIS",
+       "tris": 16560
+      },
+      {
+       "material": "MSP_STEEL_MACHINED",
+       "tris": 11843
+      },
+      {
+       "material": "MSP_ALUMINUM",
+       "tris": 3199
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 1967
+      },
+      {
+       "material": "MSP_RUBBER",
+       "tris": 800
+      },
+      {
+       "material": "MSP_PLASTIC",
+       "tris": 460
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.581,
+       -0.2906,
+       -0.8711
+      ],
+      "max": [
+       0.5923,
+       0.7092,
+       0.6731
+      ]
+     }
+    },
+    {
+     "node": 539,
+     "name": "ACOUSTIC_BAFFLES",
+     "descendantNodes": 6,
+     "meshNodes": 5,
+     "tris": 2158,
+     "verts": 2309,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 2158
+      }
+     ],
+     "bbox": {
+      "min": [
+       -2.3752,
+       -0.0925,
+       -0.637
+      ],
+      "max": [
+       -0.2626,
+       1.4033,
+       0.637
+      ]
+     }
+    },
+    {
+     "node": 546,
+     "name": "ISOLATION_MOUNTS",
+     "descendantNodes": 7,
+     "meshNodes": 6,
+     "tris": 864,
+     "verts": 588,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_RUBBER",
+       "tris": 864
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.055,
+       -0.05,
+       -0.055
+      ],
+      "max": [
+       0.055,
+       0,
+       0.055
+      ]
+     }
+    },
+    {
+     "node": 549,
+     "name": "DUCT_INTAKE",
+     "descendantNodes": 3,
+     "meshNodes": 2,
+     "tris": 7202,
+     "verts": 8330,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 7174
+      },
+      {
+       "material": "MSP_AIRWAY_VOLUME",
+       "tris": 28
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.6858,
+       -0.7017,
+       -0.0601
+      ],
+      "max": [
+       0.6858,
+       1.855,
+       1.3
+      ]
+     }
+    },
+    {
+     "node": 554,
+     "name": "DUCT_EXHAUST",
+     "descendantNodes": 5,
+     "meshNodes": 4,
+     "tris": 16606,
+     "verts": 16135,
+     "trisUnknown": false,
+     "materials": [
+      {
+       "material": "MSP_YELLOW_PAINT",
+       "tris": 16606
+      },
+      {
+       "material": "MSP_STAINLESS",
+       "tris": 2896
+      }
+     ],
+     "bbox": {
+      "min": [
+       -0.3302,
+       -0.7017,
+       -0.6858
+      ],
+      "max": [
+       0.3302,
+       1.1206,
+       0.6858
+      ]
+     }
+    }
+   ],
+   "materials": [
+    {
+     "index": 7,
+     "name": "MSP_STEEL_CAST",
+     "baseColorFactor": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "metallicFactor": 0.8999999761581421,
+     "roughnessFactor": 0.550000011920929,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 36,
+     "tris": 151655
+    },
+    {
+     "index": 1,
+     "name": "MSP_YELLOW_PAINT",
+     "baseColorFactor": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "metallicFactor": 0.05000000074505806,
+     "roughnessFactor": 0.41999998688697815,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 138,
+     "tris": 138572
+    },
+    {
+     "index": 4,
+     "name": "MSP_BLACK_CHASSIS",
+     "baseColorFactor": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "metallicFactor": 0.10000000149011612,
+     "roughnessFactor": 0.47999998927116394,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 155,
+     "tris": 54822
+    },
+    {
+     "index": 5,
+     "name": "MSP_PLASTIC",
+     "baseColorFactor": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.3499999940395355,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 103,
+     "tris": 31962
+    },
+    {
+     "index": 0,
+     "name": "MSP_STAINLESS",
+     "baseColorFactor": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.2199999988079071,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 99,
+     "tris": 26223
+    },
+    {
+     "index": 6,
+     "name": "MSP_STEEL_MACHINED",
+     "baseColorFactor": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "metallicFactor": 0.949999988079071,
+     "roughnessFactor": 0.30000001192092896,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 12739
+    },
+    {
+     "index": 2,
+     "name": "MSP_ALUMINUM",
+     "baseColorFactor": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "metallicFactor": null,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 12,
+     "tris": 6223
+    },
+    {
+     "index": 3,
+     "name": "MSP_RUBBER",
+     "baseColorFactor": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.75,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "OPAQUE",
+     "meshNodes": 14,
+     "tris": 2644
+    },
+    {
+     "index": 8,
+     "name": "MSP_AIRWAY_VOLUME",
+     "baseColorFactor": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "metallicFactor": 0,
+     "roughnessFactor": 0.5,
+     "hasBaseColorTexture": false,
+     "doubleSided": true,
+     "alphaMode": "BLEND",
+     "meshNodes": 1,
+     "tris": 28
+    }
+   ]
+  }
+ },
+ "blend": {
+  "RL300-SAFE-photoreal": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-photoreal.blend",
+   "bytes": 9877496,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 578,
+    "mesh_objects": 552,
+    "materials": 11,
+    "images": 2,
+    "collections": 1,
+    "cameras": 16,
+    "lights": 3,
+    "total_tris": 919668,
+    "total_verts": 623875
+   },
+   "materials": [
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 390738
+     }
+    },
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 48,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 49,
+      "tris": 215298
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 197916
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 73,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 137,
+      "tris": 180642
+     }
+    },
+    {
+     "name": "MSP_STAINLESS_FASTENER",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.628,
+      0.636,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.628,
+       0.636,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 48,
+      "tris": 46016
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 8,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 75,
+      "tris": 18719
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 4816
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM_CAST",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.6,
+      0.605,
+      0.61,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.615,
+       0.62,
+       0.625,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.62,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 3199
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 6,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 3024
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-render_ready": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-render_ready.blend",
+   "bytes": 9878343,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 578,
+    "mesh_objects": 552,
+    "materials": 11,
+    "images": 2,
+    "collections": 1,
+    "cameras": 16,
+    "lights": 3,
+    "total_tris": 919668,
+    "total_verts": 623875
+   },
+   "materials": [
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 390738
+     }
+    },
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 48,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 49,
+      "tris": 215298
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 197916
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 73,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 137,
+      "tris": 180642
+     }
+    },
+    {
+     "name": "MSP_STAINLESS_FASTENER",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.628,
+      0.636,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.628,
+       0.636,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 48,
+      "tris": 46016
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 8,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 75,
+      "tris": 18719
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 4816
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM_CAST",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.6,
+      0.605,
+      0.61,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.615,
+       0.62,
+       0.625,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.62,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 3199
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 6,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 3024
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-render_ready_photoreal": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-render_ready_photoreal.blend",
+   "bytes": 9877496,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 578,
+    "mesh_objects": 552,
+    "materials": 11,
+    "images": 2,
+    "collections": 1,
+    "cameras": 16,
+    "lights": 3,
+    "total_tris": 919668,
+    "total_verts": 623875
+   },
+   "materials": [
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 390738
+     }
+    },
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 48,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 49,
+      "tris": 215298
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 197916
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 73,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 137,
+      "tris": 180642
+     }
+    },
+    {
+     "name": "MSP_STAINLESS_FASTENER",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.628,
+      0.636,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.628,
+       0.636,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 48,
+      "tris": 46016
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 8,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 75,
+      "tris": 18719
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 4816
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM_CAST",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.6,
+      0.605,
+      0.61,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.615,
+       0.62,
+       0.625,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.62,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 3199
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 6,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 3024
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-render_ready_PRE-LATCH-RESTORE_20260907-161811": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-render_ready_PRE-LATCH-RESTORE_20260907-161811.blend",
+   "bytes": 7402115,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 573,
+    "mesh_objects": 548,
+    "materials": 9,
+    "images": 2,
+    "collections": 1,
+    "cameras": 15,
+    "lights": 3,
+    "total_tris": 415892,
+    "total_verts": 203187
+   },
+   "materials": [
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 47,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 47,
+      "tris": 211458
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 74,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 138,
+      "tris": 138572
+     }
+    },
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 54822
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 34362
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 11,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 123,
+      "tris": 27231
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 6223
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 7,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 14,
+      "tris": 2644
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-webexport-v1": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-webexport-v1.blend",
+   "bytes": 243572320,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_EEVEE",
+   "counts": {
+    "objects_total": 633,
+    "mesh_objects": 550,
+    "materials": 92,
+    "images": 3,
+    "collections": 1,
+    "cameras": 14,
+    "lights": 3,
+    "total_tris": 3257153,
+    "total_verts": 2925605
+   },
+   "materials": [
+    {
+     "name": "mattesteel.004",
+     "users": 39,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 44,
+      "tris": 1327024
+     }
+    },
+    {
+     "name": "mattesteel.017",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 382866
+     }
+    },
+    {
+     "name": "mattesteel.018",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 381974
+     }
+    },
+    {
+     "name": "mattesteel.019",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 192553
+     }
+    },
+    {
+     "name": "mattesteel.020",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 192553
+     }
+    },
+    {
+     "name": "defaultplastic.011",
+     "users": 5,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0478,
+      0.0478,
+      0.0478,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0478,
+       0.0478,
+       0.0478,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 5,
+      "tris": 180910
+     }
+    },
+    {
+     "name": "defaultplastic.005",
+     "users": 54,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5234,
+      0.5234,
+      0.5234,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5234,
+       0.5234,
+       0.5234,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 54,
+      "tris": 108828
+     }
+    },
+    {
+     "name": "mattesteel.047",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 108292
+     }
+    },
+    {
+     "name": "mattesteel.048",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 108292
+     }
+    },
+    {
+     "name": "mattesteel.028",
+     "users": 67,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.5605,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.5605,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 79,
+      "tris": 104356
+     }
+    },
+    {
+     "name": "mattesteel.008",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 78114
+     }
+    },
+    {
+     "name": "mattesteel.009",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 78114
+     }
+    },
+    {
+     "name": "mattesteel.014",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 72218
+     }
+    },
+    {
+     "name": "mattesteel.015",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 72218
+     }
+    },
+    {
+     "name": "mattesteel.016",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 71080
+     }
+    },
+    {
+     "name": "Material_29",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 70112
+     }
+    },
+    {
+     "name": "mattesteel.025",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 70112
+     }
+    },
+    {
+     "name": "mattesteel.012",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 9,
+      "tris": 67811
+     }
+    },
+    {
+     "name": "defaultplastic.007",
+     "users": 20,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 20,
+      "tris": 63402
+     }
+    },
+    {
+     "name": "mattesteel.013",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 53491
+     }
+    },
+    {
+     "name": "mattesteel.021",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 42644
+     }
+    },
+    {
+     "name": "mattesteel.022",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 42644
+     }
+    },
+    {
+     "name": "mattesteel.001",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 69,
+      "tris": 38188
+     }
+    },
+    {
+     "name": "defaultplastic.012",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0478,
+      0.0478,
+      0.0478,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0478,
+       0.0478,
+       0.0478,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 36182
+     }
+    },
+    {
+     "name": "mattesteel.050",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 35747
+     }
+    },
+    {
+     "name": "defaultplastic.008",
+     "users": 12,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 35112
+     }
+    },
+    {
+     "name": "defaultplastic.009",
+     "users": 12,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0.2195,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0.2195,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 35112
+     }
+    },
+    {
+     "name": "defaultplastic.010",
+     "users": 12,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5234,
+      0.5234,
+      0.5234,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5234,
+       0.5234,
+       0.5234,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 35112
+     }
+    },
+    {
+     "name": "caststainlesssteel",
+     "users": 5,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5732,
+      0.5418,
+      0.5114,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5732,
+       0.5418,
+       0.5114,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 5,
+      "tris": 34050
+     }
+    },
+    {
+     "name": "mattesteel.010",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 29238
+     }
+    },
+    {
+     "name": "mattesteel.011",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 26126
+     }
+    },
+    {
+     "name": "mattesteel.023",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.5605,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.5605,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 6,
+      "tris": 25056
+     }
+    },
+    {
+     "name": "satinfinishstainlesssteel.001",
+     "users": 5,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 5,
+      "tris": 22870
+     }
+    },
+    {
+     "name": "mattesteel.006",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 3,
+      "tris": 19454
+     }
+    },
+    {
+     "name": "mattesteel.007",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 19070
+     }
+    },
+    {
+     "name": "Material_51",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 14320
+     }
+    },
+    {
+     "name": "mattesteel.034",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 11310
+     }
+    },
+    {
+     "name": "mattesteel.035",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 10546
+     }
+    },
+    {
+     "name": "mattesteel.005",
+     "users": 8,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 10518
+     }
+    },
+    {
+     "name": "defaultplastic.002",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 8976
+     }
+    },
+    {
+     "name": "defaultplastic",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 8768
+     }
+    },
+    {
+     "name": "mattesteel.038",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 8726
+     }
+    },
+    {
+     "name": "mattesteel.024",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 7972
+     }
+    },
+    {
+     "name": "mattesteel.026",
+     "users": 32,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 32,
+      "tris": 7936
+     }
+    },
+    {
+     "name": "mattesteel.043",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 7648
+     }
+    },
+    {
+     "name": "mattesteel.027",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 7360
+     }
+    },
+    {
+     "name": "mattesteel.044",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 7200
+     }
+    },
+    {
+     "name": "mattesteel.052",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 6810
+     }
+    },
+    {
+     "name": "mattesteel.032",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 6582
+     }
+    },
+    {
+     "name": "greensofttouchplastic",
+     "users": 5,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0638,
+      0.4045,
+      0.0869,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0638,
+       0.4045,
+       0.0869,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.7,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 5,
+      "tris": 6080
+     }
+    },
+    {
+     "name": "defaultplastic.001",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.192,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 34,
+      "tris": 5712
+     }
+    },
+    {
+     "name": "mattesteel.039",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4376
+     }
+    },
+    {
+     "name": "mattesteel.049",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4296
+     }
+    },
+    {
+     "name": "mattesteel.042",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 4218
+     }
+    },
+    {
+     "name": "mattesteel.003",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 4128
+     }
+    },
+    {
+     "name": "mattesteel.051",
+     "users": 19,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 24,
+      "tris": 4060
+     }
+    },
+    {
+     "name": "polishedcarbonsteel",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5732,
+      0.5418,
+      0.5114,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5732,
+       0.5418,
+       0.5114,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.14,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 4038
+     }
+    },
+    {
+     "name": "mattesteel",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 3696
+     }
+    },
+    {
+     "name": "mattesteel.031",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 3564
+     }
+    },
+    {
+     "name": "sandblastedsteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3270
+     }
+    },
+    {
+     "name": "satinfinishstainlesssteel.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3270
+     }
+    },
+    {
+     "name": "defaultplastic.003",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.9075,
+      0.9075,
+      0.9075,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.9075,
+       0.9075,
+       0.9075,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.172,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 9,
+      "tris": 3034
+     }
+    },
+    {
+     "name": "glossyrubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.196,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3030
+     }
+    },
+    {
+     "name": "mattesteel.045",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 2212
+     }
+    },
+    {
+     "name": "mattesteel.041",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1984
+     }
+    },
+    {
+     "name": "brushedsteel",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.25,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1752
+     }
+    },
+    {
+     "name": "defaultplastic.006",
+     "users": 6,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0619,
+      0.0619,
+      0.0619,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0619,
+       0.0619,
+       0.0619,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 6,
+      "tris": 1704
+     }
+    },
+    {
+     "name": "defaultplastic.004",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1686
+     }
+    },
+    {
+     "name": "Material_53",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1686
+     }
+    },
+    {
+     "name": "mattesteel.040",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 1588
+     }
+    },
+    {
+     "name": "castaluminum.003",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1516
+     }
+    },
+    {
+     "name": "castaluminum",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1456
+     }
+    },
+    {
+     "name": "mattesteel.029",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1182
+     }
+    },
+    {
+     "name": "satinfinishstainlesssteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1182
+     }
+    },
+    {
+     "name": "blackspraypaint",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.002,
+      0.002,
+      0.002,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.002,
+       0.002,
+       0.002,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.95,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 888
+     }
+    },
+    {
+     "name": "mattesteel.046",
+     "users": 3,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 3,
+      "tris": 884
+     }
+    },
+    {
+     "name": "mattesteel.033",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 648
+     }
+    },
+    {
+     "name": "mattesteel.030",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 616
+     }
+    },
+    {
+     "name": "mattesteel.002",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 528
+     }
+    },
+    {
+     "name": "defaultplastic.013",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      0.5715
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 0.5715,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 516
+     }
+    },
+    {
+     "name": "mattesteel.036",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 324
+     }
+    },
+    {
+     "name": "mattesteel.037",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 156
+     }
+    },
+    {
+     "name": "mattesteel.053",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 56
+     }
+    },
+    {
+     "name": "matterubber.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 44
+     }
+    },
+    {
+     "name": "mattesteel.054",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3889,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 44
+     }
+    },
+    {
+     "name": "castaluminum.001",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 24
+     }
+    },
+    {
+     "name": "matterubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 24
+     }
+    },
+    {
+     "name": "castaluminum.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "castaluminum.004",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "castaluminum.005",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "matterubber.001",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "texturedrubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0677,
+      0.0677,
+      0.0677,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0677,
+       0.0677,
+       0.0677,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-webexport-v2-decimated": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-webexport-v2-decimated.blend",
+   "bytes": 7294013,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 625,
+    "mesh_objects": 541,
+    "materials": 84,
+    "images": 3,
+    "collections": 1,
+    "cameras": 15,
+    "lights": 3,
+    "total_tris": 390935,
+    "total_verts": 190665
+   },
+   "materials": [
+    {
+     "name": "mattesteel.004",
+     "users": 39,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 44,
+      "tris": 114282
+     }
+    },
+    {
+     "name": "mattesteel.028",
+     "users": 38,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.5605,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.5605,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 81,
+      "tris": 77480
+     }
+    },
+    {
+     "name": "mattesteel.001",
+     "users": 24,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 69,
+      "tris": 29732
+     }
+    },
+    {
+     "name": "mattesteel.017",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 18128
+     }
+    },
+    {
+     "name": "mattesteel.018",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 17258
+     }
+    },
+    {
+     "name": "defaultplastic.005",
+     "users": 8,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5234,
+      0.5234,
+      0.5234,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5234,
+       0.5234,
+       0.5234,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 54,
+      "tris": 10698
+     }
+    },
+    {
+     "name": "defaultplastic",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 8192
+     }
+    },
+    {
+     "name": "mattesteel.016",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 7998
+     }
+    },
+    {
+     "name": "mattesteel.026",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 32,
+      "tris": 7936
+     }
+    },
+    {
+     "name": "mattesteel.027",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 7168
+     }
+    },
+    {
+     "name": "mattesteel.010",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 6740
+     }
+    },
+    {
+     "name": "mattesteel.047",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 5998
+     }
+    },
+    {
+     "name": "mattesteel.048",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 5998
+     }
+    },
+    {
+     "name": "defaultplastic.007",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 30,
+      "tris": 5982
+     }
+    },
+    {
+     "name": "defaultplastic.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 5888
+     }
+    },
+    {
+     "name": "defaultplastic.001",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.192,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 34,
+      "tris": 5712
+     }
+    },
+    {
+     "name": "mattesteel.019",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4613
+     }
+    },
+    {
+     "name": "mattesteel.020",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4613
+     }
+    },
+    {
+     "name": "mattesteel.006",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 3,
+      "tris": 4383
+     }
+    },
+    {
+     "name": "mattesteel.012",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 9,
+      "tris": 4334
+     }
+    },
+    {
+     "name": "mattesteel.049",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4152
+     }
+    },
+    {
+     "name": "mattesteel.050",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 4000
+     }
+    },
+    {
+     "name": "mattesteel.007",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3999
+     }
+    },
+    {
+     "name": "mattesteel.008",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3999
+     }
+    },
+    {
+     "name": "mattesteel.009",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3999
+     }
+    },
+    {
+     "name": "mattesteel.014",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3999
+     }
+    },
+    {
+     "name": "mattesteel.015",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3999
+     }
+    },
+    {
+     "name": "mattesteel.011",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3998
+     }
+    },
+    {
+     "name": "mattesteel.013",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3998
+     }
+    },
+    {
+     "name": "mattesteel.021",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3998
+     }
+    },
+    {
+     "name": "mattesteel.022",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3998
+     }
+    },
+    {
+     "name": "mattesteel.051",
+     "users": 6,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 24,
+      "tris": 3994
+     }
+    },
+    {
+     "name": "mattesteel.003",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 3480
+     }
+    },
+    {
+     "name": "mattesteel.023",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.5605,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.5605,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 7,
+      "tris": 3198
+     }
+    },
+    {
+     "name": "mattesteel.042",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 3,
+      "tris": 3100
+     }
+    },
+    {
+     "name": "mattesteel.039",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 3000
+     }
+    },
+    {
+     "name": "defaultplastic.003",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.9075,
+      0.9075,
+      0.9075,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.9075,
+       0.9075,
+       0.9075,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.172,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 9,
+      "tris": 2964
+     }
+    },
+    {
+     "name": "sandblastedsteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 2896
+     }
+    },
+    {
+     "name": "satinfinishstainlesssteel.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 2896
+     }
+    },
+    {
+     "name": "defaultplastic.008",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 2400
+     }
+    },
+    {
+     "name": "defaultplastic.009",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0,
+      0,
+      0.2195,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0,
+       0,
+       0.2195,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 2400
+     }
+    },
+    {
+     "name": "defaultplastic.010",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5234,
+      0.5234,
+      0.5234,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5234,
+       0.5234,
+       0.5234,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 2400
+     }
+    },
+    {
+     "name": "mattesteel.045",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1872
+     }
+    },
+    {
+     "name": "mattesteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1600
+     }
+    },
+    {
+     "name": "mattesteel.024",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1600
+     }
+    },
+    {
+     "name": "mattesteel.031",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1600
+     }
+    },
+    {
+     "name": "polishedcarbonsteel",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5732,
+      0.5418,
+      0.5114,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5732,
+       0.5418,
+       0.5114,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.14,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1600
+     }
+    },
+    {
+     "name": "castaluminum.003",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1512
+     }
+    },
+    {
+     "name": "mattesteel.040",
+     "users": 4,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 1512
+     }
+    },
+    {
+     "name": "mattesteel.044",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1500
+     }
+    },
+    {
+     "name": "castaluminum",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1452
+     }
+    },
+    {
+     "name": "brushedsteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.25,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 1412
+     }
+    },
+    {
+     "name": "defaultplastic.006",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0619,
+      0.0619,
+      0.0619,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0619,
+       0.0619,
+       0.0619,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 6,
+      "tris": 1200
+     }
+    },
+    {
+     "name": "defaultplastic.012",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0478,
+      0.0478,
+      0.0478,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0478,
+       0.0478,
+       0.0478,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.18,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 6,
+      "tris": 1200
+     }
+    },
+    {
+     "name": "mattesteel.052",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 6,
+      "tris": 1200
+     }
+    },
+    {
+     "name": "mattesteel.029",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1168
+     }
+    },
+    {
+     "name": "satinfinishstainlesssteel",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.8913,
+      0.8122,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.8913,
+       0.8122,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.4,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 1168
+     }
+    },
+    {
+     "name": "defaultplastic.004",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 896
+     }
+    },
+    {
+     "name": "Material_53",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 896
+     }
+    },
+    {
+     "name": "blackspraypaint",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.002,
+      0.002,
+      0.002,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.002,
+       0.002,
+       0.002,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.95,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 888
+     }
+    },
+    {
+     "name": "glossyrubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.196,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 800
+     }
+    },
+    {
+     "name": "mattesteel.035",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 800
+     }
+    },
+    {
+     "name": "mattesteel.032",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 799
+     }
+    },
+    {
+     "name": "mattesteel.034",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 799
+     }
+    },
+    {
+     "name": "mattesteel.038",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 799
+     }
+    },
+    {
+     "name": "mattesteel.046",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0199,
+      0.0199,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0199,
+       0.0199,
+       0.021,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 3,
+      "tris": 698
+     }
+    },
+    {
+     "name": "Material_29",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 672
+     }
+    },
+    {
+     "name": "mattesteel.025",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 16,
+      "tris": 672
+     }
+    },
+    {
+     "name": "mattesteel.033",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 640
+     }
+    },
+    {
+     "name": "mattesteel.030",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 616
+     }
+    },
+    {
+     "name": "mattesteel.002",
+     "users": 2,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 4,
+      "tris": 528
+     }
+    },
+    {
+     "name": "defaultplastic.013",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.5356,
+      0.5356,
+      0.5356,
+      0.5715
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.5356,
+       0.5356,
+       0.5356,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.16,
+      "alpha": 0.5715,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 460
+     }
+    },
+    {
+     "name": "Material_51",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 8,
+      "tris": 336
+     }
+    },
+    {
+     "name": "mattesteel.053",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 50
+     }
+    },
+    {
+     "name": "matterubber.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 44
+     }
+    },
+    {
+     "name": "mattesteel.054",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3889,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 44
+     }
+    },
+    {
+     "name": "mattesteel.005",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.3838,
+      0.3489,
+      0.3112,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 36
+     }
+    },
+    {
+     "name": "castaluminum.001",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 24
+     }
+    },
+    {
+     "name": "matterubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 2,
+      "tris": 24
+     }
+    },
+    {
+     "name": "castaluminum.002",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "castaluminum.004",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "castaluminum.005",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.4098,
+      0.4535,
+      0.5605,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "matterubber.001",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0697,
+      0.0697,
+      0.0697,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0697,
+       0.0697,
+       0.0697,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.85,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    },
+    {
+     "name": "texturedrubber",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.0677,
+      0.0677,
+      0.0677,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.0677,
+       0.0677,
+       0.0677,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 1,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 12
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-webexport-v3": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-webexport-v3.blend",
+   "bytes": 7399956,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 573,
+    "mesh_objects": 548,
+    "materials": 9,
+    "images": 2,
+    "collections": 1,
+    "cameras": 15,
+    "lights": 3,
+    "total_tris": 415892,
+    "total_verts": 203187
+   },
+   "materials": [
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 47,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 47,
+      "tris": 211458
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 74,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 138,
+      "tris": 138572
+     }
+    },
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 54822
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 34362
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 11,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 123,
+      "tris": 27231
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 6223
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 7,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 14,
+      "tris": 2644
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL300-SAFE-webexport-v4-node-rename": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL300-SAFE-webexport-v4-node-rename.blend",
+   "bytes": 7401190,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 573,
+    "mesh_objects": 548,
+    "materials": 9,
+    "images": 2,
+    "collections": 1,
+    "cameras": 15,
+    "lights": 3,
+    "total_tris": 415892,
+    "total_verts": 203187
+   },
+   "materials": [
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 47,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 47,
+      "tris": 211458
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 74,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 138,
+      "tris": 138572
+     }
+    },
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 54822
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 34362
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 11,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 123,
+      "tris": 27231
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 6223
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 7,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 14,
+      "tris": 2644
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  },
+  "RL301-SAFE-render_ready": {
+   "source": "C:\\Projects\\CAD\\RL300-SAFE\\RL301-SAFE-render_ready.blend",
+   "bytes": 7402796,
+   "blender": "5.1.1",
+   "units": "METRIC",
+   "unitScale": 1,
+   "engine": "BLENDER_WORKBENCH",
+   "counts": {
+    "objects_total": 573,
+    "mesh_objects": 548,
+    "materials": 9,
+    "images": 2,
+    "collections": 1,
+    "cameras": 15,
+    "lights": 3,
+    "total_tris": 415892,
+    "total_verts": 203187
+   },
+   "materials": [
+    {
+     "name": "MSP_STEEL_CAST",
+     "users": 47,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.34,
+      0.35,
+      0.37,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.34,
+       0.35,
+       0.37,
+       1
+      ],
+      "metallic": 0.9,
+      "roughness": 0.55,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 47,
+      "tris": 211458
+     }
+    },
+    {
+     "name": "MSP_YELLOW_PAINT",
+     "users": 74,
+     "use_nodes": true,
+     "diffuse_color": [
+      1,
+      0.56,
+      0,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       1,
+       0.56,
+       0,
+       1
+      ],
+      "metallic": 0.05,
+      "roughness": 0.42,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 138,
+      "tris": 138572
+     }
+    },
+    {
+     "name": "MSP_BLACK_CHASSIS",
+     "users": 43,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.02,
+      0.02,
+      0.021,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.02,
+       0.02,
+       0.021,
+       1
+      ],
+      "metallic": 0.1,
+      "roughness": 0.48,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 155,
+      "tris": 54822
+     }
+    },
+    {
+     "name": "MSP_PLASTIC",
+     "users": 16,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.52,
+      0.52,
+      0.52,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.52,
+       0.52,
+       0.52,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.35,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 115,
+      "tris": 34362
+     }
+    },
+    {
+     "name": "MSP_STAINLESS",
+     "users": 11,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.73,
+      0.75,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.73,
+       0.75,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.22,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 123,
+      "tris": 27231
+     }
+    },
+    {
+     "name": "MSP_STEEL_MACHINED",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.62,
+      0.63,
+      0.65,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.62,
+       0.63,
+       0.65,
+       1
+      ],
+      "metallic": 0.95,
+      "roughness": 0.3,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 12739
+     }
+    },
+    {
+     "name": "MSP_ALUMINUM",
+     "users": 9,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.72,
+      0.722,
+      0.73,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.72,
+       0.722,
+       0.73,
+       1
+      ],
+      "metallic": 1,
+      "roughness": 0.5,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 12,
+      "tris": 6223
+     }
+    },
+    {
+     "name": "MSP_RUBBER",
+     "users": 7,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.016,
+      0.018,
+      0.02,
+      1
+     ],
+     "blend_method": "HASHED",
+     "principled": {
+      "base_color": [
+       0.016,
+       0.018,
+       0.02,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.75,
+      "alpha": 1,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 14,
+      "tris": 2644
+     }
+    },
+    {
+     "name": "MSP_AIRWAY_VOLUME",
+     "users": 1,
+     "use_nodes": true,
+     "diffuse_color": [
+      0.1,
+      0.55,
+      0.95,
+      0.22
+     ],
+     "blend_method": "BLEND",
+     "principled": {
+      "base_color": [
+       0.1,
+       0.55,
+       0.95,
+       1
+      ],
+      "metallic": 0,
+      "roughness": 0.5,
+      "alpha": 0.22,
+      "transmission": null
+     },
+     "usage": {
+      "objects": 1,
+      "tris": 28
+     }
+    }
+   ],
+   "needleHits": {
+    "1047-5": {
+     "objects": [
+      "V2RL300-SAF-1047-5"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "V2RL300": {
+     "objects": [
+      "V2RL300-CCM-0100-1",
+      "V2RL300-FPL-0001-1",
+      "V2RL300-FPL-0002-2",
+      "V2RL300-FTS-1007-3",
+      "V2RL300-FTS-1007-4",
+      "V2RL300-FTS-1009-1",
+      "V2RL300-FTS-1009-2",
+      "V2RL300-FTS-1009-5",
+      "V2RL300-FTS-1009-6",
+      "V2RL300-FTS-2002-SAFE-1",
+      "V2RL300-FTS-2002-SAFE-2",
+      "V2RL300-FTS-2003-SAFE-1",
+      "V2RL300-FTS-2004-SAFE-1",
+      "V2RL300-RES-1013-1",
+      "V2RL300-RES-1013-1.001",
+      "V2RL300-RES-1013-2",
+      "V2RL300-RES-1013-2.001",
+      "V2RL300-RES-2001-2",
+      "V2RL300-RES-2002-2",
+      "V2RL300-RES-2022-2",
+      "V2RL300-RES-2022-2.001",
+      "V2RL300-RES-2023-1",
+      "V2RL300-RES-2023-1.001",
+      "V2RL300-SAF-1019-3",
+      "V2RL300-SAF-1019-4",
+      "V2RL300-SAF-1021-6",
+      "V2RL300-SAF-1047-3",
+      "V2RL300-SAF-1047-4",
+      "V2RL300-SAF-1047-5",
+      "V2RL300-SAF-1066-3",
+      "V2RL300-SAF-1066-4",
+      "V2RL300-SAF-1066-5",
+      "V2RL300-SAF-1066-6",
+      "V2RL300-SAF-1066-8",
+      "V2RL300-SAF-1066-9",
+      "V2RL300-SAF-1171-1",
+      "V2RL300-SAF-RES-1019-SAFE-1",
+      "V2RL300-SAF-RES-1020-SAFE-1",
+      "V2RL300-WO-NP-SAFE-1",
+      "V2RL300-WO-NP-SAFE-3"
+     ],
+     "object_count": 40,
+     "materials": [],
+     "material_count": 0
+    },
+    "YELLOW": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_YELLOW_PAINT"
+     ],
+     "material_count": 1
+    },
+    "INTAKE": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "DUCT": {
+     "objects": [
+      "DUCT_INTAKE_AIRWAY"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "PANEL": {
+     "objects": [
+      "V2CONTROL PANEL, URFS-2"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    },
+    "CHASSIS": {
+     "objects": [],
+     "object_count": 0,
+     "materials": [
+      "MSP_BLACK_CHASSIS"
+     ],
+     "material_count": 1
+    },
+    "MOUNT": {
+     "objects": [
+      "ISO_MOUNT_1",
+      "ISO_MOUNT_2",
+      "ISO_MOUNT_3",
+      "ISO_MOUNT_4",
+      "ISO_MOUNT_5",
+      "ISO_MOUNT_6"
+     ],
+     "object_count": 6,
+     "materials": [],
+     "material_count": 0
+    },
+    "EXHAUST": {
+     "objects": [
+      "EXHAUST PIPE-1"
+     ],
+     "object_count": 1,
+     "materials": [],
+     "material_count": 0
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,55 @@
+=== GIT REV ===
+3e3e49fa459d81e4ef6c5632e49322074032b238
+=== TYPECHECK ===
+
+> jgun-portfolio@0.1.0 typecheck
+> tsc --noEmit
+
+=== TEST ===
+
+> jgun-portfolio@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+
+
+ Test Files  6 passed (6)
+      Tests  48 passed (48)
+   Start at  23:46:57
+   Duration  1.60s (transform 581ms, setup 0ms, import 1.22s, tests 659ms, environment 1ms)
+
+=== CHECK:STATION2 ===
+
+> jgun-portfolio@0.1.0 check:station2
+> node scripts/check-station2-contract.mjs
+
+Stage2 contract passed: 2380776 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.
+=== BUILD ===
+
+> jgun-portfolio@0.1.0 build
+> tsc && vite build
+
+[36mvite v7.3.6 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 644 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                    [39m[1m[2m  2.12 kB[22m[1m[22m[2m │ gzip:   0.70 kB[22m
+[2mdist/[22m[32massets/draco_wasm_wrapper-fZCQGLGb.js         [39m[1m[2m 58.46 kB[22m[1m[22m
+[2mdist/[22m[32massets/draco_wasm_wrapper-DxJM36Ib.js         [39m[1m[2m 58.76 kB[22m[1m[22m
+[2mdist/[22m[32massets/draco_decoder-Z1_iN-Ht.wasm            [39m[1m[2m192.42 kB[22m[1m[22m[2m │ gzip:  63.46 kB[22m
+[2mdist/[22m[32massets/draco_decoder-C32yEggz.wasm            [39m[1m[2m285.75 kB[22m[1m[22m[2m │ gzip:  88.64 kB[22m
+[2mdist/[22m[32massets/draco_decoder-fzg4nYZr.js              [39m[1m[2m719.41 kB[22m[1m[22m
+[2mdist/[22m[35massets/index-BRkwlGFP.css                     [39m[1m[2m 40.15 kB[22m[1m[22m[2m │ gzip:   7.25 kB[22m
+[2mdist/[22m[36massets/vanilla-m3Xdu9cz.js                    [39m[1m[2m  0.34 kB[22m[1m[22m[2m │ gzip:   0.25 kB[22m
+[2mdist/[22m[36massets/BootSequence-CpqweaKx.js               [39m[1m[2m  3.06 kB[22m[1m[22m[2m │ gzip:   1.57 kB[22m
+[2mdist/[22m[36massets/EngineeringDrawingOverlay-Df4QVHLZ.js  [39m[1m[2m 12.39 kB[22m[1m[22m[2m │ gzip:   4.83 kB[22m
+[2mdist/[22m[36massets/ScrollRig-Cvm23E4b.js                  [39m[1m[2m 20.80 kB[22m[1m[22m[2m │ gzip:   6.34 kB[22m
+[2mdist/[22m[36massets/ScrollTrigger-a3sj5zmn.js              [39m[1m[2m114.01 kB[22m[1m[22m[2m │ gzip:  45.16 kB[22m
+[2mdist/[22m[36massets/index-C9jYhLvM.js                      [39m[1m[2m229.25 kB[22m[1m[22m[2m │ gzip:  73.37 kB[22m
+[2mdist/[22m[36massets/drawingGeometry-elRzvGEj.js            [39m[1m[2m374.62 kB[22m[1m[22m[2m │ gzip:  95.89 kB[22m
+[2mdist/[22m[36massets/three.core-DVlW78z8.js                 [39m[1m[2m379.74 kB[22m[1m[22m[2m │ gzip: 102.96 kB[22m
+[2mdist/[22m[36massets/SceneCanvas-D3iN8G39.js                [39m[1m[2m483.28 kB[22m[1m[22m[2m │ gzip: 151.39 kB[22m
+[32m✓ built in 7.97s[39m
+=== PREFLIGHT DONE ===

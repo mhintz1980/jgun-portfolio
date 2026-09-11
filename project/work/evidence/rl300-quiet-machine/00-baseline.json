@@ -1,0 +1,3680 @@
+{
+ "meta": {
+  "capturedAt": "2026-09-11T03:56:51.134Z",
+  "baseUrl": "http://localhost:4173",
+  "node": "v22.19.0",
+  "note": "Measured baseline for JG-033. Draw calls/triangles are deterministic for a given build+viewport; frame timings are machine-dependent and reported as percentiles.",
+  "browserLaunch": "channel:chrome"
+ },
+ "host": {
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+  "hardwareConcurrency": 16,
+  "deviceMemory": 32,
+  "devicePixelRatio": 1,
+  "webglVendor": "Google Inc. (AMD)",
+  "webglRenderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "maxTextureSize": 16384
+ },
+ "viewports": {
+  "desktop-1440x900": {
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "loadMs": 11794,
+   "documentHeightPx": 28080,
+   "innerHeightPx": 900,
+   "tier": "full",
+   "stops": [
+    {
+     "progress": 0,
+     "beat": "ch01-drawing-intro",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 0,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 865621,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 308,
+       "textures": 39,
+       "programs": 87
+      },
+      "glDrawCalls": 300,
+      "glBreakdown": {
+       "calls": 300,
+       "elements": 266,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.05,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 3398,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 64,
+     "visibleTris": 870517,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 307,
+       "textures": 39,
+       "programs": 92
+      },
+      "glDrawCalls": 300,
+      "glBreakdown": {
+       "calls": 300,
+       "elements": 266,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.1,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 6795,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 62,
+     "visibleTris": 865619,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 307,
+       "textures": 39,
+       "programs": 92
+      },
+      "glDrawCalls": 292,
+      "glBreakdown": {
+       "calls": 292,
+       "elements": 258,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.15,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 8803,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 42,
+       "programs": 105
+      },
+      "glDrawCalls": 1248,
+      "glBreakdown": {
+       "calls": 1248,
+       "elements": 1213,
+       "arrays": 35,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.177,
+     "beat": "ch01-hero-transit-start",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 9386,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.2,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 9884,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.25,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 10965,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.3,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 12046,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.35,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 13127,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.4,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14208,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 266,
+      "glBreakdown": {
+       "calls": 266,
+       "elements": 232,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.416,
+     "beat": "jgun-explode-complete",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14554,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 266,
+      "glBreakdown": {
+       "calls": 266,
+       "elements": 232,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.45,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 15289,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 239,
+      "glBreakdown": {
+       "calls": 239,
+       "elements": 205,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.458,
+     "beat": "ch01-hero-transit-end",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 15462,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.47,
+     "beat": "jgun-explode-probed",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 15721,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 61,
+     "visibleTris": 841043,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 288,
+      "glBreakdown": {
+       "calls": 288,
+       "elements": 254,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.5,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 16370,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 292,
+      "glBreakdown": {
+       "calls": 292,
+       "elements": 258,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.525,
+     "beat": "lcd-dwell-end / wrench-out start",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 16910,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 107
+      },
+      "glDrawCalls": 255,
+      "glBreakdown": {
+       "calls": 255,
+       "elements": 221,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.55,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 17451,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 655,
+     "visibleTris": 1262955,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 1482,
+      "glBreakdown": {
+       "calls": 1482,
+       "elements": 1440,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.565,
+     "beat": "enclosure-in complete",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 17775,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 595,
+     "visibleTris": 421914,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 1240,
+      "glBreakdown": {
+       "calls": 1240,
+       "elements": 1198,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.575,
+     "beat": "rl300-assembled",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 17991,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 595,
+     "visibleTris": 421914,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 1242,
+      "glBreakdown": {
+       "calls": 1242,
+       "elements": 1200,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.6,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 18532,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 595,
+     "visibleTris": 421914,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 2389,
+      "glBreakdown": {
+       "calls": 2389,
+       "elements": 2347,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.65,
+     "beat": "rl300-hold (yellow-at-hold frame)",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 19613,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 751,
+     "visibleTris": 635418,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 3478,
+      "glBreakdown": {
+       "calls": 3478,
+       "elements": 3436,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.7,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 20694,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 595,
+     "visibleTris": 421914,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 2854,
+      "glBreakdown": {
+       "calls": 2854,
+       "elements": 2812,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.72,
+     "beat": "enclosure-out start",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 21126,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 595,
+     "visibleTris": 421914,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 2854,
+      "glBreakdown": {
+       "calls": 2854,
+       "elements": 2812,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.75,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 21775,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 597,
+     "visibleTris": 471916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 10,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 1242,
+      "glBreakdown": {
+       "calls": 1242,
+       "elements": 1200,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.76,
+     "beat": "m249-pointcloud in",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 21991,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 54,
+      "glBreakdown": {
+       "calls": 54,
+       "elements": 20,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.8,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 22856,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 56,
+      "glBreakdown": {
+       "calls": 56,
+       "elements": 22,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.85,
+     "beat": "jgun-visual-gates probe point",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 23937,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 56,
+      "glBreakdown": {
+       "calls": 56,
+       "elements": 22,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.9,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 25018,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 56,
+      "glBreakdown": {
+       "calls": 56,
+       "elements": 22,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.95,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 26099,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 56,
+      "glBreakdown": {
+       "calls": 56,
+       "elements": 22,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 1,
+     "beat": "page end",
+     "station": "outro",
+     "scrollY": 27180,
+     "sceneAlive": true,
+     "tier": "lite",
+     "visibleMeshes": 4,
+     "visibleTris": 50006,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 1,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 108
+      },
+      "glDrawCalls": 56,
+      "glBreakdown": {
+       "calls": 56,
+       "elements": 22,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    }
+   ],
+   "perfHolds": {
+    "0.416": {
+     "samples": 115,
+     "p50": 16.7,
+     "p95": 19.3,
+     "p99": 19.6,
+     "max": 21.1,
+     "impliedFps_p50": 59.9
+    },
+    "0.575": {
+     "samples": 115,
+     "p50": 17.8,
+     "p95": 21.6,
+     "p99": 23.7,
+     "max": 24.9,
+     "impliedFps_p50": 56.2
+    },
+    "0.65": {
+     "samples": 115,
+     "p50": 22.2,
+     "p95": 30.8,
+     "p99": 36.1,
+     "max": 36.1,
+     "impliedFps_p50": 45
+    },
+    "0.85": {
+     "samples": 115,
+     "p50": 16.7,
+     "p95": 19.2,
+     "p99": 20.1,
+     "max": 20.1,
+     "impliedFps_p50": 59.9
+    }
+   },
+   "consoleErrors": [],
+   "totalScrollableHeightPx": 27180,
+   "liteTierAtHold": {
+    "tier": "lite",
+    "visibleMeshes": 813,
+    "visibleTris": 1551035,
+    "renderer": {
+     "source": "renderer.info + gl-counter",
+     "rendererInfo": {
+      "calls": 1,
+      "triangles": 1,
+      "points": 0,
+      "lines": 0,
+      "geometries": 310,
+      "textures": 41,
+      "programs": 108
+     },
+     "glDrawCalls": 3478,
+     "glBreakdown": {
+      "calls": 3478,
+      "elements": 3436,
+      "arrays": 42,
+      "instanced": 0
+     },
+     "wrappedContexts": 1
+    }
+   },
+   "network": {
+    "source": "PerformanceResourceTiming",
+    "totalTransferBytes": 14648182,
+    "totalDecodedBytes": 16182845,
+    "byKind": {
+     "app-bundle": 492100,
+     "other": 788,
+     "models": 13949926,
+     "draco": 205368
+    },
+    "requestCount": 19,
+    "largest": [
+     {
+      "path": "/models/Default.glb",
+      "transferSize": 10672000,
+      "decodedBodySize": 10671700,
+      "durationMs": 286.5,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/msp-enclosure.glb",
+      "transferSize": 2381076,
+      "decodedBodySize": 2380776,
+      "durationMs": 29.6,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/m249-transformed.glb",
+      "transferSize": 892392,
+      "decodedBodySize": 892092,
+      "durationMs": 18.7,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/draco/draco_decoder.wasm",
+      "transferSize": 192720,
+      "decodedBodySize": 192420,
+      "durationMs": 14.2,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/SceneCanvas-D3iN8G39.js",
+      "transferSize": 151693,
+      "decodedBodySize": 483284,
+      "durationMs": 37.6,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/three.core-DVlW78z8.js",
+      "transferSize": 103264,
+      "decodedBodySize": 379735,
+      "durationMs": 30.1,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/drawingGeometry-elRzvGEj.js",
+      "transferSize": 96189,
+      "decodedBodySize": 374624,
+      "durationMs": 29.6,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/index-C9jYhLvM.js",
+      "transferSize": 73666,
+      "decodedBodySize": 229250,
+      "durationMs": 20.8,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/ScrollTrigger-a3sj5zmn.js",
+      "transferSize": 45455,
+      "decodedBodySize": 114013,
+      "durationMs": 20.9,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/draco/draco_wasm_wrapper.js",
+      "transferSize": 12048,
+      "decodedBodySize": 58456,
+      "durationMs": 14.2,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/index-BRkwlGFP.css",
+      "transferSize": 7552,
+      "decodedBodySize": 40147,
+      "durationMs": 11.7,
+      "initiatorType": "link"
+     },
+     {
+      "path": "/assets/ScrollRig-Cvm23E4b.js",
+      "transferSize": 6640,
+      "decodedBodySize": 20796,
+      "durationMs": 17,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/EngineeringDrawingOverlay-Df4QVHLZ.js",
+      "transferSize": 5131,
+      "decodedBodySize": 12392,
+      "durationMs": 16,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/models/role-map.json",
+      "transferSize": 4458,
+      "decodedBodySize": 78395,
+      "durationMs": 5,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/BootSequence-CpqweaKx.js",
+      "transferSize": 1866,
+      "decodedBodySize": 3057,
+      "durationMs": 18.1,
+      "initiatorType": "script"
+     }
+    ]
+   },
+   "networkHeaderTally": {
+    "note": "content-length only; under-reports chunked responses. Cross-check for the Resource Timing figures above.",
+    "totalBytes": 15333808,
+    "requestCount": 31
+   }
+  },
+  "tablet-768x1024": {
+   "viewport": {
+    "width": 768,
+    "height": 1024
+   },
+   "loadMs": 9909,
+   "documentHeightPx": 31949,
+   "innerHeightPx": 1024,
+   "tier": "full",
+   "stops": [
+    {
+     "progress": 0,
+     "beat": "ch01-drawing-intro",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 0,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 865621,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 300,
+      "glBreakdown": {
+       "calls": 300,
+       "elements": 266,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.05,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 3866,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 64,
+     "visibleTris": 870517,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 304,
+      "glBreakdown": {
+       "calls": 304,
+       "elements": 270,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.1,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 7731,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 865621,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 300,
+      "glBreakdown": {
+       "calls": 300,
+       "elements": 266,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.15,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 10016,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 270,
+      "glBreakdown": {
+       "calls": 270,
+       "elements": 236,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.177,
+     "beat": "ch01-hero-transit-start",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 10680,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 293,
+      "glBreakdown": {
+       "calls": 293,
+       "elements": 259,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.2,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 11245,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 296,
+      "glBreakdown": {
+       "calls": 296,
+       "elements": 262,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.25,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 12475,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 296,
+      "glBreakdown": {
+       "calls": 296,
+       "elements": 262,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.3,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 13705,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 272,
+      "glBreakdown": {
+       "calls": 272,
+       "elements": 238,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.35,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14935,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 260,
+      "glBreakdown": {
+       "calls": 260,
+       "elements": 226,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.4,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 16165,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 218,
+      "glBreakdown": {
+       "calls": 218,
+       "elements": 184,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.416,
+     "beat": "jgun-explode-complete",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 16559,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 216,
+      "glBreakdown": {
+       "calls": 216,
+       "elements": 182,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.45,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 17395,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 224,
+      "glBreakdown": {
+       "calls": 224,
+       "elements": 190,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.458,
+     "beat": "ch01-hero-transit-end",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 17592,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 248,
+      "glBreakdown": {
+       "calls": 248,
+       "elements": 214,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.47,
+     "beat": "jgun-explode-probed",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 17887,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 295,
+      "glBreakdown": {
+       "calls": 295,
+       "elements": 261,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.5,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 18625,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 841047,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 265,
+      "glBreakdown": {
+       "calls": 265,
+       "elements": 231,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.525,
+     "beat": "lcd-dwell-end / wrench-out start",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 19240,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 841047,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 234,
+      "glBreakdown": {
+       "calls": 234,
+       "elements": 200,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.55,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 19855,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 656,
+     "visibleTris": 1262957,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1490,
+      "glBreakdown": {
+       "calls": 1490,
+       "elements": 1448,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.565,
+     "beat": "enclosure-in complete",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 20224,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1248,
+      "glBreakdown": {
+       "calls": 1248,
+       "elements": 1206,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.575,
+     "beat": "rl300-assembled",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 20470,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1248,
+      "glBreakdown": {
+       "calls": 1248,
+       "elements": 1206,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.6,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 21085,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 2600,
+      "glBreakdown": {
+       "calls": 2600,
+       "elements": 2558,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.65,
+     "beat": "rl300-hold (yellow-at-hold frame)",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 22315,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 752,
+     "visibleTris": 635420,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 3486,
+      "glBreakdown": {
+       "calls": 3486,
+       "elements": 3444,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.7,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 23545,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 752,
+     "visibleTris": 635420,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 3486,
+      "glBreakdown": {
+       "calls": 3486,
+       "elements": 3444,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.72,
+     "beat": "enclosure-out start",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 24037,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 2862,
+      "glBreakdown": {
+       "calls": 2862,
+       "elements": 2820,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.75,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 24775,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 598,
+     "visibleTris": 471918,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1250,
+      "glBreakdown": {
+       "calls": 1250,
+       "elements": 1208,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.76,
+     "beat": "m249-pointcloud in",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 25021,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 62,
+      "glBreakdown": {
+       "calls": 62,
+       "elements": 28,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.8,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 26005,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.85,
+     "beat": "jgun-visual-gates probe point",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 27235,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.9,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 28465,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.95,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 29695,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 1,
+     "beat": "page end",
+     "station": "outro",
+     "scrollY": 30925,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    }
+   ],
+   "perfHolds": {
+    "0.416": {
+     "samples": 115,
+     "p50": 16.6,
+     "p95": 18.6,
+     "p99": 19.8,
+     "max": 20,
+     "impliedFps_p50": 60.2
+    },
+    "0.575": {
+     "samples": 115,
+     "p50": 16.6,
+     "p95": 19.5,
+     "p99": 24.8,
+     "max": 45,
+     "impliedFps_p50": 60.2
+    },
+    "0.65": {
+     "samples": 115,
+     "p50": 17.1,
+     "p95": 20.2,
+     "p99": 28.2,
+     "max": 33.8,
+     "impliedFps_p50": 58.5
+    },
+    "0.85": {
+     "samples": 115,
+     "p50": 16.8,
+     "p95": 19.4,
+     "p99": 20,
+     "max": 22.1,
+     "impliedFps_p50": 59.5
+    }
+   },
+   "consoleErrors": [],
+   "totalScrollableHeightPx": 30925,
+   "liteTierAtHold": {
+    "tier": "lite",
+    "visibleMeshes": 813,
+    "visibleTris": 1551035,
+    "renderer": {
+     "source": "renderer.info + gl-counter",
+     "rendererInfo": {
+      "calls": 1,
+      "triangles": 1,
+      "points": 0,
+      "lines": 0,
+      "geometries": 310,
+      "textures": 40,
+      "programs": 104
+     },
+     "glDrawCalls": 3478,
+     "glBreakdown": {
+      "calls": 3478,
+      "elements": 3436,
+      "arrays": 42,
+      "instanced": 0
+     },
+     "wrappedContexts": 1
+    }
+   },
+   "network": {
+    "source": "PerformanceResourceTiming",
+    "totalTransferBytes": 14648182,
+    "totalDecodedBytes": 16182845,
+    "byKind": {
+     "app-bundle": 492100,
+     "other": 788,
+     "models": 13949926,
+     "draco": 205368
+    },
+    "requestCount": 19,
+    "largest": [
+     {
+      "path": "/models/Default.glb",
+      "transferSize": 10672000,
+      "decodedBodySize": 10671700,
+      "durationMs": 92.3,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/msp-enclosure.glb",
+      "transferSize": 2381076,
+      "decodedBodySize": 2380776,
+      "durationMs": 100,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/m249-transformed.glb",
+      "transferSize": 892392,
+      "decodedBodySize": 892092,
+      "durationMs": 7.6,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/draco/draco_decoder.wasm",
+      "transferSize": 192720,
+      "decodedBodySize": 192420,
+      "durationMs": 5.1,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/SceneCanvas-D3iN8G39.js",
+      "transferSize": 151693,
+      "decodedBodySize": 483284,
+      "durationMs": 29.9,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/three.core-DVlW78z8.js",
+      "transferSize": 103264,
+      "decodedBodySize": 379735,
+      "durationMs": 28.3,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/drawingGeometry-elRzvGEj.js",
+      "transferSize": 96189,
+      "decodedBodySize": 374624,
+      "durationMs": 26.3,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/index-C9jYhLvM.js",
+      "transferSize": 73666,
+      "decodedBodySize": 229250,
+      "durationMs": 13.5,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/ScrollTrigger-a3sj5zmn.js",
+      "transferSize": 45455,
+      "decodedBodySize": 114013,
+      "durationMs": 19.9,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/draco/draco_wasm_wrapper.js",
+      "transferSize": 12048,
+      "decodedBodySize": 58456,
+      "durationMs": 5.7,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/index-BRkwlGFP.css",
+      "transferSize": 7552,
+      "decodedBodySize": 40147,
+      "durationMs": 7.9,
+      "initiatorType": "link"
+     },
+     {
+      "path": "/assets/ScrollRig-Cvm23E4b.js",
+      "transferSize": 6640,
+      "decodedBodySize": 20796,
+      "durationMs": 12.9,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/EngineeringDrawingOverlay-Df4QVHLZ.js",
+      "transferSize": 5131,
+      "decodedBodySize": 12392,
+      "durationMs": 9.7,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/models/role-map.json",
+      "transferSize": 4458,
+      "decodedBodySize": 78395,
+      "durationMs": 3.2,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/BootSequence-CpqweaKx.js",
+      "transferSize": 1866,
+      "decodedBodySize": 3057,
+      "durationMs": 17.6,
+      "initiatorType": "script"
+     }
+    ]
+   },
+   "networkHeaderTally": {
+    "note": "content-length only; under-reports chunked responses. Cross-check for the Resource Timing figures above.",
+    "totalBytes": 15333808,
+    "requestCount": 31
+   }
+  },
+  "phone-390x844": {
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "loadMs": 10872,
+   "documentHeightPx": 26333,
+   "innerHeightPx": 844,
+   "tier": "full",
+   "stops": [
+    {
+     "progress": 0,
+     "beat": "ch01-drawing-intro",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 0,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 865621,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 298,
+      "glBreakdown": {
+       "calls": 298,
+       "elements": 264,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.05,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 3186,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 64,
+     "visibleTris": 870517,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 304,
+      "glBreakdown": {
+       "calls": 304,
+       "elements": 270,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.1,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 6372,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 865621,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 300,
+      "glBreakdown": {
+       "calls": 300,
+       "elements": 266,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.15,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 8256,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 251,
+      "glBreakdown": {
+       "calls": 251,
+       "elements": 217,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.177,
+     "beat": "ch01-hero-transit-start",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 8802,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 266,
+      "glBreakdown": {
+       "calls": 266,
+       "elements": 232,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.2,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 9269,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 270,
+      "glBreakdown": {
+       "calls": 270,
+       "elements": 236,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.25,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 10282,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 244,
+      "glBreakdown": {
+       "calls": 244,
+       "elements": 210,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.3,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 11296,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 265,
+      "glBreakdown": {
+       "calls": 265,
+       "elements": 231,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.35,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 12310,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 231,
+      "glBreakdown": {
+       "calls": 231,
+       "elements": 197,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.4,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 13324,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 206,
+      "glBreakdown": {
+       "calls": 206,
+       "elements": 172,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.416,
+     "beat": "jgun-explode-complete",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 13648,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 198,
+      "glBreakdown": {
+       "calls": 198,
+       "elements": 164,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.45,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14338,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 217,
+      "glBreakdown": {
+       "calls": 217,
+       "elements": 183,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.458,
+     "beat": "ch01-hero-transit-end",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14500,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 220,
+      "glBreakdown": {
+       "calls": 220,
+       "elements": 186,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.47,
+     "beat": "jgun-explode-probed",
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 14743,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 62,
+     "visibleTris": 841045,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 294,
+      "glBreakdown": {
+       "calls": 294,
+       "elements": 260,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.5,
+     "beat": null,
+     "station": "JGUN (CH.01-02)",
+     "scrollY": 15351,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 841047,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 224,
+      "glBreakdown": {
+       "calls": 224,
+       "elements": 190,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.525,
+     "beat": "lcd-dwell-end / wrench-out start",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 15858,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 63,
+     "visibleTris": 841047,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 213,
+      "glBreakdown": {
+       "calls": 213,
+       "elements": 179,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.55,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 16365,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 656,
+     "visibleTris": 1262957,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1490,
+      "glBreakdown": {
+       "calls": 1490,
+       "elements": 1448,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.565,
+     "beat": "enclosure-in complete",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 16669,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1248,
+      "glBreakdown": {
+       "calls": 1248,
+       "elements": 1206,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.575,
+     "beat": "rl300-assembled",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 16872,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1248,
+      "glBreakdown": {
+       "calls": 1248,
+       "elements": 1206,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.6,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 17379,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1590,
+      "glBreakdown": {
+       "calls": 1590,
+       "elements": 1548,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.65,
+     "beat": "rl300-hold (yellow-at-hold frame)",
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 18393,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 752,
+     "visibleTris": 635420,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 3486,
+      "glBreakdown": {
+       "calls": 3486,
+       "elements": 3444,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.7,
+     "beat": null,
+     "station": "RL300 enclosure (CH.03)",
+     "scrollY": 19406,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 752,
+     "visibleTris": 635420,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 3486,
+      "glBreakdown": {
+       "calls": 3486,
+       "elements": 3444,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.72,
+     "beat": "enclosure-out start",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 19812,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 596,
+     "visibleTris": 421916,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 2862,
+      "glBreakdown": {
+       "calls": 2862,
+       "elements": 2820,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.75,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 20420,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 598,
+     "visibleTris": 471918,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 9,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 1250,
+      "glBreakdown": {
+       "calls": 1250,
+       "elements": 1208,
+       "arrays": 42,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.76,
+     "beat": "m249-pointcloud in",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 20623,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 117
+      },
+      "glDrawCalls": 60,
+      "glBreakdown": {
+       "calls": 60,
+       "elements": 26,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.8,
+     "beat": null,
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 21434,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.85,
+     "beat": "jgun-visual-gates probe point",
+     "station": "M249 point cloud (CH.04)",
+     "scrollY": 22448,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.9,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 23461,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 0.95,
+     "beat": null,
+     "station": "outro",
+     "scrollY": 24475,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    },
+    {
+     "progress": 1,
+     "beat": "page end",
+     "station": "outro",
+     "scrollY": 25489,
+     "sceneAlive": true,
+     "tier": "full",
+     "visibleMeshes": 5,
+     "visibleTris": 50008,
+     "totalMeshes": 816,
+     "distinctMaterialsVisible": 0,
+     "rendererInfo": {
+      "source": "renderer.info + gl-counter",
+      "rendererInfo": {
+       "calls": 1,
+       "triangles": 1,
+       "points": 0,
+       "lines": 0,
+       "geometries": 310,
+       "textures": 41,
+       "programs": 118
+      },
+      "glDrawCalls": 64,
+      "glBreakdown": {
+       "calls": 64,
+       "elements": 30,
+       "arrays": 34,
+       "instanced": 0
+      },
+      "wrappedContexts": 1
+     },
+     "telemetryRenderer": null
+    }
+   ],
+   "perfHolds": {
+    "0.416": {
+     "samples": 115,
+     "p50": 16.5,
+     "p95": 22,
+     "p99": 24.5,
+     "max": 25.5,
+     "impliedFps_p50": 60.6
+    },
+    "0.575": {
+     "samples": 115,
+     "p50": 35.9,
+     "p95": 45,
+     "p99": 49.5,
+     "max": 124.8,
+     "impliedFps_p50": 27.9
+    },
+    "0.65": {
+     "samples": 115,
+     "p50": 37.9,
+     "p95": 64.9,
+     "p99": 70.4,
+     "max": 88.7,
+     "impliedFps_p50": 26.4
+    },
+    "0.85": {
+     "samples": 115,
+     "p50": 16.7,
+     "p95": 17.3,
+     "p99": 17.7,
+     "max": 17.8,
+     "impliedFps_p50": 59.9
+    }
+   },
+   "consoleErrors": [],
+   "totalScrollableHeightPx": 25489,
+   "liteTierAtHold": {
+    "tier": "lite",
+    "visibleMeshes": 0,
+    "visibleTris": 0,
+    "renderer": {
+     "source": "gl-counter only",
+     "rendererInfo": null,
+     "glDrawCalls": 0,
+     "glBreakdown": {
+      "calls": 0,
+      "elements": 0,
+      "arrays": 0,
+      "instanced": 0
+     },
+     "wrappedContexts": 1
+    }
+   },
+   "network": {
+    "source": "PerformanceResourceTiming",
+    "totalTransferBytes": 14648182,
+    "totalDecodedBytes": 16182845,
+    "byKind": {
+     "app-bundle": 492100,
+     "other": 788,
+     "models": 13949926,
+     "draco": 205368
+    },
+    "requestCount": 19,
+    "largest": [
+     {
+      "path": "/models/Default.glb",
+      "transferSize": 10672000,
+      "decodedBodySize": 10671700,
+      "durationMs": 83.1,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/msp-enclosure.glb",
+      "transferSize": 2381076,
+      "decodedBodySize": 2380776,
+      "durationMs": 101.5,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/models/m249-transformed.glb",
+      "transferSize": 892392,
+      "decodedBodySize": 892092,
+      "durationMs": 7.8,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/draco/draco_decoder.wasm",
+      "transferSize": 192720,
+      "decodedBodySize": 192420,
+      "durationMs": 6.7,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/SceneCanvas-D3iN8G39.js",
+      "transferSize": 151693,
+      "decodedBodySize": 483284,
+      "durationMs": 29,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/three.core-DVlW78z8.js",
+      "transferSize": 103264,
+      "decodedBodySize": 379735,
+      "durationMs": 26.8,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/drawingGeometry-elRzvGEj.js",
+      "transferSize": 96189,
+      "decodedBodySize": 374624,
+      "durationMs": 21.7,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/index-C9jYhLvM.js",
+      "transferSize": 73666,
+      "decodedBodySize": 229250,
+      "durationMs": 12.5,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/ScrollTrigger-a3sj5zmn.js",
+      "transferSize": 45455,
+      "decodedBodySize": 114013,
+      "durationMs": 16.4,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/draco/draco_wasm_wrapper.js",
+      "transferSize": 12048,
+      "decodedBodySize": 58456,
+      "durationMs": 6.7,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/index-BRkwlGFP.css",
+      "transferSize": 7552,
+      "decodedBodySize": 40147,
+      "durationMs": 7.4,
+      "initiatorType": "link"
+     },
+     {
+      "path": "/assets/ScrollRig-Cvm23E4b.js",
+      "transferSize": 6640,
+      "decodedBodySize": 20796,
+      "durationMs": 10.4,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/assets/EngineeringDrawingOverlay-Df4QVHLZ.js",
+      "transferSize": 5131,
+      "decodedBodySize": 12392,
+      "durationMs": 8.7,
+      "initiatorType": "script"
+     },
+     {
+      "path": "/models/role-map.json",
+      "transferSize": 4458,
+      "decodedBodySize": 78395,
+      "durationMs": 3.9,
+      "initiatorType": "fetch"
+     },
+     {
+      "path": "/assets/BootSequence-CpqweaKx.js",
+      "transferSize": 1866,
+      "decodedBodySize": 3057,
+      "durationMs": 13.6,
+      "initiatorType": "script"
+     }
+    ]
+   },
+   "networkHeaderTally": {
+    "note": "content-length only; under-reports chunked responses. Cross-check for the Resource Timing figures above.",
+    "totalBytes": 15333808,
+    "requestCount": 31
+   }
+  }
+ },
+ "errors": [],
+ "assets": {
+  "public/models/Default.glb": {
+   "bytes": 10671700,
+   "sha256": "8b07246cf857aca29d1832815d8d183e"
+  },
+  "public/models/m249-transformed.glb": {
+   "bytes": 892092,
+   "sha256": "1c251f45b05b736a08858e47c53c8fa7"
+  },
+  "public/models/msp-enclosure.glb": {
+   "bytes": 2380776,
+   "sha256": "f429a200be18e9d08bd586d1f9581b12"
+  },
+  "public/models/role-map.json": {
+   "bytes": 78395,
+   "sha256": "493207154de241cc5756b58d56387346"
+  },
+  "public/draco/draco_decoder.js": {
+   "bytes": 512465,
+   "sha256": "8625489da79a805f4f2a7d511c3e52d8"
+  },
+  "public/draco/draco_decoder.wasm": {
+   "bytes": 192420,
+   "sha256": "a680d927bed9cb864ddbd63521868891"
+  },
+  "public/draco/draco_wasm_wrapper.js": {
+   "bytes": 58456,
+   "sha256": "8bb2952d2ba7d67e1414f8df819410cb"
+  },
+  "dist/assets/BootSequence-CpqweaKx.js": {
+   "bytes": 3057,
+   "sha256": "5dd3e77cc343a88abaa4a2469e0e1539"
+  },
+  "dist/assets/draco_decoder-C32yEggz.wasm": {
+   "bytes": 285747,
+   "sha256": "c55a594e8ffd18426d36b27fea9618af"
+  },
+  "dist/assets/draco_decoder-fzg4nYZr.js": {
+   "bytes": 719410,
+   "sha256": "30e4d486fa020737af10e3c56197693e"
+  },
+  "dist/assets/draco_decoder-Z1_iN-Ht.wasm": {
+   "bytes": 192420,
+   "sha256": "a680d927bed9cb864ddbd63521868891"
+  },
+  "dist/assets/draco_wasm_wrapper-DxJM36Ib.js": {
+   "bytes": 58763,
+   "sha256": "e8049906ef3f8f75d3456c22a3f31bfd"
+  },
+  "dist/assets/draco_wasm_wrapper-fZCQGLGb.js": {
+   "bytes": 58456,
+   "sha256": "8bb2952d2ba7d67e1414f8df819410cb"
+  },
+  "dist/assets/drawingGeometry-elRzvGEj.js": {
+   "bytes": 374624,
+   "sha256": "f7791ddeffaaea210daf4cc6575179ef"
+  },
+  "dist/assets/EngineeringDrawingOverlay-Df4QVHLZ.js": {
+   "bytes": 12392,
+   "sha256": "b9e752163a141bba92abdd4beb53e7f9"
+  },
+  "dist/assets/index-BRkwlGFP.css": {
+   "bytes": 40147,
+   "sha256": "ec6cb1dc752385bb8ad9f580285a07c5"
+  },
+  "dist/assets/index-C9jYhLvM.js": {
+   "bytes": 229250,
+   "sha256": "bd19d4a04532a2319f37b0b350cfaa60"
+  },
+  "dist/assets/SceneCanvas-D3iN8G39.js": {
+   "bytes": 483284,
+   "sha256": "9247d0cd687c65616789fb04792af948"
+  },
+  "dist/assets/ScrollRig-Cvm23E4b.js": {
+   "bytes": 20796,
+   "sha256": "e6fef2bf7edea679771db8ce0c128057"
+  },
+  "dist/assets/ScrollTrigger-a3sj5zmn.js": {
+   "bytes": 114013,
+   "sha256": "11f2be75561459741488a454669fb26b"
+  },
+  "dist/assets/three.core-DVlW78z8.js": {
+   "bytes": 379735,
+   "sha256": "6fb621f8f6751349daf6541c002932d9"
+  },
+  "dist/assets/vanilla-m3Xdu9cz.js": {
+   "bytes": 344,
+   "sha256": "65399dfdb398e1cbf16974d31f6db0f5"
+  },
+  "dist/models/Default.glb": {
+   "bytes": 10671700,
+   "sha256": "8b07246cf857aca29d1832815d8d183e"
+  },
+  "dist/models/m249-transformed.glb": {
+   "bytes": 892092,
+   "sha256": "1c251f45b05b736a08858e47c53c8fa7"
+  },
+  "dist/models/msp-enclosure.glb": {
+   "bytes": 2380776,
+   "sha256": "f429a200be18e9d08bd586d1f9581b12"
+  },
+  "dist/models/role-map.json": {
+   "bytes": 78395,
+   "sha256": "493207154de241cc5756b58d56387346"
+  }
+ }
+}
