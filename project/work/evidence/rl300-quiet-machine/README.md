@@ -110,6 +110,13 @@ draw calls by wrapping the live WebGL context (the app exposes no renderer globa
 no application state beyond scroll position and the lite-tier toggle. Run it after
 `npm run build` **and** after restarting the `:4173` preview.
 
+> **Two caveats on the recorded run.** (1) The preview was *not* restarted for it — that command
+> failed silently and the capture used a server an earlier session had left up. Verified after
+> the fact: the served `index.html` and every referenced asset were byte-identical to `dist/`,
+> so it measured the clean build of `3e3e49f`. (2) `dist/` has since been rebuilt by the
+> implementation session, so re-running the script now measures in-progress work rather than
+> this baseline — build from `3e3e49f` to reproduce it.
+
 ## Tree state when this pack was committed
 
 | Gate | Result |

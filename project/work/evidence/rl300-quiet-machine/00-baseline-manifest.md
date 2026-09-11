@@ -3,7 +3,17 @@
 > **JG-033 / W1.** The Quiet Machine plan states its performance targets are
 > *"provisional targets, not current measurements."* This file supplies the measurements.
 >
-> Captured **2026-09-11**, repo at `3e3e49f`, clean `npm run build`, preview restarted on :4173.
+> Captured **2026-09-11 03:56 UTC**, repo at `3e3e49f`, after a clean `npm run build`.
+>
+> **Correction (recorded 2026-09-11):** an earlier version of this line said the `:4173` preview
+> was restarted. It was not — the restart command failed (exit 127, `npx` unresolvable in that
+> shell) and the capture ran against a preview server left running by an earlier session.
+> What was verified instead: the served `index.html` was byte-identical to the on-disk
+> `dist/index.html`, and every referenced asset matched `dist/` byte-for-byte — `vite preview`
+> reads from `dist/` per request, so the capture measured the clean build of `3e3e49f`, and the
+> `dist/` hashes recorded below were written by that same build. The AGENTS.md stale-server
+> failure mode (canvas never mounts) did not occur: the canvas mounted at all 23 stops across
+> three viewports with zero console errors. The measurements stand; the process claim was wrong.
 > Machine-readable companion: `00-baseline.json`. Regenerate: `BASE_URL=http://localhost:4173 OUT=<dir> node scripts/capture-rl300-baseline.mjs`.
 
 ## Measuring host
@@ -175,9 +185,14 @@ the rebuild must not regress from.
 | `public/draco/draco_decoder.wasm` | 192,420 | `a680d927bed9cb864ddbd63521868891` |
 | `public/draco/draco_wasm_wrapper.js` | 58,456 | `8bb2952d2ba7d67e1414f8df819410cb` |
 
-Built `dist/` hashes are in `00-baseline.json` under `assets`. Re-running the capture at the
-same git rev must reproduce these hashes and the same triangle/draw-call figures; frame times
-will vary.
+Built `dist/` hashes are in `00-baseline.json` under `assets`. Re-running the capture **from a
+clean build of `3e3e49f`** must reproduce these hashes and the same triangle/draw-call figures;
+frame times will vary.
+
+> **`dist/` has since been rebuilt by the implementation session** (2026-09-11 05:37 UTC; the
+> `index-*.js` chunk hash rotated). Running the capture against the working tree as it stands
+> now measures in-progress RL300 work, **not** this baseline. To reproduce the baseline, build
+> from `3e3e49f` first.
 
 ## What this baseline does NOT establish
 
