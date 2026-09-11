@@ -12,7 +12,7 @@ direction was touched, and no file under `src/` was modified.
 
 ---
 
-## Read this first — four findings that change assumptions in the plan
+## Read this first — five findings that change assumptions in the plan
 
 ### 1. The clipping-plane cross-section already exists in the tree
 
