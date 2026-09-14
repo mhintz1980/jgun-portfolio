@@ -1,5 +1,12 @@
 # RL300 "The Quiet Machine" — prep pack (JG-033, Milestone 1)
 
+**Start here:** [handoff 2026-09-14 — lanes live, Milestone 3 is next](08-handoff-2026-09-14.md).
+Prior: [handoff — Milestone 2 ruled, geometry corrected](07-handoff-for-astra.md).
+Mark accepted the look and rejected the geometry across three passes on 2026-09-11; the
+corrections are in and Milestone 3 is yours, pending his re-review.
+
+**Continuation:** [Milestone 2 prototype and verification](05-milestone2-preview.md) — blue exterior, capped reveal and proposed lower-intake blockout. [Ruling and geometry fixes](06-ruling-geometry-fixes.md) record what changed after it. The Milestone-1 evidence below remains the frozen baseline.
+
 **For Astra.** Mark approved your plan. This pack is Milestone 1 of your own build order —
 *"Freeze and measure: capture exact build and asset hashes … audit source models … Output:
 reproducible baseline and asset-role map"* — already done, so your next window opens on
