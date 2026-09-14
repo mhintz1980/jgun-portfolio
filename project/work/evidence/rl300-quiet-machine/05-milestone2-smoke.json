@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "directNavigationAndReload": "pass",
+    "nativeForwardReverse": "pass",
+    "legacyPortfolioSmoke": "pass: original canvas, wrench exploded state and progress route alive"
+  },
+  "errors": [],
+  "legacy": {
+    "rig": {
+      "handleZ": -0.354,
+      "outputZ": 0.05,
+      "clutchZ": -0.291,
+      "slidingZ": -0.291,
+      "stageZ": [
+        -0.255,
+        -0.23,
+        -0.142,
+        -0.099,
+        -0.177
+      ],
+      "stageRot": [
+        88.2787531084365,
+        57.38118952048372,
+        24.27665710482004,
+        15.779827118133024,
+        37.29777318831442
+      ],
+      "planetRot": -308.9756358795278,
+      "gearRotation": 25.132741,
+      "shift": 0,
+      "ghostOpacity": 1,
+      "ghostCount": 1,
+      "explodeFactor": 1,
+      "ringSwitchZ": -0.291,
+      "ringSwitchRotZ": 0
+    },
+    "scroll": {
+      "progress": 0.46999264164827087,
+      "chapter": 2,
+      "chapterProgress": 0.15646662705486236,
+      "materialMode": "solid"
+    },
+    "stage": {
+      "active": 0,
+      "alpha": [
+        1,
+        0,
+        0
+      ],
+      "flow": 0,
+      "acousticWave": 0,
+      "transitionIntensity": 0,
+      "backdropAlpha": 1
+    },
+    "height": 31.2
+  }
+}

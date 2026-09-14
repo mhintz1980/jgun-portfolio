@@ -16,8 +16,9 @@
  *     (#272728 → #0a1a3a chassis / #132a4a panels); MSP_YELLOW_PAINT,
  *     MSP_AIRWAY_VOLUME, PUMP_HOUSING, ISOLATION_MOUNTS and all other meshes
  *     are unchanged.
- *  4. Panels translucent restored: opacity 0.35 assembled (p=0.575) → 0.18
- *     at the hold (p=0.65); blown-hot luminance ≤ 0.1% at both (glow gate).
+ *  4. Default-route cross-section: shell material planes sweep from world
+ *     x=29.3 to x=28 and back; panels stay stationary and fade 0.35 → 0.18.
+ *     Opening/closing midpoints and boundaries are measured from live materials.
  *  5. JGUN gates: spot 1.4@y1.3 / rim 0.8 / shadow visible at p=0.50;
  *     spot 1.1@y1.2 / rim 0 / shadow hidden at p=0.85 (CH.04 inert).
  *  6. CH.04 telemetry byte-identical to baseline at p=0.80/0.90 (excluding
@@ -51,7 +52,19 @@ const CHASSIS_RE = [/V2RL300-FPL-000[12]/i, /RL300-CPM-3001/i, /V2RL300-FTS-100[
 const PANEL_RE = [/STD-LBAP-4001/i, /G2RL200-SAF-10(33|35|39|40|41|49)/i, /V2RL300-SAF-1047/i, /V2RL300-SAF-1066/i]
 const allowListed = (name) => CHASSIS_RE.some((re) => re.test(name)) || PANEL_RE.some((re) => re.test(name))
 
-const STOPS = [0.05, 0.35, 0.47, 0.5, 0.575, 0.65, 0.74, 0.85, 0.9]
+// Independent contract samples, not imports from the production animation.
+const SECTION_STOPS = [
+  { p: 0.575, cut: 0 },
+  { p: 0.585, cut: 0 },
+  { p: 0.615, cut: 0.5 },
+  { p: 0.645, cut: 1 },
+  { p: 0.65, cut: 1 },
+  { p: 0.7, cut: 1 },
+  { p: 0.7075, cut: 0.5 },
+  { p: 0.715, cut: 0 },
+  { p: 0.74, cut: 0 },
+]
+const STOPS = [...new Set([0.05, 0.35, 0.47, 0.5, ...SECTION_STOPS.map(({ p }) => p), 0.85, 0.9])].sort((a, b) => a - b)
 const SHOT_STOPS = new Set([0.05, 0.47, 0.5, 0.575, 0.65, 0.74])
 
 /** Fields excluded from the CH.04 byte-compare: time-integrating rotations + perf counters. */
@@ -176,9 +189,9 @@ async function capture(BASE, out, { screenshots = true } = {}) {
         window.__scrollCommitDisabled = true
         return window.__drawingProof.scrollToProgress(prog)
       }, p)
-      const tele = await page.evaluate(async () => {
+      const tele = await page.evaluate(async (ROOTS) => {
         const t = window.__telemetry
-        const snap = () => [t.camera.x, t.camera.y, t.camera.z, t.camera.fov, t.rig.explodeFactor, t.rig.ghostOpacity]
+        const snap = () => [t.scroll.progress, t.camera.x, t.camera.y, t.camera.z, t.camera.fov, t.rig.explodeFactor, t.rig.ghostOpacity]
         let previous = snap()
         let quiet = 0
         const start = performance.now()
@@ -193,6 +206,7 @@ async function capture(BASE, out, { screenshots = true } = {}) {
         // JGUN gate probes (live scene state) — null-safe: a missing scene
         // (poster degradation) must be reported by the caller, not crash here
         let spot = null, rim = null, shadowVisible = null, panelOpacity = null, panelY = null
+        let section = null
         const scene = window.__threeScene
         if (scene) {
           scene.traverse((o) => {
@@ -214,14 +228,36 @@ async function capture(BASE, out, { screenshots = true } = {}) {
               }
             })
           }
+          if (st2) {
+            section = {
+              panelPosition: panels?.position.toArray() ?? null,
+              roots: ROOTS.map((name) => {
+                const root = st2.getObjectByName(name)
+                const materials = new Set()
+                root?.traverse((o) => {
+                  if (o.isMesh) (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => materials.add(m))
+                })
+                const planes = new Set([...materials].flatMap((m) => m.clippingPlanes || []))
+                return {
+                  name,
+                  materialCount: materials.size,
+                  planeCounts: [...new Set([...materials].map((m) => m.clippingPlanes?.length || 0))],
+                  planes: [...planes].map((plane) => ({ normal: plane.normal.toArray(), constant: plane.constant })),
+                  panelStates: name === 'COMPOSITE_PANELS'
+                    ? [...new Set([...materials].map((m) => JSON.stringify({ opacity: m.opacity, transparent: m.transparent, depthWrite: m.depthWrite })))].map((s) => JSON.parse(s))
+                    : [],
+                }
+              }),
+            }
+          }
         }
         return {
           reached: t.scroll.progress,
           sceneAlive: Boolean(scene),
           telemetry: JSON.parse(JSON.stringify(t)),
-          gates: { spot, rim, shadowVisible, panelOpacity, panelY },
+          gates: { spot, rim, shadowVisible, panelOpacity, panelY, section },
         }
-      })
+      }, ROOTS)
       captureReport.stops['p' + p] = tele
       if (screenshots && SHOT_STOPS.has(p)) {
         await page.screenshot({ path: path.join(out, `shot-p${String(p).replace('.', '_')}.png`) })
@@ -451,16 +487,51 @@ else {
   else pass('thermal pool: 5 nested shells, #fbbf24→#f97316→#ea580c, BackSide')
 }
 
-// --- 4. panels translucent + glow ---
-console.log('--- Step 4: panels + glow gate ---')
-const g575 = current.stops['p0.575']?.gates
-const g65 = current.stops['p0.65']?.gates
-if (!g575 || !g65) fail('missing panel gates')
-else {
-  const near = (a, b, tol = 0.02) => Math.abs(a - b) <= tol
-  if (!near(g575.panelOpacity, 0.35)) fail(`assembled panel opacity ${g575.panelOpacity} !== 0.35`)
-  if (!near(g65.panelY, 0.55) || !near(g65.panelOpacity, 0.18)) fail(`hold panel state wrong: y=${g65.panelY} opacity=${g65.panelOpacity}`)
-  else pass('panel choreography live: 0.35 assembled (0.575) → y 0.55 / 0.18 hold (0.65)')
+// --- 4. default-route cross-section (the panel lift was retired in JG-032 rev2) ---
+console.log('--- Step 4: live cross-section contract ---')
+const near = (a, b, tol = 0.002) => Number.isFinite(a) && Math.abs(a - b) <= tol
+const restPosition = current.stops['p0.575']?.gates.section?.panelPosition
+// Browser scroll positions are pixel-quantized. Keep the target-progress gate,
+// then evaluate the independently specified curve at the position actually
+// reached, rather than treating a requested midpoint as an exact scroll value.
+const contractRamp = (progress, start, end) => {
+  const t = Math.max(0, Math.min(1, (progress - start) / (end - start)))
+  return t * t * (3 - 2 * t)
+}
+report.assertions.crossSection = []
+for (const { p, cut: targetCut } of SECTION_STOPS) {
+  const sample = current.stops['p' + p]
+  const section = sample?.gates.section
+  const cut = Number.isFinite(sample?.reached)
+    ? contractRamp(sample.reached, 0.585, 0.645) - contractRamp(sample.reached, 0.7, 0.715)
+    : NaN
+  const errors = []
+  if (!sample?.sceneAlive || !section) errors.push('live station-2 scene missing')
+  if (!near(sample?.reached, p, 0.0001)) errors.push(`progress ${sample?.reached} did not reach ${p}`)
+  if (!restPosition || !section?.panelPosition || !near(section.panelPosition[1], 0.05, 0.0001) ||
+      !section.panelPosition.every((v, i) => near(v, restPosition[i], 0.0001))) {
+    errors.push(`panels moved from assembled position: ${JSON.stringify(section?.panelPosition)}`)
+  }
+  for (const name of ROOTS) {
+    const root = section?.roots.find((r) => r.name === name)
+    if (!root?.materialCount) { errors.push(`${name}: no live materials`); continue }
+    const shell = name === 'ENCLOSURE_CHASSIS' || name === 'COMPOSITE_PANELS'
+    if (root.planeCounts.length !== 1 || root.planeCounts[0] !== (shell ? 1 : 0)) {
+      errors.push(`${name}: clipping scope/count ${JSON.stringify(root.planeCounts)}`)
+    }
+    if (shell && (root.planes.length === 0 || root.planes.some((plane) =>
+      !plane.normal.every((v, i) => near(v, [-1, 0, 0][i], 0.0001)) ||
+      !near(plane.constant, 29.3 - 1.3 * cut)))) {
+      errors.push(`${name}: actual planes ${JSON.stringify(root.planes)} expected normal [-1,0,0], constant ${29.3 - 1.3 * cut}`)
+    }
+    if (name === 'COMPOSITE_PANELS' && (root.panelStates.length === 0 || root.panelStates.some((m) =>
+      !near(m.opacity, 0.35 - 0.17 * cut) || m.transparent !== true || m.depthWrite !== false))) {
+      errors.push(`panel material state wrong: ${JSON.stringify(root.panelStates)}`)
+    }
+  }
+  report.assertions.crossSection.push({ progress: p, reached: sample?.reached, targetCut, expectedCut: cut, passed: errors.length === 0 })
+  if (errors.length) fail(`cross-section p=${p}: ${errors.join(' | ')}`)
+  else pass(`cross-section p=${p}: cut ${cut}, world plane x=${29.3 - 1.3 * cut}, stationary panels, opacity ${+(0.35 - 0.17 * cut).toFixed(3)}`)
 }
 
 // --- 5. JGUN gates ---

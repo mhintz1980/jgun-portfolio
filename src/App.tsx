@@ -16,9 +16,15 @@ const BootSequence = lazy(() =>
   import('./components/BootSequence').then((m) => ({ default: m.BootSequence })),
 )
 const EngineeringDrawingOverlay=lazy(()=>import('./components/EngineeringDrawingOverlay').then(m=>({default:m.EngineeringDrawingOverlay})))
+const QuietMachinePreview = lazy(() => import('./scene/rl300/QuietMachinePreview'))
 
 export default function App() {
   const { tier, reducedMotion } = useQuality()
+
+  // JG-033 owner review checkpoint; portfolio timing stays on its existing clock.
+  if (new URLSearchParams(window.location.search).get('study') === 'rl300') {
+    return <Suspense fallback={null}><QuietMachinePreview /></Suspense>
+  }
 
   // Degradation wiring (see qualityStore for the tier ladder):
   //  - poster tier: no canvas at all — static DOM poster + native scroll.

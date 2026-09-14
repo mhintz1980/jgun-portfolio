@@ -1,0 +1,90 @@
+import { describe, expect, it } from 'vitest'
+import { BoxGeometry, Float32BufferAttribute, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
+import { bakeGeometry, finishFor, isClosedVolume, PART_POLICY, policyFor, SECTION_ROOTS } from './prepareModel'
+import { evaluateShot } from './shot'
+import { createLowerIntake } from './LowerIntake'
+import { createStencilMaterials } from './SectionCaps'
+
+describe('RL300 review prototype', () => {
+  it('moves both stencil counters with the live plane after material cloning', () => {
+    const plane = new Plane(new Vector3(-1, 0, 0), .85)
+    const pair = createStencilMaterials(plane)
+    plane.constant = -.15
+    expect(pair.back.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-.15)
+    expect(pair.front.clippingPlanes![0].distanceToPoint(new Vector3(0, 0, 0))).toBe(-.15)
+    pair.back.dispose(); pair.front.dispose()
+  })
+  it('returns the same finite shot in either direction and clamps invalid input', () => {
+    const forward = Array.from({ length: 101 }, (_, i) => evaluateShot(i / 100, false))
+    const reverse = Array.from({ length: 101 }, (_, i) => evaluateShot(1 - i / 100, false)).reverse()
+    forward.forEach((shot, i) => { expect(shot.plane).toBeCloseTo(reverse[i].plane, 10); expect(shot.position.every(Number.isFinite)).toBe(true) })
+    expect(evaluateShot(NaN, true).u).toBe(0)
+    expect(evaluateShot(-1, false).cut).toBe(0)
+    expect(evaluateShot(2, false).cut).toBe(1)
+  })
+  it('repaints shell roles but preserves equipment and hardware identity', () => {
+    expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT')).toBe('#193f66')
+    expect(finishFor('PUMP_HOUSING', 'MSP_YELLOW_PAINT')).toBeNull()
+    expect(finishFor('ENCLOSURE_CHASSIS', 'MSP_STAINLESS')).toBeNull()
+    // A kept component stays equipment: the shell repaint is what buried it.
+    expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT', 'keep')).toBeNull()
+  })
+  it('keeps the machine roots whole by default and cuts them only where a part is named', () => {
+    for (const root of ['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'ACOUSTIC_BAFFLES', 'DUCT_INTAKE', 'DUCT_EXHAUST']) {
+      expect(SECTION_ROOTS.has(root)).toBe(true)
+    }
+    // The engine and pump are the story; only the ruled occurrences inside them are cut.
+    expect(SECTION_ROOTS.has('PUMP_HOUSING')).toBe(false)
+    expect(SECTION_ROOTS.has('ISOLATION_MOUNTS')).toBe(false)
+    expect(policyFor('V2SKF-TB-5500-03-1')?.policy).toBe('section')
+  })
+  it('resolves the ruled section policy through uniquified primitive names', () => {
+    expect(policyFor('RL300-PEM-1001-1')?.policy).toBe('keep')
+    expect(policyFor('V2SKF-TB-5500-03-1')?.policy).toBe('section')
+    expect(policyFor('V2SKF-TB-2200-01-1')?.policy).toBe('hide')
+    // GLTFLoader sanitizes spaces and uniquifies multi-primitive mesh defs.
+    expect(policyFor('V23028T25_Weld-on_Tie-Down_Ring-1')?.name).toBe('V23028T25_Weld-on Tie-Down Ring-1')
+    expect(policyFor('V2EDW-60335_(Fuel_Tank_Weld_On_Flange)-1')?.policy).toBe('hide')
+    expect(policyFor('V2EDW-60335_(Fuel_Tank_Weld_On_Flange)-3')?.policy).toBe('hide')
+    expect(policyFor('RL300-EMG-1001-P-1_1')?.policy).toBe('keep')
+    expect(policyFor('V2SKF-TB-2200-01-3')).toBeNull()
+    expect(policyFor('ENCLOSURE_CHASSIS')).toBeNull()
+    // Names carry a tilde and a space; sanitizing must not lose the occurrence.
+    expect(policyFor('V2MSP-MID-5406HHP24_~-3')?.name).toBe('V2MSP-MID-5406HHP24 ~-3')
+    expect(policyFor('V2MSP-MID-5406HHP24_~-2')).toBeNull()
+    expect(policyFor('12335A81_Oil-Resistant_Push-on_Seal_with_Bulb-1')?.policy).toBe('delete')
+    expect(Object.values(PART_POLICY).filter(p => p === 'keep')).toHaveLength(3)
+    expect(Object.values(PART_POLICY).filter(p => p === 'hide')).toHaveLength(18)
+    expect(Object.values(PART_POLICY).filter(p => p === 'delete')).toHaveLength(1)
+  })
+  it('bakes reflected CAD without reversing the signed volume or mutating source', () => {
+    const g = new BoxGeometry(1, 2, 3)
+    const mesh = new Mesh(g, new MeshStandardMaterial()); mesh.scale.x = -1; mesh.updateMatrixWorld()
+    const baked = bakeGeometry(mesh), p = baked.getAttribute('position')
+    let volume = 0
+    const a = new Vector3(), b = new Vector3(), c = new Vector3()
+    for (let i = 0; i < p.count; i += 3) { a.fromBufferAttribute(p, i); b.fromBufferAttribute(p, i + 1); c.fromBufferAttribute(p, i + 2); volume += a.dot(b.cross(c)) / 6 }
+    expect(volume).toBeCloseTo(6)
+    expect(isClosedVolume(baked)).toBe(true)
+    expect(g.index).not.toBeNull()
+    const open = baked.clone(); open.setDrawRange(0, p.count - 6)
+    // Remove a face from the actual position/normal arrays, not merely a draw range.
+    for (const name of ['position', 'normal']) {
+      const attr = open.getAttribute(name); open.setAttribute(name, new Float32BufferAttribute(attr.array.slice(0, -18), attr.itemSize))
+    }
+    expect(isClosedVolume(open)).toBe(false)
+    g.dispose(); baked.dispose(); open.dispose(); (mesh.material as MeshStandardMaterial).dispose()
+  })
+  it('authors actual open louver gaps at the named liner location', () => {
+    const intake = createLowerIntake(); intake.group.updateMatrixWorld(true)
+    const louvers = intake.group.children[0]
+    const ray = new Raycaster(); let misses = 0
+    for (let i = 0; i < 40; i++) {
+      ray.set(new Vector3(.1, .3, .48 + i / 40 * .54), new Vector3(0, -1, 0))
+      if (ray.intersectObject(louvers).length === 0) misses++
+    }
+    expect(misses).toBeGreaterThan(8)
+    expect(misses).toBeLessThan(32)
+    intake.dispose()
+  })
+})
