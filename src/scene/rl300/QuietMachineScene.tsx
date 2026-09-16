@@ -8,6 +8,9 @@ import { prepareModel } from './prepareModel'
 import { SectionCaps } from './SectionCaps'
 import { LowerIntake } from './LowerIntake'
 import { evaluateShot } from './shot'
+import { EffectComposer, ToneMapping } from '@react-three/postprocessing'
+import { ToneMappingMode } from 'postprocessing'
+import { createSectionRenderPass } from '../sectionRenderPass'
 
 export interface PreviewControl { u: number; invalidate: () => void; caps: boolean }
 type Prepared = ReturnType<typeof prepareModel>
@@ -26,7 +29,7 @@ function Environment() {
   return null
 }
 
-function Model({ plane, control, onReady, onError }: { plane: Plane; control: PreviewControl; onReady: (m: Prepared) => void; onError: () => void }) {
+function Model({ plane, control, onReady, onError, lite }: { plane: Plane; control: PreviewControl; onReady: (m: Prepared) => void; onError: () => void; lite: boolean }) {
   const [model, setModel] = useState<Prepared | null>(null)
   const caps = useRef<Group>(null)
   const { invalidate } = useThree()
@@ -35,7 +38,7 @@ function Model({ plane, control, onReady, onError }: { plane: Plane; control: Pr
     let owned: Prepared | undefined
     const draco = new DRACOLoader().setDecoderPath('/draco/')
     const loader = new GLTFLoader().setDRACOLoader(draco)
-    loader.load('/models/msp-enclosure.glb', gltf => {
+    loader.load(lite ? '/models/rl300-lite.glb' : '/models/msp-enclosure.glb', gltf => {
       try {
         if (!cancelled) { owned = prepareModel(gltf.scene, plane); setModel(owned); onReady(owned); invalidate() }
       } catch { if (!cancelled) onError() }
@@ -49,7 +52,7 @@ function Model({ plane, control, onReady, onError }: { plane: Plane; control: Pr
       }
     }, undefined, () => { draco.dispose(); if (!cancelled) onError() })
     return () => { cancelled = true; owned?.dispose(); draco.dispose() }
-  }, [plane, invalidate, onReady, onError])
+  }, [plane, invalidate, onReady, onError, lite])
   useFrame(() => { if (caps.current) caps.current.visible = control.caps })
   return model && <>
     <primitive object={model.group} dispose={null} />
@@ -57,9 +60,10 @@ function Model({ plane, control, onReady, onError }: { plane: Plane; control: Pr
   </>
 }
 
-function Driver({ control, plane, model }: { control: PreviewControl; plane: Plane; model: React.RefObject<Prepared | null> }) {
+function Driver({ control, plane, model, composed }: { control: PreviewControl; plane: Plane; model: React.RefObject<Prepared | null>; composed: boolean }) {
   const { camera, gl, scene, size, invalidate } = useThree()
   const frames = useRef(0)
+  const renderStart = useRef(0)
   const box = useMemo(() => new Box3(), [])
   const corner = useMemo(() => new Vector3(), [])
   const rendererInfo = useMemo(() => {
@@ -67,6 +71,12 @@ function Driver({ control, plane, model }: { control: PreviewControl; plane: Pla
     return { stencilBits: ctx.getParameter(ctx.STENCIL_BITS), gpu: debug ? ctx.getParameter(debug.UNMASKED_RENDERER_WEBGL) : 'unavailable' }
   }, [gl])
   useEffect(() => { control.invalidate = invalidate; return () => { control.invalidate = () => {} } }, [control, invalidate])
+  useEffect(() => {
+    const previous = gl.info.autoReset
+    gl.info.autoReset = false
+    return () => { gl.info.autoReset = previous }
+  }, [gl])
+  useFrame(() => { gl.info.reset(); renderStart.current = performance.now() }, -2)
   useFrame(() => {
     const shot = evaluateShot(control.u, size.width < 600)
     const cam = camera as PerspectiveCamera
@@ -75,9 +85,8 @@ function Driver({ control, plane, model }: { control: PreviewControl; plane: Pla
     plane.constant = shot.plane
   }, -1)
   useFrame(() => {
-    const start = performance.now()
-    gl.render(scene, camera)
-    const renderCpuMs = performance.now() - start
+    if (!composed) gl.render(scene, camera)
+    const renderCpuMs = performance.now() - renderStart.current
     frames.current++
     const m = model.current
     let projection = null
@@ -92,12 +101,12 @@ function Driver({ control, plane, model }: { control: PreviewControl; plane: Pla
     Object.assign((window as any).__quietMachine, {
       ready: !!m, frame: frames.current, u: control.u, cutPlane: plane.constant,
       camera: camera.position.toArray(), fov: (camera as PerspectiveCamera).fov,
-      ...rendererInfo, caps: control.caps, renderCpuMs,
+      ...rendererInfo, caps: control.caps, composed, renderCpuMs,
       drawCalls: gl.info.render.calls, triangles: gl.info.render.triangles,
       geometries: gl.info.memory.geometries, textures: gl.info.memory.textures,
-      counts: m?.counts, projection, size: { width: size.width, height: size.height },
+      counts: m?.counts, parts: m?.parts, projection, size: { width: size.width, height: size.height },
     })
-  }, 1)
+  }, 2)
   return null
 }
 
@@ -105,6 +114,9 @@ export function QuietMachineScene({ control, onReady, onError, lite }: { control
   const plane = useMemo(() => new Plane(new Vector3(-1, 0, 0), .85), [])
   const model = useRef<Prepared | null>(null)
   const ready = useMemo(() => (m: Prepared) => { model.current = m; onReady() }, [onReady])
+  // Local feasibility switch; the accepted direct-rendered look remains the default.
+  const composerMode = new URLSearchParams(window.location.search).get('composer')
+  const composed = composerMode === '1' || composerMode === '4'
   return <Canvas frameloop="demand" dpr={lite ? 1 : [1, 1.5]} shadows={!lite}
     gl={{ antialias: true, stencil: true, powerPreference: 'high-performance' }}
     camera={{ position: [4.3, 2.7, 4.6], fov: 36, near: .02, far: 60 }}
@@ -129,8 +141,11 @@ export function QuietMachineScene({ control, onReady, onError, lite }: { control
     {[-.53, .53].flatMap(x => [-1.355051, -.055051, 1.244949].map(z => <mesh key={`${x}/${z}`} position={[x, -.11, z]} castShadow>
       <cylinderGeometry args={[.075, .09, .22, 16]} /><meshStandardMaterial color="#15212b" metalness={.5} roughness={.5} />
     </mesh>))}
-    <Model plane={plane} control={control} onReady={ready} onError={onError} />
+    <Model plane={plane} control={control} onReady={ready} onError={onError} lite={lite} />
     <LowerIntake />
-    <Driver control={control} plane={plane} model={model} />
+    {composed && <EffectComposer multisampling={composerMode === '4' ? 4 : 0} stencilBuffer renderPass={createSectionRenderPass}>
+      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+    </EffectComposer>}
+    <Driver control={control} plane={plane} model={model} composed={composed} />
   </Canvas>
 }

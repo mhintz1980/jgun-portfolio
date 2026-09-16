@@ -301,7 +301,7 @@ export function SceneCanvas() {
     <div className="fixed inset-0 z-0">
       <Canvas
         dpr={DPR_STEPS[step]}
-        gl={{ antialias: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: true, stencil: true, powerPreference: 'high-performance' }}
         camera={{ fov: 42, near: 0.005, far: 150, position: [0.32, 0.16, 0.42] }}
         onCreated={({ gl, camera }) => {
           // Camera probe surface for subject-bbox NDC verification (JG-021

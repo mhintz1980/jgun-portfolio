@@ -8,6 +8,7 @@ import { useQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
 import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
+import { createSectionRenderPass } from './sectionRenderPass'
 
 /**
  * JG-017 — Post-Processing Composer.
@@ -141,7 +142,7 @@ export function PostProcessingComposer() {
 
   return (
     <>
-      <EffectComposer multisampling={0}>
+      <EffectComposer multisampling={0} stencilBuffer renderPass={createSectionRenderPass}>
         {enableAberration && (
           <ChromaticAberration
             ref={aberrationRef as React.RefObject<ChromaticAberrationEffect>}
