@@ -3,7 +3,7 @@ import {
   MeshStandardMaterial, Object3D, Plane,
 } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
-import { evaluateShot } from './shot'
+import { DEEPEST_CUT } from './shot'
 
 /** Shell roles carry the approved blue. Equipment and hardware keep their CAD identity. */
 export const SHELL_ROOTS = new Set(['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'ACOUSTIC_BAFFLES', 'DUCT_INTAKE', 'DUCT_EXHAUST'])
@@ -71,8 +71,10 @@ export function policyFor(name: string): { name: string; policy: SectionPolicy }
   return null
 }
 
-/** The plane constant the sequence finishes on; nothing at or below it is ever cut away. */
-export const FINISHED_CUT = evaluateShot(1, false).plane
+/** The deepest plane constant the sequence ever reaches; nothing at or below it is ever
+ *  cut away. Shot 07 closes the section again, so this is the sequence minimum — not the
+ *  value at `u = 1`, which is the closed exterior. */
+export const FINISHED_CUT = DEEPEST_CUT
 
 export interface PartRecord {
   policy: SectionPolicy; clipped: boolean; repainted: boolean; removed: boolean

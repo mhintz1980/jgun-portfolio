@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { BoxGeometry, Float32BufferAttribute, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
-import { bakeGeometry, finishFor, isClosedVolume, PART_POLICY, policyFor, SECTION_ROOTS } from './prepareModel'
-import { evaluateShot } from './shot'
+import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, SECTION_ROOTS } from './prepareModel'
+import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
 
@@ -19,8 +19,54 @@ describe('RL300 review prototype', () => {
     const reverse = Array.from({ length: 101 }, (_, i) => evaluateShot(1 - i / 100, false)).reverse()
     forward.forEach((shot, i) => { expect(shot.plane).toBeCloseTo(reverse[i].plane, 10); expect(shot.position.every(Number.isFinite)).toBe(true) })
     expect(evaluateShot(NaN, true).u).toBe(0)
+    // The sequence opens the section and closes it again, so both ends are the closed shell.
     expect(evaluateShot(-1, false).cut).toBe(0)
-    expect(evaluateShot(2, false).cut).toBe(1)
+    expect(evaluateShot(2, false).cut).toBe(0)
+    expect(evaluateShot(2, false).plane).toBe(CLOSED_CUT)
+  })
+  it('walks the seven authored shots in order without a gap or an overlap', () => {
+    expect(SHOTS).toHaveLength(7)
+    expect(SHOTS[0].from).toBe(0)
+    expect(SHOTS[SHOTS.length - 1].to).toBe(1)
+    SHOTS.forEach((shot, i) => {
+      expect(shot.to).toBeGreaterThan(shot.from)
+      if (i) expect(shot.from).toBe(SHOTS[i - 1].to)
+      // Each shot owns the beat at its own start, and the midpoint of its own window.
+      expect(evaluateShot(shot.from, false).beat).toBe(i)
+      expect(evaluateShot((shot.from + shot.to) / 2, false).beat).toBe(i)
+    })
+    expect(evaluateShot(1, false).beat).toBe(6)
+  })
+  it('cuts no deeper than the plane prepareModel deleted geometry against', () => {
+    const planes = Array.from({ length: 1001 }, (_, i) => evaluateShot(i / 1000, false).plane)
+    expect(Math.min(...planes)).toBeCloseTo(DEEPEST_CUT, 10)
+    expect(Math.max(...planes)).toBeCloseTo(CLOSED_CUT, 10)
+    expect(FINISHED_CUT).toBe(DEEPEST_CUT)
+    // The deepest cut must actually be reached, or ruled `hide` parts survive the sequence.
+    expect(planes.some(p => Math.abs(p - DEEPEST_CUT) < 1e-9)).toBe(true)
+  })
+  it('keeps the camera outside the model envelope and on the side the cut opens', () => {
+    for (let i = 0; i <= 1000; i++) {
+      for (const portrait of [false, true]) {
+        const shot = evaluateShot(i / 1000, portrait)
+        // The clip keeps x <= plane.constant, so an eye at x <= the model's own +x face
+        // would sit inside the opened shell and read as a camera punch-through.
+        expect(shot.position[0]).toBeGreaterThan(MODEL_BOUNDS.max[0])
+        expect(shot.position[1]).toBeGreaterThan(-.22) // never below the ground plane
+        expect(shot.fov).toBeGreaterThanOrEqual(28)
+        expect(shot.fov).toBeLessThanOrEqual(45)
+      }
+    }
+  })
+  it('frames portrait from further out than landscape at the same progress', () => {
+    for (const u of [0, .2, .51, .76, 1]) {
+      const wide = evaluateShot(u, false), tall = evaluateShot(u, true)
+      const span = (s: ReturnType<typeof evaluateShot>) =>
+        Math.hypot(...s.position.map((v, i) => v - s.target[i]))
+      expect(span(tall)).toBeGreaterThan(span(wide))
+      expect(tall.target).toEqual(wide.target)
+      expect(tall.plane).toBe(wide.plane)
+    }
   })
   it('repaints shell roles but preserves equipment and hardware identity', () => {
     expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT')).toBe('#193f66')
