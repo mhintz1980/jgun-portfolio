@@ -4,6 +4,7 @@ import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, pol
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
+import { evaluateFlow, RIBBON_COUNT, SPINES } from './flow'
 
 describe('RL300 review prototype', () => {
   it('moves both stencil counters with the live plane after material cloning', () => {
@@ -132,5 +133,60 @@ describe('RL300 review prototype', () => {
     expect(misses).toBeGreaterThan(8)
     expect(misses).toBeLessThan(32)
     intake.dispose()
+  })
+  it('evaluates finite, bounded flow values across the whole sequence', () => {
+    for (let i = 0; i <= 1000; i++) {
+      const flow = evaluateFlow(i / 1000)
+      for (const value of [...Object.values(flow.extent), ...Object.values(flow.weight), flow.heat]) {
+        expect(Number.isFinite(value)).toBe(true)
+        expect(value).toBeGreaterThanOrEqual(0)
+        expect(value).toBeLessThanOrEqual(1)
+      }
+    }
+  })
+  it('returns deeply equal flow state for repeated progress samples', () => {
+    for (const u of [0, .26, .31, .55, .67, .78, .845, .89, .9, 1]) {
+      expect(evaluateFlow(u)).toEqual(evaluateFlow(u))
+    }
+  })
+  it('returns exact zero flow quantities at the closed-shell boundaries', () => {
+    for (const u of [0, .26, .90, 1]) {
+      const flow = evaluateFlow(u)
+      expect(Object.values(flow.extent)).toEqual([0, 0, 0, 0])
+      expect(Object.values(flow.weight)).toEqual([0, 0, 0, 0])
+      expect(flow.heat).toBe(0)
+    }
+  })
+  it('draws the authored bundles in main, lower, merged, sound order', () => {
+    const firstNonZero = (bundle: keyof ReturnType<typeof evaluateFlow>['extent']) => {
+      for (let i = 0; i <= 1000; i++) if (evaluateFlow(i / 1000).extent[bundle] > 0) return i / 1000
+      return Infinity
+    }
+    expect(firstNonZero('main')).toBeLessThan(firstNonZero('lower'))
+    expect(firstNonZero('lower')).toBeLessThan(firstNonZero('merged'))
+    expect(firstNonZero('merged')).toBeLessThan(firstNonZero('sound'))
+  })
+  it('heats through the pump beat and is cool again after the handoff', () => {
+    expect(evaluateFlow(.54).heat).toBe(0)
+    expect([.56, .64, .78].some(u => evaluateFlow(u).heat > 0)).toBe(true)
+    expect(evaluateFlow(.89).heat).toBe(0)
+  })
+  it('keeps every authored flow spine point inside the measured model envelope', () => {
+    for (const [bundle, spine] of Object.entries(SPINES)) for (const [x, y, z] of spine) {
+      expect(x).toBeGreaterThanOrEqual(-.8)
+      expect(x).toBeLessThanOrEqual(.8)
+      expect(y).toBeGreaterThanOrEqual(-.2)
+      expect(y).toBeLessThanOrEqual(2.107)
+      // The merged exhaust discharge intentionally leaves the enclosure through the -z face.
+      expect(z).toBeGreaterThanOrEqual(bundle === 'merged' ? -1.95 : -1.683)
+      expect(z).toBeLessThanOrEqual(1.683)
+    }
+    expect(SPINES.merged.at(-1)![2]).toBeLessThan(-1.683)
+  })
+  it('keeps desktop and mobile ribbon counts within their authored budgets', () => {
+    expect(RIBBON_COUNT.desktop).toBeGreaterThanOrEqual(12)
+    expect(RIBBON_COUNT.desktop).toBeLessThanOrEqual(24)
+    expect(RIBBON_COUNT.mobile).toBeGreaterThanOrEqual(6)
+    expect(RIBBON_COUNT.mobile).toBeLessThanOrEqual(10)
   })
 })

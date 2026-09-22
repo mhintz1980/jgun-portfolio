@@ -12,6 +12,13 @@ export const SHELL_ROOTS = new Set(['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'AC
  *  where PART_POLICY names them. */
 export const SECTION_ROOTS = SHELL_ROOTS
 export const LINER_PART = 'V2RL300-SAF-1047-5'
+/** Owner ruling 2026-09-16 on the annotated render: "this exhaust pipe should be chrome."
+ *  `EXHAUST PIPE-1` is the external stack above the roof (world y 1.77…2.06) — not the
+ *  internal rear ducting its root also holds — so it takes polished metal, never the
+ *  approved blue, no matter what the shell roots say. Scene form, as GLTFLoader delivers it. */
+export const EXHAUST_PIPE = 'EXHAUST_PIPE-1'
+/** MSP_STAINLESS's own base colour, so the ruled pipe and its stainless tip read as one metal. */
+export const CHROME = '#b8babf'
 
 export type SectionPolicy = 'section' | 'keep' | 'hide' | 'delete'
 
@@ -81,9 +88,11 @@ export interface PartRecord {
   triangles: number; xMin: number; xMax: number
 }
 
-export function finishFor(root: string, material: string, policy: SectionPolicy = 'section') {
+export function finishFor(root: string, material: string, policy: SectionPolicy = 'section', part?: string) {
   // A kept component is equipment, not shell: repainting it blue is what made it unreadable.
   if (policy === 'keep') return null
+  // A named part rules over its root here too: the exhaust stack is chrome even inside a shell root.
+  if (part === EXHAUST_PIPE) return CHROME
   if (SHELL_ROOTS.has(root) && material === 'MSP_YELLOW_PAINT') return '#193f66'
   if (material === 'MSP_BLACK_CHASSIS') return '#161e25'
   return null
@@ -149,10 +158,12 @@ export function prepareModel(source: Group, plane: Plane) {
       counts.sourceTriangles += triangles
       let p: Object3D | null = obj
       let liner = false
+      let pipe = false
       let named: string | null = null
       let policy: SectionPolicy | null = null
       while (p && p !== root) {
         if (p.name === LINER_PART) liner = true
+        if (!pipe) pipe = p.name === EXHAUST_PIPE || p.name.startsWith(`${EXHAUST_PIPE}_`)
         if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
         p = p.parent
       }
@@ -164,7 +175,7 @@ export function prepareModel(source: Group, plane: Plane) {
       const resolved: SectionPolicy = policy ?? (SECTION_ROOTS.has(root.name) ? 'section' : 'keep')
       // A named part rules over its root: that is how equipment gets hidden or cut.
       const clipped = policy ? policy !== 'keep' : SECTION_ROOTS.has(root.name)
-      const color = finishFor(root.name, original.name, policy ?? 'section')
+      const color = finishFor(root.name, original.name, policy ?? 'section', pipe ? EXHAUST_PIPE : undefined)
       const key = `${root.name}/${original.name}/${clipped ? 'cut' : 'whole'}/${color ?? 'cad'}`
       let bucket = buckets.get(key)
       if (!bucket) {
@@ -173,8 +184,10 @@ export function prepareModel(source: Group, plane: Plane) {
         if (color) mat.color.set(color)
         mat.transparent = false; mat.opacity = 1; mat.depthWrite = true
         mat.side = DoubleSide
-        mat.roughness = original.name === 'MSP_YELLOW_PAINT' ? .34 : Math.max(.28, original.roughness)
-        mat.metalness = original.name === 'MSP_YELLOW_PAINT' ? .32 : Math.min(.8, original.metalness)
+        // The chrome ruling carries the stainless tip's own clamped .28/.8, so the whole
+        // stack reads as one polished pipe; repainted paint stays satin like the approved blue.
+        mat.roughness = color === CHROME ? .28 : original.name === 'MSP_YELLOW_PAINT' ? .34 : Math.max(.28, original.roughness)
+        mat.metalness = color === CHROME ? .8 : original.name === 'MSP_YELLOW_PAINT' ? .32 : Math.min(.8, original.metalness)
         mat.envMapIntensity = .65
         if (clipped) { mat.clippingPlanes = [plane]; mat.clipShadows = true }
         bucket = { geometries: [], material: mat, root: root.name }

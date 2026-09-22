@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { ACESFilmicToneMapping, Box3, Color, Group, Mesh, PerspectiveCamera, Plane, PMREMGenerator, Vector3 } from 'three'
+import { ACESFilmicToneMapping, AlwaysStencilFunc, Box3, Color, Group, KeepStencilOp, Mesh, PerspectiveCamera, Plane, PMREMGenerator, ReplaceStencilOp, Vector3 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { prepareModel } from './prepareModel'
+import { prepareModel, SHELL_ROOTS } from './prepareModel'
 import { SectionCaps } from './SectionCaps'
 import { LowerIntake } from './LowerIntake'
+import { AirRibbons, EQUIPMENT_MASK_STENCIL_REF } from './AirRibbons'
 import { evaluateShot } from './shot'
 import { EffectComposer, ToneMapping } from '@react-three/postprocessing'
 import { ToneMappingMode } from 'postprocessing'
@@ -14,6 +15,22 @@ import { createSectionRenderPass } from '../sectionRenderPass'
 
 export interface PreviewControl { u: number; invalidate: () => void; caps: boolean }
 type Prepared = ReturnType<typeof prepareModel>
+
+function configureEquipmentStencil(group: Group) {
+  group.traverse(object => {
+    if (!(object instanceof Mesh) || SHELL_ROOTS.has(object.userData.sourceRoot)) return
+    object.renderOrder = 1
+    const materials = Array.isArray(object.material) ? object.material : [object.material]
+    materials.forEach(material => {
+      material.stencilWrite = true
+      material.stencilRef = EQUIPMENT_MASK_STENCIL_REF
+      material.stencilFunc = AlwaysStencilFunc
+      material.stencilFail = KeepStencilOp
+      material.stencilZFail = KeepStencilOp
+      material.stencilZPass = ReplaceStencilOp
+    })
+  })
+}
 
 function Environment() {
   const { gl, scene } = useThree()
@@ -40,7 +57,13 @@ function Model({ plane, control, onReady, onError, lite }: { plane: Plane; contr
     const loader = new GLTFLoader().setDRACOLoader(draco)
     loader.load(lite ? '/models/rl300-lite.glb' : '/models/msp-enclosure.glb', gltf => {
       try {
-        if (!cancelled) { owned = prepareModel(gltf.scene, plane); setModel(owned); onReady(owned); invalidate() }
+        if (!cancelled) {
+          owned = prepareModel(gltf.scene, plane)
+          configureEquipmentStencil(owned.group)
+          setModel(owned)
+          onReady(owned)
+          invalidate()
+        }
       } catch { if (!cancelled) onError() }
       finally {
         const geometries = new Set(), materials = new Set()
@@ -143,6 +166,7 @@ export function QuietMachineScene({ control, onReady, onError, lite }: { control
     </mesh>))}
     <Model plane={plane} control={control} onReady={ready} onError={onError} lite={lite} />
     <LowerIntake />
+    <AirRibbons control={control} plane={plane} />
     {composed && <EffectComposer multisampling={composerMode === '4' ? 4 : 0} stencilBuffer renderPass={createSectionRenderPass}>
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
     </EffectComposer>}
