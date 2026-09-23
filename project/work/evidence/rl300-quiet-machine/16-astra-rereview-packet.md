@@ -1,13 +1,23 @@
-# 16 — Astra re-review packet (2026-09-22)
+# 16 — Astra re-review packet (2026-09-22; updated 2026-09-23)
 
 **Standing verdict to clear:** `fix-first`. It blocks further visual-effects work on
-JG-033. This packet covers **both** items it was waiting on — the airflow/heat/sound
-ribbon beat *and* the duct reconstruction + spine re-snap — so a single review can rule on
+JG-033. This packet covers **both** items it was waiting on — the airflow/heat/sound ribbon
+beat *and* the duct reconstruction + spine re-snap — so a single review can rule on
 the combined state.
 
 **Reviewing at:** branch `codex/jg033-signature-shot` == `main` == `fe8ca64` (pushed).
 **Look at:** `http://localhost:4173/?study=rl300` after `npm run build` + a **fresh**
 preview restart (stale server + rotated hashes = the canvas never mounts).
+
+> **UPDATE 2026-09-23 — do NOT route this packet yet.** The owner ruled on the entry
+> segment of the air flow (three blue lines from screen-left around the air passage; red
+> cross-out = forbidden region — annotated screenshot saved at
+> [`entry-fix/owner-entry-path-ruling-2026-09-23.png`](entry-fix/owner-entry-path-ruling-2026-09-23.png)).
+> The fix is queued as the FIRST task of the next session:
+> [`18-handoff-2026-09-23-entry-path-fix.md`](18-handoff-2026-09-23-entry-path-fix.md).
+> **Sequence: entry fix lands → re-capture the six stops → then route this packet**, with
+> the fresh captures replacing/augmenting the ones below. Routing before the fix would
+> put her verdict on the exact segment being retuned.
 
 ---
 
@@ -48,7 +58,10 @@ Owner-instructed geometry from his three annotated screenshots. Full record:
 2. **Is the ribbon treatment right at the turn-down and the U-turn?** These are the two
    waypoints that moved most; the hairpin is tight and the fan is wide.
 3. **Does the beat still read at the low-motion stops** (u .05 and .95) as well as mid-run?
-4. **Is `fix-first` cleared**, or what specifically remains?
+4. **Does the entry segment read correctly after the 2026-09-23 owner ruling?** (Blue-line
+   band from screen-left around the air passage, red-crossed region forbidden — see the
+   update banner; judge this against the POST-fix captures.)
+5. **Is `fix-first` cleared**, or what specifically remains?
 
 ## Evidence in this packet
 
