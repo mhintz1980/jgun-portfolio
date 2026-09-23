@@ -1,0 +1,181 @@
+{
+ "base": "http://localhost:4173",
+ "capturedAt": "2026-09-23T03:39:48.379Z",
+ "stops": {
+  "0.05": {
+   "u": 0.05,
+   "frame": 7,
+   "ready": true,
+   "camera": [
+    4.044212962962963,
+    0.9726620370370371,
+    4.2603587962962965
+   ],
+   "fov": 30,
+   "cutPlane": 0.85,
+   "drawCalls": 103,
+   "triangles": 1168004,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  },
+  "0.34": {
+   "u": 0.34,
+   "frame": 8,
+   "ready": true,
+   "camera": [
+    3.615,
+    1.765,
+    2.745
+   ],
+   "fov": 33,
+   "cutPlane": -0.15000000000000002,
+   "drawCalls": 102,
+   "triangles": 1167940,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  },
+  "0.51": {
+   "u": 0.51,
+   "frame": 9,
+   "ready": true,
+   "camera": [
+    3.7,
+    0.28,
+    2.65
+   ],
+   "fov": 33,
+   "cutPlane": -0.15000000000000002,
+   "drawCalls": 103,
+   "triangles": 1168004,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  },
+  "0.7": {
+   "u": 0.7,
+   "frame": 10,
+   "ready": true,
+   "camera": [
+    4.5036,
+    1.3387999999999998,
+    -0.5867999999999995
+   ],
+   "fov": 36.592,
+   "cutPlane": -0.15000000000000002,
+   "drawCalls": 102,
+   "triangles": 1167992,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  },
+  "0.82": {
+   "u": 0.82,
+   "frame": 13,
+   "ready": true,
+   "camera": [
+    4.174852071005918,
+    1.9039371870732813,
+    0.44271734182976563
+   ],
+   "fov": 34.90304961310879,
+   "cutPlane": -0.15000000000000002,
+   "drawCalls": 99,
+   "triangles": 1167800,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  },
+  "0.95": {
+   "u": 0.95,
+   "frame": 14,
+   "ready": true,
+   "camera": [
+    3.9100751314800894,
+    1.776326070623592,
+    3.364470323065363
+   ],
+   "fov": 32.70398196844478,
+   "cutPlane": 0.43299039780521187,
+   "drawCalls": 102,
+   "triangles": 1167940,
+   "counts": {
+    "sourceTriangles": 415888,
+    "keptTriangles": 415296,
+    "linerTriangles": 108,
+    "sourceMeshes": 581,
+    "batches": 28,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 36728,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460
+   },
+   "size": {
+    "width": 1108.8125,
+    "height": 702
+   }
+  }
+ },
+ "errors": []
+}

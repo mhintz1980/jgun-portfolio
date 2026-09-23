@@ -24,7 +24,7 @@ const read = path => {
 }
 const source = read('public/models/msp-enclosure.glb')
 const lite = read('public/models/rl300-lite.glb')
-assert.equal(source.hash, 'f429a200be18e9d08bd586d1f9581b1266501d63342dfe8ce80573b87b9b8ed3', 'audited source changed: reassess export before rebuilding')
+assert.equal(source.hash, 'a48c12e578f2143944820cbbd1d64c9058556b85d4a01327903b28e8972615c6', 'audited source changed: reassess export before rebuilding')
 assert.deepEqual([...lite.nodes.keys()].sort(), [...source.nodes.keys()].sort(), 'every CAD occurrence survives, with no additions')
 let maxTransformDelta = 0
 for (const [name, a] of source.nodes) {

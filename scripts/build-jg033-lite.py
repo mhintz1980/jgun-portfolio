@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / 'public/models/msp-enclosure.glb'
 OUTPUT = ROOT / 'public/models/rl300-lite.glb'
 
-if hashlib.sha256(SOURCE.read_bytes()).hexdigest() != 'f429a200be18e9d08bd586d1f9581b1266501d63342dfe8ce80573b87b9b8ed3':
+if hashlib.sha256(SOURCE.read_bytes()).hexdigest() != 'a48c12e578f2143944820cbbd1d64c9058556b85d4a01327903b28e8972615c6':
     raise RuntimeError('Audited source changed: reassess geometry and protected occurrences before rebuilding')
 
 bpy.ops.object.select_all(action='SELECT')

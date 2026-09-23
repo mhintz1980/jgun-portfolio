@@ -4,7 +4,7 @@ import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, pol
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
-import { evaluateFlow, RIBBON_COUNT, SPINES } from './flow'
+import { AIRWAY_BOUNDS, evaluateFlow, insideAirwaySection, RIBBON_COUNT, SPINES } from './flow'
 
 describe('RL300 review prototype', () => {
   it('moves both stencil counters with the live plane after material cloning', () => {
@@ -182,6 +182,28 @@ describe('RL300 review prototype', () => {
       expect(z).toBeLessThanOrEqual(1.683)
     }
     expect(SPINES.merged.at(-1)![2]).toBeLessThan(-1.683)
+  })
+  it('keeps the main corridor waypoints inside the rebuilt airway bounds', () => {
+    // Waypoints 0-1 are entry (outboard of and passing through the intake panel) and 9-11 are tail
+    // (below and aft of the volume, running to the engine): both groups are deliberately outside
+    // the airway volume by design, so they are pinned positively instead: entries must stay
+    // outboard of the intake panel and tails must have dropped below the volume.
+    for (let i = 2; i <= 8; i++) for (const [axis, v] of SPINES.main[i].entries()) {
+      expect(v).toBeGreaterThanOrEqual(AIRWAY_BOUNDS.min[axis])
+      expect(v).toBeLessThanOrEqual(AIRWAY_BOUNDS.max[axis])
+    }
+    for (let i = 2; i <= 8; i++) {
+      const [y, z] = [SPINES.main[i][1], SPINES.main[i][2]]
+      expect(insideAirwaySection(y, z)).toBe(true)
+    }
+    // This is the exact point the rebuild removed; the AABB test alone cannot catch it.
+    expect(insideAirwaySection(1.40, .74)).toBe(false)
+    expect(SPINES.main[0][2]).toBeGreaterThan(AIRWAY_BOUNDS.max[2])
+    expect(SPINES.main[1][2]).toBeGreaterThan(AIRWAY_BOUNDS.max[2])
+    expect(SPINES.main[9][1]).toBeLessThan(AIRWAY_BOUNDS.min[1])
+    expect(SPINES.main[10][1]).toBeLessThan(AIRWAY_BOUNDS.min[1])
+    expect(SPINES.main[11][1]).toBeLessThan(AIRWAY_BOUNDS.min[1])
+    expect(SPINES.main[6][2]).toBeLessThanOrEqual(.564)
   })
   it('keeps desktop and mobile ribbon counts within their authored budgets', () => {
     expect(RIBBON_COUNT.desktop).toBeGreaterThanOrEqual(12)

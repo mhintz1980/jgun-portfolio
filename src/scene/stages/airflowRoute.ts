@@ -6,9 +6,9 @@ import { Vector3 } from 'three'
  * The shader route is driven by two measured volumes resolved at runtime from
  * the GLB (never by props — the Station-2 contract string-matches the mounts):
  *
- * - `DUCT_INTAKE_AIRWAY` (mesh 187: 48 verts, 1 primitive — a coarse volume
+ * - `DUCT_INTAKE_AIRWAY` (mesh 187: 42 verts, 1 primitive — a coarse volume
  *   block, NOT a swept duct; verified world AABB x [-0.600, 0.600],
- *   y [1.200, 1.855], z [0.431, 1.300], covering the +Z intake plenum only).
+ *   y [1.348, 1.855], z [0.434, 1.300], covering the +Z intake plenum only).
  * - `G2RL300-SAF-1003-2` (mesh 188: 8,282 verts, closed manifold, ray-grid
  *   probe 2026-09-08: NO perforation lattice — a solid decorative plate), the
  *   MSP_YELLOW_PAINT intake grille on the +Z face. Its AABB (never its

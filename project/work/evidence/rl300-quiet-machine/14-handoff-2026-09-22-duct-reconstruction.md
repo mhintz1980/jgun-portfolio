@@ -146,5 +146,8 @@ bug (separate task, evidence in `project/work/evidence/JG-034-opening-scene-refi
     gates     typecheck 0 · 87/87 · build ✓ · clipping gate 18188/0/0 (all re-verified today)
     tree      clean except: duct-reconstruction/ + handoff-13 §3 edit (commit first),
               .zcodeignore (never commit)
-    server    vite preview on :4173 running as a ZCode background task — RESTART after rebuilds
+    server    vite preview on :4173 was up at handoff time (curl 200) but is UNOWNED — its
+              ZCode background wrapper exited (exit 127) and the orphaned vite process may
+              die or serve stale hashes at any time. Verify with curl first; per AGENTS.md,
+              rebuild + RESTART :4173 before trusting what it serves.
     Blender   5.1.1 at "C:\Program Files\Blender Foundation\Blender 5.1\blender.exe"

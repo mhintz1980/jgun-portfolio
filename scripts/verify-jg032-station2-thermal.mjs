@@ -7,7 +7,7 @@
  *
  * Asserts, against a fresh preview:
  *  1. uAirwayMin/uAirwayMax resolve to the measured DUCT_INTAKE_AIRWAY AABB
- *     (x [-0.6, 0.6], y [1.2, 1.855], z [0.431, 1.3] ±0.01), uAirwayValid=1,
+ *     (x [-0.6, 0.6], y [1.348, 1.855], z [0.434, 1.3] ±0.01), uAirwayValid=1,
  *     uGrilleValid=1, 12,000 particles full tier.
  *  2. GLSL heatRamp carries the cool→hot spec stops; the acoustic pool is 6
  *     rings and the thermal pool is 5 shells with the ruled colors.
@@ -458,7 +458,7 @@ const af = current.station2.airflow
 if (!af) fail('airflow field not found')
 else {
   const near = (a, b, tol = 0.01) => Math.abs(a - b) <= tol
-  const expMin = [-0.6, 1.2, 0.431]
+  const expMin = [-0.6, 1.348, 0.434]
   const expMax = [0.6, 1.855, 1.3]
   if (af.uAirwayValid !== 1) fail('uAirwayValid !== 1 (airway node unresolved)')
   else if (!expMin.every((v, i) => near(af.uAirwayMin[i], v)) || !expMax.every((v, i) => near(af.uAirwayMax[i], v))) {

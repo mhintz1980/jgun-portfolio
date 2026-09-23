@@ -33,7 +33,7 @@ import {
  *      a slot lattice derived from the G2RL300-SAF-1003-2 AABB (ray-grid probe
  *      2026-09-08: no hex perforations on the real plate). #00e5ff
  *   2. Plenum transit (0.20 ≤ t < 0.45): traverse the measured
- *      DUCT_INTAKE_AIRWAY box (uAirwayMin/uAirwayMax — a 48-vert volume block,
+ *      DUCT_INTAKE_AIRWAY box (uAirwayMin/uAirwayMax — a 42-vert volume block,
  *      no centerline exists). #38bdf8 → #7dd3fc
  *   3. Engine heat pickup (0.45 ≤ t < 0.75): swirl around uPump; heat
  *      accumulator localizes on distance to the airway exit plane + uPump.

@@ -102,9 +102,9 @@ try {
       if (quality === 'full') fullCapTriangles = telemetry.counts.cappedTriangles
       else assert.equal(telemetry.counts.cappedTriangles, fullCapTriangles, 'lite must preserve every cap-counting triangle')
       assert(telemetry.drawCalls < (quality === 'lite' ? 90 : 150))
-      // Liner (108) + airway helper (28) + whatever the ruling removed outright, nothing else.
+      // Liner (108) + airway helper (24) + whatever the ruling removed outright, nothing else.
       assert.equal(telemetry.counts.sourceTriangles - telemetry.counts.keptTriangles,
-        108 + 28 + telemetry.counts.removedTriangles, 'only liner, airway helper and ruled removals omitted')
+        108 + 24 + telemetry.counts.removedTriangles, 'only liner, airway helper and ruled removals omitted')
       assert.equal(telemetry.counts.removedTriangles, 460, 'removals must be exactly the ruled push-on seal')
       report.captures.push({ name, shot, telemetry })
       // 07 resolves back to the 01 frame; the poster set stays the three distinct looks.

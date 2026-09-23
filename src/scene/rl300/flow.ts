@@ -15,17 +15,17 @@ export interface FlowState {
 }
 
 export const SPINES: Record<Exclude<Bundle, 'sound'>, readonly Vec3[]> = {
-  // Baffle labyrinth: G2RL300-SAF-1003-2 intake panel -> GRRL200-SAF-1172-1 slanted face -> V2RL300-SAF-1171-1 ceiling block and downward return, then aft to the engine.
+  // Baffle labyrinth: G2RL300-SAF-1003-2 intake panel -> up the GRRL200-SAF-1172-1 slanted face -> aft under the ceiling -> down at the canopy leading edge -> U-turn under the lip, then aft to the engine.
   main: [
-    [-.40, 1.42,  1.40],  // approaching the hex openings in the intake end panel
-    [-.40, 1.36,  1.33],  // through the panel (z 1.295-1.355)
-    [-.40, 1.49,  1.03],  // up the slanted face of GRRL200-SAF-1172-1
-    [-.40, 1.63,   .76],  // top of the slant
-    [-.40, 1.71,   .68],  // ceiling corridor, running aft
-    [-.40, 1.70,   .62],  // meets the vertical face of V2RL300-SAF-1171-1
-    [-.40, 1.52,   .59],  // turns down that face
-    [-.39, 1.40,   .74],  // bottom angled face deflects it back toward the intake end
-    [-.38, 1.18,   .62],  // the U-turn
+    [-.40, 1.42,  1.40],  // entry, approaching the hex openings, outboard of the panel
+    [-.40, 1.36,  1.33],  // through the intake end panel (z 1.295-1.355)
+    [-.40, 1.47,  1.14],  // inside the corridor, climbing the slanted face
+    [-.40, 1.62,   .84],  // still on the slant, nearing the apex
+    [-.40, 1.74,   .70],  // ceiling corridor, running aft
+    [-.40, 1.79,   .60],  // approaching the canopy leading edge
+    [-.40, 1.72,   .55],  // turning down at the canopy leading edge (z .564)
+    [-.39, 1.62,   .52],  // descending clear of the canopy fore face
+    [-.38, 1.56,   .58],  // the U-turn, held off the aft wall for ribbon fan clearance
     [-.36,  .98,   .22],  // running aft toward the engine
     [-.34,  .90,  -.10],  // into the equipment region
     [-.32,  .88,  -.32],  // hands off to the merged discharge
@@ -37,6 +37,30 @@ export const SPINES: Record<Exclude<Bundle, 'sound'>, readonly Vec3[]> = {
   merged: [
     [-.30, .88, -.35], [-.32, .96, -.62], [-.34, 1.10, -.95], [-.36, 1.26, -1.35], [-.38, 1.40, -1.88],
   ],
+}
+
+/** Measured AABB of the rebuilt DUCT_INTAKE_AIRWAY volume in the shipped GLB; the corridor waypoints above are tested against it. */
+export const AIRWAY_BOUNDS = {
+  min: [-.600, 1.348,  .434],
+  max: [ .600, 1.855, 1.300],
+} as const
+
+/** Y-Z cross-section of the airway prism (web frame). The corridor is L-shaped, so
+ *  AIRWAY_BOUNDS alone admits a corner that is actually solid sheet metal. */
+export const AIRWAY_SECTION: readonly (readonly [number, number])[] = [
+  [1.855, 1.300], [1.855, .564], [1.776, .496], [1.479, .434],
+  [1.479, .714], [1.652, .714], [1.348, 1.300],
+]
+
+/** True when (y, z) lies inside AIRWAY_SECTION. Ray-casting point-in-polygon. */
+export function insideAirwaySection(y: number, z: number): boolean {
+  let inside = false
+  for (let i = 0, j = AIRWAY_SECTION.length - 1; i < AIRWAY_SECTION.length; j = i++) {
+    const [yi, zi] = AIRWAY_SECTION[i]
+    const [yj, zj] = AIRWAY_SECTION[j]
+    if ((zi > z) !== (zj > z) && y < (yj - yi) * (z - zi) / (zj - zi) + yi) inside = !inside
+  }
+  return inside
 }
 
 export const SOUND_ORIGIN: Vec3 = [-.20, .95, .10]
