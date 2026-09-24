@@ -1,8 +1,9 @@
 # Evidence 25 — 2026-09-24: acoustic-beat execution (Astra rank 3, design v2)
 
-STATUS: implemented, adversarially reviewed, fix-closed by the reviewer's own audit,
-gated, captured — **awaiting the owner's visual ruling** on
+STATUS: **OWNER-APPROVED 2026-09-24** on
 `lower-fix/acoustic-contact-sheet-2026-09-24.png`. Design contract: evidence 24 (v2).
+Remaining for JG-033 fix-first closure: the one-call Astra re-clear packet
+(evidence 21 missing-evidence list).
 
 ## 1. What shipped (per evidence 24 §2)
 
