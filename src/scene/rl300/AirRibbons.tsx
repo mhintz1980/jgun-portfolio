@@ -20,7 +20,7 @@ import type { PreviewControl } from './QuietMachineScene'
 import { evaluateFlow, HEAT_RAMP, RIBBON_COUNT, SOUND_FRONTS, SOUND_ORIGIN, SPINES, type Bundle, type Vec3 } from './flow'
 import * as flowConfig from './flow'
 
-const AIR_SAMPLES = 72
+export const AIR_SAMPLES = 144
 const SOUND_SAMPLES = 28
 const HOTSPOT = new Vector3(.022, .943, -.055)
 const AIR_BUNDLES: readonly Exclude<Bundle, 'sound'>[] = ['main', 'lower', 'merged']
@@ -162,7 +162,7 @@ const FRAGMENT_SHADER = /* glsl */ `
   }
 `
 
-interface StripPath {
+export interface StripPath {
   points: readonly Vector3[]
   kind: number
   width: (t: number) => number
@@ -190,6 +190,32 @@ function tangentAt(points: readonly Vector3[], index: number) {
   const previous = points[Math.max(0, index - 1)]
   const next = points[Math.min(points.length - 1, index + 1)]
   return next.clone().sub(previous).normalize()
+}
+
+// Parallel-transported ribbon frames: the per-sample world-up frame jumped sideways at
+// every |tangent.y| >= .92 switch, so anchor the legacy frame once at the first
+// non-steep sample and carry sideA twist-free along the spine.
+function transportFrames(points: readonly Vector3[]): (readonly [Vector3, Vector3])[] {
+  const legacyFrame = (tangent: Vector3): readonly [Vector3, Vector3] => {
+    const up = Math.abs(tangent.y) < .92 ? new Vector3(0, 1, 0) : new Vector3(1, 0, 0)
+    const sideA = tangent.clone().cross(up).normalize()
+    const sideB = tangent.clone().cross(sideA).normalize()
+    return [sideA, sideB]
+  }
+  const transported = (previous: Vector3, tangent: Vector3): readonly [Vector3, Vector3] | null => {
+    const sideA = previous.clone().addScaledVector(tangent, -previous.dot(tangent))
+    if (sideA.length() < 1e-6) return null
+    sideA.normalize()
+    return [sideA, tangent.clone().cross(sideA).normalize()]
+  }
+  const tangents = points.map((_, i) => tangentAt(points, i))
+  let anchor = tangents.findIndex(tangent => Math.abs(tangent.y) < .92)
+  if (anchor === -1) anchor = 0
+  const frames: (readonly [Vector3, Vector3])[] = new Array(points.length)
+  frames[anchor] = legacyFrame(tangents[anchor])
+  for (let i = anchor + 1; i < points.length; i++) frames[i] = transported(frames[i - 1][0], tangents[i]) ?? legacyFrame(tangents[i])
+  for (let i = anchor - 1; i >= 0; i--) frames[i] = transported(frames[i + 1][0], tangents[i]) ?? legacyFrame(tangents[i])
+  return frames
 }
 
 function buildStripGeometry(paths: readonly StripPath[]): BufferGeometry {
@@ -297,9 +323,10 @@ function accumulatedHeat(points: readonly Vector3[], initialHeat: number, termin
   return authored
 }
 
-function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0): StripPath[] {
+export function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0): StripPath[] {
   const curve = new CatmullRomCurve3(SPINES[bundle].map(vector), false, 'centripetal', .5)
   const spine = curve.getPoints(AIR_SAMPLES)
+  const frames = transportFrames(spine)
   const paths: StripPath[] = []
 
   for (let ribbon = 0; ribbon < ribbonCount; ribbon++) {
@@ -311,12 +338,9 @@ function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0): Stri
     const tracerPhase = fract((ribbon + 1) * .41421356237)
     const angle = radialPhase * Math.PI * 2
     const points = spine.map((point, i) => {
-      const tangent = tangentAt(spine, i)
-      const up = Math.abs(tangent.y) < .92 ? new Vector3(0, 1, 0) : new Vector3(1, 0, 0)
-      const sideA = tangent.clone().cross(up).normalize()
-      const sideB = tangent.clone().cross(sideA).normalize()
-      const offset = sideA.multiplyScalar(Math.cos(angle) * radialScale)
-        .add(sideB.multiplyScalar(Math.sin(angle) * radialScale))
+      const [sideA, sideB] = frames[i]
+      const offset = sideA.clone().multiplyScalar(Math.cos(angle) * radialScale)
+        .add(sideB.clone().multiplyScalar(Math.sin(angle) * radialScale))
       return point.clone().add(offset)
     })
     paths.push({

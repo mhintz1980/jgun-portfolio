@@ -15,20 +15,27 @@ export interface FlowState {
 }
 
 export const SPINES: Record<Exclude<Bundle, 'sound'>, readonly Vec3[]> = {
-  // Baffle labyrinth: G2RL300-SAF-1003-2 intake panel -> up the GRRL200-SAF-1172-1 slanted face -> aft under the ceiling -> down at the canopy leading edge -> U-turn under the lip, then aft to the engine.
+  // Baffle labyrinth: G2RL300-SAF-1003-2 intake panel -> up the GRRL200-SAF-1172-1 slanted face -> aft under the ceiling -> hairpin under the canopy leading edge -> out the pocket mouth -> long aft descent -> joins the merged discharge.
   main: [
-    [-.40, 1.42,  1.40],  // entry, approaching the hex openings, outboard of the panel
-    [-.40, 1.36,  1.33],  // through the intake end panel (z 1.295-1.355)
-    [-.40, 1.47,  1.14],  // inside the corridor, climbing the slanted face
-    [-.40, 1.62,   .84],  // still on the slant, nearing the apex
-    [-.40, 1.74,   .70],  // ceiling corridor, running aft
-    [-.40, 1.79,   .60],  // approaching the canopy leading edge
-    [-.40, 1.72,   .55],  // turning down at the canopy leading edge (z .564)
-    [-.39, 1.62,   .52],  // descending clear of the canopy fore face
-    [-.38, 1.56,   .58],  // the U-turn, held off the aft wall for ribbon fan clearance
-    [-.36,  .98,   .22],  // running aft toward the engine
-    [-.34,  .90,  -.10],  // into the equipment region
-    [-.32,  .88,  -.32],  // hands off to the merged discharge
+    [-.40, 1.44,  1.55],  // entry, level approach from outboard of the intake end panel
+    [-.40, 1.45,  1.40],  // arriving at the hex openings of the intake end panel (z 1.295-1.355)
+    [-.40, 1.60,  1.23],  // through the panel, rising off the slanted floor
+    [-.40, 1.75, 1.056],  // under the ceiling, clear of the slanted floor face
+    [-.40, 1.76,   .86],  // ceiling run toward the apex
+    [-.40, 1.763,  .719],  // apex just aft of the cut
+    [-.40, 1.748,  .613],  // descending forward to the hairpin tip
+    [-.40, 1.671,  .57],  // hairpin tip under the canopy leading edge
+    [-.40, 1.607,  .585],  // looping back up from the tip
+    [-.40, 1.522,  .631],  // the loop running up and aft
+    [-.40, 1.466,  .625],  // dropping out through the pocket mouth (y < 1.479)
+    [-.40, 1.413,  .566],  // turning aft under the canopy lip
+    [-.40, 1.378,  .494],  // under the canopy lip, running aft
+    [-.40, 1.349,  .414],  // clear of the lip on the aft run
+    [-.40, 1.272,  .171],  // the long aft descent the owner drew
+    [-.40, 1.197, -.068],  // long aft descent, continuing
+    [-.40, 1.13,  -.285],  // long aft descent, easing aft
+    [-.36, 1.045, -.55],  // continuing that descent
+    [-.327, 1.003, -.727],  // joining the merged discharge tangentially-near (z -.727)
   ],
   lower: [
     [-.18, -.14, .80], [-.18, .06, .78], [-.18, .14, .62], [-.18, .10, .30],
