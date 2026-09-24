@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { BoxGeometry, CatmullRomCurve3, Float32BufferAttribute, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
-import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, SECTION_ROOTS } from './prepareModel'
+import { BoxGeometry, CatmullRomCurve3, Float32BufferAttribute, Group, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
+import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, prepareModel, sanitizeName, SECTION_ROOTS } from './prepareModel'
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
@@ -82,7 +82,48 @@ describe('RL300 review prototype', () => {
     expect(finishFor('ENCLOSURE_CHASSIS', 'MSP_STAINLESS')).toBeNull()
     // A kept component stays equipment: the shell repaint is what buried it.
     expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT', 'keep')).toBeNull()
+    // Owner ruling 2026-09-24: reservoir occurrences keep their CAD finish even inside a
+    // shell root — the two SAF-RES parts under COMPOSITE_PANELS stop reading blue.
+    expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT', 'section', undefined, true)).toBeNull()
   })
+  it('keeps reservoir occurrences on their CAD finish through the real prepareModel pipeline', () => {
+    // Owner ruling 2026-09-24: the -RES- exemption must survive the wiring, not just the
+    // finishFor flag — with the wiring deleted the reservoir silently rejoins the shell
+    // blue and this test fails. Scene mirrors the study: shell + reservoir + the
+    // keep-ruled sibling + the registered liner + one mesh per PART_POLICY key
+    // (prepareModel throws when a ruled part is missing).
+    const build = (name: string) => {
+      const source = new Group()
+      const root = (n: string) => { const g = new Group(); g.name = n; source.add(g); return g }
+      const part = (parent: Group, n: string, mat: string, x: number) => {
+        const geometry = new BoxGeometry(.02, .02, .02); geometry.translate(x, 0, 0)
+        const material = new MeshStandardMaterial({ name: mat }); material.color.setHex(0xffd400)
+        const mesh = new Mesh(geometry, material); mesh.name = n; parent.add(mesh)
+      }
+      const shell = root('COMPOSITE_PANELS')
+      part(shell, 'PANEL_A', 'MSP_YELLOW_PAINT', 0)
+      part(shell, name, 'MSP_YELLOW_PAINT', .1)
+      part(shell, 'V2RL300-SAF-RES-1020-SAFE-1', 'MSP_YELLOW_PAINT', .2)
+      const pump = root('PUMP_HOUSING')
+      part(pump, 'V2RL200-RES-1003-1', 'MSP_YELLOW_PAINT', 0)
+      part(pump, 'V2RL300-SAF-1047-5', 'MSP_ALUMINUM', .1)
+      let i = 0
+      for (const key of Object.keys(PART_POLICY)) part(pump, sanitizeName(key), 'MSP_STAINLESS', .2 + (i++) * .03)
+      return source
+    }
+    const keys = (name: string) => {
+      const model = prepareModel(build(name), new Plane(new Vector3(-1, 0, 0), .85))
+      const out = (model.group.children as Mesh[])
+        .filter(c => c.userData.sourceRoot === 'COMPOSITE_PANELS')
+        .map(c => (c.material as MeshStandardMaterial).name)
+      model.dispose()
+      return out
+    }
+    expect(keys('V2RL300-SAF-RES-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/cad')
+    expect(keys('V2RL300-SAF-1019-SAFE-1')).not.toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/cad')
+    expect(keys('V2RL300-SAF-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/#193f66')
+  })
+
   it('keeps the machine roots whole by default and cuts them only where a part is named', () => {
     for (const root of ['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'ACOUSTIC_BAFFLES', 'DUCT_INTAKE', 'DUCT_EXHAUST']) {
       expect(SECTION_ROOTS.has(root)).toBe(true)

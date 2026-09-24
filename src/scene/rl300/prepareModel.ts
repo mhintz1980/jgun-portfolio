@@ -88,11 +88,18 @@ export interface PartRecord {
   triangles: number; xMin: number; xMax: number
 }
 
-export function finishFor(root: string, material: string, policy: SectionPolicy = 'section', part?: string) {
+export function finishFor(root: string, material: string, policy: SectionPolicy = 'section', part?: string, reservoir = false) {
   // A kept component is equipment, not shell: repainting it blue is what made it unreadable.
   if (policy === 'keep') return null
   // A named part rules over its root here too: the exhaust stack is chrome even inside a shell root.
   if (part === EXHAUST_PIPE) return CHROME
+  // Owner ruling 2026-09-24: reservoirs are equipment (all MSP_YELLOW_PAINT) — the two
+  // under COMPOSITE_PANELS were catching the shell blue and reading as a different
+  // machine from their yellow siblings. CAD finish wins for any reservoir occurrence.
+  // The ancestor walk is deliberate: a reservoir's child meshes are often unnamed
+  // splits, so any -RES- name from the mesh up to the root counts (reviewer-verified:
+  // no live non-reservoir matches that path today).
+  if (reservoir) return null
   if (SHELL_ROOTS.has(root) && material === 'MSP_YELLOW_PAINT') return '#193f66'
   if (material === 'MSP_BLACK_CHASSIS') return '#161e25'
   return null
@@ -161,9 +168,11 @@ export function prepareModel(source: Group, plane: Plane) {
       let pipe = false
       let named: string | null = null
       let policy: SectionPolicy | null = null
+      let reservoir = false
       while (p && p !== root) {
         if (p.name === LINER_PART) liner = true
         if (!pipe) pipe = p.name === EXHAUST_PIPE || p.name.startsWith(`${EXHAUST_PIPE}_`)
+        if (/-RES-/.test(p.name)) reservoir = true
         if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
         p = p.parent
       }
@@ -175,7 +184,7 @@ export function prepareModel(source: Group, plane: Plane) {
       const resolved: SectionPolicy = policy ?? (SECTION_ROOTS.has(root.name) ? 'section' : 'keep')
       // A named part rules over its root: that is how equipment gets hidden or cut.
       const clipped = policy ? policy !== 'keep' : SECTION_ROOTS.has(root.name)
-      const color = finishFor(root.name, original.name, policy ?? 'section', pipe ? EXHAUST_PIPE : undefined)
+      const color = finishFor(root.name, original.name, policy ?? 'section', pipe ? EXHAUST_PIPE : undefined, reservoir)
       const key = `${root.name}/${original.name}/${clipped ? 'cut' : 'whole'}/${color ?? 'cad'}`
       let bucket = buckets.get(key)
       if (!bucket) {
