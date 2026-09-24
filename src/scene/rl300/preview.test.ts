@@ -342,6 +342,85 @@ describe('RL300 review prototype', () => {
     const tail = new Vector3(...SPINES.main.at(-1)!)
     expect(Math.min(...merged.map(p => p.distanceTo(tail)))).toBeLessThanOrEqual(.005)
   })
+  it('routes the lower supply in through the louver opening and onto the merged discharge', () => {
+    // Lower-bundle ruling 2026-09-24 (cycle "lower-fix"): the spine is drawn from the crawl space
+    // under the louver footprint, crosses the authored louver panel inside a measured open gap,
+    // rides the collector and shallow duct with 15 mm centerline clearance, climbs past the EMG
+    // panel on the old lane, and lands ON the merged discharge spine like the main tail does.
+    const spine = new CatmullRomCurve3(SPINES.lower.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
+    // The head starts in the crawl space under the louver footprint — not at the ground (y -.22),
+    // not touching the panel (bottom y -.042).
+    const [, sy, sz] = SPINES.lower[0]
+    expect(sy).toBeGreaterThanOrEqual(-.13)
+    expect(sy).toBeLessThanOrEqual(-.062)
+    expect(sz).toBeGreaterThanOrEqual(.449)
+    expect(sz).toBeLessThanOrEqual(1.052)
+    // Traversal is checked against the authored louver geometry itself: where the centerline
+    // crosses the panel plane, a downward ray at the crossing (and +/- 4 mm along z) must miss
+    // the louvers entirely, i.e. the crossing sits in an open gap.
+    let crossing: Vector3 | null = null
+    for (let i = 1; i <= AIR_SAMPLES && !crossing; i++) {
+      if (spine[i - 1].y < -.033 && spine[i].y >= -.033) {
+        const t = (-.033 - spine[i - 1].y) / (spine[i].y - spine[i - 1].y)
+        crossing = spine[i - 1].clone().lerp(spine[i], t)
+      }
+    }
+    expect(crossing).not.toBeNull()
+    // The crossing must be through the actual panel footprint, not just anywhere on the
+    // infinite y = -.033 plane — a bypass route under the machine would cross the plane
+    // where no panel exists and the rays would trivially miss.
+    expect(crossing!.z).toBeGreaterThanOrEqual(.449)
+    expect(crossing!.z).toBeLessThanOrEqual(1.052)
+    expect(Math.abs(crossing!.x)).toBeLessThanOrEqual(.378)
+    const intake = createLowerIntake(); intake.group.updateMatrixWorld(true)
+    const louvers = intake.group.children[0]
+    const ray = new Raycaster()
+    for (const dz of [-.004, 0, .004]) {
+      ray.set(new Vector3(crossing!.x, .3, crossing!.z + dz), new Vector3(0, -1, 0))
+      expect(ray.intersectObject(louvers)).toHaveLength(0)
+    }
+    intake.dispose()
+    // The collector ride stays inside the open box (walls to y .14, open bottom at the panel).
+    const collector = spine.filter(p => p.z <= 1.025 && p.z >= .475 && p.y > .01)
+    expect(collector.length).toBeGreaterThan(0)
+    for (const p of collector) {
+      expect(p.y).toBeLessThanOrEqual(.138)
+      expect(p.y).toBeGreaterThanOrEqual(-.024)
+    }
+    // Under the duct's top panel the centerline holds 15 mm clearance to the panel bottom (y .129)
+    // and the floor top (y -.009).
+    const duct = spine.filter(p => p.z <= .584 && p.z >= -.036 && p.y > .02)
+    expect(duct.length).toBeGreaterThan(0)
+    for (const p of duct) {
+      expect(p.y).toBeLessThanOrEqual(.129 - .015)
+      expect(p.y).toBeGreaterThanOrEqual(-.009 + .015)
+    }
+    // In the riser's z band at riser heights, the centerline stays 15 mm off the left wall's inner
+    // face (x -.204); the wall spans y -.015...295, so higher samples are the open interior climb.
+    const riser = spine.filter(p => p.z <= -.185 && p.z >= -.455 && p.y <= .32)
+    expect(riser.length).toBeGreaterThan(0)
+    for (const p of riser) {
+      expect(p.x).toBeGreaterThanOrEqual(-.204 + .015)
+    }
+    // Handoff: the tail lands ON the merged discharge spine — the same contract the main tail holds.
+    const merged = new CatmullRomCurve3(SPINES.merged.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(4000)
+    const tail = new Vector3(...SPINES.lower.at(-1)!)
+    expect(Math.min(...merged.map(p => p.distanceTo(tail)))).toBeLessThanOrEqual(.005)
+    // Smoothness on the rendered centerline: no linear direction change over 15 degrees and no
+    // curvature radius under 50 mm — the bounds the mid-path ruling test holds the main bundle to.
+    for (let i = 1; i < AIR_SAMPLES; i++) {
+      const incoming = spine[i].clone().sub(spine[i - 1])
+      const outgoing = spine[i + 1].clone().sub(spine[i])
+      const cosine = incoming.dot(outgoing) / (incoming.length() * outgoing.length())
+      expect(Math.acos(Math.max(-1, Math.min(1, cosine))) * 180 / Math.PI).toBeLessThanOrEqual(15)
+      const chord = spine[i + 1].clone().sub(spine[i - 1])
+      const doubledArea = new Vector3().crossVectors(incoming, chord).length()
+      if (doubledArea > 1e-9) {
+        const radius = incoming.length() * chord.length() * outgoing.length() / (2 * doubledArea)
+        expect(radius).toBeGreaterThanOrEqual(.050)
+      }
+    }
+  })
   it('moves every ribbon continuously: no frame flip between samples', () => {
     // Parallel transport replaces the legacy world-up frame, whose sideways jump at every
     // |tangent.y| >= .92 switch showed as a kink in the fanned ribbons.

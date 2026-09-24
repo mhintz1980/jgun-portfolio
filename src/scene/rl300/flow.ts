@@ -38,8 +38,15 @@ export const SPINES: Record<Exclude<Bundle, 'sound'>, readonly Vec3[]> = {
     [-.327, 1.003, -.727],  // joining the merged discharge tangentially-near (z -.727)
   ],
   lower: [
-    [-.18, -.14, .80], [-.18, .06, .78], [-.18, .14, .62], [-.18, .10, .30],
-    [-.18, .10, -.10], [-.20, .30, -.30], [-.22, .62, -.34], [-.25, .87, -.32],
+    [-.18, -.10, .774],  // drawn from the crawl space directly under the open louver gap (band z .770-.789)
+    [-.18, .05, .772],  // through the gap into the open-bottom collector (crosses the panel plane at z ~.780)
+    [-.18, .105, .640],  // easing aft inside the collector, below the duct top's leading edge
+    [-.18, .092, .300],  // the shallow duct run (top panel bottom y .129, floor top y -.009)
+    [-.18, .098, -.100],  // aft end of the duct, past the top panel
+    [-.17, .30, -.300],  // up through the riser, clear of its left wall (inner face x -.204)
+    [-.21, .62, -.320],  // the climb through the lower interior on the lane clear of the EMG panel band
+    [-.26, .78, -.375],  // bending outboard toward the discharge root
+    [-.305, .898, -.414],  // ON the merged spine (its curve at t=.06): the second feed, one exit
   ],
   merged: [
     [-.30, .88, -.35], [-.32, .96, -.62], [-.34, 1.10, -.95], [-.36, 1.26, -1.35], [-.38, 1.40, -1.88],
