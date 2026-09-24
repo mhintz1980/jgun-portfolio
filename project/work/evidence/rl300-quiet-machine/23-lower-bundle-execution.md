@@ -1,8 +1,9 @@
 # Evidence 23 — 2026-09-24: lower-bundle completion (Astra rank 1+2)
 
-STATUS: implemented, gated, reviewed, pushed — **awaiting the owner's visual ruling** on
-`lower-fix/contact-sheet-2026-09-24.png` (entry through the gap + the merged join, plus the
-open fan-piercing question in §5 defect 1). Next: acoustics design (handoff 22 §4).
+STATUS: **OWNER-APPROVED 2026-09-24** on `lower-fix/contact-sheet-2026-09-24.png`
+(entry through the gap + the merged join + the fan look as drawn — defect 1's fan-piercing
+question is thereby ruled acceptable at the current fan scale). Next: acoustics design
+(handoff 22 §4).
 
 Executes handoff 22 §2 (the "lower intake handoff" fix-first item). Cycle id `lower-fix`;
 scratch harnesses under `.scratch/lower-fix/` (never committed).
