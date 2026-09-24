@@ -1,8 +1,11 @@
-# Evidence 24 — 2026-09-24: acoustic-beat DESIGN (concept for owner ruling)
+# Evidence 24 — 2026-09-24: acoustic-beat DESIGN (v2 — Astra concept-reviewed)
 
-STATUS: **AWAITING OWNER CONCEPT RULING** on `lower-fix/acoustic-concept-sheet-2026-09-24.png`.
-No implementation before the ruling (handoff 22 §4). Design by the architect from measured
-geometry + Astra's evidence 11 §5 constraints, verbatim:
+STATUS: concept reviewed by gpt-6-astra (medium, 29.1k tokens, one call, images attached —
+log `.scratch/lower-fix/astra-concept-review.log`): **"concept fix-first" — all five fixes
+folded into v2 below (§2).** The owner directed Astra usage at medium/low effort and rules
+visually on the rendered result. Implementation proceeds against v2.
+
+v1 constraints from Astra's evidence 11 §5, verbatim:
 
 > "Not concentric bubbles, but also not wave fronts: four longitudinal source-to-target
 > curves grow along their paths. Generic endpoint narrowing does not demonstrate
@@ -39,48 +42,93 @@ geometry + Astra's evidence 11 §5 constraints, verbatim:
 Variety is deliberate: two absorbing hits, one graze, one long cross-duct ray — a
 labyrinth at work, not four parallel arrows.
 
-**E2. Staggered arrival sweep.** Front i draws over `[.760 + .012i, .820 + .012i]`
-(contacts resolve ~.82–.856). The beat reads as a sweep through the labyrinth, not a
-simultaneous wall — and the close-out fade (1 − smooth(.86,.90)) is untouched.
+**E2. Staggered arrival sweep.** Front i draws over `[.760 + .012i, .820 + .012i]`;
+contact events fire at u ≈ .815 + .012i (extent crossing the contact parameter), the
+last at ~.851. Overlapping windows read as one distributed event (Astra: endorsed,
+provided earlier paths stay legible — they do: only each front's terminal collapses,
+never the incoming run). Close-out fade (1 − smooth(.86,.90)) untouched.
 
-**E3. The contact event** (fires when a front's extent crosses its contact parameter):
-1. *Terminal absorption* — the terminal ~15% of the front steps alpha down sharply AT
-   the face (current soft .46 box taper becomes a face-local ramp): the front visibly
-   dies INTO the baffle.
-2. *Deflection stub* — a short (~80–120 mm) glancing arc leaving the contact along the
-   face plane, away from the incidence direction; width ≈ .005 (2/3 of the front's),
-   alpha decaying to zero; drawn only in the sub-window after its contact fires. The
-   un-absorbed remainder glancing off — the element that says "hit something". At the
-   grazing contact (C) the stub is the longest; at near-normal hits (A, D) it is shortest.
-3. *Contact-local flash* — a brief brightening of the terminal segment exactly at
-   contact onset, decaying with the absorption ramp. Terminal-only, no radial spread:
-   a contact signature, not a pulse.
+**E3. The contact event — a junction collision, not a fade** (v2 per Astra):
+1. *Junction-anchored absorption* — the incoming front holds FULL alpha right up to the
+   face; when its extent crosses the contact parameter, the terminal segment (t > ~.85)
+   collapses (alpha ×~.25) in a sharp ramp anchored AT the surface sample. The collapse
+   IS the absorption, starting at the junction — a pre-contact fade would recreate
+   today's disappearing endpoint (her explicit guard).
+2. *Deflection stub* — a short glancing arc leaving the contact along the face plane,
+   away from the incidence direction; width ~.005, attached/directional/extinguishing.
+   Lengths: A 80 mm, B 100 mm, C 130 mm, D 70 mm. **Brightness inversely to length**
+   (her rule: "longest should not also mean brightest"): alpha ceilings A/D .50,
+   B .45, C .35; each stub ignites at its contact fire and extinguishes on its own by
+   u ≈ .895. C's turn anchors exactly on the measured face so the graze reads as an
+   encounter, not a miss.
+3. *Contact-local flash — reinforcement only* — a slight (×~1.25) terminal brightening
+   in a narrow band after contact fire, decaying. The encounter must read WITHOUT it
+   (incoming path + unmistakable junction + weaker outgoing stub); tuned last. Never a
+   detached dot, halo, or blink — her bubble/pulse red line.
 
-**E4. Chevron isolation response.** The six orange chevrons keep hue, geometry, and
-positions; their reveal sequences AFTER the contacts (from ~.85, ~.004 apart) instead of
-simultaneously — the mounts answer the absorbed energy. Structure-borne remainder reads
-as the second channel; the airborne/grounded distinction Astra asked to preserve.
+**E4. Chevron isolation response — bounded rise-then-settle, one system event** (v2 per
+Astra; the v1 per-contact cascade is REJECTED — "delay alone communicates sequence, not
+isolation", and its .850 start preceded the final .851 contact while extending into the
+close-out fade). The six orange chevrons keep hue/geometry/positions; as ONE mount-system
+response beginning after the last contact, their opacity rises a bounded amount
+(+~30%) over u .856–.872 and visibly SETTLES back by u ≈ .894 — the mounts receiving and
+damping structure-borne energy, a distinct response to the machine's excitation (never
+implying the baffles cause the isolation). All of it a pure function of u: deterministic,
+scroll-reversible, no clock; under reduced motion (extent forced 1) the fronts render in
+their post-contact state and the mount response still plays with u.
 
-## 3. Implementation surface (spec derived after the ruling; estimates)
+## 3. Implementation surface (v2)
 
-- `AirRibbons.tsx` `soundPaths()`: re-target the 4 curves to A–D (control points tuned
-  per incidence), add per-front deflection-stub paths, bake per-vertex contact metadata
-  (contact t per front; chevron delay) — new small attributes, merged as today.
-- Shaders: replace the box-proximity `aContact` semantics with the E3 face-local ramp +
-  time gate (uExtent vs contact t); chevron stagger from the baked delay.
-- `flow.ts`: `SOUND_TARGETS` constant moves to the measured contacts (SOUND_ORIGIN,
-  SOUND_FRONTS, window, budgets, chevron mounts unchanged).
-- Tests: extend the rl300 suite — contacts within 5 mm of a measured baffle face
-  (raycast the GLB-root-derived faces, or pin against constants + a face-distance check
-  like the airway section pattern), stub geometry bounds, staggered-timing order,
-  chevron-distinctness (kind/hue separation), no new draw calls beyond the stub strips.
+- `AirRibbons.tsx` `soundPaths()`: re-target the 4 fronts to the measured contacts A–D
+  (control points tuned per incidence); add 4 deflection-stub strips (glancing arcs per
+  face plane + incidence, lengths/dimming per §2 E3.2); bake per-strip scalar attributes:
+  contact/fire parameter for fronts, fire u for stubs (fronts keep the uExtent draw-on
+  gate; stubs gate on their fire u with a ~.006 mini draw-on and self-extinguish by
+  ~.895). Chevron strips unchanged geometrically; their bounded rise-settle is a
+  shader-side function of u gated to kind 1 (no new attributes needed).
+- Shaders: fragment-side junction collision (terminal collapse anchored at the contact
+  sample when uExtent crosses the baked contact parameter), stub ignition/extinction,
+  ×1.25 terminal flash reinforcement, chevron response +~30% over u .856–.872 settling
+  by ~.894. Everything pure in u; reduced motion renders post-contact states.
+- `flow.ts`: SOUND_TARGETS → the measured contacts; SOUND_ORIGIN, SOUND_FRONTS, the
+  sound window, budgets, chevron mounts unchanged.
+- Tests: contacts within ~10 mm of a measured baffle face (pinned constants checked
+  against face-distance math like the airway-section pattern); stub endpoints off their
+  faces along the face plane; fire-ordering (last contact before chevron response
+  start); chevron/airborne distinction (kind separation); existing suites stay green
+  (98 + new).
 
 ## 4. Ruling asked (concept level)
 
-1. **Ship the four-element concept as designed?** (If any element is vetoed, name it:
-   contacts / sweep / deflection+absorption / chevron sequencing.)
-2. Contact-local flash: subtle (recommended) or pronounced?
-3. Any preference on D crossing the duct centerline vs staying on the near side?
+Resolved by the Astra concept review (§5) + owner direction to proceed with Astra as the
+design judge; the owner's visual gate applies to the rendered result.
 
-After the ruling: six-part spec → producer (DeepSeek if topped up, else GLM; reviewer =
-the other family) → gates → captures → contact sheet → commit.
+## 5. Astra concept review (2026-09-24, gpt-6-astra medium, one call, 3 images)
+
+**Verdict: "concept fix-first" — E1–E3 endorsed in principle, E4 rejected as designed.**
+Her rulings, folded into v2 above:
+
+1. §5 satisfaction: E1–E3 provide the missing authored contact/deflection/attenuation;
+   keep visible energy reaching the face before it collapses; the airborne/grounded
+   distinction survives; E4 needed a real isolation response.
+2. Weakest at real scale: E4's meaning; the flash is the weakest visual cue (a 35 mm
+   patch on a 7.5 mm ribbon ≈ a tiny sparkle) — the encounter must read without it.
+3. C stays grazing (variety is useful); make its junction explicit and its outgoing stub
+   weaker than its incoming front; converting it to a 4th absorbing hit sacrifices
+   variety before testing the actual problem.
+4. Sweep endorsed (overlapping intervals = one distributed event); the chevron cascade
+   had two timing bugs (start .850 < final contact .856; six × .004 extends past .870
+   into the close-out fade) and the deeper flaw: delay communicates sequence, not
+   isolation. Give the mounts a bounded response that visibly settles; normalized scroll
+   distance is not elapsed time. Do not imply baffle absorption causes isolation.
+5. Bubble/pulse red line: nearest risk is the flash IF detached/halo/repeated; a single
+   terminal brightening constrained to the junction stays clear. Stubs safe when
+   attached, directional, extinguishing.
+
+Her ranked fixes (all folded): 1. chevron bounded response + settling; 2. tie absorption
+to the surface junction, preserve incoming visibility to contact; 3. reconcile last
+contact / mount response / close-out timing; 4. anchor C's turn, reduce outgoing
+strength; 5. tune the flash only after the junction works at full frame.
+Named missing specs (now in §2/E4 + §3): mount attenuation behavior; contact onset/decay
+under scroll stop/reverse/jump (answer: everything is a pure function of u — reversible
+by construction); reduced-motion state (fronts render post-contact, response plays with u).

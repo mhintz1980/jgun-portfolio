@@ -4,8 +4,8 @@ import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, pol
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
-import { airPaths, AIR_SAMPLES } from './AirRibbons'
-import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SPINES } from './flow'
+import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
+import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
 
 describe('RL300 review prototype', () => {
   // Point-to-segment distance on the (y, z) plane, shared by the owner-ruled path tests.
@@ -420,6 +420,65 @@ describe('RL300 review prototype', () => {
         expect(radius).toBeGreaterThanOrEqual(.050)
       }
     }
+  })
+  it('authors the acoustic encounter on measured baffle faces with a staggered sweep', () => {
+    // Evidence 24 v2 (Astra concept-reviewed): each front terminates ON a measured baffle
+    // face, stubs glance in the face planes, the sweep resolves before the chevron
+    // isolation response, and that response stays bounded.
+    const planeDistance = (p: readonly number[], face: { point: readonly number[]; normal: readonly number[] }) =>
+      (p[0] - face.point[0]) * face.normal[0] + (p[1] - face.point[1]) * face.normal[1] + (p[2] - face.point[2]) * face.normal[2]
+    SOUND_TARGETS.forEach((target, i) => {
+      expect(Math.abs(planeDistance(target, SOUND_FACES[i]))).toBeLessThanOrEqual(.005)
+      // inside the measured ACOUSTIC_BAFFLES root bounds (y 1.070..1.862, z -1.024..1.352)
+      expect(target[1]).toBeGreaterThanOrEqual(1.070)
+      expect(target[1]).toBeLessThanOrEqual(1.862)
+      expect(target[2]).toBeGreaterThanOrEqual(-1.024)
+      expect(target[2]).toBeLessThanOrEqual(1.352)
+    })
+    SOUND_WINDOWS.forEach(([from, to], i) => {
+      expect(to - from).toBeCloseTo(.060, 5)
+      if (i) expect(from).toBeGreaterThan(SOUND_WINDOWS[i - 1][0])
+    })
+    expect(SOUND_WINDOWS[0][0]).toBeGreaterThanOrEqual(.76)
+    expect(SOUND_WINDOWS.at(-1)![1]).toBeLessThanOrEqual(.856)
+    const paths = soundPaths()
+    const fronts = paths.filter(p => p.kind === 0)
+    const stubs = paths.filter(p => p.kind === 2)
+    const chevrons = paths.filter(p => p.kind === 1)
+    expect(fronts).toHaveLength(4)
+    expect(stubs).toHaveLength(4)
+    expect(chevrons).toHaveLength(6)
+    const stubLengths = [.08, .10, .13, .07]
+    stubs.forEach((stub, i) => {
+      const target = new Vector3(...SOUND_TARGETS[i])
+      const end = stub.points.at(-1)!
+      expect(stub.points[0].distanceTo(target)).toBeLessThanOrEqual(.002)
+      expect(stub.points[0].distanceTo(end)).toBeCloseTo(stubLengths[i], 3)
+      // the stub glances IN the face plane (its arc lifts mid-way, so only the sampled
+      // endpoints are pinned to the plane)
+      const face = SOUND_FACES[i]
+      const d = (end.x - face.point[0]) * face.normal[0] + (end.y - face.point[1]) * face.normal[1] + (end.z - face.point[2]) * face.normal[2]
+      expect(Math.abs(d)).toBeLessThanOrEqual(.02)
+    })
+    // Fronts terminate exactly at the measured contacts, and the terminal collapse
+    // region is where the design says: sample 23 of 28 is the first terminal sample
+    // (floor(28 * .85) = 23; getPoints(28) yields 29 samples, so 6 terminal samples).
+    fronts.forEach((front, i) => {
+      const target = new Vector3(...SOUND_TARGETS[i])
+      expect(front.points.at(-1)!.distanceTo(target)).toBeLessThanOrEqual(.002)
+      expect(front.contact.filter(v => v === 1)).toHaveLength(front.points.length - 23)
+      expect(front.contact[22]).toBe(0)
+      expect(front.contact[23]).toBe(1)
+    })
+    // The chevron isolation response is bounded (+30% max) and settles back to 1.
+    const response = (u: number) => {
+      const s = (a: number, b: number, x: number) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
+      return 1 + .30 * s(.856, .872, u) * (1 - s(.874, .894, u))
+    }
+    expect(response(.862)).toBeGreaterThan(1.05)
+    expect(response(.883)).toBeGreaterThan(1.05)
+    expect(response(.90)).toBeCloseTo(1, 5)
+    for (let i = 0; i <= 100; i++) expect(response(i / 100)).toBeLessThanOrEqual(1.3)
   })
   it('moves every ribbon continuously: no frame flip between samples', () => {
     // Parallel transport replaces the legacy world-up frame, whose sideways jump at every

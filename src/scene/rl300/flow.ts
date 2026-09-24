@@ -99,6 +99,27 @@ export function ribbonSplit(total: number): Record<'main' | 'lower' | 'merged', 
 export const HEAT_RAMP: readonly [string, string] = ['#72DBFF', '#FF7A24']
 export const SOUND_FRONTS = 4
 
+export const SOUND_TARGETS: readonly Vec3[] = [
+  [-.20, 1.365, .545],  // A: baffle top face, near-vertical absorption hit
+  [-.20, 1.600, .714],  // B: +z slab face, angled hit
+  [-.20, 1.639, .939],  // C: slanted face, grazing encounter
+  [.19, 1.458, 1.240],  // D: far-side face, cross-duct absorption
+]
+/** Measured 2026-09-24 from msp-enclosure.glb ACOUSTIC_BAFFLES (evidence 24): the face
+ *  each front terminates on — plane point + outward normal. Contacts are tested against
+ *  these planes; AIRWAY-style measured constants, not prose. */
+export const SOUND_FACES: readonly { point: Vec3; normal: Vec3 }[] = [
+  { point: [-.171, 1.365, .559], normal: [0, 1, 0] },
+  { point: [-.207, 1.638, .714], normal: [0, 0, 1] },
+  { point: [-.204, 1.639, .939], normal: [.169, -.697, .697] },
+  { point: [.207, 1.449, 1.249], normal: [0, -.703, -.711] },
+]
+/** Per-front draw windows in u (the staggered arrival sweep). The last contact resolves
+ *  at .856 — before the chevron isolation response begins (AirRibbons shaders). */
+export const SOUND_WINDOWS: readonly (readonly [number, number])[] = [
+  [.760, .820], [.772, .832], [.784, .844], [.796, .856],
+]
+
 const ZERO_EXTENT: Record<Bundle, number> = { main: 0, lower: 0, merged: 0, sound: 0 }
 const ZERO_WEIGHT: Record<Bundle, number> = { main: 0, lower: 0, merged: 0, sound: 0 }
 

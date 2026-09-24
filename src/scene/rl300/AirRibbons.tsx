@@ -17,7 +17,7 @@ import {
   Vector3,
 } from 'three'
 import type { PreviewControl } from './QuietMachineScene'
-import { evaluateFlow, HEAT_RAMP, RIBBON_COUNT, SOUND_FRONTS, SOUND_ORIGIN, SPINES, type Bundle, type Vec3 } from './flow'
+import { evaluateFlow, HEAT_RAMP, RIBBON_COUNT, SOUND_FACES, SOUND_FRONTS, SOUND_ORIGIN, SOUND_TARGETS, SOUND_WINDOWS, SPINES, type Bundle, type Vec3 } from './flow'
 import * as flowConfig from './flow'
 
 export const AIR_SAMPLES = 144
@@ -25,11 +25,6 @@ const SOUND_SAMPLES = 28
 const HOTSPOT = new Vector3(.022, .943, -.055)
 const AIR_BUNDLES: readonly Exclude<Bundle, 'sound'>[] = ['main', 'lower', 'merged']
 const BUNDLES: readonly Bundle[] = [...AIR_BUNDLES, 'sound']
-const BAFFLE_MIN_Y = 1.319
-const BAFFLE_MAX_Y = 1.862
-const BAFFLE_MIN_Z = .385
-const BAFFLE_MAX_Z = 1.352
-const BAFFLE_CONTACT_MARGIN = .085
 
 // Section caps use stencil ref 0; equipment owns ref 1 for the ribbon reveal.
 export const EQUIPMENT_MASK_STENCIL_REF = 1
@@ -53,6 +48,8 @@ const VERTEX_SHADER = /* glsl */ `
   attribute float aKind;
   attribute float aContact;
   attribute float aTracerPhase;
+  attribute float aAlpha;
+  attribute vec2 aWindow;
   attribute vec3 aTangent;
 
   uniform float uExtent;
@@ -63,6 +60,8 @@ const VERTEX_SHADER = /* glsl */ `
   varying float vKind;
   varying float vContact;
   varying float vTracerPhase;
+  varying float vAlpha;
+  varying vec2 vWindow;
 
   void main() {
     vT = aT;
@@ -71,6 +70,8 @@ const VERTEX_SHADER = /* glsl */ `
     vKind = aKind;
     vContact = aContact;
     vTracerPhase = aTracerPhase;
+    vAlpha = aAlpha;
+    vWindow = aWindow;
 
     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     vec4 viewPosition = mvPosition;
@@ -80,11 +81,9 @@ const VERTEX_SHADER = /* glsl */ `
     float sideLength = length(viewSide);
     viewSide = sideLength > 0.0001 ? viewSide / sideLength : vec3(0.0, 1.0, 0.0);
 
-    // Sound fronts widen as their directional radius grows; baffle contact
-    // locally thins them at the authored face interaction.
-    float soundRadius = aKind >= 0.0 ? mix(0.35, 1.0, uExtent) : 1.0;
-    float contactTaper = aKind == 0.0 ? mix(1.0, 0.38, aContact) : 1.0;
-    viewPosition.xyz += viewSide * aSide * aWidth * soundRadius * contactTaper;
+    // Sound fronts and chevrons widen as their directional radius grows; stubs do not.
+    float soundRadius = (aKind >= 0.0 && aKind < 1.5) ? mix(0.35, 1.0, uExtent) : 1.0;
+    viewPosition.xyz += viewSide * aSide * aWidth * soundRadius;
     gl_Position = projectionMatrix * viewPosition;
     #include <clipping_planes_vertex>
   }
@@ -96,6 +95,7 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform float uExtent;
   uniform float uWeight;
   uniform float uPhase;
+  uniform float uProgress;
   uniform float uHeat;
   uniform float uReducedMotion;
   uniform vec3 uCool;
@@ -108,6 +108,8 @@ const FRAGMENT_SHADER = /* glsl */ `
   varying float vKind;
   varying float vContact;
   varying float vTracerPhase;
+  varying float vAlpha;
+  varying vec2 vWindow;
 
   float namedEase(float edge0, float edge1, float value) {
     return smoothstep(edge0, edge1, value);
@@ -116,11 +118,26 @@ const FRAGMENT_SHADER = /* glsl */ `
   void main() {
     #include <clipping_planes_fragment>
 
-    if (vT > uExtent) discard;
+    float extent = uExtent;
+    if (vKind > -0.5) {
+      // Sound-kind strips own their u-window: fronts (0) and chevrons (1) draw on along
+      // it; stubs (2) ignite at their window start instead.
+      extent = uReducedMotion > 0.5 ? 1.0 : smoothstep(vWindow.x, vWindow.y, uProgress);
+      if (vKind == 2.0) {
+        float lit = 1.0 - smoothstep(0.87, 0.895, uProgress); // stubs extinguish on their own
+        if (lit <= 0.0) discard;
+      }
+    }
+    if (vT > extent) discard;
 
     float startTaper = namedEase(0.0, 0.055, vT);
-    float headStart = max(0.0, uExtent - 0.04);
-    float headTaper = 1.0 - namedEase(headStart, max(headStart + 0.0001, uExtent), vT);
+    // Head feather follows each strip's own draw gate (air = envelope, sound = window);
+    // a fully drawn front keeps full alpha through its contact endpoint so the junction
+    // collision reads where the metal is, while stubs and air ribbons keep their fade.
+    float headStart = max(0.0, extent - 0.04);
+    float headTaper = (vKind == 0.0 && extent >= 0.999)
+      ? 1.0
+      : 1.0 - namedEase(headStart, max(headStart + 0.0001, extent), vT);
     float edgeTaper = 1.0 - namedEase(0.70, 1.0, abs(vSide));
 
     // Directional tracers retain a deterministic strand offset when motion is reduced.
@@ -135,16 +152,31 @@ const FRAGMENT_SHADER = /* glsl */ `
     vec3 color;
     float alpha;
     if (vKind > -0.5 && vKind < 0.5) {
-      // Sound fronts are a violet-to-rose directional cue, separate from the
-      // cool-to-warm air ramp. They thin into the acoustic baffle faces.
+      // Sound fronts: violet-to-rose directional cue. The encounter is a junction
+      // collision: the incoming run holds full alpha to the face, then the terminal
+      // samples (aContact 1) collapse anchored AT the surface, briefly reinforced.
       color = mix(vec3(0.48, 0.68, 1.0), vec3(1.0, 0.48, 0.68), uHeat);
-      float baffleAttenuation = mix(1.0, 0.46, vContact);
-      alpha = 0.72 * startTaper * headTaper * edgeTaper * baffleAttenuation;
+      alpha = 0.72 * vAlpha * startTaper * headTaper * edgeTaper;
+      if (vContact > 0.5) {
+        float collapse = 1.0 - 0.75 * smoothstep(vWindow.y, vWindow.y + 0.006, uProgress);
+        float flash = 1.0 + 0.25 * smoothstep(vWindow.y, vWindow.y + 0.001, uProgress)
+                            * (1.0 - smoothstep(vWindow.y + 0.002, vWindow.y + 0.004, uProgress));
+        alpha *= collapse * flash;
+      }
+    } else if (vKind > 1.5) {
+      // Deflection stubs: same hue family, dimmer by construction (vAlpha), igniting at
+      // their contact fire and extinguishing before the beat closes.
+      color = mix(vec3(0.48, 0.68, 1.0), vec3(1.0, 0.48, 0.68), uHeat);
+      float lit = 1.0 - smoothstep(0.87, 0.895, uProgress);
+      alpha = 0.72 * vAlpha * startTaper * headTaper * edgeTaper * lit;
     } else if (vKind > 0.5) {
-      // Isolation-mount chevrons are a warm, grounded cue rather than an arc
-      // or a concentric bubble.
+      // Isolation-mount chevrons: grounded warm cue. One bounded rise-then-settle
+      // response after the last contact resolves (.856) — the mounts receiving and
+      // damping structure-borne energy, distinct from airborne absorption.
       color = vec3(1.0, 0.56, 0.24);
-      alpha = 0.88 * startTaper * headTaper * edgeTaper;
+      float response = 1.0 + 0.30 * smoothstep(0.856, 0.872, uProgress)
+                                * (1.0 - smoothstep(0.874, 0.894, uProgress));
+      alpha = 0.88 * startTaper * headTaper * edgeTaper * response;
     } else {
       float authoredHeat = clamp(vHeat * uHeat, 0.0, 1.0);
       color = mix(uCool, uWarm, smoothstep(0.25, 0.75, authoredHeat));
@@ -169,6 +201,8 @@ export interface StripPath {
   heat: readonly number[]
   contact: readonly number[]
   tracerPhase: number
+  window?: readonly [number, number]
+  alpha?: number
 }
 
 interface FlowGeometries {
@@ -227,6 +261,8 @@ function buildStripGeometry(paths: readonly StripPath[]): BufferGeometry {
   const kinds: number[] = []
   const contacts: number[] = []
   const tracerPhases: number[] = []
+  const windows: number[] = []
+  const alphas: number[] = []
   const tangents: number[] = []
   const indices: number[] = []
 
@@ -248,6 +284,8 @@ function buildStripGeometry(paths: readonly StripPath[]): BufferGeometry {
         kinds.push(path.kind)
         contacts.push(contact)
         tracerPhases.push(path.tracerPhase)
+        windows.push(path.window?.[0] ?? 0, path.window?.[1] ?? 1)
+        alphas.push(path.alpha ?? 1)
         tangents.push(tangent.x, tangent.y, tangent.z)
       }
     }
@@ -266,6 +304,8 @@ function buildStripGeometry(paths: readonly StripPath[]): BufferGeometry {
   geometry.setAttribute('aT', new BufferAttribute(new Float32Array(arc), 1))
   geometry.setAttribute('aSide', new BufferAttribute(new Float32Array(sides), 1))
   geometry.setAttribute('aWidth', new BufferAttribute(new Float32Array(widths), 1))
+  geometry.setAttribute('aWindow', new BufferAttribute(new Float32Array(windows), 2))
+  geometry.setAttribute('aAlpha', new BufferAttribute(new Float32Array(alphas), 1))
   geometry.setAttribute('aHeat', new BufferAttribute(new Float32Array(heats), 1))
   geometry.setAttribute('aKind', new BufferAttribute(new Float32Array(kinds), 1))
   geometry.setAttribute('aContact', new BufferAttribute(new Float32Array(contacts), 1))
@@ -281,16 +321,6 @@ const clamp01 = (value: number) => Math.max(0, Math.min(1, value))
 function sourceInfluence(point: Vector3) {
   const distance = point.distanceTo(HOTSPOT)
   return clamp01(1 - distance / .52)
-}
-
-function intervalGap(value: number, minimum: number, maximum: number) {
-  return value < minimum ? minimum - value : value > maximum ? value - maximum : 0
-}
-
-function baffleContact(point: Vector3) {
-  const yGap = intervalGap(point.y, BAFFLE_MIN_Y, BAFFLE_MAX_Y)
-  const zGap = intervalGap(point.z, BAFFLE_MIN_Z, BAFFLE_MAX_Z)
-  return clamp01(1 - Math.hypot(yGap, zGap) / BAFFLE_CONTACT_MARGIN)
 }
 
 function accumulatedHeat(points: readonly Vector3[], initialHeat: number, terminalHeat = initialHeat) {
@@ -355,20 +385,20 @@ export function airPaths(bundle: AirBundle, ribbonCount: number, carriedHeat = 0
   return paths
 }
 
-const SOUND_TARGETS: readonly Vec3[] = [
-  [-.22, 1.38, .42],
-  [-.18, 1.58, .68],
-  [-.22, 1.78, .98],
-  [-.27, 1.48, 1.30],
-]
-
 const ISOLATION_MOUNTS: readonly Vec3[] = [
   [-.53, .025, -1.355051], [.53, .025, -1.355051],
   [-.53, .025, -.055051], [.53, .025, -.055051],
   [-.53, .025, 1.244949], [.53, .025, 1.244949],
 ]
 
-function soundPaths(): StripPath[] {
+// Glancing stub per contact: length and alpha ceiling per evidence 24 §2 (brightness
+// inverse to length — "longest must not also be brightest").
+const SOUND_STUBS: readonly { length: number; alpha: number }[] = [
+  { length: .08, alpha: .50 }, { length: .10, alpha: .45 },
+  { length: .13, alpha: .35 }, { length: .07, alpha: .50 },
+]
+
+export function soundPaths(): StripPath[] {
   const origin = vector(SOUND_ORIGIN)
   const paths: StripPath[] = []
   for (let i = 0; i < SOUND_FRONTS; i++) {
@@ -378,13 +408,39 @@ function soundPaths(): StripPath[] {
     control.z += (i % 2 ? -.045 : .055)
     const curve = new CatmullRomCurve3([origin.clone(), control, target], false, 'centripetal', .5)
     const points = curve.getPoints(SOUND_SAMPLES)
+    const terminal = Math.floor(SOUND_SAMPLES * .85)
     paths.push({
       points,
       kind: 0,
       width: () => .0075,
       heat: points.map(() => 0),
-      contact: points.map(baffleContact),
+      contact: points.map((_, j) => (j >= terminal ? 1 : 0)),
       tracerPhase: fract((i + 1) * .41421356237),
+      window: [...SOUND_WINDOWS[i]],
+      alpha: 1,
+    })
+    // Deflection stub: the incoming direction continued along the face plane (glancing),
+    // arcing slightly off the metal. Attached, directional, extinguishing.
+    const face = SOUND_FACES[i]
+    const normal = vector(face.normal).normalize()
+    const incoming = target.clone().sub(origin).normalize()
+    const glance = incoming.clone().addScaledVector(normal, -incoming.dot(normal))
+    if (glance.lengthSq() < 1e-4) glance.set(0, 0, 1)
+    glance.normalize()
+    const stub = SOUND_STUBS[i]
+    const lift = normal.clone().multiplyScalar(stub.length * .12)
+    const mid = target.clone().addScaledVector(glance, stub.length * .5).add(lift)
+    const end = target.clone().addScaledVector(glance, stub.length)
+    const stubPoints = new CatmullRomCurve3([target.clone(), mid, end], false, 'centripetal', .5).getPoints(8)
+    paths.push({
+      points: stubPoints,
+      kind: 2,
+      width: () => .005,
+      heat: stubPoints.map(() => 0),
+      contact: stubPoints.map(() => 0),
+      tracerPhase: fract((i + 1) * .41421356237),
+      window: [SOUND_WINDOWS[i][1], SOUND_WINDOWS[i][1] + .006],
+      alpha: stub.alpha,
     })
   }
 
@@ -405,6 +461,8 @@ function soundPaths(): StripPath[] {
       heat: points.map(() => 0),
       contact: points.map(() => 0),
       tracerPhase: 0,
+      window: [.76, .86],
+      alpha: 1,
     })
   }
   return paths
@@ -455,6 +513,7 @@ function createMaterial(plane: Plane | null, clipped: boolean, hidden = false): 
       uExtent: { value: 0 },
       uWeight: { value: 0 },
       uPhase: { value: 0 },
+      uProgress: { value: 0 },
       uHeat: { value: 0 },
       uReducedMotion: { value: 0 },
       uCool: { value: new Color(HEAT_RAMP[0]) },
@@ -578,6 +637,7 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
         uniforms.uExtent.value = reducedMotion ? 1 : flow.extent[bundle]
         uniforms.uWeight.value = flow.weight[bundle]
         uniforms.uPhase.value = flow.phase
+        uniforms.uProgress.value = control.u
         uniforms.uHeat.value = flow.heat
         uniforms.uReducedMotion.value = reducedMotion ? 1 : 0
       }
