@@ -5,6 +5,8 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 /** Authored concept, Y-up metres. Liner replaces the exact registered CAD part. */
 export function createLowerIntake() {
   const group = new Group(); group.name = 'PROPOSED_LOWER_INTAKE'
+  // Owner's Blender move (2026-09-24, measured pure translation): skid bay, resting on the RL-1000/SAF-1047 bearers.
+  group.position.set(0, .205, .15)
   const metal = new MeshStandardMaterial({ color: '#6e97ad', metalness: .65, roughness: .32 })
   const dark = new MeshStandardMaterial({ color: '#376279', metalness: .4, roughness: .44, emissive: '#163d4e', emissiveIntensity: .35 })
   const pieces: BoxGeometry[] = []

@@ -186,7 +186,7 @@ describe('RL300 review prototype', () => {
     const louvers = intake.group.children[0]
     const ray = new Raycaster(); let misses = 0
     for (let i = 0; i < 40; i++) {
-      ray.set(new Vector3(.1, .3, .48 + i / 40 * .54), new Vector3(0, -1, 0))
+      ray.set(new Vector3(.1, .5, .63 + i / 40 * .54), new Vector3(0, -1, 0))
       if (ray.intersectObject(louvers).length === 0) misses++
     }
     expect(misses).toBeGreaterThan(8)
@@ -396,60 +396,60 @@ describe('RL300 review prototype', () => {
   })
   it('routes the lower supply in through the louver opening and onto the merged discharge', () => {
     // Lower-bundle ruling 2026-09-24 (cycle "lower-fix"): the spine is drawn from the crawl space
-    // under the louver footprint, crosses the authored louver panel inside a measured open gap,
+    // under the louver footprint (the skid bay since the owner's (0,+.205,+.150) intake move), crosses the authored louver panel inside a measured open gap,
     // rides the collector and shallow duct with 15 mm centerline clearance, climbs past the EMG
     // panel on the old lane, and lands ON the merged discharge spine like the main tail does.
     const spine = new CatmullRomCurve3(SPINES.lower.map(p => new Vector3(...p)), false, 'centripetal', .5).getPoints(AIR_SAMPLES)
-    // The head starts in the crawl space under the louver footprint — not at the ground (y -.22),
-    // not touching the panel (bottom y -.042).
+    // The head starts in the skid bay under the louver footprint — not at the ground (y -.22),
+    // not touching the panel (bottom y .163).
     const [, sy, sz] = SPINES.lower[0]
-    expect(sy).toBeGreaterThanOrEqual(-.13)
-    expect(sy).toBeLessThanOrEqual(-.062)
-    expect(sz).toBeGreaterThanOrEqual(.449)
-    expect(sz).toBeLessThanOrEqual(1.052)
+    expect(sy).toBeGreaterThanOrEqual(.075)
+    expect(sy).toBeLessThanOrEqual(.143)
+    expect(sz).toBeGreaterThanOrEqual(.599)
+    expect(sz).toBeLessThanOrEqual(1.202)
     // Traversal is checked against the authored louver geometry itself: where the centerline
     // crosses the panel plane, a downward ray at the crossing (and +/- 4 mm along z) must miss
     // the louvers entirely, i.e. the crossing sits in an open gap.
     let crossing: Vector3 | null = null
     for (let i = 1; i <= AIR_SAMPLES && !crossing; i++) {
-      if (spine[i - 1].y < -.033 && spine[i].y >= -.033) {
-        const t = (-.033 - spine[i - 1].y) / (spine[i].y - spine[i - 1].y)
+      if (spine[i - 1].y < .172 && spine[i].y >= .172) {
+        const t = (.172 - spine[i - 1].y) / (spine[i].y - spine[i - 1].y)
         crossing = spine[i - 1].clone().lerp(spine[i], t)
       }
     }
     expect(crossing).not.toBeNull()
     // The crossing must be through the actual panel footprint, not just anywhere on the
-    // infinite y = -.033 plane — a bypass route under the machine would cross the plane
+    // infinite y = .172 plane — a bypass route under the machine would cross the plane
     // where no panel exists and the rays would trivially miss.
-    expect(crossing!.z).toBeGreaterThanOrEqual(.449)
-    expect(crossing!.z).toBeLessThanOrEqual(1.052)
+    expect(crossing!.z).toBeGreaterThanOrEqual(.599)
+    expect(crossing!.z).toBeLessThanOrEqual(1.202)
     expect(Math.abs(crossing!.x)).toBeLessThanOrEqual(.378)
     const intake = createLowerIntake(); intake.group.updateMatrixWorld(true)
     const louvers = intake.group.children[0]
     const ray = new Raycaster()
     for (const dz of [-.004, 0, .004]) {
-      ray.set(new Vector3(crossing!.x, .3, crossing!.z + dz), new Vector3(0, -1, 0))
+      ray.set(new Vector3(crossing!.x, .5, crossing!.z + dz), new Vector3(0, -1, 0))
       expect(ray.intersectObject(louvers)).toHaveLength(0)
     }
     intake.dispose()
-    // The collector ride stays inside the open box (walls to y .14, open bottom at the panel).
-    const collector = spine.filter(p => p.z <= 1.025 && p.z >= .475 && p.y > .01)
+    // The collector ride stays inside the open box (walls to y .345, open bottom at the panel).
+    const collector = spine.filter(p => p.z <= 1.175 && p.z >= .625 && p.y > .215)
     expect(collector.length).toBeGreaterThan(0)
     for (const p of collector) {
-      expect(p.y).toBeLessThanOrEqual(.138)
-      expect(p.y).toBeGreaterThanOrEqual(-.024)
+      expect(p.y).toBeLessThanOrEqual(.343)
+      expect(p.y).toBeGreaterThanOrEqual(.181)
     }
-    // Under the duct's top panel the centerline holds 15 mm clearance to the panel bottom (y .129)
-    // and the floor top (y -.009).
-    const duct = spine.filter(p => p.z <= .584 && p.z >= -.036 && p.y > .02)
+    // Under the duct's top panel the centerline holds 15 mm clearance to the panel bottom (y .334)
+    // and the floor top (y .196).
+    const duct = spine.filter(p => p.z <= .734 && p.z >= .114 && p.y > .225)
     expect(duct.length).toBeGreaterThan(0)
     for (const p of duct) {
-      expect(p.y).toBeLessThanOrEqual(.129 - .015)
-      expect(p.y).toBeGreaterThanOrEqual(-.009 + .015)
+      expect(p.y).toBeLessThanOrEqual(.334 - .015)
+      expect(p.y).toBeGreaterThanOrEqual(.196 + .015)
     }
     // In the riser's z band at riser heights, the centerline stays 15 mm off the left wall's inner
-    // face (x -.204); the wall spans y -.015...295, so higher samples are the open interior climb.
-    const riser = spine.filter(p => p.z <= -.185 && p.z >= -.455 && p.y <= .32)
+    // face (x -.204); the wall spans y .190...500, so higher samples are the open interior climb.
+    const riser = spine.filter(p => p.z <= -.035 && p.z >= -.305 && p.y <= .525)
     expect(riser.length).toBeGreaterThan(0)
     for (const p of riser) {
       expect(p.x).toBeGreaterThanOrEqual(-.204 + .015)
