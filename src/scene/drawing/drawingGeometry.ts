@@ -29,8 +29,9 @@ import {
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import type { WrenchRig } from '../rig/nodeRoles'
 
-export const PAPER = '#08283a'
-export const INK = '#b3dae2'
+/** Cream drafting vellum with navy ink — owner-supplied reference sheet, 2026-09-24. */
+export const PAPER = '#d8d1bd'
+export const INK = '#142a52'
 
 /**
  * JG-032 — procedural paper grain for the drawing sheet. Deterministic LCG

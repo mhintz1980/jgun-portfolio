@@ -3,6 +3,8 @@ import { Vector3 } from 'three'
 import { GdtSymbol } from './GdtSymbols'
 import { telemetry } from '../state/scrollStore'
 import {
+  INK,
+  PAPER,
   PIXELS_PER_METER,
   SHEET_ZONES,
   type DrawingGeometry,
@@ -26,6 +28,9 @@ const FONT = 19
 const MICRO = FONT * 0.78
 /** Vertical pitch of one callout block in the lane. */
 const CALLOUT_PITCH = FONT * 3.1
+/** Zone-reference strip between the trim line and the drawing frame (px). Stays inside the
+ *  ~19 px clearance the callout lane leaves on the left. */
+const FRAME_MARGIN = 18
 
 interface Point {
   x: number
@@ -111,7 +116,7 @@ export function EngineeringDrawingOverlay() {
 
   const fcf = (x: number, y: number, kind: string, limit: string, datum: string, modifier = '') => (
     <g transform={`translate(${x} ${y})`}>
-      <rect width={252} height={FONT * 1.8} fill="#08283a" />
+      <rect width={252} height={FONT * 1.8} fill={PAPER} />
       <path d={`M38 0 V${FONT * 1.8} M148 0 V${FONT * 1.8} M200 0 V${FONT * 1.8}`} />
       <svg x="6" y="5" width="26" height="26">
         <GdtSymbol name={kind} />
@@ -139,7 +144,7 @@ export function EngineeringDrawingOverlay() {
         <path
           d={`M${callout.anchor.x} ${callout.anchor.y} L${callout.land.x} ${callout.land.y} H${callout.label.x}`}
         />
-        <circle cx={callout.anchor.x} cy={callout.anchor.y} r="3" fill="#b3dae2" />
+        <circle cx={callout.anchor.x} cy={callout.anchor.y} r="3" fill={INK} />
         <text x={callout.label.x} y={callout.label.y}>
           {callout.id}
         </text>
@@ -167,8 +172,38 @@ export function EngineeringDrawingOverlay() {
         height={h}
         viewBox={`0 0 ${w} ${h}`}
       >
-        <style>{`text{font-family:Consolas,monospace;font-size:${FONT}px;fill:#b3dae2;stroke:none}g{stroke:#8ab8c5;stroke-width:1.2;fill:none}svg{color:#b3dae2}.micro{font-size:${MICRO}px}.strong{font-size:${FONT * 1.5}px;font-weight:700;letter-spacing:2px}.slot{stroke:#4d7f8c;stroke-dasharray:10 6}`}</style>
+        <style>{`text{font-family:'Bahnschrift','DIN Alternate','Arial Narrow',Consolas,sans-serif;font-size:${FONT}px;fill:${INK};stroke:none;letter-spacing:.5px}g{stroke:${INK};stroke-width:1.6;fill:none}svg{color:${INK}}.micro{font-size:${MICRO}px}.strong{font-size:${FONT * 1.5}px;font-weight:700;letter-spacing:2px}.title{font-size:${FONT * 1.12}px;font-weight:700;letter-spacing:1px}.label{font-size:${MICRO * 0.82}px;letter-spacing:1px}.slot{stroke-dasharray:10 6}.hand{font-style:italic;font-weight:600}`}</style>
         <defs>
+          {/* Drafting-vellum graph grid: 5 mm minor, 25 mm major. */}
+          <pattern
+            id="grid-minor"
+            width={0.005 * PIXELS_PER_METER}
+            height={0.005 * PIXELS_PER_METER}
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d={`M${0.005 * PIXELS_PER_METER} 0H0V${0.005 * PIXELS_PER_METER}`}
+              fill="none"
+              stroke={INK}
+              strokeWidth="0.6"
+              opacity=".15"
+            />
+          </pattern>
+          <pattern
+            id="grid-major"
+            width={0.025 * PIXELS_PER_METER}
+            height={0.025 * PIXELS_PER_METER}
+            patternUnits="userSpaceOnUse"
+          >
+            <rect width={0.025 * PIXELS_PER_METER} height={0.025 * PIXELS_PER_METER} fill="url(#grid-minor)" />
+            <path
+              d={`M${0.025 * PIXELS_PER_METER} 0H0V${0.025 * PIXELS_PER_METER}`}
+              fill="none"
+              stroke={INK}
+              strokeWidth="1"
+              opacity=".28"
+            />
+          </pattern>
           <marker
             id="drawing-arrow"
             markerWidth="8"
@@ -177,28 +212,63 @@ export function EngineeringDrawingOverlay() {
             refY="3.5"
             orient="auto-start-reverse"
           >
-            <path d="M0 0L7 3.5L0 7" fill="none" stroke="#b3dae2" />
+            <path d="M0 0L7 3.5L0 7" fill="none" stroke={INK} />
           </marker>
           <marker id="section-arrow" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto">
-            <path d="M0 0L9 5L0 10Z" fill="#b3dae2" stroke="none" />
+            <path d="M0 0L9 5L0 10Z" fill={INK} stroke="none" />
           </marker>
         </defs>
 
         {/* ---- sheet frame + zone grid ---- */}
-        <g>
-          <rect {...zoneRect(SHEET_ZONES.border)} />
-          <rect
-            x={zoneRect(SHEET_ZONES.border).x + 14}
-            y={zoneRect(SHEET_ZONES.border).y + 14}
-            width={zoneRect(SHEET_ZONES.border).width - 28}
-            height={zoneRect(SHEET_ZONES.border).height - 28}
-          />
-          {Array.from({ length: 8 }, (_, i) => (
-            <text key={i} x={70 + (i * (w - 140)) / 8} y={30} className="micro">
-              {i + 1}
-            </text>
-          ))}
-        </g>
+        {(() => {
+          const outer = zoneRect(SHEET_ZONES.border)
+          const m = FRAME_MARGIN
+          const inner = { x: outer.x + m, y: outer.y + m, width: outer.width - 2 * m, height: outer.height - 2 * m }
+          const cols = 8
+          const rows = 6
+          const colW = inner.width / cols
+          const rowH = inner.height / rows
+          return (
+            <g>
+              <rect {...inner} fill="url(#grid-major)" stroke="none" />
+              <rect {...outer} strokeWidth="1.1" />
+              <rect {...inner} strokeWidth="2.6" />
+              {Array.from({ length: cols }, (_, i) => (
+                <g key={`c${i}`}>
+                  {i > 0 && (
+                    <path
+                      d={`M${inner.x + i * colW} ${outer.y} V${inner.y} M${inner.x + i * colW} ${inner.y + inner.height} V${outer.y + outer.height}`}
+                    />
+                  )}
+                  {[outer.y + m * 0.72, outer.y + outer.height - m * 0.28].map((y) => (
+                    <text key={y} x={inner.x + (i + 0.5) * colW} y={y} textAnchor="middle" className="label">
+                      {i + 1}
+                    </text>
+                  ))}
+                </g>
+              ))}
+              {Array.from({ length: rows }, (_, i) => (
+                <g key={`r${i}`}>
+                  {i > 0 && (
+                    <path
+                      d={`M${outer.x} ${inner.y + i * rowH} H${inner.x} M${inner.x + inner.width} ${inner.y + i * rowH} H${outer.x + outer.width}`}
+                    />
+                  )}
+                  {[outer.x + m / 2, outer.x + outer.width - m / 2].map((x) => (
+                    <text key={x} x={x} y={inner.y + (i + 0.5) * rowH + MICRO * 0.3} textAnchor="middle" className="label">
+                      {String.fromCharCode(65 + i)}
+                    </text>
+                  ))}
+                </g>
+              ))}
+              {/* Centring marks, as on a production sheet. */}
+              <path
+                d={`M${inner.x + inner.width / 2} ${outer.y} v${m + 16} M${inner.x + inner.width / 2} ${outer.y + outer.height} v${-m - 16} M${outer.x} ${inner.y + inner.height / 2} h${m + 16} M${outer.x + outer.width} ${inner.y + inner.height / 2} h${-m - 16}`}
+                strokeWidth="2.2"
+              />
+            </g>
+          )
+        })()}
 
         {/* ---- generated third-angle views ---- */}
         <g>
@@ -374,7 +444,7 @@ export function EngineeringDrawingOverlay() {
           {sheet.datums.map((datum, i) => (
             <g key={datum.id}>
               <path d={`M${datum.anchor.x} ${datum.anchor.y} L${datum.flag.x} ${datum.flag.y}`} />
-              <path d={`M${datum.anchor.x} ${datum.anchor.y} l-5 14 h10 Z`} fill="#b3dae2" />
+              <path d={`M${datum.anchor.x} ${datum.anchor.y} l-5 14 h10 Z`} fill={INK} />
               <rect
                 x={datum.flag.x - FONT * 0.8}
                 y={datum.flag.y - FONT * 0.9}
@@ -396,59 +466,123 @@ export function EngineeringDrawingOverlay() {
           keep this element id.
         */}
         <g id="sheet-furniture">
-          <rect {...zoneRect(SHEET_ZONES.titleBlock)} />
-          <rect {...zoneRect(SHEET_ZONES.revisionBlock)} />
-          <rect {...zoneRect(SHEET_ZONES.notes)} />
-          <text
-            x={zoneRect(SHEET_ZONES.titleBlock).x + 14}
-            y={zoneRect(SHEET_ZONES.titleBlock).y + FONT * 1.8}
-            className="strong"
-          >
-            PTG-HP-1000 REV03
-          </text>
-          <text
-            x={zoneRect(SHEET_ZONES.titleBlock).x + 14}
-            y={zoneRect(SHEET_ZONES.titleBlock).y + FONT * 3.2}
-            className="micro"
-          >
-            HIGH-PRECISION INDUSTRIAL TORQUE GUN · SHEET 01
-          </text>
-          <text
-            x={zoneRect(SHEET_ZONES.titleBlock).x + zoneRect(SHEET_ZONES.titleBlock).width - 14}
-            y={zoneRect(SHEET_ZONES.titleBlock).y + FONT * 4.4}
-            textAnchor="end"
-            className="micro"
-          >
-            MARK HINTZ / ENGINEERING SYSTEMS
-          </text>
-          <text
-            x={zoneRect(SHEET_ZONES.revisionBlock).x + 12}
-            y={zoneRect(SHEET_ZONES.revisionBlock).y + FONT * 1.5}
-            className="micro"
-          >
-            REV B · ORTHOGRAPHIC · THIRD ANGLE
-          </text>
-          <text
-            x={zoneRect(SHEET_ZONES.revisionBlock).x + 12}
-            y={zoneRect(SHEET_ZONES.revisionBlock).y + FONT * 2.9}
-            className="micro"
-          >
-            UNITS mm · ANSI C 22 × 17
-          </text>
-          {[
-            '01  BREAK SHARP EDGES · 02  REMOVE BURRS',
-            '03  CAD MEASUREMENTS · NOT FOR MANUFACTURE',
-            '04  REFERENCE LIMITS / ILLUSTRATIVE GD&T',
-          ].map((line, i) => (
-            <text
-              key={line}
-              x={zoneRect(SHEET_ZONES.notes).x + 14}
-              y={zoneRect(SHEET_ZONES.notes).y + FONT * (1.5 + i * 1.3)}
-              className="micro"
-            >
-              {line}
-            </text>
-          ))}
+          {(() => {
+            const inset = (r: { x: number; y: number; width: number; height: number }, d: number) => ({
+              x: r.x + d,
+              y: r.y + d,
+              width: r.width - 2 * d,
+              height: r.height - 2 * d,
+            })
+            // Furniture zones abut the trim line; pull them inside the drawing frame.
+            const tb = inset(zoneRect(SHEET_ZONES.titleBlock), FRAME_MARGIN + 6)
+            const rb = inset(zoneRect(SHEET_ZONES.revisionBlock), FRAME_MARGIN + 6)
+            const nb = inset(zoneRect(SHEET_ZONES.notes), FRAME_MARGIN + 6)
+
+            // ---- title block: project name left, drawing data grid right ----
+            const split = tb.x + tb.width * 0.56
+            const cellW = (tb.x + tb.width - split) / 2
+            const rowH = tb.height / 3
+            const cells: [string, string, number, number][] = [
+              ['DWG NO.', 'PTG-HP-1000', 0, 0],
+              ['REV', 'C', 1, 0],
+              ['SCALE', '1:1', 0, 1],
+              ['SHEET', '1 OF 1', 1, 1],
+              ['DATE', '2026-09-24', 0, 2],
+              ['PROJ.', 'THIRD ANGLE', 1, 2],
+            ]
+
+            // ---- revision table ----
+            const revCols = [0, 0.12, 0.42, 0.86, 1].map((f) => rb.x + rb.width * f)
+            const revHeader = ['REV', 'DATE', 'DESCRIPTION', 'DRN']
+            const revRows = [
+              ['C', '2026-09-24', 'PORTFOLIO RELEASE', 'MH'],
+              ['B', '2026-08-30', 'CAD DIMS UPDATED', 'MH'],
+              ['A', '2026-07-12', 'INITIAL RELEASE', 'MH'],
+            ]
+            const revRowH = rb.height / (revRows.length + 1)
+
+            const notes = [
+              '1.  ALL DIMENSIONS ARE IN MILLIMETERS.',
+              '2.  TOLERANCING PER ASME Y14.5 UNLESS OTHERWISE SPECIFIED.',
+              '3.  REMOVE ALL BURRS AND SHARP EDGES.',
+              '4.  GEOMETRY MEASURED FROM CAD AT RENDER TIME.',
+              '5.  FOR REFERENCE ONLY — NOT FOR MANUFACTURING.',
+            ]
+            const noteTop = nb.y + FONT * 1.35
+            const notePitch = (nb.height - FONT * 1.6) / notes.length
+
+            return (
+              <>
+                <rect {...tb} strokeWidth="2.2" />
+                <path d={`M${split} ${tb.y} V${tb.y + tb.height}`} strokeWidth="1.6" />
+                <path
+                  d={`M${split} ${tb.y + rowH} H${tb.x + tb.width} M${split} ${tb.y + 2 * rowH} H${tb.x + tb.width} M${split + cellW} ${tb.y} V${tb.y + tb.height}`}
+                />
+                <path d={`M${tb.x} ${tb.y + tb.height - FONT * 1.55} H${split}`} />
+                <text x={tb.x + 10} y={tb.y + MICRO * 1.2} className="label">
+                  PROJECT:
+                </text>
+                <text x={tb.x + 10} y={tb.y + FONT * 2.35} className="title">
+                  PRECISION PNEUMATIC
+                </text>
+                <text x={tb.x + 10} y={tb.y + FONT * 3.7} className="title">
+                  TORQUE GUN · JGUN
+                </text>
+                <text x={tb.x + 10} y={tb.y + tb.height - FONT * 0.45} className="micro hand">
+                  BUILT FOR PERFORMANCE
+                </text>
+                {cells.map(([label, value, cx, cy]) => {
+                  const x = split + cx * cellW
+                  const y = tb.y + cy * rowH
+                  return (
+                    <g key={label}>
+                      <text x={x + 7} y={y + MICRO * 1.05} className="label">
+                        {label}
+                      </text>
+                      <text x={x + cellW / 2} y={y + rowH - 7} textAnchor="middle" className="micro">
+                        {value}
+                      </text>
+                    </g>
+                  )
+                })}
+
+                <rect {...rb} strokeWidth="2.2" />
+                <path
+                  d={
+                    revCols
+                      .slice(1, -1)
+                      .map((x) => `M${x} ${rb.y} V${rb.y + rb.height}`)
+                      .join(' ') +
+                    revRows.map((_, i) => ` M${rb.x} ${rb.y + (i + 1) * revRowH} H${rb.x + rb.width}`).join('')
+                  }
+                />
+                {[revHeader, ...revRows].map((row, r) =>
+                  row.map((cell, c) => (
+                    <text
+                      key={`${r}-${c}`}
+                      x={(revCols[c] + revCols[c + 1]) / 2}
+                      y={rb.y + (r + 0.68) * revRowH}
+                      textAnchor="middle"
+                      className="label"
+                    >
+                      {cell}
+                    </text>
+                  )),
+                )}
+
+                <rect {...nb} strokeWidth="2.2" />
+                <text x={nb.x + 10} y={nb.y + FONT * 1.05} className="micro" fontWeight="700">
+                  GENERAL NOTES:
+                </text>
+                <path d={`M${nb.x + 10} ${nb.y + FONT * 1.25} h${FONT * 7.4}`} />
+                {notes.map((line, i) => (
+                  <text key={line} x={nb.x + 16} y={noteTop + (i + 0.85) * notePitch} className="label">
+                    {line}
+                  </text>
+                ))}
+              </>
+            )
+          })()}
         </g>
 
         {/* Accessibility mirror of the generated identities (never a source of truth). */}
