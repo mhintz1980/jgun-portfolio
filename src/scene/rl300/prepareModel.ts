@@ -157,11 +157,15 @@ export function prepareModel(source: Group, plane: Plane) {
   group.name = 'RL300_PRESENTATION'
   const buckets = new Map<string, { geometries: BufferGeometry[]; material: MeshStandardMaterial; root: string }>()
   const caps = new Map<string, BufferGeometry[]>()
-  const counts = { sourceTriangles: 0, keptTriangles: 0, linerTriangles: 0, sourceMeshes: 0, batches: 0, cappedTriangles: 0, openSectionTriangles: 0, keptWholeTriangles: 0, removedTriangles: 0 }
+  const counts = { sourceTriangles: 0, keptTriangles: 0, linerTriangles: 0, sourceMeshes: 0, batches: 0, cappedTriangles: 0, openSectionTriangles: 0, keptWholeTriangles: 0, removedTriangles: 0, skippedRoots: 0 }
   /** Measured evidence for every part the owner named, so the ruling is verifiable. */
   const parts = new Map<string, PartRecord>()
   let linerFound = false
   for (const root of source.children) {
+    // The owner's Blender export carries the reference lower-intake geometry as its own
+    // root (coordinate source of truth for the authored copy in LowerIntake.tsx). The
+    // site draws that passage in code; building the GLB copy too would double-render it.
+    if (root.name === 'PROPOSED_LOWER_INTAKE') { counts.skippedRoots = (counts.skippedRoots ?? 0) + 1; continue }
     root.traverse((obj: Object3D) => {
       if (!(obj instanceof Mesh)) return
       counts.sourceMeshes++

@@ -76,3 +76,26 @@ MSP_RUBBER pieces that read white/gray). Gates: tsc 0, vitest 100/100; mutation 
 Pump appended + decimated to 15,428 faces in the webexport view copy. Owner export
 recipe delivered (see session report); awaiting his GLB for validation (roots, pump
 node, triangle budget) before any public/models swap.
+
+## Pump integration SHIPPED (2026-09-24 evening, owner Blender export)
+
+Owner exported `C:\Projects\CAD\RL300-SAFE\msp-enclosure-draco-v5-pump.glb` (Blender 5.x;
+his Compression path did produce Draco after all — 2.67MB). Validation
+(`.scratch/lower-fix/validate-v5.mjs`): all 7 lineage roots fingerprint-identical to the
+committed GLB (DUCT_INTAKE +4 tris = re-export noise); pump PUMP_END_CASTSTEEL-1 in as a
+new root `PUMP_HOUSING.001` (24,776 tris, MSP_BLACK_CHASSIS.001, world (0,.829,.796)) —
+visible by default policy, CAD finish; the moved lower intake rides as a ninth root
+`PROPOSED_LOWER_INTAKE`, dropped at load (root-skip rule, pipeline-tested) because the
+authored code copy is the renderer of record. Shipped: GLB swapped into
+public/models/msp-enclosure.glb (git = rollback), tsc 0, vitest 100/100, telemetry
+1,201k tris (+28k = pump, draws 105-106 within budget), pixel-diff localized to the
+pump region at u .34/.51.
+
+## NEXT cycle: port the moved intake (measured)
+
+The owner's Blender move is a PURE TRANSLION (0, +.205, +.150) — no rotation/scale
+(measured vs the reference export, both GLBs decoded). Port: group offset in
+LowerIntake.tsx createLowerIntake (one line, geometry unchanged) + lower spine
+waypoints 0-5 shifted (climb 6-8 unchanged) + ruling tests re-pinned (louver band
+z .599-1.202 at y .172, collector/duct/riser bounds +.205/+.150) + GLB clearance
+re-probes + captures + owner visual ruling. The "underground intake" problem ends here.

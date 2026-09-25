@@ -111,6 +111,8 @@ describe('RL300 review prototype', () => {
       part(pump, 'V2RL300-SAF-1047-5', 'MSP_ALUMINUM', .1)
       let i = 0
       for (const key of Object.keys(PART_POLICY)) part(pump, sanitizeName(key), 'MSP_STAINLESS', .2 + (i++) * .03)
+      const intake = root('PROPOSED_LOWER_INTAKE')
+      part(intake, 'V2RL300-SAF-1047-5_PROPOSED_LOUVERS', 'MSP_ALUMINUM', .5)
       return source
     }
     const keys = (name: string) => {
@@ -126,6 +128,11 @@ describe('RL300 review prototype', () => {
     expect(keys('V2RL300-SAF-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/#193f66')
     // The insulation occurrence joins the blue bucket whatever its CAD material.
     expect(keys('V2RL300-SAF-RES-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_RUBBER/cut/#193f66')
+    // The GLB's reference lower-intake root is dropped at load — the authored code copy
+    // is the renderer of record.
+    const model = prepareModel(build('V2RL300-SAF-RES-1019-SAFE-1'), new Plane(new Vector3(-1, 0, 0), .85))
+    expect((model.group.children as Mesh[]).some(c => c.userData.sourceRoot === 'PROPOSED_LOWER_INTAKE')).toBe(false)
+    model.dispose()
   })
 
   it('keeps the machine roots whole by default and cuts them only where a part is named', () => {
