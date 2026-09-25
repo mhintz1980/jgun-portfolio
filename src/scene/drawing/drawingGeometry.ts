@@ -81,21 +81,20 @@ export function makePaperGrainTexture(): CanvasTexture {
  * every device, and chosen as an exact 22:17 pair (1760 = 22 × 80, 1360 = 17 × 80) so the
  * SVG overlay, the render target and the sheet all agree to the pixel.
  */
-export const PRINT_TARGET_WIDTH = 1760
-export const PRINT_TARGET_HEIGHT = 1360
+export const PRINT_TARGET_WIDTH = 3520
+export const PRINT_TARGET_HEIGHT = 2720
 
 /**
- * SHEET FORMAT — owner ruling 2026-09-05: ANSI C, 22 × 17 in, aspect 1.294 : 1, landscape
- * on every viewport (the previous build swapped to a 0.36 × 0.76 portrait arrangement on
- * mobile; that is replaced by a scroll-driven camera push-in, see `sheetCamera.ts`).
+ * SHEET FORMAT — owner direction 2026-09-24 (JG-035 Track A): an OVERSIZED drafting-table
+ * sheet, ~3× the viewport, that the intro camera reads by panning across it. The proportion
+ * stays ANSI C (22:17) so the furniture grammar is unchanged. The primary elevation is still
+ * 1:1 in WORLD metres — that is what makes the 3D model register to a view the code
+ * projected — so the paper grows around a fixed-size view block rather than scaling it.
  *
- * The world sheet is larger than a physical C sheet because the primary elevation must be
- * drawn 1:1 in WORLD metres — that is what makes the 3D model register to a view the code
- * projected, and the JGun is 283 mm long. World sheet 854.118 × 660.000 mm keeps the ANSI C
- * proportion exactly (22:17) and holds a four-view third-angle block plus furniture zones;
- * a physical C sheet carrying the same layout would be at 1:1.528.
+ * History: 2026-09-05 ruling was a fitted 854 × 660 mm sheet; the oversized restyle supersedes
+ * the fit, not the geometry.
  */
-export const SHEET_HEIGHT = 0.7
+export const SHEET_HEIGHT = 2.0
 export const SHEET_WIDTH = (SHEET_HEIGHT * 22) / 17
 /** SVG annotation density. Derived so the overlay's pixel sheet is exactly the render target. */
 export const PIXELS_PER_METER = PRINT_TARGET_WIDTH / SHEET_WIDTH
@@ -171,14 +170,14 @@ const VIEW_MARGIN = 0.005
  * inside them and the SVG template (`scripts/export-sheet-template.mjs`) emits them verbatim.
  */
 export const SHEET_ZONES = {
-  /** Outer trim/border frame. */
-  border: { x: -0.4249, y: -0.322, w: 0.8499, h: 0.644 },
+  /** Outer trim/border frame — at the oversized sheet's edge, ~12 mm in from the trim. */
+  border: { x: -1.28, y: -0.97, w: 2.56, h: 1.94 },
   /** HAND-DRAWN SLOT — bottom-right title block. */
-  titleBlock: { x: 0.1109, y: -0.322, w: 0.3, h: 0.086 },
+  titleBlock: { x: 0.9, y: -0.97, w: 0.38, h: 0.13 },
   /** HAND-DRAWN SLOT — top-right revision block. */
-  revisionBlock: { x: 0.2109, y: 0.242, w: 0.2, h: 0.08 },
-  /** HAND-DRAWN SLOT — bottom-left general notes. */
-  notes: { x: -0.4249, y: -0.322, w: 0.34, h: 0.086 },
+  revisionBlock: { x: 1.0, y: 0.86, w: 0.28, h: 0.11 },
+  /** HAND-DRAWN SLOT — left-side general notes column (the oversized sheet's reading rail). */
+  notes: { x: -1.26, y: -0.9, w: 0.36, h: 1.24 },
   /** GENERATED — GD&T frames, datum table and the CAD reference-dimension table. */
   tables: { x: 0.175, y: -0.218, w: 0.2359, h: 0.438 },
   /**

@@ -278,6 +278,19 @@ function DrawingPrint({
         uniforms.uAnnotations.value = new CanvasTexture(canvas)
         uniforms.uAnnotations.value.colorSpace = SRGBColorSpace
         telemetry.drawing.annotationsReady = true
+        if (image.src.startsWith('blob:')) URL.revokeObjectURL(image.src)
+      }
+      image.onerror = () => {
+        // JG-035: the oversized sheet's SVG (3520x2720) can exceed Chrome's data-URI
+        // SVG-image decode limits; a Blob URL does not. Annotations are furniture — their
+        // absence must never brick the intro, so degrade quietly and let telemetry show it.
+        if (!image.src.startsWith('blob:')) {
+          const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' })
+          const retry = new Image()
+          retry.onload = image.onload
+          retry.onerror = () => console.warn('[drawing] annotation rasterization failed')
+          retry.src = URL.createObjectURL(blob)
+        }
       }
       image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source)
     }

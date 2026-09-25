@@ -174,15 +174,17 @@ export function EngineeringDrawingOverlay() {
       >
         <style>{`text{font-family:'Bahnschrift','DIN Alternate','Arial Narrow',Consolas,sans-serif;font-size:${FONT}px;fill:${INK};stroke:none;letter-spacing:.5px}g{stroke:${INK};stroke-width:1.6;fill:none}svg{color:${INK}}.micro{font-size:${MICRO}px}.strong{font-size:${FONT * 1.5}px;font-weight:700;letter-spacing:2px}.title{font-size:${FONT * 1.12}px;font-weight:700;letter-spacing:1px}.label{font-size:${MICRO * 0.82}px;letter-spacing:1px}.slot{stroke-dasharray:10 6}.hand{font-style:italic;font-weight:600}`}</style>
         <defs>
-          {/* Drafting-vellum graph grid: 5 mm minor, 25 mm major. */}
+          {/* Drafting-vellum graph grid. On the oversized sheet (JG-035) the minor pitch is
+              25 mm-equivalents and the major 100 mm-equivalents — the same visual density the
+              5/25 mm grid gave the fitted sheet, re-pitched for paper 3× wider. */}
           <pattern
             id="grid-minor"
-            width={0.005 * PIXELS_PER_METER}
-            height={0.005 * PIXELS_PER_METER}
+            width={0.025 * PIXELS_PER_METER}
+            height={0.025 * PIXELS_PER_METER}
             patternUnits="userSpaceOnUse"
           >
             <path
-              d={`M${0.005 * PIXELS_PER_METER} 0H0V${0.005 * PIXELS_PER_METER}`}
+              d={`M${0.025 * PIXELS_PER_METER} 0H0V${0.025 * PIXELS_PER_METER}`}
               fill="none"
               stroke={INK}
               strokeWidth="0.6"
@@ -191,18 +193,28 @@ export function EngineeringDrawingOverlay() {
           </pattern>
           <pattern
             id="grid-major"
-            width={0.025 * PIXELS_PER_METER}
-            height={0.025 * PIXELS_PER_METER}
+            width={0.1 * PIXELS_PER_METER}
+            height={0.1 * PIXELS_PER_METER}
             patternUnits="userSpaceOnUse"
           >
-            <rect width={0.025 * PIXELS_PER_METER} height={0.025 * PIXELS_PER_METER} fill="url(#grid-minor)" />
+            <rect width={0.1 * PIXELS_PER_METER} height={0.1 * PIXELS_PER_METER} fill="url(#grid-minor)" />
             <path
-              d={`M${0.025 * PIXELS_PER_METER} 0H0V${0.025 * PIXELS_PER_METER}`}
+              d={`M${0.1 * PIXELS_PER_METER} 0H0V${0.1 * PIXELS_PER_METER}`}
               fill="none"
               stroke={INK}
               strokeWidth="1"
               opacity=".28"
             />
+          </pattern>
+          {/* 45° section hatching for the A–A cut regions drawn in the detail band. */}
+          <pattern
+            id="hatch"
+            width={14}
+            height={14}
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <path d="M0 0V14" stroke={INK} strokeWidth="1" opacity=".5" />
           </pattern>
           <marker
             id="drawing-arrow"
@@ -437,6 +449,98 @@ export function EngineeringDrawingOverlay() {
               </text>
             </g>
           ))}
+        </g>
+
+        {/*
+          JG-035 TRACK A — oversized-sheet furniture beyond the fitted grammar.
+          The locked tolerance facts live here in the sheet's own ink (source of truth:
+          project/work/inbox/JG-035-tolerance-stations-facts.md, v2 2026-09-25). The detail
+          band and the GD&T strip are sheet furniture, NOT the scroll-driven 3D stations —
+          those render in the scene during CH.01. Values here are inches per ruling G1.
+        */}
+        {(() => {
+          // Detail band: three magnified-detail circles above the view block, each with a
+          // leader back to the elevation and a circle-on-stalk callout on the parent view.
+          const primary = layout.views[0]
+          const anchor = (id: string): Point => {
+            const feature = data.features[id]
+            return feature ? { x: xy(projectFeature(feature, primary))[0], y: xy(projectFeature(feature, primary))[1] } : { x: px.viewsLeft, y: px.viewsTop }
+          }
+          const bandY = xy([0, SHEET_ZONES.views.y + SHEET_ZONES.views.h + 0.10])[1]
+          const r = 0.075 * PIXELS_PER_METER
+          const details: { id: string; label: string; sub: string; to: Point }[] = [
+            { id: 'K000004', label: 'DETAIL B', sub: '2:1 · THRUST BEARING SEAT', to: anchor('K000004') },
+            { id: 'A000606', label: 'DETAIL C', sub: '2:1 · PLANET PINION — ISO 1328 A6', to: anchor('A000606') },
+            { id: 'HANDLE', label: 'DETAIL D', sub: '2:1 · SHIFTER FORK PROFILE', to: anchor('HANDLE') },
+          ]
+          const bandLeft = xy([SHEET_ZONES.views.x, 0])[0]
+          return (
+            <g>
+              {details.map((d, i) => {
+                const cx = bandLeft + r * 1.3 + (i * (bandLeft + SHEET_ZONES.views.w * PIXELS_PER_METER - bandLeft)) / 3
+                const stalk = { x: d.to.x, y: d.to.y - 4 }
+                return (
+                  <g key={d.id}>
+                    <circle cx={cx} cy={bandY} r={r} strokeWidth="2.6" />
+                    <path d={`M${cx} ${bandY + r} L${stalk.x} ${stalk.y}`} strokeDasharray="2 3" opacity=".7" />
+                    <circle cx={stalk.x} cy={stalk.y} r="7" strokeWidth="1.4" />
+                    <text x={cx - r * 0.62} y={bandY + r * 0.28} className="strong" fontSize={FONT * 1.1}>
+                      {d.label}
+                    </text>
+                    <text x={cx} y={bandY + r + FONT * 1.6} textAnchor="middle" className="label">
+                      {d.sub}
+                    </text>
+                  </g>
+                )
+              })}
+              {/* One hatched sample fill in DETAIL B — the section-cut convention. */}
+              <circle
+                cx={bandLeft + r * 1.3}
+                cy={bandY}
+                r={r * 0.72}
+                fill="url(#hatch)"
+                stroke="none"
+              />
+            </g>
+          )
+        })()}
+
+        {/* JG-035 GD&T strip: the locked tolerance story, typeset in sheet ink. */}
+        <g>
+          {(() => {
+            const stripX = xy([SHEET_ZONES.tables.x + SHEET_ZONES.tables.w + 0.06, 0])[0]
+            const stripY = xy([0, SHEET_ZONES.views.y + SHEET_ZONES.views.h])[1]
+            const width = 0.3 * PIXELS_PER_METER
+            const rows: [string, string, string][] = [
+              ['⌰', '.001 | A-B', 'ALL GEARED PARTS — TOTAL RUNOUT / SINGLE CHUCKING'],
+              ['↗', '.001 | D', 'PLANET PINIONS — CIRCULAR RUNOUT TO OWN BORE'],
+              ['⌓', '.004 | A E', 'SHIFTER FORK PROFILE — LIVE-TOOL MILLED, ±.002/SIDE'],
+              ['⌀', '2.525 H7/k6', 'CLUTCH HOUSING FIT — FINISHED AFTER HEAT TREAT'],
+              ['AGMA', 'ISO 1328 A6', 'GEAR QUALITY — ALL GEARS CUT IN HOUSE'],
+            ]
+            return (
+              <>
+                <text x={stripX} y={stripY - FONT * 1.2} className="strong">
+                  TOLERANCE SUMMARY — INCHES
+                </text>
+                {rows.map((row, i) => (
+                  <g key={row[1]}>
+                    <rect x={stripX} y={stripY + i * FONT * 3.4} width={width} height={FONT * 3.0} strokeWidth="1.8" />
+                    <path d={`M${stripX + width * 0.30} ${stripY + i * FONT * 3.4} V${stripY + i * FONT * 3.4 + FONT * 3.0}`} />
+                    <text x={stripX + width * 0.15} y={stripY + i * FONT * 3.4 + FONT * 1.9} textAnchor="middle" fontSize={FONT * 1.3}>
+                      {row[0]}
+                    </text>
+                    <text x={stripX + width * 0.65} y={stripY + i * FONT * 3.4 + FONT * 1.15} textAnchor="middle" className="micro">
+                      {row[1]}
+                    </text>
+                    <text x={stripX + width * 0.65} y={stripY + i * FONT * 3.4 + FONT * 2.3} textAnchor="middle" className="label">
+                      {row[2]}
+                    </text>
+                  </g>
+                ))}
+              </>
+            )
+          })()}
         </g>
 
         {/* ---- datum feature flags on the elevation ---- */}

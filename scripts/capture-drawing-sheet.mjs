@@ -10,7 +10,10 @@ try {
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } })
   page.on('pageerror', (e) => console.error('pageerror', String(e)))
   await page.goto(`${base}/`)
-  await page.waitForFunction(() => window.__drawingProof?.scrollToProgress && window.__telemetry?.drawing?.annotationsReady, { timeout: 90000 })
+  await page.waitForFunction(
+    () => window.__drawingProof?.scrollToProgress && window.__telemetry?.drawing?.annotationsReady,
+    { timeout: 120000, polling: 500 },
+  )
   for (const p of [0, 0.03, 0.06, 0.1]) {
     await page.evaluate((p) => window.__drawingProof.scrollToProgress(p), p)
     await page.waitForTimeout(2500)
