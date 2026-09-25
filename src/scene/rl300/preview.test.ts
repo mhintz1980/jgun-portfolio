@@ -85,6 +85,7 @@ describe('RL300 review prototype', () => {
     // Owner ruling 2026-09-24: reservoir occurrences keep their CAD finish even inside a
     // shell root — the two SAF-RES parts under COMPOSITE_PANELS stop reading blue.
     expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT', 'section', undefined, true)).toBeNull()
+    // Owner ruling 2026-09-24: insulation occurrences render the approved blue whatever     // their CAD material.     expect(finishFor('COMPOSITE_PANELS', 'MSP_RUBBER', 'section', undefined, false, true)).toBe('#193f66')
   })
   it('keeps reservoir occurrences on their CAD finish through the real prepareModel pipeline', () => {
     // Owner ruling 2026-09-24: the -RES- exemption must survive the wiring, not just the
@@ -104,6 +105,7 @@ describe('RL300 review prototype', () => {
       part(shell, 'PANEL_A', 'MSP_YELLOW_PAINT', 0)
       part(shell, name, 'MSP_YELLOW_PAINT', .1)
       part(shell, 'V2RL300-SAF-RES-1020-SAFE-1', 'MSP_YELLOW_PAINT', .2)
+      part(shell, 'RL300-SIF-1013-1', 'MSP_RUBBER', .3)
       const pump = root('PUMP_HOUSING')
       part(pump, 'V2RL200-RES-1003-1', 'MSP_YELLOW_PAINT', 0)
       part(pump, 'V2RL300-SAF-1047-5', 'MSP_ALUMINUM', .1)
@@ -122,6 +124,8 @@ describe('RL300 review prototype', () => {
     expect(keys('V2RL300-SAF-RES-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/cad')
     expect(keys('V2RL300-SAF-1019-SAFE-1')).not.toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/cad')
     expect(keys('V2RL300-SAF-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_YELLOW_PAINT/cut/#193f66')
+    // The insulation occurrence joins the blue bucket whatever its CAD material.
+    expect(keys('V2RL300-SAF-RES-1019-SAFE-1')).toContain('COMPOSITE_PANELS/MSP_RUBBER/cut/#193f66')
   })
 
   it('keeps the machine roots whole by default and cuts them only where a part is named', () => {

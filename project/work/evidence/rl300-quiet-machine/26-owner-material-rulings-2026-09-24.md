@@ -62,3 +62,17 @@ the owner's Blender session (web Y-up world coordinates):
 it into the skid/fuel-tank bay (onto V2FTA-FP-46-RL-1000-1 / V2RL300-SAF-1047-4) himself
 and return geometry; then LowerIntake.tsx coordinates + the lower spine + its tests get
 re-pinned in one cycle.
+
+## Shipped (later same day): 2b — insulation (SIF) unified to the approved blue
+
+Owner confirmed ("make them all blue"). Same named-part mechanism as 2c: any -SIF-
+occurrence renders '#193f66' regardless of CAD material (covers the MSP_ALUMINUM /
+MSP_RUBBER pieces that read white/gray). Gates: tsc 0, vitest 100/100; mutation check
+(deleted SIF wiring -> pipeline test fails, restored -> green); pixel-diff u .34/.51 =
+0.69%/0.37% localized to the interior insulation surfaces.
+
+## Pump integration status (owner in Blender)
+
+Pump appended + decimated to 15,428 faces in the webexport view copy. Owner export
+recipe delivered (see session report); awaiting his GLB for validation (roots, pump
+node, triangle budget) before any public/models swap.
