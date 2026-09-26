@@ -38,13 +38,13 @@ export const SPINES: Record<Exclude<Bundle, 'sound'>, readonly Vec3[]> = {
     [-.327, 1.003, -.727],  // joining the merged discharge tangentially-near (z -.727)
   ],
   lower: [
-    // wp0-5 ride the intake group, shifted with it by (0, +.205, +.150) — the owner's skid-bay move
-    [-.18, .105, .924],  // drawn from the skid bay directly under the open louver gap (band z .920-.939)
-    [-.18, .255, .922],  // through the gap into the open-bottom collector (crosses the panel plane y .172 at z ~.930)
-    [-.18, .31, .790],  // easing aft inside the collector, below the duct top's leading edge
-    [-.18, .297, .450],  // the shallow duct run (top panel bottom y .334, floor top y .196)
-    [-.18, .303, .050],  // aft end of the duct, past the top panel
-    [-.17, .505, -.150],  // up through the riser, clear of its left wall (inner face x -.204)
+    // wp0-5 ride the intake group (world offset (0, +.205, +.030) — the owner's skid-bay + engine-side moves)
+    [-.18, .105, .682],  // drawn from the skid bay directly under the forward louver gap (band z .678-.697)
+    [-.18, .255, .678],  // through the gap into the open-bottom collector (crosses the panel plane y .172 at z ~.687)
+    [-.18, .31, .540],  // easing aft inside the collector, under the duct top's leading edge
+    [-.18, .297, .300],  // the shallow duct run (top panel bottom y .334, floor top y .196)
+    [-.18, .303, -.070],  // aft end of the duct, past the top panel
+    [-.17, .505, -.270],  // up through the riser, clear of its left wall (inner face x -.204)
     [-.21, .62, -.320],  // the climb through the lower interior on the lane clear of the EMG panel band
     [-.26, .78, -.375],  // bending outboard toward the discharge root
     [-.305, .898, -.414],  // ON the merged spine (its curve at t=.06): the second feed, one exit

@@ -15,7 +15,7 @@ export function createStencilMaterials(plane: Plane) {
 }
 
 /** Root-level unions, never one stencil pass per CAD part. */
-export function SectionCaps({ sections, plane }: { sections: { name: string; geometry: BufferGeometry }[]; plane: Plane }) {
+export function SectionCaps({ sections, plane, order = -30 }: { sections: { name: string; geometry: BufferGeometry }[]; plane: Plane; order?: number }) {
   const ref = useRef<Group>(null)
   const measuredTarget = useRef('')
   const materials = useMemo(() => sections.map(() => createStencilMaterials(plane)), [sections, plane])
@@ -32,10 +32,10 @@ export function SectionCaps({ sections, plane }: { sections: { name: string; geo
     })
   })
   return <group ref={ref}>{sections.map((section, i) => <group key={section.name}>
-    <mesh geometry={section.geometry} material={materials[i].back} renderOrder={-30 + i * 3} dispose={null} />
-    <mesh geometry={section.geometry} material={materials[i].front} renderOrder={-29 + i * 3} dispose={null} />
+    <mesh geometry={section.geometry} material={materials[i].back} renderOrder={order + i * 3} dispose={null} />
+    <mesh geometry={section.geometry} material={materials[i].front} renderOrder={order + 1 + i * 3} dispose={null} />
     <mesh name={`SECTION_CAP_${section.name}`} rotation={[0, Math.PI / 2, 0]} position={[plane.constant, bounds[i].y, bounds[i].z]}
-      renderOrder={-28 + i * 3} onAfterRender={renderer => {
+      renderOrder={order + 2 + i * 3} onAfterRender={renderer => {
         const target = renderer.getRenderTarget()
         const probe = (window as any).__quietMachine
         const key = target ? `${target.texture.uuid}/${target.width}/${target.height}/${target.samples}` : 'canvas'

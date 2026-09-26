@@ -49,8 +49,9 @@ const KEYS: { at: number; position: Vec3; target: Vec3; fov: number }[] = [
   { at: .27, position: [3.28, 1.78, 2.34], target: [0, 1.18, .1], fov: 34 },
   // 03 The main intake — track the existing intake/plenum side (DUCT_INTAKE, z .43…1.36).
   { at: .41, position: [3.95, 1.75, 3.15], target: [0, 1.25, .95], fov: 32 },
-  // 04 A second breath — descend beside the skid to its underside (ISOLATION_MOUNTS, y 0….05)…
-  { at: .51, position: [3.7, .28, 2.65], target: [0, .55, .8], fov: 33 },
+  // 04 A second breath — drop below the louver panel (y .172, z .48….78) and look up into the
+  // sectioned skid bay: slats, collector, duct and the lower supply read together (owner, 2026-09-24).
+  { at: .51, position: [1.05, -.13, 1.05], target: [-.2, .2, .6], fov: 38 },
   // …then arc back toward the engine.
   { at: .61, position: [4.05, .95, .45], target: [0, 1, .1], fov: 34 },
   // 05 Two feeds, one exit — wider, carrying both supplies to the shared discharge (DUCT_EXHAUST, z −1.68…−.30).

@@ -165,7 +165,7 @@ export function QuietMachineScene({ control, onReady, onError, lite }: { control
       <cylinderGeometry args={[.075, .09, .22, 16]} /><meshStandardMaterial color="#15212b" metalness={.5} roughness={.5} />
     </mesh>))}
     <Model plane={plane} control={control} onReady={ready} onError={onError} lite={lite} />
-    <LowerIntake />
+    <LowerIntake plane={plane} control={control} />
     <AirRibbons control={control} plane={plane} />
     {composed && <EffectComposer multisampling={composerMode === '4' ? 4 : 0} stencilBuffer renderPass={createSectionRenderPass}>
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
