@@ -38,7 +38,7 @@ export function StaticPoster() {
       <div className="absolute bottom-8 right-8 hidden border border-cyan-400/30 font-mono text-[10px] tracking-widest text-cyan-300/80 md:block">
         <div className="border-b border-cyan-400/30 px-4 py-2">TITLE: PLANETARY REDUCTION ASSY</div>
         <div className="flex divide-x divide-cyan-400/30">
-          <span className="px-4 py-2">TOL ±.0015&quot;</span>
+          <span className="px-4 py-2">TIR &lt; .001&quot;</span>
           <span className="px-4 py-2">MAT&apos;L: 4140 HT</span>
           <span className="px-4 py-2">SHEET 1 OF 1</span>
         </div>

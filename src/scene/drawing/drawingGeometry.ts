@@ -2,42 +2,26 @@ import {
   Box3,
   BufferGeometry,
   CanvasTexture,
-  Color,
-  DepthTexture,
-  EdgesGeometry,
   Float32BufferAttribute,
-  Group,
-  LineBasicMaterial,
-  LineSegments,
   Matrix4,
-  Mesh,
-  MeshBasicMaterial,
   OrthographicCamera,
-  Plane,
-  PlaneGeometry,
   RepeatWrapping,
-  Scene,
-  ShaderMaterial,
-  Vector2,
-  Vector3,
   Uint32BufferAttribute,
-  Vector4,
-  WebGLRenderTarget,
+  Vector3,
+  type Mesh,
   type Object3D,
-  type WebGLRenderer,
 } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import type { WrenchRig } from '../rig/nodeRoles'
 
 /** Cream drafting vellum with navy ink — owner-supplied reference sheet, 2026-09-24. */
-export const PAPER = '#d8d1bd'
-export const INK = '#142a52'
+export const PAPER = '#e2dac4'
+export const INK = '#15295a'
 
 /**
- * JG-032 — procedural paper grain for the drawing sheet. Deterministic LCG
- * (fixed seed) so intro frames are reproducible; tiled by the sheet shader
- * and mixed at PAPER_GRAIN_MIX. fillPaperGrain is the pure, node-testable
- * core; makePaperGrainTexture is the browser wrapper.
+ * JG-032 — procedural paper grain. Deterministic LCG (fixed seed) so intro frames are
+ * reproducible. fillPaperGrain is the pure, node-testable core; makePaperGrainTexture is the
+ * browser wrapper.
  */
 export const PAPER_GRAIN_SIZE = 256
 export const PAPER_GRAIN_MIX = 0.06
@@ -77,48 +61,27 @@ export function makePaperGrainTexture(): CanvasTexture {
 }
 
 /**
- * Annotation raster size. Fixed rather than viewport-derived so the print is identical on
- * every device, and chosen as an exact 22:17 pair (1760 = 22 × 80, 1360 = 17 × 80) so the
- * SVG overlay, the render target and the sheet all agree to the pixel.
- */
-export const PRINT_TARGET_WIDTH = 3520
-export const PRINT_TARGET_HEIGHT = 2720
-
-/**
- * SHEET FORMAT — owner direction 2026-09-24 (JG-035 Track A): an OVERSIZED drafting-table
- * sheet, ~3× the viewport, that the intro camera reads by panning across it. The proportion
- * stays ANSI C (22:17) so the furniture grammar is unchanged. The primary elevation is still
- * 1:1 in WORLD metres — that is what makes the 3D model register to a view the code
- * projected — so the paper grows around a fixed-size view block rather than scaling it.
+ * SHEET FORMAT — JG-035 rebuild (2026-09-25).
  *
- * History: 2026-09-05 ruling was a fitted 854 × 660 mm sheet; the oversized restyle supersedes
- * the fit, not the geometry.
+ * A real drafting sheet, laid out like the owner's reference: the side elevation is the hero
+ * at TRUE 1:1 (that is what lets the 3D model register to a view the code projected), the
+ * other orthographic views and the longitudinal section sit around it at 1:2, and 2:1 detail
+ * circles fill the margins. 0.80 x 0.50 m is roughly an ANSI D sheet, so the pen weights and
+ * lettering heights below are the real drafting ones. The previous 2.6 m sheet left ~85% of
+ * the paper empty around a 0.44 m view block.
+ *
+ * All line work is vector (see sheet/), so the camera can come as close as it likes.
  */
-export const SHEET_HEIGHT = 2.0
-export const SHEET_WIDTH = (SHEET_HEIGHT * 22) / 17
-/** SVG annotation density. Derived so the overlay's pixel sheet is exactly the render target. */
-export const PIXELS_PER_METER = PRINT_TARGET_WIDTH / SHEET_WIDTH
-/** Desktop framing rule: the sheet fills this fraction of viewport height. */
-export const SHEET_FIT_HEIGHT_FRACTION = 0.92
+export const SHEET_WIDTH = 0.8
+export const SHEET_HEIGHT = 0.5
 /** Field of view the intro camera holds while the sheet owns the frame. */
-export const SHEET_FOV = 42
+export const SHEET_FOV = 34
 
 /**
- * PRIMARY VIEW ROTATION (model -> sheet plane): `plane = (-z, -x, y)`.
- *
- * The view direction is unchanged from the approved build — the side elevation still looks
- * along the model's +Y — but the in-plane orientation is rotated 180°. That single change
- * fixes two things at once (JG-026 Item 7.1):
- *
- *   1. the tool now sits grip-DOWN on its own elevation, the way the thing is held;
- *   2. the sheet's printed "up" becomes world -X instead of world +X.
- *
- * (2) matters because `SHEET_ROTATION` is forced to be this matrix's inverse — that identity
- * is what lands the extracted model exactly at world identity when the intro hands off — and
- * it therefore decides which way the print faces once it is lying in the world XZ plane.
- * With printed-up on world -X the sheet reads right-way-up from the CH.01 hero camera
- * (0.32, 0.16, 0.42), which is where the intro camera ends. With printed-up on world +X it
- * read from the far edge with every annotation inverted.
+ * PRIMARY VIEW ROTATION (model -> sheet plane): `plane = (-z, -x, y)`. The tool sits grip-down
+ * on its own elevation with the snout to the left. `SHEET_ROTATION` is forced to be the
+ * inverse — that identity is what lands the extracted model exactly at world identity when
+ * the intro hands off — which puts the sheet's printed "up" on world -X.
  */
 export const SIDE_ROTATION = new Matrix4().set(
   0, 0, -1, 0,
@@ -132,81 +95,64 @@ export const SHEET_ROTATION = SIDE_ROTATION.clone().invert()
 export const SHEET_UP_WORLD = new Vector3(0, 1, 0).applyMatrix4(SHEET_ROTATION).normalize()
 /** Printed "right" on the sheet, in world space. */
 export const SHEET_RIGHT_WORLD = new Vector3(1, 0, 0).applyMatrix4(SHEET_ROTATION).normalize()
+/** Sheet normal (toward the viewer) in world space. */
+export const SHEET_NORMAL_WORLD = new Vector3(0, 0, 1).applyMatrix4(SHEET_ROTATION).normalize()
 
 /**
- * THIRD-ANGLE PROJECTION SET.
- *
- * Every secondary view is derived from the primary frame by an unfold about a shared axis,
- * so the alignment is structural rather than eyeballed:
- *
- *   front  : plane_x = -Z_m,  plane_y = -X_m,  toward viewer = +Y_m
- *   top    : eye on -X_m (the object's top). Shares the front's horizontal axis and vertical
- *            centreline; placed ABOVE the front view.
- *   right  : eye on -Z_m (the object's right, which is plane -X on the front view). Shares
- *            the front's vertical axis and horizontal centreline; placed to the RIGHT.
- *   section: eye on +X_m (the object's underside). Shares the front's horizontal axis and
- *            vertical centreline; placed BELOW the front view, which is where a horizontal
- *            cutting plane with arrows pointing down puts it in third angle — and it is the
- *            region the JGun rises out of (owner note, Item 7.3).
+ * View rotations (model -> plane). Every one keeps the tool's top (model -X) printed up
+ * except the plan/bottom views, which look down/up the grip.
  */
-const VIEW_ROTATIONS = {
-  front: SIDE_ROTATION,
-  /** plane = (-z, -y, -x) */
+export const VIEW_ROTATIONS = {
+  side: SIDE_ROTATION,
+  /** Looking down on the tool's top (-X_m). plane = (-z, -y, -x) */
   top: new Matrix4().set(0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1),
-  /** plane = (-y, -x, -z) */
-  right: new Matrix4().set(0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1),
-  /** plane = (-z, y, x) */
-  section: new Matrix4().set(0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1),
+  /** Looking up at the grip (+X_m). plane = (-z, y, x) */
+  bottom: new Matrix4().set(0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1),
+  /** Looking into the snout (+Z_m). plane = (y, -x, z) */
+  front: new Matrix4().set(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
+  /** Looking at the handle end (-Z_m). plane = (-y, -x, -z) */
+  rear: new Matrix4().set(0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1),
 } as const
+export type ViewRotation = keyof typeof VIEW_ROTATIONS
 
-/** Clear space between adjacent third-angle views (leaders and dimensions live here). */
-const VIEW_GAP = 0.022
-/** Symmetric padding around each view's true extent so edge linework is never scissored. */
-const VIEW_MARGIN = 0.005
-
-/**
- * Reserved sheet furniture zones, in sheet-plane metres with the origin at the sheet centre.
- * These are the rectangles Mark's hand-drawn SVG owns; the generated content never draws
- * inside them and the SVG template (`scripts/export-sheet-template.mjs`) emits them verbatim.
- */
+/** Sheet zones in sheet-plane metres, origin at the sheet centre. */
 export const SHEET_ZONES = {
-  /** Outer trim/border frame — at the oversized sheet's edge, ~12 mm in from the trim. */
-  border: { x: -1.28, y: -0.97, w: 2.56, h: 1.94 },
-  /** HAND-DRAWN SLOT — bottom-right title block. */
-  titleBlock: { x: 0.9, y: -0.97, w: 0.38, h: 0.13 },
-  /** HAND-DRAWN SLOT — top-right revision block. */
-  revisionBlock: { x: 1.0, y: 0.86, w: 0.28, h: 0.11 },
-  /** HAND-DRAWN SLOT — left-side general notes column (the oversized sheet's reading rail). */
-  notes: { x: -1.26, y: -0.9, w: 0.36, h: 1.24 },
-  /** GENERATED — GD&T frames, datum table and the CAD reference-dimension table. */
-  tables: { x: 0.175, y: -0.218, w: 0.2359, h: 0.438 },
-  /**
-   * GENERATED — the single callout lane, OUTBOARD of the view block on the left. Placing it
-   * there is what makes the leader set short and planar: every anchor is on the primary
-   * elevation or the section directly below it, both of which have open sheet to their left,
-   * so no leader has to cross another view to reach its label.
-   */
-  callouts: { x: -0.4149, y: -0.232, w: 0.12, h: 0.538 },
-  /** GENERATED — the third-angle view block. Nothing hand-drawn goes here. */
-  views: { x: -0.2849, y: -0.236, w: 0.4401, h: 0.546 },
+  trim: { x: -SHEET_WIDTH / 2, y: -SHEET_HEIGHT / 2, w: SHEET_WIDTH, h: SHEET_HEIGHT },
+  /** Outer border line (zone letters/numbers live between trim and border). */
+  border: { x: -0.388, y: -0.238, w: 0.776, h: 0.476 },
+  /** Inner drawing frame. */
+  frame: { x: -0.38, y: -0.23, w: 0.76, h: 0.46 },
+  titleBlock: { x: 0.14, y: -0.23, w: 0.24, h: 0.085 },
+  revisionBlock: { x: 0.14, y: -0.145, w: 0.24, h: 0.036 },
+  notes: { x: 0.198, y: 0.118, w: 0.176, h: 0.106 },
 } as const
 
 export interface DrawingView {
   name: string
   label: string
+  scaleLabel: string
+  rotation: ViewRotation
   camera: OrthographicCamera
+  /** Model -> sheet plane, including scale and placement. */
   transform: Matrix4
   /** [x, y, width, height] in sheet-plane metres, origin at the sheet centre. */
   rect: [number, number, number, number]
   scale: number
+  /** Longitudinal half-section through the drivetrain axis (model y = 0). */
   section: boolean
+}
+
+export interface UnitBounds {
+  min: Vector3
+  max: Vector3
 }
 
 export interface DrawingGeometry {
   geometry: BufferGeometry
-  edges: EdgesGeometry
   bounds: Box3
   features: Record<string, Vector3>
+  /** Rest-pose bounds of the named rig units, in the recentered model frame. */
+  units: Record<string, UnitBounds>
   sourceTriangles: number
 }
 
@@ -215,11 +161,11 @@ export interface DrawingLayout {
   width: number
   height: number
   primaryRotation: Matrix4
+  /** Sheet-plane point the model origin maps to on the primary (1:1) view. */
   primaryCenter: Vector3
   views: DrawingView[]
-  /** Camera distance that fits the sheet to SHEET_FIT_HEIGHT_FRACTION of viewport height. */
+  /** Camera distance that frames the whole sheet. */
   fitDistance: number
-  /** True when the viewport is too narrow to read the fitted sheet (drives the mobile pan). */
   narrow: boolean
   /** Sheet-plane y of the A–A cutting plane drawn on the primary view. */
   sectionLineY: number
@@ -244,172 +190,150 @@ export function snapshotDrawing(rig: WrenchRig): DrawingGeometry {
   list.forEach((g) => g.dispose())
   geometry.computeBoundingBox()
   const bounds = geometry.boundingBox!.clone()
-  // Actual camera-facing surface vertices on named rig units, never invented SVG endpoints.
-  const units: [string, Object3D | null][] = [
-    ['P000245', rig.housing],
-    ['P003068', rig.clutch.ringSwitch],
-    ['P000095', rig.outputShaft],
-    ['A000606', rig.stages.stage5.carrier],
-    ['K000004', rig.bearing],
-    ['A000591', rig.stages.stage1.carrier],
-    ['HANDLE', rig.handleRoot],
+  const unitList: [string, Object3D | null | readonly Object3D[]][] = [
+    ['housing', rig.housing],
+    ['output', rig.outputShaft],
+    ['bearing', rig.bearing],
+    ['handle', rig.handleRoot],
+    ['clutch', rig.clutch.static],
+    ['fork', rig.clutch.sliding],
+    ['ringSwitch', rig.clutch.ringSwitch],
+    ['stage1', rig.stages.stage1.carrier],
+    ['stage2', rig.stages.stage2.carrier],
+    ['stage3', rig.stages.stage3.carrier],
+    ['stage4', rig.stages.stage4.carrier],
+    ['stage5', rig.stages.stage5.carrier],
   ]
+  const units: Record<string, UnitBounds> = {}
   const point = new Vector3()
-  for (const [id, unit] of units) {
-    if (!unit) continue
+  for (const [id, unit] of unitList) {
+    const nodes = ([] as Object3D[]).concat((unit ?? []) as Object3D | Object3D[])
+    const min = new Vector3(Infinity, Infinity, Infinity)
+    const max = new Vector3(-Infinity, -Infinity, -Infinity)
     let best = -Infinity
-    let minZ = Infinity
-    let maxZ = -Infinity
-    unit.traverse((node) => {
-      if (!(node as Mesh).isMesh) return
-      const mesh = node as Mesh
-      const pos = mesh.geometry.getAttribute('position')
-      for (let i = 0; i < pos.count; i += 1) {
-        point.fromBufferAttribute(pos, i).applyMatrix4(mesh.matrixWorld).sub(rig.center)
-        if (point.y > best) {
-          best = point.y
-          features[id] = point.clone()
+    for (const node of nodes) {
+      node.updateWorldMatrix(true, true)
+      node.traverse((child) => {
+        const mesh = child as Mesh
+        if (!mesh.isMesh) return
+        const pos = mesh.geometry.getAttribute('position')
+        for (let i = 0; i < pos.count; i += 1) {
+          point.fromBufferAttribute(pos, i).applyMatrix4(mesh.matrixWorld).sub(rig.center)
+          min.min(point)
+          max.max(point)
+          // Most camera-facing surface vertex (model +Y faces the side-elevation viewer).
+          if (point.y > best) {
+            best = point.y
+            features[id] = point.clone()
+          }
         }
-        if (point.z < minZ) {
-          minZ = point.z
-          features[`${id}:minZ`] = point.clone()
-        }
-        if (point.z > maxZ) {
-          maxZ = point.z
-          features[`${id}:maxZ`] = point.clone()
-        }
-      }
-    })
+      })
+    }
+    if (min.x !== Infinity) units[id] = { min, max }
   }
-  const edges = new EdgesGeometry(geometry, 22)
   return {
     geometry,
-    edges,
     bounds,
     features,
+    units,
     sourceTriangles: geometry.getAttribute('position').count / 3,
   }
 }
 
-/**
- * Padded extent of the model under a view rotation, in sheet-plane metres at scale 1.
- * The padding is symmetric so it never disturbs the third-angle centreline alignment.
- */
-function viewExtent(bounds: Box3, rotation: Matrix4): { width: number; height: number } {
-  const box = bounds.clone().applyMatrix4(rotation)
-  return {
-    width: box.max.x - box.min.x + 2 * VIEW_MARGIN,
-    height: box.max.y - box.min.y + 2 * VIEW_MARGIN,
-  }
+interface ViewDef {
+  name: string
+  label: string
+  scaleLabel: string
+  rotation: ViewRotation
+  scale: number
+  /** Sheet-plane centre of the view's model bounds. */
+  at: [number, number]
+  section?: boolean
 }
 
 /**
- * Build the sheet. The primary elevation is 1:1 and every other view is scaled to match it,
- * so the three-view alignment holds without any per-view fudge factor. Secondary views are
- * placed by shared axis, not by a hand-entered rectangle:
- *
- *      +----------+                    top   (above front, shared vertical centreline)
- *      +----------+  +--+
- *      |          |  |  |              front (1:1, the view the model registers to)
- *      |  front   |  |rt|              right (right of front, shared horizontal centreline)
- *      +----------+  +--+
- *      +----------+                    A–A   (below front, shared vertical centreline)
+ * The view set. The 1:1 elevation owns the left-centre; its end views flank it (third-angle:
+ * the snout view on the snout side), plan and bottom views run across the top band, and the
+ * half-section sits in the right column between the notes and the title block. Positions are the
+ * centres of each view's model bounds; tune here, everything else derives from them.
  */
+export const VIEW_DEFS: readonly ViewDef[] = [
+  { name: 'side', label: 'SIDE VIEW', scaleLabel: 'SCALE 1:1', rotation: 'side', scale: 1, at: [-0.12, -0.042] },
+  { name: 'top', label: 'TOP VIEW', scaleLabel: 'SCALE 1:2', rotation: 'top', scale: 0.5, at: [-0.262, 0.19] },
+  { name: 'section', label: 'SECTION A–A', scaleLabel: 'SCALE 1:2', rotation: 'side', scale: 0.5, at: [0.19, 0.02], section: true },
+  { name: 'front', label: 'FRONT VIEW', scaleLabel: 'SCALE 1:2', rotation: 'front', scale: 0.5, at: [-0.335, -0.03] },
+  { name: 'rear', label: 'REAR VIEW', scaleLabel: 'SCALE 1:2', rotation: 'rear', scale: 0.5, at: [0.085, -0.03] },
+  { name: 'bottom', label: 'BOTTOM VIEW', scaleLabel: 'SCALE 1:2', rotation: 'bottom', scale: 0.5, at: [-0.07, 0.19] },
+]
+
+/** Model -> plane transform that puts the view's bounds centre at `at` with `scale`. */
+function placeView(bounds: Box3, rotation: Matrix4, scale: number, at: [number, number]): Matrix4 {
+  const centre = bounds.getCenter(new Vector3()).applyMatrix4(rotation).multiplyScalar(scale)
+  return new Matrix4()
+    .makeTranslation(at[0] - centre.x, at[1] - centre.y, -centre.z)
+    .multiply(new Matrix4().makeScale(scale, scale, scale))
+    .multiply(rotation)
+}
+
+export function viewCamera(): OrthographicCamera {
+  const camera = new OrthographicCamera(-SHEET_WIDTH / 2, SHEET_WIDTH / 2, SHEET_HEIGHT / 2, -SHEET_HEIGHT / 2, 0.01, 4)
+  camera.position.z = 2
+  camera.updateMatrixWorld()
+  camera.updateProjectionMatrix()
+  camera.userData.planeWidth = SHEET_WIDTH
+  camera.userData.planeHeight = SHEET_HEIGHT
+  return camera
+}
+
+/** Sheet-plane rect of `bounds` under a full view transform, padded. */
+export function transformedRect(bounds: Box3, transform: Matrix4, pad = 0.004): [number, number, number, number] {
+  const box = bounds.clone().applyMatrix4(transform)
+  return [box.min.x - pad, box.min.y - pad, box.max.x - box.min.x + 2 * pad, box.max.y - box.min.y + 2 * pad]
+}
+
 export function makeDrawingLayout(aspect: number, bounds: Box3): DrawingLayout {
-  const front = viewExtent(bounds, VIEW_ROTATIONS.front)
-  const top = viewExtent(bounds, VIEW_ROTATIONS.top)
-  const right = viewExtent(bounds, VIEW_ROTATIONS.right)
-  const section = viewExtent(bounds, VIEW_ROTATIONS.section)
-
-  const blockHeight = top.height + VIEW_GAP + front.height + VIEW_GAP + section.height
-  const zone = SHEET_ZONES.views
-  // Reserve the left margin of the views zone for the overall-height dimension, which sits
-  // between the callout lane and the elevation it measures.
-  const leftPad = 0.033
-  const blockBottom = zone.y + Math.max(0, (zone.h - blockHeight) / 2)
-  const frontLeft = zone.x + leftPad
-  const frontBottom = blockBottom + section.height + VIEW_GAP
-  const frontCenterX = frontLeft + front.width / 2
-  const frontCenterY = frontBottom + front.height / 2
-
-  const rects: Record<string, DrawingView['rect']> = {
-    front: [frontLeft, frontBottom, front.width, front.height],
-    // shared vertical centreline with front
-    top: [frontCenterX - top.width / 2, frontBottom + front.height + VIEW_GAP, top.width, top.height],
-    section: [frontCenterX - section.width / 2, blockBottom, section.width, section.height],
-    // shared horizontal centreline with front
-    right: [
-      frontLeft + front.width + VIEW_GAP,
-      frontCenterY - right.height / 2,
-      right.width,
-      right.height,
-    ],
-  }
-
-  const view = (
-    name: keyof typeof VIEW_ROTATIONS,
-    label: string,
-    isSection = false,
-  ): DrawingView => {
-    const rect = rects[name]
-    const camera = new OrthographicCamera(
-      -SHEET_WIDTH / 2,
-      SHEET_WIDTH / 2,
-      SHEET_HEIGHT / 2,
-      -SHEET_HEIGHT / 2,
-      0.01,
-      4,
-    )
-    camera.position.z = 2
-    camera.updateMatrixWorld()
-    camera.updateProjectionMatrix()
-    camera.userData.planeWidth = SHEET_WIDTH
-    camera.userData.planeHeight = SHEET_HEIGHT
-    const transform = new Matrix4()
-      .makeTranslation(rect[0] + rect[2] / 2, rect[1] + rect[3] / 2, 0)
-      .multiply(VIEW_ROTATIONS[name])
-    return { name, label, rect, transform, camera, scale: 1, section: isSection }
-  }
-
-  const views = [
-    view('front', '01 / SIDE ELEVATION · 1:1'),
-    view('top', '02 / PLAN · THIRD ANGLE'),
-    view('right', '03 / END · THIRD ANGLE'),
-    view('section', '04 / SECTION A–A'),
-  ]
-
-  const fitDistance =
-    SHEET_HEIGHT / SHEET_FIT_HEIGHT_FRACTION / 2 / Math.tan((SHEET_FOV * Math.PI) / 360)
-  // The sheet reads at fitDistance only when the viewport is wide enough to hold its width.
-  const narrow = SHEET_WIDTH / (SHEET_HEIGHT / SHEET_FIT_HEIGHT_FRACTION) > aspect
-
+  const views: DrawingView[] = VIEW_DEFS.map((def) => {
+    const rotation = VIEW_ROTATIONS[def.rotation]
+    // No z offset on any view: extractionPose places the model with
+    // translate(primaryCenter) * SIDE_ROTATION, and the section's cut must stay on plane z = 0.
+    const transform = placeView(bounds, rotation, def.scale, def.at)
+    transform.elements[14] = 0
+    return {
+      name: def.name,
+      label: def.label,
+      scaleLabel: def.scaleLabel,
+      rotation: def.rotation,
+      camera: viewCamera(),
+      transform,
+      rect: transformedRect(bounds, transform),
+      scale: def.scale,
+      section: def.section === true,
+    }
+  })
+  const primary = views[0]
+  const primaryCenter = new Vector3().setFromMatrixPosition(primary.transform)
+  const fitDistance = SHEET_HEIGHT / 0.92 / 2 / Math.tan((SHEET_FOV * Math.PI) / 360)
   return {
     width: SHEET_WIDTH,
     height: SHEET_HEIGHT,
-    primaryRotation: VIEW_ROTATIONS.front,
-    primaryCenter: new Vector3(frontCenterX, frontCenterY, 0),
+    primaryRotation: SIDE_ROTATION,
+    primaryCenter,
     views,
     fitDistance,
-    narrow,
-    // The cutting plane is the model's X = 0, and the front view maps plane_y = -X_m, so
-    // A–A lands exactly on the front view's horizontal centreline.
-    sectionLineY: frontCenterY,
+    narrow: SHEET_WIDTH / (SHEET_HEIGHT / 0.92) > aspect,
+    // The A–A cutting plane is model y = 0, i.e. edge-on in the plan view; on the side view
+    // it is drawn along the drivetrain centreline.
+    sectionLineY: primaryCenter.y,
   }
 }
 
 /** Identical ortho matrix and viewport as the render target. */
 export function projectFeature(point: Vector3, view: DrawingView): [number, number] {
-  const p = point.clone().applyMatrix4(view.transform).project(view.camera)
-  return [
-    (p.x * view.camera.userData.planeWidth) / 2,
-    (p.y * view.camera.userData.planeHeight) / 2,
-  ]
+  const p = point.clone().applyMatrix4(view.transform)
+  return [p.x, p.y]
 }
 
 export interface RenderedDrawing {
-  target: WebGLRenderTarget
-  mask: WebGLRenderTarget
-  edgeMask: WebGLRenderTarget
   profile: BufferGeometry
   /** Widened strip along the same contour — the excitation needs real width to read. */
   profileRibbon: BufferGeometry
@@ -418,15 +342,15 @@ export interface RenderedDrawing {
   dispose: () => void
 }
 
-/** Half-width of the excitation ribbon, in sheet metres (~7 px at 1920 on a fitted sheet). */
-const PROFILE_RIBBON_HALF_WIDTH = 0.0025
+/** Half-width of the excitation ribbon, in sheet metres. */
+const PROFILE_RIBBON_HALF_WIDTH = 0.0011
 
 /**
  * Turn the traced contour into a two-sided strip so the excitation is a visible trace rather
  * than a hairline. `LineBasicMaterial.linewidth` is ignored on every WebGL platform, so the
  * width has to be geometry.
  */
-function buildProfileRibbon(points: number[][], arc: number[]): BufferGeometry {
+export function buildProfileRibbon(points: number[][], arc: number[]): BufferGeometry {
   const count = points.length
   const positions = new Float32Array(count * 6)
   const arcLength = new Float32Array(count * 2)
@@ -442,10 +366,10 @@ function buildProfileRibbon(points: number[][], arc: number[]): BufferGeometry {
     const ny = tx * PROFILE_RIBBON_HALF_WIDTH
     positions[i * 6 + 0] = points[i][0] + nx
     positions[i * 6 + 1] = points[i][1] + ny
-    positions[i * 6 + 2] = 0.0002
+    positions[i * 6 + 2] = 0.0004
     positions[i * 6 + 3] = points[i][0] - nx
     positions[i * 6 + 4] = points[i][1] - ny
-    positions[i * 6 + 5] = 0.0002
+    positions[i * 6 + 5] = 0.0004
     arcLength[i * 2] = arc[i]
     arcLength[i * 2 + 1] = arc[i]
   }
@@ -466,8 +390,8 @@ function buildProfileRibbon(points: number[][], arc: number[]): BufferGeometry {
   return ribbon
 }
 
-/** Ordered outer contour of the depth-rendered silhouette, in target pixels. */
-function traceProfile(pixels: Uint8Array, w: number, h: number): number[][] {
+/** Ordered outer contour of a binary silhouette mask (R channel), in mask pixels. */
+export function traceProfile(pixels: Uint8Array, w: number, h: number): number[][] {
   const on = (x: number, y: number) => x >= 0 && y >= 0 && x < w && y < h && pixels[(y * w + x) * 4] > 127
   const edges = new Map<string, [number, number][]>()
   const add = (x: number, y: number, a: number, b: number) => {
@@ -504,231 +428,60 @@ function traceProfile(pixels: Uint8Array, w: number, h: number): number[][] {
   return longest
 }
 
-/** True triangle/section-plane intersections and 45-degree section hatching. */
-function sectionLinework(data: DrawingGeometry, transform: Matrix4): BufferGeometry {
-  const a = data.geometry.getAttribute('position')
-  const v = [new Vector3(), new Vector3(), new Vector3()]
-  const segments: number[][] = []
-  const positions: number[] = []
-  for (let i = 0; i < a.count; i += 3) {
-    for (let k = 0; k < 3; k += 1) v[k].fromBufferAttribute(a, i + k).applyMatrix4(transform)
-    const hit: number[][] = []
+/**
+ * True triangle/section-plane intersections (the cut outline) and 45-degree hatching of the
+ * cut faces, for a transform whose section plane is plane z = 0. Returns 4-float segments.
+ */
+export function sectionLinework(
+  position: Float32Array,
+  transform: Matrix4,
+  spacing: number,
+): { cut: Float32Array; hatch: Float32Array } {
+  const e = transform.elements
+  const segments: number[] = []
+  const v = new Float32Array(9)
+  for (let i = 0; i < position.length; i += 9) {
     for (let k = 0; k < 3; k += 1) {
-      const p = v[k]
-      const q = v[(k + 1) % 3]
-      if (p.z < 0 !== q.z < 0) {
-        const t = -p.z / (q.z - p.z)
-        hit.push([p.x + (q.x - p.x) * t, p.y + (q.y - p.y) * t])
+      const x = position[i + k * 3], y = position[i + k * 3 + 1], z = position[i + k * 3 + 2]
+      v[k * 3] = e[0] * x + e[4] * y + e[8] * z + e[12]
+      v[k * 3 + 1] = e[1] * x + e[5] * y + e[9] * z + e[13]
+      v[k * 3 + 2] = e[2] * x + e[6] * y + e[10] * z + e[14]
+    }
+    let hits = 0
+    let hx0 = 0, hy0 = 0, hx1 = 0, hy1 = 0
+    for (let k = 0; k < 3; k += 1) {
+      const pz = v[k * 3 + 2]
+      const q = (k + 1) % 3
+      const qz = v[q * 3 + 2]
+      if (pz < 0 !== qz < 0) {
+        const t = -pz / (qz - pz)
+        const hx = v[k * 3] + (v[q * 3] - v[k * 3]) * t
+        const hy = v[k * 3 + 1] + (v[q * 3 + 1] - v[k * 3 + 1]) * t
+        if (hits === 0) { hx0 = hx; hy0 = hy } else { hx1 = hx; hy1 = hy }
+        hits += 1
       }
     }
-    if (hit.length === 2) {
-      const s = [...hit[0], ...hit[1]]
-      segments.push(s)
-      positions.push(s[0], s[1], 0.0001, s[2], s[3], 0.0001)
-    }
+    if (hits === 2) segments.push(hx0, hy0, hx1, hy1)
   }
   let lo = Infinity
   let hi = -Infinity
-  for (const s of segments) {
-    lo = Math.min(lo, s[0] + s[1], s[2] + s[3])
-    hi = Math.max(hi, s[0] + s[1], s[2] + s[3])
+  for (let i = 0; i < segments.length; i += 4) {
+    lo = Math.min(lo, segments[i] + segments[i + 1], segments[i + 2] + segments[i + 3])
+    hi = Math.max(hi, segments[i] + segments[i + 1], segments[i + 2] + segments[i + 3])
   }
-  for (let q = lo; q <= hi; q += 0.003) {
+  const hatch: number[] = []
+  for (let q = lo + spacing / 2; q <= hi; q += spacing) {
     const hits: number[] = []
-    for (const s of segments) {
-      const p = s[0] + s[1]
-      const r = s[2] + s[3]
-      if (p < q !== r < q) hits.push(s[0] + ((s[2] - s[0]) * (q - p)) / (r - p))
+    for (let i = 0; i < segments.length; i += 4) {
+      const p = segments[i] + segments[i + 1]
+      const r = segments[i + 2] + segments[i + 3]
+      if (p < q !== r < q) hits.push(segments[i] + ((segments[i + 2] - segments[i]) * (q - p)) / (r - p))
     }
     hits.sort((x, y) => x - y)
     for (let i = 0; i + 1 < hits.length; i += 2) {
-      positions.push(hits[i], q - hits[i], 0.0001, hits[i + 1], q - hits[i + 1], 0.0001)
+      if (hits[i + 1] - hits[i] < 1e-5) continue
+      hatch.push(hits[i], q - hits[i], hits[i + 1], q - hits[i + 1])
     }
   }
-  return new BufferGeometry().setAttribute('position', new Float32BufferAttribute(positions, 3))
-}
-
-/** Opaque depth occluders plus depth-tested crease edges. Targets are baked once per layout. */
-export function renderDrawing(
-  gl: WebGLRenderer,
-  data: DrawingGeometry,
-  layout: DrawingLayout,
-  pixelWidth: number,
-  pixelHeight: number,
-): RenderedDrawing {
-  const w = pixelWidth
-  const h = pixelHeight
-  const ppm = h / layout.height
-  const rw = layout.width
-  const rh = layout.height
-  const target = new WebGLRenderTarget(w, h, { depthBuffer: true })
-  const mask = new WebGLRenderTarget(w, h, { depthBuffer: true })
-  target.depthTexture = new DepthTexture(w, h)
-  const outlined = new WebGLRenderTarget(w, h)
-  const edgeMask = new WebGLRenderTarget(w, h)
-  const scene = new Scene()
-  const solidMat = new MeshBasicMaterial({
-    color: PAPER,
-    polygonOffset: true,
-    polygonOffsetFactor: 1,
-    polygonOffsetUnits: 1,
-    toneMapped: false,
-  })
-  const edgeMat = new LineBasicMaterial({ color: INK, depthTest: true, depthWrite: false, toneMapped: false })
-  const solid = new Mesh(data.geometry, solidMat)
-  const lines = new LineSegments(data.edges, edgeMat)
-  lines.renderOrder = 1
-  const root = new Group()
-  root.add(solid, lines)
-  scene.add(root)
-  const previous = gl.getRenderTarget()
-  const clear = gl.getClearColor(new Color())
-  const alpha = gl.getClearAlpha()
-  const viewport = gl.getViewport(new Vector4())
-  const scissor = gl.getScissor(new Vector4())
-  const scissorTest = gl.getScissorTest()
-  const auto = gl.autoClear
-  const clipping = gl.localClippingEnabled
-  gl.autoClear = false
-  gl.localClippingEnabled = true
-  gl.setRenderTarget(target)
-  gl.setClearColor(PAPER, 1)
-  gl.clear()
-  for (const view of layout.views) {
-    root.matrix.copy(view.transform)
-    root.matrixAutoUpdate = false
-    root.updateMatrixWorld(true)
-    // Third-angle half section: the observer of the A–A view sits on +X_m, so the material
-    // between the observer and the cutting plane (view depth > 0) is what gets removed.
-    const clip = view.section ? [new Plane(new Vector3(0, 0, -1), 0)] : null
-    solidMat.clippingPlanes = clip
-    edgeMat.clippingPlanes = clip
-    const [x, y, vw, vh] = view.rect
-    gl.setViewport(0, 0, w, h)
-    gl.setScissor(
-      Math.floor((x + rw / 2) * ppm),
-      Math.floor((y + rh / 2) * ppm),
-      Math.ceil(vw * ppm),
-      Math.ceil(vh * ppm),
-    )
-    gl.setScissorTest(true)
-    gl.render(scene, view.camera)
-    if (view.section) {
-      const cutGeometry = sectionLinework(data, view.transform)
-      const cutMaterial = new LineBasicMaterial({
-        color: INK,
-        depthTest: false,
-        depthWrite: false,
-        toneMapped: false,
-      })
-      const cutScene = new Scene()
-      cutScene.add(new LineSegments(cutGeometry, cutMaterial))
-      gl.render(cutScene, view.camera)
-      cutGeometry.dispose()
-      cutMaterial.dispose()
-    }
-  }
-  gl.setScissorTest(false)
-  const primary = layout.views[0]
-  // Depth discontinuities add true view silhouettes (smooth cylinders have no crease at their profile).
-  // Occluded/back-face lines never enter this pass: they failed the opaque scene's depth test.
-  const quadScene = new Scene()
-  const quadCamera = new OrthographicCamera(-1, 1, 1, -1, 0, 2)
-  quadCamera.position.z = 1
-  const quadGeometry = new PlaneGeometry(2, 2)
-  const quadMaterial = new ShaderMaterial({
-    uniforms: {
-      source: { value: target.texture },
-      depth: { value: target.depthTexture },
-      texel: { value: new Vector2(1 / w, 1 / h) },
-      paper: { value: new Color(PAPER) },
-      ink: { value: new Color(INK) },
-      proof: { value: 0 },
-      region: {
-        value: new Vector4(
-          (primary.rect[0] + rw / 2) / rw,
-          (primary.rect[1] + rh / 2) / rh,
-          primary.rect[2] / rw,
-          primary.rect[3] / rh,
-        ),
-      },
-    },
-    vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.);}',
-    fragmentShader: `
-  uniform sampler2D source,depth;uniform vec2 texel;uniform vec3 paper,ink;uniform float proof;uniform vec4 region;varying vec2 vUv;
-  void main(){vec3 c=texture2D(source,vUv).rgb;float d=texture2D(depth,vUv).r;
-   float edge=max(max(abs(d-texture2D(depth,vUv+vec2(texel.x,0.)).r),abs(d-texture2D(depth,vUv-vec2(texel.x,0.)).r)),max(abs(d-texture2D(depth,vUv+vec2(0.,texel.y)).r),abs(d-texture2D(depth,vUv-vec2(0.,texel.y)).r)));
-   float line=max(step(.003,edge),step(.08,length(c-paper)));
-   if(proof>.5){float inside=step(region.x,vUv.x)*step(region.y,vUv.y)*step(vUv.x,region.x+region.z)*step(vUv.y,region.y+region.w);gl_FragColor=vec4(vec3(line*inside),1.);}
-   else gl_FragColor=vec4(mix(c,ink,step(.003,edge)),1.);
-  }`,
-    toneMapped: false,
-  })
-  quadScene.add(new Mesh(quadGeometry, quadMaterial))
-  gl.setRenderTarget(outlined)
-  gl.setViewport(0, 0, w, h)
-  gl.clear()
-  gl.render(quadScene, quadCamera)
-  quadMaterial.uniforms.proof.value = 1
-  gl.setRenderTarget(edgeMask)
-  gl.clear()
-  gl.render(quadScene, quadCamera)
-  quadMaterial.dispose()
-  quadGeometry.dispose()
-  gl.setRenderTarget(mask)
-  gl.setClearColor(0x000000, 1)
-  gl.clear()
-  root.matrix.copy(primary.transform)
-  root.updateMatrixWorld(true)
-  solidMat.clippingPlanes = null
-  solidMat.color.set(0xffffff)
-  lines.visible = false
-  gl.setViewport(0, 0, w, h)
-  gl.render(scene, primary.camera)
-  const pixels = new Uint8Array(w * h * 4)
-  gl.readRenderTargetPixels(mask, 0, 0, w, h, pixels)
-  const profilePoints = traceProfile(pixels, w, h).map(([px, py]) => [
-    (px / w - 0.5) * rw,
-    (py / h - 0.5) * rh,
-  ])
-  const positions: number[] = []
-  const lengths: number[] = []
-  let perimeter = 0
-  for (let i = 0; i < profilePoints.length; i += 1) {
-    const p = profilePoints[i]
-    if (i) perimeter += Math.hypot(p[0] - profilePoints[i - 1][0], p[1] - profilePoints[i - 1][1])
-    positions.push(p[0], p[1], 0.0002)
-    lengths.push(perimeter)
-  }
-  const normalizedArc = lengths.map((s) => s / perimeter)
-  const profile = new BufferGeometry()
-  profile.setAttribute('position', new Float32BufferAttribute(positions, 3))
-  profile.setAttribute('arcLength', new Float32BufferAttribute(normalizedArc, 1))
-  const profileRibbon = buildProfileRibbon(profilePoints, normalizedArc)
-  gl.setRenderTarget(previous)
-  gl.setViewport(viewport)
-  gl.setScissor(scissor)
-  gl.setScissorTest(scissorTest)
-  gl.setClearColor(clear, alpha)
-  gl.autoClear = auto
-  gl.localClippingEnabled = clipping
-  solidMat.dispose()
-  edgeMat.dispose()
-  target.dispose()
-  return {
-    target: outlined,
-    mask,
-    edgeMask,
-    profile,
-    profileRibbon,
-    profilePoints,
-    perimeter,
-    dispose: () => {
-      outlined.dispose()
-      mask.dispose()
-      edgeMask.dispose()
-      profile.dispose()
-      profileRibbon.dispose()
-    },
-  }
+  return { cut: new Float32Array(segments), hatch: new Float32Array(hatch) }
 }

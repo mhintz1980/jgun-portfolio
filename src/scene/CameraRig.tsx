@@ -8,8 +8,7 @@ import {
   remapHeroProgress,
   smooth01,
 } from './drawing/introTimeline'
-import { SHEET_FOV, SHEET_UP_WORLD } from './drawing/drawingGeometry'
-import { introCameraPose } from './drawing/sheetCamera'
+import { introCameraPose, type SheetCameraPose } from './drawing/sheetCamera'
 import {
   CAMERA_PATH,
   EXPLODE_OFFSETS,
@@ -168,8 +167,15 @@ export function CameraRig() {
   const scratchFwd = useRef(new Vector3())
   const scratchRight = useRef(new Vector3())
   const orthographic = useRef(new Matrix4())
-  const introPos = useRef(new Vector3())
-  const introTarget = useRef(new Vector3())
+  const introPose = useRef<SheetCameraPose>({
+    position: new Vector3(),
+    target: new Vector3(),
+    up: new Vector3(0, 1, 0),
+    fov: 30,
+    ortho: 0,
+    distance: 1,
+  })
+  const introOrtho = useRef(0)
   const shakeFrames = useRef(0)
   const wasPulsing = useRef(false)
   const restOrbit = useRef(0)
@@ -424,19 +430,21 @@ export function CameraRig() {
     const introActive = progress <= DRAWING_INTRO_WINDOW.releaseEnd && layout !== null
     const introBlend = introActive ? (reducedMotion ? 0 : intro.perspective) : 1
     if (introActive && layout) {
-      const framing = introCameraPose(layout, aspect, intro.t, introPos.current, introTarget.current)
-      telemetry.camera.sheetDistance = framing
-      goalPos.current.lerpVectors(introPos.current, goalPos.current, introBlend)
-      goalTarget.current.lerpVectors(introTarget.current, goalTarget.current, introBlend)
-      goalFov = SHEET_FOV + (goalFov - SHEET_FOV) * introBlend
+      const pose = introCameraPose(layout, aspect, reducedMotion ? 0.36 : intro.t, introPose.current)
+      telemetry.camera.sheetDistance = pose.distance
+      goalPos.current.lerpVectors(pose.position, goalPos.current, introBlend)
+      goalTarget.current.lerpVectors(pose.target, goalTarget.current, introBlend)
+      goalFov = pose.fov + (goalFov - pose.fov) * introBlend
+      introOrtho.current = pose.ortho * (1 - introBlend)
       camera.up
         .set(
-          SHEET_UP_WORLD.x * (1 - introBlend),
-          SHEET_UP_WORLD.y * (1 - introBlend) + introBlend,
-          SHEET_UP_WORLD.z * (1 - introBlend),
+          pose.up.x * (1 - introBlend),
+          pose.up.y * (1 - introBlend) + introBlend,
+          pose.up.z * (1 - introBlend),
         )
         .normalize()
     } else {
+      introOrtho.current = 0
       camera.up.set(0, 1, 0)
       telemetry.camera.sheetDistance = 0
     }
@@ -486,8 +494,12 @@ export function CameraRig() {
       // While the sheet is the subject the projection is blended toward a true orthographic
       // matrix, which is what makes the print register to the model's own projection rather
       // than to a perspective approximation of it.
-      if (introActive && layout && introBlend < 1) {
-        const half = layout.fitDistance * Math.tan((SHEET_FOV * Math.PI) / 360)
+      // The ortho frustum is sized to the perspective one AT the look-at distance, so the blend
+      // changes parallax only, never framing.
+      const ortho = introOrtho.current
+      if (introActive && layout && ortho > 1e-4) {
+        const distance = currentPos.current.distanceTo(currentTarget.current)
+        const half = distance * Math.tan((camera.fov * Math.PI) / 360)
         orthographic.current.makeOrthographic(
           -half * aspect,
           half * aspect,
@@ -498,8 +510,8 @@ export function CameraRig() {
         )
         for (let i = 0; i < 16; i += 1) {
           camera.projectionMatrix.elements[i] =
-            orthographic.current.elements[i] * layout.fitDistance * (1 - introBlend) +
-            camera.projectionMatrix.elements[i] * introBlend
+            orthographic.current.elements[i] * distance * ortho +
+            camera.projectionMatrix.elements[i] * (1 - ortho)
         }
         camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert()
       }

@@ -348,7 +348,7 @@ export function Chapters() {
           style={{ height: `${SCROLL_TRACK_VH.footer}vh` }}
         >
           <p className="font-mono text-xs tracking-widest text-zinc-500">
-            BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .0015" TIR
+            BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001" TIR
           </p>
         </footer>
       </div>

@@ -18,7 +18,7 @@ export const CHAPTERS: ChapterDef[] = [
     title: 'The Full-Stack Physical & Digital Systems Architect',
     subtitle:
       '25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.',
-    callouts: ['RUNOUT < .0015" TIR'],
+    callouts: ['RUNOUT < .001" TIR'],
     datum: 'A',
   },
   {
@@ -27,7 +27,7 @@ export const CHAPTERS: ChapterDef[] = [
     title: 'Inside the Reduction Train',
     subtitle:
       'Housing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.',
-    callouts: ['RUNOUT < .0015" TIR', 'POSITION .002" @ MMC'],
+    callouts: ['RUNOUT < .001" TIR', 'POSITION .002" @ MMC'],
     datum: 'B',
   },
   {
@@ -45,7 +45,7 @@ export const CHAPTERS: ChapterDef[] = [
     title: 'From Point Cloud to Production Code',
     subtitle:
       'The same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.',
-    callouts: ['POSITION .002" @ MMC', 'RUNOUT < .0015" TIR'],
+    callouts: ['POSITION .002" @ MMC', 'RUNOUT < .001" TIR'],
     datum: 'A',
   },
 ]
@@ -518,7 +518,7 @@ export const LCD_ORBIT_KEYFRAMES = {
  * real node identities confirmed in the GLB audit — never guessed labels.
  *
  * Feature-control-frame cells use ONLY owner-approved vocabulary: the HUD
- * callout strings ('RUNOUT < .0015" TIR', 'POSITION .002" @ MMC',
+ * callout strings ('RUNOUT < .001" TIR', 'POSITION .002" @ MMC',
  * 'FLATNESS < .0008"') and drawing-verified datum references (P000420
  * controls terminate in datum A). JG-021 remediation: Y14.5 characteristics
  * render as canonical SVG symbols (GdtSymbols.tsx, styled per the registered
@@ -546,15 +546,15 @@ export const HOTSPOTS: HotspotDef[] = [
     occurrence: 'AIR MOTOR HOUSING-MACHINED-1',
     kind: 'datum',
     label: 'DATUM A — MOTOR BORE',
-    detail: 'Machined air-motor housing. Primary datum for the rotating stack: RUNOUT < .0015" TIR.',
+    detail: 'Machined air-motor housing. Primary datum for the rotating stack: RUNOUT < .001" TIR.',
     annotation: {
       datum: 'A',
       frame: {
         characteristic: 'RUNOUT',
-        cells: ['.0015" TIR', 'A'],
+        cells: ['.001" TIR', 'A'],
         datums: ['A'],
       },
-      processNote: 'RUNOUT < .0015" TIR',
+      processNote: 'RUNOUT < .001" TIR',
     },
     chapters: [0, 1],
   },

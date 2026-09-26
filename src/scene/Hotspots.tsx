@@ -484,6 +484,8 @@ export function SpatialHotspotAnchor({
 /**
  * Module 4 — Station 1 clickable 3D spatial hotspot annotations with dynamic safe-area leader lines.
  */
+const STATION_REPLACED = new Set(['rotor', 'motor-housing', 'flange', 'gearbox-housing'])
+
 export function Hotspots() {
   const [roleMap, setRoleMap] = useState<RoleMapEntry[]>([])
   const chapter = useScrollValue('chapter')
@@ -514,7 +516,8 @@ export function Hotspots() {
       const normalized = normalizeOccurrence(name)
       return roleMap.filter((entry) => normalizeOccurrence(entry.occurrence) === normalized)
     }
-    return HOTSPOTS.filter((h) => h.chapters.includes(0) || h.chapters.includes(1) || h.window).flatMap((def) => {
+    // JG-035: the CH.01/02 decorative frames are replaced by the tolerance stations (S1–S6).
+    return HOTSPOTS.filter((h) => !STATION_REPLACED.has(h.id) && (h.chapters.includes(0) || h.chapters.includes(1) || h.window)).flatMap((def) => {
       const rows = rowsFor(def.occurrence)
       if (rows.length === 0) return []
       let entry = rows[0]

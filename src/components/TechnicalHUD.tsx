@@ -104,6 +104,7 @@ export function TechnicalHUD() {
   const progressRef = useRef<HTMLSpanElement>(null)
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
   const modeControlsRef=useRef<HTMLDivElement>(null)
+  const chromeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Reduced motion: ScrollRig never mounts, so scroll/camera telemetry is
@@ -114,6 +115,13 @@ export function TechnicalHUD() {
     const tick = (): void => {
       const { progress } = getScrollState()
       if(modeControlsRef.current)modeControlsRef.current.style.visibility=progress<=.12?'hidden':'visible'
+      // JG-035: the drafting-table intro is a warm, physical scene — the cyan instrument
+      // chrome stays out of it and fades up as the model takes over at the handoff.
+      if (chromeRef.current) {
+        const k = Math.min(1, Math.max(0, (progress - 0.1) / 0.02))
+        chromeRef.current.style.opacity = String(k * k * (3 - 2 * k))
+        chromeRef.current.style.visibility = k > 0 ? 'visible' : 'hidden'
+      }
       if (progressRef.current) {
         progressRef.current.textContent = `SCROLL // ${String(Math.round(progress * 100)).padStart(3, '0')}%`
       }
@@ -136,7 +144,7 @@ export function TechnicalHUD() {
           live — under reduced motion the chapter tracker never runs, so these
           would freeze on stale values. Hide them; keep the mode switcher. */}
       {!reducedMotion && (
-        <>
+        <div ref={chromeRef} style={{ opacity: 0, visibility: 'hidden' }}>
           {/* Top-left: chapter + scroll progress */}
           <div className="absolute left-5 top-5 space-y-1">
             <p className="text-cyan-200">{chapterDef.label}</p>
@@ -195,7 +203,7 @@ export function TechnicalHUD() {
               <span ref={datumCoordsRef}>CAM [ 0.000 0.000 0.000 ]</span>
             </p>
           </div>
-        </>
+        </div>
       )}
 
       {/* Bottom-right: material mode switcher */}

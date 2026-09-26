@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { EffectComposer, ChromaticAberration, Bloom, ToneMapping } from '@react-three/postprocessing'
+import { EffectComposer, ChromaticAberration, Bloom, DepthOfField, ToneMapping } from '@react-three/postprocessing'
 import { BlendFunction, ToneMappingMode } from 'postprocessing'
-import type { ChromaticAberrationEffect, BloomEffect } from 'postprocessing'
-import { Vector2 } from 'three'
+import type { ChromaticAberrationEffect, BloomEffect, DepthOfFieldEffect } from 'postprocessing'
+import { Vector2, Vector3 } from 'three'
 import { useQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
@@ -76,19 +76,59 @@ const smooth01 = (x: number) => {
 const _offset = new Vector2(0, 0)
 
 /**
+ * JG-035 opening focus rack. The drafting-table dolly opens low and tight on the sheet, where
+ * a real lens at that distance holds only a sliver of paper sharp. Focus tracks the camera's
+ * look-at point; the rack pulls in on load (time-based, so the first frame reads as a film
+ * opening even before the visitor scrolls) and the depth of field relaxes to nothing before
+ * the establishing frame, so the whole print is sharp when it is read.
+ */
+const DOF_TARGET = new Vector3()
+const DOF_BOKEH = 5.5
+const DOF_RACK_SECONDS = 2.4
+let dofReadyAt = 0
+
+/**
  * Inner driver — runs the per-frame effect param update via refs to the
  * underlying postprocessing Effect class instances (not the React wrappers).
  */
 function FxDriver({
   aberrationRef,
   bloomRef,
+  dofRef,
   enableAberration,
 }: {
   aberrationRef: React.RefObject<ChromaticAberrationEffect | null>
   bloomRef: React.RefObject<BloomEffect | null>
+  dofRef: React.RefObject<DepthOfFieldEffect | null>
   enableAberration: boolean
 }) {
   useFrame(() => {
+    const dof = dofRef.current
+    if (dof) {
+      const mode = (window as unknown as Record<string, string | undefined>).__drawingProofMode
+      const t = getScrollState().progress / DRAWING_INTRO_WINDOW.releaseEnd
+      const now = performance.now()
+      if (!dofReadyAt && telemetry.drawing.annotationsReady) dofReadyAt = now
+      const rack = dofReadyAt ? smooth01((now - dofReadyAt) / 1000 / DOF_RACK_SECONDS) : 0
+      const goal = telemetry.camera.goal
+      const distance = Math.hypot(
+        goal.position[0] - goal.target[0],
+        goal.position[1] - goal.target[1],
+        goal.position[2] - goal.target[2],
+      )
+      // Rack: focus starts well past the paper and pulls onto the look-at point.
+      const pull = 1 - rack
+      DOF_TARGET.set(
+        goal.target[0] + (goal.target[0] - goal.position[0]) * pull * 1.4,
+        goal.target[1] + (goal.target[1] - goal.position[1]) * pull * 1.4,
+        goal.target[2] + (goal.target[2] - goal.position[2]) * pull * 1.4,
+      )
+      dof.target = DOF_TARGET
+      dof.cocMaterial.focusRange = Math.max(0.02, distance * 0.28)
+      const amount = 1 - smooth01((t - 0.24) / 0.1)
+      dof.bokehScale = mode !== undefined && mode !== 'normal' ? 0 : DOF_BOKEH * amount
+    }
+
     const mode = (window as unknown as Record<string, string | undefined>).__drawingProofMode
     const proof = mode !== undefined && mode !== 'normal'
     // Station transition FX belong to the station transitions, not to the drawing intro.
@@ -133,6 +173,7 @@ export function PostProcessingComposer() {
 
   const aberrationRef = useRef<ChromaticAberrationEffect | null>(null)
   const bloomRef = useRef<BloomEffect | null>(null)
+  const dofRef = useRef<DepthOfFieldEffect | null>(null)
 
   // Poster: canvas unmounted — component never reaches this anyway.
   // Reduced motion: static hero pose — no motion effects.
@@ -150,6 +191,15 @@ export function PostProcessingComposer() {
             offset={new Vector2(0, 0)}
           />
         )}
+        {enableAberration && (
+          <DepthOfField
+            ref={dofRef as React.RefObject<DepthOfFieldEffect>}
+            focusDistance={0.3}
+            focusRange={0.08}
+            bokehScale={0}
+            resolutionScale={0.5}
+          />
+        )}
         <Bloom
           ref={bloomRef as React.RefObject<BloomEffect>}
           luminanceThreshold={0.6}
@@ -162,6 +212,7 @@ export function PostProcessingComposer() {
       <FxDriver
         aberrationRef={aberrationRef}
         bloomRef={bloomRef}
+        dofRef={dofRef}
         enableAberration={enableAberration}
       />
     </>

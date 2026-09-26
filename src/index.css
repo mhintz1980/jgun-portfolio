@@ -44,3 +44,47 @@ html.lenis body {
   stroke-dasharray: 6 3;
   animation: leaderPulse 0.9s linear infinite;
 }
+
+/* JG-035 opening titles — the drafting sheet's own lettering face, set large. */
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+.intro-display {
+  font-family: "Barlow Condensed", ui-sans-serif, sans-serif;
+  font-weight: 600;
+  font-size: clamp(56px, 9.2vw, 168px);
+  line-height: 0.84;
+  letter-spacing: -0.012em;
+}
+
+/* JG-035 tolerance stations — cream drafting ink on the dark scene. */
+.station-card { will-change: transform; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85); }
+/* Soft dark pool behind the callout so cream ink reads over bright PBR highlights. */
+.station-card::before {
+  content: ""; position: absolute; inset: -60px -80px; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 0.55) 55%, rgba(3, 5, 8, 0) 100%);
+}
+.station-name {
+  font-family: "Barlow Condensed", ui-sans-serif, sans-serif;
+  font-weight: 600;
+  font-size: clamp(26px, 2.5vw, 40px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  min-height: 1em;
+}
+.station-datum {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; letter-spacing: 0.04em;
+}
+.station-summary {
+  background: #e2dac4; color: #15295a; padding: 26px 30px 24px; max-width: 30rem;
+  text-shadow: none; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  border: 1.5px solid #15295a; outline: 1px solid #15295a; outline-offset: -7px;
+}
+.station-summary-row {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 13px; letter-spacing: 0.06em;
+  padding: 9px 0 8px; border-top: 1px solid rgba(21, 41, 90, 0.35); min-height: 2.3em; text-transform: uppercase;
+}

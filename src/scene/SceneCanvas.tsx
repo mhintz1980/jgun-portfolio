@@ -4,6 +4,7 @@ import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { CanvasTexture, DirectionalLight, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
+import { StationDriver } from './stations/StationDriver'
 import { BackdropRig } from './backgrounds/BackdropRig'
 import { SpatialRig } from './SpatialRig'
 import { SpatialWorld } from './SpatialWorld'
@@ -354,6 +355,8 @@ export function SceneCanvas() {
           </Suspense>
 
           <CameraRig />
+          {/* JG-035 — after CameraRig at the same priority: station anchors read this frame's camera. */}
+          <StationDriver />
           {/* JG-023 — scroll-scrubbed procedural backdrop (camera-locked layers).
               Flag-gated in backdropConfig; flag-off = module no-op. */}
           <BackdropRig />

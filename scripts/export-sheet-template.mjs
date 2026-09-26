@@ -1,6 +1,12 @@
 /**
  * JG-026 Item 7.6 — export the C-size sheet template Mark draws the furniture on.
  *
+ * LEGACY (JG-035): the rebuilt 0.80 x 0.50 m sheet composes its own vector furniture
+ * (src/scene/drawing/sheet/composeSheet.ts), so nothing imports a hand-drawn layer any more.
+ * Kept runnable (sheet size + zones read live); the view windows still come from the JG-026
+ * layout report and the header text still says ANSI C. Retire once the owner confirms the
+ * hand-drawn furniture path is dead.
+ *
  * The template is authored in WORLD MILLIMETRES of the sheet, which is the only unit the code
  * and the drawing agree on. It contains:
  *   - the sheet outline at real scale, with the origin at the SHEET CENTRE (+X right, +Y up
@@ -24,7 +30,7 @@ const source = fs.readFileSync('src/scene/drawing/drawingGeometry.ts', 'utf8')
 // Read the live constants straight out of the module source so the template cannot drift
 // from what the renderer lays out.
 const SHEET_HEIGHT = Number(source.match(/export const SHEET_HEIGHT\s*=\s*([\d.]+)/)[1])
-const SHEET_WIDTH = (SHEET_HEIGHT * 22) / 17
+const SHEET_WIDTH = Number(source.match(/export const SHEET_WIDTH\s*=\s*([\d.]+)/)[1])
 
 const zonesBlock = source.match(/export const SHEET_ZONES = \{([\s\S]*?)\n\} as const/)[1]
 const zones = {}
@@ -38,7 +44,8 @@ const w = SHEET_WIDTH * MM
 const h = SHEET_HEIGHT * MM
 
 const HAND_DRAWN = ['titleBlock', 'revisionBlock', 'notes']
-const GENERATED = ['views', 'callouts', 'tables']
+// JG-035: the rebuilt sheet composes its own furniture; only zones still declared are drawn.
+const GENERATED = ['views', 'callouts', 'tables'].filter((name) => name in zones)
 const LABELS = {
   titleBlock: 'TITLE BLOCK — DRAW HERE',
   revisionBlock: 'REVISION BLOCK — DRAW HERE',

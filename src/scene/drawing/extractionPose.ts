@@ -46,11 +46,14 @@ export function relativePose(
 /** Exact support vertex of the transformed mesh. Used off the frame loop for the root solve. */
 export function lowestVertex(data: DrawingGeometry, matrix: Matrix4): Vector3 {
   const a = data.geometry.getAttribute('position')
+  // Raw array walk: the solver calls this ~110 times over ~2.5M vertices during the bake.
+  const v = a.array as Float32Array
   const m = matrix.elements
+  const m2 = m[2], m6 = m[6], m10 = m[10], m14 = m[14]
   let z = Infinity
   let index = 0
-  for (let i = 0; i < a.count; i += 1) {
-    const pz = m[2] * a.getX(i) + m[6] * a.getY(i) + m[10] * a.getZ(i) + m[14]
+  for (let i = 0, j = 0; i < a.count; i += 1, j += 3) {
+    const pz = m2 * v[j] + m6 * v[j + 1] + m10 * v[j + 2] + m14
     if (pz < z) {
       z = pz
       index = i

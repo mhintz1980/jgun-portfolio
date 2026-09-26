@@ -100,7 +100,7 @@ export function BootSequence() {
   useEffect(() => {
     if (!item) return
     const line = itemLabel(item)
-    setLog((prev) => (prev[prev.length - 1] === line ? prev : [...prev, line].slice(-4)))
+    setLog((prev) => (prev.includes(line) ? prev : [...prev, line].slice(-4)))
   }, [item])
 
   // Completion: reduced motion unmounts instantly; otherwise show NOMINAL,

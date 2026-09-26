@@ -57,6 +57,7 @@ const {
   makeDrawingLayout,
   projectFeature,
   SHEET_WIDTH,
+  SHEET_ZONES,
   SHEET_HEIGHT,
   SIDE_ROTATION,
   SHEET_ROTATION,
@@ -225,22 +226,40 @@ for (const [label, aspect] of [
   layouts[label] = layout
   const extraction = solveExtraction(data, layout)
 
-  check(`${label}: sheet is ANSI C landscape and identical on every viewport`, () => {
-    close(layout.width / layout.height, 22 / 17, 1e-12)
+  // JG-035 rebuild: a 0.80 x 0.50 m drafting-table sheet with six labelled views (1:1 side
+  // elevation + five 1:2 removed views). Removed views at a different scale are not projection-
+  // aligned by definition (ASME Y14.3 removed views carry their own label + scale), so the
+  // contract is now: one sheet for every viewport, every view inside the frame, no view
+  // colliding with another view or with the printed furniture.
+  check(`${label}: sheet is the fixed drafting-table size on every viewport`, () => {
     close(layout.width, SHEET_WIDTH, 1e-12)
     close(layout.height, SHEET_HEIGHT, 1e-12)
-    assert.equal(layout.views.length, 4)
+    assert.deepEqual(layout.views.map((v) => v.name), ['side', 'top', 'section', 'front', 'rear', 'bottom'])
+    assert.equal(layout.views[0].scale, 1)
+    for (const v of layout.views.slice(1)) assert.equal(v.scale, 0.5, `${v.name} is a 1:2 removed view`)
   })
-  check(`${label}: third-angle views share their parent's axes`, () => {
-    const rect = Object.fromEntries(layout.views.map((v) => [v.name, v.rect]))
-    const centre = (r) => ({ x: r[0] + r[2] / 2, y: r[1] + r[3] / 2 })
-    close(centre(rect.top).x, centre(rect.front).x, 1e-12, 'plan shares the elevation vertical axis:')
-    close(centre(rect.section).x, centre(rect.front).x, 1e-12, 'section shares the elevation vertical axis:')
-    close(centre(rect.right).y, centre(rect.front).y, 1e-12, 'end shares the elevation horizontal axis:')
-    assert.ok(rect.top[1] > rect.front[1] + rect.front[3], 'plan sits above the elevation')
-    assert.ok(rect.section[1] + rect.section[3] < rect.front[1], 'section sits below the elevation')
-    assert.ok(rect.right[0] > rect.front[0] + rect.front[2], 'end sits right of the elevation')
-    close(layout.sectionLineY, centre(rect.front).y, 1e-12, 'A–A lies on the elevation centreline:')
+  check(`${label}: views sit inside the frame, clear of each other and the furniture`, () => {
+    const box = (r) => ({ x0: r[0], y0: r[1], x1: r[0] + r[2], y1: r[1] + r[3] })
+    const zone = (z) => ({ x0: z.x, y0: z.y, x1: z.x + z.w, y1: z.y + z.h })
+    const hit = (a, b) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1
+    const frame = zone(SHEET_ZONES.frame)
+    const furniture = ['titleBlock', 'revisionBlock', 'notes'].map((k) => [k, zone(SHEET_ZONES[k])])
+    // Placement is judged on the shipped model's bounds (Default.glb, read live through
+    // __drawingProof.captureRegistration 2026-09-25) — the toy tetrahedron's proportions say
+    // nothing about whether the real views collide.
+    const real = new Box3(
+      new Vector3(-0.11518211662769318, -0.03993332386016846, -0.1406710296869278),
+      new Vector3(0.12332701683044434, 0.039931509643793106, 0.14239823818206787),
+    )
+    const views = makeDrawingLayout(aspect, real).views.map((v) => [v.name, box(v.rect)])
+    for (const [name, b] of views) {
+      assert.ok(b.x0 >= frame.x0 && b.x1 <= frame.x1 && b.y0 >= frame.y0 && b.y1 <= frame.y1, `${name} inside the frame`)
+      for (const [k, z] of furniture) assert.ok(!hit(b, z), `${name} clear of ${k}`)
+    }
+    for (let i = 0; i < views.length; i += 1)
+      for (let j = i + 1; j < views.length; j += 1)
+        assert.ok(!hit(views[i][1], views[j][1]), `${views[i][0]} clear of ${views[j][0]}`)
+    close(layout.sectionLineY, layout.primaryCenter.y, 1e-12, 'A–A lies on the elevation centreline:')
   })
   check(`${label}: projected anchor uses the primary ortho transform`, () => {
     const center = projectFeature(new Vector3(), layout.views[0])

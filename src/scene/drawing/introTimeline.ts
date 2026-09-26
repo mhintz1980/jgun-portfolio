@@ -85,18 +85,21 @@ export function rawScrollFor(progress: number): number {
  * later cannot re-window anything.
  */
 export const INTRO_PHASES = {
-  /** Focus rack: blurred sheet resolves to a sharp registered print. */
-  focusEnd: 0.14,
-  /** RESERVED for the animated opening text. Nothing else is authored here. */
-  onboardStart: 0.14,
-  onboardEnd: 0.3,
+  /** Focus rack: the opening close-up on the title block pulls into focus. */
+  focusEnd: 0.05,
+  /**
+   * The drafting pass (JG-035): the camera glides across the sheet while it inks itself in,
+   * ending square-on to the side elevation. Opening titles live in this window too.
+   */
+  onboardStart: 0.05,
+  onboardEnd: 0.4,
   /** Ordered excitation traced along the primary elevation's profile. */
-  pulseStart: 0.3,
-  pulseEnd: 0.56,
+  pulseStart: 0.4,
+  pulseEnd: 0.6,
   /** Camera orbit leads into the rise and keeps running through it. */
-  orbitStart: 0.46,
+  orbitStart: 0.52,
   /** Extraction: the model lifts out of the sheet. */
-  riseStart: 0.56,
+  riseStart: 0.6,
   /** Committed-pace window opens here (scrollCommit.ts): detachment through shockwave. */
   detachStart: 0.86,
   /** The shockwave has finished crossing the sheet; the print may fade after this. */
