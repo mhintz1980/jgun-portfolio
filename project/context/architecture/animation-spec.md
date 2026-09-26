@@ -6,6 +6,13 @@ this spec describes it as of the 2026-08-23 explosion/kinematics rework
 (commits through the rear-extraction change). When behavior and this document
 disagree, fix the document in the same change.
 
+> **Currency note (2026-09-25):** the CH.01 opening was rebuilt by JG-035
+> (cream-vellum drafting-table sheet, vector ink, tolerance stations) — the
+> §5/CH.01 sections below still describe the JG-026 raster-sheet era until the
+> JG-035 closure doc pass. Until then, current CH.01 reality lives in the JG-035
+> handoffs (`work/evidence/JG-035-opening-drafting-table/handoff-2026-09-25c-stations.md`)
+> and the source under `src/scene/drawing/sheet/` + `src/scene/stations/`.
+
 The page in one sentence: a fixed WebGL stage holds a photoreal CAD assembly
 of the JGun pneumatic torque wrench while the user scrolls a plain-DOM
 narrative past it — the camera flies a 4-keyframe trajectory, the two-speed

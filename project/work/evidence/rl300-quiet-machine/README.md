@@ -137,9 +137,11 @@ Green before this prep began and green after; no `src/` file was modified. Five 
 shell-redirect artifacts (`0.0001`, `0.0001)`, `0.005)`, `INTERNALS_WINDOW[0]`,
 `INTRO_PHASES.pulseStart`) were removed from the repo root — untracked, empty, not yours.
 
-`project/archive/superseded/rl300-the-quiet-machine-plan.md.20260909-215316.bak` was **kept**, not
-deleted: your plan cites pre-revision backups as part of its change boundary, so it is
-provenance rather than clutter.
+The pre-revision backup `rl300-the-quiet-machine-plan.md.20260909-215316.bak` was deleted in the
+2026-09-25 hygiene pass — the promoted plan (`plans/JG-033-rl300-quiet-machine.md`) cites no
+backup, and git history retains it (`git log --all -- '**/rl300-the-quiet-machine-plan.md.*.bak'`).
+The 2026-09-09 concept-review captures live in `../rl300-concept-review/` (owner-review
+context for this pack).
 
 ## What this pack deliberately does not do
 

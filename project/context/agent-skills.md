@@ -44,6 +44,19 @@ C:\Users\Markimus\AppData\Local\Programs\codebase-memory-mcp\codebase-memory-mcp
 
 It reports version `0.10.4` and exposes graph tools including `index_repository`, `search_graph`, `query_graph`, `trace_path`, `get_code_snippet`, `get_architecture`, `search_code`, `index_status`, `check_index_coverage`, and `detect_changes`.
 
+### JGUN index (query THIS project name: `jgun-portfolio`)
+
+Re-indexed full-mode 2026-09-25 from the canonical path `C:\Projects\jgun-portfolio`: **5,445 nodes / 14,975 edges, 0 skipped files**. Two files are `parse_partial` (constructs may be missing there — grep inside them before negative claims): `scripts/deploy-studiomark.ps1:25-26`, `src/scene/rl300/QuietMachinePreview.tsx:64`. A second registry entry `C-Users-Markimus-.buzz-REPOS-jgun-portfolio` points at the live-synced `.buzz` mirror clone — same content; prefer `jgun-portfolio`.
+
+**When to use the graph instead of grep** (it saves the most context in this repo):
+
+- "Where is X implemented / who calls X?" → `search_graph` (name or natural language) then `trace_path` for callers/callees — beats grepping `CameraRig`/`stageWindows`-style names that appear in 20 files.
+- "What did my change touch / what breaks if I edit this?" → `detect_changes` (blast radius) before refactors of shared modules (`stageWindows`, `scrollStore`, `drawingGeometry`).
+- "Give me the layout of the scene system" → `get_architecture` (aspects `layers`/`clusters`) instead of reading 15 files.
+- Exact-string, docs, or one-known-file lookups stay with grep/Read — the graph covers indexed code paths only, and a graph miss is not proof of absence (`check_index_coverage` first for exhaustive/negative claims).
+
+**Keep it fresh:** after structural changes (new/moved/deleted modules), run `index_repository` on `C:\Projects\jgun-portfolio` (project name `jgun-portfolio`) and confirm with `index_status` — same-commit discipline as the Repository Map in [`../README.md`](../README.md).
+
 Codex already contains an `mcp_servers.codebase-memory-mcp` entry. Claude Code has the `codebase-memory` skill and dedicated agents at:
 
 ```text

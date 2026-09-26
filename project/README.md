@@ -97,6 +97,54 @@ Reduced motion holds the fully focused registered phase-.20 frame; poster
 retains the original DOM poster. [JG-026 evidence](work/evidence/JG-026-b1-b2-verification.md)
 records remaining proof and Mark's pending `?chapter=0` visual ruling.
 
+## Repository Map (source + tooling, current as of the 2026-09-25 hygiene pass)
+
+If you add, move, or delete a module below, update this map in the same commit.
+
+### Application source (`src/`)
+
+| Path | Role |
+|---|---|
+| `App.tsx` / `main.tsx` | Root: chapter DOM, canvas lazy-mount, `?study=rl300` review route |
+| `components/` | DOM-layer UI: `Chapters`, `TechnicalHUD`, `BootSequence`, `StaticPoster`, `IntroTitles`, `ToleranceStations` (DOM half of the stations), `GdtSymbols` (Y14.5 vector glyphs) |
+| `scene/SceneCanvas.tsx` | R3F root: mounts CameraRig, SpatialRig/SpatialWorld, DrawingLinework, StationDriver, composer |
+| `scene/CameraRig.tsx` | Scroll camera incl. the JG-035 intro pose (dolly → square-on ortho) |
+| `scene/SpatialRig.tsx` / `SpatialWorld.tsx` | The three-station world mounts (the old `StageManager.tsx` was removed 2026-09-25) |
+| `scene/TorqueWrenchHero.tsx` + `rig/` | JGun rig: units, explode ladder, materials, nodeRoles, gearRotation, lcdCluster |
+| `scene/stages/` | Station 2/3 components: `Station2_AcousticEnclosure`, `M249Stage`, `AirflowField`, `AcousticBaffleField`, `airflowRoute`, `recolorAllowList`, `stageWindows` |
+| `scene/drawing/` | CH.01 drafting-sheet system: `DrawingLinework` (bake+render), `drawingGeometry` (layout/HLR), `sheetCamera`, `introTimeline`, `extractionPose`, `DrawingProofRenderer` (proof-mode stills), `sheet/` (ink, text, compose, profile, edgeExtract) |
+| `scene/stations/` | Tolerance stations: `stationData` (S1–S6 windows/anchors), `StationDriver` (in-canvas projection), `stationStore` |
+| `scene/rl300/` | The `?study=rl300` "Quiet Machine" study — a deliberately separate scene (owner review route), not the portfolio Station 2 |
+| `scene/backgrounds/` | JG-023 scrubbed procedural backdrop layers |
+| `scene/Hotspots.tsx` | CH.03/CH.04 spatial hotspots (CH.01/02 hotspot rendering replaced by the stations) |
+| `scene/ScrollRig.tsx` / `scrollCommit.ts` / `PostProcessingComposer.tsx` / `sectionRenderPass.ts` | Scroll wiring, committed-pace, bloom/CA/DOF composer, section render pass |
+| `state/`, `shaders/`, `data/caseStudies.ts`, `types/` | Scroll/quality stores, CAD dissolve shader, chapter copy + part-number display names, shared types |
+
+### Verification + tooling (`scripts/`)
+
+Live gates named in TODO.md (`verify-jg0xx-*.mjs`, `check-station2-contract.mjs`, `check-b1b2-contract.mjs`, `lib/preview-pixels.mjs`), the lite-GLB pipeline (`build-jg033-lite.py` + `verify-jg033-lite-asset.mjs`), capture harnesses (`capture-*.mjs`), `deploy-studiomark.ps1`, `sync-assets.ps1`, `og-image-source.html`. `export-sheet-template.mjs` is documented LEGACY (JG-026 layout JSON) — retire once the owner confirms the JG-035 sheet.
+
+### Assets + owner documents
+
+- `public/` — `models/` (GLBs gitignored except committed `m249-transformed.glb` + `role-map.json`), `fonts/` (Barlow Condensed, OFL), `draco/` decoders, `images/rl300-*-preview.png`, Cloudflare bits (`_headers`, `404.html`, `robots.txt`).
+- `docs/` — two live owner documents: `rl300-enclosure-issues-and-ideas.md` (open JG-033) and `kimi-visual-enhancement-brief.md` (open JG-032); `orzo-style-portfolio-implemetation-roadmap.md` is protected parallel-session material. Owner reference images live in `context/references/media/`.
+- `project/archive/superseded/` — every document explicitly replaced, each with an `ARCHIVED` disposition header and working links.
+
+### Code navigation: the codebase-memory graph
+
+The repo is indexed by the local `codebase-memory-mcp` service (see [`context/agent-skills.md`](context/agent-skills.md) → "Codebase-Memory Service" for setup, coverage rules, and when to prefer graph queries over grep). Re-index after structural changes: `index_repository` on this path, then `index_status` to confirm.
+
+## Cleanliness Rules (adopted 2026-09-25 after a full dead-file audit)
+
+These keep the repo navigable for agents reviewing it cold. They bind every session.
+
+1. **Superseded ≠ active.** When a doc is replaced, move it to `project/archive/superseded/` with a one-line `> **ARCHIVED YYYY-MM-DD** (was …): reason + replacement` header and rewrite inbound links — all in the same commit. Superseded material never stays in active directories (`work/inbox/`, `docs/`, `context/`).
+2. **Inbox items get dispositions.** Every `work/inbox/` proposal is promoted, rejected, or archived when its task closes or a change overtakes it — it does not accumulate. (The 2026-09-25 pass archived 11 stale items; don't recreate the pile.)
+3. **No junk files in git.** No `*.bak`/`*.orig`, no root-level screenshots or shell-redirect accident files. Working scratch lives under `.scratch/` (gitignored, and excluded from `npm test` via `vite.config.ts` — keep that exclude intact).
+4. **Delete dead code when its successor ships.** If a module is imported nowhere and referenced by no string path (grep the basename repo-wide, check gates + docs), remove it and update the gate scripts/docs that named it in the same commit. Git history is the archive for code.
+5. **Every asset has a home and a real extension.** Owner reference images → `context/references/media/`; runtime assets → `public/`. Nothing extensionless (a 2.1 MB `docs/JGUN-DRAWING` PNG hid that way for weeks).
+6. **Docs move with behavior.** Renames/removals update `context/` docs and the Repository Map above in the same commit — the same rule that already binds spec §5 tables.
+
 ## Protected Material
 
 Do not move, delete, commit, or build on `.scratch/` or `docs/orzo-style-portfolio-implemetation-roadmap.md` until the parallel-session owner explicitly releases it. See [`../AGENTS.md`](../AGENTS.md).
