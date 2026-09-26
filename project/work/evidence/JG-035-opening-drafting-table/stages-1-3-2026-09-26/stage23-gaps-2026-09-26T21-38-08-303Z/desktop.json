@@ -1,0 +1,24 @@
+{
+  "name": "desktop",
+  "width": 1600,
+  "height": 900,
+  "reducedMotion": "no-preference",
+  "checkpoints": [],
+  "errors": [],
+  "warnings": [],
+  "requestFailures": [
+    {
+      "url": "http://127.0.0.1:5199/",
+      "error": {
+        "errorText": "net::ERR_CONNECTION_REFUSED"
+      }
+    }
+  ],
+  "httpErrors": [],
+  "failures": [
+    "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+  ],
+  "reverse": [],
+  "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+  "passed": false
+}

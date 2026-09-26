@@ -1,0 +1,177 @@
+{
+  "url": "http://127.0.0.1:5199",
+  "label": "stage23-gaps",
+  "started": "2026-09-26T21:38:08.308Z",
+  "browser": "installed Playwright, channel chrome",
+  "coldLoadDefinition": "fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)",
+  "thresholds": {
+    "scrollProgress": 0.001,
+    "reverseNumericDelta": 0.002,
+    "pulseRegistrationMetres": 0.001,
+    "registeredHoldPixels": 0.1,
+    "flexPeakDisplacementMetres": 0.003
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "width": 1600,
+      "height": 900,
+      "reducedMotion": "no-preference",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "narrow",
+      "width": 390,
+      "height": 844,
+      "reducedMotion": "no-preference",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "desktop-reduced",
+      "width": 1600,
+      "height": 900,
+      "reducedMotion": "reduce",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "narrow-reduced",
+      "width": 390,
+      "height": 844,
+      "reducedMotion": "reduce",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "desktop-lite",
+      "width": 1600,
+      "height": 900,
+      "reducedMotion": "no-preference",
+      "forceTier": "lite",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "narrow-lite",
+      "width": 390,
+      "height": 844,
+      "reducedMotion": "no-preference",
+      "forceTier": "lite",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    }
+  ],
+  "gitStart": " M scripts/verify-jgun-opening.mjs\n M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n?? .dev-5198.log\n?? 0\n?? c.direction\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-final-2026-09-26T21-36-36-076Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke-2026-09-26T20-51-44-416Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke2-2026-09-26T20-58-50-583Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke3-2026-09-26T21-04-21-258Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke4-2026-09-26T21-07-23-094Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke5-2026-09-26T21-17-30-163Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke6-2026-09-26T21-21-04-340Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke7-2026-09-26T21-27-24-544Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke8-2026-09-26T21-29-51-195Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke9-2026-09-26T21-32-04-455Z/\n",
+  "browserVersion": "154.0.8037.57",
+  "finished": "2026-09-26T21:38:16.300Z",
+  "flexTierComparison": [
+    {
+      "base": "desktop",
+      "compared": false
+    },
+    {
+      "base": "narrow",
+      "compared": false
+    }
+  ],
+  "passed": false,
+  "gitEnd": " M scripts/verify-jgun-opening.mjs\n M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n?? .dev-5198.log\n?? 0\n?? c.direction\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-final-2026-09-26T21-36-36-076Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke-2026-09-26T20-51-44-416Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke2-2026-09-26T20-58-50-583Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke3-2026-09-26T21-04-21-258Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke4-2026-09-26T21-07-23-094Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke5-2026-09-26T21-17-30-163Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke6-2026-09-26T21-21-04-340Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke7-2026-09-26T21-27-24-544Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke8-2026-09-26T21-29-51-195Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-smoke9-2026-09-26T21-32-04-455Z/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/stage23-gaps-2026-09-26T21-38-08-303Z/\n"
+}
