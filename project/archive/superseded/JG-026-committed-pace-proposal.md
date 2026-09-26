@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/JG-026-committed-pace-proposal.md`): proposal from the JG-026 review; partially implemented via `src/scene/scrollCommit.ts`; JG-026 closed 2026-09-06 with no further action authorized.
+
 # Proposal — committed-pace moments ("scroll-jacking")
 
 **Raised by:** Mark, 2026-09-05, during the JG-026 B1/B2 review.

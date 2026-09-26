@@ -137,7 +137,7 @@ Green before this prep began and green after; no `src/` file was modified. Five 
 shell-redirect artifacts (`0.0001`, `0.0001)`, `0.005)`, `INTERNALS_WINDOW[0]`,
 `INTRO_PHASES.pulseStart`) were removed from the repo root — untracked, empty, not yours.
 
-`project/work/inbox/rl300-the-quiet-machine-plan.md.20260909-215316.bak` was **kept**, not
+`project/archive/superseded/rl300-the-quiet-machine-plan.md.20260909-215316.bak` was **kept**, not
 deleted: your plan cites pre-revision backups as part of its change boundary, so it is
 provenance rather than clutter.
 

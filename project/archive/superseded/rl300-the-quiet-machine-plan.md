@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/rl300-the-quiet-machine-plan.md`): promoted verbatim 2026-09-10 as `project/work/plans/JG-033-rl300-quiet-machine.md` — read the plan, not this copy.
+
 # RL300 — The Quiet Machine
 
 **Status: proposed; awaiting Mark's approval. No implementation authorized by this document.**

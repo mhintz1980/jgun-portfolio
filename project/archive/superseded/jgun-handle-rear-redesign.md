@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/jgun-handle-rear-redesign.md`): superseded by JG-025, CLOSED VERIFIED 2026-09-05.
+
 # JGun Handle Rear Endcap — Screen/Button Detail Pass
 
 **Status:** superseded by [JG-025](../plans/JG-025-handle-rear-realism.md) (triaged 2026-09-02 with the owner's reference render and expanded realism dictation — this intake's three items are folded into that plan)

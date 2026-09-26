@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/inspect-orbit-cutaway-camera-easing.md`): orzo-roadmap intake 2026-08-30; substance covered by JG-020 (inspection/camera) and JG-035 (CH.01 rebuild).
+
 # Intake — Inspect-mode orbit scrub + gear-train cutaway shader + bezier camera easing
 
 *Filed 2026-08-30 from an owner working session (Mark). Not yet triaged: needs a
@@ -16,7 +18,7 @@ Plus, from the orzo roadmap (already-committed reference doc):
 > without requiring complete mesh displacement. Bind user drag/orbit controls
 > to let visitors inspect the 7-axis mill-turn spindle tooling and runout callouts.
 
-**Owner ruling (2026-08-30, confirmed precedent `project/work/inbox/task-spec.md:17`):**
+**Owner ruling (2026-08-30, confirmed precedent `project/archive/superseded/task-spec.md:17`):**
 there must be NO exit button for inspect mode — exiting must be possible through
 scrolling itself, because a user may never notice a button. The original task spec
 already encoded this: "The interface MUST NOT trap the user behind a mandatory exit

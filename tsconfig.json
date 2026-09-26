@@ -18,6 +18,5 @@
     "noEmit": true,
     "types": ["vite/client"]
   },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["src/components/canvas/StageManager.tsx"]
+  "include": ["src", "vite.config.ts"]
 }

@@ -130,7 +130,7 @@ filling the counterbores. (Machine-measured; screenshots are supporting artifact
   (nodeRoles.ts:16 invariant), so `/ROTOR/`, `/TEFLON/`, pcb/battery/chrome/FLANGE
   overrides never fire — everything untagged renders the unit default. The materials that
   appear correct (LCD, ring switch, housing, clutch) work via *unit* defaults. → inbox seed
-  `project/work/inbox/dead-role-overrides.md` (fixing it changes the approved CH.04
+  `project/archive/superseded/dead-role-overrides.md` (fixing it changes the approved CH.04
   electronics look — owner ruling required, out of JG-024 scope).
 - Environment: consecutive fresh-profile Chrome probes are intermittently poster-dead for
   minutes at a time (matches the documented D3D storm pattern); persistent-browser +

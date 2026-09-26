@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/roundtable-prep/`): JG-023 W5 round-table session prep (2026-08-31); one-off decision material — the CH.01 direction it debated was rebuilt by JG-035.
+
 # Round-table PREP — Animation Redo Background and Layout Agenda
 
 **Status:** Decision material only. Nothing in this document pre-decides the owner ruling. **Branch:** `spike/roundtable-prep`  

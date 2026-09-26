@@ -258,7 +258,7 @@ frame with wave time < 1 and only fades over `0.96 → 1.00`.
 
 ## 5. Scroll-jacking — proposal, one implementation (Item 5)
 
-Full proposal: [`work/inbox/JG-026-committed-pace-proposal.md`](../inbox/JG-026-committed-pace-proposal.md).
+Full proposal: [`archive/superseded/JG-026-committed-pace-proposal.md`](../../archive/superseded/JG-026-committed-pace-proposal.md).
 
 Implemented **only** the one inside the B1/B2 intro window: the detachment commit
 (`src/scene/scrollCommit.ts`), covering normalized 0.86 → 1.00. Everything downstream is left
@@ -670,7 +670,7 @@ to carry JGun branding, both surfaces should move together.
 3. **Item 6 opening/onboarding** is a design proposal with its scroll window reserved
    (normalized 0.14 → 0.30 of the intro, 145.0vh of absolute scroll, currently carrying nothing
    but the held focused print) — see
-   [`work/inbox/JG-026-opening-onboarding-proposal.md`](../inbox/JG-026-opening-onboarding-proposal.md).
+   [`archive/superseded/JG-026-opening-onboarding-proposal.md`](../../archive/superseded/JG-026-opening-onboarding-proposal.md).
    Adding it later cannot re-window anything.
 4. **Downstream scroll-jacking candidates** (Item 5) are proposals only.
 5. **`StaticPoster` copy** — flagged in §11, his call.

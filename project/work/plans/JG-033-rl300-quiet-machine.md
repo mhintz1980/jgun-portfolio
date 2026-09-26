@@ -8,7 +8,7 @@ owner: Mark (visual gate — passing tests cannot override a visual rejection)
 todo: TODO.md#active
 author: Astra (plan), promoted to the JG-### protocol by a prep session 2026-09-11
 source:
-  - project/work/inbox/rl300-the-quiet-machine-plan.md (this document, verbatim below)
+  - project/archive/superseded/rl300-the-quiet-machine-plan.md (this document, verbatim below)
   - project/work/inbox/rl300-owner-comments-assessment.md (the assessment it answers)
   - docs/rl300-enclosure-issues-and-ideas.md (the three owner issues that triggered it)
 supersedes:
@@ -50,7 +50,7 @@ implementation_scope:
 > _The only edit to Astra's text is this status line, which said "proposed; awaiting Mark's
 > approval. No implementation authorized by this document." and is now false. Everything below
 > it is verbatim. The original wording is preserved in
-> [`../inbox/rl300-the-quiet-machine-plan.md`](../inbox/rl300-the-quiet-machine-plan.md)._
+> [`../../archive/superseded/rl300-the-quiet-machine-plan.md`](../../archive/superseded/rl300-the-quiet-machine-plan.md)._
 
 Prepared 2026-09-09; revised after Mark's three owner comments. Scope: transform the RL300-SAFE enclosure into the portfolio's visual centerpiece, including proposed alternate geometry and a second intake beneath the engine. JGUN's mechanical sequence, duration, and authored scroll ranges remain stable. Its lighting, background, and other visual treatments are open to subsequent improvement.
 

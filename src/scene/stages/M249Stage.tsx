@@ -20,8 +20,8 @@ const STATION3_HOTSPOT_CONFIG: Record<string, { pos: [number, number, number]; d
 /**
  * CR-6 -- Real M249/MK46 receiver platform GLB + Interactive Subassembly Inspection.
  *
- * Replaces the procedural rejection-sampled point-cloud placeholder in
- * StageManager stage 2 (CH.04). The model is Draco-compressed (KHR_draco,
+ * Replaces the procedural rejection-sampled point-cloud placeholder that
+ * stood at stage 2 (CH.04). The model is Draco-compressed (KHR_draco,
  * confirmed by binary probe 2026-08-25); the same vendored public/draco/
  * decoders used for Default.glb cover it.
  */

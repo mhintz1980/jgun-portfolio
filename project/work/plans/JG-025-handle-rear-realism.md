@@ -1,6 +1,6 @@
 # JG-025 — Handle-rear realism pass: red button/LCD cluster, rendered screen, reveal-beat framing
 
-**Status:** verified (implemented 2026-09-05, merged with JG-026 + pushed, owner visual PASS — [evidence](../evidence/JG-025-handle-rear-verification.md); triaged 2026-09-02 from [inbox/jgun-handle-rear-redesign.md](../inbox/jgun-handle-rear-redesign.md))
+**Status:** verified (implemented 2026-09-05, merged with JG-026 + pushed, owner visual PASS — [evidence](../evidence/JG-025-handle-rear-verification.md); triaged 2026-09-02 from [../archive/superseded/jgun-handle-rear-redesign.md](../../archive/superseded/jgun-handle-rear-redesign.md))
 **Owner dictation:** 2026-09-02 (chat, with reference render) + 2026-08-30 intake (JG-021 re-review)
 **Type:** visual fidelity + feature pass on the Station 1 handle rear (LCD endcap cluster)
 **Owner reference:** [`project/context/references/media/handle-rear/handle-rear-owner-reference.png`](../../context/references/media/handle-rear/handle-rear-owner-reference.png) (CAD render of the back face — glossy black cap, red LCD bezel, three red buttons with dark arrow/enter symbols, blank white LCD)
@@ -31,7 +31,7 @@ CAD source; verify symbol geometry with a node dump at build time):
 | fill light | — | `LcdFillLight` warm, 2.8 peak, gated on `LCD_REVEAL_WINDOW` (`SceneCanvas.tsx:66`) | tune to reference mood |
 
 Reveal beat exists (JG-014): `LCD_REVEAL_WINDOW` + `LCD_ORBIT_KEYFRAMES` drive the post-explode
-rear reveal. Related finding: [inbox/dead-role-overrides.md](../inbox/dead-role-overrides.md) —
+rear reveal. Related finding: [../archive/superseded/dead-role-overrides.md](../../archive/superseded/dead-role-overrides.md) —
 name-keyed `ROLE_OVERRIDES` never match at runtime; **unit-default roles are the live path**
 (all changes go through `roleForUnit` + role cases, never `ROLE_OVERRIDES`).
 

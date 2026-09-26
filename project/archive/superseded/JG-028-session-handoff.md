@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/JG-028-session-handoff.md`): task CLOSED VERIFIED 2026-09-06; canonical record = INDEX row + `project/work/evidence/JG-028-handle-realism-verification.md`.
+
 # SESSION HANDOFF: JG-028 — Handle Realism Pass
 
 **Date:** 2026-09-06  
@@ -116,7 +118,7 @@ Create `scripts/verify-jg028-handle-realism.mjs`:
 
 1. **Review Context**:
    - Read `project/work/plans/JG-028-handle-realism.md`.
-   - Read `project/work/inbox/JG-028-session-handoff.md` (this file).
+   - Read `project/archive/superseded/JG-028-session-handoff.md` (this file).
 2. **Apply Code Edits**:
    - `src/scene/rig/materials.ts` (retune `anodizedAluminum`, add `stainlessSteel`, add `P001928` override).
    - `src/scene/rig/nodeRoles.ts` (ancestor node-name resolution in consolidation loop).

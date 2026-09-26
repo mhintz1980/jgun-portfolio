@@ -1,6 +1,6 @@
 /**
  * Multi-chapter stage windows — the global-scroll-progress ranges over which
- * each 3D stage owns the canvas (StageManager + AirflowField both read these;
+ * each 3D stage owns the canvas (SpatialRig + AirflowField both read these;
  * canvas-side only, always via getScrollState() inside useFrame).
  *
  * Measured against the CURRENT document (2026-08-27 remeasure, JG-014 repair):

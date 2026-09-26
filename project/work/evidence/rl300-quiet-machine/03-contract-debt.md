@@ -12,7 +12,7 @@
 | Git rev | `3e3e49f` (`git rev-parse --short HEAD`) |
 | Branch | `main` |
 | Superseding authority | `docs/rl300-enclosure-issues-and-ideas.md` §1.1, §1.3, §3, §4 (owner FAIL, 2026-09-09) |
-| Plan under review | `project/work/inbox/rl300-the-quiet-machine-plan.md` — "Acceptance criteria" §Technical behavior (line 150) |
+| Plan under review | `project/archive/superseded/rl300-the-quiet-machine-plan.md` — "Acceptance criteria" §Technical behavior (line 150) |
 | Scope rule quoted | *"Replace obsolete 'yellow unchanged' and panel-lift expectations with the approved blue-shell and section requirements. Do not delete unrelated checks."* (plan line 150) |
 
 ### Files inventoried

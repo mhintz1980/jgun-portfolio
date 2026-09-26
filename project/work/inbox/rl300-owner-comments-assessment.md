@@ -93,6 +93,6 @@ Stronger glow, heat distortion, volumetric light, and section-edge effects are a
 Backups created before revising the plan; SHA-256 equality checked at creation:
 
 - `C:/Projects/CAD/RL300-SAFE/RL300-SAFE-photoreal.blend.20260909-215316.bak`
-- `project/work/inbox/rl300-the-quiet-machine-plan.md.20260909-215316.bak`
+- `project/archive/superseded/rl300-the-quiet-machine-plan.md.20260909-215316.bak`
 
 The model still matched its backup after inspection/rendering. No application source, saved model geometry, or saved Blender rendering settings were changed. Diagnostic scripts/images were created; the plan and this assessment document the revised proposal. Future edits to any existing model must receive a fresh verified backup first.

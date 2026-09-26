@@ -10,7 +10,7 @@ import {
 
 /**
  * stageWindows — characterization tests for the pure multi-chapter stage-window
- * maths. StageManager / SpatialRig / AirflowField all gate the canvas on these
+ * maths. SpatialRig / AirflowField all gate the canvas on these
  * numbers, so every expected value here is derived from the module as it stands,
  * measured against the CURRENT document (2026-08-27 remeasure: 3 × 440vh
  * chapters + 660vh CH.04 + 40vh footer = 2020vh).

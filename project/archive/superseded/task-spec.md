@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/task-spec.md`): superseded by JG-020 (`project/work/plans/JG-020-multi-station-hotspots-inspection.md`); retained for history only.
+
 # TASK SPECIFICATION: Multi-Station WebGL Experience & GD&T Scrollytelling Architecture
 
 > **TRIAGED 2026-08-28: SUPERSEDED — do not implement from this document.**

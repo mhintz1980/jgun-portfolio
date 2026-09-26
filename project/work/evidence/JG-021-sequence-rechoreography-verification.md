@@ -345,7 +345,7 @@ Reviewed live at `:4173` after commits `6bcc52f` + `ed106cb`:
    per-root color assignment should be per the owner's intent.
 4. **Future work (owner-directed, not now):** JGun handle rear-endcap redesign —
    dimmer screen light, buttons carrying symbols or text, digital display with
-   numbers/text. Filed at `project/work/inbox/jgun-handle-rear-redesign.md`.
+   numbers/text. Filed at `project/archive/superseded/jgun-handle-rear-redesign.md`.
 
 TODO stays unchecked; commits remain local (not pushed) pending the materials
 round-2 fix and the final owner pass.
@@ -735,7 +735,7 @@ is confirmed resolved.
 - Unblocked by this ruling: the JG-023 follow-up (arm the CH.03 backdrop
   layer — one-const flip of `BACKDROP_CHAPTER_FLAGS[2]` + rebuild +
   `?chapter=2` smoke + uniform re-probe), and Gate 0 of
-  `project/work/inbox/five-plans-synthesis.md` (baseline frames → camera-rail
+  `project/archive/superseded/five-plans-synthesis.md` (baseline frames → camera-rail
   promotion triage → narrative-layer/backdrop-evolution/inspection work).
 
 No new telemetry was run for this section: the ruling judges the already-

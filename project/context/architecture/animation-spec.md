@@ -598,7 +598,7 @@ the stage envelope is inactive or reduced-motion is set.
 
 ### 14.2 Telemetry
 
-`window.__telemetry.stage` (additive, written by StageManager +
+`window.__telemetry.stage` (additive, written by SpatialRig +
 AirflowField frame loops): `active` (dominant stage index, −1 none), `alpha`
 and `y` triples (wrench/enclosure/cloud), `flow` (0..1). Verified states,
 2026-08-24 on a freshly restarted :4173 preview: progress 0 → `[1,0,0]`
@@ -618,7 +618,8 @@ canvas live at every probe.
   M249 asset + camera retarget are decided.
 - Real MSP enclosure / M249 Draco GLBs do not exist yet (owner: Mark) — the
   procedural placeholders stand in.
-- The parallel-session WIP (`src/components/canvas/StageManager.tsx`) is
-  untouched and unwired; the orchestrator lives at `src/scene/StageManager.tsx`.
-  That WIP file also breaks `tsc` (unused `fade`) — `npm run build`'s tsc gate
-  fails on it until the parallel session resolves or it is removed.
+- The old `src/scene/StageManager.tsx` orchestrator was removed 2026-09-25
+  (runtime-dead since SpatialRig/SpatialWorld took over the station mounts);
+  the parallel-session `src/components/canvas/` scaffold it was confused with
+  was discarded in JG-020. The live orchestrators are
+  `src/scene/SpatialRig.tsx` + `src/scene/SpatialWorld.tsx`.

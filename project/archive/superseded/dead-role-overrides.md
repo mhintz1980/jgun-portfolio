@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/dead-role-overrides.md`): finding resolved by the JG-028 `nodeRoles` fix (CLOSED VERIFIED 2026-09-06); kept as the finding record.
+
 # Dead ROLE_OVERRIDES in the wrench rig (pre-existing)
 
 **Filed:** 2026-09-02, out of JG-024 scope (found during its verification).

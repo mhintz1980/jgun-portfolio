@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/JG-026-opening-onboarding-proposal.md`): design-only proposal; the CH.01 opening was rebuilt by JG-035 (2026-09-25), superseding it.
+
 # Proposal — opening text and onboarding (JG-026 Item 6)
 
 **Raised by:** Mark, 2026-09-05, during the JG-026 B1/B2 review.

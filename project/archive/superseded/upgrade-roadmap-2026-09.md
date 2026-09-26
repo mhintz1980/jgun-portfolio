@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/upgrade-roadmap-2026-09.md`): review draft 2026-09-02, never authorized; overtaken by JG-025/033/035.
+
 # INBOX — Upgrade Roadmap v1 (review draft for Mark + codex / claude / fable)
 
 **Status:** review draft — composed 2026-09-02 by ZCode from the standing plan corpus. Awaiting
@@ -82,7 +84,7 @@ schedule it while P0–P2 are building.
    chrome fittings separate), exposing the electronics that are permanently hidden today.
    Carries the dormant `ROLE_OVERRIDES` table as its material vocabulary: the plumbing fix
    (feed each mesh's nearest real node name into `materialRoleFor`, per
-   [inbox/dead-role-overrides.md](dead-role-overrides.md)) rides this work so
+   [../archive/superseded/dead-role-overrides.md](dead-role-overrides.md)) rides this work so
    PCB/battery/chrome/rotorSteel finally apply — which is why the table is kept, not deleted.
    Natural companion to the redo beats or JG-025's realism canon if pulled forward.
 7. **Parking:** gearbox-material transplant (designed-but-unimplemented glow fallback,

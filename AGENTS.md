@@ -13,7 +13,7 @@ interactive exploded-view rig (Default.glb, D1-AP part numbers).
 4. Check `git status`: untracked `.scratch/` is working scratch material — never commit it.
    (Historical note, resolved 2026-08-30: the 2026-08-25 "parallel session" artifacts were
    adopted — `docs/orzo-style-portfolio-implemetation-roadmap.md` + task spec committed in
-   `a255fda`, task spec later moved to `project/work/inbox/task-spec.md` and superseded by
+   `a255fda`, task spec later moved to `project/archive/superseded/task-spec.md` and superseded by
    JG-020 in `f442679`/`9c3ff3f`; the `src/components/canvas/` scaffold was discarded in
    favor of `src/scene/` and no longer exists. The orzo roadmap is tracked reference
    material, not an approved build spec — treat its unbuilt ideas via normal Task Intake.)

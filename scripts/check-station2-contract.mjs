@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 
 const assetPath = new URL('../public/models/msp-enclosure.glb', import.meta.url)
 const componentPath = new URL('../src/scene/stages/Station2_AcousticEnclosure.tsx', import.meta.url)
-const stageManagerPath = new URL('../src/scene/StageManager.tsx', import.meta.url)
 
 const requiredNodes = [
   'ENCLOSURE_CHASSIS',
@@ -16,7 +15,6 @@ const requiredNodes = [
 
 const asset = await readFile(assetPath)
 const component = await readFile(componentPath, 'utf8')
-const stageManager = await readFile(stageManagerPath, 'utf8')
 const assetText = asset.toString('utf8')
 
 const spatialWorldPath = new URL('../src/scene/SpatialWorld.tsx', import.meta.url)

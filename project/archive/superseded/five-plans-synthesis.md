@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-09-25** (was `project/work/inbox/five-plans-synthesis.md`): untriaged 2026-09-01 synthesis draft; its owner-spec portion lives in `project/work/inbox/animation-redo.md`, and its territory was executed by JG-025/026/031/033/035.
+
 # INBOX — Five-plans synthesis: unified visual & animation direction
 
 **Status:** untriaged draft. Assign JG-### work IDs at triage per `project/README.md`

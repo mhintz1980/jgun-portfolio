@@ -314,7 +314,7 @@ settle-gated scrub).
 
 **Regime is now `[true, true, true, true]` — all four chapters armed. Status: verified.**
 The remaining backdrop work is design evolution, not arming: see
-`project/work/inbox/five-plans-synthesis.md` W5 (round-table-gated).
+`project/archive/superseded/five-plans-synthesis.md` W5 (round-table-gated).
 
 ---
 
