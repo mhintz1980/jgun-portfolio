@@ -15,6 +15,7 @@ import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
 import { drawingIntroState } from './drawing/introTimeline'
+import { drawingRuntime } from './drawing/extractionPose'
 import { explodeShadowOpacity, lcdMicroRimIntensity, studioSpotNudge } from './jgunVisualGates'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
@@ -129,6 +130,7 @@ const smoothstep01 = (x: number) => {
 
 function StudioRig() {
   const keyRef = useRef<DirectionalLight>(null)
+  const sweepRef = useRef<DirectionalLight>(null)
   const fillRef = useRef<DirectionalLight>(null)
   const spotRef = useRef<SpotLight>(null)
   const scene = useThree((state) => state.scene)
@@ -140,9 +142,15 @@ function StudioRig() {
     // rises; enclosureOut [0.72, 0.76] is when the enclosure exits.
     const down = smoothstep01((progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]))
     const up = smoothstep01((progress - STAGE_TRANSITIONS.enclosureOut[0]) / (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]))
-    const activation=getQuality().reducedMotion?0:drawingIntroState(progress).pbr
+    const intro = drawingIntroState(progress, drawingRuntime.extraction?.crossing)
+    const activation=getQuality().reducedMotion?0:intro.pbr
     const k = activation*(1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
+    const sweep = getQuality().reducedMotion ? 0 : intro.lightSweep
     if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k
+    if (sweepRef.current) {
+      sweepRef.current.intensity = STUDIO_KEY_INTENSITY * k * 0.16 * sweep
+      sweepRef.current.position.set(-1.2 + 2.4 * intro.lightSweepPosition, 1.6, 0.8)
+    }
     if (fillRef.current) fillRef.current.intensity = STUDIO_FILL_INTENSITY * k
     if (spotRef.current) {
       // JG-032: explode-hold rim nudge (+0.3 intensity, +0.1 Y) — progress-gated
@@ -159,6 +167,7 @@ function StudioRig() {
   return (
     <>
       <directionalLight ref={keyRef} position={[1.5, 2, 1]} intensity={STUDIO_KEY_INTENSITY} />
+      <directionalLight name="intro-metal-sweep" ref={sweepRef} position={[-1.2, 1.6, 0.8]} intensity={0} />
       <directionalLight ref={fillRef} position={[-2, 1, -1.5]} intensity={STUDIO_FILL_INTENSITY} color="#7dd3fc" />
       <spotLight ref={spotRef} position={[0, 1.2, -0.6]} intensity={STUDIO_SPOT_INTENSITY} angle={0.5} penumbra={1} />
     </>

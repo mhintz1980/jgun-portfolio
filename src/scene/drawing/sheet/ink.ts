@@ -9,8 +9,10 @@ import {
   ShaderMaterial,
   Vector2,
   Vector3,
+  Vector4,
 } from 'three'
 import { INK } from '../drawingGeometry'
+import { PAPER_FLEX_GLSL, PAPER_FLEX_STEP } from './paperFlex'
 
 /**
  * INK — resolution-independent drafting linework for the intro sheet.
@@ -64,6 +66,8 @@ export const GROUP = {
 } as const
 export const GROUP_COUNT = 16
 
+export interface TextCell { x: number; y: number; w: number; h: number }
+
 export interface InkText {
   text: string
   x: number
@@ -81,6 +85,8 @@ export interface InkText {
   opacity?: number
   maxWidth?: number
   lineHeight?: number
+  /** Authored fit target in sheet metres; retained for runtime Troika bounds proof. */
+  fitCell?: TextCell
 }
 
 export class InkBuilder {
@@ -162,17 +168,8 @@ export class InkBuilder {
   }
 }
 
-/** Shared shockwave displacement — the same function the paper uses, so ink rides the paper. */
-export const WAVE_GLSL = /* glsl */ `
-uniform float uWaveTime; uniform float uWaveEnabled; uniform vec2 uOrigin;
-float waveFront(vec2 p) {
-  float r = length(p - uOrigin);
-  return exp(-pow((r - (0.04 + uWaveTime * 0.52)) / 0.05, 2.0)) * exp(-1.6 * r) * exp(-1.4 * uWaveTime);
-}
-float waveDisplacement(vec2 p) {
-  float r = length(p - uOrigin);
-  return uWaveEnabled * 0.016 * sin(150.0 * r - 34.0 * uWaveTime) * waveFront(p);
-}`
+/** Compatibility export: legacy wave uniforms are inert; only physical pressure displaces. */
+export const WAVE_GLSL = PAPER_FLEX_GLSL
 
 export interface SheetUniforms {
   uReveal: { value: number[] }
@@ -183,6 +180,7 @@ export interface SheetUniforms {
   uWaveEnabled: { value: number }
   uOrigin: { value: Vector2 }
   uLamp: { value: Vector3 }
+  uFlexAmplitude: { value: number }
   [key: string]: { value: unknown }
 }
 
@@ -192,6 +190,9 @@ export function makeSheetUniforms(): SheetUniforms {
     uViewport: { value: new Vector2(1, 1) },
     uInk: { value: new Color(INK) },
     uOpacity: { value: 1 },
+    uFlexAmplitude: { value: 0 },
+    uFlexField: { value: null },
+    uFlexRect: { value: new Vector4(-0.4, -0.25, 0.8, 0.5) },
     uWaveTime: { value: 0 },
     uWaveEnabled: { value: 0 },
     uOrigin: { value: new Vector2() },
@@ -205,11 +206,13 @@ uniform float uReveal[${GROUP_COUNT}];
 uniform vec2 uViewport;
 attribute vec2 corner;
 attribute vec4 aSeg;
+attribute vec2 aRange;
 attribute vec4 aStyle;
 attribute float aDash;
 varying float vAcross; varying float vAlongM; varying float vLen; varying float vDraw;
 varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane;
 void main() {
+  float along = mix(aRange.x, aRange.y, corner.x);
   vec2 a = aSeg.xy; vec2 b = aSeg.zw;
   vec2 d = b - a; float len = length(d);
   vec2 t = len > 1e-9 ? d / len : vec2(1.0, 0.0);
@@ -220,14 +223,14 @@ void main() {
   float minHW = 0.5 / px;
   float hwEff = max(hw, minHW);
   float ext = hwEff + 1.0 / px;
-  vec2 p = mix(a - t * hwEff, b + t * hwEff, corner.x) + n * corner.y * ext;
+  vec2 p = mix(a - t * hwEff, b + t * hwEff, along) + n * corner.y * ext;
   float r = uReveal[int(aStyle.y + 0.5)];
   vDraw = clamp((r - aStyle.z) / max(aStyle.w, 1e-4), 0.0, 1.0);
-  vAlongM = corner.x * (len + 2.0 * hwEff) - hwEff;
+  vAlongM = along * (len + 2.0 * hwEff) - hwEff;
   vLen = len; vAcross = corner.y * ext; vPx = px; vHW = hwEff; vCov = pow(min(1.0, hw / minHW), 0.6); vDash = aDash;
   vPlane = p;
   vec3 pos = vec3(p, 0.0003);
-  pos.z += waveDisplacement(p);
+  pos.z += paperDisplacement(p);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }`
 
@@ -255,7 +258,14 @@ void main() {
 }`
 
 export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh {
-  const count = builder.segs.length / 9
+  // Split long strokes without resetting dash phase, reveal timing or end caps.
+  const pieces: { source: number; lo: number; hi: number }[] = []
+  for (let i = 0; i < builder.segs.length / 9; i += 1) {
+    const s = builder.segs, j = i * 9
+    const n = Math.max(1, Math.ceil(Math.hypot(s[j + 2] - s[j], s[j + 3] - s[j + 1]) / PAPER_FLEX_STEP))
+    for (let k = 0; k < n; k += 1) pieces.push({ source: i, lo: k / n, hi: (k + 1) / n })
+  }
+  const count = pieces.length
   const geometry = new InstancedBufferGeometry()
   geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 3))
   geometry.setAttribute('corner', new Float32BufferAttribute([0, -1, 1, -1, 1, 1, 0, 1], 2))
@@ -263,14 +273,18 @@ export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh
   const seg = new Float32Array(count * 4)
   const style = new Float32Array(count * 4)
   const dash = new Float32Array(count)
+  const range = new Float32Array(count * 2)
   const s = builder.segs
   for (let i = 0; i < count; i += 1) {
-    seg.set([s[i * 9], s[i * 9 + 1], s[i * 9 + 2], s[i * 9 + 3]], i * 4)
-    style.set([s[i * 9 + 4], s[i * 9 + 5], s[i * 9 + 6], s[i * 9 + 7]], i * 4)
-    dash[i] = s[i * 9 + 8]
+    const j = pieces[i].source
+    range.set([pieces[i].lo, pieces[i].hi], i * 2)
+    seg.set([s[j * 9], s[j * 9 + 1], s[j * 9 + 2], s[j * 9 + 3]], i * 4)
+    style.set([s[j * 9 + 4], s[j * 9 + 5], s[j * 9 + 6], s[j * 9 + 7]], i * 4)
+    dash[i] = s[j * 9 + 8]
   }
   geometry.setAttribute('aSeg', new InstancedBufferAttribute(seg, 4))
   geometry.setAttribute('aStyle', new InstancedBufferAttribute(style, 4))
+  geometry.setAttribute('aRange', new InstancedBufferAttribute(range, 2))
   geometry.setAttribute('aDash', new InstancedBufferAttribute(dash, 1))
   geometry.instanceCount = count
   const material = new ShaderMaterial({
@@ -298,7 +312,7 @@ void main() {
   float r = uReveal[int(aStyle.x + 0.5)];
   vDraw = clamp((r - aStyle.y) / max(aStyle.z, 1e-4), 0.0, 1.0);
   vec3 pos = vec3(position.xy, 0.00032);
-  pos.z += waveDisplacement(position.xy);
+  pos.z += paperDisplacement(position.xy);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }`
 
@@ -311,7 +325,22 @@ void main() {
 }`
 
 export function makeInkFills(builder: InkBuilder, uniforms: SheetUniforms): Mesh {
-  const f = builder.fills
+  // Four-way midpoint subdivision preserves winding, area and the original reveal
+  // style. Bound every edge (including diagonals), not just a triangle's X/Y span.
+  const f: number[] = []
+  const split = (a: number[], b: number[], c: number[]) => {
+    const edge = (u: number[], v: number[]) => Math.hypot(u[0] - v[0], u[1] - v[1])
+    if (Math.max(edge(a, b), edge(b, c), edge(c, a)) <= PAPER_FLEX_STEP) {
+      f.push(...a, ...b, ...c)
+      return
+    }
+    const midpoint = (u: number[], v: number[]) => u.map((value, i) => (value + v[i]) / 2)
+    const ab = midpoint(a, b), bc = midpoint(b, c), ca = midpoint(c, a)
+    split(a, ab, ca); split(ab, b, bc); split(ca, bc, c); split(ab, bc, ca)
+  }
+  for (let i = 0; i < builder.fills.length; i += 15) {
+    split(builder.fills.slice(i, i + 5), builder.fills.slice(i + 5, i + 10), builder.fills.slice(i + 10, i + 15))
+  }
   const count = f.length / 5
   const position = new Float32Array(count * 3)
   const style = new Float32Array(count * 3)

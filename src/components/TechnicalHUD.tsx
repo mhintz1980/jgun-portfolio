@@ -118,7 +118,7 @@ export function TechnicalHUD() {
       // JG-035: the drafting-table intro is a warm, physical scene — the cyan instrument
       // chrome stays out of it and fades up as the model takes over at the handoff.
       if (chromeRef.current) {
-        const k = Math.min(1, Math.max(0, (progress - 0.1) / 0.02))
+        const k = Math.min(1, Math.max(0, (progress - 0.12) / 0.015))
         chromeRef.current.style.opacity = String(k * k * (3 - 2 * k))
         chromeRef.current.style.visibility = k > 0 ? 'visible' : 'hidden'
       }

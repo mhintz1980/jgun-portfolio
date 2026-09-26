@@ -10,7 +10,6 @@ import {
   Scene,
   ShaderMaterial,
   Vector3,
-  Vector4,
   WebGLRenderTarget,
   type WebGLRenderer,
 } from 'three'
@@ -207,24 +206,25 @@ function depthField(
   scene.add(mesh)
   const target = new WebGLRenderTarget(w, h, { depthBuffer: true })
   const previous = gl.getRenderTarget()
-  const viewport = gl.getViewport(new Vector4())
   const clipping = gl.localClippingEnabled
   const clearAlpha = gl.getClearAlpha()
-  gl.localClippingEnabled = true
-  gl.setRenderTarget(target)
-  gl.setViewport(0, 0, w, h)
   const clearColor = gl.getClearColor(new Color())
-  gl.setClearColor(0x000000, 0)
-  gl.clear()
-  gl.render(scene, camera)
   const pixels = new Uint8Array(w * h * 4)
-  gl.readRenderTargetPixels(target, 0, 0, w, h, pixels)
-  gl.setRenderTarget(previous)
-  gl.setViewport(viewport)
-  gl.setClearColor(clearColor, clearAlpha)
-  gl.localClippingEnabled = clipping
-  target.dispose()
-  material.dispose()
+  try {
+    gl.localClippingEnabled = true
+    gl.setRenderTarget(target)
+    // setRenderTarget installs physical pixels. setViewport would apply DPR a second time.
+    gl.setClearColor(0x000000, 0)
+    gl.clear()
+    gl.render(scene, camera)
+    gl.readRenderTargetPixels(target, 0, 0, w, h, pixels)
+  } finally {
+    gl.setRenderTarget(previous)
+    gl.setClearColor(clearColor, clearAlpha)
+    gl.localClippingEnabled = clipping
+    target.dispose()
+    material.dispose()
+  }
   const z = new Float32Array(w * h)
   for (let i = 0; i < w * h; i += 1) {
     if (pixels[i * 4 + 3] < 128) {

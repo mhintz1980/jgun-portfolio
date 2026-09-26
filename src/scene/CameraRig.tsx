@@ -4,6 +4,7 @@ import { Matrix4, PerspectiveCamera, Vector3 } from 'three'
 import { drawingRuntime } from './drawing/extractionPose'
 import {
   DRAWING_INTRO_WINDOW,
+  REDUCED_MOTION_INTRO_T,
   drawingIntroState,
   remapHeroProgress,
   smooth01,
@@ -176,8 +177,6 @@ export function CameraRig() {
     distance: 1,
   })
   const introOrtho = useRef(0)
-  const shakeFrames = useRef(0)
-  const wasPulsing = useRef(false)
   const restOrbit = useRef(0)
 
   useFrame((state, delta) => {
@@ -203,9 +202,9 @@ export function CameraRig() {
     }
 
     const { hotspotId, velocity } = getScrollState()
-    // Reduced motion parks the sequence on the fully focused registered frame (intro t=0.20).
+    // Reduced motion shares the drawing/model's fully focused registered frame.
     const progress = getQuality().reducedMotion
-      ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2
+      ? DRAWING_INTRO_WINDOW.releaseEnd * REDUCED_MOTION_INTRO_T
       : getScrollState().progress
 
     // ---- 1. Content-aligned base trajectory (PATH_SEGMENTS table) ----
@@ -430,7 +429,7 @@ export function CameraRig() {
     const introActive = progress <= DRAWING_INTRO_WINDOW.releaseEnd && layout !== null
     const introBlend = introActive ? (reducedMotion ? 0 : intro.perspective) : 1
     if (introActive && layout) {
-      const pose = introCameraPose(layout, aspect, reducedMotion ? 0.36 : intro.t, introPose.current)
+      const pose = introCameraPose(layout, aspect, reducedMotion ? REDUCED_MOTION_INTRO_T : intro.t, introPose.current)
       telemetry.camera.sheetDistance = pose.distance
       goalPos.current.lerpVectors(pose.position, goalPos.current, introBlend)
       goalTarget.current.lerpVectors(pose.target, goalTarget.current, introBlend)
@@ -452,21 +451,11 @@ export function CameraRig() {
     // Hover parallax on the camera itself (the hero adds its own object-space parallax).
     // Suppressed while the sheet is being read — a drifting camera over a flat print reads
     // as a wobble, not as depth.
-    const parallax = introActive ? introBlend : 1
+    const parallax = introActive ? 0 : 1
     goalPos.current.x += state.pointer.x * 0.03 * parallax
     goalPos.current.y += state.pointer.y * 0.02 * parallax
 
-    // B2 garnish #16: exactly six rendered frames of a sub-pixel camera shake
-    // when the drawing lines pulse. It is frame-counted, not timer-based.
-    const pulsing = intro.pulse > 0 && introActive
-    if (pulsing && !wasPulsing.current) shakeFrames.current = 6
-    wasPulsing.current = pulsing
-    if (shakeFrames.current > 0) {
-      const phase = (7 - shakeFrames.current) * Math.PI * 1.7
-      goalPos.current.x += Math.sin(phase) * 0.0018
-      goalPos.current.y += Math.cos(phase * 0.7) * 0.0012
-      shakeFrames.current -= 1
-    }
+    // Excitation remains registered: no frame-counted camera shake during the print hold.
 
     // B2 garnish #17: at scroll rest only, orbit the settled JGun view at
     // 0.3°/s. This stays outside the drawing handoff and reduced-motion path.

@@ -169,6 +169,8 @@ it is not a global re-windowing function and must not be applied downstream.
 
 ### 5.0 JG-026 B1/B2 engineering drawing and extraction (2026-09-05)
 
+> **Opening revision, 2026-09-26:** The active opening is the JG-035 0.80 × 0.50 m vellum sheet with six projected views and composed detail insets. The implementation plan is [stages 1–3](../../../docs/jgun-stages-1-3-implementation-plan.md). The earlier ANSI C/layout and shockwave description below records the original JG-026 behavior, not the revised opening. The camera now goes detail → traverse → whole sheet → registered side view at intro .40. Registration holds through metal emergence; perspective departure starts at .72. The normal presentation replaces the shockwave with restrained profile-driven paper pressure and release, followed by one soft light sweep after solved separation. HUD chrome stays hidden until global progress .12. Scroll ownership (.00–.12), extraction's geometric contact solve, and the mechanical tables in §§5.1–5.4 remain unchanged.
+
 `snapshotDrawing()` consolidates the rest geometry of `Default.glb` once.
 `renderDrawing()` produces the print with a hidden-line pass: opaque depth
 occluders plus depth-tested 22° crease edges, then depth-discontinuity

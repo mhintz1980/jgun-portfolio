@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   DRAWING_INTRO_WINDOW,
+  REDUCED_MOTION_INTRO_T,
   INTRO_PHASES,
   INTRO_SCROLL_SHARE,
   drawingIntroState,
@@ -44,6 +45,32 @@ describe('intro pacing map', () => {
 })
 
 describe('intro phase map', () => {
+  it('parks reduced motion on a fully focused, flat registered drawing before excitation', () => {
+    const state = drawingIntroState(REDUCED_MOTION_INTRO_T * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(state.focus).toBe(1)
+    expect(state.pulse).toBe(0)
+    expect(state.pbr).toBe(0)
+    expect(state.perspective).toBe(0)
+    expect(state.drawingOpacity).toBe(1)
+  })
+  it('holds the registered camera through initial metal emergence', () => {
+    for (const t of [0.4, 0.5, 0.6, 0.68, INTRO_PHASES.orbitStart]) {
+      expect(drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(0)
+    }
+    expect(drawingIntroState(0.7 * DRAWING_INTRO_WINDOW.releaseEnd).pbr).toBeCloseTo(1)
+    expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(1)
+  })
+
+  it('sweeps light once after physical separation and resets on reverse scroll', () => {
+    const crossing = 0.8993818764962211
+    const start = introScrollTimeFor(crossing)
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+    expect(state(start - 0.01).lightSweep).toBe(0)
+    expect(state((start + 1) / 2).lightSweep).toBeCloseTo(1)
+    expect(state(1).lightSweep).toBeCloseTo(0)
+    expect(state(start - 0.01).lightSweep).toBe(0)
+    expect(drawingIntroState(0.4, crossing).lightSweep).toBeCloseTo(0)
+  })
   it('completes the focus rack before the pulse starts', () => {
     const focused = drawingIntroState(INTRO_PHASES.focusEnd * DRAWING_INTRO_WINDOW.releaseEnd)
     expect(focused.focus).toBe(1)

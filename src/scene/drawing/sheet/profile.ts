@@ -6,7 +6,6 @@ import {
   MeshBasicMaterial,
   OrthographicCamera,
   Scene,
-  Vector4,
   WebGLRenderTarget,
   type WebGLRenderer,
 } from 'three'
@@ -17,6 +16,7 @@ import {
   type DrawingLayout,
   type RenderedDrawing,
 } from '../drawingGeometry'
+import { cachedProfile, rememberProfile } from './drawingCache'
 
 /**
  * The primary elevation's outer contour — the path the excitation pulse runs along and the
@@ -24,7 +24,10 @@ import {
  * the primary view's rect only, at ~0.1 mm per pixel.
  */
 export function bakeProfile(gl: WebGLRenderer, data: DrawingGeometry, layout: DrawingLayout): RenderedDrawing {
-  const view = layout.views[0]
+  const cached = cachedProfile(data, layout)
+  if (cached) return profileFromPoints(cached)
+  const view = layout.views.find((candidate) => candidate.name === 'side')
+  if (!view) throw new Error('The drawing requires a side elevation')
   const [rx, ry, rw, rh] = view.rect
   const ppm = 8000
   const w = Math.ceil(rw * ppm)
@@ -42,23 +45,30 @@ export function bakeProfile(gl: WebGLRenderer, data: DrawingGeometry, layout: Dr
   scene.add(mesh)
   const target = new WebGLRenderTarget(w, h, { depthBuffer: true })
   const previous = gl.getRenderTarget()
-  const viewport = gl.getViewport(new Vector4())
   const clearColor = gl.getClearColor(new Color())
   const clearAlpha = gl.getClearAlpha()
-  gl.setRenderTarget(target)
-  gl.setViewport(0, 0, w, h)
-  gl.setClearColor(0x000000, 1)
-  gl.clear()
-  gl.render(scene, camera)
   const pixels = new Uint8Array(w * h * 4)
-  gl.readRenderTargetPixels(target, 0, 0, w, h, pixels)
-  gl.setRenderTarget(previous)
-  gl.setViewport(viewport)
-  gl.setClearColor(clearColor, clearAlpha)
-  target.dispose()
-  material.dispose()
+  try {
+    gl.setRenderTarget(target)
+    // setRenderTarget installs physical pixels. setViewport would apply DPR a second time.
+    gl.setClearColor(0x000000, 1)
+    gl.clear()
+    gl.render(scene, camera)
+    gl.readRenderTargetPixels(target, 0, 0, w, h, pixels)
+  } finally {
+    gl.setRenderTarget(previous)
+    gl.setClearColor(clearColor, clearAlpha)
+    target.dispose()
+    material.dispose()
+  }
 
   const profilePoints = traceProfile(pixels, w, h).map(([px, py]) => [rx + (px / w) * rw, ry + (py / h) * rh])
+  rememberProfile(data, layout, profilePoints)
+  return profileFromPoints(profilePoints)
+}
+
+/** Input and output are sheet metres; mask pixels never escape bakeProfile. */
+export function profileFromPoints(profilePoints: number[][]): RenderedDrawing {
   const positions: number[] = []
   const lengths: number[] = []
   let perimeter = 0

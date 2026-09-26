@@ -18,6 +18,7 @@ import { degradeQuality, forcePoster, getQuality } from '../../state/qualityStor
 import { getScrollState, setScrollState, telemetry } from '../../state/scrollStore'
 import {
   DRAWING_INTRO_WINDOW,
+  REDUCED_MOTION_INTRO_T,
   drawingIntroState,
   pacedProgress,
   rawScrollFor,
@@ -43,8 +44,11 @@ import {
 } from './extractionPose'
 import { sheetReveal } from './sheetCamera'
 import { composeSheet } from './sheet/composeSheet'
+import { prepareDrawingCache } from './sheet/drawingCache'
 import { GROUP, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
+import { makePaperFlexField, paperFlexAmplitude } from './sheet/paperFlex'
 import { bakeProfile } from './sheet/profile'
+import { measureProfileRegistration } from './sheet/registration'
 import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
 
 /**
@@ -76,7 +80,7 @@ varying vec2 vPlane;
 void main() {
   vPlane = position.xy;
   vec3 p = position;
-  p.z += waveDisplacement(p.xy) * uDisplace;
+  p.z += paperDisplacement(p.xy) * uDisplace;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`
 
@@ -130,8 +134,12 @@ void main() {
   float pool = exp(-dl * dl);
   float light = 0.64 + 0.34 * key + 0.1 * pool;
   c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key);
-  // The shockwave lights the paper it passes over.
-  c += vec3(0.18, 0.55, 0.75) * uWaveEnabled * waveFront(p) * 1.15;
+  // Broad pressure/contact shade, with a restrained warm slope highlight. No emissive ring.
+  float w = paperFlexWeight(p);
+  float pressure = uFlexAmplitude / 0.003;
+  float slope = (paperDisplacement(p + vec2(0.003, 0.003)) - paperDisplacement(p - vec2(0.003, 0.003))) / 0.0085;
+  c *= 1.0 - 0.075 * pressure * (4.0 * w * (1.0 - w));
+  c *= 1.0 + clamp(slope * 0.6, -0.035, 0.035);
   gl_FragColor = vec4(c * uContrast, uOpacity);
 }`
 
@@ -185,7 +193,7 @@ attribute float arcLength; varying float vArc;
 void main() {
   vArc = arcLength;
   vec3 p = position;
-  p.z += waveDisplacement(p.xy);
+  p.z += paperDisplacement(p.xy);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`
 
@@ -232,6 +240,7 @@ interface BakedSheet {
   fills: Mesh
   text: SheetTextLayer
   stats: Record<string, number>
+  pulseRegistration: () => ReturnType<typeof measureProfileRegistration>
 }
 
 export function DrawingLinework({ data }: { data: DrawingGeometry }) {
@@ -241,22 +250,36 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
   // JG-034: the sheet is baked once per model, never per viewport. The old layout was
   // re-derived from a transient R3F size at mount and nothing re-fitted it until a resize.
   useLayoutEffect(() => {
+    let cancelled = false
+    let dispose: (() => void) | undefined
     const started = performance.now()
     const layout = makeDrawingLayout(1, data.bounds)
+    const bake = async () => {
+    const precomputed = await prepareDrawingCache(data, layout)
+    if (cancelled) return
+    const cacheMs = performance.now() - started
+    const extractStart = performance.now()
     const extraction = solveExtraction(data, layout)
-    const extractMs = performance.now() - started
+    const extractMs = performance.now() - extractStart
     const composed = composeSheet(gl, data, layout)
     const rendered = bakeProfile(gl, data, layout)
     const uniforms = makeSheetUniforms()
+    const flex = makePaperFlexField(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
+    uniforms.uFlexField.value = flex.texture
+    uniforms.uFlexRect.value = flex.rect
     INK_NAVY.copy(uniforms.uInk.value)
     uniforms.uOrigin.value.set(extraction.contact.x, extraction.contact.y)
     const lines = makeInkLines(composed.ink, uniforms)
     const fills = makeInkFills(composed.ink, uniforms)
-    const text = makeSheetText(composed.ink.texts)
-    const stats = { ...composed.stats, extractMs, bakeMs: performance.now() - started }
+    const text = makeSheetText(composed.ink.texts, uniforms)
+    const stats = { ...composed.stats, cacheMs, precomputed: precomputed ? 1 : 0, extractMs, bakeMs: performance.now() - started, flexFieldPeak: flex.peak, flexAmplitude: 0, flexPeakDisplacement: 0, flexEnabled: 0, flexNormalX: 0, flexNormalY: 0, flexNormalZ: 1 }
     window.__sheetStats = stats
-    setBaked({ layout, extraction, rendered, uniforms, lines, fills, text, stats })
-    return () => {
+    // Diagnostics are lazy: the independent ink comparison must not tax startup.
+    let registration: ReturnType<typeof measureProfileRegistration> | undefined
+    const pulseRegistration = () => registration ??= measureProfileRegistration(rendered.profilePoints, composed.ink.segs, GROUP.side)
+    setBaked({ layout, extraction, rendered, uniforms, lines, fills, text, stats, pulseRegistration })
+    dispose = () => {
+      flex.texture.dispose()
       rendered.dispose()
       lines.geometry.dispose()
       ;(lines.material as ShaderMaterial).dispose()
@@ -264,6 +287,14 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
       ;(fills.material as ShaderMaterial).dispose()
       text.dispose()
     }
+    }
+    void bake().catch((error) => {
+      if (!cancelled) {
+        console.error('Drawing initialization failed', error)
+        forcePoster()
+      }
+    })
+    return () => { cancelled = true; dispose?.() }
   }, [gl, data])
 
   return baked ? <DrawingPrint data={data} baked={baked} /> : null
@@ -303,7 +334,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     })
     const desk = new ShaderMaterial({
       uniforms,
-      vertexShader: planeVertex,
+      vertexShader: planeVertex.replace("p.z += paperDisplacement(p.xy) * uDisplace;", ""),
       fragmentShader: deskFragment,
       transparent: true,
       depthWrite: false,
@@ -422,6 +453,9 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
         ;(window as unknown as Record<string, unknown>).__drawingProofMode = 'normal'
       },
       sheetStats: () => baked.stats,
+      capturePulseRegistration: () => baked.pulseRegistration(),
+      captureTextBounds: () => text.captureBounds(),
+      captureTitleBounds: () => text.captureBounds(GROUP.titleBlock),
       captureRegistration: () => ({
         sourceTriangles: data.sourceTriangles,
         primaryMatrix: layout.views[0].camera.projectionMatrix.toArray(),
@@ -488,7 +522,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     const { reducedMotion, tier } = getQuality()
     const p = getScrollState().progress
     const intro = drawingIntroState(
-      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2 : p,
+      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * REDUCED_MOTION_INTRO_T : p,
       extraction.crossing,
     )
     const mode = ((window as unknown as Record<string, unknown>).__drawingProofMode as string | undefined) ?? 'normal'
@@ -535,8 +569,15 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     uniforms.uPulseHead.value = intro.pulseHead
     uniforms.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
     uniforms.uWaveTime.value = intro.waveTime
-    uniforms.uWaveEnabled.value =
-      !proof && !reducedMotion && tier === 'full' && intro.waveActive > 0 ? 1 : 0
+    uniforms.uWaveEnabled.value = 0
+    uniforms.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
+    baked.stats.flexAmplitude = uniforms.uFlexAmplitude.value
+    baked.stats.flexPeakDisplacement = uniforms.uFlexAmplitude.value * baked.stats.flexFieldPeak
+    baked.stats.flexEnabled = uniforms.uFlexAmplitude.value > 0 ? 1 : 0
+    const sheetMatrix = drawingRuntime.sheetMatrix.elements
+    baked.stats.flexNormalX = sheetMatrix[8]
+    baked.stats.flexNormalY = sheetMatrix[9]
+    baked.stats.flexNormalZ = sheetMatrix[10]
     meshes.pulse.visible = (uniforms.uPulse.value as number) > 0
     uniforms.uViewport.value.copy(gl.getDrawingBufferSize(buffer))
 

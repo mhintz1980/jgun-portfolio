@@ -31,6 +31,9 @@ export const INTRO_SCROLL_SHARE = 0.3
  */
 export const DRAWING_INTRO_WINDOW = { releaseEnd: 0.12, heroEnd: 0.525 } as const
 
+/** Fully inked, registered and still: shared by drawing, model and camera. */
+export const REDUCED_MOTION_INTRO_T = 0.4
+
 /**
  * Half-width (in raw scroll) of the C1 blend that removes the slope step where the
  * slow intro meets the faster main timeline. Both linear pieces are met exactly at the
@@ -97,7 +100,7 @@ export const INTRO_PHASES = {
   pulseStart: 0.4,
   pulseEnd: 0.6,
   /** Camera orbit leads into the rise and keeps running through it. */
-  orbitStart: 0.52,
+  orbitStart: 0.72,
   /** Extraction: the model lifts out of the sheet. */
   riseStart: 0.6,
   /** Committed-pace window opens here (scrollCommit.ts): detachment through shockwave. */
@@ -158,6 +161,9 @@ export interface IntroState {
   waveTime: number
   /** 1 while the shockwave is live. */
   waveActive: number
+  /** One soft reflection pass after separation, zero outside the intro. */
+  lightSweep: number
+  lightSweepPosition: number
 }
 
 /**
@@ -184,6 +190,8 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     drawingOpacity: 1 - smooth01((t - INTRO_PHASES.waveEnd) / (1 - INTRO_PHASES.waveEnd)),
     waveTime,
     waveActive: t > waveStart && waveTime < 1 ? 1 : 0,
+    lightSweep: Math.pow(Math.sin(Math.PI * clamp01((t - waveStart) / Math.max(1e-4, 1 - waveStart))), 2),
+    lightSweepPosition: clamp01((t - waveStart) / Math.max(1e-4, 1 - waveStart)),
   }
 }
 

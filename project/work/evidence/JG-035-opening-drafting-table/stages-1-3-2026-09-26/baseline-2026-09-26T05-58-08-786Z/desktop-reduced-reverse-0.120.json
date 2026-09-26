@@ -1,0 +1,565 @@
+{
+  "name": "desktop-reduced-reverse-0.120",
+  "progress": 0.12,
+  "direction": "reverse",
+  "scroll": {
+    "raw": 8267.99999999248,
+    "expected": 0.11999999999977394
+  },
+  "settled": false,
+  "settleMs": 6373,
+  "live": true,
+  "tier": "full",
+  "at": 74596.59999999776,
+  "scrollY": 8268,
+  "reducedMotion": true,
+  "telemetry": {
+    "camera": {
+      "x": 0.04200000000000006,
+      "y": 0.5999442105816059,
+      "z": 0.12000000000000002,
+      "fov": 30.000000000000007,
+      "framingBias": 0,
+      "framingBiasY": 0,
+      "portraitDolly": 1,
+      "goal": {
+        "position": [
+          0.042000000000000044,
+          0.5999442105816061,
+          0.12
+        ],
+        "target": [
+          0.04200000000000001,
+          0,
+          0.12
+        ],
+        "fov": 30
+      },
+      "up": [
+        -1,
+        6.123233995736766e-17,
+        0
+      ],
+      "sheetDistance": 0.5999442105816061
+    },
+    "rig": {
+      "handleZ": 0,
+      "outputZ": 0,
+      "clutchZ": 0,
+      "slidingZ": 0,
+      "stageZ": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stageRot": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "planetRot": 0,
+      "gearRotation": 0,
+      "shift": 0,
+      "ghostOpacity": 1,
+      "ghostCount": 1,
+      "explodeFactor": 0,
+      "ringSwitchZ": 0,
+      "ringSwitchRotZ": 0
+    },
+    "scroll": {
+      "progress": 0,
+      "chapter": 0,
+      "chapterProgress": 0,
+      "materialMode": "solid"
+    },
+    "stage": {
+      "active": 0,
+      "alpha": [
+        1,
+        0,
+        0
+      ],
+      "flow": 0,
+      "acousticWave": 0,
+      "transitionIntensity": 0,
+      "backdropAlpha": 0.55
+    },
+    "drawing": {
+      "lineOpacity": 1,
+      "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+      "phase": 0.2,
+      "poseT": 0.13333333333333336,
+      "focus": 1,
+      "pulseHead": 0,
+      "pulse": 0,
+      "pbr": 0,
+      "travel": 0.22,
+      "localZ": -0.039931509643793106,
+      "minZ": -0.07986483350396156,
+      "crossing": 0.8888459503339448,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "waveTime": 0,
+      "waveEnabled": 0,
+      "pulseLuminance": 0,
+      "profilePoints": 10203,
+      "planeMatrix": [
+        0,
+        0,
+        -1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "modelMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.03792754989862442,
+        -0.039931509643793106,
+        0.11913639575242996,
+        1
+      ],
+      "annotationsReady": true,
+      "leaderCrossings": 0
+    },
+    "performance": {
+      "declines": 0,
+      "tier": "full",
+      "warmReady": true
+    }
+  },
+  "sheetStats": {
+    "edgeSetMs": 0,
+    "hardEdges": 385817,
+    "smoothEdges": 886494,
+    "sideSegments": 18370,
+    "sideMs": 219.5,
+    "topSegments": 11031,
+    "topMs": 114.5,
+    "sectionSegments": 99355,
+    "sectionMs": 104.5,
+    "hatch": 1089,
+    "frontSegments": 15538,
+    "frontMs": 112.30000000074506,
+    "rearSegments": 17752,
+    "rearMs": 107.5,
+    "bottomSegments": 16244,
+    "bottomMs": 117,
+    "segments": 211552,
+    "fills": 21,
+    "texts": 125,
+    "totalMs": 0,
+    "cacheHit": 1,
+    "precomputed": 0,
+    "extractMs": 526.5,
+    "bakeMs": 586.1000000014901,
+    "flexFieldPeak": 1,
+    "flexAmplitude": 0,
+    "flexPeakDisplacement": 0,
+    "flexEnabled": 0,
+    "flexNormalX": 0,
+    "flexNormalY": 1,
+    "flexNormalZ": 0
+  },
+  "proofMethods": [
+    "ready",
+    "captureNextFrame",
+    "setTier",
+    "setMode",
+    "setProgress",
+    "scrollToProgress",
+    "release",
+    "sheetStats",
+    "captureRegistration",
+    "captureContact"
+  ],
+  "optional": {
+    "captureRegistration": {
+      "sourceTriangles": 841039,
+      "primaryMatrix": [
+        2.5,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        -0.5012531328320802,
+        0,
+        0,
+        0,
+        -1.0050125313283207,
+        1
+      ],
+      "planeMatrix": [
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "profilePoints": 10203,
+      "perimeter": 1.2748625781033673,
+      "sheet": {
+        "width": 0.8,
+        "height": 0.5,
+        "aspect": 1.6
+      },
+      "views": [
+        {
+          "name": "side",
+          "rect": [
+            -0.26553463393449783,
+            -0.16525456672906877,
+            0.2910692678689957,
+            0.24650913345813752
+          ],
+          "label": "SIDE VIEW"
+        },
+        {
+          "name": "top",
+          "rect": [
+            -0.33676731696724893,
+            0.1660337916240096,
+            0.14953463393449784,
+            0.04793241675198078
+          ],
+          "label": "TOP VIEW"
+        },
+        {
+          "name": "section",
+          "rect": [
+            0.11523268303275108,
+            -0.04362728336453438,
+            0.14953463393449784,
+            0.12725456672906876
+          ],
+          "label": "SECTION A–A"
+        },
+        {
+          "name": "front",
+          "rect": [
+            -0.3589662083759904,
+            -0.09362728336453438,
+            0.04793241675198078,
+            0.12725456672906876
+          ],
+          "label": "FRONT VIEW"
+        },
+        {
+          "name": "rear",
+          "rect": [
+            0.06103379162400961,
+            -0.09362728336453438,
+            0.04793241675198078,
+            0.12725456672906876
+          ],
+          "label": "REAR VIEW"
+        },
+        {
+          "name": "bottom",
+          "rect": [
+            -0.14476731696724893,
+            0.1660337916240096,
+            0.14953463393449784,
+            0.04793241675198078
+          ],
+          "label": "BOTTOM VIEW"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -0.11518211662769318,
+          -0.03993332386016846,
+          -0.1406710296869278
+        ],
+        "max": [
+          0.12332701683044434,
+          0.039931509643793106,
+          0.14239823818206787
+        ]
+      },
+      "projectedFeatures": [
+        {
+          "id": "housing",
+          "expected": [
+            -0.3567276417362385,
+            0.507549417121356,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.3567276417362385,
+            0.507549417121356,
+            -0.991971602776239
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "output",
+          "expected": [
+            -0.41196866729350246,
+            0.5076480477778841,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.41196866729350246,
+            0.5076480477778841,
+            -0.9917440092333333
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "bearing",
+          "expected": [
+            -0.11281175103582462,
+            0.5003656631966373,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.11281175103582462,
+            0.5003656631966373,
+            -0.9919210852369689
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "handle",
+          "expected": [
+            0.3830438778397946,
+            0.5583106809606418,
+            -0.9920698128526738
+          ],
+          "actual": [
+            0.3830438778397946,
+            0.5583106809606418,
+            -0.9920671460971152
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "clutch",
+          "expected": [
+            0.08743524758580551,
+            0.4989727686376798,
+            -0.9920698128526738
+          ],
+          "actual": [
+            0.08743524758580551,
+            0.4989727686376798,
+            -0.9919771530974185
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "fork",
+          "expected": [
+            -0.028103020163117613,
+            0.5126634519644411,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.028103020163117613,
+            0.5126634519644411,
+            -0.9919047090103302
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "ringSwitch",
+          "expected": [
+            0.08365794529378177,
+            0.5073077810373957,
+            -0.9920698128526738
+          ],
+          "actual": [
+            0.08365794529378177,
+            0.5073077810373957,
+            -0.9920376501528143
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "stage1",
+          "expected": [
+            -0.06050596372538242,
+            0.5493698373984829,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.06050596372538242,
+            0.5493698373984829,
+            -0.9917638755648543
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "stage2",
+          "expected": [
+            -0.07943682110233846,
+            0.5503777959874693,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.07943682110233846,
+            0.5503777959874693,
+            -0.9917491380735367
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "stage3",
+          "expected": [
+            -0.20984023905376398,
+            0.5775931635932187,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.20984023905376398,
+            0.5775931635932187,
+            -0.9918616215098482
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "stage4",
+          "expected": [
+            -0.2365557536053919,
+            0.45988203485337253,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.2365557536053919,
+            0.45988203485337253,
+            -0.9919073139443143
+          ],
+          "errorPixels": 0
+        },
+        {
+          "id": "stage5",
+          "expected": [
+            -0.1398471180079102,
+            0.4420094770899139,
+            -0.9920698128526738
+          ],
+          "actual": [
+            -0.1398471180079102,
+            0.4420094770899139,
+            -0.9918643595605624
+          ],
+          "errorPixels": 0
+        }
+      ],
+      "crossing": 0.8888459503339448,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ]
+    }
+  },
+  "gl": [
+    {
+      "connected": false,
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "draws": 0,
+      "lastDrawAt": 0,
+      "lost": true
+    },
+    {
+      "connected": true,
+      "width": 1600,
+      "height": 900,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "draws": 526977,
+      "lastDrawAt": 74590.09999999776,
+      "lost": false
+    },
+    {
+      "connected": false,
+      "width": 2048,
+      "height": 128,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "draws": 79,
+      "lastDrawAt": 16230.5,
+      "lost": false
+    }
+  ],
+  "shaderFailures": [],
+  "contextLosses": 1
+}

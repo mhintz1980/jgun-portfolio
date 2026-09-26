@@ -23,7 +23,7 @@ import type { MaterialMode } from '../types/portfolio'
 import { Hotspots } from './Hotspots'
 import { DrawingLinework } from './drawing/DrawingLinework'
 import { DrawingProofRenderer } from './drawing/DrawingProofRenderer'
-import { DRAWING_INTRO_WINDOW, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
+import { DRAWING_INTRO_WINDOW, REDUCED_MOTION_INTRO_T, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
 import { snapshotDrawing } from './drawing/drawingGeometry'
 import { drawingRuntime } from './drawing/extractionPose'
 import { introPbrActivation } from './rig/materials'
@@ -261,9 +261,9 @@ export function TorqueWrenchHero() {
 
     const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
     const proof = proofMode !== undefined && proofMode !== 'normal'
-    // Reduced motion parks the drawing at its fully focused frame (intro t = 0.20).
+    // Share the camera and drawing's registered, fully inked static frame.
     const intro = drawingIntroState(
-      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * 0.2 : progress,
+      reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * REDUCED_MOTION_INTRO_T : progress,
       drawingRuntime.extraction?.crossing,
     )
     introPbrActivation.value = proof ? 1 : intro.pbr

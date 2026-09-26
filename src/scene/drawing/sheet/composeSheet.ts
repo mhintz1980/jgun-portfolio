@@ -11,7 +11,8 @@ import {
   type DrawingView,
 } from '../drawingGeometry'
 import { buildEdgeSet, extractView, geometryFrom, type EdgeSet } from './edgeExtract'
-import { DASH, GROUP, InkBuilder, PEN } from './ink'
+import { DASH, GROUP, InkBuilder, PEN, type InkText, type TextCell } from './ink'
+import { cachedSheet, rememberSheet } from './drawingCache'
 
 /**
  * THE SHEET — every mark on the intro drawing, composed in sheet-plane metres.
@@ -90,6 +91,8 @@ const sweep = (rect: [number, number, number, number], span = 0.82) => (x: numbe
 
 export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: DrawingLayout): ComposedSheet {
   const started = performance.now()
+  const cached = cachedSheet(data, layout)
+  if (cached) return cached
   const ink = new InkBuilder()
   const stats: Record<string, number> = {}
   const marks: Record<string, [number, number]> = {}
@@ -435,6 +438,7 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
 
   // ---- Title block ----------------------------------------------------------------------------
   {
+    const firstText = ink.texts.length
     const g = GROUP.titleBlock
     const x0 = tb.x, y0 = tb.y, w = tb.w, h = tb.h
     ink.rect(x0, y0, w, h, PEN.border, g, 0, 0.2)
@@ -444,7 +448,7 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     const rows = [y0 + h * 0.52, y0 + h * 0.34, y0 + h * 0.17]
     for (const y of rows) ink.line(split, y, x0 + w, y, PEN.edge, g, 0.15, 0.1)
     ink.text({ text: 'PROJECT:', x: split + 0.003, y: y0 + h - 0.005, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.2 })
-    ink.text({ text: 'HIGH-PRECISION\nINDUSTRIAL\nTORQUE GUN', x: split + (x0 + w - split) / 2 + 0.006, y: y0 + h * 0.76, size: T.title, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.03, lineHeight: 1.05, group: g, key: 0.25, dur: 0.18 })
+    ink.text({ text: 'HIGH-PRECISION\nINDUSTRIAL\nTORQUE GUN', x: split + (x0 + w - split) / 2, y: y0 + h * 0.72, size: 0.0062, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.03, lineHeight: 1.05, group: g, key: 0.25, dur: 0.18 })
     const c2 = split + (x0 + w - split) * 0.62
     ink.line(c2, rows[1], c2, rows[0], PEN.edge, g, 0.3, 0.05)
     ink.text({ text: 'DWG NO.', x: split + 0.003, y: rows[0] - 0.003, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.35 })
@@ -484,8 +488,29 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     ink.line(px - 0.011, py, px + 0.011, py, PEN.fine, g, 0.74, 0.03, DASH.center)
     ink.path([[px + 0.015, py - 0.0035], [px + 0.015, py + 0.0035], [px + 0.034, py + 0.0065], [px + 0.034, py - 0.0065], [px + 0.015, py - 0.0035]], PEN.thin, g, 0.75, 0.06)
     ink.text({ text: 'THIRD ANGLE\nPROJECTION', x: px + 0.04, y: py, size: T.micro, anchorY: 'middle', letterSpacing: 0.08, lineHeight: 1.2, group: g, key: 0.8 })
+    for (const item of ink.texts.slice(firstText)) {
+      let cell: TextCell
+      if (item.x < split) {
+        cell = item.y > l1
+          ? { x: x0, y: l1, w: split - x0, h: y0 + h - l1 }
+          : { x: px + 0.039, y: y0, w: split - px - 0.039, h: l1 - y0 }
+      } else if (item.y > rows[0]) {
+        cell = item.text === 'PROJECT:'
+          ? { x: split, y: y0 + h - 0.011, w: x0 + w - split, h: 0.011 }
+          : { x: split, y: rows[0], w: x0 + w - split, h: y0 + h - 0.011 - rows[0] }
+      } else if (item.y > rows[1]) {
+        const a = item.x < c2 ? split : c2
+        const b = item.x < c2 ? c2 : x0 + w
+        cell = { x: a, y: rows[1], w: b - a, h: rows[0] - rows[1] }
+      } else if (item.y > rows[2]) {
+        const a = item.x < s1 ? split : item.x < s2 ? s1 : s2
+        const b = item.x < s1 ? s1 : item.x < s2 ? s2 : x0 + w
+        cell = { x: a, y: rows[2], w: b - a, h: rows[1] - rows[2] }
+      } else cell = { x: split, y: y0, w: x0 + w - split, h: rows[2] - y0 }
+      fitTitleText(item, cell)
+    }
     marks.titleBlock = [x0 + w / 2, y0 + h / 2]
-    marks.titleText = [split + (x0 + w - split) / 2, y0 + h * 0.76]
+    marks.titleText = [split + (x0 + w - split) / 2, y0 + h * 0.72]
   }
 
   // ---- Revision block ---------------------------------------------------------------------------
@@ -498,8 +523,13 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     const r1 = y + h - 0.009
     ink.line(x, r1, x + w, r1, PEN.thin, g, 0.2, 0.06)
     const heads = ['REV', 'DATE', 'DESCRIPTION', 'DRN', 'APPD']
+    const boundaries = [x, ...colsX, x + w]
     const centres = [(x + colsX[0]) / 2, (colsX[0] + colsX[1]) / 2, (colsX[1] + colsX[2]) / 2, (colsX[2] + colsX[3]) / 2, (colsX[3] + x + w) / 2]
-    heads.forEach((t, i) => ink.text({ text: t, x: centres[i], y: r1 + 0.0045, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.08, weight: 'semibold', group: g, key: 0.25 }))
+    heads.forEach((t, i) => {
+      const item: InkText = { text: t, x: centres[i], y: r1 + 0.0045, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.08, weight: 'semibold', group: g, key: 0.25 }
+      fitTitleText(item, { x: boundaries[i], y: r1, w: boundaries[i + 1] - boundaries[i], h: y + h - r1 })
+      ink.text(item)
+    })
     const rowsData = [
       ['03', '2026-09-25', 'TOLERANCES RELEASED — DATUMS A–E', 'M.H.', 'M.H.'],
       ['02', '2026-09-08', '2-SPEED CLUTCH KINEMATICS', 'M.H.', 'M.H.'],
@@ -508,7 +538,13 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     rowsData.forEach((row, j) => {
       const ry = r1 - 0.0045 - j * 0.0085
       if (j > 0) ink.line(x, ry + 0.00425, x + w, ry + 0.00425, PEN.fine, g, 0.3, 0.04)
-      row.forEach((t, i) => ink.text({ text: t, x: centres[i], y: ry, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.04, group: g, key: 0.32 + j * 0.05 }))
+      row.forEach((t, i) => {
+        const item: InkText = { text: t, x: centres[i], y: ry, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.04, group: g, key: 0.32 + j * 0.05 }
+        const bottom = j === rowsData.length - 1 ? y : r1 - 0.00025 - (j + 1) * 0.0085
+        const top = j === 0 ? r1 : ry + 0.00425
+        fitTitleText(item, { x: boundaries[i], y: bottom, w: boundaries[i + 1] - boundaries[i], h: top - bottom })
+        ink.text(item)
+      })
     })
   }
 
@@ -541,7 +577,9 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   stats.texts = ink.texts.length
   stats.totalMs = performance.now() - started
   geometry.dispose()
-  return { ink, stats, marks }
+  const result = { ink, stats, marks }
+  rememberSheet(data, layout, result)
+  return result
 }
 
 // ---- GD&T characteristic glyphs (ASME Y14.5 proportions), drawn as vector ink ----------------
@@ -570,4 +608,25 @@ function gdtFlatness(ink: InkBuilder, x: number, y: number, s: number, group: nu
   const w = s * 0.9
   const h = s * 0.45
   ink.path([[x - w / 2, y - h / 2], [x + w / 2 - h * 0.6, y - h / 2], [x + w / 2, y + h / 2], [x - w / 2 + h * 0.6, y + h / 2], [x - w / 2, y - h / 2]], 0.00007, group, key, 0.04)
+}
+
+export type { TextCell } from './ink'
+
+/** Conservative em bounds for the condensed drawing font, including tracking and line boxes.
+ * No wrapping: preserves the authored technical labels and works with the existing text renderer.
+ */
+export function fitTitleText(item: InkText, cell: TextCell): void {
+  item.fitCell = { ...cell }
+  const pad = 0.0015
+  const lines = item.text.split('\n')
+  const widthEm = Math.max(...lines.map((line) => line.length * (0.7 + (item.letterSpacing ?? 0.02))))
+  const heightEm = lines.length * (item.lineHeight ?? 1.15)
+  const xRoom = item.anchorX === 'center'
+    ? 2 * Math.min(item.x - cell.x - pad, cell.x + cell.w - pad - item.x)
+    : item.anchorX === 'right' ? item.x - cell.x - pad : cell.x + cell.w - pad - item.x
+  const yRoom = item.anchorY === 'top' ? item.y - cell.y - pad
+    : item.anchorY === 'bottom' ? cell.y + cell.h - pad - item.y
+      : 2 * Math.min(item.y - cell.y - pad, cell.y + cell.h - pad - item.y)
+  item.size = Math.min(item.size, Math.max(0, xRoom) * 0.7 / widthEm, Math.max(0, yRoom) * 0.7 / heightEm)
+  item.maxWidth = Math.max(0, xRoom)
 }

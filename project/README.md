@@ -37,6 +37,8 @@ This directory contains the durable internal knowledge for the JGUN portfolio. I
 
 ## JG-026 intro timing and unchanged canonical ladder
 
+The opening presentation was revised on 2026-09-26 under the owner-authorized [stages 1–3 plan](../docs/jgun-stages-1-3-implementation-plan.md): simplified camera, registered hold, restrained vellum flex, and a single metal light sweep. See animation-spec §5.0's revision note for the active presentation; the following JG-026 narrative predates JG-035. Mechanical ladder values remain current.
+
 B1/B2 occupy global `0.000–0.120` of PROGRESS, which
 `pacedProgress()` stretches over `0.30` of the DOCUMENT (owner pacing
 ruling 2026-09-05). Normalized `0–.14` focuses the registered ANSI C
