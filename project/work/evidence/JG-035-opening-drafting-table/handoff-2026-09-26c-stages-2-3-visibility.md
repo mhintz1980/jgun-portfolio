@@ -2,7 +2,10 @@
 
 Mission unchanged: sections 1–3 of `docs/jgun-animation-improvements.md`, tracked in
 `docs/jgun-stages-1-3-implementation-plan.md`. Read `handoff-2026-09-26b-stages-1-3.md`
-for environment and earlier changes. **Nothing from this session is committed.**
+for environment and earlier changes. **Committed, not pushed:** `e9ddc03` (code + tests +
+plan ticks), `fc8c1f6` (this handoff + the OpenMontage/Higgsfield note), `8877667`
+(AGENTS.md — verifier `--url` and the `--quick` protocol). Branch
+`codex/jg033-signature-shot` is ahead 3 of origin.
 
 ## What happened
 
@@ -18,10 +21,12 @@ visible**. Telemetry was correct; the effects were physically unseeable. Root ca
 | Metal timing | pbr started at `riseStart` (same moment as lift). | `INTRO_PHASES.metalStart = 0.54`; pbr > .5 by riseStart .6. |
 
 Visible now: `stages-1-3-2026-09-26/visibility-pass-2026-09-26/contact.png` (+ per-frame PNGs; capture script copy `frames.mjs`) (0.060 → 0.108, desktop 1600×900). Still owed:
-**Astra ruling** on all four effects, and the **full 6-case harness** (only quick 2/2 ran,
-and that was before the visibility fixes).
+**Astra ruling** on all four effects, and the **full 6-case harness**. Quick harness re-ran
+after the visibility fixes and passed 2/2 with the new gates
+(`previs-commit-2026-09-27T01-58-34-905Z`: metal before lift at .066, contact 0.34/6 mm at
+.084, 0 at .12); tests 123/123 and typecheck clean at the same commit.
 
-## Files changed (uncommitted)
+## Files changed
 
 - `src/scene/drawing/introTimeline.ts` — `metalStart`, pbr window.
 - `src/scene/drawing/sheet/paperFlex.ts` — `paperContactShadow`, `CONTACT_SHADOW_MAX`.
@@ -36,10 +41,13 @@ and that was before the visibility fixes).
 
 ## Gotchas learned
 
-- Harness URL must be `--url=http://localhost:5199`; vite refuses `127.0.0.1` on this box.
-  Quick protocol is in `TODO.md:13` (not AGENTS.md): `node scripts/verify-jgun-opening.mjs --quick`.
-- Fast visual iteration: `.scratch/frames.mjs` — copy into `scripts/` to resolve playwright,
-  run `node scripts/_frames_tmp.mjs 0.066,0.072,0.084`, delete. One fresh page per frame;
+- Harness URL must be `--url=http://localhost:5199`; vite refuses `127.0.0.1` on this box —
+  two runs were lost to it. Quick protocol is `node scripts/verify-jgun-opening.mjs --quick`
+  (~2 min, desktop + narrow); recorded in `TODO.md:13` and now also AGENTS.md.
+- Fast visual iteration: the committed copy is
+  `stages-1-3-2026-09-26/visibility-pass-2026-09-26/frames.mjs` — copy it into `scripts/`
+  to resolve playwright, run `node scripts/_frames_tmp.mjs 0.066,0.072,0.084`, then delete.
+  One fresh page per frame;
   reusing one page for several `setProgress` calls intermittently loses the WebGL context and
   every later reading freezes at the poster frame (phase .5, pbr 0).
 - `scrollToProgress` in a hidden/headless page may not advance; `setProgress` (pinned) does.
@@ -131,5 +139,7 @@ narrated videos, not web assets — don't drag the portfolio into it.
 
 1. If short on time, generate Higgsfield assets first — the credits expire.
 2. Astra ruling on `stages-1-3-2026-09-26/visibility-pass-2026-09-26/contact.png` (+ per-frame PNGs; capture script copy `frames.mjs`) (vellum strength, emboss, shadow).
-3. Camera tilt (above), then re-capture with `.scratch/frames.mjs`.
-4. Quick harness → full 6-case harness → commit.
+3. Camera tilt (above), then re-capture with the frame script in
+   `stages-1-3-2026-09-26/visibility-pass-2026-09-26/frames.mjs`.
+4. Full 6-case harness → commit (the code is already committed; this commit is the
+   post-ruling/post-tilt revision).
