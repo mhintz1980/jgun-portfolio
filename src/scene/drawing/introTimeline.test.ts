@@ -61,6 +61,14 @@ describe('intro phase map', () => {
     expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(1)
   })
 
+  it('reveals metal while the tool is still pressed into the sheet, before lift', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)
+    expect(INTRO_PHASES.metalStart).toBeGreaterThan(INTRO_PHASES.pulseStart)
+    expect(state(INTRO_PHASES.riseStart).pbr).toBeGreaterThan(0.5)
+    expect(state(INTRO_PHASES.riseStart).poseT).toBeCloseTo(0.4, 12)
+  })
+
   it('sweeps light once after physical separation and resets on reverse scroll', () => {
     const crossing = 0.8993818764962211
     const start = introScrollTimeFor(crossing)

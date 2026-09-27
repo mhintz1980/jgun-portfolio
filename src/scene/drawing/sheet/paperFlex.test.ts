@@ -3,7 +3,7 @@ import { InstancedBufferGeometry, ShaderLib, ShaderMaterial, type WebGLRenderer 
 import { drawingIntroState, DRAWING_INTRO_WINDOW, INTRO_PHASES } from '../introTimeline'
 import { InkBuilder, makeInkFills, makeInkLines, makeSheetUniforms } from './ink'
 import { makeSheetText } from './sheetText'
-import { makePaperFlexField, paperFlexAmplitude, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
+import { CONTACT_SHADOW_MAX, makePaperFlexField, paperContactShadow, paperFlexAmplitude, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
 
 const rectangle = [[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]]
 
@@ -115,5 +115,31 @@ describe('all printed layers share the paper deformation', () => {
     expect(shader.vertexShader.indexOf('transformed.z +=')).toBeLessThan(shader.vertexShader.indexOf('vec4 mvPosition'))
     expect((shader.uniforms as typeof uniforms).uFlexAmplitude).toBe(uniforms.uFlexAmplitude)
     text.dispose()
+  })
+})
+
+describe('contact-shadow separation', () => {
+  const crossing = 0.9
+  const at = (t: number, tier = 'full', flat = false) => {
+    const intro = drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+    return paperContactShadow(intro.poseT, crossing, intro.pbr, tier, flat)
+  }
+
+  it('is absent before metal, tight while touching, widening and gone after lift', () => {
+    expect(at(INTRO_PHASES.metalStart)[0]).toBe(0)
+    const touching = at(INTRO_PHASES.riseStart + 0.06)
+    expect(touching[0]).toBeCloseTo(CONTACT_SHADOW_MAX, 6)
+    expect(touching[1]).toBeCloseTo(0.006, 6)
+    const lifting = at(0.97)
+    expect(lifting[0]).toBeGreaterThan(0)
+    expect(lifting[0]).toBeLessThan(touching[0])
+    expect(lifting[1]).toBeGreaterThan(touching[1])
+    expect(at(1)[0]).toBe(0)
+  })
+
+  it('is deterministic under reverse scrub and off in flat / poster modes', () => {
+    expect(at(0.97)).toEqual(at(0.97))
+    expect(at(0.7, 'full', true)).toEqual([0, 0])
+    expect(at(0.7, 'poster')).toEqual([0, 0])
   })
 })

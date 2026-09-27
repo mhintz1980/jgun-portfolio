@@ -99,6 +99,8 @@ export const INTRO_PHASES = {
   /** Ordered excitation traced along the primary elevation's profile. */
   pulseStart: 0.4,
   pulseEnd: 0.6,
+  /** Metal starts showing through the pressed drawing before the tool lifts. */
+  metalStart: 0.54,
   /** Camera orbit leads into the rise and keeps running through it. */
   orbitStart: 0.72,
   /** Extraction: the model lifts out of the sheet. */
@@ -184,7 +186,7 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     focus: smooth01(t / INTRO_PHASES.focusEnd),
     pulseHead: clamp01((t - INTRO_PHASES.pulseStart) / (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)),
     pulse: t > INTRO_PHASES.pulseStart && t < INTRO_PHASES.pulseEnd ? 1 : 0,
-    pbr: smooth01((t - INTRO_PHASES.riseStart) / 0.1),
+    pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.1),
     perspective: smooth01((t - INTRO_PHASES.orbitStart) / (1 - INTRO_PHASES.orbitStart)),
     contrast: 1 - 0.72 * smooth01((t - INTRO_PHASES.riseStart) / 0.34),
     drawingOpacity: 1 - smooth01((t - INTRO_PHASES.waveEnd) / (1 - INTRO_PHASES.waveEnd)),

@@ -193,6 +193,8 @@ export function makeSheetUniforms(): SheetUniforms {
     uFlexAmplitude: { value: 0 },
     uFlexField: { value: null },
     uFlexRect: { value: new Vector4(-0.4, -0.25, 0.8, 0.5) },
+    uContact: { value: new Vector2() },
+    uVellum: { value: 0 },
     uWaveTime: { value: 0 },
     uWaveEnabled: { value: 0 },
     uOrigin: { value: new Vector2() },

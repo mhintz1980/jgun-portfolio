@@ -14,6 +14,20 @@ export function paperFlexAmplitude(t: number, poseT: number, crossing: number, t
   return PAPER_FLEX_MAX * pressure * (1 - release) * (tier === 'full' ? 1 : 0.45)
 }
 
+/** Peak paper darkening under the tool while it is still in contact with the sheet. */
+export const CONTACT_SHADOW_MAX = 0.34
+
+/**
+ * Contact-shadow separation: a tight shadow once the metal is present, which widens and
+ * fades as the tool lifts past the solved separation. Returns [strength, radius (m)].
+ */
+export function paperContactShadow(poseT: number, crossing: number, pbr: number, tier: string, flat = false): [number, number] {
+  if (flat || tier === 'poster' || !Number.isFinite(poseT + crossing + pbr)) return [0, 0]
+  const separation = smooth01((poseT - crossing) / Math.max(0.001, 1 - crossing))
+  const strength = CONTACT_SHADOW_MAX * pbr * (1 - separation)
+  return [strength, 0.006 + 0.03 * separation]
+}
+
 /** Shared by paper, ink, fills, pulse and batched text, all in sheet coordinates. */
 export const PAPER_FLEX_GLSL = /* glsl */ `
 uniform sampler2D uFlexField;

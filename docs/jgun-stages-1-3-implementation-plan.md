@@ -12,12 +12,12 @@ Scope: sections 1–3 of `jgun-animation-improvements.md`, authorized 2026-09-26
 ## 2. Paper Flex Before Extraction
 - [x] Add restrained, deterministic displacement to a subdivided sheet using the J-GUN profile and centerline. Peak displacement at p=.066: full 1.253e-3 m, lite 5.64e-4 m (gate (0, 3e-3]); forward = reverse.
 - [x] Apply the same displacement to ink, fills, pulse, and lettering. Fills subdivided to PAPER_FLEX_STEP (sheetInkRuntime.test.js).
-- [ ] Build pressure before metal appears, add soft local shading, and settle the paper as the tool separates.
+- [x] Build pressure before metal appears, add soft local shading, and settle the paper as the tool separates. Pressure from t≈.51, metal from t=.54 (`INTRO_PHASES.metalStart`), flat at solved separation; slope/pressure shade in `paperFragment`.
 - [x] Preserve flat proof mode and reduced-motion behavior; expose flex telemetry and test boundaries/reverse scrubbing. Reduced cases: flex 0, phase .4, focus 1. Forced-lite cases added to harness.
 
 ## 3. Drawing-to-Metal Signature Shot
-- [ ] Hold registration through excitation and pressure; reveal metal before lift, then settle paper.
-- [ ] Use controlled contact separation and one restrained metal light sweep; suppress competing shockwave effects.
+- [x] Hold registration through excitation and pressure; reveal metal before lift, then settle paper. Registration at peak flex (.066) 0 px; metal pbr .028 at .066 with poseT .367 (< lift), >.5 by riseStart (`quick-gaps-2026-09-26T21-47-11-555Z`).
+- [x] Use controlled contact separation and one restrained metal light sweep; suppress competing shockwave effects. `paperContactShadow`: 0.16 tight (3 mm) while touching, widens to 30 mm and fades to 0 by pose end; shockwave `uWaveEnabled=0`; single sweep light. Quick harness 2/2 PASS; full 6-case run still owed.
 - [x] Delay camera departure until metal emergence, then pull back to the physical tool (perspective blend starts at intro .72; downstream windows unchanged).
 - [x] Suppress unrelated HUD/text throughout the extraction and retain downstream timing (HUD starts after progress .12; opening titles already finish before pulse).
 

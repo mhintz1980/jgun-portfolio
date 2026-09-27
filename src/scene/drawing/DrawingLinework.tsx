@@ -46,7 +46,7 @@ import { sheetReveal } from './sheetCamera'
 import { composeSheet } from './sheet/composeSheet'
 import { prepareDrawingCache } from './sheet/drawingCache'
 import { GROUP, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
-import { makePaperFlexField, paperFlexAmplitude } from './sheet/paperFlex'
+import { makePaperFlexField, paperContactShadow, paperFlexAmplitude } from './sheet/paperFlex'
 import { bakeProfile } from './sheet/profile'
 import { measureProfileRegistration } from './sheet/registration'
 import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
@@ -97,6 +97,7 @@ uniform vec3 uPaper; uniform vec3 uGrid;
 uniform vec4 uFrame; uniform vec2 uSheetHalf;
 uniform vec3 uKey; uniform vec3 uLamp;
 uniform float uContrast; uniform float uOpacity; uniform float uMode;
+uniform vec2 uContact; uniform float uVellum;
 varying vec2 vPlane;
 float gridLine(float coord, float spacing, float hw) {
   float fw = max(fwidth(coord), 1e-7);
@@ -134,13 +135,31 @@ void main() {
   float pool = exp(-dl * dl);
   float light = 0.64 + 0.34 * key + 0.1 * pool;
   c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key);
-  // Broad pressure/contact shade, with a restrained warm slope highlight. No emissive ring.
+  // Pressure emboss: the bowed vellum under a raking lamp. Faces tilted toward the lamp
+  // brighten, faces tilted away darken; the square-on camera sees no parallax, so this
+  // shading is what carries the flex.
   float w = paperFlexWeight(p);
   float pressure = uFlexAmplitude / 0.003;
-  float slope = (paperDisplacement(p + vec2(0.003, 0.003)) - paperDisplacement(p - vec2(0.003, 0.003))) / 0.0085;
-  c *= 1.0 - 0.075 * pressure * (4.0 * w * (1.0 - w));
-  c *= 1.0 + clamp(slope * 0.6, -0.035, 0.035);
-  gl_FragColor = vec4(c * uContrast, uOpacity);
+  vec2 h = vec2(0.004, 0.0);
+  vec2 grad = vec2(paperDisplacement(p + h.xy) - paperDisplacement(p - h.xy),
+                   paperDisplacement(p + h.yx) - paperDisplacement(p - h.yx)) / (2.0 * h.x);
+  vec2 toLamp = normalize(uKey.xy - p);
+  c *= 1.0 + clamp(dot(grad, toLamp) * 4.5, -0.28, 0.22);
+  c *= 1.0 - 0.14 * pressure * (4.0 * w * (1.0 - w));
+  // Contact shadow: the tool's footprint thrown away from the lamp. Tight while touching,
+  // offset, widening and fading as the tool lifts clear.
+  if (uContact.x > 0.0) {
+    vec2 q = p + toLamp * uContact.y * 0.8;
+    float shadow = 0.2 * paperFlexWeight(q);
+    for (int i = 0; i < 8; i++) {
+      float a = float(i) * 0.7853982;
+      shadow += 0.1 * paperFlexWeight(q + uContact.y * vec2(cos(a), sin(a)));
+    }
+    c *= 1.0 - uContact.x * shadow;
+  }
+  // Vellum: the metal pressing up from beneath shows through the profile before it lifts.
+  float alpha = uOpacity * (1.0 - 0.88 * uVellum * smoothstep(0.15, 0.6, w));
+  gl_FragColor = vec4(c * uContrast, alpha);
 }`
 
 /**
@@ -149,9 +168,10 @@ void main() {
  * dissolves into the scene's dark backdrop at every framing.
  */
 const deskFragment = /* glsl */ `
+${WAVE_GLSL}
 ${NOISE_GLSL}
 uniform vec3 uKey; uniform vec2 uSheetHalf;
-uniform float uContrast; uniform float uOpacity; uniform float uMode;
+uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum;
 varying vec2 vPlane;
 void main() {
   if (uMode > 0.5) discard;
@@ -180,7 +200,8 @@ void main() {
   c *= 1.0 - 0.72 * (1.0 - smoothstep(-0.002, 0.03, sd));
   float r = length(p * vec2(0.62, 0.95));
   float fade = 1.0 - smoothstep(0.42, 1.05, r);
-  gl_FragColor = vec4(c * uContrast, fade * uOpacity);
+  // The desk must not hide the metal seen through the vellum.
+  gl_FragColor = vec4(c * uContrast, fade * uOpacity * (1.0 - clamp(uVellum, 0.0, 1.0) * smoothstep(0.05, 0.3, paperFlexWeight(p))));
 }`
 
 /**
@@ -272,7 +293,7 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
     const lines = makeInkLines(composed.ink, uniforms)
     const fills = makeInkFills(composed.ink, uniforms)
     const text = makeSheetText(composed.ink.texts, uniforms)
-    const stats = { ...composed.stats, cacheMs, precomputed: precomputed ? 1 : 0, extractMs, bakeMs: performance.now() - started, flexFieldPeak: flex.peak, flexAmplitude: 0, flexPeakDisplacement: 0, flexEnabled: 0, flexNormalX: 0, flexNormalY: 0, flexNormalZ: 1 }
+    const stats = { ...composed.stats, cacheMs, precomputed: precomputed ? 1 : 0, extractMs, bakeMs: performance.now() - started, flexFieldPeak: flex.peak, flexAmplitude: 0, flexPeakDisplacement: 0, flexEnabled: 0, flexNormalX: 0, flexNormalY: 0, flexNormalZ: 1, contactShadow: 0, contactRadius: 0, vellum: 0 }
     window.__sheetStats = stats
     // Diagnostics are lazy: the independent ink comparison must not tax startup.
     let registration: ReturnType<typeof measureProfileRegistration> | undefined
@@ -574,6 +595,13 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     baked.stats.flexAmplitude = uniforms.uFlexAmplitude.value
     baked.stats.flexPeakDisplacement = uniforms.uFlexAmplitude.value * baked.stats.flexFieldPeak
     baked.stats.flexEnabled = uniforms.uFlexAmplitude.value > 0 ? 1 : 0
+    const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
+    ;(uniforms.uContact.value as Vector2).set(contactStrength, contactRadius)
+    // Vellum translucency follows the metal activation; flat proof, reduced motion and poster stay opaque.
+    uniforms.uVellum.value = proof || reducedMotion || tier === 'poster' ? 0 : intro.pbr
+    baked.stats.vellum = uniforms.uVellum.value as number
+    baked.stats.contactShadow = contactStrength
+    baked.stats.contactRadius = contactRadius
     const sheetMatrix = drawingRuntime.sheetMatrix.elements
     baked.stats.flexNormalX = sheetMatrix[8]
     baked.stats.flexNormalY = sheetMatrix[9]
