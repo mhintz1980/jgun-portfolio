@@ -46,6 +46,9 @@ interactive exploded-view rig (Default.glb, D1-AP part numbers).
   scene.
 - Restart the :4173 preview server after EVERY rebuild (stale server + rotated hashes →
   canvas never mounts).
+- Opening verifier: `node scripts/verify-jgun-opening.mjs` needs `--url=http://localhost:5199`
+  (the vite dev server refuses `127.0.0.1`), and `--quick` (~2 min, desktop+narrow) is the
+  iteration pass — the full 6-case roster is "done" evidence only. Protocol: `TODO.md:13`.
 
 ## Skills (ZCode-local at ~/.zcode/skills; other harnesses: read the SKILL.md directly)
 
