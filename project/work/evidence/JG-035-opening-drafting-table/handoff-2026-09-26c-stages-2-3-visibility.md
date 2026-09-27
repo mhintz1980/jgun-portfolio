@@ -105,6 +105,28 @@ Guardrails:
   output resolution/length) — don't assume.
 - Stash raw outputs outside `public/` until chosen; record prompts + seeds next to them.
 
+## Tooling for the Higgsfield pass (found 2026-09-26)
+
+`C:/Projects/OpenMontage` (agentic video production) already wraps the Higgsfield API:
+`tools/video/higgsfield_video.py` — text_to_video + image_to_video, camera direction,
+Seedance 2.0 (default) / veo_3.1 / sora_2 / Kling / WAN, credentials via
+`HIGGSFIELD_API_KEY` + `HIGGSFIELD_API_SECRET` or `HIGGSFIELD_KEY` as `key:secret`.
+Tool is marked EXPERIMENTAL, and `docs/PROVIDERS.md` flags that Higgsfield's model list
+was **not** refreshed for the current generation — verify names/resolutions/durations
+against live Higgsfield docs before firing.
+
+Two blockers for seeding from our own renders:
+- `image_to_video` takes an `image_url`, **not a local file** — host the renders, use a
+  data URL, or add a local-file path.
+- Nothing in the M249 seed renders exists yet (README §"If You're An OpenClaw Agent…"):
+  start from `AGENT_GUIDE.md` + `PROJECT_CONTEXT.md`.
+
+Adjacent OpenMontage helpers worth reusing: `tools/enhancement/upscale.py` (renders →
+retina / poster tier), `tools/graphics/blender_world.py` + `atlas_3d.py` (seed renders),
+the `*_image.py` tools (poster stills, OG cards), `tools/video/video_stitch.py` and
+`video_trimmer.py` (clean loops). Its full pipeline machinery is aimed at standalone
+narrated videos, not web assets — don't drag the portfolio into it.
+
 ## Next steps (in order)
 
 1. If short on time, generate Higgsfield assets first — the credits expire.
