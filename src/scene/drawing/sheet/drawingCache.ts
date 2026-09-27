@@ -1,6 +1,7 @@
 import type { DrawingGeometry, DrawingLayout } from '../drawingGeometry'
 import type { ComposedSheet } from './composeSheet'
 import { InkBuilder, type InkText } from './ink'
+import { decodeDrawingPrecompute, encodeDrawingPrecompute } from './drawingCodec'
 
 /** Bump whenever extraction, profile tracing, annotation content or font sizing changes. */
 export const DRAWING_CACHE_VERSION = 2
@@ -107,6 +108,12 @@ export async function exportDrawingPrecompute(): Promise<DrawingPrecompute> {
   }
 }
 
+/** Encode a live bake into the v3 binary container the site serves. */
+export async function encodedDrawingPrecompute(): Promise<Uint8Array<ArrayBuffer>> {
+  const asset = await exportDrawingPrecompute()
+  return encodeDrawingPrecompute(asset)
+}
+
 function valid(value: unknown): value is DrawingPrecompute {
   if (!value || typeof value !== 'object') return false
   const p = value as DrawingPrecompute
@@ -139,19 +146,26 @@ export async function installDrawingPrecompute(data: DrawingGeometry, layout: Dr
 
 /** Parse a precompute payload whether or not the host already decoded it. Static servers
  * (vite/sirv, many CDNs) send `.gz` with `Content-Encoding: gzip`, so the browser hands us
- * plain JSON; others serve the raw gzip bytes. Sniff the gzip magic instead of trusting either.
+ * the already-decompressed bytes; others serve the raw gzip stream. Sniff the payload magic
+ * instead of trusting either host behaviour. Two payload formats exist:
+ * the v3 JGD3 binary container (current, written by scripts/precompute-drawing.mjs) and the
+ * legacy v2 JSON (still parseable so an old asset fails its version gate cleanly, not as
+ * a decode crash).
  */
 export async function decodeDrawingPayload(bytes: Uint8Array<ArrayBuffer>): Promise<unknown> {
   if (bytes.length >= 2 && bytes[0] === 0x1f && bytes[1] === 0x8b) {
     const body = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
-    return new Response(body).json()
+    bytes = new Uint8Array(await new Response(body).arrayBuffer())
+  }
+  if (bytes.length >= 4 && bytes[0] === 0x4a && bytes[1] === 0x47 && bytes[2] === 0x44 && bytes[3] === 0x33) {
+    return decodeDrawingPrecompute(bytes)
   }
   return JSON.parse(new TextDecoder().decode(bytes))
 }
 
 /** Call before composeSheet/bakeProfile. Any missing/stale/broken asset falls back to live CAD. */
 export async function prepareDrawingCache(data: DrawingGeometry, layout: DrawingLayout,
-  url = '/drawing/jgun-sheet-v1.json.gz'): Promise<boolean> {
+  url = '/drawing/jgun-sheet-v2.bin.gz'): Promise<boolean> {
   if (drawingCacheBypassed()) {
     entries.delete(data)
     return false

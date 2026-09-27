@@ -46,7 +46,7 @@ import { sheetReveal } from './sheetCamera'
 import { composeSheet } from './sheet/composeSheet'
 import { prepareDrawingCache } from './sheet/drawingCache'
 import { GROUP, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
-import { makePaperFlexField, paperContactShadow, paperFlexAmplitude } from './sheet/paperFlex'
+import { makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum } from './sheet/paperFlex'
 import { bakeProfile } from './sheet/profile'
 import { measureProfileRegistration } from './sheet/registration'
 import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
@@ -597,8 +597,8 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     baked.stats.flexEnabled = uniforms.uFlexAmplitude.value > 0 ? 1 : 0
     const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
     ;(uniforms.uContact.value as Vector2).set(contactStrength, contactRadius)
-    // Vellum translucency follows the metal activation; flat proof, reduced motion and poster stay opaque.
-    uniforms.uVellum.value = proof || reducedMotion || tier === 'poster' ? 0 : intro.pbr
+    // Close the translucent impression as the tool leaves; never leave a cutout in the desk.
+    uniforms.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
     baked.stats.vellum = uniforms.uVellum.value as number
     baked.stats.contactShadow = contactStrength
     baked.stats.contactRadius = contactRadius

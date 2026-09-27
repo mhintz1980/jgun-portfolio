@@ -143,7 +143,7 @@ function StudioRig() {
     const down = smoothstep01((progress - STAGE_TRANSITIONS.wrenchOut[0]) / (STAGE_TRANSITIONS.wrenchOut[1] - STAGE_TRANSITIONS.wrenchOut[0]))
     const up = smoothstep01((progress - STAGE_TRANSITIONS.enclosureOut[0]) / (STAGE_TRANSITIONS.enclosureOut[1] - STAGE_TRANSITIONS.enclosureOut[0]))
     const intro = drawingIntroState(progress, drawingRuntime.extraction?.crossing)
-    const activation=getQuality().reducedMotion?0:intro.pbr
+    const activation = getQuality().reducedMotion ? 0 : intro.illumination
     const k = activation*(1 - (1 - STUDIO_STATION2_SCALE) * down * (1 - up))
     const sweep = getQuality().reducedMotion ? 0 : intro.lightSweep
     if (keyRef.current) keyRef.current.intensity = STUDIO_KEY_INTENSITY * k

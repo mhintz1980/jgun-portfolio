@@ -99,6 +99,8 @@ export const INTRO_PHASES = {
   /** Ordered excitation traced along the primary elevation's profile. */
   pulseStart: 0.4,
   pulseEnd: 0.6,
+  /** Exact print/model registration ends before the camera lowers to reveal paper pressure. */
+  registrationEnd: 0.5,
   /** Metal starts showing through the pressed drawing before the tool lifts. */
   metalStart: 0.54,
   /** Camera orbit leads into the rise and keeps running through it. */
@@ -153,6 +155,8 @@ export interface IntroState {
   pulse: number
   /** Flat-shade -> PBR activation for the live model and the studio lights. */
   pbr: number
+  /** Light arrives before the material finishes resolving, avoiding a double-dimmed reveal. */
+  illumination: number
   /** Orthographic-plan -> hero-perspective camera blend, including the orbit roll. */
   perspective: number
   /** Print luminance falloff as the model takes over. */
@@ -187,6 +191,7 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     pulseHead: clamp01((t - INTRO_PHASES.pulseStart) / (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)),
     pulse: t > INTRO_PHASES.pulseStart && t < INTRO_PHASES.pulseEnd ? 1 : 0,
     pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.1),
+    illumination: smooth01((t - INTRO_PHASES.metalStart) / (INTRO_PHASES.riseStart - INTRO_PHASES.metalStart)),
     perspective: smooth01((t - INTRO_PHASES.orbitStart) / (1 - INTRO_PHASES.orbitStart)),
     contrast: 1 - 0.72 * smooth01((t - INTRO_PHASES.riseStart) / 0.34),
     drawingOpacity: 1 - smooth01((t - INTRO_PHASES.waveEnd) / (1 - INTRO_PHASES.waveEnd)),

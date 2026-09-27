@@ -3,6 +3,7 @@ import { Chapters } from './components/Chapters'
 import { IntroTitles } from './components/IntroTitles'
 import { ToleranceStations } from './components/ToleranceStations'
 import { StaticPoster } from './components/StaticPoster'
+import { StationNav } from './components/StationNav'
 import { TechnicalHUD } from './components/TechnicalHUD'
 import { useQuality } from './state/qualityStore'
 
@@ -61,6 +62,11 @@ export default function App() {
 
       {/* Telemetry overlay (DOM; hides its canvas-bound readouts per tier) */}
       {canvasActive && <TechnicalHUD />}
+
+      {/* Poster tier has no HUD chrome at all — keep station navigation alive
+          with a minimal DOM-only nav (no camera/material readouts, no canvas
+          dependency; navigateToStation falls back to native scrollTo). */}
+      {!canvasActive && <StationNav />}
 
       {/* GLB stream-in boot readout (poster tier: nothing streams, no boot) */}
       {canvasActive && (

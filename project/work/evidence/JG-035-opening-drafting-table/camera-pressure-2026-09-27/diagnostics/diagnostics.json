@@ -1,0 +1,1600 @@
+{
+  "url": "http://localhost:5211",
+  "progress": 0.072,
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "footprintBBox": {
+    "x": 478.10274710233875,
+    "y": 228.5865357708838,
+    "w": 629.8238672285411,
+    "h": 110.64855278946044
+  },
+  "footprintFeatures": [
+    {
+      "id": "housing",
+      "x": 536.2934645637981,
+      "y": 280.8416592677801,
+      "err": 12.111462501021101
+    },
+    {
+      "id": "output",
+      "x": 502.10274710233875,
+      "y": 307.38530801962224,
+      "err": 39.595224417755766
+    },
+    {
+      "id": "bearing",
+      "x": 716.937971810181,
+      "y": 289.21233461491437,
+      "err": 17.862174005882835
+    },
+    {
+      "id": "handle",
+      "x": 1083.9266143308798,
+      "y": 252.5865357708838,
+      "err": 0.33504849128962466
+    },
+    {
+      "id": "clutch",
+      "x": 864.7433390052043,
+      "y": 283.0168175877365,
+      "err": 11.177006501221484
+    },
+    {
+      "id": "fork",
+      "x": 779.3740731193718,
+      "y": 287.09188701450165,
+      "err": 19.78767776845957
+    },
+    {
+      "id": "ringSwitch",
+      "x": 862.2476757015717,
+      "y": 272.9862028172535,
+      "err": 3.9067709336928638
+    },
+    {
+      "id": "stage1",
+      "x": 756.3981084536578,
+      "y": 291.54286748028755,
+      "err": 36.37367455260193
+    },
+    {
+      "id": "stage2",
+      "x": 742.8439719457366,
+      "y": 292.91457919883027,
+      "err": 38.09539003455625
+    },
+    {
+      "id": "stage3",
+      "x": 647.9143637777114,
+      "y": 271.0210803106581,
+      "err": 25.254727376041053
+    },
+    {
+      "id": "stage4",
+      "x": 625.1366207486856,
+      "y": 304.2662328775096,
+      "err": 19.537708955409858
+    },
+    {
+      "id": "stage5",
+      "x": 696.8163573048294,
+      "y": 315.23508856034425,
+      "err": 24.367513456763014
+    }
+  ],
+  "variants": [
+    {
+      "variant": "baseline",
+      "file": "p0.0720-baseline-1600x900.png",
+      "errors": [],
+      "sceneDump": {
+        "environmentIntensity": 0.6479999999999992,
+        "groupVisible": true,
+        "drawing": [
+          {
+            "name": "drafting-desk",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": -1,
+            "z": -0.0016,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "engineering-drawing-Z0",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 1,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": true,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-lines",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-fills",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "Mesh",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 3,
+            "z": 0.00034,
+            "material": {
+              "type": "MeshBasicMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          }
+        ],
+        "model": {
+          "visible": true,
+          "meshes": 59,
+          "uniqueMaterials": 25,
+          "materialTypes": [
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshBasicMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial"
+          ]
+        }
+      },
+      "telemetry": {
+        "drawing": {
+          "lineOpacity": 1,
+          "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+          "phase": 0.6,
+          "poseT": 0.4,
+          "focus": 1,
+          "pulseHead": 1,
+          "pulse": 0,
+          "pbr": 0.6479999999999992,
+          "travel": 0.22,
+          "localZ": -0.039931509643793106,
+          "minZ": -0.07986483350396156,
+          "crossing": 0.8888459503339448,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "waveTime": 0,
+          "waveEnabled": 0,
+          "pulseLuminance": 0,
+          "profilePoints": 10203,
+          "planeMatrix": [
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "modelMatrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0.03792754989862442,
+            -0.039931509643793106,
+            0.11913639575242996,
+            1
+          ],
+          "annotationsReady": true,
+          "leaderCrossings": 0
+        },
+        "camera": {
+          "fov": 30.000001142041224,
+          "sheetDistance": 0.5999442105816061
+        },
+        "sheetStats": {
+          "edgeSetMs": 0,
+          "hardEdges": 385817,
+          "smoothEdges": 886494,
+          "sideSegments": 18370,
+          "sideMs": 295.90000000596046,
+          "topSegments": 11031,
+          "topMs": 177,
+          "sectionSegments": 99355,
+          "sectionMs": 126.3999999910593,
+          "hatch": 1089,
+          "frontSegments": 15538,
+          "frontMs": 181.70000000298023,
+          "rearSegments": 17752,
+          "rearMs": 169.29999999701977,
+          "bottomSegments": 16244,
+          "bottomMs": 165,
+          "segments": 211552,
+          "fills": 21,
+          "texts": 125,
+          "totalMs": 0,
+          "cacheHit": 1,
+          "precomputed": 1,
+          "cacheMs": 801.3999999910593,
+          "extractMs": 693.7999999970198,
+          "bakeMs": 1564.2999999970198,
+          "flexFieldPeak": 1,
+          "flexAmplitude": 0.00135,
+          "flexPeakDisplacement": 0.00135,
+          "flexEnabled": 1,
+          "flexNormalX": 0,
+          "flexNormalY": 1,
+          "flexNormalZ": 0,
+          "contactShadow": 0.22031999999999977,
+          "contactRadius": 0.006,
+          "vellum": 0.6479999999999992
+        }
+      },
+      "metrics": {
+        "full": {
+          "pixels": 1440000,
+          "meanL": 0.7955,
+          "meanRGB": [
+            207,
+            203,
+            191
+          ],
+          "fracDark": 0,
+          "fracBright": 0.8259,
+          "fracCream": 0.7396,
+          "fracCool": 0.0356
+        },
+        "footprint": {
+          "pixels": 70560,
+          "meanL": 0.6252,
+          "meanRGB": [
+            166,
+            159,
+            143
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0563,
+          "fracCream": 0.9115,
+          "fracCool": 0.0679
+        },
+        "footprintLeft": {
+          "pixels": 35392,
+          "meanL": 0.6415,
+          "meanRGB": [
+            170,
+            163,
+            148
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1106,
+          "fracCream": 0.8931,
+          "fracCool": 0.0805
+        },
+        "footprintRight": {
+          "pixels": 35280,
+          "meanL": 0.6079,
+          "meanRGB": [
+            162,
+            155,
+            138
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0016,
+          "fracCream": 0.927,
+          "fracCool": 0.0583
+        },
+        "footprintTop": {
+          "pixels": 35280,
+          "meanL": 0.6037,
+          "meanRGB": [
+            161,
+            154,
+            137
+          ],
+          "fracDark": 0,
+          "fracBright": 0.003,
+          "fracCream": 0.9066,
+          "fracCool": 0.0705
+        },
+        "footprintBottom": {
+          "pixels": 35910,
+          "meanL": 0.6461,
+          "meanRGB": [
+            171,
+            164,
+            149
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1076,
+          "fracCream": 0.9166,
+          "fracCool": 0.0653
+        }
+      }
+    },
+    {
+      "variant": "no-paper",
+      "file": "p0.0720-no-paper-1600x900.png",
+      "errors": [],
+      "sceneDump": {
+        "environmentIntensity": 0.6479999999999992,
+        "groupVisible": true,
+        "drawing": [
+          {
+            "name": "drafting-desk",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": -1,
+            "z": -0.0016,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "engineering-drawing-Z0",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 1,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": true,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-lines",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-fills",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "Mesh",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 3,
+            "z": 0.00034,
+            "material": {
+              "type": "MeshBasicMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          }
+        ],
+        "model": {
+          "visible": true,
+          "meshes": 59,
+          "uniqueMaterials": 25,
+          "materialTypes": [
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshBasicMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial"
+          ]
+        }
+      },
+      "telemetry": {
+        "drawing": {
+          "lineOpacity": 1,
+          "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+          "phase": 0.6,
+          "poseT": 0.4,
+          "focus": 1,
+          "pulseHead": 1,
+          "pulse": 0,
+          "pbr": 0.6479999999999992,
+          "travel": 0.22,
+          "localZ": -0.039931509643793106,
+          "minZ": -0.07986483350396156,
+          "crossing": 0.8888459503339448,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "waveTime": 0,
+          "waveEnabled": 0,
+          "pulseLuminance": 0,
+          "profilePoints": 10203,
+          "planeMatrix": [
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "modelMatrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0.03792754989862442,
+            -0.039931509643793106,
+            0.11913639575242996,
+            1
+          ],
+          "annotationsReady": true,
+          "leaderCrossings": 0
+        },
+        "camera": {
+          "fov": 30.000000221710504,
+          "sheetDistance": 0.5999442105816061
+        },
+        "sheetStats": {
+          "edgeSetMs": 0,
+          "hardEdges": 385817,
+          "smoothEdges": 886494,
+          "sideSegments": 18370,
+          "sideMs": 295.90000000596046,
+          "topSegments": 11031,
+          "topMs": 177,
+          "sectionSegments": 99355,
+          "sectionMs": 126.3999999910593,
+          "hatch": 1089,
+          "frontSegments": 15538,
+          "frontMs": 181.70000000298023,
+          "rearSegments": 17752,
+          "rearMs": 169.29999999701977,
+          "bottomSegments": 16244,
+          "bottomMs": 165,
+          "segments": 211552,
+          "fills": 21,
+          "texts": 125,
+          "totalMs": 0,
+          "cacheHit": 1,
+          "precomputed": 1,
+          "cacheMs": 1397.800000011921,
+          "extractMs": 614.5999999940395,
+          "bakeMs": 2081.800000011921,
+          "flexFieldPeak": 1,
+          "flexAmplitude": 0.003,
+          "flexPeakDisplacement": 0.003,
+          "flexEnabled": 1,
+          "flexNormalX": 0,
+          "flexNormalY": 1,
+          "flexNormalZ": 0,
+          "contactShadow": 0.22031999999999977,
+          "contactRadius": 0.006,
+          "vellum": 0.6479999999999992
+        }
+      },
+      "metrics": {
+        "full": {
+          "pixels": 1440000,
+          "meanL": 0.0644,
+          "meanRGB": [
+            24,
+            15,
+            11
+          ],
+          "fracDark": 0.7355,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.0571
+        },
+        "footprint": {
+          "pixels": 70560,
+          "meanL": 0.0597,
+          "meanRGB": [
+            15,
+            15,
+            19
+          ],
+          "fracDark": 0.7612,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1555
+        },
+        "footprintLeft": {
+          "pixels": 35392,
+          "meanL": 0.0542,
+          "meanRGB": [
+            14,
+            13,
+            17
+          ],
+          "fracDark": 0.7829,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1914
+        },
+        "footprintRight": {
+          "pixels": 35280,
+          "meanL": 0.0653,
+          "meanRGB": [
+            16,
+            16,
+            22
+          ],
+          "fracDark": 0.737,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1223
+        },
+        "footprintTop": {
+          "pixels": 35280,
+          "meanL": 0.0581,
+          "meanRGB": [
+            15,
+            14,
+            19
+          ],
+          "fracDark": 0.7777,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1404
+        },
+        "footprintBottom": {
+          "pixels": 35910,
+          "meanL": 0.0608,
+          "meanRGB": [
+            15,
+            15,
+            20
+          ],
+          "fracDark": 0.7458,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1712
+        }
+      }
+    },
+    {
+      "variant": "no-desk",
+      "file": "p0.0720-no-desk-1600x900.png",
+      "errors": [],
+      "sceneDump": {
+        "environmentIntensity": 0.6479999999999992,
+        "groupVisible": true,
+        "drawing": [
+          {
+            "name": "drafting-desk",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": -1,
+            "z": -0.0016,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "engineering-drawing-Z0",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 1,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": true,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-lines",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-fills",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "Mesh",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 3,
+            "z": 0.00034,
+            "material": {
+              "type": "MeshBasicMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          }
+        ],
+        "model": {
+          "visible": true,
+          "meshes": 59,
+          "uniqueMaterials": 25,
+          "materialTypes": [
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshBasicMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial"
+          ]
+        }
+      },
+      "telemetry": {
+        "drawing": {
+          "lineOpacity": 1,
+          "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+          "phase": 0.6,
+          "poseT": 0.4,
+          "focus": 1,
+          "pulseHead": 1,
+          "pulse": 0,
+          "pbr": 0.6479999999999992,
+          "travel": 0.22,
+          "localZ": -0.039931509643793106,
+          "minZ": -0.07986483350396156,
+          "crossing": 0.8888459503339448,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "waveTime": 0,
+          "waveEnabled": 0,
+          "pulseLuminance": 0,
+          "profilePoints": 10203,
+          "planeMatrix": [
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "modelMatrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0.03792754989862442,
+            -0.039931509643793106,
+            0.11913639575242996,
+            1
+          ],
+          "annotationsReady": true,
+          "leaderCrossings": 0
+        },
+        "camera": {
+          "fov": 30.000000275661176,
+          "sheetDistance": 0.5999442105816061
+        },
+        "sheetStats": {
+          "edgeSetMs": 0,
+          "hardEdges": 385817,
+          "smoothEdges": 886494,
+          "sideSegments": 18370,
+          "sideMs": 295.90000000596046,
+          "topSegments": 11031,
+          "topMs": 177,
+          "sectionSegments": 99355,
+          "sectionMs": 126.3999999910593,
+          "hatch": 1089,
+          "frontSegments": 15538,
+          "frontMs": 181.70000000298023,
+          "rearSegments": 17752,
+          "rearMs": 169.29999999701977,
+          "bottomSegments": 16244,
+          "bottomMs": 165,
+          "segments": 211552,
+          "fills": 21,
+          "texts": 125,
+          "totalMs": 0,
+          "cacheHit": 1,
+          "precomputed": 1,
+          "cacheMs": 1459.7999999970198,
+          "extractMs": 1035.5999999940395,
+          "bakeMs": 2620.2999999970198,
+          "flexFieldPeak": 1,
+          "flexAmplitude": 0.00135,
+          "flexPeakDisplacement": 0.00135,
+          "flexEnabled": 1,
+          "flexNormalX": 0,
+          "flexNormalY": 1,
+          "flexNormalZ": 0,
+          "contactShadow": 0.22031999999999977,
+          "contactRadius": 0.006,
+          "vellum": 0.6479999999999992
+        }
+      },
+      "metrics": {
+        "full": {
+          "pixels": 1440000,
+          "meanL": 0.7917,
+          "meanRGB": [
+            206,
+            202,
+            191
+          ],
+          "fracDark": 0,
+          "fracBright": 0.8259,
+          "fracCream": 0.7393,
+          "fracCool": 0.0356
+        },
+        "footprint": {
+          "pixels": 70560,
+          "meanL": 0.6244,
+          "meanRGB": [
+            165,
+            159,
+            143
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0562,
+          "fracCream": 0.9102,
+          "fracCool": 0.0687
+        },
+        "footprintLeft": {
+          "pixels": 35392,
+          "meanL": 0.6412,
+          "meanRGB": [
+            170,
+            163,
+            148
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1104,
+          "fracCream": 0.8926,
+          "fracCool": 0.0813
+        },
+        "footprintRight": {
+          "pixels": 35280,
+          "meanL": 0.6067,
+          "meanRGB": [
+            161,
+            155,
+            139
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0016,
+          "fracCream": 0.9249,
+          "fracCool": 0.059
+        },
+        "footprintTop": {
+          "pixels": 35280,
+          "meanL": 0.6028,
+          "meanRGB": [
+            160,
+            153,
+            137
+          ],
+          "fracDark": 0,
+          "fracBright": 0.003,
+          "fracCream": 0.9056,
+          "fracCool": 0.0713
+        },
+        "footprintBottom": {
+          "pixels": 35910,
+          "meanL": 0.6453,
+          "meanRGB": [
+            171,
+            164,
+            149
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1075,
+          "fracCream": 0.915,
+          "fracCool": 0.066
+        }
+      }
+    },
+    {
+      "variant": "clean-model",
+      "file": "p0.0720-clean-model-1600x900.png",
+      "errors": [],
+      "sceneDump": {
+        "environmentIntensity": 0.6479999999999992,
+        "groupVisible": true,
+        "drawing": [
+          {
+            "name": "drafting-desk",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": -1,
+            "z": -0.0016,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "engineering-drawing-Z0",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 1,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": true,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-lines",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-fills",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "Mesh",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 3,
+            "z": 0.00034,
+            "material": {
+              "type": "MeshBasicMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          }
+        ],
+        "model": {
+          "visible": true,
+          "meshes": 59,
+          "uniqueMaterials": 25,
+          "materialTypes": [
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshBasicMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial"
+          ]
+        }
+      },
+      "telemetry": {
+        "drawing": {
+          "lineOpacity": 1,
+          "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+          "phase": 0.6,
+          "poseT": 0.4,
+          "focus": 1,
+          "pulseHead": 1,
+          "pulse": 0,
+          "pbr": 0.6479999999999992,
+          "travel": 0.22,
+          "localZ": -0.039931509643793106,
+          "minZ": -0.07986483350396156,
+          "crossing": 0.8888459503339448,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "waveTime": 0,
+          "waveEnabled": 0,
+          "pulseLuminance": 0,
+          "profilePoints": 10203,
+          "planeMatrix": [
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "modelMatrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0.03792754989862442,
+            -0.039931509643793106,
+            0.11913639575242996,
+            1
+          ],
+          "annotationsReady": true,
+          "leaderCrossings": 0
+        },
+        "camera": {
+          "fov": 30.000000334813105,
+          "sheetDistance": 0.5999442105816061
+        },
+        "sheetStats": {
+          "edgeSetMs": 0,
+          "hardEdges": 385817,
+          "smoothEdges": 886494,
+          "sideSegments": 18370,
+          "sideMs": 295.90000000596046,
+          "topSegments": 11031,
+          "topMs": 177,
+          "sectionSegments": 99355,
+          "sectionMs": 126.3999999910593,
+          "hatch": 1089,
+          "frontSegments": 15538,
+          "frontMs": 181.70000000298023,
+          "rearSegments": 17752,
+          "rearMs": 169.29999999701977,
+          "bottomSegments": 16244,
+          "bottomMs": 165,
+          "segments": 211552,
+          "fills": 21,
+          "texts": 125,
+          "totalMs": 0,
+          "cacheHit": 1,
+          "precomputed": 1,
+          "cacheMs": 955.5,
+          "extractMs": 664.7000000029802,
+          "bakeMs": 1704.0999999940395,
+          "flexFieldPeak": 1,
+          "flexAmplitude": 0.003,
+          "flexPeakDisplacement": 0.003,
+          "flexEnabled": 1,
+          "flexNormalX": 0,
+          "flexNormalY": 1,
+          "flexNormalZ": 0,
+          "contactShadow": 0.22031999999999977,
+          "contactRadius": 0.006,
+          "vellum": 0.6479999999999992
+        }
+      },
+      "metrics": {
+        "full": {
+          "pixels": 1440000,
+          "meanL": 0.0501,
+          "meanRGB": [
+            21,
+            11,
+            5
+          ],
+          "fracDark": 0.8292,
+          "fracBright": 0.0001,
+          "fracCream": 0,
+          "fracCool": 0.0222
+        },
+        "footprint": {
+          "pixels": 70560,
+          "meanL": 0.0501,
+          "meanRGB": [
+            11,
+            13,
+            16
+          ],
+          "fracDark": 0.8198,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1774
+        },
+        "footprintLeft": {
+          "pixels": 35392,
+          "meanL": 0.0494,
+          "meanRGB": [
+            14,
+            12,
+            12
+          ],
+          "fracDark": 0.8545,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1401
+        },
+        "footprintRight": {
+          "pixels": 35280,
+          "meanL": 0.051,
+          "meanRGB": [
+            8,
+            14,
+            20
+          ],
+          "fracDark": 0.7831,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.2166
+        },
+        "footprintTop": {
+          "pixels": 35280,
+          "meanL": 0.0475,
+          "meanRGB": [
+            12,
+            12,
+            13
+          ],
+          "fracDark": 0.8385,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.1564
+        },
+        "footprintBottom": {
+          "pixels": 35910,
+          "meanL": 0.0522,
+          "meanRGB": [
+            10,
+            14,
+            18
+          ],
+          "fracDark": 0.8025,
+          "fracBright": 0,
+          "fracCream": 0,
+          "fracCool": 0.197
+        }
+      }
+    },
+    {
+      "variant": "no-model",
+      "file": "p0.0720-no-model-1600x900.png",
+      "errors": [],
+      "sceneDump": {
+        "environmentIntensity": 0.6479999999999992,
+        "groupVisible": true,
+        "drawing": [
+          {
+            "name": "drafting-desk",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": -1,
+            "z": -0.0016,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "engineering-drawing-Z0",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 1,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": true,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-lines",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "sheet-ink-fills",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 2,
+            "z": 0,
+            "material": {
+              "type": "ShaderMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          },
+          {
+            "name": "Mesh",
+            "type": "Mesh",
+            "visible": true,
+            "renderOrder": 3,
+            "z": 0.00034,
+            "material": {
+              "type": "MeshBasicMaterial",
+              "visible": true,
+              "transparent": true,
+              "depthWrite": false,
+              "opacity": 1,
+              "blending": 1
+            }
+          }
+        ],
+        "model": {
+          "visible": true,
+          "meshes": 59,
+          "uniqueMaterials": 25,
+          "materialTypes": [
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshPhysicalMaterial",
+            "MeshBasicMaterial",
+            "MeshBasicMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial",
+            "MeshStandardMaterial"
+          ]
+        }
+      },
+      "telemetry": {
+        "drawing": {
+          "lineOpacity": 1,
+          "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+          "phase": 0.6,
+          "poseT": 0.4,
+          "focus": 1,
+          "pulseHead": 1,
+          "pulse": 0,
+          "pbr": 0.6479999999999992,
+          "travel": 0.22,
+          "localZ": -0.039931509643793106,
+          "minZ": -0.07986483350396156,
+          "crossing": 0.8888459503339448,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "waveTime": 0,
+          "waveEnabled": 0,
+          "pulseLuminance": 0,
+          "profilePoints": 10203,
+          "planeMatrix": [
+            0,
+            0,
+            -1,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "modelMatrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0.03792754989862442,
+            -0.039931509643793106,
+            0.11913639575242996,
+            1
+          ],
+          "annotationsReady": true,
+          "leaderCrossings": 0
+        },
+        "camera": {
+          "fov": 30.00000034791997,
+          "sheetDistance": 0.5999442105816061
+        },
+        "sheetStats": {
+          "edgeSetMs": 0,
+          "hardEdges": 385817,
+          "smoothEdges": 886494,
+          "sideSegments": 18370,
+          "sideMs": 295.90000000596046,
+          "topSegments": 11031,
+          "topMs": 177,
+          "sectionSegments": 99355,
+          "sectionMs": 126.3999999910593,
+          "hatch": 1089,
+          "frontSegments": 15538,
+          "frontMs": 181.70000000298023,
+          "rearSegments": 17752,
+          "rearMs": 169.29999999701977,
+          "bottomSegments": 16244,
+          "bottomMs": 165,
+          "segments": 211552,
+          "fills": 21,
+          "texts": 125,
+          "totalMs": 0,
+          "cacheHit": 1,
+          "precomputed": 1,
+          "cacheMs": 1033.9000000059605,
+          "extractMs": 638.5,
+          "bakeMs": 1804.5,
+          "flexFieldPeak": 1,
+          "flexAmplitude": 0.003,
+          "flexPeakDisplacement": 0.003,
+          "flexEnabled": 1,
+          "flexNormalX": 0,
+          "flexNormalY": 1,
+          "flexNormalZ": 0,
+          "contactShadow": 0.22031999999999977,
+          "contactRadius": 0.006,
+          "vellum": 0.6479999999999992
+        }
+      },
+      "metrics": {
+        "full": {
+          "pixels": 1440000,
+          "meanL": 0.7937,
+          "meanRGB": [
+            207,
+            202,
+            191
+          ],
+          "fracDark": 0,
+          "fracBright": 0.8224,
+          "fracCream": 0.7291,
+          "fracCool": 0.0355
+        },
+        "footprint": {
+          "pixels": 70560,
+          "meanL": 0.6156,
+          "meanRGB": [
+            165,
+            157,
+            139
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0522,
+          "fracCream": 0.912,
+          "fracCool": 0.0677
+        },
+        "footprintLeft": {
+          "pixels": 35392,
+          "meanL": 0.6345,
+          "meanRGB": [
+            169,
+            161,
+            145
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1027,
+          "fracCream": 0.8962,
+          "fracCool": 0.0769
+        },
+        "footprintRight": {
+          "pixels": 35280,
+          "meanL": 0.5958,
+          "meanRGB": [
+            160,
+            151,
+            133
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0014,
+          "fracCream": 0.9249,
+          "fracCool": 0.0614
+        },
+        "footprintTop": {
+          "pixels": 35280,
+          "meanL": 0.5856,
+          "meanRGB": [
+            157,
+            149,
+            131
+          ],
+          "fracDark": 0,
+          "fracBright": 0.0004,
+          "fracCream": 0.9098,
+          "fracCool": 0.0737
+        },
+        "footprintBottom": {
+          "pixels": 35910,
+          "meanL": 0.6448,
+          "meanRGB": [
+            172,
+            164,
+            147
+          ],
+          "fracDark": 0,
+          "fracBright": 0.1023,
+          "fracCream": 0.9136,
+          "fracCool": 0.0625
+        }
+      }
+    }
+  ]
+}

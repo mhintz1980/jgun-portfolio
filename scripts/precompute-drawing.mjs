@@ -79,17 +79,22 @@ try {
     if (!cache.drawingCacheBypassed()) throw new Error('Generator bypass is not active')
     return cache.exportDrawingPrecompute()
   })
+  // v3 binary container: same numbers, no decimal-text detour. The page encodes it with the
+  // exact codec the site decodes with, so the published bytes are what production serves.
+  const container = await livePage.evaluate(async () => {
+    const cache = await import('/src/scene/drawing/sheet/drawingCache.ts')
+    return cache.encodedDrawingPrecompute()
+  })
   await liveContext.close()
 
-  const json = JSON.stringify(asset)
-  const gzip = gzipSync(json, { level: 9 })
+  const gzip = gzipSync(container, { level: 9 })
   // Publish before testing so cold/warm runs exercise the real HTTP gzip/decompression path.
   // A later failed check leaves the candidate asset on disk, but never writes success evidence.
   const output = new URL('../public/drawing/', import.meta.url)
   await mkdir(output, { recursive: true })
   // Invalidate previous evidence before replacing its asset, including if verification fails.
-  await writeFile(new URL('jgun-sheet-v1.evidence.json', output), JSON.stringify({ status: 'pending', key: asset.key }) + '\n')
-  await writeFile(new URL('jgun-sheet-v1.json.gz', output), gzip)
+  await writeFile(new URL('jgun-sheet-v2.evidence.json', output), JSON.stringify({ status: 'pending', key: asset.key }) + '\n')
+  await writeFile(new URL('jgun-sheet-v2.bin.gz', output), gzip)
 
   const cachedContext = await browser.newContext(options)
   const cachedPage = await makePage(cachedContext)
@@ -100,13 +105,16 @@ try {
   await cachedContext.close()
   const evidence = {
     status: 'verified', generatedAt: new Date().toISOString(), url: url.href,
-    key: asset.key, cacheVersion: asset.version,
+    key: asset.key, cacheVersion: asset.version, containerVersion: 3,
     environment: { channel, browserVersion: browser.version(), platform: platform(), osRelease: release(), cpu: cpus()[0]?.model, ...options },
     method: 'One sample each: fresh-context live bake with cache bypass; fresh-context precompute load; same-context precompute reload. Timing ends at first sheet-stats publication (not first visible frame). Browser/GPU process and Vite server are shared and may be warm. HTTP cache behavior on reload is server-dependent. No claim of OS/disk/GPU-cold timing.',
     coldLive, coldPrecomputed, warmReload,
-    exact: true, jsonBytes: Buffer.byteLength(json), gzipBytes: gzip.length,
+    exact: true,
+    containerBytes: container.length, gzipBytes: gzip.length,
+    // Legacy full-asset JSON size, serialized only for the evidence comparison line.
+    legacyJsonBytesForComparison: Buffer.byteLength(JSON.stringify(asset)),
   }
-  await writeFile(new URL('jgun-sheet-v1.evidence.json', output), JSON.stringify(evidence, null, 2) + '\n')
+  await writeFile(new URL('jgun-sheet-v2.evidence.json', output), JSON.stringify(evidence, null, 2) + '\n')
   console.log(JSON.stringify(evidence, null, 2))
 } finally {
   await browser.close()

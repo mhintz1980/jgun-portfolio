@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ASSEMBLY_IDENTITY, CASE_STUDIES, CHAPTERS } from '../data/caseStudies'
 import type { CaseStudy } from '../types/portfolio'
 import { useQuality } from '../state/qualityStore'
 import { useScrollValue } from '../state/scrollStore'
-import { DRAWING_INTRO_WINDOW, pacedProgress } from '../scene/drawing/introTimeline'
+import { DRAWING_INTRO_WINDOW } from '../scene/drawing/introTimeline'
+import { CHAPTER_RANGES, useNativeScrollChapter } from './staticChapter'
 
 /**
  * Scroll-track heights, in vh, for the empty sections that give Lenis and ScrollTrigger
@@ -22,13 +23,8 @@ const SCROLL_TRACK_VH = { intro: 906, chapters: [237, 576, 541, 811], footer: 49
 /**
  * Chapter active scroll progress ranges [start, end] on the global 0..1 scroll timeline.
  * Opacity clamps smoothly inside and fades between adjacent chapter boundaries.
+ * Now shared with the static fallback — see ./staticChapter.ts.
  */
-const CHAPTER_RANGES: Record<number, [number, number]> = {
-  0: [0.00, 0.22],
-  1: [0.24, 0.46],
-  2: [0.50, 0.72],
-  3: [0.76, 1.00],
-}
 
 /**
  * Opening mechanical beats (JG-014) — the one-active-at-a-time annotations
@@ -109,36 +105,15 @@ export function Chapters() {
 
   const isStaticMode = tier === 'poster' || reducedMotion
 
-  // JG-022: the reduced-motion tier unmounts ScrollRig (Lenis/ScrollTrigger),
-  // so `chapter` in the scroll store stays locked at 0 and the static card
-  // below never advances. This tier-only native-scroll listener derives the
-  // active chapter from the same CHAPTER_RANGES the full-motion path gates
-  // cards by. Deliberately local state — no store writes, so the 3D world
-  // stays pinned to Station 1 in this tier (plan: static cards only, no
+  // JG-022: the static tiers (poster AND reduced motion) unmount ScrollRig
+  // (Lenis/ScrollTrigger), so `chapter` in the scroll store stays locked at 0
+  // and the static card below would never advance. This tier-only native-scroll
+  // hook derives the active chapter from the same CHAPTER_RANGES the full-motion
+  // path gates cards by, mapped through pacedProgress like ScrollRig does
+  // (JG-026). Deliberately local state — no store writes, so the 3D world
+  // stays pinned to Station 1 in these tiers (plan: static cards only, no
   // canvas spin-up), and the full-motion path is untouched.
-  const [staticChapter, setStaticChapter] = useState(0)
-  useEffect(() => {
-    if (!reducedMotion) return
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      // CHAPTER_RANGES are authored on the paced progress axis, so raw scroll has to be
-      // mapped the same way ScrollRig maps it in the full-motion tier (JG-026 pacing).
-      const p = max > 0 ? pacedProgress(window.scrollY / max) : 0
-      let chapter = 0
-      for (const chapterDef of CHAPTERS) {
-        const [start] = CHAPTER_RANGES[chapterDef.index] ?? [0, 1]
-        if (p >= start) chapter = chapterDef.index
-      }
-      setStaticChapter(chapter)
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [reducedMotion])
+  const staticChapter = useNativeScrollChapter(isStaticMode)
 
   // The shift beat's window opens at 0.04, inside the intro band the drawing owns.
   const shiftBeat =
@@ -267,7 +242,8 @@ export function Chapters() {
         <div className="relative z-10 p-6 md:p-12">
           {CHAPTERS.map((chapterDef) => {
             const caseStudy = CASE_STUDIES.find((cs) => cs.chapter === chapterDef.index)
-            if (staticChapter !== chapterDef.index && reducedMotion) return null
+            // Poster tier included: one card at a time is the whole point of JG-022.
+            if (staticChapter !== chapterDef.index) return null
 
             return (
               <div

@@ -1,0 +1,77 @@
+{
+  "manifest_version": "1.0",
+  "generated": "2026-09-27",
+  "task": "JG-035 atmosphere-only backdrop plates for expiring Higgsfield credits",
+  "status": "prepared-not-submitted",
+  "note": "Local planning artifact only. No API request has been or may be fired from this file. Every clip requires an Astra ruling before use in the site. Raw outputs must be stashed outside public/ with prompts and request_ids recorded.",
+  "api": {
+    "base_url": "https://api.higgsfield.ai",
+    "auth_header_format": "Authorization: Key {api_key_id}:{api_key_secret}",
+    "credential_env_names_suggested": ["HF_API_KEY_ID", "HF_API_KEY_SECRET"],
+    "credentials_status": "not found in checked env/registry/dotfile locations; must be created at console.higgsfield.ai",
+    "estimate_endpoint_pattern": "POST /estimate/{model_path} (same body as generation)",
+    "balance_api": "none documented; console UI only",
+    "output_retention": ">= 7 days; download immediately",
+    "sources": [
+      "https://docs.higgsfield.ai/docs/llms.txt",
+      "https://docs.higgsfield.ai/docs/quickstart.md",
+      "https://docs.higgsfield.ai/docs/authentication.md",
+      "https://docs.higgsfield.ai/docs/concepts/file-uploads.md",
+      "https://docs.higgsfield.ai/docs/concepts/billing-and-retention.md",
+      "https://docs.higgsfield.ai/docs/concepts/polling.md",
+      "https://docs.higgsfield.ai/docs/openapi.json",
+      "https://console.higgsfield.ai"
+    ]
+  },
+  "shared_request_params": {
+    "model_path": "/kling-video/v2.5-turbo/pro/text-to-video",
+    "model_path_status": "observed in openapi.json v2.0.0; a standard T2V variant is unverified — confirm in console before firing",
+    "duration_seconds": 10,
+    "duration_status": "longest documented enum for this endpoint (5 or 10)",
+    "framing_note": "endpoint exposes no aspect_ratio/resolution parameter; wide framing is prompted and cropped in post if needed"
+  },
+  "visual_restraint_rules": [
+    "camera locked off or near-locked; no camera moves that imply a walkthrough",
+    "no humans, hands, or silhouettes",
+    "no products, tools, weapons, or machinery parts in frame",
+    "no text, labels, logos, or brand marks",
+    "empty central staging area so R3F foreground content owns the frame",
+    "no fake scientific instrumentation — nothing that reads as a measurement device",
+    "low contrast, muted palette; motion slow enough to loop after trim"
+  ],
+  "requests": [
+    {
+      "id": "rl300-acoustic-lab",
+      "target": "Station 2 (RL-300 SAFE enclosure) backdrop layer",
+      "prompt": "Interior of a large empty anechoic test chamber, locked-off wide shot, dark blue-grey acoustic foam wedges on every wall receding into soft haze, a single overhead diffused light very slowly breathing brighter and dimmer, fine dust drifting in the still air, completely empty room, no equipment, no people, no text, cinematic photorealism, muted low-contrast palette, 16:9 wide framing, extremely slow ambient motion suitable for a seamless loop",
+      "negative_prompt": "people, person, hands, weapons, guns, tools, machinery, equipment, instruments, gauges, screens, text, labels, logos, camera movement, zoom, pan, fast motion, clutter, furniture",
+      "duration_seconds": 10,
+      "post": "trim to clean loop; lift poster frame for reduced-motion tier"
+    },
+    {
+      "id": "precision-workshop-haze",
+      "target": "Post-opening backdrop (paced progress p > 0.12) behind exploded-view stations",
+      "prompt": "Empty precision workshop at night, locked-off medium-wide shot, a single wooden workbench island in raking warm lamp light, fine dust motes drifting slowly through one visible light shaft, deep shadows, shallow depth of field, bare bench with nothing on it, no tools, no people, no text, cinematic stillness, warm neutral low-contrast palette, very slow lateral light drift, 16:9 wide framing",
+      "negative_prompt": "people, person, hands, tools, machines, weapons, parts, hardware, equipment, text, signs, logos, camera movement, dolly, pan, fast motion, daylight, high contrast, clutter",
+      "duration_seconds": 10,
+      "post": "trim to loop; keep luminance low so exploded-view annotations stay legible"
+    },
+    {
+      "id": "m249-neutral-engineering-lab",
+      "target": "Station 3 establishing plate while the 3D build catches up",
+      "prompt": "Clean empty metrology laboratory, locked-off wide shot down a central aisle, one large granite surface plate on a stand as the only object, cool even institutional lighting, out-of-focus blank cabinetry at the frame edges, generous empty floor and central space, no people, no devices, no screens, no text, neutral grey-white palette, near-static frame with barely perceptible air movement, cinematic photorealism, 16:9 wide framing",
+      "negative_prompt": "people, person, weapons, guns, tools, parts, instruments, measurement devices, gauges, microscopes, screens, monitors, text, labels, logos, clutter, camera movement, fast motion",
+      "duration_seconds": 10,
+      "post": "poster frame for the poster tier; verify granite plate does not read as an instrument (re-prompt without it if flagged)"
+    }
+  ],
+  "execution_checklist": [
+    "1. console.higgsfield.ai: verify kling-video/v2.5-turbo paths on the account, note remaining credits, create key id + secret",
+    "2. export HF_API_KEY_ID / HF_API_KEY_SECRET in the firing shell only",
+    "3. POST /estimate/kling-video/v2.5-turbo/pro/text-to-video per request; confirm total fits balance",
+    "4. POST the three generation requests; record request_id + status_url per clip",
+    "5. Poll status at 2s growing to 10s with jitter; stop on completed/failed/nsfw/canceled",
+    "6. Download outputs immediately (>=7 day retention); stash outside public/ with this manifest copied alongside",
+    "7. Astra ruling on every clip before any integration"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "url": "http://127.0.0.1:5199",
+  "label": "quick-gaps",
+  "started": "2026-09-26T21:46:59.142Z",
+  "browser": "installed Playwright, channel chrome",
+  "coldLoadDefinition": "fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)",
+  "thresholds": {
+    "scrollProgress": 0.001,
+    "reverseNumericDelta": 0.002,
+    "pulseRegistrationMetres": 0.001,
+    "registeredHoldPixels": 0.1,
+    "flexPeakDisplacementMetres": 0.003
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "width": 1600,
+      "height": 900,
+      "reducedMotion": "no-preference",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    },
+    {
+      "name": "narrow",
+      "width": 390,
+      "height": 844,
+      "reducedMotion": "no-preference",
+      "checkpoints": [],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://127.0.0.1:5199/",
+          "error": {
+            "errorText": "net::ERR_CONNECTION_REFUSED"
+          }
+        }
+      ],
+      "httpErrors": [],
+      "failures": [
+        "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5199/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:5199/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    }
+  ],
+  "gitStart": " M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n?? .dev-5198.log\n?? 0\n?? c.direction\n",
+  "browserVersion": "154.0.8037.57",
+  "finished": "2026-09-26T21:47:00.654Z",
+  "flexTierComparison": [
+    {
+      "base": "desktop",
+      "compared": false
+    },
+    {
+      "base": "narrow",
+      "compared": false
+    }
+  ],
+  "passed": false,
+  "gitEnd": " M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n?? .dev-5198.log\n?? 0\n?? c.direction\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/quick-gaps-2026-09-26T21-46-59-140Z/\n"
+}

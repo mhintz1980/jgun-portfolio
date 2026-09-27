@@ -61,6 +61,27 @@ describe('intro phase map', () => {
     expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(1)
   })
 
+  it('ends exact registration before the pressure tilt and keeps the tilt inside the pulse window', () => {
+    const { pulseStart, pulseEnd, registrationEnd, metalStart, riseStart, orbitStart } = INTRO_PHASES
+    expect(pulseStart).toBeLessThan(registrationEnd)
+    expect(registrationEnd).toBeLessThan(metalStart)
+    expect(metalStart).toBeLessThan(riseStart)
+    expect(riseStart).toBeLessThanOrEqual(orbitStart)
+    // The square-on hold covers the reduced-motion park and completes before the pulse does.
+    expect(REDUCED_MOTION_INTRO_T).toBeLessThanOrEqual(registrationEnd)
+    expect(registrationEnd).toBeLessThan(pulseEnd)
+    // Inside the tilt window the pressure is building and metal is already showing, while
+    // the hero/perspective blend still waits for orbitStart: only the camera tilts.
+    const midTilt = drawingIntroState(0.5 * (registrationEnd + riseStart) * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(midTilt.perspective).toBe(0)
+    expect(midTilt.pulse).toBe(1)
+    expect(midTilt.pbr).toBeGreaterThan(0)
+    // Registration gates are honest only while the camera is square on: the hold must not
+    // leak into the tilt, and the tilt must not start before the pulse does.
+    expect(registrationEnd).toBeGreaterThan(pulseStart)
+    expect(riseStart).toBeGreaterThan(registrationEnd)
+  })
+
   it('reveals metal while the tool is still pressed into the sheet, before lift', () => {
     const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
     expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)

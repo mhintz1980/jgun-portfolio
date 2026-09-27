@@ -1,9 +1,13 @@
 /**
  * Static fallback stage — rendered instead of the WebGL canvas when WebGL2 is
  * unavailable, the context is lost, or the perf ladder bottoms out. Pure
- * CSS/DOM (no image asset dependency): an engineering-drawing title block over
- * a blueprint grid, so the site still opens with intent instead of a blank
- * void. The case-study narrative in <Chapters> renders on top as usual.
+ * CSS/DOM (no image asset dependency): a blueprint grid with drawing-sheet
+ * furniture (frame, title block, drill notes). Deliberately low-contrast and
+ * non-narrative: the case-study chapter cards in <Chapters> are the hero of
+ * this tier, so this backdrop carries only small unobtrusive sheet furniture —
+ * never a large centered title competing with the narrative (fallback QA,
+ * 2026-09-27: the old viewport-centered text-6xl heading sat behind the cards
+ * at every scroll position).
  */
 import { ASSEMBLY_IDENTITY } from '../data/caseStudies'
 
@@ -20,21 +24,19 @@ export function StaticPoster() {
     >
       <div className="absolute inset-6 border border-cyan-400/20" />
 
-      <div className="absolute left-1/2 top-1/2 w-[min(52rem,84vw)] -translate-x-1/2 -translate-y-1/2 select-none">
-        <p className="font-mono text-xs tracking-[0.4em] text-cyan-400">
+      {/* Sheet furniture, top-left — small mono DWG stamp, not a narrative title. */}
+      <div className="absolute left-8 top-8 select-none font-mono text-[10px] leading-4 tracking-widest text-cyan-400/50">
+        <p>
           DWG NO. {ASSEMBLY_IDENTITY.drawingNumber} · {ASSEMBLY_IDENTITY.revision} · SCALE 1:1
         </p>
-        <h1 className="mt-4 text-4xl font-semibold text-zinc-100 md:text-6xl">
-          {ASSEMBLY_IDENTITY.machine}
-        </h1>
-        <p className="mt-3 max-w-xl text-zinc-400">
-          {ASSEMBLY_IDENTITY.spec}
-        </p>
-        <p className="mt-8 font-mono text-[10px] tracking-widest text-cyan-400/60">
+        <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.machine}</p>
+        <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.spec}</p>
+        <p className="mt-1 text-cyan-400/30">
           STATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE
         </p>
       </div>
 
+      {/* Sheet furniture, bottom-right — engineering title block. */}
       <div className="absolute bottom-8 right-8 hidden border border-cyan-400/30 font-mono text-[10px] tracking-widest text-cyan-300/80 md:block">
         <div className="border-b border-cyan-400/30 px-4 py-2">TITLE: PLANETARY REDUCTION ASSY</div>
         <div className="flex divide-x divide-cyan-400/30">

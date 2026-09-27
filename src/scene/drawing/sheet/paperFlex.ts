@@ -14,6 +14,13 @@ export function paperFlexAmplitude(t: number, poseT: number, crossing: number, t
   return PAPER_FLEX_MAX * pressure * (1 - release) * (tier === 'full' ? 1 : 0.45)
 }
 
+/** The translucent impression closes with the paper; a lifted tool must not leave a hole. */
+export function paperVellum(poseT: number, crossing: number, pbr: number, tier: string, flat = false): number {
+  if (flat || tier === 'poster' || !Number.isFinite(poseT + crossing + pbr)) return 0
+  const release = smooth01((poseT - 0.4) / Math.max(0.001, crossing - 0.4))
+  return Math.max(0, Math.min(1, pbr)) * (1 - release)
+}
+
 /** Peak paper darkening under the tool while it is still in contact with the sheet. */
 export const CONTACT_SHADOW_MAX = 0.34
 

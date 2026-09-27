@@ -8,6 +8,9 @@ import {
   drawingPrecomputeSource, exportDrawingPrecompute, installDrawingPrecompute,
   prepareDrawingCache, rememberProfile, rememberSheet,
 } from './drawingCache'
+import {
+  decodeDrawingPrecompute, encodeDrawingPrecompute,
+} from './drawingCodec'
 
 function fixture() {
   const geometry = new BufferGeometry()
@@ -104,5 +107,66 @@ describe('drawing precompute integrity', () => {
     expect(await prepareDrawingCache(data, layout)).toBe(false)
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')))
     expect(await prepareDrawingCache(data, layout)).toBe(false)
+  })
+
+  it('round-trips a bake through the v3 binary container value-exactly', async () => {
+    const { data, layout } = fixture()
+    const asset = await liveBake(data, layout)
+    const container = encodeDrawingPrecompute(asset)
+    const decoded = decodeDrawingPrecompute(container)
+    expect(decoded).not.toBeNull()
+    expect(decoded).toEqual(asset)
+  })
+
+  it('installs a v3 container payload served as gzip or plain bytes', async () => {
+    const { data, layout } = fixture()
+    const asset = await liveBake(data, layout)
+    const container = encodeDrawingPrecompute(asset)
+    // Raw gzip wire form (host without transparent decompression).
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Uint8Array(gzipSync(container)))))
+    expect(await prepareDrawingCache(data, layout)).toBe(true)
+    expect(cachedSheet(data, layout)?.ink.segs).toEqual(asset.segs)
+    expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
+    // Host-decoded form (vite/sirv/CDN applied Content-Encoding: gzip for us).
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Uint8Array(container))))
+    expect(await prepareDrawingCache(data, layout)).toBe(true)
+    expect(cachedSheet(data, layout)?.ink.segs).toEqual(asset.segs)
+    expect(JSON.stringify(cachedProfile(data, layout))).toBe(JSON.stringify(asset.profile))
+  })
+
+  it('rejects truncated, corrupt-metadata and non-finite v3 containers, and unsupported versions', async () => {
+    const { data, layout } = fixture()
+    const asset = await liveBake(data, layout)
+    const container = encodeDrawingPrecompute(asset)
+    // Truncations: header, mid-sidecar, mid-number-blob.
+    for (const cut of [10, 40, container.length - 8]) {
+      expect(decodeDrawingPrecompute(container.subarray(0, cut))).toBeNull()
+    }
+    // Corrupt metadata: length/counts that do not add up to the real byteLength.
+    for (const [offset, value] of [[4, 0], [4, 99], [12, 3], [20, 3], [24, 0xffff_ffff]]) {
+      const corrupt = new Uint8Array(container)
+      new DataView(corrupt.buffer).setUint32(offset, value, true)
+      expect(decodeDrawingPrecompute(corrupt)).toBeNull()
+    }
+    // A wrong cacheVersion is structurally valid (decodes) but must fail the install gate.
+    {
+      const wrongCache = new Uint8Array(container)
+      new DataView(wrongCache.buffer).setUint32(8, 99, true)
+      const decoded = decodeDrawingPrecompute(wrongCache)
+      expect(decoded?.version).toBe(99)
+      expect(await installDrawingPrecompute(data, layout, decoded)).toBe(false)
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Uint8Array(wrongCache))))
+      expect(await prepareDrawingCache(data, layout)).toBe(false)
+      vi.unstubAllGlobals()
+    }
+    // NaN injected into the number blob.
+    const withNaN = new Uint8Array(container)
+    const view = new DataView(withNaN.buffer)
+    const dataStart = container.length - (asset.segs.length + asset.fills.length + asset.profile.length * 2) * 8
+    view.setFloat64(dataStart, NaN, true)
+    expect(decodeDrawingPrecompute(withNaN)).toBeNull()
+    // A legacy v2 JSON payload reaching the v3 loader fails the version gate, not the parser.
+    expect(await installDrawingPrecompute(data, layout, { ...asset, version: DRAWING_CACHE_VERSION - 1 })).toBe(false)
+    expect(decodeDrawingPrecompute(new TextEncoder().encode(JSON.stringify(asset)))).toBeNull()
   })
 })

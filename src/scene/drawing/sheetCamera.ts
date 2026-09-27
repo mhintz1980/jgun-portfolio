@@ -69,7 +69,11 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     { t: 0.19, x: 0.08, y: 0.08, dist: 0.38, elev: 54, head: -4, fov: 32, ortho: 0 },
     { t: 0.31, x: 0, y: 0, dist: whole * 1.08, elev: 82, head: 0, fov: 34, ortho: 0 },
     { t: INTRO_PHASES.pulseStart, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
-    { t: 1, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
+    { t: INTRO_PHASES.registrationEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
+    // After the registered pulse, lower the lens around the same focal point: the bowed
+    // vellum now has real parallax before the metal rises. The hero blend still owns .72–1.
+    { t: INTRO_PHASES.riseStart, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
+    { t: 1, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
   ]
 }
 
