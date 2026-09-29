@@ -235,11 +235,14 @@ export function Chapters() {
         </div>
       ) : (
         /* Reduced Motion / Poster Tier Static Fallback.
-           JG-022: exactly one card at a time, in normal document flow. The card's own
-           translucent panel already reads over the static drawing frame behind it, so
-           nothing is pushed below the fold — stranding the copy a viewport down is the
-           defect JG-022 exists to prevent. */
-        <div className="relative z-10 p-6 md:p-12">
+           JG-022: exactly one card at a time, held in a fixed pointer-events-none
+           overlay so it stays visible through the whole native scroll track. In normal
+           document flow the card sat at the document top and scrolled out of view —
+           chapters 1–3 swapped content invisibly above the viewport (poster e2e,
+           2026-09-28). The card's translucent panel reads over the static drawing
+           frame behind it; its own scroll area keeps tall case studies reachable on
+           small viewports. */
+        <div className="fixed inset-0 z-10 flex items-center p-6 md:p-12 pointer-events-none">
           {CHAPTERS.map((chapterDef) => {
             const caseStudy = CASE_STUDIES.find((cs) => cs.chapter === chapterDef.index)
             // Poster tier included: one card at a time is the whole point of JG-022.
@@ -248,7 +251,7 @@ export function Chapters() {
             return (
               <div
                 key={chapterDef.index}
-                className="max-w-xl mb-12 bg-slate-950/85 border border-slate-800/80 p-6 md:p-8 rounded-xl"
+                className="pointer-events-auto max-w-xl max-h-[calc(100vh-9rem)] overflow-y-auto bg-slate-950/85 border border-slate-800/80 p-6 md:p-8 rounded-xl"
               >
                 <p className="font-mono text-xs tracking-[0.2em] text-cyan-400 mb-2">{chapterDef.label}</p>
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100 mb-3 font-sans">{chapterDef.title}</h2>

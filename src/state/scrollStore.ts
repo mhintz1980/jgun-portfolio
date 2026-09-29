@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import type { MaterialMode } from '../types/portfolio'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
+import { rawScrollFor } from '../scene/drawing/introTimeline'
 
 /**
  * Minimal external store bridging the DOM scroll world (Lenis + ScrollTrigger)
@@ -47,7 +48,13 @@ export function navigateToStation(stationIndex: number): void {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   if (maxScroll <= 0) return
 
-  const targetScroll = maxScroll * target.scrollProgress
+  // Station scrollProgress values are authored on the PACED axis (same as the
+  // deep-link values below); the browser needs the raw scroll for them. The
+  // intro owns 0.30 of the document but only 0.120 of progress (JG-026), so a
+  // raw multiply lands early — station 2's paced 0.60 landed at raw 0.60,
+  // which maps back to paced ~0.497 (chapter 1, just under chapter 2's 0.50
+  // start) and never highlighted its chapter (poster e2e, 2026-09-28).
+  const targetScroll = maxScroll * rawScrollFor(target.scrollProgress)
   const lenis = (window as unknown as Record<string, unknown>).__lenis as
     | { scrollTo: (target: number, opts?: { duration?: number }) => void }
     | undefined
@@ -107,9 +114,24 @@ function initialMaterialMode(): MaterialMode {
 if (typeof window !== 'undefined') {
   const initProg = initialScrollProgress()
   if (initProg > 0) {
-    window.addEventListener('DOMContentLoaded', () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      if (max > 0) window.scrollTo(0, max * initProg)
+    // The scroll-track sections commit with the React tree, which can land
+    // after DOMContentLoaded — and even after 'load' on a fast/cached load —
+    // so the document is still viewport-high when those events fire. Retry on
+    // rAF until the tracks exist (bounded at ~2 s). Full/lite also re-scroll
+    // via ScrollRig after mount; reduced motion and poster rely on this
+    // listener alone.
+    window.addEventListener('load', () => {
+      let attempts = 0
+      const scrollWhenLaidOut = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight
+        if (max > window.innerHeight || ++attempts > 120) {
+          // initProg is paced; the browser needs the raw scroll for it.
+          if (max > 0) window.scrollTo(0, max * rawScrollFor(initProg))
+          return
+        }
+        requestAnimationFrame(scrollWhenLaidOut)
+      }
+      scrollWhenLaidOut()
     })
   }
 }

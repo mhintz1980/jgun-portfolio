@@ -5,6 +5,8 @@ import { pacedProgress, rawScrollFor, INTRO_SCROLL_SHARE } from '../scene/drawin
 import { CHAPTERS } from '../data/caseStudies'
 import { StaticPoster } from './StaticPoster'
 import { StationNav } from './StationNav'
+import { Chapters } from './Chapters'
+import { getQuality } from '../state/qualityStore'
 
 /**
  * Fallback-QA regression tests (2026-09-27): the poster tier previously
@@ -112,5 +114,21 @@ describe('StationNav (poster-tier navigation)', () => {
     expect(markup).not.toContain('SCROLL //')
     expect(markup).not.toContain('CAM [')
     expect(markup).not.toMatch(/solid|blueprint|exploded/)
+  })
+})
+
+describe('Chapters static fallback (poster tier one-card)', () => {
+  it('renders the single chapter card as a fixed overlay that survives native scroll', () => {
+    // Node test env has no WebGL2, so the quality ladder starts at poster.
+    expect(getQuality().tier).toBe('poster')
+    const markup = renderToStaticMarkup(<Chapters />)
+    // Overlay stays pinned through the scroll track and never eats page scroll.
+    expect(markup).toContain('fixed inset-0')
+    expect(markup).toContain('pointer-events-none')
+    // The card itself remains interactive and scrolls internally when tall.
+    expect(markup).toContain('pointer-events-auto')
+    expect(markup).toContain('overflow-y-auto')
+    // Exactly one chapter heading — the JG-022 one-card gate.
+    expect(markup.match(/<h2/g)?.length).toBe(1)
   })
 })
