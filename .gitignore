@@ -15,3 +15,11 @@ public/models/*.glb
 output/
 critique-*.png
 project/work/evidence/b1-b2-rebuild/**/*.png
+
+# Higgsfield API (local only)
+.env.local
+.env
+
+# Claude Code's view of .agents/skills — machine-local symlinks into the
+# .buzz worktree checkout; other clones must resolve their own.
+.claude/skills/
