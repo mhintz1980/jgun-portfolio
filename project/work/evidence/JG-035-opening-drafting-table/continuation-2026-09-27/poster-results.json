@@ -1,0 +1,1568 @@
+{
+  "started": "2026-09-28T08:51:50.906Z",
+  "method": "Simulate unavailable WebGL before app startup, native scroll through all four chapter cards, keyboard Enter/Space station navigation, DOM bounds and focus checks. Scoped accessibility checks; not a WCAG audit.",
+  "cases": [
+    {
+      "width": 1600,
+      "height": 900,
+      "errors": [],
+      "failures": [],
+      "checkpoints": [
+        {
+          "index": 0,
+          "fraction": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 81,
+                "y": 389.25,
+                "width": 510,
+                "height": 72,
+                "top": 389.25,
+                "right": 591,
+                "bottom": 461.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "fraction": 0.45,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Inside the Reduction Train",
+              "rect": {
+                "x": 81,
+                "y": 274.25,
+                "width": 510,
+                "height": 36,
+                "top": 274.25,
+                "right": 591,
+                "bottom": 310.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 12231,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.02 X-RAY / EXPLODE\n\nInside the Reduction Train\n\nHousing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.\n\nZero to Prototype: Planetary Reduction at Full Torque\n\nA multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.\n\n▸\nDesigned and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.\n▸\nControlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.\n▸\nTook the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.\n7-AXIS MILL-TURN\nHEAT-TREAT CONTROL\nASME Y14.5\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "fraction": 0.7,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 81,
+                "y": 274.25,
+                "width": 510,
+                "height": 36,
+                "top": 274.25,
+                "right": 591,
+                "bottom": 310.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 19026,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 3,
+          "fraction": 0.9,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 81,
+                "y": 262.25,
+                "width": 510,
+                "height": 36,
+                "top": 262.25,
+                "right": 591,
+                "bottom": 298.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 24462,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "navigation": [
+        {
+          "index": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 81,
+                "y": 389.25,
+                "width": 510,
+                "height": 72,
+                "top": 389.25,
+                "right": 591,
+                "bottom": 461.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 81,
+                "y": 274.25,
+                "width": 510,
+                "height": 36,
+                "top": 274.25,
+                "right": 591,
+                "bottom": 310.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 18532,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 81,
+                "y": 262.25,
+                "width": 510,
+                "height": 36,
+                "top": 262.25,
+                "right": 591,
+                "bottom": 298.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 665.5234375,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 755.5078125,
+                "bottom": 875,
+                "left": 665.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 755.5078125,
+                "y": 848,
+                "width": 89.984375,
+                "height": 27,
+                "top": 848,
+                "right": 845.4921875,
+                "bottom": 875,
+                "left": 755.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 845.4921875,
+                "y": 848,
+                "width": 88.984375,
+                "height": 27,
+                "top": 848,
+                "right": 934.4765625,
+                "bottom": 875,
+                "left": 845.4921875
+              }
+            }
+          ],
+          "scrollY": 23905,
+          "maxScroll": 27180,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "tabFocus": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "passed": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "errors": [],
+      "failures": [],
+      "checkpoints": [
+        {
+          "index": 0,
+          "fraction": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 81,
+                "y": 451.25,
+                "width": 510,
+                "height": 72,
+                "top": 451.25,
+                "right": 591,
+                "bottom": 523.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "fraction": 0.45,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Inside the Reduction Train",
+              "rect": {
+                "x": 81,
+                "y": 336.25,
+                "width": 510,
+                "height": 36,
+                "top": 336.25,
+                "right": 591,
+                "bottom": 372.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 13916,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.02 X-RAY / EXPLODE\n\nInside the Reduction Train\n\nHousing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.\n\nZero to Prototype: Planetary Reduction at Full Torque\n\nA multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.\n\n▸\nDesigned and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.\n▸\nControlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.\n▸\nTook the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.\n7-AXIS MILL-TURN\nHEAT-TREAT CONTROL\nASME Y14.5\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "fraction": 0.7,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 81,
+                "y": 336.25,
+                "width": 510,
+                "height": 36,
+                "top": 336.25,
+                "right": 591,
+                "bottom": 372.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 21648,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 3,
+          "fraction": 0.9,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 81,
+                "y": 324.25,
+                "width": 510,
+                "height": 36,
+                "top": 324.25,
+                "right": 591,
+                "bottom": 360.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 27833,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "navigation": [
+        {
+          "index": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 81,
+                "y": 451.25,
+                "width": 510,
+                "height": 72,
+                "top": 451.25,
+                "right": 591,
+                "bottom": 523.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 81,
+                "y": 336.25,
+                "width": 510,
+                "height": 36,
+                "top": 336.25,
+                "right": 591,
+                "bottom": 372.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 21085,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 81,
+                "y": 324.25,
+                "width": 510,
+                "height": 36,
+                "top": 324.25,
+                "right": 591,
+                "bottom": 360.25,
+                "left": 81
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 249.5234375,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 339.5078125,
+                "bottom": 999,
+                "left": 249.5234375
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 339.5078125,
+                "y": 972,
+                "width": 89.984375,
+                "height": 27,
+                "top": 972,
+                "right": 429.4921875,
+                "bottom": 999,
+                "left": 339.5078125
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 429.4921875,
+                "y": 972,
+                "width": 88.984375,
+                "height": 27,
+                "top": 972,
+                "right": 518.4765625,
+                "bottom": 999,
+                "left": 429.4921875
+              }
+            }
+          ],
+          "scrollY": 27235,
+          "maxScroll": 30925,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nTITLE: PLANETARY REDUCTION ASSY\nTIR < .001\"\nMAT'L: 4140 HT\nSHEET 1 OF 1\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "tabFocus": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "errors": [],
+      "failures": [],
+      "checkpoints": [
+        {
+          "index": 0,
+          "fraction": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 49,
+                "y": 342.5,
+                "width": 292,
+                "height": 64,
+                "top": 342.5,
+                "right": 341,
+                "bottom": 406.5,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "fraction": 0.45,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Inside the Reduction Train",
+              "rect": {
+                "x": 49,
+                "y": 169.625,
+                "width": 292,
+                "height": 32,
+                "top": 169.625,
+                "right": 341,
+                "bottom": 201.625,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 11470,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.02 X-RAY / EXPLODE\n\nInside the Reduction Train\n\nHousing fades to ghost wireframe; the planetary stages explode axially to expose the gear train.\n\nZero to Prototype: Planetary Reduction at Full Torque\n\nA multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.\n\n▸\nDesigned and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.\n▸\nControlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.\n▸\nTook the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.\n7-AXIS MILL-TURN\nHEAT-TREAT CONTROL\nASME Y14.5\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "fraction": 0.7,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 49,
+                "y": 162.625,
+                "width": 292,
+                "height": 64,
+                "top": 162.625,
+                "right": 341,
+                "bottom": 226.625,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 17842,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 3,
+          "fraction": 0.9,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 49,
+                "y": 172.375,
+                "width": 292,
+                "height": 64,
+                "top": 172.375,
+                "right": 341,
+                "bottom": 236.375,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 22940,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BODY",
+            "name": null,
+            "shadow": "none"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "navigation": [
+        {
+          "index": 0,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "The Full-Stack Physical & Digital Systems Architect",
+              "rect": {
+                "x": 49,
+                "y": 342.5,
+                "width": 292,
+                "height": 64,
+                "top": 342.5,
+                "right": 341,
+                "bottom": 406.5,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": "true",
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 0,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.01 ASSEMBLY\n\nThe Full-Stack Physical & Digital Systems Architect\n\n25 years of planetary reduction gearboxes, 7-axis mill-turn and ASME Y14.5 GD&T — bridged into modern software, web-native 3D, and AI automation.\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 1,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "Airflow Against the Noise Floor",
+              "rect": {
+                "x": 49,
+                "y": 162.625,
+                "width": 292,
+                "height": 64,
+                "top": 162.625,
+                "right": 341,
+                "bottom": 226.625,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": "true",
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": null,
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 17379,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.03 THERMAL / ACOUSTIC\n\nAirflow Against the Noise Floor\n\nCFM/FPM airflow math, composite acoustic walls, and vibration-decoupled mounting — silence as an engineering deliverable.\n\nEngineered Silence: The Acoustic SAFE Enclosure\n\nA 5-layer composite acoustic enclosure engineered around real CFM/FPM airflow math and vibration-isolated mounting.\n\n▸\nDesigned a 5-layer composite acoustic wall system to attenuate noise without choking airflow through the enclosure.\n▸\nCalculated CFM/FPM airflow requirements to size vents and ducting for adequate cooling under the acoustic constraint.\n▸\nIsolated the enclosed equipment from the housing structure with vibration-decoupled mounting, preventing structure-borne noise transfer.\nCFM/FPM\n5-LAYER COMPOSITE\nVIBRATION DECOUPLING\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        },
+        {
+          "index": 2,
+          "canvasCount": 0,
+          "headings": [
+            {
+              "text": "From Point Cloud to Production Code",
+              "rect": {
+                "x": 49,
+                "y": 172.375,
+                "width": 292,
+                "height": 64,
+                "top": 172.375,
+                "right": 341,
+                "bottom": 236.375,
+                "left": 49
+              }
+            }
+          ],
+          "buttons": [
+            {
+              "name": "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "current": null,
+              "rect": {
+                "x": 89.75,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 160.25,
+                "bottom": 819,
+                "left": 89.75
+              }
+            },
+            {
+              "name": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "current": null,
+              "rect": {
+                "x": 160.25,
+                "y": 777,
+                "width": 70.5,
+                "height": 42,
+                "top": 777,
+                "right": 230.75,
+                "bottom": 819,
+                "left": 160.25
+              }
+            },
+            {
+              "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+              "current": "true",
+              "rect": {
+                "x": 230.75,
+                "y": 777,
+                "width": 69.5,
+                "height": 42,
+                "top": 777,
+                "right": 300.25,
+                "bottom": 819,
+                "left": 230.75
+              }
+            }
+          ],
+          "scrollY": 22430,
+          "maxScroll": 25489,
+          "horizontalOverflow": false,
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Navigate to STATION 03: M249 / MK46 PLATFORM",
+            "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(0, 0, 0) 0px 0px 0px 1px, oklch(0.865 0.127 207.078) 0px 0px 0px 3px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+          },
+          "bodyText": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1\n\nHigh-Precision Industrial Torque Gun\n\nMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T\n\nSTATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE\n\nSTATION 01\nSTATION 02\nSTATION 03\n\nCH.04 DIGITAL SYSTEMS\n\nFrom Point Cloud to Production Code\n\nThe same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.\n\nFrom Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware\n\n3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.\n\n▸\nConverted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.\n▸\nRebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.\n▸\nDelivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.\nSCAN-TO-CAD\nNO TDP\nMIL-SPEC INTERCHANGEABILITY\n\nBUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR"
+        }
+      ],
+      "tabFocus": "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "passed": true
+    }
+  ],
+  "finished": "2026-09-28T08:52:14.666Z",
+  "passed": true
+}

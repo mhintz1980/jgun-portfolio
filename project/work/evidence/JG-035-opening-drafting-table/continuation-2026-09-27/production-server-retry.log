@@ -1,0 +1,29 @@
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 669 modules transformed.
+rendering chunks...
+computing gzip size...
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/index.html                                 2.12 kB │ gzip:   0.69 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/draco_wasm_wrapper-fZCQGLGb.js     58.46 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/draco_wasm_wrapper-DxJM36Ib.js     58.76 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/draco_decoder-Z1_iN-Ht.wasm       192.42 kB │ gzip:  63.46 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/draco_decoder-C32yEggz.wasm       285.75 kB │ gzip:  88.64 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/draco_decoder-fzg4nYZr.js         719.41 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/QuietMachinePreview-TUd1Nev4.css    2.60 kB │ gzip:   0.98 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/index-D6oeUCBh.css                 49.22 kB │ gzip:   9.09 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/BootSequence-AV0LBHHB.js            3.02 kB │ gzip:   1.55 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/QuietMachinePreview-DoYUcyM4.js     6.51 kB │ gzip:   3.00 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/ScrollRig-ZSlxvpY6.js              20.80 kB │ gzip:   6.34 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/QuietMachineScene-BKmd85xY.js      30.91 kB │ gzip:  12.21 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/ScrollTrigger-a3sj5zmn.js         114.01 kB │ gzip:  45.16 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/index-CggilZYJ.js                 244.49 kB │ gzip:  78.25 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/SceneCanvas-BGroq4tD.js           360.66 kB │ gzip: 126.25 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/vanilla-CSCe3VuO.js               380.08 kB │ gzip: 103.16 kB
+project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/production/assets/sectionRenderPass-CUTZWQda.js     684.62 kB │ gzip: 185.89 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 20.27s
+  ➜  Local:   http://localhost:4173/

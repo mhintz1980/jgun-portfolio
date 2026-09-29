@@ -1,0 +1,6 @@
+{"mode":"precomputed","readyMs":11527.39999999851,"statsMs":8694.89999999851,"precomputed":1,"passed":true}
+{"mode":"live","readyMs":9026.5,"statsMs":8135.89999999851,"precomputed":0,"passed":true}
+{"mode":"live","readyMs":9065.300000000745,"statsMs":6248.89999999851,"precomputed":0,"passed":true}
+{"mode":"precomputed","readyMs":4900.10000000149,"statsMs":4645.800000000745,"precomputed":1,"passed":true}
+{"mode":"precomputed","readyMs":4940.699999999255,"statsMs":4714.60000000149,"precomputed":1,"passed":true}
+{"mode":"live","readyMs":9314.89999999851,"statsMs":7928.79999999702,"precomputed":0,"passed":true}

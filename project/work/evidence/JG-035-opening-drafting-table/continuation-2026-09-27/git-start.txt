@@ -1,0 +1,9 @@
+ M .gitignore
+ M package-lock.json
+ M package.json
+?? .agents/
+?? .claude/skills/
+?? project/work/evidence/JG-035-opening-drafting-table/continuation-2026-09-27/
+?? scripts/higgsfield-example.ts
+?? scripts/higgsfield-mcp-call.ps1
+?? skills-lock.json

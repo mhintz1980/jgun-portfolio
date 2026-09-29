@@ -1,0 +1,17 @@
+{
+  "name": "generate_video_batch",
+  "arguments": {
+    "requests": [
+      {"index": 0, "params": {
+        "model": "seedance_2_5", "mode": "t2v", "duration": 5,
+        "resolution": "720p", "aspect_ratio": "16:9", "generate_audio": false,
+        "prompt": "Interior of a large empty anechoic test chamber. Completely locked-off wide camera, fixed lens and exposure throughout the entire shot. Dark desaturated blue-grey acoustic wedges line the walls, receding into soft haze. Empty matte floor and generous unobstructed central staging area reserved for a separate foreground CAD assembly. Soft broad overhead illumination, subdued low contrast, no bright central hotspot. Extremely slow sparse dust drift is the only motion. Cinematic photorealism, restrained architectural background plate, quiet and near-static, beginning and ending visually similar for later loop editing. No people, hands, silhouettes, products, tools, weapons, machines, parts, equipment, furniture, instruments, gauges, screens, text, labels or logos. No camera movement, zoom, pan, cuts, flashing or dramatic light changes."
+      }},
+      {"index": 1, "params": {
+        "model": "seedance_2_5", "mode": "t2v", "duration": 5,
+        "resolution": "720p", "aspect_ratio": "16:9", "generate_audio": false,
+        "prompt": "Empty precision workshop at night, completely locked-off medium-wide camera, fixed lens and exposure. A bare walnut workbench occupies only the lower edge of the frame beneath generous dark empty central and upper staging space reserved for a separate foreground CAD assembly. Warm neutral raking lamp light falls softly across the wood from the side. A few fine dust motes drift extremely slowly through a faint peripheral light shaft. Defocused background, muted low-contrast warm charcoal palette, cinematic photorealism and stillness. Sparse dust is the only motion; beginning and ending visually similar for later loop editing. No people, hands, silhouettes, tools, machines, weapons, products, parts, hardware, equipment, instruments, screens, text, signs or logos. No clutter. No camera movement, dolly, zoom, pan, cuts, flicker or changing illumination."
+      }}
+    ]
+  }
+}

@@ -1,0 +1,466 @@
+[
+  {
+    "path": "scripts\\build-jg033-lite.py",
+    "sha256": "9CD07FD0E960E795AFAC0B766BB3DF065EE14B2A5D59CD2FC409ECA3DD583F3D"
+  },
+  {
+    "path": "scripts\\capture-b1b2-baseline.mjs",
+    "sha256": "05EAD72C5C73AD50D78F67BC132FEA90233A14397D61AF7295CB7D101D3B3EA5"
+  },
+  {
+    "path": "scripts\\capture-drawing-sheet.mjs",
+    "sha256": "21A4A374BD91DA916CA1D7EEF72A19E26AEC20432ACD2E820C499D411E7501FE"
+  },
+  {
+    "path": "scripts\\capture-jgun-opening.mjs",
+    "sha256": "02FCB94EDF3F7AF92D9F3EFE72083F00BE79AED2BFC40116C65368288ABDF390"
+  },
+  {
+    "path": "src\\App.tsx",
+    "sha256": "B25FC18F2487B543BFCA07396ACC7805A00233DA8F1549F9B9AB5D4A96C32CDD"
+  },
+  {
+    "path": "scripts\\verify-jgun-opening.mjs",
+    "sha256": "5FD477B395D5034F713E6850F88BE65B0C3E716FCBC781AFEF7EA512446B89B9"
+  },
+  {
+    "path": "scripts\\verify-jg033-ribbon-clipping.mjs",
+    "sha256": "02511DFB2A035DBBDCA101FADF0F3A100115840CB1E28A0D2ED602DCB71AF7BC"
+  },
+  {
+    "path": "scripts\\verify-jg033-preview.mjs",
+    "sha256": "B6636AC64FD1AF5DF0AFD507F2B92C2D3B94A909C5ADACC56D7D370731EF805F"
+  },
+  {
+    "path": "scripts\\verify-jg033-lite-asset.mjs",
+    "sha256": "F8779F755644A9B4CCAF7337CACAC3BF824FCB6405D6D2533AAF1E0AFBBC0766"
+  },
+  {
+    "path": "scripts\\verify-jg032-station2-thermal.mjs",
+    "sha256": "EF5DFB4DCA769C705966FB8637163AB6C1E8F2DC7F8180EACB110306DF9FC14B"
+  },
+  {
+    "path": "scripts\\verify-jg031-gear-rotation.mjs",
+    "sha256": "E29E5C2039EBFC1B6E8ADDCF42E8C04D6D735BA2885602715B2E0DE290D86D4A"
+  },
+  {
+    "path": "scripts\\verify-jg028-handle-realism.mjs",
+    "sha256": "76A54F6B31DB5494A8532BF4B3AB8598AA012969520CC718DDD645D373A2F4AD"
+  },
+  {
+    "path": "scripts\\verify-jg027-lcd-cluster.mjs",
+    "sha256": "D037E2307590415FADF5A82E311A95A820A31C64DFC88D620293E8B8802E8B82"
+  },
+  {
+    "path": "scripts\\verify-b1b2-supplemental.mjs",
+    "sha256": "404FD1584049AB5DD5BC5FADD9F2998329280BD7F5B949C0B3795B94F4D60DF1"
+  },
+  {
+    "path": "scripts\\verify-b1b2-rebuild.mjs",
+    "sha256": "EA85D05F926F06EC429AC717FC1004D6C64CABE37DFE94D6D947F911E310BE69"
+  },
+  {
+    "path": "scripts\\sync-assets.ps1",
+    "sha256": "05EA0B448C4AD1E459CB650336A9F644CE0CC60EBD2A64969750A0DAD3CE0CD5"
+  },
+  {
+    "path": "scripts\\probe-jgun-vellum.mjs",
+    "sha256": "E2988734BAE68D60BA2FEF9FC0B28B176F15FED9427B0A81B5D1556A29A39F9B"
+  },
+  {
+    "path": "scripts\\precompute-drawing.mjs",
+    "sha256": "C949C30BC75379AD06C8DEDAC950D555BE6694EC3B01BC51B82C3457A1D26DD5"
+  },
+  {
+    "path": "scripts\\og-image-source.html",
+    "sha256": "76120D9B66D931B0553A158939AE6BBAE69A49CDAFF952409F8C29BCAD388D6C"
+  },
+  {
+    "path": "src\\types\\troika-three-text.d.ts",
+    "sha256": "73EBEA055963457C2044440DF5C477E9555100030C53102EF817852D1DCA177E"
+  },
+  {
+    "path": "src\\types\\portfolio.ts",
+    "sha256": "DD36880DB79758067FB98846D1336F070BF5D7AF87E5E39D21BCBDC0C2524930"
+  },
+  {
+    "path": "src\\components\\ToleranceStations.tsx",
+    "sha256": "A81CFA0E6F7436A5B75DFADEBEACE3AF0D3002B14D983133CCA1E79DBB2D810A"
+  },
+  {
+    "path": "src\\components\\TechnicalHUD.tsx",
+    "sha256": "BD5BE31601C7650AF35B45EE7CECF9ED799B5BBDB1C431FD32439DF339F29524"
+  },
+  {
+    "path": "src\\components\\StationNav.tsx",
+    "sha256": "63FB4D6F2B2A8735826FCFD1CAF16D7DEF52C4BA1B16E24DC91EF0D12E43A667"
+  },
+  {
+    "path": "src\\components\\StaticPoster.tsx",
+    "sha256": "9D8D430723437E21502BBD93826E7DCFD669465DF87339C9537100DA49DC3345"
+  },
+  {
+    "path": "src\\components\\staticChapter.ts",
+    "sha256": "EC5C6DECE19B9122A05EC44D2A0AB2A81A647B483212846EC20A55294165DDF1"
+  },
+  {
+    "path": "src\\components\\staticChapter.test.tsx",
+    "sha256": "F203E97710CD17BDA08B715C91BDE46DE643E72ECEA4210D24E5C7C6A2388191"
+  },
+  {
+    "path": "src\\components\\IntroTitles.tsx",
+    "sha256": "11C7ADF0A215027A09BD01451BAA0585A9FFA74CF075A492867C570430993586"
+  },
+  {
+    "path": "src\\components\\GdtSymbols.tsx",
+    "sha256": "B04CE25B9356E7B76D33F0B89FD6327B15551101C92DDE492853DF2CA2CCA3A5"
+  },
+  {
+    "path": "src\\components\\Chapters.tsx",
+    "sha256": "C0D8F2F9816BD93F6ED4E8D80436AF44149C1917FAFD2BC7D4E7A4E076F8ABF0"
+  },
+  {
+    "path": "src\\components\\BootSequence.tsx",
+    "sha256": "2B8166BC2E67BDE7EEAEFF931E34CA2BA130CD88FBBCF06D4BD1F76387AE6160"
+  },
+  {
+    "path": "scripts\\convert-drawing-precompute.mjs",
+    "sha256": "EC53A3CA68E048ADAD9E1AC7379DFB3D9AC497FE934D6133A97704E96A657057"
+  },
+  {
+    "path": "scripts\\check-station2-contract.mjs",
+    "sha256": "BB1108BC341096A2525EB229D88B9208330B7BDA05BA949676B90D40B3535E6A"
+  },
+  {
+    "path": "scripts\\check-fallback.tsx",
+    "sha256": "5597148B025F3CFA101E23D6463EC8129E7E5900AA27CB2956ADCD26284DAC8B"
+  },
+  {
+    "path": "scripts\\check-b1b2-contract.mjs",
+    "sha256": "39A3FA5A22A7928D0EB3421665A3083283CDBA832E8D5A546E34ED825A85F9EA"
+  },
+  {
+    "path": "scripts\\capture-rl300-baseline.mjs",
+    "sha256": "6E5B3817B2C8C855CA267F96A0B3E937B158539CA620F5BEDED7D4A377BD69A1"
+  },
+  {
+    "path": "scripts\\lib\\preview-pixels.mjs",
+    "sha256": "558550BBE1BB43126529CBC7C377C9117132992D4D21C0CBD4BDE712C4D17A76"
+  },
+  {
+    "path": "scripts\\export-sheet-template.mjs",
+    "sha256": "4BAD0D321EA682B8F8483CFE3BB2D5A37192B1186A7D89221924E05D2CA29C50"
+  },
+  {
+    "path": "scripts\\deploy-studiomark.ps1",
+    "sha256": "F91B6A2B3E3C40297694BDA43120C28265BEAD0A6A442B9228DF05FA2A656092"
+  },
+  {
+    "path": "scripts\\higgsfield-example.ts",
+    "sha256": "17889DB4C12CCF408A8E58B6168C094A716B59DCAAC4B997B265B9254A03BD93"
+  },
+  {
+    "path": "scripts\\higgsfield-mcp-call.ps1",
+    "sha256": "04611CE5A9C379E8D7E349165716ECB65BBDC1C57A8993C68F4A601A7F2F63A7"
+  },
+  {
+    "path": "src\\main.tsx",
+    "sha256": "CAD4F0EF8A6704CCCB758974AB6BEE9B8B52A4410AC6C95893C72E69714E0B89"
+  },
+  {
+    "path": "src\\index.css",
+    "sha256": "D21ABF36F4CE8670C5A79AAFCF611BDBB4CDF10F82E4E406CB13B85E875D3A88"
+  },
+  {
+    "path": "src\\state\\scrollStore.ts",
+    "sha256": "C85A55567637294473D19B049A0362AB7805C8EB47A3DA5C17A7B10DC8EA4A6C"
+  },
+  {
+    "path": "src\\state\\qualityStore.ts",
+    "sha256": "3D8F7794262A67D63A0C4DD8D23414C4737CA824DA36890E4F1BDCC902A4D5D2"
+  },
+  {
+    "path": "src\\data\\caseStudies.ts",
+    "sha256": "FBC944A23412C5CB0ED59C3DAC4AA0FB368946283AC60C5BF6451FBBE968F2C9"
+  },
+  {
+    "path": "src\\shaders\\CadTransitionShader.ts",
+    "sha256": "4B0821CA614713D6A5E9E0940B8409F0DDBD3F4166C567AD5D7F511AC5FB7650"
+  },
+  {
+    "path": "src\\scene\\TorqueWrenchHero.tsx",
+    "sha256": "51CCF3EBB1334A797F645A84D910E97C01F07BFE361C524E50814D3DC63CE8E5"
+  },
+  {
+    "path": "src\\scene\\stations\\stationStore.ts",
+    "sha256": "F313EB6049DC063B9429AB4F9F765B9D69FDC13E095DF085C8175D2B88F50EC6"
+  },
+  {
+    "path": "src\\scene\\stations\\StationDriver.tsx",
+    "sha256": "E488B2EEE44E721834D0C37DB9F61D63B7B17B2944DBE3E4B864FE602B983613"
+  },
+  {
+    "path": "src\\scene\\stations\\stationData.ts",
+    "sha256": "54F2A283C06935A4AB37418C1E17B4E1592FFCD256563E0923C9E558243BA9B8"
+  },
+  {
+    "path": "src\\scene\\stages\\Station2_AcousticEnclosure.tsx",
+    "sha256": "5600F26630746B2C0391A0ADA3BE2C8DD53564D3C1BF501CE5DB46664457DB5B"
+  },
+  {
+    "path": "src\\scene\\stages\\stageWindows.ts",
+    "sha256": "219C98053F91DFBE379AF78F53F5323C562B100E30557A500B787B35E927C1BF"
+  },
+  {
+    "path": "src\\scene\\stages\\stageWindows.test.ts",
+    "sha256": "63D20AAF16831C7B999C0B0DAAEBD0F92B180AFF42FEDD328423188FBE25B037"
+  },
+  {
+    "path": "src\\scene\\stages\\recolorAllowList.ts",
+    "sha256": "2455E8ECCDE6788F6B97DCC47E24053C18B2C4D2986369C2C3B32860387C88A7"
+  },
+  {
+    "path": "src\\scene\\stages\\recolorAllowList.test.ts",
+    "sha256": "1CE34D2F9A3D6C4C9802653EE127BB7C74E9D1043640BD9EA7308DE188D64F80"
+  },
+  {
+    "path": "src\\scene\\stages\\M249Stage.tsx",
+    "sha256": "A168F21EE768307AC25F666A9392E5622ADDE239C77477E349FBE562CACAF159"
+  },
+  {
+    "path": "src\\scene\\stages\\airflowRoute.ts",
+    "sha256": "763288A7CFBF93C011F3A76D09DB9FE8B421B1700494F800FDB5A57CDA3B7F4F"
+  },
+  {
+    "path": "src\\scene\\stages\\airflowRoute.test.ts",
+    "sha256": "C68C603342264E8270605EEF9225A38C8385300D370A05038163B6F9FF5CD589"
+  },
+  {
+    "path": "src\\scene\\stages\\AirflowField.tsx",
+    "sha256": "6C8505A162DBE10DAC357C744E430033DA8C56941AD56F1456F588A93EAC46B3"
+  },
+  {
+    "path": "src\\scene\\stages\\AcousticBaffleField.tsx",
+    "sha256": "848790DA73074D06D8CD4738E88D6865E6F569B16564FACFD0D3802ACF38353A"
+  },
+  {
+    "path": "src\\scene\\SpatialWorld.tsx",
+    "sha256": "E7D3B26FE4FF93F115193D421061D738689909AAA8B3AB950BFA8AC5D82A98BB"
+  },
+  {
+    "path": "src\\scene\\SpatialRig.tsx",
+    "sha256": "375259E69E23B8B54CAF260FF4B8FDAD954F0AEC25BE3B44DDB25F66A1E8AFEE"
+  },
+  {
+    "path": "src\\scene\\sectionRenderPass.ts",
+    "sha256": "533C32D5EC7A96DBBEBACB42FA17AC51686EA6541C781C0E0565F5E7C5E5F423"
+  },
+  {
+    "path": "src\\scene\\ScrollRig.tsx",
+    "sha256": "6077359BFFBB0EBAE0918E01AD8794A020D4DB90986A2BDD257B4394F91C930F"
+  },
+  {
+    "path": "src\\scene\\scrollCommit.ts",
+    "sha256": "8AA352F514ED8DE32EB8F0A3C41138A45C99C1911FA6E6A372F6A728EA3EF29A"
+  },
+  {
+    "path": "src\\scene\\SceneCanvas.tsx",
+    "sha256": "5A105B1A172007748F388DE28371AD8D355D21F1D07ECD5242523AF51EF8FEBC"
+  },
+  {
+    "path": "src\\scene\\Hotspots.tsx",
+    "sha256": "C74A7F9CBFBADC53607FB9415E220472CA05F8B8479E1DB4A7CCB4FCE66361E4"
+  },
+  {
+    "path": "src\\scene\\jgunVisualGates.ts",
+    "sha256": "52DE0AFA464CEE4E0FF2757195CEEC3AAE5B80A841F02EB863AB26CEBDC44189"
+  },
+  {
+    "path": "src\\scene\\jgunVisualGates.test.ts",
+    "sha256": "46CA06E7587C685E82A4780E2E609DA507FAE949B48794DA325B0456029BB82D"
+  },
+  {
+    "path": "src\\scene\\PostProcessingComposer.tsx",
+    "sha256": "CE38F911D52A8C1C1EDCE56FBAD382CF984CF2E7F4779AFD8C7ABC3A181B19B6"
+  },
+  {
+    "path": "src\\scene\\CameraRig.tsx",
+    "sha256": "F472636F4422D115B6699743D4A3F2F14B435081D8613C6CB60798111C7C3E47"
+  },
+  {
+    "path": "src\\scene\\rl300\\shot.ts",
+    "sha256": "EC9AD7B69D2F5584E7883AD7707DB7AE4D4E57E15BCC7C98D3E331360F6BCB11"
+  },
+  {
+    "path": "src\\scene\\rl300\\SectionCaps.tsx",
+    "sha256": "440EEAA729DFCBEE3162C9789099EC67F745948DE9DA82E2FB6964AD84626050"
+  },
+  {
+    "path": "src\\scene\\rl300\\QuietMachineScene.tsx",
+    "sha256": "22C8864808E4F3B20231427E9E9001C64A534EFC28010706442E279E8D7A453F"
+  },
+  {
+    "path": "src\\scene\\rl300\\QuietMachinePreview.tsx",
+    "sha256": "16F16F7FFE3DA4195EDE950466D3C550E9F503F8470EF2F05D82B88EFE1C041D"
+  },
+  {
+    "path": "src\\scene\\rl300\\quiet-machine.css",
+    "sha256": "84F9FAAE94B3E957E410735D9266488973A66923E5F7E10B78F749AC7A8F6F42"
+  },
+  {
+    "path": "src\\scene\\rl300\\preview.test.ts",
+    "sha256": "8FEBAC10064AFAC752B5B1555EB409F4CF4E3A9548A9EA56785A8B5CA54752CE"
+  },
+  {
+    "path": "src\\scene\\rl300\\prepareModel.ts",
+    "sha256": "6F435511579FE573C8427462F076C82E4DB7062BB72460AC9F6BC003A85B871C"
+  },
+  {
+    "path": "src\\scene\\rl300\\LowerIntake.tsx",
+    "sha256": "12DA936EBEC912D59D75329B1CEF990FA2CC9C0A642DADB2808A1E4A49CEA0AC"
+  },
+  {
+    "path": "src\\scene\\rl300\\flow.ts",
+    "sha256": "E3308F776AC3A278339F321B5D24F5DFCB137B4CC7684A25CEAACCDB263D3DD9"
+  },
+  {
+    "path": "src\\scene\\rl300\\AirRibbons.tsx",
+    "sha256": "9D9CCD72EC69F6208B8E1C14664E20E8E645DD75685CC01E83D3CA9F2895B8CD"
+  },
+  {
+    "path": "src\\scene\\drawing\\drawingGeometry.ts",
+    "sha256": "6067558000590FCCDBAD49D9F035A9F9424A9426372953D80AE702EC0AA91D82"
+  },
+  {
+    "path": "src\\scene\\drawing\\DrawingLinework.tsx",
+    "sha256": "689E487ED7A5F6DEB316E341F5C3F931AE7B8C60EF29743401BC2F2130178C0B"
+  },
+  {
+    "path": "src\\scene\\rig\\gearRotation.test.ts",
+    "sha256": "5DE802306E34345B46B34C6092DE7ABB66FA79EFB731DA45C2641AC8C01B053B"
+  },
+  {
+    "path": "src\\scene\\rig\\lcdCluster.ts",
+    "sha256": "7985B96BE61D9438632087630B78CB06089D2CC26DA51258A7406CB69F849E5A"
+  },
+  {
+    "path": "src\\scene\\rig\\nodeRoles.ts",
+    "sha256": "37DBDF8BA2D0A4A397AC28AFDC2825CACD2FD3F25C7ADBD6451F06632602AA99"
+  },
+  {
+    "path": "src\\scene\\rig\\materials.ts",
+    "sha256": "5FF1B1C7C6C37EE06695BF4A037DB751B13A8D09FD63A196F018CE1AC653F8A0"
+  },
+  {
+    "path": "src\\scene\\drawing\\extractionPose.ts",
+    "sha256": "2CA08D38D6506FBCF5876326E680E7F177553EDBC93E0C2097FEC0E8D1CC15CB"
+  },
+  {
+    "path": "src\\scene\\drawing\\DrawingProofRenderer.tsx",
+    "sha256": "0A776B689EBE49D37510C404C7F6CA15E987368279C771EA5F2139D839690FDF"
+  },
+  {
+    "path": "src\\scene\\drawing\\introTimeline.test.ts",
+    "sha256": "03AC528BCDA9C8B6990CAD3A6E7A1CF3A4167E74914634297B5551EA9A5D9943"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheetCamera.ts",
+    "sha256": "E577378DB62E1E6D8594DB33EC5A010601BC454770D2AF91EAEEE2A34D2C29A6"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheetCamera.test.ts",
+    "sha256": "6C436C1BC65F11EF23EF9740F392E381E701B66F76964F372D0DD96719F4BBA9"
+  },
+  {
+    "path": "src\\scene\\drawing\\introTimeline.ts",
+    "sha256": "DC0F0F03C01FB7937F62DA9E1A64AE8F6E5C48E6D3271CED1C37F4680DF511A4"
+  },
+  {
+    "path": "src\\scene\\backgrounds\\backdropConfig.ts",
+    "sha256": "D207C2BB1783504E6CA5720DB7F0DBAECFD46117B4CDB121941656B9362CC3F6"
+  },
+  {
+    "path": "src\\scene\\drawing\\paperGrain.test.ts",
+    "sha256": "B2ED754C1EAE7BE66B8770A81E6DA80D851ECBFF414AF476F5F1F9930AE93936"
+  },
+  {
+    "path": "src\\scene\\backgrounds\\BackdropRig.tsx",
+    "sha256": "B38EBFCDFA868C05B5F85E05F79D07FE07969B3A51D508C1B974E890D62675F4"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\sheetText.ts",
+    "sha256": "0D49026A82DCCAC55937125A690D371A21812DFF02767B636D914F520FABDAB2"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\sheetInkRuntime.test.js",
+    "sha256": "57EE0C575D6C7AD6F3A6DBD492255B71BCE1B379ECE5422F7B2B431CE3D2CE4A"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\registration.ts",
+    "sha256": "538A337860718BF38F4AF3B389F344EFD9B8DC10530C99BF353C7D12BBB7108B"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\registration.test.ts",
+    "sha256": "0F847458FC48B658062FDDE17DDCB0C99DD9AB804DB632D6F3AF1B85A3A35F30"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\profile.ts",
+    "sha256": "E65FA2B5B3AF0674D25FA9DB6DE22EAE85D584CF3047F6C09B913CC28D9760A0"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\paperFlex.ts",
+    "sha256": "F3A8E889A0A5ACA2FC40C5D3D2890C52F7547D08F67E3AA37E89E2735DEFE16A"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\paperFlex.test.ts",
+    "sha256": "9C8D147C6AE4A66124D3E8C2F19D32479C26C8A72F8C921715A533D4FA4B9480"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\ink.ts",
+    "sha256": "4442E3641E1DE0194E0D0F727835513B81A3C7813DCE9D78525855800C2F3022"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\edgeExtract.ts",
+    "sha256": "0AC00612BA0655BD27558C1C5A827F2EB56A210CFE2DA18EEE1AB4DAAAF9B650"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\drawingCodec.ts",
+    "sha256": "E20F55DE16E1A159387153CA05369CC926A2DF564D1B6F33E7CC72F48F95AA9A"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\drawingCache.ts",
+    "sha256": "BD514A5FEAE2A64B398D52BAF03644EF1403147EB3F1C4A0EB9AEA68C5957D24"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\drawingCache.test.ts",
+    "sha256": "FDBB9905F778CAF2A870F118504FF61BA66C11800A3997C65ED858E075314578"
+  },
+  {
+    "path": "src\\scene\\drawing\\sheet\\composeSheet.ts",
+    "sha256": "1EF25CBA007DB91170B6D17FF379E050BBE6DB8CD346845B6125C8D7DA8FEA84"
+  },
+  {
+    "path": "src\\scene\\backgrounds\\layers\\types.ts",
+    "sha256": "7885415B5AFFD8F33CAD0976E3F59700499FF58E125C2C19D99C7EAC75F6C0D6"
+  },
+  {
+    "path": "src\\scene\\backgrounds\\layers\\BackdropGridLayer.tsx",
+    "sha256": "20B53FE16A45A346613C553CE09CA13A9440016D63E64C2C0003BEB5C0FACA6E"
+  },
+  {
+    "path": "src\\scene\\backgrounds\\layers\\BackdropGradientLayer.tsx",
+    "sha256": "8FF0F76CD43A74510705AB79B36502190E661E7A8256DEC9BD7677674B328CC5"
+  },
+  {
+    "path": "package.json",
+    "sha256": "EDA91C46A01976036E5B494D4D972153E06D1E525DAF6514BCEEC2AB7BA4975E"
+  },
+  {
+    "path": "package-lock.json",
+    "sha256": "A61ED580E6C31DD8A642CE55C701115B368381E73F788450771EB35B09FB53DC"
+  },
+  {
+    "path": "vite.config.ts",
+    "sha256": "A5B211913B9CBCC9EC6D5FEA01B2D1A7D1FFA57CF20F230820D58218434560A1"
+  }
+]

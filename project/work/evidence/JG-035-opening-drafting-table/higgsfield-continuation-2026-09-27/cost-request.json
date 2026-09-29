@@ -1,0 +1,1 @@
+{"name":"generate_video","arguments":{"params":{"model":"seedance_2_5","prompt":"Empty acoustic lab, locked camera, no objects or people.","duration":5,"aspect_ratio":"16:9","resolution":"720p","mode":"t2v","generate_audio":false,"get_cost":true}}}

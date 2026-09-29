@@ -1,0 +1,16 @@
+- navigation "Station navigation":
+  - 'button "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN"': STATION 01
+  - 'button "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE"': STATION 02
+  - 'button "Navigate to STATION 03: M249 / MK46 PLATFORM"': STATION 03
+- main:
+  - paragraph: CH.04 DIGITAL SYSTEMS
+  - heading "From Point Cloud to Production Code" [level=2]
+  - paragraph: The same tool carries an MSP430, USB, LiPo and LCD manometer — physical systems dissolving into digital ones.
+  - 'heading "From Point Cloud to Parametric: Reverse-Engineering Mission-Critical Hardware" [level=3]'
+  - paragraph: 3D scan data reconstructed into fully toleranced, manufacturable CAD for the M249/MK46 platform.
+  - list:
+    - listitem: ▸ Converted raw 3D scan point clouds of legacy mil-spec hardware into clean, parametric CAD models.
+    - listitem: ▸ Rebuilt ASME Y14.5 GD&T drawings from physical parts with no original technical data package — reverse-engineered datums, fits, and tolerance stacks from scratch.
+    - listitem: ▸ Delivered production-ready drawings meeting mil-spec interchangeability requirements for the M249/MK46 platform.
+  - text: SCAN-TO-CAD NO TDP MIL-SPEC INTERCHANGEABILITY
+  - paragraph: BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001" TIR

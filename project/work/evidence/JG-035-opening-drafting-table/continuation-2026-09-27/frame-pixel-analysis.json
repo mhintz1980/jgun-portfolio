@@ -1,0 +1,272 @@
+[
+  {
+    "progress": 0.06,
+    "width": 1600,
+    "height": 900,
+    "regions": {
+      "full": {
+        "meanLum": 220.2,
+        "meanR": 223.3,
+        "meanG": 220.2,
+        "meanB": 211.2,
+        "minLum": 52.8,
+        "maxLum": 255,
+        "brightFrac": 0.9935,
+        "cyanLeanFrac": 0.0029,
+        "warmLeanFrac": 0
+      },
+      "modelBand": {
+        "meanLum": 227.8,
+        "meanR": 230.4,
+        "meanG": 227.9,
+        "meanB": 219.7,
+        "minLum": 157.2,
+        "maxLum": 254.8,
+        "brightFrac": 1,
+        "cyanLeanFrac": 0.0001,
+        "warmLeanFrac": 0
+      },
+      "titleBlockArea": {
+        "meanLum": 206.7,
+        "meanR": 209.9,
+        "meanG": 206.6,
+        "meanB": 198.1,
+        "minLum": 59.6,
+        "maxLum": 239.1,
+        "brightFrac": 0.9714,
+        "cyanLeanFrac": 0.0249,
+        "warmLeanFrac": 0
+      },
+      "leftMargin": {
+        "meanLum": 212.1,
+        "meanR": 216,
+        "meanG": 211.9,
+        "meanB": 201.9,
+        "minLum": 75.8,
+        "maxLum": 228,
+        "brightFrac": 0.9881,
+        "cyanLeanFrac": 0,
+        "warmLeanFrac": 0.0001
+      }
+    },
+    "titleBlockGradientRMS": 20.09,
+    "inkCoverage": 0.0102,
+    "dynamicRange": 16
+  },
+  {
+    "progress": 0.066,
+    "width": 1600,
+    "height": 900,
+    "regions": {
+      "full": {
+        "meanLum": 219.1,
+        "meanR": 222.4,
+        "meanG": 219,
+        "meanB": 209.7,
+        "minLum": 59.1,
+        "maxLum": 255,
+        "brightFrac": 0.9956,
+        "cyanLeanFrac": 0.0038,
+        "warmLeanFrac": 0.0029
+      },
+      "modelBand": {
+        "meanLum": 227.3,
+        "meanR": 229.9,
+        "meanG": 227.4,
+        "meanB": 219.1,
+        "minLum": 152.6,
+        "maxLum": 255,
+        "brightFrac": 1,
+        "cyanLeanFrac": 0.0002,
+        "warmLeanFrac": 0
+      },
+      "titleBlockArea": {
+        "meanLum": 206.3,
+        "meanR": 209.4,
+        "meanG": 206.2,
+        "meanB": 198.1,
+        "minLum": 59.1,
+        "maxLum": 244,
+        "brightFrac": 0.9661,
+        "cyanLeanFrac": 0.0267,
+        "warmLeanFrac": 0
+      },
+      "leftMargin": {
+        "meanLum": 211.9,
+        "meanR": 216.1,
+        "meanG": 211.8,
+        "meanB": 201.4,
+        "minLum": 80.1,
+        "maxLum": 227.2,
+        "brightFrac": 0.9984,
+        "cyanLeanFrac": 0,
+        "warmLeanFrac": 0.0081
+      }
+    },
+    "titleBlockGradientRMS": 18.32,
+    "inkCoverage": 0.006,
+    "dynamicRange": 15.1
+  },
+  {
+    "progress": 0.072,
+    "width": 1600,
+    "height": 900,
+    "regions": {
+      "full": {
+        "meanLum": 202.4,
+        "meanR": 207,
+        "meanG": 202.2,
+        "meanB": 190.8,
+        "minLum": 39.7,
+        "maxLum": 225.1,
+        "brightFrac": 0.9561,
+        "cyanLeanFrac": 0.0158,
+        "warmLeanFrac": 0.0174
+      },
+      "modelBand": {
+        "meanLum": 196.3,
+        "meanR": 201.1,
+        "meanG": 196.2,
+        "meanB": 183.4,
+        "minLum": 53.1,
+        "maxLum": 225.1,
+        "brightFrac": 0.9746,
+        "cyanLeanFrac": 0.0211,
+        "warmLeanFrac": 0
+      },
+      "titleBlockArea": {
+        "meanLum": 198.4,
+        "meanR": 201.8,
+        "meanG": 198.2,
+        "meanB": 190,
+        "minLum": 39.7,
+        "maxLum": 220.1,
+        "brightFrac": 0.9388,
+        "cyanLeanFrac": 0.0546,
+        "warmLeanFrac": 0
+      },
+      "leftMargin": {
+        "meanLum": 197.2,
+        "meanR": 202.6,
+        "meanG": 196.9,
+        "meanB": 185.4,
+        "minLum": 54.5,
+        "maxLum": 221,
+        "brightFrac": 0.8978,
+        "cyanLeanFrac": 0.0005,
+        "warmLeanFrac": 0.0425
+      }
+    },
+    "titleBlockGradientRMS": 21.48,
+    "inkCoverage": 0.8321,
+    "dynamicRange": 62.7
+  },
+  {
+    "progress": 0.078,
+    "width": 1600,
+    "height": 900,
+    "regions": {
+      "full": {
+        "meanLum": 193.5,
+        "meanR": 198.1,
+        "meanG": 193.3,
+        "meanB": 181.8,
+        "minLum": 28.9,
+        "maxLum": 237.1,
+        "brightFrac": 0.9137,
+        "cyanLeanFrac": 0.0199,
+        "warmLeanFrac": 0.0163
+      },
+      "modelBand": {
+        "meanLum": 178.8,
+        "meanR": 183.7,
+        "meanG": 178.7,
+        "meanB": 166,
+        "minLum": 28.9,
+        "maxLum": 237.1,
+        "brightFrac": 0.8854,
+        "cyanLeanFrac": 0.0178,
+        "warmLeanFrac": 0
+      },
+      "titleBlockArea": {
+        "meanLum": 192.6,
+        "meanR": 195.9,
+        "meanG": 192.5,
+        "meanB": 184.1,
+        "minLum": 29.3,
+        "maxLum": 215.9,
+        "brightFrac": 0.9324,
+        "cyanLeanFrac": 0.0618,
+        "warmLeanFrac": 0
+      },
+      "leftMargin": {
+        "meanLum": 192.2,
+        "meanR": 197.7,
+        "meanG": 191.8,
+        "meanB": 180,
+        "minLum": 42.9,
+        "maxLum": 219,
+        "brightFrac": 0.8795,
+        "cyanLeanFrac": 0.0103,
+        "warmLeanFrac": 0.0373
+      }
+    },
+    "titleBlockGradientRMS": 23.54,
+    "inkCoverage": 0.8513,
+    "dynamicRange": 92.8
+  },
+  {
+    "progress": 0.084,
+    "width": 1600,
+    "height": 900,
+    "regions": {
+      "full": {
+        "meanLum": 181.2,
+        "meanR": 186,
+        "meanG": 181,
+        "meanB": 168.9,
+        "minLum": 0.9,
+        "maxLum": 217.8,
+        "brightFrac": 0.8934,
+        "cyanLeanFrac": 0.0282,
+        "warmLeanFrac": 0.0127
+      },
+      "modelBand": {
+        "meanLum": 169.4,
+        "meanR": 174.2,
+        "meanG": 169.3,
+        "meanB": 156.4,
+        "minLum": 0.9,
+        "maxLum": 216.1,
+        "brightFrac": 0.8677,
+        "cyanLeanFrac": 0.0196,
+        "warmLeanFrac": 0
+      },
+      "titleBlockArea": {
+        "meanLum": 184.2,
+        "meanR": 187.6,
+        "meanG": 184.1,
+        "meanB": 175,
+        "minLum": 22.4,
+        "maxLum": 205,
+        "brightFrac": 0.9288,
+        "cyanLeanFrac": 0.0648,
+        "warmLeanFrac": 0
+      },
+      "leftMargin": {
+        "meanLum": 178.6,
+        "meanR": 184.3,
+        "meanG": 178.2,
+        "meanB": 166,
+        "minLum": 11.5,
+        "maxLum": 207,
+        "brightFrac": 0.8637,
+        "cyanLeanFrac": 0.0321,
+        "warmLeanFrac": 0.0258
+      }
+    },
+    "titleBlockGradientRMS": 24.89,
+    "inkCoverage": 0.8913,
+    "dynamicRange": 135.3
+  }
+]

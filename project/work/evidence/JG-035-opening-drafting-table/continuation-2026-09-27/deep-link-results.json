@@ -1,0 +1,25 @@
+{
+  "started": "2026-09-28T08:51:04.577Z",
+  "cases": [
+    {
+      "mode": "poster",
+      "scrollY": 16473,
+      "max": 24160,
+      "fraction": 0.6818294701986755,
+      "expected": 0.6818181818,
+      "pass": true,
+      "errors": []
+    },
+    {
+      "mode": "reduced-motion",
+      "scrollY": 16473,
+      "max": 24160,
+      "fraction": 0.6818294701986755,
+      "expected": 0.6818181818,
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "finished": "2026-09-28T08:51:11.987Z",
+  "passed": true
+}

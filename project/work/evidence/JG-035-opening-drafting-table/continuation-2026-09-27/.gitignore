@@ -1,0 +1,3 @@
+# Isolated production build copy (29.1 MB) used only for the precompute
+# measurement — reproducible via npm run build; never commit the copy.
+production/
