@@ -1,5 +1,14 @@
 # JG-035 handoff — 2026-09-30b (more storm flicker; visible dark, not pitch black; scroll budget freed)
 
+> **Status 2026-10-01: implemented and verified; this handoff is now historical.**
+> The five-dip storm flicker, visible-dark state, .50 scroll-share pacing and
+> track repair landed in the working tree, passed 169 tests, the 6/6 six-case
+> browser roster and 19/19 full-tier pixel checks, and were committed and
+> pushed to `origin/codex/jg033-signature-shot` at `e5fec59` (2026-10-01).
+> Open items — narrow full-tier motion recording, owner visual acceptance and
+> the X-ray ruling — are carried in the current handoff:
+> `storm-pacing-2026-10-01/handoff-2026-10-01.md`.
+
 Supersedes `handoff-2026-09-30-blackout-emergence.md`. That work is now
 **implemented and fully verified** — keep it only as the record of what was
 built. This handoff carries Mark's 2026-09-30 review direction after he watched
