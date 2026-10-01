@@ -1,0 +1,3452 @@
+{
+  "url": "http://localhost:4173",
+  "case": "narrow",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "gpu": {
+    "available": true,
+    "unmasked": true,
+    "vendor": "Google Inc. (AMD)",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "maxTextureSize": 16384,
+    "contextLost": false
+  },
+  "duration": 14,
+  "sampleInterval": 0.12,
+  "scrub": {
+    "from": 0.4,
+    "to": 1
+  },
+  "samples": [
+    {
+      "seconds": 0,
+      "t": 0.4,
+      "phase": 0.4,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.186046511627907,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04220321026245777,
+        "y": 1.5147325468719806,
+        "z": 0.11992007045323222,
+        "fov": 30.00187360040252
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.132,
+      "t": 0.40566,
+      "phase": 0.4048471428581647,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.18830099667821615,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.042091271740709604,
+        "y": 1.515240109566001,
+        "z": 0.11996409970254757,
+        "fov": 30.00084152625002
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.265,
+      "t": 0.41137,
+      "phase": 0.4105600000015327,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.19095813953559662,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04204094547152248,
+        "y": 1.515468303903122,
+        "z": 0.11998389474556356,
+        "fov": 30.000377517606633
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.4,
+      "t": 0.41715,
+      "phase": 0.4164100000015327,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.19367906976815477,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.042018368573060697,
+        "y": 1.5155706743045434,
+        "z": 0.11999277501194207,
+        "fov": 30.00016935840476
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.533,
+      "t": 0.42286,
+      "phase": 0.4220671428586756,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.19631029900403518,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04200826013737368,
+        "y": 1.5156165089713725,
+        "z": 0.1199967510054437,
+        "fov": 30.000076158539045
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.666,
+      "t": 0.42854,
+      "phase": 0.42779285714285714,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.1989734219269103,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04200370780930581,
+        "y": 1.5156371505866277,
+        "z": 0.11999854159177926,
+        "fov": 30.000034186034327
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.802,
+      "t": 0.43435,
+      "phase": 0.4333771428576538,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.20157076411983899,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04200166535983764,
+        "y": 1.5156464116626032,
+        "z": 0.11999934495701443,
+        "fov": 30.000015354632307
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 0.93,
+      "t": 0.43986,
+      "phase": 0.4390985714290823,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.20423189368794525,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04200074844408458,
+        "y": 1.5156505692325133,
+        "z": 0.11999970561134202,
+        "fov": 30.00000690066102
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.067,
+      "t": 0.44572,
+      "phase": 0.444858571430615,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.20691096345610005,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.04200033555856381,
+        "y": 1.5156524413787946,
+        "z": 0.11999986801333955,
+        "fov": 30.0000030938529
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.198,
+      "t": 0.45136,
+      "phase": 0.45057142857142857,
+      "lampPower": 0.9983506678350297,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2095681063122924,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.024799683267655713,
+      "camera": {
+        "x": 0.04200015089685109,
+        "y": 1.5156532786901593,
+        "z": 0.11999994064710728,
+        "fov": 30.000001391270292
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.332,
+      "t": 0.45708,
+      "phase": 0.4562971428581647,
+      "lampPower": 0.8499412753956409,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2122312292363557,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.021629952142947013,
+      "camera": {
+        "x": 0.04200006773455741,
+        "y": 1.5156536557728395,
+        "z": 0.11999997335768184,
+        "fov": 30.000000624513216
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.466,
+      "t": 0.46283,
+      "phase": 0.4620142857142857,
+      "lampPower": 0.6363683438403432,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.214890365448505,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.01706845669162249,
+      "camera": {
+        "x": 0.04200003040467869,
+        "y": 1.5156538250376603,
+        "z": 0.11999998804079995,
+        "fov": 30.000000280331406
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.599,
+      "t": 0.46853,
+      "phase": 0.46777000000051094,
+      "lampPower": 0.6443039236432132,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.21756744186070276,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.017237944982628328,
+      "camera": {
+        "x": 0.04200001363986159,
+        "y": 1.5156539010543488,
+        "z": 0.11999999463497595,
+        "fov": 30.000000125759644
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.732,
+      "t": 0.47423,
+      "phase": 0.47342285714490073,
+      "lampPower": 0.9199927745690678,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.22019667774181428,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.023126113629850214,
+      "camera": {
+        "x": 0.042000006130010814,
+        "y": 1.5156539351062552,
+        "z": 0.1199999975888571,
+        "fov": 30.000000056518758
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.865,
+      "t": 0.47993,
+      "phase": 0.479195714287247,
+      "lampPower": 0.5931376630368601,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.22288172757546373,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.016145134843639646,
+      "camera": {
+        "x": 0.042000002754942395,
+        "y": 1.5156539504098236,
+        "z": 0.11999999891638696,
+        "fov": 30.000000025400595
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 1.998,
+      "t": 0.48565,
+      "phase": 0.4848657142877579,
+      "lampPower": 0.17002973582695113,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.22551893687802693,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0071083862663152,
+      "camera": {
+        "x": 0.042000001237380416,
+        "y": 1.5156539572909031,
+        "z": 0.11999999951329599,
+        "fov": 30.000000011408662
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.131,
+      "t": 0.49135,
+      "phase": 0.49065142857347216,
+      "lampPower": 0.5031356797275879,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.22820996677835917,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.01422287047012687,
+      "camera": {
+        "x": 0.042000000555102036,
+        "y": 1.515653960384557,
+        "z": 0.11999999978165941,
+        "fov": 30.00000000511805
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.267,
+      "t": 0.49717,
+      "phase": 0.4963257142867361,
+      "lampPower": 0.7587298642667514,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.23084916943569123,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.019681856782999232,
+      "camera": {
+        "x": 0.04200000024902472,
+        "y": 1.5156539617724032,
+        "z": 0.11999999990205008,
+        "fov": 30.000000002296012
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.401,
+      "t": 0.5029,
+      "phase": 0.5020171428586756,
+      "lampPower": 0.5693076933604857,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2334963455156631,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.01563617381804339,
+      "camera": {
+        "x": 0.04200000011171519,
+        "y": 1.5156539623950054,
+        "z": 0.11999999995605862,
+        "fov": 30.000000001030017
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.531,
+      "t": 0.50848,
+      "phase": 0.5077642857142858,
+      "lampPower": 0.3795896879034942,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.23616943521594688,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.011584172412133196,
+      "camera": {
+        "x": 0.042000000050267244,
+        "y": 1.5156539626736287,
+        "z": 0.1199999999802282,
+        "fov": 30.000000000463466
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.668,
+      "t": 0.51433,
+      "phase": 0.5135242857158184,
+      "lampPower": 0.6643367847043384,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2388485049841016,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.017665807277451394,
+      "camera": {
+        "x": 0.042000000022577554,
+        "y": 1.5156539627991823,
+        "z": 0.1199999999911195,
+        "fov": 30.000000000208168
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.8,
+      "t": 0.52002,
+      "phase": 0.5192328571438789,
+      "lampPower": 0.792486803733292,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2415036544855251,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.02040283825151175,
+      "camera": {
+        "x": 0.04200000001013467,
+        "y": 1.5156539628556018,
+        "z": 0.11999999999601373,
+        "fov": 30.00000000009344
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 2.934,
+      "t": 0.52576,
+      "phase": 0.5249800000020437,
+      "lampPower": 0.42025425985173653,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.24417674418699709,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.012452687249763447,
+      "camera": {
+        "x": 0.042000000004552035,
+        "y": 1.5156539628809154,
+        "z": 0.11999999999820957,
+        "fov": 30.000000000041965
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.065,
+      "t": 0.53137,
+      "phase": 0.5306800000020436,
+      "lampPower": 0.06576139903288736,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.24682790697769474,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0048814207958330505,
+      "camera": {
+        "x": 0.042000000002045824,
+        "y": 1.5156539628922792,
+        "z": 0.11999999999919535,
+        "fov": 30.00000000001886
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.201,
+      "t": 0.53717,
+      "phase": 0.5364014285734722,
+      "lampPower": 0.015,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.24948903654580104,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.003797257699390124,
+      "camera": {
+        "x": 0.04200000000091783,
+        "y": 1.5156539628973935,
+        "z": 0.11999999999963902,
+        "fov": 30.000000000008463
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.334,
+      "t": 0.54288,
+      "phase": 0.5421828571438789,
+      "lampPower": 0.015,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.25217807309017626,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.003797257699390124,
+      "camera": {
+        "x": 0.04200000000041205,
+        "y": 1.515653962899687,
+        "z": 0.11999999999983797,
+        "fov": 30.000000000003798
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.466,
+      "t": 0.54854,
+      "phase": 0.5477800000020436,
+      "lampPower": 0.32787080519064654,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2547813953497877,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.010479559357827864,
+      "camera": {
+        "x": 0.042000000000184896,
+        "y": 1.515653962900717,
+        "z": 0.1199999999999273,
+        "fov": 30.0000000000017
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.6,
+      "t": 0.55428,
+      "phase": 0.5535357142857144,
+      "lampPower": 0.5103053999608952,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2574584717607974,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.014376001515308191,
+      "camera": {
+        "x": 0.0420000000000832,
+        "y": 1.515653962901178,
+        "z": 0.11999999999996731,
+        "fov": 30.00000000000076
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.735,
+      "t": 0.56007,
+      "phase": 0.5592528571443899,
+      "lampPower": 0.10559941087403663,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.26011760797413486,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0057322819441998985,
+      "camera": {
+        "x": 0.0420000000000374,
+        "y": 1.5156539629013857,
+        "z": 0.11999999999998531,
+        "fov": 30.000000000000345
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.865,
+      "t": 0.56566,
+      "phase": 0.5648671428586756,
+      "lampPower": 0.2332454389459293,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.26272890365519797,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.00845854866812144,
+      "camera": {
+        "x": 0.04200000000001684,
+        "y": 1.5156539629014791,
+        "z": 0.1199999999999934,
+        "fov": 30.000000000000153
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 3.998,
+      "t": 0.57136,
+      "phase": 0.5706357142857144,
+      "lampPower": 0.3047594782904501,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2654119601328904,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.009985947120726436,
+      "camera": {
+        "x": 0.04200000000000763,
+        "y": 1.515653962901521,
+        "z": 0.11999999999999703,
+        "fov": 30.00000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.136,
+      "t": 0.57724,
+      "phase": 0.5764042857153076,
+      "lampPower": 0.07660009164799325,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.268095016611771,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.00511291383524619,
+      "camera": {
+        "x": 0.042000000000003465,
+        "y": 1.51565396290154,
+        "z": 0.11999999999999865,
+        "fov": 30.000000000000032
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.269,
+      "t": 0.58298,
+      "phase": 0.5822714285714286,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2708239202657807,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000161,
+        "y": 1.5156539629015482,
+        "z": 0.1199999999999994,
+        "fov": 30.000000000000018
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.409,
+      "t": 0.58896,
+      "phase": 0.5880400000010219,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.27350697674466135,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.042000000000000766,
+        "y": 1.515653962901552,
+        "z": 0.11999999999999973,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.536,
+      "t": 0.59439,
+      "phase": 0.5936542857153075,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.27611827242572445,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.042000000000000405,
+        "y": 1.5156539629015537,
+        "z": 0.11999999999999987,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.671,
+      "t": 0.6002,
+      "phase": 0.5993842857147966,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2787833887045566,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000024,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.803,
+      "t": 0.60585,
+      "phase": 0.6050028571443898,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2813966777415767,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000016,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 4.939,
+      "t": 0.61168,
+      "phase": 0.6108100000015327,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.28409767441931755,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.067,
+      "t": 0.61717,
+      "phase": 0.616458571430615,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2867249169444721,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.202,
+      "t": 0.62293,
+      "phase": 0.622282857143879,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2894338870436647,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.338,
+      "t": 0.62877,
+      "phase": 0.6279742857158184,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.29208106312363646,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.468,
+      "t": 0.63435,
+      "phase": 0.6336442857163294,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.29471827242619975,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.589,
+      "t": 0.63952,
+      "phase": 0.6384914285719395,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2969727574753207,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.718,
+      "t": 0.64506,
+      "phase": 0.6444057142862252,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.29972358804010474,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.855,
+      "t": 0.65095,
+      "phase": 0.6500285714285714,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.30233887043189367,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 5.987,
+      "t": 0.65658,
+      "phase": 0.6557414285719394,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.30499601328927417,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.117,
+      "t": 0.66216,
+      "phase": 0.6614714285714286,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.011318681318681292,
+      "poseT": 0.3076611295681064,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.25,
+      "t": 0.66787,
+      "phase": 0.667145714287247,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.05496703297882287,
+      "poseT": 0.31030033222662656,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.386,
+      "t": 0.6737,
+      "phase": 0.6729100000015327,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.09930769231948185,
+      "poseT": 0.3129813953495501,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.521,
+      "t": 0.67945,
+      "phase": 0.6786400000010218,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.14338461539247482,
+      "poseT": 0.3156465116283822,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.652,
+      "t": 0.68508,
+      "phase": 0.6843271428576538,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.1871318681357985,
+      "poseT": 0.3182916943523972,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.786,
+      "t": 0.69082,
+      "phase": 0.689958571430615,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.23045054946626906,
+      "poseT": 0.32091096345610004,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 6.917,
+      "t": 0.69646,
+      "phase": 0.6957442857163294,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.2749560439717644,
+      "poseT": 0.3236019933564323,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.052,
+      "t": 0.70224,
+      "phase": 0.701470000000511,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.31900000000393025,
+      "poseT": 0.32626511627930743,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.186,
+      "t": 0.70795,
+      "phase": 0.7072300000020435,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.3633076923234113,
+      "poseT": 0.3289441860474621,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.32,
+      "t": 0.71371,
+      "phase": 0.7129385714301042,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.40721978023157046,
+      "poseT": 0.3315993355488857,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.44,
+      "t": 0.71887,
+      "phase": 0.717875714286736,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.44519780220566146,
+      "poseT": 0.3338956810635982,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.566,
+      "t": 0.72428,
+      "phase": 0.7236014285734722,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.48924175825747823,
+      "poseT": 0.3365588039876615,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.702,
+      "t": 0.73008,
+      "phase": 0.7293057142862251,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.5331208791248085,
+      "poseT": 0.33921196013312804,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.84,
+      "t": 0.736,
+      "phase": 0.7350271428576538,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.5771318681357982,
+      "poseT": 0.3418730897012343,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 7.968,
+      "t": 0.74147,
+      "phase": 0.7407571428571429,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.6212087912087912,
+      "poseT": 0.3445382059800665,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.102,
+      "t": 0.74723,
+      "phase": 0.7464571428571429,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.6650549450549453,
+      "poseT": 0.3471893687707642,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.235,
+      "t": 0.75293,
+      "phase": 0.752320000000511,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.7101538461577769,
+      "poseT": 0.34991627907000517,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.369,
+      "t": 0.75865,
+      "phase": 0.757908571430615,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.7531428571585764,
+      "poseT": 0.3525156146188907,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.502,
+      "t": 0.76437,
+      "phase": 0.7636814285729612,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.7975494505612395,
+      "poseT": 0.3552006644525401,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.638,
+      "t": 0.7702,
+      "phase": 0.7694071428571428,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.8415934065934062,
+      "poseT": 0.3578637873754153,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.761,
+      "t": 0.77546,
+      "phase": 0.774408571430615,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.8800659340816538,
+      "poseT": 0.3601900332235419,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 8.886,
+      "t": 0.78084,
+      "phase": 0.7801728571449007,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.9244065934223128,
+      "poseT": 0.36287109634646547,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.021,
+      "t": 0.7866,
+      "phase": 0.7858342857147966,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.9679560439599738,
+      "poseT": 0.36550431893711477,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "camera": {
+        "x": 0.04200000000000013,
+        "y": 1.5156539629015542,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.154,
+      "t": 0.7923,
+      "phase": 0.7915471428581646,
+      "lampPower": 0.0014439069235496575,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.3681614617944952,
+      "pbr": 0,
+      "bulge": 0.000007797097387168152,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.003507726360115748,
+      "camera": {
+        "x": 0.0421581891128191,
+        "y": 1.5156539095710304,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.29,
+      "t": 0.79812,
+      "phase": 0.7972900000010218,
+      "lampPower": 0.030278192492135942,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.37083255814001015,
+      "pbr": 0,
+      "bulge": 0.0001635022394575341,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0041235696765204955,
+      "camera": {
+        "x": 0.049968924753935016,
+        "y": 1.5156058184854124,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.422,
+      "t": 0.80379,
+      "phase": 0.8031528571443898,
+      "lampPower": 0.09264921265690597,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.3735594684392511,
+      "pbr": 0,
+      "bulge": 0.0005003057483472923,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.00545569132088911,
+      "camera": {
+        "x": 0.07657562429521486,
+        "y": 1.5150146791867254,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.554,
+      "t": 0.80945,
+      "phase": 0.8088228571449008,
+      "lampPower": 0.17803240524355818,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.37619667774181437,
+      "pbr": 0,
+      "bulge": 0.0009613749883152141,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.007279307458792513,
+      "camera": {
+        "x": 0.12450005561767474,
+        "y": 1.5125926993312544,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.693,
+      "t": 0.8154,
+      "phase": 0.814582857143879,
+      "lampPower": 0.28336697196341604,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.37887574750878095,
+      "pbr": 0.006108270236430212,
+      "bulge": 0.0015301816486024465,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.009529045491889024,
+      "camera": {
+        "x": 0.19251774556250414,
+        "y": 1.506408013019573,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.83,
+      "t": 0.82129,
+      "phase": 0.820415714287758,
+      "lampPower": 0.4023270662880411,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.38158870431988745,
+      "pbr": 0.03028618987633328,
+      "bulge": 0.002172566157955422,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.012069797848469451,
+      "camera": {
+        "x": 0.2757427825445623,
+        "y": 1.4946605411089866,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 9.958,
+      "t": 0.82677,
+      "phase": 0.8261114285724502,
+      "lampPower": 0.5238083211983872,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.38423787375462803,
+      "pbr": 0.06950909017182982,
+      "bulge": 0.0028285649344712907,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.014664397209256256,
+      "camera": {
+        "x": 0.3678213564413411,
+        "y": 1.4763517856182304,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.096,
+      "t": 0.83268,
+      "phase": 0.8317214285714285,
+      "lampPower": 0.6422600115151834,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.38684717607973423,
+      "pbr": 0.12104890894970718,
+      "bulge": 0.003468204062181991,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.017194291061660812,
+      "camera": {
+        "x": 0.4623770234453716,
+        "y": 1.451578327139699,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.229,
+      "t": 0.83837,
+      "phase": 0.837562857143368,
+      "lampPower": 0.7576429288880816,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.3895641196015665,
+      "pbr": 0.18603371146860284,
+      "bulge": 0.004091271815995641,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.019658641992859018,
+      "camera": {
+        "x": 0.5564496620964906,
+        "y": 1.420633216628401,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.364,
+      "t": 0.84418,
+      "phase": 0.8418142857142856,
+      "lampPower": 0.8325875318447232,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.39154152823920263,
+      "pbr": 0.23924305199416723,
+      "bulge": 0.0044959726719615055,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.021259310499858138,
+      "camera": {
+        "x": 0.6242496303345161,
+        "y": 1.394321978519118,
+        "z": 0.11999999999999995,
+        "fov": 30.00000000000001
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.494,
+      "t": 0.84976,
+      "phase": 0.8490657142877579,
+      "lampPower": 0.9344235248514162,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.3949142857152363,
+      "pbr": 0.33860029018816123,
+      "bulge": 0.005045887034197648,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.023434325917300554,
+      "camera": {
+        "x": 0.7185010859943113,
+        "y": 1.3519353252007111,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.625,
+      "t": 0.85537,
+      "phase": 0.8548171428586755,
+      "lampPower": 0.9843656623631617,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.397589368771477,
+      "pbr": 0.4225355867816455,
+      "bulge": 0.005315574576761074,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.024500991207842146,
+      "camera": {
+        "x": 0.775668555123807,
+        "y": 1.3229596513473723,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.76,
+      "t": 0.86113,
+      "phase": 0.8605,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.42705293151812485,
+      "pbr": 0.5074997499999998,
+      "bulge": 0.005352216945814454,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.812499798765247,
+        "y": 1.3031311512020984,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 10.891,
+      "t": 0.86674,
+      "phase": 0.8660714285714286,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.5068048120930745,
+      "pbr": 0.5906238155976673,
+      "bulge": 0.004739328567209966,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8304985346878256,
+        "y": 1.2933349906093117,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.024,
+      "t": 0.87244,
+      "phase": 0.8718228571449007,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.5540913194296959,
+      "pbr": 0.6740376603870963,
+      "bulge": 0.004128618758367123,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.838574739114521,
+        "y": 1.2889393599447805,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.157,
+      "t": 0.87816,
+      "phase": 0.8775314285729612,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.591372860929616,
+      "pbr": 0.7521948248152175,
+      "bulge": 0.0035652183585811,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8422118530292618,
+        "y": 1.286959790259647,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.291,
+      "t": 0.88392,
+      "phase": 0.8832614285724503,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.623578913506565,
+      "pbr": 0.8237481869671857,
+      "bulge": 0.003044541288429721,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.843844480213179,
+        "y": 1.2860712012970335,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.424,
+      "t": 0.8896,
+      "phase": 0.888815714287758,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.6515225891277738,
+      "pbr": 0.8843817232845488,
+      "bulge": 0.002582395056578417,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8445769754274521,
+        "y": 1.2856725265910243,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.558,
+      "t": 0.89534,
+      "phase": 0.8946057142862252,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.6781711785699134,
+      "pbr": 0.9362011900248431,
+      "bulge": 0.002144358043843628,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8449059751172457,
+        "y": 1.2854934621383838,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000007
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.691,
+      "t": 0.90103,
+      "phase": 0.9002971428581648,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.7024695575086903,
+      "pbr": 0.9735833284315407,
+      "bulge": 0.001756270828233169,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8450524987559278,
+        "y": 1.2854101769618753,
+        "z": 0.12000065392148179,
+        "fov": 30.000028588041857
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.824,
+      "t": 0.90673,
+      "phase": 0.9059757142867361,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.7252156957794145,
+      "pbr": 0.9952718829616272,
+      "bulge": 0.001410049525163443,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8437055295218634,
+        "y": 1.2821301540547367,
+        "z": 0.1207415661976259,
+        "fov": 30.032450191980946
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 11.959,
+      "t": 0.91252,
+      "phase": 0.911782857143879,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.7472027335936653,
+      "pbr": 1,
+      "bulge": 0.0010973528352845694,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8372147115403158,
+        "y": 1.267136279852358,
+        "z": 0.12415581997355142,
+        "fov": 30.182030773476207
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.091,
+      "t": 0.91818,
+      "phase": 0.9174314285729613,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.7675472023079202,
+      "pbr": 1,
+      "bulge": 0.0008324354859173618,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.8241540081023471,
+        "y": 1.2370680908488279,
+        "z": 0.13099232808276215,
+        "fov": 30.48196481635127
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.225,
+      "t": 0.92392,
+      "phase": 0.9231057142862252,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.7870959330556222,
+      "pbr": 1,
+      "bulge": 0.000604453687933069,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.804471548753593,
+        "y": 1.1917460228457677,
+        "z": 0.1412722133616081,
+        "fov": 30.933669291203486
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.359,
+      "t": 0.92966,
+      "phase": 0.9288957142872469,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.80624361173815,
+      "pbr": 1,
+      "bulge": 0.00041044113656533987,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.7787220415823489,
+        "y": 1.1323984994505123,
+        "z": 0.15469657773360185,
+        "fov": 31.524532342047326
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.494,
+      "t": 0.93545,
+      "phase": 0.9346214285714286,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.8244785882315793,
+      "pbr": 1,
+      "bulge": 0.00025621309560571343,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.7477298313833611,
+        "y": 1.0608841361484977,
+        "z": 0.17082556899991477,
+        "fov": 32.235703026501746
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.626,
+      "t": 0.94112,
+      "phase": 0.9405057142862252,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.842573616036804,
+      "pbr": 1,
+      "bulge": 0.00013598941014899738,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.7126619073850299,
+        "y": 0.9798596678530228,
+        "z": 0.18904191322178987,
+        "fov": 33.04044204819147
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.758,
+      "t": 0.94678,
+      "phase": 0.9460514285734721,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.8590899411505668,
+      "pbr": 1,
+      "bulge": 0.00005758762045416182,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.6745996366818737,
+        "y": 0.8917964886095471,
+        "z": 0.20877606696314982,
+        "fov": 33.91395847920773
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 12.891,
+      "t": 0.95248,
+      "phase": 0.9517557142862252,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.8755859839362107,
+      "pbr": 1,
+      "bulge": 0.000011703895557110001,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.6344866838362248,
+        "y": 0.7988508871943095,
+        "z": 0.22953065079595752,
+        "fov": 34.834614880069914
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.026,
+      "t": 0.95827,
+      "phase": 0.9574342857147966,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.8915552330313207,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 0.07195059112046942,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.593476347050304,
+        "y": 0.7036755339362604,
+        "z": 0.2507029883707968,
+        "fov": 35.775954358434596
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.147,
+      "t": 0.96345,
+      "phase": 0.9626971428581647,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9059853345340189,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 0.4606424991221868,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.557623169868506,
+        "y": 0.6203337663482908,
+        "z": 0.26917112249754294,
+        "fov": 36.598996364402915
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.268,
+      "t": 0.96861,
+      "phase": 0.9676428571428571,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9192454503415599,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 0.8259116047392595,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.5227282433571653,
+        "y": 0.5390857707198069,
+        "z": 0.2871043397342801,
+        "fov": 37.40011889342361
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.405,
+      "t": 0.97452,
+      "phase": 0.9736214285714285,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.934914001406206,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.9598022660349859,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.4829694310637866,
+        "y": 0.44632028258253126,
+        "z": 0.30747770080261555,
+        "fov": 38.31301975854137
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.527,
+      "t": 0.97974,
+      "phase": 0.9786742857158185,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9478693126039729,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.7975359872489434,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.4517984058629405,
+        "y": 0.3734165439296664,
+        "z": 0.3233963133707333,
+        "fov": 39.02883924920338
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.656,
+      "t": 0.98524,
+      "phase": 0.9843785714285714,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9622000645670662,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.5310536523323605,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.42154763069784457,
+        "y": 0.3024578814313948,
+        "z": 0.3387809498115703,
+        "fov": 39.723647115894394
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.777,
+      "t": 0.99043,
+      "phase": 0.9896971428581646,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.975297591303443,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.27281943281689713,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.3979693949904777,
+        "y": 0.24692535712810643,
+        "z": 0.35070247070678395,
+        "fov": 40.26533026059727
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 13.909,
+      "t": 0.99609,
+      "phase": 0.9952300000020436,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9886687847875913,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.06780364194534494,
+      "inkLuminance": 0.0248349097409426,
+      "camera": {
+        "x": 0.3793748275951657,
+        "y": 0.2028496908081803,
+        "z": 0.36001739858783377,
+        "fov": 40.69268365454486
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    },
+    {
+      "seconds": 14,
+      "t": 1,
+      "final": true,
+      "phase": 1,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 1,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0,
+      "inkLuminance": 0.0248349097409426,
+      "minZ": 0.14013516649603844,
+      "localZ": 0.1800684903562069,
+      "camera": {
+        "x": 0.3573295682915647,
+        "y": 0.14968966834039613,
+        "z": 0.3707813842842317,
+        "fov": 41.19987280845719
+      },
+      "tier": "lite",
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      }
+    }
+  ]
+}

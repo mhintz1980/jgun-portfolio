@@ -87,6 +87,32 @@ const identityResidual = (m) => Math.max(...m.elements.map((n, i) => Math.abs(n 
 const state = (t, crossing) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
 const allFinite = (value) =>
   typeof value === 'number' ? Number.isFinite(value) : Object.values(value).every(allFinite)
+const LAMP_FAILURE_KEYS = [
+  [0, 1], [0.12, 0.58], [0.18, 0.92],
+  [0.28, 0.14], [0.34, 0.78],
+  [0.46, 0.36], [0.51, 0.86],
+  [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
+  [0.85, 0.08], [0.91, 0.34], [1, 0],
+]
+const flickerT = (u) => INTRO_PHASES.flickerStart + u * (INTRO_PHASES.blackoutStart - INTRO_PHASES.flickerStart)
+/**
+ * Exact solveExtraction result for the synthetic tetrahedron fixture constructed below.
+ * This is not Default.glb and is never a live-model assumption: browser proof reads the
+ * live solve from __drawingProof.captureRegistration().crossing instead.
+ */
+const SYNTHETIC_TETRAHEDRON_CROSSING = 0.9113191885697063
+const deterministicCheckpoints = [
+  0,
+  ...LAMP_FAILURE_KEYS.map(([u]) => flickerT(u)),
+  INTRO_PHASES.pulseStart,
+  (INTRO_PHASES.pulseStart + INTRO_PHASES.pulseEnd) / 2,
+  INTRO_PHASES.pulseEnd,
+  INTRO_PHASES.metalStart,
+  INTRO_PHASES.riseStart,
+  INTRO_PHASES.orbitStart,
+  INTRO_PHASES.waveEnd,
+  1,
+]
 
 check('intro clamps outside window and returns finite phase states', () => {
   assert.equal(state(-1).t, 0)
@@ -95,9 +121,12 @@ check('intro clamps outside window and returns finite phase states', () => {
 })
 
 check('pacing map: intro owns its scroll share, downstream stays linear and invertible', () => {
+  assert.equal(INTRO_SCROLL_SHARE, 0.5)
+  assert.equal(DRAWING_INTRO_WINDOW.releaseEnd, 0.12)
   close(pacedProgress(0), 0)
   close(pacedProgress(1), 1, 1e-12)
   close(pacedProgress(INTRO_SCROLL_SHARE), DRAWING_INTRO_WINDOW.releaseEnd, 1e-12)
+  close(rawScrollFor(DRAWING_INTRO_WINDOW.releaseEnd), INTRO_SCROLL_SHARE, 1e-10)
   // Equal raw spans clear of the handoff blend must cover equal progress.
   close(pacedProgress(0.7) - pacedProgress(0.6), pacedProgress(0.9) - pacedProgress(0.8), 1e-12)
   for (const p of [0, 0.02, 0.12, 0.13, 0.4, 0.525, 0.76, 1]) close(pacedProgress(rawScrollFor(p)), p, 1e-10)
@@ -107,6 +136,66 @@ check('pacing map: intro owns its scroll share, downstream stays linear and inve
     assert.ok(value > previous, `pacing map must be strictly monotonic at raw ${i / 4000}`)
     previous = value
   }
+})
+
+check('storm phase boundaries and shared .79/.86 decision points are exact', () => {
+  const expected = {
+    onboardEnd: 0.38,
+    flickerStart: 0.45,
+    blackoutStart: 0.58,
+    pulseStart: 0.66,
+    pulseEnd: 0.79,
+    registrationEnd: 0.79,
+    bulgeStart: 0.79,
+    lampReturnStart: 0.79,
+    lampReturnEnd: 0.86,
+    metalStart: 0.81,
+    riseStart: 0.86,
+    orbitStart: 0.90,
+    waveEnd: 0.97,
+  }
+  for (const [key, value] of Object.entries(expected)) close(INTRO_PHASES[key], value, 1e-12, key)
+  const dark = state(INTRO_PHASES.blackoutStart)
+  assert.equal(dark.lampPower, 0)
+  assert.equal(dark.blackout, 1)
+  assert.equal(dark.pulse, 0)
+  const traceStart = state(INTRO_PHASES.pulseStart)
+  assert.equal(traceStart.lampPower, 0)
+  assert.equal(traceStart.blackout, 1)
+  assert.equal(traceStart.pulse, 1)
+  close(traceStart.pulseHead, 0)
+  const traceEnd = state(INTRO_PHASES.pulseEnd)
+  assert.equal(traceEnd.lampPower, 0)
+  assert.equal(traceEnd.blackout, 1)
+  assert.equal(traceEnd.pulse, 1)
+  close(traceEnd.pulseHead, 1)
+  assert.equal(traceEnd.pbr, 0)
+  assert.equal(state(INTRO_PHASES.metalStart).pbr, 0)
+  assert.ok(state(INTRO_PHASES.metalStart + 0.01).pbr > 0)
+  close(state(INTRO_PHASES.riseStart).poseT, 0.4, 1e-12)
+  close(state(INTRO_PHASES.riseStart).lampPower, 1)
+  assert.equal(state(INTRO_PHASES.orbitStart).perspective, 0)
+  close(state(INTRO_PHASES.waveEnd, SYNTHETIC_TETRAHEDRON_CROSSING).waveTime, 1, 1e-12)
+})
+
+check('lamp envelope hits five unequal failures, weak recoveries, and the fourth near-out shelf', () => {
+  const samples = LAMP_FAILURE_KEYS.map(([u, expected]) => {
+    const value = state(flickerT(u)).lampPower
+    close(value, expected, 1e-12, `u=${u}`)
+    return { u, expected, value }
+  })
+  const dips = [1, 3, 5, 7, 10].map((index) => samples[index])
+  const recoveries = [2, 4, 6, 9, 11].map((index) => samples[index])
+  assert.equal(new Set(dips.map((sample) => sample.expected)).size, 5, 'the five dip minima must be unequal')
+  assert.ok(dips.every((sample) => sample.expected < 1))
+  assert.ok(recoveries.every((sample) => sample.expected < 1), 'recoveries stay below full lamp power')
+  assert.ok(dips.every((sample, index) => sample.expected < recoveries[index].expected))
+  const shelfStart = flickerT(0.64)
+  const shelfEnd = flickerT(0.72)
+  close(shelfStart, 0.5332, 1e-12)
+  close(shelfEnd, 0.5436, 1e-12)
+  close(state((shelfStart + shelfEnd) / 2).lampPower, 0.015, 1e-12)
+  measurements.push(...samples.map((sample) => ({ flickerU: sample.u, introT: flickerT(sample.u), lampPower: sample.value })))
 })
 
 check('focus completes before the pulse; the reserved onboarding window carries nothing else', () => {
@@ -141,22 +230,23 @@ check('pulse traverses five ordered head positions without whole-window activati
 })
 
 check('shockwave runs once, after the solved crossing, on a sheet still held opaque', () => {
-  const crossing = 0.8888459503339448
+  const crossing = SYNTHETIC_TETRAHEDRON_CROSSING
   const waveStart = introScrollTimeFor(crossing)
+  const waveProbe = waveStart + Math.min(0.01, (INTRO_PHASES.waveEnd - waveStart) / 2)
+  measurements.push({ crossing, waveStartScrollT: waveStart, waveEnd: INTRO_PHASES.waveEnd, waveScrollSpan: INTRO_PHASES.waveEnd - waveStart })
   assert.equal(state(waveStart - 0.01, crossing).waveActive, 0)
-  assert.equal(state(waveStart + 0.01, crossing).waveActive, 1)
+  assert.equal(state(waveProbe, crossing).waveActive, 1)
   assert.equal(state(1, crossing).waveActive, 0)
   close(state(INTRO_PHASES.waveEnd, crossing).waveTime, 1, 1e-12)
   assert.equal(state(INTRO_PHASES.waveEnd, crossing).drawingOpacity, 1)
   assert.equal(state(1, crossing).drawingOpacity, 0)
-  measurements.push({ crossing, waveStartScrollT: waveStart, waveScrollSpan: INTRO_PHASES.waveEnd - waveStart })
 })
 
 check('pose reparameterization is monotone and leaves the pose axis itself unmoved', () => {
   close(introPoseTime(0), 0)
   close(introPoseTime(INTRO_PHASES.riseStart), 0.4, 1e-12)
   close(introPoseTime(1), 1, 1e-12)
-  for (const pose of [0.1, 0.4, 0.7, 0.8888459503339448, 1]) close(introPoseTime(introScrollTimeFor(pose)), pose, 1e-10)
+  for (const pose of [0.1, 0.4, 0.7, SYNTHETIC_TETRAHEDRON_CROSSING, 1]) close(introPoseTime(introScrollTimeFor(pose)), pose, 1e-10)
   let previous = -1
   for (let i = 0; i <= 2000; i += 1) {
     const value = introPoseTime(i / 2000)
@@ -166,7 +256,7 @@ check('pose reparameterization is monotone and leaves the pose axis itself unmov
 })
 
 check('intro state is exact under forward/reverse evaluation', () => {
-  const checkpoints = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.65, 0.8, 0.85, 0.95, 1]
+  const checkpoints = [...new Set([0, 0.1, 0.2, 0.3, ...deterministicCheckpoints, 0.95, 1])].sort((a, b) => a - b)
   const forward = new Map(checkpoints.map((t) => [t, state(t)]))
   for (const t of [...checkpoints].reverse()) assert.deepEqual(state(t), forward.get(t))
 })
@@ -274,6 +364,7 @@ for (const [label, aspect] of [
     assert.ok(independentMinimum(m).z < 0)
   })
   check(`${label}: solver contact is an actual support vertex within 1e-9 m`, () => {
+    close(extraction.crossing, SYNTHETIC_TETRAHEDRON_CROSSING, 1e-12, 'synthetic solved crossing:')
     assert.ok(extraction.crossing > 0.4 && extraction.crossing < 1)
     const m = relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, new Matrix4())
     const actual = independentMinimum(m)
@@ -300,7 +391,7 @@ for (const [label, aspect] of [
     })
   })
   check(`${label}: support cache agrees with all vertices through forward/reverse poses`, () => {
-    const checkpoints = [0, 0.1, 0.3, 0.4, 0.5, 0.65, 0.8, 0.85, 0.95, 1]
+    const checkpoints = [...new Set([0, 0.1, 0.3, ...deterministicCheckpoints, 0.95, 1])].sort((a, b) => a - b)
     const forward = new Map()
     for (const t of checkpoints) {
       const model = new Matrix4()

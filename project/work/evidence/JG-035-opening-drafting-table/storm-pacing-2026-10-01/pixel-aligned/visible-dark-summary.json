@@ -1,0 +1,3767 @@
+{
+  "url": "http://localhost:4173",
+  "label": "aligned-pixel",
+  "generatedAt": "2026-10-01T18:47:11.393Z",
+  "radius": 4,
+  "requireTier": "full",
+  "introShare": 0.12,
+  "phaseTable": {
+    "flicker": {
+      "start": 0.45,
+      "end": 0.58,
+      "u": [
+        0,
+        0.12,
+        0.18,
+        0.28,
+        0.34,
+        0.46,
+        0.51,
+        0.64,
+        0.72,
+        0.78,
+        0.85,
+        0.91,
+        1
+      ],
+      "power": [
+        1,
+        0.58,
+        0.92,
+        0.14,
+        0.78,
+        0.36,
+        0.86,
+        0.015,
+        0.015,
+        0.58,
+        0.08,
+        0.34,
+        0
+      ]
+    },
+    "lampReturn": {
+      "start": 0.79,
+      "end": 0.86
+    },
+    "beats": {
+      "lit": 0.4,
+      "dark": 0.59,
+      "trace": 0.69,
+      "pressure": 0.82,
+      "lift": 0.94,
+      "resolved": 0.98
+    }
+  },
+  "targets": {
+    "darkPaperLuminance": [
+      20,
+      40
+    ],
+    "inkOverStock": 6,
+    "textOverStock": 6,
+    "minTextSamples": 6,
+    "traceBrightPixels": 8,
+    "traceContourPixels": 1
+  },
+  "points": [
+    0.4,
+    0.4864,
+    0.5332,
+    0.5436,
+    0.58,
+    0.59,
+    0.69,
+    0.82,
+    0.98
+  ],
+  "invariants": {
+    "all-errors": [],
+    "unclean-stills": [
+      {
+        "t": 0.4864,
+        "name": "flicker-k03-dip-u0_280-p0_140",
+        "case": "desktop",
+        "error": "Error: TIER_MISMATCH lite != full"
+      }
+    ],
+    "camera-not-settled": [],
+    "sheet-matrix-stale": [],
+    "trace-fallback": [],
+    "trace-control-not-observed": [
+      {
+        "t": 0.4864,
+        "case": "desktop",
+        "status": "unavailable",
+        "error": null
+      }
+    ],
+    "surround-not-in-frame": [
+      {
+        "t": 0.4,
+        "case": "desktop"
+      },
+      {
+        "t": 0.4864,
+        "case": "desktop"
+      },
+      {
+        "t": 0.5332,
+        "case": "desktop"
+      },
+      {
+        "t": 0.5436,
+        "case": "desktop"
+      },
+      {
+        "t": 0.58,
+        "case": "desktop"
+      },
+      {
+        "t": 0.59,
+        "case": "desktop"
+      },
+      {
+        "t": 0.69,
+        "case": "desktop"
+      },
+      {
+        "t": 0.82,
+        "case": "desktop"
+      }
+    ],
+    "probe-api-missing": [],
+    "canvas-not-live": [],
+    "gpu-unavailable": [],
+    "power-off-plan-hard": []
+  },
+  "cases": {
+    "desktop": {
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "gpu": {
+        "available": true,
+        "unmasked": true,
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "maxTextureSize": 16384,
+        "contextLost": false
+      },
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          1600,
+          900
+        ],
+        "tier": "full"
+      },
+      "rows": [
+        {
+          "t": 0.4,
+          "name": "beat-lit",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 4,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.4,
+          "lampPower": 1,
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 0,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.186047,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1585.199999988079,
+            "extractMs": 1074.6000000238419,
+            "bakeMs": 2770.5,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 209.05,
+            "mean": 208.5,
+            "min": 204.05,
+            "max": 211.05,
+            "p05": 205.05,
+            "darkPixels": 0,
+            "brightPixels": 648
+          },
+          "ink": {
+            "count": 24,
+            "median": 207.19,
+            "mean": 132.25,
+            "min": 22.37,
+            "max": 212.05,
+            "p05": 22.37,
+            "darkPixels": 700,
+            "brightPixels": 1052
+          },
+          "text": {
+            "count": 21,
+            "median": 208.05,
+            "mean": 178.5,
+            "min": 22.37,
+            "max": 213.05,
+            "p05": 23.01,
+            "darkPixels": 2685,
+            "brightPixels": 23028
+          },
+          "trace": {
+            "count": 28,
+            "median": 209.05,
+            "mean": 162.57,
+            "min": 22.37,
+            "max": 212.26,
+            "p05": 22.37,
+            "darkPixels": 462,
+            "brightPixels": 1607
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 184.82,
+          "textOverStock": 185.04,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.4864,
+          "name": "flicker-k03-dip-u0_280-p0_140",
+          "case": "desktop",
+          "ok": false,
+          "error": "Error: TIER_MISMATCH lite != full",
+          "errors": [],
+          "attempt": 4,
+          "gpu": null,
+          "liveness": null,
+          "phase": null,
+          "lampPower": null,
+          "expectedPower": 0.14,
+          "expectedSource": "plan",
+          "powerDelta": null,
+          "powerHard": true,
+          "minZ": null,
+          "localZ": null,
+          "contact": null,
+          "travel": null,
+          "poseT": null,
+          "crossing": null,
+          "pulseHead": null,
+          "cameraResidual": null,
+          "traceControlStatus": "unavailable",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": null,
+          "ink": null,
+          "text": null,
+          "trace": null,
+          "surround": null,
+          "pixelsImage": null,
+          "inkOverStock": null,
+          "textOverStock": null,
+          "shaderValid": null,
+          "invalidPatches": {
+            "paper": 0,
+            "ink": 0,
+            "text": 0,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.5332,
+          "name": "flicker-k07-step-u0_640-p0_015",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.5332,
+          "lampPower": 0.015,
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.248,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1364.7999999523163,
+            "extractMs": 1056.2000000476837,
+            "bakeMs": 2546.899999976158,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 38.65,
+            "mean": 38.72,
+            "min": 35.58,
+            "max": 39.72,
+            "p05": 36.58,
+            "darkPixels": 648,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 37.65,
+            "mean": 21.6,
+            "min": 1.73,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 38.43,
+            "mean": 31.24,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 29048,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 38.65,
+            "mean": 28.05,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 35.92,
+          "textOverStock": 33.21,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.5436,
+          "name": "flicker-k08-step-u0_720-p0_015",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.5436,
+          "lampPower": 0.015,
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.252837,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1543.8999999761581,
+            "extractMs": 1099.300000011921,
+            "bakeMs": 2761.800000011921,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 38.65,
+            "mean": 38.72,
+            "min": 35.58,
+            "max": 39.72,
+            "p05": 36.58,
+            "darkPixels": 648,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 37.65,
+            "mean": 21.6,
+            "min": 1.73,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 38.43,
+            "mean": 31.24,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 29048,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 38.65,
+            "mean": 28.05,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 35.92,
+          "textOverStock": 33.21,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.58,
+          "name": "flicker-k12-edge-u1_000-p0_000",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 2,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.58,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.269767,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1288.6000000238419,
+            "extractMs": 1014.3000000119209,
+            "bakeMs": 2427,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 29.65,
+            "mean": 29.75,
+            "min": 27.51,
+            "max": 30.65,
+            "p05": 27.65,
+            "darkPixels": 648,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 28.44,
+            "mean": 16.48,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 29.44,
+            "mean": 23.82,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 29048,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.65,
+            "mean": 21.39,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 26.86,
+          "textOverStock": 25.28,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.59,
+          "name": "beat-dark",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.59,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.274419,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1402.1000000238419,
+            "extractMs": 1020.3000000119209,
+            "bakeMs": 2541.900000035763,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 29.65,
+            "mean": 29.75,
+            "min": 27.51,
+            "max": 30.65,
+            "p05": 27.65,
+            "darkPixels": 648,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 28.44,
+            "mean": 16.48,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 29.44,
+            "mean": 23.82,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 29048,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.65,
+            "mean": 21.39,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 26.86,
+          "textOverStock": 25.28,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.69,
+          "name": "beat-trace",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.69,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.32093,
+          "crossing": 0.888846,
+          "pulse": 1,
+          "pulseHead": 0.2308,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1506.300000011921,
+            "extractMs": 1050.199999988079,
+            "bakeMs": 2679.300000011921,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": true,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 546,
+            "contourPixels": 792,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 8,
+            "median": 29.65,
+            "mean": 29.86,
+            "min": 27.51,
+            "max": 30.65,
+            "p05": 27.72,
+            "darkPixels": 648,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 28.65,
+            "mean": 53,
+            "min": 1.58,
+            "max": 225.07,
+            "p05": 1.58,
+            "darkPixels": 1540,
+            "brightPixels": 323
+          },
+          "text": {
+            "count": 21,
+            "median": 29.58,
+            "mean": 23.89,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 29048,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.72,
+            "mean": 55.61,
+            "min": 1.58,
+            "max": 223.86,
+            "p05": 1.58,
+            "darkPixels": 1789,
+            "brightPixels": 346
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 27.07,
+          "textOverStock": 25.28,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 10,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.82,
+          "name": "beat-pressure",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 2,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.82,
+          "lampPower": 0.3936,
+          "expectedPower": 0.3936,
+          "expectedSource": "derived",
+          "powerDelta": 0,
+          "powerHard": false,
+          "blackout": 0,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.381395,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 1,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000001,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 0,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1360,
+            "extractMs": 1030.7999999523163,
+            "bakeMs": 2518,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.004723032069970829,
+            "flexPeakDisplacement": 0.004723032069970829,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.009519999999999813,
+            "contactRadius": 0.006,
+            "vellum": 0.02799999999999945
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 10,
+            "median": 156.12,
+            "mean": 150.19,
+            "min": 32.88,
+            "max": 162.98,
+            "p05": 32.88,
+            "darkPixels": 17,
+            "brightPixels": 149
+          },
+          "ink": {
+            "count": 24,
+            "median": 124.27,
+            "mean": 93.76,
+            "min": 9.69,
+            "max": 170.19,
+            "p05": 9.69,
+            "darkPixels": 784,
+            "brightPixels": 525
+          },
+          "text": {
+            "count": 21,
+            "median": 154.05,
+            "mean": 130.09,
+            "min": 9.69,
+            "max": 164.4,
+            "p05": 9.69,
+            "darkPixels": 3696,
+            "brightPixels": 3873
+          },
+          "trace": {
+            "count": 28,
+            "median": 156.19,
+            "mean": 115.15,
+            "min": 9.69,
+            "max": 170.19,
+            "p05": 9.69,
+            "darkPixels": 542,
+            "brightPixels": 776
+          },
+          "surround": null,
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 114.58,
+          "textOverStock": 123.45,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 8,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.98,
+          "name": "beat-resolved",
+          "case": "desktop",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 4,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1600,
+              900
+            ],
+            "tier": "full"
+          },
+          "phase": 0.98,
+          "lampPower": 1,
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": false,
+          "blackout": 0,
+          "minZ": 0.069973,
+          "localZ": 0.116794,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.951227,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 1,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 16,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1155.1000000238419,
+            "extractMs": 1005.1000000238419,
+            "bakeMs": 2291.2000000476837,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.1389373603048097,
+            "contactRadius": 0.023740821149575618,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": null,
+          "ink": {
+            "count": 24,
+            "median": 172.18,
+            "mean": 129.92,
+            "min": 22.37,
+            "max": 182.26,
+            "p05": 22.37,
+            "darkPixels": 466,
+            "brightPixels": 1107
+          },
+          "text": {
+            "count": 25,
+            "median": 178.12,
+            "mean": 145.53,
+            "min": 0,
+            "max": 186.04,
+            "p05": 0,
+            "darkPixels": 11736,
+            "brightPixels": 33642
+          },
+          "trace": {
+            "count": 28,
+            "median": 176.47,
+            "mean": 153.5,
+            "min": 22.37,
+            "max": 184.04,
+            "p05": 22.37,
+            "darkPixels": 224,
+            "brightPixels": 1686
+          },
+          "surround": {
+            "count": 16,
+            "median": 29.17,
+            "mean": 25.82,
+            "min": 1,
+            "max": 51.72,
+            "p05": 1,
+            "darkPixels": 1296,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 1600,
+            "height": 900
+          },
+          "inkOverStock": 148.89,
+          "textOverStock": 103.09,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 18,
+            "ink": 0,
+            "text": 7,
+            "trace": 0,
+            "surround": 0
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "tier-required",
+          "source": "harness",
+          "observed": {
+            "required": "full",
+            "tiers": [
+              "full",
+              null
+            ]
+          },
+          "pass": false,
+          "note": "With --require-tier set, every still must have run on that tier; a lite frame is not full-tier finish evidence."
+        },
+        {
+          "id": "stills-captured",
+          "source": "harness",
+          "observed": {
+            "failedStills": [
+              "flicker-k03-dip-u0_280-p0_140"
+            ],
+            "consoleErrors": 0
+          },
+          "pass": false,
+          "note": "Every still rendered a live canvas with a clean console."
+        },
+        {
+          "id": "dark-paper-in-band",
+          "source": "plan",
+          "observed": 29.65,
+          "pass": true,
+          "note": "Unoccluded stock at the dark beat, apparent luminance 20-40/255 (plan)."
+        },
+        {
+          "id": "ink-darker-than-stock",
+          "source": "plan",
+          "observed": 26.86,
+          "pass": true,
+          "note": "Line ink must stay at least 6/255 below the stock in the SAME window at the dark beat."
+        },
+        {
+          "id": "text-darker-than-stock",
+          "source": "plan",
+          "observed": {
+            "samples": 21,
+            "contrast": 25.28
+          },
+          "pass": true,
+          "note": "Printed lettering, measured as the darkest pixel inside each font rect against that rect own adjacent stock, must stay below it across enough boxes."
+        },
+        {
+          "id": "surround-subordinate",
+          "source": "info",
+          "observed": {
+            "samples": 0,
+            "paper": 29.65,
+            "surround": null
+          },
+          "reason": "NOT_IN_FRAME",
+          "pass": null,
+          "note": "Desk/backdrop support sampled OFF the stock trim must not out-luminance the sheet. Zero visible support is reported as not-in-frame, not asserted."
+        },
+        {
+          "id": "trace-bright-on-screen",
+          "source": "plan",
+          "observed": {
+            "trace": 346,
+            "dark": 0
+          },
+          "pass": true,
+          "note": "The electrical trace contributes bright pixels at its own beat and none at the dark beat, same registered camera."
+        },
+        {
+          "id": "trace-null-control-trace",
+          "source": "plan",
+          "observed": {
+            "status": "observed",
+            "reading": {
+              "meshName": "lightning",
+              "meshVisible": true,
+              "fixedCamera": true,
+              "shaderValid": true,
+              "consoleErrors": 0,
+              "changedBrightPixels": 546,
+              "contourPixels": 792,
+              "width": 512,
+              "height": 288
+            },
+            "error": null
+          },
+          "pass": true,
+          "note": "Offscreen normal-vs-null (ribbon hidden) delta at the trace beat. Unknown, errored or missing helper fails this requirement."
+        },
+        {
+          "id": "trace-null-control-dark",
+          "source": "plan",
+          "observed": {
+            "status": "observed",
+            "reading": {
+              "meshName": "lightning",
+              "meshVisible": false,
+              "fixedCamera": true,
+              "shaderValid": true,
+              "consoleErrors": 0,
+              "changedBrightPixels": 0,
+              "contourPixels": 0,
+              "width": 512,
+              "height": 288
+            },
+            "error": null
+          },
+          "pass": true,
+          "note": "The dark hold must OBSERVE zero contour pixels from the same registered camera. Unavailable is unknown, not zero, so it fails here."
+        },
+        {
+          "id": "probe-api-present",
+          "source": "harness",
+          "observed": {
+            "missing": []
+          },
+          "pass": true,
+          "note": "Every required __drawingProof helper must exist; a missing helper is a harness failure, never a silent unknown."
+        },
+        {
+          "id": "lit-hold-bright",
+          "source": "info",
+          "observed": 209.05,
+          "pass": null,
+          "note": "Reference only: the lit hold is the bright end of the same measurement chain."
+        },
+        {
+          "id": "tier-and-gpu",
+          "source": "info",
+          "observed": {
+            "tier": "full",
+            "matrixConsistent": true
+          },
+          "pass": null,
+          "note": "Full-tier finish needs headed Chrome on D3D11; a downgraded tier or a stale sheet matrix invalidates the finish reading, not the numbers."
+        }
+      ]
+    },
+    "narrow": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "gpu": {
+        "available": true,
+        "unmasked": true,
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "maxTextureSize": 16384,
+        "contextLost": false
+      },
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          390,
+          844
+        ],
+        "tier": "full"
+      },
+      "rows": [
+        {
+          "t": 0.4,
+          "name": "beat-lit",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 3,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.4,
+          "lampPower": 1,
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 0,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.186047,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1121.6000000238419,
+            "extractMs": 1057.0999999642372,
+            "bakeMs": 2301.699999988079,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 209.05,
+            "mean": 208.79,
+            "min": 203.26,
+            "max": 213.05,
+            "p05": 204.26,
+            "darkPixels": 0,
+            "brightPixels": 729
+          },
+          "ink": {
+            "count": 24,
+            "median": 202.26,
+            "mean": 142.45,
+            "min": 22.37,
+            "max": 212.05,
+            "p05": 22.37,
+            "darkPixels": 548,
+            "brightPixels": 1129
+          },
+          "text": {
+            "count": 21,
+            "median": 207.05,
+            "mean": 191.51,
+            "min": 22.37,
+            "max": 213.05,
+            "p05": 85.09,
+            "darkPixels": 13,
+            "brightPixels": 4302
+          },
+          "trace": {
+            "count": 28,
+            "median": 209.26,
+            "mean": 178.31,
+            "min": 22.37,
+            "max": 212.05,
+            "p05": 22.37,
+            "darkPixels": 249,
+            "brightPixels": 1794
+          },
+          "surround": {
+            "count": 1,
+            "median": 63.07,
+            "mean": 63.59,
+            "min": 50.16,
+            "max": 74.7,
+            "p05": 54.3,
+            "darkPixels": 47,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 179.89,
+          "textOverStock": 113.82,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.4864,
+          "name": "flicker-k03-dip-u0_280-p0_140",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.4864,
+          "lampPower": 0.14,
+          "expectedPower": 0.14,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 0,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.226233,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1342.8999999761581,
+            "extractMs": 1082.1000000238419,
+            "bakeMs": 2557.2999999523163,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 95.06,
+            "mean": 94.84,
+            "min": 88.13,
+            "max": 100.12,
+            "p05": 89.92,
+            "darkPixels": 0,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 86.2,
+            "mean": 57.93,
+            "min": 3.95,
+            "max": 99.12,
+            "p05": 3.95,
+            "darkPixels": 892,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 92.84,
+            "mean": 81.43,
+            "min": 3.95,
+            "max": 100.12,
+            "p05": 30.3,
+            "darkPixels": 951,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 95.2,
+            "mean": 76.8,
+            "min": 3.95,
+            "max": 99.2,
+            "p05": 3.95,
+            "darkPixels": 557,
+            "brightPixels": 0
+          },
+          "surround": {
+            "count": 1,
+            "median": 13.69,
+            "mean": 13.77,
+            "min": 9.41,
+            "max": 17.83,
+            "p05": 10.41,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 82.25,
+          "textOverStock": 63.62,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.5332,
+          "name": "flicker-k07-step-u0_640-p0_015",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 2,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.5332,
+          "lampPower": 0.015,
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.248,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1047.800000011921,
+            "extractMs": 989.2999999523163,
+            "bakeMs": 2136,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 38.65,
+            "mean": 38.89,
+            "min": 36.65,
+            "max": 40.65,
+            "p05": 37.65,
+            "darkPixels": 729,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 33.79,
+            "mean": 22.89,
+            "min": 1.73,
+            "max": 39.93,
+            "p05": 1.73,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 38.43,
+            "mean": 32.45,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 9.16,
+            "darkPixels": 4998,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 38.72,
+            "mean": 30.72,
+            "min": 1.73,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": {
+            "count": 1,
+            "median": 4.49,
+            "mean": 4.41,
+            "min": 2.35,
+            "max": 5.92,
+            "p05": 3.35,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 32.07,
+          "textOverStock": 28.56,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.5436,
+          "name": "flicker-k08-step-u0_720-p0_015",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.5436,
+          "lampPower": 0.015,
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.252837,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000003,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1164.800000011921,
+            "extractMs": 1054.300000011921,
+            "bakeMs": 2366.5,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 38.65,
+            "mean": 38.89,
+            "min": 36.65,
+            "max": 40.65,
+            "p05": 37.65,
+            "darkPixels": 729,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 33.79,
+            "mean": 22.89,
+            "min": 1.73,
+            "max": 39.93,
+            "p05": 1.73,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 38.43,
+            "mean": 32.45,
+            "min": 1.65,
+            "max": 40.65,
+            "p05": 9.16,
+            "darkPixels": 4998,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 38.72,
+            "mean": 30.72,
+            "min": 1.73,
+            "max": 40.65,
+            "p05": 1.73,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": {
+            "count": 1,
+            "median": 4.49,
+            "mean": 4.41,
+            "min": 2.35,
+            "max": 5.92,
+            "p05": 3.35,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 32.07,
+          "textOverStock": 28.56,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.58,
+          "name": "flicker-k12-edge-u1_000-p0_000",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.58,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.269767,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1414.6000000238419,
+            "extractMs": 1060.9000000357628,
+            "bakeMs": 2588.900000035763,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 29.65,
+            "mean": 29.93,
+            "min": 27.65,
+            "max": 30.65,
+            "p05": 28.65,
+            "darkPixels": 729,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 25.72,
+            "mean": 17.41,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 29.44,
+            "mean": 24.66,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 7.08,
+            "darkPixels": 4998,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.65,
+            "mean": 23.39,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": {
+            "count": 1,
+            "median": 3.35,
+            "mean": 3.4,
+            "min": 2.14,
+            "max": 4.57,
+            "p05": 2.35,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 24.14,
+          "textOverStock": 22.28,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.59,
+          "name": "beat-dark",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.59,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.274419,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 0,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1392.699999988079,
+            "extractMs": 1049.8999999761581,
+            "bakeMs": 2574.5,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 29.65,
+            "mean": 29.93,
+            "min": 27.65,
+            "max": 30.65,
+            "p05": 28.65,
+            "darkPixels": 729,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 25.72,
+            "mean": 17.41,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 1944,
+            "brightPixels": 0
+          },
+          "text": {
+            "count": 21,
+            "median": 29.44,
+            "mean": 24.66,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 7.08,
+            "darkPixels": 4998,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.65,
+            "mean": 23.39,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 1.58,
+            "darkPixels": 2268,
+            "brightPixels": 0
+          },
+          "surround": {
+            "count": 1,
+            "median": 3.35,
+            "mean": 3.39,
+            "min": 2.14,
+            "max": 4.57,
+            "p05": 2.35,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 24.14,
+          "textOverStock": 22.28,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.69,
+          "name": "beat-trace",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.69,
+          "lampPower": 0,
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": true,
+          "blackout": 1,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.32093,
+          "crossing": 0.888846,
+          "pulse": 1,
+          "pulseHead": 0.2308,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 1,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1494.5,
+            "extractMs": 1040.699999988079,
+            "bakeMs": 2656.199999988079,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": true,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 411,
+            "contourPixels": 563,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 9,
+            "median": 29.65,
+            "mean": 30.04,
+            "min": 28.37,
+            "max": 30.65,
+            "p05": 28.65,
+            "darkPixels": 729,
+            "brightPixels": 0
+          },
+          "ink": {
+            "count": 24,
+            "median": 29.65,
+            "mean": 37.39,
+            "min": 1.58,
+            "max": 217.65,
+            "p05": 1.58,
+            "darkPixels": 1733,
+            "brightPixels": 156
+          },
+          "text": {
+            "count": 21,
+            "median": 29.44,
+            "mean": 24.71,
+            "min": 1.58,
+            "max": 30.65,
+            "p05": 7.16,
+            "darkPixels": 4998,
+            "brightPixels": 0
+          },
+          "trace": {
+            "count": 28,
+            "median": 29.72,
+            "mean": 40.22,
+            "min": 1.58,
+            "max": 217.65,
+            "p05": 1.58,
+            "darkPixels": 2044,
+            "brightPixels": 158
+          },
+          "surround": {
+            "count": 1,
+            "median": 3.35,
+            "mean": 3.35,
+            "min": 2.14,
+            "max": 4.57,
+            "p05": 2.35,
+            "darkPixels": 81,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 27.14,
+          "textOverStock": 21.57,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 9,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.82,
+          "name": "beat-pressure",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.82,
+          "lampPower": 0.3936,
+          "expectedPower": 0.3936,
+          "expectedSource": "derived",
+          "powerDelta": 0,
+          "powerHard": false,
+          "blackout": 0,
+          "minZ": -0.079865,
+          "localZ": -0.039932,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.381395,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 1,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0.000002,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 2,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1239.699999988079,
+            "extractMs": 901,
+            "bakeMs": 2262.900000035763,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.004723032069970829,
+            "flexPeakDisplacement": 0.004723032069970829,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.009519999999999813,
+            "contactRadius": 0.006,
+            "vellum": 0.02799999999999945
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": {
+            "count": 10,
+            "median": 155.19,
+            "mean": 149.7,
+            "min": 67.79,
+            "max": 164.19,
+            "p05": 79.64,
+            "darkPixels": 0,
+            "brightPixels": 89
+          },
+          "ink": {
+            "count": 24,
+            "median": 143.26,
+            "mean": 100.83,
+            "min": 9.69,
+            "max": 170.19,
+            "p05": 9.69,
+            "darkPixels": 661,
+            "brightPixels": 610
+          },
+          "text": {
+            "count": 21,
+            "median": 152.98,
+            "mean": 136.33,
+            "min": 9.69,
+            "max": 164.19,
+            "p05": 48.8,
+            "darkPixels": 127,
+            "brightPixels": 695
+          },
+          "trace": {
+            "count": 28,
+            "median": 157.19,
+            "mean": 125.25,
+            "min": 9.69,
+            "max": 170.9,
+            "p05": 9.69,
+            "darkPixels": 364,
+            "brightPixels": 853
+          },
+          "surround": {
+            "count": 2,
+            "median": 33.31,
+            "mean": 32.2,
+            "min": 23.47,
+            "max": 38.59,
+            "p05": 24.47,
+            "darkPixels": 162,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 132.86,
+          "textOverStock": 91.25,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 8,
+            "ink": 0,
+            "text": 11,
+            "trace": 0,
+            "surround": 0
+          }
+        },
+        {
+          "t": 0.98,
+          "name": "beat-resolved",
+          "case": "narrow",
+          "ok": true,
+          "error": null,
+          "errors": [],
+          "attempt": 1,
+          "gpu": {
+            "available": true,
+            "unmasked": true,
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "maxTextureSize": 16384,
+            "contextLost": false
+          },
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              390,
+              844
+            ],
+            "tier": "full"
+          },
+          "phase": 0.98,
+          "lampPower": 1,
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "powerDelta": 0,
+          "powerHard": false,
+          "blackout": 0,
+          "minZ": 0.069973,
+          "localZ": 0.116794,
+          "contact": [
+            -0.003754,
+            0.031415,
+            0
+          ],
+          "travel": 0.22,
+          "poseT": 0.951227,
+          "crossing": 0.888846,
+          "pulse": 0,
+          "pulseHead": 1,
+          "tier": "full",
+          "mode": "normal",
+          "reducedMotion": false,
+          "annotationsReady": true,
+          "cameraResidual": 0,
+          "matrixConsistent": true,
+          "counts": {
+            "paper": 18,
+            "ink": 24,
+            "text": 32,
+            "trace": 28,
+            "surround": 3,
+            "segments": 221101,
+            "textBoxes": 125
+          },
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1215,
+            "extractMs": 936.2000000476837,
+            "bakeMs": 2249.300000011921,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.1389373603048097,
+            "contactRadius": 0.023740821149575618,
+            "vellum": 0
+          },
+          "traceFallback": false,
+          "traceControl": {
+            "meshName": "lightning",
+            "meshVisible": false,
+            "fixedCamera": true,
+            "shaderValid": true,
+            "consoleErrors": 0,
+            "changedBrightPixels": 0,
+            "contourPixels": 0,
+            "width": 512,
+            "height": 288
+          },
+          "traceControlStatus": "observed",
+          "traceControlError": null,
+          "apiMissing": [],
+          "paper": null,
+          "ink": {
+            "count": 18,
+            "median": 174.18,
+            "mean": 133.12,
+            "min": 22.37,
+            "max": 182.26,
+            "p05": 22.37,
+            "darkPixels": 311,
+            "brightPixels": 882
+          },
+          "text": {
+            "count": 23,
+            "median": 177.12,
+            "mean": 146.92,
+            "min": 0,
+            "max": 185.26,
+            "p05": 1,
+            "darkPixels": 4100,
+            "brightPixels": 19917
+          },
+          "trace": {
+            "count": 22,
+            "median": 176.26,
+            "mean": 156.33,
+            "min": 22.37,
+            "max": 183.04,
+            "p05": 22.37,
+            "darkPixels": 154,
+            "brightPixels": 1366
+          },
+          "surround": {
+            "count": 3,
+            "median": 27.03,
+            "mean": 26.22,
+            "min": 12.86,
+            "max": 45.08,
+            "p05": 12.86,
+            "darkPixels": 243,
+            "brightPixels": 0
+          },
+          "pixelsImage": {
+            "width": 390,
+            "height": 844
+          },
+          "inkOverStock": 150.89,
+          "textOverStock": 63.26,
+          "shaderValid": true,
+          "invalidPatches": {
+            "paper": 18,
+            "ink": 6,
+            "text": 9,
+            "trace": 6,
+            "surround": 0
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "tier-required",
+          "source": "harness",
+          "observed": {
+            "required": "full",
+            "tiers": [
+              "full"
+            ]
+          },
+          "pass": true,
+          "note": "With --require-tier set, every still must have run on that tier; a lite frame is not full-tier finish evidence."
+        },
+        {
+          "id": "stills-captured",
+          "source": "harness",
+          "observed": {
+            "failedStills": [],
+            "consoleErrors": 0
+          },
+          "pass": true,
+          "note": "Every still rendered a live canvas with a clean console."
+        },
+        {
+          "id": "dark-paper-in-band",
+          "source": "plan",
+          "observed": 29.65,
+          "pass": true,
+          "note": "Unoccluded stock at the dark beat, apparent luminance 20-40/255 (plan)."
+        },
+        {
+          "id": "ink-darker-than-stock",
+          "source": "plan",
+          "observed": 24.14,
+          "pass": true,
+          "note": "Line ink must stay at least 6/255 below the stock in the SAME window at the dark beat."
+        },
+        {
+          "id": "text-darker-than-stock",
+          "source": "plan",
+          "observed": {
+            "samples": 21,
+            "contrast": 22.28
+          },
+          "pass": true,
+          "note": "Printed lettering, measured as the darkest pixel inside each font rect against that rect own adjacent stock, must stay below it across enough boxes."
+        },
+        {
+          "id": "surround-subordinate",
+          "source": "plan",
+          "observed": {
+            "samples": 1,
+            "paper": 29.65,
+            "surround": 3.35
+          },
+          "reason": null,
+          "pass": true,
+          "note": "Desk/backdrop support sampled OFF the stock trim must not out-luminance the sheet. Zero visible support is reported as not-in-frame, not asserted."
+        },
+        {
+          "id": "trace-bright-on-screen",
+          "source": "plan",
+          "observed": {
+            "trace": 158,
+            "dark": 0
+          },
+          "pass": true,
+          "note": "The electrical trace contributes bright pixels at its own beat and none at the dark beat, same registered camera."
+        },
+        {
+          "id": "trace-null-control-trace",
+          "source": "plan",
+          "observed": {
+            "status": "observed",
+            "reading": {
+              "meshName": "lightning",
+              "meshVisible": true,
+              "fixedCamera": true,
+              "shaderValid": true,
+              "consoleErrors": 0,
+              "changedBrightPixels": 411,
+              "contourPixels": 563,
+              "width": 512,
+              "height": 288
+            },
+            "error": null
+          },
+          "pass": true,
+          "note": "Offscreen normal-vs-null (ribbon hidden) delta at the trace beat. Unknown, errored or missing helper fails this requirement."
+        },
+        {
+          "id": "trace-null-control-dark",
+          "source": "plan",
+          "observed": {
+            "status": "observed",
+            "reading": {
+              "meshName": "lightning",
+              "meshVisible": false,
+              "fixedCamera": true,
+              "shaderValid": true,
+              "consoleErrors": 0,
+              "changedBrightPixels": 0,
+              "contourPixels": 0,
+              "width": 512,
+              "height": 288
+            },
+            "error": null
+          },
+          "pass": true,
+          "note": "The dark hold must OBSERVE zero contour pixels from the same registered camera. Unavailable is unknown, not zero, so it fails here."
+        },
+        {
+          "id": "probe-api-present",
+          "source": "harness",
+          "observed": {
+            "missing": []
+          },
+          "pass": true,
+          "note": "Every required __drawingProof helper must exist; a missing helper is a harness failure, never a silent unknown."
+        },
+        {
+          "id": "lit-hold-bright",
+          "source": "info",
+          "observed": 209.05,
+          "pass": null,
+          "note": "Reference only: the lit hold is the bright end of the same measurement chain."
+        },
+        {
+          "id": "tier-and-gpu",
+          "source": "info",
+          "observed": {
+            "tier": "full",
+            "matrixConsistent": true
+          },
+          "pass": null,
+          "note": "Full-tier finish needs headed Chrome on D3D11; a downgraded tier or a stale sheet matrix invalidates the finish reading, not the numbers."
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "id": "tier-required",
+      "source": "harness",
+      "case": "desktop",
+      "observed": {
+        "required": "full",
+        "tiers": [
+          "full",
+          null
+        ]
+      },
+      "pass": false,
+      "note": "With --require-tier set, every still must have run on that tier; a lite frame is not full-tier finish evidence."
+    },
+    {
+      "id": "stills-captured",
+      "source": "harness",
+      "case": "desktop",
+      "observed": {
+        "failedStills": [
+          "flicker-k03-dip-u0_280-p0_140"
+        ],
+        "consoleErrors": 0
+      },
+      "pass": false,
+      "note": "Every still rendered a live canvas with a clean console."
+    },
+    {
+      "id": "dark-paper-in-band",
+      "source": "plan",
+      "case": "desktop",
+      "observed": 29.65,
+      "pass": true,
+      "note": "Unoccluded stock at the dark beat, apparent luminance 20-40/255 (plan)."
+    },
+    {
+      "id": "ink-darker-than-stock",
+      "source": "plan",
+      "case": "desktop",
+      "observed": 26.86,
+      "pass": true,
+      "note": "Line ink must stay at least 6/255 below the stock in the SAME window at the dark beat."
+    },
+    {
+      "id": "text-darker-than-stock",
+      "source": "plan",
+      "case": "desktop",
+      "observed": {
+        "samples": 21,
+        "contrast": 25.28
+      },
+      "pass": true,
+      "note": "Printed lettering, measured as the darkest pixel inside each font rect against that rect own adjacent stock, must stay below it across enough boxes."
+    },
+    {
+      "id": "surround-subordinate",
+      "case": "desktop",
+      "source": "info",
+      "observed": {
+        "samples": 0,
+        "paper": 29.65,
+        "surround": null
+      },
+      "reason": "NOT_IN_FRAME",
+      "pass": null,
+      "note": "Desk/backdrop support sampled OFF the stock trim must not out-luminance the sheet. Zero visible support is reported as not-in-frame, not asserted."
+    },
+    {
+      "id": "trace-bright-on-screen",
+      "source": "plan",
+      "case": "desktop",
+      "observed": {
+        "trace": 346,
+        "dark": 0
+      },
+      "pass": true,
+      "note": "The electrical trace contributes bright pixels at its own beat and none at the dark beat, same registered camera."
+    },
+    {
+      "id": "trace-null-control-trace",
+      "source": "plan",
+      "case": "desktop",
+      "observed": {
+        "status": "observed",
+        "reading": {
+          "meshName": "lightning",
+          "meshVisible": true,
+          "fixedCamera": true,
+          "shaderValid": true,
+          "consoleErrors": 0,
+          "changedBrightPixels": 546,
+          "contourPixels": 792,
+          "width": 512,
+          "height": 288
+        },
+        "error": null
+      },
+      "pass": true,
+      "note": "Offscreen normal-vs-null (ribbon hidden) delta at the trace beat. Unknown, errored or missing helper fails this requirement."
+    },
+    {
+      "id": "trace-null-control-dark",
+      "source": "plan",
+      "case": "desktop",
+      "observed": {
+        "status": "observed",
+        "reading": {
+          "meshName": "lightning",
+          "meshVisible": false,
+          "fixedCamera": true,
+          "shaderValid": true,
+          "consoleErrors": 0,
+          "changedBrightPixels": 0,
+          "contourPixels": 0,
+          "width": 512,
+          "height": 288
+        },
+        "error": null
+      },
+      "pass": true,
+      "note": "The dark hold must OBSERVE zero contour pixels from the same registered camera. Unavailable is unknown, not zero, so it fails here."
+    },
+    {
+      "id": "probe-api-present",
+      "source": "harness",
+      "case": "desktop",
+      "observed": {
+        "missing": []
+      },
+      "pass": true,
+      "note": "Every required __drawingProof helper must exist; a missing helper is a harness failure, never a silent unknown."
+    },
+    {
+      "id": "lit-hold-bright",
+      "source": "info",
+      "case": "desktop",
+      "observed": 209.05,
+      "pass": null,
+      "note": "Reference only: the lit hold is the bright end of the same measurement chain."
+    },
+    {
+      "id": "tier-and-gpu",
+      "source": "info",
+      "case": "desktop",
+      "observed": {
+        "tier": "full",
+        "matrixConsistent": true
+      },
+      "pass": null,
+      "note": "Full-tier finish needs headed Chrome on D3D11; a downgraded tier or a stale sheet matrix invalidates the finish reading, not the numbers."
+    },
+    {
+      "id": "tier-required",
+      "source": "harness",
+      "case": "narrow",
+      "observed": {
+        "required": "full",
+        "tiers": [
+          "full"
+        ]
+      },
+      "pass": true,
+      "note": "With --require-tier set, every still must have run on that tier; a lite frame is not full-tier finish evidence."
+    },
+    {
+      "id": "stills-captured",
+      "source": "harness",
+      "case": "narrow",
+      "observed": {
+        "failedStills": [],
+        "consoleErrors": 0
+      },
+      "pass": true,
+      "note": "Every still rendered a live canvas with a clean console."
+    },
+    {
+      "id": "dark-paper-in-band",
+      "source": "plan",
+      "case": "narrow",
+      "observed": 29.65,
+      "pass": true,
+      "note": "Unoccluded stock at the dark beat, apparent luminance 20-40/255 (plan)."
+    },
+    {
+      "id": "ink-darker-than-stock",
+      "source": "plan",
+      "case": "narrow",
+      "observed": 24.14,
+      "pass": true,
+      "note": "Line ink must stay at least 6/255 below the stock in the SAME window at the dark beat."
+    },
+    {
+      "id": "text-darker-than-stock",
+      "source": "plan",
+      "case": "narrow",
+      "observed": {
+        "samples": 21,
+        "contrast": 22.28
+      },
+      "pass": true,
+      "note": "Printed lettering, measured as the darkest pixel inside each font rect against that rect own adjacent stock, must stay below it across enough boxes."
+    },
+    {
+      "id": "surround-subordinate",
+      "case": "narrow",
+      "source": "plan",
+      "observed": {
+        "samples": 1,
+        "paper": 29.65,
+        "surround": 3.35
+      },
+      "reason": null,
+      "pass": true,
+      "note": "Desk/backdrop support sampled OFF the stock trim must not out-luminance the sheet. Zero visible support is reported as not-in-frame, not asserted."
+    },
+    {
+      "id": "trace-bright-on-screen",
+      "source": "plan",
+      "case": "narrow",
+      "observed": {
+        "trace": 158,
+        "dark": 0
+      },
+      "pass": true,
+      "note": "The electrical trace contributes bright pixels at its own beat and none at the dark beat, same registered camera."
+    },
+    {
+      "id": "trace-null-control-trace",
+      "source": "plan",
+      "case": "narrow",
+      "observed": {
+        "status": "observed",
+        "reading": {
+          "meshName": "lightning",
+          "meshVisible": true,
+          "fixedCamera": true,
+          "shaderValid": true,
+          "consoleErrors": 0,
+          "changedBrightPixels": 411,
+          "contourPixels": 563,
+          "width": 512,
+          "height": 288
+        },
+        "error": null
+      },
+      "pass": true,
+      "note": "Offscreen normal-vs-null (ribbon hidden) delta at the trace beat. Unknown, errored or missing helper fails this requirement."
+    },
+    {
+      "id": "trace-null-control-dark",
+      "source": "plan",
+      "case": "narrow",
+      "observed": {
+        "status": "observed",
+        "reading": {
+          "meshName": "lightning",
+          "meshVisible": false,
+          "fixedCamera": true,
+          "shaderValid": true,
+          "consoleErrors": 0,
+          "changedBrightPixels": 0,
+          "contourPixels": 0,
+          "width": 512,
+          "height": 288
+        },
+        "error": null
+      },
+      "pass": true,
+      "note": "The dark hold must OBSERVE zero contour pixels from the same registered camera. Unavailable is unknown, not zero, so it fails here."
+    },
+    {
+      "id": "probe-api-present",
+      "source": "harness",
+      "case": "narrow",
+      "observed": {
+        "missing": []
+      },
+      "pass": true,
+      "note": "Every required __drawingProof helper must exist; a missing helper is a harness failure, never a silent unknown."
+    },
+    {
+      "id": "lit-hold-bright",
+      "source": "info",
+      "case": "narrow",
+      "observed": 209.05,
+      "pass": null,
+      "note": "Reference only: the lit hold is the bright end of the same measurement chain."
+    },
+    {
+      "id": "tier-and-gpu",
+      "source": "info",
+      "case": "narrow",
+      "observed": {
+        "tier": "full",
+        "matrixConsistent": true
+      },
+      "pass": null,
+      "note": "Full-tier finish needs headed Chrome on D3D11; a downgraded tier or a stale sheet matrix invalidates the finish reading, not the numbers."
+    }
+  ],
+  "failed": [
+    {
+      "id": "tier-required",
+      "case": "desktop",
+      "observed": {
+        "required": "full",
+        "tiers": [
+          "full",
+          null
+        ]
+      }
+    },
+    {
+      "id": "stills-captured",
+      "case": "desktop",
+      "observed": {
+        "failedStills": [
+          "flicker-k03-dip-u0_280-p0_140"
+        ],
+        "consoleErrors": 0
+      }
+    }
+  ]
+}

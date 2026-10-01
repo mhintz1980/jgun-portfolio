@@ -1,0 +1,215 @@
+{
+  "name": "desktop-forward-0.052",
+  "progress": 0.052416,
+  "direction": "forward",
+  "scroll": {
+    "raw": 4748.889600011798,
+    "expected": 0.052416000000130226
+  },
+  "settled": false,
+  "settleMs": 6682,
+  "live": false,
+  "tier": "full",
+  "at": 4024.399999976158,
+  "scrollY": 4748.591796875,
+  "reducedMotion": false,
+  "telemetry": {
+    "camera": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "fov": 42,
+      "framingBias": 0,
+      "framingBiasY": 0,
+      "portraitDolly": 1,
+      "goal": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "fov": 42
+      },
+      "up": [
+        0,
+        1,
+        0
+      ],
+      "sheetDistance": 0
+    },
+    "rig": {
+      "handleZ": 0,
+      "outputZ": 0,
+      "clutchZ": 0,
+      "slidingZ": 0,
+      "stageZ": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "stageRot": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "planetRot": 0,
+      "gearRotation": 0,
+      "shift": 0,
+      "ghostOpacity": 1,
+      "ghostCount": 0,
+      "explodeFactor": 0,
+      "ringSwitchZ": 0,
+      "ringSwitchRotZ": 0
+    },
+    "scroll": {
+      "progress": 0,
+      "chapter": 0,
+      "chapterProgress": 0,
+      "materialMode": "solid"
+    },
+    "stage": {
+      "active": 0,
+      "alpha": [
+        1,
+        0,
+        0
+      ],
+      "flow": 0,
+      "acousticWave": 0,
+      "transitionIntensity": 0,
+      "backdropAlpha": 0
+    },
+    "drawing": {
+      "lineOpacity": 1,
+      "edgeSource": "Default.glb:crease+boundary",
+      "phase": 0,
+      "poseT": 0,
+      "focus": 0,
+      "pulseHead": 0,
+      "pulse": 0,
+      "pbr": 0,
+      "travel": 0,
+      "localZ": 0,
+      "minZ": 0,
+      "crossing": 0,
+      "contact": [
+        0,
+        0,
+        0
+      ],
+      "waveTime": 0,
+      "waveEnabled": 0,
+      "pulseLuminance": 0,
+      "lightningLuminance": 0,
+      "lampPower": 1,
+      "blackout": 0,
+      "readingPool": 1,
+      "bulgeDisplacement": 0,
+      "inkLuminance": 0,
+      "profilePoints": 0,
+      "planeMatrix": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "modelMatrix": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "annotationsReady": false,
+      "leaderCrossings": 0
+    },
+    "performance": {
+      "declines": 0,
+      "tier": "full",
+      "warmReady": false
+    }
+  },
+  "sheetStats": null,
+  "proofMethods": [],
+  "optional": {},
+  "gl": [
+    {
+      "connected": false,
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "draws": 0,
+      "lastDrawAt": 0,
+      "lost": true
+    },
+    {
+      "connected": true,
+      "width": 1585,
+      "height": 899,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1585.2113037109375,
+        "height": 900,
+        "top": 0,
+        "right": 1585.2113037109375,
+        "bottom": 900,
+        "left": 0
+      },
+      "draws": 0,
+      "lastDrawAt": 0,
+      "lost": false
+    }
+  ],
+  "shaderFailures": [],
+  "contextLosses": 0,
+  "lampSample": {
+    "u": 0.12,
+    "power": 0.58,
+    "role": "dip-1",
+    "t": 0.43679999999999997,
+    "progress": 0.052416,
+    "measuredLampPower": 1
+  }
+}

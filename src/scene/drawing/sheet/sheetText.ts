@@ -31,7 +31,12 @@ export interface SheetTextLayer {
   update: (reveal: number[], opacity: number) => void
   captureBounds: (group?: number) => SheetTextBounds
   /** Generated source only: this is not evidence of a successful GPU link/draw. */
-  captureShaderEvidence: () => { generated: boolean; vertexShader: string | null }
+  captureShaderEvidence: () => {
+    generated: boolean
+    vertexShader: string | null
+    generatedFragment: boolean
+    fragmentShader: string | null
+  }
   dispose: () => void
 }
 
@@ -64,14 +69,25 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
         '#include <project_vertex>',
         'transformed.z += paperDisplacement(transformed.xy);\n#include <project_vertex>',
       )
+      // Glyphs are printed ink, lit by the same failed practical and room bounce
+      // as the vector linework. Opacity alone would leave bright navy lettering
+      // floating over the dark stock.
+      shader.fragmentShader = 'uniform float uLampPower;\n' + shader.fragmentShader.replace(
+        '#include <color_fragment>',
+        '#include <color_fragment>\ndiffuseColor.rgb *= 0.14 + 0.86 * uLampPower;',
+      )
     }
-    material.customProgramCacheKey = () => 'sheet-paper-flex-v1'
+    material.customProgramCacheKey = () => 'sheet-paper-flex-ambient-ink-v2'
   }
   batch.material = material
   let vertexShader: string | null = null
+  let fragmentShader: string | null = null
   // Troika's derived material setter runs this callback AFTER its nested shader
-  // rewrites. Keep the final source available for the parent's runtime proof.
-  batch.material.onBeforeCompile = (shader) => { vertexShader = shader.vertexShader }
+  // rewrites. Keep the final sources available for the parent's runtime proof.
+  batch.material.onBeforeCompile = (shader) => {
+    vertexShader = shader.vertexShader
+    fragmentShader = shader.fragmentShader
+  }
   batch.renderOrder = 3
   batch.position.z = 0.00034
   batch.frustumCulled = false
@@ -168,7 +184,12 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
     ready,
     update,
     captureBounds,
-    captureShaderEvidence: () => ({ generated: vertexShader !== null, vertexShader }),
+    captureShaderEvidence: () => ({
+      generated: vertexShader !== null,
+      vertexShader,
+      generatedFragment: fragmentShader !== null,
+      fragmentShader,
+    }),
     dispose: () => {
       for (const m of members) m.text.dispose()
       batch.dispose()

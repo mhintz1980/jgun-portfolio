@@ -1,0 +1,1624 @@
+{
+  "url": "http://localhost:4173",
+  "case": "narrow",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "gpu": {
+    "available": true,
+    "unmasked": true,
+    "vendor": "Google Inc. (AMD)",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "maxTextureSize": 16384,
+    "contextLost": false
+  },
+  "checkpoints": [
+    {
+      "t": 0.4,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lit",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.4368,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k01-dip-u0_120-p0_580",
+      "expectedPower": 0.58,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.4592,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k03-dip-u0_280-p0_140",
+      "expectedPower": 0.14,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.4844,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k05-dip-u0_460-p0_360",
+      "expectedPower": 0.36,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.5096,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k07-step-u0_640-p0_015",
+      "expectedPower": 0.015,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.5208,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k08-step-u0_720-p0_015",
+      "expectedPower": 0.015,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.539,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k10-dip-u0_850-p0_080",
+      "expectedPower": 0.08,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.56,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k12-edge-u1_000-p0_000",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.59,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-dark",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.69,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-trace",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.82,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-pressure",
+      "expectedPower": 0.8437,
+      "expectedSource": "derived",
+      "hard": false
+    },
+    {
+      "t": 0.94,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-resolved",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false
+    }
+  ],
+  "stills": [
+    {
+      "t": 0.4,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lit",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-beat-lit.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.4,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.1904761904761905,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200082478296404,
+        "y": 1.5156502431891636,
+        "z": 0.11999958908403587,
+        "fov": 30.000005610373016,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 0.000003832150720181968,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0.000009671203433771723,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 209.05,
+          "min": 203.26,
+          "max": 213.05
+        },
+        "ink": {
+          "count": 24,
+          "median": 175.84,
+          "min": 22.37
+        },
+        "inkOverStock": 147.4
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.4368,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k01-dip-u0_120-p0_580",
+      "expectedPower": 0.58,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k01-dip-u0_120-p0_580.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.43679999999999997,
+      "lampPower": 0.58,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.20800000000000002,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.015864540342514135,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000471863847,
+        "y": 1.5156539416208321,
+        "z": 0.11999999764912234,
+        "fov": 30.00000003209732,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 2.1923990138505893e-8,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 5.532934067366381e-8,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 180.98,
+          "min": 173.26,
+          "max": 186.19
+        },
+        "ink": {
+          "count": 24,
+          "median": 140.56,
+          "min": 13.41
+        },
+        "inkOverStock": 127.14
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.4592,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k03-dip-u0_280-p0_140",
+      "expectedPower": 0.14,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k03-dip-u0_280-p0_140.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.4592,
+      "lampPower": 0.14,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.21866666666666668,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.006467010496541454,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.0420000000351308,
+        "y": 1.5156539627431183,
+        "z": 0.11999999998249751,
+        "fov": 30.00000000023897,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 1.6322600452978753e-10,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 4.11933214628375e-10,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 95.06,
+          "min": 88.13,
+          "max": 100.12
+        },
+        "ink": {
+          "count": 24,
+          "median": 71.35,
+          "min": 3.95
+        },
+        "inkOverStock": 63.9
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.4844,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k05-dip-u0_460-p0_360",
+      "expectedPower": 0.36,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k05-dip-u0_460-p0_360.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.4844,
+      "lampPower": 0.36,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2306666666666667,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.011165775419527794,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000000028017,
+        "y": 1.515653962900292,
+        "z": 0.11999999999986047,
+        "fov": 30.000000000001904,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 1.301172070383575e-12,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 3.267078908690301e-12,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 151.19,
+          "min": 143.05,
+          "max": 157.12
+        },
+        "ink": {
+          "count": 24,
+          "median": 116.42,
+          "min": 8.75
+        },
+        "inkOverStock": 100.8
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.5096,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k07-step-u0_640-p0_015",
+      "expectedPower": 0.015,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k07-step-u0_640-p0_015.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.5096,
+      "lampPower": 0.015,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.24266666666666672,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.003797257699390124,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000000000218,
+        "y": 1.5156539629015455,
+        "z": 0.11999999999999898,
+        "fov": 30.000000000000018,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 9.8245818639695e-15,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 3.515380532243678e-14,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 38.65,
+          "min": 36.65,
+          "max": 40.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 27.94,
+          "min": 1.73
+        },
+        "inkOverStock": 26.21
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.5208,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k08-step-u0_720-p0_015",
+      "expectedPower": 0.015,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k08-step-u0_720-p0_015.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.5208,
+      "lampPower": 0.015,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.24800000000000005,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.003797257699390124,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.042000000000000134,
+        "y": 1.515653962901554,
+        "z": 0.11999999999999993,
+        "fov": 30.000000000000007,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 1.1129302293872879e-15,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 38.65,
+          "min": 36.65,
+          "max": 40.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 27.94,
+          "min": 1.73
+        },
+        "inkOverStock": 26.21
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.539,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k10-dip-u0_850-p0_080",
+      "expectedPower": 0.08,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k10-dip-u0_850-p0_080.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.539,
+      "lampPower": 0.08000000000000002,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2566666666666667,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.005185529153908816,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.042000000000000114,
+        "y": 1.5156539629015546,
+        "z": 0.11999999999999997,
+        "fov": 30.000000000000004,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 4.451720917549152e-16,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 71.2,
+          "min": 66.06,
+          "max": 75.06
+        },
+        "ink": {
+          "count": 24,
+          "median": 53.14,
+          "min": 2.87
+        },
+        "inkOverStock": 48.62
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.56,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "flicker-k12-edge-u1_000-p0_000",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-flicker-k12-edge-u1_000-p0_000.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.56,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2666666666666667,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000000000011,
+        "y": 1.5156539629015549,
+        "z": 0.11999999999999998,
+        "fov": 30.000000000000004,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 2.225860458774576e-16,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 29.65,
+          "min": 28.58,
+          "max": 30.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 21.72,
+          "min": 1.58
+        },
+        "inkOverStock": 20.14
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.59,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-dark",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-beat-dark.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.59,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.28095238095238095,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000000000011,
+        "y": 1.5156539629015549,
+        "z": 0.11999999999999998,
+        "fov": 30.000000000000004,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 2.225860458774576e-16,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 29.65,
+          "min": 28.58,
+          "max": 30.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 21.72,
+          "min": 1.58
+        },
+        "inkOverStock": 20.14
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.69,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-trace",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-beat-trace.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.69,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.4999999999999996,
+      "poseT": 0.32857142857142857,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.04200000000000011,
+        "y": 1.5156539629015549,
+        "z": 0.11999999999999998,
+        "fov": 30.000000000000004,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 2.225860458774576e-16,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 8,
+          "median": 29.65,
+          "min": 28.58,
+          "max": 30.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 25.72,
+          "min": 1.58
+        },
+        "inkOverStock": 22.93
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.82,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-pressure",
+      "expectedPower": 0.8437,
+      "expectedSource": "derived",
+      "hard": false,
+      "attempt": 1,
+      "file": "still-beat-pressure.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.82,
+      "lampPower": 0.8437499999999997,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.3904761904761905,
+      "pbr": 0.3519999999999989,
+      "bulge": 0.004556249999999999,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.021497718744503437,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.7300873835092567,
+        "y": 1.3504587977299687,
+        "z": 0.11999999999999998,
+        "fov": 30.000000000000004,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.7300925000499013,
+            1.35045756935724,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.8910065241883679,
+          0.45399049973954664,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 0.0000052619281379020396,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0.004556249999999999,
+        "flexPeakDisplacement": 0.004556249999999999,
+        "flexEnabled": 1,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0.11967999999999965,
+        "contactRadius": 0.006,
+        "vellum": 0.3519999999999989
+      },
+      "maxRegistrationPx": 12.11961945343096,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": {
+          "count": 3,
+          "median": 203.91,
+          "min": 18.86,
+          "max": 205.12
+        },
+        "ink": {
+          "count": 24,
+          "median": 144.84,
+          "min": 18.86
+        },
+        "inkOverStock": 122.91
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.94,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-resolved",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false,
+      "attempt": 1,
+      "file": "still-beat-resolved.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "lite"
+      },
+      "phase": 0.94,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.863324493793444,
+      "pbr": 1,
+      "bulge": 0.00004261837907869246,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "annotationsReady": true,
+      "tier": "lite",
+      "declines": 1,
+      "camera": {
+        "x": 0.5991987549035483,
+        "y": 0.7179282199086593,
+        "z": 0.24804895145475472,
+        "fov": 35.6440334640539,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.5991986233129976,
+            0.7179275840105808,
+            0.2480490801856558
+          ],
+          "target": [
+            0.021000000000000033,
+            0.0008899021546355672,
+            0.055847123278367425
+          ],
+          "fov": 35.644039138145764
+        },
+        "up": [
+          -0.48480962024633767,
+          0.8746197071393954,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 6.620076164393464e-7,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1471.2999999523163,
+        "extractMs": 1168.300000011921,
+        "bakeMs": 2776.699999988079,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0.00004261837907869246,
+        "flexPeakDisplacement": 0.00004261837907869246,
+        "flexEnabled": 1,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0.34,
+        "contactRadius": 0.006,
+        "vellum": 0.007892292421980085
+      },
+      "maxRegistrationPx": 88.83856415886068,
+      "crossing": 0.8888459503339448,
+      "pixels": {
+        "paper": null,
+        "ink": {
+          "count": 24,
+          "median": 67.84,
+          "min": 0
+        },
+        "inkOverStock": 44.54
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    }
+  ]
+}

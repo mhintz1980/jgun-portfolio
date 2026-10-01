@@ -22,8 +22,14 @@
 /**
  * Share of raw document scroll spent inside the B1/B2 intro (owner pacing Lever B).
  * Was implicitly 0.120 — the intro consumed exactly the progress band it owned.
+ *
+ * Raised 0.40 -> 0.50 on 2026-10-01 against the owner's oryzo.ai (Lusion) pacing
+ * reference. Measured on the live reference: the site is 56 viewports tall and a single
+ * statement beat holds for 2.5-3 viewports, with individual held moments past 5. At 0.40
+ * the lit recognition beat lasted 0.24 viewports — a flicker rather than a breath. The
+ * extra share buys dwell inside the SAME progress band, so no downstream constant moves.
  */
-export const INTRO_SCROLL_SHARE = 0.3
+export const INTRO_SCROLL_SHARE = 0.5
 
 /**
  * Progress band the intro owns. `releaseEnd` is the handoff to the retained site
@@ -31,13 +37,31 @@ export const INTRO_SCROLL_SHARE = 0.3
  */
 export const DRAWING_INTRO_WINDOW = { releaseEnd: 0.12, heroEnd: 0.525 } as const
 
-/** Fully inked, registered and still: shared by drawing, model and camera. */
-export const REDUCED_MOTION_INTRO_T = 0.4
+/**
+ * Fully inked, registered and still: shared by drawing, model and camera. Pinned to
+ * `onboardEnd` so the reduced-motion park sits exactly where the camera settle completes,
+ * at the head of the lit recognition hold and well before the first lamp failure.
+ */
+export const REDUCED_MOTION_INTRO_T = 0.38
 
 /**
- * Half-width (in raw scroll) of the C1 blend that removes the slope step where the
- * slow intro meets the faster main timeline. Both linear pieces are met exactly at the
- * window edges, so no downstream absolute distance changes because of the blend.
+ * Width (in raw scroll) of the C1 blend that removes the slope step where the slow intro
+ * meets the faster main timeline.
+ *
+ * The band sits AFTER `INTRO_SCROLL_SHARE`, not straddling it. That placement is load-bearing.
+ * Straddling the share (the original construction) makes `pacedProgress` non-monotone once the
+ * two slopes differ enough: the blend's residual term scales with `smooth01'(x)*(x-0.5)`, whose
+ * minimum is -0.2071, so `dp/ds` goes negative whenever `mainSlope - introSlope > 4.829 *
+ * introSlope`. At `INTRO_SCROLL_SHARE = 0.50` that ratio is 6.33, and `dp/ds` measured -0.0748
+ * near raw 0.4823 -- progress rose to 0.1143733, fell to 0.1140288, then rose again. Non-monotone
+ * progress means a small forward scroll can move the whole scene backwards, and it also breaks
+ * the bisection inverse in `rawScrollFor`.
+ *
+ * Starting the band at the share removes the term entirely: with `h(x) = smooth01'(x)*x -
+ * (1 - smooth01(x))` the minimum is `h(0) = -1`, so `dp/ds` bottoms out at exactly `introSlope`
+ * (> 0) at the left edge and rises to `mainSlope` at the right edge. The blend is therefore
+ * monotone for ANY slope ratio, and because `introLine(share) === mainLine(share) === releaseEnd`
+ * the pinned identity `pacedProgress(INTRO_SCROLL_SHARE) === releaseEnd` still holds exactly.
  */
 const HANDOFF_BLEND = 0.025
 
@@ -56,10 +80,15 @@ const mainLine = (s: number): number =>
 /** Raw document scroll fraction -> the paced progress axis the whole site is authored on. */
 export function pacedProgress(rawScroll: number): number {
   const s = clamp01(rawScroll)
-  if (s <= INTRO_SCROLL_SHARE - HANDOFF_BLEND) return introLine(s)
+  if (s <= INTRO_SCROLL_SHARE) return introLine(s)
   if (s >= INTRO_SCROLL_SHARE + HANDOFF_BLEND) return mainLine(s)
-  const blend = smooth01((s - (INTRO_SCROLL_SHARE - HANDOFF_BLEND)) / (2 * HANDOFF_BLEND))
-  return introLine(s) + blend * (mainLine(s) - introLine(s))
+  // Band starts AT the share (see HANDOFF_BLEND). At x = 0 both lines equal releaseEnd, so the
+  // pinned identity `pacedProgress(INTRO_SCROLL_SHARE) === releaseEnd` holds exactly; at x = 1
+  // the weight reaches 1 and the main line is met exactly, so no downstream absolute distance
+  // changes. The result stays between the two lines across the whole band, and dp/ds falls no
+  // lower than introSlope (> 0), so the map is strictly monotone for any slope ratio.
+  const x = (s - INTRO_SCROLL_SHARE) / HANDOFF_BLEND
+  return mainLine(s) + (1 - smooth01(x)) * (introLine(s) - mainLine(s))
 }
 
 /**
@@ -95,23 +124,67 @@ export const INTRO_PHASES = {
    * ending square-on to the side elevation. Opening titles live in this window too.
    */
   onboardStart: 0.05,
-  onboardEnd: 0.4,
-  /** Ordered excitation traced along the primary elevation's profile. */
-  pulseStart: 0.4,
-  pulseEnd: 0.6,
-  /** Exact print/model registration ends before the camera lowers to reveal paper pressure. */
-  registrationEnd: 0.5,
+  onboardEnd: 0.38,
+  /**
+   * Lit recognition hold (.38-.45): the registered drawing, fully inked, held long enough
+   * to register before anything moves. At 0.50 share this is ~1.1 viewports; at the old
+   * 0.40/.02 contract it was 0.24 and read as a glitch rather than a beat.
+   */
+  flickerStart: 0.45,
+  blackoutStart: 0.58,
+  /**
+   * Ordered excitation traced along the primary elevation's profile. This window does
+   * not own the sheet-camera settle; registration remains a separate boundary.
+   */
+  pulseStart: 0.66,
+  pulseEnd: 0.79,
+  /** The paper swells while the lamp begins its deliberate return. */
+  bulgeStart: 0.79,
+  lampReturnStart: 0.79,
+  lampReturnEnd: 0.86,
+  /** Exact print/model registration ends as the dark profile trace completes. */
+  registrationEnd: 0.79,
   /** Metal starts showing through the pressed drawing before the tool lifts. */
-  metalStart: 0.54,
+  metalStart: 0.81,
   /** Camera orbit leads into the rise and keeps running through it. */
-  orbitStart: 0.72,
+  orbitStart: 0.9,
   /** Extraction: the model lifts out of the sheet. */
-  riseStart: 0.6,
+  riseStart: 0.86,
   /** Committed-pace window opens here (scrollCommit.ts): detachment through shockwave. */
-  detachStart: 0.86,
+  detachStart: 0.88,
   /** The shockwave has finished crossing the sheet; the print may fade after this. */
-  waveEnd: 0.96,
+  waveEnd: 0.97,
 } as const
+
+/**
+ * An authored failure envelope, in normalized flicker time. Unequal troughs and
+ * recoveries avoid a metronomic blink; the fourth failure hangs near extinction
+ * before a weak recovery. Immutable keys and bounded C1 interpolation make the
+ * same scroll position produce the same light in either direction.
+ */
+const LAMP_FAILURE_KEYS = [
+  [0, 1], [0.12, 0.58], [0.18, 0.92],
+  [0.28, 0.14], [0.34, 0.78],
+  [0.46, 0.36], [0.51, 0.86],
+  [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
+  [0.85, 0.08], [0.91, 0.34], [1, 0],
+] as const
+
+function lampFlickerPower(t: number): number {
+  const u = clamp01((t - INTRO_PHASES.flickerStart) / (INTRO_PHASES.blackoutStart - INTRO_PHASES.flickerStart))
+  for (let i = 1; i < LAMP_FAILURE_KEYS.length; i += 1) {
+    const a = LAMP_FAILURE_KEYS[i - 1]
+    const b = LAMP_FAILURE_KEYS[i]
+    if (u <= b[0]) return a[1] + (b[1] - a[1]) * smooth01((u - a[0]) / (b[0] - a[0]))
+  }
+  return 0
+}
+
+function lampPowerAt(t: number): number {
+  if (t < INTRO_PHASES.flickerStart) return 1
+  if (t < INTRO_PHASES.blackoutStart) return lampFlickerPower(t)
+  return smooth01((t - INTRO_PHASES.lampReturnStart) / (INTRO_PHASES.lampReturnEnd - INTRO_PHASES.lampReturnStart))
+}
 
 /**
  * Scroll-time -> pose-time reparameterization.
@@ -149,6 +222,12 @@ export interface IntroState {
   poseT: number
   /** 0 = fully blurred sheet, 1 = sharp print. */
   focus: number
+  /** Fixed warm-key power: lit hold, irregular failure sequence, dark hold, then return. */
+  lampPower: number
+  /** Numeric predicate for the dark hold (`lampPower <= 0.03`). */
+  blackout: number
+  /** Measured trailing reading-pool contribution; suppressed before the flicker. */
+  readingPool: number
   /** Normalized arc position of the excitation head along the traced profile. */
   pulseHead: number
   /** 1 while the excitation is running. */
@@ -179,6 +258,7 @@ export interface IntroState {
 export function drawingIntroState(progress: number, crossing = 0.9): IntroState {
   const t = clamp01(progress / DRAWING_INTRO_WINDOW.releaseEnd)
   const poseT = introPoseTime(t)
+  const lampPower = lampPowerAt(t)
   // The wave is triggered by the solved separation, converted onto the scroll axis so
   // pacing decides how long it is on screen without moving the physical trigger.
   const waveStart = introScrollTimeFor(crossing)
@@ -188,8 +268,11 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     t,
     poseT,
     focus: smooth01(t / INTRO_PHASES.focusEnd),
+    lampPower,
+    blackout: lampPower <= 0.03 ? 1 : 0,
+    readingPool: 1 - smooth01((t - 0.25) / 0.05),
     pulseHead: clamp01((t - INTRO_PHASES.pulseStart) / (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)),
-    pulse: t > INTRO_PHASES.pulseStart && t < INTRO_PHASES.pulseEnd ? 1 : 0,
+    pulse: t >= INTRO_PHASES.pulseStart && t <= INTRO_PHASES.pulseEnd ? 1 : 0,
     pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.1),
     illumination: smooth01((t - INTRO_PHASES.metalStart) / (INTRO_PHASES.riseStart - INTRO_PHASES.metalStart)),
     perspective: smooth01((t - INTRO_PHASES.orbitStart) / (1 - INTRO_PHASES.orbitStart)),

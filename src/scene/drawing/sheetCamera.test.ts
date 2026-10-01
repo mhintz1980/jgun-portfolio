@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Box3, Vector3 } from 'three'
 import { makeDrawingLayout, SHEET_ROTATION } from './drawingGeometry'
-import { INTRO_PHASES } from './introTimeline'
+import { INTRO_PHASES, REDUCED_MOTION_INTRO_T } from './introTimeline'
 import { introCameraPose, sheetReveal, type SheetCameraPose } from './sheetCamera'
 
 const pose = (): SheetCameraPose => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 0, ortho: 0, distance: 0 })
@@ -21,11 +21,25 @@ describe('drafting camera', () => {
       const start = introCameraPose(layout, aspect, INTRO_PHASES.pulseStart, pose())
       expect(elevationOf(start)).toBeCloseTo(90, 9)
       expect(start.ortho).toBe(1)
-      // pulseStart (.4) through registrationEnd (.5): the print-to-metal hold is exact.
-      for (const t of [0.45, INTRO_PHASES.registrationEnd]) {
+      // The lit park, storm flicker, dark hold and electrical trace share the registered hold.
+      for (const t of [0.45, INTRO_PHASES.flickerStart, 0.49, INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, INTRO_PHASES.registrationEnd]) {
         const current = introCameraPose(layout, aspect, t, pose())
         expect(current.position.distanceTo(start.position)).toBeLessThan(1e-12)
         expect(current.target.distanceTo(start.target)).toBeLessThan(1e-12)
+        expect(current.ortho).toBe(1)
+        expect(elevationOf(current)).toBeCloseTo(90, 9)
+      }
+    })
+
+    it(`holds the reduced-motion still and the lit park square-on and registered at aspect ${aspect}`, () => {
+      const layout = layoutFor(aspect)
+      const park = introCameraPose(layout, aspect, INTRO_PHASES.onboardEnd, pose())
+      expect(elevationOf(park)).toBeCloseTo(90, 9)
+      expect(park.ortho).toBe(1)
+      for (const t of [REDUCED_MOTION_INTRO_T, INTRO_PHASES.flickerStart, 0.41]) {
+        const current = introCameraPose(layout, aspect, t, pose())
+        expect(current.position.distanceTo(park.position)).toBeLessThan(1e-12)
+        expect(current.target.distanceTo(park.target)).toBeLessThan(1e-12)
         expect(current.ortho).toBe(1)
         expect(elevationOf(current)).toBeCloseTo(90, 9)
       }
@@ -55,7 +69,7 @@ describe('drafting camera', () => {
         previousOrtho = current.ortho
       }
       // The tilted pose is constant from riseStart into the hero blend window.
-      for (const t of [0.7, INTRO_PHASES.orbitStart, 1]) {
+      for (const t of [INTRO_PHASES.riseStart, INTRO_PHASES.orbitStart, 1]) {
         const current = introCameraPose(layout, aspect, t, pose())
         expect(current.position.distanceTo(tilted.position)).toBeLessThan(1e-12)
         expect(current.target.distanceTo(tilted.target)).toBeLessThan(1e-12)

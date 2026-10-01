@@ -158,7 +158,10 @@ function FxDriver({
       // JG-026 Item 3: the ordered excitation is the only bright thing on the sheet, and it
       // was being rendered with bloom forced to zero — which is most of why nobody could see
       // it. During the intro, bloom follows the excitation instead of the station transitions.
-      const pulseBoost = introOwnsFrame ? telemetry.drawing.pulse * INTRO_PULSE_BLOOM : 0
+      // Bright vellum must never receive the electrical bloom boost. Keep the lit
+      // drafting pass unbloomed; glow belongs solely to the trace in blackout.
+      if (introOwnsFrame) rest = 0
+      const pulseBoost = introOwnsFrame ? telemetry.drawing.pulse * telemetry.drawing.blackout * INTRO_PULSE_BLOOM : 0
       bloomRef.current.intensity = proof
         ? 0
         : rest + (BLOOM_PEAK - BLOOM_REST) * intensity + pulseBoost

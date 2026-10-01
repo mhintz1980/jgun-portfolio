@@ -1,17 +1,26 @@
 # Animation Spec — the whole page
 
+Runtime alignment proof: the repaired full roster measured hero transit raw .532402846–.692289113 on desktop against expected .532403027–.692289499; narrow and lite measurements passed the same tolerance. All forward/reverse release checkpoints .1199/.1201/.13 report assembled rest (explode 0, gearRotation 0, ghostOpacity 1). This confirms the handoff/transit repair; it does not claim identical downstream chapter activation edges.
+
+> **JG-035 final verification update — 2026-10-01:** this snapshot supersedes the in-progress status prose and inherited verification checklist below. The repaired browser roster is **6/6 PASS**, all **169 tests** and **19 full-tier pixel checks** pass, and independent technical review is **ship at the code boundary**. Desktop review video and both viewports' six stills are full tier. **Narrow full-tier video remains UNMET** after three recordings downgraded to lite; those failed runs are preserved. Owner acceptance remains open; no commit, push or deployment. [Current review packet](../../work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md).
+
 One document describing the full scroll experience: what animates, what drives
 it, and where each behavior lives in code. The code is the source of truth;
 this spec describes it as of the 2026-08-23 explosion/kinematics rework
 (commits through the rear-extraction change). When behavior and this document
 disagree, fix the document in the same change.
 
-> **Currency note (2026-09-25):** the CH.01 opening was rebuilt by JG-035
-> (cream-vellum drafting-table sheet, vector ink, tolerance stations) — the
-> §5/CH.01 sections below still describe the JG-026 raster-sheet era until the
-> JG-035 closure doc pass. Until then, current CH.01 reality lives in the JG-035
-> handoffs (`work/evidence/JG-035-opening-drafting-table/handoff-2026-09-25c-stations.md`)
-> and the source under `src/scene/drawing/sheet/` + `src/scene/stations/`.
+> **Currency note (2026-10-01):** the active CH.01 opening is the JG-035
+> storm-flicker/visible-dark candidate defined by §5.0 and
+> [its execution plan](../../../docs/jgun-storm-flicker-visible-dark-plan.md).
+> It is implemented and awaiting fresh verification; technical completion and owner visual
+> acceptance are still open. The artifacts under
+> [storm-visible-dark-2026-09-30](../../work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/)
+> predate the pacing rebalance, so their browser-derived pixel, roster, and
+> review-media evidence is stale.
+> JG-026, the 2026-09-25 drafting rebuild, and the 2026-09-30 two-dip blackout
+> candidate remain useful history, but their conflicting opening prose is
+> superseded wherever this note or §5.0 identifies it as historical.
 
 The page in one sentence: a fixed WebGL stage holds a photoreal CAD assembly
 of the JGun pneumatic torque wrench while the user scrolls a plain-DOM
@@ -95,6 +104,10 @@ labels 0.04–0.18, driveline-order ladder 0.19–0.42, rear-LCD readout
 
 ## 4. Camera (`src/scene/CameraRig.tsx`, `CAMERA_PATH`)
 
+**Currency split:** the camera prose in §4 before §4.1 is the historical
+JG-026 contract. §4.1 and §5.0 define the live JG-035 pacing and opening
+phases.
+
 The main path retains four world-space keyframes across three stations:
 
 | Keyframe | Position (m) | Target (m) | FOV |
@@ -124,28 +137,74 @@ up vector starts on the sheet's printed-up axis — world −X — so the print
 reads right-way-up from the moment it appears until the model has left it;
 pointer parallax is suppressed while the sheet is being read.
 
-Reduced motion holds the registered drawing at normalized intro phase `.20`
-(global `.024`), fully focused and without scroll response. The camera layer
+Reduced motion holds the registered drawing at normalized intro phase `.38`
+(global `.0456`), lit and fully inked without scroll response. The camera layer
 itself is NOT deleted in that tier: it damps to the pinned goal and settles,
 measured residual ≤ 1e-6 across two reads
 ([JG-026 verification](../../work/evidence/JG-026-b1-b2-verification.md)).
+That settle measurement predates the JG-035 rebalance and is historical, not
+current browser proof.
 
 ### 4.1 Scroll pacing (`src/scene/drawing/introTimeline.ts`, `ScrollRig.tsx`)
 
 Raw document scroll and the progress axis are NOT the same number. Owner
-pacing ruling 2026-09-05: the intro needed several times more animation time
-without taking scroll from any other chapter, so `pacedProgress()` stretches
-the intro's `0.000–0.120` of progress over `INTRO_SCROLL_SHARE = 0.30` of the
-document and the remaining `0.120–1.000` over the other 0.70, with a C1 blend
-of half-width 0.025 raw at the junction. Every downstream window in this repo
-is authored on the progress axis and is therefore unchanged; each downstream
-chapter keeps its progress span exactly and gains absolute distance.
+pacing rulings 2026-09-05 and 2026-10-01: the intro needed several times more
+animation time without moving a downstream progress coordinate, so
+`pacedProgress()` stretches the intro's `0.000–0.120` of progress over
+`INTRO_SCROLL_SHARE = 0.50` of the document and the remaining
+`0.120–1.000` over the other 0.50, with a C1 blend 0.025 raw wide that starts
+at the share. That placement is load-bearing: straddling the junction made
+`pacedProgress` non-monotone at this slope ratio (measured `dp/ds` -0.0748 near
+raw 0.4823), while starting the band at the share is monotone for any slope
+ratio and keeps the pinned identity `pacedProgress(0.50) === 0.12` exact.
+The 2026-10-01 rebalance follows live measurement of the owner's
+oryzo.ai (Lusion) pacing reference: that reference is 56 viewports tall, holds
+a statement beat for 2.5–3 viewports, and holds individual moments past 5. At
+the old 0.40 share the lit recognition beat lasted 0.24 viewports and read as a
+glitch rather than a beat. Every downstream paced window keeps its authored
+start and end, but the raw physical scroll distance underneath it is
+contracted, not preserved: the post-intro band scales by `f = (1 − σ) / 0.70`
+(0.714 at σ = .50), so each downstream chapter crosses in proportionally less
+scroll. Mapping inversion and deep links still await a browser re-measure.
 
 Document height is 3120vh (scroll distance 3020vh), up from 2020vh/1920vh.
-Section track heights live in `SCROLL_TRACK_VH` (`Chapters.tsx`) and are set
-so `[data-chapter="1"]` — the element the hero GSAP ScrollTrigger measures —
-still opens at paced 0.17703 and closes at 0.45843, within 1e-4 of the window
-the retained CH.02 timeline was authored and verified against.
+Section track heights are DERIVED, not literals: `deriveScrollTracks()` in
+`src/scene/drawing/scrollTracks.ts` rebuilds `SCROLL_TRACK_VH` from the live
+`INTRO_SCROLL_SHARE` against the 0.30-share JG-026 anchors, `Chapters.tsx`
+renders the derived ladder, and `scrollTracks.test.ts` asserts the contract.
+Past the handoff band the map is affine,
+`paced(y) = .12 + (0.88 / (1 − σ)) · (y / 3020 − σ)`, so an anchor keeps its
+paced value exactly when it moves to `3020·σ + f · (y − 906)` with
+`f = (1 − σ) / 0.70`: the two slopes differ by `1/f`, which is what lets the
+post-intro band contract by `f` without moving a downstream window. At σ = .50
+the ladder is intro 1510, chapters 197.857 / 382.857 / 386.429 / 579.286, footer
+63.571 — the `100vh` viewport terms cancel, so the document stays 3120vh and the
+intro track lands exactly on the share. `[data-chapter="1"]` — the element the
+hero GSAP ScrollTrigger measures — is back on the transit the retained CH.02
+timeline was authored against: open `top bottom` paced 0.177029, close
+`bottom top` 0.458429, the digits the 0.30-share
+[JG-026 derivation](../../work/evidence/JG-026-b1-b2-verification.md) records;
+it now opens 97.857vh after the intro release, so the first post-handoff frame
+carries no partially scrubbed mechanism. Retained exactly: the canonical hero trigger — `[data-chapter="1"]`
+`top bottom` paced 0.177029 and `bottom top` 0.458429 — and the later chapters'
+`bottom top` boundaries, the affine images of their 0.30-share positions. The
+whole `V · (1 − f)` correction is spent pinning CH.02's start edge, so a matched
+set of viewport-relative edges carries that 28.571vh: chapter 0's `top bottom`
+edge (new paced 0.112053, still inside the intro band) and its closing boundary,
+and chapters 2–3's `top bottom` edges. ScrollRig's `top 60%` / `bottom 40%`
+activation reads those edges, so its chapter switch points shift by up to
+≈0.0100 paced (chapter 0's close +0.0100; chapters 2–3's starts −0.0100). Those
+smaller activation shifts need owner review, and complete downstream activation
+parity is not claimed. The cost is raw distance, and the contraction is real:
+the post-intro band carries 1510vh of the 3020vh, 0.714× the 0.30 layout's
+2114vh (×0.857 at the .40 share), so the total scroll distance is invariant
+while every downstream chapter gets less of it. The hero's start edge sits at
+raw 0.532403, 0.0074 past the handoff band's right edge (σ + 0.025 = 0.525),
+so widening that band past ≈0.032 raw would cost the pinned numbers. These
+values are arithmetic from the DOM layout, not a browser measurement: no live
+re-measure exists yet, and the stale-literal defect they replace (transit paced
+0.082887 → 0.241801, intro releasing 69% through it) is what the derivation
+removed.
 
 ## 5. The hero animation timeline (`src/scene/TorqueWrenchHero.tsx`)
 
@@ -169,7 +228,11 @@ it is not a global re-windowing function and must not be applied downstream.
 
 ### 5.0 JG-026 B1/B2 engineering drawing and extraction (2026-09-05)
 
-> **Opening revision, 2026-09-26:** The active opening is the JG-035 0.80 × 0.50 m vellum sheet with six projected views and composed detail insets. The implementation plan is [stages 1–3](../../../docs/jgun-stages-1-3-implementation-plan.md). The earlier ANSI C/layout and shockwave description below records the original JG-026 behavior, not the revised opening. The camera now goes detail → traverse → whole sheet → registered side view at intro .40. Registration holds through metal emergence; perspective departure starts at .72. The normal presentation replaces the shockwave with restrained profile-driven paper pressure and release, followed by one soft light sweep after solved separation. HUD chrome stays hidden until global progress .12. Scroll ownership (.00–.12), extraction's geometric contact solve, and the mechanical tables in §§5.1–5.4 remain unchanged.
+> **Opening revision, 2026-10-01 (storm/visible-dark candidate, pacing rebalance):** The active opening is the JG-035 0.80 × 0.50 m vellum sheet with six projected views and composed detail insets. The active contract is the [storm flicker / visible-dark plan](../../../docs/jgun-storm-flicker-visible-dark-plan.md); the [stages 1–3](../../../docs/jgun-stages-1-3-implementation-plan.md) and [two-dip blackout](../../../docs/jgun-blackout-emergence-plan.md) plans are superseded implementation history. The candidate is implemented and awaiting verification against the rebalanced contract. The pre-rebalance artifacts under [storm-visible-dark-2026-09-30](../../work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/) are historical evidence, not current proof; this status makes no test-pass or owner-acceptance claim. The camera goes detail → traverse → whole sheet → registered side view at intro .38, then holds registered through the electrical trace at .79. Cool room bounce keeps the drawing and annotations readable in the dark hold. The profile-driven bulge relaxes at solved separation, followed by the existing restrained metal sweep; the shockwave stays disabled. HUD chrome stays hidden until global progress .12. Scroll ownership (.00–.12), pose-axis contact solve, and mechanical tables in §§5.1–5.4 remain unchanged. Reduced motion deliberately parks at .38: lit, registered, fully inked, with no flicker, pulse, bulge or extraction. Lite retains the beat sequence at 45% bulge amplitude; poster uses the DOM fallback. Opening-only scope: enclosure/M249 page separation remains pending owner clarification.
+
+**Historical JG-026 implementation record.** The sheet/projection prose below,
+including its ANSI C dimensions and shockwave language, predates JG-035 and
+does not override the active phase table.
 
 `snapshotDrawing()` consolidates the rest geometry of `Default.glb` once.
 `renderDrawing()` produces the print with a hidden-line pass: opaque depth
@@ -206,30 +269,37 @@ identity at the handoff (measured residual 5.5e-17).
 
 | Owner phase | Normalized intro | Global interval | Effect and fallback |
 |---|---:|---:|---|
-| 1 — focus rack | 0.00 → 0.14 | 0.0000 → 0.0168 | Scene-plane focus rack; full/lite. Reduced holds phase .20 fully focused. |
-| RESERVED — opening text | 0.14 → 0.30 | 0.0168 → 0.0360 | Reserved for JG-026 Item 6. Nothing else is authored here. |
-| 2 — ordered excitation | 0.30 → 0.56 | 0.0360 → 0.0672 | Traced profile pulse and PBR activation; full/lite. Reduced omits pulse. |
-| 3 — spatial extraction | 0.56 → 0.88 | 0.0672 → 0.1056 | Local +Z lift, pitch/yaw, camera orbit and lighting; full/lite. |
-| 4 — detachment / shockwave | 0.88 → 0.96 | 0.1056 → 0.1152 | Solved vertex crossing triggers a single plane-local pass; full only. |
-| 5 — print fade | 0.96 → 1.00 | 0.1152 → 0.1200 | Print fades only after the front has cleared the sheet. |
+| Focus and drafting pass | 0.00 → 0.38 | 0.0000 → 0.0456 | Focus completes .05; ink/camera traverse ends registered. |
+| Registered lit hold | 0.38 → 0.45 | 0.0456 → 0.0540 | Dark navy print under the warm key; reduced parks at .38. |
+| Five irregular lamp failures | 0.45 → 0.58 | 0.0540 → 0.0696 | Unequal deterministic dips/recoveries and one sustained near-out beat; full/lite. |
+| Visible-dark anticipation | 0.58 → 0.66 | 0.0696 → 0.0792 | Lamp is out; cool room bounce keeps paper, navy drawing, and annotations readable. No trace yet. |
+| White electrical profile, registered camera | 0.66 → 0.79 | 0.0792 → 0.0948 | Geometry-derived white core and blue-white wake on the fixed registered camera. |
+| Pressure and lamp return | 0.79 → 0.86 | 0.0948 → 0.1032 | Warm lamp returns; maximum bulge 12 mm full / 5.4 mm lite. Metal begins .81. Camera rakes 90°→58°. |
+| Physical rise | 0.86 → 1.00 | 0.1032 → 0.1200 | Unchanged pose-axis lift/contact solve; extraction starts .86 and perspective starts .90. Bulge closes at solved separation; single metal sweep afterward. |
+| Sheet fade | 0.97 → 1.00 | 0.1164 → 0.1200 | Intact sheet fades to the retained hero. |
+
+Shared source boundaries: `focusEnd = .05`, `onboardStart = .05`,
+`onboardEnd = .38`, `registrationEnd = .79`, and `detachStart = .88`;
+`DRAWING_INTRO_WINDOW` remains `releaseEnd = .12`, `heroEnd = .525`. The
+lamp-failure key u-values are unchanged and normalized into `.45–.58`.
 
 Scroll time and pose time are separate axes. `introPoseTime()` reparameterizes
 one onto the other so pacing changes never re-solve the geometry:
 `relativePose()` and the 44-step bisection in `solveExtraction()` still work on
 the pose axis where the extraction starts at 0.4. No phase boundary triggers
 the wave — `solveExtraction()` finds the actual lowest-transformed-vertex
-Z = 0 crossing and its contact point. Current evidence reports crossing
-`0.8888459503339448`, contact Z `-8.3e-15 m`, travel `0.22 m`, identical on
-both viewports; these are revision-specific, not constants to hand-pick.
+Z = 0 crossing and its contact point. The pre-rebalance evidence reported
+crossing `0.8888459503339448`, contact Z `-8.3e-15 m`, and travel `0.22 m`
+on both viewports; that browser-derived evidence is stale for the 2026-10-01
+contract and these values are not constants to hand-pick.
 
 **Shockwave.** Front reach 0.78 m at wave time 1 against a 0.650 m far-corner
 distance from the contact point, radial attenuation `exp(-1.1 r)`, temporal
-`exp(-1.4 t)`, amplitude 0.022 m — one pass out, then done. The print is held
-fully opaque until the front has crossed (measured opacity 1.000000 at every
-frame with wave time < 1).
+`exp(-1.4 t)`, amplitude 0.022 m — one pass out, then done. The prior
+opacity measurements are likewise pre-rebalance and stale.
 
-Reduced motion is the static registered phase-.20 frame with no lift or wave.
-Lite keeps focus, excitation and lift but omits the plane displacement.
+Reduced motion is the static lit registered phase-.38 frame with no flicker, pulse, lift or wave.
+Lite keeps the sequence with 45% profile bulge displacement.
 Poster retains the original DOM engineering poster. The canonical part
 identities and every ladder/rotation value in §§5.1–5.4 are unchanged.
 Mark's `?chapter=0` visual ruling is still open.

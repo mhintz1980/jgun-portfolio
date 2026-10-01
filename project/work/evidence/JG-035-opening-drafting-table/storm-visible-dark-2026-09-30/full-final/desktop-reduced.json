@@ -1,0 +1,20 @@
+{
+  "name": "desktop-reduced",
+  "width": 1600,
+  "height": 900,
+  "reducedMotion": "reduce",
+  "checkpoints": [],
+  "errors": [],
+  "warnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+  ],
+  "requestFailures": [],
+  "httpErrors": [],
+  "failures": [
+    "Error: page.waitForFunction: Target page, context or browser has been closed"
+  ],
+  "reverse": [],
+  "domContentLoadedMs": 101,
+  "requestFailureNote": "none",
+  "passed": false
+}

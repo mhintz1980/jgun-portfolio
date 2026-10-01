@@ -4,21 +4,24 @@ import type { CaseStudy } from '../types/portfolio'
 import { useQuality } from '../state/qualityStore'
 import { useScrollValue } from '../state/scrollStore'
 import { DRAWING_INTRO_WINDOW } from '../scene/drawing/introTimeline'
+import { SCROLL_TRACK_VH } from '../scene/drawing/scrollTracks'
 import { CHAPTER_RANGES, useNativeScrollChapter } from './staticChapter'
 
 /**
- * Scroll-track heights, in vh, for the empty sections that give Lenis and ScrollTrigger
- * their distance. JG-026 pacing ruling (2026-09-05) sets these; the derivation is in
- * `project/work/evidence/JG-026-b1-b2-verification.md` (pacing table).
+ * Scroll-track heights, in vh, for the empty sections that give Lenis and ScrollTrigger their
+ * distance. They are DERIVED, not literals: `deriveScrollTracks()` in
+ * `src/scene/drawing/scrollTracks.ts` re-derives them from `INTRO_SCROLL_SHARE` against the
+ * 0.30-share JG-026 anchors (the derivation and its contract live in that module, pinned by
+ * `scrollTracks.test.ts`).
  *
- * `intro` is a dedicated track so the drawing sequence no longer has to share chapter 0's
- * section, and so `[data-chapter="1"]` — the element the hero GSAP ScrollTrigger measures
- * — still opens at paced progress 0.17703 and closes at 0.45843, i.e. within 1e-4 of the
- * window the retained CH.02 timeline was authored and verified against.
+ * The property that matters: `intro` is a dedicated track so the drawing sequence never has to
+ * share chapter 0's section, and `[data-chapter="1"]` — the element the hero GSAP ScrollTrigger
+ * measures — opens and closes inside the paced window the retained CH.02 timeline was authored
+ * and verified against (0.177029 → 0.458429), with its transit opening after the intro release
+ * so the first post-handoff frame carries no partially scrubbed mechanism.
  *
- * Document height 3120vh (scroll distance 3020vh), up from 2020vh / 1920vh.
+ * Document height stays 3120vh (scroll distance 3020vh) at every share, up from 2020vh / 1920vh.
  */
-const SCROLL_TRACK_VH = { intro: 906, chapters: [237, 576, 541, 811], footer: 49 } as const
 
 /**
  * Chapter active scroll progress ranges [start, end] on the global 0..1 scroll timeline.
@@ -96,7 +99,8 @@ function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudy }) {
  * on-demand `[ + CASE STUDY ]` disclosure. The active mechanical beat gets a
  * bottom-left edge caption, one at a time.
  *
- * The background sections provide the 440vh / 660vh scroll track for Lenis and GSAP ScrollTrigger.
+ * The background sections below provide the document's entire scroll track for Lenis and GSAP
+ * ScrollTrigger; their heights are derived in `scrollTracks.ts`.
  */
 export function Chapters() {
   const { tier, reducedMotion } = useQuality()
@@ -318,7 +322,7 @@ export function Chapters() {
             key={chapterDef.index}
             data-chapter={chapterDef.index}
             className="pointer-events-none"
-            style={{ minHeight: `${SCROLL_TRACK_VH.chapters[chapterDef.index] ?? 576}vh` }}
+            style={{ minHeight: `${SCROLL_TRACK_VH.chapters[chapterDef.index] ?? SCROLL_TRACK_VH.chapters[1]}vh` }}
           />
         ))}
 

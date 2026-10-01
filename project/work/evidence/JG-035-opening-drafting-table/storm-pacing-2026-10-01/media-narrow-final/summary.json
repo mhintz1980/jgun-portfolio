@@ -1,0 +1,301 @@
+{
+  "url": "http://localhost:4173",
+  "label": "aligned-review-narrow-final",
+  "generatedAt": "2026-10-01T19:09:48.105Z",
+  "headed": true,
+  "duration": 14,
+  "sampleInterval": 0.12,
+  "introShare": 0.12,
+  "requireTier": "full",
+  "phaseTable": {
+    "flicker": {
+      "start": 0.45,
+      "end": 0.58,
+      "u": [
+        0,
+        0.12,
+        0.18,
+        0.28,
+        0.34,
+        0.46,
+        0.51,
+        0.64,
+        0.72,
+        0.78,
+        0.85,
+        0.91,
+        1
+      ],
+      "power": [
+        1,
+        0.58,
+        0.92,
+        0.14,
+        0.78,
+        0.36,
+        0.86,
+        0.015,
+        0.015,
+        0.58,
+        0.08,
+        0.34,
+        0
+      ]
+    },
+    "lampReturn": {
+      "start": 0.79,
+      "end": 0.86
+    },
+    "beats": {
+      "lit": 0.4,
+      "dark": 0.59,
+      "trace": 0.69,
+      "pressure": 0.82,
+      "lift": 0.94,
+      "resolved": 0.98
+    },
+    "scrub": {
+      "from": 0.4,
+      "to": 1
+    }
+  },
+  "cases": {
+    "narrow": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "gpu": {
+        "available": true,
+        "unmasked": true,
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "maxTextureSize": 16384,
+        "contextLost": false
+      },
+      "consoleErrors": [],
+      "checkpoints": [
+        {
+          "t": 0.4,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-lit",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.45,
+          "kind": "edge",
+          "u": 0,
+          "power": 1,
+          "name": "flicker-k00-edge-u0_000-p1_000",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.4656,
+          "kind": "dip",
+          "u": 0.12,
+          "power": 0.58,
+          "name": "flicker-k01-dip-u0_120-p0_580",
+          "expectedPower": 0.58,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.4734,
+          "kind": "recovery",
+          "u": 0.18,
+          "power": 0.92,
+          "name": "flicker-k02-recovery-u0_180-p0_920",
+          "expectedPower": 0.92,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.4864,
+          "kind": "dip",
+          "u": 0.28,
+          "power": 0.14,
+          "name": "flicker-k03-dip-u0_280-p0_140",
+          "expectedPower": 0.14,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.4942,
+          "kind": "recovery",
+          "u": 0.34,
+          "power": 0.78,
+          "name": "flicker-k04-recovery-u0_340-p0_780",
+          "expectedPower": 0.78,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5098,
+          "kind": "dip",
+          "u": 0.46,
+          "power": 0.36,
+          "name": "flicker-k05-dip-u0_460-p0_360",
+          "expectedPower": 0.36,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5163,
+          "kind": "recovery",
+          "u": 0.51,
+          "power": 0.86,
+          "name": "flicker-k06-recovery-u0_510-p0_860",
+          "expectedPower": 0.86,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5332,
+          "kind": "step",
+          "u": 0.64,
+          "power": 0.015,
+          "name": "flicker-k07-step-u0_640-p0_015",
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5436,
+          "kind": "step",
+          "u": 0.72,
+          "power": 0.015,
+          "name": "flicker-k08-step-u0_720-p0_015",
+          "expectedPower": 0.015,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5514,
+          "kind": "recovery",
+          "u": 0.78,
+          "power": 0.58,
+          "name": "flicker-k09-recovery-u0_780-p0_580",
+          "expectedPower": 0.58,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5605,
+          "kind": "dip",
+          "u": 0.85,
+          "power": 0.08,
+          "name": "flicker-k10-dip-u0_850-p0_080",
+          "expectedPower": 0.08,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.5683,
+          "kind": "recovery",
+          "u": 0.91,
+          "power": 0.34,
+          "name": "flicker-k11-recovery-u0_910-p0_340",
+          "expectedPower": 0.34,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.58,
+          "kind": "edge",
+          "u": 1,
+          "power": 0,
+          "name": "flicker-k12-edge-u1_000-p0_000",
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.59,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-dark",
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.69,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-trace",
+          "expectedPower": 0,
+          "expectedSource": "plan",
+          "hard": true
+        },
+        {
+          "t": 0.82,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-pressure",
+          "expectedPower": 0.3936,
+          "expectedSource": "derived",
+          "hard": false
+        },
+        {
+          "t": 0.94,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-lift",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": false
+        },
+        {
+          "t": 0.98,
+          "kind": "beat",
+          "u": null,
+          "power": null,
+          "name": "beat-resolved",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": false
+        }
+      ],
+      "stills": [],
+      "motion": {
+        "duration": 14,
+        "sampleInterval": 0.12,
+        "samples": 85,
+        "live": true,
+        "notLive": 0,
+        "finalT": 1,
+        "tierMismatch": true,
+        "contextLost": false,
+        "canvasMissing": false,
+        "tiers": [
+          "lite"
+        ],
+        "minLampPower": 0,
+        "maxLampPower": 1
+      },
+      "video": {
+        "file": "narrow/video/narrow.webm"
+      }
+    }
+  },
+  "verdict": {
+    "label": "aligned-review-narrow-final",
+    "pass": false,
+    "requireTier": "full",
+    "failures": [
+      "narrow: motion ran tiers [\"lite\"], not the required full"
+    ],
+    "decidedAt": "2026-10-01T19:10:17.859Z"
+  }
+}

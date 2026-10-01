@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { InstancedBufferGeometry, ShaderLib, ShaderMaterial, type WebGLRenderer } from 'three'
-import { drawingIntroState, DRAWING_INTRO_WINDOW, INTRO_PHASES } from '../introTimeline'
+import { drawingIntroState, DRAWING_INTRO_WINDOW, INTRO_PHASES, REDUCED_MOTION_INTRO_T } from '../introTimeline'
 import { InkBuilder, makeInkFills, makeInkLines, makeSheetUniforms } from './ink'
 import { makeSheetText } from './sheetText'
 import { CONTACT_SHADOW_MAX, makePaperFlexField, paperContactShadow, paperFlexAmplitude, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
@@ -20,17 +20,33 @@ describe('vellum pressure and release', () => {
     expect(at(INTRO_PHASES.riseStart)).toBeCloseTo(PAPER_FLEX_MAX, 9)
   })
 
+  it('keeps the sheet flat through flicker, dark hold, trace and the reduced-motion still', () => {
+    expect(at(INTRO_PHASES.blackoutStart)).toBe(0)
+    expect(at(INTRO_PHASES.pulseEnd)).toBe(0)
+    expect(at(REDUCED_MOTION_INTRO_T)).toBe(0)
+    // Pressure builds only across the authored bulge window, capped at PAPER_FLEX_MAX.
+    let previous = 0
+    for (let i = 1; i <= 24; i += 1) {
+      const t = INTRO_PHASES.bulgeStart + (i / 24) * (INTRO_PHASES.riseStart - INTRO_PHASES.bulgeStart)
+      const amplitude = at(t)
+      expect(amplitude).toBeGreaterThanOrEqual(previous)
+      expect(amplitude).toBeLessThanOrEqual(PAPER_FLEX_MAX)
+      previous = amplitude
+    }
+    expect(previous).toBeCloseTo(PAPER_FLEX_MAX, 9)
+  })
+
   it('settles monotonically with extraction and is flat at actual separation', () => {
     let previous = PAPER_FLEX_MAX
     for (let i = 0; i <= 100; i += 1) {
       const pose = 0.4 + i * 0.006
-      const amplitude = paperFlexAmplitude(0.7, pose, 0.88, 'full')
+      const amplitude = paperFlexAmplitude(INTRO_PHASES.riseStart, pose, 0.88, 'full')
       expect(amplitude).toBeLessThanOrEqual(previous + 1e-12)
       expect(amplitude).toBeGreaterThanOrEqual(0)
       previous = amplitude
     }
     expect(paperFlexAmplitude(0.7, 0.88, 0.88, 'full')).toBe(0)
-    expect(paperFlexAmplitude(0.7, 0.8, 0.88, 'full')).toBeLessThan(paperFlexAmplitude(0.7, 0.8, 0.95, 'full'))
+    expect(paperFlexAmplitude(INTRO_PHASES.riseStart, 0.8, 0.88, 'full')).toBeLessThan(paperFlexAmplitude(INTRO_PHASES.riseStart, 0.8, 0.95, 'full'))
     expect(at(1)).toBe(0)
   })
 
@@ -39,7 +55,7 @@ describe('vellum pressure and release', () => {
     const forward = times.map(t => at(t))
     expect([...times].reverse().map(t => at(t)).reverse()).toEqual(forward)
     expect(Math.max(...forward)).toBeLessThanOrEqual(PAPER_FLEX_MAX)
-    expect(at(0.6, 'lite')).toBeCloseTo(at(0.6) * 0.45)
+    expect(at(INTRO_PHASES.riseStart, 'lite')).toBeCloseTo(at(INTRO_PHASES.riseStart) * 0.45)
     for (const t of times) {
       expect(at(t, 'full', true)).toBe(0)
       expect(at(t, 'poster')).toBe(0)
@@ -114,6 +130,18 @@ describe('all printed layers share the paper deformation', () => {
     expect(shader.vertexShader).toContain('transformed.z += paperDisplacement(transformed.xy);')
     expect(shader.vertexShader.indexOf('transformed.z +=')).toBeLessThan(shader.vertexShader.indexOf('vec4 mvPosition'))
     expect((shader.uniforms as typeof uniforms).uFlexAmplitude).toBe(uniforms.uFlexAmplitude)
+    // Troika's outer derived material runs the user onBeforeCompile handler after its
+    // own nested rewrites, so the evidence holds the final batched/SDF sources, with
+    // the base material's lamp injection intact in the fragment.
+    const evidence = text.captureShaderEvidence()
+    expect(evidence.generated).toBe(true)
+    expect(evidence.vertexShader).toBe(shader.vertexShader)
+    expect(evidence.generatedFragment).toBe(true)
+    const fragmentShader = evidence.fragmentShader ?? ''
+    expect(fragmentShader).toContain('uniform float uLampPower;')
+    // Troika resolves #include directives during its rewrite, so the multiplication is
+    // asserted on its own inlined final form rather than beside the raw include line.
+    expect(fragmentShader.match(/diffuseColor\.rgb \*= 0\.14 \+ 0\.86 \* uLampPower;/g)).toHaveLength(1)
     text.dispose()
   })
 })

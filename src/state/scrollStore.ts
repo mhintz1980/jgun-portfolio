@@ -50,10 +50,11 @@ export function navigateToStation(stationIndex: number): void {
 
   // Station scrollProgress values are authored on the PACED axis (same as the
   // deep-link values below); the browser needs the raw scroll for them. The
-  // intro owns 0.30 of the document but only 0.120 of progress (JG-026), so a
-  // raw multiply lands early — station 2's paced 0.60 landed at raw 0.60,
-  // which maps back to paced ~0.497 (chapter 1, just under chapter 2's 0.50
-  // start) and never highlighted its chapter (poster e2e, 2026-09-28).
+  // intro owns INTRO_SCROLL_SHARE of the document (0.50 now; 0.30 when that
+  // e2e ran) but only 0.120 of progress (JG-026), so a raw multiply lands
+  // early — station 2's paced 0.60 landed at raw 0.60, which at that 0.30 share
+  // mapped back to paced ~0.497 (chapter 1, just under chapter 2's 0.50 start)
+  // and never highlighted its chapter (poster e2e, 2026-09-28).
   const targetScroll = maxScroll * rawScrollFor(target.scrollProgress)
   const lenis = (window as unknown as Record<string, unknown>).__lenis as
     | { scrollTo: (target: number, opts?: { duration?: number }) => void }
@@ -284,8 +285,14 @@ export interface TelemetryDrawing {
   contact: number[]
   waveTime: number
   waveEnabled: number
-  /** Peak linear luminance the excitation writes, against the 0.6 bloom threshold. */
+  /** Electrical trace command; visible pixel proof is separate. */
   pulseLuminance: number
+  lightningLuminance: number
+  lampPower: number
+  blackout: number
+  readingPool: number
+  bulgeDisplacement: number
+  inkLuminance: number
   profilePoints: number
   planeMatrix: number[]
   modelMatrix: number[]
@@ -349,6 +356,12 @@ export const telemetry: {
     waveTime: 0,
     waveEnabled: 0,
     pulseLuminance: 0,
+    lightningLuminance: 0,
+    lampPower: 1,
+    blackout: 0,
+    readingPool: 1,
+    bulgeDisplacement: 0,
+    inkLuminance: 0,
     profilePoints: 0,
     planeMatrix: new Array(16).fill(0),
     modelMatrix: new Array(16).fill(0),

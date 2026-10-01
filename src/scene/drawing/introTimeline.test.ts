@@ -13,10 +13,13 @@ import {
 } from './introTimeline'
 
 describe('intro pacing map', () => {
-  it('gives the intro its scroll share and leaves the downstream axis linear', () => {
+  it('gives the intro its .50 scroll share and leaves the downstream axis linear', () => {
     expect(pacedProgress(0)).toBe(0)
     expect(pacedProgress(1)).toBeCloseTo(1, 12)
     expect(pacedProgress(INTRO_SCROLL_SHARE)).toBeCloseTo(DRAWING_INTRO_WINDOW.releaseEnd, 12)
+    // The storm opening stretches the same 0.12 of progress over .50 of the document.
+    expect(INTRO_SCROLL_SHARE).toBe(0.5)
+    expect(rawScrollFor(DRAWING_INTRO_WINDOW.releaseEnd)).toBeCloseTo(INTRO_SCROLL_SHARE, 9)
   })
 
   it('keeps every downstream progress span proportional to its raw scroll span', () => {
@@ -42,52 +45,302 @@ describe('intro pacing map', () => {
       expect(pacedProgress(rawScrollFor(p))).toBeCloseTo(p, 10)
     }
   })
+
+  it('crosses the .50 handoff continuously with both slopes intact', () => {
+    const share = INTRO_SCROLL_SHARE
+    // No jump across the blend centre.
+    expect(pacedProgress(share + 1e-9) - pacedProgress(share - 1e-9)).toBeLessThan(1e-7)
+    // Intro pace before the blend, downstream pace after it.
+    const before = pacedProgress(share - 0.03) - pacedProgress(share - 0.05)
+    const after = pacedProgress(share + 0.05) - pacedProgress(share + 0.03)
+    expect(before).toBeCloseTo((0.02 * DRAWING_INTRO_WINDOW.releaseEnd) / INTRO_SCROLL_SHARE, 10)
+    expect(after).toBeCloseTo((0.02 * (1 - DRAWING_INTRO_WINDOW.releaseEnd)) / (1 - INTRO_SCROLL_SHARE), 10)
+  })
 })
 
 describe('intro phase map', () => {
-  it('parks reduced motion on a fully focused, flat registered drawing before excitation', () => {
+  it('parks reduced motion on the measured lit hold, before flicker and excitation', () => {
     const state = drawingIntroState(REDUCED_MOTION_INTRO_T * DRAWING_INTRO_WINDOW.releaseEnd)
     expect(state.focus).toBe(1)
+    expect(state.lampPower).toBe(1)
+    expect(state.blackout).toBe(0)
+    expect(state.readingPool).toBe(0)
     expect(state.pulse).toBe(0)
     expect(state.pbr).toBe(0)
+    expect(state.illumination).toBe(0)
     expect(state.perspective).toBe(0)
     expect(state.drawingOpacity).toBe(1)
-  })
-  it('holds the registered camera through initial metal emergence', () => {
-    for (const t of [0.4, 0.5, 0.6, 0.68, INTRO_PHASES.orbitStart]) {
-      expect(drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(0)
+    // The camera settle is owned by onboardEnd, not by the later electrical pulse.
+    expect(REDUCED_MOTION_INTRO_T).toBe(INTRO_PHASES.onboardEnd)
+    // The lit recognition hold (.38-.45) is fully lit across its whole authored span.
+    for (let i = 0; i <= 40; i += 1) {
+      const t = INTRO_PHASES.onboardEnd + (i / 40) * (INTRO_PHASES.flickerStart - INTRO_PHASES.onboardEnd)
+      expect(drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd).lampPower).toBe(1)
     }
-    expect(drawingIntroState(0.7 * DRAWING_INTRO_WINDOW.releaseEnd).pbr).toBeCloseTo(1)
-    expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd).perspective).toBe(1)
+    expect(INTRO_PHASES.onboardEnd).toBeLessThan(INTRO_PHASES.flickerStart)
+    expect(INTRO_PHASES.flickerStart).toBeLessThan(INTRO_PHASES.pulseStart)
+    // The solved extraction has not begun; the still is fully registered.
+    expect(state.poseT).toBeLessThan(0.4)
   })
 
-  it('ends exact registration before the pressure tilt and keeps the tilt inside the pulse window', () => {
-    const { pulseStart, pulseEnd, registrationEnd, metalStart, riseStart, orbitStart } = INTRO_PHASES
-    expect(pulseStart).toBeLessThan(registrationEnd)
-    expect(registrationEnd).toBeLessThan(metalStart)
-    expect(metalStart).toBeLessThan(riseStart)
-    expect(riseStart).toBeLessThanOrEqual(orbitStart)
-    // The square-on hold covers the reduced-motion park and completes before the pulse does.
-    expect(REDUCED_MOTION_INTRO_T).toBeLessThanOrEqual(registrationEnd)
-    expect(registrationEnd).toBeLessThan(pulseEnd)
-    // Inside the tilt window the pressure is building and metal is already showing, while
-    // the hero/perspective blend still waits for orbitStart: only the camera tilts.
-    const midTilt = drawingIntroState(0.5 * (registrationEnd + riseStart) * DRAWING_INTRO_WINDOW.releaseEnd)
-    expect(midTilt.perspective).toBe(0)
-    expect(midTilt.pulse).toBe(1)
-    expect(midTilt.pbr).toBeGreaterThan(0)
-    // Registration gates are honest only while the camera is square on: the hold must not
-    // leak into the tilt, and the tilt must not start before the pulse does.
-    expect(registrationEnd).toBeGreaterThan(pulseStart)
-    expect(riseStart).toBeGreaterThan(registrationEnd)
+  it('orders every blackout, emergence, lamp, and camera boundary deterministically', () => {
+    const p = INTRO_PHASES
+    expect(p.focusEnd).toBe(p.onboardStart)
+    expect(p.onboardEnd).toBeLessThan(p.flickerStart)
+    expect(p.flickerStart).toBeLessThan(p.blackoutStart)
+    expect(p.blackoutStart).toBeLessThan(p.pulseStart)
+    expect(p.pulseStart).toBeLessThan(p.pulseEnd)
+    expect(p.pulseEnd).toBe(p.registrationEnd)
+    expect(p.registrationEnd).toBe(p.bulgeStart)
+    expect(p.bulgeStart).toBe(p.lampReturnStart)
+    expect(p.lampReturnStart).toBeLessThan(p.metalStart)
+    expect(p.metalStart).toBeLessThan(p.lampReturnEnd)
+    expect(p.lampReturnEnd).toBe(p.riseStart)
+    // The shockwave arms before the camera orbit opens; both resolve inside the intro.
+    expect(p.riseStart).toBeLessThan(p.detachStart)
+    expect(p.detachStart).toBeLessThan(p.waveEnd)
+    expect(p.orbitStart).toBeLessThan(p.waveEnd)
+    expect(p.waveEnd).toBeLessThan(1)
   })
 
-  it('reveals metal while the tool is still pressed into the sheet, before lift', () => {
+  it('pins the storm phase contract to the authored boundaries', () => {
+    expect(INTRO_PHASES.focusEnd).toBe(0.05)
+    expect(INTRO_PHASES.onboardStart).toBe(0.05)
+    expect(INTRO_PHASES.onboardEnd).toBe(0.38)
+    expect(INTRO_PHASES.flickerStart).toBe(0.45)
+    expect(INTRO_PHASES.blackoutStart).toBe(0.58)
+    expect(INTRO_PHASES.pulseStart).toBe(0.66)
+    expect(INTRO_PHASES.pulseEnd).toBe(0.79)
+    expect(INTRO_PHASES.registrationEnd).toBe(0.79)
+    expect(INTRO_PHASES.bulgeStart).toBe(0.79)
+    expect(INTRO_PHASES.lampReturnStart).toBe(0.79)
+    expect(INTRO_PHASES.metalStart).toBe(0.81)
+    expect(INTRO_PHASES.lampReturnEnd).toBe(0.86)
+    expect(INTRO_PHASES.riseStart).toBe(0.86)
+    expect(INTRO_PHASES.detachStart).toBe(0.88)
+    expect(INTRO_PHASES.orbitStart).toBe(0.9)
+    expect(INTRO_PHASES.waveEnd).toBe(0.97)
+    expect(REDUCED_MOTION_INTRO_T).toBe(0.38)
+  })
+
+  it('suppresses the measured reading pool before the stable hold and flicker', () => {
     const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(state(0.24).readingPool).toBe(1)
+    expect(state(0.25).readingPool).toBe(1)
+    expect(state(0.275).readingPool).toBeGreaterThan(0)
+    expect(state(0.275).readingPool).toBeLessThan(1)
+    expect(state(0.3).readingPool).toBe(0)
+    for (const t of [0.3, 0.34, 0.38, 0.4, 0.44]) {
+      expect(state(t).readingPool).toBe(0)
+      expect(state(t).lampPower).toBe(1)
+    }
+  })
+
+  it('traces the immutable five-failure lamp envelope between lit hold and blackout', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { flickerStart, blackoutStart } = INTRO_PHASES
+    const span = blackoutStart - flickerStart
+    const atU = (u: number) => state(flickerStart + u * span).lampPower
+    // u is failure-local time; the keys are the immutable art-directed envelope.
+    const keys: [number, number][] = [
+      [0.12, 0.58], [0.18, 0.92],
+      [0.28, 0.14], [0.34, 0.78],
+      [0.46, 0.36], [0.51, 0.86],
+      [0.64, 0.015], [0.72, 0.015], [0.78, 0.58],
+      [0.85, 0.08], [0.91, 0.34], [1, 0],
+    ]
+    expect(state(flickerStart).lampPower).toBe(1)
+    for (const [u, power] of keys) expect(atU(u)).toBeCloseTo(power, 12)
+    expect(state(blackoutStart).lampPower).toBe(0)
+    // Recovery peaks never reach full lamp power again inside the storm.
+    for (const u of [0.18, 0.34, 0.51, 0.78, 0.91]) expect(atU(u)).toBeLessThan(1)
+  })
+
+  it('keeps storm light bounded, finite and identical under reverse scrubbing', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { flickerStart, blackoutStart } = INTRO_PHASES
+    const span = blackoutStart - flickerStart
+    const times = Array.from({ length: 1401 }, (_, i) => flickerStart + (i / 1400) * span)
+    const forward = times.map(state)
+    for (const s of forward) {
+      expect(Number.isFinite(s.lampPower)).toBe(true)
+      expect(s.lampPower).toBeGreaterThanOrEqual(0)
+      expect(s.lampPower).toBeLessThanOrEqual(1)
+    }
+    // Pure function of scroll: reverse order and unrelated calls reproduce every channel.
+    for (let i = times.length - 1; i >= 0; i -= 3) expect(state(times[i])).toStrictEqual(forward[i])
+    const anchor = state(0.48)
+    // t=0.48 sits inside the failure window: flicker light, not the lit hold or blackout.
+    expect(anchor.lampPower).toBeGreaterThan(0)
+    expect(anchor.lampPower).toBeLessThan(1)
+    state(0.9)
+    state(0.2)
+    expect(state(0.48)).toStrictEqual(anchor)
+  })
+
+  it('fails light in exactly five unequal troughs with the long near-out shelf', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { flickerStart, blackoutStart } = INTRO_PHASES
+    const span = blackoutStart - flickerStart
+    const n = 1400
+    const powers = Array.from({ length: n + 1 }, (_, i) => state(flickerStart + (i / n) * span).lampPower)
+    // Cluster plateau samples so the shelf counts as one trough.
+    const runs: { u: number; power: number }[] = []
+    let i = 1
+    while (i < n) {
+      if (powers[i] < powers[i - 1]) {
+        let j = i
+        let min = i
+        while (j + 1 <= n && powers[j + 1] <= powers[j]) {
+          j += 1
+          if (powers[j] < powers[min]) min = j
+        }
+        // The strict descent into blackoutStart is the authored boundary, not a storm trough.
+        if (j >= n) break
+        const minPower = powers[min]
+        let last = min
+        while (last + 1 <= n && powers[last + 1] <= minPower) last += 1
+        runs.push({ u: (min + last) / (2 * n), power: minPower })
+        i = j + 1
+      } else {
+        i += 1
+      }
+    }
+    expect(runs).toHaveLength(5)
+    const expected: [number, number][] = [
+      [0.12, 0.58], [0.28, 0.14], [0.46, 0.36], [0.68, 0.015], [0.85, 0.08],
+    ]
+    runs.forEach((run, k) => {
+      expect(run.power).toBeCloseTo(expected[k][1], 4)
+      expect(Math.abs(run.u - expected[k][0])).toBeLessThan(0.03)
+    })
+    expect(new Set(runs.map((run) => run.power)).size).toBe(5)
+  })
+
+  it('holds one extended near-out shelf and reserves true extinction for the dark hold', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { flickerStart, blackoutStart, pulseEnd } = INTRO_PHASES
+    const span = blackoutStart - flickerStart
+    const n = 1400
+    const runs: [number, number][] = []
+    let open = -1
+    for (let i = 0; i <= n; i += 1) {
+      const nearOut = state(flickerStart + (i / n) * span).lampPower <= 0.03
+      if (nearOut && open < 0) open = i
+      if ((!nearOut || i === n) && open >= 0) {
+        runs.push([open / n, (i - (nearOut ? 0 : 1)) / n])
+        open = -1
+      }
+    }
+    // The only near-extinct stretches are the long shelf and the authored collapse into blackout.
+    expect(runs).toHaveLength(2)
+    const [shelf, collapse] = runs
+    expect(shelf[0]).toBeLessThanOrEqual(0.64 + 1e-9)
+    expect(shelf[1]).toBeGreaterThanOrEqual(0.72 - 1e-9)
+    expect(shelf[1] - shelf[0]).toBeGreaterThan(0.07)
+    expect(collapse[1]).toBeCloseTo(1, 9)
+    expect(collapse[1] - collapse[0]).toBeLessThan(0.09)
+    // True darkness belongs to the dark hold: zero lamp straight through the trace window.
+    for (let i = 0; i <= 40; i += 1) {
+      const t = blackoutStart + (i / 40) * (pulseEnd - blackoutStart)
+      expect(state(t).lampPower).toBe(0)
+      expect(state(t).blackout).toBe(1)
+    }
+  })
+
+  it('interpolates the envelope with continuous light and no snap at any key', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { flickerStart, blackoutStart } = INTRO_PHASES
+    const span = blackoutStart - flickerStart
+    const atU = (u: number) => state(flickerStart + u * span).lampPower
+    const eps = 1e-4
+    for (const u of [0, 0.12, 0.18, 0.28, 0.34, 0.46, 0.51, 0.64, 0.72, 0.78, 0.85, 0.91, 1]) {
+      const left = (atU(u) - atU(u - eps)) / eps
+      const right = (atU(u + eps) - atU(u)) / eps
+      expect(Math.abs(left)).toBeLessThan(0.2)
+      expect(Math.abs(right)).toBeLessThan(0.2)
+      expect(Math.abs(right - left)).toBeLessThan(0.25)
+    }
+  })
+
+  it('returns the lamp warmly and monotonically after the trace and holds it lit', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { lampReturnStart, lampReturnEnd } = INTRO_PHASES
+    expect(state(lampReturnStart).lampPower).toBe(0)
+    let previous = 0
+    for (let i = 1; i <= 40; i += 1) {
+      const power = state(lampReturnStart + (i / 40) * (lampReturnEnd - lampReturnStart)).lampPower
+      expect(power).toBeGreaterThanOrEqual(previous)
+      expect(power).toBeLessThanOrEqual(1)
+      previous = power
+    }
+    expect(state(lampReturnEnd).lampPower).toBe(1)
+    for (const t of [0.86, 0.9, 0.96, 1]) expect(state(t).lampPower).toBe(1)
+  })
+
+  it('opens the perspective move only at the authored orbit boundary', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    for (const t of [INTRO_PHASES.metalStart, INTRO_PHASES.riseStart, INTRO_PHASES.detachStart, INTRO_PHASES.orbitStart - 0.001]) {
+      expect(state(t).perspective).toBe(0)
+    }
+    expect(state((INTRO_PHASES.orbitStart + 1) / 2).perspective).toBeCloseTo(0.5, 12)
+    expect(state(1).perspective).toBe(1)
+  })
+
+  it('establishes the dark hold before the white trace and keeps the lamp dark throughout it', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    const { blackoutStart, pulseStart } = INTRO_PHASES
+    // The last flicker failure is still failing light, not yet the authored extinction.
+    // 0.57 is the same normalized point of the failure envelope that 0.55 held inside
+    // the old .42-.56 flicker window.
+    const preBlackout = state(0.57)
+    expect(preBlackout.lampPower).toBeGreaterThan(0.03)
+    expect(preBlackout.lampPower).toBeLessThan(0.34)
+    expect(preBlackout.blackout).toBe(0)
+    expect(preBlackout.pulse).toBe(0)
+    expect(state(blackoutStart).blackout).toBe(1)
+    expect(state(pulseStart).pulse).toBe(1)
+    // The dark hold (.58-.66) is true extinction: zero lamp, numeric blackout, no trace.
+    for (let i = 0; i < 40; i += 1) {
+      const dark = state(blackoutStart + (i / 40) * (pulseStart - blackoutStart))
+      expect(dark.lampPower).toBe(0)
+      expect(dark.blackout).toBe(1)
+      expect(dark.pulse).toBe(0)
+    }
+    for (let i = 0; i <= 80; i += 1) {
+      const trace = state(INTRO_PHASES.pulseStart + (i / 80) * (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart))
+      expect(trace.pulse).toBe(1)
+      expect(trace.lampPower).toBe(0)
+      expect(trace.blackout).toBe(1)
+    }
+  })
+
+  it('starts illumination and metal after the trace and completes light by lift', () => {
+    const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(state(INTRO_PHASES.pulseEnd).pbr).toBe(0)
+    expect(state(INTRO_PHASES.pulseEnd).illumination).toBe(0)
+    // Registration survives to the trace end: the pose axis has not started moving.
+    expect(state(INTRO_PHASES.pulseEnd).poseT).toBeLessThan(0.4)
     expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)
-    expect(INTRO_PHASES.metalStart).toBeGreaterThan(INTRO_PHASES.pulseStart)
-    expect(state(INTRO_PHASES.riseStart).pbr).toBeGreaterThan(0.5)
+    expect(state(INTRO_PHASES.metalStart).illumination).toBe(0)
+
+    // Safely inside the metal/illumination window (.81-.86): materials resolving, camera
+    // still registered, metal not yet fully resolved.
+    const resolving = state(0.835)
+    expect(resolving.pbr).toBeGreaterThan(0)
+    expect(resolving.pbr).toBeLessThan(1)
+    expect(resolving.illumination).toBeGreaterThan(0)
+    expect(resolving.illumination).toBeLessThan(1)
+    expect(resolving.perspective).toBe(0)
+    expect(resolving.poseT).toBeLessThan(0.4)
+
+    expect(state(INTRO_PHASES.riseStart).illumination).toBe(1)
+    // Metal is exactly half resolved at the lift boundary: the 0.1 ramp from metalStart
+    // (.81) is centred on riseStart (.86), and the ramp keeps advancing past it.
+    expect(state(INTRO_PHASES.riseStart).pbr).toBeCloseTo(0.5, 12)
+    expect(state(INTRO_PHASES.riseStart + 0.02).pbr).toBeGreaterThan(0.5)
     expect(state(INTRO_PHASES.riseStart).poseT).toBeCloseTo(0.4, 12)
+    expect(state(INTRO_PHASES.metalStart + 0.1).pbr).toBe(1)
   })
 
   it('sweeps light once after physical separation and resets on reverse scroll', () => {
@@ -98,7 +351,9 @@ describe('intro phase map', () => {
     expect(state((start + 1) / 2).lightSweep).toBeCloseTo(1)
     expect(state(1).lightSweep).toBeCloseTo(0)
     expect(state(start - 0.01).lightSweep).toBe(0)
-    expect(drawingIntroState(0.4, crossing).lightSweep).toBeCloseTo(0)
+    // Progress is the paced axis, so the lit hold (intro t = 0.4, inside .38-.45) is
+    // 0.4 * releaseEnd of progress; a bare 0.4 lands past the intro handoff.
+    expect(drawingIntroState(0.4 * DRAWING_INTRO_WINDOW.releaseEnd, crossing).lightSweep).toBeCloseTo(0)
   })
   it('completes the focus rack before the pulse starts', () => {
     const focused = drawingIntroState(INTRO_PHASES.focusEnd * DRAWING_INTRO_WINDOW.releaseEnd)
@@ -110,12 +365,14 @@ describe('intro phase map', () => {
   })
 
   it('reserves the onboarding window with no other authored channel in it', () => {
-    const mid = drawingIntroState(0.5 * (INTRO_PHASES.onboardStart + INTRO_PHASES.onboardEnd) * DRAWING_INTRO_WINDOW.releaseEnd)
-    expect(mid.focus).toBe(1)
-    expect(mid.pulse).toBe(0)
-    expect(mid.pbr).toBe(0)
-    expect(mid.poseT).toBeLessThan(0.4)
-    expect(mid.drawingOpacity).toBe(1)
+    const stableHold = drawingIntroState(0.3 * DRAWING_INTRO_WINDOW.releaseEnd)
+    expect(stableHold.focus).toBe(1)
+    expect(stableHold.lampPower).toBe(1)
+    expect(stableHold.readingPool).toBe(0)
+    expect(stableHold.pulse).toBe(0)
+    expect(stableHold.pbr).toBe(0)
+    expect(stableHold.poseT).toBeLessThan(0.4)
+    expect(stableHold.drawingOpacity).toBe(1)
   })
 
   it('holds the print opaque until the shockwave has crossed the sheet', () => {
@@ -130,7 +387,9 @@ describe('intro phase map', () => {
     const crossing = 0.8993818764962211
     const start = introScrollTimeFor(crossing)
     expect(drawingIntroState((start - 0.01) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(0)
-    expect(drawingIntroState((start + 0.01) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(1)
+    expect(start).toBeLessThan(INTRO_PHASES.waveEnd)
+    const midWave = (start + INTRO_PHASES.waveEnd) / 2
+    expect(drawingIntroState(midWave * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(1)
     expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(0)
   })
 
@@ -140,6 +399,33 @@ describe('intro phase map', () => {
     expect(introPoseTime(1)).toBeCloseTo(1, 12)
     for (const pose of [0.1, 0.4, 0.7, 0.8993818764962211, 1]) {
       expect(introPoseTime(introScrollTimeFor(pose))).toBeCloseTo(pose, 10)
+    }
+  })
+
+  it('evaluates every channel reversibly and derives blackout only from lamp power', () => {
+    const crossing = 0.8993818764962211
+    // Authored phase boundaries plus the old failure-window fractions: every edge where
+    // a channel can move must reproduce identically under reverse scrubbing.
+    const boundaries = [
+      INTRO_PHASES.focusEnd, INTRO_PHASES.onboardEnd, INTRO_PHASES.flickerStart,
+      INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, INTRO_PHASES.pulseEnd,
+      INTRO_PHASES.metalStart, INTRO_PHASES.riseStart, INTRO_PHASES.detachStart,
+      INTRO_PHASES.orbitStart, INTRO_PHASES.waveEnd,
+    ]
+    const samples = [
+      0, 0.24, 0.3, 0.4, 0.42, 0.4368, 0.4452, 0.4592, 0.4676, 0.4844, 0.4914,
+      0.5096, 0.5208, 0.5292, 0.539, 0.5474, 0.55, 0.63, 0.7, 0.72, 0.76, 0.78,
+      0.8, 0.84, 0.86, 0.88, 0.96, 1,
+    ].concat(boundaries)
+    const forward = samples.map((t) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing))
+
+    for (let i = 0; i < samples.length; i += 1) {
+      const repeated = drawingIntroState(samples[i] * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+      expect(repeated).toStrictEqual(forward[i])
+      expect(repeated.blackout).toBe(repeated.lampPower <= 0.03 ? 1 : 0)
+    }
+    for (let i = samples.length - 1; i >= 0; i -= 1) {
+      expect(drawingIntroState(samples[i] * DRAWING_INTRO_WINDOW.releaseEnd, crossing)).toStrictEqual(forward[i])
     }
   })
 })

@@ -132,10 +132,16 @@ describe('sheet flex geometry and shader', () => {
 
   it('executes the Troika member transform before sheet flex and flex before projection', () => {
     const uniforms = makeSheetUniforms(), layer = makeSheetText([], uniforms)
-    expect(layer.captureShaderEvidence()).toEqual({ generated: false, vertexShader: null })
+    expect(layer.captureShaderEvidence()).toEqual({
+      generated: false,
+      vertexShader: null,
+      generatedFragment: false,
+      fragmentShader: null,
+    })
     const shader = { uniforms: {}, vertexShader: ShaderLib.basic.vertexShader, fragmentShader: ShaderLib.basic.fragmentShader }
     layer.object.material.onBeforeCompile(shader, {})
     const source = shader.vertexShader
+    const fragmentSource = shader.fragmentShader
     // Follow actual GLSL execution through Troika's nested wrappers. Source
     // offsets alone do not prove order because function definitions are hoisted.
     const functions = new Map()
@@ -161,7 +167,15 @@ describe('sheet flex geometry and shader', () => {
     expect(flex).toBeGreaterThan(transformed)
     expect(project).toBeGreaterThan(flex)
     expect(shader.uniforms.uFlexAmplitude).toBe(uniforms.uFlexAmplitude)
-    expect(layer.captureShaderEvidence()).toEqual({ generated: true, vertexShader: source })
+    expect(shader.uniforms.uLampPower).toBe(uniforms.uLampPower)
+    expect(fragmentSource.match(/uniform float uLampPower;/g)).toHaveLength(1)
+    expect(fragmentSource.match(/diffuseColor\.rgb \*= 0\.14 \+ 0\.86 \* uLampPower;/g)).toHaveLength(1)
+    expect(layer.captureShaderEvidence()).toEqual({
+      generated: true,
+      vertexShader: source,
+      generatedFragment: true,
+      fragmentShader: fragmentSource,
+    })
     layer.dispose()
   })
 })

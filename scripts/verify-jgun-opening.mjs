@@ -1,5 +1,5 @@
 /** Browser-only stages 1–3 evidence. No app mutations. Run again with --label=integration.
- * node scripts/verify-jgun-opening.mjs [--label=baseline] [--case=desktop]
+ * node scripts/verify-jgun-opening.mjs [--label=baseline] [--case=desktop] [--out=absolute-path]
  * Each run gets its own directory; failures still preserve JSON and screenshots.
  */
 import { chromium } from 'playwright'
@@ -12,12 +12,16 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (key, fallback) => process.argv.find(x => x.startsWith(`--${key}=`))?.split('=').slice(1).join('=') ?? fallback
 const label = arg('label', 'baseline').replace(/[^a-z0-9_-]/gi, '-')
 const url = arg('url', 'http://localhost:5199')
-const out = path.join(root, 'project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26', `${label}-${new Date().toISOString().replace(/[:.]/g, '-')}`)
+const out = arg('out', '')
+  ? path.resolve(arg('out', ''))
+  : label === 'quick'
+  ? path.join(root, 'project/work/evidence/blackout-emergence-2026-09-30/quick')
+  : path.join(root, 'project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26', `${label}-${new Date().toISOString().replace(/[:.]/g, '-')}`)
 fs.mkdirSync(out, { recursive: true })
 const save = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n')
-const report = { url, label, started: new Date().toISOString(), browser: 'installed Playwright, channel chrome', coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, reverseNumericDelta: 0.002, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, flexPeakDisplacementMetres: 0.003 }, cases: [] }
-// Fast mode (--quick): desktop + narrow only, forward checkpoints, one registration probe per
-// checkpoint instead of two samples, no reverse pass and no reduced-motion static waits.
+const report = { url, label, started: new Date().toISOString(), browser: 'installed Playwright, channel chrome', coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, scrollShare: 0.001, realScrollPhase: 0.001 / 0.12 + 1e-6, pinnedPhase: 1e-9, reverseNumericDelta: 0.002, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, registeredCameraMetres: 0.001, lampPower: 0.001, paperFlexMaxMetres: 0.012, litePaperFlexMaxMetres: 0.0054 }, cases: [] }
+// Fast mode (--quick): desktop + narrow only, forward owner checkpoints, no reverse pass
+// and no reduced-motion static waits.
 // Use for iteration; a --quick pass never replaces a full run as "done" evidence.
 const quick = !!arg('quick', '') || process.argv.includes('--quick')
 try { report.gitStart = execFileSync('git', ['status', '--short'], { cwd: root, encoding: 'utf8' }) } catch {}
@@ -36,7 +40,92 @@ if (quick && !arg('case', '')) {
   cases.push({ name: 'desktop', width: 1600, height: 900, reducedMotion: 'no-preference' }, { name: 'narrow', width: 390, height: 844, reducedMotion: 'no-preference' })
 }
 if (!cases.length) throw new Error('Unknown --case')
-const browser = await chromium.launch({ channel: 'chrome', headless: true })
+
+const introProgress = (t) => t * 0.12
+const REAL_SCROLL_PHASE_EPSILON = 0.001 / 0.12 + 1e-6
+const PINNED_PHASE_EPSILON = 1e-9
+// Hero-transit contract (2026-10-01 pacing integration). `[data-chapter="1"]` is the element the
+// hero ScrollTrigger measures (`start: 'top bottom'`, `end: 'bottom top'`), so its live rect plus
+// the document travel is where the paced window has to land. `paced` is the window the retained
+// CH.02 timeline was authored against; `raw` is what the share-.50 derivation in
+// `src/scene/drawing/scrollTracks.ts` produces over the 3020vh document travel
+// (1607.857143vh -> 2090.714286vh). The pre-fix literals handed the transit back at
+// 0.082887/0.241801 with the intro releasing 69% into it.
+const HERO_TRANSIT = {
+  paced: { start: 0.177029, end: 0.458429 },
+  raw: { start: 0.532403027436, end: 0.692289498581 },
+}
+// Release gate: the intro hands off at paced .12 and the hero transit only opens 97.9vh later,
+// so the retained mechanism channels must read rest on both sides of the release and just after.
+// Nonreduced only — the reduced tier never mounts Lenis/ScrollTrigger or the hero timeline.
+// Epsilon: the real-scroll pass settles on `|scroll.progress - point| < 0.001` (the same
+// tolerance every checkpoint asserts). Quantization is far smaller — 1 device px is 3.7e-5/3.9e-5
+// of raw travel on the 1600x900 and 390x844 cases, i.e. <= 9.4e-6 on the paced axis — and the
+// .1199 point sits 11.3px / 10.6px below the raw .50 boundary, so it cannot round across the
+// release. The two gate sides therefore straddle .12 by construction, and each checkpoint
+// records the measured progress error as evidence.
+const releaseGatePoints = [0.1199, 0.1201, 0.13]
+const phaseSamples = [
+  { t: 0.38, keys: ['onboardEnd'] },
+  { t: 0.45, keys: ['flickerStart'] },
+  { t: 0.58, keys: ['blackoutStart'] },
+  { t: 0.66, keys: ['pulseStart'] },
+  { t: 0.79, keys: ['pulseEnd', 'registrationEnd', 'bulgeStart', 'lampReturnStart'] },
+  { t: 0.81, keys: ['metalStart'] },
+  { t: 0.86, keys: ['lampReturnEnd', 'riseStart'] },
+  { t: 0.90, keys: ['orbitStart'] },
+  { t: 0.97, keys: ['waveEnd'] },
+  { t: 1, keys: ['release'] },
+].map((sample) => ({ ...sample, progress: introProgress(sample.t) }))
+const phaseSampleByProgress = new Map(phaseSamples.map((sample) => [sample.progress, sample]))
+const lampFailureKeys = [
+  { u: 0, power: 1, role: 'lit-edge' },
+  { u: 0.12, power: 0.58, role: 'dip-1' },
+  { u: 0.18, power: 0.92, role: 'recovery-1' },
+  { u: 0.28, power: 0.14, role: 'dip-2' },
+  { u: 0.34, power: 0.78, role: 'recovery-2' },
+  { u: 0.46, power: 0.36, role: 'dip-3' },
+  { u: 0.51, power: 0.86, role: 'recovery-3' },
+  { u: 0.64, power: 0.015, role: 'dip-4-shelf-start' },
+  { u: 0.72, power: 0.015, role: 'dip-4-shelf-end' },
+  { u: 0.78, power: 0.58, role: 'recovery-4' },
+  { u: 0.85, power: 0.08, role: 'dip-5' },
+  { u: 0.91, power: 0.34, role: 'recovery-5' },
+  { u: 1, power: 0, role: 'dark-edge' },
+].map((key) => ({ ...key, t: 0.45 + key.u * (0.58 - 0.45), progress: introProgress(0.45 + key.u * (0.58 - 0.45)) }))
+const lampSampleByProgress = new Map(lampFailureKeys.map((sample) => [sample.progress, sample]))
+const pinnedSampleByProgress = new Map(phaseSamples.map((sample) => [sample.progress, { phase: sample, lamp: null }]))
+for (const sample of lampFailureKeys) {
+  const existing = pinnedSampleByProgress.get(sample.progress)
+  if (existing) existing.lamp = sample
+  else pinnedSampleByProgress.set(sample.progress, { phase: null, lamp: sample })
+}
+const pinnedSamples = [...pinnedSampleByProgress.entries()]
+  .map(([progress, samples]) => ({ progress, ...samples }))
+  .sort((a, b) => a.progress - b.progress)
+const registeredCameraProgresses = new Set([
+  introProgress(0.38),
+  introProgress(0.58),
+  introProgress(0.66),
+  introProgress(0.79),
+])
+const phaseProgresses = phaseSamples.map((sample) => sample.progress)
+const lampProgresses = lampFailureKeys.map((sample) => sample.progress)
+const quickCore = [0, ...releaseGatePoints, introProgress(0.67), introProgress(0.78), introProgress(0.84), introProgress(0.88), introProgress(0.92), 0.12]
+const fullOnlyCore = [0.018, 0.04, introProgress(0.725)]
+const points = [...new Set([...(quick ? quickCore : [...quickCore, ...fullOnlyCore]), ...phaseProgresses, ...lampProgresses])].sort((a, b) => a - b)
+const browser = await chromium.launch({
+  channel: 'chrome',
+  headless: false,
+  args: [
+    '--use-angle=d3d11',
+    // A second developer window must not background/occlude this evidence page and
+    // trigger a false quality/context-loss cascade. Production quality policy is unchanged.
+    '--disable-background-timer-throttling',
+    '--disable-renderer-backgrounding',
+    '--disable-backgrounding-occluded-windows',
+  ],
+})
 try {
   report.browserVersion = browser.version()
   for (const config of cases) {
@@ -53,6 +142,9 @@ try {
     await cdp.send('Network.setCacheDisabled', { cacheDisabled: true })
     // Count real GL submissions, independently of app telemetry and rAF callbacks.
     await page.addInitScript(() => {
+      // The harness drives exact real-scroll checkpoints; suppress scrollCommit's
+      // visitor-paced assist so forward/reverse samples remain comparable.
+      window.__scrollCommitDisabled = true
       window.__openingHarness = { contexts: [], shaderFailures: [], contextLosses: 0 }
       const original = HTMLCanvasElement.prototype.getContext
       HTMLCanvasElement.prototype.getContext = function (...args) {
@@ -139,7 +231,7 @@ try {
           fail(['full', 'lite'].includes(sample.telemetry?.performance?.tier), `${name} sample ${index}: missing or non-WebGL quality tier`)
           fail(sample.reducedMotion === true, `${name} sample ${index}: media query mismatch`)
           // Independent owner-contract expectation; catches a wrong shared constant too.
-          for (const [key, expected] of Object.entries({ phase: 0.4, focus: 1, lineOpacity: 1, pulse: 0, pbr: 0, waveEnabled: 0 })) {
+          for (const [key, expected] of Object.entries({ phase: 0.38, focus: 1, lineOpacity: 1, pulse: 0, pbr: 0, waveEnabled: 0 })) {
             const value = sample.telemetry?.drawing?.[key]
             fail(Number.isFinite(value) && Math.abs(value - expected) <= 0.001, `${name} sample ${index}: static ${key} expected ${expected}, got ${value}`)
           }
@@ -147,21 +239,25 @@ try {
             const value = sample.sheetStats?.[key]
             fail(Number.isFinite(value) && Math.abs(value) <= 1e-9, `${name} sample ${index}: static ${key} expected 0, got ${value}`)
           }
+          for (const [key, expected] of Object.entries({ lampPower: 1, blackout: 0, lightningLuminance: 0, bulgeDisplacement: 0 })) {
+            const value = sample.telemetry?.drawing?.[key]
+            fail(Number.isFinite(value) && Math.abs(value - expected) <= 0.001, `${name} sample ${index}: static ${key} expected ${expected}, got ${value}`)
+          }
           fail(sample.shaderFailures.length === 0 && sample.contextLosses === 0, `${name} sample ${index}: shader link failure or context loss`)
           checkProbes(sample, `${name} sample ${index}`)
         }
         await page.screenshot({ path: path.join(out, `${name}.png`), timeout: 15000 })
         save(`${name}.json`, checkpoint)
       }
-      // .066 is peak paper flex (intro t=.55). .048/.06 bracket the square-on registered hold
-      // (pulseStart .4 -> registrationEnd .5); .066/.072 sit inside the intentional pressure
-      // tilt, where print-to-metal parallax is authored, not a registration defect.
-      // Quick keeps the contract-bearing points (registration holds, peak flex, HUD handoff).
-      const points = quick ? [0, 0.048, 0.06, 0.066, 0.084, 0.12] : [0, 0.018, 0.04, 0.048, 0.06, 0.066, 0.072, 0.084, 0.102, 0.12]
+      // Pass 1 — true document scroll. Finite scroll quantization is allowed an explicit
+      // phase epsilon; endpoint booleans and discontinuities are proved by pinned frames below.
+      let canvasInactive = false
+      const expectedTier = config.forceTier ?? 'full'
+      const hasActiveCanvas = (snap) => snap.gl.some(g => g.connected && !g.lost && g.width > 1 && g.height > 1 && g.rect.width > 1 && g.rect.height > 1)
+      realScrollPass:
       for (const [direction, sequence] of (reduced ? [] : quick ? [['forward', points]] : [['forward', points], ['reverse', [...points].reverse()]])) {
-        for (const progress of sequence) {
+        for (const [pointIndex, progress] of sequence.entries()) {
           const scroll = await page.evaluate(p => window.__drawingProof.scrollToProgress(p), progress)
-          // Allow real scroll + camera damping to settle. Never pin progress; tier is only forced once, at load, for -lite cases.
           let previous, quiet = 0, settled = false
           const began = Date.now()
           while (Date.now() - began < 6000) {
@@ -175,87 +271,280 @@ try {
           const before = await read()
           await page.waitForTimeout(250)
           const snap = await read()
-          const live = liveCanvas(before, snap)
+          const active = hasActiveCanvas(snap)
+          const live = active && liveCanvas(before, snap)
           const tier = snap.telemetry?.performance?.tier
-          const name = `${config.name}-${direction}-${progress.toFixed(3)}`
-          const checkpoint = { name, progress, direction, scroll, settled, settleMs: Date.now() - began, live, tier, ...snap }
+          const name = `${config.name}-${direction}-${String(pointIndex).padStart(2, '0')}-${progress.toFixed(6)}`
+          const checkpoint = { name, mode: 'real-scroll', progress, direction, scroll, settled, settleMs: Date.now() - began, live, tier, ...snap }
           result.checkpoints.push(checkpoint)
+          if (!active) {
+            result.canvasInactive = { name, tier, gl: snap.gl, note: 'real render canvas disconnected/lost; later proof APIs and telemetry would be stale' }
+            fail(false, `${name}: WEBGL_CANVAS_INACTIVE (connected/renderable canvas absent)`)
+            canvasInactive = true
+            break realScrollPass
+          }
           fail(live, `${name}: no live canvas GL submissions`)
-          fail(['full', 'lite'].includes(tier), `${name}: missing or non-WebGL quality tier ${tier}`)
-          if (config.forceTier) fail(tier === config.forceTier, `${name}: forced tier ${config.forceTier} not held (got ${tier})`)
+          fail(tier === expectedTier, `${name}: expected ${expectedTier} tier for browser evidence, got ${tier}`)
           fail(settled, `${name}: scroll/camera did not settle`)
           fail(Math.abs(snap.telemetry?.scroll?.progress - progress) < 0.001, `${name}: scroll target mismatch`)
           fail(snap.reducedMotion === (config.reducedMotion === 'reduce'), `${name}: media query mismatch`)
-          // The sheet is present through these opening checkpoints; after release
-          // its hidden text/profile is no longer an appropriate visible-proof gate.
+          const drawing = snap.telemetry?.drawing ?? {}
+          const phaseSample = phaseSampleByProgress.get(progress)
+          if (phaseSample) {
+            const phaseError = Math.abs(drawing.phase - phaseSample.t)
+            checkpoint.phaseSample = { ...phaseSample, measuredPhase: drawing.phase, phaseError, epsilon: REAL_SCROLL_PHASE_EPSILON }
+            fail(Number.isFinite(phaseError) && phaseError <= REAL_SCROLL_PHASE_EPSILON,
+              `${name}: real-scroll phase error ${phaseError} > ${REAL_SCROLL_PHASE_EPSILON} at ${phaseSample.keys.join('/')}`)
+          }
+          const lampSample = lampSampleByProgress.get(progress)
+          if (lampSample) {
+            // Exact key powers are pinned below: neighboring flicker keys can be closer than
+            // the legitimate real-scroll quantization represented by REAL_SCROLL_PHASE_EPSILON.
+            checkpoint.realScrollLampSample = { ...lampSample, measuredLampPower: drawing.lampPower }
+          }
+          if (phaseSample || lampSample || progress === introProgress(0.67)) {
+            for (const key of ['lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance']) {
+              fail(typeof drawing[key] === 'number' && Number.isFinite(drawing[key]), `${name}: drawing.${key} telemetry unavailable`)
+            }
+          }
+          if (progress === introProgress(0.67)) {
+            checkpoint.lightning = { lampPower: drawing.lampPower, blackout: drawing.blackout, lightningLuminance: drawing.lightningLuminance, pulse: drawing.pulse, readingPool: drawing.readingPool }
+            fail(drawing.lampPower <= 0.001 && drawing.pulse >= 0.999 && drawing.lightningLuminance > 0, `${name}: t=.67 must show lightning while the lamp is off and pulse is active`)
+            const pixels = await page.evaluate(async () => {
+              const capture = window.__drawingProof?.captureLightningPixels
+              if (typeof capture !== 'function') return { available: false }
+              try { return { available: true, ...(await capture()) } } catch (error) { return { available: true, error: String(error) } }
+            })
+            checkpoint.lightningPixelProof = pixels
+            fail(pixels.available === true, `${name}: named lightning mesh pixel proof unavailable`)
+            fail(!pixels.error && pixels.meshName === 'lightning' && pixels.meshVisible === true && pixels.fixedCamera === true
+              && Number.isFinite(pixels.changedBrightPixels) && pixels.changedBrightPixels > 0
+              && Number.isFinite(pixels.contourPixels) && pixels.contourPixels > 0,
+              `${name}: lightning pixel proof failed (mesh visibility, fixed camera, contour, or bright-pixel delta)`)
+          }
+          if (progress === introProgress(0.78)) {
+            checkpoint.traceInteriorEnd = { lampPower: drawing.lampPower, blackout: drawing.blackout, pulse: drawing.pulse, pulseHead: drawing.pulseHead }
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0.9 && drawing.pulseHead < 1,
+              `${name}: t=.78 interior trace must remain active and dark`)
+          }
+          if (progress === introProgress(0.84)) {
+            checkpoint.metalBeforeLift = { pbr: drawing.pbr, poseT: drawing.poseT }
+            fail(drawing.pbr > 0 && drawing.poseT < 0.4, `${name}: robust pre-lift sample expected metal and pose<.4`)
+          }
+          if (progress === introProgress(0.88)) {
+            checkpoint.postRise = { pbr: drawing.pbr, poseT: drawing.poseT }
+            fail(drawing.pbr > 0 && drawing.poseT > 0.4, `${name}: robust post-rise sample expected pose>.4`)
+            const amplitude = snap.sheetStats?.flexAmplitude, peak = snap.sheetStats?.flexPeakDisplacement
+            checkpoint.peakFlex = { tier, amplitude, peakDisplacement: peak }
+            fail(Number.isFinite(amplitude) && amplitude > 0, `${name}: ${tier} peak flex amplitude expected > 0, got ${amplitude}`)
+            const flexMax = tier === 'lite' ? 0.0054 : 0.012
+            fail(Number.isFinite(peak) && peak > 0 && peak <= flexMax, `${name}: ${tier} peak flex displacement expected (0, ${flexMax}] m, got ${peak}`)
+            const contact = snap.sheetStats?.contactShadow, radius = snap.sheetStats?.contactRadius
+            checkpoint.contactShadow = { contact, radius }
+            fail(contact > 0 && radius > 0, `${name}: contact shadow expected during lift, got ${contact}`)
+          }
           if (progress < 0.12) checkProbes(snap, name)
-          if (progress === 0.048 || progress === 0.06 || progress === 0.066 || progress === 0.072) {
+          if (progress === introProgress(0.38) || progress === introProgress(0.79)) {
             const registration = snap.optional.captureRegistration
             const features = registration?.projectedFeatures
             fail(!registration?.error && Array.isArray(features) && features.length > 0
               && features.every(feature => Number.isFinite(feature.errorPixels)), `${name}: registered-hold feature measurements unavailable`)
             const maxErrorPixels = Array.isArray(features) ? Math.max(...features.map(feature => feature.errorPixels)) : NaN
-            // The square-on hold spans intro t .4 (p .048) to t .5 (p .06): exact print-to-metal
-            // registration is gated there. .048 is still damped-in (recorded only, as before).
-            // .066/.072 are inside the authored pressure tilt: the model sits 4-8 cm below the
-            // sheet, so real parallax between print and metal is the intended look. It is
-            // recorded as tiltParallax and gated objectively below (tilt happened, monotonically
-            // more than at the hold), not against the 0.1 px registered-hold gate.
-            if (progress === 0.06 || progress === 0.066 || progress === 0.072) {
-              checkpoint.registeredHold = { phase: snap.telemetry?.drawing?.phase, maxErrorPixels, projectedFeatures: features ?? null }
-            }
-            if (progress === 0.06) fail(maxErrorPixels <= 0.1, `${name}: registered-hold error ${maxErrorPixels} px > 0.1 px`)
-            if (progress === 0.066 || progress === 0.072) {
-              const tiltParallax = { phase: snap.telemetry?.drawing?.phase, maxErrorPixels, projectedFeatures: features ?? null }
-              if (progress === 0.066) checkpoint.tiltParallax = tiltParallax
-              else checkpoint.tiltParallaxEnd = tiltParallax
+            checkpoint.registeredHold = { phase: drawing.phase, maxErrorPixels, projectedFeatures: features ?? null }
+            fail(maxErrorPixels <= 0.1, `${name}: registered-hold error ${maxErrorPixels} px > 0.1 px`)
+            if (progress === introProgress(0.79)) {
+              const contact = registration?.contact, exactContact = registration?.exactContact
+              const contactDelta = Array.isArray(contact) && Array.isArray(exactContact)
+                ? Math.max(...contact.map((value, index) => Math.abs(value - exactContact[index])))
+                : Number.NaN
+              checkpoint.liveExtractionSolve = { source: '__drawingProof.captureRegistration', crossing: registration?.crossing, travel: registration?.travel, contact, exactContact, contactDelta }
+              fail(Number.isFinite(registration?.crossing) && registration.crossing > 0.4 && registration.crossing < 1,
+                `${name}: live extraction crossing unavailable/out of range (${registration?.crossing})`)
+              fail(Number.isFinite(registration?.travel) && registration.travel > 0,
+                `${name}: live extraction travel unavailable/non-positive (${registration?.travel})`)
+              fail(Number.isFinite(contactDelta) && contactDelta <= 1e-9,
+                `${name}: live contact solve disagrees with exact support vertex (delta ${contactDelta} m)`)
             }
           }
-          // Objective camera-tilt gates, independent of the registration probe. The camera pose
-          // telemetry must (a) still sit on the square-on hold at .06, and (b) have actually
-          // moved to the tilted pressure view at .072, where the rig is settled again.
           const cameraPose = { x: snap.telemetry?.camera?.x, y: snap.telemetry?.camera?.y, z: snap.telemetry?.camera?.z, fov: snap.telemetry?.camera?.fov }
-          if (progress === 0.06) {
-            checkpoint.holdCamera = cameraPose
-            fail(Number.isFinite(cameraPose.x + cameraPose.y + cameraPose.z + cameraPose.fov), `${name}: hold camera pose unavailable`)
+          if (registeredCameraProgresses.has(progress)) {
+            checkpoint.registeredCamera = cameraPose
+            fail(Number.isFinite(cameraPose.x + cameraPose.y + cameraPose.z + cameraPose.fov), `${name}: registered camera pose unavailable`)
+            if (direction === 'forward') {
+              const previousCamera = [...result.checkpoints].reverse()
+                .find(c => c.mode === 'real-scroll' && c.direction === 'forward' && c.progress < progress && c.registeredCamera)
+              if (previousCamera) {
+                const moved = Math.hypot(cameraPose.x - previousCamera.registeredCamera.x, cameraPose.y - previousCamera.registeredCamera.y, cameraPose.z - previousCamera.registeredCamera.z)
+                const fovDelta = Math.abs(cameraPose.fov - previousCamera.registeredCamera.fov)
+                checkpoint.registeredCameraDelta = { fromProgress: previousCamera.progress, moved, fovDelta }
+                fail(moved <= 0.001 && fovDelta <= 0.001, `${name}: registered camera moved before .79 (delta ${moved} m, fov ${fovDelta})`)
+              }
+            }
           }
-          if (progress === 0.072 || progress === 0.084) {
-            const hold = result.checkpoints.find(c => c.name === `${config.name}-forward-0.060`)
-            const moved = hold?.holdCamera && Number.isFinite(cameraPose.x + cameraPose.y + cameraPose.z + cameraPose.fov)
-              ? Math.hypot(cameraPose.x - hold.holdCamera.x, cameraPose.y - hold.holdCamera.y, cameraPose.z - hold.holdCamera.z)
-              : NaN
+          if (progress === introProgress(0.92)) {
+            const hold = result.checkpoints.find(c => c.mode === 'real-scroll' && c.direction === 'forward' && c.registeredCamera && c.progress === introProgress(0.79))
+            const moved = hold?.registeredCamera && Number.isFinite(cameraPose.x + cameraPose.y + cameraPose.z + cameraPose.fov)
+              ? Math.hypot(cameraPose.x - hold.registeredCamera.x, cameraPose.y - hold.registeredCamera.y, cameraPose.z - hold.registeredCamera.z)
+              : Number.NaN
             checkpoint.tiltCamera = { ...cameraPose, holdDelta: moved }
-            fail(Number.isFinite(moved), `${name}: tilt camera comparison unavailable (hold checkpoint missing)`)
-            // The elevation drop to 58 deg at the settle distance (0.4-1.5 m by aspect) moves
-            // the camera ~0.2-0.8 m; 5 mm is an order-of-magnitude floor, not a tuning knob.
-            fail(Number.isFinite(moved) && moved > 0.005, `${name}: camera did not move off the square-on hold into the pressure tilt (delta ${moved} m)`)
+            fail(Number.isFinite(moved) && moved > 0.005, `${name}: camera did not move off the flat registration view (delta ${moved} m)`)
           }
-          if (progress === 0.066) {
-            const amplitude = snap.sheetStats?.flexAmplitude, peak = snap.sheetStats?.flexPeakDisplacement
-            checkpoint.peakFlex = { tier, amplitude, peakDisplacement: peak }
-            fail(Number.isFinite(amplitude) && amplitude > 0, `${name}: ${tier} peak flex amplitude expected > 0, got ${amplitude}`)
-            fail(Number.isFinite(peak) && peak > 0 && peak <= 0.003, `${name}: ${tier} peak flex displacement expected (0, 0.003] m, got ${peak}`)
-            // Metal shows through the pressed sheet before the tool lifts (pose still registered).
-            const pbr = snap.telemetry?.drawing?.pbr, poseT = snap.telemetry?.drawing?.poseT
-            checkpoint.metalBeforeLift = { pbr, poseT }
-            fail(pbr > 0 && poseT <= 0.4 + 1e-9, `${name}: expected metal before lift, got pbr ${pbr} poseT ${poseT}`)
+          if (progress === introProgress(0.97)) {
+            checkpoint.approximateWaveEnd = { phase: drawing.phase, waveTime: drawing.waveTime, waveEnabled: drawing.waveEnabled, lineOpacity: drawing.lineOpacity, liveCrossing: drawing.crossing }
+            fail(Number.isFinite(drawing.waveTime) && drawing.waveTime > 0.9 && drawing.waveTime <= 1.001,
+              `${name}: approximate real-scroll wave time out of range (${drawing.waveTime})`)
           }
-          if (progress === 0.084 || progress === 0.12) {
-            const contact = snap.sheetStats?.contactShadow, radius = snap.sheetStats?.contactRadius
-            checkpoint.contactShadow = { contact, radius }
-            if (progress === 0.084) fail(contact > 0 && radius > 0, `${name}: contact shadow expected while touching, got ${contact}`)
-            else fail(Math.abs(contact) <= 1e-9, `${name}: contact shadow expected 0 after separation, got ${contact}`)
+          if (progress === 0.12) {
+            const maxScroll = await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)
+            const rawShare = scroll.raw / Math.max(maxScroll, 1)
+            checkpoint.scrollMap = { rawShare, expectedProgress: scroll.expected, productionMap: 'window.__drawingProof.scrollToProgress -> rawScrollFor' }
+            checkpoint.approximateRelease = { contactShadow: snap.sheetStats?.contactShadow, contactRadius: snap.sheetStats?.contactRadius, lineOpacity: drawing.lineOpacity }
+            fail(Math.abs(rawShare - 0.5) <= 0.001 && Math.abs(scroll.expected - progress) <= 0.001,
+              `${name}: dynamic rawScrollFor handoff expected raw share .50 and progress .12, got ${rawShare}/${scroll.expected}`)
+            // Hero transit metadata (restored): measure the CH.02 section from the live DOM
+            // rather than trusting the layout literals. Paced evaluation prefers a production
+            // probe when the page exposes one; the current proof API only maps paced -> raw
+            // (`scrollToProgress`), so the default path is the independent share-.50 anchors.
+            const transit = await page.evaluate(() => {
+              const section = document.querySelector('[data-chapter="1"]')
+              const max = document.documentElement.scrollHeight - window.innerHeight
+              if (!(section instanceof HTMLElement) || max <= 0) return null
+              const rect = section.getBoundingClientRect()
+              const top = window.scrollY + rect.top
+              const rawStart = (top - window.innerHeight) / max
+              const rawEnd = (top + rect.height) / max
+              const paced = typeof window.__drawingProof?.pacedProgress === 'function'
+                ? (raw) => window.__drawingProof.pacedProgress(raw)
+                : null
+              return {
+                elementTopPx: top, elementHeightPx: rect.height, documentTravelPx: max,
+                rawStart, rawEnd,
+                pacedStart: paced ? paced(rawStart) : null,
+                pacedEnd: paced ? paced(rawEnd) : null,
+              }
+            })
+            checkpoint.heroTransit = transit ? {
+              ...transit,
+              expectedRaw: HERO_TRANSIT.raw,
+              expectedPaced: HERO_TRANSIT.paced,
+              evaluation: transit.pacedStart === null ? 'independent share-.50 raw anchors' : 'production pacedProgress probe',
+            } : null
+            fail(Boolean(transit), `${name}: [data-chapter="1"] transit metadata unavailable (section or document travel)`)
+            if (transit) {
+              fail(transit.rawEnd > transit.rawStart, `${name}: hero transit end must follow its start (${transit.rawStart} -> ${transit.rawEnd})`)
+              // Ordering is the pacing fix itself: the pre-fix layout opened the transit at raw
+              // .345364 and had it 69% consumed by the .50 handoff.
+              fail(transit.rawStart > 0.5, `${name}: hero transit opens at raw ${transit.rawStart}; expected past the .50 intro handoff`)
+              if (transit.pacedStart === null) {
+                fail(Math.abs(transit.rawStart - HERO_TRANSIT.raw.start) <= 0.001 && Math.abs(transit.rawEnd - HERO_TRANSIT.raw.end) <= 0.001,
+                  `${name}: hero transit raw ${transit.rawStart.toFixed(6)}/${transit.rawEnd.toFixed(6)} outside the share-.50 derivation ${HERO_TRANSIT.raw.start}/${HERO_TRANSIT.raw.end}`)
+              } else {
+                fail(Math.abs(transit.pacedStart - HERO_TRANSIT.paced.start) <= 0.002 && Math.abs(transit.pacedEnd - HERO_TRANSIT.paced.end) <= 0.002,
+                  `${name}: hero transit paced ${transit.pacedStart}/${transit.pacedEnd} outside the retained CH.02 window ${HERO_TRANSIT.paced.start}/${HERO_TRANSIT.paced.end}`)
+              }
+            }
+          }
+          if (releaseGatePoints.includes(progress)) {
+            const rig = snap.telemetry?.rig ?? {}
+            const gateSide = progress < 0.12 ? 'release-epsilon (drawing still owns the frame)' : 'post-handoff'
+            checkpoint.releaseGate = {
+              side: gateSide,
+              measuredProgress: snap.telemetry?.scroll?.progress,
+              progressError: Math.abs((snap.telemetry?.scroll?.progress ?? Number.NaN) - progress),
+              drawingPhase: drawing.phase,
+              rig: { explodeFactor: rig.explodeFactor, gearRotation: rig.gearRotation, ghostOpacity: rig.ghostOpacity, shift: rig.shift },
+            }
+            // The CH.02 transit has not started at these points, so no partially advanced
+            // mechanics are allowed on the frames around the handoff. Camera pose is
+            // deliberately NOT asserted here: the handoff legitimately moves the camera.
+            // .1199 rides the drawing-hold branch (`progress <= releaseEnd`), .1201/.13 ride the
+            // animated branch with the scrub still at timeline time 0 — both must read rest.
+            fail(Number.isFinite(rig.explodeFactor) && Math.abs(rig.explodeFactor) <= 1e-6,
+              `${name}: ${gateSide} rig explodeFactor expected 0, got ${rig.explodeFactor}`)
+            fail(Number.isFinite(rig.gearRotation) && Math.abs(rig.gearRotation) <= 1e-6,
+              `${name}: ${gateSide} rig gearRotation expected 0, got ${rig.gearRotation}`)
+            fail(Number.isFinite(rig.ghostOpacity) && Math.abs(rig.ghostOpacity - 1) <= 1e-6,
+              `${name}: ${gateSide} rig ghostOpacity expected 1, got ${rig.ghostOpacity}`)
           }
           await page.screenshot({ path: path.join(out, `${name}.png`), timeout: 15000 })
           save(`${name}.json`, checkpoint)
         }
       }
-      // Compare authored deterministic drawing channels, excluding intentionally time-driven
-      // camera/gear idle. Quick has no reverse pass to compare against.
-      for (const forward of result.checkpoints.filter(c => !quick && c.direction === 'forward')) {
-        const reverse = result.checkpoints.find(c => c.direction === 'reverse' && c.progress === forward.progress)
+      // Pass 2 — exact pinned frames for phase metadata, inclusive endpoints, immutable lamp
+      // keys, and discontinuities. This is not mapping or visual-pixel evidence.
+      if (!reduced && !canvasInactive) {
+        result.pinnedCheckpoints = []
+        for (const [sampleIndex, sample] of pinnedSamples.entries()) {
+          const before = await read()
+          await page.evaluate(p => window.__drawingProof.setProgress(p), sample.progress)
+          const frame = await page.evaluate(() => window.__drawingProof.captureNextFrame())
+          const snap = await read()
+          const active = hasActiveCanvas(snap)
+          const live = active && liveCanvas(before, snap)
+          const tier = snap.telemetry?.performance?.tier
+          const name = `${config.name}-pinned-${String(sampleIndex).padStart(2, '0')}-${sample.progress.toFixed(6)}`
+          const drawing = frame?.drawing ?? snap.telemetry?.drawing ?? {}
+          const checkpoint = { name, mode: 'pinned', progress: sample.progress, requestedT: sample.phase?.t ?? sample.lamp?.t, live, tier, frameDrawing: frame?.drawing ?? null, ...snap }
+          result.pinnedCheckpoints.push(checkpoint)
+          if (!active) {
+            result.canvasInactive = { name, tier, gl: snap.gl, note: 'pinned render canvas disconnected/lost' }
+            fail(false, `${name}: WEBGL_CANVAS_INACTIVE (connected/renderable canvas absent)`)
+            canvasInactive = true
+            break
+          }
+          fail(live, `${name}: no live pinned-frame GL submission`)
+          fail(tier === expectedTier, `${name}: expected ${expectedTier} tier for pinned phase evidence, got ${tier}`)
+          const expectedT = sample.phase?.t ?? sample.lamp?.t
+          const phaseError = Math.abs(drawing.phase - expectedT)
+          checkpoint.pinnedPhase = { expectedT, measuredPhase: drawing.phase, phaseError, epsilon: PINNED_PHASE_EPSILON }
+          fail(phaseError <= PINNED_PHASE_EPSILON, `${name}: pinned phase error ${phaseError} > ${PINNED_PHASE_EPSILON}`)
+          if (sample.lamp) {
+            checkpoint.lampSample = { ...sample.lamp, measuredLampPower: drawing.lampPower }
+            fail(Math.abs(drawing.lampPower - sample.lamp.power) <= 0.001,
+              `${name}: lamp key ${sample.lamp.role} at u=${sample.lamp.u} expected ${sample.lamp.power}, got ${drawing.lampPower}`)
+          }
+          if (sample.phase?.t === 0.38) {
+            fail(drawing.lampPower >= 0.999 && drawing.blackout <= 0.001 && drawing.pulse <= 0.001, `${name}: exact .38 hold must be lit and pulse-free`)
+          }
+          if (sample.phase?.t === 0.58) {
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse <= 0.001, `${name}: exact .58 dark hold must be pulse-free`)
+          }
+          if (sample.phase?.t === 0.66) {
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead <= 0.001, `${name}: exact .66 pulse start mismatch`)
+          }
+          if (sample.phase?.t === 0.79) {
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && Math.abs(drawing.pulseHead - 1) <= 0.001,
+              `${name}: exact .79 pulse end mismatch`)
+            fail(Math.abs(drawing.bulgeDisplacement) <= 1e-9 && Math.abs(drawing.pbr) <= 1e-9,
+              `${name}: exact .79 bulge/metal start mismatch (bulge ${drawing.bulgeDisplacement}, pbr ${drawing.pbr})`)
+          }
+          if (sample.phase?.t === 0.81) {
+            fail(drawing.lampPower > 0 && drawing.blackout < 1 && drawing.bulgeDisplacement > 0 && drawing.bulgeDisplacement <= 0.012 && Math.abs(drawing.pbr) <= 1e-12,
+              `${name}: exact .81 return/bulge/metal-start mismatch`)
+          }
+          if (sample.phase?.t === 0.86) {
+            fail(Math.abs(drawing.poseT - 0.4) <= 1e-9 && drawing.lampPower >= 0.999 && drawing.pbr > 0,
+              `${name}: exact .86 rise/lamp-return mismatch (pose ${drawing.poseT}, lamp ${drawing.lampPower}, pbr ${drawing.pbr})`)
+          }
+          if (sample.phase?.t === 0.97) {
+            fail(drawing.waveTime >= 0.999 && drawing.waveTime <= 1.001 && drawing.waveEnabled === 0 && drawing.lineOpacity >= 0.999,
+              `${name}: exact .97 wave-end mismatch (waveTime ${drawing.waveTime}, enabled ${drawing.waveEnabled}, lineOpacity ${drawing.lineOpacity})`)
+          }
+          if (sample.phase?.t === 1) {
+            fail(Math.abs(drawing.poseT - 1) <= 1e-9 && Math.abs(drawing.lineOpacity) <= 1e-9 && drawing.waveEnabled === 0,
+              `${name}: exact release drawing mismatch (pose ${drawing.poseT}, lineOpacity ${drawing.lineOpacity}, waveEnabled ${drawing.waveEnabled})`)
+            fail(Math.abs(snap.sheetStats?.contactShadow) <= 1e-9, `${name}: exact release contact expected 0, got ${snap.sheetStats?.contactShadow}`)
+          }
+          save(`${name}.json`, checkpoint)
+        }
+        await page.evaluate(() => window.__drawingProof.release())
+      }
+      // Compare authored deterministic real-scroll channels at identical requested targets.
+      // Quick intentionally has no reverse comparison; a full run remains the completion gate.
+      for (const forward of result.checkpoints.filter(c => !quick && c.mode === 'real-scroll' && c.direction === 'forward')) {
+        const reverse = result.checkpoints.find(c => c.mode === 'real-scroll' && c.direction === 'reverse' && c.progress === forward.progress)
         const deltas = {}
-        for (const key of ['phase', 'poseT', 'pulse', 'pulseHead', 'lineOpacity', 'minZ', 'paperFlex', 'flexAmplitude', 'lightSweep']) {
+        for (const key of ['phase', 'poseT', 'pulse', 'pulseHead', 'lineOpacity', 'minZ', 'paperFlex', 'flexAmplitude', 'lightSweep', 'lightSweepPosition', 'lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance', 'pbr', 'waveTime', 'waveEnabled']) {
           const a = forward.telemetry?.drawing?.[key], b = reverse?.telemetry?.drawing?.[key]
           if (typeof a === 'number' && typeof b === 'number') deltas[key] = Math.abs(a - b)
         }
@@ -266,8 +555,7 @@ try {
         const passed = Object.keys(deltas).length > 0 && Object.values(deltas).every(n => n <= 0.002)
         result.reverse.push({ progress: forward.progress, deltas, passed })
         fail(passed, `reverse ${forward.progress}: deterministic drawing mismatch`)
-      }
-      const last = await read()
+      }      const last = await read()
       result.shaderFailures = last.shaderFailures
       result.contextLosses = last.contextLosses
       fail(last.shaderFailures.length === 0 && last.contextLosses === 0, 'shader link failure or context loss')
@@ -296,11 +584,14 @@ try {
 } finally {
   await browser.close()
   report.finished = new Date().toISOString()
-  const peakOf = name => report.cases.find(c => c.name === name)?.checkpoints.find(c => c.name === `${name}-forward-0.066`)?.peakFlex
+  const peakOf = name => report.cases.find(c => c.name === name)?.checkpoints
+    .find(c => c.mode === 'real-scroll' && c.direction === 'forward' && c.progress === introProgress(0.88))?.peakFlex
   report.flexTierComparison = ['desktop', 'narrow'].map(base => {
     const full = peakOf(base), lite = peakOf(`${base}-lite`)
     if (!full || !lite) return { base, compared: false }
-    const passed = full.tier === 'full' && lite.tier === 'lite' && full.peakDisplacement > lite.peakDisplacement && lite.peakDisplacement > 0
+    const passed = full.tier === 'full' && lite.tier === 'lite'
+      && full.peakDisplacement > lite.peakDisplacement && full.peakDisplacement <= 0.012
+      && lite.peakDisplacement > 0 && lite.peakDisplacement <= 0.0054
     return { base, compared: true, full: full.peakDisplacement, lite: lite.peakDisplacement, passed }
   })
   report.passed = report.cases.length === cases.length && report.cases.every(c => c.passed)

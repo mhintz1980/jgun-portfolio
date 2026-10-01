@@ -67,8 +67,12 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     // One detail, one traverse, one reveal. No tour of every annotation.
     { t: 0.0, x: dx, y: dy, dist: close, elev: 38, head: -12, fov: 30, ortho: 0 },
     { t: 0.19, x: 0.08, y: 0.08, dist: 0.38, elev: 54, head: -4, fov: 32, ortho: 0 },
-    { t: 0.31, x: 0, y: 0, dist: whole * 1.08, elev: 82, head: 0, fov: 34, ortho: 0 },
-    { t: INTRO_PHASES.pulseStart, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
+    // Whole-sheet reveal, then the settle. This key sits at .29 rather than .31 so the
+    // reveal->settle move keeps its original 0.09 of intro t after `onboardEnd` moved
+    // .40 -> .38 on 2026-10-01. Compressing that move to .07 of t raised the peak camera
+    // step from ~0.0080 to 0.01025 against the 0.01 continuity bound in sheetCamera.test.
+    { t: 0.29, x: 0, y: 0, dist: whole * 1.08, elev: 82, head: 0, fov: 34, ortho: 0 },
+    { t: INTRO_PHASES.onboardEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
     { t: INTRO_PHASES.registrationEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
     // After the registered pulse, lower the lens around the same focal point: the bowed
     // vellum now has real parallax before the metal rises. The hero blend still owns .72–1.

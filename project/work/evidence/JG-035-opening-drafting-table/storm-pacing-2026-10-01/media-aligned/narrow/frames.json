@@ -1,0 +1,893 @@
+{
+  "url": "http://localhost:4173",
+  "case": "narrow",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "gpu": {
+    "available": true,
+    "unmasked": true,
+    "vendor": "Google Inc. (AMD)",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "maxTextureSize": 16384,
+    "contextLost": false
+  },
+  "checkpoints": [
+    {
+      "t": 0.4,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lit",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.59,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-dark",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.69,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-trace",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true
+    },
+    {
+      "t": 0.82,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-pressure",
+      "expectedPower": 0.3936,
+      "expectedSource": "derived",
+      "hard": false
+    },
+    {
+      "t": 0.94,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lift",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false
+    },
+    {
+      "t": 0.98,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-resolved",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false
+    }
+  ],
+  "stills": [
+    {
+      "t": 0.4,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lit",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 3,
+      "file": "still-beat-lit.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.4,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.186046511627907,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.042000445297619045,
+        "y": 1.5156519200200766,
+        "z": 0.1199999271400294,
+        "fov": 30.000006463798883,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 0.0000020921193272967184,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 0.000006660654508830604,
+      "crossing": 0.8888459503339448,
+      "minZ": -0.07986483350396156,
+      "localZ": -0.039931509643793106,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": {
+          "count": 9,
+          "median": 209.05,
+          "min": 203.26,
+          "max": 213.05
+        },
+        "ink": {
+          "count": 24,
+          "median": 175.84,
+          "min": 22.37
+        },
+        "inkOverStock": 147.4
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.59,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-dark",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-beat-dark.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.59,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 0,
+      "pulseHead": 0,
+      "poseT": 0.2744186046511628,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.042000001904354135,
+        "y": 1.5156539541649945,
+        "z": 0.119999999688408,
+        "fov": 30.000000027643,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 8.94713053123808e-9,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 2.8484796882488907e-8,
+      "crossing": 0.8888459503339448,
+      "minZ": -0.07986483350396156,
+      "localZ": -0.039931509643793106,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": {
+          "count": 9,
+          "median": 29.65,
+          "min": 28.58,
+          "max": 30.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 21.72,
+          "min": 1.58
+        },
+        "inkOverStock": 20.14
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.69,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-trace",
+      "expectedPower": 0,
+      "expectedSource": "plan",
+      "hard": true,
+      "attempt": 1,
+      "file": "still-beat-trace.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.69,
+      "lampPower": 0,
+      "blackout": 1,
+      "pulse": 1,
+      "pulseHead": 0.23076923076923012,
+      "poseT": 0.32093023255813957,
+      "pbr": 0,
+      "bulge": 0,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0034768873637319644,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.04200000000965725,
+        "y": 1.5156539628572512,
+        "z": 0.11999999999841988,
+        "fov": 30.000000000140183,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.515653962901555,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 4.5371712686484054e-11,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0,
+        "contactRadius": 0.006,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 1.4443384668320827e-10,
+      "crossing": 0.8888459503339448,
+      "minZ": -0.07986483350396156,
+      "localZ": -0.039931509643793106,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": {
+          "count": 9,
+          "median": 29.65,
+          "min": 28.58,
+          "max": 30.65
+        },
+        "ink": {
+          "count": 24,
+          "median": 24.8,
+          "min": 1.58
+        },
+        "inkOverStock": 22.43
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.82,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-pressure",
+      "expectedPower": 0.3936,
+      "expectedSource": "derived",
+      "hard": false,
+      "attempt": 1,
+      "file": "still-beat-pressure.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.82,
+      "lampPower": 0.3935860058309024,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.38139534883720927,
+      "pbr": 0.02799999999999945,
+      "bulge": 0.004723032069970829,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.011883106083625335,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.37248865478942256,
+        "y": 1.4791829951211453,
+        "z": 0.11999999999999994,
+        "fov": 30.000000000000014,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.3724941889746709,
+            1.479182384397936,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.9759367379386531,
+          0.21805385468195893,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 0.000005567781353594395,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0.004723032069970829,
+        "flexPeakDisplacement": 0.004723032069970829,
+        "flexEnabled": 1,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0.009519999999999813,
+        "contactRadius": 0.006,
+        "vellum": 0.02799999999999945
+      },
+      "maxRegistrationPx": 6.0312980238803355,
+      "crossing": 0.8888459503339448,
+      "minZ": -0.07986483350396156,
+      "localZ": -0.039931509643793106,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": {
+          "count": 11,
+          "median": 155.19,
+          "min": 44,
+          "max": 164.05
+        },
+        "ink": {
+          "count": 24,
+          "median": 125.48,
+          "min": 9.69
+        },
+        "inkOverStock": 113.66
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.94,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-lift",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false,
+      "attempt": 1,
+      "file": "still-beat-lift.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.94,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.8410423805508012,
+      "pbr": 1,
+      "bulge": 0.0003218113407438512,
+      "waveTime": 0,
+      "focus": 1,
+      "lineOpacity": 1,
+      "inkLuminance": 0.0248349097409426,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.6720069269496683,
+        "y": 0.8858848110691859,
+        "z": 0.2101464089489466,
+        "fov": 33.97339722810554,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.6720074037368189,
+            0.8858838666139488,
+            0.21014655245070157
+          ],
+          "target": [
+            0.027216000000000046,
+            0.0006264911168634384,
+            0.07483637478797073
+          ],
+          "fov": 33.97340355325461
+        },
+        "up": [
+          -0.6200229473599349,
+          0.7845836760646373,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 0.000001067667755221651,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0.0003218113407438512,
+        "flexPeakDisplacement": 0.0003218113407438512,
+        "flexEnabled": 1,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0.34,
+        "contactRadius": 0.006,
+        "vellum": 0.026817611728654267
+      },
+      "maxRegistrationPx": 66.57573429828523,
+      "crossing": 0.8888459503339448,
+      "minZ": -0.044910281442303204,
+      "localZ": 0.024298645897351534,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": null,
+        "ink": {
+          "count": 24,
+          "median": 69.48,
+          "min": 0
+        },
+        "inkOverStock": 38.23
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    },
+    {
+      "t": 0.98,
+      "kind": "custom",
+      "u": null,
+      "power": null,
+      "name": "beat-resolved",
+      "expectedPower": 1,
+      "expectedSource": "plan",
+      "hard": false,
+      "attempt": 1,
+      "file": "still-beat-resolved.png",
+      "errorCount": 0,
+      "liveness": {
+        "canvasConnected": true,
+        "contextLost": false,
+        "drawingBuffer": [
+          375,
+          844
+        ],
+        "tier": "full"
+      },
+      "phase": 0.98,
+      "lampPower": 1,
+      "blackout": 0,
+      "pulse": 0,
+      "pulseHead": 1,
+      "poseT": 0.9512270434237635,
+      "pbr": 1,
+      "bulge": 0,
+      "waveTime": 1,
+      "focus": 1,
+      "lineOpacity": 0.7407407407407407,
+      "inkLuminance": 0.0248349097409426,
+      "annotationsReady": true,
+      "tier": "full",
+      "declines": 0,
+      "camera": {
+        "x": 0.40674332391164636,
+        "y": 0.2678581139357594,
+        "z": 0.3463490257797138,
+        "fov": 40.06360242222946,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.40674309147046517,
+            0.2678575723823833,
+            0.3463491451289599
+          ],
+          "target": [
+            0.004368000000000011,
+            0.0017209806028799992,
+            0.004448757186560043
+          ],
+          "fov": 40.06360775884799
+        },
+        "up": [
+          -0.0923343061562913,
+          0.9957280632314408,
+          0
+        ],
+        "sheetDistance": 1.515653962901555
+      },
+      "cameraResidual": 6.012929439714505e-7,
+      "stats": {
+        "edgeSetMs": 0,
+        "hardEdges": 385817,
+        "smoothEdges": 886494,
+        "sideSegments": 18370,
+        "sideMs": 295.90000000596046,
+        "topSegments": 11031,
+        "topMs": 177,
+        "sectionSegments": 99355,
+        "sectionMs": 126.3999999910593,
+        "hatch": 1089,
+        "frontSegments": 15538,
+        "frontMs": 181.70000000298023,
+        "rearSegments": 17752,
+        "rearMs": 169.29999999701977,
+        "bottomSegments": 16244,
+        "bottomMs": 165,
+        "segments": 211552,
+        "fills": 21,
+        "texts": 125,
+        "totalMs": 0,
+        "cacheHit": 1,
+        "precomputed": 1,
+        "cacheMs": 1520.300000011921,
+        "extractMs": 1592.6000000238419,
+        "bakeMs": 3273.600000023842,
+        "flexFieldPeak": 1,
+        "flexAmplitude": 0,
+        "flexPeakDisplacement": 0,
+        "flexEnabled": 0,
+        "flexNormalX": 0,
+        "flexNormalY": 1,
+        "flexNormalZ": 0,
+        "contactShadow": 0.1389373603048097,
+        "contactRadius": 0.023740821149575618,
+        "vellum": 0
+      },
+      "maxRegistrationPx": 260.1021727665742,
+      "crossing": 0.8888459503339448,
+      "minZ": 0.06997277306418635,
+      "localZ": 0.11679401908022694,
+      "contact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "travel": 0.22,
+      "exactContact": [
+        -0.003754069734134405,
+        0.031414797795362694,
+        -8.298917109073045e-15
+      ],
+      "pixels": {
+        "paper": null,
+        "ink": {
+          "count": 18,
+          "median": 162.41,
+          "min": 22.37
+        },
+        "inkOverStock": 124.18
+      },
+      "patchCounts": {
+        "paper": 18,
+        "ink": 24,
+        "segments": 221101
+      }
+    }
+  ]
+}

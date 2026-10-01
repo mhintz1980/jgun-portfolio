@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import {
-  AdditiveBlending,
   Color,
   DoubleSide,
   Group,
@@ -13,6 +12,7 @@ import {
   Vector2,
   Vector3,
   Vector4,
+  WebGLRenderTarget,
 } from 'three'
 import { degradeQuality, forcePoster, getQuality } from '../../state/qualityStore'
 import { getScrollState, setScrollState, telemetry } from '../../state/scrollStore'
@@ -24,6 +24,7 @@ import {
   rawScrollFor,
 } from './introTimeline'
 import {
+  INK,
   PAPER,
   SHEET_HEIGHT,
   SHEET_WIDTH,
@@ -48,6 +49,7 @@ import { prepareDrawingCache } from './sheet/drawingCache'
 import { GROUP, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
 import { makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum } from './sheet/paperFlex'
 import { bakeProfile } from './sheet/profile'
+import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from './sheet/lightning'
 import { measureProfileRegistration } from './sheet/registration'
 import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
 
@@ -96,6 +98,7 @@ uniform sampler2D uGrain;
 uniform vec3 uPaper; uniform vec3 uGrid;
 uniform vec4 uFrame; uniform vec2 uSheetHalf;
 uniform vec3 uKey; uniform vec3 uLamp;
+uniform float uLampPower; uniform float uReadingPool;
 uniform float uContrast; uniform float uOpacity; uniform float uMode;
 uniform vec2 uContact; uniform float uVellum;
 varying vec2 vPlane;
@@ -133,13 +136,16 @@ void main() {
   float key = exp(-dk * dk);
   float dl = length(p - uLamp.xy) / uLamp.z;
   float pool = exp(-dl * dl);
-  float light = 0.64 + 0.34 * key + 0.1 * pool;
-  c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key);
+  float light = (0.64 + 0.34 * key + 0.1 * pool * uReadingPool) * uLampPower;
+  // Cool room bounce is independent of the failed practical lamp. The stock and
+  // printed drawing remain present while the white electrical core owns the light.
+  vec3 ambient = vec3(0.034, 0.042, 0.061) * (1.0 - uLampPower);
+  c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key) + ambient;
   // Pressure emboss: the bowed vellum under a raking lamp. Faces tilted toward the lamp
   // brighten, faces tilted away darken; the square-on camera sees no parallax, so this
   // shading is what carries the flex.
   float w = paperFlexWeight(p);
-  float pressure = uFlexAmplitude / 0.003;
+  float pressure = uFlexAmplitude / 0.012;
   vec2 h = vec2(0.004, 0.0);
   vec2 grad = vec2(paperDisplacement(p + h.xy) - paperDisplacement(p - h.xy),
                    paperDisplacement(p + h.yx) - paperDisplacement(p - h.yx)) / (2.0 * h.x);
@@ -171,7 +177,7 @@ const deskFragment = /* glsl */ `
 ${WAVE_GLSL}
 ${NOISE_GLSL}
 uniform vec3 uKey; uniform vec2 uSheetHalf;
-uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum;
+uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower;
 varying vec2 vPlane;
 void main() {
   if (uMode > 0.5) discard;
@@ -192,7 +198,8 @@ void main() {
   // Lacquer sheen: a broad soft highlight elongated along the grain.
   vec2 s = (p - uKey.xy - vec2(0.18, -0.1)) * vec2(1.4, 3.2);
   float sheen = exp(-dot(s, s) * 3.0) * (0.6 + 0.4 * pores);
-  vec3 c = wood * (0.22 + 1.9 * key) + vec3(0.05, 0.032, 0.02) * sheen;
+  vec3 c = (wood * (0.22 + 1.9 * key) + vec3(0.05, 0.032, 0.02) * sheen)
+    * mix(vec3(0.07, 0.09, 0.14), vec3(1.0), uLampPower);
   // Contact shadow of the sheet, thrown away from the lamp.
   vec2 o = normalize(uKey.xy) * -0.007;
   vec2 q = abs(p - o) - uSheetHalf;
@@ -202,32 +209,6 @@ void main() {
   float fade = 1.0 - smoothstep(0.42, 1.05, r);
   // The desk must not hide the metal seen through the vellum.
   gl_FragColor = vec4(c * uContrast, fade * uOpacity * (1.0 - clamp(uVellum, 0.0, 1.0) * smoothstep(0.05, 0.3, paperFlexWeight(p))));
-}`
-
-/**
- * ORDERED EXCITATION (JG-026 Item 3) — unchanged behaviour: a head, an exponential trail and
- * a charged wake running the primary elevation's traced profile.
- */
-const pulseVertex = /* glsl */ `
-${WAVE_GLSL}
-attribute float arcLength; varying float vArc;
-void main() {
-  vArc = arcLength;
-  vec3 p = position;
-  p.z += paperDisplacement(p.xy);
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-}`
-
-const pulseFragment = /* glsl */ `
-uniform float uPulseHead; uniform float uPulse; uniform float uPulseGain; varying float vArc;
-void main() {
-  float d = vArc - uPulseHead;
-  float head = exp(-pow(d / 0.045, 2.0));
-  float trail = exp(-max(0.0, -d) / 0.055) * 0.55;
-  float charged = step(0.0, -d) * 0.22;
-  float flicker = 0.9 + 0.1 * sin(uPulseHead * 1700.0);
-  float amount = (head + trail + charged) * flicker;
-  gl_FragColor = vec4(vec3(0.30, 0.82, 1.0) * amount * uPulseGain, uPulse * min(1.0, amount));
 }`
 
 interface ScrollToApi {
@@ -240,15 +221,9 @@ declare global {
   }
 }
 
-/** Additive gain on the excitation. Peak linear luminance is reported against the 0.6 bloom gate. */
-const PULSE_GAIN = 6
-/** Rec.709 luminance of the excitation hue, used for the JG-021 light canon readout. */
-const PULSE_HUE_LUMINANCE = 0.2126 * 0.3 + 0.7152 * 0.82 + 0.0722 * 1.0
-/** head + trail + charged at the head, before gain. */
-const PULSE_PEAK_AMOUNT = 1 + 0.55 + 0.22
 /** Fixed warm key: off the sheet's top-left corner, sheet-plane metres (x, y, radius). */
 const KEY_LAMP = new Vector3(-0.16, 0.2, 0.62)
-const INK_NAVY = new Color()
+const INK_NAVY = new Color(INK)
 const INK_PROOF = new Color(1, 1, 1)
 const DESK = { width: 3.4, height: 2.4 }
 
@@ -288,7 +263,6 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
     const flex = makePaperFlexField(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
     uniforms.uFlexField.value = flex.texture
     uniforms.uFlexRect.value = flex.rect
-    INK_NAVY.copy(uniforms.uInk.value)
     uniforms.uOrigin.value.set(extraction.contact.x, extraction.contact.y)
     const lines = makeInkLines(composed.ink, uniforms)
     const fills = makeInkFills(composed.ink, uniforms)
@@ -343,7 +317,8 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       uDisplace: { value: 1 },
       uPulseHead: { value: 0 },
       uPulse: { value: 0 },
-      uPulseGain: { value: PULSE_GAIN },
+      uLampPower: { value: 1 },
+      uReadingPool: { value: 1 },
     })
     const paper = new ShaderMaterial({
       uniforms,
@@ -363,12 +338,11 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     })
     const pulse = new ShaderMaterial({
       uniforms,
-      vertexShader: pulseVertex,
-      fragmentShader: pulseFragment,
+      vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
+      fragmentShader: LIGHTNING_FRAGMENT,
       transparent: true,
       depthWrite: false,
       side: DoubleSide,
-      blending: AdditiveBlending,
       toneMapped: false,
     })
     return { paper, desk, pulse }
@@ -383,7 +357,9 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     desk.position.z = -0.0016
     desk.renderOrder = -1
     desk.frustumCulled = false
-    const pulse = new Mesh(rendered.profileRibbon, materials.pulse)
+    const pulse = new Mesh(makeLightningRibbon(rendered.profilePoints), materials.pulse)
+    pulse.name = 'lightning'
+    pulse.frustumCulled = false
     pulse.renderOrder = 4
     // Proof-only: the primary elevation's filled silhouette, flattened onto the sheet.
     const primary = layout.views[0]
@@ -403,6 +379,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     () => () => {
       meshes.paper.geometry.dispose()
       meshes.desk.geometry.dispose()
+      meshes.pulse.geometry.dispose()
       ;(meshes.mask.material as MeshBasicMaterial).dispose()
       materials.paper.dispose()
       materials.desk.dispose()
@@ -477,6 +454,41 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       capturePulseRegistration: () => baked.pulseRegistration(),
       captureTextBounds: () => text.captureBounds(),
       captureTitleBounds: () => text.captureBounds(GROUP.titleBlock),
+      /** Offscreen normal/null trace pixel comparison, isolated from post effects. */
+      captureLightningPixels: () => {
+        const target = new WebGLRenderTarget(512, 288)
+        const priorTarget = gl.getRenderTarget()
+        const priorVisibility = meshes.pulse.visible
+        const scene = group.current!.parent!
+        let root = scene
+        while (root.parent) root = root.parent
+        const normal = new Uint8Array(512 * 288 * 4)
+        const nullTrace = new Uint8Array(normal.length)
+        const matrix = camera.matrixWorld.clone()
+        try {
+          gl.setRenderTarget(target)
+          gl.render(root, camera)
+          gl.readRenderTargetPixels(target, 0, 0, 512, 288, normal)
+          meshes.pulse.visible = false
+          gl.render(root, camera)
+          gl.readRenderTargetPixels(target, 0, 0, 512, 288, nullTrace)
+          let changedBrightPixels = 0, contourPixels = 0
+          for (let i = 0; i < normal.length; i += 4) {
+            const peak = Math.max(normal[i], normal[i + 1], normal[i + 2])
+            const delta = Math.max(normal[i] - nullTrace[i], normal[i + 1] - nullTrace[i + 1], normal[i + 2] - nullTrace[i + 2])
+            if (delta > 8) { contourPixels++; if (peak > 80) changedBrightPixels++ }
+          }
+          const linked = gl.info.programs?.every(p => {
+            const program = p as typeof p & { diagnostics?: { runnable: boolean } }
+            return program.diagnostics?.runnable !== false
+          }) ?? false
+          return { meshName: meshes.pulse.name, meshVisible: priorVisibility, fixedCamera: matrix.equals(camera.matrixWorld), shaderValid: linked, consoleErrors: 0, changedBrightPixels, contourPixels, width: 512, height: 288 }
+        } finally {
+          meshes.pulse.visible = priorVisibility
+          gl.setRenderTarget(priorTarget)
+          target.dispose()
+        }
+      },
       captureRegistration: () => ({
         sourceTriangles: data.sourceTriangles,
         primaryMatrix: layout.views[0].camera.projectionMatrix.toArray(),
@@ -586,7 +598,14 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     const opacity = proof ? 1 : intro.drawingOpacity
     uniforms.uContrast.value = contrast
     uniforms.uOpacity.value = opacity
-    text.update(reveal, opacity)
+    const lampPower = proof || reducedMotion ? 1 : intro.lampPower
+    uniforms.uLampPower.value = lampPower
+    uniforms.uReadingPool.value = proof ? 0 : intro.readingPool
+    const inkLight = proof ? 1 : 0.14 + 0.86 * lampPower
+    uniforms.uInk.value.multiplyScalar(inkLight)
+    // Faint printed notes share the ambient-lit stock rather than disappearing
+    // when the practical goes out. Keep the lit hold exactly as before.
+    text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))
     uniforms.uPulseHead.value = intro.pulseHead
     uniforms.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
     uniforms.uWaveTime.value = intro.waveTime
@@ -639,7 +658,13 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     t.contact[2] = extraction.contact.z
     t.waveTime = intro.waveTime
     t.waveEnabled = uniforms.uWaveEnabled.value
-    t.pulseLuminance = (uniforms.uPulse.value as number) * PULSE_PEAK_AMOUNT * PULSE_GAIN * PULSE_HUE_LUMINANCE
+    t.pulseLuminance = (uniforms.uPulse.value as number) * (1 - lampPower)
+    t.lightningLuminance = t.pulseLuminance
+    t.lampPower = lampPower
+    t.blackout = lampPower <= 0.03 ? 1 : 0
+    t.readingPool = uniforms.uReadingPool.value as number
+    t.bulgeDisplacement = baked.stats.flexPeakDisplacement
+    t.inkLuminance = 0.2126 * uniforms.uInk.value.r + 0.7152 * uniforms.uInk.value.g + 0.0722 * uniforms.uInk.value.b
     t.profilePoints = rendered.profilePoints.length
     drawingRuntime.sheetMatrix.toArray(t.planeMatrix)
     drawingRuntime.modelMatrix.toArray(t.modelMatrix)

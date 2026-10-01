@@ -2,12 +2,12 @@ import { DataTexture, LinearFilter, RGBAFormat, UnsignedByteType, Vector4 } from
 import { INTRO_PHASES, smooth01 } from '../introTimeline'
 
 /** Metres along sheet-local +Z (the extraction normal). No time integration or overshoot. */
-export const PAPER_FLEX_MAX = 0.003
+export const PAPER_FLEX_MAX = 0.012
 export const PAPER_FLEX_STEP = 0.004
 
 export function paperFlexAmplitude(t: number, poseT: number, crossing: number, tier: string, flat = false): number {
   if (flat || tier === 'poster' || !Number.isFinite(t + poseT + crossing)) return 0
-  const pressureStart = INTRO_PHASES.pulseStart + (INTRO_PHASES.riseStart - INTRO_PHASES.pulseStart) * 0.55
+  const pressureStart = INTRO_PHASES.bulgeStart
   const pressure = smooth01((t - pressureStart) / Math.max(0.001, INTRO_PHASES.riseStart - pressureStart))
   // Release progressively with the actual extraction pose, reaching flat at solved separation.
   const release = smooth01((poseT - 0.4) / Math.max(0.001, crossing - 0.4))

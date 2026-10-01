@@ -1,0 +1,112 @@
+{
+  "url": "https://oryzo.ai/",
+  "measuredAt": "2026-10-01T05:44:57.455Z",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "geometry": {
+    "scrollHeight": 50505,
+    "innerHeight": 900,
+    "maxScroll": 49605,
+    "viewports": 56.12,
+    "canvases": 6,
+    "sections": 0,
+    "gsap": false,
+    "scrollTrigger": false,
+    "lenis": false
+  },
+  "domContentLoadedMs": 812,
+  "firstContentMs": 2334,
+  "beatCount": 16,
+  "beats": [
+    {
+      "p": 0,
+      "y": 0,
+      "text": "MADE FOR MUGS. BUILT FOR TABLES. Designed to lift, insulate, and grip in all the right way"
+    },
+    {
+      "p": 0.0083,
+      "y": 414,
+      "text": "MADE FOR MUGS. BUILT FOR TABLES. Designed to lift, insulate, and grip in all the right way"
+    },
+    {
+      "p": 0.0125,
+      "y": 621,
+      "text": "ISN’T JUST A COASTER. Oryzo isn’t just a coaster. It’s the result of unprecedented AI* bre"
+    },
+    {
+      "p": 0.0626,
+      "y": 3105,
+      "text": "ISN’T JUST A COASTER. Oryzo isn’t just a coaster. It’s the result of unprecedented AI* bre"
+    },
+    {
+      "p": 0.0793,
+      "y": 3933,
+      "text": "Powered by AI * ORYZO-1 * ADOBE ILLUSTRATOR WE CAUGHT YOUR ATTENTION WITH A NON-EXISTENT P"
+    },
+    {
+      "p": 0.0835,
+      "y": 4140,
+      "text": "Powered by AI * ORYZO-1 AI FILLS IN THE GAPS. WE SAID HIGH FIVE. IT HEARD SIX. * ADOBE ILL"
+    },
+    {
+      "p": 0.1878,
+      "y": 9315,
+      "text": "SO PORTABLE, it's wearable WE CAUGHT YOUR ATTENTION WITH A NON-EXISTENT PRODUCT. IF WE CAN"
+    },
+    {
+      "p": 0.2796,
+      "y": 13869,
+      "text": "SO PORTABLE, it's wearable HEY @ORYZO, CAN YOU PUT ON A BIKINI? SEND WE CAUGHT YOUR ATTENT"
+    },
+    {
+      "p": 0.3005,
+      "y": 14904,
+      "text": "SO PORTABLE, it's wearable WE CAUGHT YOUR ATTENTION WITH A NON-EXISTENT PRODUCT. IF WE CAN"
+    },
+    {
+      "p": 0.3589,
+      "y": 17802,
+      "text": "SO PORTABLE, it's wearable ISSUE NO. 00124 2 5 6 7 8 AI SLOP IDEAS FOR THIS WINTER We Are "
+    },
+    {
+      "p": 0.4382,
+      "y": 21735,
+      "text": "HANDLES EXTREMES WITH EASE From piping-hot mugs to ice-cold drinks - Oryzo stays perfectly"
+    },
+    {
+      "p": 0.5216,
+      "y": 25875,
+      "text": "CREATIVE T = 10 BALANCED T = 1 DETERMINISTIC T = 0.1 WE CAUGHT YOUR ATTENTION WITH A NON-E"
+    },
+    {
+      "p": 0.6635,
+      "y": 32913,
+      "text": "PRECISION GRIP, ZERO DRAMA GRIP-LOCKED ANTISLIP TECHNOLOGY Micro-textured cork so grippy y"
+    },
+    {
+      "p": 0.7219,
+      "y": 35811,
+      "text": "AVERAGE AGE OF FIRST HARVEST Cork oaks are typically first harvested at around 25 years, o"
+    },
+    {
+      "p": 0.7678,
+      "y": 38088,
+      "text": "100% PLANT-BASED VEGAN-FRIENDLY Pure cork sourced sustainably. Completely vegan - no cows "
+    },
+    {
+      "p": 0.9431,
+      "y": 46782,
+      "text": "Runs on the edge Refuses the cloud ON-DEVICE. Always On 24/7 UPTIME. NO POWER REQUIRED. Ru"
+    }
+  ],
+  "interpretation": [
+    "The reference is 56.1 viewports tall and carries 16 text beats.",
+    "Normalized beat positions: 0, 0.0083, 0.0125, 0.0626, 0.0793, 0.0835, 0.1878, 0.2796, 0.3005, 0.3589, 0.4382, 0.5216, 0.6635, 0.7219, 0.7678, 0.9431.",
+    "Gaps between consecutive beats, in viewports: 0.5, 0.2, 2.8, 0.9, 0.2, 5.9, 5.2, 1.2, 3.3, 4.5, 4.7, 8.0, 3.3, 2.6, 9.8.",
+    "Opening statement occupies p=0 to ~0.0626 (about 3.1 viewports) before the next idea.",
+    "The longest single stretch (p=0.7678 to 0.9431) holds one idea for about 9.7 viewports.",
+    "Applied to JG-035: the lit recognition beat measured 0.24 viewports at INTRO_SCROLL_SHARE 0.40, which reads as a glitch rather than a beat; the rebalance targets roughly 1-2 viewports per breath."
+  ]
+}

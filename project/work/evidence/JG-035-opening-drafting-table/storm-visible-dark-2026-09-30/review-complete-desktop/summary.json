@@ -1,0 +1,252 @@
+{
+  "url": "http://localhost:4173",
+  "label": "visible-dark",
+  "generatedAt": "2026-10-01T04:08:41.906Z",
+  "headed": true,
+  "duration": 18,
+  "sampleInterval": 0.12,
+  "introShare": 0.12,
+  "requireTier": "full",
+  "phaseTable": {
+    "flicker": {
+      "start": 0.42,
+      "end": 0.56,
+      "u": [
+        0,
+        0.12,
+        0.18,
+        0.28,
+        0.34,
+        0.46,
+        0.51,
+        0.64,
+        0.72,
+        0.78,
+        0.85,
+        0.91,
+        1
+      ],
+      "power": [
+        1,
+        0.58,
+        0.92,
+        0.14,
+        0.78,
+        0.36,
+        0.86,
+        0.015,
+        0.015,
+        0.58,
+        0.08,
+        0.34,
+        0
+      ]
+    },
+    "lampReturn": {
+      "start": 0.76,
+      "end": 0.84
+    },
+    "beats": {
+      "lit": 0.4,
+      "dark": 0.59,
+      "trace": 0.69,
+      "pressure": 0.82,
+      "lift": 0.94,
+      "resolved": 0.98
+    },
+    "scrub": {
+      "from": 0.4,
+      "to": 1
+    }
+  },
+  "cases": {
+    "desktop": {
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "gpu": {
+        "available": true,
+        "unmasked": true,
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "api": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "maxTextureSize": 16384,
+        "contextLost": false
+      },
+      "consoleErrors": [],
+      "checkpoints": [
+        {
+          "t": 0.98,
+          "kind": "custom",
+          "u": null,
+          "power": null,
+          "name": "beat-resolved",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": false
+        }
+      ],
+      "stills": [
+        {
+          "t": 0.98,
+          "kind": "custom",
+          "u": null,
+          "power": null,
+          "name": "beat-resolved",
+          "expectedPower": 1,
+          "expectedSource": "plan",
+          "hard": false,
+          "attempt": 1,
+          "file": "still-beat-resolved.png",
+          "errorCount": 0,
+          "liveness": {
+            "canvasConnected": true,
+            "contextLost": false,
+            "drawingBuffer": [
+              1585,
+              899
+            ],
+            "tier": "full"
+          },
+          "phase": 0.98,
+          "lampPower": 1,
+          "blackout": 0,
+          "pulse": 0,
+          "pulseHead": 1,
+          "poseT": 0.9575138740832837,
+          "pbr": 1,
+          "bulge": 0,
+          "waveTime": 1,
+          "focus": 1,
+          "lineOpacity": 0.5,
+          "inkLuminance": 0.0248349097409426,
+          "annotationsReady": true,
+          "tier": "full",
+          "declines": 0,
+          "camera": {
+            "x": 0.3561550819608663,
+            "y": 0.17635050838153601,
+            "z": 0.3539087884038667,
+            "fov": 40.399720339823695,
+            "framingBias": 0,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.3561551130853612,
+                0.17635054767287422,
+                0.3539090868148147
+              ],
+              "target": [
+                0.00311111111111112,
+                0.0017784604444444436,
+                0.0005894068148148551
+              ],
+              "fov": 40.399726933333326
+            },
+            "up": [
+              -0.06494726429543597,
+              0.9978886976314235,
+              0
+            ],
+            "sheetDistance": 0.5999442105816061
+          },
+          "cameraResidual": 3.025915354567615e-7,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "sideSegments": 18370,
+            "sideMs": 295.90000000596046,
+            "topSegments": 11031,
+            "topMs": 177,
+            "sectionSegments": 99355,
+            "sectionMs": 126.3999999910593,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 181.70000000298023,
+            "rearSegments": 17752,
+            "rearMs": 169.29999999701977,
+            "bottomSegments": 16244,
+            "bottomMs": 165,
+            "segments": 211552,
+            "fills": 21,
+            "texts": 125,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1469.1000000238419,
+            "extractMs": 670.5999999642372,
+            "bakeMs": 2217.900000035763,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.11104679980410066,
+            "contactRadius": 0.026201752958461708,
+            "vellum": 0
+          },
+          "maxRegistrationPx": 349.15764824223146,
+          "crossing": 0.8888459503339448,
+          "minZ": 0.07841754007201718,
+          "localZ": 0.12406718734107422,
+          "contact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "travel": 0.22,
+          "exactContact": [
+            -0.003754069734134405,
+            0.031414797795362694,
+            -8.298917109073045e-15
+          ],
+          "pixels": {
+            "paper": null,
+            "ink": {
+              "count": 24,
+              "median": 134.04,
+              "min": 22.37
+            },
+            "inkOverStock": 98.55
+          },
+          "patchCounts": {
+            "paper": 18,
+            "ink": 24,
+            "segments": 221101
+          }
+        }
+      ],
+      "motion": {
+        "duration": 18,
+        "sampleInterval": 0.12,
+        "samples": 140,
+        "live": true,
+        "notLive": 0,
+        "finalT": 1,
+        "tierMismatch": false,
+        "contextLost": false,
+        "canvasMissing": false,
+        "tiers": [
+          "full"
+        ],
+        "minLampPower": 0,
+        "maxLampPower": 1
+      },
+      "video": {
+        "file": "desktop/video/desktop.webm"
+      }
+    }
+  },
+  "verdict": {
+    "label": "visible-dark",
+    "pass": true,
+    "requireTier": "full",
+    "failures": [],
+    "decidedAt": "2026-10-01T04:09:21.022Z"
+  }
+}

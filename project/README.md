@@ -1,5 +1,7 @@
 # Project Knowledge Map — JGUN Portfolio
 
+> **JG-035 final verification update — 2026-10-01:** this snapshot supersedes the in-progress status prose and inherited verification checklist below. The repaired browser roster is **6/6 PASS**, all **169 tests** and **19 full-tier pixel checks** pass, and independent technical review is **ship at the code boundary**. Desktop review video and both viewports' six stills are full tier. **Narrow full-tier video remains UNMET** after three recordings downgraded to lite; those failed runs are preserved. Owner acceptance remains open; no commit, push or deployment. [Current review packet](work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md).
+
 This directory contains the durable internal knowledge for the JGUN portfolio. It is deliberately separate from application source and from the concise task queue in [`../TODO.md`](../TODO.md).
 
 > **Rule:** A checked TODO item must link to an accepted plan and verification evidence. A plan without a `JG-###` ID remains a proposal and belongs in `work/inbox/`.
@@ -35,20 +37,21 @@ This directory contains the durable internal knowledge for the JGUN portfolio. I
 | What is permanently true about the system? | `context/` |
 | Why was a durable design choice made? | `decisions/ADR-###-*.md` |
 
-## JG-026 intro timing and unchanged canonical ladder
+## Opening timing and unchanged canonical ladder
 
-The opening presentation was revised on 2026-09-26 under the owner-authorized [stages 1–3 plan](../docs/jgun-stages-1-3-implementation-plan.md): simplified camera, registered hold, restrained vellum flex, and a single metal light sweep. See animation-spec §5.0's revision note for the active presentation; the following JG-026 narrative predates JG-035. Mechanical ladder values remain current.
+The opening presentation follows the owner-directed [storm flicker / visible-dark plan](../docs/jgun-storm-flicker-visible-dark-plan.md): registered lit hold .38–.45, five irregular lamp failures .45–.58, visible-dark anticipation .58–.66, white electrical profile on the registered camera .66–.79, pressure and lamp return .79–.86, metal from .81, extraction from .86, perspective from .90, and sheet fade .97–1. INTRO_SCROLL_SHARE is .50; reduced motion parks at the lit registered .38 frame. The measured oryzo.ai (Lusion) reference holds statement beats for 2.5–3 viewports, so the extra raw share buys dwell without moving the .00–.12 progress band. The candidate is implemented and verification is in progress against this contract; owner approval remains open. See animation-spec §5.0's phase table for the active contract. Current packet: [storm-pacing-2026-10-01](work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md) — static 169/169, full-tier pixel proof 19/19 PASS, independent ship at the code boundary; the repaired six-case roster is running and review motion is pending. The [storm-visible-dark-2026-09-30](work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/) folders predate the rebalance and remain historical. The [stages 1–3 plan](../docs/jgun-stages-1-3-implementation-plan.md), [two-dip blackout continuation](../docs/jgun-blackout-emergence-plan.md), and following JG-026 narrative are historical records. Mechanical ladder and downstream constants remain current, and the enclosure/M249 page split is separate pending owner clarification.
 
 B1/B2 occupy global `0.000–0.120` of PROGRESS, which
-`pacedProgress()` stretches over `0.30` of the DOCUMENT (owner pacing
-ruling 2026-09-05). Normalized `0–.14` focuses the registered ANSI C
-print, `.14–.30` is reserved for the opening text, `.30–.56` traces the
-profile excitation, `.56–.88` extracts the model, `.88–.96` is the
-computed detachment and its single shockwave pass, and `.96–1` fades the
-print. The crossing is computed from transformed vertices, not hard-coded
-to a phase boundary. Document height is 3120vh (scroll distance 3020vh);
-every downstream chapter keeps its progress span exactly and gains 1.25x
-absolute scroll distance.
+`pacedProgress()` stretches over `INTRO_SCROLL_SHARE = 0.50` of the
+DOCUMENT (owner pacing rulings 2026-09-05 and 2026-10-01). The intro's
+normalized axis spends `.00–.38` on focus and drafting, `.38–.45` on the
+registered lit hold, `.45–.66` on failures and visible-dark anticipation,
+`.66–.86` on the electrical profile with pressure and lamp return, and the
+remaining span on extraction and sheet retirement. The crossing is computed
+from transformed vertices, not hard-coded to a phase boundary. Document
+height is 3120vh (scroll distance 3020vh); every downstream chapter keeps its
+progress span exactly while the main timeline occupies the remaining 0.50 of
+raw document scroll.
 
 CH.02 keeps its GSAP ScrollTrigger timeline (`scrub: 0.6`) on
 `[data-chapter="1"]`, animating the same proxy object as before: spin
@@ -94,10 +97,11 @@ portrait arrangement.
 The [animation spec §5](context/architecture/animation-spec.md),
 both READMEs and the skills registered in
 [`agent-skills.md`](context/agent-skills.md)
-must accompany behavior/table changes in the same commit. Full/lite retain focus/excitation/lift; lite omits plane displacement.
-Reduced motion holds the fully focused registered phase-.20 frame; poster
-retains the original DOM poster. [JG-026 evidence](work/evidence/JG-026-b1-b2-verification.md)
-records remaining proof and Mark's pending `?chapter=0` visual ruling.
+must accompany behavior/table changes in the same commit. Full/lite retain the
+opening sequence; lite uses 45% profile-bulge displacement. Reduced motion
+holds the lit registered phase-.38 frame; poster retains the original DOM
+poster. [JG-026 evidence](work/evidence/JG-026-b1-b2-verification.md)
+is historical and does not verify the rebalanced opening.
 
 ## Repository Map (source + tooling, current as of the 2026-09-25 hygiene pass)
 

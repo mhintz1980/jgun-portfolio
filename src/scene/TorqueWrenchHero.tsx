@@ -276,7 +276,7 @@ export function TorqueWrenchHero() {
         group.current.matrixAutoUpdate = false
         group.current.matrix.copy(drawingRuntime.modelMatrix)
       }
-      if (modelRoot.current) modelRoot.current.visible = !proof
+      if (modelRoot.current) modelRoot.current.visible = !proof && !reducedMotion && intro.pbr > 0
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
         applyLiveMaterials(materialMode)
         surface.current = 'live'
