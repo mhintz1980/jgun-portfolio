@@ -1,0 +1,81 @@
+{
+  "asset": "Reference-led opposed-holder knurling animation tool",
+  "date": "2026-10-04",
+  "blender_version": "5.1.1",
+  "units": "metres",
+  "source_image": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\codex-clipboard-5e1d65f6-c3b5-4dcd-8bd2-6d65ccd74a93.png",
+  "mechanism": "opposed sliding holders, not pivoting scissor arms",
+  "dimensions_basis": "Body proportions from owner illustration; contact fit from decoded P003068 vertices. No manufacturer size table supplied.",
+  "ring_source": "public/models/Default.glb, P003068-2, mesh30; isolated only for fit checking",
+  "ring_diameter_mm": 75.44365628189591,
+  "ring_width_mm": 27.204217025541766,
+  "wheel_diameter_mm": 23.0,
+  "wheel_width_mm": 7.5,
+  "wheel_tooth_count": 64,
+  "wheel_helix_deg": 30,
+  "controls": {
+    "jaw_open_mm": 0.0,
+    "traverse_mm": 0.0,
+    "approach_mm": 0.0,
+    "ring_angle_rad": 16.75516128540039
+  },
+  "axes_blender": {
+    "spin_traverse": "Z",
+    "jaw_opening": "Y",
+    "shank_withdrawal": "X"
+  },
+  "axis_conversion": "GLB glTF Y-up: Blender Z becomes glTF Y; Blender Y becomes glTF -Z",
+  "moving_nodes": [
+    "KT_TOOL_ROOT",
+    "KT_UPPER_HOLDER",
+    "KT_LOWER_HOLDER",
+    "KT_UPPER_KNURL_WHEEL_RH",
+    "KT_LOWER_KNURL_WHEEL_LH"
+  ],
+  "demo": "Frames 1\u2013150 at 30 fps, 2-second traverse at 55\u2013115; geometry demonstration only",
+  "checks": {
+    "contact_gap_mm": [
+      0.0,
+      0.0
+    ],
+    "wheel_width_mm": 7.5,
+    "fork_inner_clearance_per_side_mm": 1.2500000000000002,
+    "rail_to_ring_clearance_mm": 11.278171859052048,
+    "traverse_duration_seconds": 2.0,
+    "stroke_mm": 19.704217025541766,
+    "coverage_width_mm": 27.204217025541766,
+    "ring_width_mm": 27.204217025541766,
+    "tooth_hands": [
+      "RH",
+      "LH"
+    ],
+    "status": "PASS"
+  },
+  "tool_objects": 104,
+  "outputs": {
+    "blend": "C:\\Projects\\CAD\\jgun-knurling-tool\\knurling-tool-v1.blend",
+    "glb": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\knurling-tool-2026-10-04\\knurling-tool.glb"
+  },
+  "limits": [
+    "Reference body dimensions approximate",
+    "No production-tool identity asserted",
+    "No fixture, ring knurl creation, anodizing, or website integration implemented"
+  ],
+  "web_export": {
+    "glb": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\knurling-tool-2026-10-04\\knurling-tool.glb",
+    "bytes": 1798620,
+    "rigid_meshes": 12,
+    "triangles": 94040,
+    "animation_clips": 1,
+    "animation_channels": 5,
+    "moving_nodes": [
+      "KT_TOOL_ROOT",
+      "KT_UPPER_HOLDER",
+      "KT_LOWER_HOLDER",
+      "KT_UPPER_KNURL_WHEEL_RH",
+      "KT_LOWER_KNURL_WHEEL_LH"
+    ],
+    "reference_ring_excluded": true,
+    "scene_count": 1
+  }
+}

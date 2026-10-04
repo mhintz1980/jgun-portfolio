@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "filepath": "C:\\Projects\\CAD\\jgun-knurling-tool\\knurling-tool-v1.blend",
+  "bytes": 628316,
+  "scene": "JGUN_KNURLING_TOOL",
+  "frame": 85,
+  "tool_objects": 104,
+  "control_action": "KT_Approach_Contact_Traverse_Retract",
+  "startup_objects": [
+    "Cube",
+    "Light",
+    "Camera"
+  ],
+  "moving_nodes": [
+    "KT_TOOL_ROOT",
+    "KT_UPPER_HOLDER",
+    "KT_LOWER_HOLDER",
+    "KT_UPPER_KNURL_WHEEL_RH",
+    "KT_LOWER_KNURL_WHEEL_LH"
+  ]
+}

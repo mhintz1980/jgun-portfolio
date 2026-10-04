@@ -1,0 +1,731 @@
+{
+  "status": "PASS",
+  "glb_sha256": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8",
+  "frames_compared": 9,
+  "moving_units": 5,
+  "meshes_reimported": 12,
+  "max_translation_error_m": 0.0,
+  "max_angular_error_rad": 0.0,
+  "records": [
+    {
+      "frame": 1,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.02199999988079071,
+            0.0,
+            -0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    {
+      "frame": 30,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            -0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    {
+      "frame": 45,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            -0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    {
+      "frame": 55,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            -0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.8327368497848511,
+            0.0,
+            0.0,
+            -0.5536689758300781
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.8327368497848511,
+            0.0,
+            0.0,
+            -0.5536689758300781
+          ]
+        }
+      }
+    },
+    {
+      "frame": 85,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            -0.7006142735481262,
+            0.0,
+            0.0,
+            -0.7135403156280518
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            -0.7006142735481262,
+            0.0,
+            0.0,
+            -0.7135403156280518
+          ]
+        }
+      }
+    },
+    {
+      "frame": 115,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            -0.5687987804412842,
+            0.0,
+            0.0,
+            0.8224767446517944
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            -0.5687987804412842,
+            0.0,
+            0.0,
+            0.8224767446517944
+          ]
+        }
+      }
+    },
+    {
+      "frame": 120,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.04922182857990265,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.30664148926734924,
+            0.0,
+            0.0,
+            -0.9518250823020935
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.30664148926734924,
+            0.0,
+            0.0,
+            -0.9518250823020935
+          ]
+        }
+      }
+    },
+    {
+      "frame": 135,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.991767168045044,
+            0.0,
+            0.0,
+            -0.12805412709712982
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.991767168045044,
+            0.0,
+            0.0,
+            -0.12805412709712982
+          ]
+        }
+      }
+    },
+    {
+      "frame": 150,
+      "units": {
+        "KT_TOOL_ROOT": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.02199999988079071,
+            0.0,
+            0.009852108545601368
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_LOWER_HOLDER": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            -0.05922182649374008,
+            0.0
+          ],
+          "quaternion": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "KT_UPPER_KNURL_WHEEL_RH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.991767168045044,
+            0.0,
+            0.0,
+            -0.12805412709712982
+          ]
+        },
+        "KT_LOWER_KNURL_WHEEL_LH": {
+          "translation_error_m": 0.0,
+          "angular_error_rad": 0.0,
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quaternion": [
+            0.991767168045044,
+            0.0,
+            0.0,
+            -0.12805412709712982
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "glb": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\knurling-tool-2026-10-04\\knurling-tool.glb",
+  "bytes": 1798620,
+  "rigid_meshes": 12,
+  "triangles": 94040,
+  "animation_clips": 1,
+  "animation_channels": 5,
+  "moving_nodes": [
+    "KT_TOOL_ROOT",
+    "KT_UPPER_HOLDER",
+    "KT_LOWER_HOLDER",
+    "KT_UPPER_KNURL_WHEEL_RH",
+    "KT_LOWER_KNURL_WHEEL_LH"
+  ],
+  "reference_ring_excluded": true,
+  "scene_count": 1
+}
