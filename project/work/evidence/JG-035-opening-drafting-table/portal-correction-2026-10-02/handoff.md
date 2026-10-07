@@ -1,0 +1,19 @@
+# Handoff — JG-035 causal portal correction
+
+2026-10-02, America/New_York. Status: technically verified, fresh review SHIP; owner visual acceptance open. Worktree: `C:/Users/Markimus/.buzz/REPOS/jgun-portfolio`; branch remains the existing `codex/jg033-signature-shot`. No commit, push or deployment.
+
+The owner's critical portal correction supersedes the Temp handoff and previous paper-breakthrough staging. Model push begins with paper pressure .79–.84; illumination .79–.81 and PBR .80–.82 finish before rupture .84–.88. The J-Gun is immediately visible through departing stock and rises continuously to 1. The camera independently retains its smooth rake .79–.89 and perspective from .90.
+
+New `sheet/portal.ts` cuts the desk out beneath the exact profile, encloses a deep nearly black cavern with five wall levels and opaque floor at −.32 m, and adds white/blue fissures, bounce and restrained deterministic pulse. The broad white cover behind paper was removed because it hid recessed metal. Existing fracture, crack-light, burned-edge and storm effects remain. Opaque paper/portal retire together through physical motion at global .18–.22.
+
+The pressure lift is solved against every actual model vertex and bilinearly sampled flex bytes, with full/lite limits and stock thickness. New `extractionPose.test.ts` verifies bounded pressure, immediate emergence, continuity, tier changes, true crossing, flat fallback and identity handoff. `sheetCamera` now has its own rake endpoint; tying it to the earlier rise start caused a tested snap and was repaired. Drawing probes now use pressureTravel and actual relative translation. `scrollStore` explicitly exposes illumination telemetry.
+
+Parent static verification after the telemetry edit: 276/276 unit tests (including .kilo worktree tests), production build/typecheck, 31/31 B1/B2 contracts and Stage 2 contract PASS. Preview was restarted after every rebuild and is at `http://localhost:4173`.
+
+Production capture: desktop/lite and narrow/full PASS, forward/reverse states, live canvas and motion video, zero console errors. First-rupture .8405 pixels: desktop model 169 / portal 12 / desk 0; narrow model 479 / portal 62 / desk 0. All 12 aperture samples show zero desk contribution. At .855 metal fills the visible aperture; portal depth is independently visible again at .88/.92. These are pixel comparisons, not vision-only claims.
+
+Strict full roster is complete: all six cases PASS with zero failures and console errors. Desktop/narrow full and forced-lite each have 86 forward/reverse + 24 pinned frames; both reduced cases pass their static park. The forced-lite verifier needed shader warmup/3000 ms settling before manual tier change, resolving startup FPS history causing a premature second downgrade. Production quality policy and full-tier gate remain unchanged. Initial reviewer found no blocking scene-code defect but returned fix-first for missing complete runtime proof; fresh final reviewer Zeno inspected completed evidence and returned SHIP with no blocking findings. See `review.md`, `technical-review.md`, `production-capture/summary.json` and `verified-roster/summary.json` for final authoritative status.
+
+Diagnostic folders `dev-capture` and `quick` are failed/incomplete iterations; do not cite them as final proof. The initial dev summary's historical pass flag with no cases is not a success; the capture script now writes failure for exceptions. Never stage `.scratch/` or `.tmp-probe/`. Existing source/document/evidence drift from earlier sessions is preserved; inspect live git status before any owner-requested commit. The previous evidence packet is large and remains uncommitted; its storage/commit decision was outside this correction.
+
+Owner visual acceptance and the broader JG-035 tolerance/station/enclosure-page questions remain open. No memory update was requested or performed.

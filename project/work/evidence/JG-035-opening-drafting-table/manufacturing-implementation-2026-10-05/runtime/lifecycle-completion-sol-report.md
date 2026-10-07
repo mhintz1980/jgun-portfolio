@@ -1,0 +1,2 @@
+[Completion report](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/lifecycle/completion-summary.md) — Two unchanged runs on `:4173` agreed: **12/14 passed**. V1/V2/V3/V5 passed; V4 failed on three reduced-motion CAD fetches per viewport. V6 remains pending. Includes changed paths, command, per-case numbers, defects, and limitations. Preview was not restarted.
+

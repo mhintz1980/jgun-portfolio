@@ -1,0 +1,478 @@
+{
+ "schema": "jgun-g0-clearance/v4-meridian",
+ "generated_utc": "2026-10-06T02:48:55.564280+00:00",
+ "command": "& \"C:/Program Files/Blender Foundation/Blender 5.1/blender.exe\" -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/tool_clearance_meridian.py",
+ "source": {
+  "blend": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend",
+  "sha256_before_after": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89"
+ },
+ "method": "G0 tool clearance v4 (meridian method), parent-authored 2026-10-05.\n\nReplaces the defective clearance-v3 verdict (collapsed cutter profile inflated\ne_tool to 2.749 mm; hob fed from the journal side). Method:\n\n* Both shafts rotate during machining (shaping generation, hobbing), so every\n  non-generated feature (pilot, relief groove, cone, journal, ring groove,\n  shoulder) is checked against the surface-of-revolution envelope\n  r_outer(y) = max radius of the exact plane section at y. Shaft region at y is\n  contained in rho <= r_outer(y), so clearance is a 2D distance in the meridian\n  half-plane (rho, y). No ray parity or normal signs on open shells.\n* Tooth-space floor r_min(y) = min radius of the section (segment interior\n  included) is used only for the hob ramp reproduction check.\n* Shaper (legacy grooved blank): disc cutter axis parallel to the shaft axis,\n  so its meridian footprint is the exact rectangle rho in [C-Rt, C+Rt] x\n  [yc-t/2, yc+t/2]; holders likewise. Contact is allowed only in the measured\n  generating band (face start .. last tooth stub).\n* Hob (revised smooth blank, then approved journal side): tilted cylinder of\n  radius R about axis a=(cos g, sin g, 0) through (0, yc, A); near-side surface\n  sampled densely; R and stop position fitted to the approved ramp floor.\n* e_total = e_cad + e_profile + e_sampling (+ e_path for path poses). PASS for\n  must-clear pairs requires d - e_total >= MARGIN; contact pairs require\n  |penetration| <= e_total and location inside the generated zone.\n\nRead-only on all CAD sources (hashes checked before/after). Writes only\ncamera/clearance-v4/.",
+ "facts": {
+  "legacy_teeth_end_y": 9.8749,
+  "legacy_groove_edge_end_y": 9.9549,
+  "legacy_groove_floor_y": 10.41,
+  "legacy_groove_floor_r": 3.9698778108884056,
+  "legacy_groove_wall_y": 10.94,
+  "legacy_pilot_end_y": 3.17,
+  "empty_interior_stations_filled_legacy_approved": [
+   1,
+   0
+  ],
+  "legacy_face_tip_r": 6.083507443359969,
+  "approved_face_root_r": 4.29182859636582,
+  "approved_journal_r_at_14_18": 6.324956651245068,
+  "approved_r_outer_13_78_to_14_18": [
+   6.074000486547925,
+   6.324956651245068
+  ],
+  "cad_constancy_spans_mm": {
+   "approved_journal_r_outer_15_6_19_2": 9.948207243226648e-05,
+   "legacy_journal_r_outer_12_9_16_5": 0.0,
+   "approved_tip_r_outer_4_9": 0.0001655054084466201,
+   "legacy_tip_r_outer_4_9": 0.0,
+   "approved_root_r_min_4_9": 0.004303604026497432,
+   "legacy_root_r_min_4_9": 8.881784197001252e-16
+  },
+  "hob_zones": {
+   "ramp_end_measured_y": 13.75,
+   "filler_od_r": 6.074000486547925,
+   "turned_cone_y": [
+    13.94,
+    14.17
+   ],
+   "chord_sag_mm": 0.01014037581063576
+  }
+ },
+ "shaper": {
+  "shaft": "SHAFT_P001835_ORIG (legacy grooved blank)",
+  "teeth": 20,
+  "centre_distance_mm": 15.5,
+  "signed_ratio_work_over_cutter": -2.0,
+  "tip_radius_mm": 11.203199999999999,
+  "thickness_mm": 1.2,
+  "stroke_centre_y_mm": [
+   2.17,
+   9.7749
+  ],
+  "overtravel_past_last_stub_mm": 0.5,
+  "return_backoff_mm": 2.0,
+  "holders_radius_length_mm": {
+   "hub": [
+    8.0,
+    6.0
+   ],
+   "clamp_nut": [
+    9.0,
+    3.0
+   ],
+   "arbor": [
+    7.0,
+    12.0
+   ]
+  },
+  "note": "Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."
+ },
+ "hob": {
+  "shaft": "revised smooth blank, approved journal side",
+  "starts": 1,
+  "module_mm": 1.0,
+  "R_mm": 5.87,
+  "stop_yc_mm": 9.5249,
+  "lead_angle_deg": 5.5587,
+  "max_abs_dev_mm": 0.004861622932300413,
+  "rms_dev_mm": 0.0036269702635484853,
+  "max_overcut_mm": 0.004861622932300413,
+  "max_undercut_mm": 0.0,
+  "stations": 426,
+  "centre_distance_mm": 10.1618,
+  "length_mm": 16.0,
+  "collar_radius_mm": 6.869999999999998,
+  "arbor_radius_mm": 4.369999999999998,
+  "path": "infeed radial at yc=-4.195; feed +Y at full depth to yc=9.5249; retract 2.5 mm radial; withdraw -Y"
+ },
+ "error_budget_mm": {
+  "e_cad": 0.006303604026497432,
+  "e_profile": 0.005,
+  "e_hob_sampling": 0.011235676656509014,
+  "e_hob_final": 0.022539280683006445,
+  "e_hob_path": 0.06564919772242722,
+  "e_shaper": 0.011303604026497431,
+  "e_shaper_path": 0.016303604026497432,
+  "margin": 0.02
+ },
+ "pairs": [
+  {
+   "pair": "shaper_cutter_cut_vs_legacy_nongenerating",
+   "min_distance_mm": 0.13006404646177305,
+   "at_y_mm": 9.96,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.36
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.11376044243527562,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_cut_vs_groove_lip_root_boundary",
+   "min_distance_mm": 0.022004872755132077,
+   "at_y_mm": 9.88,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.28
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.005701268728634645,
+   "criterion": "generated root boundary (cutter runs at root + 5 um stock): no interference, d - e_total >= 0",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_hub_cut_vs_legacy",
+   "min_distance_mm": 1.4164925566400308,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "cut",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 1.4001889526135334,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_clamp_nut_cut_vs_legacy",
+   "min_distance_mm": 0.4164925566400308,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "cut",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.4001889526135334,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_arbor_cut_vs_legacy",
+   "min_distance_mm": 2.438921129576924,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.77
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.4226175255504265,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_return_vs_legacy_nongenerating",
+   "min_distance_mm": 0.21329255664003188,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "return",
+    "yc": 2.9
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.19698895261353444,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_hub_return_vs_legacy",
+   "min_distance_mm": 3.416492556640031,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "return",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 3.4001889526135334,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_clamp_nut_return_vs_legacy",
+   "min_distance_mm": 2.416492556640031,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "return",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.4001889526135334,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_arbor_return_vs_legacy",
+   "min_distance_mm": 4.428804184298161,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "return",
+    "yc": 9.77
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 4.412500580271664,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_backoff_vs_legacy",
+   "min_distance_mm": 0.13006404646177305,
+   "at_y_mm": 9.96,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "backoff",
+    "rho_near": 4.2968
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.11376044243527562,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_infeed_vs_legacy",
+   "min_distance_mm": 1.9080694984663407,
+   "at_y_mm": 3.12,
+   "e_total_mm": 0.016303604026497432,
+   "pose": {
+    "phase": "infeed",
+    "rho_near": 4.2968
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 1.8917658944398432,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_final_vs_approved_journal_side_y_ge_14_18",
+   "min_distance_mm": 0.11865068857177853,
+   "at_shaft_y_mm": 14.18,
+   "tool_point_rho_y_mm": [
+    6.402480017020899,
+    14.090177321030021
+   ],
+   "e_total_mm": 0.022539280683006445,
+   "pose": {
+    "phase": "final",
+    "yc": 9.524899999999999,
+    "A": 10.1618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.0961114078887721,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_final_vs_approved_turned_cone_above_filler_od",
+   "min_distance_mm": 0.09498393569208051,
+   "at_shaft_y_mm": 13.94,
+   "tool_point_rho_y_mm": [
+    6.162040442462851,
+    13.87245106525442
+   ],
+   "e_total_mm": 0.022539280683006445,
+   "pose": {
+    "phase": "final",
+    "yc": 9.524899999999999,
+    "A": 10.1618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.07244465500907407,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_final_vs_approved_ramp_end_junction_filler_od_floor",
+   "min_distance_mm": -0.003112105569050172,
+   "at_shaft_y_mm": 13.78,
+   "tool_point_rho_y_mm": [
+    6.062635251710875,
+    13.775092528636055
+   ],
+   "e_total_mm": 0.032679656493642205,
+   "pose": {
+    "phase": "final",
+    "yc": 9.524899999999999,
+    "A": 10.1618
+   },
+   "contact_pair": true,
+   "d_minus_e_total_mm": -0.03579176206269238,
+   "criterion": "generation exit contact: penetration <= e_total and located within 0.1 mm of measured ramp end (13.750)",
+   "PASS": true
+  },
+  {
+   "pair": "hob_collars_arbor_final_vs_approved_all",
+   "min_distance_mm": 2.30331497183795,
+   "at_shaft_y_mm": 13.17,
+   "tool_point_rho_y_mm": [
+    8.628271623083018,
+    13.170806286558946
+   ],
+   "e_total_mm": 0.022539280683006445,
+   "pose": {
+    "phase": "final"
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.2807756911549437,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_path_vs_approved_journal_side",
+   "min_distance_mm": 0.09501705903184697,
+   "at_shaft_y_mm": 13.94,
+   "tool_point_rho_y_mm": [
+    6.163052727974974,
+    13.87341971960025
+   ],
+   "e_total_mm": 0.06564919772242722,
+   "pose": {
+    "phase": "feed_journal_side",
+    "yc": 9.525,
+    "A": 10.1618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.02936786130941975,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_infeed_vs_blank_all",
+   "min_distance_mm": 3.375741790475776,
+   "at_shaft_y_mm": 0.24,
+   "tool_point_rho_y_mm": [
+    5.523804810307575,
+    -0.5604234369412797
+   ],
+   "e_total_mm": 0.06564919772242722,
+   "pose": {
+    "phase": "infeed",
+    "yc": -4.195,
+    "A": 10.1618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 3.3100925927533487,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_collars_arbor_path_vs_blank",
+   "min_distance_mm": 1.0028872770826283,
+   "at_shaft_y_mm": 0.79,
+   "tool_point_rho_y_mm": [
+    9.867602696744683,
+    0.7881515357567683
+   ],
+   "e_total_mm": 0.06564919772242722,
+   "pose": {
+    "phase": "withdraw",
+    "yc": 3.525
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.9372380793602011,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_retract_vs_blank_all",
+   "min_distance_mm": 0.11872072715126335,
+   "at_shaft_y_mm": 14.18,
+   "tool_point_rho_y_mm": [
+    6.399091730708843,
+    14.087271357994283
+   ],
+   "e_total_mm": 0.06564919772242722,
+   "pose": {
+    "phase": "retract",
+    "yc": 9.525,
+    "A": 10.1618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.053071529428836126,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_retract_vs_approved_ramp_end_junction_floor_contact",
+   "min_distance_mm": -0.0012149397067577894,
+   "at_shaft_y_mm": 13.77,
+   "tool_point_rho_y_mm": [
+    6.05442230545065,
+    13.766935851938294
+   ],
+   "e_total_mm": 0.07578957353306298,
+   "pose": {
+    "phase": "retract",
+    "yc": 9.525,
+    "A": 10.1618
+   },
+   "contact_pair": true,
+   "d_minus_e_total_mm": -0.07700451323982077,
+   "criterion": "generation exit contact: penetration <= e_total and located within 0.1 mm of measured ramp end (13.750)",
+   "PASS": true
+  },
+  {
+   "pair": "hob_withdraw_vs_blank_all",
+   "min_distance_mm": 0.708214373139749,
+   "at_shaft_y_mm": 3.54,
+   "tool_point_rho_y_mm": [
+    6.791814480558541,
+    3.5378248500180614
+   ],
+   "e_total_mm": 0.06564919772242722,
+   "pose": {
+    "phase": "withdraw",
+    "yc": 3.525,
+    "A": 12.6618
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.6425651754173218,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutting_face_past_last_tooth_material",
+   "min_distance_mm": 0.5,
+   "e_total_mm": 0.011303604026497431,
+   "d_minus_e_total_mm": 0.48869639597350256,
+   "criterion": "leading face beyond last tooth material by >= margin",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutting_face_axial_room_to_groove_wall",
+   "min_distance_mm": 0.5650999999999993,
+   "e_total_mm": 0.011303604026497431,
+   "d_minus_e_total_mm": 0.5537963959735018,
+   "criterion": "axial room to groove wall >= margin (radial wall clearance is in the nongenerating pair)",
+   "PASS": true
+  },
+  {
+   "pair": "hob_reproduces_approved_ramp_floor",
+   "min_distance_mm": -0.004861622932300413,
+   "e_total_mm": 0.022539280683006445,
+   "criterion": "max |envelope - approved floor| <= 0.05 mm (lite fidelity)",
+   "PASS": true,
+   "R_mm": 5.87,
+   "stop_yc_mm": 9.5249,
+   "lead_angle_deg": 5.5587,
+   "max_abs_dev_mm": 0.004861622932300413,
+   "rms_dev_mm": 0.0036269702635484853,
+   "max_overcut_mm": 0.004861622932300413,
+   "max_undercut_mm": 0.0,
+   "stations": 426
+  }
+ ],
+ "verdict": "CERTIFIED"
+}

@@ -1,0 +1,18 @@
+OBJECTIVE
+Reconcile final JG-035 manufacturing documentation and write a concise current handoff from actual evidence. Requested Z.ai GLM-5.3/high. Root parent will finish ring/opening/lifecycle execution and own acceptance checkboxes; you document verified results and remaining owner decisions without inventing acceptance.
+
+FILES
+Workspace C:/Users/Markimus/.buzz/REPOS/jgun-portfolio. Own only packet project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/{PLAN.md,review-ledger.md,continuation-handoff-2026-10-06.md}; latest JG-035 recovery banners only in TODO.md,project/README.md,project/work/INDEX.md. Parent owns GATES.md/all leaf gates/continuation-checks. Do not edit sources, assets, scripts, other plans or protected unrelated narrative/opening changes. Read newest named handoff, current gates, final-docs-release.md when present, source correction/read-only reviews and actual report summaries.
+
+INTERFACES
+Current: parent full tests43files/445tests PASS; production build703modules,index-DFY-biXM.js/SceneCanvas-CoJldWVG.js, preview restartedPID33416. Contact correction source2f78847d..., verifierd26d491a...; two agreeing complete parent shaft reports runtime/shaft/contact-parent-run-{1,2}/report.json,12/12gates,16cases each,zero defects/harness exceptions. Desktop actualfactory lite and narrow full, explicitly recorded. Independent GLM source/verifier review SHIP. Static16WEBPs unchanged, exact old/new8-time CPU render-state equality and16PNG/WEBP hash audit confirmed by GLM (final-provenance/glm-report.md); no new rendered-execution claim from equivalence. G0 mechanical GLM rerun/review SHIP for measurements and illustrative study within named inherited/sampled proxy limits (not full gear-fit certification). Core export D4 independent SHIP; lite surface0.053195mm remains failed report-only diagnostic with no waiver.
+
+CONSTRAINTS
+You are not alone; never revert others. Preserve original chronological logs and recovery narrative; update current state tables and add clearly dated continuation sections/top banner, not a destructive rewrite. Preserve verbatim owner storyline. No GPU/browser/build/test commands, no git stage/commit/push/deploy, no user-memory writes. Read-only git diff/status allowed scoped to owned docs; .scratch never committed. Self-contained skip unrelated queue. Use exact evidence counts; do not write scripts for trivial checking. No false served-model attribution: CLI requested GLM must have per-conversation proxy receipt, parent records separately.
+
+The owner still has not selected reduced-motion poster throughout versus retaining the existing static3D narrative. V4 remains open because three narrative CAD downloads occur; inspection assets zero. Continue does not answer. Owner visual acceptance remains separate. No commit/push/deploy has happened. Do not silently mark these done, waive failures or ask the owner another duplicate question.
+
+VERIFICATION
+Begin reading/preparing concise edits now, but before final acceptance/status edits wait for packet/final-docs-release.md (poll30s, max60s per tool). If absent after10min, finish a preparation report and leave final edits pending; never infer release. Release file will identify final current ring/opening/lifecycle/review records and exact root gate decisions. Re-read files on release and use actual JSON instead of memory. Final handoff includes commands, results, next action and open decisions; navigation banners point to it. Check every newly added local link and scoped diff, report owned files + exact verified state under300words. Do not claim final parent checks before release.
+
+REASONING: high

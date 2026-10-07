@@ -1,0 +1,7 @@
+AGREE on all seven reconciled decisions. No blocking objections. This is concept agreement before general-plan drafting, not implementation acceptance.
+
+The creative refinements are settled: apparent quarter orbit through an authored frame-follow camera, eased into machine-frame macro; axial wipe and advancing circumferential hob reveal; visible rigid-pair support relocation as an old/new comparison; inspection-only revised finale with exact narrative restoration; owner-reported failure cards and illustrative stress colors; optional playback controls with static causal equivalents. Preserve the existing ring sequence, silent default, and shaper-only chips.
+
+Exact mechanical measurements remain implementation prerequisites: rotation signs and tooth counts; hob setting and swept-envelope compatibility with the approved lead-out; measured legacy support positions and approved endpoint transforms; bearing-race behavior; and ring contact, OD relief, and surface-speed relationships. Approximate display motion does not establish mechanical correctness.
+
+Those prerequisites do not reopen the approved concepts or authorize shaft changes. The plan should preserve the accepted geometry, avoid double shifting, retain `Default.glb` and the canonical ladder/windows, and restore stage context and inspect-entry mode exactly on explicit exit to **ORIGINAL SAVED NARRATIVE**. General-plan drafting can proceed without another owner decision.

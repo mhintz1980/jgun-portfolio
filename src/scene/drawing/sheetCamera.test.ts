@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Box3, Vector3 } from 'three'
 import { makeDrawingLayout, SHEET_ROTATION } from './drawingGeometry'
 import { INTRO_PHASES, REDUCED_MOTION_INTRO_T } from './introTimeline'
-import { introCameraPose, sheetReveal, type SheetCameraPose } from './sheetCamera'
+import { introCameraPose, PRESSURE_CAMERA_RAKE_END, sheetReveal, type SheetCameraPose } from './sheetCamera'
 
 const pose = (): SheetCameraPose => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 0, ortho: 0, distance: 0 })
 const layoutFor = (aspect: number) => makeDrawingLayout(aspect, new Box3(new Vector3(-0.05, -0.04, -0.15), new Vector3(0.05, 0.04, 0.15)))
@@ -48,28 +48,38 @@ describe('drafting camera', () => {
     it(`tilts to the pressure view over the pressure window and holds it to the handoff at aspect ${aspect}`, () => {
       const layout = layoutFor(aspect)
       const held = introCameraPose(layout, aspect, INTRO_PHASES.registrationEnd, pose())
-      const tilted = introCameraPose(layout, aspect, INTRO_PHASES.riseStart, pose())
+      expect(INTRO_PHASES.riseStart).toBe(INTRO_PHASES.registrationEnd)
+      expect(PRESSURE_CAMERA_RAKE_END).toBe(0.89)
+      expect(INTRO_PHASES.orbitStart).toBe(0.9)
+      const tilted = introCameraPose(layout, aspect, PRESSURE_CAMERA_RAKE_END, pose())
+      // The pressure maximum / first fracture sits halfway through the original
+      // camera rake, not at its endpoint or in a zero-duration snap.
+      const mid = introCameraPose(layout, aspect, (INTRO_PHASES.registrationEnd + PRESSURE_CAMERA_RAKE_END) / 2, pose())
+      expect(elevationOf(held)).toBeCloseTo(90, 9)
+      expect(held.ortho).toBe(1)
+      expect(elevationOf(mid)).toBeCloseTo(74, 9)
+      expect(mid.ortho).toBeCloseTo(0.5, 12)
       // Same focal point, distance and framing: only the elevation and projection change.
       expect(tilted.target.distanceTo(held.target)).toBeLessThan(1e-12)
       expect(tilted.distance).toBeCloseTo(held.distance, 12)
       expect(tilted.fov).toBeCloseTo(held.fov, 12)
       expect(elevationOf(tilted)).toBeCloseTo(58, 9)
       expect(tilted.ortho).toBe(0)
-      // Monotone descent, no elevation or projection reversal inside (registrationEnd, riseStart).
+      // Monotone descent through the separately authored camera rake.
       let previousElevation = 90
       let previousOrtho = 1
       for (let i = 1; i <= 40; i += 1) {
-        const t = INTRO_PHASES.registrationEnd + (INTRO_PHASES.riseStart - INTRO_PHASES.registrationEnd) * (i / 40)
+        const t = INTRO_PHASES.registrationEnd + (PRESSURE_CAMERA_RAKE_END - INTRO_PHASES.registrationEnd) * (i / 40)
         const current = introCameraPose(layout, aspect, t, pose())
         const elevation = elevationOf(current)
-        expect(elevation).toBeLessThanOrEqual(previousElevation)
+        expect(elevation).toBeLessThanOrEqual(previousElevation + 1e-9)
         expect(elevation).toBeGreaterThanOrEqual(58 - 1e-6)
         expect(current.ortho).toBeLessThanOrEqual(previousOrtho)
         previousElevation = elevation
         previousOrtho = current.ortho
       }
-      // The tilted pose is constant from riseStart into the hero blend window.
-      for (const t of [INTRO_PHASES.riseStart, INTRO_PHASES.orbitStart, 1]) {
+      // The tilted pose is constant from rake completion into the hero blend window.
+      for (const t of [PRESSURE_CAMERA_RAKE_END, INTRO_PHASES.orbitStart, 1]) {
         const current = introCameraPose(layout, aspect, t, pose())
         expect(current.position.distanceTo(tilted.position)).toBeLessThan(1e-12)
         expect(current.target.distanceTo(tilted.target)).toBeLessThan(1e-12)
@@ -91,6 +101,12 @@ describe('drafting camera', () => {
         previous = current
       }
       expect(maxAngularStep).toBeLessThan(0.01)
+      for (const boundary of [INTRO_PHASES.registrationEnd, PRESSURE_CAMERA_RAKE_END]) {
+        const left = introCameraPose(layout, aspect, boundary - 1e-7, pose())
+        const right = introCameraPose(layout, aspect, boundary + 1e-7, pose())
+        expect(left.position.distanceTo(right.position) / right.distance).toBeLessThan(1e-8)
+        expect(Math.abs(left.ortho - right.ortho)).toBeLessThan(1e-8)
+      }
     })
   }
 })

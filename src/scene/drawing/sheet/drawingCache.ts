@@ -4,7 +4,7 @@ import { InkBuilder, type InkText } from './ink'
 import { decodeDrawingPrecompute, encodeDrawingPrecompute } from './drawingCodec'
 
 /** Bump whenever extraction, profile tracing, annotation content or font sizing changes. */
-export const DRAWING_CACHE_VERSION = 2
+export const DRAWING_CACHE_VERSION = 5
 export interface DrawingPrecompute {
   version: number
   key: string

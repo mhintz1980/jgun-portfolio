@@ -19,7 +19,7 @@ const out = arg('out', '')
   : path.join(root, 'project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26', `${label}-${new Date().toISOString().replace(/[:.]/g, '-')}`)
 fs.mkdirSync(out, { recursive: true })
 const save = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n')
-const report = { url, label, started: new Date().toISOString(), browser: 'installed Playwright, channel chrome', coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, scrollShare: 0.001, realScrollPhase: 0.001 / 0.12 + 1e-6, pinnedPhase: 1e-9, reverseNumericDelta: 0.002, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, registeredCameraMetres: 0.001, lampPower: 0.001, paperFlexMaxMetres: 0.012, litePaperFlexMaxMetres: 0.0054 }, cases: [] }
+const report = { url, label, started: new Date().toISOString(), browser: 'installed Playwright, channel chrome', coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, scrollShare: 0.001, realScrollPhase: 0.001 / 0.12 + 1e-6, pinnedPhase: 1e-9, reverseNumericDelta: 0.002, reverseBreakthroughDelta: 1e-9, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, registeredCameraMetres: 0.001, lampPower: 0.001, paperFlexMaxMetres: 0.012, litePaperFlexMaxMetres: 0.0054, holeAreaRelative: 1e-6, boundaryDeviationMetres: 0.0006, nearPaperMetres: 0.001, initialClearanceMetres: 0.0006, sheetRetirementWindow: [0.18, 0.22] }, cases: [] }
 // Fast mode (--quick): desktop + narrow only, forward owner checkpoints, no reverse pass
 // and no reduced-motion static waits.
 // Use for iteration; a --quick pass never replaces a full run as "done" evidence.
@@ -70,9 +70,12 @@ const phaseSamples = [
   { t: 0.45, keys: ['flickerStart'] },
   { t: 0.58, keys: ['blackoutStart'] },
   { t: 0.66, keys: ['pulseStart'] },
-  { t: 0.79, keys: ['pulseEnd', 'registrationEnd', 'bulgeStart', 'lampReturnStart'] },
-  { t: 0.81, keys: ['metalStart'] },
-  { t: 0.86, keys: ['lampReturnEnd', 'riseStart'] },
+  { t: 0.79, keys: ['pulseEnd', 'registrationEnd', 'bulgeStart', 'lampReturnStart', 'riseStart'] },
+  { t: 0.84, keys: ['fractureStart'] },
+  { t: 0.86, keys: ['lampReturnEnd'] },
+  { t: 0.88, keys: ['fractureEnd', 'detachStart'] },
+  { t: 0.8405, keys: ['firstRupture'] },
+  { t: 0.845, keys: ['immediateMetal'] },
   { t: 0.90, keys: ['orbitStart'] },
   { t: 0.97, keys: ['waveEnd'] },
   { t: 1, keys: ['release'] },
@@ -111,16 +114,35 @@ const registeredCameraProgresses = new Set([
 ])
 const phaseProgresses = phaseSamples.map((sample) => sample.progress)
 const lampProgresses = lampFailureKeys.map((sample) => sample.progress)
-const quickCore = [0, ...releaseGatePoints, introProgress(0.67), introProgress(0.78), introProgress(0.84), introProgress(0.88), introProgress(0.92), 0.12]
+// Paper breakthrough beats (2026-10-01): pressure peak, fracture start/mid/end, extraction
+// hand-off, the two crossing samples the off-frame breakthrough probe is asked for, and the
+// first fully emerged frame.
+const breakthroughTimes = [0.825, 0.84, 0.8405, 0.845, 0.85, 0.865, 0.88, 0.895, 0.905, 0.91]
+const breakthroughProgresses = breakthroughTimes.map(introProgress)
+const breakthroughByProgress = new Map(breakthroughProgresses.map((progress, index) => [progress, breakthroughTimes[index]]))
+const quickCore = [0, ...releaseGatePoints, introProgress(0.67), introProgress(0.78), ...breakthroughProgresses, introProgress(0.92), 0.12]
+// The opaque sheet leaves through its authored physical retirement (.18 -> .22 after the
+// handoff), so the window is sampled on both sides of its midpoint.
+const sheetRetirementPoints = [0.18, 0.2, 0.22]
+quickCore.push(...sheetRetirementPoints)
 const fullOnlyCore = [0.018, 0.04, introProgress(0.725)]
 const points = [...new Set([...(quick ? quickCore : [...quickCore, ...fullOnlyCore]), ...phaseProgresses, ...lampProgresses])].sort((a, b) => a - b)
 const browser = await chromium.launch({
   channel: 'chrome',
-  headless: false,
+  // Launch contract matches the sibling manufacturing verifiers
+  // (verify-shaft-inspection / verify-manufacturing-inspection /
+  // verify-ring-inspection): channel chrome, headless, --use-angle=d3d11,
+  // background flags, DPR 1. Both 2026-10-06 rosters are preserved as records:
+  // the headed one under runtime/opening-contact-final, the headless one under
+  // runtime/opening-triage-glm. Headless launching did not clear the desktop
+  // full-tier gate, and no causal claim about the headed failures is made here.
+  // Viewport, DPR, thresholds, tier expectations, and the app's adaptive ladder
+  // are unchanged.
+  headless: true,
   args: [
     '--use-angle=d3d11',
-    // A second developer window must not background/occlude this evidence page and
-    // trigger a false quality/context-loss cascade. Production quality policy is unchanged.
+    // Keep the renderer from being backgrounded/throttled by other processes.
+    // Production quality policy is unchanged.
     '--disable-background-timer-throttling',
     '--disable-renderer-backgrounding',
     '--disable-backgrounding-occluded-windows',
@@ -129,7 +151,7 @@ const browser = await chromium.launch({
 try {
   report.browserVersion = browser.version()
   for (const config of cases) {
-    const result = { ...config, checkpoints: [], errors: [], warnings: [], requestFailures: [], httpErrors: [], failures: [], reverse: [] }
+    const result = { ...config, checkpoints: [], errors: [], warnings: [], requestFailures: [], httpErrors: [], failures: [], reverse: [], cadRequests: [] }
     report.cases.push(result)
     const context = await browser.newContext({ viewport: { width: config.width, height: config.height }, reducedMotion: config.reducedMotion, deviceScaleFactor: 1, serviceWorkers: 'block' })
     const page = await context.newPage()
@@ -137,6 +159,9 @@ try {
     page.on('console', msg => { if (msg.type() === 'error') result.errors.push(msg.text()); else if (msg.type() === 'warning') result.warnings.push(msg.text()) })
     page.on('requestfailed', r => result.requestFailures.push({ url: r.url(), error: r.failure() }))
     page.on('response', r => { if (r.status() >= 400) result.httpErrors.push({ url: r.url(), status: r.status() }) })
+    // CAD/tool asset census for the posters-throughout reduced policy (owner
+    // decision 2026-10-06): model GLBs, Draco decoders, inspection assets.
+    page.on('request', r => { const u = r.url(); if (u.includes('/models/') || /\.glb(\?|$)/.test(u) || u.includes('/draco/') || u.includes('/inspection/')) result.cadRequests.push(u) })
     const cdp = await context.newCDPSession(page)
     await cdp.send('Network.enable')
     await cdp.send('Network.setCacheDisabled', { cacheDisabled: true })
@@ -201,51 +226,205 @@ try {
         `${name}: ${method} unavailable, empty, or out of bounds (count=${evidence?.count}, violations=${evidence?.violations})`)
       }
     }
+    // The owner's breakthrough curves, re-derived here from the written windows (fracture
+    // .84-.88, metal and illumination complete by .84) so pinned frames are compared against the
+    // contract and not against the app's own output.
+    const smooth01 = (x) => { const c = Math.min(1, Math.max(0, x)); return c * c * (3 - 2 * c) }
+    const expectedPoseT = (t) => t <= 0.79 ? 0.4 * (t / 0.79)
+      : t <= 0.84 ? 0.4 + 0.1 * (t - 0.79) / 0.05
+      : 0.5 + 0.5 * Math.pow(Math.min(1, Math.max(0, (t - 0.84) / 0.16)), 0.55)
+    const expectedBreakthrough = (t) => {
+      const pressure = smooth01((t - 0.79) / (0.84 - 0.79))
+      const fracture = smooth01((t - 0.84) / (0.88 - 0.84))
+      return {
+        pressure,
+        fracture,
+        openingClear: t >= 0.88 ? 1 : 0,
+        crackWeb: smooth01((t - 0.75) / 0.07) * (1 - fracture),
+        crackGlow: t < 0.66 ? 0 : t <= 0.79 ? 1 : (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
+        // Lamp return only: every breakthrough beat sits past .79, where the envelope is the
+        // single smoothed ramp from the dark hold to full power.
+        lampPower: smooth01((t - 0.96) / 0.04),
+        pbr: smooth01((t - 0.80) / 0.02),
+        illumination: smooth01((t - 0.96) / 0.04) * smooth01((t - 0.80) / 0.02),
+        poseT: expectedPoseT(t),
+      }
+    }
+    /**
+     * The standing breakthrough contract, asserted on every real-scroll checkpoint: the print
+     * is permanently opaque, the stock is thick, the torn boundary stays inside 0.4 mm, the
+     * fragments tile the hole, and lit metal causes the rupture before the hole fully clears.
+     */
+    const checkBarrierContract = (snap, name, checkpoint = null) => {
+      const stats = snap.sheetStats ?? {}
+      const drawing = snap.telemetry?.drawing ?? {}
+      const area = stats.holeArea, fragments = stats.fragmentArea
+      fail(stats.paperOpacity === 1, `${name}: paperOpacity must stay permanently 1, got ${stats.paperOpacity}`)
+      fail(Number.isFinite(stats.fragmentThickness) && stats.fragmentThickness > 0, `${name}: fragment thickness must be > 0, got ${stats.fragmentThickness}`)
+      fail(Number.isFinite(stats.maxBoundaryDeviation) && stats.maxBoundaryDeviation <= 0.0006, `${name}: torn boundary deviation ${stats.maxBoundaryDeviation} m exceeds 0.0006 m`)
+      fail(Number.isFinite(area) && area > 0, `${name}: hole area must be positive, got ${area}`)
+      fail(Number.isFinite(area) && Number.isFinite(fragments) && Math.abs(area - fragments) <= 1e-6 * area, `${name}: hole/fragment area conservation off by ${Math.abs(area - fragments)} m^2`)
+      fail(Number.isInteger(stats.fragmentCount) && stats.fragmentCount >= 25 && stats.fragmentCount <= 128, `${name}: fragment count ${stats.fragmentCount} outside the piece/chip budget`)
+      // The old modelBarrierSafe flag encoded openingClear-before-motion. The exact
+      // transformed-vertex probe below now establishes pressure/barrier safety instead.
+      if (drawing.phase >= 0.84) {
+        fail(drawing.pbr === 1 && Math.abs(drawing.illumination - expectedBreakthrough(drawing.phase).illumination) <= 1e-9, `${name}: rupture PBR/studio envelope mismatch (pbr ${drawing.pbr}, illumination ${drawing.illumination})`)
+      }
+      if (checkpoint) {
+        checkpoint.fractureContract = { paperOpacity: stats.paperOpacity, fragmentThickness: stats.fragmentThickness, maxBoundaryDeviation: stats.maxBoundaryDeviation, holeArea: area, fragmentArea: fragments, fragmentCount: stats.fragmentCount, openingClear: stats.openingClear, modelBarrierSafe: stats.modelBarrierSafe }
+      }
+    }
+    /**
+     * Off-frame transformed-vertex probe. The near-paper test is the parent's: a vertex counts
+     * only when it sits within +/-1 mm of the sheet, and a collision is only claimed when the
+     * model genuinely spans the barrier (minZ < -1 mm AND maxZ > +1 mm) with such a vertex
+     * outside the torn opening. The hole outline's own area is measured here with the shoelace
+     * formula, independently of the reported hole area.
+     */
+    const captureBreakthrough = () => page.evaluate(() => {
+      const capture = window.__drawingProof?.captureBreakthrough
+      if (typeof capture !== 'function') return { available: false }
+      try {
+        const proof = capture()
+        const contour = proof.profile
+        let doubled = 0
+        for (let i = 0, j = contour.length - 1; i < contour.length; j = i++) {
+          doubled += contour[j][0] * contour[i][1] - contour[i][0] * contour[j][1]
+        }
+        // The raw contour can carry thousands of traced points; evidence keeps its measured
+        // area and vertex count instead of the whole outline.
+        delete proof.profile
+        return { available: true, ...proof, outlineCount: contour.length, outlineArea: Math.abs(doubled) / 2 }
+      } catch (error) { return { available: true, error: String(error) } }
+    })
+    const checkBreakthrough = (proof, name, expected, checkpoint) => {
+      fail(proof.available === true, `${name}: captureBreakthrough probe unavailable`)
+      if (!proof.available) return
+      fail(!proof.error, `${name}: captureBreakthrough failed (${proof.error})`)
+      if (proof.error) return
+      checkpoint.breakthroughProof = proof
+      const area = proof.area, fragmentArea = proof.fragmentArea
+      fail(proof.opacity === 1, `${name}: breakthrough opacity ${proof.opacity} must stay 1`)
+      fail(Number.isFinite(proof.thickness) && proof.thickness > 0, `${name}: breakthrough thickness ${proof.thickness} must be positive`)
+      fail(Number.isFinite(proof.maxBoundaryDeviation) && proof.maxBoundaryDeviation <= 0.0006, `${name}: torn boundary deviation ${proof.maxBoundaryDeviation} m exceeds 0.0006 m`)
+      fail(Number.isFinite(area) && area > 0 && Number.isFinite(proof.outlineArea) && proof.outlineArea > 0 && Math.abs(proof.outlineArea - area) <= 1e-6 * area,
+        `${name}: measured hole outline area ${proof.outlineArea} disagrees with the reported hole area ${area}`)
+      fail(Number.isFinite(area) && Number.isFinite(fragmentArea) && Math.abs(area - fragmentArea) <= 1e-6 * area,
+        `${name}: hole/fragment area conservation off by ${Math.abs(area - fragmentArea)} m^2`)
+      fail(Number.isInteger(proof.outlineCount) && proof.outlineCount >= 3, `${name}: hole outline has ${proof.outlineCount} points`)
+      fail(Array.isArray(proof.fragments) && proof.fragments.length > 0 && proof.fragments.every(f => Array.isArray(f.position) && Array.isArray(f.rotation)),
+        `${name}: fragment transforms unavailable`)
+      fail(Number.isFinite(proof.minZ) && Number.isFinite(proof.maxZ), `${name}: transformed vertex extent unavailable`)
+      fail(proof.openingClear === expected.openingClear, `${name}: probe openingClear ${proof.openingClear}, expected ${expected.openingClear}`)
+      fail(proof.modelMoving === (expected.poseT > 0.4 + 1e-9), `${name}: probe modelMoving ${proof.modelMoving} disagrees with the authored pose time ${expected.poseT}`)
+      const spansBarrier = proof.minZ < -0.001 && proof.maxZ > 0.001
+      if (expected.fracture === 0) {
+        fail(proof.maxZ <= 0.012 * expected.pressure + 1e-6, `${name}: model top ${proof.maxZ} exceeds pressure bulge ${0.012 * expected.pressure}`)
+      }
+      fail(!(spansBarrier && proof.outsideOpening > 0),
+        `${name}: ${proof.outsideOpening} near-paper vertices outside the torn opening while the model spans the barrier (minZ ${proof.minZ}, maxZ ${proof.maxZ})`)
+      checkpoint.breakthroughContract = { spansBarrier, nearPaperMetres: 0.001, outsideOpening: proof.outsideOpening, crossingVertices: proof.crossingVertices, minZ: proof.minZ, maxZ: proof.maxZ }
+    }
     try {
       const start = Date.now()
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 })
       result.domContentLoadedMs = Date.now() - start
-      await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady && window.__sheetStats && window.__openingHarness.contexts.some(e => e.canvas.isConnected && e.draws > 0), null, { timeout: 90000 })
+      if (config.reducedMotion === 'reduce') {
+        // Posters throughout (owner decision 2026-10-06): reduced startup renders the
+        // DOM poster + native narrative. There is no drawingProof/canvas to wait for;
+        // readiness is the poster DOM itself plus the always-DOM chapter content.
+        await page.waitForFunction(() => {
+          const poster = [...document.querySelectorAll('div')].some(d => {
+            const c = String(d.className ?? '')
+            return c.includes('fixed') && c.includes('inset-0') && c.includes('z-0')
+              && (d.textContent ?? '').includes('STATIC RENDER MODE') && (d.textContent ?? '').includes('DWG NO.')
+          })
+          return document.readyState === 'complete' && poster && document.querySelector('main') && document.querySelector('main h2')
+        }, null, { timeout: 90000 })
+      } else {
+        await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady && window.__sheetStats && window.__openingHarness.contexts.some(e => e.canvas.isConnected && e.draws > 0), null, { timeout: 90000 })
+      }
       result.coldLoadReadyMs = Date.now() - start
       result.navigation = await page.evaluate(() => performance.getEntriesByType('navigation').map(e => e.toJSON()))
       console.log(`${config.name}: ready in ${result.coldLoadReadyMs} ms`)
       const reduced = config.reducedMotion === 'reduce'
       if (config.forceTier) {
+        // Let cold-load shader preparation and its initial FPS window settle before
+        // explicitly changing tier. Compilation work is not a lite render failure.
+        await page.waitForFunction(() => window.__telemetry?.performance?.warmReady, null, { timeout: 30000 })
+        await page.waitForTimeout(3000)
         await page.evaluate(t => window.__drawingProof.setTier(t), config.forceTier)
-        await page.waitForFunction(t => window.__telemetry?.performance?.tier === t, config.forceTier, { timeout: 10000 })
+        await page.waitForFunction(t => window.__telemetry?.performance?.tier === t &&
+          window.__drawingProof?.ready && window.__openingHarness.contexts.some(e => e.canvas.isConnected && !e.gl.isContextLost() && e.draws > 0), config.forceTier, { timeout: 10000 })
         result.forcedTier = config.forceTier
       }
       if (reduced) {
-        // Lenis/ScrollTrigger do not mount here. Verify the actual parked frame,
-        // twice, without scrollToProgress or a synthetic progress override.
-        const before = await read()
+        // Posters throughout (owner decision 2026-10-06): a fresh reduced-motion startup
+        // renders the real DOM poster + native-scroll narrative with zero connected WebGL
+        // canvas, zero CAD/tool requests, and no Lenis/ScrollTrigger. There is no
+        // drawingProof or sheetStats on this path. Written against that authorized
+        // policy; the pre-change build (reduced kept the canvas) fails here by design.
+        const posterProbe = () => page.evaluate(() => {
+          const stamp = [...document.querySelectorAll('div')].find(d => {
+            const c = String(d.className ?? '')
+            return c.includes('fixed') && c.includes('inset-0') && c.includes('z-0')
+              && (d.textContent ?? '').includes('STATIC RENDER MODE') && (d.textContent ?? '').includes('DWG NO.')
+          })
+          const nav = document.querySelector('nav[aria-label="Station navigation"]')
+          const main = document.querySelector('main')
+          return {
+            readyState: document.readyState,
+            hasMain: Boolean(main),
+            mainHeadings: main ? main.querySelectorAll('h1,h2,h3').length : 0,
+            dataChapters: document.querySelectorAll('[data-chapter]').length,
+            poster: stamp
+              ? { found: true, ariaHidden: stamp.getAttribute('aria-hidden'), rect: stamp.getBoundingClientRect().toJSON(), text: (stamp.textContent ?? '').trim().slice(0, 240) }
+              : { found: false },
+            navButtons: nav ? [...nav.querySelectorAll('button[aria-label^="Navigate to"]')].map(b => b.getAttribute('aria-label')) : [],
+            canvases: [...document.querySelectorAll('canvas')].map(c => ({ connected: c.isConnected, width: c.width, height: c.height, rect: c.getBoundingClientRect().toJSON() })),
+            harnessContexts: (window.__openingHarness?.contexts ?? []).map(e => ({ connected: e.canvas.isConnected, draws: e.draws })),
+            lenis: Boolean(window.__lenis),
+            telemetry: Boolean(window.__telemetry),
+            htmlLenisClass: document.documentElement.classList.contains('lenis'),
+            scrollHeight: document.documentElement.scrollHeight,
+            clientWidth: document.documentElement.clientWidth,
+            innerHeight: window.innerHeight,
+            scrollY: Math.round(window.scrollY),
+            reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+          }
+        })
+        const before = await posterProbe()
         await page.waitForTimeout(250)
-        const snap = await read()
+        const settled = await posterProbe()
+        await page.evaluate(() => window.scrollTo(0, Math.floor(document.documentElement.scrollHeight / 2)))
+        await page.waitForTimeout(250)
+        const scrolled = await posterProbe()
+        await page.screenshot({ path: path.join(out, `${config.name}-static-scrolled.png`), timeout: 15000 })
+        await page.evaluate(() => window.scrollTo(0, 0))
+        await page.waitForTimeout(150)
+        const returned = await posterProbe()
+        const harness = await read()
         const name = `${config.name}-static`
-        const live = liveCanvas(before, snap)
-        const tier = snap.telemetry?.performance?.tier
-        const checkpoint = { name, direction: 'static', live, tier, before, ...snap }
+        const checkpoint = { name, mode: 'static', direction: 'static', before, settled, scrolled, returned, gl: harness.gl, cadRequests: result.cadRequests.slice(), shaderFailures: harness.shaderFailures, contextLosses: harness.contextLosses }
         result.checkpoints.push(checkpoint)
-        fail(live, `${name}: no live canvas GL submissions`)
-        for (const [index, sample] of [before, snap].entries()) {
-          fail(['full', 'lite'].includes(sample.telemetry?.performance?.tier), `${name} sample ${index}: missing or non-WebGL quality tier`)
-          fail(sample.reducedMotion === true, `${name} sample ${index}: media query mismatch`)
-          // Independent owner-contract expectation; catches a wrong shared constant too.
-          for (const [key, expected] of Object.entries({ phase: 0.38, focus: 1, lineOpacity: 1, pulse: 0, pbr: 0, waveEnabled: 0 })) {
-            const value = sample.telemetry?.drawing?.[key]
-            fail(Number.isFinite(value) && Math.abs(value - expected) <= 0.001, `${name} sample ${index}: static ${key} expected ${expected}, got ${value}`)
-          }
-          for (const key of ['flexAmplitude', 'flexPeakDisplacement', 'contactShadow']) {
-            const value = sample.sheetStats?.[key]
-            fail(Number.isFinite(value) && Math.abs(value) <= 1e-9, `${name} sample ${index}: static ${key} expected 0, got ${value}`)
-          }
-          for (const [key, expected] of Object.entries({ lampPower: 1, blackout: 0, lightningLuminance: 0, bulgeDisplacement: 0 })) {
-            const value = sample.telemetry?.drawing?.[key]
-            fail(Number.isFinite(value) && Math.abs(value - expected) <= 0.001, `${name} sample ${index}: static ${key} expected ${expected}, got ${value}`)
-          }
-          fail(sample.shaderFailures.length === 0 && sample.contextLosses === 0, `${name} sample ${index}: shader link failure or context loss`)
-          checkProbes(sample, `${name} sample ${index}`)
-        }
+        fail(before.reducedMotion === true && settled.reducedMotion === true, `${name}: reduced-motion media query mismatch`)
+        fail(before.poster.found && settled.poster.found && scrolled.poster.found, `${name}: DOM poster (STATIC RENDER MODE sheet) absent`)
+        fail(before.poster.ariaHidden === 'true', `${name}: poster backdrop must stay aria-hidden furniture`)
+        fail((before.poster.rect?.width ?? 0) >= before.clientWidth - 2 && (before.poster.rect?.height ?? 0) >= before.innerHeight - 2, `${name}: poster backdrop does not cover the viewport (${before.poster.rect?.width}x${before.poster.rect?.height} vs viewport ${before.clientWidth}x${before.innerHeight})`)
+        fail(Math.abs((before.poster.rect?.width ?? 0) - (settled.poster.rect?.width ?? 0)) <= 1 && Math.abs((before.poster.rect?.height ?? 0) - (settled.poster.rect?.height ?? 0)) <= 1, `${name}: poster layout unstable across samples`)
+        fail(Math.abs(before.scrollHeight - settled.scrollHeight) <= 1 && Math.abs(before.scrollHeight - scrolled.scrollHeight) <= 1, `${name}: document height unstable (${before.scrollHeight}/${settled.scrollHeight}/${scrolled.scrollHeight})`)
+        fail(before.hasMain && before.mainHeadings > 0, `${name}: native-scroll narrative (main headings) absent`)
+        fail(before.dataChapters > 0, `${name}: chapter sections ([data-chapter]) absent`)
+        fail(before.navButtons.length === 3 && before.navButtons.every(Boolean), `${name}: station navigation expected 3 buttons, got ${JSON.stringify(before.navButtons)}`)
+        fail(before.canvases.length === 0 && settled.canvases.length === 0 && scrolled.canvases.length === 0, `${name}: canvas element present in posters-throughout reduced mode (${before.canvases.length}/${settled.canvases.length}/${scrolled.canvases.length})`)
+        fail([before, settled, scrolled].every(s => s.harnessContexts.every(c => !c.connected && c.draws === 0)), `${name}: connected or drawing WebGL context in posters-throughout reduced mode`)
+        fail(result.cadRequests.length === 0, `${name}: ${result.cadRequests.length} CAD/tool request(s) in reduced mode: ${result.cadRequests.join(', ')}`)
+        fail(!before.lenis && !settled.lenis && !scrolled.lenis, `${name}: Lenis present in reduced mode`)
+        fail(!before.htmlLenisClass && !settled.htmlLenisClass, `${name}: lenis html class present in reduced mode`)
+        const expectedScroll = Math.max(0, Math.floor(scrolled.scrollHeight / 2))
+        fail(Math.abs(scrolled.scrollY - expectedScroll) <= 2, `${name}: native scroll did not reach midpoint (${scrolled.scrollY} vs ${expectedScroll})`)
+        fail(returned.scrollY <= 1, `${name}: native scroll did not return to top (${returned.scrollY})`)
+        fail(harness.shaderFailures.length === 0 && harness.contextLosses === 0, `${name}: shader link failure or context loss`)
         await page.screenshot({ path: path.join(out, `${name}.png`), timeout: 15000 })
         save(`${name}.json`, checkpoint)
       }
@@ -327,21 +506,60 @@ try {
             fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0.9 && drawing.pulseHead < 1,
               `${name}: t=.78 interior trace must remain active and dark`)
           }
-          if (progress === introProgress(0.84)) {
-            checkpoint.metalBeforeLift = { pbr: drawing.pbr, poseT: drawing.poseT }
-            fail(drawing.pbr > 0 && drawing.poseT < 0.4, `${name}: robust pre-lift sample expected metal and pose<.4`)
+          checkBarrierContract(snap, name, checkpoint)
+          const stats = snap.sheetStats ?? {}
+          if (breakthroughByProgress.has(progress)) {
+            // Real-scroll quantization is worth up to one REAL_SCROLL_PHASE_EPSILON of phase, so
+            // the authored curves are checked against the MEASURED phase (internal consistency of
+            // the contract) plus a hard band on the phase itself, and the boundary behaviour the
+            // beat exists for is asserted from that measured phase.
+            const beatT = breakthroughByProgress.get(progress)
+            const phaseT = drawing.phase
+            const expected = expectedBreakthrough(phaseT)
+            checkpoint.breakthroughBeat = { requestedT: beatT, measuredPhase: phaseT, phaseBand: 0.01, expected: { fracture: expected.fracture, openingClear: expected.openingClear, crackWeb: expected.crackWeb, crackGlow: expected.crackGlow, pbr: expected.pbr, poseT: expected.poseT }, measured: { fracture: stats.fracture, openingClear: stats.openingClear, crackWeb: stats.crackWeb, crackGlow: stats.crackGlow, pbr: drawing.pbr, poseT: drawing.poseT, flexAmplitude: stats.flexAmplitude, contactShadow: stats.contactShadow } }
+            fail(Number.isFinite(phaseT) && Math.abs(phaseT - beatT) <= 0.01, `${name}: phase ${phaseT} outside the ${beatT} beat band`)
+            fail(Math.abs(stats.fracture - expected.fracture) <= 0.002, `${name}: fracture ${stats.fracture} != authored ${expected.fracture} at phase ${phaseT}`)
+            fail(stats.openingClear === expected.openingClear, `${name}: openingClear ${stats.openingClear} != authored ${expected.openingClear} at phase ${phaseT}`)
+            fail(Math.abs(stats.crackWeb - expected.crackWeb) <= 0.002, `${name}: crackWeb ${stats.crackWeb} != authored ${expected.crackWeb} at phase ${phaseT}`)
+            fail(Math.abs(stats.crackGlow - expected.crackGlow) <= 0.002, `${name}: crackGlow ${stats.crackGlow} != authored ${expected.crackGlow} at phase ${phaseT}`)
+            fail(Math.abs(drawing.pbr - expected.pbr) <= 0.002, `${name}: pbr ${drawing.pbr} != authored ${expected.pbr} at phase ${phaseT}`)
+            fail(Number.isFinite(drawing.poseT) && Math.abs(drawing.poseT - expected.poseT) <= 1e-6, `${name}: poseT ${drawing.poseT} != authored ${expected.poseT} at phase ${phaseT}`)
+            fail(Number.isFinite(drawing.lampPower) && Math.abs(drawing.lampPower - expected.lampPower) <= 1e-6, `${name}: lampPower ${drawing.lampPower} != authored ${expected.lampPower} at phase ${phaseT}`)
+            if (phaseT > 0.79 && phaseT < 0.88) {
+              fail(drawing.poseT > 0.4, `${name}: model must push through pressure and rupture (poseT ${drawing.poseT})`)
+              fail(stats.flexAmplitude > 0, `${name}: ${tier} pressure flex expected > 0 at ${beatT}, got ${stats.flexAmplitude}`)
+            }
+            if (beatT === 0.88 || beatT === 0.89) {
+              fail(drawing.poseT > 0.4 && drawing.pbr === 1, `${name}: model must continue rising after fracture clearance`)
+              const amplitude = stats.flexAmplitude, peak = stats.flexPeakDisplacement
+              const flexMax = tier === 'lite' ? 0.0054 : 0.012
+              checkpoint.peakFlex = { tier, amplitude, peakDisplacement: peak }
+              fail(Number.isFinite(peak) && peak >= 0 && peak <= flexMax, `${name}: ${tier} flex displacement expected [0, ${flexMax}] m at the fracture end, got ${peak}`)
+            }
+            if (beatT === 0.825 || beatT === 0.84) {
+              const amplitude = stats.flexAmplitude, peak = stats.flexPeakDisplacement
+              const flexMax = tier === 'lite' ? 0.0054 : 0.012
+              checkpoint.pressureFlex = { tier, amplitude, peakDisplacement: peak, phaseT }
+              fail(Number.isFinite(peak) && peak > 0 && peak <= flexMax, `${name}: ${tier} pressure flex displacement expected (0, ${flexMax}] m, got ${peak}`)
+            }
+            if (beatT >= 0.91) {
+              fail(drawing.poseT > 0.4 && drawing.pbr > 0, `${name}: emerging sample expected pose>.4 and metal (poseT ${drawing.poseT}, pbr ${drawing.pbr})`)
+              const contact = stats.contactShadow, radius = stats.contactRadius
+              checkpoint.contactShadow = { contact, radius }
+              fail(contact > 0 && radius > 0, `${name}: contact shadow expected during the extraction, got ${contact}`)
+            }
+            const wantsProbe = [0.825, 0.84, 0.8405, 0.845, 0.88, 0.895, 0.905, 0.91].includes(beatT) || (!quick && beatT === 0.865)
+            if (wantsProbe) {
+              checkBreakthrough(await captureBreakthrough(), name, expected, checkpoint)
+            }
           }
-          if (progress === introProgress(0.88)) {
-            checkpoint.postRise = { pbr: drawing.pbr, poseT: drawing.poseT }
-            fail(drawing.pbr > 0 && drawing.poseT > 0.4, `${name}: robust post-rise sample expected pose>.4`)
-            const amplitude = snap.sheetStats?.flexAmplitude, peak = snap.sheetStats?.flexPeakDisplacement
-            checkpoint.peakFlex = { tier, amplitude, peakDisplacement: peak }
-            fail(Number.isFinite(amplitude) && amplitude > 0, `${name}: ${tier} peak flex amplitude expected > 0, got ${amplitude}`)
-            const flexMax = tier === 'lite' ? 0.0054 : 0.012
-            fail(Number.isFinite(peak) && peak > 0 && peak <= flexMax, `${name}: ${tier} peak flex displacement expected (0, ${flexMax}] m, got ${peak}`)
-            const contact = snap.sheetStats?.contactShadow, radius = snap.sheetStats?.contactRadius
-            checkpoint.contactShadow = { contact, radius }
-            fail(contact > 0 && radius > 0, `${name}: contact shadow expected during lift, got ${contact}`)
+          if (sheetRetirementPoints.includes(progress)) {
+            // Past the handoff: the model is fully extracted, the opening is permanently clear
+            // and the stock is still opaque - the sheet leaves only through its own authored
+            // physical retirement between .18 and .22, never through a fade.
+            checkpoint.sheetRetirement = { window: [0.18, 0.22], poseT: drawing.poseT, openingClear: stats.openingClear, paperOpacity: stats.paperOpacity, modelBarrierSafe: stats.modelBarrierSafe, contactShadow: stats.contactShadow, lineOpacity: drawing.lineOpacity }
+            fail(Math.abs(drawing.poseT - 1) <= 1e-9 && stats.openingClear === 1 && stats.paperOpacity === 1 && Math.abs(drawing.lineOpacity - 1) <= 1e-9,
+              `${name}: post-handoff sheet must stay a fully extracted, fully opaque sheet (poseT ${drawing.poseT}, clear ${stats.openingClear}, opacity ${stats.paperOpacity}, lineOpacity ${drawing.lineOpacity})`)
           }
           if (progress < 0.12) checkProbes(snap, name)
           if (progress === introProgress(0.38) || progress === introProgress(0.79)) {
@@ -477,7 +695,11 @@ try {
         for (const [sampleIndex, sample] of pinnedSamples.entries()) {
           const before = await read()
           await page.evaluate(p => window.__drawingProof.setProgress(p), sample.progress)
-          const frame = await page.evaluate(() => window.__drawingProof.captureNextFrame())
+          const frame = await page.evaluate(() => Promise.race([
+            window.__drawingProof.captureNextFrame(),
+            new Promise(resolve => setTimeout(() => resolve(null), 10000)),
+          ]))
+          fail(frame !== null, `${config.name}: pinned frame callback timed out at ${sample.progress}`)
           const snap = await read()
           const active = hasActiveCanvas(snap)
           const live = active && liveCanvas(before, snap)
@@ -518,21 +740,58 @@ try {
             fail(Math.abs(drawing.bulgeDisplacement) <= 1e-9 && Math.abs(drawing.pbr) <= 1e-9,
               `${name}: exact .79 bulge/metal start mismatch (bulge ${drawing.bulgeDisplacement}, pbr ${drawing.pbr})`)
           }
-          if (sample.phase?.t === 0.81) {
-            fail(drawing.lampPower > 0 && drawing.blackout < 1 && drawing.bulgeDisplacement > 0 && drawing.bulgeDisplacement <= 0.012 && Math.abs(drawing.pbr) <= 1e-12,
-              `${name}: exact .81 return/bulge/metal-start mismatch`)
+          if (sample.phase?.t === 0.84) {
+            const expected = expectedBreakthrough(0.84)
+            // Pressure is at its authored peak with the lamp returning and the fracture not yet
+            // begun: the sheet is still closed and opaque, with lit metal pushing underneath.
+            fail(drawing.lampPower === 0 && drawing.blackout === 1 && drawing.bulgeDisplacement > 0 && drawing.bulgeDisplacement <= 0.012,
+              `${name}: exact .84 return/bulge mismatch`)
+            fail(Math.abs(snap.sheetStats?.fracture - expected.fracture) <= 1e-9 && snap.sheetStats?.openingClear === 0,
+              `${name}: exact .84 fracture-start mismatch (fracture ${snap.sheetStats?.fracture}, openingClear ${snap.sheetStats?.openingClear})`)
+            fail(Math.abs(snap.sheetStats?.crackWeb - expected.crackWeb) <= 1e-9 && Math.abs(snap.sheetStats?.crackGlow - expected.crackGlow) <= 1e-9,
+              `${name}: exact .84 crack web/glow mismatch (web ${snap.sheetStats?.crackWeb}, glow ${snap.sheetStats?.crackGlow})`)
+            fail(drawing.pbr === 1 && drawing.illumination === 0 && drawing.poseT > 0.4,
+              `${name}: exact .84 metal/motion mismatch (pbr ${drawing.pbr}, poseT ${drawing.poseT})`)
           }
           if (sample.phase?.t === 0.86) {
-            fail(Math.abs(drawing.poseT - 0.4) <= 1e-9 && drawing.lampPower >= 0.999 && drawing.pbr > 0,
-              `${name}: exact .86 rise/lamp-return mismatch (pose ${drawing.poseT}, lamp ${drawing.lampPower}, pbr ${drawing.pbr})`)
+            const expected = expectedBreakthrough(0.86)
+            // Halfway through fracture, the causal object continues rising in full light.
+            fail(Math.abs(drawing.lampPower - expected.lampPower) <= 1e-9 && expected.lampPower === 0 && drawing.pbr === 1 && drawing.illumination === 0 && drawing.poseT > 0.4,
+              `${name}: exact .86 lamp-return/fracture mismatch (lamp ${drawing.lampPower}, pbr ${drawing.pbr}, pose ${drawing.poseT})`)
+            fail(Math.abs(snap.sheetStats?.fracture - expected.fracture) <= 1e-9 && Math.abs(snap.sheetStats?.crackWeb - expected.crackWeb) <= 1e-9 && snap.sheetStats?.openingClear === 0,
+              `${name}: exact .86 fracture stats mismatch (fracture ${snap.sheetStats?.fracture}, web ${snap.sheetStats?.crackWeb}, clear ${snap.sheetStats?.openingClear})`)
+          }
+          if (sample.phase?.t === 0.88) {
+            const expected = expectedBreakthrough(0.88)
+            // The fracture completes exactly at .88 with the lit object already emerging.
+            fail(snap.sheetStats?.openingClear === 1 && Math.abs(snap.sheetStats?.fracture - 1) <= 1e-9 && snap.sheetStats?.crackWeb === 0,
+              `${name}: exact .88 fracture-end mismatch (clear ${snap.sheetStats?.openingClear}, fracture ${snap.sheetStats?.fracture}, web ${snap.sheetStats?.crackWeb})`)
+            fail(Math.abs(drawing.poseT - expected.poseT) <= 1e-9 && drawing.pbr === 1 && drawing.illumination === 0,
+              `${name}: exact .88 barrier/metal/light ordering mismatch (pose ${drawing.poseT}, pbr ${drawing.pbr})`)
+            fail(Math.abs(snap.sheetStats?.paperOpacity - 1) <= 1e-9 && Math.abs(snap.sheetStats?.maxBoundaryDeviation) <= 0.0006 && snap.sheetStats?.fragmentThickness > 0,
+              `${name}: exact .88 opaque-stock contract mismatch`)
+          }
+          if (sample.phase?.t === 0.8405 || sample.phase?.t === 0.845) {
+            checkBreakthrough(await captureBreakthrough(), name, expectedBreakthrough(sample.phase.t), checkpoint)
+            fail(drawing.pbr === 1 && drawing.illumination === 0 && drawing.poseT > 0.4 && snap.sheetStats?.fracture > 0,
+              `${name}: first rupture must reveal already pushing metal`)
+          }
+          if (sample.phase?.t === 0.90) {
+            const expected = expectedBreakthrough(0.90)
+            fail(Math.abs(drawing.pbr - expected.pbr) <= 1e-9 && drawing.lampPower === 0,
+              `${name}: exact .90 fully resolved metal mismatch (pbr ${drawing.pbr})`)
           }
           if (sample.phase?.t === 0.97) {
             fail(drawing.waveTime >= 0.999 && drawing.waveTime <= 1.001 && drawing.waveEnabled === 0 && drawing.lineOpacity >= 0.999,
               `${name}: exact .97 wave-end mismatch (waveTime ${drawing.waveTime}, enabled ${drawing.waveEnabled}, lineOpacity ${drawing.lineOpacity})`)
           }
           if (sample.phase?.t === 1) {
-            fail(Math.abs(drawing.poseT - 1) <= 1e-9 && Math.abs(drawing.lineOpacity) <= 1e-9 && drawing.waveEnabled === 0,
+            // The print never fades: the sheet holds full opacity through the handoff and only
+            // leaves the frame through its authored .18-.22 retirement motion.
+            fail(Math.abs(drawing.poseT - 1) <= 1e-9 && Math.abs(drawing.lineOpacity - 1) <= 1e-9 && drawing.waveEnabled === 0,
               `${name}: exact release drawing mismatch (pose ${drawing.poseT}, lineOpacity ${drawing.lineOpacity}, waveEnabled ${drawing.waveEnabled})`)
+            fail(Math.abs(snap.sheetStats?.paperOpacity - 1) <= 1e-9 && snap.sheetStats?.openingClear === 1,
+              `${name}: exact release stock must stay opaque with the opening cleared (opacity ${snap.sheetStats?.paperOpacity}, clear ${snap.sheetStats?.openingClear})`)
             fail(Math.abs(snap.sheetStats?.contactShadow) <= 1e-9, `${name}: exact release contact expected 0, got ${snap.sheetStats?.contactShadow}`)
           }
           save(`${name}.json`, checkpoint)
@@ -553,15 +812,42 @@ try {
           if (typeof a === 'number' && typeof b === 'number') deltas[`sheet.${key}`] = Math.abs(a - b)
         }
         const passed = Object.keys(deltas).length > 0 && Object.values(deltas).every(n => n <= 0.002)
-        result.reverse.push({ progress: forward.progress, deltas, passed })
+        // Breakthrough channels are deterministic functions of scroll, so they must match the
+        // forward pass exactly - counts, flags, areas and the fragment transforms alike.
+        const fractureDeltas = {}
+        for (const key of ['fracture', 'openingClear', 'crackGlow', 'crackWeb', 'fragmentCount', 'fragmentThickness', 'fragmentArea', 'holeArea', 'maxBoundaryDeviation', 'paperOpacity', 'modelBarrierSafe']) {
+          const a = forward.sheetStats?.[key], b = reverse?.sheetStats?.[key]
+          if (typeof a === 'number' && typeof b === 'number') fractureDeltas[key] = Math.abs(a - b)
+        }
+        const fragmentTransforms = (() => {
+          const a = forward.breakthroughProof?.fragments, b = reverse?.breakthroughProof?.fragments
+          if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
+            return a === undefined && b === undefined ? { compared: false } : { compared: true, delta: Infinity, count: -1 }
+          }
+          let delta = 0
+          for (let i = 0; i < a.length; i += 1) {
+            for (const axis of ['position', 'rotation']) {
+              const left = a[i][axis] ?? [], right = b[i][axis] ?? []
+              if (left.length !== right.length) return { compared: true, delta: Infinity, count: a.length }
+              for (let k = 0; k < left.length; k += 1) delta = Math.max(delta, Math.abs(left[k] - right[k]))
+            }
+          }
+          return { compared: true, delta, count: a.length }
+        })()
+        const fracturePassed = Object.values(fractureDeltas).every(n => n <= 1e-9)
+          && (!fragmentTransforms.compared || fragmentTransforms.delta <= 1e-9)
+        result.reverse.push({ progress: forward.progress, deltas, passed, fractureDeltas, fragmentTransforms, fracturePassed })
         fail(passed, `reverse ${forward.progress}: deterministic drawing mismatch`)
+        fail(fracturePassed, `reverse ${forward.progress}: breakthrough stats or fragment transforms not deterministic (stats ${JSON.stringify(fractureDeltas)}, fragments ${JSON.stringify(fragmentTransforms)})`)
       }      const last = await read()
       result.shaderFailures = last.shaderFailures
       result.contextLosses = last.contextLosses
       fail(last.shaderFailures.length === 0 && last.contextLosses === 0, 'shader link failure or context loss')
-      result.exposedInspection = { methods: last.proofMethods, note: 'Required probes must return measurement evidence while the sheet is present. Raw measurements are retained for registration and bounds review; probe presence alone does not establish geometric correctness.' }
-      result.unavailable = ['capturePulseRegistration', 'captureTextBounds', 'captureTitleBounds'].filter(k => !last.proofMethods.includes(k))
-      fail(result.unavailable.length === 0, `required proof probes unavailable: ${result.unavailable.join(', ')}`)
+      if (!reduced) {
+        result.exposedInspection = { methods: last.proofMethods, note: 'Required probes must return measurement evidence while the sheet is present. Raw measurements are retained for registration and bounds review; probe presence alone does not establish geometric correctness.' }
+        result.unavailable = ['capturePulseRegistration', 'captureTextBounds', 'captureTitleBounds'].filter(k => !last.proofMethods.includes(k))
+        fail(result.unavailable.length === 0, `required proof probes unavailable: ${result.unavailable.join(', ')}`)
+      }
     } catch (e) {
       result.failures.push(String(e))
       try { result.failureSnapshot = await read(); await page.screenshot({ path: path.join(out, `${config.name}-failure.png`), timeout: 10000 }) } catch {}
@@ -585,7 +871,7 @@ try {
   await browser.close()
   report.finished = new Date().toISOString()
   const peakOf = name => report.cases.find(c => c.name === name)?.checkpoints
-    .find(c => c.mode === 'real-scroll' && c.direction === 'forward' && c.progress === introProgress(0.88))?.peakFlex
+    .find(c => c.mode === 'real-scroll' && c.direction === 'forward' && c.progress === introProgress(0.84))?.peakFlex
   report.flexTierComparison = ['desktop', 'narrow'].map(base => {
     const full = peakOf(base), lite = peakOf(`${base}-lite`)
     if (!full || !lite) return { base, compared: false }

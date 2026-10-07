@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { EffectComposer, ChromaticAberration, Bloom, DepthOfField, ToneMapping } from '@react-three/postprocessing'
 import { BlendFunction, ToneMappingMode } from 'postprocessing'
@@ -9,6 +9,7 @@ import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
 import { DRAWING_INTRO_WINDOW } from './drawing/introTimeline'
 import { createSectionRenderPass } from './sectionRenderPass'
+import { renderOwnership } from './inspection/renderLease'
 
 /**
  * JG-017 — Post-Processing Composer.
@@ -102,7 +103,13 @@ function FxDriver({
   dofRef: React.RefObject<DepthOfFieldEffect | null>
   enableAberration: boolean
 }) {
+  useEffect(() => {
+    const port = { bloom: bloomRef.current, aberration: aberrationRef.current, dof: dofRef.current }
+    renderOwnership.post = port
+    return () => { if (renderOwnership.post === port) renderOwnership.post = null }
+  }, [bloomRef, aberrationRef, dofRef, enableAberration])
   useFrame(() => {
+    if (renderOwnership.blocked) return
     const dof = dofRef.current
     if (dof) {
       const mode = (window as unknown as Record<string, string | undefined>).__drawingProofMode

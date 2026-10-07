@@ -13,6 +13,7 @@ import {
 } from 'three'
 import { INK } from '../drawingGeometry'
 import { PAPER_FLEX_GLSL, PAPER_FLEX_STEP } from './paperFlex'
+import { PAPER_BARRIER_GLSL } from './breakthrough'
 
 /**
  * INK — resolution-independent drafting linework for the intro sheet.
@@ -195,6 +196,8 @@ export function makeSheetUniforms(): SheetUniforms {
     uFlexRect: { value: new Vector4(-0.4, -0.25, 0.8, 0.5) },
     uContact: { value: new Vector2() },
     uVellum: { value: 0 },
+    uBarrierMask: { value: null },
+    uFracture: { value: 0 },
     uWaveTime: { value: 0 },
     uWaveEnabled: { value: 0 },
     uOrigin: { value: new Vector2() },
@@ -237,10 +240,12 @@ void main() {
 }`
 
 const lineFragment = /* glsl */ `
+${PAPER_BARRIER_GLSL}
 uniform vec3 uInk; uniform float uOpacity;
 varying float vAcross; varying float vAlongM; varying float vLen; varying float vDraw;
 varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane;
 void main() {
+  cutPrintedStock(vPlane);
   if (vDraw <= 0.0) discard;
   float head = vDraw * vLen;
   if (vAlongM > head + (vDraw >= 1.0 ? vHW : 0.0)) discard;
@@ -309,8 +314,9 @@ const fillVertex = /* glsl */ `
 ${WAVE_GLSL}
 uniform float uReveal[${GROUP_COUNT}];
 attribute vec3 aStyle;
-varying float vDraw;
+varying float vDraw; varying vec2 vPlane;
 void main() {
+  vPlane = position.xy;
   float r = uReveal[int(aStyle.x + 0.5)];
   vDraw = clamp((r - aStyle.y) / max(aStyle.z, 1e-4), 0.0, 1.0);
   vec3 pos = vec3(position.xy, 0.00032);
@@ -319,9 +325,11 @@ void main() {
 }`
 
 const fillFragment = /* glsl */ `
+${PAPER_BARRIER_GLSL}
 uniform vec3 uInk; uniform float uOpacity;
-varying float vDraw;
+varying float vDraw; varying vec2 vPlane;
 void main() {
+  cutPrintedStock(vPlane);
   if (vDraw <= 0.0) discard;
   gl_FragColor = vec4(uInk, vDraw * uOpacity);
 }`

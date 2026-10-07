@@ -1,0 +1,26 @@
+**Provisional verdict: agree with both concepts.** Keep the approved direction; refine the staging and implementation.
+
+| Concept | Decision | Required refinement |
+|---|---|---|
+| P003068 Ring Switch | **Keep** | Strengthen contact, progressive relief and black-on-black readability. |
+| P001835-2 Input Shaft | **Keep** | Correct cutter choreography and distinguish the engineering account from demonstrated performance. |
+
+Ranked improvements:
+
+1. **Make the shaft’s machining motion mechanically credible.** Preserve the quarter-orbit impression through camera movement. Show the shaper’s axial cutting strokes, relieved returns, radial infeed and coupled cutter/workpiece rotation. Avoid suggesting a disc freely orbits a stationary shaft or follows each tooth profile like an end mill. The hob needs recognizable threaded geometry and synchronized workpiece rotation; its starts, setting angle and cutting envelope must determine the animation. The approved **6 mm lead-out remains accepted**; it does not independently establish a physical cutter’s outside radius.
+
+2. **Clarify what changed—and what is evidenced.** Keep all three exact material labels and stamped **FAILED** beats, with a persistent, readable “Owner-reported outcomes” attribution. The later **AISI 4340 (H.T. 48–50 HRC)** card should identify the revised design’s material condition, not imply a verified pass. Label warm/cool colors “Illustrative stress concentration”; omit numerical scales and success symbols. Explain the retained section and revised support arrangement without implying that hobbing, hardness or bearing relocation alone proves the failure resolved. Do not assign the larger-family history to an unverified P001835-2 revision.
+
+3. **Give the slow close-up one clear purpose: reveal cutter exit clearance.** Slow the cutter, workpiece and camera through a shared time mapping that preserves their phase relationship. Hold the framing long enough to see the cutting edge pass beyond the functional face and the relieved return. Use a neutral steel rim against black, restrained chips consistent with the cutting direction, and no sparks. Compare old/new in registered framing with a temporary outline or ghost witness; avoid overlapping opaque shafts.
+
+4. **Make the support relocation a legible design comparison.** Show K000210 and K000211 moving together **+2.75 mm along shaft-local Y**, with corresponding journal, groove and housing changes visible. Treat this as an old-to-new comparison rather than a literal installed retaining ring sliding through solid shaft material. Avoid applying the displacement twice to already-shifted assets. During assembly spin, preserve the appropriate shaft, bearing-race, housing and planetary relationships. End on the approved revised study, then explicitly return to the saved narrative assembly.
+
+5. **Refine the ring’s contact event, not its concept.** Establish both roller contacts before the approximately two-second traverse. Relief should appear at contact, persist behind the rollers and stop at the smooth lands; bore geometry remains intact. Close views need convincing relief/parallax and silhouette where visible, with normal detail supporting that geometry. Use one glancing-light sweep to reveal the result—not to cause it. Keep the aluminium/black transitions recognizably cinematic rather than suggesting an undocumented finishing operation.
+
+6. **Share the inspection shell, with independently readable beats.** Keep optional entry, pause, scrub, replay, Escape and saved-scroll/focus restoration; add no global scroll windows or ladder changes. Derive tool phase, material state, tooth reveal and camera pose from one playhead so reverse scrubbing cannot accumulate errors. Provide chapter selection for the longer shaft story. Reduced/poster versions should retain the causal sequence through static comparisons and DOM captions. Stamp compression stays local; audio remains optional.
+
+**Implementation prerequisites, not concept-approval blockers:** locate/hash the approved assets; establish cutter geometry and swept clearance; verify neighbouring parts, including the still-unchecked K000180-1; and validate the lighter export. The [handoff](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/authorship-knurling-implementation-2026-10-04/continuation-handoff.md:57) reports positions implying only **0.14 mm nominal axial separation** between lead-out end and journal-chamfer start. That is neither a fresh measurement nor proof of moving-tool clearance. It also reports one open edge in the revised shaft.
+
+The [owner approval](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/context/owner-specs/manufacturing-inspection-storyline-2026-10-05.md:7) supersedes the earlier radius decision and pending Blender-review wording. The [plan’s](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/docs/jgun-authorship-knurling-implementation-plan.md) unchecked boxes do not establish that implementation is absent. Historical 7/7 runtime results remain historical; opening regression and owner runtime visual acceptance remain outstanding.
+
+Document review only; no files changed or new measurements performed.

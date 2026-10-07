@@ -275,6 +275,7 @@ export interface TelemetryDrawing {
   pulseHead: number
   pulse: number
   pbr: number
+  illumination: number
   travel: number
   /** Sheet-local Z of the model's origin during the lift. */
   localZ: number
@@ -348,6 +349,7 @@ export const telemetry: {
     pulseHead: 0,
     pulse: 0,
     pbr: 0,
+    illumination: 0,
     travel: 0,
     localZ: 0,
     minZ: 0,

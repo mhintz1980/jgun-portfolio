@@ -34,14 +34,14 @@ const CARDS: Card[] = [
     window: [0.13, 0.25],
     kicker: 'MULTI-STAGE PLANETARY',
     lines: ['Every gear', 'cut in house.'],
-    body: 'ISO 1328 Grade A6. Input and output shafts turned and hobbed in one chucking.',
+    body: 'I turn and hob the input and output shafts in one chucking to keep related features on the same setup.',
     place: 'left-[6vw] bottom-[12vh]',
   },
   {
     window: [0.27, 0.37],
     kicker: '7-AXIS MILL-TURN',
     lines: ['Machined', 'complete.'],
-    body: 'Datums A–E, ASME Y14.5. The clutch housing is finished after heat treat.',
+    body: 'I finish the clutch housing OD and ID after heat treatment. The final cut comes after the operation that can distort the part.',
     place: 'left-[6vw] bottom-[12vh]',
   },
 ]

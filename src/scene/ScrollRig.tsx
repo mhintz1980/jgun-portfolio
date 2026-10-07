@@ -5,6 +5,7 @@ import Lenis from 'lenis'
 import { getScrollState, setScrollState } from '../state/scrollStore'
 import { pacedProgress, rawScrollFor } from './drawing/introTimeline'
 import { installScrollCommit } from './scrollCommit'
+import { inspection } from '../state/inspectionStore'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -40,6 +41,7 @@ export function ScrollRig() {
       start: 0,
       end: 'max',
       onUpdate: (self) => {
+        if (inspection.active) return
         const raw = self.progress
         const paced = pacedProgress(raw)
         const slope =
@@ -56,10 +58,10 @@ export function ScrollRig() {
         start: 'top 60%',
         end: 'bottom 40%',
         onToggle: (self) => {
-          if (self.isActive) setScrollState({ chapter: index })
+          if (self.isActive && !inspection.active) setScrollState({ chapter: index })
         },
         onUpdate: (self) => {
-          if (self.isActive) setScrollState({ chapterProgress: self.progress })
+          if (self.isActive && !inspection.active) setScrollState({ chapterProgress: self.progress })
         },
       }),
     )

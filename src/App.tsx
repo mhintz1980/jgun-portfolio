@@ -19,22 +19,25 @@ const BootSequence = lazy(() =>
   import('./components/BootSequence').then((m) => ({ default: m.BootSequence })),
 )
 const QuietMachinePreview = lazy(() => import('./scene/rl300/QuietMachinePreview'))
+const RingInspection = lazy(() => import('./components/RingInspection').then(m => ({ default: m.RingInspection })))
 
 export default function App() {
   const { tier, reducedMotion } = useQuality()
 
   // JG-033 owner review checkpoint; portfolio timing stays on its existing clock.
-  if (new URLSearchParams(window.location.search).get('study') === 'rl300') {
+  // Owner decision 2026-10-06 ("posters throughout"): reduced-motion visitors
+  // always get the static poster path, so the study query must not bypass it.
+  if (!reducedMotion && new URLSearchParams(window.location.search).get('study') === 'rl300') {
     return <Suspense fallback={null}><QuietMachinePreview /></Suspense>
   }
 
   // Degradation wiring (see qualityStore for the tier ladder):
-  //  - poster tier: no canvas at all — static DOM poster + native scroll.
-  //  - reduced motion: canvas may render (static hero pose) but Lenis/GSAP
-  //    ScrollTrigger never mount; the page scrolls natively.
+  //  - poster tier OR reduced motion: no canvas at all — static DOM poster +
+  //    native scroll. The lazy canvas chunk is never imported, so nothing
+  //    three- or CAD-bound downloads.
+  //  - every other visitor: canvas + Lenis/GSAP ScrollTrigger as before.
   //  - Chapters (Module 4 content) renders as real DOM in every tier.
-  const canvasActive = tier !== 'poster'
-  const motionActive = canvasActive && !reducedMotion
+  const canvasActive = tier !== 'poster' && !reducedMotion
 
   return (
     <>
@@ -44,31 +47,31 @@ export default function App() {
           <SceneCanvas />
         </Suspense>
       ) : (
-        <StaticPoster />
+        <StaticPoster reason={reducedMotion ? 'reduced-motion' : 'poster-tier'} />
       )}
 
       {/* Lenis + ScrollTrigger orchestration (renders nothing; must mount after
           the chapter sections exist in the DOM — effects run post-commit) */}
-      {motionActive && (
+      {canvasActive && (
         <Suspense fallback={null}>
           <ScrollRig />
         </Suspense>
       )}
 
       {/* JG-035 opening titles over the drafting-table intro (scroll-scrubbed) */}
-      {motionActive && <IntroTitles />}
+      {canvasActive && <IntroTitles />}
       {/* JG-035 tolerance stations S1–S6 (one at a time, driven by the in-canvas StationDriver) */}
-      {motionActive && <ToleranceStations />}
+      {canvasActive && <ToleranceStations />}
 
       {/* Telemetry overlay (DOM; hides its canvas-bound readouts per tier) */}
       {canvasActive && <TechnicalHUD />}
 
-      {/* Poster tier has no HUD chrome at all — keep station navigation alive
+      {/* No canvas (poster tier or reduced motion) means no HUD chrome at all — keep station navigation alive
           with a minimal DOM-only nav (no camera/material readouts, no canvas
           dependency; navigateToStation falls back to native scrollTo). */}
       {!canvasActive && <StationNav />}
 
-      {/* GLB stream-in boot readout (poster tier: nothing streams, no boot) */}
+      {/* GLB stream-in boot readout (no canvas: nothing streams, no boot) */}
       {canvasActive && (
         <Suspense fallback={null}>
           <BootSequence />
@@ -79,6 +82,7 @@ export default function App() {
       <main>
         <Chapters />
       </main>
+      <Suspense fallback={null}><RingInspection /></Suspense>
     </>
   )
 }

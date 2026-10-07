@@ -42,6 +42,9 @@ export interface SheetCameraPose {
 
 const centreOf = (r: [number, number, number, number]): [number, number] => [r[0] + r[2] / 2, r[1] + r[3] / 2]
 
+/** Camera rake keeps its authored .79-.89 span while the tool starts pushing at .79. */
+export const PRESSURE_CAMERA_RAKE_END = 0.89
+
 /** Distance at which `width` sheet metres fill the viewport width. */
 function fitWidth(width: number, fov: number, aspect: number): number {
   return width / (2 * Math.tan((fov * Math.PI) / 360) * Math.max(aspect, 0.3))
@@ -75,8 +78,9 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     { t: INTRO_PHASES.onboardEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
     { t: INTRO_PHASES.registrationEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
     // After the registered pulse, lower the lens around the same focal point: the bowed
-    // vellum now has real parallax before the metal rises. The hero blend still owns .72–1.
-    { t: INTRO_PHASES.riseStart, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
+    // stock has real parallax during the push and rupture. Physical rise and
+    // camera rake have separate endpoints; the hero perspective opens at .90.
+    { t: PRESSURE_CAMERA_RAKE_END, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
     { t: 1, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
   ]
 }

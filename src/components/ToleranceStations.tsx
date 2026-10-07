@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactElement } from 'react'
 import { PHASE, STATIONS, type FcfCell, type Station } from '../scene/stations/stationData'
 import { registerStationOverlay, type StationFrame } from '../scene/stations/stationStore'
+import { inspection } from '../state/inspectionStore'
 
 /**
  * JG-035 TOLERANCE STATIONS — one callout at a time (replaces the CH.01/02 hotspot cluster).
@@ -143,6 +144,12 @@ export function ToleranceStations() {
     const apply = (f: StationFrame) => {
       const el = root.current
       if (!el) return
+      if (inspection.active) { el.style.visibility = 'hidden'; return }
+      if (!Number.isFinite(f.width) || !Number.isFinite(f.height) ||
+          !f.model.every(Number.isFinite) || !f.anchor.every(Number.isFinite) || !f.secondary.every(Number.isFinite)) {
+        el.style.visibility = 'hidden'; layout.current.fresh = true; return
+      }
+      if (!Number.isFinite(layout.current.x) || !Number.isFinite(layout.current.y)) layout.current.fresh = true
       if (f.index !== layout.current.index) {
         layout.current.index = f.index
         layout.current.fresh = true

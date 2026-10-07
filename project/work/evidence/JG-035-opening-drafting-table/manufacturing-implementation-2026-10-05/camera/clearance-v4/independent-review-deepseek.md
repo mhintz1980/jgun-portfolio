@@ -1,0 +1,15 @@
+**Verdict: FIX-FIRST.** The method is sound but two outcome-determining classifications let penetrating/near-miss pairs pass, so 23/23 is not honest evidence.
+
+**HIGH — edge-skim relabeled contact flips a fail to a pass.** `tool_clearance_meridian.py:238-239` puts the groove-edge band only in a `contact=True` pair; the cut-phase must-clear pair excludes that band (`:235`). Verdict logic `:407-414` makes a contact pair `ok = d >= -e`, vacuous for positive `d`. Report `report.json:102-112` gives d=0.0220, e=0.012. Under the must-clear criterion (d-e>=0.020) this is 0.0100 → **FAIL**. README `:21` calls a 22 µm gap "contact pair," which is neither contact nor clearance. Classification alone decides the result.
+
+**HIGH — transition contact hides 5.2 µm penetration.** `:375-376` sets `contact=(zname=="transition_13_78_to_14_18")`; `report.json:261-276` reports d=-0.005182. A penetration is relabeled contact and "designed tangency" (README `:19`) with no derivation that the 13.78–14.18 cone is hob-generated rather than a turned runout. If it is not generated, this is real interference, not contact.
+
+**MED — error budget understates e_cad.** `:62` `E_CAD=0.002`; README `:24` admits "CAD chord error is unknown beyond the 0.002 mm decode term." `clearance-v3.1-spec.md` requires "report the measured constancy and include it in e_cad." That number is absent, and the two pairs above already sit at the tolerance.
+
+**MED — return gate uses an exaggerated backoff.** `:57` `SHAPER_BACKOFF=2.0`, disclosed "exaggerated for legibility" (README `:13`, `report.json:56`). The return clearance (0.213) is therefore not representative of a real relief (plan `:66` demands a "relieved return"); a production backoff sits far closer to the cut tooth space.
+
+**LOW — lead angle uses atan.** `:282` `atan(HOB_M/(2*(R-(5.0-ROOT_R))))` = 5.522°; the exact single-start relation is sin-based (5.549°). The 0.026° error is absorbed by the R/stop fit (0.0066 mm), but the physical setting angle is off.
+
+**Verified correct.** (1) Surface-of-revolution reduction is valid: both workpieces rotate fully, the tool meridian footprints (parallel-axis disc → exact rectangle) are conservative, and `r_outer`/`r_dil` deepen the obstacle (max-radius fill + ±1-station max), so clearance is under-stated, never over-stated. (2) `meridian_clearance` `:307-337` is sound: any point with true distance <margin lies within the ±`reach` window, so the prefilter cannot miss a failing minimum; the `not-near` branch returns an under-estimate (conservative). (5) Budget terms are right — sampling half-diagonal 0.0112 (`:301`), profile step H/2 (`:197`), path step 0.025 (`:382`) — and shaper stroke direction, +Y toward the groove, exit margin 0.5, wall margin 0.565 (`:216-253`) match the plan.
+
+Blocking: resolve the two contact classifications (show the edge band and transition are genuinely generated and in contact within e, or test them as must-clear) and add the missing e_cad term before certifying.

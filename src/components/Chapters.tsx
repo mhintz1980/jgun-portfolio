@@ -6,6 +6,7 @@ import { useScrollValue } from '../state/scrollStore'
 import { DRAWING_INTRO_WINDOW } from '../scene/drawing/introTimeline'
 import { SCROLL_TRACK_VH } from '../scene/drawing/scrollTracks'
 import { CHAPTER_RANGES, useNativeScrollChapter } from './staticChapter'
+import { AuthorshipInline, AuthorshipNotes } from './AuthorshipNotes'
 
 /**
  * Scroll-track heights, in vh, for the empty sections that give Lenis and ScrollTrigger their
@@ -119,6 +120,11 @@ export function Chapters() {
   // canvas spin-up), and the full-motion path is untouched.
   const staticChapter = useNativeScrollChapter(isStaticMode)
 
+  // The gearbox is the main JGun narrative. Its one-liner carries the concise first-person
+  // engineering decision (single setup for a gear and its bearing land, finish the clutch housing
+  // after heat-treat); the deeper explanatory bullets stay in the on-demand case study.
+  const gearboxStudy = CASE_STUDIES.find((cs) => cs.id === 'gearbox')
+
   // The shift beat's window opens at 0.04, inside the intro band the drawing owns.
   const shiftBeat =
     !isStaticMode && progress > DRAWING_INTRO_WINDOW.releaseEnd && isShiftBeatOn(progress)
@@ -127,6 +133,11 @@ export function Chapters() {
 
   return (
     <>
+      {/* 0. Authorship layer — Mark's identity and personal margin note, immediate in every tier
+             (never gated on the canvas/GLB or the drawing annotations) and the static equivalent
+             for the poster / reduced-motion tiers. */}
+      <AuthorshipNotes />
+
       {/* 1. Left-Hand Narrative Grid Overlay (Fixed, z-10) */}
       {!isStaticMode ? (
         <div className="fixed inset-0 pointer-events-none z-10 grid grid-cols-12 p-6 md:p-12 items-center">
@@ -168,11 +179,16 @@ export function Chapters() {
                       )}
                     </div>
                     <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-100 mb-2 font-sans leading-tight">
-                      {chapterDef.title}
+                      {chapterDef.index === 0 ? 'From drawing to machining' : chapterDef.title}
                     </h2>
                     <p className="text-sm text-slate-300 mb-3 leading-relaxed font-sans">
                       {chapterDef.subtitle}
                     </p>
+                    {chapterDef.index === 0 && gearboxStudy && (
+                      <p className="text-sm italic text-slate-200 mb-3 leading-relaxed font-sans">
+                        {gearboxStudy.oneLiner}
+                      </p>
+                    )}
                     {chapterDef.index === 0 && (
                       <p className="font-mono text-xs tracking-wider text-slate-400 border-l-2 border-cyan-500/40 pl-3">
                         {ASSEMBLY_IDENTITY.spec}
@@ -257,9 +273,19 @@ export function Chapters() {
                 key={chapterDef.index}
                 className="pointer-events-auto max-w-xl max-h-[calc(100vh-9rem)] overflow-y-auto bg-slate-950/85 border border-slate-800/80 p-6 md:p-8 rounded-xl"
               >
+                {chapterDef.index === 0 && <AuthorshipInline />}
                 <p className="font-mono text-xs tracking-[0.2em] text-cyan-400 mb-2">{chapterDef.label}</p>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100 mb-3 font-sans">{chapterDef.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-100 mb-3 font-sans">{chapterDef.index === 0 ? 'From drawing to machining' : chapterDef.title}</h2>
                 <p className="text-sm text-slate-300 mb-4 leading-relaxed font-sans">{chapterDef.subtitle}</p>
+                {chapterDef.index === 0 && gearboxStudy && (
+                  <>
+                    <p className="text-sm text-slate-200 mb-4 leading-relaxed">{gearboxStudy.oneLiner}</p>
+                    <details className="authorship-details">
+                      <summary>Read my machining decisions</summary>
+                      <CaseStudyBody caseStudy={gearboxStudy} />
+                    </details>
+                  </>
+                )}
                 {caseStudy && <CaseStudyBody caseStudy={caseStudy} />}
               </div>
             )

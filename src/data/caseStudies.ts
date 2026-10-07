@@ -79,13 +79,14 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'gearbox',
     chapter: 1,
-    headline: 'Zero to Prototype: Planetary Reduction at Full Torque',
+    headline: 'Machining decisions behind the reduction train',
     oneLiner:
-      'A multi-stage planetary gear train engineered for 7-axis mill-turn production and heat-treat-stable tolerances.',
+      'I turn and hob the input and output shafts in one chucking, and finish the clutch housing after heat treatment. The machining sequence is part of the design.',
     bullets: [
-      'Designed and toleranced a multi-stage planetary reduction gearbox for high-torque, low-backlash output, machined complete on 7-axis mill-turn centers.',
-      'Controlled heat-treat distortion across hardened gear stages to hold ASME Y14.5 GD&T callouts post-process, not just at rough machining.',
-      'Took the assembly from concept to a zero-prototype production run — first parts off the line met spec, no iteration cycle.',
+      'I designed and toleranced the planetary reduction for 7-axis mill-turn production.',
+      'Turning and hobbing the input and output shafts in one chucking keeps the related features on the same setup, avoiding the alignment error another chucking can introduce.',
+      'I finish the clutch housing OD and ID after heat treatment, so the final fit is machined after the operation that can distort the part.',
+      'I think about the order of operations alongside the geometry: which features need a shared setup, and which surfaces need their final cut after heat treatment.',
     ],
     tags: ['7-AXIS MILL-TURN', 'HEAT-TREAT CONTROL', 'ASME Y14.5'],
   },

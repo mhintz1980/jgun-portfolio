@@ -1,6 +1,10 @@
 # JGun Portfolio — 3D Interactive Mechanical-to-AI Portfolio
 
-> **JG-035 final verification update — 2026-10-01:** this snapshot supersedes the in-progress status prose and inherited verification checklist below. The repaired browser roster is **6/6 PASS**, all **169 tests** and **19 full-tier pixel checks** pass, and independent technical review is **ship at the code boundary**. Desktop review video and both viewports' six stills are full tier. **Narrow full-tier video remains UNMET** after three recordings downgraded to lite; those failed runs are preserved. Owner acceptance remains open; no commit, push or deployment. [Current review packet](project/work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md).
+> **Reduced-motion policy supersession, 2026-10-06.** Mark selected [posters throughout](project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/reduced-motion-owner-decision-2026-10-06.md): reduced-motion visitors receive static DOM narrative/posters and static inspection rasters; narrative CAD downloads and WebGL/canvas mounting are excluded. Non-reduced full/lite behavior is unchanged. The measured `.38` reduced-motion park remains a numerical sampler fallback constant (animation-spec §5); the reduced-motion product path never mounts that sampler or canvas. Current proof on the new build: lifecycle 14/14 PASS, static 4/4 with zero CAD requests, and the full opening roster finished 5/6 — desktop-full fails 110 expectations after the effective tier becomes lite (cause unestablished; no waiver), while both reduced cases directly record zero CAD requests, zero canvases and no connected GL context. Earlier six-case roster evidence (including its two reduced-motion static cases) is historical, not current proof.
+
+> **JG-035 current revision (2026-10-03):** Blue-trace / vertical-shaft effects approved as concepts; live implementation includes heavy knurled black-anodized Ring Switch and the owner's drawing callout/cutaway corrections. [Current plan and verification](docs/jgun-blue-trace-tunnel-plan.md). Runtime owner visual acceptance remains open.
+
+> **JG-035 causal portal correction — technically verified 2026-10-02; owner visual review OPEN.** The J-Gun pushes opaque paper from below and is already lit beneath the first rupture; gaps expose deep portal space, never the wooden desk. Storm, fracture, crack light, burned edges, scroll share and downstream mechanism timing are retained. [Active correction plan](docs/jgun-portal-correction-plan.md). The earlier 184/184 tests, 29/29 B1/B2, six-case roster PASS and technical SHIP belong to the [superseded breakthrough packet](project/work/evidence/JG-035-opening-drafting-table/paper-breakthrough-2026-10-01/review.md); they do not verify this correction. Current correction checks: 276/276 unit tests, production build/typecheck, 31/31 B1/B2 and Stage 2 PASS. Production captures 2/2 PASS (desktop lite and narrow full), with zero desk pixels in all 12 sampled aperture frames. Runtime roster all 6/6 PASS on the same production build: 344 forward/reverse checkpoints, 96 pinned frames and two reduced-motion static cases, zero failures/errors. The [canonical aggregate](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/verified-roster/summary.json) references four passing full-roster records and two complete repaired forced-lite records. Fresh final read-only review: [Zeno SHIP](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/technical-review.md), with no blocking findings after independent inspection of live source, canonical aggregate and narrow-lite evidence. Technically verified 2026-10-02; owner visual acceptance remains open. [Correction review](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/review.md) · [Handoff](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/handoff.md). Owner visual acceptance remains open. No commit, push or deployment.
 
 Scroll-driven 3D portfolio for a 25-year mechanical designer & systems architect.
 Hero asset: the JGun industrial pneumatic torque wrench (multi-stage planetary
@@ -60,6 +64,10 @@ e.g. `/?view=exploded` opens directly on the fully exploded assembly (handle
 and gearbox stages separated axially). The HUD mode switcher stays live after
 load; the parameter is read once and never rewrites the URL.
 
+## Ring Switch finish inspection
+
+In the JGun narrative, **Inspect the finish** opens an accessible P003068 macro. Play/Replay runs the paired-tool knurling study; Return or Escape restores the narrative position and view. Poster/reduced modes provide a static finish schematic. The separate committed prop is `public/models/knurling-tool.glb`, copied unchanged from the [verified asset packet](project/work/evidence/JG-035-opening-drafting-table/knurling-tool-2026-10-04/README.md); do not add it to `sync-assets.ps1`. [Implementation plan](docs/jgun-authorship-knurling-implementation-plan.md).
+
 ## Module map
 
 | Module | Files |
@@ -74,16 +82,19 @@ verification method): [`project/context/architecture/animation-spec.md`](project
 
 ## Opening timing and unchanged canonical ladder
 
-The active JG-035 opening is specified in [animation-spec §5.0](project/context/architecture/animation-spec.md) and the [storm flicker / visible-dark plan](docs/jgun-storm-flicker-visible-dark-plan.md): registered lit hold .38–.45, five irregular lamp failures .45–.58, visible-dark anticipation .58–.66, white electrical profile on the registered camera .66–.79, pressure and lamp return .79–.86, metal from .81, extraction from .86, perspective from .90, and sheet fade .97–1. INTRO_SCROLL_SHARE is .50; reduced motion parks at the lit registered .38 frame. The measured oryzo.ai (Lusion) reference holds statement beats for 2.5–3 viewports, so the extra raw share buys dwell without moving the .00–.12 progress band. The candidate is implemented and verification is in progress against this contract; owner approval remains open. Current packet: [storm-pacing-2026-10-01](project/work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md) — static 169/169, full-tier pixel proof 19/19 PASS, independent ship at the code boundary; the repaired six-case roster is running and review motion is pending. The [storm-visible-dark-2026-09-30](project/work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/) folders predate the rebalance and remain historical. The [two-dip blackout plan](docs/jgun-blackout-emergence-plan.md) and the JG-026 narrative below are superseded historical records. Mechanical ladder and downstream constants remain unchanged. This scope is the opening only; routing enclosure/M249 to separate pages awaits owner clarification.
+The active opening follows the owner's [portal correction](docs/jgun-portal-correction-plan.md): registered lit hold .38–.45, five irregular lamp failures .45–.58, visible-dark anticipation .58–.66, glowing profile slit .66–.79, then the J-Gun pushes the paper upward .79–.84. Illumination resolves .79–.81; PBR activates .80–.82, before fracture begins .84. Rupture .84–.88 immediately reveals the already-present J-Gun; its continuous rise runs .79–1, with the pressure push preceding the post-rupture lift. Every exposed profile gap must show opaque, nearly black portal depth with irregular descending walls and white-blue upward light, never walnut. Lamp return .79–.86, perspective .90, `INTRO_SCROLL_SHARE` .50 and reduced-motion park .38 remain unchanged. The print stays opaque (`drawingOpacity = 1`); the perforated sheet remains through global .18 and retires physically .18–.22. These timings are read from the correction source. Current correction checks: 276/276 unit tests, production build/typecheck, 31/31 B1/B2 and Stage 2 PASS. Production captures 2/2 PASS (desktop lite and narrow full), with zero desk pixels in all 12 sampled aperture frames. Runtime roster all 6/6 PASS on the same production build: 344 forward/reverse checkpoints, 96 pinned frames and two reduced-motion static cases, zero failures/errors. The [canonical aggregate](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/verified-roster/summary.json) references four passing full-roster records and two complete repaired forced-lite records. Fresh final read-only review: [Zeno SHIP](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/technical-review.md), with no blocking findings after independent inspection of live source, canonical aggregate and narrow-lite evidence. Technically verified 2026-10-02; owner visual acceptance remains open. [Correction review](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/review.md) · [Handoff](project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/handoff.md). Owner visual acceptance remains open. The earlier [paper breakthrough packet](project/work/evidence/JG-035-opening-drafting-table/paper-breakthrough-2026-10-01/review.md), storm packets, stages 1–3 and JG-026 opening narratives are historical and superseded where their opening behavior conflicts. Mechanical ladder and downstream windows remain unchanged; the revised extraction pose law and its measured clearance solve are specified in animation-spec §5.0. Enclosure/M249 page separation awaits owner clarification.
 
 B1/B2 occupy global `0.000–0.120` of PROGRESS, which
 `pacedProgress()` stretches over `INTRO_SCROLL_SHARE = 0.50` of the
 DOCUMENT (owner pacing rulings 2026-09-05 and 2026-10-01). The intro's
 normalized axis spends `.00–.38` on focus and drafting, `.38–.45` on the
 registered lit hold, `.45–.66` on failures and visible-dark anticipation,
-`.66–.86` on the electrical profile with pressure and lamp return, and the
-remaining span on extraction and sheet retirement. The crossing is computed
-from transformed vertices, not hard-coded to a phase boundary. Document
+`.66–.79` on the hairline profile slit, `.79–.88` on pressure and fracture,
+with model illumination and PBR ready before the first rupture; the model
+continues rising to 1. The clearance crossing is solved from transformed
+vertices for the current pressure bound, not hard-coded to a phase boundary.
+`relativePose` uses a bounded pressure push followed by the u^1.4 lift and
+keeps the registered side rotation throughout. Document
 height is 3120vh (scroll distance 3020vh); every downstream chapter keeps its
 progress span exactly while the main timeline occupies the remaining 0.50 of
 raw document scroll.
@@ -133,10 +144,10 @@ The [animation spec §5](project/context/architecture/animation-spec.md),
 both READMEs and the skills registered in
 [`agent-skills.md`](project/context/agent-skills.md)
 must accompany behavior/table changes in the same commit. Full/lite retain the
-opening sequence; lite uses 45% profile-bulge displacement. Reduced motion
-holds the lit registered phase-.38 frame; poster retains the original DOM
-poster. [JG-026 evidence](project/work/evidence/JG-026-b1-b2-verification.md)
-is historical and does not verify the rebalanced opening.
+opening sequence; lite uses 45% swelling displacement. Reduced motion serves
+DOM posters throughout (2026-10-06 owner decision above); the `.38` park
+remains a numerical sampler fallback. [JG-026 evidence](project/work/evidence/JG-026-b1-b2-verification.md)
+is historical and does not verify the breakthrough opening.
 
 ## Design decisions inherited from the group audit
 

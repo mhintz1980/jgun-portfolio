@@ -1,8 +1,8 @@
 # Animation Spec — the whole page
 
-Runtime alignment proof: the repaired full roster measured hero transit raw .532402846–.692289113 on desktop against expected .532403027–.692289499; narrow and lite measurements passed the same tolerance. All forward/reverse release checkpoints .1199/.1201/.13 report assembled rest (explode 0, gearRotation 0, ghostOpacity 1). This confirms the handoff/transit repair; it does not claim identical downstream chapter activation edges.
+Historical (pre-breakthrough) runtime alignment proof: the repaired full roster measured hero transit raw .532402846–.692289113 on desktop against expected .532403027–.692289499; narrow and lite measurements passed the same tolerance. All forward/reverse release checkpoints .1199/.1201/.13 report assembled rest (explode 0, gearRotation 0, ghostOpacity 1). This confirms the handoff/transit repair; it does not claim identical downstream chapter activation edges.
 
-> **JG-035 final verification update — 2026-10-01:** this snapshot supersedes the in-progress status prose and inherited verification checklist below. The repaired browser roster is **6/6 PASS**, all **169 tests** and **19 full-tier pixel checks** pass, and independent technical review is **ship at the code boundary**. Desktop review video and both viewports' six stills are full tier. **Narrow full-tier video remains UNMET** after three recordings downgraded to lite; those failed runs are preserved. Owner acceptance remains open; no commit, push or deployment. [Current review packet](../../work/evidence/JG-035-opening-drafting-table/storm-pacing-2026-10-01/review.md).
+> **JG-035 causal portal correction — technically verified 2026-10-02; owner visual review OPEN.** The J-Gun pushes opaque paper from below and is already lit beneath the first rupture; gaps expose deep portal space, never the wooden desk. Storm, fracture, crack light, burned edges, scroll share and downstream mechanism timing are retained. [Active correction plan](../../../docs/jgun-portal-correction-plan.md). The earlier 184/184 tests, 29/29 B1/B2, six-case roster PASS and technical SHIP belong to the [superseded breakthrough packet](../../work/evidence/JG-035-opening-drafting-table/paper-breakthrough-2026-10-01/review.md); they do not verify this correction. Current correction checks: 276/276 unit tests, production build/typecheck, 31/31 B1/B2 and Stage 2 PASS. Production captures 2/2 PASS (desktop lite and narrow full), with zero desk pixels in all 12 sampled aperture frames. Runtime roster all 6/6 PASS on the same production build: 344 forward/reverse checkpoints, 96 pinned frames and two reduced-motion static cases, zero failures/errors. The [canonical aggregate](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/verified-roster/summary.json) references four passing full-roster records and two complete repaired forced-lite records. Fresh final read-only review: [Zeno SHIP](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/technical-review.md), with no blocking findings after independent inspection of live source, canonical aggregate and narrow-lite evidence. Technically verified 2026-10-02; owner visual acceptance remains open. [Correction review](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/review.md) · [Handoff](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/handoff.md). Owner visual acceptance remains open. No commit, push or deployment.
 
 One document describing the full scroll experience: what animates, what drives
 it, and where each behavior lives in code. The code is the source of truth;
@@ -10,17 +10,36 @@ this spec describes it as of the 2026-08-23 explosion/kinematics rework
 (commits through the rear-extraction change). When behavior and this document
 disagree, fix the document in the same change.
 
-> **Currency note (2026-10-01):** the active CH.01 opening is the JG-035
-> storm-flicker/visible-dark candidate defined by §5.0 and
-> [its execution plan](../../../docs/jgun-storm-flicker-visible-dark-plan.md).
-> It is implemented and awaiting fresh verification; technical completion and owner visual
-> acceptance are still open. The artifacts under
-> [storm-visible-dark-2026-09-30](../../work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/)
-> predate the pacing rebalance, so their browser-derived pixel, roster, and
-> review-media evidence is stale.
-> JG-026, the 2026-09-25 drafting rebuild, and the 2026-09-30 two-dip blackout
-> candidate remain useful history, but their conflicting opening prose is
-> superseded wherever this note or §5.0 identifies it as historical.
+> **Currency note (2026-10-02):** the active CH.01 opening is the causal
+> portal correction defined by §5.0 and the
+> [correction plan](../../../docs/jgun-portal-correction-plan.md).
+> Technically verified 2026-10-02: runtime all 6/6 PASS and fresh final SHIP review.
+> Owner visual acceptance remains open.
+> The paper-breakthrough, storm-pacing, visible-dark, drafting rebuild and
+> JG-026 packets are historical; their results do not verify the corrected
+> staging, and conflicting opening prose is superseded.
+
+> **Reduced-motion policy update (2026-10-06):** Mark selected posters
+> throughout ([owner
+> decision](../../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/reduced-motion-owner-decision-2026-10-06.md)).
+> Reduced-motion visitors receive static DOM narrative/posters and static
+> inspection rasters; `App.tsx` excludes narrative CAD downloads and
+> canvas/ScrollRig mounting (`canvasActive = tier !== 'poster' &&
+> !reducedMotion`; the RL300 study is gated the same way). Non-reduced
+> full/lite behavior and the manufacturing motion contracts are unchanged.
+> The §5 measured tables and the numerical `REDUCED_MOTION_INTRO_T` `.38`
+> park law (with the JG-026 `.20` pin) are preserved internal sampler-fallback
+> constants; no reduced-motion product path mounts that sampler or canvas
+> anymore. The 2026-10-02 banner sentence "reduced motion parks at .38" and
+> the prior six-case roster evidence (including its two reduced-motion static
+> cases) describe the superseded static-3D policy and remain historical, not
+> current proof. Current proof: production lifecycle 14/14 PASS with zero CAD
+> requests in reduced startup and poster
+> ([report](../../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/lifecycle/posters-policy-parent/report.json)),
+> and the current full opening roster's reduced cases directly record zero CAD
+> requests, zero canvases and no connected GL context. That roster finished 5/6:
+> desktop-full fails 110 expectations after the effective tier becomes lite —
+> cause unestablished, no waiver; full opening acceptance stays open.
 
 The page in one sentence: a fixed WebGL stage holds a photoreal CAD assembly
 of the JGun pneumatic torque wrench while the user scrolls a plain-DOM
@@ -228,7 +247,9 @@ it is not a global re-windowing function and must not be applied downstream.
 
 ### 5.0 JG-026 B1/B2 engineering drawing and extraction (2026-09-05)
 
-> **Opening revision, 2026-10-01 (storm/visible-dark candidate, pacing rebalance):** The active opening is the JG-035 0.80 × 0.50 m vellum sheet with six projected views and composed detail insets. The active contract is the [storm flicker / visible-dark plan](../../../docs/jgun-storm-flicker-visible-dark-plan.md); the [stages 1–3](../../../docs/jgun-stages-1-3-implementation-plan.md) and [two-dip blackout](../../../docs/jgun-blackout-emergence-plan.md) plans are superseded implementation history. The candidate is implemented and awaiting verification against the rebalanced contract. The pre-rebalance artifacts under [storm-visible-dark-2026-09-30](../../work/evidence/JG-035-opening-drafting-table/storm-visible-dark-2026-09-30/) are historical evidence, not current proof; this status makes no test-pass or owner-acceptance claim. The camera goes detail → traverse → whole sheet → registered side view at intro .38, then holds registered through the electrical trace at .79. Cool room bounce keeps the drawing and annotations readable in the dark hold. The profile-driven bulge relaxes at solved separation, followed by the existing restrained metal sweep; the shockwave stays disabled. HUD chrome stays hidden until global progress .12. Scroll ownership (.00–.12), pose-axis contact solve, and mechanical tables in §§5.1–5.4 remain unchanged. Reduced motion deliberately parks at .38: lit, registered, fully inked, with no flicker, pulse, bulge or extraction. Lite retains the beat sequence at 45% bulge amplitude; poster uses the DOM fallback. Opening-only scope: enclosure/M249 page separation remains pending owner clarification.
+> **Current JG-035 revision, 2026-10-03:** The owner-approved concept uses cream vellum, blue trace and branching webbing (.75–.82), model-first rupture (.84–.88), and near-vertical rock walls following the torn outline to 3.2 m depth. Ring deviations are bounded below 10 mm, with an exact contour at the lip; wall fissures fade into depth and the far closure must contribute zero visible pixels. Studio/environment illumination stays off through .96 and returns smoothly .96–1; blue portal bounce illuminates the first emerging metal. P003068 uses the handle's #040404 black anodize finish and heavy diamond knurl over its radial OD. The side elevation moves seven callouts/frames per owner markup and exposes the motor through a local oval half-depth CAD section. Locked GD&T values and downstream mechanical timing remain unchanged. [Plan](../../../docs/jgun-blue-trace-tunnel-plan.md).
+
+> **Opening revision, 2026-10-02 (causal portal correction — technically verified 2026-10-02; owner visual review open):** The active opening is the JG-035 0.80 × 0.50 m opaque paper sheet with six projected views and composed detail insets. The authoritative contract is this section plus the [owner correction plan](../../../docs/jgun-portal-correction-plan.md). The paper-breakthrough, storm, stages 1–3 and blackout plans and their conflicting opening evidence are superseded history. The camera goes detail → traverse → whole sheet → registered side view at intro .38, then holds registered through the trace at .79. The J-Gun pushes from below during .79–.84, with illumination and PBR ready before fracture .84–.88; the first opening reveals the object that caused the bulge. Continuous rise completes at 1. The permanent torn, charred profile opens into opaque cavernous portal depth and white-blue upward light, never wooden desk. Thick fracture pieces, crack light/web, burned rim and storm remain. No vellum alpha (`paperVellum()` returns 0) and no sheet fade. Cool room bounce keeps the dark-hold drawing readable. HUD chrome stays hidden until global .12. Scroll ownership (.00–.12) and §§5.1–5.4 mechanics are unchanged; the pressure-bound extraction pose and its clearance solve are revised below. Reduced motion parks at .38: lit, registered, fully inked, with no flicker, slit, swelling or extraction. Lite retains the sequence at 45% swelling; poster uses the DOM fallback. Current correction checks: 276/276 unit tests, production build/typecheck, 31/31 B1/B2 and Stage 2 PASS. Production captures 2/2 PASS (desktop lite and narrow full), with zero desk pixels in all 12 sampled aperture frames. Runtime roster all 6/6 PASS on the same production build: 344 forward/reverse checkpoints, 96 pinned frames and two reduced-motion static cases, zero failures/errors. The [canonical aggregate](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/verified-roster/summary.json) references four passing full-roster records and two complete repaired forced-lite records. Fresh final read-only review: [Zeno SHIP](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/technical-review.md), with no blocking findings after independent inspection of live source, canonical aggregate and narrow-lite evidence. Technically verified 2026-10-02; owner visual acceptance remains open. [Correction review](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/review.md) · [Handoff](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/handoff.md). Owner visual acceptance remains open; the previous 184/184 tests, six browser cases and SHIP describe superseded staging. Enclosure/M249 page separation remains pending owner clarification.
 
 **Historical JG-026 implementation record.** The sheet/projection prose below,
 including its ANSI C dimensions and shockwave language, predates JG-035 and
@@ -272,37 +293,63 @@ identity at the handoff (measured residual 5.5e-17).
 | Focus and drafting pass | 0.00 → 0.38 | 0.0000 → 0.0456 | Focus completes .05; ink/camera traverse ends registered. |
 | Registered lit hold | 0.38 → 0.45 | 0.0456 → 0.0540 | Dark navy print under the warm key; reduced parks at .38. |
 | Five irregular lamp failures | 0.45 → 0.58 | 0.0540 → 0.0696 | Unequal deterministic dips/recoveries and one sustained near-out beat; full/lite. |
-| Visible-dark anticipation | 0.58 → 0.66 | 0.0696 → 0.0792 | Lamp is out; cool room bounce keeps paper, navy drawing, and annotations readable. No trace yet. |
-| White electrical profile, registered camera | 0.66 → 0.79 | 0.0792 → 0.0948 | Geometry-derived white core and blue-white wake on the fixed registered camera. |
-| Pressure and lamp return | 0.79 → 0.86 | 0.0948 → 0.1032 | Warm lamp returns; maximum bulge 12 mm full / 5.4 mm lite. Metal begins .81. Camera rakes 90°→58°. |
-| Physical rise | 0.86 → 1.00 | 0.1032 → 0.1200 | Unchanged pose-axis lift/contact solve; extraction starts .86 and perspective starts .90. Bulge closes at solved separation; single metal sweep afterward. |
-| Sheet fade | 0.97 → 1.00 | 0.1164 → 0.1200 | Intact sheet fades to the retained hero. |
+| Visible-dark anticipation | 0.58 → 0.66 | 0.0696 → 0.0792 | Lamp is out; cool room bounce keeps the opaque paper, navy drawing and annotations readable. No slit yet. |
+| Hairline profile slit, registered camera | 0.66 → 0.79 | 0.0792 → 0.0948 | White-blue light traced through the exact-profile slit (`crackGlow` = 1); the glow stays lit into the pressure phase. |
+| Model pushes paper; lamp return | 0.79 → 0.84 | 0.0948 → 0.1008 | The already-present J-Gun rises beneath intact stock with a vertex/flex-bounded pressure push; `pressure` smooth01 swells the barrier (12 mm full / 5.4 mm lite). Illumination .79–.81 and PBR .80–.82 complete before fracture. Lamp return .79–.86; crack glow/web and camera rake remain. |
+| Rupture immediately reveals J-Gun | 0.84 → 0.88 | 0.1008 → 0.1056 | `fracture` smooth01 releases the bulge and clears fragments by .88; `openingClear` becomes 1 at .88. The J-Gun is visible in the first opening, already lit/PBR. Gaps reveal deep portal space, never desk. Crack web, light and thick fragments remain. |
+| Continuous rise | 0.79 → 1.00 | 0.0948 → 0.1200 | Pressure push precedes fracture; the post-rupture lift continues from .84 to 1 using u^1.4, without a delayed appearance. Registered side basis retained; camera perspective/orbit .90. |
+| Sheet retirement | after global .18 | .1800 → .2200 | The perforated, opaque sheet remains throughout CH.01, then leaves by physical motion; `drawingOpacity` stays 1. |
 
 Shared source boundaries: `focusEnd = .05`, `onboardStart = .05`,
-`onboardEnd = .38`, `registrationEnd = .79`, and `detachStart = .88`;
-`DRAWING_INTRO_WINDOW` remains `releaseEnd = .12`, `heroEnd = .525`. The
-lamp-failure key u-values are unchanged and normalized into `.45–.58`.
+`onboardEnd = .38`, `registrationEnd = bulgeStart = riseStart =
+lampReturnStart = .79`, `metalStart = .80`, `fractureStart = .84`,
+`lampReturnEnd = .86`, `fractureEnd = detachStart = .88`,
+`orbitStart = .90`, and `waveEnd = .97` (legacy fields, disabled).
+Illumination smooth01 spans .79–.81; PBR smooth01 spans .80–.82.
+`DRAWING_INTRO_WINDOW` remains `releaseEnd = .12`, `heroEnd = .525`.
+Lamp-failure key u-values remain normalized into `.45–.58`.
 
-Scroll time and pose time are separate axes. `introPoseTime()` reparameterizes
-one onto the other so pacing changes never re-solve the geometry:
-`relativePose()` and the 44-step bisection in `solveExtraction()` still work on
-the pose axis where the extraction starts at 0.4. No phase boundary triggers
-the wave — `solveExtraction()` finds the actual lowest-transformed-vertex
-Z = 0 crossing and its contact point. The pre-rebalance evidence reported
-crossing `0.8888459503339448`, contact Z `-8.3e-15 m`, and travel `0.22 m`
-on both viewports; that browser-derived evidence is stale for the 2026-10-01
-contract and these values are not constants to hand-pick.
+Scroll time and pose time are separate axes. `introPoseTime()` maps
+intro .79–.84 onto pose .4–.5 for the pressure push, then intro .84–1 onto
+pose .5–1 with exponent .55. `extractionLift()` uses
+`pressureTravel · smooth01((poseT − .4)/.1)` for the initial push,
+then `pressureTravel + (travel − pressureTravel) · u^1.4` for the lift.
+`bindExtractionPressure()` bounds the push against actual model vertices
+and the shader's sampled flex field for the live tier. `relativePose()`
+retains the registered side rotation throughout; the camera supplies orbit.
 
-**Shockwave.** Front reach 0.78 m at wave time 1 against a 0.650 m far-corner
+`solveExtraction()` measures the lowest-transformed-vertex Z = 0 crossing
+with 44 bisection steps. The pressure bind updates that crossing analytically
+for the current bounded push. Its numeric result must come from fresh runtime
+telemetry; no earlier crossing value is current proof. The prior .692509
+pose / .919791917 intro values and the older .8888459503339448 pose,
+contact Z −8.3e-15 m and travel .22 m belong to superseded pose laws.
+
+**Portal contract.** The exact-profile opening descends into an opaque,
+nearly black cavern with irregular expanding walls, white-blue fissure light
+and upward bounce catching torn stock and metal. The desk shader must discard
+the profile permanently; the opaque closed floor sits behind the whole initial
+model, not between paper and tool. Full and lite retain the depth enclosure.
+The subtle pulse is deterministic on scroll time, so reverse scroll and a
+held frame remain stable. No rupture frame may expose wooden desk within the
+opening. Production pixel proof passes on desktop lite and narrow full;
+the complete strict roster passes all 6/6 on the same production build;
+fresh final read-only review is SHIP with no blocking findings.
+
+**Shockwave (retained, disabled).** The fields still resolve from the solved
+crossing — front reach 0.78 m at wave time 1 against a 0.650 m far-corner
 distance from the contact point, radial attenuation `exp(-1.1 r)`, temporal
-`exp(-1.4 t)`, amplitude 0.022 m — one pass out, then done. The prior
-opacity measurements are likewise pre-rebalance and stale.
+`exp(-1.4 t)`, amplitude 0.022 m — but the opening no longer fades its print,
+so they are legacy trigger-only channels: `drawingOpacity` is a constant 1 and
+the sheet retires physically. Their timing derives from the current measured crossing and is not assigned
+an old numeric value as current proof. The prior opacity measurements are stale.
 
-Reduced motion is the static lit registered phase-.38 frame with no flicker, pulse, lift or wave.
-Lite keeps the sequence with 45% profile bulge displacement.
+Reduced motion is the static lit registered phase-.38 frame with no flicker, slit, swelling, lift or wave.
+Lite keeps the sequence with 45% swelling displacement.
 Poster retains the original DOM engineering poster. The canonical part
 identities and every ladder/rotation value in §§5.1–5.4 are unchanged.
-Mark's `?chapter=0` visual ruling is still open.
+Mark's `?chapter=0` visual ruling and owner acceptance of the paper
+portal correction visual acceptance are both still open.
 
 ### 5.1 Rig classification (`src/scene/rig/nodeRoles.ts`)
 
@@ -481,6 +528,14 @@ an emissive cyan LCD (`emissiveIntensity` 3). Studio balance: RoomEnvironment
 IBL at intensity 1.0 carries the clearcoat reflections; the punctual key
 steps back to 1.7 so gloss highlights don't blow out.
 
+### 5.6 Explicit P003068 finish inspection (2026-10-04)
+
+The visitor opens **Inspect the finish** in the JGun narrative. This is an interruption with its own explicit Play/Replay clock, not a new scroll interval. `inspectionStore` saves scroll, hotspot and material context; Lenis/native scrolling pauses, and `CameraRig` remains the sole camera writer. Return/Escape restores the entry pose and trigger focus before narrative playback resumes. Stable part identities, §§5.1–5.4 ladder values and scroll windows are unchanged.
+
+`scene/inspection/` borrows exact P003068 geometry and owns temporary physical finish materials, independent of the narrative's Solid/Blueprint/Exploded mode. The verified `public/models/knurling-tool.glb` maps glTF Y-up to ring spin/traverse Z. Smooth black resolves to aluminium, the paired opposite-hand rollers contact and traverse for two seconds, relief grows only on the outer band, then the jaws clear before withdrawal. Spin decelerates before a short angular alignment and the knurled-black assembly fades back in. No bore/end-face/edge-land relief is added. These material changes are cinematic compression; no manufacturing fixture or numerical result is asserted.
+
+Poster/reduced modes expose a static semantic finish schematic without rapid spin or fetching the prop. Native chapter observation scopes the entry to JGun. The immediate Mark Hintz identity and personal commentary are DOM text; static commentary is in the introductory card and leaves with it. The documented shaft and clutch-housing machining story is first-person; undercut part/revision and exact role wording remain pending owner confirmation. [Implementation plan](../../../docs/jgun-authorship-knurling-implementation-plan.md).
+
 ## 6. Chapter 4 CAD dissolve (`src/shaders/CadTransitionShader.ts`)
 
 A model-space planar sweep travels along the assembly's long (Z) axis: ahead
@@ -541,11 +596,15 @@ DPR staircase 2 → 1.5 → 1.25 → 1 (clamped to device ratio) walks down whil
 [45, 60], thrash guard after 3 flip-flops). Only DPR recovers; tiers never
 upgrade at runtime.
 
-`prefers-reduced-motion` is orthogonal to tier. JG-026 pins the drawing
-and live model to registered normalized phase `.20` (global `.024`),
-fully focused. Lenis/ScrollTrigger do not mount; pulse, extraction,
-shockwave, camera motion, gear/shift motion and dissolve are skipped.
-The original DOM poster is retained when the canvas is unavailable.
+`prefers-reduced-motion` is orthogonal to tier. Since the 2026-10-06
+posters-throughout decision (banner above), reduced motion never mounts the
+canvas, CAD fetches, Lenis/ScrollTrigger, pulse, extraction, shockwave,
+camera or gear/shift motion: the surface is the DOM poster/narrative with
+native scroll and static inspection rasters. The former pin laws — JG-026
+registered normalized phase `.20` (global `.024`) and the §5 intro `.38`
+park — remain numerical fallbacks inside the sampler; no reduced-motion
+product path mounts them. The DOM poster is also retained when the canvas is
+unavailable.
 
 ## 10. Boot + code splitting (`App.tsx`)
 

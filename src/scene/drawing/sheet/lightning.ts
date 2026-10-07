@@ -39,7 +39,7 @@ export function makeLightningRibbon(points: number[][]): BufferGeometry {
   return geometry
 }
 
-/** Shared displacement keeps the electrical contour attached to the vellum. */
+/** Shared displacement keeps light leaking along the crack attached to the opaque stock. */
 export const LIGHTNING_VERTEX = /* glsl */ `
 attribute float arcLength; attribute float ribbonSide; attribute vec2 ribbonNormal;
 uniform float uPulseHead;
@@ -52,28 +52,26 @@ void main() {
   float next = fract(sin((cell + 1.0) * 127.1) * 43758.5453) - 0.5;
   float here = fract(sin(cell * 127.1) * 43758.5453) - 0.5;
   float jag = mix(here, next, fract(arcLength * 310.0));
-  p.xy += ribbonNormal * jag * 0.00065;
+  p.xy += ribbonNormal * jag * 0.00006;
   p.z += paperDisplacement(p.xy);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`
 
 export const LIGHTNING_FRAGMENT = /* glsl */ `
-uniform float uPulseHead; uniform float uPulse; uniform float uLampPower;
+uniform float uPulseHead; uniform float uPulse; uniform float uLampPower; uniform float uCrackGlow; uniform float uFracture;
 varying float vArc; varying float vAcross;
 void main() {
   float d = vArc - uPulseHead;
   float head = exp(-pow(d / 0.022, 2.0));
-  float trail = step(d, 0.0) * exp(d / 0.09);
-  float charged = step(d, 0.0) * 0.20;
-  // Two local ionised knots follow the head; no whole-screen flash or elapsed clock.
-  float crack = 0.65 + 0.35 * pow(0.5 + 0.5 * sin(vArc * 1850.0 + uPulseHead * 145.0), 3.0);
-  float spark = pow(0.5 + 0.5 * sin(uPulseHead * 96.0), 8.0);
-  float energy = head * (1.0 + 0.45 * spark) + 0.65 * trail * crack + charged * crack;
+  // Steady light behind a widening slit, rather than an animated electrical pulse.
+  float fibre = 0.7 + 0.3 * pow(0.5 + 0.5 * sin(vArc * 1457.0), 3.0);
+  float residual = mix(1.0, smoothstep(0.32, 0.8, 0.5 + 0.5 * sin(vArc * 73.0)), uFracture);
+  float energy = (step(d, 0.0) * fibre + head * 0.24) * residual;
   float across = abs(vAcross);
   float aa = max(fwidth(vAcross), 0.02);
-  float core = 1.0 - smoothstep(0.14 - aa, 0.14 + aa, across);
-  float glow = exp(-across * across * 5.5) * 0.40;
-  float envelope = smoothstep(0.0, 0.035, uPulseHead) * (1.0 - smoothstep(0.94, 1.0, uPulseHead));
-  float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uPulse * envelope * (1.0 - uLampPower);
-  gl_FragColor = vec4(mix(vec3(0.30, 0.48, 0.70), vec3(1.0), core), alpha);
+  float core = 1.0 - smoothstep(0.075 - aa, 0.075 + aa, across);
+  float glow = exp(-across * across * 4.0) * 0.42;
+  float envelope = smoothstep(0.0, 0.035, uPulseHead);
+  float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uCrackGlow * envelope;
+  gl_FragColor = vec4(mix(vec3(0.18, 0.48, 0.88), vec3(0.475, 0.812, 1.0), core), alpha);
 }`

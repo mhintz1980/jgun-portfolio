@@ -103,6 +103,30 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   stats.smoothEdges = edges.smooth.length / 6
   const geometry = geometryFrom(position)
   const sectionClip = new Plane(new Vector3(0, -1, 0), 0)
+  const sideView = viewNamed(layout, 'side')
+  const handle = data.units.handle
+  const motorAxisX = data.units.housing ? (data.units.housing.min.x + data.units.housing.max.x) / 2 : 0
+  const motorCenter = handle ? new Vector3(motorAxisX, 0, handle.min.z + 0.03).applyMatrix4(sideView.transform) : null
+  const motorWindow = motorCenter ? { x: motorCenter.x, y: motorCenter.y, rx: 0.019, ry: 0.011 } : null
+  // Split actual CAD segments at the oval; retain the exterior outside and the cut inside.
+  const ovalClip = (segments: Float32Array, inside: boolean) => {
+    if (!motorWindow) return inside ? new Float32Array() : segments
+    const out: number[] = [], { x, y, rx, ry } = motorWindow
+    for (let i = 0; i < segments.length; i += 4) {
+      const ax = segments[i], ay = segments[i + 1], dx = segments[i + 2] - ax, dy = segments[i + 3] - ay
+      const px = (ax - x) / rx, py = (ay - y) / ry, vx = dx / rx, vy = dy / ry
+      const a = vx * vx + vy * vy, b = 2 * (px * vx + py * vy), c = px * px + py * py - 1
+      const disc = b * b - 4 * a * c
+      const cuts = [0, 1]
+      if (a > 1e-18 && disc > 0) for (const t of [(-b - Math.sqrt(disc)) / (2 * a), (-b + Math.sqrt(disc)) / (2 * a)]) if (t > 0 && t < 1) cuts.push(t)
+      cuts.sort((a, b) => a - b)
+      for (let j = 1; j < cuts.length; j++) {
+        const lo = cuts[j - 1], hi = cuts[j], mid = (lo + hi) / 2
+        if (((px + vx * mid) ** 2 + (py + vy * mid) ** 2 <= 1) === inside) out.push(ax + dx * lo, ay + dy * lo, ax + dx * hi, ay + dy * hi)
+      }
+    }
+    return new Float32Array(out)
+  }
 
   // ---- Model views --------------------------------------------------------------------------
   const viewGroups: Record<string, number> = {
@@ -123,8 +147,24 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     })
     const group = viewGroups[view.name]
     const order = sweep(view.rect)
-    ink.segments(lines.outline, view.scale >= 1 ? PEN.outline : PEN.edge, group, (x, y) => order(x, y) * 0.86, 0.1)
-    ink.segments(lines.edges, view.scale >= 1 ? PEN.edge : PEN.thin, group, (x, y) => order(x, y) * 0.86 + 0.02, 0.1)
+    ink.segments(view.name === 'side' ? ovalClip(lines.outline, false) : lines.outline, view.scale >= 1 ? PEN.outline : PEN.edge, group, (x, y) => order(x, y) * 0.86, 0.1)
+    ink.segments(view.name === 'side' ? ovalClip(lines.edges, false) : lines.edges, view.scale >= 1 ? PEN.edge : PEN.thin, group, (x, y) => order(x, y) * 0.86 + 0.02, 0.1)
+    if (view.name === 'side' && motorWindow) {
+      const cutView = extractView(gl, geometry, edges, { transform: view.transform, rect: view.rect, resolution: 7000, clip: sectionClip })
+      ink.segments(ovalClip(cutView.outline, true), PEN.edge, group, () => 0.4, 0.1)
+      ink.segments(ovalClip(cutView.edges, true), PEN.thin, group, () => 0.4, 0.1)
+      const cut = sectionLinework(position, view.transform, 0.0019)
+      ink.segments(ovalClip(cut.cut, true), PEN.edge, group, () => 0.4, 0.1)
+      ink.segments(ovalClip(cut.hatch, true), PEN.fine, GROUP.hatch, () => 0.4, 0.1)
+      const boundary: [number, number][] = Array.from({ length: 97 }, (_, i) => {
+        const a = i * Math.PI * 2 / 96, rag = 1 + 0.035 * Math.sin(a * 13)
+        return [motorWindow.x + motorWindow.rx * Math.cos(a) * rag, motorWindow.y + motorWindow.ry * Math.sin(a) * rag]
+      })
+      ink.path(boundary, PEN.thin, group, 0.4, 0.1)
+      marks.airMotorCutaway = [motorWindow.x, motorWindow.y]
+      stats.airMotorCutDepth = handle!.max.y
+      stats.airMotorCutSegments = ovalClip(cutView.edges, true).length / 4
+    }
     stats[`${view.name}Segments`] = (lines.outline.length + lines.edges.length) / 4
     stats[`${view.name}Ms`] = performance.now() - t0
     if (view.section) {
@@ -324,19 +364,20 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   }
 
   // ---- Side view: leaders to named parts ----------------------------------------------------
-  const leader = (anchor: [number, number], label: [number, number], lines: string[], key: number) => {
+  const leader = (anchor: [number, number], label: [number, number], lines: string[], key: number, placement?: { elbowX: number; width: number; textRight?: boolean }) => {
     const g = GROUP.sideLabels
     const left = label[0] < anchor[0]
-    const shelf = left ? label[0] + 0.004 : label[0] - 0.004
-    ink.path([[anchor[0], anchor[1]], [shelf, label[1]], [label[0], label[1]]], PEN.thin, g, key, 0.08)
+    const shelf = placement?.elbowX ?? (left ? label[0] + 0.004 : label[0] - 0.004)
+    const end = placement ? label[0] + (placement.textRight ? -1 : 1) * (placement.width / 2 + 0.0015) : label[0]
+    ink.path([[anchor[0], anchor[1]], [shelf, label[1]], [end, label[1]]], PEN.thin, g, key, 0.08)
     ink.tri(anchor[0] - 0.0009, anchor[1] - 0.0009, anchor[0] + 0.0009, anchor[1] - 0.0009, anchor[0], anchor[1] + 0.0011, g, key)
     lines.forEach((text, i) =>
       ink.text({
         text,
-        x: left ? label[0] - 0.0015 : label[0] + 0.0015,
+        x: placement ? label[0] : left ? label[0] - 0.0015 : label[0] + 0.0015,
         y: label[1] - i * 0.0062,
         size: i === 0 ? T.label : T.micro,
-        anchorX: left ? 'right' : 'left',
+        anchorX: placement ? 'center' : left ? 'right' : 'left',
         anchorY: 'middle',
         weight: i === 0 ? 'semibold' : 'medium',
         letterSpacing: 0.05,
@@ -346,24 +387,41 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     )
   }
   if (u.housing) {
-    const a = toSide(new Vector3(u.housing.min.x + 0.002, 0, (u.housing.min.z + u.housing.max.z) / 2 + 0.01))
-    leader(a, [a[0] - 0.035, top + 0.002], ['GEARBOX HOUSING', 'P000245 · MULTI-STAGE PLANETARY'], 0.1)
+    const a = toSide(new Vector3(axisX + 0.0145, 0, u.housing.min.z + 0.027))
+    const label: [number, number] = [a[0] - 0.065, a[1] - 0.100]
+    marks.gearboxCallout = label
+    marks.gearboxLeaderAnchor = a
+    leader(a, label, ['GEARBOX HOUSING', 'P000245 · MULTI-STAGE PLANETARY'], 0.1, { elbowX: a[0] - 0.019, width: 0.05 })
   }
   if (u.clutch) {
-    const a = toSide(new Vector3(u.clutch.max.x - 0.003, 0, (u.clutch.min.z + u.clutch.max.z) / 2))
-    leader(a, [a[0] - 0.03, sideRect[1] + 0.012], ['CLUTCH HOUSING', 'P000420 · ⌀2.525 H7/k6'], 0.25)
+    // Owner's green endpoint is on the narrow housing next to the selector band,
+    // not the centre of the combined static-clutch bounds (which projects onto the ring).
+    const housingZ = u.ringSwitch ? u.ringSwitch.max.z + 0.0084 : (u.clutch.min.z + u.clutch.max.z) / 2
+    const a = toSide(new Vector3(axisX + 0.006, 0, housingZ))
+    const label: [number, number] = [a[0] - 0.079, a[1] - 0.154]
+    marks.clutchCallout = label
+    marks.clutchLeaderAnchor = a
+    leader(a, label, ['CLUTCH HOUSING', 'P000420 · ⌀2.525 H7/k6'], 0.25, { elbowX: a[0] - 0.027, width: 0.046 })
   }
   if (u.ringSwitch) {
-    const a = toSide(new Vector3(u.ringSwitch.min.x + 0.002, 0, (u.ringSwitch.min.z + u.ringSwitch.max.z) / 2))
-    leader(a, [a[0] + 0.02, top + 0.002], ['RING SWITCH', 'P003068 · 2-SPEED'], 0.4)
+    const a = toSide(new Vector3(axisX + 0.024, 0, (u.ringSwitch.min.z + u.ringSwitch.max.z) / 2))
+    const label: [number, number] = [a[0] + 0.026, a[1] - 0.157]
+    marks.ringSwitchCallout = label
+    marks.ringSwitchLeaderAnchor = a
+    leader(a, label, ['RING SWITCH', 'P003068 · 2-SPEED'], 0.4, { elbowX: a[0] - 0.023, width: 0.035, textRight: true })
   }
   if (u.output) {
-    const a = toSide(new Vector3(axisX + 0.006, 0, u.output.max.z - 0.004))
-    leader(a, [a[0] - 0.02, sideRect[1] + 0.03], ['OUTPUT SPINDLE', 'P000095'], 0.55)
+    const a = toSide(new Vector3(axisX + 0.006, 0, u.output.max.z - 0.010))
+    const label: [number, number] = [a[0] + 0.0245, a[1] - 0.060]
+    marks.outputCallout = label
+    marks.outputLeaderAnchor = a
+    leader(a, label, ['OUTPUT SPINDLE', 'P000095'], 0.55, { elbowX: a[0] - 0.019, width: 0.046, textRight: true })
   }
   if (u.handle) {
-    const a = toSide(new Vector3(u.handle.min.x + 0.004, 0, u.handle.min.z + 0.03))
-    leader(a, [a[0] + 0.035, top - 0.004], ['AIR MOTOR', 'BALANCED VANE ASSEMBLY'], 0.7)
+    const a: [number, number] = marks.airMotorCutaway
+    const label: [number, number] = [a[0] + 0.069, top + 0.018]
+    marks.airMotorCallout = label
+    leader(a, label, ['AIR MOTOR', 'BALANCED VANE ASSEMBLY'], 0.7)
   }
 
   // ---- Feature control frames on the elevation ----------------------------------------------
@@ -388,16 +446,22 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   }
   if (u.output) {
     const p = toSide(new Vector3(u.output.max.x, 0, u.output.max.z - 0.022))
-    const y = sideRect[1] + 0.012
-    ink.path([[p[0], p[1] - 0.001], [p[0], y + 0.0036]], PEN.thin, GROUP.gdt, 0.3, 0.05)
-    ink.arrow(p[0], p[1] - 0.001, 0, 1, GROUP.gdt, 0.32, 0.0028)
-    fcf(p[0] - 0.004, y, ['total', '.001', 'A-B'], 0.34)
+    // The output note moved below the spindle; its locked frame stays above-left.
+    const y = toSide(new Vector3(axisX + 0.006, 0, u.output.max.z - 0.004))[1] + 0.070
+    const shelf = p[0] - (y - p[1]) * 0.625
+    const x = shelf - 0.039
+    ink.path([[p[0], p[1]], [shelf, y], [x + 0.033, y]], PEN.thin, GROUP.gdt, 0.3, 0.05)
+    ink.arrow(p[0], p[1], 0.625, -1, GROUP.gdt, 0.32, 0.0028)
+    fcf(x, y, ['total', '.001', 'A-B'], 0.34)
+    marks.outputGdt = [x, y]
   }
-  if (u.fork) {
-    const p = toSide(new Vector3(u.fork.max.x - 0.004, 0, (u.fork.min.z + u.fork.max.z) / 2))
-    const y = sideRect[1] + 0.003
-    ink.path([[p[0], p[1]], [p[0] + 0.012, y + 0.0036]], PEN.thin, GROUP.gdt, 0.5, 0.05)
-    fcf(p[0] + 0.004, y, ['profile', '.004', 'A', 'E'], 0.52)
+  if (u.clutch) {
+    const [lx, ly] = marks.clutchCallout
+    const y = ly - 0.016
+    // Share the housing callout's feature leader instead of crossing it with a second one.
+    ink.path([[lx + 0.0245, ly], [lx + 0.0245, y], [lx + 0.0185, y]], PEN.thin, GROUP.gdt, 0.5, 0.05)
+    fcf(lx - 0.0185, y, ['profile', '.004', 'A', 'E'], 0.52)
+    marks.clutchGdt = [lx - 0.0185, y]
   }
 
   // ---- Sheet furniture: trim, border, zones --------------------------------------------------

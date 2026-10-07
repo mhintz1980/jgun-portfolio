@@ -4,6 +4,7 @@ import { chromium } from 'playwright'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { gzipSync } from 'node:zlib'
 import { cpus, platform, release } from 'node:os'
+import { encodeDrawingPrecompute } from '../src/scene/drawing/sheet/drawingCodec.ts'
 
 const url = new URL(process.argv[2] ?? 'http://localhost:5173')
 url.searchParams.delete('drawingCache')
@@ -43,8 +44,8 @@ async function makePage(context) {
   return page
 }
 async function measure(page, target, expectedPrecomputed, reload = false) {
-  if (reload) await page.reload({ waitUntil: 'domcontentloaded' })
-  else await page.goto(target, { waitUntil: 'domcontentloaded' })
+  if (reload) await page.reload({ waitUntil: 'domcontentloaded', timeout: 120000 })
+  else await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 120000 })
   await page.waitForFunction(() => !!window.__precomputeReady, null, { timeout: 120000 })
   const result = await page.evaluate(() => ({ ...window.__precomputeReady, devicePixelRatio }))
   if (result.stats.precomputed !== expectedPrecomputed) {
@@ -79,12 +80,9 @@ try {
     if (!cache.drawingCacheBypassed()) throw new Error('Generator bypass is not active')
     return cache.exportDrawingPrecompute()
   })
-  // v3 binary container: same numbers, no decimal-text detour. The page encodes it with the
-  // exact codec the site decodes with, so the published bytes are what production serves.
-  const container = await livePage.evaluate(async () => {
-    const cache = await import('/src/scene/drawing/sheet/drawingCache.ts')
-    return cache.encodedDrawingPrecompute()
-  })
+  // Encode the captured immutable bake with the site's exact codec. Avoid a second
+  // development-page import/export, which can be invalidated by a Vite reload.
+  const container = encodeDrawingPrecompute(asset)
   await liveContext.close()
 
   const gzip = gzipSync(container, { level: 9 })

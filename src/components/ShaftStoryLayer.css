@@ -1,0 +1,63 @@
+/* Shaft inspection DOM card layer (JG-035). Mounted by RingInspection for shaft sessions. */
+.shaft-story-layer{position:absolute;inset:0;pointer-events:none;font-family:inherit}
+.shaft-story-column{position:absolute;top:16%;right:8%;width:min(420px,44%);display:flex;flex-direction:column;align-items:stretch;gap:12px}
+.shaft-card{background:#0b141d;border:1px solid #2b3d4c;border-radius:6px;padding:18px 22px 20px;box-shadow:0 10px 32px rgba(0,0,0,.6)}
+.shaft-card-text{margin:0;color:#eaf2f8;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:34px;line-height:1.1;font-weight:600;letter-spacing:0;overflow-wrap:break-word}
+.shaft-stamp{display:inline-block;margin-top:14px;padding:2px 14px 4px;border:3px solid #ff7a6b;border-radius:4px;color:#ff7a6b;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:0;transform:rotate(-4deg);transform-origin:center}
+.shaft-stamp-impulse{animation:shaft-stamp-settle .15s cubic-bezier(.2,.75,.3,1) both}
+@keyframes shaft-stamp-settle{0%{transform:rotate(-4deg) scale(1.5)}62%{transform:rotate(-4deg) scale(.94)}100%{transform:rotate(-4deg) scale(1)}}
+.shaft-attribution,.shaft-caption{align-self:flex-start;max-width:100%;margin:0;background:#0b141d;border-radius:4px;color:#cfdce6;box-sizing:border-box}
+.shaft-attribution{padding:8px 12px;font-size:13px;line-height:1.5}
+.shaft-caption{padding:6px 10px;font-size:12px;line-height:1.45}
+.shaft-visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+@media(max-width:600px){
+  .shaft-story-column{top:auto;bottom:8%;left:8%;right:8%;width:auto;gap:10px}
+  .shaft-card{padding:12px 16px 14px}
+  .shaft-card-text{font-size:24px}
+  .shaft-stamp{font-size:22px;margin-top:10px}
+  .shaft-attribution{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.shaft-stamp-impulse{animation:none}}
+/* Inside the inspection dialog the controls own the lower left (desktop) and the lower band (narrow). */
+.ring-inspection-portal .shaft-story-layer{z-index:0}
+@media(max-width:600px){.ring-inspection-portal .shaft-story-column{bottom:auto;top:calc(max(24px,env(safe-area-inset-top)) + 132px)}}
+.shaft-static{margin:20px auto;width:min(650px,100%)}
+.shaft-static section{margin:0 0 18px}
+.shaft-static h3{margin:0 0 6px;font-size:15px;font-weight:600;color:#e3edf4}
+.shaft-static p{margin:0;font-size:13px;line-height:1.6;color:#b4c4d0}
+.shaft-static ol{margin:6px 0 0;padding-left:20px;font-size:13px;line-height:1.7;color:#d5e0e9}
+
+/* DOM-only rendered shaft sequence. Real desktop/narrow captures are encoded as WEBP. */
+.shaft-static-sequence{width:min(920px,100%);margin:28px auto 0;pointer-events:auto}
+.shaft-static-sequence .shaft-static-intro{margin-bottom:24px;color:#8dafc3;font-size:12px}
+.shaft-static-sequence .shaft-static-chapter{margin:0 0 36px;padding-top:24px;border-top:1px solid #263642}
+.shaft-static-sequence .shaft-static-number{margin-bottom:8px;color:#8ed7e7;font:10px ui-monospace,monospace;letter-spacing:.08em}
+.shaft-static-sequence h3{font-size:21px;line-height:1.2;margin-bottom:12px}
+.shaft-static-sequence p{max-width:70ch;font-size:14px;line-height:1.7}
+.shaft-static-still{margin:20px 0 0;min-width:0;border:1px solid #243541;border-radius:6px;overflow:hidden;background:#050a10}
+.shaft-static-still picture{display:block}
+.shaft-static-still img{display:block;width:100%;height:auto;aspect-ratio:8/5;object-fit:contain;background:#050a10}
+.shaft-static-still figcaption{padding:10px 14px;color:#bfd0dc;background:#0b141d;font-size:12px;line-height:1.5}
+.shaft-static-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.shaft-static-sequence .shaft-static-materials{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+.shaft-static-materials li{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:56px;padding:12px 16px;border:1px solid #30414e;border-radius:4px;background:#0b141d}
+.shaft-static-alloy,.shaft-static-final-alloy{color:#eaf2f8;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:24px;line-height:1.2;font-weight:600}
+.shaft-static-failed{flex:none;color:#ff9d91;border:2px solid currentColor;border-radius:3px;padding:3px 8px;font:700 14px ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.shaft-static-sequence .shaft-static-attribution,.shaft-static-sequence .shaft-static-comparison-note{color:#93aabb;font-size:12px}
+.shaft-static-sequence .shaft-static-final-alloy{max-width:none;margin:12px 0 0;padding:14px 16px;border:1px solid #31505e;border-radius:4px;background:#0b1c25;font-size:24px}
+.ring-inspection-static:has(.shaft-static-sequence) .ring-inspection-dialog{height:auto;min-height:100%}
+.ring-inspection-static:has(.shaft-static-sequence) .ring-inspection-dialog header{position:sticky;top:0;z-index:1;padding:12px 0;background:#050a10}
+@media(max-width:600px){
+  .shaft-static-sequence{margin-top:20px}
+  .shaft-static-sequence .shaft-static-chapter{margin-bottom:28px;padding-top:20px}
+  .shaft-static-sequence h3{font-size:20px}
+  .shaft-static-sequence p{font-size:13px;line-height:1.65}
+  .shaft-static-still{margin-top:16px}
+  .shaft-static-still img{aspect-ratio:1/1}
+  .shaft-static-still figcaption{padding:10px 12px;font-size:12px}
+  .shaft-static-comparison{grid-template-columns:1fr;gap:0}
+  .shaft-static-materials li{padding:12px;gap:8px;min-width:0}
+  .shaft-static-alloy{font-size:21px;min-width:0;overflow-wrap:break-word}
+  .shaft-static-failed{font-size:12px;padding:3px 6px}
+  .shaft-static-sequence .shaft-static-final-alloy{font-size:22px;padding:12px}
+}

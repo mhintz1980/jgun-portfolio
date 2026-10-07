@@ -22,8 +22,8 @@ function stationForChapter(chapter: number): number {
  *   - Active-station highlight derived from native scroll through the same
  *     pacedProgress axis the full-motion HUD's `chapter` uses (JG-026), so
  *     the two stay consistent.
- * Rendered only in the poster tier (see App.tsx); reduced motion keeps the
- * canvas and therefore TechnicalHUD's own controls.
+ * Rendered only when the canvas is absent — poster tier or reduced motion
+ * (see App.tsx); full-motion tiers keep these controls in TechnicalHUD.
  */
 export function StationNav() {
   // ScrollRig never mounts in the poster tier, so the store's `chapter` stays

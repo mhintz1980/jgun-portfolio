@@ -5,20 +5,31 @@ import { INTRO_PHASES, smooth01 } from '../introTimeline'
 export const PAPER_FLEX_MAX = 0.012
 export const PAPER_FLEX_STEP = 0.004
 
+export interface PaperFlexField {
+  texture: DataTexture
+  rect: Vector4
+  peak: number
+  /** CPU equivalent of the vertex shader's bilinear red-channel lookup. */
+  sample: (x: number, y: number) => number
+}
+
+let activeField: PaperFlexField | null = null
+export const getPaperFlexField = (): PaperFlexField | null => activeField
+export const paperFlexTierScale = (tier: string): number => tier === 'poster' ? 0 : tier === 'full' ? 1 : 0.45
+
 export function paperFlexAmplitude(t: number, poseT: number, crossing: number, tier: string, flat = false): number {
   if (flat || tier === 'poster' || !Number.isFinite(t + poseT + crossing)) return 0
   const pressureStart = INTRO_PHASES.bulgeStart
-  const pressure = smooth01((t - pressureStart) / Math.max(0.001, INTRO_PHASES.riseStart - pressureStart))
-  // Release progressively with the actual extraction pose, reaching flat at solved separation.
-  const release = smooth01((poseT - 0.4) / Math.max(0.001, crossing - 0.4))
-  return PAPER_FLEX_MAX * pressure * (1 - release) * (tier === 'full' ? 1 : 0.45)
+  const pressure = smooth01((t - pressureStart) / (INTRO_PHASES.fractureStart - pressureStart))
+  // The pushing model keeps rising; the ruptured stock relaxes around it.
+  const release = smooth01((t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart))
+  return PAPER_FLEX_MAX * pressure * (1 - release) * paperFlexTierScale(tier)
 }
 
-/** The translucent impression closes with the paper; a lifted tool must not leave a hole. */
+/** Retained probe compatibility: breakthrough stock is always opaque. */
 export function paperVellum(poseT: number, crossing: number, pbr: number, tier: string, flat = false): number {
-  if (flat || tier === 'poster' || !Number.isFinite(poseT + crossing + pbr)) return 0
-  const release = smooth01((poseT - 0.4) / Math.max(0.001, crossing - 0.4))
-  return Math.max(0, Math.min(1, pbr)) * (1 - release)
+  void poseT; void crossing; void pbr; void tier; void flat
+  return 0
 }
 
 /** Peak paper darkening under the tool while it is still in contact with the sheet. */
@@ -105,5 +116,16 @@ export function makePaperFlexField(points: number[][], width: number, height: nu
   texture.minFilter = texture.magFilter = LinearFilter
   texture.generateMipmaps = false
   texture.needsUpdate = true
-  return { texture, rect: new Vector4(-width / 2, -height / 2, width, height), peak }
+  const sample = (x: number, y: number): number => {
+    const u = x / width + 0.5, v = y / height + 0.5
+    if (Math.min(u, v) <= 0 || Math.max(u, v) >= 1) return 0
+    const px = u * nx - 0.5, py = v * ny - 0.5
+    const ix = Math.floor(px), iy = Math.floor(py)
+    const fx = px - ix, fy = py - iy
+    const read = (xx: number, yy: number) => bytes[(Math.max(0, Math.min(ny - 1, yy)) * nx + Math.max(0, Math.min(nx - 1, xx))) * 4] / 255
+    return (read(ix, iy) * (1 - fx) + read(ix + 1, iy) * fx) * (1 - fy) +
+      (read(ix, iy + 1) * (1 - fx) + read(ix + 1, iy + 1) * fx) * fy
+  }
+  activeField = { texture, rect: new Vector4(-width / 2, -height / 2, width, height), peak, sample }
+  return activeField
 }

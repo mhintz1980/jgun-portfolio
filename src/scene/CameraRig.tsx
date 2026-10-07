@@ -1,6 +1,9 @@
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Matrix4, PerspectiveCamera, Vector3 } from 'three'
+import { Matrix4, PerspectiveCamera, Quaternion, Vector3 } from 'three'
+import { inspection, inspectionTelemetry } from '../state/inspectionStore'
+import { ease } from './inspection/timeline'
+import { renderOwnership } from './inspection/renderLease'
 import { drawingRuntime } from './drawing/extractionPose'
 import {
   DRAWING_INTRO_WINDOW,
@@ -178,8 +181,75 @@ export function CameraRig() {
   })
   const introOrtho = useRef(0)
   const restOrbit = useRef(0)
+  const inspectionCamera = useRef({
+    saved: false, observe: false, position: new Vector3(), quaternion: new Quaternion(), up: new Vector3(), scale: new Vector3(),
+    currentPos: new Vector3(), currentTarget: new Vector3(), projection: new Matrix4(), inverseProjection: new Matrix4(),
+    macroRotation: new Quaternion(), matrix: new Matrix4(),
+    fov: 42, near: 0.005, far: 150, zoom: 1, aspect: 1, focus: 10, filmGauge: 35, filmOffset: 0,
+    view: null as PerspectiveCamera['view'], viewValue: null as PerspectiveCamera['view'], introOrtho: 0, restOrbit: 0,
+  })
 
   useFrame((state, delta) => {
+    const shot = inspectionCamera.current
+    if (inspection.active && !inspection.static) {
+      if (!shot.saved) {
+        shot.saved = true; shot.observe = false
+        shot.position.copy(camera.position); shot.quaternion.copy(camera.quaternion)
+        shot.up.copy(camera.up); shot.scale.copy(camera.scale); shot.projection.copy(camera.projectionMatrix); shot.inverseProjection.copy(camera.projectionMatrixInverse)
+        shot.currentPos.copy(currentPos.current); shot.currentTarget.copy(currentTarget.current)
+        shot.introOrtho = introOrtho.current; shot.restOrbit = restOrbit.current
+        if (camera instanceof PerspectiveCamera) {
+          shot.fov = camera.fov; shot.near = camera.near; shot.far = camera.far; shot.zoom = camera.zoom; shot.aspect = camera.aspect
+          shot.focus = camera.focus; shot.filmGauge = camera.filmGauge; shot.filmOffset = camera.filmOffset
+          shot.view = camera.view; shot.viewValue = camera.view ? { ...camera.view } : null
+        }
+      }
+      const runtime = inspection.runtime
+      if (!runtime?.camera.valid) return
+      const sample = runtime.camera
+      const enter = ease(inspection.entryElapsed / 1.2), blend = enter * (1 - runtime.frame.returnBlend)
+      shot.matrix.lookAt(sample.position, sample.target, sample.up)
+      shot.macroRotation.setFromRotationMatrix(shot.matrix)
+      camera.position.lerpVectors(shot.position, sample.position, blend)
+      camera.quaternion.slerpQuaternions(shot.quaternion, shot.macroRotation, blend)
+      camera.up.lerpVectors(shot.up, sample.up, blend).normalize()
+      if (camera instanceof PerspectiveCamera) { camera.fov = shot.fov + (sample.fov - shot.fov) * blend; camera.updateProjectionMatrix() }
+      if (blend === 0) { camera.projectionMatrix.copy(shot.projection); camera.projectionMatrixInverse.copy(shot.inverseProjection) }
+      camera.updateMatrixWorld()
+      telemetry.camera.x = camera.position.x; telemetry.camera.y = camera.position.y; telemetry.camera.z = camera.position.z
+      telemetry.camera.fov = camera instanceof PerspectiveCamera ? camera.fov : shot.fov
+      inspectionTelemetry.cameraOwner = 'CameraRig'
+      const probe = inspectionTelemetry as unknown as Record<string, unknown>
+      probe.cameraSampleTime = runtime.frame.time; probe.cameraSampleStamp = state.clock.elapsedTime
+      return
+    }
+    if (shot.observe) {
+      // Observe the previously rendered restore frame BEFORE any narrative camera write.
+      shot.observe = false
+      inspectionTelemetry.restoredPoseError = camera.position.distanceTo(shot.position) + camera.quaternion.angleTo(shot.quaternion) + camera.up.distanceTo(shot.up) + camera.scale.distanceTo(shot.scale)
+      let projectionError = 0
+      for (let i = 0; i < 16; i++) projectionError = Math.max(projectionError, Math.abs(camera.projectionMatrix.elements[i] - shot.projection.elements[i]), Math.abs(camera.projectionMatrixInverse.elements[i] - shot.inverseProjection.elements[i]))
+      const probe = inspectionTelemetry as unknown as Record<string, unknown>
+      probe.restoreProjectionError = projectionError
+      probe.restoreStateError = camera instanceof PerspectiveCamera ? Math.abs(camera.fov - shot.fov) + Math.abs(camera.near - shot.near) + Math.abs(camera.far - shot.far) + Math.abs(camera.zoom - shot.zoom) + Math.abs(camera.aspect - shot.aspect) + Math.abs(camera.focus - shot.focus) + Math.abs(camera.filmGauge - shot.filmGauge) + Math.abs(camera.filmOffset - shot.filmOffset) : 0
+      probe.restoreObserved = true
+      renderOwnership.restoreObserved = true
+      return
+    }
+    if (shot.saved) {
+      shot.saved = false; shot.observe = true
+      camera.position.copy(shot.position); camera.quaternion.copy(shot.quaternion); camera.up.copy(shot.up); camera.scale.copy(shot.scale)
+      if (camera instanceof PerspectiveCamera) {
+        camera.fov = shot.fov; camera.near = shot.near; camera.far = shot.far; camera.zoom = shot.zoom; camera.aspect = shot.aspect
+        camera.focus = shot.focus; camera.filmGauge = shot.filmGauge; camera.filmOffset = shot.filmOffset
+        camera.view = shot.view; if (shot.view && shot.viewValue) Object.assign(shot.view, shot.viewValue)
+      }
+      camera.projectionMatrix.copy(shot.projection); camera.projectionMatrixInverse.copy(shot.inverseProjection)
+      currentPos.current.copy(shot.currentPos); currentTarget.current.copy(shot.currentTarget)
+      introOrtho.current = shot.introOrtho; restOrbit.current = shot.restOrbit
+      camera.updateMatrixWorld()
+      return
+    }
     // Reduced motion: pin the camera to the chapter-1 hero keyframe — no
     // scroll interpolation, no pointer parallax, no damped drift.
     if (getQuality().reducedMotion && !drawingRuntime.ready) {

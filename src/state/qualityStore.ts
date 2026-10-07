@@ -12,9 +12,12 @@ import { useSyncExternalStore } from 'react'
  *            canvas is unmounted entirely and a static DOM poster renders
  *            behind the (always-DOM) case-study content.
  *
- * prefers-reduced-motion is orthogonal to the tier: the canvas may still
- * render (static hero pose) but every scroll/pointer-driven animation and the
- * dissolve shader are skipped, and Lenis/ScrollTrigger never mount.
+ * prefers-reduced-motion is orthogonal to the tier LADDER (it never steps
+ * tiers) but gates the canvas itself — owner decision "posters throughout",
+ * 2026-10-06: App treats reduced motion like the poster tier for everything
+ * canvas-bound, so the lazy canvas chunk is never imported (no three
+ * download, no CAD stream) and the static DOM poster renders instead. Tier
+ * adaptation for non-reduced visitors is unchanged.
  */
 export type QualityTier = 'full' | 'lite' | 'poster'
 

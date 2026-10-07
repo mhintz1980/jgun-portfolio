@@ -26,7 +26,9 @@ import { DrawingProofRenderer } from './drawing/DrawingProofRenderer'
 import { DRAWING_INTRO_WINDOW, REDUCED_MOTION_INTRO_T, drawingIntroState, remapHeroProgress } from './drawing/introTimeline'
 import { snapshotDrawing } from './drawing/drawingGeometry'
 import { drawingRuntime } from './drawing/extractionPose'
-import { introPbrActivation } from './rig/materials'
+import { introPbrActivation, roleMaterial } from './rig/materials'
+import { inspection, notifyInspection, subscribeInspection } from '../state/inspectionStore'
+import { renderOwnership } from './inspection/renderLease'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -83,6 +85,14 @@ export function TorqueWrenchHero() {
   const idleAngle = useRef(0)
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
+  const wasInspecting = useRef(false)
+  useLayoutEffect(() => {
+    scene.userData.wrenchRig = rig
+    inspection.source = rig.clutch.ringSwitch
+    inspection.meshes = rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))
+    if (inspection.active) notifyInspection()
+    return () => { if (inspection.source === rig.clutch.ringSwitch) { inspection.source = null; inspection.meshes = [] } }
+  }, [rig])
 
   // Sweep bounds are measured in the GLTF scene frame (nodeRoles), while the
   // shader evaluates the sweep inside the recentered inner group (scene
@@ -131,7 +141,20 @@ export function TorqueWrenchHero() {
       //    around the ~40% global progress mark as components clear the shell.
       .to(anim, { ghost: 0, duration: 0.25 }, 0.54)
 
+    let held = false
+    let savedTime = 0
+    const savedAnim = { ...anim }
+    const removeInspection = subscribeInspection(() => {
+      if (inspection.active && !held) {
+        held = true; savedTime = timeline.totalTime(); Object.assign(savedAnim, anim)
+        timeline.scrollTrigger?.getTween()?.pause(); timeline.pause()
+      } else if (!inspection.active && held) {
+        held = false; timeline.totalTime(savedTime, true); Object.assign(anim, savedAnim)
+        timeline.scrollTrigger?.getTween()?.resume()
+      }
+    })
     return () => {
+      removeInspection()
       timeline.scrollTrigger?.kill()
       timeline.kill()
     }
@@ -256,6 +279,9 @@ export function TorqueWrenchHero() {
   }
 
   useFrame((state, delta) => {
+    // Freeze all narrative material/pose/idle writes; inspection owns a separate CAD copy.
+    if (inspection.active || renderOwnership.blocked) { wasInspecting.current = true; return }
+    if (wasInspecting.current) { wasInspecting.current = false; return }
     const { progress, chapter, chapterProgress, materialMode } = getScrollState()
     const { tier, reducedMotion } = getQuality()
 
@@ -276,7 +302,9 @@ export function TorqueWrenchHero() {
         group.current.matrixAutoUpdate = false
         group.current.matrix.copy(drawingRuntime.modelMatrix)
       }
-      if (modelRoot.current) modelRoot.current.visible = !proof && !reducedMotion && intro.pbr > 0
+      // Opaque stock hides the live model until the first gap. Visibility must
+      // already be armed during pressure, rather than waiting for fragment clearance.
+      if (modelRoot.current) modelRoot.current.visible = !proof && !reducedMotion
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
         applyLiveMaterials(materialMode)
         surface.current = 'live'

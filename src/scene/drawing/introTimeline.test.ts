@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+const smooth01 = (value: number) => { const x = Math.max(0, Math.min(1, value)); return x * x * (3 - 2 * x) }
 import {
   DRAWING_INTRO_WINDOW,
   REDUCED_MOTION_INTRO_T,
@@ -11,6 +12,15 @@ import {
   rawScrollFor,
   remapHeroProgress,
 } from './introTimeline'
+
+/**
+ * Representative solved pose-time for the extraction crossing. The live value comes from
+ * solveExtraction() against the real mesh, and the 2026-10-01 revision moved it earlier
+ * (~.6 pose); a constant here lets the scroll-axis windows be exercised without the GLB.
+ */
+const SOLVED_CROSSING = 0.6
+/** The pre-revision browser-derived crossing, kept to prove the legacy wave fields still run. */
+const LEGACY_CROSSING = 0.8993818764962211
 
 describe('intro pacing map', () => {
   it('gives the intro its .50 scroll share and leaves the downstream axis linear', () => {
@@ -70,6 +80,12 @@ describe('intro phase map', () => {
     expect(state.illumination).toBe(0)
     expect(state.perspective).toBe(0)
     expect(state.drawingOpacity).toBe(1)
+    // Every breakthrough channel is still at rest at the park.
+    expect(state.pressure).toBe(0)
+    expect(state.fracture).toBe(0)
+    expect(state.crackWeb).toBe(0)
+    expect(state.crackGlow).toBe(0)
+    expect(state.openingClear).toBe(0)
     // The camera settle is owned by onboardEnd, not by the later electrical pulse.
     expect(REDUCED_MOTION_INTRO_T).toBe(INTRO_PHASES.onboardEnd)
     // The lit recognition hold (.38-.45) is fully lit across its whole authored span.
@@ -83,7 +99,7 @@ describe('intro phase map', () => {
     expect(state.poseT).toBeLessThan(0.4)
   })
 
-  it('orders every blackout, emergence, lamp, and camera boundary deterministically', () => {
+  it('orders every blackout, breakthrough, lamp, and camera boundary deterministically', () => {
     const p = INTRO_PHASES
     expect(p.focusEnd).toBe(p.onboardStart)
     expect(p.onboardEnd).toBeLessThan(p.flickerStart)
@@ -92,18 +108,22 @@ describe('intro phase map', () => {
     expect(p.pulseStart).toBeLessThan(p.pulseEnd)
     expect(p.pulseEnd).toBe(p.registrationEnd)
     expect(p.registrationEnd).toBe(p.bulgeStart)
-    expect(p.bulgeStart).toBe(p.lampReturnStart)
-    expect(p.lampReturnStart).toBeLessThan(p.metalStart)
-    expect(p.metalStart).toBeLessThan(p.lampReturnEnd)
-    expect(p.lampReturnEnd).toBe(p.riseStart)
+    expect(p.bulgeStart).toBeLessThan(p.fractureStart)
+    expect(p.fractureEnd).toBeLessThan(p.lampReturnStart)
+    expect(p.lampReturnStart).toBeLessThan(p.lampReturnEnd)
+    expect(p.lampReturnEnd).toBe(1)
+    // The model pushes first and is fully resolved before fragments open gaps.
+    expect(p.fractureEnd).toBe(p.detachStart)
+    expect(p.riseStart).toBe(p.bulgeStart)
+    expect(p.metalStart + 0.02).toBeLessThan(p.fractureStart)
     // The shockwave arms before the camera orbit opens; both resolve inside the intro.
-    expect(p.riseStart).toBeLessThan(p.detachStart)
+    expect(p.riseStart).toBeLessThan(p.orbitStart)
     expect(p.detachStart).toBeLessThan(p.waveEnd)
     expect(p.orbitStart).toBeLessThan(p.waveEnd)
     expect(p.waveEnd).toBeLessThan(1)
   })
 
-  it('pins the storm phase contract to the authored boundaries', () => {
+  it('pins the breakthrough phase contract to the authored boundaries', () => {
     expect(INTRO_PHASES.focusEnd).toBe(0.05)
     expect(INTRO_PHASES.onboardStart).toBe(0.05)
     expect(INTRO_PHASES.onboardEnd).toBe(0.38)
@@ -113,11 +133,13 @@ describe('intro phase map', () => {
     expect(INTRO_PHASES.pulseEnd).toBe(0.79)
     expect(INTRO_PHASES.registrationEnd).toBe(0.79)
     expect(INTRO_PHASES.bulgeStart).toBe(0.79)
-    expect(INTRO_PHASES.lampReturnStart).toBe(0.79)
-    expect(INTRO_PHASES.metalStart).toBe(0.81)
-    expect(INTRO_PHASES.lampReturnEnd).toBe(0.86)
-    expect(INTRO_PHASES.riseStart).toBe(0.86)
+    expect(INTRO_PHASES.lampReturnStart).toBe(0.96)
+    expect(INTRO_PHASES.lampReturnEnd).toBe(1)
+    expect(INTRO_PHASES.fractureStart).toBe(0.84)
+    expect(INTRO_PHASES.fractureEnd).toBe(0.88)
     expect(INTRO_PHASES.detachStart).toBe(0.88)
+    expect(INTRO_PHASES.metalStart).toBe(0.8)
+    expect(INTRO_PHASES.riseStart).toBe(0.79)
     expect(INTRO_PHASES.orbitStart).toBe(0.9)
     expect(INTRO_PHASES.waveEnd).toBe(0.97)
     expect(REDUCED_MOTION_INTRO_T).toBe(0.38)
@@ -275,7 +297,9 @@ describe('intro phase map', () => {
       previous = power
     }
     expect(state(lampReturnEnd).lampPower).toBe(1)
-    for (const t of [0.86, 0.9, 0.96, 1]) expect(state(t).lampPower).toBe(1)
+    for (const t of [0.86, 0.9, 0.96]) expect(state(t).lampPower).toBe(0)
+    expect(state(0.98).lampPower).toBeCloseTo(0.5, 12)
+    expect(state(1).lampPower).toBe(1)
   })
 
   it('opens the perspective move only at the authored orbit boundary', () => {
@@ -315,42 +339,43 @@ describe('intro phase map', () => {
     }
   })
 
-  it('starts illumination and metal after the trace and completes light by lift', () => {
+  it('lights and resolves the pushing model before the first fractured gap', () => {
     const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd)
     expect(state(INTRO_PHASES.pulseEnd).pbr).toBe(0)
     expect(state(INTRO_PHASES.pulseEnd).illumination).toBe(0)
     // Registration survives to the trace end: the pose axis has not started moving.
-    expect(state(INTRO_PHASES.pulseEnd).poseT).toBeLessThan(0.4)
-    expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)
-    expect(state(INTRO_PHASES.metalStart).illumination).toBe(0)
-
-    // Safely inside the metal/illumination window (.81-.86): materials resolving, camera
-    // still registered, metal not yet fully resolved.
-    const resolving = state(0.835)
-    expect(resolving.pbr).toBeGreaterThan(0)
-    expect(resolving.pbr).toBeLessThan(1)
-    expect(resolving.illumination).toBeGreaterThan(0)
-    expect(resolving.illumination).toBeLessThan(1)
-    expect(resolving.perspective).toBe(0)
-    expect(resolving.poseT).toBeLessThan(0.4)
-
-    expect(state(INTRO_PHASES.riseStart).illumination).toBe(1)
-    // Metal is exactly half resolved at the lift boundary: the 0.1 ramp from metalStart
-    // (.81) is centred on riseStart (.86), and the ramp keeps advancing past it.
-    expect(state(INTRO_PHASES.riseStart).pbr).toBeCloseTo(0.5, 12)
-    expect(state(INTRO_PHASES.riseStart + 0.02).pbr).toBeGreaterThan(0.5)
+    expect(state(INTRO_PHASES.pulseEnd).poseT).toBeCloseTo(0.4, 12)
+    expect(state(0.8).illumination).toBe(0)
+    expect(state(0.81).illumination).toBe(0)
+    expect(state(INTRO_PHASES.fractureStart).illumination).toBe(0)
+    expect(state(INTRO_PHASES.fractureEnd).illumination).toBe(0)
+    expect(state(0.98).illumination).toBeCloseTo(0.5, 12)
+    expect(state(1).illumination).toBe(1)
+    expect(state(INTRO_PHASES.fractureStart).openingClear).toBe(0)
+    expect(state(INTRO_PHASES.fractureEnd).openingClear).toBe(1)
+    expect(state(INTRO_PHASES.fractureEnd).pbr).toBe(1)
     expect(state(INTRO_PHASES.riseStart).poseT).toBeCloseTo(0.4, 12)
-    expect(state(INTRO_PHASES.metalStart + 0.1).pbr).toBe(1)
+    expect(state(INTRO_PHASES.fractureStart).poseT).toBeCloseTo(0.5, 12)
+    expect(state(INTRO_PHASES.fractureStart).pbr).toBe(1)
+    expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)
+    expect(state(0.81).pbr).toBeCloseTo(0.5, 12)
+    expect(state(0.82).pbr).toBeCloseTo(1, 12)
+    // The camera holds the registered frame through the metal resolve, then the orbit opens.
+    expect(state(INTRO_PHASES.metalStart).perspective).toBe(0)
+    expect(state(INTRO_PHASES.orbitStart).perspective).toBe(0)
+    expect(state(0.95).perspective).toBeCloseTo(0.5, 12)
   })
 
   it('sweeps light once after physical separation and resets on reverse scroll', () => {
-    const crossing = 0.8993818764962211
+    const crossing = SOLVED_CROSSING
     const start = introScrollTimeFor(crossing)
     const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
     expect(state(start - 0.01).lightSweep).toBe(0)
     expect(state((start + 1) / 2).lightSweep).toBeCloseTo(1)
     expect(state(1).lightSweep).toBeCloseTo(0)
     expect(state(start - 0.01).lightSweep).toBe(0)
+    // The legacy field still resolves for the pre-revision browser crossing.
+    expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).lightSweep).toBeCloseTo(0)
     // Progress is the paced axis, so the lit hold (intro t = 0.4, inside .38-.45) is
     // 0.4 * releaseEnd of progress; a bare 0.4 lands past the intro handoff.
     expect(drawingIntroState(0.4 * DRAWING_INTRO_WINDOW.releaseEnd, crossing).lightSweep).toBeCloseTo(0)
@@ -373,18 +398,23 @@ describe('intro phase map', () => {
     expect(stableHold.pbr).toBe(0)
     expect(stableHold.poseT).toBeLessThan(0.4)
     expect(stableHold.drawingOpacity).toBe(1)
+    expect(stableHold.pressure).toBe(0)
+    expect(stableHold.crackWeb).toBe(0)
+    expect(stableHold.crackGlow).toBe(0)
+    expect(stableHold.openingClear).toBe(0)
   })
 
-  it('holds the print opaque until the shockwave has crossed the sheet', () => {
-    const crossing = 0.8993818764962211
-    const atWaveEnd = drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
-    expect(atWaveEnd.waveTime).toBeCloseTo(1, 12)
-    expect(atWaveEnd.drawingOpacity).toBe(1)
-    expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, crossing).drawingOpacity).toBe(0)
+  it('holds the print permanently opaque; retirement is physical, never a fade', () => {
+    for (let i = 0; i <= 1000; i += 1) {
+      expect(drawingIntroState((i / 1000) * DRAWING_INTRO_WINDOW.releaseEnd, SOLVED_CROSSING).drawingOpacity).toBe(1)
+    }
+    // The legacy wave crossing cannot resurrect the old fade either.
+    expect(drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
+    expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
   })
 
-  it('runs the shockwave exactly once, after the solved separation', () => {
-    const crossing = 0.8993818764962211
+  it('runs the legacy shockwave exactly once, after the solved separation', () => {
+    const crossing = SOLVED_CROSSING
     const start = introScrollTimeFor(crossing)
     expect(drawingIntroState((start - 0.01) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(0)
     expect(start).toBeLessThan(INTRO_PHASES.waveEnd)
@@ -395,27 +425,39 @@ describe('intro phase map', () => {
 
   it('reparameterizes pose time without moving the pose axis itself', () => {
     expect(introPoseTime(0)).toBe(0)
+    expect(introPoseTime(INTRO_PHASES.fractureStart)).toBeCloseTo(0.5, 12)
+    expect(introPoseTime(INTRO_PHASES.fractureEnd)).toBeGreaterThan(0.5)
     expect(introPoseTime(INTRO_PHASES.riseStart)).toBeCloseTo(0.4, 12)
     expect(introPoseTime(1)).toBeCloseTo(1, 12)
-    for (const pose of [0.1, 0.4, 0.7, 0.8993818764962211, 1]) {
+    for (const pose of [0.1, 0.4, 0.6, 0.7, 1]) {
       expect(introPoseTime(introScrollTimeFor(pose))).toBeCloseTo(pose, 10)
+    }
+    // The pose axis never moves backwards and never leaves its authored range.
+    let previous = -1
+    for (let i = 0; i <= 2000; i += 1) {
+      const pose = introPoseTime(i / 2000)
+      expect(pose).toBeGreaterThanOrEqual(previous)
+      expect(pose).toBeLessThanOrEqual(1)
+      previous = pose
     }
   })
 
   it('evaluates every channel reversibly and derives blackout only from lamp power', () => {
-    const crossing = 0.8993818764962211
+    const crossing = SOLVED_CROSSING
     // Authored phase boundaries plus the old failure-window fractions: every edge where
     // a channel can move must reproduce identically under reverse scrubbing.
     const boundaries = [
       INTRO_PHASES.focusEnd, INTRO_PHASES.onboardEnd, INTRO_PHASES.flickerStart,
       INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, INTRO_PHASES.pulseEnd,
-      INTRO_PHASES.metalStart, INTRO_PHASES.riseStart, INTRO_PHASES.detachStart,
+      INTRO_PHASES.bulgeStart, INTRO_PHASES.fractureStart, INTRO_PHASES.fractureEnd,
+      INTRO_PHASES.lampReturnEnd, INTRO_PHASES.metalStart, INTRO_PHASES.detachStart,
       INTRO_PHASES.orbitStart, INTRO_PHASES.waveEnd,
     ]
     const samples = [
       0, 0.24, 0.3, 0.4, 0.42, 0.4368, 0.4452, 0.4592, 0.4676, 0.4844, 0.4914,
       0.5096, 0.5208, 0.5292, 0.539, 0.5474, 0.55, 0.63, 0.7, 0.72, 0.76, 0.78,
-      0.8, 0.84, 0.86, 0.88, 0.96, 1,
+      0.8, 0.82, 0.835, 0.84, 0.85, 0.86, 0.87, 0.88, 0.885, 0.9, 0.91, 0.94,
+      0.96, 0.98, 0.99, 1,
     ].concat(boundaries)
     const forward = samples.map((t) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, crossing))
 
@@ -423,9 +465,169 @@ describe('intro phase map', () => {
       const repeated = drawingIntroState(samples[i] * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
       expect(repeated).toStrictEqual(forward[i])
       expect(repeated.blackout).toBe(repeated.lampPower <= 0.03 ? 1 : 0)
+      expect(repeated.crackWeb).toBe(smooth01((repeated.t - 0.75) / 0.07) * (1 - repeated.fracture))
+      expect(repeated.openingClear).toBe(repeated.t >= INTRO_PHASES.fractureEnd ? 1 : 0)
     }
     for (let i = samples.length - 1; i >= 0; i -= 1) {
       expect(drawingIntroState(samples[i] * DRAWING_INTRO_WINDOW.releaseEnd, crossing)).toStrictEqual(forward[i])
+    }
+  })
+})
+
+describe('paper barrier breakthrough', () => {
+  const state = (t: number) => drawingIntroState(t * DRAWING_INTRO_WINDOW.releaseEnd, SOLVED_CROSSING)
+
+  it('ramps pressure to its maxPeak at .84 and releases it across .84-.88', () => {
+    expect(state(INTRO_PHASES.bulgeStart).pressure).toBe(0)
+    expect(state(0.815).pressure).toBeCloseTo(0.5, 12)
+    expect(state(INTRO_PHASES.fractureStart).pressure).toBe(1)
+    // maxPeak: .84 is the pressure maximum; .88 is the flat end of the release.
+    for (let i = 0; i <= 2000; i += 1) expect(state(i / 2000).pressure).toBeLessThanOrEqual(1)
+    expect(state(INTRO_PHASES.fractureStart).pressure).toBe(Math.max(
+      state(INTRO_PHASES.fractureStart - 0.01).pressure,
+      state(INTRO_PHASES.fractureStart + 0.01).pressure,
+    ))
+    expect(state(1).pressure).toBe(1)
+    for (const t of [0, 0.2, 0.38, 0.58, 0.66, 0.78]) expect(state(t).pressure).toBe(0)
+
+    expect(state(INTRO_PHASES.fractureStart).fracture).toBe(0)
+    expect(state(0.86).fracture).toBeCloseTo(0.5, 12)
+    expect(state(INTRO_PHASES.fractureEnd).fracture).toBeCloseTo(1, 12)
+    expect(state(1).fracture).toBe(1)
+    for (const t of [0, 0.4, 0.79, 0.83]) expect(state(t).fracture).toBe(0)
+
+    // Pressure only builds; fracture only advances. Both stay inside their windows.
+    let previous = -1
+    for (let i = 0; i <= 1000; i += 1) {
+      const pressure = state(i / 1000).pressure
+      expect(pressure).toBeGreaterThanOrEqual(previous)
+      expect(pressure).toBeLessThanOrEqual(1)
+      previous = pressure
+    }
+    let fracture = -1
+    for (let i = 0; i <= 400; i += 1) {
+      const value = state(INTRO_PHASES.fractureStart + (i / 400) * (1 - INTRO_PHASES.fractureStart)).fracture
+      expect(value).toBeGreaterThanOrEqual(fracture)
+      expect(value).toBeLessThanOrEqual(1)
+      fracture = value
+    }
+    expect(fracture).toBe(1)
+  })
+
+  it('opens the barrier exactly at .88 and closes the crack web with the fracture', () => {
+    expect(state(INTRO_PHASES.fractureStart).openingClear).toBe(0)
+    expect(state(0.8799).openingClear).toBe(0)
+    expect(state(INTRO_PHASES.fractureEnd).openingClear).toBe(1)
+    for (let i = 0; i <= 200; i += 1) {
+      expect(state(INTRO_PHASES.fractureEnd + (i / 200) * (1 - INTRO_PHASES.fractureEnd)).openingClear).toBe(1)
+    }
+    // The web is the pressure carried into fracture: full at the peak, gone at clearance.
+    expect(state(INTRO_PHASES.fractureStart).crackWeb).toBe(1)
+    expect(state(0.86).crackWeb).toBeCloseTo(0.5, 12)
+    expect(state(INTRO_PHASES.fractureEnd).crackWeb).toBe(0)
+    expect(state(1).crackWeb).toBe(0)
+  })
+
+  it('keeps the trace glow lit through the break and tapers to a residual after .94', () => {
+    for (let i = 0; i <= 80; i += 1) {
+      const t = INTRO_PHASES.pulseStart + (i / 80) * (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)
+      expect(state(t).crackGlow).toBe(1)
+    }
+    // Sustained glow after the trace: carried by pressure, inside the authored .6-1 band
+    // until fracture has completed half the break, then a quarter residual.
+    for (let i = 0; i <= 140; i += 1) {
+      const glow = state(INTRO_PHASES.pulseEnd + (i / 140) * (0.86 - INTRO_PHASES.pulseEnd)).crackGlow
+      expect(glow).toBeGreaterThanOrEqual(0.6)
+      expect(glow).toBeLessThanOrEqual(1)
+    }
+    expect(state(INTRO_PHASES.fractureStart).crackGlow).toBeCloseTo(1, 12)
+    expect(state(0.85).crackGlow).toBeCloseTo(0.878125, 12)
+    expect(state(0.86).crackGlow).toBeCloseTo(0.61, 12)
+    expect(state(INTRO_PHASES.fractureEnd).crackGlow).toBeCloseTo(0.22, 12)
+    expect(state(0.97).crackGlow).toBeCloseTo(0.07744, 12)
+    expect(state(0.98).crackGlow).toBeCloseTo(0.02288, 12)
+    expect(state(0.98).crackGlow).toBeGreaterThan(0)
+    expect(state(0.99).crackGlow).toBe(0)
+    expect(state(1).crackGlow).toBe(0)
+    // Once the fracture advances the glow can only fade; it never re-lights.
+    let previous = Infinity
+    for (let i = 0; i <= 400; i += 1) {
+      const glow = state(INTRO_PHASES.fractureStart + (i / 400) * (1 - INTRO_PHASES.fractureStart)).crackGlow
+      expect(glow).toBeLessThanOrEqual(previous + 1e-12)
+      previous = glow
+    }
+    expect(previous).toBe(0)
+  })
+
+  it('cannot produce a fracture with unlit or unresolved metal - thousands sampled', () => {
+    const N = 4000
+    let previousPose = -Infinity
+    for (let i = 0; i <= N; i += 1) {
+      const t = i / N
+      const s = state(t)
+      expect(s.openingClear).toBe(t >= INTRO_PHASES.fractureEnd ? 1 : 0)
+      expect(s.drawingOpacity).toBe(1)
+      expect(Number.isFinite(s.pbr)).toBe(true)
+      expect(Number.isFinite(s.poseT)).toBe(true)
+      expect(s.poseT).toBeGreaterThanOrEqual(previousPose)
+      previousPose = s.poseT
+      if (t < INTRO_PHASES.bulgeStart) {
+        expect(s.pbr).toBe(0)
+        expect(s.illumination).toBe(0)
+        expect(s.poseT).toBeLessThanOrEqual(0.4)
+        expect(s.crackWeb).toBeGreaterThanOrEqual(0)
+      } else if (t >= INTRO_PHASES.fractureStart) {
+        expect(s.pbr).toBe(1)
+        expect(s.illumination).toBe(s.lampPower)
+        expect(s.poseT).toBeGreaterThanOrEqual(0.5)
+      }
+    }
+    expect(state(INTRO_PHASES.metalStart).pbr).toBe(0)
+    expect(state(0.91).pbr).toBe(1)
+  })
+
+  it('keeps the print permanently opaque; retirement is physical, never a fade', () => {
+    for (let i = 0; i <= 1000; i += 1) {
+      expect(state(i / 1000).drawingOpacity).toBe(1)
+    }
+    expect(drawingIntroState(INTRO_PHASES.waveEnd * DRAWING_INTRO_WINDOW.releaseEnd, LEGACY_CROSSING).drawingOpacity).toBe(1)
+  })
+
+  it('reproduces every breakthrough channel exactly under reverse scrubbing', () => {
+    const times = Array.from({ length: 1601 }, (_, i) => i / 1600)
+    const forward = times.map(state)
+    for (let i = times.length - 1; i >= 0; i -= 1) {
+      const again = state(times[i])
+      expect(again).toStrictEqual(forward[i])
+      expect(again.crackWeb).toBe(smooth01((again.t - 0.75) / 0.07) * (1 - again.fracture))
+      expect(again.openingClear).toBe(again.t >= INTRO_PHASES.fractureEnd ? 1 : 0)
+    }
+    // Unrelated evaluations in between cannot leak state into the authored ramps.
+    const anchor = state(0.86)
+    state(0.2)
+    state(1)
+    expect(state(0.86)).toStrictEqual(anchor)
+    expect(anchor.crackWeb).toBeCloseTo(0.5, 12)
+    expect(anchor.crackGlow).toBeCloseTo(0.61, 12)
+  })
+
+  it('keeps the disabled shockwave fields functional from the solved crossing, inert past the wave end', () => {
+    for (const crossing of [0.5, 0.55, 0.6, 0.7, 0.8]) {
+      const start = introScrollTimeFor(crossing)
+      expect(start).toBeLessThan(INTRO_PHASES.waveEnd)
+      expect(drawingIntroState((start - 0.01) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(0)
+      const midWave = (start + INTRO_PHASES.waveEnd) / 2
+      expect(drawingIntroState(midWave * DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(1)
+      expect(drawingIntroState(DRAWING_INTRO_WINDOW.releaseEnd, crossing).waveActive).toBe(0)
+    }
+    // The revised solved crossing (~.6 pose) arms the legacy wave well before its .97 end.
+    const early = introScrollTimeFor(SOLVED_CROSSING)
+    expect(early).toBeLessThan(0.93)
+    expect(INTRO_PHASES.waveEnd - early).toBeGreaterThan(0.05)
+    // A crossing beyond the wave end cannot arm it: the fields stay inert, not broken.
+    expect(introScrollTimeFor(0.95)).toBeGreaterThan(INTRO_PHASES.waveEnd)
+    for (let i = 0; i <= 100; i += 1) {
+      expect(drawingIntroState((i / 100) * DRAWING_INTRO_WINDOW.releaseEnd, 0.95).waveActive).toBe(0)
     }
   })
 })

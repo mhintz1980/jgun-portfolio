@@ -138,18 +138,20 @@ export const INTRO_PHASES = {
    */
   pulseStart: 0.66,
   pulseEnd: 0.79,
-  /** The paper swells while the lamp begins its deliberate return. */
+  /** Paper swells in blue trace light; studio light returns after the doorway beat. */
   bulgeStart: 0.79,
-  lampReturnStart: 0.79,
-  lampReturnEnd: 0.86,
+  lampReturnStart: 0.96,
+  lampReturnEnd: 1.0,
   /** Exact print/model registration ends as the dark profile trace completes. */
   registrationEnd: 0.79,
-  /** Metal starts showing through the pressed drawing before the tool lifts. */
-  metalStart: 0.81,
+  /** Rupture reveals the already pushing, fully lit model. */
+  fractureStart: 0.84,
+  fractureEnd: 0.88,
+  metalStart: 0.8,
   /** Camera orbit leads into the rise and keeps running through it. */
   orbitStart: 0.9,
   /** Extraction: the model lifts out of the sheet. */
-  riseStart: 0.86,
+  riseStart: 0.79,
   /** Committed-pace window opens here (scrollCommit.ts): detachment through shockwave. */
   detachStart: 0.88,
   /** The shockwave has finished crossing the sheet; the print may fade after this. */
@@ -189,33 +191,38 @@ function lampPowerAt(t: number): number {
 /**
  * Scroll-time -> pose-time reparameterization.
  *
- * `relativePose()` and the bisection solver in `extractionPose.ts` are untouched: they
- * still work on the pose axis where the extraction starts at 0.4 and the solved crossing
- * sits at ~0.899. This map is the only thing that decides how much *scroll* each part of
- * that pose range costs, so pacing changes never re-solve the contact.
+ * The pose axis starts extraction at 0.4; the geometric crossing is solved from
+ * transformed vertices. Pose .4-.5 pushes the intact stock; .5-1 rises through rupture.
  *
- * The exponent back-loads scroll onto the late pose range because `relativePose` lifts by
- * `travel * u^4`; without it, nine tenths of the visible travel would land in the last
- * tenth of the rise window.
+ * The exponent spends more scroll on the late lift and hero handoff.
  */
 const RISE_EASE_EXPONENT = 0.55
 
 export function introPoseTime(t: number): number {
   const clamped = clamp01(t)
   if (clamped <= INTRO_PHASES.riseStart) return 0.4 * (clamped / INTRO_PHASES.riseStart)
-  const x = (clamped - INTRO_PHASES.riseStart) / (1 - INTRO_PHASES.riseStart)
-  return 0.4 + 0.6 * Math.pow(clamp01(x), RISE_EASE_EXPONENT)
+  if (clamped <= INTRO_PHASES.fractureStart) {
+    return 0.4 + 0.1 * (clamped - INTRO_PHASES.riseStart) / (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
+  }
+  const x = (clamped - INTRO_PHASES.fractureStart) / (1 - INTRO_PHASES.fractureStart)
+  return 0.5 + 0.5 * Math.pow(clamp01(x), RISE_EASE_EXPONENT)
 }
 
 /** Scroll-time at which the pose reaches a given pose-time. Inverse of `introPoseTime`. */
 export function introScrollTimeFor(poseTime: number): number {
   const pose = clamp01(poseTime)
   if (pose <= 0.4) return (pose / 0.4) * INTRO_PHASES.riseStart
-  const x = Math.pow((pose - 0.4) / 0.6, 1 / RISE_EASE_EXPONENT)
-  return INTRO_PHASES.riseStart + x * (1 - INTRO_PHASES.riseStart)
+  if (pose <= 0.5) return INTRO_PHASES.riseStart + (pose - 0.4) / 0.1 * (INTRO_PHASES.fractureStart - INTRO_PHASES.riseStart)
+  const x = Math.pow((pose - 0.5) / 0.5, 1 / RISE_EASE_EXPONENT)
+  return INTRO_PHASES.fractureStart + x * (1 - INTRO_PHASES.fractureStart)
 }
 
 export interface IntroState {
+  crackGlow: number
+  pressure: number
+  crackWeb: number
+  fracture: number
+  openingClear: number
   /** Intro-normalized scroll time, 0 at the top of the page and 1 at the handoff. */
   t: number
   /** Pose time handed to `relativePose` / the solved extraction. */
@@ -240,7 +247,7 @@ export interface IntroState {
   perspective: number
   /** Print luminance falloff as the model takes over. */
   contrast: number
-  /** Print alpha. Held at 1 until the shockwave has crossed the sheet. */
+  /** Permanent opaque stock; physical sheet motion handles retirement. */
   drawingOpacity: number
   /** 0 -> 1 across the single shockwave pass; 1 means the front has cleared the sheet. */
   waveTime: number
@@ -264,7 +271,15 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
   const waveStart = introScrollTimeFor(crossing)
   const waveSpan = Math.max(1e-4, INTRO_PHASES.waveEnd - waveStart)
   const waveTime = clamp01((t - waveStart) / waveSpan)
+  const pressure = smooth01((t - INTRO_PHASES.bulgeStart) / (INTRO_PHASES.fractureStart - INTRO_PHASES.bulgeStart))
+  const fracture = smooth01((t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart))
   return {
+    pressure,
+    fracture,
+    openingClear: t >= INTRO_PHASES.fractureEnd ? 1 : 0,
+    crackWeb: smooth01((t - 0.75) / 0.07) * (1 - fracture),
+    crackGlow: t < INTRO_PHASES.pulseStart ? 0 : t <= INTRO_PHASES.pulseEnd ? 1 :
+      (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
     t,
     poseT,
     focus: smooth01(t / INTRO_PHASES.focusEnd),
@@ -273,11 +288,11 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     readingPool: 1 - smooth01((t - 0.25) / 0.05),
     pulseHead: clamp01((t - INTRO_PHASES.pulseStart) / (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)),
     pulse: t >= INTRO_PHASES.pulseStart && t <= INTRO_PHASES.pulseEnd ? 1 : 0,
-    pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.1),
-    illumination: smooth01((t - INTRO_PHASES.metalStart) / (INTRO_PHASES.riseStart - INTRO_PHASES.metalStart)),
+    pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.02),
+    illumination: lampPowerAt(t) * smooth01((t - INTRO_PHASES.metalStart) / 0.02),
     perspective: smooth01((t - INTRO_PHASES.orbitStart) / (1 - INTRO_PHASES.orbitStart)),
     contrast: 1 - 0.72 * smooth01((t - INTRO_PHASES.riseStart) / 0.34),
-    drawingOpacity: 1 - smooth01((t - INTRO_PHASES.waveEnd) / (1 - INTRO_PHASES.waveEnd)),
+    drawingOpacity: 1,
     waveTime,
     waveActive: t > waveStart && waveTime < 1 ? 1 : 0,
     lightSweep: Math.pow(Math.sin(Math.PI * clamp01((t - waveStart) / Math.max(1e-4, 1 - waveStart))), 2),

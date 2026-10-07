@@ -4,6 +4,7 @@ import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import { CanvasTexture, DirectionalLight, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
+import { InspectionScene } from './inspection/InspectionScene'
 import { StationDriver } from './stations/StationDriver'
 import { BackdropRig } from './backgrounds/BackdropRig'
 import { SpatialRig } from './SpatialRig'
@@ -16,6 +17,9 @@ import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
 import { drawingIntroState } from './drawing/introTimeline'
 import { drawingRuntime } from './drawing/extractionPose'
+import { exitInspection, setInspectionSuspend, useInspection } from '../state/inspectionStore'
+import { renderOwnership } from './inspection/renderLease'
+import { compileWithLease } from './inspection/compileLease'
 import { explodeShadowOpacity, lcdMicroRimIntensity, studioSpotNudge } from './jgunVisualGates'
 
 /** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
@@ -77,6 +81,7 @@ function LcdFillLight() {
 
   useFrame(() => {
     if (!lightRef.current) return
+    if (renderOwnership.blocked) return
     const { progress } = getScrollState()
     // Ease over 0.02 of scroll (~40vh) — the pre-repair 0.004 ramp was ~3 frames.
     const fadeIn = Math.min(Math.max((progress - LCD_REVEAL_WINDOW.start) / 0.02, 0), 1)
@@ -137,6 +142,7 @@ function StudioRig() {
 
   useFrame(() => {
     telemetry.performance.tier=getQuality().tier
+    if (renderOwnership.blocked) return
     const { progress } = getScrollState()
     // wrenchOut [0.525, 0.565] is when the hero sinks and the enclosure
     // rises; enclosureOut [0.72, 0.76] is when the enclosure exits.
@@ -197,14 +203,14 @@ function WarmStationPrograms() {
       const target=new WebGLRenderTarget(1,1)
       try{
       for(const combination of [[true,false,false],[true,true,false],[false,true,false],[false,true,true],[false,false,true]]){
-        if(cancelled)return
+        if(cancelled || renderOwnership.blocked)return
         const previous=stations.map(station=>station!.visible)
-        let pending:Promise<unknown>
+        let pending:Promise<boolean>
         // compileAsync collects lights synchronously; restore visibility before yielding.
-        try{stations.forEach((station,i)=>{station!.visible=combination[i]});pending=gl.compileAsync(scene,camera)}
+        try{stations.forEach((station,i)=>{station!.visible=combination[i]});pending=compileWithLease(gl,scene,camera,()=>cancelled)}
         finally{stations.forEach((station,i)=>{station!.visible=previous[i]})}
-        await pending
-        if(cancelled)return
+        if(!(await pending))return
+        if(cancelled || renderOwnership.blocked)return
         // compileAsync does not upload vertex buffers or texture images. A 1px
         // offscreen render prepares those too, including frustum-culled stations.
         const flags:{object:typeof scene;visible:boolean;frustumCulled:boolean}[]=[]
@@ -235,6 +241,7 @@ function LcdMicroRimLight() {
 
   useFrame(() => {
     if (!lightRef.current) return
+    if (renderOwnership.blocked) return
     const { progress } = getScrollState()
     lightRef.current.intensity = lcdMicroRimIntensity(progress, [
       LCD_REVEAL_WINDOW.start,
@@ -284,6 +291,7 @@ function ExplodeShadow() {
 
   useFrame(() => {
     if (!meshRef.current) return
+    if (renderOwnership.blocked) return
     const { progress } = getScrollState()
     const opacity = explodeShadowOpacity(progress, telemetry.rig.explodeFactor ?? 0)
     meshRef.current.visible = opacity > 0.001
@@ -296,6 +304,12 @@ function ExplodeShadow() {
       <meshBasicMaterial map={texture} transparent opacity={0} depthWrite={false} />
     </mesh>
   )
+}
+
+function NarrativeStationDriver() {
+  const { active } = useInspection()
+  // Narrative projections are not valid from the temporary macro camera.
+  return active ? null : <StationDriver />
 }
 
 export function SceneCanvas() {
@@ -318,10 +332,14 @@ export function SceneCanvas() {
           // remediation): CameraRig mutates this same default camera each
           // frame, so the reference stays live for the page's lifetime.
           ;(window as any).__threeCamera = camera
+          // Renderer probe for inspection lifecycle verification (programs/memory census).
+          ;(window as any).__threeRenderer = gl
           // JG-032 rev2: local clipping for the Station-2 cross-section cut
           gl.localClippingEnabled = true
           gl.domElement.addEventListener('webglcontextlost', (event) => {
             event.preventDefault()
+            setInspectionSuspend('context')
+            exitInspection()
             forcePoster()
           })
         }}
@@ -365,11 +383,12 @@ export function SceneCanvas() {
 
           <CameraRig />
           {/* JG-035 — after CameraRig at the same priority: station anchors read this frame's camera. */}
-          <StationDriver />
+          <NarrativeStationDriver />
           {/* JG-023 — scroll-scrubbed procedural backdrop (camera-locked layers).
               Flag-gated in backdropConfig; flag-off = module no-op. */}
           <BackdropRig />
           <SpatialRig />
+          <InspectionScene />
           {/* JG-017 — restrained post-processing FX (transition chromatic aberration + bloom).
               Returns null for poster and reduced-motion tiers; safe to always mount. */}
           <PostProcessingComposer />

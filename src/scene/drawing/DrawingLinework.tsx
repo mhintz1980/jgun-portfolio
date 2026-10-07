@@ -20,6 +20,7 @@ import {
   DRAWING_INTRO_WINDOW,
   REDUCED_MOTION_INTRO_T,
   drawingIntroState,
+  INTRO_PHASES,
   pacedProgress,
   rawScrollFor,
 } from './introTimeline'
@@ -37,6 +38,7 @@ import {
 } from './drawingGeometry'
 import {
   applyExtraction,
+  bindExtractionPressure,
   drawingRuntime,
   relativePose,
   lowestVertex,
@@ -52,6 +54,9 @@ import { bakeProfile } from './sheet/profile'
 import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from './sheet/lightning'
 import { measureProfileRegistration } from './sheet/registration'
 import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
+import { makeBreakthroughGeometry } from './sheet/breakthroughGeometry'
+import { makeBarrierMask, makeFragmentPrint, makeCrackMask, CRACK_APERTURE_GLSL } from './sheet/breakthrough'
+import { capturePortalPixels, makePortal, PORTAL_DESK_Z, PORTAL_PROFILE_GLSL } from './sheet/portal'
 
 /**
  * THE DRAFTING TABLE (JG-035).
@@ -78,11 +83,14 @@ float fbm(vec2 p) {
 const planeVertex = /* glsl */ `
 ${WAVE_GLSL}
 uniform float uDisplace;
+uniform vec2 uFragmentCenter;
 varying vec2 vPlane;
+varying float vFront;
 void main() {
-  vPlane = position.xy;
+  vPlane = position.xy + uFragmentCenter;
+  vFront = normal.z;
   vec3 p = position;
-  p.z += paperDisplacement(p.xy) * uDisplace;
+  p.z += paperDisplacement(vPlane) * uDisplace;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`
 
@@ -94,7 +102,11 @@ void main() {
 const paperFragment = /* glsl */ `
 ${WAVE_GLSL}
 ${NOISE_GLSL}
+${CRACK_APERTURE_GLSL}
+${PORTAL_PROFILE_GLSL}
 uniform sampler2D uGrain;
+uniform sampler2D uFragmentPrint;
+uniform float uFragment; uniform float uFracture;
 uniform vec3 uPaper; uniform vec3 uGrid;
 uniform vec4 uFrame; uniform vec2 uSheetHalf;
 uniform vec3 uKey; uniform vec3 uLamp;
@@ -102,6 +114,7 @@ uniform float uLampPower; uniform float uReadingPool;
 uniform float uContrast; uniform float uOpacity; uniform float uMode;
 uniform vec2 uContact; uniform float uVellum;
 varying vec2 vPlane;
+varying float vFront;
 float gridLine(float coord, float spacing, float hw) {
   float fw = max(fwidth(coord), 1e-7);
   float d = abs(fract(coord / spacing - 0.5) - 0.5) * spacing;
@@ -111,6 +124,7 @@ float gridLine(float coord, float spacing, float hw) {
 void main() {
   if (uMode > 0.5) { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); return; }
   vec2 p = vPlane;
+  openHairline(p);
   vec3 c = uPaper;
   // Stock: cloudy formation, fibres pressed in two loose directions, tooth.
   c *= 0.965 + 0.07 * fbm(p * 14.0);
@@ -163,9 +177,17 @@ void main() {
     }
     c *= 1.0 - uContact.x * shadow;
   }
-  // Vellum: the metal pressing up from beneath shows through the profile before it lifts.
-  float alpha = uOpacity * (1.0 - 0.88 * uVellum * smoothstep(0.15, 0.6, w));
-  gl_FragColor = vec4(c * uContrast, alpha);
+  // Every face is opaque physical stock. Printed ink rides the departing fronts.
+  if (uFragment > 0.5) {
+    float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
+    c = mix(c, vec3(0.005, 0.014, 0.025) * (0.14 + 0.86 * uLampPower), ink * step(0.001, uFracture));
+    if (abs(vFront) < 0.5) c = vec3(0.025, 0.012, 0.006) * (0.2 + uLampPower);
+    if (vFront < -0.5) c *= 0.65;
+  }
+  // Restrict blue spill to the torn lip; never backlight the entire profile.
+  float underlight = portalRim(p) * uPortalLight;
+  c += vec3(0.475, 0.812, 1.0) * underlight * (vFront < -0.5 ? 0.06 : 0.018);
+  gl_FragColor = vec4(c * uContrast, 1.0);
 }`
 
 /**
@@ -176,12 +198,16 @@ void main() {
 const deskFragment = /* glsl */ `
 ${WAVE_GLSL}
 ${NOISE_GLSL}
+${PORTAL_PROFILE_GLSL}
 uniform vec3 uKey; uniform vec2 uSheetHalf;
 uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower;
 varying vec2 vPlane;
 void main() {
   if (uMode > 0.5) discard;
   vec2 p = vPlane;
+  // This opening exists before the first hairline and is never restored during the lift.
+  // Slight mask dilation prevents a raster texel of wood leaking along the torn contour.
+  if (portalProfile(p) > 0.5 || portalRim(p) > 0.0) discard;
   float warp = fbm(p * vec2(2.6, 9.0));
   float figure = fbm(p * vec2(3.0, 38.0) + warp * 1.8);
   float rings = 0.5 + 0.5 * sin(p.y * 150.0 + warp * 10.0 + figure * 5.0);
@@ -207,8 +233,7 @@ void main() {
   c *= 1.0 - 0.72 * (1.0 - smoothstep(-0.002, 0.03, sd));
   float r = length(p * vec2(0.62, 0.95));
   float fade = 1.0 - smoothstep(0.42, 1.05, r);
-  // The desk must not hide the metal seen through the vellum.
-  gl_FragColor = vec4(c * uContrast, fade * uOpacity * (1.0 - clamp(uVellum, 0.0, 1.0) * smoothstep(0.05, 0.3, paperFlexWeight(p))));
+  gl_FragColor = vec4(c * uContrast, fade);
 }`
 
 interface ScrollToApi {
@@ -237,6 +262,10 @@ interface BakedSheet {
   text: SheetTextLayer
   stats: Record<string, number>
   pulseRegistration: () => ReturnType<typeof measureProfileRegistration>
+  fracture: ReturnType<typeof makeBreakthroughGeometry>
+  barrierMask: ReturnType<typeof makeBarrierMask>
+  fragmentPrint: ReturnType<typeof makeFragmentPrint>
+  crackMask: ReturnType<typeof makeCrackMask>
 }
 
 export function DrawingLinework({ data }: { data: DrawingGeometry }) {
@@ -259,8 +288,16 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
     const extractMs = performance.now() - extractStart
     const composed = composeSheet(gl, data, layout)
     const rendered = bakeProfile(gl, data, layout)
+    const fracture = makeBreakthroughGeometry(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
+    const barrierMask = makeBarrierMask(fracture.outline, SHEET_WIDTH, SHEET_HEIGHT)
+    const fragmentPrint = makeFragmentPrint(composed.ink.segs, composed.ink.fills, SHEET_WIDTH, SHEET_HEIGHT)
+    const crackMask = makeCrackMask(rendered.profilePoints, fracture.cracks, SHEET_WIDTH, SHEET_HEIGHT)
     const uniforms = makeSheetUniforms()
+    uniforms.uBarrierMask.value = barrierMask
+    uniforms.uPortalSheetSize = { value: new Vector2(SHEET_WIDTH, SHEET_HEIGHT) }
+    uniforms.uPortalLight = { value: 0 }
     const flex = makePaperFlexField(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
+    bindExtractionPressure(extraction, layout, flex, getQuality().tier)
     uniforms.uFlexField.value = flex.texture
     uniforms.uFlexRect.value = flex.rect
     uniforms.uOrigin.value.set(extraction.contact.x, extraction.contact.y)
@@ -272,9 +309,11 @@ export function DrawingLinework({ data }: { data: DrawingGeometry }) {
     // Diagnostics are lazy: the independent ink comparison must not tax startup.
     let registration: ReturnType<typeof measureProfileRegistration> | undefined
     const pulseRegistration = () => registration ??= measureProfileRegistration(rendered.profilePoints, composed.ink.segs, GROUP.side)
-    setBaked({ layout, extraction, rendered, uniforms, lines, fills, text, stats, pulseRegistration })
+    setBaked({ layout, extraction, rendered, uniforms, lines, fills, text, stats, pulseRegistration, fracture, barrierMask, fragmentPrint, crackMask })
     dispose = () => {
       flex.texture.dispose()
+      fracture.dispose()
+      barrierMask.dispose(); fragmentPrint.dispose(); crackMask.dispose()
       rendered.dispose()
       lines.geometry.dispose()
       ;(lines.material as ShaderMaterial).dispose()
@@ -319,18 +358,26 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       uPulse: { value: 0 },
       uLampPower: { value: 1 },
       uReadingPool: { value: 1 },
+      uFragmentCenter: { value: new Vector2() },
+      uFragment: { value: 0 },
+      uFragmentPrint: { value: baked.fragmentPrint },
+      uCrackMask: { value: baked.crackMask },
+      uCrackGlow: { value: 0 },
+      uCrackWeb: { value: 0 },
+      uCrackGrowth: { value: 0 },
     })
     const paper = new ShaderMaterial({
       uniforms,
       vertexShader: planeVertex,
       fragmentShader: paperFragment,
-      transparent: true,
+      transparent: false,
+      side: DoubleSide,
       depthWrite: true,
       toneMapped: false,
     })
     const desk = new ShaderMaterial({
       uniforms,
-      vertexShader: planeVertex.replace("p.z += paperDisplacement(p.xy) * uDisplace;", ""),
+      vertexShader: planeVertex.replace("p.z += paperDisplacement(vPlane) * uDisplace;", ""),
       fragmentShader: deskFragment,
       transparent: true,
       depthWrite: false,
@@ -345,22 +392,46 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       side: DoubleSide,
       toneMapped: false,
     })
-    return { paper, desk, pulse }
+    const cracks = new ShaderMaterial({ uniforms, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
+      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb'),
+      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false })
+    const edge = new ShaderMaterial({ uniforms, vertexShader: planeVertex,
+      fragmentShader: `uniform float uLampPower; varying vec2 vPlane; ${PORTAL_PROFILE_GLSL}
+        void main(){ gl_FragColor=vec4(vec3(0.012,0.006,0.003)*(0.3+uLampPower)
+          + vec3(0.21,0.45,0.76)*portalRim(vPlane)*uPortalLight*0.18,1.0); }`,
+      side: DoubleSide, toneMapped: false })
+    const fragments = baked.fracture.fragments.map(f => new ShaderMaterial({ uniforms: { ...uniforms,
+      uFragmentCenter: { value: f.center }, uFragment: { value: 1 } },
+      vertexShader: planeVertex, fragmentShader: paperFragment, side: DoubleSide, toneMapped: false }))
+    return { paper, desk, pulse, cracks, edge, fragments }
   }, [uniforms, grain])
 
   const meshes = useMemo(() => {
-    const paper = new Mesh(new PlaneGeometry(SHEET_WIDTH, SHEET_HEIGHT, 160, 100), materials.paper)
+    const paper = new Mesh(baked.fracture.paper, materials.paper)
     paper.name = 'engineering-drawing-Z0'
     paper.renderOrder = 1
     const desk = new Mesh(new PlaneGeometry(DESK.width, DESK.height, 1, 1), materials.desk)
     desk.name = 'drafting-desk'
-    desk.position.z = -0.0016
+    desk.position.z = PORTAL_DESK_Z
     desk.renderOrder = -1
     desk.frustumCulled = false
     const pulse = new Mesh(makeLightningRibbon(rendered.profilePoints), materials.pulse)
     pulse.name = 'lightning'
     pulse.frustumCulled = false
     pulse.renderOrder = 4
+    const edge = new Mesh(baked.fracture.edge, materials.edge)
+    edge.renderOrder = 2; edge.frustumCulled = false; edge.name = 'charred-profile-edge'
+    const cracks = new Mesh(baked.fracture.cracks, materials.cracks)
+    cracks.renderOrder = 4; cracks.frustumCulled = false; cracks.name = 'pressure-crack-web'
+    const fragments = baked.fracture.fragments.map((f, i) => {
+      const mesh = new Mesh(f.geometry, materials.fragments[i])
+      mesh.position.set(f.center.x, f.center.y, 0); mesh.renderOrder = 1
+      mesh.frustumCulled = false; mesh.name = `paper-fragment-${i}`
+      return mesh
+    })
+    const initialModelBottom = data.bounds.clone().applyMatrix4(layout.primaryRotation).min.z + extraction.initialZ
+    const portal = makePortal(baked.fracture.outline, initialModelBottom,
+      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), uniforms.uPortalLight as { value: number })
     // Proof-only: the primary elevation's filled silhouette, flattened onto the sheet.
     const primary = layout.views[0]
     const mask = new Mesh(
@@ -372,18 +443,19 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     mask.renderOrder = 5
     mask.visible = false
     mask.frustumCulled = false
-    return { paper, desk, pulse, mask }
+    return { paper, desk, pulse, mask, edge, cracks, fragments, portal }
   }, [materials, rendered, layout, data])
 
   useEffect(
     () => () => {
-      meshes.paper.geometry.dispose()
       meshes.desk.geometry.dispose()
       meshes.pulse.geometry.dispose()
       ;(meshes.mask.material as MeshBasicMaterial).dispose()
       materials.paper.dispose()
       materials.desk.dispose()
       materials.pulse.dispose()
+      materials.cracks.dispose(); materials.edge.dispose(); materials.fragments.forEach(m => m.dispose())
+      meshes.portal.dispose()
     },
     [meshes, materials],
   )
@@ -454,6 +526,20 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       capturePulseRegistration: () => baked.pulseRegistration(),
       captureTextBounds: () => text.captureBounds(),
       captureTitleBounds: () => text.captureBounds(GROUP.titleBlock),
+      capturePortalPixels: () => capturePortalPixels({ gl, camera, sheet: group.current!,
+        outline: baked.fracture.outline, portal: meshes.portal, desk: meshes.desk,
+        paper: meshes.paper, fragments: meshes.fragments, edge: meshes.edge }),
+      capturePortal: () => ({
+        active: meshes.portal.group.visible && !!group.current?.visible,
+        capZ: meshes.portal.capZ, mouthZ: meshes.portal.mouthZ, deskZ: meshes.desk.position.z,
+        initialModelBottom: meshes.portal.initialModelBottom,
+        capBehindInitialModel: meshes.portal.capZ < meshes.portal.initialModelBottom,
+        deskProfileDiscard: true, broadBacklight: false,
+        depthTest: meshes.portal.cap.material.depthTest, depthWrite: meshes.portal.cap.material.depthWrite,
+        opacity: 1, profile: baked.fracture.outline, profilePoints: meshes.portal.profilePoints,
+        wallLevels: meshes.portal.wallLevels, light: uniforms.uPortalLight.value,
+        sheetMatrix: group.current?.matrixWorld.toArray(),
+      }),
       /** Offscreen normal/null trace pixel comparison, isolated from post effects. */
       captureLightningPixels: () => {
         const target = new WebGLRenderTarget(512, 288)
@@ -525,17 +611,53 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
         travel: extraction.travel,
         exactContact: lowestVertex(
           data,
-          relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, new Matrix4()),
+          relativePose(extraction.crossing, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel, extraction.pressureTravel),
         ).toArray(),
       }),
       captureContact: (t: number) => ({
         t,
         point: lowestVertex(
           data,
-          relativePose(t, layout, extraction.travel, extraction.initialZ, new Matrix4()),
+          relativePose(t, layout, extraction.travel, extraction.initialZ, new Matrix4(), extraction.clearanceTravel, extraction.pressureTravel),
         ).toArray(),
         rippleOrigin: extraction.contact.toArray(),
       }),
+      captureBreakthrough: () => {
+        // Exact transformed-vertex barrier checks are deliberately off the frame loop.
+        const relative = new Matrix4().copy(drawingRuntime.sheetMatrix).invert().multiply(drawingRuntime.modelMatrix)
+        const vertices = data.geometry.getAttribute('position'), q = new Vector3()
+        let minZ = Infinity, maxZ = -Infinity, crossingVertices = 0, outsideOpening = 0
+        const contour = baked.fracture.outline
+        const buckets: number[][] = Array.from({length:256},()=>[])
+        const row = (y:number) => Math.max(0,Math.min(255,Math.floor((y / SHEET_HEIGHT + 0.5) * 256)))
+        for (let i=0,j=contour.length-1;i<contour.length;j=i++) {
+          const a=contour[j],b=contour[i]
+          for(let k=row(Math.min(a[1],b[1]));k<=row(Math.max(a[1],b[1]));k++) buckets[k].push(i)
+        }
+        const inside = (x: number, y: number) => {
+          let hit = false
+          for (const i of buckets[row(y)]) {
+            const a = contour[(i + contour.length - 1) % contour.length], b = contour[i]
+            if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) hit = !hit
+          }
+          return hit
+        }
+        for (let i = 0; i < vertices.count; i++) {
+          q.fromBufferAttribute(vertices, i).applyMatrix4(relative)
+          minZ = Math.min(minZ, q.z); maxZ = Math.max(maxZ, q.z)
+          if (Math.abs(q.z) < 0.001) { crossingVertices++; if (!inside(q.x, q.y)) outsideOpening++ }
+        }
+        const current = drawingIntroState(getScrollState().progress, extraction.crossing)
+        return { minZ, maxZ, crossingVertices, outsideOpening, modelMoving: current.poseT > 0.4,
+          openingClear: current.openingClear, opacity: uniforms.uOpacity.value,
+          area: baked.fracture.area, fragmentArea: baked.fracture.fragmentArea,
+          fragments: meshes.fragments.map(m => ({ name: m.name, position: m.position.toArray(), rotation: m.rotation.toArray().slice(0,3), visible: m.visible })),
+          profile: baked.fracture.outline, thickness: baked.fracture.thickness,
+          maxBoundaryDeviation: baked.fracture.maxBoundaryDeviation,
+          geometries: { paperTriangles: baked.fracture.paper.getIndex() ? baked.fracture.paper.getIndex()!.count / 3 : baked.fracture.paper.getAttribute('position').count / 3,
+            edgeVertices: baked.fracture.edge.getAttribute('position').count },
+        }
+      },
     }
     ;(window as unknown as Record<string, unknown>).__drawingProof = api
 
@@ -571,7 +693,10 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     if (group.current) {
       group.current.matrixAutoUpdate = false
       group.current.matrix.copy(drawingRuntime.sheetMatrix)
-      group.current.visible = intro.t < 1 || proof || reducedMotion
+      // Opaque stock and its hole leave together through spatial motion after handoff.
+      const retirement = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, (p - 0.18) / 0.04))
+      group.current.matrix.elements[13] -= 1.4 * retirement * retirement
+      group.current.visible = p < 0.22 || proof || reducedMotion
     }
 
     // Ink schedule. Proof modes and reduced motion see the finished print.
@@ -592,6 +717,24 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     fills.visible = !proof
     text.object.visible = !proof
     meshes.mask.visible = mode === 'drawing-mask'
+    meshes.edge.visible = !proof && intro.fracture > 0
+    meshes.cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0
+    // Geometry is ready throughout the sheet lifetime; pulse/pressure only switch its light.
+    meshes.portal.group.visible = !proof
+    // Before pressure starts there is no aperture; avoid shading the covered deep shaft.
+    meshes.portal.cap.visible = meshes.portal.walls.visible = !proof && intro.t >= INTRO_PHASES.bulgeStart
+    const portalStrength = proof || reducedMotion ? 0 : Math.max(intro.crackGlow, intro.pressure * 0.75, intro.fracture * 0.68)
+    const portalPulse = meshes.portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
+    for (let i = 0; i < meshes.fragments.length; i++) {
+      const f = baked.fracture.fragments[i], mesh = meshes.fragments[i]
+      const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, ((intro.t - INTRO_PHASES.fractureStart) /
+        (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - f.delay) / (1 - f.delay)))
+      // Ballistic displacement with a fast initial impulse, deterministic in scroll.
+      const flight = Math.pow(event, 0.72)
+      mesh.position.set(f.center.x + f.velocity.x * flight, f.center.y + f.velocity.y * flight - 0.12 * flight * flight, 0.00002 + f.velocity.z * flight)
+      mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
+      mesh.visible = !modelProof && mode !== 'drawing-mask'
+    }
     uniforms.uMode.value = drawingProof ? 1 : 0
 
     const contrast = proof ? 1 : intro.contrast
@@ -608,6 +751,10 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))
     uniforms.uPulseHead.value = intro.pulseHead
     uniforms.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
+    uniforms.uCrackGlow.value = proof || reducedMotion ? 0 : intro.crackGlow
+    uniforms.uCrackWeb.value = proof || reducedMotion ? 0 : intro.crackWeb
+    uniforms.uCrackGrowth.value = proof || reducedMotion ? 0 : Math.min(1, Math.max(0, (intro.t - 0.75) / 0.07))
+    uniforms.uFracture.value = proof || reducedMotion ? 0 : intro.fracture
     uniforms.uWaveTime.value = intro.waveTime
     uniforms.uWaveEnabled.value = 0
     uniforms.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
@@ -616,7 +763,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     baked.stats.flexEnabled = uniforms.uFlexAmplitude.value > 0 ? 1 : 0
     const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
     ;(uniforms.uContact.value as Vector2).set(contactStrength, contactRadius)
-    // Close the translucent impression as the tool leaves; never leave a cutout in the desk.
+    // Legacy probe remains zero: no translucency participates in the breakthrough.
     uniforms.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
     baked.stats.vellum = uniforms.uVellum.value as number
     baked.stats.contactShadow = contactStrength
@@ -625,7 +772,30 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     baked.stats.flexNormalX = sheetMatrix[8]
     baked.stats.flexNormalY = sheetMatrix[9]
     baked.stats.flexNormalZ = sheetMatrix[10]
-    meshes.pulse.visible = (uniforms.uPulse.value as number) > 0
+    meshes.pulse.visible = (uniforms.uCrackGlow.value as number) > 0
+    baked.stats.fracture = intro.fracture
+    baked.stats.openingClear = intro.openingClear
+    baked.stats.fragmentCount = meshes.fragments.length
+    baked.stats.fragmentThickness = baked.fracture.thickness
+    baked.stats.fragmentArea = baked.fracture.fragmentArea
+    baked.stats.holeArea = baked.fracture.area
+    baked.stats.maxBoundaryDeviation = baked.fracture.maxBoundaryDeviation
+    baked.stats.crackGlow = intro.crackGlow
+    baked.stats.crackWeb = intro.crackWeb
+    baked.stats.paperOpacity = 1
+    baked.stats.modelBarrierSafe = intro.openingClear || intro.poseT <= 0.4 ? 1 : 0
+    baked.stats.portalActive = meshes.portal.group.visible && (group.current?.visible ?? false) ? 1 : 0
+    baked.stats.portalCapZ = meshes.portal.capZ
+    baked.stats.portalMouthZ = meshes.portal.mouthZ
+    baked.stats.portalDeskZ = meshes.desk.position.z
+    baked.stats.portalCapBehindModel = meshes.portal.capZ < meshes.portal.initialModelBottom ? 1 : 0
+    baked.stats.portalInitialModelBottom = meshes.portal.initialModelBottom
+    baked.stats.portalProfilePoints = meshes.portal.profilePoints
+    baked.stats.portalWallLevels = meshes.portal.wallLevels
+    baked.stats.portalDepthWrite = 1
+    baked.stats.portalDeskDiscard = 1
+    baked.stats.portalPulse = portalPulse
+    baked.stats.portalLight = uniforms.uPortalLight.value as number
     uniforms.uViewport.value.copy(gl.getDrawingBufferSize(buffer))
 
     // Reading lamp trails the camera's look-at point across the sheet.
@@ -649,8 +819,11 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     t.pulseHead = intro.pulseHead
     t.pulse = intro.pulse
     t.pbr = intro.pbr
+    t.illumination = intro.illumination
     t.travel = extraction.travel
-    t.localZ = extraction.initialZ + extraction.travel * Math.pow(Math.max(0, (poseT - 0.4) / 0.6), 4)
+    // Read the live relative transform so telemetry follows the pressure/rise pose law.
+    inverseSheet.copy(drawingRuntime.sheetMatrix).invert().multiply(drawingRuntime.modelMatrix)
+    t.localZ = inverseSheet.elements[14]
     t.minZ = minZ
     t.crossing = extraction.crossing
     t.contact[0] = extraction.contact.x
@@ -674,6 +847,10 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     <group ref={group} name="engineering-drawing-plane-frame">
       <primitive object={meshes.desk} />
       <primitive object={meshes.paper} />
+      <primitive object={meshes.portal.group} />
+      {meshes.fragments.map(mesh => <primitive key={mesh.name} object={mesh} />)}
+      <primitive object={meshes.edge} />
+      <primitive object={meshes.cracks} />
       <primitive object={lines} />
       <primitive object={fills} />
       <primitive object={text.object} />

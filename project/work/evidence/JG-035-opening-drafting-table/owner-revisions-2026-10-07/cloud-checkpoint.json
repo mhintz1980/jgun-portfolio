@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-07",
+  "branch": "codex/jg033-signature-shot",
+  "base_commit": "420198a0f818ef44fcf4428dd29ad9f7601fac69",
+  "scope": "Existing JG-035 runtime baseline plus reviewed owner-revision plan and portable cloud inputs; new animation revisions not implemented",
+  "selected_path_count": 356,
+  "excluded": "Large historical capture archives, .scratch, Python caches and unrelated local graph configuration remain local",
+  "local_checks": {
+    "typecheck": "PASS",
+    "test_files": 43,
+    "tests": 445,
+    "build": "PASS",
+    "b1b2": "PASS",
+    "station2": "PASS",
+    "preview_http": 200
+  },
+  "clean_checkout_checks": {
+    "method": "git archive of committed checkpoint, CSS scan correction applied before final amendment; reused installed lockfile dependencies",
+    "typecheck": "PASS",
+    "test_files": 35,
+    "tests": 357,
+    "test_command": "npm test -- src --fileParallelism=false",
+    "build": "PASS after restricting Tailwind scanning to src and index.html",
+    "b1b2": "PASS",
+    "station2": "PASS",
+    "limitations": "No Linux/cloud GPU run or fresh dependency installation was performed"
+  },
+  "test_roster_note": "Original43/445 includes8 files/88 tests in ignored .kilo/worktrees/fantasy-feet; main published suite is35/357.",
+  "cloud_build_fix": {
+    "file": "src/index.css",
+    "change": "Explicit Tailwind source('./') plus @source '../index.html' prevents scanning historical evidence archives",
+    "official_docs": "https://tailwindcss.com/docs/detecting-classes-in-source-files#setting-your-base-path",
+    "initial_archive_build": "Rust allocation failure at32GB; build passed in11.49s after scan bound",
+    "initial_parallel_main_suite": "Camera continuity test exceeded default timeout on loaded host;12/12 camera tests and35/357 serial main suite passed without changed assertions"
+  },
+  "cloud_browser_gpu_checks": "not run; provision Chrome and adapt Windows-specific harness flags without waiving scene expectations",
+  "inherited_g6": "OPEN: historical opening5/6 with full-to-lite desktop failure; cause unestablished",
+  "owner_visual_acceptance": "OPEN",
+  "plan_review": "Opus5.5 SHIP; original reviewed plan SHA256 recorded separately, publishing added only portable-input notice",
+  "hashes": [
+    {
+      "path": "project/context/cloud-skills/asset-and-bundle-hygiene/SKILL.md",
+      "bytes": 1943,
+      "sha256": "c002d15e4a2f6e2b684c8ffdc16499b265a7cc744d620c5b61768cf64270fcdb"
+    },
+    {
+      "path": "project/context/cloud-skills/build-threejs-scroll-worlds/SKILL.md",
+      "bytes": 18967,
+      "sha256": "0af3ee649bb67ccf461261527b4aaff8842650e80169262a7b296a6168820fcb"
+    },
+    {
+      "path": "project/context/cloud-skills/cad-scene-graph-rigging/SKILL.md",
+      "bytes": 11272,
+      "sha256": "2961cb237e5ba3439094e2e2316088d306134e2a60d3ab435d309774f91a09a2"
+    },
+    {
+      "path": "project/context/cloud-skills/glsl-transition-shader-pipeline/SKILL.md",
+      "bytes": 3230,
+      "sha256": "210291e48aa0e5d3fa887bec37412944b8bcd43b0ecf05b5b1ac5b53bcee36ed"
+    },
+    {
+      "path": "project/context/cloud-skills/gsap-scrolltrigger/SKILL.md",
+      "bytes": 18686,
+      "sha256": "e6612777bcce1617d3b9e061b2f671fb0f36379684d0c61f7a1baa06d7f7a989"
+    },
+    {
+      "path": "project/context/cloud-skills/gsap-timeline/SKILL.md",
+      "bytes": 4394,
+      "sha256": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
+    },
+    {
+      "path": "project/context/cloud-skills/handoff/SKILL.md",
+      "bytes": 878,
+      "sha256": "94bee8c16cbfcf9f1e15187f7e5d0d5a93c4adb7c512feceecaab80c8ff7c059"
+    },
+    {
+      "path": "project/context/cloud-skills/improve-animations/SKILL.md",
+      "bytes": 8016,
+      "sha256": "f7bcd002f28be07c3c4d53a57af59950cff80645a9b4b94f59fa1f4810b66d5b"
+    },
+    {
+      "path": "project/context/cloud-skills/orchestration/SKILL.md",
+      "bytes": 24378,
+      "sha256": "0f8a364ed9e42ee36b643c77c6fc8164389f126399d6b6ed86d1c37ff2e2e85d"
+    },
+    {
+      "path": "project/context/cloud-skills/playwright/SKILL.md",
+      "bytes": 3918,
+      "sha256": "c52cc95125b720cdc3c9829b0294c2752d4ae9b85a5282aa153da8bba929af87"
+    },
+    {
+      "path": "project/context/cloud-skills/r3f-scroll-performance-guard/SKILL.md",
+      "bytes": 3222,
+      "sha256": "e2a81f430232d5f8ca1e6c949bda8a645e1728c01ecd47a7b1a0b5f160d00cf7"
+    },
+    {
+      "path": "project/context/cloud-skills/review-animations/SKILL.md",
+      "bytes": 8220,
+      "sha256": "9b9766965a0d9ca2afd0a1b44e74386810008a1afdd968c62b6aa84c150cc20f"
+    },
+    {
+      "path": "project/context/cloud-skills/threejs-geometry/SKILL.md",
+      "bytes": 13829,
+      "sha256": "8337bcf86621411f54ef39727b338c84890815e4b3612ce635d593dd9c321a3e"
+    },
+    {
+      "path": "project/context/cloud-skills/threejs-materials/SKILL.md",
+      "bytes": 13418,
+      "sha256": "d5846d1b8254b903eacb3014486efbe331101518604b451098fd31989c3e7fe7"
+    },
+    {
+      "path": "project/context/cloud-skills/threejs-shaders/SKILL.md",
+      "bytes": 14056,
+      "sha256": "6702267bd3ee70d458b54078211db36b1c3738c3faa0570e88e33dceaf478a4d"
+    },
+    {
+      "path": "project/context/cloud-skills/webgl-telemetry-verifier/SKILL.md",
+      "bytes": 9156,
+      "sha256": "41896b4cbe1309ba33eb4233ce53383856232beb4580f53df3857bfdb004481a"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/cracks.png",
+      "bytes": 170340,
+      "sha256": "0c3eaf4001940892430a40c1181cf07eb21228018a6fb4e3549ff550a7aa3462"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/Example of FEA of prototype part using 4340 Heat Treated to 48-53 Hrc.analysis.jpg",
+      "bytes": 226561,
+      "sha256": "cf4f94e883a8b439fc53f0296e57276602f5f439086ae7878e4d1697583919e3"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/input shaft artifacts-1.png",
+      "bytes": 147823,
+      "sha256": "e458a02515f5ab332a85f5ebd71642a95943fdec21ca37affaec8c2faf93ca4f"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/input shaft artifacts-2.png",
+      "bytes": 215599,
+      "sha256": "48bb7e2a361be2783c7600f0bf83ecb3adccccd8cb23118b4314933e4d13572b"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/input shaft artifacts.png",
+      "bytes": 451382,
+      "sha256": "23073bb37320eceabdefc91ab6829a32a06e4641b4ef920e74ae88a2f52244b1"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/owner-change-requests.txt",
+      "bytes": 5513,
+      "sha256": "15fdb885a1006e445831cb960e7146e26114a9de02bd6ea84ecc79efa6101b96"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/portal.png",
+      "bytes": 267315,
+      "sha256": "19701e6d235edd8d4466794eb59b648d02f4571f6e86fc4917d8121403fee5b4"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/references/Ring Switch-Knurl-miss.png",
+      "bytes": 311825,
+      "sha256": "1183e2cfea8faef2aef5a439d8874947d22401d8787db46f02c500685c7e36b0"
+    },
+    {
+      "path": "public/models/Default.glb",
+      "bytes": 10671700,
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257"
+    },
+    {
+      "path": "public/models/knurling-tool.glb",
+      "bytes": 1798620,
+      "sha256": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8"
+    },
+    {
+      "path": "public/models/manufacturing-core-full.glb",
+      "bytes": 678008,
+      "sha256": "17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be"
+    },
+    {
+      "path": "public/models/manufacturing-core-lite.glb",
+      "bytes": 415424,
+      "sha256": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f"
+    },
+    {
+      "path": "public/models/rl300-lite.glb",
+      "bytes": 1139588,
+      "sha256": "d4c0d9a70e45e5fa6c06ae38635336a2d03837c3cf3b3ce48a4aaab5da566ea4"
+    }
+  ]
+}

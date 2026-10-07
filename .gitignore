@@ -5,6 +5,11 @@ dist/
 # Heavy runtime GLBs are synced from C:\Projects\CAD\RL300-SAFE\optimized\ — run `npm run sync-assets`.
 # role-map.json IS committed (76 KB, the authoritative name/anchor source).
 public/models/*.glb
+!public/models/knurling-tool.glb
+!public/models/Default.glb
+!public/models/rl300-lite.glb
+!public/models/manufacturing-core-full.glb
+!public/models/manufacturing-core-lite.glb
 
 # Local diagnostic scratch (analysis scripts, node dumps, captures)
 .scratch/
@@ -24,3 +29,8 @@ project/work/evidence/b1-b2-rebuild/**/*.png
 # Claude Code's view of .agents/skills — machine-local symlinks into the
 # .buzz worktree checkout; other clones must resolve their own.
 .claude/skills/
+
+# Local harness/diagnostic dirs (session-local, not project work)
+.codex/
+.mimosa/
+.tmp-probe/

@@ -3,6 +3,7 @@ import { BatchedText, Text } from 'troika-three-text'
 import { INK } from '../drawingGeometry'
 import { GROUP, type InkText, type SheetUniforms, type TextCell } from './ink'
 import { PAPER_FLEX_GLSL } from './paperFlex'
+import { PAPER_BARRIER_GLSL } from './breakthrough'
 
 /**
  * Sheet lettering as SDF text in ONE draw call (troika BatchedText). Glyphs stay razor sharp at
@@ -65,14 +66,14 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
       Object.assign(shader.uniforms, uniforms)
       // `transformed` is already in batch/sheet space here: Troika has applied the
       // per-member position/rotation matrix. Deforming glyph-local XY misregisters text.
-      shader.vertexShader = PAPER_FLEX_GLSL + shader.vertexShader.replace(
+      shader.vertexShader = 'varying vec2 vStockPlane;\n' + PAPER_FLEX_GLSL + shader.vertexShader.replace(
         '#include <project_vertex>',
-        'transformed.z += paperDisplacement(transformed.xy);\n#include <project_vertex>',
+        'vStockPlane = transformed.xy;\ntransformed.z += paperDisplacement(transformed.xy);\n#include <project_vertex>',
       )
       // Glyphs are printed ink, lit by the same failed practical and room bounce
       // as the vector linework. Opacity alone would leave bright navy lettering
       // floating over the dark stock.
-      shader.fragmentShader = 'uniform float uLampPower;\n' + shader.fragmentShader.replace(
+      shader.fragmentShader = PAPER_BARRIER_GLSL + 'varying vec2 vStockPlane;\nuniform float uLampPower;\n' + shader.fragmentShader.replace('void main() {', 'void main() {\ncutPrintedStock(vStockPlane);').replace(
         '#include <color_fragment>',
         '#include <color_fragment>\ndiffuseColor.rgb *= 0.14 + 0.86 * uLampPower;',
       )

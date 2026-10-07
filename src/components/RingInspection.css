@@ -1,0 +1,32 @@
+.ring-inspection-entry{position:fixed;bottom:2rem;left:3rem;z-index:25;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;font:12px monospace;color:#bac7d0;text-shadow:0 2px 8px #000}
+.ring-inspection-entry>div{display:flex;gap:1rem;align-items:center}
+.ring-inspection-entry button,.ring-inspection-dialog button{min-height:44px;border:1px solid #657786;border-radius:3px;padding:10px 16px;background:#0c1720;color:#e8f1f5;cursor:pointer;font:inherit}
+.ring-inspection-entry button:hover,.ring-inspection-dialog button:hover{border-color:#8ce4f2;background:#172b38}
+.ring-inspection-entry button:focus-visible,.ring-inspection-dialog button:focus-visible{outline:3px solid #88e7ff;outline-offset:4px}
+.ring-inspection-dialog button:disabled{opacity:.45;cursor:wait}
+.ring-inspection-portal{position:fixed;inset:0;z-index:100;pointer-events:none;background:linear-gradient(180deg,rgba(3,7,11,.95),transparent 27%,transparent 66%,rgba(3,7,11,.95))}
+.ring-inspection-dialog{box-sizing:border-box;height:100%;display:flex;flex-direction:column;padding:max(24px,env(safe-area-inset-top)) 4vw max(24px,env(safe-area-inset-bottom));color:#d8e5ee;font-family:inherit;pointer-events:none}
+.ring-inspection-dialog header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;pointer-events:auto}
+.ring-inspection-dialog header p{font:11px monospace;letter-spacing:0;color:#92acbd;margin:0 0 8px}
+.ring-inspection-dialog h2{font-size:28px;line-height:1.1;margin:0;font-weight:500}
+.ring-inspection-copy{max-width:350px;font-size:13px;line-height:1.6;color:#a9bac8;margin-top:12px}
+.ring-inspection-dialog footer{margin-top:auto;max-width:480px;pointer-events:auto;font-size:13px;line-height:1.5}
+.ring-inspection-controls{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}.ring-inspection-note{font-size:11px;color:#94a7b5;max-width:440px}
+.ring-inspection-dialog button{min-width:44px}
+.ring-inspection-seek{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:0 12px;margin-top:8px}
+.ring-inspection-seek output{text-align:right;font:12px monospace;font-variant-numeric:tabular-nums}
+.ring-inspection-seek input{grid-column:1/-1;width:100%;min-width:0;height:44px;margin:0;accent-color:#8ce4f2;cursor:pointer}
+.ring-inspection-seek input:focus-visible{outline:3px solid #88e7ff;outline-offset:2px}
+.ring-inspection-chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0}
+.ring-inspection-chapters button[aria-current]{border-color:#8ce4f2}
+.ring-inspection-dialog header>div{min-width:0}
+.ring-inspection-dialog button{white-space:normal;overflow-wrap:break-word;letter-spacing:0}
+.ring-inspection-static{background:#050a10;pointer-events:auto;overflow:auto}.ring-static{margin:20px auto;width:min(650px,100%)}.ring-static svg{width:100%}.ring-static figcaption{font-size:12px;color:#a8b9c5;text-align:center}.ring-inspection-static footer{margin:20px auto 0;max-width:650px}.ring-inspection-static ol{padding-left:20px;line-height:1.8}
+@media(max-width:600px){.ring-inspection-entry{left:20px;right:20px;bottom:20px;justify-content:space-between;gap:8px;font-size:10px}.ring-inspection-dialog{padding-left:20px;padding-right:20px}.ring-inspection-dialog h2{font-size:24px}.ring-inspection-copy{max-width:290px;font-size:12px}.ring-inspection-dialog footer{font-size:12px}.ring-inspection-dialog header button{max-width:148px;flex-shrink:0}.ring-inspection-static .ring-inspection-dialog{height:auto;min-height:100%}}
+@media(max-height:540px){.ring-inspection-portal{overflow:auto;pointer-events:auto}.ring-inspection-dialog{height:auto;min-height:100%}.ring-inspection-dialog footer{margin-top:32px}}
+@media(prefers-reduced-motion:reduce){.ring-inspection-dialog *{animation:none!important;transition:none!important}}
+.ring-inspection-open #root > :not(:has(canvas)){opacity:0!important}
+/* Leave station navigation and the device safe area reachable in the static view. */
+@media(max-width:600px){.ring-inspection-entry{bottom:calc(5.5rem + env(safe-area-inset-bottom))}}
+/* Two stacked study entries on narrow screens. */
+@media(max-width:600px){.ring-inspection-entry{flex-direction:column;align-items:stretch;gap:8px}.ring-inspection-entry>div{justify-content:space-between;gap:8px}}

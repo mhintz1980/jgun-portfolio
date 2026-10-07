@@ -10,8 +10,8 @@ import { useQuality } from '../state/qualityStore'
  *
  * Degradation contract (mirrors qualityStore):
  *  - poster tier: never renders — there is no canvas, nothing streams.
- *  - reduced motion: static single-line percentage, no bar animation, no
- *    fade-out — the panel simply unmounts the moment loading completes.
+ *  - reduced motion: never mounts — App renders no canvas for reduced-motion
+ *    visitors, so nothing streams and there is no boot readout (App.tsx).
  *  - The overlay is pointer-events-none and translucent at every phase, and a
  *    load fault auto-dismisses it after 4 s: a stalled or failed GLB can dim
  *    the stage but never block or hide the DOM narrative underneath.

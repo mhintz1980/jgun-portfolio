@@ -137,10 +137,10 @@ export const introPbrActivation = { value: 1 }
 
 const KNURL_TEXTURE_SIZE = 256
 // Knurl pitch for the P003068 ring switch: Ø93 mm OD × 27.2 mm tall at a
-// ~1.6 mm diamond pitch → 182 wraps around the circumference × 17 up the
+// ~3 mm heavy diamond pitch → 96 wraps around the circumference × 9 up the
 // height (JG-029; the UVs are synthesized cylindrically in nodeRoles.ts —
 // the integer u-repeat keeps the θ = ±π seam continuous).
-const KNURL_REPEAT = new Vector2(182, 17)
+const KNURL_REPEAT = new Vector2(96, 9)
 
 /**
  * A seamless tangent-space diamond-knurl normal texture. Its height field is
@@ -152,8 +152,8 @@ export function createDiamondKnurlNormalMap(): DataTexture {
   const delta = 1 / KNURL_TEXTURE_SIZE
 
   const heightAt = (u: number, v: number) => {
-    const forwardRidge = Math.pow(Math.abs(Math.sin((u + v) * Math.PI * 8)), 16)
-    const reverseRidge = Math.pow(Math.abs(Math.sin((u - v) * Math.PI * 8)), 16)
+    const forwardRidge = Math.pow(Math.abs(Math.sin((u + v) * Math.PI)), 4)
+    const reverseRidge = Math.pow(Math.abs(Math.sin((u - v) * Math.PI)), 4)
     return Math.max(forwardRidge, reverseRidge)
   }
 
@@ -164,7 +164,10 @@ export function createDiamondKnurlNormalMap(): DataTexture {
       const dU = (heightAt(u + delta, v) - heightAt(u - delta, v)) / (2 * delta)
       const dV = (heightAt(u, v + delta) - heightAt(u, v - delta)) / (2 * delta)
       const normal = new Vector2(-dU * 0.06, -dV * 0.06)
-      const z = Math.sqrt(Math.max(0, 1 - normal.lengthSq()))
+      // Encode a unit vector: the old unbounded XY values wrapped Uint8 channels.
+      const length = Math.sqrt(normal.lengthSq() + 1)
+      normal.divideScalar(length)
+      const z = 1 / length
       const offset = (y * KNURL_TEXTURE_SIZE + x) * 4
 
       data[offset] = Math.round((normal.x * 0.5 + 0.5) * 255)
@@ -179,7 +182,7 @@ export function createDiamondKnurlNormalMap(): DataTexture {
   texture.wrapS = RepeatWrapping
   texture.wrapT = RepeatWrapping
   texture.repeat.copy(KNURL_REPEAT)
-  // 182 wraps across a ~150 px on-screen ring needs filtered mip chains —
+  // 96 wraps across a ~150 px on-screen ring needs filtered mip chains —
   // DataTexture defaults (nearest, no mips) would shimmer badly.
   texture.generateMipmaps = true
   texture.minFilter = LinearMipmapLinearFilter
@@ -275,14 +278,14 @@ export function roleMaterial(role: MaterialRole): Material {
     // (same anodized finish, no normal bump).
     case 'ringSwitch': {
       const ringSwitchMaterial = new MeshPhysicalMaterial({
-        color: '#1c1c1e',
-        roughness: 0.52,
-        metalness: 0.82,
-        clearcoat: 0.2,
-        clearcoatRoughness: 0.4,
+        color: '#040404',
+        roughness: 0.26,
+        metalness: 0.98,
+        clearcoat: 0,
+        clearcoatRoughness: 0.26,
         envMapIntensity: 1.0,
         normalMap: ringSwitchKnurlNormalMap,
-        normalScale: new Vector2(0.7, 0.7),
+        normalScale: new Vector2(1.25, 1.25),
       })
       applyRingSwitchOdKnurlMask(ringSwitchMaterial)
       material = ringSwitchMaterial

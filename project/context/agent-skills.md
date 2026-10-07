@@ -42,11 +42,15 @@ The project agents already have a local **`codebase-memory-mcp`** installation. 
 C:\Users\Markimus\AppData\Local\Programs\codebase-memory-mcp\codebase-memory-mcp.exe
 ```
 
-It reports version `0.10.4` and exposes graph tools including `index_repository`, `search_graph`, `query_graph`, `trace_path`, `get_code_snippet`, `get_architecture`, `search_code`, `index_status`, `check_index_coverage`, and `detect_changes`.
+Verified 2026-10-06: it reports version `0.10.8` and exposes graph tools including `index_repository`, `search_graph`, `query_graph`, `trace_path`, `get_code_snippet`, `get_architecture`, `search_code`, `index_status`, `check_index_coverage`, and `detect_changes`. Treat the live tool schemas as authoritative for arguments.
 
-### JGUN index (query THIS project name: `jgun-portfolio`)
+### JGUN index (query THIS project name: `C-Users-Markimus-.buzz-REPOS-jgun-portfolio`)
 
-Re-indexed full-mode 2026-09-25 from the canonical path `C:\Projects\jgun-portfolio`: **5,445 nodes / 14,975 edges, 0 skipped files**. Two files are `parse_partial` (constructs may be missing there — grep inside them before negative claims): `scripts/deploy-studiomark.ps1:25-26`, `src/scene/rl300/QuietMachinePreview.tsx:64`. A second registry entry `C-Users-Markimus-.buzz-REPOS-jgun-portfolio` points at the live-synced `.buzz` mirror clone — same content; prefer `jgun-portfolio`.
+Use the active project **`C-Users-Markimus-.buzz-REPOS-jgun-portfolio`** rooted at **`C:/Users/Markimus/.buzz/REPOS/jgun-portfolio`**. `C:/Projects/jgun-portfolio` is a junction to this same physical checkout, not a separate mirror. The separate legacy registry name `jgun-portfolio` was still at 5,445 nodes / 14,975 edges on 2026-10-06; do not infer that refreshing one registry refreshes the other or prefer the legacy name without verifying its generation and coverage.
+
+A full refresh of the active entry completed on 2026-10-06: **5,820 nodes / 20,935 edges, 0 skipped files**, generation **2026-10-06T16:12:35Z**. Coverage inventory is complete (32/32 ignored-file records); the new shaft runtime symbol's indexed source exactly matches the live function. Full verification and known limits are in [graph-refresh-2026-10-06.md](../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/graph-refresh-2026-10-06.md) and the [recovered handoff](../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/continuation-handoff-2026-10-06.md). `check_index_coverage` still reports `metadata_changed` immediately after refresh, so retain direct-source verification rather than claiming clean freshness. The two partial parser ranges are `scripts/deploy-studiomark.ps1:25–26` and `src/scene/rl300/QuietMachinePreview.tsx:64`; read them directly. Always query live `index_status` and exact-file coverage; node totals and `ready` alone do not prove completeness.
+
+**Structural scope:** the root [`.cbmignore`](../../.cbmignore) prunes `project/work/evidence/`, `*.log`, the generated `public/drawing/` cache and `__pycache__/` from indexing. Evidence packets and any helpers inside that subtree remain on disk and in the recovery backup; read them directly for runtime/geometry proof. Canonical Markdown plans/specs outside the evidence subtree, runtime source, `scripts/` helpers and small authored JSON remain eligible for full-mode indexing. The October 6 unfiltered diagnostic expanded capture data into about 16.5 million nodes and reached roughly 17 GB RSS. Excluding individual captures still overflowed the 2,000-entry coverage inventory, so the evidence subtree is pruned as a whole. Do not remove these exclusions merely to make the graph enumerate telemetry arrays. `.cbmignore` affects indexing only, not Git or the application.
 
 **When to use the graph instead of grep** (it saves the most context in this repo):
 
@@ -55,7 +59,7 @@ Re-indexed full-mode 2026-09-25 from the canonical path `C:\Projects\jgun-portfo
 - "Give me the layout of the scene system" → `get_architecture` (aspects `layers`/`clusters`) instead of reading 15 files.
 - Exact-string, docs, or one-known-file lookups stay with grep/Read — the graph covers indexed code paths only, and a graph miss is not proof of absence (`check_index_coverage` first for exhaustive/negative claims).
 
-**Keep it fresh:** after structural changes (new/moved/deleted modules), run `index_repository` on `C:\Projects\jgun-portfolio` (project name `jgun-portfolio`) and confirm with `index_status` — same-commit discipline as the Repository Map in [`../README.md`](../README.md).
+**Keep it fresh:** after substantial structural changes (new/moved/deleted modules), run `index_repository` on `C:/Users/Markimus/.buzz/REPOS/jgun-portfolio` with the explicit project name `C-Users-Markimus-.buzz-REPOS-jgun-portfolio`, then confirm with `index_status` and exact-file `check_index_coverage` for the changed paths. Existing watchers may refresh incrementally; verify their actual freshness rather than assuming they handled every new file. Use the real checkout for builds and retain the Repository Map discipline in [`../README.md`](../README.md).
 
 Codex already contains an `mcp_servers.codebase-memory-mcp` entry. Claude Code has the `codebase-memory` skill and dedicated agents at:
 
@@ -83,4 +87,4 @@ The fixed requirements still apply: use part numbers rather than ambiguous stage
 
 ## Reference
 
-[1] [`AGENTS.md` — JGUN operating rules](../AGENTS.md)
+[1] [`AGENTS.md` — JGUN operating rules](../../AGENTS.md)

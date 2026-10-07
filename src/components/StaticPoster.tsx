@@ -1,8 +1,11 @@
 /**
  * Static fallback stage — rendered instead of the WebGL canvas when WebGL2 is
- * unavailable, the context is lost, or the perf ladder bottoms out. Pure
- * CSS/DOM (no image asset dependency): a blueprint grid with drawing-sheet
- * furniture (frame, title block, drill notes). Deliberately low-contrast and
+ * unavailable, the context is lost, the perf ladder bottoms out, or the
+ * visitor prefers reduced motion (owner decision "posters throughout",
+ * 2026-10-06 — in that case the mode line must describe the preference, not
+ * claim hardware is unavailable). Pure CSS/DOM (no image asset dependency):
+ * a blueprint grid with drawing-sheet furniture (frame, title block, drill
+ * notes). Deliberately low-contrast and
  * non-narrative: the case-study chapter cards in <Chapters> are the hero of
  * this tier, so this backdrop carries only small unobtrusive sheet furniture —
  * never a large centered title competing with the narrative (fallback QA,
@@ -11,7 +14,15 @@
  */
 import { ASSEMBLY_IDENTITY } from '../data/caseStudies'
 
-export function StaticPoster() {
+/** Why the poster is up; keeps the mode line truthful per path. */
+export type StaticPosterReason = 'poster-tier' | 'reduced-motion'
+
+const MODE_LINES: Record<StaticPosterReason, string> = {
+  'poster-tier': 'STATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE',
+  'reduced-motion': 'STATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLED',
+}
+
+export function StaticPoster({ reason }: { reason?: StaticPosterReason }) {
   return (
     <div
       aria-hidden
@@ -32,7 +43,7 @@ export function StaticPoster() {
         <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.machine}</p>
         <p className="text-cyan-400/30">{ASSEMBLY_IDENTITY.spec}</p>
         <p className="mt-1 text-cyan-400/30">
-          STATIC RENDER MODE — INTERACTIVE 3D UNAVAILABLE ON THIS DEVICE
+          {reason ? MODE_LINES[reason] : 'STATIC RENDER MODE'}
         </p>
       </div>
 
