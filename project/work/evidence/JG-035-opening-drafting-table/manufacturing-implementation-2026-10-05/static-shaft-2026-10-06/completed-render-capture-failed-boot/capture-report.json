@@ -1,0 +1,25 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-06T17:53:24.504Z",
+  "method": "Three distinct completed-render sample stamps, live entryElapsed >= 1.2, stable camera and projection; repeat after hiding DOM; screenshot and compare a subsequent completed frame. No runtime or camera overrides.",
+  "cases": [
+    {
+      "name": "desktop",
+      "shots": [],
+      "errors": [
+        "page.waitForFunction: Timeout 90000ms exceeded."
+      ],
+      "requests": [
+        "http://localhost:5199/models/m249-transformed.glb",
+        "http://localhost:5199/models/Default.glb",
+        "http://localhost:5199/models/msp-enclosure.glb",
+        "http://localhost:5199/models/manufacturing-core-lite.glb"
+      ],
+      "pass": false
+    }
+  ],
+  "failures": [
+    "desktop: page.waitForFunction: Timeout 90000ms exceeded."
+  ],
+  "completed": "2026-10-06T17:55:25.079Z"
+}

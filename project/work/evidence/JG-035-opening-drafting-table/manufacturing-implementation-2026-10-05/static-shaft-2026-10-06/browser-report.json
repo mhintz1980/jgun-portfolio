@@ -1,0 +1,821 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-06T18:00:11.977Z",
+  "cases": [
+    {
+      "name": "poster-desktop",
+      "glbRequests": [],
+      "imageResponses": [
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cutter-exit-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/material-attempts-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/revised-blank-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/hobbed-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cool-stress-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-before-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-after-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/assembled-finale-desktop.webp",
+          "status": 200
+        }
+      ],
+      "errors": [],
+      "failures": [],
+      "staticState": {
+        "canvasCount": 0,
+        "inspectionCanvasCount": 0,
+        "reduced": false,
+        "status": "ready",
+        "phase": "Static shaft study",
+        "time": 0
+      },
+      "chapterHeadings": [
+        "Why the groove was needed",
+        "Material attempts",
+        "Changing the process",
+        "Moving the supports"
+      ],
+      "failedAlloys": [
+        "AISI 4140 (40-45 HRC)",
+        "AISI 4340 (48-50 HRC)",
+        "C300 (56-58 HRC)"
+      ],
+      "parts": [
+        "cutter-exit",
+        "failed-materials",
+        "blank-hobbed",
+        "cool-stress",
+        "support-comparison",
+        "assembled-finale"
+      ],
+      "images": [
+        {
+          "src": "http://localhost:5199/inspection/shaft/cutter-exit-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered cutter-exit view of the original grooved shaft: the disc shaper passes the end of the tooth face beside the relief groove.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/material-attempts-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered original grooved shaft retained for the three earlier material attempts, with a warm illustrative field around the relief.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/revised-blank-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised smooth shaft blank before rotary hobbing, with uncut material at the geared end.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/hobbed-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft after hobbing, showing the formed teeth and the retained section below the approved lead-out.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/cool-stress-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft with a cool illustrative stress field below the gear; this is a visual explanation without calculated stress values.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-before-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study at the start of support relocation, showing the bearing and retaining ring near the earlier placement beside the housing.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-after-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study after support relocation, with the bearing and retaining-ring pair at the approved placement beside the matching housing support.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/assembled-finale-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised assembly study with the input shaft, its relocated support pair, and the surrounding gear train returned around it.",
+          "complete": true
+        }
+      ],
+      "layout": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "dialog": {
+          "left": 0,
+          "right": 1440
+        },
+        "controls": [
+          {
+            "text": "← Return to narrative",
+            "width": 184.109375,
+            "height": 46,
+            "top": 12,
+            "bottom": 58
+          }
+        ],
+        "overflowing": []
+      },
+      "returnState": {
+        "focusStory": "shaft-p001835",
+        "scrollX": 0,
+        "scrollY": 0,
+        "overflow": "",
+        "rootInert": false
+      },
+      "escapeRestoredFocus": true,
+      "inspectionRequests": [],
+      "narrativeRequests": [],
+      "pass": true
+    },
+    {
+      "name": "poster-narrow",
+      "glbRequests": [],
+      "imageResponses": [
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cutter-exit-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/material-attempts-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/revised-blank-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/hobbed-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cool-stress-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-before-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-after-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/assembled-finale-narrow.webp",
+          "status": 200
+        }
+      ],
+      "errors": [],
+      "failures": [],
+      "staticState": {
+        "canvasCount": 0,
+        "inspectionCanvasCount": 0,
+        "reduced": false,
+        "status": "ready",
+        "phase": "Static shaft study",
+        "time": 0
+      },
+      "chapterHeadings": [
+        "Why the groove was needed",
+        "Material attempts",
+        "Changing the process",
+        "Moving the supports"
+      ],
+      "failedAlloys": [
+        "AISI 4140 (40-45 HRC)",
+        "AISI 4340 (48-50 HRC)",
+        "C300 (56-58 HRC)"
+      ],
+      "parts": [
+        "cutter-exit",
+        "failed-materials",
+        "blank-hobbed",
+        "cool-stress",
+        "support-comparison",
+        "assembled-finale"
+      ],
+      "images": [
+        {
+          "src": "http://localhost:5199/inspection/shaft/cutter-exit-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered cutter-exit view of the original grooved shaft: the disc shaper passes the end of the tooth face beside the relief groove.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/material-attempts-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered original grooved shaft retained for the three earlier material attempts, with a warm illustrative field around the relief.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/revised-blank-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised smooth shaft blank before rotary hobbing, with uncut material at the geared end.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/hobbed-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft after hobbing, showing the formed teeth and the retained section below the approved lead-out.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/cool-stress-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft with a cool illustrative stress field below the gear; this is a visual explanation without calculated stress values.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-before-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study at the start of support relocation, showing the bearing and retaining ring near the earlier placement beside the housing.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-after-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study after support relocation, with the bearing and retaining-ring pair at the approved placement beside the matching housing support.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/assembled-finale-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised assembly study with the input shaft, its relocated support pair, and the surrounding gear train returned around it.",
+          "complete": true
+        }
+      ],
+      "layout": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dialog": {
+          "left": 0,
+          "right": 390
+        },
+        "controls": [
+          {
+            "text": "← Return to narrative",
+            "width": 148,
+            "height": 70,
+            "top": 12,
+            "bottom": 82
+          }
+        ],
+        "overflowing": []
+      },
+      "returnState": {
+        "focusStory": "shaft-p001835",
+        "scrollX": 0,
+        "scrollY": 0,
+        "overflow": "",
+        "rootInert": false
+      },
+      "escapeRestoredFocus": true,
+      "inspectionRequests": [],
+      "narrativeRequests": [],
+      "pass": true
+    },
+    {
+      "name": "reduced-desktop",
+      "glbRequests": [
+        {
+          "url": "http://localhost:5199/models/m249-transformed.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/Default.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/msp-enclosure.glb",
+          "phase": "page-load"
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/shaftRuntime.ts?t=1791309035478",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/camera.ts?t=1791309035478",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/frame.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/kinematics.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/progression.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/tools.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/schedule.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/toolSpec.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/cutterOutline.json?import",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cutter-exit-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/material-attempts-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/revised-blank-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/hobbed-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cool-stress-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-before-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-after-desktop.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/assembled-finale-desktop.webp",
+          "status": 200
+        }
+      ],
+      "errors": [],
+      "failures": [],
+      "staticState": {
+        "canvasCount": 1,
+        "inspectionCanvasCount": 0,
+        "reduced": true,
+        "status": "ready",
+        "phase": "Static shaft study",
+        "time": 0
+      },
+      "chapterHeadings": [
+        "Why the groove was needed",
+        "Material attempts",
+        "Changing the process",
+        "Moving the supports"
+      ],
+      "failedAlloys": [
+        "AISI 4140 (40-45 HRC)",
+        "AISI 4340 (48-50 HRC)",
+        "C300 (56-58 HRC)"
+      ],
+      "parts": [
+        "cutter-exit",
+        "failed-materials",
+        "blank-hobbed",
+        "cool-stress",
+        "support-comparison",
+        "assembled-finale"
+      ],
+      "images": [
+        {
+          "src": "http://localhost:5199/inspection/shaft/cutter-exit-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered cutter-exit view of the original grooved shaft: the disc shaper passes the end of the tooth face beside the relief groove.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/material-attempts-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered original grooved shaft retained for the three earlier material attempts, with a warm illustrative field around the relief.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/revised-blank-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised smooth shaft blank before rotary hobbing, with uncut material at the geared end.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/hobbed-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft after hobbing, showing the formed teeth and the retained section below the approved lead-out.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/cool-stress-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft with a cool illustrative stress field below the gear; this is a visual explanation without calculated stress values.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-before-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study at the start of support relocation, showing the bearing and retaining ring near the earlier placement beside the housing.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-after-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study after support relocation, with the bearing and retaining-ring pair at the approved placement beside the matching housing support.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/assembled-finale-desktop.webp",
+          "width": 960,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised assembly study with the input shaft, its relocated support pair, and the surrounding gear train returned around it.",
+          "complete": true
+        }
+      ],
+      "layout": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "dialog": {
+          "left": 0,
+          "right": 1440
+        },
+        "controls": [
+          {
+            "text": "← Return to narrative",
+            "width": 184.109375,
+            "height": 46,
+            "top": 12,
+            "bottom": 58
+          }
+        ],
+        "overflowing": []
+      },
+      "returnState": {
+        "focusStory": "shaft-p001835",
+        "scrollX": 0,
+        "scrollY": 0,
+        "overflow": "",
+        "rootInert": false
+      },
+      "escapeRestoredFocus": true,
+      "inspectionRequests": [],
+      "narrativeRequests": [
+        {
+          "url": "http://localhost:5199/models/m249-transformed.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/Default.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/msp-enclosure.glb",
+          "phase": "page-load"
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "reduced-narrow",
+      "glbRequests": [
+        {
+          "url": "http://localhost:5199/models/m249-transformed.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/Default.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/msp-enclosure.glb",
+          "phase": "entry"
+        }
+      ],
+      "imageResponses": [
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/shaftRuntime.ts?t=1791309035478",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/tools.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/progression.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/schedule.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/frame.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/camera.ts?t=1791309035478",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/kinematics.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/toolSpec.ts",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/src/scene/inspection/shaft/cutterOutline.json?import",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cutter-exit-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/material-attempts-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/revised-blank-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/hobbed-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/cool-stress-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-before-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/support-after-narrow.webp",
+          "status": 200
+        },
+        {
+          "url": "http://localhost:5199/inspection/shaft/assembled-finale-narrow.webp",
+          "status": 200
+        }
+      ],
+      "errors": [],
+      "failures": [],
+      "staticState": {
+        "canvasCount": 1,
+        "inspectionCanvasCount": 0,
+        "reduced": true,
+        "status": "ready",
+        "phase": "Static shaft study",
+        "time": 0
+      },
+      "chapterHeadings": [
+        "Why the groove was needed",
+        "Material attempts",
+        "Changing the process",
+        "Moving the supports"
+      ],
+      "failedAlloys": [
+        "AISI 4140 (40-45 HRC)",
+        "AISI 4340 (48-50 HRC)",
+        "C300 (56-58 HRC)"
+      ],
+      "parts": [
+        "cutter-exit",
+        "failed-materials",
+        "blank-hobbed",
+        "cool-stress",
+        "support-comparison",
+        "assembled-finale"
+      ],
+      "images": [
+        {
+          "src": "http://localhost:5199/inspection/shaft/cutter-exit-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered cutter-exit view of the original grooved shaft: the disc shaper passes the end of the tooth face beside the relief groove.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/material-attempts-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered original grooved shaft retained for the three earlier material attempts, with a warm illustrative field around the relief.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/revised-blank-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised smooth shaft blank before rotary hobbing, with uncut material at the geared end.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/hobbed-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft after hobbing, showing the formed teeth and the retained section below the approved lead-out.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/cool-stress-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised shaft with a cool illustrative stress field below the gear; this is a visual explanation without calculated stress values.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-before-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study at the start of support relocation, showing the bearing and retaining ring near the earlier placement beside the housing.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/support-after-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered section study after support relocation, with the bearing and retaining-ring pair at the approved placement beside the matching housing support.",
+          "complete": true
+        },
+        {
+          "src": "http://localhost:5199/inspection/shaft/assembled-finale-narrow.webp",
+          "width": 600,
+          "height": 600,
+          "loading": "lazy",
+          "alt": "Rendered revised assembly study with the input shaft, its relocated support pair, and the surrounding gear train returned around it.",
+          "complete": true
+        }
+      ],
+      "layout": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dialog": {
+          "left": 0,
+          "right": 390
+        },
+        "controls": [
+          {
+            "text": "← Return to narrative",
+            "width": 148,
+            "height": 70,
+            "top": 12,
+            "bottom": 82
+          }
+        ],
+        "overflowing": []
+      },
+      "returnState": {
+        "focusStory": "shaft-p001835",
+        "scrollX": 0,
+        "scrollY": 0,
+        "overflow": "",
+        "rootInert": false
+      },
+      "escapeRestoredFocus": true,
+      "inspectionRequests": [],
+      "narrativeRequests": [
+        {
+          "url": "http://localhost:5199/models/m249-transformed.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/Default.glb",
+          "phase": "page-load"
+        },
+        {
+          "url": "http://localhost:5199/models/msp-enclosure.glb",
+          "phase": "entry"
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "scope": "Real poster and OS reduced-motion DOM entries. Poster denies WebGL; reduced retains the existing narrative canvas and records its CAD requests separately. No manufacturing/tool requests or inspection canvas permitted. Whole-page reduced-motion zero-CAD V4 remains an owner decision; no visual acceptance inferred.",
+  "completed": "2026-10-06T18:00:41.643Z"
+}

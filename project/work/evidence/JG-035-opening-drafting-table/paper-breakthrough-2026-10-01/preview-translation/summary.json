@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:4173",
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": false,
+      "errors": [],
+      "failures": [
+        "t=0.895: barrier collision 57",
+        "t=0.905: barrier collision 122"
+      ],
+      "video": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\paper-breakthrough-2026-10-01\\preview-translation\\desktop\\breakthrough.webm"
+    }
+  ],
+  "pass": false
+}

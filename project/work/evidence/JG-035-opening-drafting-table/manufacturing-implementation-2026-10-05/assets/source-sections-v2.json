@@ -1,0 +1,674 @@
+{
+  "legacyshaft": {
+    "name": "legacyshaft",
+    "sections": {
+      "3.5": {
+        "segments": 1240,
+        "min_radius_mm": 3.5000001434921777,
+        "max_radius_mm": 6.853833814348577,
+        "plus_x_floor_mm": 4.299618585928217
+      },
+      "6.0": {
+        "segments": 1246,
+        "min_radius_mm": 6.000000000101644,
+        "max_radius_mm": 8.416123742034051,
+        "plus_x_floor_mm": 4.299618585928218
+      },
+      "9.0": {
+        "segments": 1246,
+        "min_radius_mm": 9.000000000067763,
+        "max_radius_mm": 10.762487576821133,
+        "plus_x_floor_mm": 4.299618585928218
+      },
+      "9.55": {
+        "segments": 1173,
+        "min_radius_mm": 9.550000000055629,
+        "max_radius_mm": 10.859996276801994,
+        "plus_x_floor_mm": 4.299618585928217
+      },
+      "9.65": {
+        "segments": 1060,
+        "min_radius_mm": 9.650000000055053,
+        "max_radius_mm": 10.700094538472424,
+        "plus_x_floor_mm": 4.299618585928218
+      },
+      "9.72": {
+        "segments": 580,
+        "min_radius_mm": 9.720582483819152,
+        "max_radius_mm": 10.663165446852542,
+        "plus_x_floor_mm": 4.299618585928218
+      },
+      "9.75": {
+        "segments": 476,
+        "min_radius_mm": 9.750554072102531,
+        "max_radius_mm": 10.669897606466316,
+        "plus_x_floor_mm": 4.299618585928217
+      },
+      "9.85": {
+        "segments": 151,
+        "min_radius_mm": 9.85053150111873,
+        "max_radius_mm": 10.716099586083764,
+        "plus_x_floor_mm": 4.2195205682360575
+      },
+      "9.95": {
+        "segments": 97,
+        "min_radius_mm": 9.952530603424963,
+        "max_radius_mm": 10.772419534348737,
+        "plus_x_floor_mm": 4.126799926085572
+      },
+      "10.05": {
+        "segments": 80,
+        "min_radius_mm": 10.050240411492007,
+        "max_radius_mm": 10.840091667671489,
+        "plus_x_floor_mm": 4.062483273950898
+      },
+      "10.15": {
+        "segments": 87,
+        "min_radius_mm": 10.150316595407862,
+        "max_radius_mm": 10.916066433552146,
+        "plus_x_floor_mm": 4.017213433305599
+      },
+      "10.25": {
+        "segments": 92,
+        "min_radius_mm": 10.250048440706783,
+        "max_radius_mm": 10.99812353330408,
+        "plus_x_floor_mm": 3.987006542283625
+      },
+      "10.35": {
+        "segments": 102,
+        "min_radius_mm": 10.350075307311725,
+        "max_radius_mm": 11.086072630789861,
+        "plus_x_floor_mm": 3.9722168086782843
+      },
+      "10.45": {
+        "segments": 92,
+        "min_radius_mm": 10.45106829136428,
+        "max_radius_mm": 11.178997126160946,
+        "plus_x_floor_mm": 3.9708282192402473
+      },
+      "10.55": {
+        "segments": 90,
+        "min_radius_mm": 10.550055940651397,
+        "max_radius_mm": 11.276374815641997,
+        "plus_x_floor_mm": 3.9817243730380265
+      },
+      "10.65": {
+        "segments": 78,
+        "min_radius_mm": 10.65013999394633,
+        "max_radius_mm": 11.378594116427104,
+        "plus_x_floor_mm": 4.0062331474192625
+      },
+      "10.75": {
+        "segments": 70,
+        "min_radius_mm": 10.75002555827779,
+        "max_radius_mm": 11.486912660765311,
+        "plus_x_floor_mm": 4.048043983999233
+      },
+      "10.85": {
+        "segments": 65,
+        "min_radius_mm": 10.850626245325426,
+        "max_radius_mm": 11.60121505926293,
+        "plus_x_floor_mm": 4.106785951479452
+      },
+      "10.92": {
+        "segments": 66,
+        "min_radius_mm": 10.920217166722074,
+        "max_radius_mm": 11.686006181103396,
+        "plus_x_floor_mm": 4.161290282661064
+      },
+      "10.95": {
+        "segments": 68,
+        "min_radius_mm": 10.951004813708613,
+        "max_radius_mm": 11.72448099927889,
+        "plus_x_floor_mm": 4.190579031407832
+      },
+      "11.05": {
+        "segments": 62,
+        "min_radius_mm": 11.05061269384534,
+        "max_radius_mm": 11.861821751782841,
+        "plus_x_floor_mm": 4.312808071265266
+      },
+      "11.15": {
+        "segments": 84,
+        "min_radius_mm": 11.15016382497665,
+        "max_radius_mm": 12.060854238647345,
+        "plus_x_floor_mm": 4.538070344736426
+      },
+      "11.25": {
+        "segments": 116,
+        "min_radius_mm": 11.250786363046963,
+        "max_radius_mm": 12.81868204046026,
+        "plus_x_floor_mm": 6.14460000768304
+      },
+      "11.35": {
+        "segments": 116,
+        "min_radius_mm": 11.350757305496343,
+        "max_radius_mm": 12.95444052269163,
+        "plus_x_floor_mm": 6.244600007683038
+      },
+      "11.45": {
+        "segments": 116,
+        "min_radius_mm": 11.453718777968785,
+        "max_radius_mm": 13.080637013844212,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "11.55": {
+        "segments": 116,
+        "min_radius_mm": 11.55005225841591,
+        "max_radius_mm": 13.168259744094936,
+        "plus_x_floor_mm": 6.324599962681533
+      },
+      "11.65": {
+        "segments": 116,
+        "min_radius_mm": 11.652121804829326,
+        "max_radius_mm": 13.256057660102087,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "11.75": {
+        "segments": 116,
+        "min_radius_mm": 11.753711198266638,
+        "max_radius_mm": 13.213892015668469,
+        "plus_x_floor_mm": 6.045199930667876
+      },
+      "11.85": {
+        "segments": 116,
+        "min_radius_mm": 11.852338068602535,
+        "max_radius_mm": 13.302892249497734,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "11.95": {
+        "segments": 116,
+        "min_radius_mm": 11.951288309033565,
+        "max_radius_mm": 13.392047722501099,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "12.0": {
+        "segments": 116,
+        "min_radius_mm": 12.000882194431389,
+        "max_radius_mm": 13.436682708233715,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "12.05": {
+        "segments": 116,
+        "min_radius_mm": 12.050553953733875,
+        "max_radius_mm": 13.481355354775978,
+        "plus_x_floor_mm": 6.045199930667876
+      },
+      "12.15": {
+        "segments": 116,
+        "min_radius_mm": 12.150127272216992,
+        "max_radius_mm": 13.570812142305519,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "12.25": {
+        "segments": 116,
+        "min_radius_mm": 12.250000761767415,
+        "max_radius_mm": 13.66041515480942,
+        "plus_x_floor_mm": 6.045199930667876
+      },
+      "12.35": {
+        "segments": 116,
+        "min_radius_mm": 12.35016714010562,
+        "max_radius_mm": 13.750161533660137,
+        "plus_x_floor_mm": 6.045199930667876
+      },
+      "12.45": {
+        "segments": 116,
+        "min_radius_mm": 12.45061933828186,
+        "max_radius_mm": 13.840048489862559,
+        "plus_x_floor_mm": 6.045199930667876
+      },
+      "12.55": {
+        "segments": 116,
+        "min_radius_mm": 12.55135049379401,
+        "max_radius_mm": 13.930073302095252,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "12.65": {
+        "segments": 116,
+        "min_radius_mm": 12.652353943924393,
+        "max_radius_mm": 14.02023331481138,
+        "plus_x_floor_mm": 6.045199930667878
+      },
+      "12.75": {
+        "segments": 116,
+        "min_radius_mm": 12.753623219290525,
+        "max_radius_mm": 14.110525936397513,
+        "plus_x_floor_mm": 6.045199930667877
+      },
+      "12.85": {
+        "segments": 116,
+        "min_radius_mm": 12.854270896313205,
+        "max_radius_mm": 14.322118023810278,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "12.95": {
+        "segments": 116,
+        "min_radius_mm": 12.953787749327617,
+        "max_radius_mm": 14.41190704549371,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.05": {
+        "segments": 116,
+        "min_radius_mm": 13.05333707011201,
+        "max_radius_mm": 14.50182970138428,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.15": {
+        "segments": 116,
+        "min_radius_mm": 13.152918121458633,
+        "max_radius_mm": 14.591883520915017,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.25": {
+        "segments": 116,
+        "min_radius_mm": 13.252530188086121,
+        "max_radius_mm": 14.68206609057292,
+        "plus_x_floor_mm": 6.324599962681533
+      },
+      "13.35": {
+        "segments": 116,
+        "min_radius_mm": 13.352172575838642,
+        "max_radius_mm": 14.77237505237229,
+        "plus_x_floor_mm": 6.324599962681531
+      },
+      "13.45": {
+        "segments": 116,
+        "min_radius_mm": 13.451844610919556,
+        "max_radius_mm": 14.862808102372552,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.55": {
+        "segments": 116,
+        "min_radius_mm": 13.551545639157847,
+        "max_radius_mm": 14.953362989239285,
+        "plus_x_floor_mm": 6.324599962681533
+      },
+      "13.65": {
+        "segments": 116,
+        "min_radius_mm": 13.651275025305699,
+        "max_radius_mm": 15.044037512847115,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.75": {
+        "segments": 116,
+        "min_radius_mm": 13.751032152365749,
+        "max_radius_mm": 15.134829522923317,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "13.78": {
+        "segments": 116,
+        "min_radius_mm": 13.7809646099028,
+        "max_radius_mm": 15.162089720350266,
+        "plus_x_floor_mm": 6.324599962681533
+      },
+      "14.18": {
+        "segments": 116,
+        "min_radius_mm": 14.180289893330452,
+        "max_radius_mm": 15.526524552775847,
+        "plus_x_floor_mm": 6.324599962681532
+      },
+      "15.0": {
+        "segments": 116,
+        "min_radius_mm": 15.000110990713763,
+        "max_radius_mm": 16.278837940343017,
+        "plus_x_floor_mm": 6.324599962681531
+      },
+      "19.75": {
+        "segments": 116,
+        "min_radius_mm": 19.75196063407033,
+        "max_radius_mm": 21.410683291396197,
+        "plus_x_floor_mm": 8.267699740827084
+      }
+    },
+    "tooth_count": 10,
+    "bounds_mm": [
+      [
+        -8.864600211381912,
+        -0.00011161318980157375,
+        -8.864577859640121
+      ],
+      [
+        8.86461976915598,
+        71.52394950389862,
+        8.86461976915598
+      ]
+    ]
+  },
+  "approvedshaft": {
+    "name": "approvedshaft",
+    "sections": {
+      "3.5": {
+        "segments": 3017,
+        "min_radius_mm": 3.500000251039218,
+        "max_radius_mm": 6.85380947281836,
+        "plus_x_floor_mm": 4.299315364835546
+      },
+      "6.0": {
+        "segments": 3199,
+        "min_radius_mm": 6.000000000101644,
+        "max_radius_mm": 8.415999982755523,
+        "plus_x_floor_mm": 4.299272368003059
+      },
+      "9.0": {
+        "segments": 2875,
+        "min_radius_mm": 9.000000000067763,
+        "max_radius_mm": 10.76239079896939,
+        "plus_x_floor_mm": 4.297540031012749
+      },
+      "9.55": {
+        "segments": 2897,
+        "min_radius_mm": 9.55,
+        "max_radius_mm": 11.262912815905171,
+        "plus_x_floor_mm": 4.29771974921098
+      },
+      "9.65": {
+        "segments": 2883,
+        "min_radius_mm": 9.65,
+        "max_radius_mm": 11.346289727861599,
+        "plus_x_floor_mm": 4.298997284799293
+      },
+      "9.72": {
+        "segments": 2866,
+        "min_radius_mm": 9.72,
+        "max_radius_mm": 11.40368236265723,
+        "plus_x_floor_mm": 4.300836248262157
+      },
+      "9.75": {
+        "segments": 2861,
+        "min_radius_mm": 9.75,
+        "max_radius_mm": 11.427982773232843,
+        "plus_x_floor_mm": 4.301909306134941
+      },
+      "9.85": {
+        "segments": 2826,
+        "min_radius_mm": 9.85,
+        "max_radius_mm": 11.505836497108398,
+        "plus_x_floor_mm": 4.306457491036518
+      },
+      "9.95": {
+        "segments": 2781,
+        "min_radius_mm": 9.95,
+        "max_radius_mm": 11.577714408657531,
+        "plus_x_floor_mm": 4.3126446676184935
+      },
+      "10.05": {
+        "segments": 2642,
+        "min_radius_mm": 10.05,
+        "max_radius_mm": 11.653186729890862,
+        "plus_x_floor_mm": 4.320634250590127
+      },
+      "10.15": {
+        "segments": 2676,
+        "min_radius_mm": 10.15,
+        "max_radius_mm": 11.740551608894693,
+        "plus_x_floor_mm": 4.330324946832048
+      },
+      "10.25": {
+        "segments": 2699,
+        "min_radius_mm": 10.25,
+        "max_radius_mm": 11.828289214557872,
+        "plus_x_floor_mm": 4.341674244081281
+      },
+      "10.35": {
+        "segments": 2728,
+        "min_radius_mm": 10.35,
+        "max_radius_mm": 11.916393742236192,
+        "plus_x_floor_mm": 4.3546901320162865
+      },
+      "10.45": {
+        "segments": 2757,
+        "min_radius_mm": 10.45,
+        "max_radius_mm": 12.004858563819047,
+        "plus_x_floor_mm": 4.3693820154948755
+      },
+      "10.55": {
+        "segments": 2806,
+        "min_radius_mm": 10.55,
+        "max_radius_mm": 12.093676650640374,
+        "plus_x_floor_mm": 4.38576913233444
+      },
+      "10.65": {
+        "segments": 2841,
+        "min_radius_mm": 10.65,
+        "max_radius_mm": 12.182863501628095,
+        "plus_x_floor_mm": 4.404076322798092
+      },
+      "10.75": {
+        "segments": 2841,
+        "min_radius_mm": 10.75,
+        "max_radius_mm": 12.272255288779194,
+        "plus_x_floor_mm": 4.424100383024039
+      },
+      "10.85": {
+        "segments": 2873,
+        "min_radius_mm": 10.85,
+        "max_radius_mm": 12.361904133824845,
+        "plus_x_floor_mm": 4.445856206483301
+      },
+      "10.92": {
+        "segments": 2909,
+        "min_radius_mm": 10.92,
+        "max_radius_mm": 12.42481912288817,
+        "plus_x_floor_mm": 4.462147936757801
+      },
+      "10.95": {
+        "segments": 2909,
+        "min_radius_mm": 10.95,
+        "max_radius_mm": 12.45178114385976,
+        "plus_x_floor_mm": 4.469360483229316
+      },
+      "11.05": {
+        "segments": 2941,
+        "min_radius_mm": 11.05,
+        "max_radius_mm": 12.541870813895281,
+        "plus_x_floor_mm": 4.494630739614091
+      },
+      "11.15": {
+        "segments": 2989,
+        "min_radius_mm": 11.15,
+        "max_radius_mm": 12.632403132009621,
+        "plus_x_floor_mm": 4.521916918448769
+      },
+      "11.25": {
+        "segments": 3038,
+        "min_radius_mm": 11.25,
+        "max_radius_mm": 12.723240267723169,
+        "plus_x_floor_mm": 4.5510516263980065
+      },
+      "11.35": {
+        "segments": 3039,
+        "min_radius_mm": 11.35,
+        "max_radius_mm": 12.813994801971486,
+        "plus_x_floor_mm": 4.582024286545669
+      },
+      "11.45": {
+        "segments": 3071,
+        "min_radius_mm": 11.45,
+        "max_radius_mm": 12.90512087401069,
+        "plus_x_floor_mm": 4.614859748464023
+      },
+      "11.55": {
+        "segments": 3088,
+        "min_radius_mm": 11.55,
+        "max_radius_mm": 12.996513601095634,
+        "plus_x_floor_mm": 4.649683622977652
+      },
+      "11.65": {
+        "segments": 3110,
+        "min_radius_mm": 11.65,
+        "max_radius_mm": 13.087655658335033,
+        "plus_x_floor_mm": 4.686642253151826
+      },
+      "11.75": {
+        "segments": 3154,
+        "min_radius_mm": 11.75,
+        "max_radius_mm": 13.179098835399643,
+        "plus_x_floor_mm": 4.725561834954812
+      },
+      "11.85": {
+        "segments": 3196,
+        "min_radius_mm": 11.85,
+        "max_radius_mm": 13.27089947309929,
+        "plus_x_floor_mm": 4.766475214778377
+      },
+      "11.95": {
+        "segments": 3210,
+        "min_radius_mm": 11.95,
+        "max_radius_mm": 13.362746502578533,
+        "plus_x_floor_mm": 4.80954995003261
+      },
+      "12.0": {
+        "segments": 3217,
+        "min_radius_mm": 12.0,
+        "max_radius_mm": 13.408655362674805,
+        "plus_x_floor_mm": 4.831988883010587
+      },
+      "12.05": {
+        "segments": 3250,
+        "min_radius_mm": 12.05,
+        "max_radius_mm": 13.454652668162765,
+        "plus_x_floor_mm": 4.854936929522285
+      },
+      "12.15": {
+        "segments": 3265,
+        "min_radius_mm": 12.15,
+        "max_radius_mm": 13.546507843876382,
+        "plus_x_floor_mm": 4.902449105945046
+      },
+      "12.25": {
+        "segments": 3282,
+        "min_radius_mm": 12.25,
+        "max_radius_mm": 13.638401850578889,
+        "plus_x_floor_mm": 4.952131187496352
+      },
+      "12.35": {
+        "segments": 3303,
+        "min_radius_mm": 12.35,
+        "max_radius_mm": 13.730528899684385,
+        "plus_x_floor_mm": 5.004424390777007
+      },
+      "12.45": {
+        "segments": 3334,
+        "min_radius_mm": 12.45,
+        "max_radius_mm": 13.822634429030948,
+        "plus_x_floor_mm": 5.059047429634276
+      },
+      "12.55": {
+        "segments": 3358,
+        "min_radius_mm": 12.55,
+        "max_radius_mm": 13.914721348388895,
+        "plus_x_floor_mm": 5.116014445072865
+      },
+      "12.65": {
+        "segments": 3347,
+        "min_radius_mm": 12.65,
+        "max_radius_mm": 14.006712505697207,
+        "plus_x_floor_mm": 5.175830730617447
+      },
+      "12.75": {
+        "segments": 3380,
+        "min_radius_mm": 12.75,
+        "max_radius_mm": 14.098698384000452,
+        "plus_x_floor_mm": 5.238203727928986
+      },
+      "12.85": {
+        "segments": 3337,
+        "min_radius_mm": 12.85,
+        "max_radius_mm": 14.190669379277422,
+        "plus_x_floor_mm": 5.303252825333395
+      },
+      "12.95": {
+        "segments": 3289,
+        "min_radius_mm": 12.95,
+        "max_radius_mm": 14.28251426456876,
+        "plus_x_floor_mm": 5.3714295185876635
+      },
+      "13.05": {
+        "segments": 3327,
+        "min_radius_mm": 13.05,
+        "max_radius_mm": 14.373963457380608,
+        "plus_x_floor_mm": 5.442354927657396
+      },
+      "13.15": {
+        "segments": 3244,
+        "min_radius_mm": 13.15,
+        "max_radius_mm": 14.46552827925343,
+        "plus_x_floor_mm": 5.516678800685245
+      },
+      "13.25": {
+        "segments": 3145,
+        "min_radius_mm": 13.25,
+        "max_radius_mm": 14.557172523597083,
+        "plus_x_floor_mm": 5.594099312454925
+      },
+      "13.35": {
+        "segments": 3134,
+        "min_radius_mm": 13.35,
+        "max_radius_mm": 14.64926179682985,
+        "plus_x_floor_mm": 5.675135012090595
+      },
+      "13.45": {
+        "segments": 3143,
+        "min_radius_mm": 13.45,
+        "max_radius_mm": 14.741978640896717,
+        "plus_x_floor_mm": 5.7596515552780065
+      },
+      "13.55": {
+        "segments": 3132,
+        "min_radius_mm": 13.55,
+        "max_radius_mm": 14.835444497805804,
+        "plus_x_floor_mm": 5.848221382068735
+      },
+      "13.65": {
+        "segments": 3136,
+        "min_radius_mm": 13.65,
+        "max_radius_mm": 14.929786880020078,
+        "plus_x_floor_mm": 5.9405794548939
+      },
+      "13.75": {
+        "segments": 3055,
+        "min_radius_mm": 13.75,
+        "max_radius_mm": 15.025757187291292,
+        "plus_x_floor_mm": 6.037671061447073
+      },
+      "13.78": {
+        "segments": 3083,
+        "min_radius_mm": 13.78,
+        "max_radius_mm": 15.05667380498829,
+        "plus_x_floor_mm": 6.067536816958236
+      },
+      "14.18": {
+        "segments": 284,
+        "min_radius_mm": 14.184130847212115,
+        "max_radius_mm": 15.526524552775847,
+        "plus_x_floor_mm": 6.324579615291023
+      },
+      "15.0": {
+        "segments": 116,
+        "min_radius_mm": 15.000000577031479,
+        "max_radius_mm": 16.17233570643854,
+        "plus_x_floor_mm": 6.045180352649743
+      },
+      "19.75": {
+        "segments": 116,
+        "min_radius_mm": 19.754478458685046,
+        "max_radius_mm": 21.410685589725034,
+        "plus_x_floor_mm": 8.267673380014301
+      }
+    },
+    "tooth_count": 10,
+    "bounds_mm": [
+      [
+        -8.864600211381912,
+        -0.00011161318980157375,
+        -8.864577859640121
+      ],
+      [
+        8.864600211381912,
+        71.52394950389862,
+        8.864238858222961
+      ]
+    ]
+  }
+}

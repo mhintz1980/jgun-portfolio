@@ -1,0 +1,40 @@
+[
+  {
+    "created_at": "2026-10-03T21:05:35.388753Z",
+    "display_name": "GPT Image 2.5",
+    "id": "c0120502-cb2c-4a08-8f59-6843c55a1cfb",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_210535_c0120502-cb2c-4a08-8f59-6843c55a1cfb_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "83e950b3-5ab3-4507-a9a9-977019509cbf",
+            "type": "media_input",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/83e950b3-5ab3-4507-a9a9-977019509cbf_resize.jpg"
+          },
+          "role": "image"
+        },
+        {
+          "data": {
+            "id": "4b067c8c-2e0c-49b9-b082-f458a92c5faa",
+            "type": "media_input",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/4b067c8c-2e0c-49b9-b082-f458a92c5faa.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Create a corrected first-rupture approval still using the two attached references. Reference one is the owner-marked drawing concept: read its feedback then REMOVE all feedback text, arrows and markup. Reference two shows the ACTUAL black metal J-Gun pneumatic torque wrench model: use its exact housing geometry, left-facing gearbox and square output spindle, stepped collar, motor body, ring switch, trigger and curved grip pointing down. Do not invent a firearm. Keep the first reference's camera framing, dark cream vellum engineering sheet and light-blue outline/webbing. Change the three tears: the ACTUAL THREE-DIMENSIONAL BLACK METAL MODEL is PUSHING UP THROUGH THE PAPER at this instant, occupying and occluding every first rupture. The metal gearbox and motor housing break through in the barrel tears, and the curved metal grip breaks through the handle tear. Real curved metal surfaces project ABOVE the paper plane, with clear thickness and restrained light-blue specular reflections; the printed paper is stretched into small tents over the unexposed parts and folds outward around the rising contours. Printed drawing lines remain on the paper fragments ONLY, not painted onto the model. Strong causal physical contact between rising metal and curled ripped paper. Model is partly emerged in its registered side-view orientation, not floating high and not lying on top of an unbroken sheet. Critically: NO VISIBLE ROCK, NO CAVERN, NO EMPTY OPENINGS at this first rupture. The model blocks the view below; the shaft will appear only later when the model rises clear. Only electric pale blue trace and webbing illuminate the shot, no white profile fill, no bright room lighting, no warm desk glow. Realistic cinematic product materials; retain silhouette and surrounding drawing. One clean frame, no arrows, no annotation text.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_210535_c0120502-cb2c-4a08-8f59-6843c55a1cfb.png",
+    "status": "completed"
+  }
+]

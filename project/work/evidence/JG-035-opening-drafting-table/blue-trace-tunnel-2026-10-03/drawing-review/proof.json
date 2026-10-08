@@ -1,0 +1,495 @@
+{
+  "stats": {
+    "edgeSetMs": 0,
+    "hardEdges": 385817,
+    "smoothEdges": 886494,
+    "airMotorCutDepth": 0.03993150964379325,
+    "airMotorCutSegments": 4070,
+    "sideSegments": 18370,
+    "sideMs": 377.7999999523163,
+    "topSegments": 11031,
+    "topMs": 95.70000004768372,
+    "sectionSegments": 99355,
+    "sectionMs": 89,
+    "hatch": 1089,
+    "frontSegments": 15538,
+    "frontMs": 103.10000002384186,
+    "rearSegments": 17752,
+    "rearMs": 112.89999997615814,
+    "bottomSegments": 16244,
+    "bottomMs": 112.79999995231628,
+    "segments": 217632,
+    "fills": 21,
+    "texts": 125,
+    "totalMs": 0,
+    "cacheHit": 1,
+    "precomputed": 1,
+    "cacheMs": 1821.6000000238419,
+    "extractMs": 765.8999999761581,
+    "bakeMs": 3215.600000023842,
+    "flexFieldPeak": 1,
+    "flexAmplitude": 0,
+    "flexPeakDisplacement": 0,
+    "flexEnabled": 0,
+    "flexNormalX": 0,
+    "flexNormalY": 1,
+    "flexNormalZ": 0,
+    "contactShadow": 0,
+    "contactRadius": 0.006,
+    "vellum": 0,
+    "fracture": 0,
+    "openingClear": 0,
+    "fragmentCount": 99,
+    "fragmentThickness": 0.00045,
+    "fragmentArea": 0.026960870000000012,
+    "holeArea": 0.026960869999999998,
+    "maxBoundaryDeviation": 0.0003516579390511648,
+    "crackGlow": 0,
+    "crackWeb": 0,
+    "paperOpacity": 1,
+    "modelBarrierSafe": 1,
+    "portalActive": 1,
+    "portalCapZ": -3.20048,
+    "portalMouthZ": -0.00048,
+    "portalDeskZ": -0.0016,
+    "portalCapBehindModel": 1,
+    "portalInitialModelBottom": -0.08046483350396157,
+    "portalProfilePoints": 2384,
+    "portalWallLevels": 11,
+    "portalDepthWrite": 1,
+    "portalDeskDiscard": 1,
+    "portalPulse": 0.9398940294877408,
+    "portalLight": 0
+  },
+  "drawing": {
+    "lineOpacity": 1,
+    "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+    "phase": 0.44,
+    "poseT": 0.22278481012658227,
+    "focus": 1,
+    "pulseHead": 0,
+    "pulse": 0,
+    "pbr": 0,
+    "illumination": 0,
+    "travel": 0.22,
+    "localZ": -0.04053150964379311,
+    "minZ": -0.08046483350396157,
+    "crossing": 0.7375241571855964,
+    "contact": [
+      -0.010531465411186214,
+      0.047750990271568296,
+      -3.0531133177191805e-16
+    ],
+    "waveTime": 0,
+    "waveEnabled": 0,
+    "pulseLuminance": 0,
+    "lightningLuminance": 0,
+    "lampPower": 1,
+    "blackout": 0,
+    "readingPool": 0,
+    "bulgeDisplacement": 0,
+    "inkLuminance": 0.0248349097409426,
+    "profilePoints": 10203,
+    "planeMatrix": [
+      0,
+      0,
+      -1,
+      0,
+      -1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "modelMatrix": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0.03792754989862442,
+      -0.04053150964379311,
+      0.11913639575242996,
+      1
+    ],
+    "annotationsReady": true,
+    "leaderCrossings": 0
+  },
+  "materials": [
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "4a4d50",
+      "roughness": 0.45,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "6e7276",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "6e7276",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "6e7276",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "6e7276",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "63666a",
+      "roughness": 0.35,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "63666a",
+      "roughness": 0.35,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "040404",
+      "roughness": 0.26,
+      "normal": {
+        "repeat": [
+          96,
+          9
+        ],
+        "scale": [
+          1.25,
+          1.25
+        ],
+        "uvCount": 4292
+      }
+    },
+    {
+      "name": "",
+      "color": "6e7276",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "3a3d40",
+      "roughness": 0.42,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "585c60",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "040404",
+      "roughness": 0.26,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0d0d0d",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "c2c6cb",
+      "roughness": 0.28,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "c9cdd2",
+      "roughness": 0.18,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "3a3d40",
+      "roughness": 0.42,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "10161a",
+      "roughness": 0.55,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "c9cbc6",
+      "roughness": 0.55,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "7a7e82",
+      "roughness": 0.3,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "2e0606",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "040404",
+      "roughness": 0.26,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "2e0606",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "1a2026",
+      "roughness": 0.6,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "05080b",
+      "roughness": 0.4,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "0a0a08",
+      "roughness": 0.35,
+      "normal": null
+    },
+    {
+      "name": "",
+      "color": "2e0606",
+      "roughness": 0.38,
+      "normal": null
+    },
+    {
+      "name": "P000420 Speed Indicator (Red)",
+      "color": "c8102e",
+      "roughness": 0.45,
+      "normal": null
+    },
+    {
+      "name": "P000420 Speed Indicator (Blue)",
+      "color": "005daa",
+      "roughness": 0.45,
+      "normal": null
+    },
+    {
+      "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "color": "ad0707",
+      "roughness": 0.32,
+      "normal": null
+    },
+    {
+      "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "color": "ffffff",
+      "normal": null
+    },
+    {
+      "name": "JG-025 Button Symbol Decal (up)",
+      "color": "ffffff",
+      "normal": null
+    },
+    {
+      "name": "JG-025 Button Symbol Decal (enter)",
+      "color": "ffffff",
+      "normal": null
+    },
+    {
+      "name": "JG-025 Button Symbol Decal (down)",
+      "color": "ffffff",
+      "normal": null
+    }
+  ],
+  "errors": []
+}

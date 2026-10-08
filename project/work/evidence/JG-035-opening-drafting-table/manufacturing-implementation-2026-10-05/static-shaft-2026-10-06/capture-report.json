@@ -1,0 +1,155 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-06T17:43:56.396Z",
+  "purpose": "Missing static-shaft anchors: cool stress scan, support-before at the settled supports camera, completed-wipe revised blank, and a same-session support-after partner frame.",
+  "cases": [
+    {
+      "name": "desktop",
+      "shots": [],
+      "errors": [
+        "revised-blank-complete-wipe: Camera moved during capture (drift 1.060658091359894)",
+        "cool-stress: Camera moved during capture (drift 3.1016162058080337)",
+        "support-before: Camera moved during capture (drift 1.1032175610562884)",
+        "support-after: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n"
+      ],
+      "requests": [
+        "http://localhost:5199/models/manufacturing-core-full.glb"
+      ],
+      "pass": false
+    },
+    {
+      "name": "narrow",
+      "shots": [
+        {
+          "label": "revised-blank-complete-wipe",
+          "why": "Completed wipe onto the revised smooth blank; hob not yet visible, no teeth formed.",
+          "t": 25,
+          "file": "raw-narrow-revised-blank-complete-wipe.png",
+          "cameraDrift": 0,
+          "sha256": "68250372b38992a18a0aa8a713db1e8013eaf51974af3f124ee4940096503ab4",
+          "bytes": 47003,
+          "probe": {
+            "status": "ready",
+            "phase": "Rotary hobbing",
+            "time": 25,
+            "sampledTime": 25,
+            "cameraSampleTime": 25,
+            "shaft": {
+              "teethFormed": 0,
+              "teethPartial": 0,
+              "cutter": {
+                "visible": false,
+                "stroke": 2.2079345427156665,
+                "infeed": 4.2968285963658195,
+                "rotation": 34.10827144002438,
+                "softened": false
+              },
+              "hob": {
+                "visible": false,
+                "feed": -4.195,
+                "rotation": 0,
+                "softened": false
+              },
+              "card": {
+                "id": "none",
+                "stamp": "none"
+              },
+              "stress": {
+                "kind": "none",
+                "mix": 0
+              },
+              "supports": {
+                "deltaYmm": 2.749999985098839,
+                "witnesses": false,
+                "endpointHeld": false
+              },
+              "finale": {
+                "assembled": false,
+                "shaftCount": 1,
+                "racesFollow": false,
+                "carrierCount": 5,
+                "missingCarriers": false,
+                "bearingRacePolicy": "unsplit-fixed",
+                "ringFollowsShaft": false,
+                "bearingOuterFixed": true
+              },
+              "narrative": {
+                "alpha": 0,
+                "hiddenCount": 0,
+                "originalsIntact": true
+              },
+              "nodes": {
+                "housing": "approvedhousing",
+                "legacyHousing": "legacyhousing",
+                "legacyHousingPresent": true
+              }
+            }
+          },
+          "camera": {
+            "matrixWorld": [
+              -0.11227140938370761,
+              5.551115123125783e-17,
+              -0.9936775788126628,
+              0,
+              -0.5373162372777651,
+              0.8411930033053925,
+              0.060709079615147904,
+              0,
+              0.8358746268386548,
+              0.5407349916456803,
+              -0.09444192404481022,
+              0,
+              0.16717492536773093,
+              0.11094699832913608,
+              -0.029888384808962054,
+              1
+            ],
+            "projection": [
+              15.449255267131301,
+              0,
+              0,
+              0,
+              0,
+              7.13887387936162,
+              0,
+              0,
+              0,
+              0,
+              -1.000066668888963,
+              -1,
+              0,
+              0,
+              -0.010000333344444815,
+              0
+            ]
+          }
+        }
+      ],
+      "errors": [
+        "cool-stress: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n",
+        "support-before: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n",
+        "support-after: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n"
+      ],
+      "requests": [
+        "http://localhost:5199/models/manufacturing-core-full.glb"
+      ],
+      "pass": false
+    }
+  ],
+  "failures": [
+    "desktop/revised-blank-complete-wipe: Camera moved during capture (drift 1.060658091359894)",
+    "desktop/cool-stress: Camera moved during capture (drift 3.1016162058080337)",
+    "desktop/support-before: Camera moved during capture (drift 1.1032175610562884)",
+    "desktop/support-after: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n",
+    "narrow/cool-stress: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n",
+    "narrow/support-before: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n",
+    "narrow/support-after: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Inspect the input shaft' })\u001b[22m\n"
+  ],
+  "notes": [
+    "Camera anchors (src/scene/inspection/shaft/camera.ts) are identical for t=35.8..38.2 desktop and narrow; the support pair is compared under one camera in one session after CameraRig entry blending has terminally settled.",
+    "The runtime probe exposes witnesses/endpointHeld booleans, not the schedule blend; blend values above are quoted from src/scene/inspection/shaft/schedule.ts (supportPair.position = -delta*(1-blend)).",
+    "DOM overlays hidden via visibility only; canvas ancestry preserved. No camera/CAD/runtime source was modified.",
+    "Entry camera easing: CameraRig blends ease(entryElapsed/1.2) from the narrative pose, so each shot waits for a bit-stable matrixWorld before capturing."
+  ],
+  "completed": "2026-10-06T17:47:30.335Z"
+}

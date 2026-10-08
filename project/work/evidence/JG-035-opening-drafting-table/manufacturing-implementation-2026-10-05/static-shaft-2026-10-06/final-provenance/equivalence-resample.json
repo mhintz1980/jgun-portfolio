@@ -1,0 +1,389 @@
+{
+  "generated": "2026-10-06T22:46:58.890Z",
+  "method": "Independent in-memory TS transpile; old recovery kinematics (4509f6b...) vs current (2f78847d...) both resolved against current progression/toolSpec; Object.is deep compare (-0 sensitive); fresh + sequential regimes; 0.01 s dense grid; exported-constant diff; cross-check vs source worker JSON.",
+  "hashes": {
+    "old_kinematics": "4509f6b247efc40b428c37ad4a8925add3a944c1e4d16fd978f62101d6cd874a",
+    "new_kinematics": "2f78847da8cc70b350c7f22eed2c899d6289100f94011dc87533f1dd337bd893",
+    "current_progression": "f4d9268867556485425f39c4dcf2cd4a9a3522470a64e9da3f5040615d31a3e1",
+    "current_toolSpec": "1ef5e143d05af11b00a687950695fe0ef33f82df897423159647e852d7b001b3",
+    "current_camera": "0b5952f3f31bffbdf626965204e3a2b0a0c2c7443b593de728616e0b5af6203a",
+    "current_shaftRuntime": "d1525b11ab55dff3041ed97ef4ba2f1c8e95ea4451337641fd08321777242c93"
+  },
+  "capture_times_all_equal": true,
+  "rows": [
+    {
+      "t": 8.4,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 17,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 25,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 32.4,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 34.2,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 35.8,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 38.2,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    },
+    {
+      "t": 42.5,
+      "fresh": {
+        "equal": true,
+        "diffs": []
+      },
+      "sequential": {
+        "equal": true,
+        "diffs": []
+      }
+    }
+  ],
+  "exported_constant_diffs": [],
+  "dense_grid": {
+    "step": 0.01,
+    "samples": 4301,
+    "differing_samples": 186,
+    "first_differing_t": 2.52,
+    "last_differing_t": 14.47,
+    "differing_windows": [
+      [
+        2.52,
+        2.6
+      ],
+      [
+        2.93,
+        2.99
+      ],
+      [
+        3.41,
+        3.45
+      ],
+      [
+        3.73,
+        3.79
+      ],
+      [
+        4.2,
+        4.25
+      ],
+      [
+        4.53,
+        4.59
+      ],
+      [
+        5,
+        5.05
+      ],
+      [
+        5.33,
+        5.39
+      ],
+      [
+        5.81,
+        5.85
+      ],
+      [
+        6.14,
+        6.19
+      ],
+      [
+        6.77,
+        6.9
+      ],
+      [
+        8.1,
+        8.39
+      ],
+      [
+        9.94,
+        10
+      ],
+      [
+        10.21,
+        10.24
+      ],
+      [
+        10.43,
+        10.44
+      ],
+      [
+        10.54,
+        10.56
+      ],
+      [
+        10.69,
+        10.69
+      ],
+      [
+        10.78,
+        10.79
+      ],
+      [
+        10.9,
+        10.9
+      ],
+      [
+        10.98,
+        10.99
+      ],
+      [
+        11.1,
+        11.11
+      ],
+      [
+        11.18,
+        11.19
+      ],
+      [
+        11.3,
+        11.31
+      ],
+      [
+        11.38,
+        11.39
+      ],
+      [
+        11.5,
+        11.51
+      ],
+      [
+        11.58,
+        11.59
+      ],
+      [
+        11.7,
+        11.71
+      ],
+      [
+        11.78,
+        11.79
+      ],
+      [
+        11.9,
+        11.91
+      ],
+      [
+        11.98,
+        11.99
+      ],
+      [
+        12.1,
+        12.11
+      ],
+      [
+        12.18,
+        12.19
+      ],
+      [
+        12.3,
+        12.31
+      ],
+      [
+        12.38,
+        12.39
+      ],
+      [
+        12.5,
+        12.51
+      ],
+      [
+        12.58,
+        12.59
+      ],
+      [
+        12.7,
+        12.71
+      ],
+      [
+        12.78,
+        12.79
+      ],
+      [
+        12.9,
+        12.91
+      ],
+      [
+        12.98,
+        12.99
+      ],
+      [
+        13.18,
+        13.19
+      ],
+      [
+        13.38,
+        13.39
+      ],
+      [
+        13.58,
+        13.59
+      ],
+      [
+        13.78,
+        13.79
+      ],
+      [
+        13.98,
+        13.99
+      ],
+      [
+        14.19,
+        14.2
+      ],
+      [
+        14.45,
+        14.47
+      ]
+    ],
+    "field_histogram": {
+      "kinematics": 626,
+      "progression": 282
+    }
+  },
+  "worker_json_cross_check": [
+    {
+      "t": 8.4,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 17,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 25,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 32.4,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 34.2,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 35.8,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 38.2,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    },
+    {
+      "t": 42.5,
+      "kinematicsMatchesWorkerBefore": false,
+      "progressionMatchesWorkerBefore": false
+    }
+  ],
+  "capture_time_divergence_margins": [
+    {
+      "t": 8.4,
+      "nearest_differing_t": 8.3999,
+      "margin": 0.00009999999999976694
+    },
+    {
+      "t": 17,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 25,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 32.4,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 34.2,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 35.8,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 38.2,
+      "nearest_differing_t": null,
+      "margin": null
+    },
+    {
+      "t": 42.5,
+      "nearest_differing_t": null,
+      "margin": null
+    }
+  ]
+}

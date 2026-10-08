@@ -1,0 +1,2650 @@
+Reading additional input from stdin...
+2026-10-05T21:59:53.950372Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T21:59:53.950445Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T21:59:53.996165Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: deepseek/deepseek-flash
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10e14-9b12-7742-8862-3a62f1559629
+--------
+user
+Bounded read-only review. Do not edit files; do not read TODO.md or queue docs. Spec: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script-spec.md and docs/jgun-manufacturing-inspection-plan.md section 4 (Mesh progression and stress illustration; card rules) and section 2 (accessibility). Gate claims (treat as claims): project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-script.md. Source: src/scene/inspection/shaft/story.ts, script.ts, script.test.ts, src/components/ShaftStoryLayer.tsx and .css. Harness: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs and harness.tsx. Verify: exact strings and codepoints; every timing constraint numerically (readable >= 1.0 s before FAILED, impulse <= 0.18 s, settled >= 0.8 s, distinct fade between cards, warm scan leaves by 25 s, cool scan >= 0.8 s after 32 s withdrawal, final 4340 card same slot no stamp); purity/allocation; reduced motion; aria-live only on discrete change; transcript glosses undercut once correctly and contains no FEA numbers; no viewport-scaled fonts or nonzero letter spacing; nothing registered/mounted in the app. You may run `npx vitest run src/scene/inspection/shaft`. Report SHIP or FIX-FIRST with severity and exact file:line findings, max 400 words.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-05T21:59:54.664931Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T21:59:54.664963Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T21:59:54.687565Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n -i "JG-035|shaft|drafting" C:/Users/Markimus/.codex/memories/MEMORY.md | Select-Object -First 40' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 602ms:
+1:# Task Group: jgun-portfolio JG-035 stages 1-3 opening rework
+3:scope: Implement and verify the drafting-sheet opening, paper flex, and drawing-to-metal signature shot; this record is partial because browser proof has known harness defects and a real reduced-motion defect.
+6:## Task 1: Plan and implement JG-035 stages 1-3
+14:- jgun-portfolio, JG-035, jgun-animation-improvements.md, jgun-stages-1-3-implementation-plan.md, sheetCamera, introTimeline, paperFlex, drawingCache, DrawingLinework, precompute-drawing, junction path, npm run build, troika
+40:- The 2026-09-26 docs mark the ANSI C/shockwave opening historical; active opening is a 0.80×0.50 m vellum sheet. On a later owner-requested commit, stage JG-035 paths only and include the matching doc updates. [Task 2]
+47:- Before calling JG-035 done: add `__drawingProof` probes for pulse registration and text/title bounds; regenerate missing `public/drawing/jgun-sheet-v1.json.gz` with cache bypass, chrome fallback, and correct `waitForFunction(pageFn, arg, options)` ordering; re-measure `projectedFeatures` at registered hold `t=0.40–0.72`; verify `ink.tri` subdivision and troika injection order; run the harness against a fresh `:5198` server and obtain a fresh read-only review. [Task 2]
+212:- v9 SHA-256 remained `09326d83af1a4bfafbe46572194c965b73de937e8e73814fd974c9824e5245a6`; v10 is `5f8632d8ef9b27da15b221f47feb9fb37dcea7b52493aeba62125523ae5f5e6f`. Independent verification passed 14/14: bracket 48 in above skid, 0.052 mm plane separation, 0.0054° normal error, pump shaft unchanged, and 465 non-target objects invariant. [Task 1]
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script-spec.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 535ms:
+# Leaf spec: shaft story data, card sampler and DOM card layer (producer)
+
+Objective: implement the authored, tool-independent part of the Input Shaft inspection: chapter/beat timing data, the exact material-card and caption schedule, a closed-form allocation-free sampler for cards/stamps/stress-overlay mix, and an accessible DOM layer that renders them. 3D machining states, tools and camera curves are out of scope (they wait for G0/G2). Nothing is registered or mounted in the app: no shaft trigger, no registerStory call, no placeholder runtime.
+
+Files you own (create only these): src/scene/inspection/shaft/story.ts, src/scene/inspection/shaft/script.ts, src/scene/inspection/shaft/script.test.ts, src/components/ShaftStoryLayer.tsx, src/components/ShaftStoryLayer.css, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/ (harness + evidence), project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-script.md (create; use the gate list below, check only with evidence). Do not edit any existing file (story.ts, inspectionStore.ts, RingInspection.tsx, InspectionScene.tsx, CameraRig.tsx etc. belong to others). Other sessions have staged/unstaged work: never revert, stage or commit; no git operations. Do not read TODO.md or queue docs: this spec is complete.
+
+Read for interfaces/style: src/scene/inspection/story.ts (StoryMetadata, StoryChapter, storyChapterAt), src/scene/inspection/timeline.ts (closed-form sampler style with caller-owned out object, no allocation), src/components/RingInspection.tsx/.css (dialog styling, aria patterns, reduced-motion handling, class naming), docs/jgun-manufacturing-inspection-plan.md section 2 (shared presentation/accessibility) and section 4 (timing table, Mesh progression and stress illustration, card rules).
+
+Requirements:
+1. shaft/story.ts exports shaftStory: StoryMetadata = frozen { id 'shaft-p001835', kind 'shaft', version 1, duration 43, chapters contiguous covering 0..43: 'why-groove' "Why the groove was needed" 0-15, 'materials' "Material attempts" 15-22.6, 'process' "Changing the process" 22.6-35, 'supports' "Moving the supports" 35-43; assets: one required entry { id 'manufacturing-core', url 'models/manufacturing-core-full.glb', tier 'full', required true, maxBytes 2 MiB, sha256 null } and a lite twin (tier 'lite', url models/manufacturing-core-lite.glb); entryWindow [0.12, 0.525]; staticAlt 'shaft-study' }. Export the beat anchors as one frozen authored table (isolate 0-2, shaping 2-6, slow exit 6-11, recap 11-15, materials 15-22.6, revised blank 22.6-25, hobbing 25-32, runout hold+cool scan+final card 32-35, supports 35-39, finale 39-43) so later runtime code reads them rather than scattering constants.
+2. shaft/script.ts exports sampleShaftScript(time, reducedMotion, out) writing into a caller-owned object (createShaftScriptFrame()): card id ('none'|'4140'|'4340'|'c300'|'4340-ht'), cardText, cardOpacity, stamp ('none'|'in'|'settled'), stampScale (impulse), attribution visible, captions (remainingTeeth, stressIllustrative), stress kind ('none'|'warm'|'cool') and stressMix 0..1 plus scanProgress 0..1 (one axial scan, then hold), and discrete integer key that changes only on discrete state changes. Exact strings, character for character, ASCII hyphens: "AISI 4140 (40-45 HRC)", "AISI 4340 (48-50 HRC)", "C300 (56-58 HRC)", "AISI 4340 (H.T. 48-50 HRC)", "FAILED". Attribution caption: "Earlier material attempts, as recounted by the designer." Stress caption: "Illustrative stress concentration". Recap caption: "Remaining teeth — time compressed" (em dash U+2014 as in the plan). Material beats 2.8, 2.5, 2.3 s starting at 15 (sum 7.6) each with: alloy fade-in, >= 1.0 s readable alloy text before FAILED, stamp impulse <= 0.18 s, >= 0.8 s settled, then distinct fade-out before the next card; attribution visible throughout 15-22.6. Warm stress: one axial scan entering at 15 then stable hold to 22.6, leaving with the old geometry by 25. Cool stress: begins only after >= 0.8 s unobstructed runout hold following hob withdrawal at 32 (so not before 32.8), one scan then hold; the final "AISI 4340 (H.T. 48-50 HRC)" card in the same slot after the cool scan starts, no stamp, held to 35. Recap caption visible during 11-15. Reduced motion: stampScale stays 1 (no impulse), scans jump to held state with fades only. Pure function of time: identical output for any seek order; no Date/performance/Math.random; no allocation per call.
+3. script.test.ts: exact strings (including codepoint checks for hyphens and em dash), every timing constraint above as assertions over a dense time sweep (step 1/240 s), contiguity, determinism under shuffled seeks, reduced-motion behavior, discrete key changes only at state changes, allocation-free (same object returned, no new keys).
+4. ShaftStoryLayer.tsx: props { time: number; reducedMotion: boolean }, uses the sampler with a ref-owned frame, renders the card slot (alloy large text, FAILED stamp styled as an ink stamp with a short local compression/settle CSS animation keyed on stamp state, disabled under prefers-reduced-motion and reducedMotion), attribution and captions, plus a visually hidden but screen-reader-available transcript of the four chapters explaining the causal sequence that glosses "undercut" once as the cutter runout/relief groove, distinct from involute tooth-root undercut. Announce discrete card/caption changes politely (aria-live polite on a status region that updates only when discrete changes), never every frame. Card text contrast >= 4.5:1 on near-black; layout keeps cards to the side with about 8% margin, wraps without overflow at 390x844 and 1440x900. Stamp color localized red/ink; no FEA legend, numbers or safety factors anywhere.
+5. Harness: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.html + harness.tsx + verify-shaft-script.mjs (Playwright, chromium channel chrome) served from the repo root by the running Vite dev server at http://localhost:5199. It mounts ShaftStoryLayer standalone with a time slider, captures desktop 1440x900 and narrow 390x844 screenshots at t = 16.5 (alloy), 17.5 (FAILED settled), 21.0 (C300), 33.5 (final card), 12 (recap caption), measures computed contrast ratios and bounding boxes (inside viewport, no overlap between card, attribution and captions), checks aria-live announcement count across a 0-43 sweep equals the number of discrete changes, zero console errors. Writes report.json.
+
+Verification commands (all must pass): npx vitest run src/scene/inspection/shaft; npm run typecheck; node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs --url=http://localhost:5199.
+
+Gate list for project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-script.md:
+- S1 Exact strings and order; attribution and captions present at the right times.
+- S2 Timing constraints (readable >= 1.0 s, impulse <= 0.18 s, settled >= 0.8 s, distinct fades, cool scan >= 0.8 s after withdrawal) proven by dense sweep.
+- S3 Closed-form, seek-deterministic, allocation-free sampler; reduced motion removes impulse/scan motion.
+- S4 DOM layer contrast, layout at both viewports, polite discrete announcements, transcript gloss; zero console errors.
+- S5 Nothing registered or mounted in the app; typecheck and tests pass.
+
+Report back: changed paths, commands with results, and anything unresolved.
+REASONING: high
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-script.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 430ms:
+# Gates: Shaft story data, card sampler and DOM card layer
+
+Scope: tool-independent shaft story pieces per ../shaft-script-spec.md. Producer GLM-5.3 stopped at the Z.ai usage cap; parent (Anthropic claude-opus-5-5) completed the leaf: removed an unused test import (typecheck), corrected the chapter-1 transcript to the owner's causal reason (chip clearance past the face end), replaced viewport-scaled fonts and nonzero letter spacing with fixed sizes (34/30 px desktop, 24/22 px narrow; Barlow Condensed display), and fixed two harness bugs (unescaped rgb() regex produced NaN contrast; alloy-only capture moved 16.5 -> 15.8 s because the stamp correctly lands at 16.16 s).
+
+- [x] S1: Exact strings and order; attribution and captions present at the right times.
+  EVIDENCE: script.ts SHAFT_CARD_TEXT/SHAFT_STAMP_TEXT/caption constants; script.test.ts codepoint assertions (ASCII U+002D hyphens, U+2014 em dash). verify-shaft-script.mjs PASS at t=15.8/17.5/21/33.5/12 both viewports.
+- [x] S2: Timing constraints proven by dense sweep.
+  EVIDENCE: attempts 15-17.8, 17.8-20.3, 20.3-22.6; fade 0.14, readable 1.02 s >= 1.0, impulse 0.15 s <= 0.18, settled >= 0.83 s >= 0.8, 0.02 s gap; cool scan 32.8 = withdrawal 32.0 + 0.8; final card 33.2-35. script.test.ts 1/240 s sweep: 16/16 PASS.
+- [x] S3: Closed-form, seek-deterministic, allocation-free sampler; reduced motion removes impulse/scan motion.
+  EVIDENCE: sampleShaftScript writes only to caller-owned frame; shuffled-seek and same-object tests in script.test.ts PASS.
+- [x] S4: DOM contrast, layout at both viewports, polite discrete announcements, transcript gloss; zero console errors.
+  EVIDENCE: node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs --url=http://localhost:5199 -> "shaft-script verifier: pass; 10 captures, sweep changes 15 (expected 15), console errors 0". Screenshots desktop-t17_5.png, narrow-t33_5.png inspected by parent.
+- [x] S5: Nothing registered or mounted in the app; typecheck and tests pass.
+  EVIDENCE: rg finds registerStory only for ring (InspectionScene.tsx:13) and tests; ShaftStoryLayer imported nowhere in src. npm run typecheck exit 0.
+- [ ] S6: Fresh different-provider review of actual source/evidence.
+  EVIDENCE: pending (DeepSeek read-only review dispatched: ../shaft-script/independent-review-deepseek.md).
+
+Coupling recorded for G5: hob withdrawal must be complete by 32.0 s so the 0.8 s unobstructed runout hold precedes the 32.8 s cool scan.
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'docs/jgun-manufacturing-inspection-plan.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 439ms:
+# JG-035 — Ring Switch and Input Shaft manufacturing stories
+
+Date: 2026-10-05. Status: **ready to implement** — parent/Astra/Opus concepts agreed, Astra visual detail pass incorporated, Opus final findings corrected and bounded re-review **SHIP**, Astra final delta **AGREE**. See the [review ledger](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/review-ledger.md) and [next-session handoff](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/continuation-handoff.md). Planning only this session; implementation starts next session. This status is plan readiness, not runtime acceptance.
+
+Owner source: [verbatim storyline and model approval](../project/context/owner-specs/manufacturing-inspection-storyline-2026-10-05.md). Review packet: [manufacturing-story-plan-2026-10-05](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/). Existing Ring Switch implementation: [authorship/knurling plan](jgun-authorship-knurling-implementation-plan.md). This plan refines that implementation and adds the shaft story; it does not restart the opening.
+
+## 1. Locked direction and scope
+
+Mark approved the modified P001835-2 Input Shaft, P000725 1st & 2nd St. Housing, K000210 bearing and K000211 retaining ring after Blender review. Preserve the 6 mm authored hob lead-out and +2.75 mm shaft-local Y relocation. Source assets and live hashes: [approved asset baseline](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/approved-asset-baseline.md). The larger-family P001812 reference supplies process history, not this shaft's dimensions or an authenticated legacy revision.
+
+The approved P003068 concept already has a 12-second inspection implementation. Refine contact/readability/finish staging and generalize only the lifecycle that the shaft story needs. Keep the ring bore, smooth lands and original physical assembly intact.
+
+Both stories are optional visitor-controlled inspections with the same dark studio, tool entry, neutral metallic rim and restrained DOM typography. Neither adds a scroll segment, changes the canonical mechanical ladder, or alters opening/station windows. The revised shaft assembly exists inside the inspection study. The finale shows its shaft, supports and related train operating; explicit **Return to narrative** restores the original saved narrative rig, mode, stage, scroll and focus. Make this boundary clear in the control and closing caption. Do not silently replace `Default.glb` or ask the owner to reopen this resolved scope choice.
+
+## 2. Shared presentation and control
+
+Enter from a readable JGun-only DOM action linked to the component story. Hide competing narrative geometry through reversible instance-local visibility/material ownership. One camera owner remains `CameraRig`; no other layer may write its transforms. Freeze the narrative pose/idle at entry. Save camera target/FOV/pose, original mode, stage state, scroll position and trigger focus before transitions begin. Also lease/snapshot background, environment/rotation, exposure, fog, lights and post effects; restore the full render-state snapshot on exit. Move focus into inspection controls and make the narrative DOM inert; politely announce discrete chapters/cards, not every playhead frame.
+
+Expose Play/Pause, Replay, a labeled seek control, shaft chapter buttons, Return and Escape. Entry does not begin machining before required assets are ready. Keep Return usable while loading or failed. At the end, hold the result with controls; do not close unexpectedly. Pause on hidden document; resume only without accumulating offscreen time. Closing cancels loads, audio and animation and restores the context even at intermediate phases. A missing/removed trigger needs a sensible JGun focus fallback.
+
+Four shaft chapters: **Why the groove was needed**, **Material attempts**, **Changing the process**, **Moving the supports**. All must be selectable without watching preceding chapters. The transcript explains the causal sequence and glosses “undercut” once as the cutter runout/relief groove, distinct from involute tooth-root undercut.
+
+Silent playback is complete. Optional visitor-enabled audio can follow the same speed ramp and local stamp impulse; no autoplay or requirement that audio finish first. The bullet-time impression comes from coherent movement and a readable clearance hold, not distortion effects. Reduced motion/poster have no spin, camera flight, stamping impulse or speed ramp.
+
+Each entry has a session identifier. Late load/compile completions from a closed session cannot attach objects, acquire camera ownership or change controls. Exit is idempotent. Dispose instance-owned resources; release shared cached resources without destroying them. A manually paused inspection stays paused across document hiding. Seeking samples visible chips/stamps/tools without replaying audio impulses or accumulating particles. Direct chapter entry establishes its complete geometry, light, captions and camera without prior playback.
+
+Shared light rule: one broad neutral key and a narrow grazing reflection describe machined edges against near-black; keep dark silhouettes readable and stress color localized. Move the camera to change the explanation, then hold it when judging contact, clearance or a dimension. DOM card text meets 4.5:1 contrast. At 390×844, keep tool/action/cards separate with approximately 8% margin around the critical action; establish actual projected framing in blockout.
+
+## 3. Ring Switch refinement shot list
+
+Retain the existing phase spine and approximately two-second contact traverse. Current source timings below are a baseline, not a new runtime claim.
+
+| Time (s) | Action and visual purpose |
+|---|---|
+| 0–1.2 | Isolate smooth black P003068 against black; a neutral rim makes bore and smooth lands readable. |
+| 1.2–2.8 | Cinematic aluminium inspection state and increasing spin; retain a legible silhouette. |
+| 2.8–4.2 | Paired rollers approach; a slightly oblique view exposes both contacts. Hold contact composition at least 0.3 s before axial traverse. |
+| 4.2–6.2 | OD knurl grows only at/behind contact as rollers traverse. Preserve the smooth edge lands and bore. |
+| 6.2–8.2 | Retract to measured clearance before the prop fades. Relief remains on the worked band. |
+| 8.2–10.5 | Decelerate and return to black finish; one controlled grazing reflection reveals the diamond relief, then settles. Give the finished black relief at least one second of readable presentation. |
+| 10.5–12 | Register the finished ring with the saved assembly composition while retaining inspection ownership and a frozen narrative. Hold result and controls. Only Return/Escape releases ownership and resumes the saved narrative. |
+
+Inspect the current normal/relief representation before changing it. Macro views require convincing surface relief/parallax and silhouette where visible; do not introduce a heavy full diamond lattice merely to improve a wide shot. If normal detail fails the macro, use a bounded offline detail strip or height representation restricted to the OD. Physical bore/lands remain unchanged. Aluminium-to-black is a cinematic finish study, not a claim that a finishing operation occurs under the rollers. Knurling forms the surface: no cutting chips or sparks.
+
+Validate roller axes/handedness and compatible tangential surface speed against the prop and contact geometry; existing clip display rates are not production measurements. Tune display speed to avoid apparent reversal or strobing at 30 fps lite. Use a deliberate softened high-speed representation if speed exceeds readable repeated-feature motion; make the forming/contact macro crisp and phase-readable. At t=12 inspection stays active and narrative time frozen; Return/Escape restores once. Knurl growth is limited to the swept worked region; fading the tool begins only after measured roller clearance.
+
+## 4. Input Shaft storyline and preliminary timing
+
+Initial duration target: approximately 43–45 seconds, optional and chapter-seekable. Timing is an editorial starting point; preserve cause/readability before trimming. The Opus pass extends the shaping recap and card fades. Phase anchors and holds become authored data after measured camera blockout, not scattered constants.
+
+| Time (s) | Beat | Required visible explanation |
+|---|---|---|
+| 0–2 | Isolate the grooved blank | Fade assembly to black; retain steel rim and identify the relief with neutral/cool-white light. The geared-end blank has material for the cutter to remove. |
+| 2–6 | Shaping overview | Cutter strokes, spins and feeds radially to depth; progressive tooth spaces follow real engagement. A shaft-following camera creates the apparent quarter orbit. |
+| 6–11 | Slow cutter exit | Ease into a machine-frame macro. See face end, cutter edge passing beyond it, chip curling from rake face into clearance and a relieved return. Give the critical exit/return event a readable hold. |
+| 11–15 | Pull back and finish shaping | Re-engage deterministic shaft-follow camera for rapid strokes on the slow apparent orbit. Complete the remaining circumference with explicitly time-compressed recap before the tool retracts/fades; all ten teeth exist before material attempts. |
+| 15–22.6 | Material attempts | Same groove/silhouette; one illustrative warm scan; three exact alloy cards and local FAILED stamps, approximately 2.8, 2.5 and 2.3 s including fade-out. |
+| 22.6–25 | Revised smooth blank | Align at shared axis/datum. Short axial wipe exposes retained section below the uncut geared end; warm field leaves with old geometry, no overlapping translucent solid shafts. |
+| 25–32 | Rotary hobbing | Recognizable hob, coupled shaft rotation and axial feed. Circumferential tooth formation advances as an axial band; finished result retains the approved lead-out. |
+| 32–35 | New geometry/material | Retract tool; unobstructed runout hold then one cool stress scan below the gear; same card slot shows final 4340 heat treatment without a success stamp. |
+| 35–39 | Support relocation | Legacy witnesses and capped shaft/housing section; bearing and retaining-ring rigid pair move exactly +2.75 mm into approved final placement, with corresponding housing support readable. |
+| 39–43 | Revised assembly finale | Inspection-local assembled pose independent of entry mode. Shaft already present; related planets/cages fade in and spin coherently, then remaining revised study assembly returns. Hold with Return to narrative. |
+
+### Cutter choreography and camera
+
+Use a disc/pinion-style shaper appropriate to measured gear data. In the machine frame it has radial infeed, axial cutting stroke, relieved return and correctly coupled cutter/workpiece generating rotation. Do not animate an end mill following a finished tooth profile. The quarter-orbit appearance is authored in the rotating shaft reference frame: camera follows shaft azimuth while the real cutter spins and strokes. Ease that frame-follow rate to zero during the slowdown, ending in a fixed machine-frame clearance view. Solve signed rotation ratios from real tooth counts; do not copy an unsigned review formula into production.
+
+One master inspection playhead samples both a continuous machining-time map and authored camera curves. Slowdown changes machining speed, never tool/shaft/chip phase or pose continuity. Frame-follow azimuth is derived from machining phase; dolly/FOV progress on the master playhead so the zoom keeps moving while machining slows, then settles into the stable macro. All curves are deterministic closed-form/baked lookups; there is no separate running clock or cumulative camera integration, and no independent damping that loses the cutting edge. A deliberate slow interval/readable bottom-of-cut beat is artistic compression, not a machine cycle-time claim. Place one restrained chip at the shaping rake face only where stock is removed. Hobbing may show direction-correct chips where useful; none are needed in a wide framing. No sparks.
+
+Derive cutting stroke toward the relief and relieved return away from it from measured geometry. Check signed pitch-circle rolling/contact velocity to catch reversed generating ratios. Key/grazing light/environment orientation follows the same authored reference-frame weight as the camera during shaping; switch smoothly into fixed machine-frame lighting so reflections do not reveal an inconsistent shaft spin. Hobbing deliberately shows the shaft visibly rotating. Keep shaper-stroke and hob-gash display frequencies readable for the observed tier; a provisional ceiling of ~one quarter of tier frame rate must be measured or replaced by deliberate softened high-speed appearance.
+
+Keep the projected shaft axis and cutter exit region continuous during the rotating-frame to machine-frame camera handoff. Ease follow rate down before the cutting edge reaches the face end. Frame face edge, cutter edge, relief and chip origin together. Give at least 1.2 s of stable-camera slow action covering exit and relieved return, including approximately 0.4 s with unmistakable clearance. No camera cut or independent tool freeze at that event.
+
+The hob prop, starts, setting angle and measured swept envelope must be compatible with the accepted 6 mm authored lead-out. Record the dimension type and datum: do not reinterpret construction radius as axial travel or usable clearance. That construction radius is not automatically a verified physical OD for a tilted production tool. Preserve accepted geometry; select a compatible illustrative tool representation and framing when production tooling is undocumented. Cropping simplifies explanation but cannot establish clearance or conceal an intersecting swept envelope. Validate the complete represented tool through cutting, return and withdrawal; never show a larger cutter clipping the shifted journal. Record minimum separation and combined measurement/export uncertainty; positive clearance must exceed that uncertainty. Keep an unobstructed tooth-runout/retained-section view for at least 0.8 s after tool withdrawal, before the cool illustration appears.
+
+### Mesh progression and stress illustration
+
+**Shaping stock and progression (Opus B1 resolved):** identify/hash the legacy P001835-2 occurrence in `Default.glb` and the isolated grooved `C:/Projects/CAD/jgun-input-shaft-hobbed/p001835-source-extract.glb` in G0; verify their correspondence. Create a separate derived **grooved shaping blank** by restoring stock in the tooth-space region to the measured tip-diameter OD, preserving the source relief, journal and shared datum. Do not start the cutting shot on an already fully toothed shaft. Offline-bake full-depth and partial-depth shaping states or complementary capped masks from the measured cutter engagement. Radial infeed visibly removes stock; chips arise from that current cutting region. Reveal completed tooth spaces only behind actual generating engagement, with the partial-depth zone under the cutter. The first quarter-orbit therefore shows only the portion actually worked.
+
+Implementation notes from the final SHIP pass: swap narrative teeth to the grooved blank while hidden/masked by the isolation fade, so teeth never visibly disappear. Apply lite-floor strobing checks to the compressed recap. If G0 cutter tooth count/ratio changes, re-bake its engagement-driven shaping states. Assert the card strings character-for-character, including ASCII hyphens.
+
+At 11–15 s the recap re-engages the shaft-follow frame through the same deterministic authored azimuth law, showing rapid strokes and a comparatively slow apparent orbit. Complete the remaining circumference in a visibly time-compressed recap (caption **Remaining teeth — time compressed**); extend this beat if needed. If completion must be omitted for performance, use an explicitly captioned time skip during retraction instead of silently appearing teeth. All ten complete teeth match the hashed grooved final source before the first material card. G2 owns grooved blank/intermediate states as well as revised hobbing states; G4 verifies stock removal/contact and honest completion through direct seek and playback.
+
+**Revised hobbing stock:** produce a separate sound smooth blank aligned with the approved revised shaft; restore final teeth/lead-out through bounded offline-baked cutting states or complementary capped clipping masks. No runtime CSG for either process. Hobbing is continuous generating action: every tooth space participates as the workpiece rotates, so the reveal band advances along the face around the circumference. The partial-depth zone stays inside visible tool engagement and does not run ahead. At final feed position the represented swept envelope coincides with the approved runout. Preserve final profile, 10-tooth count, pitch/clocking and support datum. Differing topology does not authorize a blind vertex morph.
+
+The grooved shaping state depicts the owner-described earlier design; label its historical reconstruction illustrative unless authenticated failure-revision geometry is available. P001812 supplies process context only. Transitioning to **Revised blank — retained section** means a different design/workpiece; machining cannot put back material removed by the previous groove. Keep the shared axis/datum fixed through the wipe. The groove stays unchanged through all three failed-material attempts; geometry changes only at redesign. A restrained grazing reflection reveals the hobbed band without competing with the tool.
+
+Keep text as readable DOM, with exactly these cards in order:
+
+1. **AISI 4140 (40-45 HRC)**, then **FAILED**.
+2. **AISI 4340 (48-50 HRC)**, then **FAILED**.
+3. **C300 (56-58 HRC)**, then **FAILED**.
+4. **AISI 4340 (H.T. 48-50 HRC)** alongside the revised section, with no FAILED/PASSED stamp.
+
+Attribute the first three to the owner's account in one restrained, readable caption. Warm/cool field caption: **Illustrative stress concentration**. Same color vocabulary in both states; localized overlay retains metallic surface edges and geometry. No numeric FEA scale, safety factor, solver contour legend or implied certified safe state. No invented load/testing results. Place the final 4340 card exactly where the earlier 4340 card appeared: the material repeats while the geometry changes. Stamp the DOM lettering with a short local compression/settle; the camera and page remain steady.
+
+Hold shaft, groove and card slot registered across material attempts. Use ~2.8/2.5/2.3 s beats, including a distinct fade-out before the next card. Preserve ≥1.0 s readable alloy text before FAILED, local impulse ≤180 ms and ≥0.8 s settled afterward. Keep owner attribution readable throughout. These are timing/readability anchors, not measured results. Pin ASCII hyphens in hardness ranges exactly as the owner wrote; never let typographic normalization break copy assertions. Warm and cool overlays each enter with one restrained axial scan; hold their stable field afterward and use no solver-like animated rainbow.
+
+### Support comparison and train return
+
+Final assets already include the shift. End pose equals the approved export; start pose equals measured legacy pose, with signed delta +2.75 mm in shaft-local Y. Derive transforms through saved `shaft_world_matrix.json`, the measured Blender-export-to-runtime-root registration and one explicit millimetre-to-metre conversion. Record the actual Z-up/Y-up mapping or existing exporter conversion so it is not applied twice. Never apply the displacement twice, derive directions from stage names, or independently slide mesh-built journal/groove. Use a capped camera-facing section of shaft AND P000725 to expose the pair, with legacy position witnesses; this is a design comparison. Housing occupies its accepted position/shape, not a translating member. Sweep-check the comparison slide; where intermediate solid designs overlap, use ghost/legacy-housing witness presentation rather than pretending physical assembly clearance.
+
+Measure both support origins in the same shaft-local frame. The pair preserves its relative transform throughout. Target +2.750 mm local Y, with zero intended local X/Z movement or rotation; record export-derived numerical tolerance before implementation, not a visually convenient tolerance. Independently check housing, journal and groove for unintended movement, and endpoint agreement after seek/replay. Establish witnesses for at least 0.5 s before movement and hold the approved endpoint for at least 0.8 s before removing them.
+
+**Finale composition (Opus B2 resolved):** build the shaft study in its own inspection-local **assembled solid pose**, independent of blueprint/exploded entry and current narrative explosion. Register revised parts and all selected legacy neighbour clones in that same assembled root before reveal. Prefer inspection-owned clones/named bundle; if narrative objects are reused, lease their complete parent/local transforms, visibility and materials, temporarily pose them to the inspection assembled frame, then restore them exactly on exit. Never reveal revised assembled supports among frozen exploded cages. The ring keeps its existing saved-composition behavior.
+
+Remove witnesses before spin. K000211 follows shaft; housing and bearing outer race remain fixed. Inner race follows shaft only where separable/verified; unsplit bearing must not rotate as a solid assembly. Measure tooth clocking/planet compatibility first. Existing cage progression and planetary convention remain canonical; display turns are not exact machining rates. Fade related planets/cages then the rest of the assembled study, with no duplicate shaft. On Return/Escape restore every leased transform/render state and saved narrative geometry/mode/idle phase. Assert **exploded entry → assembled study finale → Return to identical exploded context**, and corresponding blueprint restoration, including background/lights/post snapshot. Closing caption explains revised study versus original saved narrative.
+
+Finish assembly reveal with ≥1.5 s settled framing, then hold indefinitely with Return. Extend the approximate 43–45 s duration if contact, clearance, fades or endpoint reads do not fit; do not sacrifice them to the initial target.
+
+## 5. Architecture and bounded ownership
+
+Inspect these existing files before changing interfaces: `src/state/inspectionStore.ts`, `src/components/RingInspection.tsx` and CSS, `src/scene/inspection/{InspectionScene.tsx,timeline.ts,narrativeFade.ts,loadLease.ts,compileLease.ts}`, `src/scene/CameraRig.tsx`, `src/scene/TorqueWrenchHero.tsx`, `src/scene/rig/{nodeRoles.ts,materials.ts}`. Existing `INSPECTION_DURATION = 12`, ring-only fields and `__inspection` telemetry are assumptions to generalize explicitly.
+
+Define `kind: ring | shaft`, per-story duration/chapter/asset descriptors and a reusable lifecycle/restore envelope. Keep ring sampler/geometry adapters separate from shaft sampler/tooling/stress/support adapters. Use one mutable playhead read in `useFrame`; no React state subscriptions or allocations per frame. DOM changes only at discrete control/caption state boundaries. Seek/pause/replay/reverse sample absolute state; avoid accumulated cutter angle, cut history or particles. Allocate scratch transforms once and dispose all instance-owned geometry/materials/tools on exit.
+
+Capture part identity before destructive consolidation or use a named lightweight inspection bundle. Default consolidation merges some source parts into shared clutch/material buckets; do not hide a whole merged bucket to isolate the shaft. Registry includes occurrence path, part number, original and approved transforms, source hashes and extraction provenance. Use scene-instance materials; modifying a cached source material can corrupt the narrative. Preserve the existing ring `__inspection` contract or deliberately version the verifier with backward compatibility during migration. New shaft telemetry belongs in a clearly versioned manufacturing-inspection contract.
+
+Suggested disjoint worker scopes after interface agreement:
+
+| Work | Ownership | Independent evidence |
+|---|---|---|
+| Lifecycle/control | store, DOM shell, scroll pause/restore, camera lease | loading/error/exit/focus/context round trips |
+| Asset/tool preparation | derived CAD/export scripts and inspection assets | hashes, profile/clocking, envelope/fit, compression error |
+| Shaft sampler | new shaft timeline/process camera-data/tool/mesh state adapter | deterministic seek/reverse, continuous phase, exact deltas |
+| Ring refinement | ring sampler/contact/material adapter | OD/land/bore masks, contact/retract, display-speed check |
+| Runtime verification | inspection verifier and contract evidence | actual rendered checkpoints plus live telemetry |
+
+One integration owner changes shared `CameraRig`, `TorqueWrenchHero` and `InspectionScene`; workers never concurrently edit those files. Use the live model tool schema/CLI rather than stale skill model IDs.
+
+## 6. Geometry, performance and accessibility gates
+
+Before tooling animation, locate/hash accepted sources, measure legacy/final datum transforms and export placement, and check every neighbour including K000180-1. Resolve source-report versus handoff lead-out endpoint mismatch by measuring the actual mesh, then test swept cutter envelopes at cutting and return strokes. The informal 0.14 mm separation is not a moving-tool clearance measurement. Repair the reported single non-manifold edge and streaky normals only in derived copies, preserving approved silhouette and fits.
+
+Tag every physical datum **measured / illustrative / unresolved** with provenance and its dependent gate. Unresolved tool, rotation or clearance data prevents an unsupported mechanical-truth claim but does not reopen the approved concept or geometry. Artwork cannot substitute for the measured swept envelope.
+
+Generate compressed full/lite study exports through Blender with stable named parts, not bare `gltfjsx --transform`. `Default.glb`, M249 and enclosure remain untouched. Preflight freezes measured budget: target new shaft bundle ≤2 MiB compressed, shaft ≤50k triangles full/≤15k lite, and ≤25 added inspection draw calls over corresponding baseline. These are implementation targets, not current measurements. Inspect final-camera profile/runout preservation after reduction; adjust documented budgets only with measured visual/performance evidence and cross-provider reviewer agreement. Target full-tier p95 ≤16.7 ms on the named GPU; lite must remain readable at 30 fps. Record device, tier, DPR, bytes, calls and GPU/frame statistics; screenshots cannot establish those quantities.
+
+Separate frame interval, CPU work and GPU timing in performance reports. Calculate percentiles over active machining/assembly intervals; long held frames must not improve the motion statistic. State unavailable timing APIs explicitly rather than filling them with frame interval. Test visible repeated-feature motion at the lite floor for strobing/apparent reverse rotation.
+
+Mobile uses a measured horizontal shaft frame above a fixed DOM card slot when vertical framing would hide the cutter exit. Readable targets at least 44 CSS px; no text/tool overlap at 390×844. Static reduced/poster story contains aligned cutter-exit/groove still, three material failure cards, blank/hobbed comparison, cool illustration, support-before/after and a still assembly. Do not load heavy tools just to show static captions. Fallback must remain operable on denied CAD fetch and real WebGL context loss.
+
+Render budgeted full/narrow raster stills from accepted blockout cameras with text alternatives; static fallback needs neither a working WebGL context nor CAD downloads. Measure caps/detail-strip cost on lite rather than assuming stencil caps are free.
+
+## 7. Build sequence and adversarial reviews
+
+Planning completed here; all implementation boxes remain open.
+
+- [ ] **G0 — Freeze and measure.** Record current dirty/staged ownership, asset hashes, part registry, camera/contact dimensions, placement deltas, tooth clocking, neighbour interference and tool convention/envelopes. Record unresolved machining details without guessing. Preserve accepted CAD. Produce camera blockout and budget baseline.
+- [ ] **G1 — Shared shell and restore.** Extend existing ring lifecycle only after interface agreement. Prove entry/loading/pause/seek/chapter/replay/Return/Escape/focus and exact saved-state restore. Keep both stories JGun-only and no global scroll/ladder delta. Run fresh opening iteration regression.
+- [ ] **G2 — Assets and tooling.** Named full/lite bundle; hashed grooved source, grooved shaping blank and engagement-driven partial/full cutting states; separate revised hobbing blank/states; shaper/hob props, assembled study root, retained-part registry, raster fallback and capped transitions. Validate compression profile error, swept clearance and no double shift.
+- [ ] **G3 — Ring refinements.** Establish both contacts; contact-driven knurl progression; clearance then retract/fade; legible final black relief, with no bore/land contamination.
+- [ ] **G4 — Shaft shaping/materials.** Engagement-driven stock removal, quarter-orbit frame transition, deterministic machining/camera time maps, readable exit/chip/return, resumed slow apparent orbit during rapid-stroke recap, explicitly compressed completion to all ten teeth, three exact cards and local stamps. Verify unchanged groove before redesign and no cutting of empty finished slots.
+- [ ] **G5 — Hobbing/support/finale.** Progressive generating band, correct tool/shaft phase, retained section/cool illustration, final 4340 card, support pair comparison, coherent revised assembly return and explicit narrative restoration.
+- [ ] **G6 — Fallback, runtime, final acceptance.** Fresh production build, static and runtime checks, complete review packet, provider-diverse adversarial reviews, owner runtime visual acceptance. No task closure from historical tests or this plan's reviews.
+
+For each leaf, the producer supplies actual diff/assets, verification commands/results and captures/telemetry. A fresh-context reviewer from a **different provider** returns **ship / fix-first / rethink**, with exact findings and evidence. OpenAI GPT-6.1-Sol work can be tested by Anthropic Sonnet-5.5 or Z.ai GLM-5.3; Z.ai GLM-5.3/Flash work by OpenAI or Anthropic; DeepSeek work by OpenAI/Anthropic/Z.ai. GLM-5.3 reviewing GLM-5.3-Flash is not provider diversity. Use Flash models only where the mechanical/visual judgment is bounded and sufficient. Do not silently substitute unavailable models.
+
+The producer/reviewer provider must differ for **every** leaf, including Anthropic-produced work (reviewed by OpenAI/Z.ai/DeepSeek) and the integration owner's shared-file diff. Mechanical reviewers independently rerun measurement scripts on the hashed inputs, not merely read reported numbers.
+
+Record requested and observed model/provider/effort separately, including routing request IDs; usage is partial if parent data are absent. Reviewer sees the spec, actual diff and evidence, not the producer's self-review. Fix every blocking finding, rerun affected checks, then obtain a fresh reviewer verdict. At final integration use adversarial mechanical, lifecycle/accessibility and visual/performance passes; one reviewer can cover several axes if evidence supports it. Parent independently verifies; technical SHIP does not replace Mark's runtime visual acceptance. No commit/push/deploy is requested by this plan.
+
+## 8. Implementation validation packet
+
+Proportional static checks after code/assets change: `npm run typecheck`, affected meaningful unit tests, full `npm test` at integration, `npm run build`, `node scripts/check-b1b2-contract.mjs`, `npm run check:station2`.
+
+Restart the :4173 preview after **every rebuild**. Existing ring check: `node scripts/verify-ring-inspection.mjs --url=http://localhost:4173 --out=<evidence-dir>`. Extend it or add a shaft verifier once the telemetry contract exists. Opening iteration: `node scripts/verify-jgun-opening.mjs --quick --url=http://localhost:5199` against a confirmed full-tier GPU/dev session; full six-case opening roster only at final integration. A forced-lite capture is valid for lite proof, not full-tier proof; the prior failed run is not an opening regression finding.
+
+Record desktop+narrow, cold/delayed load, blueprint and exploded entry, reduced-mobile, poster/context-loss, every chapter direct seek, reverse/round-trip checkpoints, replay and exit during load/motion/error. Validate live canvas/epoch and actual rendered target regions alongside telemetry. Assert cutter/face/groove visibility and chip placement, exact card content/legibility, OD-only knurl, capped wipe, final ten teeth/profile, bearing/ring +2.75 mm delta with no duplicate offset, correct race/planet/shaft motion, no unsupported FEA labels, and exact context restoration. Include zero console errors, repeated-entry resource census, named performance measurements, and final same-camera before/after/rendered phases for Mark's review.
+
+After warm-up, run five complete entry/exit cycles with no monotonic growth in inspection-owned resources. Test delayed-load → Return → immediate re-entry for stale attachment/camera takeover; manually paused → hidden → visible stays paused. Compare direct seek with continuous playback at the same time/session, including contact, cutter exit, support endpoints and narrative restoration. Rendered captures and telemetry must come from the same settled playhead/session.
+
+Visual reviewers receive short frame sequences of shaping/slowdown, stamps, hobbing and support slide as well as still anchors. Supply contrast-normalized diagnostic crops and region statistics alongside the original dark frames; diagnostic enhancement is not the delivered appearance. Assert generating pitch-point relative velocity with recorded tolerance, engagement-driven shaped/hobbed progression, and the exploded/blueprint entry → assembled shaft finale → full-state restore round trips. Final visual acceptance uses original frames and motion, never vision alone.
+
+Any canonical behavior change discovered during implementation must update animation-spec §5 tables, README ladder and both rig-skill tables in the same commit; this plan intends no ladder change. Record technical proof, rendered visual review and owner acceptance separately.
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/scene/inspection/shaft/story.ts' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 423ms:
+import type { StoryMetadata } from '../story'
+
+/**
+ * Authored story data for the P001835 Input Shaft inspection (JG-035 manufacturing leaf).
+ * Beat anchors are the single source for phase boundaries; runtime code reads this table
+ * instead of scattering constants. 3D machining states, tools and camera curves are not
+ * part of this file (they wait for G0/G2).
+ */
+export type ShaftBeatId =
+  | 'isolate'
+  | 'shaping'
+  | 'slow-exit'
+  | 'recap'
+  | 'materials'
+  | 'revised-blank'
+  | 'hobbing'
+  | 'runout-hold'
+  | 'supports'
+  | 'finale'
+
+export interface ShaftBeat { readonly id: ShaftBeatId; readonly start: number; readonly end: number }
+
+const beat = (id: ShaftBeatId, start: number, end: number): ShaftBeat => Object.freeze({ id, start, end })
+
+/** Contiguous authored beats covering 0..43 s. */
+export const shaftBeats: readonly ShaftBeat[] = Object.freeze([
+  beat('isolate', 0, 2),
+  beat('shaping', 2, 6),
+  beat('slow-exit', 6, 11),
+  beat('recap', 11, 15),
+  beat('materials', 15, 22.6),
+  beat('revised-blank', 22.6, 25),
+  beat('hobbing', 25, 32),
+  beat('runout-hold', 32, 35),
+  beat('supports', 35, 39),
+  beat('finale', 39, 43),
+])
+
+export function shaftBeat(id: ShaftBeatId): ShaftBeat {
+  const found = shaftBeats.find(entry => entry.id === id)
+  if (!found) throw new Error('Unknown shaft beat: ' + id)
+  return found
+}
+
+export const shaftStory: StoryMetadata = Object.freeze({
+  id: 'shaft-p001835',
+  kind: 'shaft',
+  version: 1,
+  duration: 43,
+  chapters: Object.freeze([
+    Object.freeze({ id: 'why-groove', label: 'Why the groove was needed', start: 0, end: 15 }),
+    Object.freeze({ id: 'materials', label: 'Material attempts', start: 15, end: 22.6 }),
+    Object.freeze({ id: 'process', label: 'Changing the process', start: 22.6, end: 35 }),
+    Object.freeze({ id: 'supports', label: 'Moving the supports', start: 35, end: 43 }),
+  ]),
+  assets: Object.freeze([
+    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null }),
+    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null }),
+  ]),
+  entryWindow: Object.freeze([0.12, 0.525] as const),
+  staticAlt: 'shaft-study',
+})
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/scene/inspection/shaft/script.ts' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 413ms:
+import { shaftBeat } from './story'
+
+export type ShaftCardId = 'none' | '4140' | '4340' | 'c300' | '4340-ht'
+export type ShaftStampState = 'none' | 'in' | 'settled'
+export type ShaftStressKind = 'none' | 'warm' | 'cool'
+
+/** Exact authored card strings. Hardness-range hyphens are ASCII U+002D; never normalize them. */
+export const SHAFT_CARD_TEXT = Object.freeze({
+  '4140': 'AISI 4140 (40-45 HRC)',
+  '4340': 'AISI 4340 (48-50 HRC)',
+  'c300': 'C300 (56-58 HRC)',
+  '4340-ht': 'AISI 4340 (H.T. 48-50 HRC)',
+} as const)
+export const SHAFT_STAMP_TEXT = 'FAILED'
+export const SHAFT_ATTRIBUTION_TEXT = 'Earlier material attempts, as recounted by the designer.'
+export const SHAFT_STRESS_CAPTION_TEXT = 'Illustrative stress concentration'
+/** Recap caption; the separator is an em dash (U+2014) exactly as pinned in the manufacturing plan. */
+export const SHAFT_RECAP_CAPTION_TEXT = 'Remaining teeth — time compressed'
+
+export const SHAFT_DURATION = 43
+/** Card cross-fades are distinct: fade-out completes CARD_GAP before the beat end; the next card starts fading in at the next beat start. */
+export const SHAFT_CARD_FADE = 0.14
+export const SHAFT_CARD_GAP = 0.02
+/** Fully readable alloy text held this long before FAILED; the spec floor is 1.0 s. */
+export const SHAFT_READABLE = 1.02
+/** Stamp impulse; the spec ceiling is 0.18 s. */
+export const SHAFT_IMPULSE = 0.15
+/** Unobstructed runout hold after hob withdrawal at 32 s before the cool scan; spec floor 0.8 s. */
+export const SHAFT_RUNOUT_HOLD = 0.8
+export const SHAFT_WARM_SCAN = 1.2
+export const SHAFT_COOL_SCAN = 1.2
+
+const STAMP_OVERSHOOT = 0.5
+const REDUCED_FADE = 0.4
+const COOL_SCAN_START = 32.8
+const FINAL_CARD_START = 33.2
+const COOL_HOLD_END = 34.7
+
+const MATERIALS = shaftBeat('materials')
+const RECAP = shaftBeat('recap')
+const WARM_LEAVE_START = MATERIALS.end
+const WARM_LEAVE_END = shaftBeat('revised-blank').end
+const STUDY_END = shaftBeat('runout-hold').end
+
+export interface ShaftMaterialAttempt { readonly card: '4140' | '4340' | 'c300'; readonly start: number; readonly end: number }
+/** 2.8 + 2.5 + 2.3 = 7.6 s of attempts inside the materials beat (15..22.6). */
+export const SHAFT_MATERIAL_ATTEMPTS: readonly ShaftMaterialAttempt[] = Object.freeze([
+  Object.freeze({ card: '4140', start: 15, end: 17.8 }),
+  Object.freeze({ card: '4340', start: 17.8, end: 20.3 }),
+  Object.freeze({ card: 'c300', start: 20.3, end: 22.6 }),
+])
+
+const CARD_INDEX: Readonly<Record<ShaftCardId, number>> = { none: 0, '4140': 1, '4340': 2, c300: 3, '4340-ht': 4 }
+const STAMP_INDEX: Readonly<Record<ShaftStampState, number>> = { none: 0, in: 1, settled: 2 }
+const STRESS_INDEX: Readonly<Record<ShaftStressKind, number>> = { none: 0, warm: 1, cool: 2 }
+
+export interface ShaftScriptFrame {
+  card: ShaftCardId
+  cardText: string
+  cardOpacity: number
+  stamp: ShaftStampState
+  stampScale: number
+  attribution: boolean
+  remainingTeeth: boolean
+  stressIllustrative: boolean
+  stress: ShaftStressKind
+  stressMix: number
+  scanProgress: number
+  discrete: number
+}
+
+export function createShaftScriptFrame(): ShaftScriptFrame {
+  return {
+    card: 'none', cardText: '', cardOpacity: 0, stamp: 'none', stampScale: 1,
+    attribution: false, remainingTeeth: false, stressIllustrative: false,
+    stress: 'none', stressMix: 0, scanProgress: 0, discrete: 0,
+  }
+}
+
+const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x)
+const ease = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
+
+/**
+ * Closed-form sample of the authored card/stamp/caption/stress schedule.
+ * Pure function of time: identical output for any seek order, no clocks, no randomness,
+ * no allocation. Writes only into the caller-owned out frame and returns it.
+ */
+export function sampleShaftScript(time: number, reducedMotion: boolean, out: ShaftScriptFrame): ShaftScriptFrame {
+  const t = time < 0 ? 0 : time > SHAFT_DURATION ? SHAFT_DURATION : time
+  let card: ShaftCardId = 'none'
+  let cardOpacity = 0
+  let stamp: ShaftStampState = 'none'
+  let stampScale = 1
+  for (const attempt of SHAFT_MATERIAL_ATTEMPTS) {
+    if (t < attempt.start || t >= attempt.end) continue
+    card = attempt.card
+    const stampIn = attempt.start + SHAFT_CARD_FADE + SHAFT_READABLE
+    const settledAt = stampIn + SHAFT_IMPULSE
+    const fadeOutStart = attempt.end - SHAFT_CARD_GAP - SHAFT_CARD_FADE
+    cardOpacity = t < attempt.start + SHAFT_CARD_FADE
+      ? ease((t - attempt.start) / SHAFT_CARD_FADE)
+      : t < fadeOutStart ? 1 : 1 - ease((t - fadeOutStart) / SHAFT_CARD_FADE)
+    stamp = t >= settledAt ? 'settled' : t >= stampIn ? 'in' : 'none'
+    stampScale = reducedMotion || stamp === 'none' || stamp === 'settled' ? 1 : 1 + STAMP_OVERSHOOT * (1 - ease((t - stampIn) / SHAFT_IMPULSE))
+    break
+  }
+  if (t >= FINAL_CARD_START && t < STUDY_END) {
+    card = '4340-ht'
+    cardOpacity = t < FINAL_CARD_START + SHAFT_CARD_FADE
+      ? ease((t - FINAL_CARD_START) / SHAFT_CARD_FADE)
+      : t < STUDY_END - SHAFT_CARD_FADE ? 1 : 1 - ease((t - (STUDY_END - SHAFT_CARD_FADE)) / SHAFT_CARD_FADE)
+    stamp = 'none'
+    stampScale = 1
+  }
+  out.card = card
+  out.cardText = card === 'none' ? '' : SHAFT_CARD_TEXT[card]
+  out.cardOpacity = cardOpacity
+  out.stamp = stamp
+  out.stampScale = stampScale
+  out.attribution = t >= MATERIALS.start && t < MATERIALS.end
+  out.remainingTeeth = t >= RECAP.start && t < RECAP.end
+  let stress: ShaftStressKind = 'none'
+  let stressMix = 0
+  let scanProgress = 0
+  if (t >= MATERIALS.start && t < WARM_LEAVE_END) {
+    stress = 'warm'
+    if (reducedMotion) {
+      scanProgress = 1
+      stressMix = ease((t - MATERIALS.start) / REDUCED_FADE)
+    } else {
+      scanProgress = clamp01((t - MATERIALS.start) / SHAFT_WARM_SCAN)
+      stressMix = ease(scanProgress)
+    }
+    if (t >= WARM_LEAVE_START) stressMix = 1 - ease((t - WARM_LEAVE_START) / (WARM_LEAVE_END - WARM_LEAVE_START))
+  } else if (t >= COOL_SCAN_START && t < STUDY_END) {
+    stress = 'cool'
+    if (reducedMotion) {
+      scanProgress = 1
+      stressMix = ease((t - COOL_SCAN_START) / REDUCED_FADE)
+    } else {
+      scanProgress = clamp01((t - COOL_SCAN_START) / SHAFT_COOL_SCAN)
+      stressMix = ease(scanProgress)
+    }
+    if (t >= COOL_HOLD_END) stressMix = 1 - ease((t - COOL_HOLD_END) / (STUDY_END - COOL_HOLD_END))
+  }
+  out.stress = stress
+  out.stressMix = stressMix
+  out.scanProgress = scanProgress
+  out.stressIllustrative = stress !== 'none'
+  out.discrete = ((((CARD_INDEX[card] * 3 + STAMP_INDEX[stamp]) * 2 + (out.attribution ? 1 : 0)) * 2 + (out.remainingTeeth ? 1 : 0)) * 2 + (out.stressIllustrative ? 1 : 0)) * 3 + STRESS_INDEX[stress]
+  return out
+}
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/scene/inspection/shaft/script.test.ts' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 484ms:
+import { describe, expect, it } from 'vitest'
+import { storyChapterAt } from '../story'
+import { shaftBeat, shaftBeats, shaftStory } from './story'
+import {
+  createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_CARD_GAP, SHAFT_CARD_TEXT, SHAFT_IMPULSE,
+  SHAFT_MATERIAL_ATTEMPTS, SHAFT_RECAP_CAPTION_TEXT, SHAFT_READABLE, SHAFT_STAMP_TEXT, SHAFT_STRESS_CAPTION_TEXT, type ShaftScriptFrame,
+} from './script'
+
+const STEP = 1 / 240
+const DURATION = 43
+const samples = (from: number, to: number): number[] => {
+  const times: number[] = []
+  for (let t = from; t <= to + STEP / 2; t += STEP) times.push(Math.min(t, to))
+  return times
+}
+const snapshot = (f: ShaftScriptFrame): string => JSON.stringify([f.card, f.cardText, f.cardOpacity, f.stamp, f.stampScale, f.attribution, f.remainingTeeth, f.stressIllustrative, f.stress, f.stressMix, f.scanProgress, f.discrete])
+const signature = (f: ShaftScriptFrame): string => [f.card, f.stamp, f.attribution, f.remainingTeeth, f.stressIllustrative, f.stress].join('|')
+const visibleCard = (t: number): string => {
+  const f = sampleShaftScript(t, false, createShaftScriptFrame())
+  return f.cardOpacity > 0.05 ? f.card : 'none'
+}
+
+describe('shaft story metadata', () => {
+  it('exports the exact authored chapters, assets, entry window and static alt', () => {
+    expect(shaftStory.id).toBe('shaft-p001835')
+    expect(shaftStory.kind).toBe('shaft')
+    expect(shaftStory.version).toBe(1)
+    expect(shaftStory.duration).toBe(43)
+    expect(shaftStory.chapters.map(c => [c.id, c.label, c.start, c.end])).toEqual([
+      ['why-groove', 'Why the groove was needed', 0, 15],
+      ['materials', 'Material attempts', 15, 22.6],
+      ['process', 'Changing the process', 22.6, 35],
+      ['supports', 'Moving the supports', 35, 43],
+    ])
+    expect(shaftStory.assets).toHaveLength(2)
+    expect({ ...shaftStory.assets[0] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null })
+    expect({ ...shaftStory.assets[1] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null })
+    expect(shaftStory.assets.filter(a => a.required)).toHaveLength(1)
+    expect([...shaftStory.entryWindow]).toEqual([0.12, 0.525])
+    expect(shaftStory.staticAlt).toBe('shaft-study')
+    expect(Object.isFrozen(shaftStory)).toBe(true)
+    expect(Object.isFrozen(shaftStory.chapters)).toBe(true)
+    for (const chapter of shaftStory.chapters) expect(Object.isFrozen(chapter)).toBe(true)
+  })
+  it('keeps chapters contiguous over 0..43 and resolves them with storyChapterAt', () => {
+    let end = 0
+    for (const chapter of shaftStory.chapters) {
+      expect(chapter.start).toBe(end)
+      expect(chapter.end).toBeGreaterThan(chapter.start)
+      end = chapter.end
+    }
+    expect(end).toBe(shaftStory.duration)
+    expect(storyChapterAt(shaftStory, 0)).toBe(0)
+    expect(storyChapterAt(shaftStory, 14.9)).toBe(0)
+    expect(storyChapterAt(shaftStory, 15)).toBe(1)
+    expect(storyChapterAt(shaftStory, 22.5)).toBe(1)
+    expect(storyChapterAt(shaftStory, 22.6)).toBe(2)
+    expect(storyChapterAt(shaftStory, 34.9)).toBe(2)
+    expect(storyChapterAt(shaftStory, 35)).toBe(3)
+    expect(storyChapterAt(shaftStory, 43)).toBe(3)
+  })
+  it('exports one frozen contiguous beat table covering 0..43', () => {
+    expect(shaftBeats.map(b => [b.id, b.start, b.end])).toEqual([
+      ['isolate', 0, 2],
+      ['shaping', 2, 6],
+      ['slow-exit', 6, 11],
+      ['recap', 11, 15],
+      ['materials', 15, 22.6],
+      ['revised-blank', 22.6, 25],
+      ['hobbing', 25, 32],
+      ['runout-hold', 32, 35],
+      ['supports', 35, 39],
+      ['finale', 39, 43],
+    ])
+    let end = 0
+    for (const b of shaftBeats) {
+      expect(b.start).toBe(end)
+      expect(b.end).toBeGreaterThan(b.start)
+      end = b.end
+      expect(Object.isFrozen(b)).toBe(true)
+    }
+    expect(end).toBe(DURATION)
+    expect(Object.isFrozen(shaftBeats)).toBe(true)
+    expect(shaftBeat('materials')).toMatchObject({ start: 15, end: 22.6 })
+    expect(() => shaftBeat('unknown' as never)).toThrow()
+  })
+})
+
+describe('authored strings', () => {
+  it('matches the exact card, stamp, attribution and caption strings', () => {
+    expect(Object.keys(SHAFT_CARD_TEXT)).toEqual(['4140', '4340', 'c300', '4340-ht'])
+    expect(SHAFT_CARD_TEXT['4140']).toBe('AISI 4140 (40-45 HRC)')
+    expect(SHAFT_CARD_TEXT['4340']).toBe('AISI 4340 (48-50 HRC)')
+    expect(SHAFT_CARD_TEXT['c300']).toBe('C300 (56-58 HRC)')
+    expect(SHAFT_CARD_TEXT['4340-ht']).toBe('AISI 4340 (H.T. 48-50 HRC)')
+    expect(SHAFT_STAMP_TEXT).toBe('FAILED')
+    expect(SHAFT_ATTRIBUTION_TEXT).toBe('Earlier material attempts, as recounted by the designer.')
+    expect(SHAFT_STRESS_CAPTION_TEXT).toBe('Illustrative stress concentration')
+    expect(SHAFT_RECAP_CAPTION_TEXT).toBe('Remaining teeth — time compressed')
+  })
+  it('pins ASCII hyphens in hardness ranges and the single em dash in the recap caption', () => {
+    const dashLike = ['‐', '‑', '‒', '–', '—', '―', '−']
+    for (const text of [...Object.values(SHAFT_CARD_TEXT), SHAFT_ATTRIBUTION_TEXT, SHAFT_STRESS_CAPTION_TEXT, SHAFT_STAMP_TEXT]) {
+      for (const dash of dashLike) expect(text).not.toContain(dash)
+      for (const ch of text) if (ch === '-') expect(ch.charCodeAt(0)).toBe(0x2d)
+    }
+    expect([...SHAFT_RECAP_CAPTION_TEXT].filter(ch => ch === '—')).toHaveLength(1)
+    expect(SHAFT_RECAP_CAPTION_TEXT).not.toContain('-')
+    for (const dash of dashLike.filter(d => d !== '—')) expect(SHAFT_RECAP_CAPTION_TEXT).not.toContain(dash)
+  })
+})
+
+describe('material attempt schedule', () => {
+  it('uses 2.8, 2.5 and 2.3 s attempts starting at 15 inside the materials beat', () => {
+    expect(SHAFT_MATERIAL_ATTEMPTS.map(a => a.card)).toEqual(['4140', '4340', 'c300'])
+    const lengths = SHAFT_MATERIAL_ATTEMPTS.map(a => a.end - a.start)
+    expect(lengths[0]).toBeCloseTo(2.8, 9)
+    expect(lengths[1]).toBeCloseTo(2.5, 9)
+    expect(lengths[2]).toBeCloseTo(2.3, 9)
+    expect(SHAFT_MATERIAL_ATTEMPTS[0].start).toBe(15)
+    expect(SHAFT_MATERIAL_ATTEMPTS[2].end).toBe(22.6)
+    expect(SHAFT_MATERIAL_ATTEMPTS[2].end - SHAFT_MATERIAL_ATTEMPTS[0].start).toBeCloseTo(7.6, 9)
+    let end = 15
+    for (const attempt of SHAFT_MATERIAL_ATTEMPTS) {
+      expect(attempt.start).toBe(end)
+      end = attempt.end
+    }
+    expect(end).toBe(shaftBeat('materials').end)
+  })
+  it('holds readable alloy text >= 1.0 s before FAILED, impulses <= 0.18 s and settles >= 0.8 s', () => {
+    expect(SHAFT_READABLE).toBeGreaterThanOrEqual(1.0)
+    expect(SHAFT_IMPULSE).toBeLessThanOrEqual(0.18)
+    for (const attempt of SHAFT_MATERIAL_ATTEMPTS) {
+      const frame = createShaftScriptFrame()
+      let readable = 0
+      let settledReadable = 0
+      let impulseSamples = 0
+      for (const t of samples(attempt.start, attempt.end - STEP)) {
+        sampleShaftScript(t, false, frame)
+        expect(frame.card).toBe(attempt.card)
+        if (frame.stamp === 'none' && frame.cardOpacity > 0.999) readable += STEP
+        if (frame.stamp === 'in') impulseSamples += 1
+        if (frame.stamp === 'settled' && frame.cardOpacity > 0.999) settledReadable += STEP
+      }
+      expect(readable).toBeGreaterThanOrEqual(1.0 - STEP)
+      expect(impulseSamples).toBeGreaterThan(0)
+      expect(impulseSamples * STEP).toBeLessThanOrEqual(SHAFT_IMPULSE + STEP)
+      expect(settledReadable).toBeGreaterThanOrEqual(0.8 - STEP)
+    }
+  })
+  it('fades each card out distinctly before the next card and never shows two cards', () => {
+    const frame = createShaftScriptFrame()
+    for (let index = 0; index < SHAFT_MATERIAL_ATTEMPTS.length - 1; index++) {
+      const attempt = SHAFT_MATERIAL_ATTEMPTS[index]
+      let gapSamples = 0
+      for (const t of samples(attempt.end - SHAFT_CARD_GAP, attempt.end - STEP / 2)) {
+        sampleShaftScript(t, false, frame)
+        if (frame.card === attempt.card && frame.cardOpacity === 0) gapSamples += 1
+      }
+      expect(gapSamples).toBeGreaterThan(0)
+      sampleShaftScript(attempt.end + STEP, false, frame)
+      expect(frame.card).toBe(SHAFT_MATERIAL_ATTEMPTS[index + 1].card)
+    }
+    const order: string[] = []
+    let last = 'none'
+    for (const t of samples(0, DURATION)) {
+      const visible = visibleCard(t)
+      if (visible !== last) {
+        order.push(visible)
+        last = visible
+      }
+    }
+    expect(order).toEqual(['4140', 'none', '4340', 'none', 'c300', 'none', '4340-ht', 'none'])
+  })
+  it('stamps only inside the three attempts and scales down during the impulse', () => {
+    const frame = createShaftScriptFrame()
+    let lastScale = Number.POSITIVE_INFINITY
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, frame)
+      if (t < 15 || t >= 22.6) expect(frame.stamp).toBe('none')
+      if (frame.stamp === 'in') {
+        expect(frame.stampScale).toBeGreaterThan(1)
+        expect(frame.stampScale).toBeLessThanOrEqual(lastScale + 1e-12)
+        lastScale = frame.stampScale
+      }
+      if (frame.stamp === 'settled') {
+        expect(frame.stampScale).toBe(1)
+        lastScale = Number.POSITIVE_INFINITY
+      }
+      expect(frame.cardOpacity).toBeGreaterThanOrEqual(0)
+      expect(frame.cardOpacity).toBeLessThanOrEqual(1)
+    }
+  })
+})
+
+describe('captions and stress illustration', () => {
+  it('shows attribution throughout 15..22.6 and the recap caption during 11..15', () => {
+    const frame = createShaftScriptFrame()
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, frame)
+      expect(frame.attribution).toBe(t >= 15 && t < 22.6)
+      expect(frame.remainingTeeth).toBe(t >= 11 && t < 15)
+    }
+    sampleShaftScript(15 - 1e-9, false, frame)
+    expect(frame.attribution).toBe(false)
+    sampleShaftScript(15, false, frame)
+    expect(frame.attribution).toBe(true)
+    sampleShaftScript(22.6 - 1e-9, false, frame)
+    expect(frame.attribution).toBe(true)
+    sampleShaftScript(22.6, false, frame)
+    expect(frame.attribution).toBe(false)
+  })
+  it('runs one warm scan from 15, holds to 22.6 and leaves with the old geometry by 25', () => {
+    const frame = createShaftScriptFrame()
+    let scans = 0
+    let inScan = false
+    let lastMix = -1
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, frame)
+      if (t >= 15 && t < 25) {
+        expect(frame.stress).toBe('warm')
+        if (frame.scanProgress > 0 && frame.scanProgress < 1) {
+          if (!inScan) {
+            scans += 1
+            inScan = true
+          }
+        } else if (frame.scanProgress === 1) inScan = false
+        if (t >= 16.2 && t < 22.6) {
+          expect(frame.scanProgress).toBe(1)
+          expect(frame.stressMix).toBe(1)
+        }
+        if (t > 22.6 && t < 25) expect(frame.stressMix).toBeLessThanOrEqual(lastMix + 1e-12)
+        lastMix = frame.stressMix
+      } else {
+        expect(frame.stress).not.toBe('warm')
+      }
+    }
+    expect(scans).toBe(1)
+    sampleShaftScript(25 - 1e-9, false, frame)
+    expect(frame.stress).toBe('warm')
+    expect(frame.stressMix).toBeLessThan(0.02)
+    sampleShaftScript(25, false, frame)
+    expect(frame.stress).toBe('none')
+    expect(frame.stressMix).toBe(0)
+    expect(frame.scanProgress).toBe(0)
+  })
+  it('starts the cool scan only after the 0.8 s runout hold and holds the final card to 35', () => {
+    const frame = createShaftScriptFrame()
+    let scans = 0
+    let inScan = false
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, frame)
+      if (t < 32.8) expect(frame.stress).not.toBe('cool')
+      if (t >= 32.8 && t < 35) {
+        expect(frame.stress).toBe('cool')
+        expect(frame.stamp).toBe('none')
+        if (frame.scanProgress > 0 && frame.scanProgress < 1) {
+          if (!inScan) {
+            scans += 1
+            inScan = true
+          }
+        } else if (frame.scanProgress === 1) inScan = false
+        if (t >= 34 && t < 34.7) {
+          expect(frame.scanProgress).toBe(1)
+          expect(frame.stressMix).toBe(1)
+        }
+      }
+    }
+    expect(scans).toBe(1)
+    sampleShaftScript(32.8 - 1e-9, false, frame)
+    expect(frame.stress).toBe('none')
+    sampleShaftScript(32.8, false, frame)
+    expect(frame.stress).toBe('cool')
+    sampleShaftScript(33.2 - 1e-9, false, frame)
+    expect(frame.card).toBe('none')
+    sampleShaftScript(33.2, false, frame)
+    expect(frame.card).toBe('4340-ht')
+    expect(frame.cardText).toBe('AISI 4340 (H.T. 48-50 HRC)')
+    expect(frame.stamp).toBe('none')
+    sampleShaftScript(33.5, false, frame)
+    expect(frame.cardOpacity).toBe(1)
+    sampleShaftScript(34.8, false, frame)
+    expect(frame.cardOpacity).toBe(1)
+    sampleShaftScript(35 - 1e-9, false, frame)
+    expect(frame.card).toBe('4340-ht')
+    sampleShaftScript(35, false, frame)
+    expect(frame.card).toBe('none')
+    expect(frame.stress).toBe('none')
+  })
+})
+
+describe('determinism, reduced motion and the discrete key', () => {
+  it('is a pure function of time with identical output for any seek order', () => {
+    let seed = 0x2f6e2b1
+    const next = () => {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0
+      return seed / 4294967296
+    }
+    const times = Array.from({ length: 500 }, () => next() * 43)
+    const expected = new Map(times.map(t => [t, snapshot(sampleShaftScript(t, false, createShaftScriptFrame()))]))
+    const shuffled = [...times].sort(() => next() - 0.5)
+    const frame = createShaftScriptFrame()
+    for (const t of shuffled) {
+      sampleShaftScript(t, false, frame)
+      expect(snapshot(frame)).toBe(expected.get(t))
+    }
+    expect(snapshot(sampleShaftScript(-5, false, createShaftScriptFrame()))).toBe(snapshot(sampleShaftScript(0, false, createShaftScriptFrame())))
+    expect(snapshot(sampleShaftScript(99, false, createShaftScriptFrame()))).toBe(snapshot(sampleShaftScript(43, false, createShaftScriptFrame())))
+  })
+  it('writes into a caller-owned frame without adding keys', () => {
+    const frame = createShaftScriptFrame()
+    const keysBefore = Object.keys(frame).slice().sort().join(',')
+    expect(sampleShaftScript(16.2, false, frame)).toBe(frame)
+    for (let i = 0; i < 240; i++) sampleShaftScript(i * 0.25, i % 3 === 0, frame)
+    expect(Object.keys(frame).slice().sort().join(',')).toBe(keysBefore)
+  })
+  it('removes the stamp impulse and scan sweep under reduced motion but keeps fades', () => {
+    const normal = createShaftScriptFrame()
+    const reduced = createShaftScriptFrame()
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, normal)
+      sampleShaftScript(t, true, reduced)
+      expect(reduced.stampScale).toBe(1)
+      expect(reduced.scanProgress === 0 || reduced.scanProgress === 1).toBe(true)
+      expect(reduced.discrete).toBe(normal.discrete)
+      expect(reduced.cardOpacity).toBe(normal.cardOpacity)
+    }
+    sampleShaftScript(15.2, true, reduced)
+    expect(reduced.stressMix).toBeGreaterThan(0)
+    expect(reduced.stressMix).toBeLessThan(1)
+    sampleShaftScript(32.9, true, reduced)
+    expect(reduced.stressMix).toBeGreaterThan(0)
+    expect(reduced.stressMix).toBeLessThan(1)
+  })
+  it('changes the discrete key exactly when the discrete state changes', () => {
+    const frame = createShaftScriptFrame()
+    let prevKey: number | null = null
+    let prevSig = ''
+    const changeTimes: number[] = []
+    for (const t of samples(0, DURATION)) {
+      sampleShaftScript(t, false, frame)
+      const sig = signature(frame)
+      if (prevKey !== null) {
+        expect(frame.discrete !== prevKey).toBe(sig !== prevSig)
+        if (frame.discrete !== prevKey) changeTimes.push(t)
+      }
+      prevKey = frame.discrete
+      prevSig = sig
+    }
+    expect(changeTimes).toHaveLength(15)
+    expect(changeTimes.map(t => Number(t.toFixed(2)))).toEqual([11, 15, 16.16, 16.31, 17.8, 18.96, 19.11, 20.3, 21.46, 21.61, 22.6, 25, 32.8, 33.2, 35])
+  })
+})
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/components/ShaftStoryLayer.tsx' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 446ms:
+import { useEffect, useRef, useState } from 'react'
+import {
+  createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_RECAP_CAPTION_TEXT, SHAFT_STAMP_TEXT, SHAFT_STRESS_CAPTION_TEXT,
+  type ShaftScriptFrame,
+} from '../scene/inspection/shaft/script'
+import './ShaftStoryLayer.css'
+
+export interface ShaftStoryLayerProps { readonly time: number; readonly reducedMotion: boolean }
+
+/**
+ * Authored transcript of the four shaft chapters. Screen-reader available, visually hidden.
+ * Undercut is glossed exactly once: the cutter runout/relief groove, distinct from the
+ * involute tooth-root undercut.
+ */
+const SHAFT_TRANSCRIPT: readonly { readonly heading: string; readonly body: string }[] = Object.freeze([
+  Object.freeze({
+    heading: 'Why the groove was needed',
+    body: 'A gear shaper strokes a disc cutter along each tooth. To finish the tooth, the cutter has to travel past the end of the face and throw its chip into open space, so the original shaft had a narrow groove just below the gear. That groove is the undercut in this story: the cutter runout and relief groove, distinct from the involute tooth-root undercut of a gear tooth.',
+  }),
+  Object.freeze({
+    heading: 'Material attempts',
+    body: 'Three materials were tried in the grooved blank: AISI 4140 (40-45 HRC), AISI 4340 (48-50 HRC), and C300 (56-58 HRC). Each attempt was marked FAILED; these attempts are recounted by the designer.',
+  }),
+  Object.freeze({
+    heading: 'Changing the process',
+    body: 'The failed groove design was replaced by a revised smooth blank, cut by rotary hobbing so all ten teeth formed with the approved lead-out. The revised shaft is AISI 4340 (H.T. 48-50 HRC), shown with an illustrative stress concentration rather than a certified result.',
+  }),
+  Object.freeze({
+    heading: 'Moving the supports',
+    body: 'With the new geometry settled, the bearing and retaining-ring pair moved 2.75 millimetres into the approved final placement beside a matching housing support, and the revised assembly study returns around the operating gear train.',
+  }),
+])
+
+function buildAnnouncement(frame: ShaftScriptFrame): string {
+  const parts: string[] = []
+  if (frame.card !== 'none') parts.push(frame.cardText)
+  if (frame.stamp === 'settled') parts.push(SHAFT_STAMP_TEXT)
+  if (frame.remainingTeeth) parts.push(SHAFT_RECAP_CAPTION_TEXT)
+  if (frame.attribution) parts.push(SHAFT_ATTRIBUTION_TEXT)
+  if (frame.stressIllustrative) parts.push(SHAFT_STRESS_CAPTION_TEXT)
+  return parts.join('; ')
+}
+
+/**
+ * DOM card layer for the shaft inspection story. Renders the material cards, FAILED stamp,
+ * attribution and captions from the closed-form sampler. Not mounted anywhere in the app;
+ * nothing here registers a story or owns narrative state.
+ */
+export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
+  const frameRef = useRef<ShaftScriptFrame | null>(null)
+  if (!frameRef.current) frameRef.current = createShaftScriptFrame()
+  const frame = sampleShaftScript(time, reducedMotion, frameRef.current)
+  const [status, setStatus] = useState({ version: 0, text: '' })
+  useEffect(() => {
+    setStatus(previous => ({ version: previous.version + 1, text: buildAnnouncement(frame) }))
+  }, [frame.discrete])
+  return <div className="shaft-story-layer">
+    {frame.card !== 'none' && <div className="shaft-card-slot" data-shaft-card="">
+      <div className="shaft-card" style={{ opacity: frame.cardOpacity }} aria-hidden={frame.cardOpacity < 0.02}>
+        <p className="shaft-card-text">{frame.cardText}</p>
+        {frame.stamp !== 'none' && <span key={frame.cardText} className={'shaft-stamp' + (reducedMotion ? '' : ' shaft-stamp-impulse')}>{SHAFT_STAMP_TEXT}</span>}
+      </div>
+    </div>}
+    {frame.attribution && <p className="shaft-attribution" data-shaft-attribution="">{SHAFT_ATTRIBUTION_TEXT}</p>}
+    {frame.remainingTeeth && <p className="shaft-caption shaft-caption-recap" data-shaft-recap="">{SHAFT_RECAP_CAPTION_TEXT}</p>}
+    {frame.stressIllustrative && <p className="shaft-caption shaft-caption-stress" data-shaft-stress="">{SHAFT_STRESS_CAPTION_TEXT}</p>}
+    <p role="status" aria-live="polite" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
+    <div className="shaft-visually-hidden" data-shaft-transcript="">
+      <h2>P001835 Input Shaft manufacturing study transcript</h2>
+      {SHAFT_TRANSCRIPT.map(section => <section key={section.heading}>
+        <h3>{section.heading}</h3>
+        <p>{section.body}</p>
+      </section>)}
+    </div>
+  </div>
+}
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/components/ShaftStoryLayer.css' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 707ms:
+/* Shaft inspection DOM card layer (JG-035 manufacturing leaf). Not mounted by the app. */
+.shaft-story-layer{position:absolute;inset:0;pointer-events:none;font-family:inherit}
+.shaft-card-slot{position:absolute;top:16%;right:8%;width:min(420px,44%)}
+.shaft-card{background:#0b141d;border:1px solid #2b3d4c;border-radius:6px;padding:18px 22px 20px;box-shadow:0 10px 32px rgba(0,0,0,.6)}
+.shaft-card-text{margin:0;color:#eaf2f8;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:34px;line-height:1.1;font-weight:600;letter-spacing:0;overflow-wrap:break-word}
+.shaft-stamp{display:inline-block;margin-top:14px;padding:2px 14px 4px;border:3px solid #ff7a6b;border-radius:4px;color:#ff7a6b;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:0;transform:rotate(-4deg);transform-origin:center}
+.shaft-stamp-impulse{animation:shaft-stamp-settle .15s cubic-bezier(.2,.75,.3,1) both}
+@keyframes shaft-stamp-settle{0%{transform:rotate(-4deg) scale(1.5)}62%{transform:rotate(-4deg) scale(.94)}100%{transform:rotate(-4deg) scale(1)}}
+.shaft-attribution{position:absolute;left:8%;bottom:8%;max-width:min(380px,42%);margin:0;padding:8px 12px;background:#0b141d;border-radius:4px;font-size:13px;line-height:1.5;color:#cfdce6}
+.shaft-caption{position:absolute;left:8%;bottom:calc(8% + 58px);max-width:min(340px,42%);margin:0;padding:6px 10px;background:#0b141d;border-radius:4px;font-size:12px;line-height:1.45;color:#cfdce6}
+.shaft-caption-recap{bottom:8%}
+.shaft-visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+@media(max-width:600px){
+  .shaft-card-slot{top:auto;bottom:calc(8% + 112px);left:8%;right:8%;width:auto}
+  .shaft-card{padding:12px 16px 14px}
+  .shaft-card-text{font-size:24px}
+  .shaft-stamp{font-size:22px;margin-top:10px}
+  .shaft-attribution{left:8%;right:8%;bottom:8%;max-width:none;font-size:12px}
+  .shaft-caption{left:8%;right:8%;bottom:calc(8% + 54px);max-width:none;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.shaft-stamp-impulse{animation:none}}
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'src/scene/inspection/story.ts' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"ShaftStoryLayer|shaft/story|shaft/script|sampleShaftScript|shaftStory\" src --glob '"'!src/scene/inspection/shaft/**'"'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "ShaftStoryLayer|shaftStory" src/main.tsx src/App.tsx 2>$null; rg -n "manufacturing-core" src' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "registerStory" src' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 670ms:
+src\components\ShaftStoryLayer.tsx:3:  createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_RECAP_CAPTION_TEXT, SHAFT_STAMP_TEXT, SHAFT_STRESS_CAPTION_TEXT,
+src\components\ShaftStoryLayer.tsx:5:} from '../scene/inspection/shaft/script'
+src\components\ShaftStoryLayer.tsx:6:import './ShaftStoryLayer.css'
+src\components\ShaftStoryLayer.tsx:8:export interface ShaftStoryLayerProps { readonly time: number; readonly reducedMotion: boolean }
+src\components\ShaftStoryLayer.tsx:49:export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
+src\components\ShaftStoryLayer.tsx:52:  const frame = sampleShaftScript(time, reducedMotion, frameRef.current)
+
+hook: PostToolUse
+ succeeded in 1323ms:
+import type { Color, Object3D, Scene, Vector3, WebGLRenderer } from 'three'
+import type { StorySession } from './session'
+
+export type StoryKind = 'ring' | 'shaft'
+export type StoryId = 'ring-p003068' | 'shaft-p001835'
+export interface StoryChapter { readonly id: string; readonly label: string; readonly start: number; readonly end: number }
+export interface StoryAsset {
+  readonly id: string
+  readonly url: string
+  readonly tier: 'full' | 'lite' | 'both'
+  readonly required: boolean
+  readonly maxBytes: number
+  readonly sha256: string | null
+}
+export interface StoryContext { gl: WebGLRenderer; scene: Scene; hero: Object3D; rig: unknown; tier: 'full' | 'lite'; aspect: number }
+export interface StoryFrame {
+  time: number; chapter: number; phase: string; discrete: number
+  narrativeAlpha: number; returnBlend: number; ownsNarrative: boolean
+}
+export interface InspectionCameraSample { valid: boolean; position: Vector3; target: Vector3; up: Vector3; fov: number }
+export interface RenderSample {
+  background: Color; fogNear: number; fogFar: number; envIntensity: number; envRotationY: number
+  bloom: number; aberration: number; dofBokeh: number; exposure: number
+}
+export interface StoryRuntime {
+  readonly root: Object3D
+  readonly ready: Promise<void>
+  readonly frame: StoryFrame
+  readonly camera: InspectionCameraSample
+  readonly render: RenderSample
+  sample(time: number): void
+  apply(): void
+  telemetry(out: Record<string, unknown>): void
+  readonly resources: { geometries: number; materials: number; textures: number; meshes: number }
+  dispose(): void
+}
+export interface StoryDescriptor {
+  readonly id: StoryId
+  readonly kind: StoryKind
+  readonly version: 1
+  readonly duration: number
+  readonly chapters: readonly StoryChapter[]
+  readonly assets: readonly StoryAsset[]
+  readonly entryWindow: readonly [number, number]
+  readonly staticAlt: string
+  create(session: StorySession, ctx: StoryContext): StoryRuntime
+}
+export type StoryMetadata = Omit<StoryDescriptor, 'create'>
+
+// The existing ring scene is the adapter until integration registers its factory.
+export const ringStory: StoryMetadata = Object.freeze({
+  id: 'ring-p003068', kind: 'ring', version: 1, duration: 12,
+  chapters: Object.freeze([Object.freeze({ id: 'finish', label: 'Finish study', start: 0, end: 12 })]),
+  assets: Object.freeze([Object.freeze({ id: 'knurling-tool', url: 'models/knurling-tool.glb', tier: 'both', required: true, maxBytes: 2 * 1024 * 1024, sha256: 'e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8' })]),
+  entryWindow: Object.freeze([0.12, 0.525] as const), staticAlt: 'ring-finish',
+})
+const stories = new Map<StoryId, StoryDescriptor>()
+
+export function registerStory(descriptor: StoryDescriptor): () => void {
+  if ((descriptor.id === 'ring-p003068') !== (descriptor.kind === 'ring') || descriptor.version !== 1 || typeof descriptor.create !== 'function') throw new Error('Invalid inspection story')
+  if (!Number.isFinite(descriptor.duration) || descriptor.duration <= 0 || !descriptor.chapters.length) throw new Error('Invalid inspection duration')
+  let end = 0
+  for (const chapter of descriptor.chapters) {
+    if (!chapter.id || !chapter.label || chapter.start !== end || !Number.isFinite(chapter.end) || chapter.end <= chapter.start) throw new Error('Inspection chapters must be contiguous')
+    end = chapter.end
+  }
+  if (end !== descriptor.duration) throw new Error('Inspection chapters must cover the duration')
+  if (descriptor.kind === 'shaft' && !descriptor.assets.some(asset => asset.required)) throw new Error('Shaft inspection requires its asset bundle')
+  for (const asset of descriptor.assets) {
+    if (!asset.id || !asset.url || !Number.isFinite(asset.maxBytes) || asset.maxBytes <= 0) throw new Error('Invalid inspection asset')
+  }
+  if (stories.has(descriptor.id)) throw new Error('Inspection story already registered')
+  const registered: StoryDescriptor = Object.freeze({ ...descriptor,
+    chapters: Object.freeze(descriptor.chapters.map(chapter => Object.freeze({ ...chapter }))),
+    assets: Object.freeze(descriptor.assets.map(asset => Object.freeze({ ...asset }))),
+    entryWindow: Object.freeze([...descriptor.entryWindow] as [number, number]),
+  })
+  stories.set(descriptor.id, registered)
+  return () => { if (stories.get(descriptor.id) === registered) stories.delete(descriptor.id) }
+}
+export function getStoryDescriptor(id: StoryId): StoryDescriptor | undefined { return stories.get(id) }
+export function getStory(id: StoryId): StoryMetadata {
+  const descriptor = stories.get(id)
+  if (descriptor) return descriptor
+  if (id === ringStory.id) return ringStory
+  throw new Error('The shaft inspection is not available yet')
+}
+export function storyChapterAt(story: StoryMetadata, time: number): number {
+  for (let index = story.chapters.length - 1; index > 0; index--) if (time >= story.chapters[index].start) return index
+  return 0
+}
+
+
+hook: PostToolUse
+ succeeded in 1896ms:
+src\scene\inspection\shaft\script.test.ts:36:    expect({ ...shaftStory.assets[0] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null })
+src\scene\inspection\shaft\script.test.ts:37:    expect({ ...shaftStory.assets[1] }).toEqual({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null })
+src\scene\inspection\shaft\story.ts:57:    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-full.glb', tier: 'full', required: true, maxBytes: 2 * 1024 * 1024, sha256: null }),
+src\scene\inspection\shaft\story.ts:58:    Object.freeze({ id: 'manufacturing-core', url: 'models/manufacturing-core-lite.glb', tier: 'lite', required: false, maxBytes: 2 * 1024 * 1024, sha256: null }),
+
+hook: PostToolUse
+ succeeded in 2378ms:
+src\state\inspectionStore.test.ts:4:import { registerStory, ringStory, type StoryDescriptor, type StoryRuntime } from '../scene/inspection/story'
+src\state\inspectionStore.test.ts:139:    const unregister = registerStory(descriptor)
+src\scene\inspection\InspectionScene.tsx:9:import { getStoryDescriptor, registerStory, ringStory, type StoryContext } from './story'
+src\scene\inspection\InspectionScene.tsx:13:const unregisterRing = getStoryDescriptor(ringStory.id) ? null : registerStory({ ...ringStory, create: createRingRuntime })
+src\scene\inspection\story.ts:59:export function registerStory(descriptor: StoryDescriptor): () => void {
+src\scene\inspection\story.test.ts:2:import { getStory, getStoryDescriptor, registerStory, ringStory, storyChapterAt, type StoryDescriptor } from './story'
+src\scene\inspection\story.test.ts:9:    expect(() => registerStory({ ...descriptor(), id: 'shaft-p001835', kind: 'shaft', assets: [] })).toThrow('asset bundle')
+src\scene\inspection\story.test.ts:10:    expect(() => registerStory({ ...descriptor(), create: undefined } as unknown as StoryDescriptor)).toThrow('Invalid inspection story')
+src\scene\inspection\story.test.ts:13:    expect(() => registerStory({ ...descriptor(), duration: NaN })).toThrow('duration')
+src\scene\inspection\story.test.ts:14:    expect(() => registerStory({ ...descriptor(), duration: 20 })).toThrow('cover the duration')
+src\scene\inspection\story.test.ts:15:    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Gap', start: 1, end: 12 }] })).toThrow('contiguous')
+src\scene\inspection\story.test.ts:16:    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Bad', start: 0, end: NaN }] })).toThrow('contiguous')
+src\scene\inspection\story.test.ts:19:    const input = descriptor(), unregister = registerStory(input)
+src\scene\inspection\story.test.ts:23:      expect(() => registerStory(input)).toThrow('already registered')
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run src/scene/inspection/shaft 2>&1 | Select-Object -Last 60' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 21520ms:
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+
+failed to load config from C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\vite.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../..": Access is denied.
+error: Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+    at failureErrorWithLog (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1752:15)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1211:25
+    at runOnEndCallbacks (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1592:45)
+    at buildResponseToResult (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1209:7)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Sandbox blocks esbuild from loading the Vite config, so the vitest run can't start here. I'll verify the sampler's numerics independently by replicating its exact logic in-isolate and sweeping at 1/240 s.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$s = Get-Content -Raw '"'src/scene/inspection/shaft/script.ts'
+"'$m = [regex]::Match($s, "SHAFT_RECAP_CAPTION_TEXT = '"'(.*)'\")
+"'$cap = $m.Groups[1].Value
+"CAP=" + $cap
+"CAP_CODES=" + (($cap.ToCharArray() | ForEach-Object { [int][char]$_ }) -join '"',')
+"'$h = [regex]::Match($s, "'"'AISI 4140 (40-45 HRC)'\").Value
+\"H4140_CODES=\" + (("'$h.ToCharArray() | ForEach-Object { [int][char]$_ }) -join '"',')
+"'$att = [regex]::Match($s, "SHAFT_ATTRIBUTION_TEXT = '"'(.*)'\").Groups[1].Value
+\"ATT=\" + "'$att
+$st = [regex]::Match($s, "SHAFT_STRESS_CAPTION_TEXT = '"'(.*)'\").Groups[1].Value
+\"STRESSCAP=\" + "'$st
+"---- css ----"
+$css = Get-Content -Raw '"'src/components/ShaftStoryLayer.css'
+\"vwOrVh=\" + ([regex]::Matches("'$css, '"'[0-9](vw|vh|vmin|vmax)').Count)
+\"fontsizeCount=\" + ([regex]::Matches("'$css,'"'font-size').Count)
+\"letterSpacingLines:\"
+("'$css -split "`n") | Select-String '"'letter-spacing'
+\"---- transcript ----\"
+"'$tsx = Get-Content -Raw '"'src/components/ShaftStoryLayer.tsx'
+\"undercut_count=\" + ([regex]::Matches("'$tsx,'"'undercut')).Count
+\"FEA=\" + ([regex]::Matches("'$tsx,'"'FEA|safety factor|stresss*=s*d|MPa|psi')).Count
+\"rmClass=\" + ([regex]::Matches("'$tsx,'"'prefers-reduced-motion')).Count
+" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 880ms:
+CAP=Remaining teeth — time compressed
+CAP_CODES=82,101,109,97,105,110,105,110,103,32,116,101,101,116,104,32,8212,32,116,105,109,101,32,99,111,109,112,114,101,115,115,101,100
+H4140_CODES=
+ATT=Earlier material attempts, as recounted by the designer.
+STRESSCAP=Illustrative stress concentration
+---- css ----
+vwOrVh=0
+fontsizeCount=8
+letterSpacingLines:
+
+.shaft-card-text{margin:0;color:#eaf2f8;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:34p
+x;line-height:1.1;font-weight:600;letter-spacing:0;overflow-wrap:break-word}
+.shaft-stamp{display:inline-block;margin-top:14px;padding:2px 14px 4px;border:3px solid 
+#ff7a6b;border-radius:4px;color:#ff7a6b;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:30p
+x;line-height:1.1;font-weight:800;letter-spacing:0;transform:rotate(-4deg);transform-origin:center}
+---- transcript ----
+undercut_count=3
+FEA=0
+rmClass=0
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$s = Get-Content -Raw '"'src/scene/inspection/shaft/script.ts'
+"'$lines = ($s -split "`n") | Where-Object { $_ -match '"'AISI 4140|AISI 4340 (|C300 (' }
+foreach("'$l in $lines){
+  $tri = $l.Trim()
+  $codes = (($tri.ToCharArray() | ForEach-Object { [int][char]$_ }) -join '"',')
+  \"LINE: \" + "'$tri
+  "CODES: " + $codes
+  "---"
+}
+"=== server check ==="
+try { (Invoke-WebRequest -UseBasicParsing -Uri '"'http://localhost:5199' -TimeoutSec 3).StatusCode } catch { \"NO_SERVER: \" + "'$_.Exception.Message }
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 890ms:
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+=== server check ===   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+OperationStopped: 
+Line |
+   3 |  … lit "`n") | Where-Object { $_ -match 'AISI 4140|AISI 4340 (|C300 (' }
+     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Invalid pattern 'AISI 4140|AISI 4340 (|C300 (' at offset 28. Not enough )'s.
+200
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$s = Get-Content -Raw '"'src/scene/inspection/shaft/script.ts'
+"'$frags = @('"'AISI 4140 (40-45 HRC)','AISI 4340 (48-50 HRC)','C300 (56-58 HRC)','AISI 4340 (H.T. 48-50 HRC)')
+foreach("'$fr in $frags){
+  $i = $s.IndexOf($fr)
+  $codes = -join (($fr.ToCharArray() | ForEach-Object { (([int][char]$_).ToString()) + '"',' }))
+  \"FOUND="'$($i -ge 0) CODES=$codes"
+}
+"EMDASH_PRESENT=" + ($s.IndexOf([char]0x2014) -ge 0)
+"EN_DASH_PRESENT=" + ($s.IndexOf([char]0x2013) -ge 0)
+"MINUS_PRESENT=" + ($s.IndexOf([char]0x2212) -ge 0)
+"---- evidence dir ----"
+Get-ChildItem -LiteralPath '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/' | Select-Object Name,Length | Format-Table -AutoSize | Out-String
+" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 449ms:
+FOUND=True CODES=65,73,83,73,32,52,49,52,48,32,40,52,48,45,52,53,32,72,82,67,41,
+FOUND=True CODES=65,73,83,73,32,52,51,52,48,32,40,52,56,45,53,48,32,72,82,67,41,
+FOUND=True CODES=67,51,48,48,32,40,53,54,45,53,56,32,72,82,67,41,
+FOUND=True CODES=65,73,83,73,32,52,51,52,48,32,40,72,46,84,46,32,52,56,45,53,48,32,72,82,67,41,
+EMDASH_PRESENT=True
+EN_DASH_PRESENT=False
+MINUS_PRESENT=False
+---- evidence dir ----
+
+Name                            Length
+----                            ------
+desktop-t12.png                   9737
+desktop-t15_8.png                19547
+desktop-t16_5.png                22532
+desktop-t17_5.png                24743
+desktop-t21.png                  20180
+desktop-t33_5.png                19020
+harness.html                       312
+harness.tsx                       1845
+independent-review-deepseek.log 142887
+narrow-t12.png                    6481
+narrow-t15_8.png                 14272
+narrow-t16_5.png                 15180
+narrow-t17_5.png                 17837
+narrow-t21.png                   14429
+narrow-t33_5.png                 12991
+report.json                      21437
+verify-shaft-script.mjs          14649
+
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$j = Get-Content -Raw '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/report.json' | ConvertFrom-Json
+\"TOPKEYS: \" + (("'$j.PSObject.Properties.Name) -join '"', ')
+\"pass=\" + "'$j.pass
+"summary=" + ($j.summary | Out-String)
+"consoleErrors=" + $j.consoleErrors
+"ariaChanges=" + $j.ariaAnnouncementCount + " / " + $j.expectedDiscreteChanges
+"contrast=" + ($j.contrast | ConvertTo-Json -Compress)
+"captures:"
+$j.captures | ForEach-Object { "  t=" + $_.t + " vp=" + $_.viewport + " ok=" + $_.ok + " card=" + $_.card }
+"overlap=" + ($j.overlap | ConvertTo-Json -Compress)
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 484ms:
+TOPKEYS: url, command, started, cases, transcript, sweep, consoleErrors, failures, result
+pass=
+summary=
+consoleErrors=
+ariaChanges= / 
+contrast=null
+captures:
+  t= vp= ok= card=
+overlap=null
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$j = Get-Content -Raw '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/report.json' | ConvertFrom-Json
+\"result=\" + ("'$j.result | ConvertTo-Json -Depth 4 -Compress)
+"failures=" + ($j.failures | ConvertTo-Json -Depth 4 -Compress)
+"consoleErrors=" + ($j.consoleErrors | ConvertTo-Json -Depth 4 -Compress)
+"sweep=" + ($j.sweep | ConvertTo-Json -Depth 4 -Compress)
+"transcript=" + ($j.transcript | ConvertTo-Json -Depth 4 -Compress)
+"casesCount=" + ($j.cases.Count)
+"case0keys=" + (($j.cases[0].PSObject.Properties.Name) -join '"',')
+\"case0=\" + ("'$j.cases[0] | ConvertTo-Json -Depth 4 -Compress)
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 461ms:
+result="pass"
+failures=
+consoleErrors=
+sweep={"domChanges":[{"t":11,"version":13},{"t":15,"version":14},{"t":16.2,"version":15},{"t":16.35,"version":16},{"t":17.8,"version":17},{"t":19,"version":18},{"t":19.150000000000002,"version":19},{"t":20.3,"version":20},{"t":21.5,"version":21},{"t":21.650000000000002,"version":22},{"t":22.6,"version":23},{"t":25,"version":24},{"t":32.800000000000004,"version":25},{"t":33.2,"version":26},{"t":35,"version":27}],"domCount":15,"expectedCoarse":15,"expectedFine":15}
+transcript={"chaptersChecked":4,"undercutOccurrences":2}
+casesCount=10
+case0keys=viewport,viewportSize,t,expectations,dom,screenshot
+case0={"viewport":"desktop","viewportSize":"1440x900","t":15.8,"expectations":{"t":15.8,"card":"AISI 4140 (40-45 HRC)","stamp":false,"attribution":true,"stress":true,"recap":false},"dom":{"card":{"text":"AISI 4140 (40-45 HRC)","color":[234,242,248],"background":[11,20,29],"contrast":16.390680478992337,"box":{"left":927.8125,"top":163,"right":1301.8125,"bottom":200.390625,"width":374,"height":37.390625}},"stamp":null,"attribution":{"text":"Earlier material attempts, as recounted by the designer.","color":[207,220,230],"background":[11,20,29],"contrast":13.279636649609206,"box":{"left":115.1875,"top":792.5,"right":455.09375,"bottom":828,"width":339.90625,"height":35.5}},"recap":null,"stress":{"text":"Illustrative stress concentration","color":[207,220,230],"background":[11,20,29],"contrast":13.279636649609206,"box":{"left":115.1875,"top":740.609375,"right":298.90625,"bottom":770,"width":183.71875,"height":29.390625}},"cardWrapperOpacity":"1","statusRole":"status","ariaLive":"polite","overflow":{"scrollWidth":1440,"scrollHeight":900,"innerWidth":1440,"innerHeight":900}},"screenshot":"desktop-t15_8.png"}
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$j = Get-Content -Raw '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/report.json' | ConvertFrom-Json
+foreach("'$c in $j.cases){
+  $card=$c.dom.card
+  $stamp=$c.dom.stamp
+  $ov=$c.dom.overflow
+  "vp=$($c.viewport) t=$($c.t) card='"'"'$($card.text)'"' cbox=["'$($card.box.left),$($card.box.top),$($card.box.right),$($card.box.bottom)] stamp='"'"'$($stamp.text)'"' sbox="'$($stamp.box) overflow=$($ov.scrollWidth)x$($ov.scrollHeight) inner=$($ov.innerWidth)x$($ov.innerHeight)"
+}
+"--- expectations per t ---"
+foreach($c in $j.cases){ "$($c.viewport) t=$($c.t) exp=" + ($c.expectations | ConvertTo-Json -Compress) }
+"--- failures ---"
+$j.failures
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 460ms:
+vp=desktop t=15.8 card='AISI 4140 (40-45 HRC)' cbox=[927.8125,163,1301.8125,200.390625] stamp='' sbox= overflow=1440x900 inner=1440x900
+vp=desktop t=17.5 card='AISI 4140 (40-45 HRC)' cbox=[927.8125,163,1301.8125,200.390625] stamp='FAILED' sbox=@{left=913.430114746094; top=204.601470947266; right=1080.94482421875; bottom=269.179779052734; width=167.514709472656; height=64.5783081054688} overflow=1440x900 inner=1440x900
+vp=desktop t=21 card='C300 (56-58 HRC)' cbox=[927.8125,163,1301.8125,200.390625] stamp='' sbox= overflow=1440x900 inner=1440x900
+vp=desktop t=33.5 card='AISI 4340 (H.T. 48-50 HRC)' cbox=[927.8125,163,1301.8125,237.78125] stamp='' sbox= overflow=1440x900 inner=1440x900
+vp=desktop t=12 card='' cbox=[,,,] stamp='' sbox= overflow=1440x900 inner=1440x900
+vp=narrow t=15.8 card='AISI 4140 (40-45 HRC)' cbox=[48.1875,623.09375,341.8125,649.484375] stamp='' sbox= overflow=390x844 inner=390x844
+vp=narrow t=17.5 card='AISI 4140 (40-45 HRC)' cbox=[48.1875,576.90625,341.8125,603.296875] stamp='FAILED' sbox=@{left=36.6686706542969; top=605.447814941406; right=170.518829345703; bottom=657.333435058594; width=133.850158691406; height=51.8856201171875} overflow=390x844 inner=390x844
+vp=narrow t=21 card='C300 (56-58 HRC)' cbox=[48.1875,623.09375,341.8125,649.484375] stamp='' sbox= overflow=390x844 inner=390x844
+vp=narrow t=33.5 card='AISI 4340 (H.T. 48-50 HRC)' cbox=[48.1875,623.09375,341.8125,649.484375] stamp='' sbox= overflow=390x844 inner=390x844
+vp=narrow t=12 card='' cbox=[,,,] stamp='' sbox= overflow=390x844 inner=390x844
+--- expectations per t ---
+desktop t=15.8 exp={"t":15.8,"card":"AISI 4140 (40-45 HRC)","stamp":false,"attribution":true,"stress":true,"recap":false}
+desktop t=17.5 exp={"t":17.5,"card":"AISI 4140 (40-45 HRC)","stamp":true,"attribution":true,"stress":true,"recap":false}
+desktop t=21 exp={"t":21,"card":"C300 (56-58 HRC)","stamp":false,"attribution":true,"stress":true,"recap":false}
+desktop t=33.5 exp={"t":33.5,"card":"AISI 4340 (H.T. 48-50 HRC)","stamp":false,"attribution":false,"stress":true,"recap":false}
+desktop t=12 exp={"t":12,"card":null,"stamp":false,"attribution":false,"stress":false,"recap":true}
+narrow t=15.8 exp={"t":15.8,"card":"AISI 4140 (40-45 HRC)","stamp":false,"attribution":true,"stress":true,"recap":false}
+narrow t=17.5 exp={"t":17.5,"card":"AISI 4140 (40-45 HRC)","stamp":true,"attribution":true,"stress":true,"recap":false}
+narrow t=21 exp={"t":21,"card":"C300 (56-58 HRC)","stamp":false,"attribution":true,"stress":true,"recap":false}
+narrow t=33.5 exp={"t":33.5,"card":"AISI 4340 (H.T. 48-50 HRC)","stamp":false,"attribution":false,"stress":true,"recap":false}
+narrow t=12 exp={"t":12,"card":null,"stamp":false,"attribution":false,"stress":false,"recap":true}
+--- failures ---
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.html' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 397ms:
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:,"><title>Shaft story script verification</title></head>
+  <body><div id="root"></div><script type="module" src="./harness.tsx"></script></body>
+</html>
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.tsx' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 448ms:
+import { useEffect, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+import { ShaftStoryLayer } from '../../../../../../src/components/ShaftStoryLayer'
+import { createShaftScriptFrame, sampleShaftScript } from '../../../../../../src/scene/inspection/shaft/script'
+
+document.body.style.margin = '0'
+document.body.style.fontFamily = 'ui-sans-serif, system-ui, "Segoe UI", sans-serif'
+document.body.style.background = '#050a10'
+
+interface ShaftHarnessGlobal {
+  setTime(t: number): void
+  setReduced(v: boolean): void
+  sample(t: number, reduced: boolean): Record<string, unknown>
+}
+
+function Harness() {
+  const [time, setTime] = useState(0)
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    (window as unknown as { __shaftHarness?: ShaftHarnessGlobal }).__shaftHarness = {
+      setTime: (t: number) => setTime(Math.max(0, Math.min(43, t))),
+      setReduced: (v: boolean) => setReduced(v),
+      sample: (t: number, r: boolean) => {
+        const frame = createShaftScriptFrame()
+        sampleShaftScript(t, r, frame)
+        return { ...frame }
+      },
+    }
+  }, [])
+  return <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#050a10' }}>
+    <ShaftStoryLayer time={time} reducedMotion={reduced} />
+    <div style={{ position: 'absolute', top: 12, left: 12, zIndex: 10, display: 'flex', gap: 16, alignItems: 'center', font: '12px monospace', color: '#9db2c0' }}>
+      <label>time <input type="range" min={0} max={43} step={0.01} value={time} onChange={e => setTime(e.currentTarget.valueAsNumber)} /></label>
+      <output>{time.toFixed(2)} s</output>
+      <label><input type="checkbox" checked={reduced} onChange={e => setReduced(e.currentTarget.checked)} /> reduced motion</label>
+    </div>
+  </div>
+}
+
+createRoot(document.getElementById('root')!).render(<Harness />)
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 414ms:
+/**
+ * Shaft story script verifier (leaf: shaft-script).
+ * Spec: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script-spec.md
+ *
+ * Playwright (chromium channel chrome) against the repo-root Vite dev server.
+ * Mounts ShaftStoryLayer standalone via harness.html, captures desktop 1440x900 and
+ * narrow 390x844 screenshots at the authored checkpoints, measures computed contrast
+ * ratios and bounding boxes, counts aria-live status updates across a 0..43 sweep
+ * against the sampler's discrete changes, and asserts zero console errors.
+ * Owns: this script, report.json and the captures inside this folder.
+ */
+import { chromium } from 'playwright'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const scriptDir = path.dirname(fileURLToPath(import.meta.url))
+const rootDir = path.resolve(scriptDir, '..', '..', '..', '..', '..', '..')
+if (!(await fs.stat(path.join(rootDir, 'package.json')).then(() => true, () => false))) throw new Error('repo root not found: ' + rootDir)
+const urlArg = process.argv.find(arg => arg.startsWith('--url='))?.slice(6) || 'http://localhost:5199'
+const harnessUrl = urlArg + '/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.html'
+
+const VIEWPORTS = [
+  { name: 'desktop', width: 1440, height: 900 },
+  { name: 'narrow', width: 390, height: 844 },
+]
+const CASES = [
+  { t: 15.8, card: 'AISI 4140 (40-45 HRC)', stamp: false, attribution: true, stress: true, recap: false },
+  { t: 17.5, card: 'AISI 4140 (40-45 HRC)', stamp: true, attribution: true, stress: true, recap: false },
+  { t: 21.0, card: 'C300 (56-58 HRC)', stamp: false, attribution: true, stress: true, recap: false },
+  { t: 33.5, card: 'AISI 4340 (H.T. 48-50 HRC)', stamp: false, attribution: false, stress: true, recap: false },
+  { t: 12.0, card: null, stamp: false, attribution: false, stress: false, recap: true },
+]
+const RECAP_TEXT = 'Remaining teeth — time compressed'
+
+const failures = []
+const check = (condition, message) => {
+  if (!condition) failures.push(message)
+  return condition
+}
+
+const browser = await chromium.launch({ channel: 'chrome', headless: true })
+const page = await browser.newPage({ viewport: VIEWPORTS[0] })
+const consoleErrors = []
+page.on('console', message => {
+  if (message.type() === 'error') consoleErrors.push(message.text())
+})
+page.on('pageerror', error => consoleErrors.push(String(error)))
+await page.goto(harnessUrl, { waitUntil: 'domcontentloaded' })
+await page.waitForFunction(() => Boolean(window.__shaftHarness) && document.querySelector('.shaft-story-layer'))
+
+const raf2 = () => page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
+const collectDom = () => page.evaluate(() => {
+  const parseColor = value => {
+    const match = value.match(/rgba?\(([^)]+)\)/)
+    if (!match) return null
+    const [r, g, b] = match[1].split(',').map(part => Number(part.trim()))
+    return [r, g, b]
+  }
+  const visible = el => {
+    if (!el) return false
+    const rect = el.getBoundingClientRect()
+    if (rect.width < 2 || rect.height < 2) return false
+    let node = el
+    while (node && node !== document.documentElement) {
+      const style = getComputedStyle(node)
+      if (style.display === 'none' || style.visibility === 'hidden') return false
+      if (Number(style.opacity) < 0.05) return false
+      node = node.parentElement
+    }
+    return true
+  }
+  const backgroundOf = el => {
+    let node = el
+    while (node && node !== document.documentElement) {
+      const bg = getComputedStyle(node).backgroundColor
+      const match = bg.match(/rgba?\(([^)]+)\)/)
+      if (match) {
+        const parts = match[1].split(',').map(part => Number(part.trim()))
+        if ((parts[3] ?? 1) >= 0.999) return [parts[0], parts[1], parts[2]]
+      }
+      node = node.parentElement
+    }
+    return null
+  }
+  const luminance = rgb => {
+    const channel = v => {
+      v /= 255
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+    }
+    return 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2])
+  }
+  const contrast = (fg, bg) => {
+    const a = luminance(fg), b = luminance(bg)
+    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+  }
+  const measure = el => {
+    if (!visible(el)) return null
+    const fg = parseColor(getComputedStyle(el).color)
+    const bg = backgroundOf(el)
+    if (!fg || !bg) return { text: el.textContent.trim(), error: 'unparseable colors' }
+    const rect = el.getBoundingClientRect()
+    return {
+      text: el.textContent.trim(),
+      color: fg,
+      background: bg,
+      contrast: contrast(fg, bg),
+      box: { left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom, width: rect.width, height: rect.height },
+    }
+  }
+  const wrapper = document.querySelector('[data-shaft-card] .shaft-card')
+  const status = document.querySelector('[data-shaft-status]')
+  const transcript = document.querySelector('[data-shaft-transcript]')
+  return {
+    card: measure(document.querySelector('[data-shaft-card] .shaft-card-text')),
+    stamp: measure(document.querySelector('[data-shaft-card] .shaft-stamp')),
+    attribution: measure(document.querySelector('[data-shaft-attribution]')),
+    recap: measure(document.querySelector('[data-shaft-recap]')),
+    stress: measure(document.querySelector('[data-shaft-stress]')),
+    cardWrapperOpacity: wrapper ? getComputedStyle(wrapper).opacity : null,
+    statusRole: status ? status.getAttribute('role') : null,
+    ariaLive: status ? status.getAttribute('aria-live') : null,
+    transcriptText: transcript ? transcript.textContent : null,
+    overflow: {
+      scrollWidth: document.scrollingElement.scrollWidth,
+      scrollHeight: document.scrollingElement.scrollHeight,
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight,
+    },
+  }
+})
+
+const overlapArea = (a, b) => {
+  const left = Math.max(a.left, b.left)
+  const right = Math.min(a.right, b.right)
+  const top = Math.max(a.top, b.top)
+  const bottom = Math.min(a.bottom, b.bottom)
+  return Math.max(0, right - left) * Math.max(0, bottom - top)
+}
+
+const caseResults = []
+for (const viewport of VIEWPORTS) {
+  await page.setViewportSize({ width: viewport.width, height: viewport.height })
+  for (const testCase of CASES) {
+    await page.evaluate(time => window.__shaftHarness.setTime(time), testCase.t)
+    await raf2()
+    const dom = await collectDom()
+    const entry = { viewport: viewport.name, viewportSize: viewport.width + 'x' + viewport.height, t: testCase.t, expectations: testCase, dom: { ...dom, transcriptText: undefined }, screenshot: null }
+    check(dom.card !== null === (testCase.card !== null), viewport.name + ' t=' + testCase.t + ': card presence ' + (dom.card ? 'present' : 'absent') + ', expected ' + (testCase.card || 'none'))
+    if (testCase.card !== null && dom.card) {
+      check(dom.card.text === testCase.card, viewport.name + ' t=' + testCase.t + ': card text "' + dom.card.text + '" !== "' + testCase.card + '"')
+      check(Number(dom.cardWrapperOpacity) >= 0.9, viewport.name + ' t=' + testCase.t + ': card wrapper opacity ' + dom.cardWrapperOpacity + ' < 0.9')
+      check(dom.card.contrast >= 4.5, viewport.name + ' t=' + testCase.t + ': card contrast ' + dom.card.contrast.toFixed(2) + ' < 4.5')
+    }
+    check(dom.stamp !== null === testCase.stamp, viewport.name + ' t=' + testCase.t + ': stamp presence ' + (dom.stamp ? 'present' : 'absent') + ', expected ' + testCase.stamp)
+    if (testCase.stamp && dom.stamp) {
+      check(dom.stamp.text === 'FAILED', viewport.name + ' t=' + testCase.t + ': stamp text "' + dom.stamp.text + '" !== "FAILED"')
+      check(dom.stamp.contrast >= 4.5, viewport.name + ' t=' + testCase.t + ': stamp contrast ' + dom.stamp.contrast.toFixed(2) + ' < 4.5')
+      const [r, g, b] = dom.stamp.color
+      check(r >= 150 && r > g + 40 && r > b + 40, viewport.name + ' t=' + testCase.t + ': stamp color rgb(' + r + ',' + g + ',' + b + ') is not localized red/ink')
+    }
+    check(dom.attribution !== null === testCase.attribution, viewport.name + ' t=' + testCase.t + ': attribution presence mismatch')
+    check(dom.recap !== null === testCase.recap, viewport.name + ' t=' + testCase.t + ': recap caption presence mismatch')
+    check(dom.stress !== null === testCase.stress, viewport.name + ' t=' + testCase.t + ': stress caption presence mismatch')
+    if (dom.recap && testCase.recap) check(dom.recap.text === RECAP_TEXT, viewport.name + ' t=' + testCase.t + ': recap text "' + dom.recap.text + '" !== "' + RECAP_TEXT + '"')
+    const measured = []
+    for (const pair of [['card', dom.card], ['stamp', dom.stamp], ['attribution', dom.attribution], ['recap', dom.recap], ['stress', dom.stress]]) {
+      if (!pair[1]) continue
+      if (pair[1].error) {
+        failures.push(viewport.name + ' t=' + testCase.t + ': ' + pair[0] + ' colors unparseable')
+        continue
+      }
+      check(pair[1].contrast >= 4.5, viewport.name + ' t=' + testCase.t + ': ' + pair[0] + ' contrast ' + pair[1].contrast.toFixed(2) + ' < 4.5')
+      check(pair[1].box.left >= 0.07 * viewport.width - 2, viewport.name + ' t=' + testCase.t + ': ' + pair[0] + ' left ' + pair[1].box.left.toFixed(1) + ' < 7% margin')
+      check(pair[1].box.right <= 0.93 * viewport.width + 2, viewport.name + ' t=' + testCase.t + ': ' + pair[0] + ' right ' + pair[1].box.right.toFixed(1) + ' beyond 7% margin')
+      check(pair[1].box.top >= 0 && pair[1].box.bottom <= viewport.height + 1, viewport.name + ' t=' + testCase.t + ': ' + pair[0] + ' box outside viewport')
+      measured.push([pair[0], pair[1].box])
+    }
+    for (let i = 0; i < measured.length; i++) {
+      for (let j = i + 1; j < measured.length; j++) {
+        const area = overlapArea(measured[i][1], measured[j][1])
+        check(area <= 1, viewport.name + ' t=' + testCase.t + ': ' + measured[i][0] + ' overlaps ' + measured[j][0] + ' by ' + area.toFixed(1) + ' px^2')
+      }
+    }
+    check(dom.overflow.scrollWidth <= dom.overflow.innerWidth + 1, viewport.name + ' t=' + testCase.t + ': horizontal overflow ' + dom.overflow.scrollWidth + ' > ' + dom.overflow.innerWidth)
+    check(dom.overflow.scrollHeight <= dom.overflow.innerHeight + 1, viewport.name + ' t=' + testCase.t + ': vertical overflow ' + dom.overflow.scrollHeight + ' > ' + dom.overflow.innerHeight)
+    check(dom.statusRole === 'status' && dom.ariaLive === 'polite', viewport.name + ' t=' + testCase.t + ': status region role/aria-live mismatch')
+    const screenshot = viewport.name + '-t' + String(testCase.t).replace('.', '_') + '.png'
+    await page.screenshot({ path: path.join(scriptDir, screenshot) })
+    entry.screenshot = screenshot
+    caseResults.push(entry)
+  }
+}
+
+const transcriptText = await page.evaluate(() => document.querySelector('[data-shaft-transcript]')?.textContent ?? '')
+for (const heading of ['Why the groove was needed', 'Material attempts', 'Changing the process', 'Moving the supports']) {
+  check(transcriptText.includes(heading), 'transcript missing chapter: ' + heading)
+}
+const undercutCount = (transcriptText.match(/undercut/g) ?? []).length
+check(undercutCount === 2, 'transcript must gloss undercut once (cutter runout/relief groove vs involute); found ' + undercutCount + ' occurrences')
+for (const phrase of ['cutter runout', 'relief groove', 'involute']) check(transcriptText.includes(phrase), 'transcript missing gloss phrase: ' + phrase)
+for (const forbidden of ['FEA', 'safety factor', 'solver', 'MPa', 'ksi', 'PASSED']) check(!transcriptText.includes(forbidden), 'transcript contains forbidden token: ' + forbidden)
+
+await page.evaluate(async () => {
+  window.__shaftHarness.setTime(0)
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+  window.__sweepState = { i: 1, last: document.querySelector('[data-shaft-status]').getAttribute('data-version'), changes: [] }
+})
+for (let chunk = 0; chunk < 10; chunk++) {
+  await page.evaluate(async ({ step, total }) => {
+    const state = window.__sweepState
+    const statusEl = document.querySelector('[data-shaft-status]')
+    const settle = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+    const end = Math.min(state.i + 86, total + 1)
+    for (; state.i <= end; state.i++) {
+      const t = Math.min(state.i * step, 43)
+      window.__shaftHarness.setTime(t)
+      await settle()
+      const version = statusEl.getAttribute('data-version')
+      if (version !== state.last) {
+        state.changes.push({ t, version: Number(version) })
+        state.last = version
+      }
+    }
+  }, { step: 0.05, total: 860 })
+}
+const sweep = await page.evaluate(({ step }) => {
+  const countExpected = size => {
+    let lastKey = null
+    let count = 0
+    const total = Math.round(43 / size)
+    for (let i = 0; i <= total; i++) {
+      const t = Math.min(i * size, 43)
+      const key = window.__shaftHarness.sample(t, false).discrete
+      if (lastKey !== null && key !== lastKey) count += 1
+      lastKey = key
+    }
+    return count
+  }
+  return {
+    domChanges: window.__sweepState.changes,
+    domCount: window.__sweepState.changes.length,
+    expectedCoarse: countExpected(step),
+    expectedFine: countExpected(1 / 240),
+  }
+}, { step: 0.05 })
+check(sweep.domCount === sweep.expectedCoarse, 'status updates (' + sweep.domCount + ') !== discrete changes at 0.05 s (' + sweep.expectedCoarse + ')')
+check(sweep.domCount === sweep.expectedFine, 'status updates (' + sweep.domCount + ') !== discrete changes at 1/240 s (' + sweep.expectedFine + ')')
+check(consoleErrors.length === 0, 'console errors: ' + consoleErrors.join(' | '))
+
+await browser.close()
+
+const report = {
+  url: harnessUrl,
+  command: 'node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs --url=' + urlArg,
+  started: new Date().toISOString(),
+  cases: caseResults,
+  transcript: { chaptersChecked: 4, undercutOccurrences: undercutCount },
+  sweep,
+  consoleErrors,
+  failures,
+  result: failures.length === 0 ? 'pass' : 'fail',
+}
+await fs.writeFile(path.join(scriptDir, 'report.json'), JSON.stringify(report, null, 2))
+
+console.log('shaft-script verifier: ' + report.result)
+console.log('cases: ' + caseResults.length + ' captures, sweep changes ' + sweep.domCount + ' (expected ' + sweep.expectedFine + '), console errors ' + consoleErrors.length)
+if (failures.length) {
+  for (const failure of failures) console.log('FAIL: ' + failure)
+  process.exitCode = 1
+}
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "\"--- forbidden clocks/random in script.ts ---\"
+(Select-String -Path 'src/scene/inspection/shaft/script.ts' -Pattern 'Date|performance\\.|Math\\.random|\\.map\\(|\\.filter\\(|new ' -AllMatches | ForEach-Object { "'$_.LineNumber.ToString() + '"': ' + "'$_.Line.Trim() }) -join "`n"
+"--- any app import of shaft layer/story (excluding tests/evidence) ---"
+rg -n "ShaftStoryLayer|shaft/story|shaftStory|shaftBeats" src --glob '"'"'!src/scene/inspection/shaft/**'"' --glob '"'!**/*.test.ts'"' 2>&1
+\"--- mount points ---\"
+rg -n \"ShaftStoryLayer\" src/main.tsx src/App.tsx src/scene 2>&1
+\"--- vw/vh/clamp anywhere in css ---\"
+Select-String -Path 'src/components/ShaftStoryLayer.css' -Pattern 'vw|vh|clamp\\(|vmin|vmax' | ForEach-Object { "'$_.LineNumber.ToString() + '"': ' + "'$_.Line.Trim() }
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 442ms:
+--- forbidden clocks/random in script.ts ---
+
+--- any app import of shaft layer/story (excluding tests/evidence) ---
+src\components\ShaftStoryLayer.tsx:6:import './ShaftStoryLayer.css'
+src\components\ShaftStoryLayer.tsx:8:export interface ShaftStoryLayerProps { readonly time: number; readonly reducedMotion: boolean }
+src\components\ShaftStoryLayer.tsx:49:export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
+--- mount points ---
+--- vw/vh/clamp anywhere in css ---
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Select-String -Path 'src/scene/inspection/shaft/script.ts' -Pattern 'for \\(const attempt|stampIn =|impulse|SHAFT_IMPULSE =|SHAFT_READABLE =' | ForEach-Object { "'$_.LineNumber.ToString() + '"': ' + "'$_.Line.Trim() }
+"--- tsx ---"
+Select-String -Path '"'src/components/ShaftStoryLayer.tsx' -Pattern 'key=|useEffect|aria-live|buildAnnouncement' | ForEach-Object { "'$_.LineNumber.ToString() + '"': ' + "'$_.Line.Trim() }
+' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 426ms:
+25: export const SHAFT_READABLE = 1.02
+26: /** Stamp impulse; the spec ceiling is 0.18 s. */
+27: export const SHAFT_IMPULSE = 0.15
+94: for (const attempt of SHAFT_MATERIAL_ATTEMPTS) {
+97: const stampIn = attempt.start + SHAFT_CARD_FADE + SHAFT_READABLE
+98: const settledAt = stampIn + SHAFT_IMPULSE
+104: stampScale = reducedMotion || stamp === 'none' || stamp === 'settled' ? 1 : 1 + STAMP_OVERSHOOT * (1 - ease((t - stampIn) / SHAFT_IMPULSE))
+--- tsx ---
+1: import { useEffect, useRef, useState } from 'react'
+34: function buildAnnouncement(frame: ShaftScriptFrame): string {
+54: useEffect(() => {
+55: setStatus(previous => ({ version: previous.version + 1, text: buildAnnouncement(frame) }))
+61: {frame.stamp !== 'none' && <span key={frame.cardText} className={'shaft-stamp' + (reducedMotion ? '' : ' shaft-stamp-impulse')}>{SHAFT_STAMP_TEXT}</span>}
+67: <p role="status" aria-live="polite" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
+70: {SHAFT_TRANSCRIPT.map(section => <section key={section.heading}>
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+SHIP — the leaf satisfies the spec and the gate claims hold up under independent inspection. One caveat about method: `npx vitest run src/scene/inspection/shaft` cannot start in this sandbox (esbuild fails to resolve `vite.config.ts` under the read-only FS), so I verified the sampler by porting `sampleShaftScript` verbatim and sweeping it at 1/240 s myself, and I verified strings/codepoints, CSS, mount state, and the recorded harness report statically.
+
+Verified
+
+- Strings/codepoints (script.ts:14-21): all four hardness hyphens are U+002D (codepoint 45); recap caption contains exactly one U+2014 (8212), no en dash/minus. Attribution and stress caption match the plan.
+- Timing (independent sweep): readable 1.025 s all cards (≥1.0), impulse 0.150 s (≤0.18), settled 1.333/1.033/0.833 s (≥0.8). Warm leaves by 25 (mix 5e-15 at 24.9999999, none at 25). Cool starts 32.8 = 32.0+0.8; final `4340-ht` has stamp `none`, held to 35. 15 discrete changes at [11,15,16.16,16.31,17.8,18.96,19.11,20.3,21.46,21.61,22.6,25,32.8,33.2,35]. Reduced motion: stampScale stays 1, scanProgress ∈ {0,1}.
+- Purity: no `Date`/`performance`/`Math.random` in script.ts; writes only into the caller frame.
+- aria-live: single `role=status aria-live=polite` region (ShaftStoryLayer.tsx:67) updated only on `frame.discrete` (54-55).
+- report.json: 10 captures, contrast 16.39 card / 13.28 captions, no overflow, boxes inside 8% margins, no overlaps, 0 console errors, transcript undercut count 2, no FEA tokens.
+- CSS: `letter-spacing:0`, fixed px sizes, no `vw/vh/clamp`.
+- Nothing mounted: no app import of ShaftStoryLayer; no shaft `registerStory`.
+
+Minor, non-blocking
+
+- script.ts:94 — `for…of` allocates an array iterator each call, technically violating "no allocation per call"; an indexed loop would remove it.
+- ShaftStoryLayer.tsx:54-55 + buildAnnouncement:34-37 — the stamp `in` transition (16.16) bumps the discrete key and re-sets status to an identical string (FAILED isn't added until `settled`), a redundant polite announcement.
+- ShaftStoryLayer.tsx:61 — animation is keyed on `cardText`, not stamp state (spec wording); functionally restarts per card.
+- Gate S6 was the only open box; this review is that item.
+
+
+hook: Stop
+hook: Stop Completed
+tokens used
+61,218
+SHIP — the leaf satisfies the spec and the gate claims hold up under independent inspection. One caveat about method: `npx vitest run src/scene/inspection/shaft` cannot start in this sandbox (esbuild fails to resolve `vite.config.ts` under the read-only FS), so I verified the sampler by porting `sampleShaftScript` verbatim and sweeping it at 1/240 s myself, and I verified strings/codepoints, CSS, mount state, and the recorded harness report statically.
+
+Verified
+
+- Strings/codepoints (script.ts:14-21): all four hardness hyphens are U+002D (codepoint 45); recap caption contains exactly one U+2014 (8212), no en dash/minus. Attribution and stress caption match the plan.
+- Timing (independent sweep): readable 1.025 s all cards (≥1.0), impulse 0.150 s (≤0.18), settled 1.333/1.033/0.833 s (≥0.8). Warm leaves by 25 (mix 5e-15 at 24.9999999, none at 25). Cool starts 32.8 = 32.0+0.8; final `4340-ht` has stamp `none`, held to 35. 15 discrete changes at [11,15,16.16,16.31,17.8,18.96,19.11,20.3,21.46,21.61,22.6,25,32.8,33.2,35]. Reduced motion: stampScale stays 1, scanProgress ∈ {0,1}.
+- Purity: no `Date`/`performance`/`Math.random` in script.ts; writes only into the caller frame.
+- aria-live: single `role=status aria-live=polite` region (ShaftStoryLayer.tsx:67) updated only on `frame.discrete` (54-55).
+- report.json: 10 captures, contrast 16.39 card / 13.28 captions, no overflow, boxes inside 8% margins, no overlaps, 0 console errors, transcript undercut count 2, no FEA tokens.
+- CSS: `letter-spacing:0`, fixed px sizes, no `vw/vh/clamp`.
+- Nothing mounted: no app import of ShaftStoryLayer; no shaft `registerStory`.
+
+Minor, non-blocking
+
+- script.ts:94 — `for…of` allocates an array iterator each call, technically violating "no allocation per call"; an indexed loop would remove it.
+- ShaftStoryLayer.tsx:54-55 + buildAnnouncement:34-37 — the stamp `in` transition (16.16) bumps the discrete key and re-sets status to an identical string (FAILED isn't added until `settled`), a redundant polite announcement.
+- ShaftStoryLayer.tsx:61 — animation is keyed on `cardText`, not stamp state (spec wording); functionally restarts per card.
+- Gate S6 was the only open box; this review is that item.
+
+

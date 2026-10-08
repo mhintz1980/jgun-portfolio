@@ -1,0 +1,514 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-05T09:54:22.043Z",
+  "frames": [
+    {
+      "time": 2.8,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 0.03333333333333333,
+      "ringAngle": 11.845870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.013953412761166123,
+        0.013953412761166123
+      ],
+      "rollerAxial": [
+        -0.008252107790789172,
+        -0.008252107790789144
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 3,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 0.18586666666666687,
+      "ringAngle": 11.867870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.012829926869721559,
+        0.012829926869721559
+      ],
+      "rollerAxial": [
+        -0.008252107790789172,
+        -0.008252107790789144
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 3.4,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 0.9837333333333335,
+      "ringAngle": 11.911870614359174,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.010000255863769203,
+        0.010000255863769203
+      ],
+      "rollerAxial": [
+        -0.008252107790789172,
+        -0.008252107790789144
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 3.7,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 1.4589333333333336,
+      "ringAngle": 11.944870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.0008204345428723895,
+        0.0008204345428723895
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 3.8,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 1.5,
+      "ringAngle": 11.955870614359172,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 3.9,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 1.5833333333333333,
+      "ringAngle": 11.966870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 4,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 1.6666666666666665,
+      "ringAngle": 11.977870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 4.1,
+      "phase": "Paired rollers · approach",
+      "toolVisible": true,
+      "toolClipTime": 1.7499999999999996,
+      "ringAngle": 11.988870614359174,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 4.2,
+      "phase": "Diamond knurl · traverse",
+      "toolVisible": true,
+      "toolClipTime": 1.833333333333333,
+      "ringAngle": 11.999870614359173,
+      "odKnurlProgress": 0,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        -0.008252107790789168,
+        -0.008252107790789148
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 0,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 5.2,
+      "phase": "Diamond knurl · traverse",
+      "toolVisible": true,
+      "toolClipTime": 2.833333333333333,
+      "ringAngle": 12.109870614359172,
+      "odKnurlProgress": 0.5,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        6.558189192337793e-10,
+        6.558189410926622e-10
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 0
+      }
+    },
+    {
+      "time": 6.2,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 3.8333333333333335,
+      "ringAngle": 12.219870614359174,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        0.008252107790789148,
+        0.008252107790789168
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 6.4,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 3.95,
+      "ringAngle": 12.241870614359174,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        -8.991552407962983e-7,
+        -8.991552407962983e-7
+      ],
+      "rollerAxial": [
+        0.008252107790789148,
+        0.008252107790789168
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 6.6,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.066666666666666,
+      "ringAngle": 12.263870614359172,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.0013324356682100722,
+        0.0013324356682100722
+      ],
+      "rollerAxial": [
+        0.008252107790789148,
+        0.008252107790789168
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 7,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.3,
+      "ringAngle": 12.307870614359173,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.005999098013534309,
+        0.005999098013534309
+      ],
+      "rollerAxial": [
+        0.008252107790789146,
+        0.00825210779078917
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 7.6,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.6499999999999995,
+      "ringAngle": 12.373870614359173,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.0339785889128563,
+        0.0339785889128563
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 7.7,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.708333333333333,
+      "ringAngle": 12.384870614359173,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.06652019419745248,
+        0.06652019419745248
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 7.9,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.825,
+      "ringAngle": 12.406870614359173,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.14662579673335624,
+        0.14662579673335624
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 8.1,
+      "phase": "Clearance · retract",
+      "toolVisible": true,
+      "toolClipTime": 4.941666666666666,
+      "ringAngle": 12.428870614359173,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.20808090195581772,
+        0.20808090195581772
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 8.2,
+      "phase": "Black finish · decelerate",
+      "toolVisible": false,
+      "toolClipTime": 5,
+      "ringAngle": 12.439870614359172,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 1,
+      "rollerClearance": [
+        0.2193870293749796,
+        0.2193870293749796
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 9.4,
+      "phase": "Black finish · decelerate",
+      "toolVisible": false,
+      "toolClipTime": 5,
+      "ringAngle": 12.545312218698779,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 0,
+      "rollerClearance": [
+        0.2193870293749796,
+        0.2193870293749796
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 10.2,
+      "phase": "Black finish · decelerate",
+      "toolVisible": false,
+      "toolClipTime": 5,
+      "ringAngle": 12.565845793121397,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 0,
+      "rollerClearance": [
+        0.2193870293749796,
+        0.2193870293749796
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    },
+    {
+      "time": 10.5,
+      "phase": "Assembly return",
+      "toolVisible": false,
+      "toolClipTime": 5,
+      "ringAngle": 12.566370614359172,
+      "odKnurlProgress": 1,
+      "aluminiumBlend": 0,
+      "rollerClearance": [
+        0.2193870293749796,
+        0.2193870293749796
+      ],
+      "rollerAxial": [
+        0.008252107790789144,
+        0.008252107790789172
+      ],
+      "maskSamples": {
+        "bore": 0,
+        "shoulder": 0,
+        "odStart": 1,
+        "odEnd": 1
+      }
+    }
+  ],
+  "errors": [],
+  "finished": "2026-10-05T09:54:48.573Z"
+}

@@ -1,0 +1,950 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-06T17:31:33.216Z",
+  "method": "Headless Chromium canvas decode of every capture pair; mean per-channel absolute difference sampled every 2 px inside each measured portal DOM rect (same report.json anchor row) and everywhere outside all DOM rects (2 px dilation). The full-page capture always shows the portal; if the -dom-overlay-bounds capture was taken with the portal hidden, the DOM rects differ strongly while pixels outside the DOM stay identical.",
+  "question": "Are the -dom-overlay-bounds.png files full-DOM composites (defect note artifact-label-corrected) or clean canvas rasters captured with .ring-inspection-portal visibility hidden (capture.mjs clean_canvas_capture)?",
+  "rows": [
+    {
+      "layout": "desktop",
+      "name": "grooved-blank",
+      "time": 0.5,
+      "overlay_png": "desktop-grooved-blank-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "cutter-exit",
+      "time": 8.5,
+      "overlay_png": "desktop-cutter-exit-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "time": 16.4,
+      "overlay_png": "desktop-failed-4140-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 23843
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 242565
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4340",
+      "time": 18.8,
+      "overlay_png": "desktop-failed-4340-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17724
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 248713
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-c300",
+      "time": 21.5,
+      "overlay_png": "desktop-failed-c300-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 23843
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 242565
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-blank",
+      "time": 24,
+      "overlay_png": "desktop-revised-blank-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3165
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 263341
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "hobbing",
+      "time": 28,
+      "overlay_png": "desktop-hobbing-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "runout-withdrawn",
+      "time": 32.4,
+      "overlay_png": "desktop-runout-withdrawn-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "time": 34,
+      "overlay_png": "desktop-revised-4340-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 12660
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 253801
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "support-before",
+      "time": 35.8,
+      "overlay_png": "desktop-support-before-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "support-after",
+      "time": 38.2,
+      "overlay_png": "desktop-support-after-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "assembly",
+      "time": 41.8,
+      "overlay_png": "desktop-assembly-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        1440,
+        900
+      ],
+      "size_overlay": [
+        1440,
+        900
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 17238
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 3872
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 33740
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 266945
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "grooved-blank",
+      "time": 0.5,
+      "overlay_png": "narrow-grooved-blank-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "cutter-exit",
+      "time": 8.5,
+      "overlay_png": "narrow-cutter-exit-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4140",
+      "time": 16.4,
+      "overlay_png": "narrow-failed-4140-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 15088
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 30322
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4340",
+      "time": 18.8,
+      "overlay_png": "narrow-failed-4340-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 11316
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 34140
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-c300",
+      "time": 21.5,
+      "overlay_png": "narrow-failed-c300-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 15088
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 30322
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-blank",
+      "time": 24,
+      "overlay_png": "narrow-revised-blank-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2460
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 43104
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "hobbing",
+      "time": 28,
+      "overlay_png": "narrow-hobbing-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "runout-withdrawn",
+      "time": 32.4,
+      "overlay_png": "narrow-runout-withdrawn-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "time": 34,
+      "overlay_png": "narrow-revised-4340-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "card": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 7708
+        },
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 37792
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "support-before",
+      "time": 35.8,
+      "overlay_png": "narrow-support-before-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "support-after",
+      "time": 38.2,
+      "overlay_png": "narrow-support-after-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "assembly",
+      "time": 41.8,
+      "overlay_png": "narrow-assembly-dom-overlay-bounds.png",
+      "identical_bytes": true,
+      "size_full": [
+        390,
+        844
+      ],
+      "size_overlay": [
+        390,
+        844
+      ],
+      "regions": {
+        "header": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 6125
+        },
+        "copy": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 2900
+        },
+        "footer": {
+          "mean_diff": 0,
+          "frac_gt8": 0,
+          "samples": 25550
+        }
+      },
+      "outside_all_dom": {
+        "mean_diff": 0,
+        "frac_gt8": 0,
+        "samples": 45926
+      }
+    }
+  ],
+  "row_count": 24,
+  "portal_dom_absent_in_overlay_count": 0,
+  "outside_dom_quiet_count": 24,
+  "identical_bytes_count": 24
+}

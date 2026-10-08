@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-10-03T20:17:06.195133Z",
+    "display_name": "GPT Image 2.5",
+    "id": "dd2d5a4f-6c49-4027-bbc1-33f4f171ee95",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201706_dd2d5a4f-6c49-4027-bbc1-33f4f171ee95_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "f808044c-6785-4860-aa7e-ccdc39cbfd7e",
+            "type": "image_job",
+            "url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201411_f808044c-6785-4860-aa7e-ccdc39cbfd7e.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Edit the attached blue-webbing J-Gun drawing concept. Keep exactly the same dark cream vellum exposure and printed drafting layout, central left-pointing pneumatic torque wrench silhouette and light blue outline and webbing. Now advance to first rupture INSIDE the silhouette. Tear three narrow ragged connected slits THROUGH THE INTERIOR PAPER, specifically the barrel housing center and the upper handle, revealing rough blue-veined rock tunnel walls deep below. The paper OUTSIDE the silhouette stays continuous and intact. Most interior paper remains dark cream stock identical in color and exposure to outside stock; do not brighten the tool-shaped paper region at all. Blue lines alone are emissive. Small inward tears and curled fibrous edges interrupt the drawing INSIDE the tool outline, not a moat around it. Dark blue-lit angular rock facets and tiny diminishing fissures below the interior slits make unmistakable depth. No desk, floor, flat backing, bright endpoint or featureless void. No detached paper tool cutout floating above a larger cave. No pale tool insert and no white luminous profile fill. No metal tool yet: this still specifically explores the paper/tunnel beat, emergence timing remains a separate review question. Sole light is light-blue outline, paper web and fissures embedded in rock. One realistic cinematic frame, retain composition, no new labels.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201706_dd2d5a4f-6c49-4027-bbc1-33f4f171ee95.png",
+    "status": "completed"
+  }
+]

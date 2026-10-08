@@ -1,0 +1,42 @@
+{
+  "blender": "5.1.1",
+  "properties": {
+    "export_draco_mesh_compression_enable": {
+      "description": "Compress mesh using Draco",
+      "default": "False"
+    },
+    "export_draco_mesh_compression_level": {
+      "description": "Compression level (0 = most speed, 6 = most compression, higher values currently not supported)",
+      "default": "6"
+    },
+    "export_draco_position_quantization": {
+      "description": "Quantization bits for position values (0 = no quantization)",
+      "default": "14"
+    },
+    "export_draco_normal_quantization": {
+      "description": "Quantization bits for normal values (0 = no quantization)",
+      "default": "10"
+    },
+    "export_draco_texcoord_quantization": {
+      "description": "Quantization bits for texture coordinate values (0 = no quantization)",
+      "default": "12"
+    },
+    "export_draco_color_quantization": {
+      "description": "Quantization bits for color values (0 = no quantization)",
+      "default": "10"
+    },
+    "export_draco_generic_quantization": {
+      "description": "Quantization bits for generic values like weights or joints (0 = no quantization)",
+      "default": "12"
+    },
+    "export_extras": {
+      "description": "Export custom properties as glTF extras",
+      "default": "False"
+    },
+    "export_yup": {
+      "description": "Export using glTF convention, +Y up",
+      "default": "True"
+    }
+  },
+  "docs": "https://github.com/KhronosGroup/glTF-Blender-IO/blob/main/docs/blender_docs/scene_gltf2.rst"
+}

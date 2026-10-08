@@ -1,0 +1,1475 @@
+Reading additional input from stdin...
+2026-10-05T18:32:25.947107Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:32:25.947197Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:32:26.023260Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: zai/glm-5.3
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10d56-a9e1-7f91-80d5-12ed0360528d
+--------
+user
+Bounded read-only cross-provider review of corrected ring sampler. Do not edit any files, do not read TODO or queue docs, this spec is complete. Read docs/jgun-manufacturing-inspection-plan.md section3, src/scene/inspection/timeline.ts and timeline.test.ts, ringGeometry.ts and ringGeometry.test.ts, and evidence manufacturing-implementation-2026-10-05/ring/README.md. Verify actual mathematical circumferential coverage per axial slice under both rollers, true 4pi physical rate and eight-turn endpoint, dwell/traverse/withdrawal/fade ordering, smooth lands/bore preservation, allocation-free caller-owned sampler, high-speed representation scales without angle weakening. Read integration ringRuntime.ts but do not certify unfinished lifecycle from sampler alone. You may run focused vitest read-only. Report SHIP or FIX-FIRST with severity and exact source lines, no generic risks, max500 words. Distinguish proven sampler acceptance from browser integration and owner approval.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-05T18:32:26.951285Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+2026-10-05T18:32:27.388698Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:32:27.388736Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+Bounded read-only review starting. I'll do a quick memory pass for prior ring-sampler context (repo is in memory), locate the exact files, then verify the math line-by-line and attempt a focused vitest run. No edits, no TODO/queue reads.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n -i 'ring sampler|ringGeometry|manufacturing inspection|ringRuntime|inspection plan' 'C:\\Users\\Markimus\\.codex\\memories\\MEMORY.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg --files | rg -i 'inspection|manufacturing'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 846ms:
+hook: PostToolUse
+ succeeded in 938ms:
+docs\jgun-manufacturing-inspection-plan.md
+scripts\verify-ring-inspection.mjs
+scripts\manufacturing\measure_g0.py
+scripts\manufacturing\export_study.py
+scripts\manufacturing\classify_contacts.py
+src\components\RingInspection.tsx
+src\components\RingInspection.css
+project\work\plans\JG-020-multi-station-hotspots-inspection.md
+src\scene\inspection\toolContact.test.ts
+src\scene\inspection\timeline.ts
+src\scene\inspection\timeline.test.ts
+src\scene\inspection\story.ts
+src\scene\inspection\story.test.ts
+src\scene\inspection\session.ts
+src\scene\inspection\session.test.ts
+src\scene\inspection\ringRuntime.ts
+src\scene\inspection\ringGeometry.ts
+src\scene\inspection\ringGeometry.test.ts
+src\scene\inspection\renderLease.ts
+src\scene\inspection\renderLease.test.ts
+src\scene\inspection\narrativeFade.ts
+src\scene\inspection\loadLease.ts
+src\scene\inspection\lifecycle.test.ts
+src\scene\inspection\InspectionScene.tsx
+src\scene\inspection\compileLease.ts
+src\state\inspectionStore.ts
+src\state\inspectionStore.test.ts
+project\context\owner-specs\manufacturing-inspection-storyline-2026-10-05.md
+project\work\evidence\JG-020-multi-station-hotspots-inspection-verification.md
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\05-mobile-inspection.receipt.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\05-mobile-inspection.prompt.txt
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\05-mobile-inspection.png
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\05-mobile-inspection.job.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection.receipt.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection.prompt.txt
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection.png
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection.job.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v3.receipt.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v3.prompt.txt
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v3.png
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v2.receipt.json
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v2.prompt.txt
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v2.png
+project\work\evidence\JG-035-opening-drafting-table\mark-authorship-concepts-2026-10-04\04-planet-inspection-v2.job.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\review-ledger.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\parent-concept-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\opus-plan-rereview.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\opus-final-plan-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\opus-concept-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\continuation-handoff.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\concept-review-brief.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\concept-reconciliation-brief.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\concept-consensus.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\astra-plan-detail-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\astra-final-refinement-confirmation.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\astra-concept-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\astra-concept-reconciliation.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-story-plan-2026-10-05\approved-asset-baseline.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\vite.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\vite-error.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\verify-shell.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\tsconfig.shell.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\reduced-narrow.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\poster-narrow.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\notes.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\narrow.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\harness.tsx
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\harness.html
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\dom-report.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\shell\desktop.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\review-ledger.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\PLAN.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\wheel-probe.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\wheel-harmonic-probe.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\typecheck.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t9.4.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t7.7.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t6.2.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t4.2.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t4.1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t3.9.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t3.7.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\t10.2.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime-probe\runtime-probe.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\report.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\mobile-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\exploded-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\desktop-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\runtime\blueprint-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\ring-runtime-probe.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\README.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\independent-review-glm.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\focused-inspection.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\focused-inspection.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\coverage-report.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\coverage-evidence.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\clip-probe.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\ring\clip-contact-samples.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\study-phase.stdout.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\study-phase.stderr.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\study-phase.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun_g0.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun.stdout.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun.stderr.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun\source-registry.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun\measurement-summary.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\rerun\early-datum.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\measure_study_phase.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\housing.stdout.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\housing.stderr.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\housing-section.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\housing-diagnostics.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.stdout.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.stderr.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\anthropic-review-prompt.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\lifecycle-contract.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\integration\verify-ordering.mjs
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\integration\harness.tsx
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\integration\harness.html
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\source-registry.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\source-registry.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\measurement-summary.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\early-datum.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\source-registry.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\measurement-summary.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\early-datum.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\measurement.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\measurement-summary.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\FINDINGS.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\early-datum.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\shell.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\runtime.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\ring-sampler.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\lifecycle-contract.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\integration.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\core-assets.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\camera.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\assets.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\contract-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance-v1-invalid.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance-v1-invalid.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\blockout.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\blockout.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\verification.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\tool-conventions.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\run-blockout.ps1
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\profile_study.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\profile-study.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\profile-study.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-before.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-before-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-after.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-after-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-hobbing.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-hobbing-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\method-review.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\method-review.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\index.html
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-before.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-before-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-after.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-after-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-hobbing.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-hobbing-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit-cad.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\corrected_clearance.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\compose_and_verify.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.py
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\report.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-returned.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-return-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-1.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.5.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-isolated.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-entry-fade.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-contact.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-black-finish.png
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\architecture-advisor-glm.md
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\source-sections.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\selected-cleanup.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\native-topology-probe.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\native-probe.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\manufacturing-core-lite.glb
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\manufacturing-core-full.glb
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\lite-legacyshaft-sections.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\lite-approvedshaft-sections.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\full-legacyshaft-sections.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\full-approvedshaft-sections.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\exporter-rna.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\core-assets-report.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\cleanup.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\cleanup-probe.json
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\build.log
+project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\assets\audit-draco.mjs
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Memory pass found nothing on the ring sampler, so this review stands on the current tree. Paths confirmed. Now pulling section boundaries and sizes, then reading the exact sources with line numbers.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "(Get-Item docs/jgun-manufacturing-inspection-plan.md, src/scene/inspection/timeline.ts, src/scene/inspection/timeline.test.ts, src/scene/inspection/ringGeometry.ts, src/scene/inspection/ringGeometry.test.ts, src/scene/inspection/ringRuntime.ts, 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/README.md' | ForEach-Object { \""'$($_.Name): $((Get-Content $_.FullName).Count)" })' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n '"'^#{1,3} '"' docs/jgun-manufacturing-inspection-plan.md" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 871ms:
+jgun-manufacturing-inspection-plan.md: 175
+timeline.ts: 143
+timeline.test.ts: 240
+ringGeometry.ts: 57
+ringGeometry.test.ts: 19
+ringRuntime.ts: 205
+README.md: 72
+
+hook: PostToolUse
+ succeeded in 1191ms:
+1:# JG-035 — Ring Switch and Input Shaft manufacturing stories
+7:## 1. Locked direction and scope
+15:## 2. Shared presentation and control
+29:## 3. Ring Switch refinement shot list
+47:## 4. Input Shaft storyline and preliminary timing
+64:### Cutter choreography and camera
+76:### Mesh progression and stress illustration
+99:### Support comparison and train return
+111:## 5. Architecture and bounded ownership
+131:## 6. Geometry, performance and accessibility gates
+145:## 7. Build sequence and adversarial reviews
+163:## 8. Implementation validation packet
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Compact files — reading all seven in full with line numbers.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/ringGeometry.ts | ForEach-Object -Begin {$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content docs/jgun-manufacturing-inspection-plan.md | Select-Object -Skip 28 -First 18 | ForEach-Object -Begin {$i=29} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/ringGeometry.test.ts | ForEach-Object -Begin {$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/timeline.ts | ForEach-Object -Begin {$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 736ms:
+   1: import { describe, expect, it } from 'vitest'
+   2: import { CylinderGeometry, Group, Mesh, MeshBasicMaterial, MeshPhysicalMaterial } from 'three'
+   3: import { createInspectionRing } from './ringGeometry'
+   4: 
+   5: describe('inspection material ownership across narrative modes', () => {
+   6:   it('owns a physical finish when the source is a Blueprint mesh', () => {
+   7:     const geometry = new CylinderGeometry(.037722, .037722, .027204, 32).rotateX(Math.PI / 2)
+   8:     const blueprint = new MeshBasicMaterial({ wireframe: true, transparent: true, opacity: .35 })
+   9:     const mesh = new Mesh(geometry, blueprint), unit = new Group()
+  10:     unit.add(mesh); unit.updateMatrixWorld(true)
+  11:     const ring = createInspectionRing(unit, [mesh])
+  12:     expect(ring.material).toBeInstanceOf(MeshPhysicalMaterial)
+  13:     expect(ring.material.wireframe).toBe(false)
+  14:     expect(ring.material.normalMap).toBeTruthy()
+  15:     expect(mesh.material).toBe(blueprint)
+  16:     expect(blueprint.opacity).toBe(.35)
+  17:     ring.dispose(); geometry.dispose(); blueprint.dispose()
+  18:   })
+  19: })
+
+ succeeded in 777ms:
+   1: import { Box3, BufferAttribute, Group, Matrix4, Mesh, MeshPhysicalMaterial, ShaderChunk, Vector3, type Object3D } from 'three'
+   2: import { createDiamondKnurlNormalMap, roleMaterial } from '../rig/materials'
+   3: import { SHOULDER } from './timeline'
+   4: 
+   5: /** Exact CAD union baked in its rigid unit frame; pins/plungers never enter this copy. */
+   6: export function createInspectionRing(unit: Object3D, sources: Mesh[]) {
+   7:   if (!sources.length) throw new Error('P003068 CAD surface is unavailable')
+   8:   unit.updateWorldMatrix(true, true)
+   9:   const inverse = unit.matrixWorld.clone().invert(), bake = new Matrix4(), union = new Box3()
+  10:   const geometries = sources.map(source => {
+  11:     const geometry = source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inverse, source.matrixWorld))
+  12:     geometry.computeBoundingBox(); union.union(geometry.boundingBox!)
+  13:     return geometry
+  14:   })
+  15:   const center = union.getCenter(new Vector3()), width = union.max.z - union.min.z
+  16:   let radius = 0
+  17:   for (const geometry of geometries) {
+  18:     geometry.translate(-center.x, -center.y, -center.z)
+  19:     const p = geometry.getAttribute('position'), uv = new Float32Array(p.count * 2)
+  20:     for (let i = 0; i < p.count; i++) {
+  21:       radius = Math.max(radius, Math.hypot(p.getX(i), p.getY(i)))
+  22:       uv[i * 2] = Math.atan2(p.getY(i), p.getX(i)) / (2 * Math.PI) + 0.5
+  23:       uv[i * 2 + 1] = (p.getZ(i) + width / 2) / width
+  24:     }
+  25:     geometry.setAttribute('uv', new BufferAttribute(uv, 2))
+  26:     geometry.computeBoundingBox(); geometry.normalizeNormals()
+  27:   }
+  28:   const normalMap = createDiamondKnurlNormalMap()
+  29:   const uniforms = { progress: { value: 0 }, strength: { value: 1.5 }, diagnostic: { value: 0 } }
+  30:   // Blueprint is a narrative view; the finish study always owns a physical copy.
+  31:   const material = (roleMaterial('ringSwitch') as MeshPhysicalMaterial).clone()
+  32:   material.normalMap = normalMap; material.normalScale.set(1.5, 1.5)
+  33:   material.transparent = false; material.opacity = 1; material.depthWrite = true
+  34:   material.onBeforeCompile = shader => {
+  35:     shader.uniforms.uInspectionProgress = uniforms.progress
+  36:     shader.uniforms.uInspectionDiagnostic = uniforms.diagnostic
+  37:     shader.vertexShader = 'varying vec3 vInspectionPosition;\nvarying vec3 vInspectionNormal;\n' + shader.vertexShader
+  38:     shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvInspectionPosition = position; vInspectionNormal = normal;')
+  39:     shader.fragmentShader = 'uniform float uInspectionProgress;\nuniform float uInspectionDiagnostic;\nvarying vec3 vInspectionPosition;\nvarying vec3 vInspectionNormal;\n' + shader.fragmentShader
+  40:     const min = -width / 2 + SHOULDER, max = width / 2 - SHOULDER
+  41:     shader.fragmentShader = shader.fragmentShader.replace('#include <normal_fragment_maps>', ShaderChunk.normal_fragment_maps.replace('mapN.xy *= normalScale;', `
+  42:       float radial = smoothstep(${(radius - 0.0004).toFixed(9)}, ${(radius - 0.0002).toFixed(9)}, length(vInspectionPosition.xy));
+  43:       float side = 1.0 - smoothstep(0.12, 0.22, abs(normalize(vInspectionNormal).z));
+  44:       float land = smoothstep(${min.toFixed(9)}, ${(min + 0.00025).toFixed(9)}, vInspectionPosition.z) * (1.0 - smoothstep(${(max - 0.00025).toFixed(9)}, ${max.toFixed(9)}, vInspectionPosition.z));
+  45:       float head = mix(${min.toFixed(9)}, ${max.toFixed(9)}, uInspectionProgress);
+  46:       float trail = (1.0 - smoothstep(head - 0.00025, head, vInspectionPosition.z)) * step(0.00001, uInspectionProgress);
+  47:       float inspectionMask = radial * side * land * trail;
+  48:       mapN.xy *= normalScale * inspectionMask;`))
+  49:     shader.fragmentShader = shader.fragmentShader.replace('#include <opaque_fragment>', 'outgoingLight = mix(outgoingLight, mix(vec3(0.18,0.01,0.015),vec3(0.01,0.8,0.08),inspectionMask), uInspectionDiagnostic);\n#include <opaque_fragment>')
+  50:   }
+  51:   material.customProgramCacheKey = () => `inspection-od-v1-${radius}-${width}`
+  52:   const group = new Group(); group.name = 'inspection-P003068-spin'
+  53:   geometries.forEach(geometry => { const mesh = new Mesh(geometry, material); mesh.name = 'P003068-inspection-CAD'; group.add(mesh) })
+  54:   const entryMatrix = unit.matrixWorld.clone().multiply(new Matrix4().makeTranslation(center.x, center.y, center.z))
+  55:   return { group, geometries, material, normalMap, uniforms, radius, width, center, union, entryMatrix,
+  56:     dispose() { geometries.forEach(g => g.dispose()); material.dispose(); normalMap.dispose() } }
+  57: }
+
+ succeeded in 750ms:
+   1: export const INSPECTION_DURATION = 12
+   2: export const TRAVERSE_START = 4.2
+   3: export const TRAVERSE_END = 6.2
+   4: export const WHEEL_RADIUS = 0.0115
+   5: export const WHEEL_WIDTH = 0.0075
+   6: export const SHOULDER = 0.0016
+   7: 
+   8: // Measured on public/models/knurling-tool.glb (clip KnurlTool_Approach_Contact_Traverse_Retract, 30 fps keys):
+   9: // both rollers first touch the OD at clip 1.5 s, the sampled axial traverse spans 55/30..115/30 s, and the
+  10: // rollers leave the OD at clip 4.0 s. Radial clearance is positive from there on.
+  11: export const CLIP_START = 1 / 30
+  12: export const CLIP_CONTACT_START = 1.5
+  13: export const CLIP_TRAVERSE_START = 55 / 30
+  14: export const CLIP_TRAVERSE_END = 115 / 30
+  15: export const CLIP_CONTACT_END = 4
+  16: export const CLIP_END = 5
+  17: 
+  18: // Display-time landmarks (seconds of the 12 s sequence).
+  19: export const APPROACH_START = 2.8
+  20: /** Paired rollers touch the OD here and roll, without axial travel, until TRAVERSE_START. */
+  21: export const CONTACT_START = 3.8
+  22: export const CONTACT_DWELL = TRAVERSE_START - CONTACT_START
+  23: /** Tool starts to fade only once measured radial clearance is >= TOOL_FADE_MIN_CLEARANCE. */
+  24: export const TOOL_FADE_START = 7.7
+  25: export const TOOL_FADE_END = 8.2
+  26: export const TOOL_FADE_MIN_CLEARANCE = 0.01
+  27: export const BLACK_FINISH_START = 9.3
+  28: export const RETURN_START = 10.5
+  29: 
+  30: // Temporal detail budget, NOT a physical spin cap. High-speed repeated features must be filtered by the renderer.
+  31: export const RING_RADIUS = .07544365628189591 / 2
+  32: export const RING_WIDTH = .027204217025541766
+  33: export const RING_FEATURES = 96
+  34: export const ROLLER_TEETH = 128
+  35: export const LITE_FPS = 30
+  36: export const MAX_FEATURE_HZ = LITE_FPS / 4
+  37: /** Two opposed contacts cover a circle after pi radians, not after one visible tooth pitch. */
+  38: export const SPIN_RATE = 4 * Math.PI
+  39: // A 2% sweep margin covers Float32 clip interpolation and sampled boundary tolerances.
+  40: export const COVERAGE_TIME = Math.PI * 1.02 / SPIN_RATE
+  41: export const FORMING_END = TRAVERSE_END + COVERAGE_TIME
+  42: export const CONTACT_END = TRAVERSE_END + (CLIP_CONTACT_END - CLIP_TRAVERSE_END) * 2 / (CLIP_END - CLIP_TRAVERSE_END)
+  43: const BAND_WIDTH = RING_WIDTH - 2 * SHOULDER
+  44: 
+  45: const SPIN_UP_START = 1.2
+  46: const SPIN_UP_TIME = CONTACT_START - SPIN_UP_START
+  47: const CRUISE_TIME = CONTACT_END - CONTACT_START
+  48: const RETRACT_RAMP_TIME = 0.4
+  49: const RETRACT_SPIN_RATE = 0.5
+  50: const RETRACT_RAMP_END = CONTACT_END + RETRACT_RAMP_TIME
+  51: const DECEL_START = 8.2
+  52: const DECEL_TIME = RETURN_START - DECEL_START
+  53: /** Preserve the eight-turn lifecycle contract and pin-hole registration. */
+  54: export const FINAL_ANGLE = 16 * Math.PI
+  55: const RETRACT_RAMP_ANGLE = (SPIN_RATE + RETRACT_SPIN_RATE) * RETRACT_RAMP_TIME / 2
+  56: const RETRACT_CRUISE_ANGLE = RETRACT_SPIN_RATE * (DECEL_START - RETRACT_RAMP_END)
+  57: const SPIN_UP_OWED = FINAL_ANGLE - SPIN_RATE * CRUISE_TIME - RETRACT_RAMP_ANGLE - RETRACT_CRUISE_ANGLE - RETRACT_SPIN_RATE * DECEL_TIME / 2
+  58: // Squared smoothstep integrates to 13/35; the endpoint-flat bump integrates to 8/15.
+  59: const BUMP_GAIN = (SPIN_UP_OWED / SPIN_UP_TIME - SPIN_RATE * 13 / 35) / (8 / 15)
+  60: 
+  61: const clamp = (x: number) => Math.max(0, Math.min(1, x))
+  62: export const ease = (x: number) => { const t = clamp(x); return t * t * (3 - 2 * t) }
+  63: const easeIntegral = (x: number) => x * x * x - x * x * x * x / 2
+  64: export interface SpinFrame { angle: number; spin: number }
+  65: export interface InspectionFrame {
+  66:   phase: string; time: number; aluminium: number; knurl: number
+  67:   angle: number; clipTime: number; toolVisible: boolean; returnBlend: number
+  68:   /** Ring angular rate, rad/s: continuous over the sequence. */
+  69:   spin: number
+  70:   /** True while the paired rollers are on the OD (clip 1.5 s .. 4.0 s). */
+  71:   contact: boolean
+  72:   /** Tool prop opacity: 1 until measured clearance, then fades to 0 by TOOL_FADE_END. */
+  73:   toolOpacity: number
+  74:   /** Retained repeated-feature bandwidth in [0,1]; filter OD normals, never the formed-region mask. */
+  75:   ringDetailScale: number
+  76:   /** Retained tooth bandwidth in [0,1]; filter the roller depiction, never its true rotation/contact footprint. */
+  77:   rollerDetailScale: number
+  78: }
+  79: 
+  80: /** Deterministic ring angle and rate; the rollers derive their own angle with rollerAngle(). */
+  81: export function sampleSpin<T extends SpinFrame>(time: number, out: T): T {
+  82:   const t = Math.max(0, Math.min(INSPECTION_DURATION, time))
+  83:   if (t < SPIN_UP_START) { out.angle = 0; out.spin = 0 }
+  84:   else if (t < CONTACT_START) {
+  85:     const u = (t - SPIN_UP_START) / SPIN_UP_TIME, b = u * (1 - u)
+  86:     out.angle = SPIN_UP_TIME * (SPIN_RATE * (9 * u ** 5 / 5 - 2 * u ** 6 + 4 * u ** 7 / 7) + BUMP_GAIN * 16 * (u ** 3 / 3 - u ** 4 / 2 + u ** 5 / 5))
+  87:     out.spin = SPIN_RATE * ease(u) ** 2 + BUMP_GAIN * 16 * b * b
+  88:   } else {
+  89:     const contactAngle = SPIN_UP_OWED + SPIN_RATE * CRUISE_TIME
+  90:     if (t < CONTACT_END) { out.angle = SPIN_UP_OWED + SPIN_RATE * (t - CONTACT_START); out.spin = SPIN_RATE }
+  91:     else if (t < RETRACT_RAMP_END) {
+  92:       const u = (t - CONTACT_END) / RETRACT_RAMP_TIME
+  93:       out.angle = contactAngle + RETRACT_RAMP_TIME * (SPIN_RATE * u + (RETRACT_SPIN_RATE - SPIN_RATE) * easeIntegral(u))
+  94:       out.spin = SPIN_RATE + (RETRACT_SPIN_RATE - SPIN_RATE) * ease(u)
+  95:     } else if (t < DECEL_START) {
+  96:       out.angle = contactAngle + RETRACT_RAMP_ANGLE + RETRACT_SPIN_RATE * (t - RETRACT_RAMP_END)
+  97:       out.spin = RETRACT_SPIN_RATE
+  98:     } else if (t < RETURN_START) {
+  99:       const u = (t - DECEL_START) / DECEL_TIME
+ 100:       out.angle = contactAngle + RETRACT_RAMP_ANGLE + RETRACT_CRUISE_ANGLE + RETRACT_SPIN_RATE * DECEL_TIME * (u - easeIntegral(u))
+ 101:       out.spin = RETRACT_SPIN_RATE * (1 - ease(u))
+ 102:     } else { out.angle = FINAL_ANGLE; out.spin = 0 }
+ 103:   }
+ 104:   return out
+ 105: }
+ 106: 
+ 107: /** Roller angle about its own axis: equal tangential speed at the OD, opposite sense (external rolling contact). */
+ 108: export const rollerAngle = (ringAngle: number, ringRadius: number, rollerRadius: number) => -ringAngle * ringRadius / rollerRadius
+ 109: 
+ 110: export function sampleInspection(time: number, out: InspectionFrame): InspectionFrame {
+ 111:   const t = Math.max(0, Math.min(INSPECTION_DURATION, time))
+ 112:   out.time = t
+ 113:   out.phase = t < 1.2 ? 'Smooth black' : t < 2.8 ? 'Aluminium · spin' : t < 4.2 ? 'Paired rollers · approach' : t < 6.2 ? 'Diamond knurl · traverse' : t < 8.2 ? 'Clearance · retract' : t < 10.5 ? 'Black finish · decelerate' : t < 12 ? 'Assembly return' : 'Complete'
+ 114:   out.aluminium = ease((t - 1.2) / 1.2) * (1 - ease((t - 8.2) / (BLACK_FINISH_START - 8.2)))
+ 115:   // The initial footprint has received pi radians during the dwell. Reveal it smoothly, then trail the
+ 116:   // leading roller edge by the pi-radian forming interval. The far edge finishes in the stationary end dwell.
+ 117:   const coveredTravel = clamp((t - COVERAGE_TIME - TRAVERSE_START) / (TRAVERSE_END - TRAVERSE_START))
+ 118:   out.knurl = ease((t - TRAVERSE_START) / COVERAGE_TIME) * (WHEEL_WIDTH + (BAND_WIDTH - WHEEL_WIDTH) * coveredTravel) / BAND_WIDTH
+ 119:   // Export uses absolute frame/fps samples: first key is 1/30, last is 150/30.
+ 120:   // Approach eases into first contact (zero closing speed), then the clip rolls through the 0.4 s dwell to the
+ 121:   // traverse key; traverse is 1:1 clip time; retract is linear to the final key.
+ 122:   out.clipTime = t < APPROACH_START ? CLIP_START
+ 123:     : t < CONTACT_START ? CLIP_START + (CLIP_CONTACT_START - CLIP_START) * ease((t - APPROACH_START) / (CONTACT_START - APPROACH_START))
+ 124:     : t < TRAVERSE_START ? CLIP_CONTACT_START + (CLIP_TRAVERSE_START - CLIP_CONTACT_START) * (t - CONTACT_START) / CONTACT_DWELL
+ 125:     : t < TRAVERSE_END ? CLIP_TRAVERSE_START + t - TRAVERSE_START
+ 126:     : t < 8.2 ? CLIP_TRAVERSE_END + (t - TRAVERSE_END) / 2 * (CLIP_END - CLIP_TRAVERSE_END) : CLIP_END
+ 127:   out.contact = out.clipTime >= CLIP_CONTACT_START && out.clipTime <= CLIP_CONTACT_END
+ 128:   out.toolOpacity = t < APPROACH_START || t >= TOOL_FADE_END ? 0 : 1 - ease((t - TOOL_FADE_START) / (TOOL_FADE_END - TOOL_FADE_START))
+ 129:   out.toolVisible = out.toolOpacity > 0
+ 130:   sampleSpin(t, out)
+ 131:   const ringHz = out.spin * (2 * RING_FEATURES) / (2 * Math.PI)
+ 132:   const rollerHz = out.spin * RING_RADIUS / WHEEL_RADIUS * ROLLER_TEETH / (2 * Math.PI)
+ 133:   out.ringDetailScale = ringHz > MAX_FEATURE_HZ ? MAX_FEATURE_HZ / ringHz : 1
+ 134:   out.rollerDetailScale = rollerHz > MAX_FEATURE_HZ ? MAX_FEATURE_HZ / rollerHz : 1
+ 135:   out.returnBlend = ease((t - 10.5) / 1.5)
+ 136:   return out
+ 137: }
+ 138: export function odMask(radius: number, z: number, normalZ: number, od: number, halfWidth: number, progress: number): number {
+ 139:   const bandMin = -halfWidth + SHOULDER, bandMax = halfWidth - SHOULDER
+ 140:   if (radius < od - 0.00035 || Math.abs(normalZ) > 0.2 || z <= bandMin || z >= bandMax || progress <= 0) return 0
+ 141:   return z <= bandMin + progress * (bandMax - bandMin) ? 1 : 0
+ 142: }
+ 143: export const newFrame = (): InspectionFrame => ({ phase: 'Smooth black', time: 0, aluminium: 0, knurl: 0, angle: 0, clipTime: 0, toolVisible: false, returnBlend: 0, spin: 0, contact: false, toolOpacity: 0, ringDetailScale: 1, rollerDetailScale: 1 })
+
+ succeeded in 788ms:
+  29: ## 3. Ring Switch refinement shot list
+  30: 
+  31: Retain the existing phase spine and approximately two-second contact traverse. Current source timings below are a baseline, not a new runtime claim.
+  32: 
+  33: | Time (s) | Action and visual purpose |
+  34: |---|---|
+  35: | 0–1.2 | Isolate smooth black P003068 against black; a neutral rim makes bore and smooth lands readable. |
+  36: | 1.2–2.8 | Cinematic aluminium inspection state and increasing spin; retain a legible silhouette. |
+  37: | 2.8–4.2 | Paired rollers approach; a slightly oblique view exposes both contacts. Hold contact composition at least 0.3 s before axial traverse. |
+  38: | 4.2–6.2 | OD knurl grows only at/behind contact as rollers traverse. Preserve the smooth edge lands and bore. |
+  39: | 6.2–8.2 | Retract to measured clearance before the prop fades. Relief remains on the worked band. |
+  40: | 8.2–10.5 | Decelerate and return to black finish; one controlled grazing reflection reveals the diamond relief, then settles. Give the finished black relief at least one second of readable presentation. |
+  41: | 10.5–12 | Register the finished ring with the saved assembly composition while retaining inspection ownership and a frozen narrative. Hold result and controls. Only Return/Escape releases ownership and resumes the saved narrative. |
+  42: 
+  43: Inspect the current normal/relief representation before changing it. Macro views require convincing surface relief/parallax and silhouette where visible; do not introduce a heavy full diamond lattice merely to improve a wide shot. If normal detail fails the macro, use a bounded offline detail strip or height representation restricted to the OD. Physical bore/lands remain unchanged. Aluminium-to-black is a cinematic finish study, not a claim that a finishing operation occurs under the rollers. Knurling forms the surface: no cutting chips or sparks.
+  44: 
+  45: Validate roller axes/handedness and compatible tangential surface speed against the prop and contact geometry; existing clip display rates are not production measurements. Tune display speed to avoid apparent reversal or strobing at 30 fps lite. Use a deliberate softened high-speed representation if speed exceeds readable repeated-feature motion; make the forming/contact macro crisp and phase-readable. At t=12 inspection stays active and narrative time frozen; Return/Escape restores once. Knurl growth is limited to the swept worked region; fading the tool begins only after measured roller clearance.
+  46: 
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Core sources are in. The math on coverage checks out so far on paper — now reading the test contract, the integration, and the evidence README before running the focused vitest.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/README.md' | ForEach-Object -Begin {"'$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 498ms:
+   1: # Ring forming-coverage repair - producer evidence
+   2: 
+   3: Date: 2026-10-05. Current sampler patch passes its focused checks. Parent integration, fresh runtime proof and independent review remain open. No staging or commit in this repair.
+   4: 
+   5: This record supersedes the previous producer's 0.11 rad/s / two-turn sampler and its claim that full-circumference relief can follow a 12.6-degree traverse. Existing `runtime/` and `runtime-probe/` captures describe that rejected sampler; they do not verify this repair.
+   6: 
+   7: ## Owned patch
+   8: 
+   9: - `src/scene/inspection/timeline.ts`: physically sufficient contact rotation, contact-history-limited axial relief, continuous analytic angle/rate, restored 16-pi endpoint, caller-owned spin output, bounded filtering fields.
+  10: - `src/scene/inspection/timeline.test.ts`: GLB-derived per-slice angular coverage, bandwidth requirements, deterministic seeking/output ownership, continuous angle/rate and retained contact/fade/finish tests.
+  11: - `ringGeometry.ts/test`, shared scene/camera/lifecycle and all GLBs were read but not edited.
+  12: 
+  13: Accepted contract: [manufacturing plan section 3](../../../../../../docs/jgun-manufacturing-inspection-plan.md). The original 12-second phase spine and 4.2-6.2-second axial traverse remain.
+  14: 
+  15: ## Measured coverage
+  16: 
+  17: Immutable `public/models/knurling-tool.glb` SHA-256:
+  18: `e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8`.
+  19: 
+  20: The ring is 27.204217 mm wide with 1.6 mm smooth edge lands, leaving a 24.004217 mm worked band. Actual roller width is 7.5 mm, radius 11.5 mm; ring radius is 37.721828 mm. The scene's existing axial rescale gives 16.504217 mm centre travel over two seconds, or 8.252109 mm/s feed. Interior slices spend approximately 0.909 s within the footprint. Both contacts are opposite, so pi radians of engaged ring sweep are needed to cover a full circle.
+  21: 
+  22: The measured clip holds paired contact from clip 1.5 through 4.0 s. The retained mapping gives:
+  23: - First contact 3.8 s, stationary entry dwell 0.4 s through 4.2 s.
+  24: - Axial traverse 4.2-6.2 s. Ring speed throughout contact is 4 pi rad/s (two turns/s); the two-second traverse supplies four true turns.
+  25: - Far band edge first enters the footprint at 6.2 s. Reveal trails the leading edge by 0.255 s (pi sweep plus 2% interpolation margin), so full relief completes at 6.455 s.
+  26: - Both rollers remain engaged until 6.485714 s. Completion precedes loss of contact by 30.714 ms.
+  27: - Fade starts 7.7 s, only after measured clearance >= 10 mm, and ends 8.2 s.
+  28: - Black finish is complete from 9.3 s; return starts 10.5 s, giving 1.2 s of finished black relief.
+  29: - Ring angle reaches exactly 16 pi at 10.5 s and stays stopped through 12 s. Existing lifecycle tests remain unchanged.
+  30: 
+  31: The initial 7.5 mm footprint already receives enough rotation during entry dwell; its relief eases into view after 4.2 s. Subsequent axial slices reveal only after sufficient actual engaged sweep. At 6.2 s the far end is deliberately still unformed. A fully completed band at exactly 6.2 s is incompatible with the retained measured feed.
+  32: 
+  33: [coverage-report.json](coverage-report.json) records 257 axial slices sampled every 0.5 ms, 360 circumferential bins per slice, measured contact and footprint, first reveal and true sweep:
+  34: - Minimum engaged sweep at reveal: 3.204424507 rad (> pi).
+  35: - Every slice: all 360 angular bins contacted before relief reveal.
+  36: - Rejected producer replay: all 257 slices incomplete at its claimed reveal.
+  37: - Direct bore/end-face/land mask exclusions pass.
+  38: 
+  39: ## Continuous, allocation-free sampler
+  40: 
+  41: `sampleSpin(time, out)` writes angle and rate into its required caller-owned output. `sampleInspection(time, out)` passes that same object through; neither function creates arrays, objects or vectors while sampling. Allocate `newFrame()` once per consumer, outside the frame loop.
+  42: 
+  43: Spin-up uses an integrated squared smoothstep plus endpoint-flat bump to pay the exact eight-turn angle budget. Contact runs at 4 pi rad/s, then eases to 0.5 rad/s over 0.4 s after separation and finally stops by 10.5 s. Angle/rate are continuous at all segment boundaries; shuffled/reverse seeking needs no accumulated history. The phase strings stay compatible with the existing spine.
+  44: 
+  45: ## Precise integration requirements
+  46: 
+  47: 1. Consume `f.knurl` directly in `ring.uniforms.progress.value`; keep the OD/bore/land shader mask. Do not rebuild a linear 4.2-6.2 reveal or force progress to one at traverse end. The existing measured axial rescale must remain consistent with the ring and roller widths above.
+  48: 2. Keep `f.angle` as the true ring rotation and `rollerAngle(f.angle, ring.radius, measuredRollerRadius)` about each wheel's local Y after mixer sampling. Both external contacts counter-rotate at equal tangential speed. Never wrap or slow these angles to accommodate raster readability.
+  49: 3. Apply `f.ringDetailScale` and `f.rollerDetailScale`, both finite in [0,1], to repeated-feature depiction. They are conservative temporal-bandwidth ratios based on the worst-case lite 30 fps, not lower physical speeds. At contact, ring/ridge rate is 384 Hz and the roller teeth rate is approximately 839.72069 Hz; fields are approximately 0.01953125 and 0.00893154. Raw angles can strobe if these fields are ignored.
+  50: 4. For the OD normal map, filter/time-average the repeated detail across the true angular advance and attenuate high-frequency normal strength from its existing 1.5 baseline using `ringDetailScale`; preserve progress independently. At high speed the fine diamonds may soften nearly to their mean normal. Restore the full crisp formed relief as the field returns to one during the stop. Do not claim multiplying a frequency by this field actually slows the texture.
+  51: 5. For the tool's 128-tooth wheels, blend/filter the repeated tooth depiction toward a smooth rolling envelope with `rollerDetailScale`, using only instance-owned materials/shaders or bounded derived depiction. Suppress aliased tooth edges as well as highlights; a material-only normal reduction cannot remove a sharp geometric tooth silhouette. Preserve measured contact radius, axial footprint, axes, handedness and true wheel rotation. The source prop GLB stays byte-for-byte immutable.
+  52: 6. Apply `f.toolOpacity` to the mount-owned tool material clones, retaining the original per-material opacity multiplier. Switch transparency/depth-write appropriately during fading; keep `toolVisible` gating. Create/dispose resources outside the frame loop. Existing carry-out follows measured clearance.
+  53: 7. Keep both-contact composition readable through the 3.8-4.2 dwell, and retain a single grazing reflection during the 9.3-10.5 black hold. Record versioned telemetry for spin, contact, progress, filtering fields and tool opacity. Seek/replay uses the same deterministic fields.
+  54: 8. Run fresh integrated 30/60 fps contact, final-band, clearance/fade and black-hold proof, including narrow/lite; do not reuse the superseded runtime folders. Full forming can be true while sharp high-speed detail is intentionally filtered. Sampler success does not assert current renderer filtering or macro acceptance.
+  55: 
+  56: Shared `InspectionScene.tsx` currently uses the angle and progress but does not consume the filtering fields or tool opacity. That integration is explicitly outside this repair's ownership. No lifecycle expectation needs weakening.
+  57: 
+  58: ## Reproduction and checks
+  59: 
+  60: Run from the real checkout:
+  61: 
+  62: `node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/coverage-evidence.mjs`
+  63: 
+  64: The script reads the immutable GLB, independently measures footprint/contact coverage, records source hashes, runs the entire focused inspection suite and TypeScript check, then rejects concurrent source changes during verification.
+  65: 
+  66: - [focused-inspection.json](focused-inspection.json): 23/23 tests, 4/4 files pass, including unchanged `lifecycle.test.ts`.
+  67: - [typecheck.log](typecheck.log): `tsc --noEmit` exit 0.
+  68: - [coverage-report.json](coverage-report.json): measured coverage, rejected-producer replay, source hashes and sampled frame fields.
+  69: - `git diff --check` for owned source: pass.
+  70: - Graph lookup returned no current inspection symbols. Coverage reported inspection files not tracked in its 2026-09-30 generation; direct current source was read for all conclusions.
+  71: 
+  72: Older runtime images and seven-case reports remain historical. Gate checkboxes remain pending parent integration and fresh independent review.
+
+hook: PostToolUse
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/timeline.test.ts | ForEach-Object -Begin {$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/ringRuntime.ts | ForEach-Object -Begin {$i=1} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 610ms:
+   1: import { AnimationMixer, Box3, BufferAttribute, Color, DirectionalLight, Group, LoopOnce, Matrix4, Mesh, Quaternion, Vector3, type Material, type Object3D, type Texture } from 'three'
+   2: import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
+   3: import { inspection, inspectionTelemetry as probe } from '../../state/inspectionStore'
+   4: import { createInspectionRing } from './ringGeometry'
+   5: import { ease, newFrame, odMask, rollerAngle, sampleInspection, SHOULDER, WHEEL_WIDTH } from './timeline'
+   6: import type { StoryContext, StoryRuntime } from './story'
+   7: import type { StorySession } from './session'
+   8: 
+   9: const black = new Color('#040404'), aluminium = new Color('#bfc5cb')
+  10: 
+  11: /** Parsed props are owned by this session, never by the narrative GLTF cache. */
+  12: function toolResources(gltf: GLTF) {
+  13:   const geometries = new Set<Mesh['geometry']>(), materials = new Set<Material>(), textures = new Set<Texture>()
+  14:   gltf.scene.traverse(object => {
+  15:     if (!(object instanceof Mesh)) return
+  16:     geometries.add(object.geometry)
+  17:     for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+  18:       materials.add(material)
+  19:       for (const value of Object.values(material)) if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
+  20:     }
+  21:   })
+  22:   return { geometries, materials, textures, dispose() {
+  23:     geometries.forEach(value => value.dispose()); materials.forEach(value => value.dispose()); textures.forEach(value => value.dispose())
+  24:   } }
+  25: }
+  26: 
+  27: /** Filter physical tooth vertices and normals toward a smooth roller at high display speed. */
+  28: function filterRoller(wheel: Object3D, radius: number, detail: { value: number }, ownedMaterials: Set<Material>) {
+  29:   const inverse = wheel.matrixWorld.clone().invert(), local = new Matrix4(), back = new Matrix4(), v = new Vector3(), normal = new Vector3()
+  30:   wheel.traverse(object => {
+  31:     if (!(object instanceof Mesh)) return
+  32:     local.multiplyMatrices(inverse, object.matrixWorld); back.copy(local).invert()
+  33:     const positions = object.geometry.getAttribute('position'), normals = object.geometry.getAttribute('normal')
+  34:     const smoothPositions = new Float32Array(positions.count * 3), smoothNormals = new Float32Array(positions.count * 3)
+  35:     for (let i = 0; i < positions.count; i++) {
+  36:       v.fromBufferAttribute(positions, i).applyMatrix4(local)
+  37:       const radial = Math.hypot(v.x, v.z)
+  38:       normal.fromBufferAttribute(normals, i)
+  39:       if (radial > radius - 0.0012) {
+  40:         const smoothRadius = radius - 0.00035
+  41:         v.x *= smoothRadius / radial; v.z *= smoothRadius / radial
+  42:         normal.transformDirection(local)
+  43:         if (Math.abs(normal.y) < 0.7) normal.set(v.x, 0, v.z).normalize()
+  44:         normal.transformDirection(back)
+  45:       }
+  46:       v.applyMatrix4(back).toArray(smoothPositions, i * 3); normal.toArray(smoothNormals, i * 3)
+  47:     }
+  48:     object.geometry.setAttribute('inspectionSmoothPosition', new BufferAttribute(smoothPositions, 3))
+  49:     object.geometry.setAttribute('inspectionSmoothNormal', new BufferAttribute(smoothNormals, 3))
+  50:     const adapt = (original: Material) => {
+  51:       const material = original.clone(); ownedMaterials.add(material)
+  52:       const before = original.onBeforeCompile, key = original.customProgramCacheKey()
+  53:       material.onBeforeCompile = (shader, renderer) => {
+  54:         before.call(material, shader, renderer)
+  55:         shader.uniforms.uRollerDetail = detail
+  56:         shader.vertexShader = 'uniform float uRollerDetail;\nattribute vec3 inspectionSmoothPosition;\nattribute vec3 inspectionSmoothNormal;\n' + shader.vertexShader
+  57:         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed = mix(inspectionSmoothPosition, position, uRollerDetail);')
+  58:         shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', 'vec3 objectNormal = normalize(mix(inspectionSmoothNormal, normal, uRollerDetail));\n#ifdef USE_TANGENT\nvec3 objectTangent = vec3(tangent.xyz);\n#endif')
+  59:       }
+  60:       material.customProgramCacheKey = () => `${key}-inspection-smooth-roller-v1`
+  61:       return material
+  62:     }
+  63:     object.material = Array.isArray(object.material) ? object.material.map(adapt) : adapt(object.material)
+  64:   })
+  65: }
+  66: 
+  67: export function createRingRuntime(session: StorySession, ctx: StoryContext): StoryRuntime {
+  68:   if (!inspection.source) throw new Error('P003068 CAD surface is unavailable')
+  69:   const ring = createInspectionRing(inspection.source, inspection.meshes)
+  70:   const root = new Group(); root.name = 'ring-inspection-world'
+  71:   const toolFrame = new Group(); toolFrame.name = 'inspection-tool-frame'; toolFrame.rotation.x = Math.PI / 2; toolFrame.visible = false
+  72:   root.add(ring.group, toolFrame)
+  73:   const key = new DirectionalLight('#edf4ff', 2.6), rim = new DirectionalLight('#c7dae2', 1.4)
+  74:   key.position.set(-0.1, 0.15, 0.16); rim.position.set(0.12, -0.12, 0.04)
+  75:   root.add(key, rim, key.target, rim.target)
+  76:   const entryPosition = new Vector3(), entryRotation = new Quaternion(), entryScale = new Vector3()
+  77:   ring.entryMatrix.decompose(entryPosition, entryRotation, entryScale)
+  78:   const zero = new Vector3(), identity = new Quaternion(), axis = new Vector3(), point = new Vector3(), local = new Vector3(), bounds = new Box3()
+  79:   const sample = newFrame(), detail = { value: 1 }
+  80:   const frame = { time: 0, chapter: 0, phase: sample.phase, discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true }
+  81:   const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
+  82:   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.7, envRotationY: 0, bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
+  83:   const resources = { geometries: ring.geometries.length, materials: 1, textures: 1, meshes: ring.geometries.length }
+  84:   let disposed = false, tool: GLTF | null = null, ownership: ReturnType<typeof toolResources> | null = null
+  85:   let mechanics: ReturnType<typeof buildMechanics> | null = null, proofProgress: number | null = null
+  86:   function buildMechanics(gltf: GLTF) {
+  87:     const mixer = new AnimationMixer(gltf.scene)
+  88:     const clip = gltf.animations.find(value => value.name === 'KnurlTool_Approach_Contact_Traverse_Retract')
+  89:     if (!clip) throw new Error('Verified tool animation is missing')
+  90:     const action = mixer.clipAction(clip); action.setLoop(LoopOnce, 1); action.clampWhenFinished = true; action.play()
+  91:     const toolRoot = gltf.scene.getObjectByName('KT_TOOL_ROOT')
+  92:     const rootTrack = clip.tracks.find(value => value.name === 'KT_TOOL_ROOT.position')
+  93:     if (!toolRoot || !rootTrack) throw new Error('Verified tool root is missing')
+  94:     const rootSample = (rootTrack as unknown as { createInterpolant(): { evaluate(time: number): Float32Array } }).createInterpolant()
+  95:     const wheels = ['KT_UPPER_KNURL_WHEEL_RH', 'KT_LOWER_KNURL_WHEEL_LH'].map(name => {
+  96:       const wheel = gltf.scene.getObjectByName(name)
+  97:       if (!wheel) throw new Error(`Verified roller is missing: ${name}`)
+  98:       return wheel
+  99:     })
+ 100:     const radii = wheels.map(wheel => {
+ 101:       wheel.updateWorldMatrix(true, true)
+ 102:       const inverse = wheel.matrixWorld.clone().invert(), vertex = new Vector3(), matrix = new Matrix4()
+ 103:       let radius = 0
+ 104:       wheel.traverse(object => { if (object instanceof Mesh) {
+ 105:         const p = object.geometry.getAttribute('position'); matrix.multiplyMatrices(inverse, object.matrixWorld)
+ 106:         for (let i = 0; i < p.count; i++) { vertex.fromBufferAttribute(p, i).applyMatrix4(matrix); radius = Math.max(radius, Math.hypot(vertex.x, vertex.z)) }
+ 107:       } })
+ 108:       if (radius <= 0) throw new Error('Verified roller radius is unavailable')
+ 109:       return radius
+ 110:     })
+ 111:     for (let i = 0; i < wheels.length; i++) filterRoller(wheels[i], radii[i], detail, ownership!.materials)
+ 112:     return { mixer, action, root: toolRoot, rootSample, wheels, radii }
+ 113:   }
+ 114:   const ready = (async () => {
+ 115:     const url = `${import.meta.env.BASE_URL}models/knurling-tool.glb`
+ 116:     const response = await fetch(url, { signal: session.signal })
+ 117:     if (!response.ok) throw new Error(`Tool download failed (${response.status})`)
+ 118:     const data = await response.arrayBuffer()
+ 119:     if (disposed || !session.current()) return
+ 120:     const gltf = await new GLTFLoader().parseAsync(data, url.slice(0, url.lastIndexOf('/') + 1))
+ 121:     const owned = toolResources(gltf)
+ 122:     if (disposed || !session.current()) { owned.dispose(); return }
+ 123:     tool = gltf; ownership = owned
+ 124:     mechanics = buildMechanics(gltf)
+ 125:     toolFrame.add(gltf.scene)
+ 126:     resources.geometries += owned.geometries.size; resources.materials += owned.materials.size; resources.textures += owned.textures.size
+ 127:     gltf.scene.traverse(object => { if (object instanceof Mesh) resources.meshes++ })
+ 128:     probe.toolMeshes = resources.meshes - ring.geometries.length
+ 129:   })()
+ 130:   const runtime: StoryRuntime = {
+ 131:     root, ready, frame, camera, render, resources,
+ 132:     sample(time) {
+ 133:       sampleInspection(time, sample)
+ 134:       frame.time = sample.time; frame.phase = sample.phase; frame.returnBlend = sample.returnBlend
+ 135:       frame.discrete = sample.time < 1.2 ? 0 : sample.time < 2.8 ? 1 : sample.time < 4.2 ? 2 : sample.time < 6.2 ? 3 : sample.time < 8.2 ? 4 : sample.time < 10.5 ? 5 : sample.time < 12 ? 6 : 7
+ 136:       frame.narrativeAlpha = sample.returnBlend; frame.ownsNarrative = true
+ 137:       const distance = Math.max(ring.radius * 5.4, ring.radius * 3.2 / Math.max(0.42, ctx.aspect))
+ 138:       camera.position.set(-0.7, 0.48, 0.53).normalize().multiplyScalar(distance)
+ 139:       camera.target.set(0, 0, 0); camera.up.set(0, 1, 0); camera.fov = 34
+ 140:     },
+ 141:     apply() {
+ 142:       if (disposed) return
+ 143:       const entryBlend = ease(inspection.entryElapsed / 1.2), poseBlend = 1 - entryBlend + entryBlend * sample.returnBlend
+ 144:       root.position.lerpVectors(zero, entryPosition, poseBlend); root.quaternion.slerpQuaternions(identity, entryRotation, poseBlend)
+ 145:       root.visible = true
+ 146:       ring.group.rotation.z = sample.angle
+ 147:       ring.material.color.lerpColors(black, aluminium, sample.aluminium); ring.material.roughness = 0.26 + sample.aluminium * 0.09
+ 148:       ring.material.opacity = 1 - sample.returnBlend; ring.material.transparent = true; ring.material.depthWrite = sample.returnBlend < 0.001
+ 149:       // Bandwidth filtering is independent of the forming mask and true angular sweep.
+ 150:       ring.material.normalScale.set(1.5 * sample.ringDetailScale, 1.5 * sample.ringDetailScale)
+ 151:       ring.uniforms.progress.value = proofProgress ?? sample.knurl; detail.value = sample.rollerDetailScale
+ 152:       toolFrame.visible = sample.toolVisible
+ 153:       toolFrame.position.x = 0.24 * ease((sample.clipTime - 4.5) / 0.5)
+ 154:       if (mechanics) {
+ 155:         mechanics.action.enabled = true; mechanics.action.paused = false
+ 156:         mechanics.mixer.setTime(Math.min(sample.clipTime, 5 - 0.000001))
+ 157:         mechanics.root.position.y = mechanics.rootSample.evaluate(sample.clipTime)[1] * (ring.width / 2 - SHOULDER - WHEEL_WIDTH / 2) / ((0.027204217025541766 - WHEEL_WIDTH) / 2)
+ 158:         for (let i = 0; i < 2; i++) mechanics.wheels[i].quaternion.setFromAxisAngle(axis.set(0, 1, 0), rollerAngle(sample.angle, ring.radius, mechanics.radii[i]))
+ 159:       }
+ 160:       if (ownership) for (const material of ownership.materials) { material.transparent = true; material.opacity = sample.toolOpacity; material.depthWrite = sample.toolOpacity >= 0.999 }
+ 161:       root.updateWorldMatrix(true, true)
+ 162:     },
+ 163:     telemetry(out) {
+ 164:       if (disposed) return
+ 165:       bounds.setFromObject(ring.group)
+ 166:       for (let i = 0; i < 3; i++) { probe.worldBounds.min[i] = bounds.min.getComponent(i); probe.worldBounds.max[i] = bounds.max.getComponent(i) }
+ 167:       if (mechanics) for (let i = 0; i < 2; i++) {
+ 168:         point.setFromMatrixPosition(mechanics.wheels[i].matrixWorld)
+ 169:         for (let j = 0; j < 3; j++) probe.rollerCenters[i][j] = point.getComponent(j)
+ 170:         local.copy(point); root.worldToLocal(local)
+ 171:         probe.rollerAxial[i] = local.z; probe.rollerClearance[i] = Math.hypot(local.x, local.y) - ring.radius - mechanics.radii[i]
+ 172:         axis.set(0, 1, 0).transformDirection(mechanics.wheels[i].matrixWorld)
+ 173:         for (let j = 0; j < 3; j++) probe.wheelAxis[i][j] = axis.getComponent(j)
+ 174:       }
+ 175:       probe.time = sample.time; probe.phase = sample.phase; probe.odKnurlProgress = ring.uniforms.progress.value
+ 176:       probe.normalStrength = ring.material.normalScale.x; probe.aluminiumBlend = sample.aluminium
+ 177:       probe.ringAngle = sample.angle; probe.toolClipTime = sample.clipTime; probe.toolVisible = toolFrame.visible
+ 178:       const p = ring.uniforms.progress.value
+ 179:       probe.maskSamples.bore = odMask(ring.radius * 0.8, 0, 0, ring.radius, ring.width / 2, p)
+ 180:       probe.maskSamples.shoulder = odMask(ring.radius, ring.width / 2 - 0.0005, 0, ring.radius, ring.width / 2, p)
+ 181:       probe.maskSamples.odStart = odMask(ring.radius, -ring.width / 2 + SHOULDER + 0.0005, 0, ring.radius, ring.width / 2, p)
+ 182:       probe.maskSamples.odEnd = odMask(ring.radius, ring.width / 2 - SHOULDER - 0.0005, 0, ring.radius, ring.width / 2, p)
+ 183:       out.runtimeVersion = 2; out.toolOpacity = sample.toolOpacity; out.ringDetailScale = sample.ringDetailScale; out.rollerDetailScale = detail.value
+ 184:       out.rollerFilter = 'blended-geometry-and-normals'; out.trueSpin = sample.spin; out.ownsNarrative = frame.ownsNarrative
+ 185:     },
+ 186:     dispose() {
+ 187:       if (disposed) return
+ 188:       disposed = true; mechanics?.mixer.stopAllAction(); if (tool) mechanics?.mixer.uncacheRoot(tool.scene)
+ 189:       root.removeFromParent(); ring.dispose(); ownership?.dispose(); probe.disposed++; probe.loaded = false
+ 190:       if (typeof window !== 'undefined' && global.__inspectionProof === proof) delete global.__inspectionProof
+ 191:     },
+ 192:   }
+ 193:   probe.ringMeshes = ring.geometries.length; probe.toolMeshes = 0
+ 194:   probe.ringBounds.radius = ring.radius; probe.ringBounds.width = ring.width
+ 195:   for (let i = 0; i < 3; i++) { probe.ringBounds.min[i] = ring.union.min.getComponent(i); probe.ringBounds.max[i] = ring.union.max.getComponent(i); probe.ringBounds.center[i] = ring.center.getComponent(i) }
+ 196:   const global = (typeof window !== 'undefined' ? window : {}) as unknown as Record<string, unknown>
+ 197:   const proof = {
+ 198:     seek(time: number, entryElapsed = 2) { inspection.playing = false; inspection.entryElapsed = entryElapsed; inspection.time = Math.max(0, Math.min(inspection.duration, time)) },
+ 199:     mask(enabled: boolean) { ring.uniforms.diagnostic.value = enabled ? 1 : 0 },
+ 200:     progress(value: number | null) { proofProgress = value },
+ 201:   }
+ 202:   if (typeof location !== 'undefined' && new URLSearchParams(location.search).has('inspectionProof')) global.__inspectionProof = proof
+ 203:   runtime.sample(inspection.time)
+ 204:   return runtime
+ 205: }
+
+hook: PostToolUse
+ succeeded in 1123ms:
+   1: import { readFileSync } from 'node:fs'
+   2: import { beforeAll, describe, expect, it } from 'vitest'
+   3: import { AnimationMixer, Group, LoopOnce, type Mesh, Vector2, Vector3 } from 'three'
+   4: import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
+   5: import {
+   6:   APPROACH_START, BLACK_FINISH_START, CONTACT_END, CONTACT_START, FINAL_ANGLE, FORMING_END, MAX_FEATURE_HZ, newFrame, odMask, RETURN_START, RING_FEATURES, RING_RADIUS, RING_WIDTH,
+   7:   rollerAngle, ROLLER_TEETH, sampleInspection, sampleSpin, SHOULDER, SPIN_RATE, TOOL_FADE_END, TOOL_FADE_MIN_CLEARANCE, TOOL_FADE_START,
+   8:   TRAVERSE_END, TRAVERSE_START, WHEEL_RADIUS, WHEEL_WIDTH,
+   9: } from './timeline'
+  10: 
+  11: describe('Ring Switch cinematic contact lifecycle', () => {
+  12:   it('retains a two-second traverse with progressive relief and a continuous ring angle', () => {
+  13:     expect(TRAVERSE_END - TRAVERSE_START).toBe(2)
+  14:     let lastAngle = -1, lastKnurl = -1
+  15:     for (let t = 0; t <= 10.5; t += 0.01) {
+  16:       const f = sampleInspection(t, newFrame())
+  17:       expect(f.angle).toBeGreaterThanOrEqual(lastAngle)
+  18:       expect(f.knurl).toBeGreaterThanOrEqual(lastKnurl)
+  19:       if (t > TRAVERSE_START && t < TRAVERSE_END) {
+  20:         expect(f.toolVisible).toBe(true)
+  21:         expect(f.clipTime).toBeCloseTo(55 / 30 + t - 4.2)
+  22:         expect(f.aluminium).toBe(1)
+  23:       }
+  24:       lastAngle = f.angle; lastKnurl = f.knurl
+  25:     }
+  26:     expect(sampleInspection(5.2, newFrame()).knurl).toBeGreaterThan(0)
+  27:     expect(sampleInspection(5.2, newFrame()).knurl).toBeLessThan(1)
+  28:   })
+  29:   it('finishes OD relief before jaw opening/withdrawal and retains it through black return', () => {
+  30:     const end = sampleInspection(6.2, newFrame()), clear = sampleInspection(8.2, newFrame()), back = sampleInspection(12, newFrame())
+  31:     expect(end.knurl).toBeLessThan(1); expect(end.clipTime).toBe(115 / 30)
+  32:     expect(FORMING_END).toBeLessThan(CONTACT_END)
+  33:     expect(sampleInspection(FORMING_END, newFrame()).knurl).toBe(1)
+  34:     expect(clear.toolVisible).toBe(false); expect(clear.knurl).toBe(1)
+  35:     expect(back.aluminium).toBe(0); expect(back.returnBlend).toBe(1); expect(back.knurl).toBe(1)
+  36:   })
+  37:   it('never applies knurl to the bore, end faces or edge lands, including at full progress', () => {
+  38:     const radius = .037722, half = .027204 / 2
+  39:     for (const p of [0, .2, .5, 1]) {
+  40:       expect(odMask(radius - .004, 0, 0, radius, half, p)).toBe(0)
+  41:       expect(odMask(radius, 0, 1, radius, half, p)).toBe(0)
+  42:       expect(odMask(radius, half - SHOULDER / 2, 0, radius, half, p)).toBe(0)
+  43:     }
+  44:     expect(odMask(radius, -half + SHOULDER + .001, 0, radius, half, .5)).toBe(1)
+  45:     expect(odMask(radius, half - SHOULDER - .001, 0, radius, half, .5)).toBe(0)
+  46:   })
+  47:   it('clamps invalid timeline extents to the entry/completed frames', () => {
+  48:     expect(sampleInspection(-100, newFrame()).time).toBe(0)
+  49:     expect(sampleInspection(100, newFrame()).time).toBe(12)
+  50:   })
+  51: })
+  52: 
+  53: describe('ring spin: physical forming rate, filtered detail and eight-turn finish', () => {
+  54:   const dt = 1e-3
+  55:   it('has a continuous angle, rate and monotone phase from 0 to 12 s', () => {
+  56:     const last = sampleSpin(0, newFrame()), now = newFrame()
+  57:     for (let t = dt; t <= 12; t += dt) {
+  58:       sampleSpin(t, now)
+  59:       expect(now.angle).toBeGreaterThanOrEqual(last.angle - 1e-12)
+  60:       expect(now.spin).toBeGreaterThanOrEqual(0)
+  61:       expect(Math.abs(now.angle - last.angle - (now.spin + last.spin) / 2 * dt)).toBeLessThan(2e-6)
+  62:       expect(Math.abs(now.spin - last.spin)).toBeLessThan(0.046) // includes the smooth post-contact slowdown
+  63:       last.angle = now.angle; last.spin = now.spin
+  64:     }
+  65:     expect(sampleInspection(5, now).spin).toBe(SPIN_RATE)
+  66:     for (const time of [1.2, 2.8, CONTACT_START, TRAVERSE_START, TRAVERSE_END, CONTACT_END, CONTACT_END + .4, 8.2, RETURN_START]) {
+  67:       sampleSpin(time - 1e-7, last); sampleSpin(time + 1e-7, now)
+  68:       expect(Math.abs(now.angle - last.angle)).toBeLessThan(3e-6)
+  69:       expect(Math.abs(now.spin - last.spin)).toBeLessThan(1e-5)
+  70:     }
+  71:   })
+  72:   it('requests bounded temporal filtering without slowing the true forming angles', () => {
+  73:     const frame = newFrame()
+  74:     const ratio = RING_RADIUS / WHEEL_RADIUS
+  75:     for (let t = 0; t <= 12; t += 0.005) {
+  76:       const f = sampleInspection(t, frame)
+  77:       expect(f.ringDetailScale).toBeGreaterThan(0); expect(f.ringDetailScale).toBeLessThanOrEqual(1)
+  78:       expect(f.rollerDetailScale).toBeGreaterThan(0); expect(f.rollerDetailScale).toBeLessThanOrEqual(1)
+  79:       const ringHz = f.spin / (2 * Math.PI) * 2 * RING_FEATURES
+  80:       const rollerHz = f.spin / (2 * Math.PI) * ratio * ROLLER_TEETH
+  81:       expect(ringHz * f.ringDetailScale).toBeLessThanOrEqual(MAX_FEATURE_HZ + 1e-9)
+  82:       expect(rollerHz * f.rollerDetailScale).toBeLessThanOrEqual(MAX_FEATURE_HZ + 1e-9)
+  83:       for (const fps of [30, 60]) {
+  84:         expect(ringHz * f.ringDetailScale / fps).toBeLessThanOrEqual(.25 + 1e-9)
+  85:         expect(rollerHz * f.rollerDetailScale / fps).toBeLessThanOrEqual(.25 + 1e-9)
+  86:       }
+  87:     }
+  88:     const formed = sampleInspection(5, frame)
+  89:     expect(formed.spin).toBeGreaterThan(10)
+  90:     expect(formed.ringDetailScale).toBeLessThan(.02)
+  91:     expect(formed.rollerDetailScale).toBeLessThan(.01)
+  92:     expect(sampleInspection(12, frame).ringDetailScale).toBe(1)
+  93:     expect(frame.rollerDetailScale).toBe(1)
+  94:     expect(sampleInspection(2, frame).knurl).toBe(0); expect(frame.toolVisible).toBe(false)
+  95:   })
+  96:   it('ends on whole turns so the pin holes register with the saved assembly', () => {
+  97:     const frame = newFrame()
+  98:     expect(FINAL_ANGLE / (2 * Math.PI)).toBe(8)
+  99:     expect(sampleSpin(10.5, frame).angle).toBeCloseTo(FINAL_ANGLE, 9)
+ 100:     expect(sampleSpin(12, frame).angle).toBeCloseTo(FINAL_ANGLE, 9)
+ 101:     expect(sampleSpin(10.5, frame).spin).toBe(0)
+ 102:   })
+ 103:   it('derives the roller angle with equal tangential speed and opposite sense', () => {
+ 104:     const R = .037722, r = WHEEL_RADIUS, a = sampleSpin(5, newFrame()).angle
+ 105:     expect(rollerAngle(a, R, r) * r).toBeCloseTo(-a * R, 12)
+ 106:   })
+ 107:   it('writes caller-owned outputs and is deterministic under reverse or shuffled seeking', () => {
+ 108:     const frame = newFrame(), expected = newFrame(), keys = Object.keys(frame)
+ 109:     for (const t of [12, 5.7, 0, 9.3, 6.45, 3.8, 4.2, 2, 6.2]) {
+ 110:       expect(sampleSpin(t, frame)).toBe(frame)
+ 111:       expect(sampleInspection(t, frame)).toBe(frame)
+ 112:       expect(frame).toEqual(sampleInspection(t, expected))
+ 113:       expect(Object.keys(frame)).toEqual(keys)
+ 114:     }
+ 115:   })
+ 116: })
+ 117: 
+ 118: describe('GLB-measured paired contact, dwell, clearance and worked band', () => {
+ 119:   const R = .07544365628189591 / 2
+ 120:   let gltf: GLTF, frame: Group, mixer: AnimationMixer
+ 121:   beforeAll(async () => {
+ 122:     const data = readFileSync('public/models/knurling-tool.glb')
+ 123:     gltf = await new GLTFLoader().parseAsync(data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength), '')
+ 124:     frame = new Group(); frame.rotation.x = Math.PI / 2; frame.add(gltf.scene)
+ 125:     mixer = new AnimationMixer(gltf.scene)
+ 126:     const action = mixer.clipAction(gltf.animations[0]); action.setLoop(LoopOnce, 1); action.clampWhenFinished = true; action.play()
+ 127:   })
+ 128:   const names = ['KT_UPPER_KNURL_WHEEL_RH', 'KT_LOWER_KNURL_WHEEL_LH']
+ 129:   const measure = (t: number) => {
+ 130:     mixer.setTime(sampleInspection(t, newFrame()).clipTime); frame.updateMatrixWorld(true)
+ 131:     const p = new Vector3()
+ 132:     return names.map(n => { const w = gltf.scene.getObjectByName(n)!; p.setFromMatrixPosition(w.matrixWorld); return { clearance: Math.hypot(p.x, p.y) - R - WHEEL_RADIUS, x: p.x, y: p.y, z: p.z, wheel: w } })
+ 133:   }
+ 134:   it('holds the actual paired OD contact, without axial travel, for at least 0.3 s before the traverse', () => {
+ 135:     let first = NaN
+ 136:     for (let t = APPROACH_START; t <= TRAVERSE_START; t += 0.001) {
+ 137:       if (measure(t).every(m => m.clearance <= 2e-6)) { first = t; break }
+ 138:     }
+ 139:     expect(TRAVERSE_START - first).toBeGreaterThanOrEqual(0.3)
+ 140:     expect(TRAVERSE_START - first).toBeLessThan(0.5) // contact is not claimed before it exists
+ 141:     const start = measure(first)
+ 142:     for (let t = first; t <= TRAVERSE_START; t += 0.01) measure(t).forEach((m, i) => { expect(m.clearance).toBeLessThanOrEqual(2e-6); expect(m.clearance).toBeGreaterThan(-2e-6); expect(m.z).toBeCloseTo(start[i].z, 9) })
+ 143:     expect(sampleInspection(CONTACT_START, newFrame()).contact).toBe(true)
+ 144:     expect(sampleInspection(CONTACT_START - 0.05, newFrame()).contact).toBe(false)
+ 145:     // Closing is monotone and visibly open until a few frames before contact.
+ 146:     let last = Infinity
+ 147:     for (let t = APPROACH_START; t <= first; t += 0.01) { const c = measure(t)[0].clearance; expect(c).toBeLessThanOrEqual(last + 1e-9); last = c }
+ 148:     expect(measure(CONTACT_START - 0.1)[0].clearance).toBeGreaterThan(1e-4)
+ 149:   })
+ 150:   it('rolls both contacts without slip with rollers on opposite sides of the OD', () => {
+ 151:     for (const t of [CONTACT_START + .1, 5, 6]) {
+ 152:       const spin = sampleInspection(t, newFrame()).spin, rate = -spin * R / WHEEL_RADIUS
+ 153:       measure(t).forEach(m => {
+ 154:         const q = new Vector3(m.x, m.y, 0).setLength(R)
+ 155:         const axis = new Vector3(0, 1, 0).transformDirection(m.wheel.matrixWorld)
+ 156:         const omega = rate * axis.z
+ 157:         const vRing = new Vector2(-q.y, q.x).multiplyScalar(spin)
+ 158:         const vWheel = new Vector2(-(q.y - m.y), q.x - m.x).multiplyScalar(omega)
+ 159:         expect(vWheel.distanceTo(vRing)).toBeLessThan(spin * 2e-9) // Float32 GLB contact-centre precision
+ 160:       })
+ 161:     }
+ 162:     expect(Math.sign(measure(5)[0].y)).toBe(-Math.sign(measure(5)[1].y))
+ 163:   })
+ 164:   it('keeps the worked-band head at or behind the leading roller edge and off bore/lands', () => {
+ 165:     const halfWidth = .027204217025541766 / 2
+ 166:     for (let t = TRAVERSE_START; t <= TRAVERSE_END; t += 0.01) {
+ 167:       const f = sampleInspection(t, newFrame()), root = (mixer.setTime(f.clipTime), gltf.scene.getObjectByName('KT_TOOL_ROOT')!.position.y)
+ 168:       const centre = root * (halfWidth - SHOULDER - WHEEL_WIDTH / 2) / ((.027204217025541766 - WHEEL_WIDTH) / 2)
+ 169:       const head = -(halfWidth - SHOULDER) + f.knurl * 2 * (halfWidth - SHOULDER)
+ 170:       expect(head).toBeGreaterThanOrEqual(-halfWidth + SHOULDER)
+ 171:       expect(head).toBeLessThanOrEqual(centre + WHEEL_WIDTH / 2 + 1e-9)
+ 172:     }
+ 173:   })
+ 174:   it('completes a real circle at every axial slice before revealing its full-circumference relief', () => {
+ 175:     const half = RING_WIDTH / 2, bandMin = -half + SHOULDER, bandMax = half - SHOULDER
+ 176:     // Derive the active width from the immutable GLB rather than trusting the sampler's constant.
+ 177:     const geometry = (gltf.scene.getObjectByName(names[0])!.children[0] as Mesh).geometry
+ 178:     const positions = geometry.getAttribute('position')
+ 179:     let minY = Infinity, maxY = -Infinity
+ 180:     for (let i = 0; i < positions.count; i++) { minY = Math.min(minY, positions.getY(i)); maxY = Math.max(maxY, positions.getY(i)) }
+ 181:     const width = maxY - minY
+ 182:     expect(width).toBeCloseTo(WHEEL_WIDTH, 8)
+ 183:     const slices = 257, angularBins = 360, step = .0005
+ 184:     const coverage = Array.from({ length: slices }, () => new Uint8Array(angularBins))
+ 185:     const sweptAngles = new Float64Array(slices), lastAngles = new Float64Array(slices).fill(NaN), revealed = new Uint8Array(slices)
+ 186:     const frame = newFrame()
+ 187:     const zAt = (i: number) => bandMin + (bandMax - bandMin) * (i + .5) / slices
+ 188:     const scaledZ = (z: number) => z * (half - SHOULDER - width / 2) / ((RING_WIDTH - width) / 2)
+ 189:     for (let t = CONTACT_START; t <= CONTACT_END; t += step) {
+ 190:       sampleInspection(t, frame)
+ 191:       const contacts = measure(t)
+ 192:       for (let i = 0; i < slices; i++) {
+ 193:         const z = zAt(i)
+ 194:         const engaged = contacts.every(m => Math.abs(m.clearance) < 2e-6 && Math.abs(scaledZ(m.z) - z) <= width / 2)
+ 195:         if (engaged) {
+ 196:           if (!Number.isNaN(lastAngles[i])) sweptAngles[i] += frame.angle - lastAngles[i]
+ 197:           lastAngles[i] = frame.angle
+ 198:           for (const m of contacts) {
+ 199:             const angle = ((Math.atan2(m.y, m.x) - frame.angle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)
+ 200:             coverage[i][Math.floor(angle / (2 * Math.PI) * angularBins)] = 1
+ 201:           }
+ 202:         } else lastAngles[i] = NaN
+ 203:         if (!revealed[i] && odMask(R, z, 0, R, half, frame.knurl)) {
+ 204:           expect(sweptAngles[i], `slice ${i} revealed before a paired half-turn at ${t}`).toBeGreaterThanOrEqual(Math.PI)
+ 205:           expect(coverage[i].reduce((n, hit) => n + hit, 0), `slice ${i} missing circumferential contact`).toBe(angularBins)
+ 206:           revealed[i] = 1
+ 207:         }
+ 208:       }
+ 209:     }
+ 210:     expect(revealed.reduce((n, hit) => n + hit, 0)).toBe(slices)
+ 211:     expect(sampleInspection(TRAVERSE_END, frame).knurl).toBeLessThan(1)
+ 212:     expect(sampleInspection(FORMING_END, frame).knurl).toBe(1)
+ 213:   })
+ 214:   it('withdraws to measured positive clearance before the tool opacity falls', () => {
+ 215:     const end = sampleInspection(TRAVERSE_END, newFrame())
+ 216:     expect(end.toolOpacity).toBe(1)
+ 217:     let clearedAt = NaN
+ 218:     for (let t = TRAVERSE_END; t < TOOL_FADE_START; t += 0.001) if (measure(t).every(m => m.clearance > 1e-6)) { clearedAt = t; break }
+ 219:     expect(clearedAt).toBeLessThan(TOOL_FADE_START)
+ 220:     for (let t = 6; t <= 8.3; t += 0.005) {
+ 221:       const f = sampleInspection(t, newFrame())
+ 222:       if (f.toolOpacity < 1 && f.toolOpacity > 0) measure(t).forEach(m => expect(m.clearance).toBeGreaterThanOrEqual(TOOL_FADE_MIN_CLEARANCE))
+ 223:     }
+ 224:     expect(sampleInspection(TOOL_FADE_END, newFrame()).toolVisible).toBe(false)
+ 225:     expect(sampleInspection(TOOL_FADE_END - 1e-3, newFrame()).toolVisible).toBe(true)
+ 226:   })
+ 227:   it('gives the finished black relief at least one second before the assembly return', () => {
+ 228:     expect(sampleInspection(BLACK_FINISH_START, newFrame()).aluminium).toBe(0)
+ 229:     expect(RETURN_START - BLACK_FINISH_START).toBeGreaterThanOrEqual(1)
+ 230:     for (let t = BLACK_FINISH_START; t <= RETURN_START; t += 0.01) { const f = sampleInspection(t, newFrame()); expect(f.aluminium).toBe(0); expect(f.returnBlend).toBe(0); expect(f.knurl).toBe(1); expect(f.toolVisible).toBe(false) }
+ 231:   })
+ 232:   it('measures 128 roller teeth on the actual wheel meshes', () => {
+ 233:     for (const name of names) {
+ 234:       const geometry = (gltf.scene.getObjectByName(name)!.children[0] as Mesh).geometry, p = geometry.getAttribute('position')
+ 235:       let tips = 0
+ 236:       for (let i = 0; i < p.count; i++) if (Math.abs(p.getY(i) - 0.0015) < 0.00025 && Math.hypot(p.getX(i), p.getZ(i)) > 0.0113) tips++
+ 237:       expect(tips).toBe(ROLLER_TEETH)
+ 238:     }
+ 239:   })
+ 240: })
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Sources and evidence read. The producer's claims are internally consistent with my independent recomputation (CONTACT_END 6.485714, FORMING_END 6.455, dwell 1.6π, in-footprint dwell 0.909 s → 3.64π per slice). One chunk of ringRuntime.ts (lines ~57–71) was truncated — reading it, checking tree scope, and then running the focused vitest.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content src/scene/inspection/ringRuntime.ts | Select-Object -Skip 55 -First 17 | ForEach-Object -Begin {$i=56} -Process { '"'{0,4}: {1}' -f "'$i, $_; $i++ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content package.json | Select-String -Pattern 'test|vitest' | ForEach-Object { "'$_.Line }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring' -File | Select-Object Name, Length | Format-Table -HideTableHeaders | Out-String" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 559ms:
+  56:         shader.vertexShader = 'uniform float uRollerDetail;\nattribute vec3 inspectionSmoothPosition;\nattribute vec3 inspectionSmoothNormal;\n' + shader.vertexShader
+  57:         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', 'vec3 transformed = mix(inspectionSmoothPosition, position, uRollerDetail);')
+  58:         shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', 'vec3 objectNormal = normalize(mix(inspectionSmoothNormal, normal, uRollerDetail));\n#ifdef USE_TANGENT\nvec3 objectTangent = vec3(tangent.xyz);\n#endif')
+  59:       }
+  60:       material.customProgramCacheKey = () => `${key}-inspection-smooth-roller-v1`
+  61:       return material
+  62:     }
+  63:     object.material = Array.isArray(object.material) ? object.material.map(adapt) : adapt(object.material)
+  64:   })
+  65: }
+  66: 
+  67: export function createRingRuntime(session: StorySession, ctx: StoryContext): StoryRuntime {
+  68:   if (!inspection.source) throw new Error('P003068 CAD surface is unavailable')
+  69:   const ring = createInspectionRing(inspection.source, inspection.meshes)
+  70:   const root = new Group(); root.name = 'ring-inspection-world'
+  71:   const toolFrame = new Group(); toolFrame.name = 'inspection-tool-frame'; toolFrame.rotation.x = Math.PI / 2; toolFrame.visible = false
+  72:   root.add(ring.group, toolFrame)
+
+hook: PostToolUse
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "git status --short -- src/scene/inspection docs/jgun-manufacturing-inspection-plan.md 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1038ms:
+    "test": "vitest run",
+    "vitest": "^4.1.11"
+
+hook: PostToolUse
+ succeeded in 1491ms:
+
+clip-contact-samples.json   36171
+clip-probe.mjs               1885
+coverage-evidence.mjs        7144
+coverage-report.json        61366
+focused-inspection.json     13191
+focused-inspection.log        486
+independent-review-glm.log  54436
+README.md                    8421
+ring-runtime-probe.mjs       3245
+typecheck.log                  87
+wheel-harmonic-probe.mjs     1077
+wheel-probe.mjs              1741
+
+
+
+hook: PostToolUse
+ succeeded in 1067ms:
+warning: unable to access 'C:\Users\Markimus/.config/git/ignore': Permission denied
+warning: unable to access 'C:\Users\Markimus/.config/git/ignore': Permission denied
+AM src/scene/inspection/InspectionScene.tsx
+A  src/scene/inspection/compileLease.ts
+A  src/scene/inspection/lifecycle.test.ts
+AM src/scene/inspection/loadLease.ts
+A  src/scene/inspection/narrativeFade.ts
+A  src/scene/inspection/ringGeometry.test.ts
+A  src/scene/inspection/ringGeometry.ts
+AM src/scene/inspection/timeline.test.ts
+AM src/scene/inspection/timeline.ts
+A  src/scene/inspection/toolContact.test.ts
+?? docs/jgun-manufacturing-inspection-plan.md
+?? project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/
+?? src/scene/inspection/renderLease.test.ts
+?? src/scene/inspection/renderLease.ts
+?? src/scene/inspection/ringRuntime.ts
+?? src/scene/inspection/session.test.ts
+?? src/scene/inspection/session.ts
+?? src/scene/inspection/story.test.ts
+?? src/scene/inspection/story.ts
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Integration confirmed: `uRollerDetail` blends geometry+normals toward a smooth envelope (ringRuntime.ts:56–58) while wheel rotation stays on the true `rollerAngle` (line 158) — depiction-only filtering. Now running the focused vitest (timeline + ringGeometry).
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run src/scene/inspection/timeline.test.ts src/scene/inspection/ringGeometry.test.ts --reporter=basic 2>&1 | Select-Object -Last 40' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 20771ms:
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+
+failed to load config from C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\vite.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../..": Access is denied.
+error: Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+    at failureErrorWithLog (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1752:15)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1211:25
+    at runOnEndCallbacks (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1592:45)
+    at buildResponseToResult (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1209:7)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Vitest can't start under the read-only sandbox — esbuild walks above the repo root and gets denied, so the runner itself is blocked, not the tests. I'll verify independently by importing the actual `timeline.ts` through Node type-stripping and running my own assertions, plus extracting the producer's recorded test/coverage results.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$c = Get-Content '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/coverage-report.json' -Raw | ConvertFrom-Json; "'$c.PSObject.Properties.Name; $c.summary | ConvertTo-Json -Depth 4' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$j = Get-Content '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/focused-inspection.json' -Raw | ConvertFrom-Json; "'$j | Select-Object -Property * -ExcludeProperty testResults | ConvertTo-Json -Depth 3; $j.testResults | ForEach-Object { "$($_.name): pass=$($_.status)" }; "totals: pass=$($j.numPassedTests) fail=$($j.numFailedTests) files=$($j.numPassedTestSuites)/$($j.numTotalTestSuites)"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'node --version' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 504ms:
+{
+  "numTotalTestSuites": 14,
+  "numPassedTestSuites": 14,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 30,
+  "numPassedTests": 30,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1791224406366,
+  "success": true
+}
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/lifecycle.test.ts: pass=passed
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/ringGeometry.test.ts: pass=passed
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/session.test.ts: pass=passed
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/story.test.ts: pass=passed
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/timeline.test.ts: pass=passed
+C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/toolContact.test.ts: pass=passed
+totals: pass=30 fail=0 files=14/14
+
+hook: PostToolUse
+ succeeded in 938ms:
+generatedAt
+repo
+hashes
+checks
+coverage
+checkpoints
+scope
+null
+
+hook: PostToolUse
+ succeeded in 1131ms:
+v22.23.2
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Producer evidence records 30/30 tests, 14/14 suites, all six inspection test files (README quotes an older 23/23 run — noting that). Now the independent execution check against the real `timeline.ts`, plus live-vs-recorded hash comparison.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$c = Get-Content '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/coverage-report.json' -Raw | ConvertFrom-Json; '--- recorded hashes ---'; "'$c.hashes | ConvertTo-Json; '"'--- live hashes ---'; @('src/scene/inspection/timeline.ts','src/scene/inspection/timeline.test.ts','src/scene/inspection/ringGeometry.ts','public/models/knurling-tool.glb') | ForEach-Object { \""'$_ = $((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())" }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "node --no-warnings --experimental-strip-types -e 'import(\"./src/scene/inspection/timeline.ts\").then(m=>{const ok=(c,s)=>{if("'!c)throw new Error("FAIL: "+s)};const P=Math.PI,F=()=>m.newFrame();const e=m.sampleSpin(10.5,F());ok(Math.abs(e.angle-16*P)<1e-9,"endpoint 16pi got "+e.angle);ok(e.spin===0,"endpoint spin");ok(m.sampleSpin(12,F()).angle===e.angle,"held to 12");for(const b of [3.8,m.CONTACT_END,m.CONTACT_END+0.4,8.2,10.5]){const a=m.sampleSpin(b-1e-7,F()),c=m.sampleSpin(b+1e-7,F());ok(Math.abs(a.angle-c.angle)<3e-6,"angle cont "+b);ok(Math.abs(a.spin-c.spin)<1e-5,"spin cont "+b)}let la=-1,ls=0;for(let t=0;t<=12+1e-9;t+=1e-3){const f=m.sampleSpin(t,F());ok(f.angle>=la-1e-12,"monotone "+t);ok(f.spin>=0,"spin>=0 "+t);ok(Math.abs(f.angle-la-(f.spin+ls)/2*1e-3)<2e-6,"trapezoid "+t);ok(Math.abs(f.spin-ls)<0.046,"rate "+t);la=f.angle;ls=f.spin}const dwell=m.sampleSpin(4.2,F()).angle-m.sampleSpin(3.8,F()).angle;ok(dwell>=P,"dwell>=pi got "+dwell);const inF=m.WHEEL_WIDTH/0.008252109*m.SPIN_RATE;ok(inF>=P,"footprint sweep got "+inF);ok(m.CONTACT_END-m.FORMING_END>0.03,"far-edge margin");ok(m.sampleInspection(6.2,F()).knurl<1,"knurl<1 at 6.2");ok(Math.abs(m.sampleInspection(m.FORMING_END,F()).knurl-1)<1e-12,"knurl 1 at forming end");const f5=m.sampleInspection(5,F());ok(f5.spin===m.SPIN_RATE,"spin 4pi at 5");ok(f5.ringDetailScale>0&&f5.ringDetailScale<0.02,"ring scale at 5");ok(f5.rollerDetailScale<0.01,"roller scale at 5");ok(m.sampleInspection(12,F()).ringDetailScale===1,"scale 1 at 12");ok(m.sampleInspection(7.6999,F()).toolOpacity===1,"opacity 1 pre-fade");ok(m.sampleInspection(8.2,F()).toolOpacity===0,"opacity 0 at 8.2");ok(m.sampleInspection(7.7,F()).contact===false,"no contact at 7.7");const r=.037722,h=.027204/2;for(const p of [0,.2,.5,1]){ok(m.odMask(r-.004,0,0,r,h,p)===0,"bore");ok(m.odMask(r,0,1,r,h,p)===0,"face");ok(m.odMask(r,h-m.SHOULDER/2,0,r,h,p)===0,"land")}const fr=F(),ex=F(),ks=Object.keys(fr).join();for(const t of [12,5.7,0,9.3,6.45,3.8,4.2,2,6.2]){ok(m.sampleSpin(t,fr)===fr&&m.sampleInspection(t,fr)===fr,"same-ref "+t);ok(JSON.stringify(fr)===JSON.stringify(m.sampleInspection(t,ex)),"determinism "+t);ok(Object.keys(fr).join()===ks,"keys "+t)}console.log("INDEPENDENT PASS turns="+(e.angle/(2*P)).toFixed(9)+" contactEnd="+m.CONTACT_END.toFixed(6)+" formingEnd="+m.FORMING_END.toFixed(6)+" dwellRad="+dwell.toFixed(4)+" footprintRad="+inF.toFixed(4)+" ringScale5="+f5.ringDetailScale.toFixed(6)+" rollerScale5="+f5.rollerDetailScale.toFixed(6))}).catch(e=>{console.error("ERROR "+e.message);process.exit(1)})'"'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 527ms:
+--- recorded hashes ---
+{
+  "src/scene/inspection/timeline.ts": "051c2f45cc47534f64a9c03047cdfae57026222d2a807985d273d708319be6c9",
+  "src/scene/inspection/timeline.test.ts": "0fee0ec2f935130b321f9ef68bc2b068f2cd8b9bde8a0b3cfaf254075545744d",
+  "src/scene/inspection/lifecycle.test.ts": "1f947fb7404bbb581624fe51c5f6017fba49cf43a6c7503a3348bc760c9b742c",
+  "src/scene/inspection/ringGeometry.ts": "9d94346223251df3dde7b9520348083967238fa29b0c439c319f3d2d24b37f7f",
+  "src/scene/inspection/ringGeometry.test.ts": "406f35111e447069a09460806d1cc13a35f218371d2463526b5881ff4d24ac1e",
+  "src/scene/inspection/InspectionScene.tsx": "8e7c3f39b28152da8065596ad8d5b9ea93e7f4be0d1bc7d603861c6ab4ed3ac6",
+  "public/models/knurling-tool.glb": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8"
+}
+--- live hashes ---
+src/scene/inspection/timeline.ts = 051c2f45cc47534f64a9c03047cdfae57026222d2a807985d273d708319be6c9
+src/scene/inspection/timeline.test.ts = 0fee0ec2f935130b321f9ef68bc2b068f2cd8b9bde8a0b3cfaf254075545744d
+src/scene/inspection/ringGeometry.ts = 9d94346223251df3dde7b9520348083967238fa29b0c439c319f3d2d24b37f7f
+public/models/knurling-tool.glb = e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8
+
+hook: PostToolUse
+ exited 1 in 802ms:
+ERROR FAIL: trapezoid 0
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Hashes match — the recorded evidence and the GLB fingerprint correspond to the current tree. My harness had a bug (initialized last angle to −1 instead of sampling t=0 first, same as the repo test does); fixing and rerunning, plus checking the remaining recorded hashes.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/lifecycle.test.ts','src/scene/inspection/ringGeometry.test.ts','src/scene/inspection/InspectionScene.tsx') | ForEach-Object { \""'$_ = $((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())" }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "node --no-warnings --experimental-strip-types -e 'import(\"./src/scene/inspection/timeline.ts\").then(m=>{const ok=(c,s)=>{if("'!c)throw new Error("FAIL: "+s)};const P=Math.PI,F=()=>m.newFrame();const e=m.sampleSpin(10.5,F());ok(Math.abs(e.angle-16*P)<1e-9,"endpoint 16pi got "+e.angle);ok(e.spin===0,"endpoint spin");ok(m.sampleSpin(12,F()).angle===e.angle,"held to 12");for(const b of [3.8,m.CONTACT_END,m.CONTACT_END+0.4,8.2,10.5]){const a=m.sampleSpin(b-1e-7,F()),c=m.sampleSpin(b+1e-7,F());ok(Math.abs(a.angle-c.angle)<3e-6,"angle cont "+b);ok(Math.abs(a.spin-c.spin)<1e-5,"spin cont "+b)}let f0=m.sampleSpin(0,F()),la=f0.angle,ls=f0.spin;for(let t=1e-3;t<=12+1e-9;t+=1e-3){const f=m.sampleSpin(t,F());ok(f.angle>=la-1e-12,"monotone "+t);ok(f.spin>=0,"spin>=0 "+t);ok(Math.abs(f.angle-la-(f.spin+ls)/2*1e-3)<2e-6,"trapezoid "+t);ok(Math.abs(f.spin-ls)<0.046,"rate "+t);la=f.angle;ls=f.spin}const dwell=m.sampleSpin(4.2,F()).angle-m.sampleSpin(3.8,F()).angle;ok(dwell>=P,"dwell>=pi got "+dwell);const inF=m.WHEEL_WIDTH/0.008252109*m.SPIN_RATE;ok(inF>=P,"footprint sweep got "+inF);ok(m.CONTACT_END-m.FORMING_END>0.03,"far-edge margin");ok(m.sampleInspection(6.2,F()).knurl<1,"knurl<1 at 6.2");ok(Math.abs(m.sampleInspection(m.FORMING_END,F()).knurl-1)<1e-12,"knurl 1 at forming end");const f5=m.sampleInspection(5,F());ok(f5.spin===m.SPIN_RATE,"spin 4pi at 5");ok(f5.ringDetailScale>0&&f5.ringDetailScale<0.02,"ring scale at 5");ok(f5.rollerDetailScale<0.01,"roller scale at 5");ok(m.sampleInspection(12,F()).ringDetailScale===1,"scale 1 at 12");ok(m.sampleInspection(7.6999,F()).toolOpacity===1,"opacity 1 pre-fade");ok(m.sampleInspection(8.2,F()).toolOpacity===0,"opacity 0 at 8.2");ok(m.sampleInspection(7.7,F()).contact===false,"no contact at 7.7");const r=.037722,h=.027204/2;for(const p of [0,.2,.5,1]){ok(m.odMask(r-.004,0,0,r,h,p)===0,"bore");ok(m.odMask(r,0,1,r,h,p)===0,"face");ok(m.odMask(r,h-m.SHOULDER/2,0,r,h,p)===0,"land")}const fr=F(),ex=F(),ks=Object.keys(fr).join();for(const t of [12,5.7,0,9.3,6.45,3.8,4.2,2,6.2]){ok(m.sampleSpin(t,fr)===fr&&m.sampleInspection(t,fr)===fr,"same-ref "+t);ok(JSON.stringify(fr)===JSON.stringify(m.sampleInspection(t,ex)),"determinism "+t);ok(Object.keys(fr).join()===ks,"keys "+t)}console.log("INDEPENDENT PASS turns="+(e.angle/(2*P)).toFixed(9)+" contactEnd="+m.CONTACT_END.toFixed(6)+" formingEnd="+m.FORMING_END.toFixed(6)+" dwellRad="+dwell.toFixed(4)+" footprintRad="+inF.toFixed(4)+" ringScale5="+f5.ringDetailScale.toFixed(6)+" rollerScale5="+f5.rollerDetailScale.toFixed(6))}).catch(e=>{console.error("ERROR "+e.message);process.exit(1)})'"'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 436ms:
+INDEPENDENT PASS turns=8.000000000 contactEnd=6.485714 formingEnd=6.455000 dwellRad=5.0265 footprintRad=11.4211 ringScale5=0.019531 rollerScale5=0.008932
+
+hook: PostToolUse
+ succeeded in 544ms:
+src/scene/inspection/lifecycle.test.ts = 1f947fb7404bbb581624fe51c5f6017fba49cf43a6c7503a3348bc760c9b742c
+src/scene/inspection/ringGeometry.test.ts = 406f35111e447069a09460806d1cc13a35f218371d2463526b5881ff4d24ac1e
+src/scene/inspection/InspectionScene.tsx = a16a703d7ff41f45b541a9f976f247782441c02e25023dc704b41e40d3e340d4
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+**Verdict: SHIP — for the corrected ring sampler itself.** All six contract points verified against source lines, the immutable GLB, and an independent execution of the real [timeline.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/timeline.ts); evidence in [ring/README.md](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/README.md).
+
+1. **Circumferential coverage per axial slice, both rollers — proven.** [timeline.test.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/timeline.test.ts):174-213 samples the immutable GLB (SHA-256 `e5bff994…` matches live) at 0.5 ms; every slice must have both rollers engaged (:194), ≥π swept engagement and all 360 angular bins contacted before reveal (:203-207); 257/257 revealed (:210). Recomputed: 0.4 s dwell = 1.6π (timeline.ts:21-22,38); interior slices see 3.63π inside the 7.5 mm footprint; opposed contacts (:162) cover a circle per π.
+2. **True 4π rate, eight-turn endpoint — proven.** SPIN_RATE=4π (timeline.ts:38), FINAL_ANGLE=16π (:54) with the exact budget closed via SPIN_UP_OWED (:57). Executing the real module: 8.000000000 turns at 10.5, held to 12; spin===4π at 5 s; angle/rate continuous (trapezoid <2e-6, boundaries <1e-5).
+3. **Ordering — proven.** GLB-verified ≥0.3 s no-travel dwell (test:134-149); traverse 4.2–6.2 s 1:1 clip (timeline.ts:125); contact ends 6.485714 s (:42) after FORMING_END 6.455 s (:41), 30.7 ms margin; measured clearance ≥ TOOL_FADE_MIN_CLEARANCE whenever 0<opacity<1 (test:214-226); fade 7.7–8.2 (:24-25,128); 1.2 s black hold before return (test:227-231).
+4. **Lands/bore — proven.** Normals-only mask [ringGeometry.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/ringGeometry.ts):41-48: radial, face, and land gates stop 0.25 mm inside the 1.6 mm shoulders; odMask excludes bore/faces/shoulder at all progress (timeline.ts:138-142, test:37-46); no vertex displacement.
+5. **Allocation-free caller-owned — proven.** Sampler writes only into `out` (timeline.ts:81-137); same-ref return, stable keys, shuffled-seek determinism (test:107-115), re-confirmed by my run.
+6. **High-speed representation — proven.** Scales are bandwidth ratios (timeline.ts:30-36,131-134: 0.019531/0.008932 at contact) applied only to normalScale (ringRuntime.ts:150) and blended roller depiction (:57-58); progress independent (:151); true ring/roller angles unfiltered (:146,158); restored to 1 at rest (test:92).
+
+**Not certified:** browser integration and lifecycle. [ringRuntime.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/ringRuntime.ts) consumes the fields correctly (:150-160), but fresh 30/60 fps proof, narrow/lite, macro acceptance, and owner approval remain open (README:54-56).
+
+Notes (severity: minor): vitest could not start in this read-only sandbox (esbuild denied parent-directory read) — sampler math was independently re-executed via Node type-stripping; the GLB per-slice result stands on the hash-locked recorded 30/30 run. README.md:66 says "23/23, 4/4 files" but focused-inspection.json records 30/30, 14/14 suites — stale prose. Recorded InspectionScene.tsx hash (`8e7c3f39…`) differs from live (`a16a703d…`): integration drifted after the recorded run; all sampler-file hashes match.
+hook: Stop
+hook: Stop Completed
+tokens used
+78,316
+**Verdict: SHIP — for the corrected ring sampler itself.** All six contract points verified against source lines, the immutable GLB, and an independent execution of the real [timeline.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/timeline.ts); evidence in [ring/README.md](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/ring/README.md).
+
+1. **Circumferential coverage per axial slice, both rollers — proven.** [timeline.test.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/timeline.test.ts):174-213 samples the immutable GLB (SHA-256 `e5bff994…` matches live) at 0.5 ms; every slice must have both rollers engaged (:194), ≥π swept engagement and all 360 angular bins contacted before reveal (:203-207); 257/257 revealed (:210). Recomputed: 0.4 s dwell = 1.6π (timeline.ts:21-22,38); interior slices see 3.63π inside the 7.5 mm footprint; opposed contacts (:162) cover a circle per π.
+2. **True 4π rate, eight-turn endpoint — proven.** SPIN_RATE=4π (timeline.ts:38), FINAL_ANGLE=16π (:54) with the exact budget closed via SPIN_UP_OWED (:57). Executing the real module: 8.000000000 turns at 10.5, held to 12; spin===4π at 5 s; angle/rate continuous (trapezoid <2e-6, boundaries <1e-5).
+3. **Ordering — proven.** GLB-verified ≥0.3 s no-travel dwell (test:134-149); traverse 4.2–6.2 s 1:1 clip (timeline.ts:125); contact ends 6.485714 s (:42) after FORMING_END 6.455 s (:41), 30.7 ms margin; measured clearance ≥ TOOL_FADE_MIN_CLEARANCE whenever 0<opacity<1 (test:214-226); fade 7.7–8.2 (:24-25,128); 1.2 s black hold before return (test:227-231).
+4. **Lands/bore — proven.** Normals-only mask [ringGeometry.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/ringGeometry.ts):41-48: radial, face, and land gates stop 0.25 mm inside the 1.6 mm shoulders; odMask excludes bore/faces/shoulder at all progress (timeline.ts:138-142, test:37-46); no vertex displacement.
+5. **Allocation-free caller-owned — proven.** Sampler writes only into `out` (timeline.ts:81-137); same-ref return, stable keys, shuffled-seek determinism (test:107-115), re-confirmed by my run.
+6. **High-speed representation — proven.** Scales are bandwidth ratios (timeline.ts:30-36,131-134: 0.019531/0.008932 at contact) applied only to normalScale (ringRuntime.ts:150) and blended roller depiction (:57-58); progress independent (:151); true ring/roller angles unfiltered (:146,158); restored to 1 at rest (test:92).
+
+**Not certified:** browser integration and lifecycle. [ringRuntime.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/ringRuntime.ts) consumes the fields correctly (:150-160), but fresh 30/60 fps proof, narrow/lite, macro acceptance, and owner approval remain open (README:54-56).
+
+Notes (severity: minor): vitest could not start in this read-only sandbox (esbuild denied parent-directory read) — sampler math was independently re-executed via Node type-stripping; the GLB per-slice result stands on the hash-locked recorded 30/30 run. README.md:66 says "23/23, 4/4 files" but focused-inspection.json records 30/30, 14/14 suites — stale prose. Recorded InspectionScene.tsx hash (`8e7c3f39…`) differs from live (`a16a703d…`): integration drifted after the recorded run; all sampler-file hashes match.

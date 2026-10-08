@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:32:31.137824Z",
+  "display_name": "GPT Image 2.5",
+  "id": "2e1a4ba5-0de3-468e-a029-9f2aae6505f6",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143231_2e1a4ba5-0de3-468e-a029-9f2aae6505f6_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "69e35b83-8541-4b2f-8a02-dd274564acd9",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/69e35b83-8541-4b2f-8a02-dd274564acd9.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Create one realistic, mechanically plausible proposed inspection concept still for a precision mechanical designer's portfolio. The reference shows the ACTUAL planetary torque wrench: use one small real steel spur planet from its central carrier as the visual subject, not a generic giant gear or a whole carrier. The surrounding carrier and driveline can appear very softly out of focus at the far right as contextual anchors.\nAt centre foreground, show a SMALL precision spur planet gear seated snugly on a straight horizontal ground arbor THROUGH ITS BORE. The bore establishes the axis. The arbor is supported by a visibly separate left head centre and right tail centre on a compact clean metrology base. Use a restrained collar/shoulder for axial location without hiding the teeth. Show a separate generic compact lever test indicator on an articulated rigid stand above-left. Its SHORT fine stylus with visible small ball tip extends down into ONE tooth space at the upper accessible circumference. The contact point is visible. The probe contacts the tooth space, NOT the bore, a shaft or a centre. Diagrammatically clear spatial relationships yet photographed as elegant precision tooling. No V-block, no gear sitting on tooth tips, no unsupported floating spindle. Fixture is a proposed illustration, not an authenticated shop setup.\nWhite/cream dial with quiet unnumbered ticks and a neutral needle, NO numerical readings, tolerance bands, charts, green PASS indicators or instrument brands. No implication of measured compliance. Lighting: controlled neutral metrology key light, soft steel highlights, charcoal-graphite studio ground, shallow depth of field but sharp probe/contact/gear. Generous open left/top margin.\nInclude restrained exact caption \"A CLOSER LOOK\" and small subtitle \"Proposed inspection concept\". A discreet footer \"Illustrative tooth-space radial runout relative to bore axis\". No other technical text, dimensions or claims. One landscape 16:9 frame, calm fascination, credible scale, no fictional machine parts.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143231_2e1a4ba5-0de3-468e-a029-9f2aae6505f6.png",
+  "status": "completed"
+}

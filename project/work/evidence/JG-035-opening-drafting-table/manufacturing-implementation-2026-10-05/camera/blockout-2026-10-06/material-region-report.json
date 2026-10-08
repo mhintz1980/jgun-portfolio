@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "method": "Independent Draco positions projected through same-session saved live camera matrices. Legacy group rotation.z = -workPhi = 2*cutterPhi (live telemetry), as source shaftRuntime.ts:353-355. Critical material action is shaft-local y3.2..14.2mm, separate from broader y3.2..20mm journal witness.",
+  "rows": [
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "time": 16.4,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          134.17105301812302,
+          223.0002833695213
+        ],
+        "max": [
+          499.75076081799705,
+          675.3750714635408
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          904.8125,
+          144
+        ],
+        "max": [
+          1324.8125,
+          369.28125
+        ],
+        "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": false,
+      "projected_vertices_inside_card_column": 0,
+      "inside_vertex_bounds": null,
+      "vertical_gap_px": -146.2809666304787,
+      "witness_broad_bounds": {
+        "min": [
+          134.17105301812293,
+          154.08349109421343
+        ],
+        "max": [
+          646.3184217433775,
+          745.3625007836571
+        ],
+        "depth": [
+          0.9479172987440192,
+          0.9520516248161806
+        ]
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4340",
+      "time": 18.8,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          134.17105301812302,
+          223.0002833695213
+        ],
+        "max": [
+          499.75076081799705,
+          675.3750714635408
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          904.8125,
+          144
+        ],
+        "max": [
+          1324.8125,
+          310.28125
+        ],
+        "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": false,
+      "projected_vertices_inside_card_column": 0,
+      "inside_vertex_bounds": null,
+      "vertical_gap_px": -87.2809666304787,
+      "witness_broad_bounds": {
+        "min": [
+          134.17105301812293,
+          154.08349109421343
+        ],
+        "max": [
+          646.3184217433775,
+          745.3625007836571
+        ],
+        "depth": [
+          0.9479172987440192,
+          0.9520516248161806
+        ]
+      }
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-c300",
+      "time": 21.5,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          134.17105301812302,
+          223.0002833695213
+        ],
+        "max": [
+          499.75076081799705,
+          675.3750714635408
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          904.8125,
+          144
+        ],
+        "max": [
+          1324.8125,
+          369.28125
+        ],
+        "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": false,
+      "projected_vertices_inside_card_column": 0,
+      "inside_vertex_bounds": null,
+      "vertical_gap_px": -146.2809666304787,
+      "witness_broad_bounds": {
+        "min": [
+          134.17105301812293,
+          154.08349109421343
+        ],
+        "max": [
+          646.3184217433775,
+          745.3625007836571
+        ],
+        "depth": [
+          0.9479172987440192,
+          0.9520516248161806
+        ]
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4140",
+      "time": 16.4,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          55.85450265742128,
+          193.68965595880053
+        ],
+        "max": [
+          306.64208113846206,
+          516.5948584874848
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          31.1875,
+          156
+        ],
+        "max": [
+          358.8125,
+          339.96875
+        ],
+        "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": true,
+      "projected_vertices_inside_card_column": 1522,
+      "inside_vertex_bounds": {
+        "min": [
+          55.877487461456624,
+          193.68965595880053
+        ],
+        "max": [
+          306.64208113846206,
+          339.78518827995634
+        ]
+      },
+      "vertical_gap_px": -146.27909404119947,
+      "witness_broad_bounds": {
+        "min": [
+          55.8545026574213,
+          144.4797880441662
+        ],
+        "max": [
+          418.92065117323455,
+          566.5404683397959
+        ],
+        "depth": [
+          0.9476299094290919,
+          0.9518081032398964
+        ]
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4340",
+      "time": 18.8,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          55.85450265742128,
+          193.68965595880053
+        ],
+        "max": [
+          306.64208113846206,
+          516.5948584874848
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          31.1875,
+          156
+        ],
+        "max": [
+          358.8125,
+          293.78125
+        ],
+        "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": true,
+      "projected_vertices_inside_card_column": 1092,
+      "inside_vertex_bounds": {
+        "min": [
+          57.14547190162125,
+          193.68965595880053
+        ],
+        "max": [
+          306.6204934936355,
+          293.6354356897784
+        ]
+      },
+      "vertical_gap_px": -100.09159404119947,
+      "witness_broad_bounds": {
+        "min": [
+          55.8545026574213,
+          144.4797880441662
+        ],
+        "max": [
+          418.92065117323455,
+          566.5404683397959
+        ],
+        "depth": [
+          0.9476299094290919,
+          0.9518081032398964
+        ]
+      }
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-c300",
+      "time": 21.5,
+      "session": 1,
+      "critical_action_bounds": {
+        "min": [
+          55.85450265742128,
+          193.68965595880053
+        ],
+        "max": [
+          306.64208113846206,
+          516.5948584874848
+        ]
+      },
+      "card_bounds": {
+        "min": [
+          31.1875,
+          156
+        ],
+        "max": [
+          358.8125,
+          339.96875
+        ],
+        "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "critical_action_card_overlap": true,
+      "projected_vertices_inside_card_column": 1522,
+      "inside_vertex_bounds": {
+        "min": [
+          55.877487461456624,
+          193.68965595880053
+        ],
+        "max": [
+          306.64208113846206,
+          339.78518827995634
+        ]
+      },
+      "vertical_gap_px": -146.27909404119947,
+      "witness_broad_bounds": {
+        "min": [
+          55.8545026574213,
+          144.4797880441662
+        ],
+        "max": [
+          418.92065117323455,
+          566.5404683397959
+        ],
+        "depth": [
+          0.9476299094290919,
+          0.9518081032398964
+        ]
+      }
+    }
+  ]
+}

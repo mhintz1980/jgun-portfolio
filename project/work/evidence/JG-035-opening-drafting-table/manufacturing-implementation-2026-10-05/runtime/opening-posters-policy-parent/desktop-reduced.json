@@ -1,0 +1,268 @@
+{
+  "name": "desktop-reduced",
+  "width": 1600,
+  "height": 900,
+  "reducedMotion": "reduce",
+  "checkpoints": [
+    {
+      "name": "desktop-reduced-static",
+      "mode": "static",
+      "direction": "static",
+      "before": {
+        "readyState": "complete",
+        "hasMain": true,
+        "mainHeadings": 4,
+        "dataChapters": 4,
+        "poster": {
+          "found": true,
+          "ariaHidden": "true",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900,
+            "top": 0,
+            "right": 1600,
+            "bottom": 900,
+            "left": 0
+          },
+          "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+        },
+        "navButtons": [
+          "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+          "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+          "Navigate to STATION 03: M249 / MK46 PLATFORM"
+        ],
+        "canvases": [],
+        "harnessContexts": [
+          {
+            "connected": false,
+            "draws": 0
+          }
+        ],
+        "lenis": false,
+        "telemetry": true,
+        "htmlLenisClass": false,
+        "scrollHeight": 28080,
+        "clientWidth": 1600,
+        "innerHeight": 900,
+        "scrollY": 0,
+        "reducedMotion": true
+      },
+      "settled": {
+        "readyState": "complete",
+        "hasMain": true,
+        "mainHeadings": 4,
+        "dataChapters": 4,
+        "poster": {
+          "found": true,
+          "ariaHidden": "true",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900,
+            "top": 0,
+            "right": 1600,
+            "bottom": 900,
+            "left": 0
+          },
+          "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+        },
+        "navButtons": [
+          "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+          "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+          "Navigate to STATION 03: M249 / MK46 PLATFORM"
+        ],
+        "canvases": [],
+        "harnessContexts": [
+          {
+            "connected": false,
+            "draws": 0
+          }
+        ],
+        "lenis": false,
+        "telemetry": true,
+        "htmlLenisClass": false,
+        "scrollHeight": 28080,
+        "clientWidth": 1600,
+        "innerHeight": 900,
+        "scrollY": 0,
+        "reducedMotion": true
+      },
+      "scrolled": {
+        "readyState": "complete",
+        "hasMain": true,
+        "mainHeadings": 4,
+        "dataChapters": 4,
+        "poster": {
+          "found": true,
+          "ariaHidden": "true",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900,
+            "top": 0,
+            "right": 1600,
+            "bottom": 900,
+            "left": 0
+          },
+          "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+        },
+        "navButtons": [
+          "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+          "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+          "Navigate to STATION 03: M249 / MK46 PLATFORM"
+        ],
+        "canvases": [],
+        "harnessContexts": [
+          {
+            "connected": false,
+            "draws": 0
+          }
+        ],
+        "lenis": false,
+        "telemetry": true,
+        "htmlLenisClass": false,
+        "scrollHeight": 28080,
+        "clientWidth": 1600,
+        "innerHeight": 900,
+        "scrollY": 14040,
+        "reducedMotion": true
+      },
+      "returned": {
+        "readyState": "complete",
+        "hasMain": true,
+        "mainHeadings": 4,
+        "dataChapters": 4,
+        "poster": {
+          "found": true,
+          "ariaHidden": "true",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900,
+            "top": 0,
+            "right": 1600,
+            "bottom": 900,
+            "left": 0
+          },
+          "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+        },
+        "navButtons": [
+          "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+          "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+          "Navigate to STATION 03: M249 / MK46 PLATFORM"
+        ],
+        "canvases": [],
+        "harnessContexts": [
+          {
+            "connected": false,
+            "draws": 0
+          }
+        ],
+        "lenis": false,
+        "telemetry": true,
+        "htmlLenisClass": false,
+        "scrollHeight": 28080,
+        "clientWidth": 1600,
+        "innerHeight": 900,
+        "scrollY": 0,
+        "reducedMotion": true
+      },
+      "gl": [
+        {
+          "connected": false,
+          "width": 300,
+          "height": 150,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "draws": 0,
+          "lastDrawAt": 0,
+          "lost": true
+        }
+      ],
+      "cadRequests": [],
+      "shaderFailures": [],
+      "contextLosses": 0
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "requestFailures": [],
+  "httpErrors": [],
+  "failures": [],
+  "reverse": [],
+  "cadRequests": [],
+  "domContentLoadedMs": 58,
+  "coldLoadReadyMs": 131,
+  "navigation": [
+    {
+      "name": "http://localhost:4173/",
+      "entryType": "navigation",
+      "startTime": 0,
+      "duration": 55.09999999962747,
+      "navigationId": 2807,
+      "initiatorType": "navigation",
+      "deliveryType": "",
+      "nextHopProtocol": "http/1.1",
+      "renderBlockingStatus": "non-blocking",
+      "contentType": "text/html",
+      "contentEncoding": "gzip",
+      "workerStart": 0,
+      "workerRouterEvaluationStart": 0,
+      "workerCacheLookupStart": 0,
+      "workerMatchedSourceType": "",
+      "workerFinalSourceType": "",
+      "redirectStart": 0,
+      "redirectEnd": 0,
+      "fetchStart": 1,
+      "domainLookupStart": 1,
+      "domainLookupEnd": 1,
+      "connectStart": 1,
+      "secureConnectionStart": 0,
+      "connectEnd": 1,
+      "requestStart": 2.799999998882413,
+      "responseStart": 5.900000000372529,
+      "firstInterimResponseStart": 0,
+      "finalResponseHeadersStart": 5.900000000372529,
+      "responseEnd": 6.299999998882413,
+      "transferSize": 993,
+      "encodedBodySize": 693,
+      "decodedBodySize": 2116,
+      "responseStatus": 200,
+      "serverTiming": [],
+      "unloadEventStart": 0,
+      "unloadEventEnd": 0,
+      "domInteractive": 18.799999998882413,
+      "domContentLoadedEventStart": 53.90000000037253,
+      "domContentLoadedEventEnd": 54,
+      "domComplete": 55,
+      "loadEventStart": 55.09999999962747,
+      "loadEventEnd": 55.09999999962747,
+      "type": "navigate",
+      "redirectCount": 0,
+      "activationStart": 0,
+      "criticalCHRestart": 0,
+      "notRestoredReasons": null,
+      "confidence": {
+        "randomizedTriggerRate": 0.4994798,
+        "value": "high"
+      }
+    }
+  ],
+  "shaderFailures": [],
+  "contextLosses": 0,
+  "requestFailureNote": "none",
+  "passed": true
+}

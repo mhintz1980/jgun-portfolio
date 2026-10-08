@@ -1,0 +1,26 @@
+{
+  "url": "http://localhost:4173",
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": false,
+      "errors": [
+        "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:72: 'uCrackWeb' : undeclared identifier\n\n  67:   float across = abs(vAcross);\n  68:   float aa = max(fwidth(vAcross), 0.02);\n  69:   float core = 1.0 - smoothstep(0.045 - aa, 0.045 + aa, across);\n  70:   float glow = exp(-across * across * 4.0) * 0.34;\n  71:   float envelope = smoothstep(0.0, 0.035, uCrackGrowth);\n> 72:   float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uCrackWeb * envelope;\n  73:   gl_FragColor = vec4(mix(vec3(0.32, 0.52, 0.82), vec3(1.25, 1.32, 1.4), core), alpha);\n  74: }",
+        "TypeError: Cannot read properties of undefined (reading 'isReady')",
+        "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:72: 'uCrackWeb' : undeclared identifier\n\n  67:   float across = abs(vAcross);\n  68:   float aa = max(fwidth(vAcross), 0.02);\n  69:   float core = 1.0 - smoothstep(0.045 - aa, 0.045 + aa, across);\n  70:   float glow = exp(-across * across * 4.0) * 0.34;\n  71:   float envelope = smoothstep(0.0, 0.035, uCrackGrowth);\n> 72:   float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uCrackWeb * envelope;\n  73:   gl_FragColor = vec4(mix(vec3(0.32, 0.52, 0.82), vec3(1.25, 1.32, 1.4), core), alpha);\n  74: }"
+      ],
+      "failures": [],
+      "video": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\paper-breakthrough-2026-10-01\\final-capture\\desktop\\breakthrough.webm"
+    },
+    {
+      "name": "narrow",
+      "pass": false,
+      "errors": [
+        "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: ShaderMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:72: 'uCrackWeb' : undeclared identifier\n\n  67:   float across = abs(vAcross);\n  68:   float aa = max(fwidth(vAcross), 0.02);\n  69:   float core = 1.0 - smoothstep(0.045 - aa, 0.045 + aa, across);\n  70:   float glow = exp(-across * across * 4.0) * 0.34;\n  71:   float envelope = smoothstep(0.0, 0.035, uCrackGrowth);\n> 72:   float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uCrackWeb * envelope;\n  73:   gl_FragColor = vec4(mix(vec3(0.32, 0.52, 0.82), vec3(1.25, 1.32, 1.4), core), alpha);\n  74: }"
+      ],
+      "failures": [],
+      "video": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\paper-breakthrough-2026-10-01\\final-capture\\narrow\\breakthrough.webm"
+    }
+  ],
+  "pass": false
+}

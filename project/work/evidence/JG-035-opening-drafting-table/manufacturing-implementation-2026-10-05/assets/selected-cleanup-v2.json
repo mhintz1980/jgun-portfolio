@@ -1,0 +1,227 @@
+{
+  "legacyshaft": {
+    "weld_mm": 0.005,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 6338,
+      "faces": 12671,
+      "triangles": 12671,
+      "boundary_edges": 3,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 8364.827460153583,
+      "bounds_mm": [
+        [
+          -8.864600211381912,
+          -0.00011161318980157375,
+          -8.864577859640121
+        ],
+        [
+          8.864600211381912,
+          71.52394950389862,
+          8.864238858222961
+        ]
+      ]
+    }
+  },
+  "approvedshaft": {
+    "method": "native connectivity mapped onto nearest assembled source coordinates; single <5 micron overfull edge collapsed",
+    "topology_source": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-hobbed-v1.blend",
+    "topology_sha256": "e359708111c31807db3e3aa71f5db950ca5a42d435e87ad1602b3d81fb04f2d7",
+    "max_coordinate_mapping_mm": 0.0,
+    "repair": {
+      "endpoints_mm": [
+        [
+          4.424868151545525,
+          8.899999782443047,
+          -2.268352545797825
+        ],
+        [
+          4.429187159985304,
+          8.899999782443047,
+          -2.2703520953655243
+        ]
+      ],
+      "edge_length_mm": 0.004759415332955541,
+      "linked_faces": 4
+    },
+    "census": {
+      "vertices": 69972,
+      "faces": 125906,
+      "triangles": 139886,
+      "boundary_edges": 0,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 8109.727537318418,
+      "bounds_mm": [
+        [
+          -8.864600211381912,
+          -0.00011161318980157375,
+          -8.864577859640121
+        ],
+        [
+          8.864600211381912,
+          71.52394950389862,
+          8.864238858222961
+        ]
+      ]
+    },
+    "surface_error": {
+      "source_to_candidate": {
+        "max_mm": 0.0067412734097160865,
+        "rms_mm": 7.4849614409337e-05,
+        "count": 845980,
+        "regions_max_mm": {
+          "tooth": 0.0067412734097160865,
+          "runout": 0.00384948816645192,
+          "journal_groove": 1.4095420830528838e-05,
+          "remainder": 0.005500467523233965
+        }
+      },
+      "candidate_to_source": {
+        "max_mm": 0.0067412734097160865,
+        "rms_mm": 8.68278565951788e-05,
+        "count": 629516,
+        "regions_max_mm": {
+          "tooth": 0.0067412734097160865,
+          "runout": 0.00384948816645192,
+          "journal_groove": 1.4095420830528838e-05,
+          "remainder": 0.005500467523233965
+        }
+      },
+      "symmetric_max_mm": 0.0067412734097160865,
+      "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+    }
+  },
+  "housing": {
+    "weld_mm": 0.005,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 9834,
+      "faces": 19692,
+      "triangles": 19692,
+      "boundary_edges": 24,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 12342.535048679862,
+      "bounds_mm": [
+        [
+          -21.667493507266045,
+          -9.073697030544281,
+          -21.66750840842724
+        ],
+        [
+          21.667692810297012,
+          34.18272361159325,
+          21.667521446943283
+        ]
+      ]
+    }
+  },
+  "legacybearing": {
+    "weld_mm": 0.002,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 928,
+      "faces": 1856,
+      "triangles": 1856,
+      "boundary_edges": 0,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 558.4610804073124,
+      "bounds_mm": [
+        [
+          -9.521102532744408,
+          12.903198599815369,
+          -9.52189601957798
+        ],
+        [
+          9.521693922579288,
+          16.865598037838936,
+          9.521815925836563
+        ]
+      ]
+    }
+  },
+  "legacyring": {
+    "weld_mm": 0.001,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 208,
+      "faces": 412,
+      "triangles": 412,
+      "boundary_edges": 0,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 49.05352496184677,
+      "bounds_mm": [
+        [
+          -7.432611659169197,
+          11.849098838865757,
+          -7.439469452947378
+        ],
+        [
+          7.436415646225214,
+          12.78915349394083,
+          7.441826164722443
+        ]
+      ]
+    }
+  },
+  "approvedbearing": {
+    "weld_mm": 0.002,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 928,
+      "faces": 1856,
+      "triangles": 1856,
+      "boundary_edges": 0,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 558.4610259428541,
+      "bounds_mm": [
+        [
+          -9.521102532744408,
+          15.653198584914207,
+          -9.52189601957798
+        ],
+        [
+          9.521693922579288,
+          19.615598022937775,
+          9.521815925836563
+        ]
+      ]
+    }
+  },
+  "approvedring": {
+    "weld_mm": 0.001,
+    "duplicate_faces_removed": 0,
+    "overfull": [],
+    "census": {
+      "vertices": 208,
+      "faces": 412,
+      "triangles": 412,
+      "boundary_edges": 0,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 49.05352496184669,
+      "bounds_mm": [
+        [
+          -7.432611659169197,
+          14.599098823964596,
+          -7.439469452947378
+        ],
+        [
+          7.436415646225214,
+          15.539153479039669,
+          7.441826164722443
+        ]
+      ]
+    }
+  }
+}

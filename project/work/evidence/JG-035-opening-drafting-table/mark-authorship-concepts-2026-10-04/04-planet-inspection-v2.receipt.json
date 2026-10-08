@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:39:10.631563Z",
+  "display_name": "GPT Image 2.5",
+  "id": "0e164435-6bdb-4584-a385-119fb00509f1",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143910_0e164435-6bdb-4584-a385-119fb00509f1_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "2e1a4ba5-0de3-468e-a029-9f2aae6505f6",
+          "type": "image_job",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143231_2e1a4ba5-0de3-468e-a029-9f2aae6505f6.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Edit this proposed metrology still with one precise mechanical correction: the ball stylus currently touches the TOP LAND / CREST of the gear tooth. Move the dial indicator and short ball-ended probe a little clockwise around the gear, such that the visible ball is seated DEEP WITHIN THE GAP BETWEEN TWO ADJACENT SPUR TEETH (a tooth space / root valley). The contact must visibly sit below the outside tooth-tip circle with an intact tooth flanking the ball on either side. The probe shank descends obliquely into that gap, short enough and slender enough not to hit either flanking tooth. The tip must NOT rest on a tooth crest. Make that recessed ball contact visually unambiguous in sharp focus. Camera at close 3/4 angle so both the two tooth tips and the depressed ball between them are visible.\nPreserve the overall charcoal metrology art direction and single small steel planet on its horizontal bore-locating precision arbor with axial restraint. Support the arbor by head and tail fixtures as a proposed inspection arrangement; no unsupported floating gear. Show the tip touching only tooth-space surface. Keep generic unnumbered cream dial, NO measured readings, numerical scales, pass bands, charts, green status or brand. Preserve caption \"A CLOSER LOOK\" and \"Proposed inspection concept\", footer \"Illustrative tooth-space radial runout relative to bore axis\". Preserve blurred contextual driveline. This is a hypothetical inspection illustration, not an authenticated fixture or dimensional check. Single landscape 16:9 image.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143910_0e164435-6bdb-4584-a385-119fb00509f1.png",
+  "status": "completed"
+}

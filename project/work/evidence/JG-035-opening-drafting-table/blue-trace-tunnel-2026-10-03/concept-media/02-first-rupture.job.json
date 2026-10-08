@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-10-03T20:14:37.166058Z",
+    "display_name": "GPT Image 2.5",
+    "id": "9f19de3c-139d-4307-b26d-ddfefe0ea453",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201437_9f19de3c-139d-4307-b26d-ddfefe0ea453_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "4d2374af-caf0-4fe4-b8d3-f80a767253a3",
+            "type": "media_input",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/4d2374af-caf0-4fe4-b8d3-f80a767253a3.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Create one cinematic concept still by editing the attached actual J-Gun engineering drawing screenshot. Preserve the exact central pneumatic torque-wrench SIDE VIEW silhouette pointing left, grip down, and the surrounding technical drawing layout. Remove browser scrollbar. Real cream vellum in a room with lights out; surrounding sheet and surviving profile paper share the SAME dark cream paper tone. The sole illumination is pale electric LIGHT BLUE #79CFFF from the profile outline, a dense distinct branching blue fracture web across remaining paper, and matching thin glowing cracks embedded in rock walls beneath it. Show the FIRST RUPTURE: several irregular paper flaps curl upward along the central silhouette; narrow connected openings reveal the mouth of a very deep rough rock-bore tunnel aligned behind the drawn profile. Strong parallax, angular chipped stone wall layers visibly descend away under the sheet. Tunnel is tangible rock with visible blue-lit facets, not a featureless black void. No wooden desk visible through the openings, no floor, no flat plane, no bottom panel. The cavity bends away so its end cannot be seen. Make it clearly a doorway to another dimension opening through an engineering drawing. Keep the tool profile recognizable. For appearance exploration only, show a small blue-lit metallic contour just beneath one first tear, mostly occluded by paper, not a fully emerged tool; emergence timing is undecided. No white fill or lamp illumination, no warm colors, no purple, no bright endpoint. High-end realistic materials, restrained luminous blue veins, one frame, no montage, no new labels.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201437_9f19de3c-139d-4307-b26d-ddfefe0ea453.png",
+    "status": "completed"
+  }
+]

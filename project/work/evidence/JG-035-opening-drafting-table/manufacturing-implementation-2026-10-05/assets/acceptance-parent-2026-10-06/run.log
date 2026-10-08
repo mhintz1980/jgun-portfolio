@@ -1,0 +1,74 @@
+00:07.047  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+13:53:07 | INFO: Data are loaded, start creating Blender stuff
+13:53:07 | INFO: Blender create Mesh node derived_shaded
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded
+13:53:07 | INFO: Blender create Mesh node derived_shaded.001
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.001
+13:53:07 | INFO: Blender create Mesh node derived_shaded.002
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.002
+13:53:07 | INFO: Blender create Mesh node derived_shaded.003
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.003
+13:53:07 | INFO: Blender create Mesh node derived_shaded.004
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.004
+13:53:07 | INFO: Blender create Mesh node derived_shaded.005
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.005
+13:53:07 | INFO: Blender create Mesh node derived_shaded.006
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.006
+13:53:07 | INFO: Blender create Mesh node derived_shaded.007
+13:53:07 | INFO: Draco Decoder: Decode primitive derived_shaded.007
+13:53:07 | INFO: glTF import finished in 0.61s
+REVIEW_PART full legacyshaft triangles 12671 surface_mm 0.0039735259633744135
+REVIEW_PART full approvedshaft triangles 47976 surface_mm 0.007945464858494233
+REVIEW_PART full approvedhousing triangles 15000 surface_mm 0.013339366887521464
+REVIEW_PART full legacyhousing triangles 15000 surface_mm 0.013339366887521464
+REVIEW_PART full legacybearing triangles 1856 surface_mm 0.0008645022830933158
+REVIEW_PART full legacyring triangles 412 surface_mm 0.0006891409611853305
+REVIEW_PART full approvedbearing triangles 1856 surface_mm 0.0008645022830933158
+REVIEW_PART full approvedring triangles 412 surface_mm 0.0006891409611853305
+13:54:18 | INFO: Data are loaded, start creating Blender stuff
+13:54:18 | INFO: Blender create Mesh node derived_shaded.030
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.030
+13:54:18 | INFO: Blender create Mesh node derived_shaded.031
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.031
+13:54:18 | INFO: Blender create Mesh node derived_shaded.032
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.032
+13:54:18 | INFO: Blender create Mesh node derived_shaded.033
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.033
+13:54:18 | INFO: Blender create Mesh node derived_shaded.034
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.034
+13:54:18 | INFO: Blender create Mesh node derived_shaded.035
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.035
+13:54:18 | INFO: Blender create Mesh node derived_shaded.036
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.036
+13:54:18 | INFO: Blender create Mesh node derived_shaded.037
+13:54:18 | INFO: Draco Decoder: Decode primitive derived_shaded.037
+13:54:18 | INFO: glTF import finished in 0.21s
+REVIEW_PART lite legacyshaft triangles 12671 surface_mm 0.0039735259633744135
+REVIEW_PART lite approvedshaft triangles 14499 surface_mm 0.053195377404335886
+REVIEW_PART lite approvedhousing triangles 9000 surface_mm 0.010735268915595952
+REVIEW_PART lite legacyhousing triangles 9000 surface_mm 0.010735268915595952
+REVIEW_PART lite legacybearing triangles 1856 surface_mm 0.0008645022830933158
+REVIEW_PART lite legacyring triangles 412 surface_mm 0.0006891409611853305
+REVIEW_PART lite approvedbearing triangles 1856 surface_mm 0.0008645022830933158
+REVIEW_PART lite approvedring triangles 412 surface_mm 0.0006891409611853305
+INDEPENDENT_ASSET_REVIEW True
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+DracoDecoder | Decoded 9393 vertices, 38013 indices
+DracoDecoder | Decoded 32275 vertices, 143928 indices
+DracoDecoder | Decoded 14577 vertices, 45000 indices
+DracoDecoder | Decoded 14577 vertices, 45000 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 9393 vertices, 38013 indices
+DracoDecoder | Decoded 12393 vertices, 43497 indices
+DracoDecoder | Decoded 8666 vertices, 27000 indices
+DracoDecoder | Decoded 8666 vertices, 27000 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+
+Blender quit

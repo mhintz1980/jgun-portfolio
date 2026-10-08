@@ -1,0 +1,101 @@
+00:03.157  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+CLEANED legacyshaft {"vertices": 6338, "faces": 12671, "triangles": 12671, "boundary_edges": 3, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 8364.827460153583, "bounds_mm": [[-8.864600211381912, -0.00011161318980157375, -8.864577859640121], [8.864600211381912, 71.52394950389862, 8.864238858222961]]}
+CLEANED approvedshaft {"vertices": 69972, "faces": 125906, "triangles": 139886, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 8109.727537318418, "bounds_mm": [[-8.864600211381912, -0.00011161318980157375, -8.864577859640121], [8.864600211381912, 71.52394950389862, 8.864238858222961]]}
+CLEANED housing {"vertices": 9834, "faces": 19692, "triangles": 19692, "boundary_edges": 24, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 12342.535048679862, "bounds_mm": [[-21.667493507266045, -9.073697030544281, -21.66750840842724], [21.667692810297012, 34.18272361159325, 21.667521446943283]]}
+CLEANED legacybearing {"vertices": 928, "faces": 1856, "triangles": 1856, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 558.4610804073124, "bounds_mm": [[-9.521102532744408, 12.903198599815369, -9.52189601957798], [9.521693922579288, 16.865598037838936, 9.521815925836563]]}
+CLEANED legacyring {"vertices": 208, "faces": 412, "triangles": 412, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 49.05352496184677, "bounds_mm": [[-7.432611659169197, 11.849098838865757, -7.439469452947378], [7.436415646225214, 12.78915349394083, 7.441826164722443]]}
+CLEANED approvedbearing {"vertices": 928, "faces": 1856, "triangles": 1856, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 558.4610259428541, "bounds_mm": [[-9.521102532744408, 15.653198584914207, -9.52189601957798], [9.521693922579288, 19.615598022937775, 9.521815925836563]]}
+CLEANED approvedring {"vertices": 208, "faces": 412, "triangles": 412, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 49.05352496184669, "bounds_mm": [[-7.432611659169197, 14.599098823964596, -7.439469452947378], [7.436415646225214, 15.539153479039669, 7.441826164722443]]}
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\scripts\manufacturing\export_study.py:345: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  material.use_nodes = True
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 5.1\5.1\scripts\addons_core\io_scene_gltf2\extern_draco.dll
+HARD_PROTECTED {"target": 48000, "triangles": 14731, "working": 125155}
+PLANAR 33269 triangles=108530
+PLANAR 15000 triangles=19382
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 5.1\5.1\scripts\addons_core\io_scene_gltf2\extern_draco.dll
+14:33:37 | INFO: Starting glTF 2.0 export
+14:33:37 | INFO: Extracting primitive: derived_shaded
+14:33:37 | INFO: Primitives created: 1
+14:33:37 | WARNING: Mesh derived_shaded.001 is not valid, and may be exported wrongly
+14:33:37 | INFO: Extracting primitive: derived_shaded.001
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Extracting primitive: derived_shaded.002
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Extracting primitive: derived_shaded.003
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Extracting primitive: derived_shaded.004
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Extracting primitive: derived_shaded.005
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Extracting primitive: derived_shaded.006
+14:33:38 | INFO: Primitives created: 1
+14:33:38 | INFO: Draco encoder: Encoding mesh legacyshaft.
+14:33:38 | INFO: Draco encoder: Encoding mesh approvedshaft.
+14:33:38 | INFO: Draco encoder: Encoding mesh housing.
+14:33:38 | INFO: Draco encoder: Encoding mesh legacybearing.
+14:33:38 | INFO: Draco encoder: Encoding mesh legacyring.
+14:33:38 | INFO: Draco encoder: Encoding mesh approvedbearing.
+14:33:38 | INFO: Draco encoder: Encoding mesh approvedring.
+14:33:38 | INFO: Finished glTF 2.0 export in 0.999690055847168 s
+
+14:33:39 | INFO: Data are loaded, start creating Blender stuff
+14:33:39 | INFO: Blender create Mesh node derived_shaded
+14:33:39 | INFO: Draco Decoder: Decode primitive derived_shaded
+14:33:39 | INFO: Blender create Mesh node derived_shaded.001
+14:33:39 | INFO: Draco Decoder: Decode primitive derived_shaded.001
+14:33:40 | INFO: Blender create Mesh node derived_shaded.002
+14:33:40 | INFO: Draco Decoder: Decode primitive derived_shaded.002
+14:33:40 | INFO: Blender create Mesh node derived_shaded.003
+14:33:40 | INFO: Draco Decoder: Decode primitive derived_shaded.003
+14:33:40 | INFO: Blender create Mesh node derived_shaded.004
+14:33:40 | INFO: Draco Decoder: Decode primitive derived_shaded.004
+14:33:40 | INFO: Blender create Mesh node derived_shaded.005
+14:33:40 | INFO: Draco Decoder: Decode primitive derived_shaded.005
+14:33:40 | INFO: Blender create Mesh node derived_shaded.006
+14:33:40 | INFO: Draco Decoder: Decode primitive derived_shaded.006
+14:33:40 | INFO: glTF import finished in 1.18s
+MEASURED full legacyshaft max_mm=0.0039735259633744135 ok=True
+MEASURED full approvedshaft max_mm=0.010636686965881381 ok=True
+MEASURED full housing max_mm=0.012340396096988115 ok=True
+MEASURED full legacybearing max_mm=0.0008645022830933158 ok=True
+MEASURED full legacyring max_mm=0.0006891409611853305 ok=True
+MEASURED full approvedbearing max_mm=0.0008645022830933158 ok=True
+MEASURED full approvedring max_mm=0.0006891409611853305 ok=True
+HARD_PROTECTED {"target": 14500, "triangles": 14731, "working": 125155}
+Traceback (most recent call last):
+  File "C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\scripts\manufacturing\export_study.py", line 431, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\scripts\manufacturing\export_study.py", line 365, in main
+    reduced = reduce_shaft(mesh, target) if key == 'approvedshaft' else decimate(mesh, 15000, 'candidate')
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\scripts\manufacturing\export_study.py", line 281, in reduce_shaft
+    raise RuntimeError('Hard protected shaft features alone exceed target')
+RuntimeError: Hard protected shaft features alone exceed target
+
+Error: script failed, file: 'scripts/manufacturing/export_study.py', exiting.
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 9393 vertices, 38013 indices, raw size: 301458, encoded size: 88010, compression ratio: 3.43
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 36237 vertices, 143973 indices, raw size: 1154850, encoded size: 289047, compression ratio: 4.00
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 14616 vertices, 45000 indices, raw size: 440640, encoded size: 144555, compression ratio: 3.05
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14740, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3189, compression ratio: 3.94
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14737, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3193, compression ratio: 3.93
+DracoDecoder | Decoded 9393 vertices, 38013 indices
+DracoDecoder | Decoded 36237 vertices, 143973 indices
+DracoDecoder | Decoded 14616 vertices, 45000 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+
+Blender quit

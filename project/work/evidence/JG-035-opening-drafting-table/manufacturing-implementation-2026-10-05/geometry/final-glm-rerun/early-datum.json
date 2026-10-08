@@ -1,0 +1,323 @@
+{
+  "sources": [
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend",
+      "bytes": 6485113,
+      "sha256": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+      "baseline_sha256": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p001835-hobbed.glb",
+      "bytes": 10846592,
+      "sha256": "043c9628336589c9ba0fdaa9bac1c7b240598a99dd449eb8df3da1a64ee9a428",
+      "baseline_sha256": "043c9628336589c9ba0fdaa9bac1c7b240598a99dd449eb8df3da1a64ee9a428",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\k000210-k000211-moved.glb",
+      "bytes": 71288,
+      "sha256": "17569c9a52bf662b599774ba81e2f7dc0d84e2b805707aa8ad09fff6ed454dc9",
+      "baseline_sha256": "17569c9a52bf662b599774ba81e2f7dc0d84e2b805707aa8ad09fff6ed454dc9",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p000725-modified.glb",
+      "bytes": 641292,
+      "sha256": "cc6edfefbe83e4a1ab0c55d98b80a93d588ef46debf4ec774d6881fc1660abc4",
+      "baseline_sha256": "cc6edfefbe83e4a1ab0c55d98b80a93d588ef46debf4ec774d6881fc1660abc4",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\shaft_world_matrix.json",
+      "bytes": 282,
+      "sha256": "c89849870eb656b6930276bfb0611ee09f7133088f0e5630acc932c2ea813195",
+      "baseline_sha256": "c89849870eb656b6930276bfb0611ee09f7133088f0e5630acc932c2ea813195",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\build-report.json",
+      "bytes": 2485,
+      "sha256": "76fa39ccefcb67dce44a4b78a12ce2b051c84a2169422adfc55c3e1307b9c265",
+      "baseline_sha256": "76fa39ccefcb67dce44a4b78a12ce2b051c84a2169422adfc55c3e1307b9c265",
+      "baseline_match": true
+    },
+    {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\public\\models\\Default.glb",
+      "bytes": 10671700,
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\p001835-source-extract.glb",
+      "bytes": 8627448,
+      "sha256": "3903bcae3570e3cc9b225989a6fb2ebd8ec80e1298ac77c0250f50103a13fb47"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p001835-source-extract.glb",
+      "bytes": 8627448,
+      "sha256": "3903bcae3570e3cc9b225989a6fb2ebd8ec80e1298ac77c0250f50103a13fb47"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-hobbed-v1.blend",
+      "bytes": 3304209,
+      "sha256": "e359708111c31807db3e3aa71f5db950ca5a42d435e87ad1602b3d81fb04f2d7"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\build_hobbed_input_shaft.py",
+      "bytes": 10427,
+      "sha256": "610de2aaa13214e87d5f65af7a5fab11e44278128fc90f65e2ba1b303ac54531"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\extract_p001835.py",
+      "bytes": 1625,
+      "sha256": "7d3c97b61d37c76ddba92065348bf21800b46b10eae2be1a76013a7dbe6018cf"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\assembly_shift.py",
+      "bytes": 5155,
+      "sha256": "7e7c1609b13651149277591f85689b5441bd1d81850e8638b7bd0b75fdc6cd24"
+    },
+    {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\src\\scene\\rig\\nodeRoles.ts",
+      "bytes": 29195,
+      "sha256": "37dbdf8ba2d0a4a397ac28afdc2825cacd2fd3f25c7adbd6451f06632602aa99"
+    },
+    {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\src\\scene\\TorqueWrenchHero.tsx",
+      "bytes": 21783,
+      "sha256": "6a4f0691c57f5392bb014e400d4be6ccea4f3929626a84b02b0b3965c2215565"
+    },
+    {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\manufacturing\\measure_g0.py",
+      "bytes": 27251,
+      "sha256": "b99906ad6cfaf2601fb662d752b9afbb8b7cbd65298797afeb186b102b0c0479"
+    },
+    {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-story-plan-2026-10-05\\approved-asset-baseline.md",
+      "bytes": 3923,
+      "sha256": "466cc31939ddaff4a03de9aa8780553a6e8a0c302cba2c4c10ee7bd794416e9b"
+    }
+  ],
+  "correspondence": {
+    "occurrence_path": [
+      {
+        "index": 0,
+        "name": "Default",
+        "transform": {}
+      },
+      {
+        "index": 9,
+        "name": "D1-AP Gearbox Assy-rev2-1 <1>",
+        "transform": {}
+      },
+      {
+        "index": 66,
+        "name": "A000881-1 <1>",
+        "transform": {}
+      },
+      {
+        "index": 71,
+        "name": "occurrence of P001835-2",
+        "transform": {
+          "translation": [
+            -1.0300505091345898e-15,
+            -1.2639655926011204e-16,
+            -0.06920108199119568
+          ],
+          "rotation": [
+            2.210426642767523e-16,
+            1.5841295024199039e-16,
+            -0.08109082125607626,
+            0.9967067164958883
+          ]
+        }
+      },
+      {
+        "index": 72,
+        "name": "P001835-2",
+        "transform": {}
+      }
+    ],
+    "mesh_descriptor_identical": true,
+    "binary_payload_identical": true,
+    "accessor_table_identical": true,
+    "buffer_view_table_identical": true,
+    "historical_failure_revision_authenticated": false,
+    "decoded_vertex_count": 11347,
+    "decoded_local_vertex_max_abs_error_mm": 0.0
+  },
+  "registration": {
+    "status": "measured",
+    "units": "metres in GLB/Blend; mm only in reporting",
+    "blender_to_gltf_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "shaft_local_to_blender_world": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -1.0300505091345898e-15
+      ],
+      [
+        3.516315667205359e-16,
+        1.0,
+        -4.149377504071382e-16,
+        0.06920108199119568
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        -1.2639655926011204e-16
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "saved_matrix_max_abs_error": 0.0,
+    "shaft_local_to_gltf_world": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -1.0300505091345898e-15
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        -1.2639655926011204e-16
+      ],
+      [
+        -3.516315667205359e-16,
+        -1.0,
+        4.149377504071382e-16,
+        -0.06920108199119568
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "hero_rest_center_m": [
+      0.07780783086387061,
+      -1.072308505746522e-06,
+      -0.09254183464277439
+    ],
+    "shaft_local_to_recentered_hero_rest": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -0.07780782878398895
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        1.0723084642449976e-06
+      ],
+      [
+        -3.516315667205359e-16,
+        -1.0,
+        4.149377504071382e-16,
+        0.023340754210948944
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "approved_export_gltf_to_hero_rest": [
+      [
+        0.9868485331535339,
+        0.16164754331111908,
+        2.7993343057879116e-16,
+        -0.07780782878398895
+      ],
+      [
+        -0.16164754331111908,
+        0.9868485331535339,
+        -4.663211247979686e-16,
+        1.0723084642449976e-06
+      ],
+      [
+        -3.516315667205359e-16,
+        4.149377504071382e-16,
+        1.0,
+        0.023340754210948944
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "local_positive_y_to_gltf_direction": [
+      -2.7993343057879116e-16,
+      4.663211247979686e-16,
+      -1.0
+    ],
+    "dynamic_hero_parent_pose": "Apply live registered-model parent transform after this rest transform; no fixed world-camera registration claimed",
+    "shift_rule": "Approved coordinates are endpoint. Start = endpoint minus measured legacy-to-approved delta; do not add endpoint shift."
+  },
+  "shaft_bounds": {
+    "legacy": {
+      "min_mm": [
+        -8.864600211381912,
+        -0.00011161318980157375,
+        -8.864577859640121
+      ],
+      "max_mm": [
+        8.86461976915598,
+        71.52394950389862,
+        8.86461976915598
+      ]
+    },
+    "approved": {
+      "min_mm": [
+        -8.864600211381912,
+        -0.00011161318980157375,
+        -8.864577859640121
+      ],
+      "max_mm": [
+        8.864600211381912,
+        71.52394950389862,
+        8.864238858222961
+      ]
+    }
+  },
+  "status": "early measurement; supports, topology, neighbour checks still running"
+}

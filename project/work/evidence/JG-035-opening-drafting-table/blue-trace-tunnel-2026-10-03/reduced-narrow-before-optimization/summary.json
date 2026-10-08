@@ -1,0 +1,78 @@
+{
+  "url": "http://localhost:4173",
+  "label": "baseline",
+  "started": "2026-10-04T00:17:34.995Z",
+  "browser": "installed Playwright, channel chrome",
+  "coldLoadDefinition": "fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)",
+  "thresholds": {
+    "scrollProgress": 0.001,
+    "scrollShare": 0.001,
+    "realScrollPhase": 0.008334333333333332,
+    "pinnedPhase": 1e-9,
+    "reverseNumericDelta": 0.002,
+    "reverseBreakthroughDelta": 1e-9,
+    "pulseRegistrationMetres": 0.001,
+    "registeredHoldPixels": 0.1,
+    "registeredCameraMetres": 0.001,
+    "lampPower": 0.001,
+    "paperFlexMaxMetres": 0.012,
+    "litePaperFlexMaxMetres": 0.0054,
+    "holeAreaRelative": 0.000001,
+    "boundaryDeviationMetres": 0.0006,
+    "nearPaperMetres": 0.001,
+    "initialClearanceMetres": 0.0006,
+    "sheetRetirementWindow": [
+      0.18,
+      0.22
+    ]
+  },
+  "cases": [
+    {
+      "name": "narrow-reduced",
+      "width": 390,
+      "height": 844,
+      "reducedMotion": "reduce",
+      "checkpoints": [],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "warnings": [],
+      "requestFailures": [
+        {
+          "url": "http://localhost:4173/",
+          "error": {
+            "errorText": "net::ERR_HTTP_RESPONSE_CODE_FAILURE"
+          }
+        }
+      ],
+      "httpErrors": [
+        {
+          "url": "http://localhost:4173/",
+          "status": 404
+        }
+      ],
+      "failures": [
+        "Error: page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://localhost:4173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:4173/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "HTTP errors recorded"
+      ],
+      "reverse": [],
+      "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+      "passed": false
+    }
+  ],
+  "gitStart": " M README.md\n M TODO.md\n M project/README.md\n M project/context/architecture/animation-spec.md\n M project/work/INDEX.md\n M public/drawing/jgun-sheet-v2.bin.gz\n M scripts/check-b1b2-contract.mjs\n M scripts/verify-jgun-opening.mjs\n M src/scene/TorqueWrenchHero.tsx\n M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/extractionPose.ts\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/composeSheet.ts\n M src/scene/drawing/sheet/drawingCache.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/lightning.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n M src/scene/drawing/sheet/sheetText.ts\n M src/scene/drawing/sheetCamera.test.ts\n M src/scene/drawing/sheetCamera.ts\n M src/scene/rig/materials.ts\n M src/state/scrollStore.ts\n?? .mimosa/\n?? .tmp-probe/\n?? docs/jgun-blue-trace-tunnel-plan.md\n?? docs/jgun-paper-breakthrough-plan.md\n?? docs/jgun-portal-correction-plan.md\n?? project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/\n?? project/work/evidence/JG-035-opening-drafting-table/paper-breakthrough-2026-10-01/\n?? project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/\n?? public/drawing/jgun-sheet-v2.evidence.json\n?? scripts/capture-jgun-breakthrough.mjs\n?? scripts/capture-jgun-drawing-review.mjs\n?? src/scene/drawing/extractionPose.test.ts\n?? src/scene/drawing/sheet/breakthrough.ts\n?? src/scene/drawing/sheet/breakthroughGeometry.test.ts\n?? src/scene/drawing/sheet/breakthroughGeometry.ts\n?? src/scene/drawing/sheet/portal.ts\n?? src/scene/drawing/sheet/portalGeometry.test.ts\n?? src/scene/drawing/sheet/portalGeometry.ts\n?? src/scene/rig/materials.test.ts\n",
+  "browserVersion": "154.0.8037.97",
+  "finished": "2026-10-04T00:17:36.748Z",
+  "flexTierComparison": [
+    {
+      "base": "desktop",
+      "compared": false
+    },
+    {
+      "base": "narrow",
+      "compared": false
+    }
+  ],
+  "passed": false,
+  "gitEnd": " M README.md\n M TODO.md\n M project/README.md\n M project/context/architecture/animation-spec.md\n M project/work/INDEX.md\n M public/drawing/jgun-sheet-v2.bin.gz\n M scripts/check-b1b2-contract.mjs\n M scripts/verify-jgun-opening.mjs\n M src/scene/TorqueWrenchHero.tsx\n M src/scene/drawing/DrawingLinework.tsx\n M src/scene/drawing/extractionPose.ts\n M src/scene/drawing/introTimeline.test.ts\n M src/scene/drawing/introTimeline.ts\n M src/scene/drawing/sheet/composeSheet.ts\n M src/scene/drawing/sheet/drawingCache.ts\n M src/scene/drawing/sheet/ink.ts\n M src/scene/drawing/sheet/lightning.ts\n M src/scene/drawing/sheet/paperFlex.test.ts\n M src/scene/drawing/sheet/paperFlex.ts\n M src/scene/drawing/sheet/sheetText.ts\n M src/scene/drawing/sheetCamera.test.ts\n M src/scene/drawing/sheetCamera.ts\n M src/scene/rig/materials.ts\n M src/state/scrollStore.ts\n?? .mimosa/\n?? .tmp-probe/\n?? docs/jgun-blue-trace-tunnel-plan.md\n?? docs/jgun-paper-breakthrough-plan.md\n?? docs/jgun-portal-correction-plan.md\n?? project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/\n?? project/work/evidence/JG-035-opening-drafting-table/paper-breakthrough-2026-10-01/\n?? project/work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/\n?? public/drawing/jgun-sheet-v2.evidence.json\n?? scripts/capture-jgun-breakthrough.mjs\n?? scripts/capture-jgun-drawing-review.mjs\n?? src/scene/drawing/extractionPose.test.ts\n?? src/scene/drawing/sheet/breakthrough.ts\n?? src/scene/drawing/sheet/breakthroughGeometry.test.ts\n?? src/scene/drawing/sheet/breakthroughGeometry.ts\n?? src/scene/drawing/sheet/portal.ts\n?? src/scene/drawing/sheet/portalGeometry.test.ts\n?? src/scene/drawing/sheet/portalGeometry.ts\n?? src/scene/rig/materials.test.ts\n"
+}

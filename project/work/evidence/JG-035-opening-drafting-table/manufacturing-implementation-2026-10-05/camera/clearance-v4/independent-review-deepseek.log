@@ -1,0 +1,1744 @@
+Reading additional input from stdin...
+2026-10-05T22:32:57.600427Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T22:32:57.600510Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T22:32:57.632112Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: deepseek/deepseek-flash
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10e32-dfb3-79f1-ae97-f3bc24defcb3
+--------
+user
+Bounded read-only adversarial review of a geometry clearance certification. Do not edit files; do not read TODO.md or queue docs. Read project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json, scripts/manufacturing/tool_clearance_meridian.py, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/method-review.md (the earlier method review the work must satisfy), project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v3.1-spec.md (defects of the prior attempt), and docs/jgun-manufacturing-inspection-plan.md section 4 'Cutter choreography and camera'. Check: (1) the surface-of-revolution argument (both shafts rotate during machining) is valid for every must-clear pair and the r_outer envelope is conservative; (2) meridian distance computation and the prefilter in meridian_clearance cannot miss the true minimum; (3) shaper kinematics (stroke toward the groove, leading face past last tooth material, body trailing in cut tooth space, backoff return) are correct and the groove-edge skim contact classification is honest; (4) hob tilt, lead angle, fitted R and stop, feed from the free end, retract classification (conjugate withdrawal in cut band, transition contact) are physically right; (5) error budget terms are correct (sampling half-diagonal, profile step, path step) and no criterion was weakened; (6) anything that should block certification. Report SHIP or FIX-FIRST, findings with severity and exact file:line, max 500 words.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-05T22:32:58.531857Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+2026-10-05T22:32:58.573357Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T22:32:58.573406Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+I'll read the specified files, starting with the evidence bundle.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v3.1-spec.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 800ms:
+{
+ "schema": "jgun-g0-clearance/v4-meridian",
+ "generated_utc": "2026-10-05T22:31:56.546398+00:00",
+ "command": "& \"C:/Program Files/Blender Foundation/Blender 5.1/blender.exe\" -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/tool_clearance_meridian.py",
+ "source": {
+  "blend": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend",
+  "sha256_before_after": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89"
+ },
+ "method": "G0 tool clearance v4 (meridian method), parent-authored 2026-10-05.\n\nReplaces the defective clearance-v3 verdict (collapsed cutter profile inflated\ne_tool to 2.749 mm; hob fed from the journal side). Method:\n\n* Both shafts rotate during machining (shaping generation, hobbing), so every\n  non-generated feature (pilot, relief groove, cone, journal, ring groove,\n  shoulder) is checked against the surface-of-revolution envelope\n  r_outer(y) = max radius of the exact plane section at y. Shaft region at y is\n  contained in rho <= r_outer(y), so clearance is a 2D distance in the meridian\n  half-plane (rho, y). No ray parity or normal signs on open shells.\n* Tooth-space floor r_min(y) = min radius of the section (segment interior\n  included) is used only for the hob ramp reproduction check.\n* Shaper (legacy grooved blank): disc cutter axis parallel to the shaft axis,\n  so its meridian footprint is the exact rectangle rho in [C-Rt, C+Rt] x\n  [yc-t/2, yc+t/2]; holders likewise. Contact is allowed only in the measured\n  generating band (face start .. last tooth stub).\n* Hob (revised smooth blank, then approved journal side): tilted cylinder of\n  radius R about axis a=(cos g, sin g, 0) through (0, yc, A); near-side surface\n  sampled densely; R and stop position fitted to the approved ramp floor.\n* e_total = e_cad + e_profile + e_sampling (+ e_path for path poses). PASS for\n  must-clear pairs requires d - e_total >= MARGIN; contact pairs require\n  |penetration| <= e_total and location inside the generated zone.\n\nRead-only on all CAD sources (hashes checked before/after). Writes only\ncamera/clearance-v4/.",
+ "facts": {
+  "legacy_teeth_end_y": 9.8749,
+  "legacy_groove_edge_end_y": 9.9549,
+  "legacy_groove_floor_y": 10.41,
+  "legacy_groove_floor_r": 3.9698778108884056,
+  "legacy_groove_wall_y": 10.94,
+  "legacy_pilot_end_y": 3.17,
+  "empty_interior_stations_filled_legacy_approved": [
+   1,
+   0
+  ],
+  "legacy_face_tip_r": 6.083507443359969,
+  "approved_face_root_r": 4.29182859636582,
+  "approved_journal_r_at_14_18": 6.324956651245068,
+  "approved_r_outer_13_78_to_14_18": [
+   6.074000486547925,
+   6.324956651245068
+  ]
+ },
+ "shaper": {
+  "shaft": "SHAFT_P001835_ORIG (legacy grooved blank)",
+  "teeth": 20,
+  "centre_distance_mm": 15.5,
+  "signed_ratio_work_over_cutter": -2.0,
+  "tip_radius_mm": 11.203199999999999,
+  "thickness_mm": 1.2,
+  "stroke_centre_y_mm": [
+   2.17,
+   9.7749
+  ],
+  "overtravel_past_last_stub_mm": 0.5,
+  "return_backoff_mm": 2.0,
+  "holders_radius_length_mm": {
+   "hub": [
+    8.0,
+    6.0
+   ],
+   "clamp_nut": [
+    9.0,
+    3.0
+   ],
+   "arbor": [
+    7.0,
+    12.0
+   ]
+  },
+  "note": "Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."
+ },
+ "hob": {
+  "shaft": "revised smooth blank, approved journal side",
+  "starts": 1,
+  "module_mm": 1.0,
+  "R_mm": 5.88,
+  "stop_yc_mm": 9.5249,
+  "lead_angle_deg": 5.5221,
+  "max_abs_dev_mm": 0.006646695592338325,
+  "rms_dev_mm": 0.004471669632758369,
+  "max_overcut_mm": 0.006646695592338325,
+  "max_undercut_mm": 0.0,
+  "stations": 426,
+  "centre_distance_mm": 10.171799999999998,
+  "length_mm": 16.0,
+  "collar_radius_mm": 6.879999999999998,
+  "arbor_radius_mm": 4.379999999999998,
+  "path": "infeed radial at yc=-4.205; feed +Y at full depth to yc=9.5249; retract 2.5 mm radial; withdraw -Y"
+ },
+ "error_budget_mm": {
+  "e_cad": 0.002,
+  "e_profile": 0.005,
+  "e_hob_sampling": 0.011239657970627218,
+  "e_hob_final": 0.018239657970627217,
+  "e_hob_path": 0.061359312009482705,
+  "e_shaper": 0.007,
+  "e_shaper_path": 0.012,
+  "margin": 0.02
+ },
+ "pairs": [
+  {
+   "pair": "shaper_cutter_cut_vs_legacy_nongenerating",
+   "min_distance_mm": 0.13006404646177305,
+   "at_y_mm": 9.96,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.36
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.11806404646177306,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_cut_vs_groove_edge_skim",
+   "min_distance_mm": 0.022004872755132077,
+   "at_y_mm": 9.88,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.28
+   },
+   "contact_pair": true,
+   "d_minus_e_total_mm": 0.010004872755132076,
+   "criterion": "contact allowed: penetration <= e_total",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_hub_cut_vs_legacy",
+   "min_distance_mm": 1.4164925566400308,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "cut",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 1.4044925566400308,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_clamp_nut_cut_vs_legacy",
+   "min_distance_mm": 0.4164925566400308,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "cut",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.4044925566400308,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_arbor_cut_vs_legacy",
+   "min_distance_mm": 2.438921129576924,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "cut",
+    "yc": 9.77
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.426921129576924,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_return_vs_legacy_nongenerating",
+   "min_distance_mm": 0.21329255664003188,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "return",
+    "yc": 2.9
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.20129255664003187,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_hub_return_vs_legacy",
+   "min_distance_mm": 3.416492556640031,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "return",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 3.404492556640031,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_clamp_nut_return_vs_legacy",
+   "min_distance_mm": 2.416492556640031,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "return",
+    "yc": 4.1
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.404492556640031,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_arbor_return_vs_legacy",
+   "min_distance_mm": 4.428804184298161,
+   "at_y_mm": 3.5,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "return",
+    "yc": 9.77
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 4.416804184298162,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_backoff_vs_legacy",
+   "min_distance_mm": 0.13006404646177305,
+   "at_y_mm": 9.96,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "backoff",
+    "rho_near": 4.2968
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.11806404646177306,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutter_infeed_vs_legacy",
+   "min_distance_mm": 1.9080694984663407,
+   "at_y_mm": 3.12,
+   "e_total_mm": 0.012,
+   "pose": {
+    "phase": "infeed",
+    "rho_near": 4.2968
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 1.8960694984663407,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_final_vs_approved_journal_side_y_ge_14_18",
+   "min_distance_mm": 0.11570602198614853,
+   "at_shaft_y_mm": 14.18,
+   "tool_point_rho_y_mm": [
+    6.401733385227528,
+    14.09343663221174
+   ],
+   "e_total_mm": 0.018239657970627217,
+   "pose": {
+    "phase": "final",
+    "yc": 9.524899999999999,
+    "A": 10.171799999999998
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.0974663640155213,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_final_vs_approved_transition_13_78_to_14_18",
+   "min_distance_mm": -0.005182242783875246,
+   "at_shaft_y_mm": 13.79,
+   "tool_point_rho_y_mm": [
+    6.06881824376405,
+    13.785080403014469
+   ],
+   "e_total_mm": 0.018239657970627217,
+   "pose": {
+    "phase": "final",
+    "yc": 9.524899999999999,
+    "A": 10.171799999999998
+   },
+   "contact_pair": true,
+   "d_minus_e_total_mm": -0.023421900754502463,
+   "criterion": "contact allowed: penetration <= e_total",
+   "PASS": true
+  },
+  {
+   "pair": "hob_collars_arbor_final_vs_approved_all",
+   "min_distance_mm": 2.3054487103542263,
+   "at_shaft_y_mm": 13.17,
+   "tool_point_rho_y_mm": [
+    8.630405361599294,
+    13.170075810452309
+   ],
+   "e_total_mm": 0.018239657970627217,
+   "pose": {
+    "phase": "final"
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 2.287209052383599,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_path_vs_approved_journal_side",
+   "min_distance_mm": 0.11572636184113205,
+   "at_shaft_y_mm": 14.18,
+   "tool_point_rho_y_mm": [
+    6.402835063633372,
+    14.094398926940944
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "feed_journal_side",
+    "yc": 9.525,
+    "A": 10.1718
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.05436704983164935,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_infeed_vs_blank_all",
+   "min_distance_mm": 3.3788504454626125,
+   "at_shaft_y_mm": 0.24,
+   "tool_point_rho_y_mm": [
+    5.5259906112130945,
+    -0.5645707175549184
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "infeed",
+    "yc": -4.205,
+    "A": 10.1718
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 3.31749113345313,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_collars_arbor_path_vs_blank",
+   "min_distance_mm": 1.0043048577209532,
+   "at_shaft_y_mm": 0.79,
+   "tool_point_rho_y_mm": [
+    9.869020277383008,
+    0.79026181743833
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "withdraw",
+    "yc": 3.525
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.9429455457114705,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_retract_vs_blank_all",
+   "min_distance_mm": 0.11572636184114782,
+   "at_shaft_y_mm": 14.18,
+   "tool_point_rho_y_mm": [
+    6.402835063633372,
+    14.094398926940922
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "retract",
+    "yc": 9.525,
+    "A": 10.1718
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.05436704983166511,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "hob_retract_vs_approved_transition_contact",
+   "min_distance_mm": -0.004609524523460529,
+   "at_shaft_y_mm": 13.79,
+   "tool_point_rho_y_mm": [
+    6.069390962024465,
+    13.785519719281108
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "retract",
+    "yc": 9.525,
+    "A": 10.1718
+   },
+   "contact_pair": true,
+   "d_minus_e_total_mm": -0.06596883653294323,
+   "criterion": "contact allowed: penetration <= e_total",
+   "PASS": true
+  },
+  {
+   "pair": "hob_withdraw_vs_blank_all",
+   "min_distance_mm": 0.7082143267548474,
+   "at_shaft_y_mm": 3.54,
+   "tool_point_rho_y_mm": [
+    6.791814503896359,
+    3.537847670950507
+   ],
+   "e_total_mm": 0.061359312009482705,
+   "pose": {
+    "phase": "withdraw",
+    "yc": 3.525,
+    "A": 12.6718
+   },
+   "contact_pair": false,
+   "d_minus_e_total_mm": 0.6468550147453647,
+   "criterion": "d - e_total >= 0.020",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutting_face_past_last_tooth_material",
+   "min_distance_mm": 0.5,
+   "e_total_mm": 0.007,
+   "d_minus_e_total_mm": 0.493,
+   "criterion": "leading face beyond last tooth material by >= margin",
+   "PASS": true
+  },
+  {
+   "pair": "shaper_cutting_face_axial_room_to_groove_wall",
+   "min_distance_mm": 0.5650999999999993,
+   "e_total_mm": 0.007,
+   "d_minus_e_total_mm": 0.5580999999999993,
+   "criterion": "axial room to groove wall >= margin (radial wall clearance is in the nongenerating pair)",
+   "PASS": true
+  },
+  {
+   "pair": "hob_reproduces_approved_ramp_floor",
+   "min_distance_mm": -0.006646695592338325,
+   "e_total_mm": 0.018239657970627217,
+   "criterion": "max |envelope - approved floor| <= 0.05 mm (lite fidelity)",
+   "PASS": true,
+   "R_mm": 5.88,
+   "stop_yc_mm": 9.5249,
+   "lead_angle_deg": 5.5221,
+   "max_abs_dev_mm": 0.006646695592338325,
+   "rms_dev_mm": 0.004471669632758369,
+   "max_overcut_mm": 0.006646695592338325,
+   "max_undercut_mm": 0.0,
+   "stations": 426
+  }
+ ],
+ "verdict": "CERTIFIED"
+}
+
+hook: PostToolUse
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'scripts/manufacturing/tool_clearance_meridian.py' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 495ms:
+# Leaf spec: G0 tool clearance v3.1 corrections (producer)
+
+Context: scripts/manufacturing/tool_clearance.py (1028 lines, Blender 5.1 Python) was written to project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v3-spec.md (read it: it is the base spec and its rules all still apply) and produced project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v3/report.json with verdict UNRESOLVED. Parent review found three defects that invalidate that verdict. Fix them, rerun, and report honestly.
+
+Defect 1, cutter profile collapse (shaper): the binned polar cutter profile (around lines 460-490: tool_r = np.zeros(NBINS_T); np.maximum.at(tool_r, bin_t, qcr)) yields bins at radius 0 (report shows cutter_root_radius_mm -0.005; the real root must be near the cutter pitch radius minus dedendum, about 9.4 mm for pitch radius 10.333). Those zero bins make TOOL_SAG = 2.749 mm, which then becomes E_TOOL and inflates every e_total to about 2.9 mm. Fix the profile construction so every bin is a real conjugate profile radius (initialise from the generated envelope properly, or build the cutter tooth as an explicit polyline from the meshing equation as base spec item 3 requires); assert root radius is within [8.5, 10.3] mm and that E_TOOL (true polyline sagitta, h^2/(8 rho) scale) is below 0.01 mm. Fail loudly if not.
+
+Defect 2, hob feed direction: hob_path_poses() feeds the hob from y=13.9 down the ramp to 9.5249 (centre distance following the ramp), which drives the hob through the journal side and is not how the approved geometry was generated. Correct kinematics: the free end of the shaft is y=0 and the journal is at y>14. Infeed radially at an axial position where the hob does not overlap the shaft's toothed zone (hob centre y below FACE_START minus R_FIT minus 0.5 mm), at full-depth centre distance a0 = ROOT_R + R_FIT; feed +Y at constant a0 until the hob centre reaches y = FACE_END (9.5249); then retract radially by RETRACT; then withdraw axially back toward -Y (free end). The approved ramp (y 9.525..13.78) is the imprint of the final pose, so hob-vs-ramp is generation contact (tolerance), not a clearance pair. Journal side (y >= 14.18), cone_journal (13.78..14.18), ring groove, shoulder must have positive clearance minus e_total in every pose. Parent hand estimate for the final pose in the x=0 plane with R_FIT 6.1: about +0.13 mm at y 14.18 and about +0.05 mm at y 14.0; your exact numbers must come from the mesh.
+
+Defect 3, contact pairs passing on a bogus tolerance: with e_total near 2.9 mm, generation-contact pairs reported PASS with d - e_total = -2.9. After fixing defect 1, recompute; generation-contact pairs pass only if worst penetration magnitude <= e_total_generation (which must now be small, well below 0.05 mm) and contact lies only in the generated zone.
+
+Also: the shaper body/holder pairs (shaper_body_vs_groove, _vs_step_journal, _vs_face, shaper_holders_vs_shaft) and the hob collar/arbor pairs must be re-evaluated with the corrected budget; if a pair still fails with a correct budget, adjust only the illustrative tool dimensions (cutter thickness, hub/clamp/arbor sizes, collar positions, overtravel, backoff) within plausible standard proportions, never the shaft, and document each change. sections_constancy: report the measured constancy and include it in e_cad; do not leave it as an unresolved label without a number.
+
+Files you own: scripts/manufacturing/tool_clearance.py, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v3/ (overwrite report.json/tools.json/run.log; add README.md), project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/camera.md (C1/C3 only with real evidence). Nothing else. No git operations. Do not read TODO.md or queue docs.
+
+Command: & "C:/Program Files/Blender Foundation/Blender 5.1/blender.exe" -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/tool_clearance.py ; must end with a line starting G0_CLEARANCE_V3 and report the verdict. Run twice; reports must match except timestamps. Source hashes unchanged.
+
+Report back (final message): changed paths, command, e_total breakdown, per-pair min distance/margin/PASS table, final tool dimensions, verdict CERTIFIED or UNRESOLVED with the exact remaining failing pair and pose. Never weaken a criterion.
+REASONING: high
+
+
+hook: PostToolUse
+ succeeded in 606ms:
+"""G0 tool clearance v4 (meridian method), parent-authored 2026-10-05.
+
+Replaces the defective clearance-v3 verdict (collapsed cutter profile inflated
+e_tool to 2.749 mm; hob fed from the journal side). Method:
+
+* Both shafts rotate during machining (shaping generation, hobbing), so every
+  non-generated feature (pilot, relief groove, cone, journal, ring groove,
+  shoulder) is checked against the surface-of-revolution envelope
+  r_outer(y) = max radius of the exact plane section at y. Shaft region at y is
+  contained in rho <= r_outer(y), so clearance is a 2D distance in the meridian
+  half-plane (rho, y). No ray parity or normal signs on open shells.
+* Tooth-space floor r_min(y) = min radius of the section (segment interior
+  included) is used only for the hob ramp reproduction check.
+* Shaper (legacy grooved blank): disc cutter axis parallel to the shaft axis,
+  so its meridian footprint is the exact rectangle rho in [C-Rt, C+Rt] x
+  [yc-t/2, yc+t/2]; holders likewise. Contact is allowed only in the measured
+  generating band (face start .. last tooth stub).
+* Hob (revised smooth blank, then approved journal side): tilted cylinder of
+  radius R about axis a=(cos g, sin g, 0) through (0, yc, A); near-side surface
+  sampled densely; R and stop position fitted to the approved ramp floor.
+* e_total = e_cad + e_profile + e_sampling (+ e_path for path poses). PASS for
+  must-clear pairs requires d - e_total >= MARGIN; contact pairs require
+  |penetration| <= e_total and location inside the generated zone.
+
+Read-only on all CAD sources (hashes checked before/after). Writes only
+camera/clearance-v4/.
+"""
+import hashlib
+import json
+import math
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+import bpy
+import bmesh
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[2]
+EV = ROOT / "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05"
+OUT = EV / "camera" / "clearance-v4"
+OUT.mkdir(parents=True, exist_ok=True)
+LOG = (OUT / "run.log").open("w", encoding="utf-8")
+BLEND = Path(r"C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend")
+BLEND_SHA = "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89"
+COMMAND = ('& "C:/Program Files/Blender Foundation/Blender 5.1/blender.exe" -b --factory-startup '
+           '--python-exit-code 1 --python scripts/manufacturing/tool_clearance_meridian.py')
+
+TIP_R, ROOT_R = 6.0834, 4.2918
+FACE_START, FACE_END, RAMP_END, JOURNAL_Y = 3.1749, 9.5249, 13.78, 14.18
+EPS_STOCK, MARGIN = 0.005, 0.02
+H = 0.01  # profile step, mm
+Y_LO, Y_HI = -0.2, 24.0
+# Shaper: matched conjugate candidate from camera/profile-study (N=20, C=15.5).
+N_SHAPER, SHAPER_C, SHAPER_T = 20, 15.5, 1.2
+SHAPER_RT = SHAPER_C - (ROOT_R + EPS_STOCK)
+SHAPER_BACKOFF = 2.0
+HOLDERS = {"hub": (8.0, 6.0), "clamp_nut": (9.0, 3.0), "arbor": (7.0, 12.0)}  # radius, length (trailing, -Y)
+# Hob: single start, normal module 1, work pitch radius 5.0.
+HOB_M, HOB_LEN, HOB_RETRACT = 1.0, 16.0, 2.5
+COLLAR_R, COLLAR_W, ARBOR_R, ARBOR_L = None, 3.0, None, 12.0
+E_CAD = 0.002
+
+T0 = time.time()
+
+
+def log(msg):
+    line = "[%7.1fs] %s" % (time.time() - T0, msg)
+    print(line, flush=True)
+    LOG.write(line + "\n")
+    LOG.flush()
+
+
+def sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+if sha256(BLEND) != BLEND_SHA:
+    raise SystemExit("HASH_MISMATCH_BEFORE")
+bpy.ops.wm.open_mainfile(filepath=str(BLEND))
+deps = bpy.context.evaluated_depsgraph_get()
+
+
+def mesh_mm(name):
+    ob = bpy.data.objects[name]
+    assert np.abs(np.array(ob.matrix_world) - np.eye(4)).max() < 1e-9
+    me = ob.evaluated_get(deps).to_mesh()
+    bm = bmesh.new()
+    bm.from_mesh(me)
+    bmesh.ops.triangulate(bm, faces=bm.faces)
+    V = np.array([v.co[:] for v in bm.verts], dtype=float) * 1000.0
+    F = np.array([[v.index for v in f.verts] for f in bm.faces], dtype=np.int64)
+    bm.free()
+    ob.to_mesh_clear()
+    return V, F
+
+
+def profiles(V, F):
+    """Exact plane sections every H mm: r_outer (max radius) and r_min (min radius)."""
+    ys = np.round(np.arange(Y_LO, Y_HI + 1e-9, H), 6)
+    tri_y = V[F][:, :, 1]
+    lo, hi = tri_y.min(1), tri_y.max(1)
+    order = np.argsort(lo)
+    lo_s = lo[order]
+    r_out = np.zeros(len(ys))
+    r_min = np.full(len(ys), np.nan)
+    # Offset planes 0.23 um so no section plane coincides with (float32-noisy) mesh vertices.
+    for i, y0 in enumerate(ys + 2.3e-4):
+        cand = order[: np.searchsorted(lo_s, y0, side="right")]
+        cand = cand[hi[cand] >= y0]
+        if len(cand) == 0:
+            continue
+        T = V[F[cand]]
+        d = T[:, :, 1] - y0
+        d[np.abs(d) < 1e-9] = 1e-9
+        pts = []
+        for a, b in ((0, 1), (1, 2), (2, 0)):
+            m = d[:, a] * d[:, b] < 0
+            t = d[m, a] / (d[m, a] - d[m, b])
+            P = T[m, a] + (T[m, b] - T[m, a]) * t[:, None]
+            pts.append((np.nonzero(m)[0], P[:, [0, 2]]))
+        ids = np.concatenate([p[0] for p in pts])
+        P = np.vstack([p[1] for p in pts])
+        if len(P) == 0:
+            continue
+        r_out[i] = np.hypot(P[:, 0], P[:, 1]).max()
+        srt = np.argsort(ids, kind="stable")
+        ids, P = ids[srt], P[srt]
+        pair = np.nonzero(ids[1:] == ids[:-1])[0]
+        A, B = P[pair], P[pair + 1]
+        E = B - A
+        ee = np.maximum((E ** 2).sum(1), 1e-18)
+        tt = np.clip(-(A * E).sum(1) / ee, 0, 1)
+        r_min[i] = np.hypot(*(A + tt[:, None] * E).T).min()
+    # Interior empty stations (seams): fill from neighbours, counted in the report.
+    nz = np.nonzero(r_out)[0]
+    filled = 0
+    for i in range(nz[0] + 1, nz[-1]):
+        if r_out[i] == 0:
+            r_out[i] = max(r_out[i - 1], r_out[i + 1])
+            filled += 1
+    FILLED.append(filled)
+    # Conservative envelope: max over the neighbouring samples (covers steps between planes).
+    r_dil = np.maximum(r_out, np.maximum(np.roll(r_out, 1), np.roll(r_out, -1)))
+    r_dil[0], r_dil[-1] = max(r_out[0], r_out[1]), max(r_out[-1], r_out[-2])
+    return ys, r_out, r_dil, r_min
+
+
+FILLED = []
+LEG = profiles(*mesh_mm("SHAFT_P001835_ORIG"))
+APP = profiles(*mesh_mm("SHAFT_P001835_HOBBED_NEW"))
+log("profiles: %d stations each" % len(LEG[0]))
+YS = LEG[0]
+
+
+def at(prof, y):
+    return prof[int(round((y - Y_LO) / H))]
+
+
+def first_y(cond, start, stop, step=H):
+    for y in np.arange(start, stop, step):
+        if cond(round(float(y), 6)):
+            return round(float(y), 6)
+    return None
+
+
+# ------------------------------------------------------------------ profile facts
+leg_ro, leg_rd, leg_rmin = LEG[1], LEG[2], LEG[3]
+app_ro, app_rd, app_rmin = APP[1], APP[2], APP[3]
+rho_cut = SHAPER_C - SHAPER_RT  # cutter near radius at full depth
+for yy in np.arange(-0.2, 22.0, 0.25):
+    log("PROFILE y=%6.2f legacy ro=%.4f rmin=%.4f | approved ro=%.4f rmin=%.4f"
+        % (yy, at(leg_ro, yy), at(leg_rmin, yy), at(app_ro, yy), at(app_rmin, yy)))
+# Last tooth material: first station past the face where nothing stands above root radius.
+teeth_end = first_y(lambda y: at(leg_rd, y) <= ROOT_R, FACE_END - 1.0, 16.0)
+gmask = (YS > teeth_end) & (YS < teeth_end + 1.6)
+groove_floor_y = float(YS[gmask][np.argmin(leg_ro[gmask])])
+groove_end = first_y(lambda y: at(leg_rd, y) >= rho_cut - 0.05, groove_floor_y, 20.0)
+edge_end = first_y(lambda y: at(leg_rd, y) < ROOT_R - 0.1, teeth_end, groove_floor_y + H)
+pilot_end = first_y(lambda y: at(leg_rd, y) >= rho_cut - 0.05, 0.0, FACE_START + 1.0)
+facts = {
+    "legacy_teeth_end_y": teeth_end, "legacy_groove_edge_end_y": edge_end, "legacy_groove_floor_y": groove_floor_y,
+    "legacy_groove_floor_r": float(at(leg_ro, groove_floor_y)), "legacy_groove_wall_y": groove_end,
+    "legacy_pilot_end_y": pilot_end,
+    "empty_interior_stations_filled_legacy_approved": FILLED,
+    "legacy_face_tip_r": float(leg_ro[(YS > 4) & (YS < 9)].max()),
+    "approved_face_root_r": float(np.nanmin(app_rmin[(YS > 4) & (YS < 9)])),
+    "approved_journal_r_at_14_18": float(at(app_ro, JOURNAL_Y)),
+    "approved_r_outer_13_78_to_14_18": [float(app_ro[(YS >= RAMP_END) & (YS <= JOURNAL_Y)].min()),
+                                        float(app_ro[(YS >= RAMP_END) & (YS <= JOURNAL_Y)].max())],
+}
+log("facts " + json.dumps(facts))
+E_PROFILE = H / 2  # discrete union of meridian segments vs continuous profile
+
+
+def rect_clearance(ro, ys, rho0, ya, yb, exclude=None):
+    """Min meridian distance from rectangle [rho0, inf) x [ya, yb] to region rho <= r(y)."""
+    dy = np.maximum(0.0, np.maximum(ya - ys, ys - yb))
+    drho = rho0 - ro
+    inside = (dy == 0) & (drho <= 0)
+    d = np.where(inside, drho, np.hypot(np.maximum(drho, 0.0), dy))
+    if exclude is not None:
+        d = np.where(exclude, np.inf, d)
+    i = int(np.argmin(d))
+    return float(d[i]), float(ys[i])
+
+
+# ------------------------------------------------------------------ shaper
+# Generating band: tooth material. Groove edge (root level down to root-0.1): tangential skim, contact pair.
+gen_band = (YS >= FACE_START - 0.05) & (YS <= teeth_end)
+edge_band = (YS > teeth_end) & (YS < edge_end)
+overtravel = 0.5
+lead_end = teeth_end + overtravel
+yc_end = lead_end - SHAPER_T / 2
+yc_start = pilot_end - 0.4 - SHAPER_T / 2
+shaper_pairs = {}
+
+
+def shaper_record(key, d, y, e, pose, contact=False):
+    rec = shaper_pairs.get(key)
+    if rec is None or d < rec["min_distance_mm"]:
+        shaper_pairs[key] = {"min_distance_mm": d, "at_y_mm": y, "e_total_mm": e, "pose": pose, "contact_pair": contact}
+
+
+e_sh = E_CAD + E_PROFILE
+e_sh_path = e_sh + 0.005  # 0.01 mm stroke step
+for phase, ys_c, rho0 in (("cut", np.arange(yc_start, yc_end + 1e-9, 0.01), rho_cut),
+                          ("return", np.arange(yc_start, yc_end + 1e-9, 0.01), rho_cut + SHAPER_BACKOFF)):
+    for yc in ys_c:
+        ya, yb = yc - SHAPER_T / 2, yc + SHAPER_T / 2
+        d, y = rect_clearance(leg_rd, YS, rho0, ya, yb, exclude=(gen_band | edge_band) if phase == "cut" else None)
+        shaper_record("shaper_cutter_%s_vs_legacy_nongenerating" % phase, d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)})
+        if phase == "cut":
+            d, y = rect_clearance(leg_rd, YS, rho0, ya, yb, exclude=~edge_band)
+            shaper_record("shaper_cutter_cut_vs_groove_edge_skim", d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)}, contact=True)
+        trail = ya
+        for name, (rad, length) in HOLDERS.items():
+            off = {"hub": 0.0, "clamp_nut": 0.0, "arbor": 6.0}[name]
+            hb, ha = trail - off, trail - off - length
+            d, y = rect_clearance(leg_rd, YS, SHAPER_C + (rho0 - rho_cut) - rad, ha, hb)
+            shaper_record("shaper_%s_%s_vs_legacy" % (name, phase), d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)})
+for frac in np.linspace(0, 1, 51):  # backoff at stroke end, infeed at stroke start
+    for key, yc in (("backoff", yc_end), ("infeed", yc_start)):
+        rho0 = rho_cut + SHAPER_BACKOFF * frac
+        d, y = rect_clearance(leg_rd, YS, rho0, yc - SHAPER_T / 2, yc + SHAPER_T / 2, exclude=gen_band | edge_band)
+        shaper_record("shaper_cutter_%s_vs_legacy" % key, d, y, e_sh_path, {"phase": key, "rho_near": round(float(rho0), 4)})
+# The cutting (leading) face must pass the last tooth material; the body trails in the cut tooth space.
+exit_margin = float(lead_end - teeth_end)
+wall_margin = float(groove_end - lead_end)
+
+# ------------------------------------------------------------------ hob
+ramp = (YS >= FACE_END) & (YS <= RAMP_END) & np.isfinite(app_rmin)
+ry, rf = YS[ramp], app_rmin[ramp]
+
+
+def hob_points(R, yc, A, g, ds, db, s_lo=-HOB_LEN / 2, s_hi=HOB_LEN / 2, band=1.25):
+    s = np.arange(s_lo, s_hi + 1e-12, ds)
+    b = np.arange(math.pi - band, math.pi + band + 1e-12, db)
+    S, B = np.meshgrid(s, b, indexing="ij")
+    S, B = S.ravel(), B.ravel()
+    cg, sg = math.cos(g), math.sin(g)
+    x = S * cg + R * np.sin(B) * sg
+    y = yc + S * sg - R * np.sin(B) * cg
+    z = A + R * np.cos(B)
+    return np.hypot(x, z), y
+
+
+def envelope(R, yc, A, g, ds=0.04, db=math.radians(0.25)):
+    rho, y = hob_points(R, yc, A, g, ds, db)
+    idx = np.round((y - Y_LO) / H).astype(int)
+    env = np.full(len(YS), np.inf)
+    np.minimum.at(env, np.clip(idx, 0, len(YS) - 1), rho)
+    return env
+
+
+best = None
+for R in np.arange(5.80, 6.401, 0.01):
+    g = math.atan(HOB_M / (2 * (R - (5.0 - ROOT_R))))
+    A = ROOT_R + R
+    for ye in np.arange(FACE_END - 0.10, FACE_END + 0.101, 0.01):
+        env = envelope(R, ye, A, g, ds=0.08, db=math.radians(0.5))
+        dev = env[ramp] - rf
+        score = float(np.abs(dev[np.isfinite(dev)]).max())
+        if best is None or score < best[0]:
+            best = (score, float(R), float(ye), g)
+_, R_HOB, YC_END, G_HOB = best
+A_HOB = ROOT_R + R_HOB
+env = envelope(R_HOB, YC_END, A_HOB, G_HOB, ds=0.02, db=math.radians(0.1))
+dev = env[ramp] - rf
+ramp_fit = {"R_mm": round(R_HOB, 4), "stop_yc_mm": round(YC_END, 4), "lead_angle_deg": round(math.degrees(G_HOB), 4),
+            "max_abs_dev_mm": float(np.abs(dev).max()), "rms_dev_mm": float(np.sqrt(np.mean(dev ** 2))),
+            "max_overcut_mm": float(max(0.0, -dev.min())), "max_undercut_mm": float(max(0.0, dev.max())),
+            "stations": int(ramp.sum())}
+log("hob ramp fit " + json.dumps(ramp_fit))
+
+DS, DB = 0.02, math.radians(0.1)
+E_SAMPLE = 0.5 * math.hypot(DS, R_HOB * DB)
+e_hob = E_CAD + E_PROFILE + E_SAMPLE
+blank_rd = app_rd.copy()
+blank_rd[(YS >= FACE_START) & (YS <= RAMP_END)] = np.maximum(blank_rd[(YS >= FACE_START) & (YS <= RAMP_END)], TIP_R)
+
+
+def meridian_clearance(rho, y, prof, keep, reach=0.8):
+    """Min distance from points to region rho <= prof(y') over stations where keep is true."""
+    # Prefilter: a point farther than reach (radially, against the window max) cannot be the minimum
+    # unless every point is; keep the closest-by-bound points only.
+    k = int(reach / H)
+    masked = np.where(keep, prof, 0.0)
+    win = masked.copy()
+    for off in range(1, k + 1):
+        win = np.maximum(win, np.maximum(np.roll(masked, off), np.roll(masked, -off)))
+    jj = np.clip(np.round((y - Y_LO) / H).astype(int), 0, len(YS) - 1)
+    bound = rho - win[jj]
+    near = bound < reach
+    if not near.any():
+        i = int(np.argmin(bound))
+        return float(bound[i]), float(YS[jj[i]]), float(rho[i]), float(y[i])
+    rho, y = rho[near], y[near]
+    j0 = np.round((y - Y_LO) / H).astype(int)
+    best_d = np.full(len(rho), np.inf)
+    best_j = np.zeros(len(rho), dtype=int)
+    for off in range(-k, k + 1):
+        j = np.clip(j0 + off, 0, len(YS) - 1)
+        dy = np.abs(y - YS[j])
+        drho = rho - prof[j]
+        inside = (dy <= H / 2) & (drho <= 0)
+        d = np.where(inside, drho, np.hypot(np.maximum(drho, 0.0), dy))
+        d = np.where(keep[j], d, np.inf)
+        better = d < best_d
+        best_d = np.where(better, d, best_d)
+        best_j = np.where(better, j, best_j)
+    i = int(np.argmin(best_d))
+    return float(best_d[i]), float(YS[best_j[i]]), float(rho[i]), float(y[i])
+
+
+zones = {
+    "journal_side_y_ge_14_18": YS >= JOURNAL_Y,
+    "transition_13_78_to_14_18": (YS > RAMP_END) & (YS < JOURNAL_Y),
+    "free_end_y_lt_face": YS < FACE_START - 0.05,
+}
+hob_pairs = {}
+
+
+def hob_record(key, val, e, pose, contact=False):
+    d, ys_, rho_p, y_p = val
+    rec = hob_pairs.get(key)
+    if rec is None or d < rec["min_distance_mm"]:
+        hob_pairs[key] = {"min_distance_mm": d, "at_shaft_y_mm": ys_, "tool_point_rho_y_mm": [rho_p, y_p],
+                          "e_total_mm": e, "pose": pose, "contact_pair": contact}
+
+
+def holder_points(yc, A):
+    pts = []
+    cr = R_HOB + 1.0
+    for sgn in (-1, 1):
+        rho, y = hob_points(cr, yc, A, G_HOB, 0.05, math.radians(0.25), s_lo=sgn * HOB_LEN / 2 if sgn > 0 else -HOB_LEN / 2 - COLLAR_W,
+                            s_hi=HOB_LEN / 2 + COLLAR_W if sgn > 0 else -HOB_LEN / 2, band=1.6)
+        pts.append((rho, y))
+        rho, y = hob_points(R_HOB - 1.5, yc, A, G_HOB, 0.05, math.radians(0.25),
+                            s_lo=HOB_LEN / 2 + COLLAR_W if sgn > 0 else -HOB_LEN / 2 - COLLAR_W - ARBOR_L,
+                            s_hi=HOB_LEN / 2 + COLLAR_W + ARBOR_L if sgn > 0 else -HOB_LEN / 2 - COLLAR_W, band=1.6)
+        pts.append((rho, y))
+    return np.concatenate([p[0] for p in pts]), np.concatenate([p[1] for p in pts])
+
+
+# Final pose (exact sampling) against approved geometry.
+rho, y = hob_points(R_HOB, YC_END, A_HOB, G_HOB, DS, DB, band=1.6)
+for zname, keep in zones.items():
+    if zname == "free_end_y_lt_face":
+        continue
+    hob_record("hob_final_vs_approved_" + zname, meridian_clearance(rho, y, app_rd, keep), e_hob,
+               {"phase": "final", "yc": YC_END, "A": A_HOB}, contact=(zname == "transition_13_78_to_14_18"))
+hrho, hy = holder_points(YC_END, A_HOB)
+hob_record("hob_collars_arbor_final_vs_approved_all", meridian_clearance(hrho, hy, app_rd, np.ones(len(YS), bool), reach=1.0),
+           e_hob, {"phase": "final"})
+# Path poses (coarser sampling + path step) against the revised smooth blank / approved journal side.
+y_in = FACE_START - R_HOB - 1.5
+e_path = E_CAD + E_PROFILE + 0.5 * math.hypot(0.05, R_HOB * math.radians(0.3)) + 0.025
+poses = [("infeed", y_in, A_HOB + HOB_RETRACT * (1 - f)) for f in np.linspace(0, 1, 26)]
+poses += [("feed_journal_side", yc, A_HOB) for yc in np.arange(YC_END - 1.5, YC_END + 1e-9, 0.05)]
+poses += [("retract", YC_END, A_HOB + HOB_RETRACT * f) for f in np.linspace(0, 1, 51)]
+poses += [("withdraw", yc, A_HOB + HOB_RETRACT) for yc in np.arange(YC_END, y_in - 1e-9, -0.1)]
+for phase, yc, A in poses:
+    rho, y = hob_points(R_HOB, yc, A, G_HOB, 0.05, math.radians(0.3), band=1.6)
+    keep_j = zones["journal_side_y_ge_14_18"]
+    hob_record("hob_path_vs_approved_journal_side", meridian_clearance(rho, y, app_rd, keep_j), e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)})
+    if phase in ("infeed", "retract", "withdraw"):
+        # Retract starts seated in the tooth spaces it just generated; radial withdrawal from a
+        # conjugate mesh only opens backlash, so the cut band is excluded for retract (journal
+        # side and free end must still clear). Infeed/withdraw are checked against the whole blank.
+        keep_b = np.ones(len(YS), bool) if phase != "retract" else ~((YS >= FACE_START - 0.05) & (YS < JOURNAL_Y))
+        hob_record("hob_%s_vs_blank_all" % phase, meridian_clearance(rho, y, blank_rd, keep_b), e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)})
+        if phase == "retract":
+            hob_record("hob_retract_vs_approved_transition_contact", meridian_clearance(rho, y, app_rd, zones["transition_13_78_to_14_18"]),
+                       e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)}, contact=True)
+    hrho, hy = holder_points(yc, A)
+    hob_record("hob_collars_arbor_path_vs_blank", meridian_clearance(hrho, hy, blank_rd, np.ones(len(YS), bool), reach=1.0), e_path, {"phase": phase, "yc": round(float(yc), 3)})
+
+# ------------------------------------------------------------------ verdicts
+pairs = []
+for src in (shaper_pairs, hob_pairs):
+    for key, rec in src.items():
+        d, e = rec["min_distance_mm"], rec["e_total_mm"]
+        if rec["contact_pair"]:
+            ok = d >= -e
+            crit = "contact allowed: penetration <= e_total"
+        else:
+            ok = d - e >= MARGIN
+            crit = "d - e_total >= %.3f" % MARGIN
+        pairs.append({"pair": key, **rec, "d_minus_e_total_mm": d - e, "criterion": crit, "PASS": bool(ok)})
+pairs.append({"pair": "shaper_cutting_face_past_last_tooth_material", "min_distance_mm": exit_margin, "e_total_mm": e_sh,
+              "d_minus_e_total_mm": exit_margin - e_sh, "criterion": "leading face beyond last tooth material by >= margin",
+              "PASS": bool(exit_margin - e_sh >= MARGIN)})
+pairs.append({"pair": "shaper_cutting_face_axial_room_to_groove_wall", "min_distance_mm": wall_margin, "e_total_mm": e_sh,
+              "d_minus_e_total_mm": wall_margin - e_sh, "criterion": "axial room to groove wall >= margin (radial wall clearance is in the nongenerating pair)",
+              "PASS": bool(wall_margin - e_sh >= MARGIN)})
+ramp_ok = ramp_fit["max_abs_dev_mm"] <= 0.05
+pairs.append({"pair": "hob_reproduces_approved_ramp_floor", "min_distance_mm": -ramp_fit["max_overcut_mm"],
+              "e_total_mm": e_hob, "criterion": "max |envelope - approved floor| <= 0.05 mm (lite fidelity)",
+              "PASS": bool(ramp_ok), **ramp_fit})
+verdict = "CERTIFIED" if all(p["PASS"] for p in pairs) else "UNRESOLVED"
+if sha256(BLEND) != BLEND_SHA:
+    raise SystemExit("HASH_MISMATCH_AFTER")
+report = {
+    "schema": "jgun-g0-clearance/v4-meridian", "generated_utc": datetime.now(timezone.utc).isoformat(),
+    "command": COMMAND, "source": {"blend": str(BLEND), "sha256_before_after": BLEND_SHA},
+    "method": __doc__.strip(), "facts": facts,
+    "shaper": {"shaft": "SHAFT_P001835_ORIG (legacy grooved blank)", "teeth": N_SHAPER, "centre_distance_mm": SHAPER_C,
+               "signed_ratio_work_over_cutter": -N_SHAPER / 10, "tip_radius_mm": SHAPER_RT, "thickness_mm": SHAPER_T,
+               "stroke_centre_y_mm": [round(yc_start, 4), round(yc_end, 4)], "overtravel_past_last_stub_mm": overtravel,
+               "return_backoff_mm": SHAPER_BACKOFF, "holders_radius_length_mm": HOLDERS,
+               "note": "Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."},
+    "hob": {"shaft": "revised smooth blank, approved journal side", "starts": 1, "module_mm": HOB_M, **ramp_fit,
+            "centre_distance_mm": A_HOB, "length_mm": HOB_LEN, "collar_radius_mm": R_HOB + 1.0, "arbor_radius_mm": R_HOB - 1.5,
+            "path": "infeed radial at yc=%.3f; feed +Y at full depth to yc=%.4f; retract %.1f mm radial; withdraw -Y" % (y_in, YC_END, HOB_RETRACT)},
+    "error_budget_mm": {"e_cad": E_CAD, "e_profile": E_PROFILE, "e_hob_sampling": E_SAMPLE, "e_hob_final": e_hob,
+                        "e_hob_path": e_path, "e_shaper": e_sh, "e_shaper_path": e_sh_path, "margin": MARGIN},
+    "pairs": pairs, "verdict": verdict,
+}
+(OUT / "report.json").write_text(json.dumps(report, indent=1, default=float), encoding="utf-8")
+np.savez_compressed(OUT / "profiles.npz", y=YS, legacy_r_outer=leg_ro, legacy_r_min=leg_rmin, approved_r_outer=app_ro, approved_r_min=app_rmin)
+for p in pairs:
+    log("%-52s d=%9.5f e=%7.5f %s" % (p["pair"], p["min_distance_mm"], p["e_total_mm"], "PASS" if p["PASS"] else "FAIL"))
+print("G0_CLEARANCE_V4 %s pairs=%d fail=%d" % (verdict, len(pairs), sum(not p["PASS"] for p in pairs)), flush=True)
+
+
+
+hook: PostToolUse
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/method-review.md' -Raw" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 527ms:
+**Verdict: fix first.** I read `profile_study.py`, `clearance.py`, both logs, `clearance.json`, `geometry/FINDINGS.md` and the accepted plan. I ran nothing, launched no Blender and edited no files. The numbers below come from the artifacts, plus one calculation of mine that you should re-check.
+
+**What the evidence shows**
+
+- `profile-study.log` ends after `PROFILE_SECTIONS`. There is no `MATCHED_SHAPER` line and no `profile-study.json`, so the inverse shaper has no result yet. The loop is about 3×10⁹ NumPy point evaluations per candidate, so it may only be slow.
+- The `clearance.json` penetrations do not test the matched tools. `clearance.py` uses a hand-drawn tool (shaper: 20 teeth in a 4-of-8-segment pattern; hob: triangular ridges). Neither is derived from the measured profile, so large penetrations are expected.
+
+**Blocking problems in `clearance.py`**
+
+1. **Wrong shaft for the shaper.** Everything uses `SHAFT_P001835_HOBBED_NEW`. The shaper needs `SHAFT_P001835_ORIG`, whose relief groove (floor r≈4.11–4.22 at y=10.92) is what the cutter runs out into.
+2. **Retained-neighbour test is the wrong scene.** Housing, bearing and ring are not present while the shaft is machined. Their hull results (−1.15 and −5.92 mm) say nothing about the machining path. Test only the parts that are in the shot: the shaft's journal and shoulder, the centres or work-holding, and the tool, arbor and holder.
+3. **The signed-distance sign is unreliable.**
+   - The sign comes from the nearest face normal on open, unwelded, non-manifold shells.
+   - Its own check agrees with ray parity on only 97% of points.
+   - A ring penetrated by −5.92 mm is geometrically impossible. The hull values of −5.92 and −5.97 sit near the 6 mm search cap, and the fit values of 3.9–3.97 mm look like unsigned distances with a wrong sign.
+   - Use a welded derived copy (1 µm weld in numpy, source untouched) with a winding-number or 3-ray inside test. Report unsigned distance, and check containment separately.
+4. **The shaft distance grid covers too little.** It spans only x∈±7 and z∈[2, 7.2], and out-of-grid points return `+inf`, which counts as safe. The scan rotates the tool to θ up to about 70° around the shaft, which leaves that region. Penetration is therefore missed exactly where it matters. Make out-of-grid a failure, or use the full annulus. Alternatively, fold angle modulo 36° and use an analytic extruded-profile distance in the toothed zone.
+5. **Sampling errors exceed the stated uncertainty.**
+   - Work clock steps of 2° move r=6 by about 0.21 mm.
+   - Hob steps of 5° move r=4 by about 0.35 mm.
+   - The fit uncertainty of 0.109 mm omits both, and also the 0.07 mm tool-point spacing.
+   - The correct registry is also far finer than a 2° scan. A 0.04 mm clearance at r_p≈5.2 needs about ±0.4°, so choose the registry analytically.
+6. **The hull test is one-sided.** It measures only hull-surface points against the neighbour mesh. A neighbour that sits entirely inside the hull is missed. Evaluate the closed-form distance to the hull at the neighbour's vertices and subdivided triangles, plus a containment test. Subdivide where `d(centroid) < R_tri + margin`, which uses the fact that distance is 1-Lipschitz.
+7. **The hob size is inconsistent with the approved runout.**
+   - `clearance.py` models a hob with tip radius 4 mm.
+   - FINDINGS gives the tooth-space floor reaching 6.074 mm at y=13.78. With end y=9.525 and root 4.292, a circular-arc fit gives R≈5.97 mm. That matches the authored "6 mm". This is my arithmetic and assumes the ramp is an arc, so fit the full floor profile to confirm.
+   - The approved ramp is the hob's swept envelope, so there the hob must touch the shaft. Require |penetration| ≤ tolerance and a contact set that stays inside the runout zone. Require positive clearance only on the journal side, which starts at y≈14.18, not at the authored 14.0639.
+   - The helix angle is also inconsistent. The code uses `asin(m/d)` while the thread-lead formula needs `atan`.
+
+**Inverse envelope in `profile_study.py`**
+
+The logic of the algorithm is sound:
+
+- The coupling ratio N/10 is correct.
+- The counter-rotation sign is consistent in the code.
+- Sweeping one tool pitch is enough given tool and work symmetry.
+- Taking the minimum over tool teeth is valid.
+
+The problems are in the metric and the sampling:
+
+- **Radial gap is used as clearance.** `gap = |p| − r_w(φ)` is a radial gap, so the 0.04 mm margin shrinks to about 0.04·cos(angle between the flank normal and the radial direction) on flanks. It approaches zero on flanks that are nearly radial. The "residual stock" figure is distorted in the same way. Use Euclidean 2D distance to the section polyline.
+- **The star-shaped assumption is unchecked.** A single outermost ray hit per angle fills any undercut. A 10-tooth gear is a likely undercut case. Check that the profile angle stays monotone along the profile (or count all ray hits).
+- **The forward check is not an envelope.** It takes the minimum over sampled boundary points per work-angle bin, so it can miss bins (the code counts these). It also only reports radial error.
+- **There is no feasibility test.** The pitch radius is free, and `C = r_p(1 + N/10)` is hand-picked. A flank point q with unit tangent t can only be generated if |q·t| ≤ r_p, because that is the distance from the axis to its normal line. Compute this along the profile and choose r_p above its maximum. Points that fail are the unremoved stock.
+- **Registry and the 0.04 mm margin.** The tool phase is a free definition, so there is nothing to scan. A 0.04 mm offset means the tool generates the work plus 0.04 mm, so state that, or use a smaller margin such as 0.005 mm.
+- **Infeed is not covered.** Only the final centre distance is tested. Check infeed separately.
+
+**Recommended method**
+
+1. Extract the section as an exact polyline: plane–triangle intersection on the welded copy at several y (3.5, 6, 9), 10-fold averaged. Confirm the section is constant across y to about 0.003 mm.
+2. Compute the flank by the meshing equation, with no sampling. Contact occurs when the normal line through q passes the pitch point I. That gives the pose θ(s) in closed form, and the tool flank point is M_θ(s)·q(s).
+3. Trim self-loops and fill the tip and root with a distance-field envelope, `D_T(x) = min_θ D_W(M_θ x) − ε`. Extract the contour on one tool-tooth sector.
+4. For the hob, solve for the rack (graph) envelope under rolling x=r_pθ. A smooth hob thread is invariant under hob rotation, so only θ and the feed y are continuous parameters. The relative motion is a rack translation, so no hob-phase sampling is needed. Model the finite gash scallop separately: about 1 µm for 10 gashes at m≈1.
+
+**Error bound, in mm**
+
+`e_total = e_cad + e_tool + e_pose + e_grid`
+
+- `e_cad`: 0.002 export plus the CAD tessellation chord error. FINDINGS says the chord error is not proven; take it from the export tolerance.
+- `e_tool`: polyline sagitta, about h²/(8ρ), for example 6×10⁻⁵ at h=0.01 and ρ=0.2.
+- `e_pose`: the distance between tool and work changes by at most L·|Δs|, so sampling at step h loses at most L·h/2. Near the pitch point the speed is `L = (1 + N/10)·R_I` with R_I≈2.5 mm, giving about 7.5 mm/rad for N=20. The current 0.05° tool step gives about 3 µm.
+- `e_grid`: grid or sampling error such as 0.087 for the 0.1 mm grid plus 0.0707 for tool-point spacing.
+
+Certify the path with `min_samples d − e_total ≥ margin`, and subdivide where `d_i < L·h/2 + margin`. For hulls under linear translation, the swept hull is the convex hull of the start and end poses, so test it exactly with GJK.
+
+**Full holder test**
+
+- **Shaper:**
+  - Parts: the cutter (use the real conjugate teeth, not just a hull), hub, clamp nut, spindle or ram, the ORIG shaft, and the centres or work-holding.
+  - Path: infeed, stroke into the groove, radial return relief, withdrawal.
+  - Pass criteria: the stroke end clears the journal step, and the tooth tips clear the groove floor.
+- **Hob:**
+  - Parts: the hob at R≈6 mm, both collars and the arbor on the tilted axis, the head, the shaft (including journal and shoulder) and the work-holding.
+  - Path: infeed, feed along y, runout, withdrawal.
+  - Pass criteria: positive clearance on the journal side. Contact is allowed only on the generated ramp, within tolerance.
+- **Each pair:** report the minimum distance, the pose, the part names, and the margin after subtracting `e_total`. Pair the positive result with an interference check, which is what the plan's gate asks for.
+- **Sanity check:** the tool must reproduce the authored ramp.
+
+Final evidence should include the reviewer re-running these on the hashed inputs.
+
+hook: PostToolUse
+ succeeded in 943ms:
+# G0 tool clearance v4 (meridian method): CERTIFIED, 23/23 pairs
+
+Command (repo root; read-only on CAD, writes only this folder):
+& "C:/Program Files/Blender Foundation/Blender 5.1/blender.exe" -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/tool_clearance_meridian.py
+
+Final line: G0_CLEARANCE_V4 CERTIFIED pairs=23 fail=0. Two runs identical except generated_utc (report-run1.json vs report.json). Blend SHA-256 88d1ce4a... checked before and after.
+
+Supersedes clearance-v3 (invalid: cutter polar profile collapsed to radius 0 so e_tool = 2.749 mm; hob fed from the journal side; contact pairs passed on that tolerance).
+
+## Method
+Both shafts rotate while machined, so every non-generated feature is a surface of revolution for clearance purposes. Exact plane sections every 0.01 mm (offset 0.23 um off vertices) give r_outer(y) (max section radius; conservative neighbour max) and r_min(y) (tooth-space floor). Clearance is the 2D distance in the meridian half-plane. One empty legacy station at a seam (y 11.43) was filled from neighbours and is counted in facts.
+
+Shaper on the legacy grooved blank: N=20 disc cutter, signed ratio -2, centre distance 15.5 mm, tip radius 11.2032 mm (near edge at root + 5 um), thickness 1.2 mm; hub r8, clamp nut r9, arbor r7 trailing. Cutting stroke +Y toward the groove, leading face 0.5 mm past the last tooth material (y 9.875), 0.565 mm short of the groove wall (y 10.94). Return stroke backed off 2.0 mm (exaggerated for legibility). Generating fit is from camera/profile-study (MATCHED_SHAPER).
+
+Hob on the revised smooth blank: single start, module 1, tilted to lead angle 5.52 deg; R = 5.88 mm and stop yc = 9.5249 fitted so its swept envelope reproduces the approved ramp floor within 0.0066 mm (426 stations; max overcut 6.6 um, no undercut). Path: radial infeed at yc -4.205, feed +Y at full depth (centre distance 10.1718), retract 2.5 mm radially, withdraw -Y. Collars r6.88 x3, arbor r4.38 x12.
+
+## Key results (d = min distance; e = error budget; must-clear requires d - e >= 0.02)
+- Hob final pose vs approved journal side (y >= 14.18): d 0.1157, e 0.0182.
+- Hob ramp-end transition 13.78-14.18 (designed tangency): -0.0052 contact, within e (also through retract).
+- Hob path vs journal side: 0.1157 (e 0.0614 incl. 0.025 path step); infeed 3.379; withdraw 0.708; collars/arbor >= 1.004.
+- Shaper cutting vs groove floor/wall: 0.130; groove-edge skim at root level: 0.022 (contact pair); backed-off return vs blank OD: 0.213; infeed at pilot: 1.908; holders >= 0.416.
+
+## Not claimed
+No production tooling specification exists; these are illustrative tools compatible with the accepted geometry. The shaper flank conjugacy is a feasibility fit (profile-study), not a Euclidean certification. CAD chord error is unknown beyond the 0.002 mm decode term.
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+The script was truncated mid-file. I need the full source and the inspection-plan section 4.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "(Get-Content -LiteralPath 'scripts/manufacturing/tool_clearance_meridian.py').Count" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 414ms:
+449
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -LiteralPath 'docs/jgun-manufacturing-inspection-plan.md' | Select-String -Pattern '"'^## '"' | ForEach-Object { "'$_.LineNumber.ToString() + '"': ' + "'$_.Line }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 481ms:
+7: ## 1. Locked direction and scope
+15: ## 2. Shared presentation and control
+29: ## 3. Ring Switch refinement shot list
+47: ## 4. Input Shaft storyline and preliminary timing
+111: ## 5. Architecture and bounded ownership
+131: ## 6. Geometry, performance and accessibility gates
+145: ## 7. Build sequence and adversarial reviews
+163: ## 8. Implementation validation packet
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'scripts/manufacturing/tool_clearance_meridian.py' | ForEach-Object { "'$i++; ('"'{0,4}: {1}' -f "'$i, $_) }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 460ms:
+   1: """G0 tool clearance v4 (meridian method), parent-authored 2026-10-05.
+   2: 
+   3: Replaces the defective clearance-v3 verdict (collapsed cutter profile inflated
+   4: e_tool to 2.749 mm; hob fed from the journal side). Method:
+   5: 
+   6: * Both shafts rotate during machining (shaping generation, hobbing), so every
+   7:   non-generated feature (pilot, relief groove, cone, journal, ring groove,
+   8:   shoulder) is checked against the surface-of-revolution envelope
+   9:   r_outer(y) = max radius of the exact plane section at y. Shaft region at y is
+  10:   contained in rho <= r_outer(y), so clearance is a 2D distance in the meridian
+  11:   half-plane (rho, y). No ray parity or normal signs on open shells.
+  12: * Tooth-space floor r_min(y) = min radius of the section (segment interior
+  13:   included) is used only for the hob ramp reproduction check.
+  14: * Shaper (legacy grooved blank): disc cutter axis parallel to the shaft axis,
+  15:   so its meridian footprint is the exact rectangle rho in [C-Rt, C+Rt] x
+  16:   [yc-t/2, yc+t/2]; holders likewise. Contact is allowed only in the measured
+  17:   generating band (face start .. last tooth stub).
+  18: * Hob (revised smooth blank, then approved journal side): tilted cylinder of
+  19:   radius R about axis a=(cos g, sin g, 0) through (0, yc, A); near-side surface
+  20:   sampled densely; R and stop position fitted to the approved ramp floor.
+  21: * e_total = e_cad + e_profile + e_sampling (+ e_path for path poses). PASS for
+  22:   must-clear pairs requires d - e_total >= MARGIN; contact pairs require
+  23:   |penetration| <= e_total and location inside the generated zone.
+  24: 
+  25: Read-only on all CAD sources (hashes checked before/after). Writes only
+  26: camera/clearance-v4/.
+  27: """
+  28: import hashlib
+  29: import json
+  30: import math
+  31: import time
+  32: from datetime import datetime, timezone
+  33: from pathlib import Path
+  34: 
+  35: import bpy
+  36: import bmesh
+  37: import numpy as np
+  38: 
+  39: ROOT = Path(__file__).resolve().parents[2]
+  40: EV = ROOT / "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05"
+  41: OUT = EV / "camera" / "clearance-v4"
+  42: OUT.mkdir(parents=True, exist_ok=True)
+  43: LOG = (OUT / "run.log").open("w", encoding="utf-8")
+  44: BLEND = Path(r"C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend")
+  45: BLEND_SHA = "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89"
+  46: COMMAND = ('& "C:/Program Files/Blender Foundation/Blender 5.1/blender.exe" -b --factory-startup '
+  47:            '--python-exit-code 1 --python scripts/manufacturing/tool_clearance_meridian.py')
+  48: 
+  49: TIP_R, ROOT_R = 6.0834, 4.2918
+  50: FACE_START, FACE_END, RAMP_END, JOURNAL_Y = 3.1749, 9.5249, 13.78, 14.18
+  51: EPS_STOCK, MARGIN = 0.005, 0.02
+  52: H = 0.01  # profile step, mm
+  53: Y_LO, Y_HI = -0.2, 24.0
+  54: # Shaper: matched conjugate candidate from camera/profile-study (N=20, C=15.5).
+  55: N_SHAPER, SHAPER_C, SHAPER_T = 20, 15.5, 1.2
+  56: SHAPER_RT = SHAPER_C - (ROOT_R + EPS_STOCK)
+  57: SHAPER_BACKOFF = 2.0
+  58: HOLDERS = {"hub": (8.0, 6.0), "clamp_nut": (9.0, 3.0), "arbor": (7.0, 12.0)}  # radius, length (trailing, -Y)
+  59: # Hob: single start, normal module 1, work pitch radius 5.0.
+  60: HOB_M, HOB_LEN, HOB_RETRACT = 1.0, 16.0, 2.5
+  61: COLLAR_R, COLLAR_W, ARBOR_R, ARBOR_L = None, 3.0, None, 12.0
+  62: E_CAD = 0.002
+  63: 
+  64: T0 = time.time()
+  65: 
+  66: 
+  67: def log(msg):
+  68:     line = "[%7.1fs] %s" % (time.time() - T0, msg)
+  69:     print(line, flush=True)
+  70:     LOG.write(line + "\n")
+  71:     LOG.flush()
+  72: 
+  73: 
+  74: def sha256(path):
+  75:     h = hashlib.sha256()
+  76:     with open(path, "rb") as fh:
+  77:         for chunk in iter(lambda: fh.read(1 << 20), b""):
+  78:             h.update(chunk)
+  79:     return h.hexdigest()
+  80: 
+  81: 
+  82: if sha256(BLEND) != BLEND_SHA:
+  83:     raise SystemExit("HASH_MISMATCH_BEFORE")
+  84: bpy.ops.wm.open_mainfile(filepath=str(BLEND))
+  85: deps = bpy.context.evaluated_depsgraph_get()
+  86: 
+  87: 
+  88: def mesh_mm(name):
+  89:     ob = bpy.data.objects[name]
+  90:     assert np.abs(np.array(ob.matrix_world) - np.eye(4)).max() < 1e-9
+  91:     me = ob.evaluated_get(deps).to_mesh()
+  92:     bm = bmesh.new()
+  93:     bm.from_mesh(me)
+  94:     bmesh.ops.triangulate(bm, faces=bm.faces)
+  95:     V = np.array([v.co[:] for v in bm.verts], dtype=float) * 1000.0
+  96:     F = np.array([[v.index for v in f.verts] for f in bm.faces], dtype=np.int64)
+  97:     bm.free()
+  98:     ob.to_mesh_clear()
+  99:     return V, F
+ 100: 
+ 101: 
+ 102: def profiles(V, F):
+ 103:     """Exact plane sections every H mm: r_outer (max radius) and r_min (min radius)."""
+ 104:     ys = np.round(np.arange(Y_LO, Y_HI + 1e-9, H), 6)
+ 105:     tri_y = V[F][:, :, 1]
+ 106:     lo, hi = tri_y.min(1), tri_y.max(1)
+ 107:     order = np.argsort(lo)
+ 108:     lo_s = lo[order]
+ 109:     r_out = np.zeros(len(ys))
+ 110:     r_min = np.full(len(ys), np.nan)
+ 111:     # Offset planes 0.23 um so no section plane coincides with (float32-noisy) mesh vertices.
+ 112:     for i, y0 in enumerate(ys + 2.3e-4):
+ 113:         cand = order[: np.searchsorted(lo_s, y0, side="right")]
+ 114:         cand = cand[hi[cand] >= y0]
+ 115:         if len(cand) == 0:
+ 116:             continue
+ 117:         T = V[F[cand]]
+ 118:         d = T[:, :, 1] - y0
+ 119:         d[np.abs(d) < 1e-9] = 1e-9
+ 120:         pts = []
+ 121:         for a, b in ((0, 1), (1, 2), (2, 0)):
+ 122:             m = d[:, a] * d[:, b] < 0
+ 123:             t = d[m, a] / (d[m, a] - d[m, b])
+ 124:             P = T[m, a] + (T[m, b] - T[m, a]) * t[:, None]
+ 125:             pts.append((np.nonzero(m)[0], P[:, [0, 2]]))
+ 126:         ids = np.concatenate([p[0] for p in pts])
+ 127:         P = np.vstack([p[1] for p in pts])
+ 128:         if len(P) == 0:
+ 129:             continue
+ 130:         r_out[i] = np.hypot(P[:, 0], P[:, 1]).max()
+ 131:         srt = np.argsort(ids, kind="stable")
+ 132:         ids, P = ids[srt], P[srt]
+ 133:         pair = np.nonzero(ids[1:] == ids[:-1])[0]
+ 134:         A, B = P[pair], P[pair + 1]
+ 135:         E = B - A
+ 136:         ee = np.maximum((E ** 2).sum(1), 1e-18)
+ 137:         tt = np.clip(-(A * E).sum(1) / ee, 0, 1)
+ 138:         r_min[i] = np.hypot(*(A + tt[:, None] * E).T).min()
+ 139:     # Interior empty stations (seams): fill from neighbours, counted in the report.
+ 140:     nz = np.nonzero(r_out)[0]
+ 141:     filled = 0
+ 142:     for i in range(nz[0] + 1, nz[-1]):
+ 143:         if r_out[i] == 0:
+ 144:             r_out[i] = max(r_out[i - 1], r_out[i + 1])
+ 145:             filled += 1
+ 146:     FILLED.append(filled)
+ 147:     # Conservative envelope: max over the neighbouring samples (covers steps between planes).
+ 148:     r_dil = np.maximum(r_out, np.maximum(np.roll(r_out, 1), np.roll(r_out, -1)))
+ 149:     r_dil[0], r_dil[-1] = max(r_out[0], r_out[1]), max(r_out[-1], r_out[-2])
+ 150:     return ys, r_out, r_dil, r_min
+ 151: 
+ 152: 
+ 153: FILLED = []
+ 154: LEG = profiles(*mesh_mm("SHAFT_P001835_ORIG"))
+ 155: APP = profiles(*mesh_mm("SHAFT_P001835_HOBBED_NEW"))
+ 156: log("profiles: %d stations each" % len(LEG[0]))
+ 157: YS = LEG[0]
+ 158: 
+ 159: 
+ 160: def at(prof, y):
+ 161:     return prof[int(round((y - Y_LO) / H))]
+ 162: 
+ 163: 
+ 164: def first_y(cond, start, stop, step=H):
+ 165:     for y in np.arange(start, stop, step):
+ 166:         if cond(round(float(y), 6)):
+ 167:             return round(float(y), 6)
+ 168:     return None
+ 169: 
+ 170: 
+ 171: # ------------------------------------------------------------------ profile facts
+ 172: leg_ro, leg_rd, leg_rmin = LEG[1], LEG[2], LEG[3]
+ 173: app_ro, app_rd, app_rmin = APP[1], APP[2], APP[3]
+ 174: rho_cut = SHAPER_C - SHAPER_RT  # cutter near radius at full depth
+ 175: for yy in np.arange(-0.2, 22.0, 0.25):
+ 176:     log("PROFILE y=%6.2f legacy ro=%.4f rmin=%.4f | approved ro=%.4f rmin=%.4f"
+ 177:         % (yy, at(leg_ro, yy), at(leg_rmin, yy), at(app_ro, yy), at(app_rmin, yy)))
+ 178: # Last tooth material: first station past the face where nothing stands above root radius.
+ 179: teeth_end = first_y(lambda y: at(leg_rd, y) <= ROOT_R, FACE_END - 1.0, 16.0)
+ 180: gmask = (YS > teeth_end) & (YS < teeth_end + 1.6)
+ 181: groove_floor_y = float(YS[gmask][np.argmin(leg_ro[gmask])])
+ 182: groove_end = first_y(lambda y: at(leg_rd, y) >= rho_cut - 0.05, groove_floor_y, 20.0)
+ 183: edge_end = first_y(lambda y: at(leg_rd, y) < ROOT_R - 0.1, teeth_end, groove_floor_y + H)
+ 184: pilot_end = first_y(lambda y: at(leg_rd, y) >= rho_cut - 0.05, 0.0, FACE_START + 1.0)
+ 185: facts = {
+ 186:     "legacy_teeth_end_y": teeth_end, "legacy_groove_edge_end_y": edge_end, "legacy_groove_floor_y": groove_floor_y,
+ 187:     "legacy_groove_floor_r": float(at(leg_ro, groove_floor_y)), "legacy_groove_wall_y": groove_end,
+ 188:     "legacy_pilot_end_y": pilot_end,
+ 189:     "empty_interior_stations_filled_legacy_approved": FILLED,
+ 190:     "legacy_face_tip_r": float(leg_ro[(YS > 4) & (YS < 9)].max()),
+ 191:     "approved_face_root_r": float(np.nanmin(app_rmin[(YS > 4) & (YS < 9)])),
+ 192:     "approved_journal_r_at_14_18": float(at(app_ro, JOURNAL_Y)),
+ 193:     "approved_r_outer_13_78_to_14_18": [float(app_ro[(YS >= RAMP_END) & (YS <= JOURNAL_Y)].min()),
+ 194:                                         float(app_ro[(YS >= RAMP_END) & (YS <= JOURNAL_Y)].max())],
+ 195: }
+ 196: log("facts " + json.dumps(facts))
+ 197: E_PROFILE = H / 2  # discrete union of meridian segments vs continuous profile
+ 198: 
+ 199: 
+ 200: def rect_clearance(ro, ys, rho0, ya, yb, exclude=None):
+ 201:     """Min meridian distance from rectangle [rho0, inf) x [ya, yb] to region rho <= r(y)."""
+ 202:     dy = np.maximum(0.0, np.maximum(ya - ys, ys - yb))
+ 203:     drho = rho0 - ro
+ 204:     inside = (dy == 0) & (drho <= 0)
+ 205:     d = np.where(inside, drho, np.hypot(np.maximum(drho, 0.0), dy))
+ 206:     if exclude is not None:
+ 207:         d = np.where(exclude, np.inf, d)
+ 208:     i = int(np.argmin(d))
+ 209:     return float(d[i]), float(ys[i])
+ 210: 
+ 211: 
+ 212: # ------------------------------------------------------------------ shaper
+ 213: # Generating band: tooth material. Groove edge (root level down to root-0.1): tangential skim, contact pair.
+ 214: gen_band = (YS >= FACE_START - 0.05) & (YS <= teeth_end)
+ 215: edge_band = (YS > teeth_end) & (YS < edge_end)
+ 216: overtravel = 0.5
+ 217: lead_end = teeth_end + overtravel
+ 218: yc_end = lead_end - SHAPER_T / 2
+ 219: yc_start = pilot_end - 0.4 - SHAPER_T / 2
+ 220: shaper_pairs = {}
+ 221: 
+ 222: 
+ 223: def shaper_record(key, d, y, e, pose, contact=False):
+ 224:     rec = shaper_pairs.get(key)
+ 225:     if rec is None or d < rec["min_distance_mm"]:
+ 226:         shaper_pairs[key] = {"min_distance_mm": d, "at_y_mm": y, "e_total_mm": e, "pose": pose, "contact_pair": contact}
+ 227: 
+ 228: 
+ 229: e_sh = E_CAD + E_PROFILE
+ 230: e_sh_path = e_sh + 0.005  # 0.01 mm stroke step
+ 231: for phase, ys_c, rho0 in (("cut", np.arange(yc_start, yc_end + 1e-9, 0.01), rho_cut),
+ 232:                           ("return", np.arange(yc_start, yc_end + 1e-9, 0.01), rho_cut + SHAPER_BACKOFF)):
+ 233:     for yc in ys_c:
+ 234:         ya, yb = yc - SHAPER_T / 2, yc + SHAPER_T / 2
+ 235:         d, y = rect_clearance(leg_rd, YS, rho0, ya, yb, exclude=(gen_band | edge_band) if phase == "cut" else None)
+ 236:         shaper_record("shaper_cutter_%s_vs_legacy_nongenerating" % phase, d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)})
+ 237:         if phase == "cut":
+ 238:             d, y = rect_clearance(leg_rd, YS, rho0, ya, yb, exclude=~edge_band)
+ 239:             shaper_record("shaper_cutter_cut_vs_groove_edge_skim", d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)}, contact=True)
+ 240:         trail = ya
+ 241:         for name, (rad, length) in HOLDERS.items():
+ 242:             off = {"hub": 0.0, "clamp_nut": 0.0, "arbor": 6.0}[name]
+ 243:             hb, ha = trail - off, trail - off - length
+ 244:             d, y = rect_clearance(leg_rd, YS, SHAPER_C + (rho0 - rho_cut) - rad, ha, hb)
+ 245:             shaper_record("shaper_%s_%s_vs_legacy" % (name, phase), d, y, e_sh_path, {"phase": phase, "yc": round(float(yc), 3)})
+ 246: for frac in np.linspace(0, 1, 51):  # backoff at stroke end, infeed at stroke start
+ 247:     for key, yc in (("backoff", yc_end), ("infeed", yc_start)):
+ 248:         rho0 = rho_cut + SHAPER_BACKOFF * frac
+ 249:         d, y = rect_clearance(leg_rd, YS, rho0, yc - SHAPER_T / 2, yc + SHAPER_T / 2, exclude=gen_band | edge_band)
+ 250:         shaper_record("shaper_cutter_%s_vs_legacy" % key, d, y, e_sh_path, {"phase": key, "rho_near": round(float(rho0), 4)})
+ 251: # The cutting (leading) face must pass the last tooth material; the body trails in the cut tooth space.
+ 252: exit_margin = float(lead_end - teeth_end)
+ 253: wall_margin = float(groove_end - lead_end)
+ 254: 
+ 255: # ------------------------------------------------------------------ hob
+ 256: ramp = (YS >= FACE_END) & (YS <= RAMP_END) & np.isfinite(app_rmin)
+ 257: ry, rf = YS[ramp], app_rmin[ramp]
+ 258: 
+ 259: 
+ 260: def hob_points(R, yc, A, g, ds, db, s_lo=-HOB_LEN / 2, s_hi=HOB_LEN / 2, band=1.25):
+ 261:     s = np.arange(s_lo, s_hi + 1e-12, ds)
+ 262:     b = np.arange(math.pi - band, math.pi + band + 1e-12, db)
+ 263:     S, B = np.meshgrid(s, b, indexing="ij")
+ 264:     S, B = S.ravel(), B.ravel()
+ 265:     cg, sg = math.cos(g), math.sin(g)
+ 266:     x = S * cg + R * np.sin(B) * sg
+ 267:     y = yc + S * sg - R * np.sin(B) * cg
+ 268:     z = A + R * np.cos(B)
+ 269:     return np.hypot(x, z), y
+ 270: 
+ 271: 
+ 272: def envelope(R, yc, A, g, ds=0.04, db=math.radians(0.25)):
+ 273:     rho, y = hob_points(R, yc, A, g, ds, db)
+ 274:     idx = np.round((y - Y_LO) / H).astype(int)
+ 275:     env = np.full(len(YS), np.inf)
+ 276:     np.minimum.at(env, np.clip(idx, 0, len(YS) - 1), rho)
+ 277:     return env
+ 278: 
+ 279: 
+ 280: best = None
+ 281: for R in np.arange(5.80, 6.401, 0.01):
+ 282:     g = math.atan(HOB_M / (2 * (R - (5.0 - ROOT_R))))
+ 283:     A = ROOT_R + R
+ 284:     for ye in np.arange(FACE_END - 0.10, FACE_END + 0.101, 0.01):
+ 285:         env = envelope(R, ye, A, g, ds=0.08, db=math.radians(0.5))
+ 286:         dev = env[ramp] - rf
+ 287:         score = float(np.abs(dev[np.isfinite(dev)]).max())
+ 288:         if best is None or score < best[0]:
+ 289:             best = (score, float(R), float(ye), g)
+ 290: _, R_HOB, YC_END, G_HOB = best
+ 291: A_HOB = ROOT_R + R_HOB
+ 292: env = envelope(R_HOB, YC_END, A_HOB, G_HOB, ds=0.02, db=math.radians(0.1))
+ 293: dev = env[ramp] - rf
+ 294: ramp_fit = {"R_mm": round(R_HOB, 4), "stop_yc_mm": round(YC_END, 4), "lead_angle_deg": round(math.degrees(G_HOB), 4),
+ 295:             "max_abs_dev_mm": float(np.abs(dev).max()), "rms_dev_mm": float(np.sqrt(np.mean(dev ** 2))),
+ 296:             "max_overcut_mm": float(max(0.0, -dev.min())), "max_undercut_mm": float(max(0.0, dev.max())),
+ 297:             "stations": int(ramp.sum())}
+ 298: log("hob ramp fit " + json.dumps(ramp_fit))
+ 299: 
+ 300: DS, DB = 0.02, math.radians(0.1)
+ 301: E_SAMPLE = 0.5 * math.hypot(DS, R_HOB * DB)
+ 302: e_hob = E_CAD + E_PROFILE + E_SAMPLE
+ 303: blank_rd = app_rd.copy()
+ 304: blank_rd[(YS >= FACE_START) & (YS <= RAMP_END)] = np.maximum(blank_rd[(YS >= FACE_START) & (YS <= RAMP_END)], TIP_R)
+ 305: 
+ 306: 
+ 307: def meridian_clearance(rho, y, prof, keep, reach=0.8):
+ 308:     """Min distance from points to region rho <= prof(y') over stations where keep is true."""
+ 309:     # Prefilter: a point farther than reach (radially, against the window max) cannot be the minimum
+ 310:     # unless every point is; keep the closest-by-bound points only.
+ 311:     k = int(reach / H)
+ 312:     masked = np.where(keep, prof, 0.0)
+ 313:     win = masked.copy()
+ 314:     for off in range(1, k + 1):
+ 315:         win = np.maximum(win, np.maximum(np.roll(masked, off), np.roll(masked, -off)))
+ 316:     jj = np.clip(np.round((y - Y_LO) / H).astype(int), 0, len(YS) - 1)
+ 317:     bound = rho - win[jj]
+ 318:     near = bound < reach
+ 319:     if not near.any():
+ 320:         i = int(np.argmin(bound))
+ 321:         return float(bound[i]), float(YS[jj[i]]), float(rho[i]), float(y[i])
+ 322:     rho, y = rho[near], y[near]
+ 323:     j0 = np.round((y - Y_LO) / H).astype(int)
+ 324:     best_d = np.full(len(rho), np.inf)
+ 325:     best_j = np.zeros(len(rho), dtype=int)
+ 326:     for off in range(-k, k + 1):
+ 327:         j = np.clip(j0 + off, 0, len(YS) - 1)
+ 328:         dy = np.abs(y - YS[j])
+ 329:         drho = rho - prof[j]
+ 330:         inside = (dy <= H / 2) & (drho <= 0)
+ 331:         d = np.where(inside, drho, np.hypot(np.maximum(drho, 0.0), dy))
+ 332:         d = np.where(keep[j], d, np.inf)
+ 333:         better = d < best_d
+ 334:         best_d = np.where(better, d, best_d)
+ 335:         best_j = np.where(better, j, best_j)
+ 336:     i = int(np.argmin(best_d))
+ 337:     return float(best_d[i]), float(YS[best_j[i]]), float(rho[i]), float(y[i])
+ 338: 
+ 339: 
+ 340: zones = {
+ 341:     "journal_side_y_ge_14_18": YS >= JOURNAL_Y,
+ 342:     "transition_13_78_to_14_18": (YS > RAMP_END) & (YS < JOURNAL_Y),
+ 343:     "free_end_y_lt_face": YS < FACE_START - 0.05,
+ 344: }
+ 345: hob_pairs = {}
+ 346: 
+ 347: 
+ 348: def hob_record(key, val, e, pose, contact=False):
+ 349:     d, ys_, rho_p, y_p = val
+ 350:     rec = hob_pairs.get(key)
+ 351:     if rec is None or d < rec["min_distance_mm"]:
+ 352:         hob_pairs[key] = {"min_distance_mm": d, "at_shaft_y_mm": ys_, "tool_point_rho_y_mm": [rho_p, y_p],
+ 353:                           "e_total_mm": e, "pose": pose, "contact_pair": contact}
+ 354: 
+ 355: 
+ 356: def holder_points(yc, A):
+ 357:     pts = []
+ 358:     cr = R_HOB + 1.0
+ 359:     for sgn in (-1, 1):
+ 360:         rho, y = hob_points(cr, yc, A, G_HOB, 0.05, math.radians(0.25), s_lo=sgn * HOB_LEN / 2 if sgn > 0 else -HOB_LEN / 2 - COLLAR_W,
+ 361:                             s_hi=HOB_LEN / 2 + COLLAR_W if sgn > 0 else -HOB_LEN / 2, band=1.6)
+ 362:         pts.append((rho, y))
+ 363:         rho, y = hob_points(R_HOB - 1.5, yc, A, G_HOB, 0.05, math.radians(0.25),
+ 364:                             s_lo=HOB_LEN / 2 + COLLAR_W if sgn > 0 else -HOB_LEN / 2 - COLLAR_W - ARBOR_L,
+ 365:                             s_hi=HOB_LEN / 2 + COLLAR_W + ARBOR_L if sgn > 0 else -HOB_LEN / 2 - COLLAR_W, band=1.6)
+ 366:         pts.append((rho, y))
+ 367:     return np.concatenate([p[0] for p in pts]), np.concatenate([p[1] for p in pts])
+ 368: 
+ 369: 
+ 370: # Final pose (exact sampling) against approved geometry.
+ 371: rho, y = hob_points(R_HOB, YC_END, A_HOB, G_HOB, DS, DB, band=1.6)
+ 372: for zname, keep in zones.items():
+ 373:     if zname == "free_end_y_lt_face":
+ 374:         continue
+ 375:     hob_record("hob_final_vs_approved_" + zname, meridian_clearance(rho, y, app_rd, keep), e_hob,
+ 376:                {"phase": "final", "yc": YC_END, "A": A_HOB}, contact=(zname == "transition_13_78_to_14_18"))
+ 377: hrho, hy = holder_points(YC_END, A_HOB)
+ 378: hob_record("hob_collars_arbor_final_vs_approved_all", meridian_clearance(hrho, hy, app_rd, np.ones(len(YS), bool), reach=1.0),
+ 379:            e_hob, {"phase": "final"})
+ 380: # Path poses (coarser sampling + path step) against the revised smooth blank / approved journal side.
+ 381: y_in = FACE_START - R_HOB - 1.5
+ 382: e_path = E_CAD + E_PROFILE + 0.5 * math.hypot(0.05, R_HOB * math.radians(0.3)) + 0.025
+ 383: poses = [("infeed", y_in, A_HOB + HOB_RETRACT * (1 - f)) for f in np.linspace(0, 1, 26)]
+ 384: poses += [("feed_journal_side", yc, A_HOB) for yc in np.arange(YC_END - 1.5, YC_END + 1e-9, 0.05)]
+ 385: poses += [("retract", YC_END, A_HOB + HOB_RETRACT * f) for f in np.linspace(0, 1, 51)]
+ 386: poses += [("withdraw", yc, A_HOB + HOB_RETRACT) for yc in np.arange(YC_END, y_in - 1e-9, -0.1)]
+ 387: for phase, yc, A in poses:
+ 388:     rho, y = hob_points(R_HOB, yc, A, G_HOB, 0.05, math.radians(0.3), band=1.6)
+ 389:     keep_j = zones["journal_side_y_ge_14_18"]
+ 390:     hob_record("hob_path_vs_approved_journal_side", meridian_clearance(rho, y, app_rd, keep_j), e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)})
+ 391:     if phase in ("infeed", "retract", "withdraw"):
+ 392:         # Retract starts seated in the tooth spaces it just generated; radial withdrawal from a
+ 393:         # conjugate mesh only opens backlash, so the cut band is excluded for retract (journal
+ 394:         # side and free end must still clear). Infeed/withdraw are checked against the whole blank.
+ 395:         keep_b = np.ones(len(YS), bool) if phase != "retract" else ~((YS >= FACE_START - 0.05) & (YS < JOURNAL_Y))
+ 396:         hob_record("hob_%s_vs_blank_all" % phase, meridian_clearance(rho, y, blank_rd, keep_b), e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)})
+ 397:         if phase == "retract":
+ 398:             hob_record("hob_retract_vs_approved_transition_contact", meridian_clearance(rho, y, app_rd, zones["transition_13_78_to_14_18"]),
+ 399:                        e_path, {"phase": phase, "yc": round(float(yc), 3), "A": round(float(A), 4)}, contact=True)
+ 400:     hrho, hy = holder_points(yc, A)
+ 401:     hob_record("hob_collars_arbor_path_vs_blank", meridian_clearance(hrho, hy, blank_rd, np.ones(len(YS), bool), reach=1.0), e_path, {"phase": phase, "yc": round(float(yc), 3)})
+ 402: 
+ 403: # ------------------------------------------------------------------ verdicts
+ 404: pairs = []
+ 405: for src in (shaper_pairs, hob_pairs):
+ 406:     for key, rec in src.items():
+ 407:         d, e = rec["min_distance_mm"], rec["e_total_mm"]
+ 408:         if rec["contact_pair"]:
+ 409:             ok = d >= -e
+ 410:             crit = "contact allowed: penetration <= e_total"
+ 411:         else:
+ 412:             ok = d - e >= MARGIN
+ 413:             crit = "d - e_total >= %.3f" % MARGIN
+ 414:         pairs.append({"pair": key, **rec, "d_minus_e_total_mm": d - e, "criterion": crit, "PASS": bool(ok)})
+ 415: pairs.append({"pair": "shaper_cutting_face_past_last_tooth_material", "min_distance_mm": exit_margin, "e_total_mm": e_sh,
+ 416:               "d_minus_e_total_mm": exit_margin - e_sh, "criterion": "leading face beyond last tooth material by >= margin",
+ 417:               "PASS": bool(exit_margin - e_sh >= MARGIN)})
+ 418: pairs.append({"pair": "shaper_cutting_face_axial_room_to_groove_wall", "min_distance_mm": wall_margin, "e_total_mm": e_sh,
+ 419:               "d_minus_e_total_mm": wall_margin - e_sh, "criterion": "axial room to groove wall >= margin (radial wall clearance is in the nongenerating pair)",
+ 420:               "PASS": bool(wall_margin - e_sh >= MARGIN)})
+ 421: ramp_ok = ramp_fit["max_abs_dev_mm"] <= 0.05
+ 422: pairs.append({"pair": "hob_reproduces_approved_ramp_floor", "min_distance_mm": -ramp_fit["max_overcut_mm"],
+ 423:               "e_total_mm": e_hob, "criterion": "max |envelope - approved floor| <= 0.05 mm (lite fidelity)",
+ 424:               "PASS": bool(ramp_ok), **ramp_fit})
+ 425: verdict = "CERTIFIED" if all(p["PASS"] for p in pairs) else "UNRESOLVED"
+ 426: if sha256(BLEND) != BLEND_SHA:
+ 427:     raise SystemExit("HASH_MISMATCH_AFTER")
+ 428: report = {
+ 429:     "schema": "jgun-g0-clearance/v4-meridian", "generated_utc": datetime.now(timezone.utc).isoformat(),
+ 430:     "command": COMMAND, "source": {"blend": str(BLEND), "sha256_before_after": BLEND_SHA},
+ 431:     "method": __doc__.strip(), "facts": facts,
+ 432:     "shaper": {"shaft": "SHAFT_P001835_ORIG (legacy grooved blank)", "teeth": N_SHAPER, "centre_distance_mm": SHAPER_C,
+ 433:                "signed_ratio_work_over_cutter": -N_SHAPER / 10, "tip_radius_mm": SHAPER_RT, "thickness_mm": SHAPER_T,
+ 434:                "stroke_centre_y_mm": [round(yc_start, 4), round(yc_end, 4)], "overtravel_past_last_stub_mm": overtravel,
+ 435:                "return_backoff_mm": SHAPER_BACKOFF, "holders_radius_length_mm": HOLDERS,
+ 436:                "note": "Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."},
+ 437:     "hob": {"shaft": "revised smooth blank, approved journal side", "starts": 1, "module_mm": HOB_M, **ramp_fit,
+ 438:             "centre_distance_mm": A_HOB, "length_mm": HOB_LEN, "collar_radius_mm": R_HOB + 1.0, "arbor_radius_mm": R_HOB - 1.5,
+ 439:             "path": "infeed radial at yc=%.3f; feed +Y at full depth to yc=%.4f; retract %.1f mm radial; withdraw -Y" % (y_in, YC_END, HOB_RETRACT)},
+ 440:     "error_budget_mm": {"e_cad": E_CAD, "e_profile": E_PROFILE, "e_hob_sampling": E_SAMPLE, "e_hob_final": e_hob,
+ 441:                         "e_hob_path": e_path, "e_shaper": e_sh, "e_shaper_path": e_sh_path, "margin": MARGIN},
+ 442:     "pairs": pairs, "verdict": verdict,
+ 443: }
+ 444: (OUT / "report.json").write_text(json.dumps(report, indent=1, default=float), encoding="utf-8")
+ 445: np.savez_compressed(OUT / "profiles.npz", y=YS, legacy_r_outer=leg_ro, legacy_r_min=leg_rmin, approved_r_outer=app_ro, approved_r_min=app_rmin)
+ 446: for p in pairs:
+ 447:     log("%-52s d=%9.5f e=%7.5f %s" % (p["pair"], p["min_distance_mm"], p["e_total_mm"], "PASS" if p["PASS"] else "FAIL"))
+ 448: print("G0_CLEARANCE_V4 %s pairs=%d fail=%d" % (verdict, len(pairs), sum(not p["PASS"] for p in pairs)), flush=True)
+ 449: 
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'docs/jgun-manufacturing-inspection-plan.md' | ForEach-Object { "'$i++; if ($i -ge 47 -and $i -le 112) { ('"'{0,4}: {1}' -f "'$i, $_) } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 426ms:
+  47: ## 4. Input Shaft storyline and preliminary timing
+  48: 
+  49: Initial duration target: approximately 43–45 seconds, optional and chapter-seekable. Timing is an editorial starting point; preserve cause/readability before trimming. The Opus pass extends the shaping recap and card fades. Phase anchors and holds become authored data after measured camera blockout, not scattered constants.
+  50: 
+  51: | Time (s) | Beat | Required visible explanation |
+  52: |---|---|---|
+  53: | 0–2 | Isolate the grooved blank | Fade assembly to black; retain steel rim and identify the relief with neutral/cool-white light. The geared-end blank has material for the cutter to remove. |
+  54: | 2–6 | Shaping overview | Cutter strokes, spins and feeds radially to depth; progressive tooth spaces follow real engagement. A shaft-following camera creates the apparent quarter orbit. |
+  55: | 6–11 | Slow cutter exit | Ease into a machine-frame macro. See face end, cutter edge passing beyond it, chip curling from rake face into clearance and a relieved return. Give the critical exit/return event a readable hold. |
+  56: | 11–15 | Pull back and finish shaping | Re-engage deterministic shaft-follow camera for rapid strokes on the slow apparent orbit. Complete the remaining circumference with explicitly time-compressed recap before the tool retracts/fades; all ten teeth exist before material attempts. |
+  57: | 15–22.6 | Material attempts | Same groove/silhouette; one illustrative warm scan; three exact alloy cards and local FAILED stamps, approximately 2.8, 2.5 and 2.3 s including fade-out. |
+  58: | 22.6–25 | Revised smooth blank | Align at shared axis/datum. Short axial wipe exposes retained section below the uncut geared end; warm field leaves with old geometry, no overlapping translucent solid shafts. |
+  59: | 25–32 | Rotary hobbing | Recognizable hob, coupled shaft rotation and axial feed. Circumferential tooth formation advances as an axial band; finished result retains the approved lead-out. |
+  60: | 32–35 | New geometry/material | Retract tool; unobstructed runout hold then one cool stress scan below the gear; same card slot shows final 4340 heat treatment without a success stamp. |
+  61: | 35–39 | Support relocation | Legacy witnesses and capped shaft/housing section; bearing and retaining-ring rigid pair move exactly +2.75 mm into approved final placement, with corresponding housing support readable. |
+  62: | 39–43 | Revised assembly finale | Inspection-local assembled pose independent of entry mode. Shaft already present; related planets/cages fade in and spin coherently, then remaining revised study assembly returns. Hold with Return to narrative. |
+  63: 
+  64: ### Cutter choreography and camera
+  65: 
+  66: Use a disc/pinion-style shaper appropriate to measured gear data. In the machine frame it has radial infeed, axial cutting stroke, relieved return and correctly coupled cutter/workpiece generating rotation. Do not animate an end mill following a finished tooth profile. The quarter-orbit appearance is authored in the rotating shaft reference frame: camera follows shaft azimuth while the real cutter spins and strokes. Ease that frame-follow rate to zero during the slowdown, ending in a fixed machine-frame clearance view. Solve signed rotation ratios from real tooth counts; do not copy an unsigned review formula into production.
+  67: 
+  68: One master inspection playhead samples both a continuous machining-time map and authored camera curves. Slowdown changes machining speed, never tool/shaft/chip phase or pose continuity. Frame-follow azimuth is derived from machining phase; dolly/FOV progress on the master playhead so the zoom keeps moving while machining slows, then settles into the stable macro. All curves are deterministic closed-form/baked lookups; there is no separate running clock or cumulative camera integration, and no independent damping that loses the cutting edge. A deliberate slow interval/readable bottom-of-cut beat is artistic compression, not a machine cycle-time claim. Place one restrained chip at the shaping rake face only where stock is removed. Hobbing may show direction-correct chips where useful; none are needed in a wide framing. No sparks.
+  69: 
+  70: Derive cutting stroke toward the relief and relieved return away from it from measured geometry. Check signed pitch-circle rolling/contact velocity to catch reversed generating ratios. Key/grazing light/environment orientation follows the same authored reference-frame weight as the camera during shaping; switch smoothly into fixed machine-frame lighting so reflections do not reveal an inconsistent shaft spin. Hobbing deliberately shows the shaft visibly rotating. Keep shaper-stroke and hob-gash display frequencies readable for the observed tier; a provisional ceiling of ~one quarter of tier frame rate must be measured or replaced by deliberate softened high-speed appearance.
+  71: 
+  72: Keep the projected shaft axis and cutter exit region continuous during the rotating-frame to machine-frame camera handoff. Ease follow rate down before the cutting edge reaches the face end. Frame face edge, cutter edge, relief and chip origin together. Give at least 1.2 s of stable-camera slow action covering exit and relieved return, including approximately 0.4 s with unmistakable clearance. No camera cut or independent tool freeze at that event.
+  73: 
+  74: The hob prop, starts, setting angle and measured swept envelope must be compatible with the accepted 6 mm authored lead-out. Record the dimension type and datum: do not reinterpret construction radius as axial travel or usable clearance. That construction radius is not automatically a verified physical OD for a tilted production tool. Preserve accepted geometry; select a compatible illustrative tool representation and framing when production tooling is undocumented. Cropping simplifies explanation but cannot establish clearance or conceal an intersecting swept envelope. Validate the complete represented tool through cutting, return and withdrawal; never show a larger cutter clipping the shifted journal. Record minimum separation and combined measurement/export uncertainty; positive clearance must exceed that uncertainty. Keep an unobstructed tooth-runout/retained-section view for at least 0.8 s after tool withdrawal, before the cool illustration appears.
+  75: 
+  76: ### Mesh progression and stress illustration
+  77: 
+  78: **Shaping stock and progression (Opus B1 resolved):** identify/hash the legacy P001835-2 occurrence in `Default.glb` and the isolated grooved `C:/Projects/CAD/jgun-input-shaft-hobbed/p001835-source-extract.glb` in G0; verify their correspondence. Create a separate derived **grooved shaping blank** by restoring stock in the tooth-space region to the measured tip-diameter OD, preserving the source relief, journal and shared datum. Do not start the cutting shot on an already fully toothed shaft. Offline-bake full-depth and partial-depth shaping states or complementary capped masks from the measured cutter engagement. Radial infeed visibly removes stock; chips arise from that current cutting region. Reveal completed tooth spaces only behind actual generating engagement, with the partial-depth zone under the cutter. The first quarter-orbit therefore shows only the portion actually worked.
+  79: 
+  80: Implementation notes from the final SHIP pass: swap narrative teeth to the grooved blank while hidden/masked by the isolation fade, so teeth never visibly disappear. Apply lite-floor strobing checks to the compressed recap. If G0 cutter tooth count/ratio changes, re-bake its engagement-driven shaping states. Assert the card strings character-for-character, including ASCII hyphens.
+  81: 
+  82: At 11–15 s the recap re-engages the shaft-follow frame through the same deterministic authored azimuth law, showing rapid strokes and a comparatively slow apparent orbit. Complete the remaining circumference in a visibly time-compressed recap (caption **Remaining teeth — time compressed**); extend this beat if needed. If completion must be omitted for performance, use an explicitly captioned time skip during retraction instead of silently appearing teeth. All ten complete teeth match the hashed grooved final source before the first material card. G2 owns grooved blank/intermediate states as well as revised hobbing states; G4 verifies stock removal/contact and honest completion through direct seek and playback.
+  83: 
+  84: **Revised hobbing stock:** produce a separate sound smooth blank aligned with the approved revised shaft; restore final teeth/lead-out through bounded offline-baked cutting states or complementary capped clipping masks. No runtime CSG for either process. Hobbing is continuous generating action: every tooth space participates as the workpiece rotates, so the reveal band advances along the face around the circumference. The partial-depth zone stays inside visible tool engagement and does not run ahead. At final feed position the represented swept envelope coincides with the approved runout. Preserve final profile, 10-tooth count, pitch/clocking and support datum. Differing topology does not authorize a blind vertex morph.
+  85: 
+  86: The grooved shaping state depicts the owner-described earlier design; label its historical reconstruction illustrative unless authenticated failure-revision geometry is available. P001812 supplies process context only. Transitioning to **Revised blank — retained section** means a different design/workpiece; machining cannot put back material removed by the previous groove. Keep the shared axis/datum fixed through the wipe. The groove stays unchanged through all three failed-material attempts; geometry changes only at redesign. A restrained grazing reflection reveals the hobbed band without competing with the tool.
+  87: 
+  88: Keep text as readable DOM, with exactly these cards in order:
+  89: 
+  90: 1. **AISI 4140 (40-45 HRC)**, then **FAILED**.
+  91: 2. **AISI 4340 (48-50 HRC)**, then **FAILED**.
+  92: 3. **C300 (56-58 HRC)**, then **FAILED**.
+  93: 4. **AISI 4340 (H.T. 48-50 HRC)** alongside the revised section, with no FAILED/PASSED stamp.
+  94: 
+  95: Attribute the first three to the owner's account in one restrained, readable caption. Warm/cool field caption: **Illustrative stress concentration**. Same color vocabulary in both states; localized overlay retains metallic surface edges and geometry. No numeric FEA scale, safety factor, solver contour legend or implied certified safe state. No invented load/testing results. Place the final 4340 card exactly where the earlier 4340 card appeared: the material repeats while the geometry changes. Stamp the DOM lettering with a short local compression/settle; the camera and page remain steady.
+  96: 
+  97: Hold shaft, groove and card slot registered across material attempts. Use ~2.8/2.5/2.3 s beats, including a distinct fade-out before the next card. Preserve ≥1.0 s readable alloy text before FAILED, local impulse ≤180 ms and ≥0.8 s settled afterward. Keep owner attribution readable throughout. These are timing/readability anchors, not measured results. Pin ASCII hyphens in hardness ranges exactly as the owner wrote; never let typographic normalization break copy assertions. Warm and cool overlays each enter with one restrained axial scan; hold their stable field afterward and use no solver-like animated rainbow.
+  98: 
+  99: ### Support comparison and train return
+ 100: 
+ 101: Final assets already include the shift. End pose equals the approved export; start pose equals measured legacy pose, with signed delta +2.75 mm in shaft-local Y. Derive transforms through saved `shaft_world_matrix.json`, the measured Blender-export-to-runtime-root registration and one explicit millimetre-to-metre conversion. Record the actual Z-up/Y-up mapping or existing exporter conversion so it is not applied twice. Never apply the displacement twice, derive directions from stage names, or independently slide mesh-built journal/groove. Use a capped camera-facing section of shaft AND P000725 to expose the pair, with legacy position witnesses; this is a design comparison. Housing occupies its accepted position/shape, not a translating member. Sweep-check the comparison slide; where intermediate solid designs overlap, use ghost/legacy-housing witness presentation rather than pretending physical assembly clearance.
+ 102: 
+ 103: Measure both support origins in the same shaft-local frame. The pair preserves its relative transform throughout. Target +2.750 mm local Y, with zero intended local X/Z movement or rotation; record export-derived numerical tolerance before implementation, not a visually convenient tolerance. Independently check housing, journal and groove for unintended movement, and endpoint agreement after seek/replay. Establish witnesses for at least 0.5 s before movement and hold the approved endpoint for at least 0.8 s before removing them.
+ 104: 
+ 105: **Finale composition (Opus B2 resolved):** build the shaft study in its own inspection-local **assembled solid pose**, independent of blueprint/exploded entry and current narrative explosion. Register revised parts and all selected legacy neighbour clones in that same assembled root before reveal. Prefer inspection-owned clones/named bundle; if narrative objects are reused, lease their complete parent/local transforms, visibility and materials, temporarily pose them to the inspection assembled frame, then restore them exactly on exit. Never reveal revised assembled supports among frozen exploded cages. The ring keeps its existing saved-composition behavior.
+ 106: 
+ 107: Remove witnesses before spin. K000211 follows shaft; housing and bearing outer race remain fixed. Inner race follows shaft only where separable/verified; unsplit bearing must not rotate as a solid assembly. Measure tooth clocking/planet compatibility first. Existing cage progression and planetary convention remain canonical; display turns are not exact machining rates. Fade related planets/cages then the rest of the assembled study, with no duplicate shaft. On Return/Escape restore every leased transform/render state and saved narrative geometry/mode/idle phase. Assert **exploded entry → assembled study finale → Return to identical exploded context**, and corresponding blueprint restoration, including background/lights/post snapshot. Closing caption explains revised study versus original saved narrative.
+ 108: 
+ 109: Finish assembly reveal with ≥1.5 s settled framing, then hold indefinitely with Return. Extend the approximate 43–45 s duration if contact, clearance, fades or endpoint reads do not fit; do not sacrifice them to the initial target.
+ 110: 
+ 111: ## 5. Architecture and bounded ownership
+ 112: 
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Let me pin exact line numbers for the README/report claims I'll cite.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$fs=@('"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md','project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json');foreach("'$f in $fs){ $i=0; Get-Content -LiteralPath $f | ForEach-Object { $i++; if($_ -match '"'complex|contact|transition|exaggerated|chord|skim|0\\.022|-0\\.0051|designed tangency|penetration|contact_pair'){ ('{0}:{1}: {2}' -f "'$f,$i,$_) } } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 471ms:
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md:8: Supersedes clearance-v3 (invalid: cutter polar profile collapsed to radius 0 so e_tool = 2.749 mm; hob fed from the journal side; contact pairs passed on that tolerance).
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md:13: Shaper on the legacy grooved blank: N=20 disc cutter, signed ratio -2, centre distance 15.5 mm, tip radius 11.2032 mm (near edge at root + 5 um), thickness 1.2 mm; hub r8, clamp nut r9, arbor r7 trailing. Cutting stroke +Y toward the groove, leading face 0.5 mm past the last tooth material (y 9.875), 0.565 mm short of the groove wall (y 10.94). Return stroke backed off 2.0 mm (exaggerated for legibility). Generating fit is from camera/profile-study (MATCHED_SHAPER).
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md:19: - Hob ramp-end transition 13.78-14.18 (designed tangency): -0.0052 contact, within e (also through retract).
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md:21: - Shaper cutting vs groove floor/wall: 0.130; groove-edge skim at root level: 0.022 (contact pair); backed-off return vs blank OD: 0.213; infeed at pilot: 1.908; holders >= 0.416.
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md:24: No production tooling specification exists; these are illustrative tools compatible with the accepted geometry. The shaper flank conjugacy is a feasibility fit (profile-study), not a Euclidean certification. CAD chord error is unknown beyond the 0.002 mm decode term.
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:9:  "method": "G0 tool clearance v4 (meridian method), parent-authored 2026-10-05.\n\nReplaces the defective clearance-v3 verdict (collapsed cutter profile inflated\ne_tool to 2.749 mm; hob fed from the journal side). Method:\n\n* Both shafts rotate during machining (shaping generation, hobbing), so every\n  non-generated feature (pilot, relief groove, cone, journal, ring groove,\n  shoulder) is checked against the surface-of-revolution envelope\n  r_outer(y) = max radius of the exact plane section at y. Shaft region at y is\n  contained in rho <= r_outer(y), so clearance is a 2D distance in the meridian\n  half-plane (rho, y). No ray parity or normal signs on open shells.\n* Tooth-space floor r_min(y) = min radius of the section (segment interior\n  included) is used only for the hob ramp reproduction check.\n* Shaper (legacy grooved blank): disc cutter axis parallel to the shaft axis,\n  so its meridian footprint is the exact rectangle rho in [C-Rt, C+Rt] x\n  [yc-t/2, yc+t/2]; holders likewise. Contact is allowed only in the measured\n  generating band (face start .. last tooth stub).\n* Hob (revised smooth blank, then approved journal side): tilted cylinder of\n  radius R about axis a=(cos g, sin g, 0) through (0, yc, A); near-side surface\n  sampled densely; R and stop position fitted to the approved ramp floor.\n* e_total = e_cad + e_profile + e_sampling (+ e_path for path poses). PASS for\n  must-clear pairs requires d - e_total >= MARGIN; contact pairs require\n  |penetration| <= e_total and location inside the generated zone.\n\nRead-only on all CAD sources (hashes checked before/after). Writes only\ncamera/clearance-v4/.",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:56:   "note": "Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:96:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:102:    "pair": "shaper_cutter_cut_vs_groove_edge_skim",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:103:    "min_distance_mm": 0.022004872755132077,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:110:    "contact_pair": true,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:112:    "criterion": "contact allowed: penetration <= e_total",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:124:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:138:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:152:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:166:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:180:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:194:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:208:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:222:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:236:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:255:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:261:    "pair": "hob_final_vs_approved_transition_13_78_to_14_18",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:262:    "min_distance_mm": -0.005182242783875246,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:274:    "contact_pair": true,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:276:    "criterion": "contact allowed: penetration <= e_total",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:291:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:310:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:329:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:347:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:366:    "contact_pair": false,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:372:    "pair": "hob_retract_vs_approved_transition_contact",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:385:    "contact_pair": true,
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:387:    "criterion": "contact allowed: penetration <= e_total",
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json:404:    "contact_pair": false,
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+**Verdict: FIX-FIRST.** The method is sound but two outcome-determining classifications let penetrating/near-miss pairs pass, so 23/23 is not honest evidence.
+
+**HIGH — edge-skim relabeled contact flips a fail to a pass.** `tool_clearance_meridian.py:238-239` puts the groove-edge band only in a `contact=True` pair; the cut-phase must-clear pair excludes that band (`:235`). Verdict logic `:407-414` makes a contact pair `ok = d >= -e`, vacuous for positive `d`. Report `report.json:102-112` gives d=0.0220, e=0.012. Under the must-clear criterion (d-e>=0.020) this is 0.0100 → **FAIL**. README `:21` calls a 22 µm gap "contact pair," which is neither contact nor clearance. Classification alone decides the result.
+
+**HIGH — transition contact hides 5.2 µm penetration.** `:375-376` sets `contact=(zname=="transition_13_78_to_14_18")`; `report.json:261-276` reports d=-0.005182. A penetration is relabeled contact and "designed tangency" (README `:19`) with no derivation that the 13.78–14.18 cone is hob-generated rather than a turned runout. If it is not generated, this is real interference, not contact.
+
+**MED — error budget understates e_cad.** `:62` `E_CAD=0.002`; README `:24` admits "CAD chord error is unknown beyond the 0.002 mm decode term." `clearance-v3.1-spec.md` requires "report the measured constancy and include it in e_cad." That number is absent, and the two pairs above already sit at the tolerance.
+
+**MED — return gate uses an exaggerated backoff.** `:57` `SHAPER_BACKOFF=2.0`, disclosed "exaggerated for legibility" (README `:13`, `report.json:56`). The return clearance (0.213) is therefore not representative of a real relief (plan `:66` demands a "relieved return"); a production backoff sits far closer to the cut tooth space.
+
+**LOW — lead angle uses atan.** `:282` `atan(HOB_M/(2*(R-(5.0-ROOT_R))))` = 5.522°; the exact single-start relation is sin-based (5.549°). The 0.026° error is absorbed by the R/stop fit (0.0066 mm), but the physical setting angle is off.
+
+**Verified correct.** (1) Surface-of-revolution reduction is valid: both workpieces rotate fully, the tool meridian footprints (parallel-axis disc → exact rectangle) are conservative, and `r_outer`/`r_dil` deepen the obstacle (max-radius fill + ±1-station max), so clearance is under-stated, never over-stated. (2) `meridian_clearance` `:307-337` is sound: any point with true distance <margin lies within the ±`reach` window, so the prefilter cannot miss a failing minimum; the `not-near` branch returns an under-estimate (conservative). (5) Budget terms are right — sampling half-diagonal 0.0112 (`:301`), profile step H/2 (`:197`), path step 0.025 (`:382`) — and shaper stroke direction, +Y toward the groove, exit margin 0.5, wall margin 0.565 (`:216-253`) match the plan.
+
+Blocking: resolve the two contact classifications (show the edge band and transition are genuinely generated and in contact within e, or test them as must-clear) and add the missing e_cad term before certifying.
+hook: Stop
+hook: Stop Completed
+tokens used
+58,205
+**Verdict: FIX-FIRST.** The method is sound but two outcome-determining classifications let penetrating/near-miss pairs pass, so 23/23 is not honest evidence.
+
+**HIGH — edge-skim relabeled contact flips a fail to a pass.** `tool_clearance_meridian.py:238-239` puts the groove-edge band only in a `contact=True` pair; the cut-phase must-clear pair excludes that band (`:235`). Verdict logic `:407-414` makes a contact pair `ok = d >= -e`, vacuous for positive `d`. Report `report.json:102-112` gives d=0.0220, e=0.012. Under the must-clear criterion (d-e>=0.020) this is 0.0100 → **FAIL**. README `:21` calls a 22 µm gap "contact pair," which is neither contact nor clearance. Classification alone decides the result.
+
+**HIGH — transition contact hides 5.2 µm penetration.** `:375-376` sets `contact=(zname=="transition_13_78_to_14_18")`; `report.json:261-276` reports d=-0.005182. A penetration is relabeled contact and "designed tangency" (README `:19`) with no derivation that the 13.78–14.18 cone is hob-generated rather than a turned runout. If it is not generated, this is real interference, not contact.
+
+**MED — error budget understates e_cad.** `:62` `E_CAD=0.002`; README `:24` admits "CAD chord error is unknown beyond the 0.002 mm decode term." `clearance-v3.1-spec.md` requires "report the measured constancy and include it in e_cad." That number is absent, and the two pairs above already sit at the tolerance.
+
+**MED — return gate uses an exaggerated backoff.** `:57` `SHAPER_BACKOFF=2.0`, disclosed "exaggerated for legibility" (README `:13`, `report.json:56`). The return clearance (0.213) is therefore not representative of a real relief (plan `:66` demands a "relieved return"); a production backoff sits far closer to the cut tooth space.
+
+**LOW — lead angle uses atan.** `:282` `atan(HOB_M/(2*(R-(5.0-ROOT_R))))` = 5.522°; the exact single-start relation is sin-based (5.549°). The 0.026° error is absorbed by the R/stop fit (0.0066 mm), but the physical setting angle is off.
+
+**Verified correct.** (1) Surface-of-revolution reduction is valid: both workpieces rotate fully, the tool meridian footprints (parallel-axis disc → exact rectangle) are conservative, and `r_outer`/`r_dil` deepen the obstacle (max-radius fill + ±1-station max), so clearance is under-stated, never over-stated. (2) `meridian_clearance` `:307-337` is sound: any point with true distance <margin lies within the ±`reach` window, so the prefilter cannot miss a failing minimum; the `not-near` branch returns an under-estimate (conservative). (5) Budget terms are right — sampling half-diagonal 0.0112 (`:301`), profile step H/2 (`:197`), path step 0.025 (`:382`) — and shaper stroke direction, +Y toward the groove, exit margin 0.5, wall margin 0.565 (`:216-253`) match the plan.
+
+Blocking: resolve the two contact classifications (show the edge band and transition are genuinely generated and in contact within e, or test them as must-clear) and add the missing e_cad term before certifying.

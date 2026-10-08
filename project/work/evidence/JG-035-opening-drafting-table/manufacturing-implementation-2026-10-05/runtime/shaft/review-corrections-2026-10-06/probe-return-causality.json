@@ -1,0 +1,151 @@
+{
+  "source": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\src\\scene\\inspection\\shaft\\kinematics.ts",
+  "faceStartMM": 3.1749,
+  "probe": "Pure current-source sampler and vertex-law CPU mirror; no browser/GPU; 10000 subdivisions per failing interval.",
+  "records": [
+    {
+      "start": 2.5,
+      "end": 2.55,
+      "space": 3,
+      "before": {
+        "t": 2.5,
+        "machining": 0.09375,
+        "cutting": false,
+        "engagedSpace": -1,
+        "edgeY": 2.770593699951569,
+        "spaceDepth": 0,
+        "stockRadiusAtY4": 6.083507443359969
+      },
+      "after": {
+        "t": 2.55,
+        "machining": 0.1206218749999999,
+        "cutting": true,
+        "engagedSpace": -1,
+        "edgeY": 2.8408764088738363,
+        "spaceDepth": 0.25,
+        "stockRadiusAtY4": 5.635587731611432
+      },
+      "stepSeconds": 0.000004999999999999983,
+      "activeEngagementSamples": 0,
+      "cuttingStrokeSamples": 9106,
+      "gains": [
+        {
+          "previous": {
+            "t": 2.51227,
+            "machining": 0.09999790334191214,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.771874313256062,
+            "spaceDepth": 0,
+            "stockRadiusAtY4": 6.083507443359969
+          },
+          "current": {
+            "t": 2.512275,
+            "machining": 0.10000049536717791,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.7718767442515153,
+            "spaceDepth": 0.25,
+            "stockRadiusAtY4": 5.635587731611432
+          }
+        }
+      ]
+    },
+    {
+      "start": 6.75,
+      "end": 6.8,
+      "space": 3,
+      "before": {
+        "t": 6.75,
+        "machining": 4.0928955078125,
+        "cutting": false,
+        "engagedSpace": -1,
+        "edgeY": 2.7711302458092804,
+        "spaceDepth": 0.25,
+        "stockRadiusAtY4": 5.635587731611432
+      },
+      "after": {
+        "t": 6.8,
+        "machining": 4.115111111111111,
+        "cutting": true,
+        "engagedSpace": -1,
+        "edgeY": 2.8127532988878103,
+        "spaceDepth": 0.5,
+        "stockRadiusAtY4": 5.187668019862894
+      },
+      "stepSeconds": 0.000004999999999999983,
+      "activeEngagementSamples": 0,
+      "cuttingStrokeSamples": 8662,
+      "gains": [
+        {
+          "previous": {
+            "t": 6.7654499999999995,
+            "machining": 4.0999989372995005,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.7718752827901008,
+            "spaceDepth": 0.25,
+            "stockRadiusAtY4": 5.635587731611432
+          },
+          "current": {
+            "t": 6.765455,
+            "machining": 4.100001201162799,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.7718774064723553,
+            "spaceDepth": 0.5,
+            "stockRadiusAtY4": 5.187668019862894
+          }
+        }
+      ]
+    },
+    {
+      "start": 12.05,
+      "end": 12.1,
+      "space": 3,
+      "before": {
+        "t": 12.05,
+        "machining": 11.914000000000003,
+        "cutting": false,
+        "engagedSpace": -1,
+        "edgeY": 6.0366801106188355,
+        "spaceDepth": 0.75,
+        "stockRadiusAtY4": 4.739748308114357
+      },
+      "after": {
+        "t": 12.1,
+        "machining": 12.113999999999999,
+        "cutting": true,
+        "engagedSpace": -1,
+        "edgeY": 2.8079345427156666,
+        "spaceDepth": 1,
+        "stockRadiusAtY4": 4.29182859636582
+      },
+      "stepSeconds": 0.000004999999999999894,
+      "activeEngagementSamples": 0,
+      "cuttingStrokeSamples": 900,
+      "gains": [
+        {
+          "previous": {
+            "t": 12.096499999999999,
+            "machining": 12.099999999999996,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.7718762795373206,
+            "spaceDepth": 0.75,
+            "stockRadiusAtY4": 4.739748308114357
+          },
+          "current": {
+            "t": 12.096505,
+            "machining": 12.100020000000002,
+            "cutting": true,
+            "engagedSpace": -1,
+            "edgeY": 2.771895087677118,
+            "spaceDepth": 1,
+            "stockRadiusAtY4": 4.29182859636582
+          }
+        }
+      ]
+    }
+  ]
+}

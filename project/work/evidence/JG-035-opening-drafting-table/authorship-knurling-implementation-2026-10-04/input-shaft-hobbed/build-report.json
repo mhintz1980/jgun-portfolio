@@ -1,0 +1,97 @@
+{
+  "func_len_mm": 6.35,
+  "journal_shift_mm": 2.75,
+  "journal_vertices_moved": 575,
+  "materials": 1,
+  "y_face_mm": 3.1748584005981684,
+  "y_functional_end_mm": 9.524858400598168,
+  "source": {
+    "verts": 6338,
+    "faces": 12672,
+    "non_manifold_edges": 0,
+    "volume_mm3": 8028.231668146595
+  },
+  "tip_r_mm": 6.083313213336245,
+  "root_r_mm": 4.297858357677263,
+  "gap_outline_pts": 118,
+  "gap_half_angle_deg_at_tip": 13.624787373094597,
+  "R_hob_mm": 6.0,
+  "gap_depth_to_neck_mm": 1.7761416423227376,
+  "leadout_run_mm": 4.539089731310266,
+  "leadout_end_y_mm": 14.063948131908436,
+  "after_fill": {
+    "verts": 7198,
+    "faces": 11629,
+    "non_manifold_edges": 0,
+    "volume_mm3": 8212.167979323456
+  },
+  "cutter_stats": {
+    "verts": 7440,
+    "faces": 14876,
+    "non_manifold_edges": 0,
+    "volume_mm3": 22.75153305149513
+  },
+  "hobbed": {
+    "verts": 69973,
+    "faces": 125906,
+    "non_manifold_edges": 1,
+    "volume_mm3": 8109.72753899742
+  },
+  "gap_floor_checks": [
+    {
+      "y_mm": 6.0,
+      "gap_floor_r_mm": 4.298351636102239,
+      "expected_mm": 4.297858357677263,
+      "rmax_mm": 6.083507504679027
+    },
+    {
+      "y_mm": 9.2,
+      "gap_floor_r_mm": 4.296539989383715,
+      "expected_mm": 4.297858357677263,
+      "rmax_mm": 6.083421520980585
+    },
+    {
+      "y_mm": 9.6,
+      "gap_floor_r_mm": 4.296863291290442,
+      "expected_mm": 4.298328897791317,
+      "rmax_mm": 6.074000486547925
+    },
+    {
+      "y_mm": 10.0,
+      "gap_floor_r_mm": 4.3155337701551995,
+      "expected_mm": 4.316701240486822,
+      "rmax_mm": 6.074000486547925
+    },
+    {
+      "y_mm": 11.0,
+      "gap_floor_r_mm": 4.480580413817803,
+      "expected_mm": 4.4820215940022194,
+      "rmax_mm": 6.074000486547925
+    },
+    {
+      "y_mm": 12.0,
+      "gap_floor_r_mm": 4.830830239817528,
+      "expected_mm": 4.832176875655964,
+      "rmax_mm": 6.074000486547925
+    },
+    {
+      "y_mm": 13.5,
+      "gap_floor_r_mm": 5.801876979402525,
+      "expected_mm": 5.8036121177939775,
+      "rmax_mm": 6.074000486547925
+    },
+    {
+      "y_mm": 15.0,
+      "gap_floor_r_mm": 6.045199941356806,
+      "expected_mm": 6.074000000000001,
+      "rmax_mm": 6.045544089693081
+    },
+    {
+      "y_mm": 16.0,
+      "gap_floor_r_mm": 6.3205959534517895,
+      "expected_mm": 6.074000000000001,
+      "rmax_mm": 6.324956651245067
+    }
+  ],
+  "hobbed_y6_pts": 1216
+}

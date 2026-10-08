@@ -1,0 +1,625 @@
+{
+  "schema": "jgun-g0-clearance-v3/v1",
+  "generated_utc": "2026-10-05T20:24:14Z",
+  "exact_command": "& \"C:/Program Files/Blender Foundation/Blender 5.1/blender.exe\" -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/tool_clearance.py",
+  "spec": "camera/clearance-v3-spec.md",
+  "frame": "shaft-local mm; +Y shaft axis; tool centre on +Z side",
+  "inputs": {
+    "blend": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend",
+    "blend_sha256_before": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+    "baseline_files": {
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\build-report.json": "76fa39ccefcb67dce44a4b78a12ce2b051c84a2169422adfc55c3e1307b9c265",
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\k000210-k000211-moved.glb": "17569c9a52bf662b599774ba81e2f7dc0d84e2b805707aa8ad09fff6ed454dc9",
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p000725-modified.glb": "cc6edfefbe83e4a1ab0c55d98b80a93d588ef46debf4ec774d6881fc1660abc4",
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p001835-hobbed.glb": "043c9628336589c9ba0fdaa9bac1c7b240598a99dd449eb8df3da1a64ee9a428",
+      "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\shaft_world_matrix.json": "c89849870eb656b6930276bfb0611ee09f7133088f0e5630acc932c2ea813195"
+    },
+    "source_registry": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\geometry\\source-registry.json"
+  },
+  "measured_facts_check": {
+    "tip_r_mm": 6.0834,
+    "root_r_mm": 4.2918,
+    "face_start_mm": 3.1749,
+    "face_end_mm": 9.5249,
+    "sections_constancy_flank_ok": false,
+    "cross_y_constancy_all_bins_mm": {
+      "legacy": 0.041317182,
+      "approved": 0.144639227
+    },
+    "cross_y_constancy_flank_bins_mm": {
+      "legacy": 0.009630967,
+      "approved": 0.009630965
+    },
+    "outer_boundary_ray_hits_max": {
+      "legacy": {
+        "3.5": 2,
+        "6.0": 2,
+        "9.0": 2
+      },
+      "approved": {
+        "3.5": 2,
+        "6.0": 3,
+        "9.0": 3
+      }
+    },
+    "section_min_max_mm": {
+      "legacy": {
+        "3.5": [
+          4.291828848,
+          6.072425861
+        ],
+        "6.0": [
+          4.291828848,
+          6.083483677
+        ],
+        "9.0": [
+          4.291849633,
+          6.083414959
+        ]
+      },
+      "approved": {
+        "3.5": [
+          4.291828837,
+          6.072425861
+        ],
+        "6.0": [
+          4.291828748,
+          6.083484055
+        ],
+        "9.0": [
+          4.291849537,
+          6.083415122
+        ]
+      }
+    },
+    "authored_polygon_sagitta_mm": {
+      "legacy": {
+        "3.5": 0.007389912,
+        "6.0": 0.007393904,
+        "9.0": 0.007434006
+      },
+      "approved": {
+        "3.5": 0.007389951,
+        "6.0": 0.007393999,
+        "9.0": 0.00598015
+      }
+    }
+  },
+  "error_budget_mm": {
+    "e_cad": 0.146639227,
+    "e_tool": 2.749026386,
+    "e_pose_roll_deg_0p2": 0.013089969,
+    "e_pose_path_mm": {
+      "shaper_stroke_0p01": 0.005,
+      "hob_path_0p05": 0.025
+    },
+    "e_grid_loom": 0.0266,
+    "e_total_generation": 2.908755583,
+    "e_total_path": {
+      "shaper": 2.928265614,
+      "hob": 2.948265614
+    },
+    "margin_noncontact_mm": 0.02,
+    "eps_stock_mm": 0.005
+  },
+  "shaper": {
+    "shaft": "SHAFT_P001835_ORIG",
+    "teeth": 20,
+    "signed_ratio_work_over_cutter": -2.0,
+    "centre_distance_mm": 15.5,
+    "work_pitch_radius_mm": 5.166666667,
+    "cutter_pitch_radius_mm": 10.333333333,
+    "feasibility_bound_max_qt_mm": 0.830986581,
+    "feasibility_satisfied": true,
+    "cutter_tip_radius_mm": 11.203171196,
+    "cutter_root_radius_mm": -0.005,
+    "thickness_mm": 1.2,
+    "stroke_centre_y_mm": [
+      2.0748584,
+      10.3248584
+    ],
+    "overtravel_into_groove_mm": 1.3999584,
+    "infeed": {
+      "band_y_mm": [
+        1.4748584,
+        2.6748584
+      ],
+      "path": "radial -Z below face start; shaft there r<=2.49",
+      "clearance_min_mm": 1.842299174
+    },
+    "relieved_return": {
+      "illustrative_backoff_mm": 0.8,
+      "interference_left_mm": -0.9916,
+      "certified_backoff_mm": 1.9,
+      "certified_clearance_mm": 0.113428804
+    },
+    "holders_mm": {
+      "hub": [
+        8.0,
+        6.0
+      ],
+      "clamp_nut": [
+        9.0,
+        3.0
+      ],
+      "arbor": [
+        7.0,
+        12.0
+      ]
+    },
+    "tool_inner_envelope_radius_mm": 4.296829515
+  },
+  "hob": {
+    "shaft": "SHAFT_P001835_HOBBED_NEW",
+    "starts": 1,
+    "normal_module_mm": 1.0,
+    "work_pitch_radius_mm": 5.0,
+    "fitted_outside_radius_mm": 6.1,
+    "fit_y_end_mm": 9.515,
+    "fit_residual_rms_mm": 0.002059548,
+    "fit_residual_max_mm": 0.004409259,
+    "authored_construction_arc_radius_mm": 6.001062117,
+    "pitch_radius_mm": 5.3918,
+    "lead_angle_deg_asin": 5.320877811,
+    "lead_angle_deg_atan": 5.320877811,
+    "lead_mm": 3.155188444,
+    "addendum_mm": 0.7082,
+    "body_length_mm": 16.0,
+    "path": {
+      "infeed": "radial at y=13.9 from retracted distance",
+      "feed": "arc centre path y 13.9 -> 9.5249 (centre dist = ramp(y)+R_o)",
+      "retract": "+Z 2.5 mm at y=9.5249",
+      "withdraw": "axial +Y at retracted distance"
+    },
+    "collars_arbor_mm": {
+      "collar_a": [
+        7.099999999999966,
+        3.0,
+        9.5
+      ],
+      "collar_b": [
+        7.099999999999966,
+        3.0,
+        -9.5
+      ],
+      "arbor": [
+        4.599999999999966,
+        8.0,
+        -15.0
+      ]
+    },
+    "gash_scallop_note": "smooth-thread rack-envelope model; 10-gash scallop ~0.001 mm included in e_total_path; relieved flanks assumed"
+  },
+  "pairs": [
+    {
+      "pair": "shaper_cutter_vs_legacy_gear_zone",
+      "min_unsigned_distance_mm": 0.001081268,
+      "e_total_mm": 2.908755583,
+      "margin_mm": 0.0,
+      "d_minus_e_total_mm": -2.907674315,
+      "PASS": true,
+      "pose": {
+        "y_mm": 6.0,
+        "alpha_deg": 17.200000000000003,
+        "point_xz_mm": [
+          3.430030753609982,
+          5.021072901358541
+        ],
+        "unsigned_mm": 0.0010812684657040353,
+        "contained": true,
+        "ray3_unanimous": true,
+        "ray3_agree": true
+      },
+      "note": "generation contact; worst signed penetration -0.001081 vs tol 2.916190; coverage gap 0.00595"
+    },
+    {
+      "pair": "shaper_cutter_vs_legacy_runout_zone",
+      "min_unsigned_distance_mm": null,
+      "e_total_mm": 2.908755583,
+      "margin_mm": 0.0,
+      "d_minus_e_total_mm": null,
+      "PASS": true,
+      "pose": {
+        "station": 9.55,
+        "alpha_deg": 7.8,
+        "point_xz_mm": [
+          1.0124991335244309,
+          4.192838700896486
+        ],
+        "contained": false
+      },
+      "note": "generation contact; worst signed penetration 0.004207 vs tol 2.916190"
+    },
+    {
+      "pair": "shaper_body_vs_groove",
+      "min_unsigned_distance_mm": 0.056189619,
+      "e_total_mm": 2.928265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -2.872075995,
+      "PASS": false,
+      "pose": {
+        "y_centre": 10.324858399999824,
+        "station": 10.95
+      },
+      "note": "ring bound; tool inner envelope 4.29683 mm"
+    },
+    {
+      "pair": "shaper_body_vs_step_journal",
+      "min_unsigned_distance_mm": 0.0751416,
+      "e_total_mm": 2.928265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -2.853124014,
+      "PASS": false,
+      "pose": {
+        "y_centre": 10.324858399999824,
+        "station": 11.0
+      },
+      "note": "ring bound incl. axial-gap form"
+    },
+    {
+      "pair": "shaper_body_vs_face",
+      "min_unsigned_distance_mm": 1.842299174,
+      "e_total_mm": 2.928265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -1.08596644,
+      "PASS": false,
+      "pose": {
+        "y_centre": 2.55485839999999,
+        "station": 3.15
+      },
+      "note": "ring bound below face start"
+    },
+    {
+      "pair": "shaper_holders_vs_shaft",
+      "min_unsigned_distance_mm": 0.416499751,
+      "e_total_mm": 3.058265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -2.641765862,
+      "PASS": false,
+      "pose": {
+        "witness": [
+          "clamp_nut",
+          10.004858399999831,
+          9.4
+        ]
+      },
+      "note": "hub R8 L6 / nut R9 L3 / arbor R7 L12; +0.13 cylinder sampling bound"
+    },
+    {
+      "pair": "hob_rack_vs_approved_gear_zone",
+      "min_unsigned_distance_mm": null,
+      "e_total_mm": 2.908755583,
+      "margin_mm": 0.0,
+      "d_minus_e_total_mm": null,
+      "PASS": true,
+      "pose": {
+        "y_mm": 6.0,
+        "theta_deg": 4.3999999999999995,
+        "point_xz_mm": [
+          0.02633003575601282,
+          -0.6834337540096119
+        ],
+        "contained": true
+      },
+      "note": "rack generation contact; worst signed penetration -5.397114 vs tol 2.916190; strand scatter 0.00744"
+    },
+    {
+      "pair": "hob_vs_approved_ramp_reproduction",
+      "min_unsigned_distance_mm": 0.004409259,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.005,
+      "d_minus_e_total_mm": -2.943856355,
+      "PASS": true,
+      "pose": {
+        "y_end_mm": 9.515000000000025,
+        "stations": 213
+      },
+      "note": "fit residual max 0.00441 rms 0.00206; authored arc R 6.0011"
+    },
+    {
+      "pair": "arbor_vs_cone_journal",
+      "min_unsigned_distance_mm": 7.112011045,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 4.163745431,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.899999999999986,
+        "station": 14.2
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "arbor_vs_journal2",
+      "min_unsigned_distance_mm": 7.737950743,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 4.78968513,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 13.699999999999998,
+        "station": 15.55
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "arbor_vs_ramp",
+      "min_unsigned_distance_mm": 6.365317896,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 3.417052282,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 10.599999999999953,
+        "station": 9.6
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "arbor_vs_ring_groove",
+      "min_unsigned_distance_mm": 7.616483025,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 4.668217411,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 13.299999999999992,
+        "station": 14.75
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "arbor_vs_shoulder",
+      "min_unsigned_distance_mm": 8.470272149,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 5.522006535,
+      "PASS": true,
+      "pose": {
+        "phase": "withdraw",
+        "y_centre": 14.524899999999983,
+        "station": 16.7
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_a_vs_cone_journal",
+      "min_unsigned_distance_mm": 2.345836559,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.602429055,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 10.749999999999956,
+        "station": 14.2
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_a_vs_journal2",
+      "min_unsigned_distance_mm": 2.533749269,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.414516345,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 11.649999999999968,
+        "station": 15.55
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_a_vs_ramp",
+      "min_unsigned_distance_mm": 2.48002421,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.468241403,
+      "PASS": false,
+      "pose": {
+        "phase": "retract",
+        "y_centre": 9.5249,
+        "station": 11.8
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_a_vs_ring_groove",
+      "min_unsigned_distance_mm": 2.691665814,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.256599799,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 11.299999999999963,
+        "station": 14.75
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_a_vs_shoulder",
+      "min_unsigned_distance_mm": 2.230149961,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.718115653,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 13.699999999999998,
+        "station": 19.75
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_b_vs_cone_journal",
+      "min_unsigned_distance_mm": 3.027610776,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 0.079345162,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.44999999999998,
+        "station": 14.2
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_b_vs_journal2",
+      "min_unsigned_distance_mm": 3.460780926,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 0.512515313,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.699999999999983,
+        "station": 15.55
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_b_vs_ramp",
+      "min_unsigned_distance_mm": 2.56426839,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -0.383997224,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 10.549999999999953,
+        "station": 9.6
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_b_vs_ring_groove",
+      "min_unsigned_distance_mm": 3.464857364,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 0.51659175,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.549999999999981,
+        "station": 14.75
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "collar_b_vs_shoulder",
+      "min_unsigned_distance_mm": 3.923465187,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": 0.975199573,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 13.399999999999993,
+        "station": 16.65
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "hob_hull_vs_cone_journal",
+      "min_unsigned_distance_mm": -1.097352999,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -4.045618613,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 11.849999999999971,
+        "centre_dist": 10.8656,
+        "station": 14.2
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "hob_hull_vs_journal2",
+      "min_unsigned_distance_mm": -0.44480717,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -3.393072784,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.399999999999979,
+        "centre_dist": 11.1311,
+        "station": 15.55
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "hob_hull_vs_ramp",
+      "min_unsigned_distance_mm": -1.781920509,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.0,
+      "d_minus_e_total_mm": -4.730186122,
+      "PASS": true,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 9.549999999999939,
+        "centre_dist": 10.3919,
+        "station": 9.6
+      },
+      "note": "contact pair: hull envelope touches the generated ramp; tolerance e_total + eps + fit residual 0.00441"
+    },
+    {
+      "pair": "hob_hull_vs_ring_groove",
+      "min_unsigned_distance_mm": -0.574190756,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -3.522456369,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 11.999999999999973,
+        "centre_dist": 10.9313,
+        "station": 14.75
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    },
+    {
+      "pair": "hob_hull_vs_shoulder",
+      "min_unsigned_distance_mm": 0.254450978,
+      "e_total_mm": 2.948265614,
+      "margin_mm": 0.02,
+      "d_minus_e_total_mm": -2.693814635,
+      "PASS": false,
+      "pose": {
+        "phase": "feed",
+        "y_centre": 12.949999999999987,
+        "centre_dist": 11.4706,
+        "station": 16.65
+      },
+      "note": "tilted cylinder hull lower bound (conservative); hull used for non-generated zones only - the gear zone is certified by the rack pair"
+    }
+  ],
+  "verdict": "UNRESOLVED",
+  "determinism": "rerun the exact command; compare report.json with generated_utc removed",
+  "unresolved": [
+    "shaper_body_vs_groove",
+    "shaper_body_vs_step_journal",
+    "shaper_body_vs_face",
+    "shaper_holders_vs_shaft",
+    "collar_a_vs_cone_journal",
+    "collar_a_vs_journal2",
+    "collar_a_vs_ramp",
+    "collar_a_vs_ring_groove",
+    "collar_a_vs_shoulder",
+    "collar_b_vs_ramp",
+    "hob_hull_vs_cone_journal",
+    "hob_hull_vs_journal2",
+    "hob_hull_vs_ring_groove",
+    "hob_hull_vs_shoulder",
+    "sections_constancy"
+  ]
+}

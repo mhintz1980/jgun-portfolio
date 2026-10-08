@@ -1,0 +1,142 @@
+{
+  "scope": "Real DOM shell in isolation; no inspection canvas/runtime",
+  "url": "http://localhost:5199/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/harness.html",
+  "started": "2026-10-05T20:03:41.394Z",
+  "cases": [
+    {
+      "name": "desktop",
+      "errors": [],
+      "cadRequests": [],
+      "assertions": [
+        "Entry/focus guard and dynamic outside inert isolation",
+        "Loading/compiling/error Return, absolute seek/replay, pause/hide, Tab wrapping and epoch retry",
+        "44px controls and non-overlapping viewport layout",
+        "Escape restores scroll, inert values and trigger focus",
+        "Removed trigger recovers focus at JGun chapter"
+      ],
+      "controls": [
+        {
+          "label": "← Return to narrative",
+          "width": 186.953125,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "inspection-seek",
+          "width": 480,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Play sequence",
+          "width": 119.28125,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Replay",
+          "width": 74.46875,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Try again",
+          "width": 87.71875,
+          "height": 44,
+          "inside": true
+        }
+      ],
+      "removedTriggerFocus": {
+        "element": "<section data-chapter=\"0\" tabindex=\"-1\"><h1>JGun narrative</h1><button id=\"outside-focus\">Narrative action</button></section>",
+        "inert": false,
+        "progress": null
+      }
+    },
+    {
+      "name": "narrow",
+      "errors": [],
+      "cadRequests": [],
+      "assertions": [
+        "Entry/focus guard and dynamic outside inert isolation",
+        "Loading/compiling/error Return, absolute seek/replay, pause/hide, Tab wrapping and epoch retry",
+        "44px controls and non-overlapping viewport layout",
+        "Escape restores scroll, inert values and trigger focus",
+        "Removed trigger recovers focus at JGun chapter"
+      ],
+      "controls": [
+        {
+          "label": "← Return to narrative",
+          "width": 148,
+          "height": 58,
+          "inside": true
+        },
+        {
+          "label": "inspection-seek",
+          "width": 350,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Play sequence",
+          "width": 112.734375,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Replay",
+          "width": 71.359375,
+          "height": 44,
+          "inside": true
+        },
+        {
+          "label": "Try again",
+          "width": 83.578125,
+          "height": 44,
+          "inside": true
+        }
+      ],
+      "removedTriggerFocus": {
+        "element": "<section data-chapter=\"0\" tabindex=\"-1\"><h1>JGun narrative</h1><button id=\"outside-focus\">Narrative action</button></section>",
+        "inert": false,
+        "progress": null
+      }
+    },
+    {
+      "name": "reduced-narrow",
+      "errors": [],
+      "cadRequests": [],
+      "assertions": [
+        "Entry/focus guard and dynamic outside inert isolation",
+        "44px controls and non-overlapping viewport layout",
+        "Escape restores scroll, inert values and trigger focus"
+      ],
+      "controls": [
+        {
+          "label": "← Return to narrative",
+          "width": 148,
+          "height": 58,
+          "inside": true
+        }
+      ]
+    },
+    {
+      "name": "poster-narrow",
+      "errors": [],
+      "cadRequests": [],
+      "assertions": [
+        "Entry/focus guard and dynamic outside inert isolation",
+        "44px controls and non-overlapping viewport layout",
+        "Escape restores scroll, inert values and trigger focus"
+      ],
+      "controls": [
+        {
+          "label": "← Return to narrative",
+          "width": 148,
+          "height": 58,
+          "inside": true
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

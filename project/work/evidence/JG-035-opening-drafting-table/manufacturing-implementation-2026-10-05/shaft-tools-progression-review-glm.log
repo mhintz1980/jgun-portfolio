@@ -1,0 +1,2658 @@
+Reading additional input from stdin...
+2026-10-06T03:49:32.799479Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T03:49:32.799873Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-06T03:49:33.017376Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: zai/glm-5.3
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10f54-b77f-70a0-b3ee-5143f93b6f9f
+--------
+user
+Bounded read-only review. Do not edit files; do not read TODO.md or queue docs. Spec: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-spec.md and project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-completion-spec.md. Producer claims (treat as claims): project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md. Source: scripts/manufacturing/cutter_outline.mjs, src/scene/inspection/shaft/cutterOutline.json, toolSpec.ts, tools.ts, tools.test.ts, progression.ts, progression.test.ts; certified numbers project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json. You may run npx vitest run src/scene/inspection/shaft and node scripts/manufacturing/cutter_outline.mjs is NOT allowed (read-only). Check: conjugate cutter outline method and clamps; constants equal the report; triangle budgets; progression law (shaping depth per space, hobbing floor equal to the approved floor at final yc within 0.01 mm, monotonic); the GLSL patch matches the CPU law (radius clamp, normals, near-axis fallback) and the stress overlay keeps metallic edges; allocation-free per call. Report SHIP or FIX-FIRST with severity and file:line, max 450 words.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-06T03:49:33.958774Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+2026-10-06T03:49:33.999067Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T03:49:33.999129Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+I'll run this bounded review. Starting with a quick memory check, then reading the spec, claims, and sources.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "JG-035|shaft-tools|cutter_outline|clearance-v4" C:/Users/Markimus/.codex/memories/MEMORY.md' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 569ms:
+1:# Task Group: jgun-portfolio JG-035 stages 1-3 opening rework
+6:## Task 1: Plan and implement JG-035 stages 1-3
+14:- jgun-portfolio, JG-035, jgun-animation-improvements.md, jgun-stages-1-3-implementation-plan.md, sheetCamera, introTimeline, paperFlex, drawingCache, DrawingLinework, precompute-drawing, junction path, npm run build, troika
+40:- The 2026-09-26 docs mark the ANSI C/shockwave opening historical; active opening is a 0.80×0.50 m vellum sheet. On a later owner-requested commit, stage JG-035 paths only and include the matching doc updates. [Task 2]
+47:- Before calling JG-035 done: add `__drawingProof` probes for pulse registration and text/title bounds; regenerate missing `public/drawing/jgun-sheet-v1.json.gz` with cache bypass, chrome fallback, and correct `waitForFunction(pageFn, arg, options)` ordering; re-measure `projectedFeatures` at registered hold `t=0.40–0.72`; verify `ink.tri` subdivision and troika injection order; run the harness against a fresh `:5198` server and obtain a fresh read-only review. [Task 2]
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Memory has JG-035 context but nothing on this shaft-tools task specifically. Reading the specs, claims, and source files now.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-spec.md' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-spec.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/tools.ts' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/tools.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'scripts/manufacturing/cutter_outline.mjs' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'scripts/manufacturing/cutter_outline.mjs' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/progression.ts' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/progression.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-completion-spec.md' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-completion-spec.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/cutterOutline.json' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/cutterOutline.json' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/toolSpec.ts' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/toolSpec.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/tools.test.ts' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/tools.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'src/scene/inspection/shaft/progression.test.ts' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'src/scene/inspection/shaft/progression.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Item -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md' | Select-Object Length | ConvertTo-Json; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1383ms:
+{
+  "Length": 10819
+}
+263
+
+ succeeded in 1400ms:
+{
+  "Length": 7435
+}
+15
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse
+ succeeded in 1418ms:
+{
+  "Length": 9710
+}
+202
+
+ succeeded in 1319ms:
+{
+  "Length": 2735
+}
+11
+
+ succeeded in 2147ms:
+{
+  "Length": 15365
+}
+364
+
+hook: PostToolUse
+ succeeded in 3057ms:
+{
+  "Length": 2778
+}
+52
+
+hook: PostToolUse
+ succeeded in 4313ms:
+{
+  "Length": 20263
+}
+416
+
+hook: PostToolUse
+ succeeded in 6189ms:
+{
+  "Length": 16207
+}
+1484
+
+hook: PostToolUse
+ succeeded in 7482ms:
+{
+  "Length": 12312
+}
+256
+
+hook: PostToolUse
+ succeeded in 8623ms:
+{
+  "Length": 14815
+}
+478
+
+hook: PostToolUse
+ succeeded in 9759ms:
+{
+  "Length": 8816
+}
+27
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-completion-spec.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-spec.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1022ms:
+# Shaft tools and progression — takeover audit, 2026-10-05
+
+Scope: completion leaf and its complete base spec. Only the seven permitted implementation/test files and this gate are writable. `toolSpec.ts` was audited and retained: its certified values were already correct. The previous takeover's generated outline and test edits were audited directly, without reverting or staging concurrent work.
+
+## A1–A5
+
+- [x] **A1: outline derived and bounded.** Generator reads the 7200 positive legacy `6.0` radii at 0.05 degrees; rolls one 18-degree cutter pitch at 0.02 degrees with signed work/cutter ratio -2 and centre 15.5 mm; bins at 0.05 degrees; subtracts 0.005 mm radial stock from the complete envelope, then clamps to [9.2666, 11.2032] mm. Emits 360 points and the actual source SHA-256. The limits are bounds, not imposed extrema: the conservative sampled, stock-adjusted outline spans 9.411633–11.200975 mm. An independent four-bin recomputation tests actual flank stock, rather than trusting metadata.
+  EVIDENCE: `node scripts/manufacturing/cutter_outline.mjs` executed twice, exit 0 both times: `points 360 (span 18 deg), radius 9.411633..11.200975 mm`; `empty_bins_filled 0`; `matched_shaper_diagnostics: shift 180 bins, max |outline - diag| 0.071354 mm, rms 0.010817 mm (unaligned max 1.789720 mm)`.
+  EVIDENCE: `Get-FileHash -Algorithm SHA256 src/scene/inspection/shaft/cutterOutline.json` after each run returned `AF776974D6050A746AC3D38A9C4D75DC49C72F842AE4AF8AD4157A1B184687F0`, identical. Source SHA-256: `4fe9092c39d20cdd2e32bd96ba99d71404d14c42788922653ac9ec6c3669a12a`.
+  EVIDENCE: `npx vitest run src/scene/inspection/shaft`: `A1: outline 360 points; roll 0.02 deg; bins 0.05 deg; flank stock 0.005 mm verified`.
+
+- [x] **A2: constants equal certified report.** Tests read clearance-v4 `report.json` and check all represented shaper dimensions, holder pairs, signed ratio, stroke limits, overtravel and backoff; hob dimensions, lead, starts/module, centre distance, and numerically parsed infeed/retract path. Collar width 3 mm and arbor length 12 mm are specified by the leaf, and explicitly tested as such; the report does not supply those two keys. Floating-point comparisons accommodate the report's binary-decimal serialization residue.
+  EVIDENCE: `npx vitest run src/scene/inspection/shaft`: `A2: certified report matched; shaper N=20 C=15.5 tip=11.2032 thickness=1.2; hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249`.
+
+- [x] **A3: props built within triangle budgets.** Cutter uses metre-scaled ExtrudeGeometry, a centred ±0.6 mm disc and trailing hub/clamp/arbor; cutting edge is on its actual crest at the leading +0.6 mm face. At the certified maximum centre Y, leading face is 10.3749 mm, leaving 0.5651 mm to the groove wall. Hob uses a single-start instanced trapezoid helix with lead pi*m/cos(angle), ten gash windows, and the certified tilted axis. Tests inspect every thread vertex after its instance transform: R ≤5.87 mm and axial cutting-body span inside ±8 mm. Both disposers release each owned geometry once, retain caller materials, and hob disposal additionally releases the instancing resource.
+  EVIDENCE: `npx vitest run src/scene/inspection/shaft`: `A3: shaper triangles=7564 budget=12000`; `A3: hob triangles=3596 budget=20000 (instances counted)`; dimension, axis and idempotent-disposal assertions passed.
+
+- [x] **A4: progression law tests.** Finished shaping preserves actual legacy polar samples; blank depth restores face-band OD and preserves the groove. Optional `engagedPreviousDepth` (default 0 for first-pass compatibility) retains prior partial depth ahead of the cutter during repeated strokes; CPU and shader consume the same field. Hobbing uses the authored R=6.0 untilted meridian floor at root+6.0 and final yc=9.5249, explicitly distinguished from the certified R=5.87 tilted tool. Tests cover floor fit, finished approved samples, monotonic depth/yc, shuffled seek order, coordinate mapping, shader markers and stress uniform writers. Six per-call functions have no constructor/array-literal/object-literal allocations; repeated calls retain caller-owned arrays and matrices. Shader calls now pass vec3 `.xyz`, finished normals remain unchanged, and stress kind `none` suppresses tint.
+  EVIDENCE: `npx vitest run src/scene/inspection/shaft`: `A4: approved floor absolute errors (y:mm) 9.72:0.004425, 10.92:0.004408, 13.78:0.003829; each <0.01 mm`; `A4: six per-call functions allocation-free by source audit; 5000 sampled/written calls preserve caller-owned buffers`.
+  EVIDENCE: supplemental in-memory `node --input-type=module -e <probe>` using installed esbuild/Playwright and real Chrome SwiftShader WebGL, exit 0: Standard and Physical `programLinks:[true]`, `shaderErrors:[]`, `pageErrors:[]`, each `glError:0`, `noneDelta:0`, `warmCoolDelta:17575`. All three progression modes rendered. The initial Bun-hosted probe timed out; the explicit Node-hosted probe succeeded. This verifies shader compilation and overlay pixels, not owner visual acceptance of a mounted story.
+  EVIDENCE: final Node/Chrome WebGL2 transform-feedback probe of the actual injected vertex law, exit 0: `comparisons:108`, `maxErrorMm:0.0000012180601194344831`, `glError:0`, `axisAndNearAxis:true`, `bandBoundaries:true`, `previousPass:true`. Samples cover none/shaping/hobbing, three hob positions, zero and near-zero radii at canonical +X azimuth, band boundaries and engaged-space prior depth. Removed the GPU-only radius cutoff; zero-radius samples now have a deterministic +X direction and finite radial-normal fallback. An intermediate probe string-escaping error was fixed in the transient harness, without changing any repository file.
+
+- [x] **A5: typecheck/tests pass.** The exact required commands pass on the current seven-file roster after the parity correction. Earlier parallel-work failures are historical, not unresolved leaf failures.
+  EVIDENCE: final exact `npx vitest run src/scene/inspection/shaft`, exit 0: `Test Files 7 passed (7)`; `Tests 91 passed (91)`; `Duration 5.44s`.
+  EVIDENCE: final exact `npm run typecheck`: `> tsc --noEmit`, exit 0 (native execution session 18644, completed status verified).
+  EVIDENCE: supplemental `npx vitest run src/scene/inspection/shaft --maxWorkers=1`, exit 0 before the additional axis regression: `Test Files 7 passed (7)`; `Tests 90 passed (90)`; `Duration 11.64s`.
+  EVIDENCE: later exact `npx vitest run src/scene/inspection/shaft`, exit 1: `1 failed | 88 passed (89)` in concurrently added `shaftRuntime.test.ts` (finale fixture assertion). Next exact run: `1 failed | 89 passed (90)` solely from `camera.test.ts > K5 camera continuity > is C0 across the timeline at both layouts`, `Test timed out in 5000ms`. Neither file is owned by this leaf; neither was edited here. All owned leaf assertions passed on both runs.
+
+## Changes and review
+
+Changed: `scripts/manufacturing/cutter_outline.mjs`; `src/scene/inspection/shaft/cutterOutline.json`, `tools.ts`, `tools.test.ts`, `progression.ts`, `progression.test.ts`; this gate. Audited unchanged: `src/scene/inspection/shaft/toolSpec.ts`.
+
+Graph coverage metadata reports these new files as `not_tracked`; conclusions come from direct live source/input reads and execution, not graph completeness. First independent read-only review (`01a10f34-e5a8-7d53-b0bd-8d0bf872bc19`) returned FIX-FIRST for the GPU-only near-axis cutoff, with no other findings against requirements 1–4. The cutoff and its zero-radius position/normal fallbacks are now corrected and verified numerically on WebGL2. Fresh independent final native read-only review (`01a10f3f-9410-77b0-931c-bdcba1cddf2f`) completed with SHIP. Both reviewers used fresh contexts; requested model: inherited; effort: high; observed runtime model/effort and usage: unobservable.
+
+EVIDENCE: final reviewer output: `ASTRA REVIEW VERDICT: ship`; `Findings: none against requirements 1–4`; `No blocking residual risk identified within this leaf.` Direct-source audit covered all seven permitted files. The reviewer did not repeat tests or write files. Its remaining scope qualifications are sampled illustrative tooling and Chrome SwiftShader execution evidence; mounting and broader integration are outside the leaf verdict.
+
+Unresolved leaf items: none. A1–A5 complete; final SHIP accepted after parent verification.
+
+Startup exception: before reading the leaf's no-queue/no-git restriction, the initial command read TODO/project startup context and ran read-only `git status --short`. This was acknowledged; no further queue reads or git operations occurred. No staging, reverting, commits or changes outside leaf ownership were performed.
+
+API-EQUIVALENT COST RECEIPT: unavailable; parent and native-review billing-grade usage are not exposed by this interface. Unknown usage is not zero.
+
+
+hook: PostToolUse
+ succeeded in 1844ms:
+# Leaf spec: complete and verify shaft tools + progression (producer, takeover)
+
+Context: a previous producer implemented the base spec project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-tools-progression-spec.md (read it fully: objective, files, requirements 1-4 and verification all still apply) and stopped from a provider rate limit before final verification and before writing the gate file. Existing files: scripts/manufacturing/cutter_outline.mjs, src/scene/inspection/shaft/{cutterOutline.json,toolSpec.ts,tools.ts,tools.test.ts,progression.ts,progression.test.ts}. Current state: npx vitest run src/scene/inspection/shaft passes and npm run typecheck is clean.
+
+Your job: audit every numbered requirement of the base spec against the actual code, fix gaps or defects you find, run the verification, and write the gate file. Specifically confirm with evidence:
+- node scripts/manufacturing/cutter_outline.mjs runs, regenerates cutterOutline.json deterministically (same sha256 on two runs), tips clamp at 11.2032, roots at 15.5 - 6.0834 - 0.15, stock 0.005, <=360 points per tooth, and the envelope method uses roll steps <=0.02 deg and bins <=0.05 deg.
+- toolSpec.ts constants equal project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json (note the certified hob after re-review: R 5.87, lead angle 5.5587 deg, infeed yc -4.195); a test enforces it by reading report.json.
+- tools.ts triangle counts: cutter <= 12k, hob <= 20k, asserted in tests; geometry in metres; dispose releases geometries.
+- progression.ts: final shaping state leaves samples unchanged; depth 0 puts face-band samples at OD and leaves the groove unchanged; hobbing at final yc reproduces approved floor within 0.01 mm; monotonic; allocation-free per call; shader patch markers present; stress overlay uniforms present.
+Files you own: the six files above, plus project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md (create: A1 outline derived and bounded, A2 constants equal report, A3 props within triangle budgets, A4 progression law tests, A5 typecheck/tests pass; check a box only with a real EVIDENCE line containing command output). Do not edit any other file. Other agents are working in parallel on other files: never revert or stage anything; no git operations. Do not read TODO.md or queue docs.
+
+Verification: node scripts/manufacturing/cutter_outline.mjs (twice, compare sha256); npx vitest run src/scene/inspection/shaft; npm run typecheck.
+Final message: changed paths, what you fixed and why, commands with results, anything unresolved.
+REASONING: high
+
+
+hook: PostToolUse
+ succeeded in 2512ms:
+# Leaf spec: shaft tool props and progression geometry (producer)
+
+Objective: build the illustrative shaper cutter and hob props from the certified clearance-v4 dimensions, and the closed-form machining progression that turns the finished CAD shaft meshes into the blank/partial/finished states without CSG.
+
+Context (read, do not modify): docs/jgun-manufacturing-inspection-plan.md sections 2 and 4 (owner storyline: shaper cuts, slow exit macro, recap, material cards, revised blank, hobbing, supports, finale); project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md and report.json (CERTIFIED illustrative tool dimensions and paths; use these numbers exactly); src/scene/inspection/shaft/story.ts (shaftBeats authored table, 43 s) and shaft/script.ts (cards/stress timing; cool scan starts 32.8 s, so hob withdrawal must be complete by 32.0 s); src/scene/inspection/timeline.ts (closed-form allocation-free sampler style with caller-owned out objects); src/scene/inspection/story.ts (StoryRuntime interfaces). Shaft-local frame: +Y is the shaft axis in millimetres in CAD; the runtime GLB (public/models/manufacturing-core-full.glb, nodes legacyshaft/approvedshaft/housing/legacybearing/legacyring/approvedbearing/approvedring) is metres with shaft-local +Y exported to glTF -Z (one conversion only). Measured: 10 teeth, 36 deg pitch, tip r 6.0834, root r 4.2918, face y 3.1749..9.5249, legacy last tooth material y 9.875, legacy groove floor r 3.97 at y 10.41, groove wall y 10.94; approved ramp floor ends y 13.78 at filler OD 6.074; approved journal r 6.325 from y 14.18.
+Rules: you are not alone in the codebase; never revert or stage others' work; no git operations; do not read TODO.md or queue docs (this spec is complete). Everything must be a pure function of time (no accumulators, no Math.random/Date/performance), allocation-free in per-frame paths, deterministic under any seek order. Do not register stories, mount components or edit shared scene files.
+
+Files you own (create only): scripts/manufacturing/cutter_outline.mjs, src/scene/inspection/shaft/cutterOutline.json (generated), src/scene/inspection/shaft/toolSpec.ts, src/scene/inspection/shaft/tools.ts, src/scene/inspection/shaft/progression.ts, src/scene/inspection/shaft/progression.test.ts, src/scene/inspection/shaft/tools.test.ts, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-tools-progression.md.
+
+1. cutter_outline.mjs (Node, no deps): read project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json profiles.legacy["6.0"] (7200 work polar radii at 0.05 deg; work outline r(phi)). Compute the conjugate disc-cutter outline for N=20 teeth at centre distance 15.5 mm, signed ratio work/cutter -2, by the envelope method: for roll angles over one cutter pitch at <=0.02 deg, transform the work outline into the cutter frame and take, per cutter polar bin (<=0.05 deg), the minimum radius occupied by work material; clamp tips at 11.2032 mm (clearance-v4 tip) and roots at 15.5 - 6.0834 - 0.15 mm; leave 0.005 mm stock. Emit one tooth (18 deg) as a polyline of [angle_rad, radius_mm] with <=360 points plus metadata (sha256 of profile-study.json, parameters). Write cutterOutline.json. Print max deviation of the outline vs the matched_shaper_diagnostics in profile-study.json if comparable.
+2. toolSpec.ts: frozen constants copied from clearance-v4 report.json (shaper: teeth 20, centre 15.5, tip 11.2032, thickness 1.2, stroke centre y range, overtravel 0.5, backoff 2.0, hub r8 l6, clamp r9 l3, arbor r7 l12; hob: R 5.87, normal module 1, starts 1, lead angle 5.5587 deg, length 16, centre distance at depth (root + R), stop yc 9.5249, infeed yc -4.195, retract 2.5, collars r R+1 w3, arbor r R-1.5 l12) and the report path; test that they match report.json values.
+3. tools.ts: buildShaperCutter(): THREE.ExtrudeGeometry (depth 1.2 mm, scaled to metres) from the 20-tooth outline, plus hub/clamp/arbor cylinders, steel material instances supplied by caller; returns { root: Group, cuttingEdgeLocal: Vector3 (rake face point at the tip on the leading face), dispose }. buildHob(): body cylinder at root of thread, 10 gashes, single-start helical thread approximated by trapezoid tooth instances (InstancedMesh) placed along the helix with lead = pi*m/cos(lead angle), outside radius R, plus collars/arbor; returns { root, dispose }. Geometry in metres, axes documented (cutter axis parallel to shaft axis; hob axis perpendicular, tilted by lead angle). Keep triangle counts modest (cutter <= 12k, hob <= 20k) and report them in tests.
+4. progression.ts: closed-form state and shader patch.
+   - type ProgressionState = { mode: 'none'|'shaping'|'hobbing'; spaceDepth: Float32Array(10) in [0,1]; engagedSpace: number (-1 none); edgeY: number (mm, cutter leading face during the current stroke; behind it the engaged space has its new depth, ahead the previous depth); hobYc: number (mm); hobA: number (mm centre distance); hobR: number }.
+   - progressedRadius(r, y, azimuth, state, shaft: 'legacy'|'approved'): CPU mirror. For legacy shaping, only vertices with FACE_START<=y<=9.875 and r < OD are affected: r' = min(OD, r + (1 - depth_i)*(OD - ROOT)) where i is the tooth-space index from azimuth (clock: measure from the mesh; expose SPACE_CLOCK_RAD constant and a test that recovers it from approved/legacy vertex data you can load in tests via the GLB? if loading the GLB in vitest is impractical, derive the clock from profile-study.json legacy 6.0 polar data instead). For approved hobbing: affected band FACE_START<=y<=13.78: floor(y) = root for y <= hobYc; A - sqrt(R^2 - (y - hobYc)^2) for hobYc < y < hobYc + R; OD beyond; r' = max(r, min(OD, floor(y))). Use the authored untilted circle R=6.0 with centre root+6.0 at final yc 9.5249 for the visual floor so the final state equals the approved mesh; state that R 5.87 tilted is the certified tool and R 6.0 untilted is its equivalent meridian floor (clearance-v4 ramp fit).
+   - applyProgression(material: MeshStandardMaterial | MeshPhysicalMaterial, uniforms): onBeforeCompile patch adding the same law in the vertex shader (shaft-local coordinates via an attribute-free position transform: pass a uniform matrix from object space to shaft-local mm), with normals blended toward radial where clamped to OD. Also add stress overlay uniforms (kind none/warm/cool, mix, scanProgress, band yMin/yMax, rMax) producing a localized warm (red-orange) or cool (green-blue) tint that keeps metallic edges (mix into emissive/diffuse lightly, not replace).
+   - Tests: final shaping state (all depths 1) leaves every sample r unchanged; depth 0 puts every face-band sample at OD and leaves the groove (y>9.875) unchanged; hobbing at final yc reproduces approved floor samples within 0.01 mm (use profile-study approved polar data at y 9.72, 10.92, 13.78 if available); monotonic in depth and yc; allocation-free; shader string contains the patch markers.
+
+Verification: node scripts/manufacturing/cutter_outline.mjs; npx vitest run src/scene/inspection/shaft; npm run typecheck. Gate file lists A1 outline derived and bounded, A2 constants equal report, A3 props built within triangle budgets, A4 progression law tests, A5 typecheck/tests pass. Report changed paths, commands, results, unresolved items.
+REASONING: high
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Specs and claims read. Now reading the source code files.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'src/scene/inspection/shaft/toolSpec.ts'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'scripts/manufacturing/cutter_outline.mjs'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 799ms:
+/**
+ * JG-035 shaft tooling leaf: frozen illustrative tool constants.
+ *
+ * Every value here is copied from the certified G0 clearance-v4 report
+ * (camera/clearance-v4/report.json, schema jgun-g0-clearance/v4-meridian).
+ * tools.test.ts asserts each constant equals the report value, so the report is the
+ * source of truth: change the report first, then mirror it here in the same commit.
+ *
+ * These are illustrative tools compatible with the accepted geometry; no production
+ * tooling specification is claimed.
+ */
+
+/** Repo-relative path to the certified report. Test-only consumer; never read at runtime. */
+export const CLEARANCE_REPORT_PATH =
+  'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json'
+
+// ---- shaper: disc cutter on the legacy grooved blank (report.shaper) ----
+export const SHAPER_TEETH = 20
+export const SHAPER_CENTRE_DISTANCE_MM = 15.5
+/** Signed ratio work/cutter; negative is the external-mesh sense (theta_c = -0.5 * theta_w). */
+export const SHAPER_SIGNED_RATIO = -2
+/** Cutter crest radius; the near edge runs at work root + 5 um stock. */
+export const SHAPER_TIP_RADIUS_MM = 11.2032
+export const SHAPER_THICKNESS_MM = 1.2
+export const SHAPER_STROKE_CENTRE_Y_MIN_MM = 2.17
+export const SHAPER_STROKE_CENTRE_Y_MAX_MM = 9.7749
+export const SHAPER_OVERTRAVEL_MM = 0.5
+export const SHAPER_BACKOFF_MM = 2.0
+export const SHAPER_HUB_RADIUS_MM = 8.0
+export const SHAPER_HUB_LENGTH_MM = 6.0
+export const SHAPER_CLAMP_RADIUS_MM = 9.0
+export const SHAPER_CLAMP_LENGTH_MM = 3.0
+export const SHAPER_ARBOR_RADIUS_MM = 7.0
+export const SHAPER_ARBOR_LENGTH_MM = 12.0
+
+// ---- hob: single-start hob on the revised smooth blank (report.hob) ----
+export const HOB_RADIUS_MM = 5.87
+export const HOB_NORMAL_MODULE_MM = 1.0
+export const HOB_STARTS = 1
+export const HOB_LEAD_ANGLE_DEG = 5.5587
+export const HOB_LENGTH_MM = 16.0
+/** Axial stop position of the fitted envelope (report.hob.stop_yc_mm). */
+export const HOB_STOP_YC_MM = 9.5249
+export const HOB_INFEED_YC_MM = -4.195
+export const HOB_RETRACT_MM = 2.5
+export const HOB_COLLAR_RADIUS_MM = HOB_RADIUS_MM + 1
+export const HOB_COLLAR_WIDTH_MM = 3.0
+export const HOB_ARBOR_RADIUS_MM = HOB_RADIUS_MM - 1.5
+export const HOB_ARBOR_LENGTH_MM = 12.0
+/** Centre distance at full depth = work root + hob radius (report.hob.centre_distance_mm 10.1618). */
+export const HOB_CENTRE_DISTANCE_AT_DEPTH_MM = 4.2918 + HOB_RADIUS_MM
+/** Illustrative thread depth: body root radius meets the spec'd arbor radius R - 1.5. */
+export const HOB_THREAD_DEPTH_MM = HOB_RADIUS_MM - HOB_ARBOR_RADIUS_MM
+/** Single-start lead = pi * m / cos(lead angle). */
+export const HOB_LEAD_MM = (Math.PI * HOB_NORMAL_MODULE_MM) / Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180)
+
+
+ succeeded in 805ms:
+#!/usr/bin/env node
+/**
+ * JG-035 shaft tooling leaf (producer): conjugate shaper-cutter outline.
+ *
+ * Reads the certified meridian profile study (camera/profile-study.json) and derives the
+ * illustrative 20-tooth disc-cutter outline by the conjugate-envelope method, then writes
+ * src/scene/inspection/shaft/cutterOutline.json.
+ *
+ * Node only, no dependencies. Deterministic: no timestamps, no randomness, stable key order.
+ * Read-only on every input; writes only the outline JSON.
+ *
+ * Usage (repo root): node scripts/manufacturing/cutter_outline.mjs
+ */
+import { createHash } from 'node:crypto'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { dirname, join, relative, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const HERE = dirname(fileURLToPath(import.meta.url))
+const REPO = resolve(HERE, '..', '..')
+
+const PROFILE_REL = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
+const OUT_REL = 'src/scene/inspection/shaft/cutterOutline.json'
+const PROFILE_PATH = join(REPO, PROFILE_REL)
+const OUT_PATH = join(REPO, OUT_REL)
+
+// ---- Certified parameters (camera/clearance-v4/report.json + camera/profile-study.json) ----
+const SCHEMA = 'jgun-shaper-cutter-outline/v1'
+const CUTTER_TEETH = 20 // report: shaper.teeth
+const CENTRE_MM = 15.5 // report: shaper.centre_distance_mm
+const SIGNED_RATIO_WORK_OVER_CUTTER = -2 // report: shaper.signed_ratio_work_over_cutter
+const WORK_TEETH = 10 // measured: 36 deg pitch
+const WORK_TIP_MM = 6.0834 // measured legacy face tip radius
+const WORK_ROOT_MM = 4.2918 // measured face root radius
+const CUTTER_TIP_MM = 11.2032 // certified cutter tip radius (== CENTRE - WORK_ROOT - stock)
+const STOCK_MM = 0.005 // shrink the entire tool envelope to leave 5 um radial work stock
+const ROOT_CLEARANCE_MM = 0.15 // cutter valley clearance past the work tip
+const TOOTH_SPAN_DEG = 360 / CUTTER_TEETH // 18
+const ROLL_STEP_DEG = 0.02 // <= 0.02 per spec
+const BIN_DEG = 0.05 // <= 0.05 per spec
+const TOOTH_BINS = Math.round(TOOTH_SPAN_DEG / BIN_DEG) // 360
+
+const TIP_LIMIT_MM = CUTTER_TIP_MM
+const ROOT_LIMIT_MM = CENTRE_MM - WORK_TIP_MM - ROOT_CLEARANCE_MM
+
+const DEG = Math.PI / 180
+
+function fail(message) {
+  process.stderr.write('cutter_outline: ' + message + '\n')
+  process.exit(1)
+}
+
+function main() {
+  const raw = readFileSync(PROFILE_PATH)
+  const digest = createHash('sha256').update(raw).digest('hex')
+  const study = JSON.parse(raw.toString('utf8'))
+
+  const workProfile = study?.profiles?.legacy?.['6.0']
+  if (!Array.isArray(workProfile) || workProfile.length !== 7200) fail('profile-study.json profiles.legacy["6.0"] must contain 7200 radii')
+  const angularStepDeg = Number(study?.angular_step_deg)
+  if (angularStepDeg !== 0.05) fail('angular_step_deg must be 0.05')
+  if (workProfile.some((r) => !Number.isFinite(r) || r <= 0)) fail('work profile contains an invalid radius')
+
+  const samples = workProfile.length
+  const workX = new Float64Array(samples)
+  const workY = new Float64Array(samples)
+  for (let i = 0; i < samples; i++) {
+    const phi = i * angularStepDeg * DEG
+    const r = workProfile[i]
+    workX[i] = r * Math.cos(phi)
+    workY[i] = r * Math.sin(phi)
+  }
+
+  const toothPitchRad = (2 * Math.PI) / CUTTER_TEETH
+  const minRadius = new Float64Array(TOOTH_BINS).fill(Infinity)
+  const rollSteps = Math.round(TOOTH_SPAN_DEG / ROLL_STEP_DEG)
+
+  // Roll one cutter pitch; the family is 2*pi/CUTTER_TEETH periodic in the cutter frame, so the
+  // cutter polar angle is folded into a single tooth before binning.
+  for (let step = 0; step <= rollSteps; step++) {
+    const thetaC = step * ROLL_STEP_DEG * DEG
+    const thetaW = SIGNED_RATIO_WORK_OVER_CUTTER * thetaC
+    const cosW = Math.cos(thetaW)
+    const sinW = Math.sin(thetaW)
+    const cosC = Math.cos(-thetaC)
+    const sinC = Math.sin(-thetaC)
+    for (let i = 0; i < samples; i++) {
+      const fx = CENTRE_MM + workX[i] * cosW - workY[i] * sinW
+      const fy = workX[i] * sinW + workY[i] * cosW
+      const cx = fx * cosC - fy * sinC
+      const cy = fx * sinC + fy * cosC
+      const radius = Math.sqrt(cx * cx + cy * cy)
+      let angle = Math.atan2(cy, cx)
+      if (angle < 0) angle += 2 * Math.PI
+      const folded = angle - Math.floor(angle / toothPitchRad) * toothPitchRad
+      let bin = Math.floor((folded / toothPitchRad) * TOOTH_BINS)
+      if (bin < 0) bin = 0
+      if (bin >= TOOTH_BINS) bin = TOOTH_BINS - 1
+      if (radius < minRadius[bin]) minRadius[bin] = radius
+    }
+  }
+
+  // Fill any empty polar bin by interpolating between populated neighbours.
+  let emptyBefore = 0
+  for (let b = 0; b < TOOTH_BINS; b++) if (!Number.isFinite(minRadius[b])) emptyBefore++
+  if (emptyBefore > 0) {
+    for (let b = 0; b < TOOTH_BINS; b++) {
+      if (Number.isFinite(minRadius[b])) continue
+      let back = 1
+      while (back < TOOTH_BINS && !Number.isFinite(minRadius[(b - back + TOOTH_BINS) % TOOTH_BINS])) back++
+      let fwd = 1
+      while (fwd < TOOTH_BINS && !Number.isFinite(minRadius[(b + fwd) % TOOTH_BINS])) fwd++
+      const a = minRadius[(b - back + TOOTH_BINS) % TOOTH_BINS]
+      const c = minRadius[(b + fwd) % TOOTH_BINS]
+      minRadius[b] = a + (c - a) * (back / (back + fwd))
+    }
+  }
+
+  // Leave stock on the flanks as well as the crest, then clamp to the certified bounds.
+  const points = new Array(TOOTH_BINS)
+  let minOut = Infinity
+  let maxOut = -Infinity
+  for (let b = 0; b < TOOTH_BINS; b++) {
+    let r = minRadius[b] - STOCK_MM
+    if (!Number.isFinite(r)) r = TIP_LIMIT_MM
+    if (r < ROOT_LIMIT_MM) r = ROOT_LIMIT_MM
+    if (r > TIP_LIMIT_MM) r = TIP_LIMIT_MM
+    if (r < minOut) minOut = r
+    if (r > maxOut) maxOut = r
+    const angleRad = b * BIN_DEG * DEG
+    points[b] = [Number(angleRad.toFixed(9)), Number(r.toFixed(6))]
+  }
+
+  const diagnostics = compareToMatchedShaper(study, points)
+
+  const document = {
+    schema: SCHEMA,
+    method: 'conjugate envelope: roll one cutter pitch, fold the cutter polar angle into one tooth, keep the minimum work-material radius per 0.05 deg bin, subtract 0.005 mm radial stock, clamp to the certified envelope',
+    source: { profile_study: PROFILE_REL, sha256: digest, angular_step_deg: angularStepDeg, work_profile: 'profiles.legacy["6.0"]' },
+    parameters: {
+      cutter_teeth: CUTTER_TEETH,
+      work_teeth: WORK_TEETH,
+      centre_distance_mm: CENTRE_MM,
+      signed_ratio_work_over_cutter: SIGNED_RATIO_WORK_OVER_CUTTER,
+      work_tip_radius_mm: WORK_TIP_MM,
+      work_root_radius_mm: WORK_ROOT_MM,
+      cutter_tip_radius_mm: CUTTER_TIP_MM,
+      stock_mm: STOCK_MM,
+      root_clearance_mm: ROOT_CLEARANCE_MM,
+      root_limit_mm: Number(ROOT_LIMIT_MM.toFixed(6)),
+      tip_limit_mm: Number(TIP_LIMIT_MM.toFixed(6)),
+      roll_step_deg: ROLL_STEP_DEG,
+      bin_deg: BIN_DEG,
+    },
+    tooth: { angle_span_deg: TOOTH_SPAN_DEG, point_count: points.length, min_radius_mm: Number(minOut.toFixed(6)), max_radius_mm: Number(maxOut.toFixed(6)), points },
+    diagnostics: { empty_bins_filled: emptyBefore, matched_shaper: diagnostics },
+  }
+
+  writeFileSync(OUT_PATH, JSON.stringify(document, null, 1) + '\n')
+
+  const ds = diagnostics
+  process.stdout.write('cutter_outline: wrote ' + OUT_REL + '\n')
+  process.stdout.write('  profile sha256 ' + digest + '\n')
+  process.stdout.write('  points ' + points.length + ' (span ' + TOOTH_SPAN_DEG + ' deg), radius ' + minOut.toFixed(6) + '..' + maxOut.toFixed(6) + ' mm\n')
+  process.stdout.write('  empty_bins_filled ' + emptyBefore + '\n')
+  if (ds.comparable) {
+    process.stdout.write('  matched_shaper_diagnostics: shift ' + ds.shiftBins + ' bins, max |outline - diag| ' + ds.maxDeviationMm.toFixed(6) + ' mm, rms ' + ds.rmsDeviationMm.toFixed(6) + ' mm (unaligned max ' + ds.unalignedMaxDeviationMm.toFixed(6) + ' mm)\n')
+  } else {
+    process.stdout.write('  matched_shaper_diagnostics: not comparable (' + ds.reason + ')\n')
+  }
+}
+
+// Compare the derived one-tooth outline against the recorded MATCHED_SHAPER profile. The diagnostic
+// is one 0.05 deg polar period of the same cutter, so an integer bin shift aligns the two phases.
+function compareToMatchedShaper(study, points) {
+  const diag = study?.matched_shaper_diagnostics?.[0]?.radii_mm
+  if (!Array.isArray(diag) || diag.length < TOOTH_BINS) return { comparable: false, reason: 'no matched_shaper radii' }
+  const period = new Float64Array(TOOTH_BINS)
+  let finite = 0
+  for (let b = 0; b < TOOTH_BINS; b++) {
+    const v = diag[b]
+    period[b] = Number.isFinite(v) && v > 0 ? v : 0
+    if (period[b] > 0) finite++
+  }
+  if (finite < TOOTH_BINS * 0.5) return { comparable: false, reason: 'matched_shaper radii mostly empty' }
+  const radius = points.map((p) => p[1])
+  let bestShift = 0
+  let bestRms = Infinity
+  for (let shift = 0; shift < TOOTH_BINS; shift++) {
+    let sum = 0
+    for (let b = 0; b < TOOTH_BINS; b++) {
+      const d = radius[(b + shift) % TOOTH_BINS] - period[b]
+      sum += d * d
+    }
+    const rms = Math.sqrt(sum / TOOTH_BINS)
+    if (rms < bestRms) {
+      bestRms = rms
+      bestShift = shift
+    }
+  }
+  let maxDev = 0
+  for (let b = 0; b < TOOTH_BINS; b++) {
+    const d = Math.abs(radius[(b + bestShift) % TOOTH_BINS] - period[b])
+    if (d > maxDev) maxDev = d
+  }
+  let unalignedMax = 0
+  for (let b = 0; b < TOOTH_BINS; b++) {
+    const d = Math.abs(radius[b] - period[b])
+    if (d > unalignedMax) unalignedMax = d
+  }
+  return {
+    comparable: true,
+    shiftBins: bestShift,
+    shift_deg: Number((bestShift * BIN_DEG).toFixed(4)),
+    maxDeviationMm: Number(maxDev.toFixed(6)),
+    rmsDeviationMm: Number(bestRms.toFixed(6)),
+    unalignedMaxDeviationMm: Number(unalignedMax.toFixed(6)),
+  }
+}
+
+main()
+
+
+hook: PostToolUse
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'src/scene/inspection/shaft/progression.ts'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'src/scene/inspection/shaft/tools.ts'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 761ms:
+/**
+ * JG-035 shaft tooling leaf: closed-form machining progression.
+ *
+ * Turns the finished CAD shaft meshes into blank / partial / finished states without CSG.
+ * Everything is a pure function of the state passed in: no accumulators, no clocks, no
+ * randomness, and no allocation in per-frame paths. The same law runs on the CPU
+ * (progressedRadius) and on the GPU (applyProgression -> onBeforeCompile), so seek order
+ * cannot diverge.
+ *
+ * Frame: shaft-local millimetres, +Y is the shaft axis (CAD). The runtime loader performs
+ * exactly one conversion (shaft-local +Y -> glTF -Z); the object-to-shaft matrix handed to
+ * applyProgression maps render-object space back to shaft-local mm, once.
+ */
+import { Matrix3, Matrix4 } from 'three'
+import type { IUniform, Material, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
+
+export type ProgressionMode = 'none' | 'shaping' | 'hobbing'
+export type ProgressionShaft = 'legacy' | 'approved'
+
+export interface ProgressionState {
+  mode: ProgressionMode
+  /** Per tooth-space depth in [0, 1]; 0 = uncut blank stock, 1 = finished tooth space. */
+  spaceDepth: Float32Array
+  /** Tooth-space index currently engaged by the cutter, or -1. */
+  engagedSpace: number
+  /** Depth before the engaged stroke; omitted means a first pass from the uncut blank. */
+  engagedPreviousDepth?: number
+  /** Cutter leading-face y (mm) during the current stroke; material behind it carries the new depth. */
+  edgeY: number
+  /** Hob axial centre y (mm). */
+  hobYc: number
+  /** Hob centre distance (mm). */
+  hobA: number
+  /** Hob envelope radius (mm). */
+  hobR: number
+}
+
+export interface StressOverlay {
+  kind: 'none' | 'warm' | 'cool'
+  mix: number
+  scanProgress: number
+  yMin: number
+  yMax: number
+  rMax: number
+}
+
+// ---- measured shaft geometry (camera/clearance-v4/report.json facts) ----
+export const SHAFT_SPACES = 10
+export const SPACE_PITCH_RAD = (Math.PI * 2) / SHAFT_SPACES
+/**
+ * Azimuth (rad, shaft-local) of the centre of tooth space 0. Recovered by
+ * progression.test.ts from profile-study.json legacy 6.0 polar data: the 10 tooth-tip
+ * centroids sit at 18 deg + 36 deg k, so the space centres sit at 0 + 36 deg k.
+ */
+export const SPACE_CLOCK_RAD = 0
+/** Tooth tip radius = measured OD of the legacy face band. */
+export const SHAFT_OD_MM = 6.083507443359969
+/** Tooth-space floor radius = measured root of the approved face band. */
+export const SHAFT_ROOT_MM = 4.29182859636582
+/** First tooth-space material y (legacy pilot end). */
+export const FACE_START_MM = 3.1749
+/** Legacy last tooth material y: the shaping band ends here. */
+export const SHAPING_FACE_END_MM = 9.875
+/** Approved ramp end y: the hobbing band ends here. */
+export const HOBBING_FACE_END_MM = 13.78
+
+// ---- certified hob tool (report.hob) vs the equivalent meridian floor ----
+export const HOB_CERTIFIED_R_MM = 5.87
+export const HOB_CERTIFIED_LEAD_ANGLE_DEG = 5.5587
+/**
+ * Visual floor: the authored untilted circle R = 6.0 with centre at root + 6.0.
+ * The certified tool is R 5.87 tilted to its lead angle; its equivalent meridian floor
+ * (clearance-v4 ramp fit, max deviation 0.0049 mm) is this untilted circle, so the final
+ * hobbing state equals the approved mesh.
+ */
+export const HOB_VISUAL_R_MM = 6.0
+export const HOB_VISUAL_A_MM = SHAFT_ROOT_MM + HOB_VISUAL_R_MM
+export const HOB_FINAL_YC_MM = 9.5249
+export const HOB_INFEED_YC_MM = -4.195
+export const HOB_RETRACT_MM = 2.5
+
+export function createProgressionState(): ProgressionState {
+  return {
+    mode: 'none',
+    spaceDepth: new Float32Array(SHAFT_SPACES),
+    engagedSpace: -1,
+    edgeY: 0,
+    hobYc: HOB_INFEED_YC_MM,
+    hobA: HOB_VISUAL_A_MM,
+    hobR: HOB_VISUAL_R_MM,
+  }
+}
+
+/** Nearest tooth-space index for a shaft-local azimuth (rad). Allocation-free. */
+export function spaceIndexAt(azimuth: number): number {
+  const raw = Math.round((azimuth - SPACE_CLOCK_RAD) / SPACE_PITCH_RAD) % SHAFT_SPACES
+  const index = raw < 0 ? raw + SHAFT_SPACES : raw
+  return index === 0 ? 0 : index
+}
+
+/** Hobbing meridian floor radius (mm). Allocation-free. */
+export function hobFloorRadius(y: number, hobYc: number, hobA: number, hobR: number): number {
+  if (y <= hobYc) return SHAFT_ROOT_MM
+  if (y < hobYc + hobR) {
+    const dy = y - hobYc
+    const r2 = hobR * hobR - dy * dy
+    return hobA - Math.sqrt(r2 > 0 ? r2 : 0)
+  }
+  return SHAFT_OD_MM
+}
+
+/**
+ * CPU mirror of the vertex-shader law. Returns the progressed radius (mm) for a shaft-local
+ * sample. Pure: depends only on its arguments and never writes to state.
+ *
+ * legacy shaping: only FACE_START <= y <= 9.875 with r < OD; r' = min(OD, r + (1 - depth_i)*(OD - ROOT)).
+ * approved hobbing: only FACE_START <= y <= 13.78; r' = max(r, min(OD, floor(y))).
+ */
+export function progressedRadius(
+  r: number,
+  y: number,
+  azimuth: number,
+  state: ProgressionState,
+  shaft: ProgressionShaft,
+): number {
+  if (state.mode === 'none') return r
+  if (state.mode === 'shaping') {
+    if (shaft !== 'legacy') return r
+    if (y < FACE_START_MM || y > SHAPING_FACE_END_MM || r >= SHAFT_OD_MM) return r
+    const space = spaceIndexAt(azimuth)
+    let depth = state.spaceDepth[space]
+    // The engaged space carries the new depth only behind the cutter's leading face.
+    if (space === state.engagedSpace && y > state.edgeY) depth = state.engagedPreviousDepth ?? 0
+    const value = r + (1 - depth) * (SHAFT_OD_MM - SHAFT_ROOT_MM)
+    return value > SHAFT_OD_MM ? SHAFT_OD_MM : value
+  }
+  if (shaft !== 'approved') return r
+  if (y < FACE_START_MM || y > HOBBING_FACE_END_MM) return r
+  const floor = hobFloorRadius(y, state.hobYc, state.hobA, state.hobR)
+  const clamped = floor > SHAFT_OD_MM ? SHAFT_OD_MM : floor
+  return r > clamped ? r : clamped
+}
+
+// ---- shader patch -------------------------------------------------------------------------
+
+export const PROGRESSION_LAW_MARKER = 'JG-PROGRESSION-LAW-BEGIN'
+export const PROGRESSION_NORMAL_MARKER = 'JG-PROGRESSION-NORMAL-BEGIN'
+export const PROGRESSION_VERTEX_MARKER = 'JG-PROGRESSION-VERTEX-BEGIN'
+export const STRESS_MARKER = 'JG-STRESS-BEGIN'
+
+export interface ProgressionUniforms {
+  uShaftMatrix: IUniform<Matrix4>
+  uShaftInverse: IUniform<Matrix4>
+  uShaftNormalMatrix: IUniform<Matrix3>
+  uProgressionMode: IUniform<number>
+  uShaftKind: IUniform<number>
+  uSpaceDepth: IUniform<Float32Array>
+  uSpacePitch: IUniform<number>
+  uSpaceClock: IUniform<number>
+  uEngagedSpace: IUniform<number>
+  uEngagedPreviousDepth: IUniform<number>
+  uEdgeY: IUniform<number>
+  uHobYc: IUniform<number>
+  uHobA: IUniform<number>
+  uHobR: IUniform<number>
+  uFaceStart: IUniform<number>
+  uFaceEnd: IUniform<number>
+  uShaftOD: IUniform<number>
+  uShaftRoot: IUniform<number>
+  uStressKind: IUniform<number>
+  uStressMix: IUniform<number>
+  uStressScanProgress: IUniform<number>
+  uStressYMin: IUniform<number>
+  uStressYMax: IUniform<number>
+  uStressRMax: IUniform<number>
+}
+
+export function createProgressionUniforms(): ProgressionUniforms {
+  return {
+    uShaftMatrix: { value: new Matrix4() },
+    uShaftInverse: { value: new Matrix4() },
+    uShaftNormalMatrix: { value: new Matrix3() },
+    uProgressionMode: { value: 0 },
+    uShaftKind: { value: 0 },
+    uSpaceDepth: { value: new Float32Array(SHAFT_SPACES) },
+    uSpacePitch: { value: SPACE_PITCH_RAD },
+    uSpaceClock: { value: SPACE_CLOCK_RAD },
+    uEngagedSpace: { value: -1 },
+    uEngagedPreviousDepth: { value: 0 },
+    uEdgeY: { value: 0 },
+    uHobYc: { value: HOB_INFEED_YC_MM },
+    uHobA: { value: HOB_VISUAL_A_MM },
+    uHobR: { value: HOB_VISUAL_R_MM },
+    uFaceStart: { value: FACE_START_MM },
+    uFaceEnd: { value: SHAPING_FACE_END_MM },
+    uShaftOD: { value: SHAFT_OD_MM },
+    uShaftRoot: { value: SHAFT_ROOT_MM },
+    uStressKind: { value: 0 },
+    uStressMix: { value: 0 },
+    uStressScanProgress: { value: 0 },
+    uStressYMin: { value: 0 },
+    uStressYMax: { value: 0 },
+    uStressRMax: { value: SHAFT_OD_MM },
+  }
+}
+
+/** Set the object-to-shaft-local matrix once per mesh (or per frame if the object moves). */
+export function setShaftTransform(uniforms: ProgressionUniforms, objectToShaft: Matrix4): void {
+  uniforms.uShaftMatrix.value.copy(objectToShaft)
+  uniforms.uShaftInverse.value.copy(objectToShaft).invert()
+  uniforms.uShaftNormalMatrix.value.getNormalMatrix(uniforms.uShaftInverse.value)
+}
+
+const MODE_VALUE: Readonly<Record<ProgressionMode, number>> = { none: 0, shaping: 1, hobbing: 2 }
+const STRESS_VALUE: Readonly<Record<StressOverlay['kind'], number>> = { none: 0, warm: 1, cool: 2 }
+
+/** Write the per-frame progression uniforms in place (no allocation). */
+export function writeProgressionUniforms(
+  uniforms: ProgressionUniforms,
+  state: ProgressionState,
+  shaft?: ProgressionShaft,
+): void {
+  const resolved: ProgressionShaft = shaft ?? (state.mode === 'hobbing' ? 'approved' : 'legacy')
+  uniforms.uProgressionMode.value = MODE_VALUE[state.mode]
+  uniforms.uShaftKind.value = resolved === 'approved' ? 1 : 0
+  uniforms.uFaceEnd.value = resolved === 'approved' ? HOBBING_FACE_END_MM : SHAPING_FACE_END_MM
+  const depth = uniforms.uSpaceDepth.value
+  const source = state.spaceDepth
+  for (let i = 0; i < SHAFT_SPACES; i++) depth[i] = source[i]
+  uniforms.uEngagedSpace.value = state.engagedSpace
+  uniforms.uEngagedPreviousDepth.value = state.engagedPreviousDepth ?? 0
+  uniforms.uEdgeY.value = state.edgeY
+  uniforms.uHobYc.value = state.hobYc
+  uniforms.uHobA.value = state.hobA
+  uniforms.uHobR.value = state.hobR
+}
+
+/** Write the stress-overlay uniforms in place (no allocation). */
+export function writeStressUniforms(uniforms: ProgressionUniforms, stress: StressOverlay): void {
+  uniforms.uStressKind.value = STRESS_VALUE[stress.kind]
+  uniforms.uStressMix.value = stress.mix
+  uniforms.uStressScanProgress.value = stress.scanProgress
+  uniforms.uStressYMin.value = stress.yMin
+  uniforms.uStressYMax.value = stress.yMax
+  uniforms.uStressRMax.value = stress.rMax
+}
+
+const VERTEX_COMMON = /* glsl */ `
+uniform mat4 uShaftMatrix;
+uniform mat4 uShaftInverse;
+uniform mat3 uShaftNormalMatrix;
+uniform float uProgressionMode;
+uniform float uShaftKind;
+uniform float uSpaceDepth[10];
+uniform float uSpacePitch;
+uniform float uSpaceClock;
+uniform float uEngagedSpace;
+uniform float uEngagedPreviousDepth;
+uniform float uEdgeY;
+uniform float uHobYc;
+uniform float uHobA;
+uniform float uHobR;
+uniform float uFaceStart;
+uniform float uFaceEnd;
+uniform float uShaftOD;
+uniform float uShaftRoot;
+varying vec3 vShaftLocal;
+// ${PROGRESSION_LAW_MARKER}
+float jgEffectiveMode() {
+  if (uProgressionMode > 1.5) return uShaftKind > 0.5 ? 2.0 : 0.0;
+  if (uProgressionMode > 0.5) return uShaftKind < 0.5 ? 1.0 : 0.0;
+  return 0.0;
+}
+float jgProgressedRadius(vec3 jgLocal, out float jgClamped) {
+  float jgRadius = length(jgLocal.xz);
+  float jgNew = jgRadius;
+  jgClamped = 0.0;
+  float jgMode = jgEffectiveMode();
+  if (jgMode > 0.5 && jgLocal.y >= uFaceStart && jgLocal.y <= uFaceEnd) {
+    if (jgMode < 1.5) {
+      if (jgRadius < uShaftOD) {
+        // atan(0, 0) is undefined in GLSL; use the CPU atan2(0, 0) convention (+X).
+        float jgAngle = jgRadius > 0.0 ? atan(jgLocal.z, jgLocal.x) : 0.0;
+        float jgSpace = mod(floor((jgAngle - uSpaceClock) / uSpacePitch + 0.5), 10.0);
+        float jgDepth = uSpaceDepth[int(jgSpace)];
+        if (abs(uEngagedSpace - jgSpace) < 0.5 && jgLocal.y > uEdgeY) jgDepth = uEngagedPreviousDepth;
+        jgNew = min(uShaftOD, jgRadius + (1.0 - jgDepth) * (uShaftOD - uShaftRoot));
+      }
+    } else {
+      float jgFloor = uShaftOD;
+      if (jgLocal.y <= uHobYc) {
+        jgFloor = uShaftRoot;
+      } else if (jgLocal.y < uHobYc + uHobR) {
+        float jgDy = jgLocal.y - uHobYc;
+        jgFloor = uHobA - sqrt(max(0.0, uHobR * uHobR - jgDy * jgDy));
+      }
+      jgNew = max(jgRadius, min(uShaftOD, jgFloor));
+    }
+    // Preserve original normals in the finished state and on untouched journal/tip vertices.
+    if (jgNew > jgRadius + 0.000001 && jgNew > uShaftOD - 0.0001) jgClamped = 1.0;
+  }
+  return jgNew;
+}
+`
+
+const FRAGMENT_COMMON = /* glsl */ `
+uniform float uStressKind;
+uniform float uStressMix;
+uniform float uStressScanProgress;
+uniform float uStressYMin;
+uniform float uStressYMax;
+uniform float uStressRMax;
+varying vec3 vShaftLocal;
+`
+
+const NORMAL_CHUNK = /* glsl */ `
+#include <beginnormal_vertex>
+// ${PROGRESSION_NORMAL_MARKER}
+{
+  vec4 jgNormalLocal = uShaftMatrix * vec4(position, 1.0);
+  float jgNormalClamp;
+  jgProgressedRadius(jgNormalLocal.xyz, jgNormalClamp);
+  if (jgNormalClamp > 0.5) {
+    vec3 jgRadialLocal = length(jgNormalLocal.xz) > 0.0
+      ? normalize(vec3(jgNormalLocal.x, 0.0, jgNormalLocal.z)) : vec3(1.0, 0.0, 0.0);
+    vec3 jgRadialObject = normalize(uShaftNormalMatrix * jgRadialLocal);
+    objectNormal = normalize(mix(objectNormal, jgRadialObject, jgNormalClamp));
+  }
+}
+`
+
+const VERTEX_CHUNK = /* glsl */ `
+// ${PROGRESSION_VERTEX_MARKER}
+vec4 jgLocal4 = uShaftMatrix * vec4(position, 1.0);
+float jgClamp;
+float jgNewRadius = jgProgressedRadius(jgLocal4.xyz, jgClamp);
+float jgOldRadius = length(jgLocal4.xz);
+float jgScale = jgOldRadius > 0.0 ? jgNewRadius / jgOldRadius : 1.0;
+vec3 jgLocalNew = jgOldRadius > 0.0
+  ? vec3(jgLocal4.x * jgScale, jgLocal4.y, jgLocal4.z * jgScale)
+  : vec3(jgNewRadius, jgLocal4.y, 0.0);
+vShaftLocal = jgLocalNew;
+vec3 transformed = (uShaftInverse * vec4(jgLocalNew, 1.0)).xyz;
+`
+
+const STRESS_CHUNK = /* glsl */ `
+#include <emissivemap_fragment>
+// ${STRESS_MARKER}
+if (uStressKind > 0.5 && uStressMix > 0.001) {
+  float jgStressInBand = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
+  float jgStressRadius = length(vShaftLocal.xz);
+  float jgStressInR = (1.0 - step(uStressRMax, jgStressRadius)) * step(0.0001, jgStressRadius);
+  float jgStressEdge = mix(uStressYMin, uStressYMax, clamp(uStressScanProgress, 0.0, 1.0));
+  float jgStressScanned = 1.0 - smoothstep(jgStressEdge - 0.05, jgStressEdge + 0.05, vShaftLocal.y);
+  float jgStressMask = jgStressInBand * jgStressInR * jgStressScanned * clamp(uStressMix, 0.0, 1.0);
+  vec3 jgStressTint = uStressKind < 1.5 ? vec3(1.0, 0.42, 0.16) : vec3(0.18, 0.72, 0.95);
+  totalEmissiveRadiance += jgStressTint * jgStressMask * 0.35;
+}
+`
+
+/**
+ * Patch a standard/physical material with the progression law and stress overlay.
+ *
+ * The caller owns the `uniforms` object (createProgressionUniforms), updates it each frame
+ * with writeProgressionUniforms/writeStressUniforms, and disposes the material. This takes
+ * ownership of material.onBeforeCompile.
+ */
+export function applyProgression(
+  material: MeshStandardMaterial | MeshPhysicalMaterial,
+  uniforms: ProgressionUniforms,
+): Material {
+  material.onBeforeCompile = (shader) => {
+    for (const key of Object.keys(uniforms) as (keyof ProgressionUniforms)[]) {
+      shader.uniforms[key] = uniforms[key]
+    }
+    shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\n' + VERTEX_COMMON)
+      .replace('#include <beginnormal_vertex>', NORMAL_CHUNK)
+      .replace('#include <begin_vertex>', VERTEX_CHUNK)
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <common>', '#include <common>\n' + FRAGMENT_COMMON)
+      .replace('#include <emissivemap_fragment>', STRESS_CHUNK)
+  }
+  material.customProgramCacheKey = () => 'jgun-shaft-progression-v2'
+  material.needsUpdate = true
+  return material
+}
+
+
+hook: PostToolUse
+ succeeded in 1283ms:
+/**
+ * JG-035 shaft tooling leaf: illustrative shaper cutter and hob props.
+ *
+ * Both builders return a Group in metres, centred on the tool's own axis, with the axis
+ * documented below. Materials are supplied by the caller (steel instances) and are never
+ * disposed here; dispose() releases only the geometry this module creates.
+ *
+ *   buildShaperCutter - cutter axis parallel to the shaft axis (local +Y). The disc is one
+ *     20-tooth ExtrudeGeometry (depth 1.2 mm) from cutterOutline.json; the trailing stack is
+ *     hub, clamp nut then arbor along -Y, so the leading (+Y) face stays clear of the cut.
+ *   buildHob - hob axis is the group's local +Y; the root quaternion points it along the
+ *     clearance-v4 axis (cos(lead), sin(lead), 0) in the shaft-local CAD frame, i.e. perpendicular
+ *     to the shaft axis and tilted by the lead angle. Collars and arbor are coaxial.
+ */
+import {
+  BufferGeometry,
+  CylinderGeometry,
+  ExtrudeGeometry,
+  Group,
+  InstancedMesh,
+  Matrix4,
+  Mesh,
+  Object3D,
+  Quaternion,
+  Shape,
+  Vector3,
+} from 'three'
+import type { Material } from 'three'
+import outlineData from './cutterOutline.json'
+import {
+  HOB_ARBOR_LENGTH_MM,
+  HOB_ARBOR_RADIUS_MM,
+  HOB_COLLAR_RADIUS_MM,
+  HOB_COLLAR_WIDTH_MM,
+  HOB_LEAD_ANGLE_DEG,
+  HOB_LEAD_MM,
+  HOB_LENGTH_MM,
+  HOB_RADIUS_MM,
+  HOB_THREAD_DEPTH_MM,
+  SHAPER_ARBOR_LENGTH_MM,
+  SHAPER_ARBOR_RADIUS_MM,
+  SHAPER_CLAMP_LENGTH_MM,
+  SHAPER_CLAMP_RADIUS_MM,
+  SHAPER_HUB_LENGTH_MM,
+  SHAPER_HUB_RADIUS_MM,
+  SHAPER_TEETH,
+  SHAPER_THICKNESS_MM,
+} from './toolSpec'
+
+const MM = 1e-3
+const DEG = Math.PI / 180
+/** Points kept per tooth when triangulating the shaper disc; the file keeps the full 0.05 deg polyline. */
+const SHAPE_POINTS_PER_TOOTH = 90
+/** Trapezoid thread instances per helix turn (5 deg of cutter rotation each). */
+const HOB_INSTANCES_PER_TURN = 72
+const HOB_GASH_COUNT = 10
+const HOB_GASH_HALF_WIDTH_DEG = 3
+const Y_AXIS = new Vector3(0, 1, 0)
+
+interface CutterOutlineFile {
+  schema: string
+  tooth: { angle_span_deg: number; point_count: number; min_radius_mm: number; max_radius_mm: number; points: number[][] }
+}
+
+const OUTLINE = outlineData as unknown as CutterOutlineFile
+
+export interface ShaperCutter {
+  readonly root: Group
+  /** Rake-face point at the cutter crest on the leading (+Y) face, in the root's local metre frame. */
+  readonly cuttingEdgeLocal: Vector3
+  dispose(): void
+}
+
+export interface HobProp {
+  readonly root: Group
+  dispose(): void
+}
+
+/** Keep every stride-th outline point, always preserving index 0. */
+function decimateTooth(points: number[][], target: number): number[][] {
+  const stride = Math.max(1, Math.ceil(points.length / target))
+  const kept: number[][] = []
+  for (let i = 0; i < points.length; i += stride) kept.push(points[i])
+  if (kept[kept.length - 1] !== points[points.length - 1]) kept.push(points[points.length - 1])
+  return kept
+}
+
+export function buildShaperCutter(material: Material): ShaperCutter {
+  const root = new Group()
+  root.name = 'shaper-cutter'
+
+  const span = OUTLINE.tooth.angle_span_deg
+  const tooth = decimateTooth(OUTLINE.tooth.points, SHAPE_POINTS_PER_TOOTH)
+  const shape = new Shape()
+  let tipRadius = 0
+  let tipAngle = 0
+  for (let t = 0; t < SHAPER_TEETH; t++) {
+    for (let i = 0; i < tooth.length; i++) {
+      const angle = tooth[i][0] + t * span * DEG
+      const radius = tooth[i][1]
+      const x = radius * Math.cos(angle)
+      const y = radius * Math.sin(angle)
+      if (t === 0 && i === 0) shape.moveTo(x, y)
+      else shape.lineTo(x, y)
+      if (radius > tipRadius) {
+        tipRadius = radius
+        tipAngle = angle
+      }
+    }
+  }
+  shape.closePath()
+
+  const discGeometry = new ExtrudeGeometry(shape, { depth: SHAPER_THICKNESS_MM, bevelEnabled: false, steps: 1, curveSegments: 1 })
+  // Certified stroke positions are disc-centre positions; the leading face is +thickness/2.
+  discGeometry.translate(0, 0, -SHAPER_THICKNESS_MM / 2)
+  discGeometry.rotateX(-Math.PI / 2)
+  discGeometry.scale(MM, MM, MM)
+  const disc = new Mesh(discGeometry, material)
+  disc.name = 'shaper-cutter-disc'
+  root.add(disc)
+
+  const trailing = [
+    { name: 'shaper-hub', radius: SHAPER_HUB_RADIUS_MM, length: SHAPER_HUB_LENGTH_MM, y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM / 2 },
+    {
+      name: 'shaper-clamp-nut',
+      radius: SHAPER_CLAMP_RADIUS_MM,
+      length: SHAPER_CLAMP_LENGTH_MM,
+      y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM - SHAPER_CLAMP_LENGTH_MM / 2,
+    },
+    {
+      name: 'shaper-arbor',
+      radius: SHAPER_ARBOR_RADIUS_MM,
+      length: SHAPER_ARBOR_LENGTH_MM,
+      y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM - SHAPER_CLAMP_LENGTH_MM - SHAPER_ARBOR_LENGTH_MM / 2,
+    },
+  ]
+  const geometries: BufferGeometry[] = [discGeometry]
+  for (const part of trailing) {
+    const geometry = new CylinderGeometry(part.radius * MM, part.radius * MM, part.length * MM, 24, 1, false)
+    geometries.push(geometry)
+    const mesh = new Mesh(geometry, material)
+    mesh.name = part.name
+    mesh.position.y = part.y * MM
+    root.add(mesh)
+  }
+
+  const cuttingEdgeLocal = new Vector3(
+    tipRadius * MM * Math.cos(tipAngle),
+    SHAPER_THICKNESS_MM / 2 * MM,
+    -tipRadius * MM * Math.sin(tipAngle),
+  )
+
+  return { root, cuttingEdgeLocal, dispose: makeDisposer(geometries) }
+}
+
+export function buildHob(material: Material): HobProp {
+  const root = new Group()
+  root.name = 'hob'
+  const geometries: BufferGeometry[] = []
+
+  const bodyRadius = HOB_RADIUS_MM - HOB_THREAD_DEPTH_MM
+  const bodyGeometry = new CylinderGeometry(bodyRadius * MM, bodyRadius * MM, HOB_LENGTH_MM * MM, 32, 1, false)
+  geometries.push(bodyGeometry)
+  const body = new Mesh(bodyGeometry, material)
+  body.name = 'hob-body'
+  root.add(body)
+
+  const collarGeometry = new CylinderGeometry(HOB_COLLAR_RADIUS_MM * MM, HOB_COLLAR_RADIUS_MM * MM, HOB_COLLAR_WIDTH_MM * MM, 24, 1, false)
+  geometries.push(collarGeometry)
+  for (const sign of [-1, 1]) {
+    const collar = new Mesh(collarGeometry, material)
+    collar.name = sign < 0 ? 'hob-collar-drive' : 'hob-collar-free'
+    collar.position.y = sign * (HOB_LENGTH_MM / 2 + HOB_COLLAR_WIDTH_MM / 2) * MM
+    root.add(collar)
+  }
+
+  const arborGeometry = new CylinderGeometry(HOB_ARBOR_RADIUS_MM * MM, HOB_ARBOR_RADIUS_MM * MM, HOB_ARBOR_LENGTH_MM * MM, 24, 1, false)
+  geometries.push(arborGeometry)
+  const arbor = new Mesh(arborGeometry, material)
+  arbor.name = 'hob-arbor'
+  arbor.position.y = (HOB_LENGTH_MM / 2 + HOB_COLLAR_WIDTH_MM + HOB_ARBOR_LENGTH_MM / 2) * MM
+  root.add(arbor)
+
+  // Single-start helical thread approximated by trapezoid instances placed along the helix.
+  const axialHalfRoot = HOB_LEAD_MM * 0.25
+  const axialHalfCrest = Math.max(0.05, axialHalfRoot - HOB_THREAD_DEPTH_MM * 0.2)
+  const tangentialWidth = (HOB_RADIUS_MM * 2 * Math.PI) / HOB_INSTANCES_PER_TURN
+  // A tangential extrusion otherwise puts crest corners outside the certified cylinder.
+  const crestRadius = Math.sqrt(HOB_RADIUS_MM ** 2 - (tangentialWidth / 2) ** 2)
+  const threadShape = new Shape()
+  threadShape.moveTo(bodyRadius, -axialHalfRoot)
+  threadShape.lineTo(crestRadius, -axialHalfCrest)
+  threadShape.lineTo(crestRadius, axialHalfCrest)
+  threadShape.lineTo(bodyRadius, axialHalfRoot)
+  threadShape.closePath()
+  const threadGeometry = new ExtrudeGeometry(threadShape, { depth: tangentialWidth, bevelEnabled: false, steps: 1, curveSegments: 1 })
+  threadGeometry.translate(0, 0, -tangentialWidth / 2)
+  threadGeometry.scale(MM, MM, MM)
+  geometries.push(threadGeometry)
+
+  const yPositions: number[] = []
+  const angles: number[] = []
+  const gashCentres = new Float64Array(HOB_GASH_COUNT)
+  for (let g = 0; g < HOB_GASH_COUNT; g++) gashCentres[g] = (360 / HOB_GASH_COUNT) * g
+  for (let i = 0; ; i++) {
+    // Keep the complete trapezoid inside the certified 16 mm axial cutting-body span.
+    const y = -HOB_LENGTH_MM / 2 + axialHalfRoot + (i / HOB_INSTANCES_PER_TURN) * HOB_LEAD_MM
+    if (y + axialHalfRoot > HOB_LENGTH_MM / 2 + 1e-9) break
+    const deg = (i % HOB_INSTANCES_PER_TURN) * (360 / HOB_INSTANCES_PER_TURN)
+    let gash = false
+    for (let g = 0; g < HOB_GASH_COUNT; g++) {
+      const delta = Math.abs(deg - gashCentres[g])
+      if (Math.min(delta, 360 - delta) <= HOB_GASH_HALF_WIDTH_DEG) {
+        gash = true
+        break
+      }
+    }
+    if (gash) continue
+    yPositions.push(y)
+    angles.push((i % HOB_INSTANCES_PER_TURN) * (2 * Math.PI / HOB_INSTANCES_PER_TURN))
+  }
+
+  const thread = new InstancedMesh(threadGeometry, material, yPositions.length)
+  thread.name = 'hob-thread'
+  const matrix = new Matrix4()
+  const quaternion = new Quaternion()
+  const position = new Vector3()
+  const scale = new Vector3(1, 1, 1)
+  for (let k = 0; k < yPositions.length; k++) {
+    quaternion.setFromAxisAngle(Y_AXIS, angles[k])
+    position.set(0, yPositions[k] * MM, 0)
+    matrix.compose(position, quaternion, scale)
+    thread.setMatrixAt(k, matrix)
+  }
+  thread.instanceMatrix.needsUpdate = true
+  root.add(thread)
+
+  // Ten axial gashes: the thread instances are omitted inside each window, so the smooth body
+  // reads as the flute floor. Named anchors keep the gash phase available downstream.
+  for (let g = 0; g < HOB_GASH_COUNT; g++) {
+    const anchor = new Object3D()
+    anchor.name = 'hob-gash-' + g
+    anchor.rotation.y = (2 * Math.PI / HOB_GASH_COUNT) * g
+    root.add(anchor)
+  }
+
+  // Hob axis = perpendicular to the shaft axis, tilted by the lead angle (clearance-v4 axis).
+  const axis = new Vector3(Math.cos(HOB_LEAD_ANGLE_DEG * DEG), Math.sin(HOB_LEAD_ANGLE_DEG * DEG), 0).normalize()
+  root.quaternion.setFromUnitVectors(Y_AXIS, axis)
+
+  const disposeGeometry = makeDisposer(geometries)
+  let disposed = false
+  return { root, dispose() {
+    if (disposed) return
+    disposed = true
+    thread.dispose()
+    disposeGeometry()
+  } }
+}
+
+/** Triangle count for a prop, counting InstancedMesh instances. */
+export function countTriangles(object: Object3D): number {
+  let total = 0
+  object.traverse((child) => {
+    const mesh = child as Mesh
+    const geometry = mesh.geometry as BufferGeometry | undefined
+    if (!geometry) return
+    const index = geometry.getIndex()
+    const position = geometry.getAttribute('position')
+    const vertices = index ? index.count : position ? position.count : 0
+    const instances = (child as InstancedMesh).isInstancedMesh ? (child as InstancedMesh).count : 1
+    total += Math.floor(vertices / 3) * instances
+  })
+  return total
+}
+
+/** Idempotent geometry disposer: repeated calls never re-dispose. */
+function makeDisposer(geometries: BufferGeometry[]): () => void {
+  const seen = new Set<BufferGeometry>()
+  return () => {
+    for (const geometry of geometries) {
+      if (seen.has(geometry)) continue
+      seen.add(geometry)
+      geometry.dispose()
+    }
+  }
+}
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Now verifying the certified report numbers, outline JSON structure, and source hash independently.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "node -e \"\\nconst fs = require('fs');\\nconst rp = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json';\\nconst report = JSON.parse(fs.readFileSync(rp, 'utf8'));\\nconst pick = (o, keys) => Object.fromEntries(keys.filter(k => k in o).map(k => [k, o[k]]));\\nconsole.log('report top keys:', Object.keys(report).join(','));\\nconsole.log('shaper:', JSON.stringify(report.shaper, null, 1));\\nconsole.log('hob:', JSON.stringify(report.hob, null, 1));\\nconst co = JSON.parse(fs.readFileSync('src/scene/inspection/shaft/cutterOutline.json', 'utf8'));\\nconsole.log('outline schema:', co.schema);\\nconsole.log('outline source:', JSON.stringify(co.source));\\nconsole.log('outline params:', JSON.stringify(co.parameters));\\nconsole.log('tooth meta:', JSON.stringify({...co.tooth, points: co.tooth.points.length + ' points'}));\\nconst radii = co.tooth.points.map(p => p[1]);\\nconsole.log('radius min/max:', Math.min(...radii).toFixed(6), Math.max(...radii).toFixed(6));\\nconsole.log('first/last point:', JSON.stringify(co.tooth.points[0]), JSON.stringify(co.tooth.points[co.tooth.points.length-1]));\\nconsole.log('angles sorted ascending:', co.tooth.points.every((p,i,a) => i===0 || p[0] > a[i-1][0]));\\nconsole.log('diagnostics:', JSON.stringify(co.diagnostics));\\nconst h = require('crypto').createHash('sha256').update(fs.readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json')).digest('hex');\\nconsole.log('profile-study.json sha256 (live):', h);\\nconsole.log('hash matches outline metadata:', h === co.source.sha256);\\n\"" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 5247ms:
+[eval]:1
+(crypto=>{{\nconst fs = require('fs');\nconst rp = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json';\nconst report = JSON.parse(fs.readFileSync(rp, 'utf8'));\nconst pick = (o, keys) => Object.fromEntries(keys.filter(k => k in o).map(k => [k, o[k]]));\nconsole.log('report top keys:', Object.keys(report).join(','));\nconsole.log('shaper:', JSON.stringify(report.shaper, null, 1));\nconsole.log('hob:', JSON.stringify(report.hob, null, 1));\nconst co = JSON.parse(fs.readFileSync('src/scene/inspection/shaft/cutterOutline.json', 'utf8'));\nconsole.log('outline schema:', co.schema);\nconsole.log('outline source:', JSON.stringify(co.source));\nconsole.log('outline params:', JSON.stringify(co.parameters));\nconsole.log('tooth meta:', JSON.stringify({...co.tooth, points: co.tooth.points.length + ' points'}));\nconst radii = co.tooth.points.map(p => p[1]);\nconsole.log('radius min/max:', Math.min(...radii).toFixed(6), Math.max(...radii).toFixed(6));\nconsole.log('first/last point:', JSON.stringify(co.tooth.points[0]), JSON.stringify(co.tooth.points[co.tooth.points.length-1]));\nconsole.log('angles sorted ascending:', co.tooth.points.every((p,i,a) => i===0 || p[0] > a[i-1][0]));\nconsole.log('diagnostics:', JSON.stringify(co.diagnostics));\nconst h = require('crypto').createHash('sha256').update(fs.readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json')).digest('hex');\nconsole.log('profile-study.json sha256 (live):', h);\nconsole.log('hash matches outline metadata:', h === co.source.sha256);\n}})(require('node:crypto'))
+           ^
+Expected unicode escape
+
+SyntaxError: Invalid or unexpected token
+    at makeContextifyScript (node:internal/vm:185:14)
+    at compileScript (node:internal/process/execution:383:10)
+    at evalTypeScript (node:internal/process/execution:256:22)
+    at node:internal/main/eval_string:74:3
+
+Node.js v22.23.2
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+PowerShell mangled the multiline `-e`. Piping via stdin instead.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@'
+const fs = require('fs');
+const rp = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/report.json';
+const report = JSON.parse(fs.readFileSync(rp, 'utf8'));
+console.log('report top keys:', Object.keys(report).join(','));
+console.log('shaper:', JSON.stringify(report.shaper));
+console.log('hob:', JSON.stringify(report.hob));
+const co = JSON.parse(fs.readFileSync('src/scene/inspection/shaft/cutterOutline.json', 'utf8'));
+console.log('outline schema:', co.schema);
+console.log('outline source:', JSON.stringify(co.source));
+console.log('outline params:', JSON.stringify(co.parameters));
+console.log('tooth meta:', JSON.stringify({span: co.tooth.angle_span_deg, count: co.tooth.point_count, min: co.tooth.min_radius_mm, max: co.tooth.max_radius_mm}));
+const radii = co.tooth.points.map(p => p[1]);
+console.log('actual radius min/max:', Math.min(...radii).toFixed(6), Math.max(...radii).toFixed(6));
+console.log('angles strictly ascending:', co.tooth.points.every((p,i,a) => i===0 || p[0] > a[i-1][0]));
+console.log('diagnostics:', JSON.stringify(co.diagnostics));
+const h = require('crypto').createHash('sha256').update(fs.readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json')).digest('hex');
+console.log('profile-study.json sha256 (live):', h);
+console.log('hash matches outline metadata:', h === co.source.sha256);
+'@ | node -" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1212ms:
+report top keys: schema,generated_utc,command,source,method,facts,shaper,hob,error_budget_mm,pairs,verdict
+shaper: {"shaft":"SHAFT_P001835_ORIG (legacy grooved blank)","teeth":20,"centre_distance_mm":15.5,"signed_ratio_work_over_cutter":-2,"tip_radius_mm":11.203199999999999,"thickness_mm":1.2,"stroke_centre_y_mm":[2.17,9.7749],"overtravel_past_last_stub_mm":0.5,"return_backoff_mm":2,"holders_radius_length_mm":{"hub":[8,6],"clamp_nut":[9,3],"arbor":[7,12]},"note":"Generating fit (conjugate profile) from camera/profile-study: MATCHED_SHAPER N=20 C=15.5. Backoff exaggerated for legibility; illustrative."}
+hob: {"shaft":"revised smooth blank, approved journal side","starts":1,"module_mm":1,"R_mm":5.87,"stop_yc_mm":9.5249,"lead_angle_deg":5.5587,"max_abs_dev_mm":0.004861622932300413,"rms_dev_mm":0.0036269702635484853,"max_overcut_mm":0.004861622932300413,"max_undercut_mm":0,"stations":426,"centre_distance_mm":10.1618,"length_mm":16,"collar_radius_mm":6.869999999999998,"arbor_radius_mm":4.369999999999998,"path":"infeed radial at yc=-4.195; feed +Y at full depth to yc=9.5249; retract 2.5 mm radial; withdraw -Y"}
+outline schema: jgun-shaper-cutter-outline/v1
+outline source: {"profile_study":"project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json","sha256":"4fe9092c39d20cdd2e32bd96ba99d71404d14c42788922653ac9ec6c3669a12a","angular_step_deg":0.05,"work_profile":"profiles.legacy[\"6.0\"]"}
+outline params: {"cutter_teeth":20,"work_teeth":10,"centre_distance_mm":15.5,"signed_ratio_work_over_cutter":-2,"work_tip_radius_mm":6.0834,"work_root_radius_mm":4.2918,"cutter_tip_radius_mm":11.2032,"stock_mm":0.005,"root_clearance_mm":0.15,"root_limit_mm":9.2666,"tip_limit_mm":11.2032,"roll_step_deg":0.02,"bin_deg":0.05}
+tooth meta: {"span":18,"count":360,"min":9.411633,"max":11.200975}
+actual radius min/max: 9.411633 11.200975
+angles strictly ascending: true
+diagnostics: {"empty_bins_filled":0,"matched_shaper":{"comparable":true,"shiftBins":180,"shift_deg":9,"maxDeviationMm":0.071354,"rmsDeviationMm":0.010817,"unalignedMaxDeviationMm":1.78972}}
+profile-study.json sha256 (live): 4fe9092c39d20cdd2e32bd96ba99d71404d14c42788922653ac9ec6c3669a12a
+hash matches outline metadata: true
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Report numbers all line up with `toolSpec.ts` and the outline parameters. Now auditing the test files.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'src/scene/inspection/shaft/tools.test.ts'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'src/scene/inspection/shaft/progression.test.ts'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1007ms:
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { describe, expect, it } from 'vitest'
+import { createHash } from 'node:crypto'
+import { BufferGeometry, InstancedMesh, Matrix4, Mesh, MeshStandardMaterial, Vector3 } from 'three'
+import outline from './cutterOutline.json'
+import { buildHob, buildShaperCutter, countTriangles } from './tools'
+import {
+  CLEARANCE_REPORT_PATH,
+  HOB_ARBOR_RADIUS_MM,
+  HOB_ARBOR_LENGTH_MM,
+  HOB_CENTRE_DISTANCE_AT_DEPTH_MM,
+  HOB_COLLAR_RADIUS_MM,
+  HOB_COLLAR_WIDTH_MM,
+  HOB_INFEED_YC_MM,
+  HOB_LEAD_ANGLE_DEG,
+  HOB_LEAD_MM,
+  HOB_LENGTH_MM,
+  HOB_NORMAL_MODULE_MM,
+  HOB_RADIUS_MM,
+  HOB_RETRACT_MM,
+  HOB_STARTS,
+  HOB_STOP_YC_MM,
+  SHAPER_ARBOR_LENGTH_MM,
+  SHAPER_ARBOR_RADIUS_MM,
+  SHAPER_BACKOFF_MM,
+  SHAPER_CENTRE_DISTANCE_MM,
+  SHAPER_CLAMP_LENGTH_MM,
+  SHAPER_CLAMP_RADIUS_MM,
+  SHAPER_HUB_LENGTH_MM,
+  SHAPER_HUB_RADIUS_MM,
+  SHAPER_OVERTRAVEL_MM,
+  SHAPER_SIGNED_RATIO,
+  SHAPER_STROKE_CENTRE_Y_MAX_MM,
+  SHAPER_STROKE_CENTRE_Y_MIN_MM,
+  SHAPER_TEETH,
+  SHAPER_THICKNESS_MM,
+  SHAPER_TIP_RADIUS_MM,
+} from './toolSpec'
+
+interface Report {
+  shaper: Record<string, unknown>
+  hob: Record<string, unknown>
+}
+
+const report = JSON.parse(readFileSync(resolve(process.cwd(), CLEARANCE_REPORT_PATH), 'utf8')) as Report
+
+describe('toolSpec mirrors the certified clearance-v4 report', () => {
+  it('matches report.shaper exactly', () => {
+    expect(report.shaper.teeth).toBe(SHAPER_TEETH)
+    expect(report.shaper.centre_distance_mm).toBe(SHAPER_CENTRE_DISTANCE_MM)
+    expect(report.shaper.signed_ratio_work_over_cutter).toBe(SHAPER_SIGNED_RATIO)
+    expect(report.shaper.tip_radius_mm).toBeCloseTo(SHAPER_TIP_RADIUS_MM, 9)
+    expect(report.shaper.thickness_mm).toBeCloseTo(SHAPER_THICKNESS_MM, 9)
+    expect(report.shaper.stroke_centre_y_mm).toEqual([SHAPER_STROKE_CENTRE_Y_MIN_MM, SHAPER_STROKE_CENTRE_Y_MAX_MM])
+    expect(report.shaper.overtravel_past_last_stub_mm).toBe(SHAPER_OVERTRAVEL_MM)
+    expect(report.shaper.return_backoff_mm).toBe(SHAPER_BACKOFF_MM)
+    const holders = report.shaper.holders_radius_length_mm as Record<string, [number, number]>
+    expect(holders.hub).toEqual([SHAPER_HUB_RADIUS_MM, SHAPER_HUB_LENGTH_MM])
+    expect(holders.clamp_nut).toEqual([SHAPER_CLAMP_RADIUS_MM, SHAPER_CLAMP_LENGTH_MM])
+    expect(holders.arbor).toEqual([SHAPER_ARBOR_RADIUS_MM, SHAPER_ARBOR_LENGTH_MM])
+  })
+  it('matches report.hob exactly', () => {
+    expect(report.hob.R_mm).toBeCloseTo(HOB_RADIUS_MM, 9)
+    expect(report.hob.module_mm).toBeCloseTo(HOB_NORMAL_MODULE_MM, 9)
+    expect(report.hob.starts).toBe(HOB_STARTS)
+    expect(report.hob.lead_angle_deg).toBeCloseTo(HOB_LEAD_ANGLE_DEG, 9)
+    expect(report.hob.length_mm).toBeCloseTo(HOB_LENGTH_MM, 9)
+    expect(report.hob.stop_yc_mm).toBeCloseTo(HOB_STOP_YC_MM, 9)
+    expect(report.hob.centre_distance_mm).toBeCloseTo(HOB_CENTRE_DISTANCE_AT_DEPTH_MM, 4)
+    expect(report.hob.collar_radius_mm).toBeCloseTo(HOB_COLLAR_RADIUS_MM, 9)
+    expect(report.hob.arbor_radius_mm).toBeCloseTo(HOB_ARBOR_RADIUS_MM, 9)
+    // Path infeed/retract live in the report's prose; pin the numbers here against it.
+    const path = report.hob.path as string
+    expect(Number(path.match(/infeed radial at yc=([\d.-]+)/)?.[1])).toBe(HOB_INFEED_YC_MM)
+    expect(Number(path.match(/retract ([\d.]+) mm radial/)?.[1])).toBe(HOB_RETRACT_MM)
+    // These holder lengths are pinned by the leaf spec; the report has no corresponding keys.
+    expect(HOB_COLLAR_WIDTH_MM).toBe(3)
+    expect(HOB_ARBOR_LENGTH_MM).toBe(12)
+    expect(HOB_LEAD_MM).toBeCloseTo((Math.PI * HOB_NORMAL_MODULE_MM) / Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180), 6)
+    console.log('A2: certified report matched; shaper N=20 C=15.5 tip=11.2032 thickness=1.2; hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249')
+  })
+})
+
+describe('derived cutter outline', () => {
+  it('records the actual source hash and bounded envelope sampling parameters', () => {
+    const raw = readFileSync(resolve(process.cwd(), outline.source.profile_study))
+    expect(outline.source.sha256).toBe(createHash('sha256').update(raw).digest('hex'))
+    expect(outline.parameters).toMatchObject({
+      cutter_teeth: 20, work_teeth: 10, centre_distance_mm: 15.5,
+      signed_ratio_work_over_cutter: -2, stock_mm: 0.005,
+      tip_limit_mm: 11.2032, root_clearance_mm: 0.15,
+    })
+    expect(outline.parameters.root_limit_mm).toBeCloseTo(15.5 - 6.0834 - 0.15, 9)
+    expect(outline.parameters.roll_step_deg).toBeGreaterThan(0)
+    expect(outline.parameters.roll_step_deg).toBeLessThanOrEqual(0.02)
+    expect(outline.parameters.bin_deg).toBeGreaterThan(0)
+    expect(outline.parameters.bin_deg).toBeLessThanOrEqual(0.05)
+    expect(outline.tooth.point_count).toBe(outline.tooth.points.length)
+    expect(outline.tooth.points.length).toBeLessThanOrEqual(360)
+    for (const [angle, radius] of outline.tooth.points) {
+      expect(Number.isFinite(angle) && Number.isFinite(radius)).toBe(true)
+      expect(radius).toBeGreaterThanOrEqual(outline.parameters.root_limit_mm)
+      expect(radius).toBeLessThanOrEqual(outline.parameters.tip_limit_mm)
+    }
+    expect(outline.tooth.angle_span_deg).toBe(18)
+  })
+  it('leaves 0.005 mm stock on independently recomputed flank bins, not only the crest', () => {
+    const study = JSON.parse(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8')) as {
+      angular_step_deg: number; profiles: { legacy: Record<string, number[]> }
+    }
+    const profile = study.profiles.legacy['6.0']
+    const deg = Math.PI / 180
+    const pitch = 18 * deg
+    const bins = [40, 120, 220, 300]
+    const minima = bins.map(() => Infinity)
+    // Rotate each work polar ray directly (independent of the generator's Cartesian caches).
+    for (let step = 0; step <= 900; step++) {
+      const cutter = step * 0.02 * deg
+      for (let i = 0; i < profile.length; i++) {
+        const workAngle = i * study.angular_step_deg * deg - 2 * cutter
+        const x = 15.5 + profile[i] * Math.cos(workAngle)
+        const y = profile[i] * Math.sin(workAngle)
+        let angle = Math.atan2(y, x) - cutter
+        angle = ((angle % pitch) + pitch) % pitch
+        const bin = Math.min(359, Math.floor(angle / pitch * 360))
+        const j = bins.indexOf(bin)
+        if (j >= 0) minima[j] = Math.min(minima[j], Math.hypot(x, y))
+      }
+    }
+    for (let j = 0; j < bins.length; j++) {
+      const expected = Math.max(9.2666, Math.min(11.2032, minima[j] - 0.005))
+      expect(outline.tooth.points[bins[j]][1]).toBeCloseTo(expected, 5)
+    }
+    console.log('A1: outline 360 points; roll 0.02 deg; bins 0.05 deg; flank stock 0.005 mm verified')
+  })
+})
+
+describe('shaper cutter prop', () => {
+  it('builds within the 12k triangle budget and reports its crest cutting edge', () => {
+    const material = new MeshStandardMaterial()
+    const cutter = buildShaperCutter(material)
+    const triangles = countTriangles(cutter.root)
+    expect(triangles).toBeGreaterThan(0)
+    expect(triangles).toBeLessThanOrEqual(12000)
+    console.log('A3: shaper triangles=' + triangles + ' budget=12000')
+    const types = new Set<string>()
+    cutter.root.traverse((child) => types.add(child.type))
+    expect(types.has('Mesh')).toBe(true)
+    expect(cutter.root.name).toBe('shaper-cutter')
+    const radius = Math.hypot(cutter.cuttingEdgeLocal.x, cutter.cuttingEdgeLocal.z) * 1000
+    // The certified tip is a bound; conservative bin minima plus flank stock can fall below it.
+    expect(radius).toBeCloseTo(outline.tooth.max_radius_mm, 5)
+    expect(radius).toBeLessThanOrEqual(SHAPER_TIP_RADIUS_MM)
+    expect(cutter.cuttingEdgeLocal.y).toBeCloseTo(SHAPER_THICKNESS_MM / 2 * 1e-3, 9)
+    const disc = cutter.root.getObjectByName('shaper-cutter-disc') as Mesh
+    disc.geometry.computeBoundingBox()
+    const bounds = disc.geometry.boundingBox!
+    expect(bounds.min.y * 1000).toBeCloseTo(-0.6, 5)
+    expect(bounds.max.y * 1000).toBeCloseTo(0.6, 5)
+    const leadingFace = SHAPER_STROKE_CENTRE_Y_MAX_MM + cutter.cuttingEdgeLocal.y * 1000
+    expect(leadingFace).toBeCloseTo(10.3749, 5)
+    expect(10.94 - leadingFace).toBeCloseTo(0.5651, 5)
+    expect(new Vector3(0, 1, 0).applyQuaternion(cutter.root.quaternion).y).toBe(1)
+    cutter.dispose()
+    material.dispose()
+  })
+  it('disposes every owned geometry idempotently', () => {
+    const material = new MeshStandardMaterial()
+    const cutter = buildShaperCutter(material)
+    let disposed = 0
+    const geometries = new Set<{ dispose(): void }>()
+    let materialDisposals = 0
+    material.addEventListener('dispose', () => materialDisposals++)
+    cutter.root.traverse((child) => {
+      const mesh = child as { geometry?: { dispose(): void } }
+      if (mesh.geometry) geometries.add(mesh.geometry)
+    })
+    for (const geometry of geometries) {
+      const original = geometry.dispose.bind(geometry)
+      geometry.dispose = () => {
+        disposed++
+        original()
+      }
+    }
+    cutter.dispose()
+    cutter.dispose()
+    expect(disposed).toBe(geometries.size)
+    expect(materialDisposals).toBe(0)
+    material.dispose()
+  })
+})
+
+describe('hob prop', () => {
+  it('builds within the 20k triangle budget with gashes and a tilted axis', () => {
+    const material = new MeshStandardMaterial()
+    const hob = buildHob(material)
+    const triangles = countTriangles(hob.root)
+    expect(triangles).toBeGreaterThan(0)
+    expect(triangles).toBeLessThanOrEqual(20000)
+    console.log('A3: hob triangles=' + triangles + ' budget=20000 (instances counted)')
+    const names: string[] = []
+    hob.root.traverse((child) => names.push(child.name))
+    expect(names).toContain('hob-body')
+    expect(names.filter((name) => name.startsWith('hob-gash-'))).toHaveLength(10)
+    const thread = hob.root.getObjectByName('hob-thread') as { count?: number; isInstancedMesh?: boolean }
+    expect(thread.isInstancedMesh).toBe(true)
+    expect(thread.count).toBeGreaterThan(0)
+    const local = new Vector3(0, 1, 0).applyQuaternion(hob.root.quaternion)
+    const expected = new Vector3(Math.cos(HOB_LEAD_ANGLE_DEG * Math.PI / 180), Math.sin(HOB_LEAD_ANGLE_DEG * Math.PI / 180), 0)
+    expect(local.dot(expected)).toBeCloseTo(1, 6)
+    hob.dispose()
+    material.dispose()
+  })
+  it('keeps every thread instance inside the certified radius and axial cutting-body length', () => {
+    const material = new MeshStandardMaterial()
+    const hob = buildHob(material)
+    const thread = hob.root.getObjectByName('hob-thread') as InstancedMesh
+    const position = thread.geometry.getAttribute('position')
+    const matrix = new Matrix4()
+    const vertex = new Vector3()
+    let maxRadius = 0
+    let minY = Infinity
+    let maxY = -Infinity
+    for (let i = 0; i < thread.count; i++) {
+      thread.getMatrixAt(i, matrix)
+      for (let j = 0; j < position.count; j++) {
+        vertex.fromBufferAttribute(position, j).applyMatrix4(matrix)
+        maxRadius = Math.max(maxRadius, Math.hypot(vertex.x, vertex.z) * 1000)
+        minY = Math.min(minY, vertex.y * 1000)
+        maxY = Math.max(maxY, vertex.y * 1000)
+      }
+    }
+    expect(maxRadius).toBeLessThanOrEqual(HOB_RADIUS_MM + 0.000001)
+    expect(maxRadius).toBeCloseTo(HOB_RADIUS_MM, 5)
+    expect(minY).toBeGreaterThanOrEqual(-HOB_LENGTH_MM / 2 - 0.000001)
+    expect(maxY).toBeLessThanOrEqual(HOB_LENGTH_MM / 2 + 0.000001)
+    hob.dispose()
+    material.dispose()
+  })
+  it('releases all geometries and the instancing resource once without disposing caller steel', () => {
+    const material = new MeshStandardMaterial()
+    const hob = buildHob(material)
+    const geometries = new Set<BufferGeometry>()
+    hob.root.traverse((child) => {
+      if ((child as Mesh).geometry) geometries.add((child as Mesh).geometry)
+    })
+    let geometriesDisposed = 0
+    let instancesDisposed = 0
+    let materialsDisposed = 0
+    for (const geometry of geometries) geometry.addEventListener('dispose', () => geometriesDisposed++)
+    const thread = hob.root.getObjectByName('hob-thread') as InstancedMesh
+    thread.addEventListener('dispose', () => instancesDisposed++)
+    material.addEventListener('dispose', () => materialsDisposed++)
+    hob.dispose()
+    hob.dispose()
+    expect(geometriesDisposed).toBe(geometries.size)
+    expect(instancesDisposed).toBe(1)
+    expect(materialsDisposed).toBe(0)
+    material.dispose()
+  })
+})
+
+
+hook: PostToolUse
+ succeeded in 1030ms:
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { describe, expect, it } from 'vitest'
+import { Matrix3, Matrix4, MeshPhysicalMaterial, MeshStandardMaterial, ShaderLib, Vector3 } from 'three'
+import ts from 'typescript'
+import {
+  applyProgression,
+  createProgressionState,
+  createProgressionUniforms,
+  FACE_START_MM,
+  HOBBING_FACE_END_MM,
+  HOB_FINAL_YC_MM,
+  HOB_INFEED_YC_MM,
+  HOB_VISUAL_A_MM,
+  HOB_VISUAL_R_MM,
+  PROGRESSION_LAW_MARKER,
+  PROGRESSION_NORMAL_MARKER,
+  PROGRESSION_VERTEX_MARKER,
+  progressedRadius,
+  SHAFT_OD_MM,
+  SHAFT_ROOT_MM,
+  SHAFT_SPACES,
+  SHAPING_FACE_END_MM,
+  SPACE_CLOCK_RAD,
+  SPACE_PITCH_RAD,
+  STRESS_MARKER,
+  hobFloorRadius,
+  spaceIndexAt,
+  writeProgressionUniforms,
+  writeStressUniforms,
+  setShaftTransform,
+  type ProgressionState,
+} from './progression'
+
+const DEG = Math.PI / 180
+const PROFILE_PATH = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
+
+interface ProfileStudy {
+  angular_step_deg: number
+  profiles: { legacy: Record<string, number[]>; approved: Record<string, number[]> }
+}
+
+const study = JSON.parse(readFileSync(resolve(process.cwd(), PROFILE_PATH), 'utf8')) as ProfileStudy
+
+const shapingState = (depths: number[]): ProgressionState => {
+  const state = createProgressionState()
+  state.mode = 'shaping'
+  for (let i = 0; i < SHAFT_SPACES; i++) state.spaceDepth[i] = depths[i % depths.length]
+  return state
+}
+const minOf = (values: number[]): number => {
+  let min = Infinity
+  for (const value of values) if (value < min) min = value
+  return min
+}
+
+describe('tooth-space clock', () => {
+  it('resolves the nearest space index, including across the seam', () => {
+    expect(spaceIndexAt(0)).toBe(0)
+    expect(spaceIndexAt(SPACE_PITCH_RAD * 0.49)).toBe(0)
+    expect(spaceIndexAt(SPACE_PITCH_RAD * 0.51)).toBe(1)
+    expect(spaceIndexAt(-SPACE_PITCH_RAD * 0.1)).toBe(0)
+    expect(spaceIndexAt(Math.PI)).toBe(5)
+    expect(spaceIndexAt(2 * Math.PI - 1e-6)).toBe(0)
+    expect(spaceIndexAt(SPACE_PITCH_RAD * 9.6)).toBe(0)
+  })
+  it('recovers SPACE_CLOCK_RAD from the profile-study legacy 6.0 polar data', () => {
+    const profile = study.profiles.legacy['6.0']
+    const samples = profile.length
+    const stepDeg = study.angular_step_deg
+    const min = minOf(profile)
+    let max = -Infinity
+    for (const value of profile) if (value > max) max = value
+    const mid = (min + max) / 2
+    let sumSin = 0
+    let sumCos = 0
+    for (let i = 0; i < samples; i++) {
+      if (profile[i] < mid) continue
+      // Fold into one pitch: the ten tips are equally spaced, so a full-circle mean cancels.
+      const angle = i * stepDeg * DEG
+      const folded = angle - Math.floor(angle / SPACE_PITCH_RAD) * SPACE_PITCH_RAD
+      sumSin += Math.sin(folded)
+      sumCos += Math.cos(folded)
+    }
+    const tipRad = Math.atan2(sumSin, sumCos)
+    // Tooth tips sit half a pitch from the tooth-space centres.
+    const raw = tipRad - SPACE_PITCH_RAD / 2 - SPACE_CLOCK_RAD
+    const diff = raw - Math.round(raw / SPACE_PITCH_RAD) * SPACE_PITCH_RAD
+    expect(Math.abs(diff)).toBeLessThan(0.5 * DEG)
+    // The same section also confirms the measured OD/root the law is built on.
+    expect(max).toBeCloseTo(SHAFT_OD_MM, 3)
+    expect(min).toBeCloseTo(SHAFT_ROOT_MM, 3)
+  })
+})
+
+describe('legacy shaping law', () => {
+  const samples: Array<[number, number, number]> = []
+  for (let y = FACE_START_MM; y <= SHAPING_FACE_END_MM + 1e-9; y += 0.137) {
+    for (let a = 0; a < 12; a++) samples.push([SHAFT_ROOT_MM + 0.31, y, a * 0.31])
+  }
+
+  it('leaves every face-band sample unchanged at full depth', () => {
+    const state = shapingState([1])
+    for (const [r, y, a] of samples) expect(progressedRadius(r, y, a, state, 'legacy')).toBe(r)
+  })
+  it('fills the face band to OD at depth 0 and leaves the groove untouched', () => {
+    const state = shapingState([0])
+    for (const [, y, a] of samples) expect(progressedRadius(SHAFT_ROOT_MM + 0.31, y, a, state, 'legacy')).toBe(SHAFT_OD_MM)
+    for (const y of [SHAPING_FACE_END_MM + 0.005, 10.41, 10.94, 13.0]) {
+      const r = SHAFT_ROOT_MM + 0.42
+      expect(progressedRadius(r, y, 0.3, state, 'legacy')).toBe(r)
+    }
+    expect(progressedRadius(SHAFT_OD_MM, 5, 0.3, state, 'legacy')).toBe(SHAFT_OD_MM)
+  })
+  it('cuts each space independently by its own depth', () => {
+    const state = shapingState([0, 0.5, 1])
+    const depth = (i: number) => [0, 0.5, 1][i % 3]
+    const r = SHAFT_ROOT_MM + 0.4
+    for (let i = 0; i < SHAFT_SPACES; i++) {
+      const expected = Math.min(SHAFT_OD_MM, r + (1 - depth(i)) * (SHAFT_OD_MM - SHAFT_ROOT_MM))
+      expect(progressedRadius(r, 5, i * SPACE_PITCH_RAD, state, 'legacy')).toBeCloseTo(expected, 9)
+    }
+  })
+  it('does not apply to the approved shaft under the shaping mode', () => {
+    const state = shapingState([0])
+    expect(progressedRadius(SHAFT_ROOT_MM + 0.4, 5, 0, state, 'approved')).toBe(SHAFT_ROOT_MM + 0.4)
+  })
+  it('retains the previous partial depth ahead of the cutter during a repeated pass', () => {
+    const state = shapingState([0.25])
+    state.engagedSpace = 3
+    state.spaceDepth[3] = 0.75
+    state.engagedPreviousDepth = 0.25
+    state.edgeY = 6
+    const r = SHAFT_ROOT_MM + 0.1
+    const angle = 3 * SPACE_PITCH_RAD
+    const expected = (depth: number) => Math.min(SHAFT_OD_MM, r + (1 - depth) * (SHAFT_OD_MM - SHAFT_ROOT_MM))
+    expect(progressedRadius(r, 5.99, angle, state, 'legacy')).toBe(expected(0.75))
+    expect(progressedRadius(r, 6, angle, state, 'legacy')).toBe(expected(0.75))
+    expect(progressedRadius(r, 6.01, angle, state, 'legacy')).toBe(expected(0.25))
+    expect(progressedRadius(r, 6.01, 4 * SPACE_PITCH_RAD, state, 'legacy')).toBe(expected(0.25))
+    // First-pass callers remain compatible without the optional prior-depth field.
+    delete state.engagedPreviousDepth
+    expect(progressedRadius(r, 6.01, angle, state, 'legacy')).toBe(SHAFT_OD_MM)
+  })
+  it('preserves the actual final legacy polar samples and restores blank stock across all spaces', () => {
+    const final = shapingState([1])
+    const blank = shapingState([0])
+    const profile = study.profiles.legacy['6.0']
+    for (let i = 0; i < profile.length; i++) {
+      const r = profile[i]
+      const azimuth = i * study.angular_step_deg * DEG
+      expect(progressedRadius(r, 6, azimuth, final, 'legacy')).toBe(r)
+      expect(progressedRadius(r, 6, azimuth, blank, 'legacy')).toBeCloseTo(SHAFT_OD_MM, 4)
+    }
+  })
+})
+
+describe('approved hobbing law', () => {
+  it('reproduces the approved floor at final depth within 0.01 mm', () => {
+    const errors: string[] = []
+    for (const key of ['9.72', '10.92', '13.78']) {
+      const approved = study.profiles.approved[key]
+      const floor = hobFloorRadius(Number(key), HOB_FINAL_YC_MM, HOB_VISUAL_A_MM, HOB_VISUAL_R_MM)
+      expect(Math.abs(floor - minOf(approved))).toBeLessThan(0.01)
+      errors.push(key + ':' + Math.abs(floor - minOf(approved)).toFixed(6))
+    }
+    console.log('A4: approved floor absolute errors (y:mm) ' + errors.join(', ') + '; each <0.01 mm')
+  })
+  it('leaves the finished approved mesh within 0.01 mm at final yc', () => {
+    const state = createProgressionState()
+    state.mode = 'hobbing'
+    state.hobYc = HOB_FINAL_YC_MM
+    state.hobA = HOB_VISUAL_A_MM
+    state.hobR = HOB_VISUAL_R_MM
+    const step = study.angular_step_deg
+    for (const key of ['9.72', '10.92', '13.78']) {
+      const y = Number(key)
+      const approved = study.profiles.approved[key]
+      for (let i = 0; i < approved.length; i += 7) {
+        const r = approved[i]
+        const result = progressedRadius(r, y, i * step * DEG, state, 'approved')
+        expect(result).toBeGreaterThanOrEqual(r - 1e-9)
+        expect(Math.abs(result - r)).toBeLessThan(0.01)
+      }
+    }
+  })
+  it('starts as an uncut blank ahead of the hob and cuts behind it', () => {
+    const state = createProgressionState()
+    state.mode = 'hobbing'
+    state.hobYc = HOB_INFEED_YC_MM
+    state.hobA = HOB_VISUAL_A_MM
+    state.hobR = HOB_VISUAL_R_MM
+    expect(progressedRadius(SHAFT_ROOT_MM + 0.4, 6, 0.2, state, 'approved')).toBe(SHAFT_OD_MM)
+    expect(progressedRadius(SHAFT_ROOT_MM + 0.4, 13.7, 0.2, state, 'approved')).toBe(SHAFT_OD_MM)
+    // Outside the hobbing band the law never applies.
+    expect(progressedRadius(SHAFT_ROOT_MM + 0.4, 13.9, 0.2, state, 'approved')).toBe(SHAFT_ROOT_MM + 0.4)
+  })
+})
+
+describe('monotonicity and determinism', () => {
+  it('applies the same law to zero and sub-micrometre radii at the canonical +X azimuth', () => {
+    const shaping = shapingState([0.5])
+    const hob = createProgressionState()
+    hob.mode = 'hobbing'
+    for (const r of [0, 0.0000005, 0.000001, 0.000002]) {
+      expect(progressedRadius(r, 6, 0, shaping, 'legacy')).toBe(r + 0.5 * (SHAFT_OD_MM - SHAFT_ROOT_MM))
+      expect(progressedRadius(r, 6, 0, hob, 'approved')).toBe(SHAFT_OD_MM)
+      expect(progressedRadius(r, 20, 0, hob, 'approved')).toBe(r)
+    }
+  })
+  it('is non-increasing in tooth-space depth', () => {
+    const shallow = shapingState([0.2, 0.35, 0.5, 0.65])
+    const deep = shapingState([0.6, 0.7, 0.8, 0.9])
+    for (let y = FACE_START_MM; y <= SHAPING_FACE_END_MM + 1e-9; y += 0.21) {
+      for (let i = 0; i < SHAFT_SPACES; i++) {
+        const azimuth = i * SPACE_PITCH_RAD
+        const r = SHAFT_ROOT_MM + 0.5
+        const deepValue = progressedRadius(r, y, azimuth, deep, 'legacy')
+        const shallowValue = progressedRadius(r, y, azimuth, shallow, 'legacy')
+        expect(deepValue).toBeLessThanOrEqual(shallowValue + 1e-12)
+      }
+    }
+  })
+  it('is non-increasing in hob yc', () => {
+    const state = createProgressionState()
+    state.mode = 'hobbing'
+    state.hobA = HOB_VISUAL_A_MM
+    state.hobR = HOB_VISUAL_R_MM
+    const r = SHAFT_ROOT_MM + 0.35
+    for (const y of [5.0, 9.6, 12.4]) {
+      let previous = Infinity
+      for (let yc = HOB_INFEED_YC_MM; yc <= HOB_FINAL_YC_MM + 1e-9; yc += 0.25) {
+        state.hobYc = yc
+        const value = progressedRadius(r, y, 0.4, state, 'approved')
+        expect(value).toBeLessThanOrEqual(previous + 1e-12)
+        previous = value
+      }
+    }
+  })
+  it('returns identical values for any seek order', () => {
+    const state = shapingState([0.1, 0.9, 0.5])
+    state.engagedSpace = 1
+    state.edgeY = 6.5
+    let seed = 0x51ed270b
+    const next = () => {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0
+      return seed / 4294967296
+    }
+    const inputs: Array<[number, number, number]> = Array.from({ length: 400 }, () => [
+      SHAFT_ROOT_MM + next() * (SHAFT_OD_MM - SHAFT_ROOT_MM),
+      FACE_START_MM + next() * (SHAPING_FACE_END_MM - FACE_START_MM),
+      next() * Math.PI * 2,
+    ])
+    const expected = new Map<number, number>()
+    inputs.forEach((value, index) => expected.set(index, progressedRadius(value[0], value[1], value[2], state, 'legacy')))
+    const order = inputs.map((_, index) => index).sort(() => next() - 0.5)
+    for (const index of order) {
+      const [r, y, a] = inputs[index]
+      expect(progressedRadius(r, y, a, state, 'legacy')).toBe(expected.get(index))
+    }
+  })
+  it('allocates nothing and does not write to the state', () => {
+    const state = shapingState([0, 0.4, 0.8])
+    const snapshot = Array.from(state.spaceDepth)
+    const counts = { arrays: 0, typed: 0 }
+    const OriginalArray = globalThis.Array
+    const OriginalFloat32Array = globalThis.Float32Array
+    const globals = globalThis as unknown as { Array: unknown; Float32Array: unknown }
+    globals.Array = new Proxy(OriginalArray, {
+      construct(target, args) {
+        counts.arrays += 1
+        return Reflect.construct(target, args)
+      },
+    })
+    globals.Float32Array = new Proxy(OriginalFloat32Array, {
+      construct(target, args) {
+        counts.typed += 1
+        return Reflect.construct(target, args)
+      },
+    })
+    const hob = createProgressionState()
+    hob.mode = 'hobbing'
+    hob.hobYc = HOB_FINAL_YC_MM
+    const uniforms = createProgressionUniforms()
+    const depthIdentity = uniforms.uSpaceDepth.value
+    const shaftMatrixIdentity = uniforms.uShaftMatrix.value
+    const inverseIdentity = uniforms.uShaftInverse.value
+    const normalIdentity = uniforms.uShaftNormalMatrix.value
+    const transform = new Matrix4().makeScale(1000, 1000, 1000)
+    const stress = { kind: 'cool' as const, mix: 0.3, scanProgress: 0.6, yMin: 9, yMax: 13, rMax: 6 }
+    // Factories allocate at setup time; only the samplers and writers run in the guarded loop.
+    counts.arrays = 0
+    counts.typed = 0
+    let checksum = 0
+    try {
+      for (let i = 0; i < 5000; i++) {
+        checksum += progressedRadius(SHAFT_ROOT_MM + 0.3, FACE_START_MM + (i % 97) * 0.07, (i % 10) * 0.31, state, 'legacy')
+        checksum += progressedRadius(SHAFT_ROOT_MM + 0.3, 6 + (i % 53) * 0.13, (i % 7) * 0.4, hob, 'approved')
+        writeProgressionUniforms(uniforms, state, 'legacy')
+        writeStressUniforms(uniforms, stress)
+        setShaftTransform(uniforms, transform)
+      }
+    } finally {
+      globals.Array = OriginalArray
+      globals.Float32Array = OriginalFloat32Array
+    }
+    expect(Number.isFinite(checksum)).toBe(true)
+    expect(counts.arrays).toBe(0)
+    expect(counts.typed).toBe(0)
+    expect(Array.from(state.spaceDepth)).toEqual(snapshot)
+    expect(uniforms.uSpaceDepth.value).toBe(depthIdentity)
+    expect(uniforms.uShaftMatrix.value).toBe(shaftMatrixIdentity)
+    expect(uniforms.uShaftInverse.value).toBe(inverseIdentity)
+    expect(uniforms.uShaftNormalMatrix.value).toBe(normalIdentity)
+  })
+  it('has no constructor, array-literal or object-literal allocations in per-call function bodies', () => {
+    const source = readFileSync(resolve(process.cwd(), 'src/scene/inspection/shaft/progression.ts'), 'utf8')
+    const ast = ts.createSourceFile('progression.ts', source, ts.ScriptTarget.Latest, true)
+    const names = new Set(['progressedRadius', 'hobFloorRadius', 'spaceIndexAt', 'writeProgressionUniforms', 'writeStressUniforms', 'setShaftTransform'])
+    const checked: string[] = []
+    for (const node of ast.statements) {
+      if (!ts.isFunctionDeclaration(node) || !node.name || !node.body || !names.has(node.name.text)) continue
+      checked.push(node.name.text)
+      const visit = (child: ts.Node) => {
+        expect(ts.isNewExpression(child) || ts.isArrayLiteralExpression(child) || ts.isObjectLiteralExpression(child), child.getText(ast)).toBe(false)
+        child.forEachChild(visit)
+      }
+      visit(node.body)
+    }
+    expect(checked).toHaveLength(names.size)
+    console.log('A4: six per-call functions allocation-free by source audit; 5000 sampled/written calls preserve caller-owned buffers')
+  })
+})
+
+describe('shader patch', () => {
+  const VERTEX_SRC = ['#include <common>', 'void main() {', '#include <beginnormal_vertex>', '#include <begin_vertex>', '}'].join('\n')
+  const FRAGMENT_SRC = ['#include <common>', 'void main() {', '#include <emissivemap_fragment>', '}'].join('\n')
+  interface ShaderStub { uniforms: Record<string, unknown>; vertexShader: string; fragmentShader: string }
+
+  it('injects the progression law, normal blend and stress overlay markers', () => {
+    const material = new MeshStandardMaterial()
+    const uniforms = createProgressionUniforms()
+    applyProgression(material, uniforms)
+    const shader: ShaderStub = { uniforms: {}, vertexShader: VERTEX_SRC, fragmentShader: FRAGMENT_SRC }
+    const hook = material.onBeforeCompile as unknown as (s: ShaderStub, r: unknown) => void
+    hook(shader, {})
+    expect(shader.vertexShader).toContain(PROGRESSION_LAW_MARKER)
+    expect(shader.vertexShader).toContain(PROGRESSION_NORMAL_MARKER)
+    expect(shader.vertexShader).toContain(PROGRESSION_VERTEX_MARKER)
+    expect(shader.vertexShader).toContain('uSpaceDepth[10]')
+    expect(shader.vertexShader).toContain('#include <beginnormal_vertex>')
+    expect(shader.vertexShader).toContain('jgProgressedRadius(jgNormalLocal.xyz, jgNormalClamp)')
+    expect(shader.vertexShader).toContain('jgProgressedRadius(jgLocal4.xyz, jgClamp)')
+    expect(shader.vertexShader).toContain('jgNew > jgRadius + 0.000001')
+    expect(shader.vertexShader).not.toContain('jgRadius > 0.000001 && jgMode')
+    expect(shader.vertexShader).toContain('jgRadius > 0.0 ? atan(jgLocal.z, jgLocal.x) : 0.0')
+    expect(shader.vertexShader).toContain(': vec3(jgNewRadius, jgLocal4.y, 0.0)')
+    expect(shader.fragmentShader).toContain(STRESS_MARKER)
+    expect(shader.fragmentShader).toContain('totalEmissiveRadiance')
+    expect(shader.fragmentShader).toContain('uStressKind > 0.5 && uStressMix > 0.001')
+    expect(shader.uniforms.uHobYc).toBe(uniforms.uHobYc)
+    expect(typeof material.customProgramCacheKey()).toBe('string')
+    material.dispose()
+  })
+  it('patches actual installed standard and physical shader sources with vec3-compatible calls', () => {
+    for (const material of [new MeshStandardMaterial(), new MeshPhysicalMaterial()]) {
+      const uniforms = createProgressionUniforms()
+      applyProgression(material, uniforms)
+      const src = material instanceof MeshPhysicalMaterial ? ShaderLib.physical : ShaderLib.standard
+      const shader: ShaderStub = { uniforms: {}, vertexShader: src.vertexShader, fragmentShader: src.fragmentShader }
+      const hook = material.onBeforeCompile as unknown as (s: ShaderStub, r: unknown) => void
+      hook(shader, {})
+      expect(shader.vertexShader).toContain(PROGRESSION_VERTEX_MARKER)
+      expect(shader.vertexShader).not.toContain('#include <begin_vertex>')
+      expect(shader.vertexShader).not.toMatch(/jgProgressedRadius\(jg(?:NormalLocal|Local4),/)
+      for (const key of ['uStressKind', 'uStressMix', 'uStressScanProgress', 'uStressYMin', 'uStressYMax', 'uStressRMax']) {
+        expect(shader.uniforms[key]).toBe(uniforms[key as keyof typeof uniforms])
+      }
+      material.dispose()
+    }
+  })
+  it('maps metre glTF -Z back to CAD +Y millimetres once, with consistent radial normals', () => {
+    const uniforms = createProgressionUniforms()
+    const matrix = new Matrix4().makeRotationX(Math.PI / 2).scale(new Vector3(1000, 1000, 1000))
+    setShaftTransform(uniforms, matrix)
+    const objectPoint = new Vector3(0.004, 0.003, -0.009)
+    const shaftPoint = objectPoint.clone().applyMatrix4(uniforms.uShaftMatrix.value)
+    expect(shaftPoint.x).toBeCloseTo(4, 9)
+    expect(shaftPoint.y).toBeCloseTo(9, 9)
+    expect(shaftPoint.z).toBeCloseTo(3, 9)
+    expect(shaftPoint.clone().applyMatrix4(uniforms.uShaftInverse.value).distanceTo(objectPoint)).toBeLessThan(1e-12)
+    const expected = new Matrix3().getNormalMatrix(matrix.clone().invert())
+    expect(uniforms.uShaftNormalMatrix.value.elements).toEqual(expected.elements)
+  })
+  it('writes the progression and stress uniforms in place', () => {
+    const uniforms = createProgressionUniforms()
+    const state = createProgressionState()
+    state.mode = 'hobbing'
+    state.hobYc = 4.2
+    state.hobA = 10.2
+    state.hobR = 6
+    state.spaceDepth[3] = 0.75
+    state.engagedPreviousDepth = 0.25
+    writeProgressionUniforms(uniforms, state)
+    expect(uniforms.uProgressionMode.value).toBe(2)
+    expect(uniforms.uShaftKind.value).toBe(1)
+    expect(uniforms.uFaceEnd.value).toBe(HOBBING_FACE_END_MM)
+    expect(uniforms.uSpaceDepth.value[3]).toBeCloseTo(0.75, 6)
+    expect(uniforms.uEngagedPreviousDepth.value).toBe(0.25)
+    const legacy = createProgressionState()
+    legacy.mode = 'shaping'
+    writeProgressionUniforms(uniforms, legacy, 'legacy')
+    expect(uniforms.uProgressionMode.value).toBe(1)
+    expect(uniforms.uShaftKind.value).toBe(0)
+    expect(uniforms.uFaceEnd.value).toBe(SHAPING_FACE_END_MM)
+    expect(uniforms.uEngagedPreviousDepth.value).toBe(0)
+    for (const kind of ['warm', 'cool', 'none'] as const) {
+      writeStressUniforms(uniforms, { kind, mix: 0.4, scanProgress: 0.8, yMin: 9.9, yMax: 13.78, rMax: 6.074 })
+      expect(uniforms.uStressKind.value).toBe({ none: 0, warm: 1, cool: 2 }[kind])
+      expect(uniforms.uStressMix.value).toBe(0.4)
+      expect(uniforms.uStressScanProgress.value).toBe(0.8)
+      expect(uniforms.uStressYMin.value).toBe(9.9)
+      expect(uniforms.uStressYMax.value).toBe(13.78)
+      expect(uniforms.uStressRMax.value).toBe(6.074)
+    }
+  })
+})
+
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Tests are comprehensive. Running the permitted vitest suite and independently recomputing the approved-floor parity numbers.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run src/scene/inspection/shaft 2>&1 | Select-Object -Last 60' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@'
+const fs = require('fs');
+const study = JSON.parse(fs.readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json','utf8'));
+const root = 4.29182859636582, R = 6.0, A = root + R, yc = 9.5249, OD = 6.083507443359969;
+const floor = y => y <= yc ? root : (y < yc + R ? A - Math.sqrt(Math.max(0, R*R - (y-yc)*(y-yc))) : OD);
+for (const key of ['9.72','10.92','13.78']) {
+  const prof = study.profiles.approved[key];
+  if ("'!prof) { console.log(key, '"'MISSING'); continue; }
+  let mn = Infinity; for (const v of prof) if (v < mn) mn = v;
+  console.log('y='+key, 'approvedMin='+mn.toFixed(6), 'floor='+floor(Number(key)).toFixed(6), 'absErr='+Math.abs(floor(Number(key))-mn).toFixed(6));
+}
+console.log('approved slice keys:', Object.keys(study.profiles.approved).slice(0,12).join(','), '... count', Object.keys(study.profiles.approved).length);
+'@ | node -" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 3989ms:
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+
+failed to load config from C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\vite.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../..": Access is denied.
+error: Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+    at failureErrorWithLog (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1752:15)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1211:25
+    at runOnEndCallbacks (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1592:45)
+    at buildResponseToResult (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1209:7)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+
+
+
+hook: PostToolUse
+ succeeded in 4746ms:
+y=9.72 approvedMin=4.299427 floor=4.295001 absErr=0.004425
+y=10.92 approvedMin=4.460682 floor=4.456274 absErr=0.004408
+y=13.78 approvedMin=6.065513 floor=6.061684 absErr=0.003829
+approved slice keys: 3.5,6.0,9.0,9.72,10.92,13.78,14.18 ... count 7
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Independent floor parity confirms the gate's numbers exactly (0.0044/0.0044/0.0038 mm). Vitest failed to start inside the read-only sandbox (esbuild walks above the workspace root and gets denied) — checking the config to see if there's a workaround.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw -LiteralPath 'vite.config.ts' | Select-Object -First 1" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem -LiteralPath . -Filter 'vitest*' -Name; Get-ChildItem -LiteralPath . -Filter 'vite.config*' -Name" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 917ms:
+import { defineConfig, configDefaults } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  test: {
+    // Keep working scratch (replica harnesses under .scratch/) out of the repo test gate.
+    exclude: [...configDefaults.exclude, '**/.scratch/**'],
+  },
+})
+
+
+hook: PostToolUse
+ succeeded in 1438ms:
+vite.config.ts
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+The config only imports local packages. Checking whether they resolve in-repo, to distinguish a missing dependency from the sandbox boundary.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@'
+const mods = ['vitest/config','@vitejs/plugin-react','@tailwindcss/vite','tailwindcss','vite'];
+for (const m of mods) {
+  try { console.log(m, '->', require.resolve(m)); }
+  catch (e) { console.log(m, 'FAIL', e.code || e.message.split('\\n')[0]); }
+}
+'@ | node -" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 974ms:
+vitest/config -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\vitest\dist\config.cjs
+@vitejs/plugin-react -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@vitejs\plugin-react\dist\index.js
+@tailwindcss/vite -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@tailwindcss\vite\dist\index.mjs
+tailwindcss -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\tailwindcss\dist\lib.js
+vite -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\vite\dist\node\index.js
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@'
+const mods = ['@tailwindcss/oxide','@tailwindcss/oxide-win32-x64-msvc','lightningcss','lightningcss-win32-x64-msvc','esbuild','rollup'];
+for (const m of mods) {
+  try { console.log(m, '->', require.resolve(m)); }
+  catch (e) { console.log(m, 'FAIL', e.code); }
+}
+'@ | node -" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 500ms:
+@tailwindcss/oxide -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@tailwindcss\oxide\index.js
+@tailwindcss/oxide-win32-x64-msvc -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@tailwindcss\oxide-win32-x64-msvc\tailwindcss-oxide.win32-x64-msvc.node
+lightningcss -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\lightningcss\node\index.js
+lightningcss-win32-x64-msvc -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\lightningcss-win32-x64-msvc\lightningcss.win32-x64-msvc.node
+esbuild -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js
+rollup -> C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\rollup\dist\rollup.js
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem -LiteralPath . -Name -Filter 'tsconfig*'; Get-ChildItem -LiteralPath . -Name -Filter 'package.json'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 508ms:
+tsconfig.json
+package.json
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "npx vitest --help 2>&1 | Select-String -Pattern 'config'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 2018ms:
+
+  -c, --config <path>                                        Path to config file 
+  --expect                                                   Configuration options for expect() matches. Use '--help 
+--expect' for more info. 
+  --configLoader <loader>                                    Use bundle to bundle the config with esbuild or runner 
+(experimental) to process it on the fly. This is only available in vite version 6.1.0 and above. (default: bundle) 
+  --strictTags                                               Should Vitest throw an error if test has a tag that is 
+not defined in the config. (default: true) 
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+`--configLoader runner` bypasses the esbuild config bundling that hits the sandbox ceiling. Retrying with it.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run src/scene/inspection/shaft --configLoader runner 2>&1 | Select-Object -Last 45' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+2026-10-06T03:58:09.127758Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=operation_not_permitted path=unknown
+ exited 1 in 3368ms:
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+
+ ❯ src/scene/inspection/shaft/camera.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/kinematics.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/script.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/shaftRuntime.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/tools.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/progression.test.ts (0 test)
+ ❯ src/scene/inspection/shaft/schedule.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/scene/inspection/shaft/camera.test.ts [ src/scene/inspection/shaft/camera.test.ts ]
+ FAIL  src/scene/inspection/shaft/kinematics.test.ts [ src/scene/inspection/shaft/kinematics.test.ts ]
+ FAIL  src/scene/inspection/shaft/progression.test.ts [ src/scene/inspection/shaft/progression.test.ts ]
+ FAIL  src/scene/inspection/shaft/schedule.test.ts [ src/scene/inspection/shaft/schedule.test.ts ]
+ FAIL  src/scene/inspection/shaft/script.test.ts [ src/scene/inspection/shaft/script.test.ts ]
+ FAIL  src/scene/inspection/shaft/shaftRuntime.test.ts [ src/scene/inspection/shaft/shaftRuntime.test.ts ]
+ FAIL  src/scene/inspection/shaft/tools.test.ts [ src/scene/inspection/shaft/tools.test.ts ]
+Error: EPERM: operation not permitted, mkdir 'C:\Users\Markimus\AppData\Local\Temp\x2q7GFPrTiBDvT75PsbbS\ssr'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+
+ Test Files  7 failed (7)
+      Tests  no tests
+   Start at  23:58:08
+   Duration  676ms (transform 0ms, setup 0ms, import 0ms, tests 0ms, environment 1ms)
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Vitest is fully blocked by the read-only sandbox (it must create temp dirs). Working around it by bundling the real modules with esbuild to stdout and running live probes against them in Node — no file writes.
+codex
+Backtick-in-template-literal broke the JS. Fixing the newline join without backticks.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$t1 = npx esbuild src/scene/inspection/shaft/tools.ts --bundle --format=iife --global-name=JGTools --log-level=error
+$t2 = npx esbuild src/scene/inspection/shaft/progression.ts --bundle --format=iife --global-name=JGProg --log-level=error
+$driver = @'"'
+const { buildShaperCutter, buildHob, countTriangles } = JGTools;
+const P = JGProg;
+const three = await import('three');
+const mat = () => new three.MeshStandardMaterial();
+const cutter = buildShaperCutter(mat());
+console.log('shaper triangles =', countTriangles(cutter.root), '(budget 12000)');
+const hob = buildHob(mat());
+console.log('hob triangles =', countTriangles(hob.root), '(budget 20000)');
+cutter.dispose(); hob.dispose();
+const fs = await import('node:fs');
+const study = JSON.parse(fs.readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json','utf8'));
+const profile = study.profiles.legacy['6.0'];
+const DEG = Math.PI/180;
+const mk = mode => { const s = P.createProgressionState(); s.mode = mode; return s; };
+const finalS = mk('shaping'); finalS.spaceDepth.fill(1);
+const blankS = mk('shaping'); blankS.spaceDepth.fill(0);
+let maxDriftFinal = 0, maxBlankErr = 0;
+for (let i=0;i<profile.length;i++){
+  const az = i*study.angular_step_deg*DEG;
+  maxDriftFinal = Math.max(maxDriftFinal, Math.abs(P.progressedRadius(profile[i], 6, az, finalS, 'legacy') - profile[i]));
+  maxBlankErr = Math.max(maxBlankErr, Math.abs(P.progressedRadius(profile[i], 6, az, blankS, 'legacy') - P.SHAFT_OD_MM));
+}
+console.log('final-depth drift over 7200 samples =', maxDriftFinal.toExponential(3), 'mm; blank-vs-OD max err =', maxBlankErr.toExponential(3), 'mm');
+let maxFloorErr = 0;
+for (const key of ['9.72','10.92','13.78']) {
+  let mn = Infinity; for (const v of study.profiles.approved[key]) if (v<mn) mn=v;
+  maxFloorErr = Math.max(maxFloorErr, Math.abs(P.hobFloorRadius(Number(key), P.HOB_FINAL_YC_MM, P.HOB_VISUAL_A_MM, P.HOB_VISUAL_R_MM) - mn));
+}
+console.log('final-yc approved floor max err =', maxFloorErr.toFixed(6), 'mm (limit 0.01)');
+const st = mk('shaping'); st.spaceDepth.fill(0.3); st.engagedSpace = 2; st.spaceDepth[2] = 0.9; st.engagedPreviousDepth = 0.3; st.edgeY = 6;
+const r0 = P.SHAFT_ROOT_MM + 0.1, az2 = 2*P.SPACE_PITCH_RAD;
+const exp = d => Math.min(P.SHAFT_OD_MM, r0 + (1-d)*(P.SHAFT_OD_MM-P.SHAFT_ROOT_MM));
+console.log('engaged: behind', P.progressedRadius(r0,5.9,az2,st,'legacy').toFixed(6),'==',exp(0.9).toFixed(6),'; ahead',P.progressedRadius(r0,6.1,az2,st,'legacy').toFixed(6),'==',exp(0.3).toFixed(6),'; other',P.progressedRadius(r0,6.1,3*P.SPACE_PITCH_RAD,st,'legacy').toFixed(6),'==',exp(0.3).toFixed(6));
+let monoOK = true;
+const a = mk('shaping'); a.spaceDepth.fill(0.2); const b = mk('shaping'); b.spaceDepth.fill(0.8);
+for (let y=P.FACE_START_MM; y<=P.SHAPING_FACE_END_MM+1e-9; y+=0.5) for (let i=0;i<P.SHAFT_SPACES;i++){
+  if (P.progressedRadius(5.2,y,i*P.SPACE_PITCH_RAD,b,'legacy') > P.progressedRadius(5.2,y,i*P.SPACE_PITCH_RAD,a,'legacy')+1e-12) monoOK=false;
+}
+const h2 = mk('hobbing'); let hMono = true;
+for (const y of [5.0,9.6,12.4]) { let prev = Infinity; for (let yc=-4.195; yc<=9.5249+1e-9; yc+=0.25){ h2.hobYc=yc; const v=P.progressedRadius(4.7,y,0.4,h2,'approved'); if (v>prev+1e-12) hMono=false; prev=v; } }
+console.log('monotonic depth:', monoOK, '; monotonic yc:', hMono);
+'@
+("'$t1 + [char]10 + $t2 + [char]10 + $driver) | node --input-type=module -' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 2553ms:
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "./src/scene/inspection/shaft/tools.ts"
+
+  Use the relative path "././src/scene/inspection/shaft/tools.ts" to reference the file "src/scene/inspection/shaft/tools.ts". Without the leading "./", the path "./src/scene/inspection/shaft/tools.ts" is being interpreted as a package path instead.
+
+node:child_process:955
+    throw err;
+    ^
+
+Error: Command failed: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@esbuild\win32-x64\esbuild.exe src/scene/inspection/shaft/tools.ts --bundle --format=iife --global-name=JGTools --log-level=error
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at Object.execFileSync (node:child_process:952:15)
+    at Object.<anonymous> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\bin\esbuild:222:28)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 26200,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v22.23.2
+X [ERROR] Cannot read directory "../../..": Access is denied.
+
+X [ERROR] Could not resolve "./src/scene/inspection/shaft/progression.ts"
+
+  Use the relative path "././src/scene/inspection/shaft/progression.ts" to reference the file "src/scene/inspection/shaft/progression.ts". Without the leading "./", the path "./src/scene/inspection/shaft/progression.ts" is being interpreted as a package path instead.
+
+node:child_process:955
+    throw err;
+    ^
+
+Error: Command failed: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\@esbuild\win32-x64\esbuild.exe src/scene/inspection/shaft/progression.ts --bundle --format=iife --global-name=JGProg --log-level=error
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at Object.execFileSync (node:child_process:952:15)
+    at Object.<anonymous> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\bin\esbuild:222:28)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 44696,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v22.23.2
+file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/[eval1]:3
+const { buildShaperCutter, buildHob, countTriangles } = JGTools;
+                                                        ^
+
+ReferenceError: JGTools is not defined
+    at file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/[eval1]:3:57
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.2
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+esbuild itself probes above the workspace root and dies at the sandbox ceiling. Falling back to Node's native TS type-stripping for `progression.ts` (real module, no bundler) and a verbatim translation of the tools.ts geometry for triangle counts.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$driver = @'"'
+const P = await import('./src/scene/inspection/shaft/progression.ts');
+const three = await import('three');
+const outlineData = (await import('./src/scene/inspection/shaft/cutterOutline.json', { with: { type: 'json' } })).default;
+const { BufferGeometry, CylinderGeometry, ExtrudeGeometry, Group, InstancedMesh, Matrix4, Mesh, Object3D, Quaternion, Shape, Vector3 } = three;
+const MM = 1e-3, DEG = Math.PI/180;
+const SHAPE_POINTS_PER_TOOTH = 90, HOB_INSTANCES_PER_TURN = 72, HOB_GASH_COUNT = 10, HOB_GASH_HALF_WIDTH_DEG = 3;
+const Y_AXIS = new Vector3(0,1,0);
+const T = { HOB_ARBOR_LENGTH_MM:12, HOB_ARBOR_RADIUS_MM:5.87-1.5, HOB_COLLAR_RADIUS_MM:5.87+1, HOB_COLLAR_WIDTH_MM:3, HOB_LEAD_ANGLE_DEG:5.5587, HOB_LEAD_MM:Math.PI*1.0/Math.cos(5.5587*DEG), HOB_LENGTH_MM:16, HOB_RADIUS_MM:5.87, HOB_THREAD_DEPTH_MM:1.5, SHAPER_ARBOR_LENGTH_MM:12, SHAPER_ARBOR_RADIUS_MM:7, SHAPER_CLAMP_LENGTH_MM:3, SHAPER_CLAMP_RADIUS_MM:9, SHAPER_HUB_LENGTH_MM:6, SHAPER_HUB_RADIUS_MM:8, SHAPER_TEETH:20, SHAPER_THICKNESS_MM:1.2 };
+const OUTLINE = outlineData;
+function decimateTooth(points, target) {
+  const stride = Math.max(1, Math.ceil(points.length / target));
+  const kept = [];
+  for (let i = 0; i < points.length; i += stride) kept.push(points[i]);
+  if (kept[kept.length - 1] "'!== points[points.length - 1]) kept.push(points[points.length - 1]);
+  return kept;
+}
+function buildShaperCutter(material) {
+  const root = new Group(); root.name = '"'shaper-cutter';
+  const span = OUTLINE.tooth.angle_span_deg;
+  const tooth = decimateTooth(OUTLINE.tooth.points, SHAPE_POINTS_PER_TOOTH);
+  const shape = new Shape();
+  let tipRadius = 0, tipAngle = 0;
+  for (let t = 0; t < T.SHAPER_TEETH; t++) for (let i = 0; i < tooth.length; i++) {
+    const angle = tooth[i][0] + t * span * DEG; const radius = tooth[i][1];
+    const x = radius * Math.cos(angle), y = radius * Math.sin(angle);
+    if (t === 0 && i === 0) shape.moveTo(x, y); else shape.lineTo(x, y);
+    if (radius > tipRadius) { tipRadius = radius; tipAngle = angle; }
+  }
+  shape.closePath();
+  const discGeometry = new ExtrudeGeometry(shape, { depth: T.SHAPER_THICKNESS_MM, bevelEnabled: false, steps: 1, curveSegments: 1 });
+  discGeometry.translate(0, 0, -T.SHAPER_THICKNESS_MM / 2);
+  discGeometry.rotateX(-Math.PI / 2);
+  discGeometry.scale(MM, MM, MM);
+  const disc = new Mesh(discGeometry, material); disc.name='shaper-cutter-disc'; root.add(disc);
+  const trailing = [
+    { radius: T.SHAPER_HUB_RADIUS_MM, length: T.SHAPER_HUB_LENGTH_MM, y: -T.SHAPER_THICKNESS_MM/2 - T.SHAPER_HUB_LENGTH_MM/2 },
+    { radius: T.SHAPER_CLAMP_RADIUS_MM, length: T.SHAPER_CLAMP_LENGTH_MM, y: -T.SHAPER_THICKNESS_MM/2 - T.SHAPER_HUB_LENGTH_MM - T.SHAPER_CLAMP_LENGTH_MM/2 },
+    { radius: T.SHAPER_ARBOR_RADIUS_MM, length: T.SHAPER_ARBOR_LENGTH_MM, y: -T.SHAPER_THICKNESS_MM/2 - T.SHAPER_HUB_LENGTH_MM - T.SHAPER_CLAMP_LENGTH_MM - T.SHAPER_ARBOR_LENGTH_MM/2 },
+  ];
+  const geometries = [discGeometry];
+  for (const part of trailing) {
+    const geometry = new CylinderGeometry(part.radius*MM, part.radius*MM, part.length*MM, 24, 1, false);
+    geometries.push(geometry);
+    const mesh = new Mesh(geometry, material); mesh.position.y = part.y * MM; root.add(mesh);
+  }
+  return { root, geometries, cuttingEdgeLocal: new Vector3(tipRadius*MM*Math.cos(tipAngle), T.SHAPER_THICKNESS_MM/2*MM, -tipRadius*MM*Math.sin(tipAngle)) };
+}
+function buildHob(material) {
+  const root = new Group(); root.name='hob';
+  const geometries = [];
+  const bodyRadius = T.HOB_RADIUS_MM - T.HOB_THREAD_DEPTH_MM;
+  const bodyGeometry = new CylinderGeometry(bodyRadius*MM, bodyRadius*MM, T.HOB_LENGTH_MM*MM, 32, 1, false);
+  geometries.push(bodyGeometry); const body = new Mesh(bodyGeometry, material); body.name='hob-body'; root.add(body);
+  const collarGeometry = new CylinderGeometry(T.HOB_COLLAR_RADIUS_MM*MM, T.HOB_COLLAR_RADIUS_MM*MM, T.HOB_COLLAR_WIDTH_MM*MM, 24, 1, false);
+  geometries.push(collarGeometry);
+  for (const sign of [-1, 1]) { const c = new Mesh(collarGeometry, material); c.position.y = sign*(T.HOB_LENGTH_MM/2+T.HOB_COLLAR_WIDTH_MM/2)*MM; root.add(c); }
+  const arborGeometry = new CylinderGeometry(T.HOB_ARBOR_RADIUS_MM*MM, T.HOB_ARBOR_RADIUS_MM*MM, T.HOB_ARBOR_LENGTH_MM*MM, 24, 1, false);
+  geometries.push(arborGeometry);
+  const arbor = new Mesh(arborGeometry, material); arbor.position.y = (T.HOB_LENGTH_MM/2+T.HOB_COLLAR_WIDTH_MM+T.HOB_ARBOR_LENGTH_MM/2)*MM; root.add(arbor);
+  const axialHalfRoot = T.HOB_LEAD_MM * 0.25;
+  const axialHalfCrest = Math.max(0.05, axialHalfRoot - T.HOB_THREAD_DEPTH_MM * 0.2);
+  const tangentialWidth = (T.HOB_RADIUS_MM * 2 * Math.PI) / HOB_INSTANCES_PER_TURN;
+  const crestRadius = Math.sqrt(T.HOB_RADIUS_MM ** 2 - (tangentialWidth / 2) ** 2);
+  const threadShape = new Shape();
+  threadShape.moveTo(bodyRadius, -axialHalfRoot); threadShape.lineTo(crestRadius, -axialHalfCrest);
+  threadShape.lineTo(crestRadius, axialHalfCrest); threadShape.lineTo(bodyRadius, axialHalfRoot); threadShape.closePath();
+  const threadGeometry = new ExtrudeGeometry(threadShape, { depth: tangentialWidth, bevelEnabled: false, steps: 1, curveSegments: 1 });
+  threadGeometry.translate(0, 0, -tangentialWidth/2); threadGeometry.scale(MM, MM, MM);
+  geometries.push(threadGeometry);
+  const yPositions = [], angles = [];
+  const gashCentres = new Float64Array(HOB_GASH_COUNT);
+  for (let g = 0; g < HOB_GASH_COUNT; g++) gashCentres[g] = (360/HOB_GASH_COUNT)*g;
+  for (let i = 0; ; i++) {
+    const y = -T.HOB_LENGTH_MM/2 + axialHalfRoot + (i/HOB_INSTANCES_PER_TURN)*T.HOB_LEAD_MM;
+    if (y + axialHalfRoot > T.HOB_LENGTH_MM/2 + 1e-9) break;
+    const deg = (i % HOB_INSTANCES_PER_TURN) * (360/HOB_INSTANCES_PER_TURN);
+    let gash = false;
+    for (let g = 0; g < HOB_GASH_COUNT; g++) { const d = Math.abs(deg - gashCentres[g]); if (Math.min(d, 360-d) <= HOB_GASH_HALF_WIDTH_DEG) { gash = true; break; } }
+    if (gash) continue;
+    yPositions.push(y); angles.push((i % HOB_INSTANCES_PER_TURN) * (2*Math.PI/HOB_INSTANCES_PER_TURN));
+  }
+  const thread = new InstancedMesh(threadGeometry, material, yPositions.length);
+  thread.name='hob-thread';
+  const matrix = new Matrix4(), quaternion = new Quaternion(), position = new Vector3(), scale = new Vector3(1,1,1);
+  for (let k = 0; k < yPositions.length; k++) {
+    quaternion.setFromAxisAngle(Y_AXIS, angles[k]); position.set(0, yPositions[k]*MM, 0);
+    matrix.compose(position, quaternion, scale); thread.setMatrixAt(k, matrix);
+  }
+  thread.instanceMatrix.needsUpdate = true; root.add(thread);
+  for (let g = 0; g < HOB_GASH_COUNT; g++) { const anchor = new Object3D(); anchor.name = 'hob-gash-'+g; anchor.rotation.y = (2*Math.PI/HOB_GASH_COUNT)*g; root.add(anchor); }
+  const axis = new Vector3(Math.cos(T.HOB_LEAD_ANGLE_DEG*DEG), Math.sin(T.HOB_LEAD_ANGLE_DEG*DEG), 0).normalize();
+  root.quaternion.setFromUnitVectors(Y_AXIS, axis);
+  return { root, geometries, instances: yPositions.length };
+}
+function countTriangles(object) {
+  let total = 0;
+  object.traverse((child) => {
+    const mesh = child; const geometry = mesh.geometry;
+    if ("'!geometry) return;
+    const index = geometry.getIndex(); const position = geometry.getAttribute('"'position');
+    const vertices = index ? index.count : position ? position.count : 0;
+    const instances = child.isInstancedMesh ? child.count : 1;
+    total += Math.floor(vertices / 3) * instances;
+  });
+  return total;
+}
+const mat = () => new three.MeshStandardMaterial();
+const cutter = buildShaperCutter(mat());
+console.log('shaper triangles =', countTriangles(cutter.root), '(budget 12000)');
+const hob = buildHob(mat());
+console.log('hob triangles =', countTriangles(hob.root), '(budget 20000); instances =', hob.instances);
+console.log('cuttingEdge radius mm =', Math.hypot(cutter.cuttingEdgeLocal.x, cutter.cuttingEdgeLocal.z)*1000);
+// Real progression module law probes
+const study = JSON.parse((await import('node:fs')).readFileSync('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json','utf8'));
+const profile = study.profiles.legacy['6.0'];
+const S = P;
+const mk = mode => { const s = S.createProgressionState(); s.mode = mode; return s; };
+const finalS = mk('shaping'); finalS.spaceDepth.fill(1);
+const blankS = mk('shaping'); blankS.spaceDepth.fill(0);
+let maxDriftFinal = 0, maxBlankErr = 0;
+for (let i=0;i<profile.length;i++){
+  const az = i*study.angular_step_deg*DEG;
+  maxDriftFinal = Math.max(maxDriftFinal, Math.abs(S.progressedRadius(profile[i], 6, az, finalS, 'legacy') - profile[i]));
+  maxBlankErr = Math.max(maxBlankErr, Math.abs(S.progressedRadius(profile[i], 6, az, blankS, 'legacy') - S.SHAFT_OD_MM));
+}
+console.log('real-module final-depth drift (7200 samples) =', maxDriftFinal.toExponential(3), 'mm; blank-vs-OD max err =', maxBlankErr.toExponential(3), 'mm');
+let maxFloorErr = 0;
+for (const key of ['9.72','10.92','13.78']) {
+  let mn = Infinity; for (const v of study.profiles.approved[key]) if (v<mn) mn=v;
+  maxFloorErr = Math.max(maxFloorErr, Math.abs(S.hobFloorRadius(Number(key), S.HOB_FINAL_YC_MM, S.HOB_VISUAL_A_MM, S.HOB_VISUAL_R_MM) - mn));
+}
+console.log('real-module final-yc approved floor max err =', maxFloorErr.toFixed(6), 'mm (limit 0.01)');
+const st = mk('shaping'); st.spaceDepth.fill(0.3); st.engagedSpace = 2; st.spaceDepth[2] = 0.9; st.engagedPreviousDepth = 0.3; st.edgeY = 6;
+const r0 = S.SHAFT_ROOT_MM + 0.1, az2 = 2*S.SPACE_PITCH_RAD;
+const exp = d => Math.min(S.SHAFT_OD_MM, r0 + (1-d)*(S.SHAFT_OD_MM-S.SHAFT_ROOT_MM));
+console.log('engaged: behind', S.progressedRadius(r0,5.9,az2,st,'legacy').toFixed(6),'==',exp(0.9).toFixed(6),'; ahead',S.progressedRadius(r0,6.1,az2,st,'legacy').toFixed(6),'==',exp(0.3).toFixed(6),'; other',S.progressedRadius(r0,6.1,3*S.SPACE_PITCH_RAD,st,'legacy').toFixed(6),'==',exp(0.3).toFixed(6));
+let monoOK = true;
+const a2 = mk('shaping'); a2.spaceDepth.fill(0.2); const b2 = mk('shaping'); b2.spaceDepth.fill(0.8);
+for (let y=S.FACE_START_MM; y<=S.SHAPING_FACE_END_MM+1e-9; y+=0.5) for (let i=0;i<S.SHAFT_SPACES;i++){
+  if (S.progressedRadius(5.2,y,i*S.SPACE_PITCH_RAD,b2,'legacy') > S.progressedRadius(5.2,y,i*S.SPACE_PITCH_RAD,a2,'legacy')+1e-12) monoOK=false;
+}
+const h2 = mk('hobbing'); let hMono = true;
+for (const y of [5.0,9.6,12.4]) { let prev = Infinity; for (let yc=-4.195; yc<=9.5249+1e-9; yc+=0.25){ h2.hobYc=yc; const v=S.progressedRadius(4.7,y,0.4,h2,'approved'); if (v>prev+1e-12) hMono=false; prev=v; } }
+console.log('monotonic depth:', monoOK, '; monotonic yc:', hMono);
+'@
+"'$driver | node --input-type=module -' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 588ms:
+shaper triangles = 7564 (budget 12000)
+hob triangles = 3596 (budget 20000); instances = 265
+cuttingEdge radius mm = 11.200975000000001
+real-module final-depth drift (7200 samples) = 0.000e+0 mm; blank-vs-OD max err = 0.000e+0 mm
+real-module final-yc approved floor max err = 0.004425 mm (limit 0.01)
+engaged: behind 4.570997 == 4.570996 ; ahead 5.646004 == 5.646004 ; other 5.646004 == 5.646004
+monotonic depth: true ; monotonic yc: true
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+All probes pass and match the gate's evidence exactly. Grabbing line numbers for the two informational notes, then reporting.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n 'return index === 0' src/scene/inspection/shaft/progression.ts; rg -n 'pinned by the leaf spec' src/scene/inspection/shaft/tools.test.ts; rg -n 'jgEffectiveMode|jgNew = max\\(jgRadius|min\\(uShaftOD, jgRadius' src/scene/inspection/shaft/progression.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 448ms:
+98:  return index === 0 ? 0 : index
+77:    // These holder lengths are pinned by the leaf spec; the report has no corresponding keys.
+269:float jgEffectiveMode() {
+278:  float jgMode = jgEffectiveMode();
+287:        jgNew = min(uShaftOD, jgRadius + (1.0 - jgDepth) * (uShaftOD - uShaftRoot));
+297:      jgNew = max(jgRadius, min(uShaftOD, jgFloor));
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+**VERDICT: SHIP** — no defects against requirements 1–4.
+
+Verified independently (read-only; no files edited, no TODO/queue docs read, generator not run):
+
+**A1 outline.** `cutter_outline.mjs` implements the conjugate envelope as specified: 7200 legacy "6.0" radii at 0.05°, rolled over one 18° cutter pitch at 0.02° with signed ratio −2 and centre 15.5 mm, minimum work-material radius per 0.05° bin, 0.005 mm stock, clamps exactly 15.5−6.0834−0.15 = 9.2666 and 11.2032. Committed JSON: 360 points, 18° span, radii 9.411633–11.200975 (clamps are bounds, correctly not extrema), and the live `profile-study.json` sha256 matches the stored metadata, so the artifact is current. The four-bin flank test in `tools.test.ts` is a genuinely independent recomputation.
+
+**A2 constants.** I diffed every `toolSpec.ts` constant against `report.json` directly: shaper (teeth 20, centre 15.5, ratio −2, tip 11.2032, thickness 1.2, stroke [2.17, 9.7749], overtravel 0.5, backoff 2, hub/clamp/arbor [8,6]/[9,3]/[7,12]) and hob (R 5.87, module 1, starts 1, lead 5.5587°, length 16, centre 10.1618 = root+R, stop 9.5249, infeed −4.195, retract 2.5, collars R+1, arbor R−1.5) all equal. Collar width and arbor length are leaf-pinned, tested as such and disclosed ([tools.test.ts:77](src/scene/inspection/shaft/tools.test.ts:77)).
+
+**A3 budgets.** Live rebuild of the exact geometry (esbuild blocked by the sandbox, so a verbatim translation through installed three): shaper 7564 ≤ 12000, hob 3596 ≤ 20000, 265 instances, cutting-edge radius 11.200975 ≤ 11.2032 — identical to the gate's evidence.
+
+**A4 law.** Executed the real `progression.ts` module (Node type-stripping): final depth leaves all 7200 legacy samples unchanged (drift 0); depth 0 fills to OD exactly; engaged-space previous-depth ahead of `edgeY` correct; monotonic in depth and yc; final-yc approved floor max error 0.004425 mm < 0.01 at y 9.72/10.92/13.78. The GLSL patch matches the CPU law clause-for-clause — mode/shaft gating ([progression.ts:269](src/scene/inspection/shaft/progression.ts:269)), shaping OD clamp (:287), hobbing max/min clamp (:297), band ends, space indexing, engaged logic; near-axis +X fallbacks and the OD-only radial normal blend are present; the stress overlay is an additive emissive tint that keeps the metallic response. Per-call functions are allocation-free by both the in-repo AST audit and runtime proxy test.
+
+**Vitest caveat.** The permitted `npx vitest run src/scene/inspection/shaft` cannot execute in this read-only sandbox: config bundling is denied at the workspace-root read ceiling, and `--configLoader runner` fails on a TEMP mkdir. My live probes reproduce the gate's numeric evidence exactly, so A5 is claim-consistent but not re-executed here.
+
+Informational, non-blocking: no-op ternary at [progression.ts:98](src/scene/inspection/shaft/progression.ts:98).
+
+
+hook: Stop
+hook: Stop Completed
+tokens used
+95,214
+**VERDICT: SHIP** — no defects against requirements 1–4.
+
+Verified independently (read-only; no files edited, no TODO/queue docs read, generator not run):
+
+**A1 outline.** `cutter_outline.mjs` implements the conjugate envelope as specified: 7200 legacy "6.0" radii at 0.05°, rolled over one 18° cutter pitch at 0.02° with signed ratio −2 and centre 15.5 mm, minimum work-material radius per 0.05° bin, 0.005 mm stock, clamps exactly 15.5−6.0834−0.15 = 9.2666 and 11.2032. Committed JSON: 360 points, 18° span, radii 9.411633–11.200975 (clamps are bounds, correctly not extrema), and the live `profile-study.json` sha256 matches the stored metadata, so the artifact is current. The four-bin flank test in `tools.test.ts` is a genuinely independent recomputation.
+
+**A2 constants.** I diffed every `toolSpec.ts` constant against `report.json` directly: shaper (teeth 20, centre 15.5, ratio −2, tip 11.2032, thickness 1.2, stroke [2.17, 9.7749], overtravel 0.5, backoff 2, hub/clamp/arbor [8,6]/[9,3]/[7,12]) and hob (R 5.87, module 1, starts 1, lead 5.5587°, length 16, centre 10.1618 = root+R, stop 9.5249, infeed −4.195, retract 2.5, collars R+1, arbor R−1.5) all equal. Collar width and arbor length are leaf-pinned, tested as such and disclosed ([tools.test.ts:77](src/scene/inspection/shaft/tools.test.ts:77)).
+
+**A3 budgets.** Live rebuild of the exact geometry (esbuild blocked by the sandbox, so a verbatim translation through installed three): shaper 7564 ≤ 12000, hob 3596 ≤ 20000, 265 instances, cutting-edge radius 11.200975 ≤ 11.2032 — identical to the gate's evidence.
+
+**A4 law.** Executed the real `progression.ts` module (Node type-stripping): final depth leaves all 7200 legacy samples unchanged (drift 0); depth 0 fills to OD exactly; engaged-space previous-depth ahead of `edgeY` correct; monotonic in depth and yc; final-yc approved floor max error 0.004425 mm < 0.01 at y 9.72/10.92/13.78. The GLSL patch matches the CPU law clause-for-clause — mode/shaft gating ([progression.ts:269](src/scene/inspection/shaft/progression.ts:269)), shaping OD clamp (:287), hobbing max/min clamp (:297), band ends, space indexing, engaged logic; near-axis +X fallbacks and the OD-only radial normal blend are present; the stress overlay is an additive emissive tint that keeps the metallic response. Per-call functions are allocation-free by both the in-repo AST audit and runtime proxy test.
+
+**Vitest caveat.** The permitted `npx vitest run src/scene/inspection/shaft` cannot execute in this read-only sandbox: config bundling is denied at the workspace-root read ceiling, and `--configLoader runner` fails on a TEMP mkdir. My live probes reproduce the gate's numeric evidence exactly, so A5 is claim-consistent but not re-executed here.
+
+Informational, non-blocking: no-op ternary at [progression.ts:98](src/scene/inspection/shaft/progression.ts:98).
+
+

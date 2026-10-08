@@ -1,0 +1,30 @@
+{
+  "name": "narrow-reduced",
+  "width": 390,
+  "height": 844,
+  "reducedMotion": "reduce",
+  "checkpoints": [],
+  "errors": [],
+  "warnings": [],
+  "requestFailures": [
+    {
+      "url": "http://localhost:4173/",
+      "error": {
+        "errorText": "net::ERR_HTTP_RESPONSE_CODE_FAILURE"
+      }
+    }
+  ],
+  "httpErrors": [
+    {
+      "url": "http://localhost:4173/",
+      "status": 404
+    }
+  ],
+  "failures": [
+    "Error: page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://localhost:4173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:4173/\", waiting until \"domcontentloaded\"\u001b[22m\n",
+    "HTTP errors recorded"
+  ],
+  "reverse": [],
+  "requestFailureNote": "1 aborted/failed request(s) recorded (precompute fallback is expected)",
+  "passed": false
+}

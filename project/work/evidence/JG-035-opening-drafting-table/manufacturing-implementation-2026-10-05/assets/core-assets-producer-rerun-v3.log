@@ -1,0 +1,181 @@
+00:02.000  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+CLEANED legacyshaft {"vertices": 6338, "faces": 12671, "triangles": 12671, "boundary_edges": 3, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 8364.827460153583, "bounds_mm": [[-8.864600211381912, -0.00011161318980157375, -8.864577859640121], [8.864600211381912, 71.52394950389862, 8.864238858222961]]}
+CLEANED approvedshaft {"vertices": 69972, "faces": 125906, "triangles": 139886, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 8109.727537318418, "bounds_mm": [[-8.864600211381912, -0.00011161318980157375, -8.864577859640121], [8.864600211381912, 71.52394950389862, 8.864238858222961]]}
+CLEANED approvedhousing {"vertices": 9834, "faces": 19692, "triangles": 19692, "boundary_edges": 24, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 12342.535048679862, "bounds_mm": [[-21.667493507266045, -9.073697030544281, -21.66750840842724], [21.667692810297012, 34.18272361159325, 21.667521446943283]]}
+CLEANED legacyhousing {"vertices": 9834, "faces": 19692, "triangles": 19692, "boundary_edges": 24, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 12408.64949315039, "bounds_mm": [[-21.667493507266045, -9.073697030544281, -21.66750840842724], [21.667692810297012, 34.18272361159325, 21.667521446943283]]}
+CLEANED legacybearing {"vertices": 928, "faces": 1856, "triangles": 1856, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 558.4610804073124, "bounds_mm": [[-9.521102532744408, 12.903198599815369, -9.52189601957798], [9.521693922579288, 16.865598037838936, 9.521815925836563]]}
+CLEANED legacyring {"vertices": 208, "faces": 412, "triangles": 412, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 49.05352496184677, "bounds_mm": [[-7.432611659169197, 11.849098838865757, -7.439469452947378], [7.436415646225214, 12.78915349394083, 7.441826164722443]]}
+CLEANED approvedbearing {"vertices": 928, "faces": 1856, "triangles": 1856, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 558.4610259428541, "bounds_mm": [[-9.521102532744408, 15.653198584914207, -9.52189601957798], [9.521693922579288, 19.615598022937775, 9.521815925836563]]}
+CLEANED approvedring {"vertices": 208, "faces": 412, "triangles": 412, "boundary_edges": 0, "overfull_edges": 0, "wire_edges": 0, "volume_mm3": 49.05352496184669, "bounds_mm": [[-7.432611659169197, 14.599098823964596, -7.439469452947378], [7.436415646225214, 15.539153479039669, 7.441826164722443]]}
+HOUSING_PAIR {"vertices": 9834, "seat": 178, "coincident": 9656, "other": 0, "source_seat_vertices": 332, "seat_delta_mean_mm": 2.749999985098839}
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\scripts\manufacturing\export_study.py:877: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  material.use_nodes = True
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 5.1\5.1\scripts\addons_core\io_scene_gltf2\extern_draco.dll
+DISSOLVE full-dissolve2-ramp {"below3": 299, "tooth": 8682, "ramp": 91646, "journal": 876, "above20": 7284, "spanning": 3009, "total": 111796}
+LADDER full {"profile": "full-dissolve2-ramp", "index": 0, "triangles": 47976, "sections_max_mm": 0.00649877130810023, "runout_max_mm": 0.0004840030850967736, "silhouette_max_mm": 0.0, "tooth_count": 10, "clock_delta_degrees": 0.0, "within_limit": true}
+HOUSING_LADDER full {"profile": "full-housing-dissolve1", "index": 0, "triangles": 15000, "approvedhousing_sections_max_mm": 0.0019024235288255579, "legacyhousing_sections_max_mm": 0.0019024235288255579, "within_limit": true, "target_triangles": 15000, "triangles_before": 19692, "triangles_after_dissolve": 19530, "collapse_used": true, "seat_vertices_source": 178, "seat_vertices_surviving": 178}
+INFO Draco mesh compression is available, use library at C:\Program Files\Blender Foundation\Blender 5.1\5.1\scripts\addons_core\io_scene_gltf2\extern_draco.dll
+23:19:24 | INFO: Starting glTF 2.0 export
+23:19:24 | INFO: Extracting primitive: derived_shaded
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.001
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.002
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.003
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.004
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.005
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.006
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Extracting primitive: derived_shaded.007
+23:19:24 | INFO: Primitives created: 1
+23:19:24 | INFO: Draco encoder: Encoding mesh legacyshaft.
+23:19:24 | INFO: Draco encoder: Encoding mesh approvedshaft.
+23:19:24 | INFO: Draco encoder: Encoding mesh approvedhousing.
+23:19:24 | INFO: Draco encoder: Encoding mesh legacyhousing.
+23:19:24 | INFO: Draco encoder: Encoding mesh legacybearing.
+23:19:24 | INFO: Draco encoder: Encoding mesh legacyring.
+23:19:24 | INFO: Draco encoder: Encoding mesh approvedbearing.
+23:19:24 | INFO: Draco encoder: Encoding mesh approvedring.
+23:19:24 | INFO: Finished glTF 2.0 export in 0.2234632968902588 s
+
+23:19:24 | INFO: Data are loaded, start creating Blender stuff
+23:19:24 | INFO: Blender create Mesh node derived_shaded
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded
+23:19:24 | INFO: Blender create Mesh node derived_shaded.001
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.001
+23:19:24 | INFO: Blender create Mesh node derived_shaded.002
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.002
+23:19:24 | INFO: Blender create Mesh node derived_shaded.003
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.003
+23:19:24 | INFO: Blender create Mesh node derived_shaded.004
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.004
+23:19:24 | INFO: Blender create Mesh node derived_shaded.005
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.005
+23:19:24 | INFO: Blender create Mesh node derived_shaded.006
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.006
+23:19:24 | INFO: Blender create Mesh node derived_shaded.007
+23:19:24 | INFO: Draco Decoder: Decode primitive derived_shaded.007
+23:19:24 | INFO: glTF import finished in 0.31s
+MEASURED full legacyshaft surface=0.0039735259633744135 sections=0.0009857030925044853 runout=0.0004358812425175884 silhouette=0.000412575900554657 ok=True
+MEASURED full approvedshaft surface=0.007945464858494233 sections=0.006531908354432385 runout=0.0004818829183932394 silhouette=3.166496753692627e-05 ok=True
+MEASURED full approvedhousing surface=0.013339366887521464 seat_sections=0.0019471785110933809 triangles=15000 ok=True
+MEASURED full legacyhousing surface=0.013339366887521464 seat_sections=0.0019471785110933809 triangles=15000 ok=True
+MEASURED full legacybearing max_mm=0.0008645022830933158 ok=True
+MEASURED full legacyring max_mm=0.0006891409611853305 ok=True
+MEASURED full approvedbearing max_mm=0.0008645022830933158 ok=True
+MEASURED full approvedring max_mm=0.0006891409611853305 ok=True
+DISSOLVE lite-dissolve10-regional {"below3": 299, "tooth": 5291, "ramp": 70872, "journal": 872, "above20": 6882, "spanning": 3104, "total": 87320}
+LADDER lite {"profile": "lite-dissolve10-regional", "index": 0, "triangles": 14499, "sections_max_mm": 0.10124580102809046, "runout_max_mm": 0.009004679486244171, "silhouette_max_mm": 0.0, "tooth_count": 10, "clock_delta_degrees": 0.0, "within_limit": false}
+DISSOLVE lite-dissolve20-regional {"below3": 299, "tooth": 4603, "ramp": 45898, "journal": 864, "above20": 6656, "spanning": 3030, "total": 61350}
+LADDER lite {"profile": "lite-dissolve20-regional", "index": 1, "triangles": 14499, "sections_max_mm": 0.04487667492761767, "runout_max_mm": 0.008832285159206421, "silhouette_max_mm": 0.0, "tooth_count": 10, "clock_delta_degrees": 0.0, "within_limit": true}
+HOUSING_LADDER lite {"profile": "lite-housing-dissolve5", "index": 0, "triangles": 9000, "approvedhousing_sections_max_mm": 0.0031387677315822277, "legacyhousing_sections_max_mm": 0.0031387677315822277, "within_limit": true, "target_triangles": 9000, "triangles_before": 19692, "triangles_after_dissolve": 19382, "collapse_used": true, "seat_vertices_source": 178, "seat_vertices_surviving": 178}
+23:21:58 | INFO: Starting glTF 2.0 export
+23:21:58 | INFO: Extracting primitive: derived_shaded.030
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.031
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.032
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.033
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.034
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.035
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.036
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Extracting primitive: derived_shaded.037
+23:21:58 | INFO: Primitives created: 1
+23:21:58 | INFO: Draco encoder: Encoding mesh legacyshaft.
+23:21:58 | INFO: Draco encoder: Encoding mesh approvedshaft.
+23:21:58 | INFO: Draco encoder: Encoding mesh approvedhousing.
+23:21:58 | INFO: Draco encoder: Encoding mesh legacyhousing.
+23:21:58 | INFO: Draco encoder: Encoding mesh legacybearing.
+23:21:58 | INFO: Draco encoder: Encoding mesh legacyring.
+23:21:58 | INFO: Draco encoder: Encoding mesh approvedbearing.
+23:21:58 | INFO: Draco encoder: Encoding mesh approvedring.
+23:21:58 | INFO: Finished glTF 2.0 export in 0.17823171615600586 s
+
+23:21:58 | INFO: Data are loaded, start creating Blender stuff
+23:21:58 | INFO: Blender create Mesh node derived_shaded.030
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.030
+23:21:58 | INFO: Blender create Mesh node derived_shaded.031
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.031
+23:21:58 | INFO: Blender create Mesh node derived_shaded.032
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.032
+23:21:58 | INFO: Blender create Mesh node derived_shaded.033
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.033
+23:21:58 | INFO: Blender create Mesh node derived_shaded.034
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.034
+23:21:58 | INFO: Blender create Mesh node derived_shaded.035
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.035
+23:21:58 | INFO: Blender create Mesh node derived_shaded.036
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.036
+23:21:58 | INFO: Blender create Mesh node derived_shaded.037
+23:21:58 | INFO: Draco Decoder: Decode primitive derived_shaded.037
+23:21:58 | INFO: glTF import finished in 0.20s
+MEASURED lite legacyshaft surface=0.0039735259633744135 sections=0.0009857030925044853 runout=0.0004358812425175884 silhouette=0.000412575900554657 ok=True
+MEASURED lite approvedshaft surface=0.053195377404335886 sections=0.04486114000852433 runout=0.008807084187862024 silhouette=3.166496753692627e-05 ok=True
+MEASURED lite approvedhousing surface=0.010735268915595952 seat_sections=0.003128521676314745 triangles=9000 ok=True
+MEASURED lite legacyhousing surface=0.010735268915595952 seat_sections=0.003128521676314745 triangles=9000 ok=True
+MEASURED lite legacybearing max_mm=0.0008645022830933158 ok=True
+MEASURED lite legacyring max_mm=0.0006891409611853305 ok=True
+MEASURED lite approvedbearing max_mm=0.0008645022830933158 ok=True
+MEASURED lite approvedring max_mm=0.0006891409611853305 ok=True
+CORE_ASSETS {"full": {"bytes": 678008, "triangles": 95183, "published": true}, "lite": {"bytes": 415424, "triangles": 49706, "published": true}}
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 9393 vertices, 38013 indices, raw size: 301458, encoded size: 88010, compression ratio: 3.43
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 32275 vertices, 143928 indices, raw size: 1061112, encoded size: 266526, compression ratio: 3.98
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 14577 vertices, 45000 indices, raw size: 439608, encoded size: 140294, compression ratio: 3.13
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 14577 vertices, 45000 indices, raw size: 439608, encoded size: 140284, compression ratio: 3.13
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14740, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3189, compression ratio: 3.94
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14737, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3193, compression ratio: 3.93
+DracoDecoder | Decoded 9393 vertices, 38013 indices
+DracoDecoder | Decoded 32275 vertices, 143928 indices
+DracoDecoder | Decoded 14577 vertices, 45000 indices
+DracoDecoder | Decoded 14577 vertices, 45000 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 9393 vertices, 38013 indices, raw size: 301458, encoded size: 88010, compression ratio: 3.43
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 12393 vertices, 43497 indices, raw size: 384042, encoded size: 113592, compression ratio: 3.38
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 8666 vertices, 27000 indices, raw size: 261960, encoded size: 85466, compression ratio: 3.07
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 8666 vertices, 27000 indices, raw size: 261960, encoded size: 85461, compression ratio: 3.07
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14740, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3189, compression ratio: 3.94
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1856 vertices, 5568 indices, raw size: 55680, encoded size: 14737, compression ratio: 3.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 420 vertices, 1236 indices, raw size: 12552, encoded size: 3193, compression ratio: 3.93
+DracoDecoder | Decoded 9393 vertices, 38013 indices
+DracoDecoder | Decoded 12393 vertices, 43497 indices
+DracoDecoder | Decoded 8666 vertices, 27000 indices
+DracoDecoder | Decoded 8666 vertices, 27000 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+DracoDecoder | Decoded 1856 vertices, 5568 indices
+DracoDecoder | Decoded 420 vertices, 1236 indices
+
+Blender quit

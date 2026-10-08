@@ -1,0 +1,298 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-06T17:56:26.005Z",
+  "method": "Three distinct completed-render sample stamps, live entryElapsed >= 1.2, stable camera and projection; repeat after hiding DOM; screenshot and compare a subsequent completed frame. No runtime or camera overrides.",
+  "cases": [
+    {
+      "name": "desktop",
+      "shots": [],
+      "errors": [
+        "page.waitForFunction: Timeout 90000ms exceeded."
+      ],
+      "requests": [
+        "http://localhost:5199/models/m249-transformed.glb",
+        "http://localhost:5199/models/Default.glb",
+        "http://localhost:5199/models/msp-enclosure.glb",
+        "http://localhost:5199/models/manufacturing-core-lite.glb",
+        "http://localhost:5199/models/m249-transformed.glb",
+        "http://localhost:5199/models/Default.glb",
+        "http://localhost:5199/models/msp-enclosure.glb"
+      ],
+      "diagnostics": {
+        "canvas": 1,
+        "telemetry": {
+          "camera": {
+            "x": 0.5276412205498735,
+            "y": 0.10073984372828299,
+            "z": 0.14591289456673676,
+            "fov": 37.55548827962125,
+            "framingBias": 0.14,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.5276437020845821,
+                0.10073984372828292,
+                0.14591270330118566
+              ],
+              "target": [
+                -0.01929400693693291,
+                0.011111279300946953,
+                -0.001465157159627764
+              ],
+              "fov": 37.555488279621215
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0
+          },
+          "rig": {
+            "handleZ": -0.111173346,
+            "outputZ": 0.015702450000000003,
+            "clutchZ": -0.091388259,
+            "slidingZ": -0.091388259,
+            "stageZ": [
+              -0.080082495,
+              -0.07223127000000001,
+              -0.044594958,
+              -0.031090851000000003,
+              -0.055586673
+            ],
+            "stageRot": [
+              193.31781207768313,
+              125.65657785049403,
+              53.16239832136287,
+              34.55555890888586,
+              81.67677560282112
+            ],
+            "planetRot": -676.612342271891,
+            "gearRotation": 14.158798,
+            "shift": 0,
+            "ghostOpacity": 0.4458833,
+            "ghostCount": 1,
+            "explodeFactor": 0.314049,
+            "ringSwitchZ": -0.091388259,
+            "ringSwitchRotZ": 0
+          },
+          "scroll": {
+            "progress": 0.3500044150110375,
+            "chapter": 1,
+            "chapterProgress": 0.6375172413793103,
+            "materialMode": "solid"
+          },
+          "stage": {
+            "active": 0,
+            "alpha": [
+              1,
+              0,
+              0
+            ],
+            "flow": 0,
+            "acousticWave": 0,
+            "transitionIntensity": 0,
+            "backdropAlpha": 1
+          },
+          "drawing": {
+            "lineOpacity": 1,
+            "edgeSource": "Default.glb:vector-hlr+crease+silhouette",
+            "phase": 1,
+            "poseT": 1,
+            "focus": 1,
+            "pulseHead": 1,
+            "pulse": 0,
+            "pbr": 1,
+            "illumination": 1,
+            "travel": 0.22,
+            "localZ": 0.17946849035620688,
+            "minZ": 0.13953516649603842,
+            "crossing": 0.7375241571855964,
+            "contact": [
+              -0.010531465411186214,
+              0.047750990271568296,
+              -3.0531133177191805e-16
+            ],
+            "waveTime": 1,
+            "waveEnabled": 0,
+            "pulseLuminance": 0,
+            "lightningLuminance": 0,
+            "lampPower": 1,
+            "blackout": 0,
+            "readingPool": 0,
+            "bulgeDisplacement": 0,
+            "inkLuminance": 0.0248349097409426,
+            "profilePoints": 10203,
+            "planeMatrix": [
+              0,
+              0,
+              -1,
+              0,
+              -1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -0.03792754989862442,
+              -0.17946849035620688,
+              -0.11913639575242996,
+              1
+            ],
+            "modelMatrix": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "annotationsReady": true,
+            "leaderCrossings": 0
+          },
+          "performance": {
+            "declines": 1,
+            "tier": "lite",
+            "warmReady": true
+          }
+        },
+        "inspection": {
+          "schema": 1,
+          "kind": "ring",
+          "storyId": "ring-p003068",
+          "session": 0,
+          "status": "idle",
+          "suspend": "none",
+          "chapter": 0,
+          "duration": 12,
+          "playing": false,
+          "active": false,
+          "phase": "idle",
+          "time": 0,
+          "ringBounds": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              0,
+              0,
+              0
+            ],
+            "center": [
+              0,
+              0,
+              0
+            ],
+            "radius": 0,
+            "width": 0
+          },
+          "worldBounds": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              0,
+              0,
+              0
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 0,
+          "aluminiumBlend": 0,
+          "ringAngle": 0,
+          "toolClipTime": 0,
+          "toolVisible": false,
+          "ringMeshes": 0,
+          "toolMeshes": 0,
+          "rollerClearance": [
+            0,
+            0
+          ],
+          "rollerAxial": [
+            0,
+            0
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 0,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 0,
+          "loaded": false,
+          "restoredPoseError": 0,
+          "entryContext": null,
+          "narrativeAlpha": 1,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          },
+          "runtimeVersion": 2,
+          "sampledTime": 0,
+          "sampleStamp": 0,
+          "cameraSampleTime": 0,
+          "cameraSampleStamp": 0,
+          "renderOwned": false,
+          "restoreObserved": false,
+          "restoreProjectionError": 0,
+          "restoreStateError": 0,
+          "compileReady": false,
+          "warmReady": false
+        },
+        "renderer": true,
+        "rig": true
+      },
+      "pass": false
+    }
+  ],
+  "failures": [
+    "desktop: page.waitForFunction: Timeout 90000ms exceeded."
+  ],
+  "completed": "2026-10-06T17:58:12.025Z"
+}

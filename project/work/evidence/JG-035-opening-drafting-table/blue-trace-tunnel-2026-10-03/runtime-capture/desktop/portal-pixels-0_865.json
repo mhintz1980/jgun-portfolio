@@ -1,0 +1,71 @@
+{
+  "available": true,
+  "portalChangedPixels": 527,
+  "modelChangedPixels": 5062,
+  "deskChangedInsidePixels": 527,
+  "sampledInsidePixels": 25271,
+  "profilePixels": 25271,
+  "cameraUnchanged": true,
+  "controls": [
+    {
+      "rect": [
+        0,
+        0,
+        8,
+        8
+      ],
+      "pixels": 64,
+      "portalChangedPixels": 0,
+      "modelChangedPixels": 0,
+      "deskChangedPixels": 0
+    },
+    {
+      "rect": [
+        632,
+        355,
+        8,
+        8
+      ],
+      "pixels": 64,
+      "portalChangedPixels": 0,
+      "modelChangedPixels": 0,
+      "deskChangedPixels": 0
+    }
+  ],
+  "clipRect": [
+    169,
+    72,
+    304,
+    237
+  ],
+  "width": 640,
+  "height": 363,
+  "sampleClipRect": {
+    "x": 169,
+    "y": 72,
+    "width": 304,
+    "height": 237
+  },
+  "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+  "fixedCamera": true,
+  "portalActive": true,
+  "modelVisible": true,
+  "deskVisible": true,
+  "capZ": -3.20048,
+  "capChangedPixels": 0,
+  "wallChangedPixels": 527,
+  "capVisiblePixels": 0,
+  "capVisible": false,
+  "wallVisible": true,
+  "closureOccluded": true,
+  "portalVisiblePixels": 527,
+  "portalMaxLuminance": 0.5490196078431373,
+  "portalWhitePixels": 0,
+  "portalFissurePixels": 100,
+  "shaftDepthM": 3.2,
+  "wallLevels": 11,
+  "maxRingDeviationM": 0.009342710724803662,
+  "extentM": 0.33801084302134454,
+  "occlusionMargin": 2.5367157104053244,
+  "shaderValid": true
+}

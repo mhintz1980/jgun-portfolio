@@ -1,0 +1,32 @@
+
+> jgun-portfolio@0.1.0 build
+> tsc && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 673 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 2.12 kB │ gzip:   0.69 kB
+dist/assets/draco_wasm_wrapper-fZCQGLGb.js     58.46 kB
+dist/assets/draco_wasm_wrapper-DxJM36Ib.js     58.76 kB
+dist/assets/draco_decoder-Z1_iN-Ht.wasm       192.42 kB │ gzip:  63.46 kB
+dist/assets/draco_decoder-C32yEggz.wasm       285.75 kB │ gzip:  88.64 kB
+dist/assets/draco_decoder-fzg4nYZr.js         719.41 kB
+dist/assets/QuietMachinePreview-TUd1Nev4.css    2.60 kB │ gzip:   0.98 kB
+dist/assets/index-D3vqsF2B.css                 49.24 kB │ gzip:   9.11 kB
+dist/assets/BootSequence-DOLnYMCr.js            3.02 kB │ gzip:   1.55 kB
+dist/assets/QuietMachinePreview-wT51Cmql.js     6.51 kB │ gzip:   3.00 kB
+dist/assets/ScrollRig-DSYYtPSH.js              20.80 kB │ gzip:   6.34 kB
+dist/assets/QuietMachineScene-CrEraRIH.js      30.91 kB │ gzip:  12.21 kB
+dist/assets/ScrollTrigger-a3sj5zmn.js         114.01 kB │ gzip:  45.16 kB
+dist/assets/index-BOFIE5uP.js                 245.91 kB │ gzip:  78.86 kB
+dist/assets/vanilla-B3Kcayg7.js               380.08 kB │ gzip: 103.16 kB
+dist/assets/SceneCanvas-BqUXAFVf.js           387.12 kB │ gzip: 135.94 kB
+dist/assets/sectionRenderPass-C0d9kvvW.js     684.62 kB │ gzip: 185.88 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 19.95s

@@ -1,0 +1,325 @@
+{
+  "schema": "jgun-manufacturing-g0/v1",
+  "baseline_matches": 6,
+  "correspondence": {
+    "occurrence_path": [
+      {
+        "index": 0,
+        "name": "Default",
+        "transform": {}
+      },
+      {
+        "index": 9,
+        "name": "D1-AP Gearbox Assy-rev2-1 <1>",
+        "transform": {}
+      },
+      {
+        "index": 66,
+        "name": "A000881-1 <1>",
+        "transform": {}
+      },
+      {
+        "index": 71,
+        "name": "occurrence of P001835-2",
+        "transform": {
+          "translation": [
+            -1.0300505091345898e-15,
+            -1.2639655926011204e-16,
+            -0.06920108199119568
+          ],
+          "rotation": [
+            2.210426642767523e-16,
+            1.5841295024199039e-16,
+            -0.08109082125607626,
+            0.9967067164958883
+          ]
+        }
+      },
+      {
+        "index": 72,
+        "name": "P001835-2",
+        "transform": {}
+      }
+    ],
+    "mesh_descriptor_identical": true,
+    "binary_payload_identical": true,
+    "accessor_table_identical": true,
+    "buffer_view_table_identical": true,
+    "historical_failure_revision_authenticated": false,
+    "decoded_vertex_count": 11347,
+    "decoded_local_vertex_max_abs_error_mm": 0.0
+  },
+  "support_delta_mm": [
+    {
+      "identity": "K000210-1",
+      "bounds_center_delta": [
+        -1.1139183672681519e-07,
+        2.749999752268195,
+        -1.3434467340672773e-07
+      ],
+      "native_moved_delta": [
+        0.0,
+        2.7500001010229567,
+        0.0
+      ],
+      "residual": 2.0954757928848267e-06
+    },
+    {
+      "identity": "K000211-1",
+      "bounds_center_delta": [
+        -1.2094326755363038e-07,
+        2.7500001305724164,
+        -1.9975302054803246e-07
+      ],
+      "native_moved_delta": [
+        0.0,
+        2.749999985098839,
+        0.0
+      ],
+      "residual": 6.5854449671221e-07
+    },
+    {
+      "identity": "P000725-1",
+      "bounds_center_delta": [
+        -8.320491240443317e-07,
+        4.006096045172658e-07,
+        8.320496965030788e-07
+      ],
+      "native_moved_delta": [
+        0.0,
+        2.749999985098839,
+        0.0
+      ],
+      "residual": null
+    }
+  ],
+  "registration": {
+    "status": "measured",
+    "units": "metres in GLB/Blend; mm only in reporting",
+    "blender_to_gltf_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "shaft_local_to_blender_world": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -1.0300505091345898e-15
+      ],
+      [
+        3.516315667205359e-16,
+        1.0,
+        -4.149377504071382e-16,
+        0.06920108199119568
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        -1.2639655926011204e-16
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "saved_matrix_max_abs_error": 0.0,
+    "shaft_local_to_gltf_world": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -1.0300505091345898e-15
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        -1.2639655926011204e-16
+      ],
+      [
+        -3.516315667205359e-16,
+        -1.0,
+        4.149377504071382e-16,
+        -0.06920108199119568
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "hero_rest_center_m": [
+      0.07780783086387061,
+      -1.072308505746522e-06,
+      -0.09254183464277439
+    ],
+    "shaft_local_to_recentered_hero_rest": [
+      [
+        0.9868485331535339,
+        -2.7993343057879116e-16,
+        0.16164754331111908,
+        -0.07780782878398895
+      ],
+      [
+        -0.16164754331111908,
+        4.663211247979686e-16,
+        0.9868485331535339,
+        1.0723084642449976e-06
+      ],
+      [
+        -3.516315667205359e-16,
+        -1.0,
+        4.149377504071382e-16,
+        0.023340754210948944
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "approved_export_gltf_to_hero_rest": [
+      [
+        0.9868485331535339,
+        0.16164754331111908,
+        2.7993343057879116e-16,
+        -0.07780782878398895
+      ],
+      [
+        -0.16164754331111908,
+        0.9868485331535339,
+        -4.663211247979686e-16,
+        1.0723084642449976e-06
+      ],
+      [
+        -3.516315667205359e-16,
+        4.149377504071382e-16,
+        1.0,
+        0.023340754210948944
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "local_positive_y_to_gltf_direction": [
+      -2.7993343057879116e-16,
+      4.663211247979686e-16,
+      -1.0
+    ],
+    "dynamic_hero_parent_pose": "Apply live registered-model parent transform after this rest transform; no fixed world-camera registration claimed",
+    "shift_rule": "Approved coordinates are endpoint. Start = endpoint minus measured legacy-to-approved delta; do not add endpoint shift."
+  },
+  "tooth_profile": {
+    "status": "measured",
+    "section_y_mm": 6,
+    "samples": 3600,
+    "dominant_circumferential_harmonic": 10,
+    "tooth_pitch_deg": 36,
+    "legacy_tip_radius_mm": 6.083369457322448,
+    "legacy_root_radius_mm": 4.291829627954357,
+    "approved_tip_radius_mm": 6.08338168479651,
+    "approved_root_radius_mm": 4.291829627954357,
+    "clocking_delta_modulo_36_deg": 0.0,
+    "angular_sample_uncertainty_deg": 0.1,
+    "same_clock_profile_rms_difference_mm": 0.00020872909172341304,
+    "same_clock_profile_max_difference_mm": 0.0025567758150124575,
+    "production_module_pressure_angle_pitch_diameter": {
+      "status": "unresolved",
+      "reason": "Tip/root and count do not establish involute parameters or production cutter."
+    }
+  },
+  "reported_build_non_manifold_edges": 1,
+  "native_non_manifold_edges": 282998,
+  "native_weld_1um_non_manifold_edges": 363,
+  "reported_build_defect_edges": [
+    {
+      "endpoints_mm": [
+        [
+          4.424868106842041,
+          8.899999618530273,
+          -2.268352508544922
+        ],
+        [
+          4.429187297821045,
+          8.899999618530273,
+          -2.2703521251678467
+        ]
+      ],
+      "linked_faces": 4
+    }
+  ],
+  "bearing_connected_components": 1,
+  "plus_x_floor_first_y_within_0_01mm_of_filler_radius": 13.779999999999909,
+  "assembly_meshes_scanned": 162,
+  "surface_checks": 40,
+  "spring_found": true,
+  "spring_checks": [
+    {
+      "identity": "K000180-1",
+      "min_mm": [
+        -17.142528041984377,
+        12.642691377550307,
+        -17.14267245484723
+      ],
+      "max_mm": [
+        17.143514066182693,
+        19.145715050399364,
+        17.142684873978983
+      ],
+      "triangle_intersection_pairs": 0,
+      "legacy_shaft_triangle_intersection_pairs_same_neighbour_pose": 0,
+      "crossing_triangle_bounds": null,
+      "sampled_min_surface_distance_mm": 5.4610129445791245,
+      "separation_bound_mm": [
+        0,
+        5.4610129445791245
+      ],
+      "nearest_witness_shaft_local_m": [
+        [
+          0.007057376205921173,
+          0.020904548466205597,
+          -0.005364838056266308
+        ],
+        [
+          0.011056996881961823,
+          0.019138455390930176,
+          -0.008636933751404285
+        ]
+      ],
+      "status": "measured_sample_only",
+      "limitation": "Triangle crossings are surface intersections, not volumetric penetration or fit proof. Vertex distances upper-bound mesh separation. No dynamic rotation/tolerance clearance certification."
+    }
+  ],
+  "source_hashes_unchanged_after_run": true
+}

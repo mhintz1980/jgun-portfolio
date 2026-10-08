@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+
+
+ Test Files  17 passed (17)
+      Tests  184 passed (184)
+   Start at  19:50:21
+   Duration  17.48s (transform 903ms, setup 0ms, import 2.98s, tests 9.96s, environment 2ms)
+

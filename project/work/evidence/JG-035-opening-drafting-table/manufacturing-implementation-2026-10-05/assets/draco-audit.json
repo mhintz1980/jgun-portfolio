@@ -1,0 +1,451 @@
+{
+  "decoder": "installed draco3d",
+  "bundles": {
+    "full": {
+      "bytes": 524004,
+      "sha256": "78f95a3ec617e80c9f7842fea0f5f6265dcd0ab3ffa8b976df5cd5a5814fc395",
+      "primitive_calls": 7,
+      "parts": {
+        "legacyshaft": {
+          "triangles": 12671,
+          "vertices": 9393,
+          "bounds_gltf_m": [
+            [
+              -0.008864600211381912,
+              -0.008864577859640121,
+              -0.07152394950389862
+            ],
+            [
+              0.008864594623446465,
+              0.008864207193255424,
+              1.1175870895385742e-7
+            ]
+          ],
+          "center_gltf_m": [
+            0.000022424626185259587,
+            -0.000022603139395492714,
+            -0.022479087134957915
+          ],
+          "max_normal_length_error": 1.2853464093076639e-7,
+          "extras": {
+            "part_number": "P001835",
+            "design_state": "legacy",
+            "source_object": "SHAFT_P001835_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "approvedshaft": {
+          "triangles": 47959,
+          "vertices": 30546,
+          "bounds_gltf_m": [
+            [
+              -0.008864600211381912,
+              -0.008864577859640121,
+              -0.07152394950389862
+            ],
+            [
+              0.008864594623446465,
+              0.008864207193255424,
+              1.1175870895385742e-7
+            ]
+          ],
+          "center_gltf_m": [
+            0.000043944131766151936,
+            0.000008085206501510718,
+            -0.014685150247232532
+          ],
+          "max_normal_length_error": 1.5193466396112854e-7,
+          "extras": {
+            "part_number": "P001835",
+            "design_state": "approved",
+            "source_object": "SHAFT_P001835_HOBBED_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "housing": {
+          "triangles": 15000,
+          "vertices": 14616,
+          "bounds_gltf_m": [
+            [
+              -0.021667493507266045,
+              -0.02166750840842724,
+              -0.034182723611593246
+            ],
+            [
+              0.021667690947651863,
+              0.021667512133717537,
+              0.009073689579963684
+            ]
+          ],
+          "center_gltf_m": [
+            0.000044622703646035434,
+            0.00002195462618904007,
+            -0.00930462317675309
+          ],
+          "max_normal_length_error": 1.3493451822554903e-7,
+          "extras": {
+            "part_number": "P000725",
+            "design_state": "approved",
+            "source_object": "housing_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "legacybearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "bounds_gltf_m": [
+            [
+              -0.009521102532744408,
+              -0.00952189601957798,
+              -0.016865598037838936
+            ],
+            [
+              0.00952170230448246,
+              0.009521815925836563,
+              -0.012903191149234772
+            ]
+          ],
+          "center_gltf_m": [
+            -5.1978437615158936e-8,
+            -2.0329025573975976e-8,
+            -0.014884434063348943
+          ],
+          "max_normal_length_error": 1.3734398929265978e-7,
+          "extras": {
+            "part_number": "K000210",
+            "design_state": "legacy",
+            "source_object": "BEARING_K000210_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "legacyring": {
+          "triangles": 412,
+          "vertices": 420,
+          "bounds_gltf_m": [
+            [
+              -0.007432611659169197,
+              -0.007439469452947378,
+              -0.01278915349394083
+            ],
+            [
+              0.007436422631144524,
+              0.00744182663038373,
+              -0.011849095113575459
+            ]
+          ],
+          "center_gltf_m": [
+            0.0005359927724514693,
+            0.00039741816886124267,
+            -0.012318908197006916
+          ],
+          "max_normal_length_error": 1.2902136370396278e-7,
+          "extras": {
+            "part_number": "K000211",
+            "design_state": "legacy",
+            "source_object": "RING_K000211_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "approvedbearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "bounds_gltf_m": [
+            [
+              -0.009521102532744408,
+              -0.00952189601957798,
+              -0.019615598022937775
+            ],
+            [
+              0.00952170230448246,
+              0.009521815925836563,
+              -0.01565319113433361
+            ]
+          ],
+          "center_gltf_m": [
+            -5.1978437615158936e-8,
+            -2.0329025573975976e-8,
+            -0.017634434027372355
+          ],
+          "max_normal_length_error": 1.3734398929265978e-7,
+          "extras": {
+            "part_number": "K000210",
+            "design_state": "approved",
+            "source_object": "bearing_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "approvedring": {
+          "triangles": 412,
+          "vertices": 420,
+          "bounds_gltf_m": [
+            [
+              -0.007432611659169197,
+              -0.007439469452947378,
+              -0.015539153479039669
+            ],
+            [
+              0.007436422631144524,
+              0.00744182663038373,
+              -0.014599095098674297
+            ]
+          ],
+          "center_gltf_m": [
+            0.0005359927724514693,
+            0.00039741816886124267,
+            -0.015068908182105831
+          ],
+          "max_normal_length_error": 1.2902136370396278e-7,
+          "extras": {
+            "part_number": "K000211",
+            "design_state": "approved",
+            "source_object": "ring_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        }
+      },
+      "support_delta_gltf_mm": {
+        "bearing": [
+          0,
+          0,
+          -2.7499999640234125
+        ],
+        "ring": [
+          0,
+          0,
+          -2.749999985098915
+        ]
+      },
+      "scope": "independent Node Draco decoding; no browser draw-call/performance or G2 acceptance claim"
+    },
+    "lite": {
+      "bytes": 368624,
+      "sha256": "689db29e644a70a3a8c749f6ca77d20f627e785a2f644a397531540e1cdf1229",
+      "primitive_calls": 7,
+      "parts": {
+        "legacyshaft": {
+          "triangles": 12671,
+          "vertices": 9393,
+          "bounds_gltf_m": [
+            [
+              -0.008864600211381912,
+              -0.008864577859640121,
+              -0.07152394950389862
+            ],
+            [
+              0.008864594623446465,
+              0.008864207193255424,
+              1.1175870895385742e-7
+            ]
+          ],
+          "center_gltf_m": [
+            0.000022424626185259587,
+            -0.000022603139395492714,
+            -0.022479087134957915
+          ],
+          "max_normal_length_error": 1.2853464093076639e-7,
+          "extras": {
+            "part_number": "P001835",
+            "design_state": "legacy",
+            "source_object": "SHAFT_P001835_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "approvedshaft": {
+          "triangles": 14490,
+          "vertices": 9926,
+          "bounds_gltf_m": [
+            [
+              -0.008864600211381912,
+              -0.008864577859640121,
+              -0.07152394950389862
+            ],
+            [
+              0.008864594623446465,
+              0.008864207193255424,
+              1.1175870895385742e-7
+            ]
+          ],
+          "center_gltf_m": [
+            0.00004743682324725503,
+            -0.00002248709774237622,
+            -0.022225066044791728
+          ],
+          "max_normal_length_error": 1.3407874832616073e-7,
+          "extras": {
+            "part_number": "P001835",
+            "design_state": "approved",
+            "source_object": "SHAFT_P001835_HOBBED_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "housing": {
+          "triangles": 15000,
+          "vertices": 14616,
+          "bounds_gltf_m": [
+            [
+              -0.021667493507266045,
+              -0.02166750840842724,
+              -0.034182723611593246
+            ],
+            [
+              0.021667690947651863,
+              0.021667512133717537,
+              0.009073689579963684
+            ]
+          ],
+          "center_gltf_m": [
+            0.000044622703646035434,
+            0.00002195462618904007,
+            -0.00930462317675309
+          ],
+          "max_normal_length_error": 1.3493451822554903e-7,
+          "extras": {
+            "part_number": "P000725",
+            "design_state": "approved",
+            "source_object": "housing_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "legacybearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "bounds_gltf_m": [
+            [
+              -0.009521102532744408,
+              -0.00952189601957798,
+              -0.016865598037838936
+            ],
+            [
+              0.00952170230448246,
+              0.009521815925836563,
+              -0.012903191149234772
+            ]
+          ],
+          "center_gltf_m": [
+            -5.1978437615158936e-8,
+            -2.0329025573975976e-8,
+            -0.014884434063348943
+          ],
+          "max_normal_length_error": 1.3734398929265978e-7,
+          "extras": {
+            "part_number": "K000210",
+            "design_state": "legacy",
+            "source_object": "BEARING_K000210_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "legacyring": {
+          "triangles": 412,
+          "vertices": 420,
+          "bounds_gltf_m": [
+            [
+              -0.007432611659169197,
+              -0.007439469452947378,
+              -0.01278915349394083
+            ],
+            [
+              0.007436422631144524,
+              0.00744182663038373,
+              -0.011849095113575459
+            ]
+          ],
+          "center_gltf_m": [
+            0.0005359927724514693,
+            0.00039741816886124267,
+            -0.012318908197006916
+          ],
+          "max_normal_length_error": 1.2902136370396278e-7,
+          "extras": {
+            "part_number": "K000211",
+            "design_state": "legacy",
+            "source_object": "RING_K000211_ORIG",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": false
+          }
+        },
+        "approvedbearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "bounds_gltf_m": [
+            [
+              -0.009521102532744408,
+              -0.00952189601957798,
+              -0.019615598022937775
+            ],
+            [
+              0.00952170230448246,
+              0.009521815925836563,
+              -0.01565319113433361
+            ]
+          ],
+          "center_gltf_m": [
+            -5.1978437615158936e-8,
+            -2.0329025573975976e-8,
+            -0.017634434027372355
+          ],
+          "max_normal_length_error": 1.3734398929265978e-7,
+          "extras": {
+            "part_number": "K000210",
+            "design_state": "approved",
+            "source_object": "bearing_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        },
+        "approvedring": {
+          "triangles": 412,
+          "vertices": 420,
+          "bounds_gltf_m": [
+            [
+              -0.007432611659169197,
+              -0.007439469452947378,
+              -0.015539153479039669
+            ],
+            [
+              0.007436422631144524,
+              0.00744182663038373,
+              -0.014599095098674297
+            ]
+          ],
+          "center_gltf_m": [
+            0.0005359927724514693,
+            0.00039741816886124267,
+            -0.015068908182105831
+          ],
+          "max_normal_length_error": 1.2902136370396278e-7,
+          "extras": {
+            "part_number": "K000211",
+            "design_state": "approved",
+            "source_object": "ring_NEW",
+            "coordinate_frame": "shaft-local metres; +Y axis becomes glTF -Z via exporter only",
+            "support_shift_baked": true
+          }
+        }
+      },
+      "support_delta_gltf_mm": {
+        "bearing": [
+          0,
+          0,
+          -2.7499999640234125
+        ],
+        "ring": [
+          0,
+          0,
+          -2.749999985098915
+        ]
+      },
+      "scope": "independent Node Draco decoding; no browser draw-call/performance or G2 acceptance claim"
+    }
+  }
+}

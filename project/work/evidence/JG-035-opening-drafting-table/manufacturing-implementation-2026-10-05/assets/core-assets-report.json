@@ -1,0 +1,1143 @@
+{
+  "schema": "jgun-core-assets/v1",
+  "scope": "finished core preparation only; G2 OPEN; G0 tool fit OPEN",
+  "source_census": {
+    "legacyshaft": {
+      "vertices": 11347,
+      "faces": 12754,
+      "triangles": 12754,
+      "boundary_edges": 9700,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 8364.61796532705,
+      "bounds_mm": [
+        [
+          -8.864600211381912,
+          -0.00011161318980157375,
+          -8.864577859640121
+        ],
+        [
+          8.86461976915598,
+          71.52394950389862,
+          8.86461976915598
+        ]
+      ]
+    },
+    "approvedshaft": {
+      "vertices": 286460,
+      "faces": 139880,
+      "triangles": 139880,
+      "boundary_edges": 282998,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 8109.736075674211,
+      "bounds_mm": [
+        [
+          -8.864600211381912,
+          -0.00011161318980157375,
+          -8.864577859640121
+        ],
+        [
+          8.864600211381912,
+          71.52394950389862,
+          8.864238858222961
+        ]
+      ]
+    },
+    "housing": {
+      "vertices": 20158,
+      "faces": 19776,
+      "triangles": 19776,
+      "boundary_edges": 20010,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 12343.035356169517,
+      "bounds_mm": [
+        [
+          -21.667715162038803,
+          -9.073697030544281,
+          -21.6677226126194
+        ],
+        [
+          21.667715162038803,
+          34.18272361159325,
+          21.6677226126194
+        ]
+      ]
+    },
+    "legacybearing": {
+      "vertices": 1896,
+      "faces": 1856,
+      "triangles": 1856,
+      "boundary_edges": 1896,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 558.4116849484489,
+      "bounds_mm": [
+        [
+          -9.521102532744408,
+          12.903198599815369,
+          -9.52189601957798
+        ],
+        [
+          9.521693922579288,
+          16.865598037838936,
+          9.521815925836563
+        ]
+      ]
+    },
+    "legacyring": {
+      "vertices": 424,
+      "faces": 412,
+      "triangles": 412,
+      "boundary_edges": 424,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 49.00153647706789,
+      "bounds_mm": [
+        [
+          -7.432611659169197,
+          11.849098838865757,
+          -7.439469452947378
+        ],
+        [
+          7.436415646225214,
+          12.78915349394083,
+          7.441826164722443
+        ]
+      ]
+    },
+    "approvedbearing": {
+      "vertices": 1896,
+      "faces": 1856,
+      "triangles": 1856,
+      "boundary_edges": 1896,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 558.4116304834295,
+      "bounds_mm": [
+        [
+          -9.521102532744408,
+          15.653198584914207,
+          -9.52189601957798
+        ],
+        [
+          9.521693922579288,
+          19.615598022937775,
+          9.521815925836563
+        ]
+      ]
+    },
+    "approvedring": {
+      "vertices": 424,
+      "faces": 412,
+      "triangles": 412,
+      "boundary_edges": 424,
+      "overfull_edges": 0,
+      "wire_edges": 0,
+      "volume_mm3": 49.001536477067845,
+      "bounds_mm": [
+        [
+          -7.432611659169197,
+          14.599098823964596,
+          -7.439469452947378
+        ],
+        [
+          7.436415646225214,
+          15.539153479039669,
+          7.441826164722443
+        ]
+      ]
+    }
+  },
+  "cleanup": {
+    "legacyshaft": {
+      "weld_mm": 0.005,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 6338,
+        "faces": 12671,
+        "triangles": 12671,
+        "boundary_edges": 3,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 8364.827460153583,
+        "bounds_mm": [
+          [
+            -8.864600211381912,
+            -0.00011161318980157375,
+            -8.864577859640121
+          ],
+          [
+            8.864600211381912,
+            71.52394950389862,
+            8.864238858222961
+          ]
+        ]
+      }
+    },
+    "approvedshaft": {
+      "method": "native connectivity mapped onto nearest assembled source coordinates; single <5 micron overfull edge collapsed",
+      "topology_source": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-hobbed-v1.blend",
+      "topology_sha256": "e359708111c31807db3e3aa71f5db950ca5a42d435e87ad1602b3d81fb04f2d7",
+      "max_coordinate_mapping_mm": 0.0,
+      "repair": {
+        "endpoints_mm": [
+          [
+            4.424868151545525,
+            8.899999782443047,
+            -2.268352545797825
+          ],
+          [
+            4.429187159985304,
+            8.899999782443047,
+            -2.2703520953655243
+          ]
+        ],
+        "edge_length_mm": 0.004759415332955541,
+        "linked_faces": 4
+      },
+      "census": {
+        "vertices": 69972,
+        "faces": 125906,
+        "triangles": 139886,
+        "boundary_edges": 0,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 8109.727537318418,
+        "bounds_mm": [
+          [
+            -8.864600211381912,
+            -0.00011161318980157375,
+            -8.864577859640121
+          ],
+          [
+            8.864600211381912,
+            71.52394950389862,
+            8.864238858222961
+          ]
+        ]
+      },
+      "surface_error": {
+        "source_to_candidate": {
+          "max_mm": 0.0067412734097160865,
+          "rms_mm": 7.4849614409337e-05,
+          "count": 845980,
+          "regions_max_mm": {
+            "tooth": 0.0067412734097160865,
+            "runout": 0.00384948816645192,
+            "journal_groove": 1.4095420830528838e-05,
+            "remainder": 0.005500467523233965
+          }
+        },
+        "candidate_to_source": {
+          "max_mm": 0.0067412734097160865,
+          "rms_mm": 8.68278565951788e-05,
+          "count": 629516,
+          "regions_max_mm": {
+            "tooth": 0.0067412734097160865,
+            "runout": 0.00384948816645192,
+            "journal_groove": 1.4095420830528838e-05,
+            "remainder": 0.005500467523233965
+          }
+        },
+        "symmetric_max_mm": 0.0067412734097160865,
+        "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+      }
+    },
+    "housing": {
+      "weld_mm": 0.005,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 9834,
+        "faces": 19692,
+        "triangles": 19692,
+        "boundary_edges": 24,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 12342.535048679862,
+        "bounds_mm": [
+          [
+            -21.667493507266045,
+            -9.073697030544281,
+            -21.66750840842724
+          ],
+          [
+            21.667692810297012,
+            34.18272361159325,
+            21.667521446943283
+          ]
+        ]
+      }
+    },
+    "legacybearing": {
+      "weld_mm": 0.002,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 928,
+        "faces": 1856,
+        "triangles": 1856,
+        "boundary_edges": 0,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 558.4610804073124,
+        "bounds_mm": [
+          [
+            -9.521102532744408,
+            12.903198599815369,
+            -9.52189601957798
+          ],
+          [
+            9.521693922579288,
+            16.865598037838936,
+            9.521815925836563
+          ]
+        ]
+      }
+    },
+    "legacyring": {
+      "weld_mm": 0.001,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 208,
+        "faces": 412,
+        "triangles": 412,
+        "boundary_edges": 0,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 49.05352496184677,
+        "bounds_mm": [
+          [
+            -7.432611659169197,
+            11.849098838865757,
+            -7.439469452947378
+          ],
+          [
+            7.436415646225214,
+            12.78915349394083,
+            7.441826164722443
+          ]
+        ]
+      }
+    },
+    "approvedbearing": {
+      "weld_mm": 0.002,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 928,
+        "faces": 1856,
+        "triangles": 1856,
+        "boundary_edges": 0,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 558.4610259428541,
+        "bounds_mm": [
+          [
+            -9.521102532744408,
+            15.653198584914207,
+            -9.52189601957798
+          ],
+          [
+            9.521693922579288,
+            19.615598022937775,
+            9.521815925836563
+          ]
+        ]
+      }
+    },
+    "approvedring": {
+      "weld_mm": 0.001,
+      "duplicate_faces_removed": 0,
+      "overfull": [],
+      "census": {
+        "vertices": 208,
+        "faces": 412,
+        "triangles": 412,
+        "boundary_edges": 0,
+        "overfull_edges": 0,
+        "wire_edges": 0,
+        "volume_mm3": 49.05352496184669,
+        "bounds_mm": [
+          [
+            -7.432611659169197,
+            14.599098823964596,
+            -7.439469452947378
+          ],
+          [
+            7.436415646225214,
+            15.539153479039669,
+            7.441826164722443
+          ]
+        ]
+      }
+    }
+  },
+  "bundles": {
+    "full": {
+      "bytes": 563732,
+      "sha256": "0b2a779214c2955e4dcb4c7308c66b5812d45c90193276c6650f87d077e79ae3",
+      "names": [
+        "legacyshaft",
+        "approvedshaft",
+        "housing",
+        "legacybearing",
+        "legacyring",
+        "approvedbearing",
+        "approvedring"
+      ],
+      "triangles": {
+        "legacyshaft": 12671,
+        "approvedshaft": 47991,
+        "housing": 15000,
+        "legacybearing": 1856,
+        "legacyring": 412,
+        "approvedbearing": 1856,
+        "approvedring": 412
+      },
+      "total_triangles": 80198,
+      "primitive_calls": 7,
+      "extensions_required": [
+        "KHR_draco_mesh_compression"
+      ],
+      "root_extras": {
+        "frame_intent": "assembled study independent of narrative entry; not a replacement for Default.glb"
+      },
+      "decoded": {
+        "legacyshaft": {
+          "census": {
+            "vertices": 9393,
+            "faces": 12671,
+            "triangles": 12671,
+            "boundary_edges": 6057,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 8364.821650096064,
+            "bounds_mm": [
+              [
+                -8.864600211381912,
+                -0.00011175870895385742,
+                -8.864577859640121
+              ],
+              [
+                8.864594623446465,
+                71.52394950389862,
+                8.864207193255424
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.0039068854675861076,
+              "rms_mm": 0.00010222520449130142,
+              "count": 62363,
+              "regions_max_mm": {
+                "tooth": 0.0006014563496137271,
+                "runout": 0.0005601380621556018,
+                "journal_groove": 0.000658910721540451,
+                "remainder": 0.0039068854675861076
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.0039735259633744135,
+              "rms_mm": 7.924828086388763e-05,
+              "count": 60077,
+              "regions_max_mm": {
+                "tooth": 0.00041944329609577835,
+                "runout": 0.0005718049465031072,
+                "journal_groove": 0.0005035538492847991,
+                "remainder": 0.0039735259633744135
+              }
+            },
+            "symmetric_max_mm": 0.0039735259633744135,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "profile_error": {
+            "sections": [
+              {
+                "y_mm": 0.25,
+                "max_mm": 0.000124810162068556,
+                "rms_mm": 7.381153968803648e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 3.3,
+                "max_mm": 0.0032874911530607065,
+                "rms_mm": 0.0004946155442680267,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 4.0,
+                "max_mm": 0.0031101133505950784,
+                "rms_mm": 0.00024670905073518196,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 6.0,
+                "max_mm": 0.002430690588922424,
+                "rms_mm": 0.0001997609179993249,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 8.9,
+                "max_mm": 0.0012568759703919241,
+                "rms_mm": 0.0001454617503814073,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 9.2,
+                "max_mm": 0.0011379863435481141,
+                "rms_mm": 0.0001447554975164603,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 9.6,
+                "max_mm": 0.001057939078393133,
+                "rms_mm": 0.00020594964178396346,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 10.0,
+                "max_mm": 0.0001033579286362496,
+                "rms_mm": 1.9325345312671803e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 10.5,
+                "max_mm": 0.00043527821893141194,
+                "rms_mm": 0.00011714202112447189,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 11.0,
+                "max_mm": 0.00020698551390285758,
+                "rms_mm": 3.5968212465925426e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 11.5,
+                "max_mm": 0.00012686535371386753,
+                "rms_mm": 4.000255362258738e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 12.0,
+                "max_mm": 0.0005679234867521643,
+                "rms_mm": 0.00013584720266732485,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 12.5,
+                "max_mm": 0.0005679234867521643,
+                "rms_mm": 0.0001689945049300367,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.0,
+                "max_mm": 0.00035756752009774573,
+                "rms_mm": 7.878319688790472e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.5,
+                "max_mm": 0.0003647344302466493,
+                "rms_mm": 9.120526113297887e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.78,
+                "max_mm": 0.000367822835601217,
+                "rms_mm": 0.00010214533136108984,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.1,
+                "max_mm": 0.000377124380792182,
+                "rms_mm": 0.00011645307026293969,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.3,
+                "max_mm": 0.00038436093419758066,
+                "rms_mm": 0.00012587443363447457,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.8,
+                "max_mm": 0.00039779246285931436,
+                "rms_mm": 0.00015050508755328496,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 15.2,
+                "max_mm": 0.0004194261612884276,
+                "rms_mm": 0.00017026383402606873,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 15.8,
+                "max_mm": 0.0004778836519179208,
+                "rms_mm": 0.00019871194587493314,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 16.5,
+                "max_mm": 0.0005430496044533939,
+                "rms_mm": 0.00022941642552791835,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 18.5,
+                "max_mm": 0.00039726583744759125,
+                "rms_mm": 0.0001228470633409695,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 19.8,
+                "max_mm": 0.0007421303009280678,
+                "rms_mm": 0.00016652445851413506,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 25.0,
+                "max_mm": 0.0008315182049436487,
+                "rms_mm": 0.00016810347716164213,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 40.0,
+                "max_mm": 0.00023666572327130098,
+                "rms_mm": 5.6382600375723213e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 60.0,
+                "max_mm": 0.0002815685843096105,
+                "rms_mm": 6.580917975491621e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 70.0,
+                "max_mm": 0.000339619841066785,
+                "rms_mm": 7.194138751545936e-05,
+                "hit_mismatch": 0
+              }
+            ],
+            "max_mm": 0.0032874911530607065,
+            "tooth_count_source": 10,
+            "tooth_count_candidate": 10,
+            "nearest_clock_delta_degrees": 0.0,
+            "pitch_degrees": 36,
+            "same_clock": true,
+            "sampling_degrees": 0.25
+          },
+          "within_proposed_error": true
+        },
+        "approvedshaft": {
+          "census": {
+            "vertices": 36237,
+            "faces": 47991,
+            "triangles": 47991,
+            "boundary_edges": 22055,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 8401.452408669627,
+            "bounds_mm": [
+              [
+                -8.864600211381912,
+                -0.00011175870895385742,
+                -8.864577859640121
+              ],
+              [
+                8.864594623446465,
+                71.52394950389862,
+                8.864207193255424
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.010636686965881381,
+              "rms_mm": 0.00024670301675891487,
+              "count": 845980,
+              "regions_max_mm": {
+                "tooth": 0.005764077286585234,
+                "runout": 0.010636686965881381,
+                "journal_groove": 0.00019515263716129994,
+                "remainder": 0.00383294946004753
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.006590375051018782,
+              "rms_mm": 0.0002108672094113532,
+              "count": 228201,
+              "regions_max_mm": {
+                "tooth": 0.0056906865211203694,
+                "runout": 0.006590375051018782,
+                "journal_groove": 0.00019282707341972127,
+                "remainder": 0.005105654963699635
+              }
+            },
+            "symmetric_max_mm": 0.010636686965881381,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "profile_error": {
+            "sections": [
+              {
+                "y_mm": 0.25,
+                "max_mm": 5.999806573253608e-05,
+                "rms_mm": 2.4652604520135465e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 3.3,
+                "max_mm": 0.00021866142227811025,
+                "rms_mm": 7.423861090736846e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 4.0,
+                "max_mm": 0.00024214386940002441,
+                "rms_mm": 2.9077216625257682e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 6.0,
+                "max_mm": 0.000476837158203125,
+                "rms_mm": 2.810953824196751e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 8.9,
+                "max_mm": 0.0004637986421585083,
+                "rms_mm": 3.3146228909071397e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 9.2,
+                "max_mm": 0.0003169576267536556,
+                "rms_mm": 3.195876769271006e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 9.6,
+                "max_mm": 0.0017425209151360477,
+                "rms_mm": 0.00033786581300824576,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 10.0,
+                "max_mm": 0.0012117218946885444,
+                "rms_mm": 0.00027841636733728887,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 10.5,
+                "max_mm": 0.016907908946543593,
+                "rms_mm": 0.0007751071347389404,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 11.0,
+                "max_mm": 0.0021586004592037966,
+                "rms_mm": 0.0002645449899837709,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 11.5,
+                "max_mm": 0.0012926919511331292,
+                "rms_mm": 0.00023739431833700228,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 12.0,
+                "max_mm": 0.008750779159033328,
+                "rms_mm": 0.0004270113726283674,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 12.5,
+                "max_mm": 0.0010874055333509602,
+                "rms_mm": 0.00022384869933163456,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.0,
+                "max_mm": 0.005745479898787487,
+                "rms_mm": 0.0003952581231783208,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.5,
+                "max_mm": 0.0008079522920230175,
+                "rms_mm": 0.00023374684640848104,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 13.78,
+                "max_mm": 0.0009887597840974038,
+                "rms_mm": 0.00016972374772034258,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.1,
+                "max_mm": 0.00032244729208663614,
+                "rms_mm": 4.300448566142115e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.3,
+                "max_mm": 6.225943920501464e-05,
+                "rms_mm": 1.6240629682878017e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 14.8,
+                "max_mm": 3.929847648898033e-05,
+                "rms_mm": 1.6210702240906588e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 15.2,
+                "max_mm": 3.930086536207966e-05,
+                "rms_mm": 1.5954056629611556e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 15.8,
+                "max_mm": 4.364291971814538e-05,
+                "rms_mm": 1.5782990758995694e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 16.5,
+                "max_mm": 3.959754137561333e-05,
+                "rms_mm": 1.490156956737608e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 18.5,
+                "max_mm": 3.959754137561333e-05,
+                "rms_mm": 1.53462644544689e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 19.8,
+                "max_mm": 9.052507277296229e-05,
+                "rms_mm": 2.271860794851241e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 25.0,
+                "max_mm": 6.749122049853895e-05,
+                "rms_mm": 2.3167064526277784e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 40.0,
+                "max_mm": 0.0001631086435267548,
+                "rms_mm": 3.281427702910217e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 60.0,
+                "max_mm": 4.547296277213064e-05,
+                "rms_mm": 1.575565949379269e-05,
+                "hit_mismatch": 0
+              },
+              {
+                "y_mm": 70.0,
+                "max_mm": 0.00034030830533016143,
+                "rms_mm": 5.200152311372426e-05,
+                "hit_mismatch": 0
+              }
+            ],
+            "max_mm": 0.016907908946543593,
+            "tooth_count_source": 10,
+            "tooth_count_candidate": 10,
+            "nearest_clock_delta_degrees": 0.0,
+            "pitch_degrees": 36,
+            "same_clock": true,
+            "sampling_degrees": 0.25
+          },
+          "within_proposed_error": true
+        },
+        "housing": {
+          "census": {
+            "vertices": 14616,
+            "faces": 15000,
+            "triangles": 15000,
+            "boundary_edges": 13908,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 12342.965336917672,
+            "bounds_mm": [
+              [
+                -21.667493507266045,
+                -9.073689579963684,
+                -21.66750840842724
+              ],
+              [
+                21.667690947651863,
+                34.18272361159325,
+                21.667512133717537
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.012340396096988115,
+              "rms_mm": 0.0004153792024472065,
+              "count": 99262,
+              "regions_max_mm": {
+                "tooth": 0.012340396096988115,
+                "runout": 0.004881761014985386,
+                "journal_groove": 0.0023008497009868734,
+                "remainder": 0.0021720009044656763
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.003713952082762262,
+              "rms_mm": 0.00030083846074816526,
+              "count": 74616,
+              "regions_max_mm": {
+                "tooth": 0.003713952082762262,
+                "runout": 0.0025699227990116924,
+                "journal_groove": 0.0020457330265344353,
+                "remainder": 0.002037571675828076
+              }
+            },
+            "symmetric_max_mm": 0.012340396096988115,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "within_proposed_error": true
+        },
+        "legacybearing": {
+          "census": {
+            "vertices": 1856,
+            "faces": 1856,
+            "triangles": 1856,
+            "boundary_edges": 1856,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 558.4612592026688,
+            "bounds_mm": [
+              [
+                -9.521102532744408,
+                12.903191149234772,
+                -9.52189601957798
+              ],
+              [
+                9.52170230448246,
+                16.865598037838936,
+                9.521815925836563
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.0008645022830933158,
+              "rms_mm": 0.0001414574219335868,
+              "count": 9320,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0008644603894936154,
+                "journal_groove": 0.0008645022830933158,
+                "remainder": 0.0
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.0006784522383895819,
+              "rms_mm": 0.00010954624178743614,
+              "count": 9280,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0006657043059021817,
+                "journal_groove": 0.0006784522383895819,
+                "remainder": 0.0
+              }
+            },
+            "symmetric_max_mm": 0.0008645022830933158,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "within_proposed_error": true
+        },
+        "legacyring": {
+          "census": {
+            "vertices": 420,
+            "faces": 412,
+            "triangles": 412,
+            "boundary_edges": 420,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 49.053761727111464,
+            "bounds_mm": [
+              [
+                -7.432611659169197,
+                11.849095113575459,
+                -7.439469452947378
+              ],
+              [
+                7.436422631144524,
+                12.78915349394083,
+                7.44182663038373
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.0006891409611853305,
+              "rms_mm": 0.00015746531596858403,
+              "count": 2072,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0006891409611853305,
+                "journal_groove": 0.0,
+                "remainder": 0.0
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.0006871914024486614,
+              "rms_mm": 0.00010323634444808334,
+              "count": 2068,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0006871914024486614,
+                "journal_groove": 0.0,
+                "remainder": 0.0
+              }
+            },
+            "symmetric_max_mm": 0.0006891409611853305,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "within_proposed_error": true
+        },
+        "approvedbearing": {
+          "census": {
+            "vertices": 1856,
+            "faces": 1856,
+            "triangles": 1856,
+            "boundary_edges": 1856,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 558.4612623195064,
+            "bounds_mm": [
+              [
+                -9.521102532744408,
+                15.65319113433361,
+                -9.52189601957798
+              ],
+              [
+                9.52170230448246,
+                19.615598022937775,
+                9.521815925836563
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.0008645022830933158,
+              "rms_mm": 0.00014146083189624093,
+              "count": 9320,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0,
+                "journal_groove": 0.0008645022830933158,
+                "remainder": 0.0
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.0006784522383895819,
+              "rms_mm": 0.00010951116772498999,
+              "count": 9280,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0,
+                "journal_groove": 0.0006784522383895819,
+                "remainder": 0.0
+              }
+            },
+            "symmetric_max_mm": 0.0008645022830933158,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "within_proposed_error": true
+        },
+        "approvedring": {
+          "census": {
+            "vertices": 420,
+            "faces": 412,
+            "triangles": 412,
+            "boundary_edges": 420,
+            "overfull_edges": 0,
+            "wire_edges": 0,
+            "volume_mm3": 49.05376172711161,
+            "bounds_mm": [
+              [
+                -7.432611659169197,
+                14.599095098674297,
+                -7.439469452947378
+              ],
+              [
+                7.436422631144524,
+                15.539153479039669,
+                7.44182663038373
+              ]
+            ]
+          },
+          "surface_error": {
+            "source_to_candidate": {
+              "max_mm": 0.0006891409611853305,
+              "rms_mm": 0.0001574676025714058,
+              "count": 2072,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0,
+                "journal_groove": 0.0006891409611853305,
+                "remainder": 0.0
+              }
+            },
+            "candidate_to_source": {
+              "max_mm": 0.0006871914024486614,
+              "rms_mm": 0.0001032082022167959,
+              "count": 2068,
+              "regions_max_mm": {
+                "tooth": 0.0,
+                "runout": 0.0,
+                "journal_groove": 0.0006871914024486614,
+                "remainder": 0.0
+              }
+            },
+            "symmetric_max_mm": 0.0006891409611853305,
+            "method": "all vertices, all triangle centroids and all triangle edge midpoints; nearest triangle surface; sampled, not certified Hausdorff"
+          },
+          "within_proposed_error": true
+        }
+      },
+      "geometry_ok": true,
+      "bytes_ok": true,
+      "core_primitive_budget_ok": true,
+      "published": true,
+      "runtime_path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\public\\models\\manufacturing-core-full.glb"
+    }
+  },
+  "source_hash_before": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+  "topology_hash_before": "e359708111c31807db3e3aa71f5db950ca5a42d435e87ad1602b3d81fb04f2d7",
+  "error_criterion_mm": {
+    "full": 0.025,
+    "lite": 0.05
+  },
+  "progression": "omitted; cutter unverified",
+  "blanks": "omitted; no partial placeholder stock",
+  "frame": {
+    "units": "metres",
+    "source_axis": "+Y shaft-local",
+    "exported_axis": "-Z glTF",
+    "conversion": "Blender export_yup=True is the sole coordinate conversion",
+    "study_pose": "assembled, independent of narrative entry mode",
+    "support_shift": "already baked into approved source vertices; no added offset"
+  }
+}

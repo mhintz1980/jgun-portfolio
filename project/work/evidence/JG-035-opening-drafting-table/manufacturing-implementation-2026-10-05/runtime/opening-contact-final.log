@@ -1,0 +1,13 @@
+desktop: ready in 33850 ms
+desktop: FAIL (12 failures)
+narrow: ready in 9259 ms
+narrow: FAIL (2 failures)
+desktop-reduced: ready in 27375 ms
+desktop-reduced: PASS (0 failures)
+narrow-reduced: ready in 10442 ms
+narrow-reduced: PASS (0 failures)
+desktop-lite: ready in 10954 ms
+desktop-lite: FAIL (1 failures)
+narrow-lite: ready in 11046 ms
+narrow-lite: FAIL (1 failures)
+Evidence: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\runtime\opening-contact-final

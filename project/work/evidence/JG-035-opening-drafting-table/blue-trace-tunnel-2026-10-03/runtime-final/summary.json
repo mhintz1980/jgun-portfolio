@@ -1,0 +1,15 @@
+{
+  "url": "http://localhost:4173",
+  "pixelTimes": [
+    0.8405,
+    0.845,
+    0.855,
+    0.865,
+    0.88,
+    0.92
+  ],
+  "pixelContract": "same-frame normal versus portal/model/desk hidden; profile mask, unchanged controls, zero visible desk",
+  "cases": [],
+  "pass": false,
+  "error": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded."
+}

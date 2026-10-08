@@ -1,0 +1,13 @@
+
+> jgun-portfolio@0.1.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+
+
+ Test Files  43 passed (43)
+      Tests  445 passed (445)
+   Start at  18:39:06
+   Duration  35.00s (transform 3.80s, setup 0ms, import 13.60s, tests 40.91s, environment 8ms)
+

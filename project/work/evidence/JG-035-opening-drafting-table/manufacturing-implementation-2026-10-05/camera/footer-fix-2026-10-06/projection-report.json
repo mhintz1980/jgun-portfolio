@@ -1,0 +1,7486 @@
+{
+  "schema": 1,
+  "method": "Independent Draco positions; single shaft-local (x,y,z) -> glTF (x,z,-y) conversion; saved-matrix controls; source-authored post-15 machine anchors reconstructed independently; full rectangle X/Y separation >=8px.",
+  "limitations": "CPU projection only. Saved DOM/matrices are from pre-mobile-fix source; current source is separately hashed. Raster visibility, actual new DOM and runtime matrices require rebuilt parent capture.",
+  "saved_source_sha256": "dda159414f4c6d4c6af66dc541b91bfc2f4cc7d4a908e0a7691d1c7be7ccdb25",
+  "inputs": {
+    "src/scene/inspection/shaft/camera.ts": "0b5952f3f31bffbdf626965204e3a2b0a0c2c7443b593de728616e0b5af6203a",
+    "src/scene/inspection/shaft/camera.test.ts": "c6533831c6de0780b747c0a006909064b3dedd434aeb38e5757d087ca503e5b7",
+    "public/models/manufacturing-core-full.glb": "17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be",
+    "public/models/manufacturing-core-lite.glb": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f",
+    "previous/report.json": "100d8b078ba783dffff4a2683521243d517f374fa2c1f097910cb82c523f461b",
+    "previous/material-region-report.json": "347c19120d27f9dd241e16666ee31fcd76d0382983d9779b8b29145370e001d7",
+    "check-footer.mjs": "75401915b14de6b7b231d0c607f8dd729b79fce3a2c46053c2718fcc9f0f5eba"
+  },
+  "controls": [
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            134.17105301812302,
+            223.0002833695213
+          ],
+          "max": [
+            499.75076081799705,
+            675.3750714635408
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            -6.054424057611901,
+            12.788716703653336,
+            -1.8277769148340548
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.8136513152526069,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                57.59375,
+                24
+              ],
+              "max": [
+                1382.40625,
+                75.796875
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 147.2034083695213,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                57.59375,
+                87.796875
+              ],
+              "max": [
+                407.59375,
+                129.390625
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 93.6096583695213,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                904.8125,
+                144
+              ],
+              "max": [
+                1324.8125,
+                369.28125
+              ],
+              "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": 405.06173918200295,
+            "overlap_vertices": 0
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                57.59375,
+                596.5
+              ],
+              "max": [
+                537.59375,
+                876
+              ],
+              "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": -78.87507146354085,
+            "overlap_vertices": 573
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.3073986337985843e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4340",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            134.17105301812302,
+            223.0002833695213
+          ],
+          "max": [
+            499.75076081799705,
+            675.3750714635408
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            -6.054424057611901,
+            12.788716703653336,
+            -1.8277769148340548
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.8136513152526069,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                57.59375,
+                24
+              ],
+              "max": [
+                1382.40625,
+                75.796875
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 147.2034083695213,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                57.59375,
+                87.796875
+              ],
+              "max": [
+                407.59375,
+                129.390625
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 93.6096583695213,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                904.8125,
+                144
+              ],
+              "max": [
+                1324.8125,
+                310.28125
+              ],
+              "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": 405.06173918200295,
+            "overlap_vertices": 0
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                57.59375,
+                596.5
+              ],
+              "max": [
+                537.59375,
+                876
+              ],
+              "text": "Material attemptsSeek18.8 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": -78.87507146354085,
+            "overlap_vertices": 573
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.3073986337985843e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-c300",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            134.17105301812302,
+            223.0002833695213
+          ],
+          "max": [
+            499.75076081799705,
+            675.3750714635408
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            -6.054424057611901,
+            12.788716703653336,
+            -1.8277769148340548
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.8136513152526069,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                57.59375,
+                24
+              ],
+              "max": [
+                1382.40625,
+                75.796875
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 147.2034083695213,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                57.59375,
+                87.796875
+              ],
+              "max": [
+                407.59375,
+                129.390625
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 93.6096583695213,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                904.8125,
+                144
+              ],
+              "max": [
+                1324.8125,
+                369.28125
+              ],
+              "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": 405.06173918200295,
+            "overlap_vertices": 0
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                57.59375,
+                596.5
+              ],
+              "max": [
+                537.59375,
+                876
+              ],
+              "text": "Material attemptsSeek21.5 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": -78.87507146354085,
+            "overlap_vertices": 573
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.3073986337985843e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            183.62277184979422,
+            171.1063907058728
+          ],
+          "max": [
+            781.7218144639006,
+            731.6009833831612
+          ]
+        },
+        "vertices": 9474,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.402330739613968,
+            3.2065436244010925,
+            0.2485545666159628
+          ],
+          [
+            -8.266207084117266,
+            19.729703664779663,
+            0.1612094857321566
+          ],
+          [
+            -2.910212724681493,
+            19.729703664779663,
+            7.738636287004341
+          ],
+          [
+            3.7289439569838274,
+            19.729703664779663,
+            -7.378355718433207
+          ]
+        ],
+        "ndc_max_abs": 0.7449683724308414,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                57.59375,
+                24
+              ],
+              "max": [
+                1382.40625,
+                75.796875
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 95.3095157058728,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                57.59375,
+                87.796875
+              ],
+              "max": [
+                407.59375,
+                129.390625
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 41.7157657058728,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                904.8125,
+                144
+              ],
+              "max": [
+                1324.8125,
+                262.78125
+              ],
+              "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+            },
+            "separating_clearance_px": 123.09068553609939,
+            "overlap_vertices": 0
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                57.59375,
+                596.5
+              ],
+              "max": [
+                537.59375,
+                876
+              ],
+              "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": -135.10098338316118,
+            "overlap_vertices": 901
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 5.684341886080801e-13,
+      "decode_vs_previous_px": 1.0231815394945443e-12
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4140",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            55.85450265742128,
+            193.68965595880053
+          ],
+          "max": [
+            306.64208113846206,
+            516.5948584874848
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            5.1540251723361115,
+            12.788716703653336,
+            3.66498320851933
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.7135666530388652,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                20,
+                24
+              ],
+              "max": [
+                370,
+                94
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 99.68965595880053,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                20,
+                106
+              ],
+              "max": [
+                310,
+                144.375
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 49.31465595880053,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                31.1875,
+                156
+              ],
+              "max": [
+                358.8125,
+                339.96875
+              ],
+              "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": -146.27909404119947,
+            "overlap_vertices": 1522
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                20,
+                529.5
+              ],
+              "max": [
+                370,
+                820
+              ],
+              "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": 12.905141512515229,
+            "overlap_vertices": 0
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.4779288903810084e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4340",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            55.85450265742128,
+            193.68965595880053
+          ],
+          "max": [
+            306.64208113846206,
+            516.5948584874848
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            5.1540251723361115,
+            12.788716703653336,
+            3.66498320851933
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.7135666530388652,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                20,
+                24
+              ],
+              "max": [
+                370,
+                94
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 99.68965595880053,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                20,
+                106
+              ],
+              "max": [
+                310,
+                144.375
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 49.31465595880053,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                31.1875,
+                156
+              ],
+              "max": [
+                358.8125,
+                293.78125
+              ],
+              "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": -100.09159404119947,
+            "overlap_vertices": 1092
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                20,
+                529.5
+              ],
+              "max": [
+                370,
+                820
+              ],
+              "text": "Material attemptsSeek18.8 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": 12.905141512515229,
+            "overlap_vertices": 0
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.4779288903810084e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-c300",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            55.85450265742128,
+            193.68965595880053
+          ],
+          "max": [
+            306.64208113846206,
+            516.5948584874848
+          ]
+        },
+        "vertices": 3267,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.266832068427301,
+            3.204427659511566,
+            1.0542713216261383
+          ],
+          [
+            5.1540251723361115,
+            12.788716703653336,
+            3.66498320851933
+          ],
+          [
+            -2.1522988779283563,
+            11.430028825998306,
+            5.947044364205625
+          ],
+          [
+            2.1526353959062696,
+            12.788921594619751,
+            -5.94685624764026
+          ]
+        ],
+        "ndc_max_abs": 0.7135666530388652,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                20,
+                24
+              ],
+              "max": [
+                370,
+                94
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 99.68965595880053,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                20,
+                106
+              ],
+              "max": [
+                310,
+                144.375
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 49.31465595880053,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                31.1875,
+                156
+              ],
+              "max": [
+                358.8125,
+                339.96875
+              ],
+              "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+            },
+            "separating_clearance_px": -146.27909404119947,
+            "overlap_vertices": 1522
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                20,
+                529.5
+              ],
+              "max": [
+                370,
+                820
+              ],
+              "text": "Material attemptsSeek21.5 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": 12.905141512515229,
+            "overlap_vertices": 0
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 1.4779288903810084e-12,
+      "decode_vs_previous_px": 0
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "saved_live": {
+        "bounds": {
+          "min": [
+            109.3938074909387,
+            313.0412420284325
+          ],
+          "max": [
+            346.46765737126833,
+            540.6564762557201
+          ]
+        },
+        "vertices": 9474,
+        "decoded_bound_witnesses_shaft_mm": [
+          [
+            4.372921500267474,
+            3.2012909650802612,
+            0.21114417884443626
+          ],
+          [
+            -6.482882101344499,
+            19.729703664779663,
+            5.1311739164458166
+          ],
+          [
+            -2.910212724681493,
+            19.729703664779663,
+            7.738636287004341
+          ],
+          [
+            3.7289439569838274,
+            19.729703664779663,
+            -7.378355718433207
+          ]
+        ],
+        "ndc_max_abs": 0.7767572172885555,
+        "protections": {
+          "header": {
+            "rect": {
+              "min": [
+                20,
+                24
+              ],
+              "max": [
+                370,
+                94
+              ],
+              "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+            },
+            "separating_clearance_px": 219.04124202843252,
+            "overlap_vertices": 0
+          },
+          "copy": {
+            "rect": {
+              "min": [
+                20,
+                106
+              ],
+              "max": [
+                310,
+                144.375
+              ],
+              "text": "A revised shaft and its supports, shown in an assembled study."
+            },
+            "separating_clearance_px": 168.66624202843252,
+            "overlap_vertices": 0
+          },
+          "card": {
+            "rect": {
+              "min": [
+                31.1875,
+                156
+              ],
+              "max": [
+                358.8125,
+                249.78125
+              ],
+              "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+            },
+            "separating_clearance_px": 63.25999202843252,
+            "overlap_vertices": 0
+          },
+          "footer": {
+            "rect": {
+              "min": [
+                20,
+                529.5
+              ],
+              "max": [
+                370,
+                820
+              ],
+              "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+            },
+            "separating_clearance_px": -11.156476255720122,
+            "overlap_vertices": 18
+          }
+        },
+        "pass": false
+      },
+      "law_vs_saved_px": 3.410605131648481e-13,
+      "decode_vs_previous_px": 3.410605131648481e-13
+    }
+  ],
+  "current": [
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "time": 16.4,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.5557104147767,
+          150.9091295866898
+        ],
+        "max": [
+          510.4714136320789,
+          581.3277626861823
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7742281799794768,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 75.1122545866898,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 21.5185045866898,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.3410863679211,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 15.172237313817732,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4340",
+      "time": 18.8,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.5557104147767,
+          150.9091295866898
+        ],
+        "max": [
+          510.4714136320789,
+          581.3277626861823
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7742281799794768,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 75.1122545866898,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 21.5185045866898,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              310.28125
+            ],
+            "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.3410863679211,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek18.8 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 15.172237313817732,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-c300",
+      "time": 21.5,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.5557104147767,
+          150.9091295866898
+        ],
+        "max": [
+          510.4714136320789,
+          581.3277626861823
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7742281799794768,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 75.1122545866898,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 21.5185045866898,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.3410863679211,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek21.5 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 15.172237313817732,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "time": 34,
+      "anchor": {
+        "t": 33.2,
+        "az": 24.2,
+        "el": 4.2,
+        "dist": 0.2,
+        "fovDesktop": 10,
+        "fovNarrow": 17.5,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ],
+        "tgtNarrow": [
+          0,
+          9,
+          -2
+        ]
+      },
+      "bounds": {
+        "min": [
+          309.8122762954568,
+          153.7469372544211
+        ],
+        "max": [
+          767.183750448023,
+          582.3985406739861
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6583401394346198,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 77.95006225442111,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 24.356312254421113,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 137.62874955197697,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 14.101459326013924,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4140",
+      "time": 16.4,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          124.47674765509201,
+          352.46180715361044
+        ],
+        "max": [
+          251.58014814530895,
+          516.1410830139212
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          5.1540251723361115,
+          12.788716703653336,
+          3.66498320851933
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.3616577043328615,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 258.46180715361044,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 208.08680715361044,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              339.96875
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 12.493057153610437,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.358916986078839,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-4340",
+      "time": 18.8,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          124.47674765509201,
+          352.46180715361044
+        ],
+        "max": [
+          251.58014814530895,
+          516.1410830139212
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          5.1540251723361115,
+          12.788716703653336,
+          3.66498320851933
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.3616577043328615,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 258.46180715361044,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 208.08680715361044,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              293.78125
+            ],
+            "text": "AISI 4340 (48-50 HRC)Earlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 58.68055715361044,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Material attemptsSeek18.8 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.358916986078839,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "failed-c300",
+      "time": 21.5,
+      "anchor": {
+        "t": 15,
+        "az": 20,
+        "el": 0.5,
+        "dist": 0.2,
+        "fovDesktop": 7.6,
+        "fovNarrow": 18.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ],
+        "tgtNarrow": [
+          0,
+          8.5,
+          1
+        ]
+      },
+      "bounds": {
+        "min": [
+          124.47674765509201,
+          352.46180715361044
+        ],
+        "max": [
+          251.58014814530895,
+          516.1410830139212
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          5.1540251723361115,
+          12.788716703653336,
+          3.66498320851933
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.3616577043328615,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 258.46180715361044,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 208.08680715361044,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              339.96875
+            ],
+            "text": "C300 (56-58 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 12.493057153610437,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Material attemptsSeek21.5 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.358916986078839,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "time": 34,
+      "anchor": {
+        "t": 33.2,
+        "az": 24.2,
+        "el": 4.2,
+        "dist": 0.2,
+        "fovDesktop": 10,
+        "fovNarrow": 17.5,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ],
+        "tgtNarrow": [
+          0,
+          9,
+          -2
+        ]
+      },
+      "bounds": {
+        "min": [
+          109.0358530259098,
+          287.30111533776454
+        ],
+        "max": [
+          347.08016516065754,
+          515.8744827672842
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.372921500267474,
+          3.2012909650802612,
+          0.21114417884443626
+        ],
+        [
+          -6.482882101344499,
+          19.729703664779663,
+          5.1311739164458166
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7798982828751668,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 193.30111533776454,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 142.92611533776454,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              249.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 37.51986533776454,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.625517232715765,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    }
+  ],
+  "candidates": [
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.2,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          131.6012400326793,
+          137.67373054588734
+        ],
+        "max": [
+          498.83444373030596,
+          591.994727443786
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.8172204999546121,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 61.87685554588734,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 8.283105545887338,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 405.97805626969404,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 4.505272556213981,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.2,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          131.49797848204082,
+          134.24543018143285
+        ],
+        "max": [
+          498.7976324323432,
+          588.6446238058256
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.8173639187749433,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 58.44855518143285,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 4.854805181432852,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 406.0148675676568,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 7.855376194174369,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.2,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          131.2913466107342,
+          127.38529601927569
+        ],
+        "max": [
+          498.72397306243965,
+          581.940963878307
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.8176509074850914,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 51.588421019275685,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -2.0053289807243146,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 406.08852693756035,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 14.559036121692998,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.2,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          131.08456958537414,
+          120.52044656496224
+        ],
+        "max": [
+          498.65026461973304,
+          575.2326964602552
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.8179380977980915,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 44.72357156496224,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -8.870178435037758,
+          "overlap_vertices": 12
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 406.16223538026696,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 21.26730353974483,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.4,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          147.5464236172572,
+          146.13754801723752
+        ],
+        "max": [
+          504.82787138046183,
+          588.1467723643786
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7950744116426983,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 70.34067301723752,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 16.74692301723752,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 399.98462861953817,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 8.353227635621352,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.4,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          147.44596038043957,
+          142.8021521291577
+        ],
+        "max": [
+          504.79205764222206,
+          584.8874541276954
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7952139439160562,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 67.00527712915769,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 13.41152712915769,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 400.02044235777794,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 11.612545872304622,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.4,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          147.2449280843642,
+          136.12792267325207
+        ],
+        "max": [
+          504.7203943883129,
+          578.3654585671085
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7954931554383831,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 60.33104767325207,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 6.737297673252073,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 400.0921056116871,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 18.134541432891524,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.4,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          147.0437545678059,
+          129.44910570621911
+        ],
+        "max": [
+          504.6486833914383,
+          571.838980375671
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7957725631002696,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 53.652230706219115,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 0.05848070621911461,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 400.1638166085617,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 24.661019624329015,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          155.2005431852529,
+          150.20040941884986
+        ],
+        "max": [
+          507.7048788236872,
+          586.299649807662
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7844436900204821,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 74.40353441884986,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 20.80978441884986,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 397.1076211763128,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 10.200350192337964,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          155.10142321478645,
+          146.90961019325457
+        ],
+        "max": [
+          507.66954394110655,
+          583.0839110200782
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7845813566461299,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 71.11273519325457,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 17.518985193254565,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 397.14295605889345,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.416088979921824,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.5,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          154.90307886633636,
+          140.32462002658966
+        ],
+        "max": [
+          507.5988388768859,
+          576.6491192711228
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7848568349078662,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 64.52774502658966,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 10.933995026589656,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 397.2136611231141,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 19.8508807288772,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.5,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          154.7045951856236,
+          133.735103687149
+        ],
+        "max": [
+          507.5280867080579,
+          570.2099048273429
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7851325066866339,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 57.93822868714901,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 4.344478687149007,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 397.2844132919421,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 26.29009517265706,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.6,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.65352241818945,
+          154.15650409225006
+        ],
+        "max": [
+          510.506282242706,
+          584.5010672360676
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7740923299747369,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 78.35962909225006,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 24.76587909225006,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.306217757294,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 11.99893276393243,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.6,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.5557104147767,
+          150.9091295866898
+        ],
+        "max": [
+          510.4714136320789,
+          581.3277626861823
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7742281799794768,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 75.1122545866898,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 21.5185045866898,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.3410863679211,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 15.172237313817732,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.6,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.35998337817435,
+          144.41103361648535
+        ],
+        "max": [
+          510.40164157756453,
+          574.9778831457897
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.774500023085869,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 68.61415861648535,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 15.020408616485355,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.41085842243547,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 21.522116854210253,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.6,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          162.16411884790978,
+          137.9084711999644
+        ],
+        "max": [
+          510.3318230400257,
+          568.6236392715577
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7747720571556809,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 62.111596199964396,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 8.517846199964396,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 394.4806769599743,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 27.87636072844225,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.8,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          176.9870045968924,
+          161.76481893201958
+        ],
+        "max": [
+          515.8939084156615,
+          581.0420543459004
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7541847158376495,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 85.96794393201958,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 32.37419393201958,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 388.9185915843385,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 15.457945654099603,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.8,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          176.89170806036452,
+          158.6009583383171
+        ],
+        "max": [
+          515.8599365337825,
+          577.9503588238692
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7543170721383826,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 82.8040833383171,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 29.2103333383171,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 388.9525634662175,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 18.549641176130763,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.8,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          176.70101460718632,
+          152.26997626679304
+        ],
+        "max": [
+          515.7919588325836,
+          571.7637814462965
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7545819241566857,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 76.47310126679304,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 22.879351266793037,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 389.02054116741635,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 24.736218553703452,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 7.8,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          176.51018719632037,
+          145.93464261417753
+        ],
+        "max": [
+          515.7239358437812,
+          565.572951974046
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7548469622273328,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 70.13776761417753,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 16.544017614177534,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 389.0885641562188,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 30.927048025954036,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          19.2,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          190.60489150128225,
+          168.99329068293272
+        ],
+        "max": [
+          521.0125587890826,
+          577.7557317515827
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7352709840259969,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 93.19641568293272,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 39.602665682932724,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 383.7999412109174,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 18.744268248417256,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          19.2,
+          -2.6
+        ]
+      },
+      "bounds": {
+        "min": [
+          190.51198484762614,
+          165.9087745913159
+        ],
+        "max": [
+          520.9794388670078,
+          574.7415709484592
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7354000210449637,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 90.1118995913159,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 36.518149591315904,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 383.83306113299216,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 21.758429051540816,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          19.2,
+          -2.8
+        ]
+      },
+      "bounds": {
+        "min": [
+          190.32607367756222,
+          159.73656330165818
+        ],
+        "max": [
+          520.9131659365139,
+          568.7101429167884
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7356582310033858,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 83.93968830165818,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 30.34593830165818,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 383.8993340634861,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 27.789857083211587,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "failed-4140",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          19.2,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          190.1400319092525,
+          153.56010956151857
+        ],
+        "max": [
+          520.8468488541562,
+          562.674569426091
+        ]
+      },
+      "vertices": 3267,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.266832068427301,
+          3.204427659511566,
+          1.0542713216261383
+        ],
+        [
+          -6.054424057611901,
+          12.788716703653336,
+          -1.8277769148340548
+        ],
+        [
+          -2.1522988779283563,
+          11.430028825998306,
+          5.947044364205625
+        ],
+        [
+          2.1526353959062696,
+          12.788921594619751,
+          -5.94685624764026
+        ]
+      ],
+      "ndc_max_abs": 0.7359166223482604,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 77.76323456151857,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 24.169484561518573,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              369.28125
+            ],
+            "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+          },
+          "separating_clearance_px": 383.9656511458438,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 33.82543057390899,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          207.86569894393463,
+          109.71378628733487
+        ],
+        "max": [
+          778.9168060874991,
+          644.8935893398424
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7561915860281447,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 33.91691128733487,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -19.67683871266513,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 125.89569391250086,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -48.39358933984238,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          207.33100684349233,
+          94.54461280010038
+        ],
+        "max": [
+          778.975229578098,
+          630.2868306048852
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7899008604442214,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 18.74773780010038,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -34.84601219989962,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 125.83727042190196,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -33.786830604885154,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          206.79519708917667,
+          79.34411272730975
+        ],
+        "max": [
+          779.0337690523208,
+          615.6499281807272
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.8236797494948672,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 3.5472377273097493,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -50.04651227269025,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 125.77873094767915,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -19.149928180727215,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          206.25826617301428,
+          64.11218892761325
+        ],
+        "max": [
+          779.0924248558905,
+          600.9827886605543
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.8575284690497483,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": -11.684686072386754,
+          "overlap_vertices": 10
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -65.27843607238675,
+          "overlap_vertices": 10
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 125.7200751441095,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -4.48278866055432,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8.5,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          238.09242480540806,
+          129.79785032116618
+        ],
+        "max": [
+          775.4394718363696,
+          633.3907568113704
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7115603326196307,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 54.00097532116618,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 0.40722532116618027,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 129.37302816363035,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -36.89075681137035,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8.5,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          237.58929081678727,
+          115.52397802269854
+        ],
+        "max": [
+          775.4944471087366,
+          619.6461049321654
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7432800488384477,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 39.72710302269854,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -13.866646977301457,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 129.3180528912634,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -23.146104932165372,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8.5,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          237.08510513944557,
+          101.22062806797283
+        ],
+        "max": [
+          775.549531519247,
+          605.8730884772225
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7750652709600604,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 25.423753067972825,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -28.169996932027175,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 129.262968480753,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -9.373088477222495,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 8.5,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          236.579864472454,
+          86.8877090490279
+        ],
+        "max": [
+          775.6047253932194,
+          592.0716195527001
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.8069162021132713,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 11.090834049027904,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -42.502915950972096,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 129.20777460678062,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 4.428380447299901,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          264.96642570188317,
+          147.65420556531754
+        ],
+        "max": [
+          772.347840800628,
+          623.1638095363375
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6718795431881832,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 71.85733056531754,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 18.26358056531754,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 132.46465919937202,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -26.663809536337453,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          264.4913494238218,
+          134.17632834285658
+        ],
+        "max": [
+          772.3997503284518,
+          610.1856402897707
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7018303814603187,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 58.37945334285658,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 4.7857033428565785,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 132.41274967154823,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -13.685640289770731,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          264.0152801053886,
+          120.67061731163328
+        ],
+        "max": [
+          772.4517629082345,
+          597.1806882430453
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7318430726408149,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 44.87374231163328,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -8.72000768836672,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 132.3607370917655,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -0.6806882430453243,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          263.5382146297337,
+          107.13698616113224
+        ],
+        "max": [
+          772.5038788471525,
+          584.148870403797
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7619178085308173,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 31.340111161132242,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -22.253638838867758,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 132.30862115284754,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 12.351129596203009,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.5,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          289.0170807248658,
+          163.63459648661282
+        ],
+        "max": [
+          769.5810123039926,
+          614.0112913907305
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6363675633630826,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 87.83772148661282,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 34.24397148661282,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 135.23148769600743,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -17.51129139073055,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.5,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          288.5671144525681,
+          150.86908818334533
+        ],
+        "max": [
+          769.630178170213,
+          601.7190791570292
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.664735359592566,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 75.07221318334533,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 21.478463183345326,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 135.18232182978704,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -5.219079157029228,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.5,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          288.11620762673186,
+          138.0772172184361
+        ],
+        "max": [
+          769.6794416416136,
+          589.401499719564
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6931617395145865,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 62.28034221843609,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 8.68659221843609,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 135.1330583583864,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 7.098500280436042,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.5,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          287.6643572952475,
+          125.25890184328425
+        ],
+        "max": [
+          769.7288030091353,
+          577.0584744725052
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7216468847927017,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 49.46202684328425,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": -4.131723156715751,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 135.08369699086472,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 19.441525527494832,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.7,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          297.94460459920697,
+          169.56646492574015
+        ],
+        "max": [
+          768.5539746854198,
+          610.6139068214884
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6231856334983552,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 93.76958992574015,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 40.17583992574015,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 136.2585253145802,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -14.1139068214884,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.7,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          297.5039590782869,
+          157.0653856173322
+        ],
+        "max": [
+          768.6021221134959,
+          598.5763195700704
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6509658097392618,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 81.2685106173322,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 27.674760617332197,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 136.21037788650415,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -2.076319570070382,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.7,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          297.062392486768,
+          144.53848973224456
+        ],
+        "max": [
+          768.6503651249261,
+          586.5138905796043
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6788033561505676,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 68.74161473224456,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 15.147864732244557,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 136.1621348750739,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 9.986109420395678,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 9.7,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          296.6199019336914,
+          131.98569721524444
+        ],
+        "max": [
+          768.6987040046246,
+          574.4265428725279
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7066984506327901,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 56.18882221524444,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 2.5950722152444428,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 136.11379599537543,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 22.073457127472125,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 10,
+        "tgt": [
+          0,
+          18.5,
+          -2.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          310.66789322759405,
+          178.0204187116891
+        ],
+        "max": [
+          767.0902657962314,
+          605.7720374448819
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6043990695295798,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 102.2235437116891,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 48.6297937116891,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 137.7222342037686,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": -9.272037444881903,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 10,
+        "tgt": [
+          0,
+          18.5,
+          -3
+        ]
+      },
+      "bounds": {
+        "min": [
+          310.24053141352044,
+          165.89619713793033
+        ],
+        "max": [
+          767.1369617711789,
+          594.0973354892287
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6313417841379326,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 90.09932213793033,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 36.50557213793033,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 137.6755382288211,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 2.402664510771274,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 10,
+        "tgt": [
+          0,
+          18.5,
+          -3.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          309.8122762954568,
+          153.7469372544211
+        ],
+        "max": [
+          767.183750448023,
+          582.3985406739861
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6583401394346198,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 77.95006225442111,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 24.356312254421113,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 137.62874955197697,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 14.101459326013924,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "desktop",
+      "name": "revised-4340",
+      "override": {
+        "fovDesktop": 10,
+        "tgt": [
+          0,
+          18.5,
+          -4
+        ]
+      },
+      "bounds": {
+        "min": [
+          309.3831250695952,
+          141.57256141927473
+        ],
+        "max": [
+          767.2306321030893,
+          570.6755783421582
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.402330739613968,
+          3.2065436244010925,
+          0.2485545666159628
+        ],
+        [
+          -8.266207084117266,
+          19.729703664779663,
+          0.1612094857321566
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.6853943079571673,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              57.59375,
+              24
+            ],
+            "max": [
+              1382.40625,
+              75.796875
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 65.77568641927473,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              57.59375,
+              87.796875
+            ],
+            "max": [
+              407.59375,
+              129.390625
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 12.181936419274734,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              904.8125,
+              144
+            ],
+            "max": [
+              1324.8125,
+              262.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 137.5818678969107,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              57.59375,
+              596.5
+            ],
+            "max": [
+              537.59375,
+              876
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 25.824421657841754,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "override": {
+        "tgtNarrow": [
+          0,
+          9,
+          -1.5
+        ]
+      },
+      "bounds": {
+        "min": [
+          109.12562199045294,
+          293.7560686825183
+        ],
+        "max": [
+          346.9265742690935,
+          522.0891476449626
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.372921500267474,
+          3.2012909650802612,
+          0.21114417884443626
+        ],
+        [
+          -6.482882101344499,
+          19.729703664779663,
+          5.1311739164458166
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7791106372774026,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 199.75606868251828,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 149.38106868251828,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              249.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 43.974818682518276,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 7.4108523550373775,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": false
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "override": {
+        "tgtNarrow": [
+          0,
+          9,
+          -1.75
+        ]
+      },
+      "bounds": {
+        "min": [
+          109.0807609559705,
+          290.5302581486438
+        ],
+        "max": [
+          347.0033309161272,
+          518.9834181825745
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.372921500267474,
+          3.2012909650802612,
+          0.21114417884443626
+        ],
+        [
+          -6.482882101344499,
+          19.729703664779663,
+          5.1311739164458166
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7795042611083447,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 196.53025814864378,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 146.15525814864378,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              249.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 40.74900814864378,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 10.516581817425504,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "override": {
+        "tgtNarrow": [
+          0,
+          9,
+          -2
+        ]
+      },
+      "bounds": {
+        "min": [
+          109.0358530259098,
+          287.30111533776454
+        ],
+        "max": [
+          347.08016516065754,
+          515.8744827672842
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.372921500267474,
+          3.2012909650802612,
+          0.21114417884443626
+        ],
+        [
+          -6.482882101344499,
+          19.729703664779663,
+          5.1311739164458166
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.7798982828751668,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 193.30111533776454,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 142.92611533776454,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              249.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 37.51986533776454,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 13.625517232715765,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    },
+    {
+      "layout": "narrow",
+      "name": "revised-4340",
+      "override": {
+        "tgtNarrow": [
+          0,
+          9,
+          -2.25
+        ]
+      },
+      "bounds": {
+        "min": [
+          108.9908981266988,
+          284.0686350838266
+        ],
+        "max": [
+          347.1570771204155,
+          512.762336432413
+        ]
+      },
+      "vertices": 9474,
+      "decoded_bound_witnesses_shaft_mm": [
+        [
+          4.372921500267474,
+          3.2012909650802612,
+          0.21114417884443626
+        ],
+        [
+          -6.482882101344499,
+          19.729703664779663,
+          5.1311739164458166
+        ],
+        [
+          -2.910212724681493,
+          19.729703664779663,
+          7.738636287004341
+        ],
+        [
+          3.7289439569838274,
+          19.729703664779663,
+          -7.378355718433207
+        ]
+      ],
+      "ndc_max_abs": 0.780292703181618,
+      "protections": {
+        "header": {
+          "rect": {
+            "min": [
+              20,
+              24
+            ],
+            "max": [
+              370,
+              94
+            ],
+            "text": "P001835 / MANUFACTURINGInput Shaft← Return to narrative"
+          },
+          "separating_clearance_px": 190.06863508382662,
+          "overlap_vertices": 0
+        },
+        "copy": {
+          "rect": {
+            "min": [
+              20,
+              106
+            ],
+            "max": [
+              310,
+              144.375
+            ],
+            "text": "A revised shaft and its supports, shown in an assembled study."
+          },
+          "separating_clearance_px": 139.69363508382662,
+          "overlap_vertices": 0
+        },
+        "card": {
+          "rect": {
+            "min": [
+              31.1875,
+              156
+            ],
+            "max": [
+              358.8125,
+              249.78125
+            ],
+            "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+          },
+          "separating_clearance_px": 34.28738508382662,
+          "overlap_vertices": 0
+        },
+        "footer": {
+          "rect": {
+            "min": [
+              20,
+              529.5
+            ],
+            "max": [
+              370,
+              820
+            ],
+            "text": "Runout and revised materialSeek34.0 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+          },
+          "separating_clearance_px": 16.737663567586992,
+          "overlap_vertices": 0
+        }
+      },
+      "pass": true
+    }
+  ],
+  "pass": true
+}

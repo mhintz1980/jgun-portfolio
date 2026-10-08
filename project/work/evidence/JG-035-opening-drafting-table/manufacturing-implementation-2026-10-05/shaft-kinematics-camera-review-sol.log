@@ -1,0 +1,837 @@
+Reading additional input from stdin...
+2026-10-06T02:58:31.455395Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T02:58:31.455443Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-06T02:58:31.706102Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: gpt-6.1-sol
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10f26-0121-7322-b030-41b9eb0ee217
+--------
+user
+Bounded read-only review. Do not edit files; do not read TODO.md or queue docs. Spec: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-spec.md and docs/jgun-manufacturing-inspection-plan.md section 4 (Input Shaft storyline and preliminary timing; Cutter choreography and camera). Producer claims (treat as claims): project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md and project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-producer-report.md. Source: src/scene/inspection/shaft/kinematics.ts, kinematics.test.ts, camera.ts, camera.test.ts, toolSpec.ts, story.ts, script.ts. You may run: npx vitest run src/scene/inspection/shaft. Verify: machining-time map continuous, monotonic and C1; the slow exit interval gives >= 1.2 s stable-camera slow action with ~0.4 s clear relieved return; signed generating ratio -2 and zero pitch-point relative velocity; tooth-space depth increases only on cutting engagement and all ten complete before 15.0 s; recap visibly time-compressed and flagged 'softened' when display rate exceeds the guard; hob path uses the certified numbers (R 5.87, lead 5.5587 deg, infeed yc -4.195, stop 9.5249, retract 2.5) and is clear by 32.0 s, consistent with the card script's 32.8 s cool scan; chip only while cutting; camera follow-to-fixed handoff is C1 with no cut and keeps face edge, cutter edge and groove in frame; materials beat keeps the card slot clear; determinism and allocation-free per frame. Report SHIP or FIX-FIRST with severity and exact file:line findings, max 450 words.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-06T02:58:32.957432Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T02:58:32.957483Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-06T02:58:32.965251Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+I’ll review the named specs and source, check the producer claims, and run the allowed shaft tests. I’ll leave files untouched and skip TODO and queue docs.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"JG-035|shaft|manufacturing\" C:\\Users\\Markimus\\.codex\\memories\\MEMORY.md" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 580ms:
+1:# Task Group: jgun-portfolio JG-035 stages 1-3 opening rework
+6:## Task 1: Plan and implement JG-035 stages 1-3
+14:- jgun-portfolio, JG-035, jgun-animation-improvements.md, jgun-stages-1-3-implementation-plan.md, sheetCamera, introTimeline, paperFlex, drawingCache, DrawingLinework, precompute-drawing, junction path, npm run build, troika
+40:- The 2026-09-26 docs mark the ANSI C/shockwave opening historical; active opening is a 0.80×0.50 m vellum sheet. On a later owner-requested commit, stage JG-035 paths only and include the matching doc updates. [Task 2]
+47:- Before calling JG-035 done: add `__drawingProof` probes for pulse registration and text/title bounds; regenerate missing `public/drawing/jgun-sheet-v1.json.gz` with cache bypass, chrome fallback, and correct `waitForFunction(pageFn, arg, options)` ordering; re-measure `projectedFeatures` at registered hold `t=0.40–0.72`; verify `ink.tri` subdivision and troika injection order; run the harness against a fresh `:5198` server and obtain a fresh read-only review. [Task 2]
+212:- v9 SHA-256 remained `09326d83af1a4bfafbe46572194c965b73de937e8e73814fd974c9824e5245a6`; v10 is `5f8632d8ef9b27da15b221f47feb9fb37dcea7b52493aeba62125523ae5f5e6f`. Independent verification passed 14/14: bracket 48 in above skid, 0.052 mm plane separation, 0.0054° normal error, pump shaft unchanged, and 465 non-target objects invariant. [Task 1]
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content C:\\Users\\Markimus\\.codex\\plugins\\cache\\context-mode\\context-mode\\1.0.169\\skills\\context-mode\\SKILL.md" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 719ms:
+---
+name: context-mode
+description: |
+  Use context-mode tools (ctx_execute, ctx_execute_file) instead of Bash/cat when processing
+  large outputs. Triggers: "analyze logs", "summarize output", "process data",
+  "parse JSON", "filter results", "extract errors", "check build output",
+  "analyze dependencies", "process API response", "large file analysis",
+  "page snapshot", "browser snapshot", "DOM structure", "inspect page",
+  "accessibility tree", "Playwright snapshot",
+  "run tests", "test output", "coverage report", "git log", "recent commits",
+  "diff between branches", "list containers", "pod status", "disk usage",
+  "fetch docs", "API reference", "index documentation",
+  "call API", "check response", "query results",
+  "find TODOs", "count lines", "codebase statistics", "security audit",
+  "outdated packages", "dependency tree", "cloud resources", "CI/CD output".
+  Also triggers on ANY MCP tool output that may exceed 20 lines.
+  Subagent routing is handled automatically via PreToolUse hook.
+---
+
+# Context Mode: Default for All Large Output
+
+## MANDATORY RULE
+
+<context_mode_logic>
+  <mandatory_rule>
+    Default to context-mode for ALL commands. Only use Bash for guaranteed-small-output operations.
+  </mandatory_rule>
+</context_mode_logic>
+
+Bash whitelist (safe to run directly):
+- **File mutations**: `mkdir`, `mv`, `cp`, `rm`, `touch`, `chmod`
+- **Git writes**: `git add`, `git commit`, `git push`, `git checkout`, `git branch`, `git merge`
+- **Navigation**: `cd`, `pwd`, `which`
+- **Process control**: `kill`, `pkill`
+- **Package management**: `npm install`, `npm publish`, `pip install`
+- **Simple output**: `echo`, `printf`
+
+**Everything else → `ctx_execute` or `ctx_execute_file`.** Any command that reads, queries, fetches, lists, logs, tests, builds, diffs, inspects, or calls an external service. This includes ALL CLIs (gh, aws, kubectl, docker, terraform, wrangler, fly, heroku, gcloud, etc.) — there are thousands and we cannot list them all.
+
+**When uncertain, use context-mode.** Every KB of unnecessary context reduces the quality and speed of the entire session.
+
+## Decision Tree
+
+```
+About to run a command / read a file / call an API?
+│
+├── Command is on the Bash whitelist (file mutations, git writes, navigation, echo)?
+│   └── Use Bash
+│
+├── Output MIGHT be large or you're UNSURE?
+│   └── Use context-mode ctx_execute or ctx_execute_file
+│
+├── Fetching web documentation or HTML page?
+│   └── Use ctx_fetch_and_index → ctx_search
+│
+├── Using Playwright (navigate, snapshot, console, network)?
+│   └── ALWAYS use filename parameter to save to file, then:
+│       browser_snapshot(filename) → ctx_index(path) or ctx_execute_file(path)
+│       browser_console_messages(filename) → ctx_execute_file(path)
+│       browser_network_requests(filename) → ctx_execute_file(path)
+│       ⚠ browser_navigate returns a snapshot automatically — ignore it,
+│         use browser_snapshot(filename) for any inspection.
+│       ⚠ Playwright MCP uses a SINGLE browser instance — NOT parallel-safe.
+│         For parallel browser ops, use agent-browser via execute instead.
+│
+├── Using agent-browser (parallel-safe browser automation)?
+│   └── Run via execute (shell) — each call gets its own subprocess:
+│       execute("agent-browser open example.com && agent-browser snapshot -i -c")
+│       ✓ Supports sessions for isolated browser instances
+│       ✓ Safe for parallel subagent execution
+│       ✓ Lightweight accessibility tree with ref-based interaction
+│
+├── Processing output from another MCP tool (Context7, GitHub API, etc.)?
+│   ├── Output already in context from a previous tool call?
+│   │   └── Use it directly. Do NOT re-index with ctx_index(content: ...).
+│   ├── Need to search the output multiple times?
+│   │   └── Save to file via ctx_execute, then ctx_index(path) → ctx_search
+│   └── One-shot extraction?
+│       └── Save to file via ctx_execute, then ctx_execute_file(path)
+│
+└── Reading a file to analyze/summarize (not edit)?
+    └── Use ctx_execute_file (file loads into FILE_CONTENT, not context)
+```
+
+## When to Use Each Tool
+
+| Situation | Tool | Example |
+|-----------|------|---------|
+| Hit an API endpoint | `ctx_execute` | `fetch('http://localhost:3000/api/orders')` |
+| Run CLI that returns data | `ctx_execute` | `gh pr list`, `aws s3 ls`, `kubectl get pods` |
+| Run tests | `ctx_execute` | `npm test`, `pytest`, `go test ./...` |
+| Git operations | `ctx_execute` | `git log --oneline -50`, `git diff HEAD~5` |
+| Docker/K8s inspection | `ctx_execute` | `docker stats --no-stream`, `kubectl describe pod` |
+| Read a log file | `ctx_execute_file` | Parse access.log, error.log, build output |
+| Read a data file | `ctx_execute_file` | Analyze CSV, JSON, YAML, XML |
+| Read source code to analyze | `ctx_execute_file` | Count functions, find patterns, extract metrics |
+| Fetch web docs | `ctx_fetch_and_index` | Index React/Next.js/Zod docs, then search |
+| Playwright snapshot | `browser_snapshot(filename)` → `ctx_index(path)` → `ctx_search` | Save to file, index server-side, query |
+| Playwright snapshot (one-shot) | `browser_snapshot(filename)` → `ctx_execute_file(path)` | Save to file, extract in sandbox |
+| Playwright console/network | `browser_*(filename)` → `ctx_execute_file(path)` | Save to file, analyze in sandbox |
+| MCP output (already in context) | Use directly | Don't re-index — it's already loaded |
+| MCP output (need multi-query) | `ctx_execute` to save → `ctx_index(path)` → `ctx_search` | Save to file first, index server-side |
+| Wipe indexed KB content | `ctx_purge(confirm: true)` | Permanently deletes all indexed content |
+
+## Automatic Triggers
+
+Use context-mode for ANY of these, without being asked:
+
+- **API debugging**: "hit this endpoint", "call the API", "check the response", "find the bug in the response"
+- **Log analysis**: "check the logs", "what errors", "read access.log", "debug the 500s"
+- **Test runs**: "run the tests", "check if tests pass", "test suite output"
+- **Git history**: "show recent commits", "git log", "what changed", "diff between branches"
+- **Data inspection**: "look at the CSV", "parse the JSON", "analyze the config"
+- **Infrastructure**: "list containers", "check pods", "S3 buckets", "show running services"
+- **Dependency audit**: "check dependencies", "outdated packages", "security audit"
+- **Build output**: "build the project", "check for warnings", "compile errors"
+- **Code metrics**: "count lines", "find TODOs", "function count", "analyze codebase"
+- **Web docs lookup**: "look up the docs", "check the API reference", "find examples"
+
+## Language Selection
+
+| Situation | Language | Why |
+|-----------|----------|-----|
+| HTTP/API calls, JSON | `javascript` | Native fetch, JSON.parse, async/await |
+| Data analysis, CSV, stats | `python` | csv, statistics, collections, re |
+| Shell commands with pipes | `shell` | grep, awk, jq, native tools |
+| File pattern matching | `shell` | find, wc, sort, uniq |
+
+## Search Query Strategy
+
+- BM25 uses **OR semantics** — results matching more terms rank higher automatically
+- Use 2-4 specific technical terms per query
+- **Always use `source` parameter** when multiple docs are indexed to avoid cross-source contamination
+  - Partial match works: `source: "Node"` matches `"Node.js v22 CHANGELOG"`
+- **Always use `queries` array** — batch ALL search questions in ONE call:
+  - `ctx_search(queries: ["transform pipe", "refine superRefine", "coerce codec"], source: "Zod")`
+  - NEVER make multiple separate ctx_search() calls — put all queries in one array
+
+## External Documentation
+
+- **Always use `ctx_fetch_and_index`** for external docs — NEVER `cat` or `ctx_execute` with local paths for packages you don't own
+- For GitHub-hosted projects, use the raw URL: `https://raw.githubusercontent.com/org/repo/main/CHANGELOG.md`
+- After indexing, use the `source` parameter in search to scope results to that specific document
+
+## Critical Rules
+
+1. **Always console.log/print your findings.** stdout is all that enters context. No output = wasted call.
+2. **Write analysis code, not just data dumps.** Don't `console.log(JSON.stringify(data))` — analyze first, print findings.
+3. **Be specific in output.** Print bug details with IDs, line numbers, exact values — not just counts.
+4. **For files you need to EDIT**: Use the normal Read tool. context-mode is for analysis, not editing.
+5. **For Bash whitelist commands only**: Use Bash for file mutations, git writes, navigation, process control, package install, and echo. Everything else goes through context-mode.
+6. **Never use `ctx_index(content: large_data)`.** Use `ctx_index(path: ...)` to read files server-side. The `content` parameter sends data through context as a tool parameter — use it only for small inline text.
+7. **Always use `filename` parameter** on Playwright tools (`browser_snapshot`, `browser_console_messages`, `browser_network_requests`). Without it, the full output enters context.
+8. **Don't re-index data already in context.** If an MCP tool returned data in a previous response, it's already loaded — use it directly or save to file first.
+
+## Sandboxed Data Workflow
+
+<sandboxed_data_workflow>
+  <critical_rule>
+    When using tools that support saving to a file: ALWAYS use the 'filename' parameter.
+    NEVER return large raw datasets directly to context.
+  </critical_rule>
+  <workflow>
+    LargeDataTool(filename: "path") → mcp__context-mode__ctx_index(path: "path") → ctx_search()
+  </workflow>
+</sandboxed_data_workflow>
+
+This is the universal pattern for context preservation regardless of
+the source tool (Playwright, GitHub API, AWS CLI, etc.).
+
+## Examples
+
+### Debug an API endpoint
+```javascript
+const resp = await fetch('http://localhost:3000/api/orders');
+const { orders } = await resp.json();
+
+const bugs = [];
+const negQty = orders.filter(o => o.quantity < 0);
+if (negQty.length) bugs.push(`Negative qty: ${negQty.map(o => o.id).join(', ')}`);
+
+const nullFields = orders.filter(o => !o.product || !o.customer);
+if (nullFields.length) bugs.push(`Null fields: ${nullFields.map(o => o.id).join(', ')}`);
+
+console.log(`${orders.length} orders, ${bugs.length} bugs found:`);
+bugs.forEach(b => console.log(`- ${b}`));
+```
+
+### Analyze test output
+```shell
+npm test 2>&1
+echo "EXIT=$?"
+```
+
+### Check GitHub PRs
+```shell
+gh pr list --json number,title,state,reviewDecision --jq '.[] | "\(.number) [\(.state)] \(.title) — \(.reviewDecision // "no review")"'
+```
+
+### Read and analyze a large file
+```python
+# FILE_CONTENT is pre-loaded by ctx_execute_file
+import json
+data = json.loads(FILE_CONTENT)
+print(f"Records: {len(data)}")
+# ... analyze and print findings
+```
+
+## Browser & Playwright Integration
+
+**When a task involves Playwright snapshots, screenshots, or page inspection, ALWAYS route through file → sandbox.**
+
+Playwright `browser_snapshot` returns 10K–135K tokens of accessibility tree data. Calling it without `filename` dumps all of that into context. Passing the output to `ctx_index(content: ...)` sends it into context a SECOND time as a parameter. Both are wrong.
+
+**The key insight**: `browser_snapshot` has a `filename` parameter that saves to file instead of returning to context. `ctx_index` has a `path` parameter that reads files server-side. `ctx_execute_file` processes files in a sandbox. **None of these touch context.**
+
+### Workflow A: Snapshot → File → Index → Search (multiple queries)
+
+```
+Step 1: browser_snapshot(filename: "/tmp/playwright-snapshot.md")
+        → saves to file, returns ~50B confirmation (NOT 135K tokens)
+
+Step 2: ctx_index(path: "/tmp/playwright-snapshot.md", source: "Playwright snapshot")
+        → reads file SERVER-SIDE, indexes into FTS5, returns ~80B confirmation
+
+Step 3: ctx_search(queries: ["login form email password"], source: "Playwright")
+        → returns only matching chunks (~300B)
+```
+
+**Total context: ~430B** instead of 270K tokens. Real 99% savings.
+
+### Workflow B: Snapshot → File → Execute File (one-shot extraction)
+
+```
+Step 1: browser_snapshot(filename: "/tmp/playwright-snapshot.md")
+        → saves to file, returns ~50B confirmation
+
+Step 2: ctx_execute_file(path: "/tmp/playwright-snapshot.md", language: "javascript", code: "
+          const links = [...FILE_CONTENT.matchAll(/- link \"([^\"]+)\"/g)].map(m => m[1]);
+          const buttons = [...FILE_CONTENT.matchAll(/- button \"([^\"]+)\"/g)].map(m => m[1]);
+          const inputs = [...FILE_CONTENT.matchAll(/- textbox|- checkbox|- radio/g)];
+          console.log('Links:', links.length, '| Buttons:', buttons.length, '| Inputs:', inputs.length);
+          console.log('Navigation:', links.slice(0, 10).join(', '));
+        ")
+        → processes in sandbox, returns ~200B summary
+```
+
+**Total context: ~250B** instead of 135K tokens.
+
+### Workflow C: Console & Network (save to file if large)
+
+```
+browser_console_messages(level: "error", filename: "/tmp/console.md")
+→ ctx_execute_file(path: "/tmp/console.md", ...) or ctx_index(path: "/tmp/console.md", ...)
+
+browser_network_requests(includeStatic: false, filename: "/tmp/network.md")
+→ ctx_execute_file(path: "/tmp/network.md", ...) or ctx_index(path: "/tmp/network.md", ...)
+```
+
+### CRITICAL: Why `filename` + `path` is mandatory
+
+| Approach | Context cost | Correct? |
+|----------|-------------|----------|
+| `browser_snapshot()` → raw into context | **135K tokens** | NO |
+| `browser_snapshot()` → `ctx_index(content: raw)` | **270K tokens** (doubled!) | NO |
+| `browser_snapshot(filename)` → `ctx_index(path)` → `ctx_search` | **~430B** | YES |
+| `browser_snapshot(filename)` → `ctx_execute_file(path)` | **~250B** | YES |
+
+### Key Rule
+
+> **ALWAYS use `filename` parameter when calling `browser_snapshot`, `browser_console_messages`, or `browser_network_requests`.**
+> Then process via `ctx_index(path: ...)` or `ctx_execute_file(path: ...)` — never `ctx_index(content: ...)`.
+>
+> Data flow: **Playwright → file → server-side read → context**. Never: **Playwright → context → ctx_index(content) → context again**.
+
+## Subagent Usage
+
+Subagents automatically receive context-mode tool routing via a PreToolUse hook. You do NOT need to manually add tool names to subagent prompts — the hook injects them. Just write natural task descriptions.
+
+## Anti-Patterns
+
+- Using `curl http://api/endpoint` via Bash → 50KB floods context. Use `ctx_execute` with fetch instead.
+- Using `cat large-file.json` via Bash → entire file in context. Use `ctx_execute_file` instead.
+- Using `gh pr list` via Bash → raw JSON in context. Use `ctx_execute` with `--jq` filter instead.
+- Piping Bash output through `| head -20` → you lose the rest. Use `ctx_execute` to analyze ALL data and print summary.
+- Narrowing `ctx_execute` output upstream of capture → `ctx_execute` captures, `ctx_search` filters; merging the layers drops data that the index never sees. See `references/anti-patterns.md` §8.
+- Running `npm test` via Bash → full test output in context. Use `ctx_execute` to capture and summarize.
+- Calling `browser_snapshot()` WITHOUT `filename` parameter → 135K tokens flood context. **Always** use `browser_snapshot(filename: "/tmp/snap.md")`.
+- Calling `browser_console_messages()` or `browser_network_requests()` WITHOUT `filename` → entire output floods context. **Always** use the `filename` parameter.
+- Passing ANY large data to `ctx_index(content: ...)` → data enters context as a parameter. **Always** use `ctx_index(path: ...)` to read server-side. The `content` parameter should only be used for small inline text you're composing yourself.
+- Calling an MCP tool (Context7 `query-docs`, GitHub API, etc.) then passing the response to `ctx_index(content: response)` → **doubles** context usage. The response is already in context — use it directly or save to file first.
+- Ignoring `browser_navigate` auto-snapshot → navigation response includes a full page snapshot. Don't rely on it for inspection — call `browser_snapshot(filename)` separately.
+- Expecting `ctx_stats` to reset or wipe anything → `ctx_stats` is read-only (shows stats only). Use `ctx_purge(confirm: true)` to permanently delete all indexed content.
+
+## Reference Files
+
+- [JavaScript/TypeScript Patterns](./references/patterns-javascript.md)
+- [Python Patterns](./references/patterns-python.md)
+- [Shell Patterns](./references/patterns-shell.md)
+- [Anti-Patterns & Common Mistakes](./references/anti-patterns.md)
+
+hook: PostToolUse
+hook: PostToolUse Completed
+**Assessing tool availability and relevance**
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$paths = @('"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-spec.md','project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md','project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-producer-report.md'); foreach ("'$p in $paths) { Write-Output "FILE $p"; $i=0; Get-Content -LiteralPath $p | ForEach-Object { $i++; '"'{0}: {1}' -f "'$i,$_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 793ms:
+FILE project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-spec.md
+1: # Leaf spec: shaft machining kinematics and camera curves (producer)
+2: 
+3: Objective: closed-form machining kinematics and authored camera curves for the 43 s shaft story, sampled from one master playhead.
+4: 
+5: Context (read, do not modify): docs/jgun-manufacturing-inspection-plan.md sections 2 and 4 (owner storyline: shaper cuts, slow exit macro, recap, material cards, revised blank, hobbing, supports, finale); project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance-v4/README.md and report.json (CERTIFIED illustrative tool dimensions and paths; use these numbers exactly); src/scene/inspection/shaft/story.ts (shaftBeats authored table, 43 s) and shaft/script.ts (cards/stress timing; cool scan starts 32.8 s, so hob withdrawal must be complete by 32.0 s); src/scene/inspection/timeline.ts (closed-form allocation-free sampler style with caller-owned out objects); src/scene/inspection/story.ts (StoryRuntime interfaces). Shaft-local frame: +Y is the shaft axis in millimetres in CAD; the runtime GLB (public/models/manufacturing-core-full.glb, nodes legacyshaft/approvedshaft/housing/legacybearing/legacyring/approvedbearing/approvedring) is metres with shaft-local +Y exported to glTF -Z (one conversion only). Measured: 10 teeth, 36 deg pitch, tip r 6.0834, root r 4.2918, face y 3.1749..9.5249, legacy last tooth material y 9.875, legacy groove floor r 3.97 at y 10.41, groove wall y 10.94; approved ramp floor ends y 13.78 at filler OD 6.074; approved journal r 6.325 from y 14.18.
+6: Rules: you are not alone in the codebase; never revert or stage others' work; no git operations; do not read TODO.md or queue docs (this spec is complete). Everything must be a pure function of time (no accumulators, no Math.random/Date/performance), allocation-free in per-frame paths, deterministic under any seek order. Do not register stories, mount components or edit shared scene files.
+7: 
+8: Files you own (create only): src/scene/inspection/shaft/kinematics.ts, kinematics.test.ts, src/scene/inspection/shaft/camera.ts, camera.test.ts, project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md. Read project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/blockout.json and camera/tool-conventions.md for blockout shot positions (desktop and 390x844) as starting values; re-centre on the certified tool positions where needed.
+9: 
+10: Kinematics (sampleShaftKinematics(t, out)):
+11: - Machining-time map m(t): continuous, monotonic, piecewise-smooth (C1) function of the master playhead. Shaping 2..15 s: normal speed 2..6, ease down into a slow interval covering the cutter exit (>= 1.2 s of stable-camera slow action within 6..11 including ~0.4 s of unmistakable clearance during the relieved return), ease back up, then a visibly time-compressed recap 11..15 that completes all remaining tooth spaces before 15 s. Hobbing 25..32: feed hob centre from -4.195 to 9.5249 mm, retract 2.5 mm radially and withdraw so the hob is clear and out of the runout view by 32.0 s.
+12: - Shaper: cutter rotation phi_c(m), work rotation phi_w = -2 * phi_c (signed ratio work/cutter -2), stroke y(m) between the certified stroke centre limits (cutting toward +Y, relieved return backed off 2.0 mm), radial infeed reaching full depth during the first quarter orbit then holding. Per tooth-space depth depth_i(t) in [0,1] derived from engagement: a space gains depth only when it passes the cutter mesh point while the cutter is cutting; expose spaceDepth[10], engagedSpace, edgeY consistent with progression.ts semantics (Float32Array owned by the caller). All 10 spaces reach depth 1 by 15.0 s.
+13: - Hob: rotation phi_h(m), work rotation phi_w = phi_h / 10 (single start, 10 teeth; sign documented), hobYc(m), hobA(m).
+14: - Chip: one restrained chip at the shaper rake face only while stock is removed (closed-form position/curl/opacity from stroke phase; seeded deterministically); none during return.
+15: - Display-rate guard: stroke and gash frequencies on screen must stay <= one quarter of 30 fps, or expose a 'softened' flag for the renderer to blur/fade repeated features; test it over the timeline.
+16: - Tests: m(t) continuous and monotonic (dense 1/240 sweep), signed pitch-point relative velocity of shaper generating rolling is ~0 (record tolerance), all spaces complete by 15 s and none before being engaged, no reversal of displayed rotation at the lite floor, hob clear by 32.0 s, determinism under shuffled seeks, allocation-free.
+17: 
+18: Camera (sampleShaftCamera(t, aspect, kinematics, out)): position/target/up/fov in shaft-local metres plus a frame-follow azimuth. 2..6 s the camera follows the shaft azimuth (rotating frame) so the cutter appears to orbit a quarter turn; follow rate eases to zero before the cutter edge reaches the face end, handing off continuously (no cut) to a fixed machine-frame macro framing face edge, cutter edge, relief groove and chip origin; dolly/FOV continue on the master playhead while machining slows; recap pulls back with the same follow law; materials 15..22.6 hold a steady side view leaving the card slot (right 8%..44% desktop; bottom band on narrow) clear; 22.6..25 align revised blank at the same axis/datum; hobbing view shows hob, rotation and feed; 32..35 unobstructed runout view; 35..39 support section view; 39..43 assembled finale framing. All curves closed-form or baked lookup tables, no damping state. Tests: C0 continuity everywhere and C1 at the follow-to-fixed handoff; projected shaft axis and cutter exit region stay inside the 8% safe frame at 1440x900 and 390x844 at the key beats (project with a PerspectiveCamera in tests); determinism.
+19: 
+20: Verification: npx vitest run src/scene/inspection/shaft; npm run typecheck. Gate file K1 time map, K2 shaper kinematics and progression semantics, K3 hob kinematics and 32.0 s clearance, K4 chip and display-rate guard, K5 camera continuity/framing tests, K6 typecheck/tests. Report changed paths, commands, results, unresolved items.
+21: REASONING: high
+FILE project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md
+1: # Gate: shaft machining kinematics and camera curves (JG-035 leaf, 2026-10-05)
+2: 
+3: Leaf spec: `shaft-kinematics-camera-spec.md` (same evidence folder). Producer scope honoured:
+4: created only the five owned files; no shared scene file, registration, mount, or git operation.
+5: 
+6: ## Files created (complete change set)
+7: 
+8: - `src/scene/inspection/shaft/kinematics.ts` — machining-time map m(t), shaper/hob kinematics, tooth-space progression, chip, frame-follow azimuth, display-rate guard.
+9: - `src/scene/inspection/shaft/kinematics.test.ts` — K1–K4 + determinism/purity tests.
+10: - `src/scene/inspection/shaft/camera.ts` — authored camera anchor curves + follow-azimuth composition.
+11: - `src/scene/inspection/shaft/camera.test.ts` — K5 continuity/framing/determinism tests.
+12: - `project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md` — this gate.
+13: 
+14: ## K1 — machining-time map m(t): PASS
+15: 
+16: Monotonic and C1 over a dense 1/240 s sweep of 0..43 s (rate continuous; max forward-difference
+17: deviation from dm/dt below 2e-4). Structure: normal rate 1 on 2..6 s; eased slow interval
+18: 7.2..9.6 s at rate 0.22 (2.4 s of stable-camera slow action inside 6..11, >= the 1.2 s floor);
+19: recap 11..15 s at 4x (visibly time-compressed, eased down to 0 by 15.0 s); frozen 15..24.6 s;
+20: hobbing window advances at 1. The shaper exit stroke peak (phase 0.5, yc = 9.7749, edge
+21: 10.3749) lands exactly at t = 8.4 s, the centre of the slow window.
+22: 
+23: ## K2 — shaper kinematics and progression semantics: PASS
+24: 
+25: Signed ratio phi_w = -2 phi_c (toolSpec SHAPER_SIGNED_RATIO, clearance-v4). Signed pitch-point
+26: relative velocity with the tool-conventions pitch circles (work r 5 mm, cutter r 10 mm,
+27: contact at work +Z): 5*omega_w + 10*omega_c = 0, recorded tolerance 1e-12 mm per machining
+28: second (observed exactly 0 in IEEE double). Stroke stays within certified centre limits
+29: 2.17..9.7749; max leading edge 10.3749 = report legacy_teeth_end_y 9.8749 + overtravel 0.5,
+30: leaving 0.5651 mm to the groove wall (10.94). Radial infeed OD -> root + 5 um within the
+31: first quarter cutter orbit (1 machining second), then holds. Relieved return backed off the
+32: full 2.0 mm with a ~0.96 s full-backoff plateau inside the slow window (>= 0.4 s unmistakable
+33: clearance). Every space depth equals a brute-force oracle that enumerates mesh crossings and
+34: keeps only those inside the cutting half (crossings alternate cutting/return because
+35: WORK_REV_M / STROKE_PERIOD_M = 2.5; counted passes sit 4 machining seconds apart, 4 required).
+36: All ten spaces complete between ~11.97 s and ~12.9 s (inside the recap, before 15.0 s), none
+37: gains depth before its first counted cutting crossing, depths are monotone and clamped to 1.
+38: engagedSpace/edgeY match progression.ts semantics; writeShaftProgression round-trips mode,
+39: depths, engagedSpace, edgeY, hobYc/hobA/hobR into a caller-owned ProgressionState.
+40: 
+41: ## K3 — hob kinematics and 32.0 s clearance: PASS
+42: 
+43: Certified path: hold yc -4.195 through infeed, feed +Y to yc 9.5249 by 30.2 s at centre
+44: distance 10.1618, retract 2.5 mm radially by 31.0 s (A 12.6618), withdraw to yc -8. At 32.0 s:
+45: radial clearance to the blank OD = 12.6618 - 5.87 - 6.0835 = 0.7083 mm (>= 0.5) and the tilted
+46: envelope top y ~ 0.53 mm is >= 0.5 mm below face start 3.1749 (axially out of the runout band).
+47: Work coupling phi_w = -phi_h/10 (RH one-start, shaft +Z contact = tool -Z side; derivation in
+48: the module header); phi_h monotone with eased spin-up/down, no reversal at the 30 fps floor.
+49: 
+50: ## K4 — chip and display-rate guard: PASS
+51: 
+52: One restrained chip at the rake face only while stock is removed (cutting half, edge within
+53: the stock band, radial infeed engaged): closed-form position/curl/opacity from stroke phase
+54: with the documented CHIP_SEED offsets, direction-correct (-X, matching surface motion at the
+55: mesh), opacity exactly 0 during the return. Guard: strokeHz/gashHz derived from the live rate;
+56: `softened` is exactly the predicate (stroke > 7.5 Hz or gash > 7.5 Hz); whenever not softened
+57: both stay <= 7.5 Hz (30 fps / 4). The flag fires during the recap (cutter gashes 20 Hz at 4x;
+58: stroke 5 Hz stays inside), and never during normal shaping (5 Hz) or hobbing (10 flutes x
+59: 0.5 rev/s = 5 Hz). Displayed rotations never reverse at the 30 fps sampling.
+60: 
+61: ## K5 — camera continuity and framing: PASS
+62: 
+63: C0 across 0..43 s at 1440x900 and 390x844 (1/240 sweep: bounded position/fov/up steps, unit
+64: up vector). C1 through the follow-to-fixed handoff at 7.2 s (second differences <= 5e-5 m and
+65: <= 0.02 deg; follow rate ~0 at 7.2 s; follow weight is 0 before the cutter edge reaches the
+66: face end 9.875 during the exit stroke). Follow spans exactly a quarter orbit (pi/2) over
+67: 2..6 s; the recap re-engages the same law (slow apparent orbit ~0.25 rev/s while the camera
+68: orbits 270 deg). Shaft axis and cutter exit region (face end, groove floor/wall, exit
+69: overtravel corner, chip origin) stay inside the 8% safe frame (|NDC| <= 0.84, projected with
+70: a three.js PerspectiveCamera) at 18 key beats on both layouts. Materials beats hold the card
+71: slot clear: desktop shaft content <= 56% frame width (card band right 8..44%), narrow content
+72: above the bottom card band. Finale framing settled for >= 1.5 s. Bitwise determinism under
+73: shuffled seeks.
+74: 
+75: ## K6 — commands and results: PASS
+76: 
+77: ```
+78: npx vitest run src/scene/inspection/shaft
+79:   Test Files  5 passed (5)   # kinematics, camera + 3 pre-existing sibling suites
+80:        Tests  63 passed (63)
+81: npm run typecheck
+82:   tsc --noEmit -> clean (no errors)
+83: ```
+84: 
+85: ## Unresolved items and renderer contracts
+86: 
+87: - `softened` is a contract: during the recap the renderer must blur/fade repeated cutter
+88:   features (gashes 20 Hz at 4x) and the fast apparent work spin; the sampler only reports it.
+89: - The hob is kinematically clear and out of the runout band at 32.0 s; fading the prop on
+90:   withdraw is the renderer's job (no opacity in this leaf).
+91: - Depth accrual is 4 counted cutting passes per space (illustrative multi-pass depiction;
+92:   plan section 4: the deliberate slow interval/readable beat is artistic compression, not a
+93:   machine cycle-time claim).
+94: - Camera anchors start from camera/blockout.json (desktop + 390x844) re-centred on the
+95:   certified tool positions; they are authored framing, and runtime owner visual acceptance
+96:   remains open like every other JG-035 gate.
+97: - No git operations were performed; nothing outside the five owned files was written.
+FILE project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-kinematics-camera-producer-report.md
+1: Done — the leaf spec is executed end to end, all gates green, and only the five owned files exist.
+2: 
+3: **What was built**
+4: 
+5: - [kinematics.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts) — the machining-time map m(t) (normal 2–6 s, slow 7.2–9.6 s at 0.22×, 4× recap 11–15 s, eased to zero at 15.0, hobbing window 25–32), shaper kinematics on the certified numbers from `toolSpec.ts` (ratio −2, stroke centres 2.17→9.7749, edge peak 10.3749 = 9.8749 + 0.5 overtravel, 0.565 mm room to the groove wall, infeed to root+5 µm in the first quarter orbit, 2.0 mm relieved return), tooth-space depth as counted cutting crossings, the hob path (yc −4.195 → 9.5249, retract 2.5, withdrawn clear by 32.0), the restrained seeded chip, the frame-follow azimuth, and the 7.5 Hz display-rate guard with its `softened` flag.
+6: - [camera.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.ts) — authored anchor curves (blockout positions re-centred on the certified tool geometry) composed with the live follow azimuth: a quarter-orbit follow over 2–6 s, C1 handoff into the fixed macro at 7.2 s, recap re-engage and pull-back, materials side view holding the card slot clear (right 8–44% desktop, bottom band narrow), then revised-blank, hobbing, runout, support, and finale framings.
+7: - [kinematics.test.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.test.ts) and [camera.test.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.test.ts) — K1–K5 including a brute-force crossing oracle, pitch-point velocity (recorded tolerance 1e-12, observed exactly 0), 32.0 s hob clearance, PerspectiveCamera safe-frame projection at 1440×900 and 390×844, and shuffled-seek determinism.
+8: - [shaft-kinematics-camera.md](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-kinematics-camera.md) — the K1–K6 gate record with commands, results, and unresolved items.
+9: 
+10: **Verification**
+11: 
+12: - `npx vitest run src/scene/inspection/shaft` → 5 files / 63 tests passed (includes the three pre-existing sibling suites, untouched).
+13: - `npm run typecheck` → clean.
+14: 
+15: Three defects were caught by the tests and fixed in flight: my closed-form pass count assumed counted crossings 2 m-s apart when the cutting/return alternation makes them 4 m-s apart (now 4 passes, completing all ten spaces ~12–12.9 s inside the recap); the hob spin-down integral used `1 − ∫S` instead of `u − ∫S`, briefly reversing φ_h; and the recap→materials move needed a wide intermediate anchor because the up-vector roll overlapped the target shift.
+16: 
+17: **Left open, by design**: the `softened` flag fires during the recap (cutter gashes hit 20 Hz at 4×) — the renderer must blur/fade repeated features when it mounts the props; hob fade-out on withdraw is likewise a renderer concern; camera anchors are authored framing, so runtime owner visual acceptance stays open as it is for the rest of JG-035. No git operations were run.
+
+hook: PostToolUse
+hook: PostToolUse Completed
+**Evaluating skill orchestration**
+codex
+I’m using the codebase-memory and WebGL telemetry skills for structural checks and numerical verification, with context-mode to keep tool output focused.
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Summarizing context output**
+mcp: context-mode/ctx_search started
+mcp: context-mode/ctx_search (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: codebase-memory-mcp/list_projects started
+mcp: codebase-memory-mcp/list_projects (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: codebase-memory-mcp/check_index_coverage started
+mcp: codebase-memory-mcp/check_index_coverage (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: codebase-memory-mcp/search_graph started
+mcp: codebase-memory-mcp/search_graph (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Optimizing tool usage**
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content C:\\Users\\Markimus\\.codex\\skills\\codebase-memory\\SKILL.md -TotalCount 145; Get-Content C:\\Users\\Markimus\\.codex\\skills\\webgl-telemetry-verifier\\SKILL.md -TotalCount 145" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 879ms:
+Get-Content: 
+Line |
+   2 |  Get-Content C:\Users\Markimus\.codex\skills\codebase-memory\SKILL.md  …
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'C:\Users\Markimus\.codex\skills\codebase-memory\SKILL.md' is denied.
+Get-Content: 
+Line |
+   2 |  Get-Content C:\Users\Markimus\.codex\skills\codebase-memory\SKILL.md  …
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'C:\Users\Markimus\.codex\skills\codebase-memory\SKILL.md' because it does not exist.
+---
+name: webgl-telemetry-verifier
+description: Use when verifying WebGL scenes, 3D transforms, shader states, explosion offsets, gear rotation, or ghost opacity on the portfolio — runtime telemetry probes and programmatic browser evaluations instead of vision models.
+---
+
+# WebGL Telemetry & Automated Verification
+
+## Context & Method
+LLM vision models hallucinate on dark-mode metallic 3D viewports (they
+confirm expectations — see the 2026-08-22 confabulation incident).
+**All 3D claims must be verified via programmatic instrumentation.**
+
+Headless status (re-tested 2026-08-23): with Draco decoders vendored locally
+(`public/draco/`), **the GLB loads headless via the playwright MCP browser** —
+rig fully builds, telemetry populates, zero console errors, canvas even
+rasterizes. The old total-stall was the remote decoder fetch. Headless CLI
+`--screenshot` captures still need `--use-angle=swiftshader
+--enable-unsafe-swiftshader` + absolute paths + real `--timeout`.
+
+### Working probe recipe (playwright MCP)
+
+Harness note (2026-09): the playwright-MCP tool names below
+(`browser_navigate` / `browser_evaluate`) don't exist in the ZCode
+harness — the chrome-devtools MCP equivalents are `navigate_page` /
+`evaluate_script` (same semantics: navigate, wait, evaluate a function,
+read its JSON return).
+1. `browser_navigate` → `http://localhost:4173/?view=exploded` (vite preview
+   binds IPv6 `localhost`, not 127.0.0.1; a stale server on the port serves
+   the current `dist/` from disk).
+2. Wait ~6 s (boot + GLB stream), check console for 0 errors.
+3. `browser_evaluate` a function (NOT a string — strings return `{}`) that
+   returns `JSON.stringify(window.__telemetry)`.
+4. Scroll-driven states: `window.scrollTo(0, max × N)` then wait ~3 s (Lenis
+   1.1 s + scrub 0.6 to settle) before reading. Mid-scroll probes prove
+   continuous interpolation; saturated ones prove end values.
+
+## Runtime Telemetry Instrumentation
+
+The application exposes a mutable runtime probe at `window.__telemetry`,
+written per frame outside React:
+
+```ts
+interface TelemetryState {
+  camera: { x: number; y: number; z: number; fov: number };
+  rig: {
+    handleZ: number; outputZ: number; clutchZ: number; slidingZ: number;
+    stageZ: number[];    // stage1..stage5 carrier Z
+    stageRot: number[];  // stage1..stage5 carrier rotation.z (rad)
+    planetRot: number;   // stage-1 first planet rotation.z
+    gearRotation: number; shift: number;
+    ghostOpacity: number; ghostCount: number; explodeFactor: number;
+    ringSwitchZ: number; ringSwitchRotZ: number;
+  };
+  // K000004 bearing (pass 3, 2026-08-25) has NO __telemetry.rig field —
+  // probe it via window.__rig.bearing.position.z (the rig object is exposed
+  // on window by TorqueWrenchHero).
+  scroll: { progress: number; chapter: number; chapterProgress: number; materialMode: 'solid' | 'blueprint' | 'exploded' };
+  stage: {               // multi-chapter orchestrator (2026-08-24, StageManager)
+    active: number;      // dominant stage: 0 wrench, 1 MSP enclosure, 2 M249 cloud, -1 none
+    alpha: [number, number, number];  // cross-fade alphas (wrench/enclosure/cloud)
+    y: [number, number, number];      // stage-group Y offsets (m)
+    flow: number;        // CH.03 airflow intensity 0..1 (ramps 0.575→0.72 progress)
+  };
+}
+```
+
+## Verification Checklist for Agents
+
+1. **Camera Trajectory Check**:
+   - CH.01: Pos `[0.32, 0.16, 0.42]`, Target `[0, 0, 0]`, FOV `42`
+   - CH.02: Pos `[0.55, 0.04, 0.04]`, Target `[0, 0, 0.03]`, FOV `34`
+   - CH.03: Pos `[0.27, 0.27, 0.27]`, Target `[0, 0, -0.02]`, FOV `28`
+   - CH.04: Pos `[0.06, 0.03, -0.46]`, Target `[0, 0, -0.11]`, FOV `50`
+
+2. **Rear-Extraction & Kinematics (exploded view / deep CH.02 scroll)**:
+   - Stage ladder (driveline order, pass 3 2026-08-25): `stageZ ==
+     [-0.255, -0.230, -0.177, -0.142, -0.099] ± 0.001` (s1..s5 — exploded
+     line reads s4 → s3 → s5 → K000004 → s2 → s1 behind the housing;
+     A000606/P001849 is the THIRD cage)
+   - Bearing ring (pass 3): `window.__rig.bearing.position.z == -0.197`
+     (K000004 parks between A000606 −0.177 and stage 2 −0.230; verify the
+     classified geometry via its merged mesh bbox ≈ 0.058 × 0.058 × 0.007)
+   - `outputZ == +0.050`, `handleZ == -0.354`, `clutchZ == -0.291`
+   - At `shift == 1` with the explosion open: `slidingZ == -0.306`
+     (= clutch − 0.015); shift completes BEFORE any explosion offset moves
+     (timeline 0–15% window, where slidingZ == -0.015)
+   - Gear kinematics at full sweep (`gearRotation = 8π ≈ 25.133`), pass-3
+     display turns: `stageRot == (gearRotation / 8π) × 2π ×
+     [8, 2.24, 1.5, 1, 0.5]` (= [50.265, 14.074, 9.425, 6.283, 3.142] rad —
+     the ratio stageRot/(sweep × 2π) equals the turns table at EVERY scroll
+     point, not just the endpoint);
+     `planetRot == -3.5 × stageRot[0]`; `gearRotation` reaches 8π exactly as
+     `explodeFactor` reaches 1 at global progress ≈0.518 (windows overlap —
+     gears spin through the extraction)
+   - Static exploded mode keeps the train at rest (`stageRot` all 0)
+   - Ghost material count: `ghostCount === 1` (measured 2026-09-02 on BOTH the
+     Medium and Fine GLBs — the housing ghost-merges into one consolidated
+     material; the 2026-08-25 `ghostCount === 0` regression note and the
+     "expected 3" figure predate final consolidation).
+     The commanded `ghostOpacity === 0.15` in CH.02 still holds.
+   - `slidingZ`/`ringSwitchZ` at 0.52: **−0.291** both (2026-09-02 A/B,
+     Medium + Fine identical — the earlier `−0.306` figure is stale).
+   - **Liveness check first**: if `document.querySelector('canvas')` is
+     absent but telemetry shows non-initial values, the quality ladder
+     dropped to poster (canvas unmounted, telemetry FROZEN) — restart the
+     preview server after any rebuild, and if the browser's software-GL
+     process is wedged (canvas never mounts), restart the whole browser
+     process, not just the tab.
+
+3. **Multi-chapter stage windows (StageManager; remeasured 2026-08-24 after
+   the scroll ×2 — sections are 440vh, document ≈ 1800vh)**:
+   - Explosion completes at ≈0.518 (gears at 8π); wrench HOLDS fully
+     exploded until the sink window 0.535–0.575 (probe 0.52: alpha [1,0,0],
+     `explodeFactor` 1; probe 0.555: alpha ≈ [0.5, 0.5, 0]).
+   - CH.03 enclosure dominant 0.575–0.72 with `flow` ramping 0→1 across it
+     (probe 0.64: alpha [0,1,0], flow ≈ 0.5, camera on the CH.03 keyframe).
+   - CH.04 cloud enters 0.72–0.76 (CH.02→03 chapter flip ≈0.74) and holds:
+     probe 0.90 → alpha [0,0,1], flow 0. Camera keyframes NOT retargeted yet
+     (owner gate pending) — placeholders are sized to fit the existing
+     keyframes.
+
+4. **Performance Tier Step-Down**:
+   - DPR bounds: `[1.0, 2.0]` with thrash guard after 3 flip-flops.
+   - Quality tiers downgrade one-way: `full -> lite -> poster`.
+   - FPS via `browser_evaluate` rAF counters is blocked (side-effect guard) —
+     use tier/DPR/canvas-state checks for perf evidence instead.
+
+5. **Decal / dressing visibility gate (pixel-authoritative — JG-027,
+   2026-09-06)**: material-identity telemetry ≠ visibility. JG-025's LCD
+   dressing passed material checks while rendering ZERO pixels (the decal
+   cluster mounted inside the handle). Verify visibility by counting
+   expected pixels inside each decal's PROJECTED screen rect — reference
+   implementation: jgun-portfolio `scripts/verify-jg027-lcd-cluster.mjs`.
+   Do NOT substitute bounding-sphere occlusion tests: they false-positive
+   on sub-millimetre-offset decals. Pixels are the authoritative gate.
+
+6. **Finish/regression evidence — A/B worktree census (JG-028/029,
+   2026-09-06/07)**: the strongest like-for-like evidence is a detached
+   worktree at the pre-change HEAD (junction `node_modules`, copy the
+   gitignored `public/models/Default.glb` into `public/models/` and
+   `dist/models/`), served side-by-side with the current build and
+   diffed live per-mesh (parent, material signature, vertex count) with
+   vertex-conservation accounting. Run a same-build control pair FIRST
+   to size capture noise (~1% gear-phase residue); static
+   `?view=exploded` is the clean finish A/B. Committed probe:
+
+hook: PostToolUse
+hook: PostToolUse Completed
+**Streamlining skill invocation**
+codex
+The graph has no current coverage for these shaft files, so I’m checking the source directly. I’ll verify the motion math and framing independently of the reported test passes.
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Managing token budget**
+collab: SpawnAgent
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Handling in-memory module transpilation**
+**Evaluating Bun for TypeScript execution**
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute_file started
+mcp: context-mode/ctx_execute_file (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Analyzing cutting engagement depth**
+**Verifying velocity and axis calculations**
+codex
+All 63 shaft tests passed. An independent check found that the machining-time map is not C1 at 2.0 s: its rate jumps from 0 to 1. I’m checking why the test misses this and finishing the framing review.
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute_file started
+mcp: context-mode/ctx_execute_file (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Analyzing progression coverage and cutter behavior**
+**Checking card collision timing**
+mcp: codebase-memory-mcp/check_index_coverage started
+mcp: codebase-memory-mcp/check_index_coverage (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+2026-10-06T03:03:54.713992Z ERROR codex_core::tools::router: error=failed to parse function arguments: missing field `target` at line 1 column 482
+**Updating tool schema**
+**Analyzing runtime context and cutting rules**
+**Verifying signed specification compliance**
+collab: SendInput
+hook: PostToolUse
+hook: PostToolUse Completed
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Assessing camera stability and C1 requirements**
+**Clarifying citation necessity**
+codex
+The motion checks confirm all ten spaces complete at about 12.925 s, the slow window includes about 0.84 s of full relieved return, and the hob is clear before the 32.8 s cool scan. The −2 ratio, display-rate flag, seek determinism, and allocation-free sampler paths also check out. The camera review is still running.
+collab: Wait
+hook: PostToolUse
+hook: PostToolUse Completed
+**Analyzing chip generation and regression metrics**
+**Evaluating numerical stability and grid precision**
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+collab: SendInput
+hook: PostToolUse
+hook: PostToolUse Completed
+**Waiting for user input**
+collab: Wait
+hook: PostToolUse
+hook: PostToolUse Completed
+**Avoiding redundant checks**
+mcp: context-mode/ctx_execute_file started
+mcp: context-mode/ctx_execute_file (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Reviewing test coverage and artifact policies**
+**Assessing audio update possibility**
+collab: Wait
+hook: PostToolUse
+hook: PostToolUse Completed
+**Verifying geometry and measurements**
+**Analyzing material and camera stability**
+codex
+The camera review confirms a continuous handoff and safe framing during the slow exit. It also found that the material view is still moving when the first card becomes fully readable, and the final 4340 card overlaps the shaft. I’m verifying those projections before reporting the findings.
+mcp: context-mode/ctx_execute started
+mcp: context-mode/ctx_execute (completed)
+hook: PostToolUse
+hook: PostToolUse Completed
+**Confirming path formatting and verification**
+**Analyzing tooth clearance and slot positioning**
+codex
+**FIX-FIRST**
+
+- **P1 — Machining time is not C1 at startup.** [kinematics.ts:86](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:86) switches directly from rate 0 to rate 1 at **2.0 s**. Independent one-sided derivatives are **0 and 1**, producing an abrupt motion onset. [kinematics.test.ts:54](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.test.ts:54) misses the kink because its sampling intervals align with the boundary. An interval straddling 2.0 s exceeds its error tolerance by over 10×. Ease the startup rate and test boundary derivatives explicitly.
+
+- **P2 — Material camera settles after the first card becomes readable.** [camera.ts:61](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.ts:61) continues transitioning until **16.2 s**, although the 4140 card reaches full opacity at **15.14 s**. During that readable interval, camera position moves **79.39 mm**, FOV changes **16.05° → 7.2°**, and up rotates **90°**. This violates the steady material view. [camera.test.ts:139](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.test.ts:139) starts checking at 16 s and omits the initial transition.
+
+- **P2 — Final material card overlaps the reserved shaft framing.** [camera.ts:69](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.ts:69) projects the existing shaft-axis probe `(0,19.2,0)` mm to desktop **x=981.4 px**, inside the reserved **806.4–1324.8 px** card band. This persists while the final 4340 card is fully visible, including **33.34–34 s**. The slot test omits that card.
+
+**Verified:** all **63 tests passed**. Independent checks confirm continuity and monotonicity, −2 generating ratio with pitch-velocity residual below **8×10⁻¹⁵**, cutting-only depth increments, all ten spaces complete by **12.925 s**, a **2.4 s** slow window with approximately **0.84 s** full relieved return, recap compression/`softened`, certified hob path and clearance by 32 s, cutting-only chips, C1 camera handoff and safe exit framing, deterministic seeks, and allocation-free sampler paths.
+
+No files edited; TODO and queue docs were not read.
+
+
+hook: Stop
+hook: Stop Completed
+tokens used
+103,847
+**FIX-FIRST**
+
+- **P1 — Machining time is not C1 at startup.** [kinematics.ts:86](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:86) switches directly from rate 0 to rate 1 at **2.0 s**. Independent one-sided derivatives are **0 and 1**, producing an abrupt motion onset. [kinematics.test.ts:54](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.test.ts:54) misses the kink because its sampling intervals align with the boundary. An interval straddling 2.0 s exceeds its error tolerance by over 10×. Ease the startup rate and test boundary derivatives explicitly.
+
+- **P2 — Material camera settles after the first card becomes readable.** [camera.ts:61](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.ts:61) continues transitioning until **16.2 s**, although the 4140 card reaches full opacity at **15.14 s**. During that readable interval, camera position moves **79.39 mm**, FOV changes **16.05° → 7.2°**, and up rotates **90°**. This violates the steady material view. [camera.test.ts:139](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.test.ts:139) starts checking at 16 s and omits the initial transition.
+
+- **P2 — Final material card overlaps the reserved shaft framing.** [camera.ts:69](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/camera.ts:69) projects the existing shaft-axis probe `(0,19.2,0)` mm to desktop **x=981.4 px**, inside the reserved **806.4–1324.8 px** card band. This persists while the final 4340 card is fully visible, including **33.34–34 s**. The slot test omits that card.
+
+**Verified:** all **63 tests passed**. Independent checks confirm continuity and monotonicity, −2 generating ratio with pitch-velocity residual below **8×10⁻¹⁵**, cutting-only depth increments, all ten spaces complete by **12.925 s**, a **2.4 s** slow window with approximately **0.84 s** full relieved return, recap compression/`softened`, certified hob path and clearance by 32 s, cutting-only chips, C1 camera handoff and safe exit framing, deterministic seeks, and allocation-free sampler paths.
+
+No files edited; TODO and queue docs were not read.
+
+

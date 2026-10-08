@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-10-03T20:14:11.735432Z",
+    "display_name": "GPT Image 2.5",
+    "id": "f808044c-6785-4860-aa7e-ccdc39cbfd7e",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201411_f808044c-6785-4860-aa7e-ccdc39cbfd7e_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "4d2374af-caf0-4fe4-b8d3-f80a767253a3",
+            "type": "media_input",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/4d2374af-caf0-4fe4-b8d3-f80a767253a3.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Create one cinematic concept still by editing the attached actual J-Gun engineering drawing screenshot. Preserve its exact central pneumatic torque-wrench SIDE VIEW silhouette, pointing left with grip down, and its surrounding technical drawing layout. Remove browser scrollbar. Close camera, slightly raked view of real cream vellum on a drafting table in a room whose lights have failed. Correct the reference's bright-white filled profile: the entire interior of the central tool outline is ordinary opaque cream vellum, EXACTLY the same dark paper material and exposure as adjacent sheet, with black printed drafting lines still visible. No interior luminous fill, no white spotlight, no luminous tool. The ONLY light comes from an electric LIGHT BLUE outline tracing the tool's perimeter, pale azure #79CFFF, and a pronounced branching web of light-blue hairline fractures crawling ACROSS the paper inside the silhouette. Use numerous distinct forked blue branches, connected to the outer trace, vivid but thin; broad unbroken dark cream paper areas remain between branches. The outline and webbing cast restrained local blue spill onto nearby fibers. Paper is intact, no hole yet, no metal visible yet. This is the trace then webbing beat before rupture. High-end realistic physically grounded materials, controlled bloom, a mysterious doorway about to open. No purple, no orange, no white emissive fill, no extra rectangular glowing screen, no people. One frame, no montage, no new labels.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201411_f808044c-6785-4860-aa7e-ccdc39cbfd7e.png",
+    "status": "completed"
+  }
+]

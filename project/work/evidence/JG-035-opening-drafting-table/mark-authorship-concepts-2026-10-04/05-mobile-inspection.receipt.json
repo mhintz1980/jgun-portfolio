@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:39:11.121104Z",
+  "display_name": "GPT Image 2.5",
+  "id": "8216e652-a744-4f12-969e-b138adeb0468",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143911_8216e652-a744-4f12-969e-b138adeb0468_min.webp",
+  "params": {
+    "aspect_ratio": "9:16",
+    "height": 2688,
+    "medias": [
+      {
+        "data": {
+          "id": "71141f0e-7025-4c39-a2f1-6b765cf21e1c",
+          "type": "image_job",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143231_71141f0e-7025-4c39-a2f1-6b765cf21e1c.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Create a polished MOBILE WEBSITE INSPECTION CONCEPT, portrait 9:16, directly adapting the supplied ring-switch macro. Preserve exact same ring, diamond knurl, black anodized finish, smooth neighbouring black housing, steel fasteners and recognisable pistol-grip handle. Same charcoal studio, grazing creamy-white rim light and restrained cool fill. No redesign, invented parts or labels baked into metal. The ring retains its current axial width and location.\nThis is the actual viewport of a premium portfolio, NOT a phone mockup: no phone frame or browser chrome. Elegant sparse typography in the top 22 percent, the close-up hardware centered across the middle 52 percent, a calm reading and navigation area in bottom 26 percent. Generous side gutters, no overlap between text and hardware. Exact text: small overline \"MARK HINTZ\"; larger two-line title \"BUILT TO / FEEL RIGHT\"; small \"Ring switch / P003068\"; a concise line \"Grip. Finish. Control.\" At bottom, a clearly readable pill button with arrow \"Return to assembly\", and a quieter link \"Read the design note\". Show a visible restrained blue focus outline around the return button to demonstrate keyboard focus. Touch targets look generous and legible. The tone is personal engineering craft, no product-sales CTA. Tiny footer \"Finish inspection\". Do not add tolerance claims, pricing, material certifications, other navigation or fake phone status icons. Sharply finished portrait 9:16 presentation.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 1520
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143911_8216e652-a744-4f12-969e-b138adeb0468.png",
+  "status": "completed"
+}

@@ -1,0 +1,466 @@
+{
+ "url": "http://localhost:5199",
+ "cases": [
+  {
+   "name": "desktop",
+   "errors": [
+    "warning THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "warning THREE.WebGLProgram: Program Info Log: (210,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,82-106): warning X4122: sum of 1 "
+   ],
+   "requests": [
+    "http://localhost:5199/models/m249-transformed.glb",
+    "http://localhost:5199/models/Default.glb",
+    "http://localhost:5199/models/msp-enclosure.glb",
+    "http://localhost:5199/models/manufacturing-core-lite.glb"
+   ],
+   "frames": [
+    {
+     "t": 8,
+     "file": "desktop-t8.png",
+     "litFraction": 0.5682,
+     "probe": {
+      "time": 8,
+      "phase": "Cutter exit into the relief groove",
+      "chapter": 0,
+      "discrete": 2,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 8,
+      "cameraSampleTime": 8,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 8.902288079992797,
+        "infeed": 4.2968285963658195,
+        "rotation": 6.924070208511905,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    },
+    {
+     "t": 16.5,
+     "file": "desktop-t16_5.png",
+     "litFraction": 0.5374,
+     "probe": {
+      "time": 16.5,
+      "phase": "Material attempts",
+      "chapter": 1,
+      "discrete": 4,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 16.5,
+      "cameraSampleTime": 16.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "4140",
+        "stamp": "settled"
+       },
+       "stress": {
+        "kind": "warm",
+        "mix": 1
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    },
+    {
+     "t": 37,
+     "file": "desktop-t37.png",
+     "litFraction": 0.3257,
+     "probe": {
+      "time": 37,
+      "phase": "Moving the supports",
+      "chapter": 3,
+      "discrete": 8,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 37,
+      "cameraSampleTime": 37,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": true,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    },
+    {
+     "t": 40,
+     "file": "desktop-t40.png",
+     "litFraction": 0.5048,
+     "probe": {
+      "time": 40,
+      "phase": "Revised assembly",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 40,
+      "cameraSampleTime": 40,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": true,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    },
+    {
+     "t": 41.5,
+     "file": "desktop-t41_5.png",
+     "litFraction": 0.4806,
+     "probe": {
+      "time": 41.5,
+      "phase": "Revised assembly",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 41.5,
+      "cameraSampleTime": 41.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": true,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    },
+    {
+     "t": 43,
+     "file": "desktop-t43.png",
+     "litFraction": 0.4816,
+     "probe": {
+      "time": 43,
+      "phase": "Revised assembly",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 43,
+      "cameraSampleTime": 43,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": true,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 5,
+        "missingCarriers": false,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 43,
+       "materials": 19,
+       "textures": 0,
+       "meshes": 46
+      }
+     }
+    }
+   ],
+   "readyMs": 2164,
+   "status": {
+    "status": "ready",
+    "error": null,
+    "kind": "shaft",
+    "storyId": "shaft-p001835",
+    "duration": 43
+   },
+   "afterReturn": {
+    "active": false,
+    "restoredPoseError": 0,
+    "restoreObserved": true,
+    "focus": "Inspect the input shaft ↗"
+   }
+  }
+ ]
+}

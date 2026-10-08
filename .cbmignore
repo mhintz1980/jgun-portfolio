@@ -1,0 +1,8 @@
+# Structural graph scope. Read verification packets directly: their captures
+# and transcripts expand into millions of nodes and overflow coverage records.
+# Prune the evidence subtree so the exclusion inventory stays complete.
+# Canonical plans/specs, runtime source, scripts and authored JSON remain indexed.
+/project/work/evidence/
+*.log
+/public/drawing/
+__pycache__/

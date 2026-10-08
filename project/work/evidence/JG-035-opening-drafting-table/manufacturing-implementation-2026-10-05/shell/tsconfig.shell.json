@@ -1,0 +1,14 @@
+{
+  "extends": "../../../../../../tsconfig.json",
+  "include": [
+    "../../../../../../src/state/inspectionStore.ts",
+    "../../../../../../src/state/inspectionStore.test.ts",
+    "../../../../../../src/scene/inspection/story.ts",
+    "../../../../../../src/scene/inspection/story.test.ts",
+    "../../../../../../src/scene/inspection/session.ts",
+    "../../../../../../src/scene/inspection/session.test.ts",
+    "../../../../../../src/scene/inspection/loadLease.ts",
+    "../../../../../../src/components/RingInspection.tsx",
+    "harness.tsx"
+  ]
+}

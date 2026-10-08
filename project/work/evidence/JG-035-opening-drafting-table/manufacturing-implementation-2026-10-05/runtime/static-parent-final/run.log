@@ -1,0 +1,34 @@
+{
+  "url": "http://localhost:4173",
+  "cases": [
+    {
+      "name": "poster-desktop",
+      "pass": true,
+      "images": 8,
+      "glbRequests": 0,
+      "failures": []
+    },
+    {
+      "name": "poster-narrow",
+      "pass": true,
+      "images": 8,
+      "glbRequests": 0,
+      "failures": []
+    },
+    {
+      "name": "reduced-desktop",
+      "pass": true,
+      "images": 8,
+      "glbRequests": 3,
+      "failures": []
+    },
+    {
+      "name": "reduced-narrow",
+      "pass": true,
+      "images": 8,
+      "glbRequests": 3,
+      "failures": []
+    }
+  ],
+  "failures": []
+}

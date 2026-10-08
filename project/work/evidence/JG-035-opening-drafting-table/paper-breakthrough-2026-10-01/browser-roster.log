@@ -1,0 +1,13 @@
+desktop: ready in 14888 ms
+desktop: PASS (0 failures)
+narrow: ready in 6085 ms
+narrow: PASS (0 failures)
+desktop-reduced: ready in 15075 ms
+desktop-reduced: PASS (0 failures)
+narrow-reduced: ready in 4133 ms
+narrow-reduced: PASS (0 failures)
+desktop-lite: ready in 4889 ms
+desktop-lite: PASS (0 failures)
+narrow-lite: ready in 4914 ms
+narrow-lite: PASS (0 failures)
+Evidence: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\paper-breakthrough-2026-10-01\verified-roster

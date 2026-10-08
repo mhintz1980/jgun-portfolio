@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:33:54.17526Z",
+  "display_name": "GPT Image 2.5",
+  "id": "34c9337c-17f8-4af7-b9f1-4a85b3061738",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143354_34c9337c-17f8-4af7-b9f1-4a85b3061738_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "d0b3be22-3437-49e3-bc38-e4b040f3d92e",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/d0b3be22-3437-49e3-bc38-e4b040f3d92e.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Create one beautifully art-directed website concept still for Mark Hintz's mechanical design portfolio. Use the supplied real engineering drawing as the strict product and linework reference: preserve this exact left-pointing pneumatic torque wrench silhouette, pistol handle, spindle, barrel, sectioned motor and existing part-callout relationships. Recompose as a wide overhead editorial photograph of a generous warm cream vellum engineering sheet, slight camera rake, subtle fine paper fibers, rich navy technical ink, authentic view hierarchy, generous whitespace, realistic soft studio lighting. No props, tools, terminal screens, people or clutter.\nIntroduce authorship without turning this into a new product advertisement: modest precise print at top left \"MARK HINTZ\", smaller \"MECHANICAL DESIGN / CREATIVE TECHNOLOGY\". The formal print has a small \"DESIGNED BY M. HINTZ\" field, but no invented checked/approved stamp. Place just ONE charming, legible handwritten dark graphite note in a clear margin OUTSIDE the formal drawing border: \"Keep the bearing and gear in one setup.\" A restrained pencil leader connects the personal margin thought to a detail view, avoiding existing leaders. Personal ink must look clearly different from controlled navy manufacturing ink. Make this feel like seeing how Mark thinks: confident, tactile, obsessive and sophisticated, never messy. Avoid invented tolerance values, material certifications and marketing claims. All product geometry follows the reference. Main drawing should occupy right two thirds with legible personal identity and margin thought on left. Intact sheet, no crack, no portal, no glowing white panels. Single finished 16:9 frame, crisp professional web presentation.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143354_34c9337c-17f8-4af7-b9f1-4a85b3061738.png",
+  "status": "completed"
+}

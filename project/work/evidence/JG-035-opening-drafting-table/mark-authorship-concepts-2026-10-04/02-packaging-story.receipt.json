@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:32:32.337851Z",
+  "display_name": "GPT Image 2.5",
+  "id": "660ade02-99a8-477b-8cbc-481b8c31b0d3",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143232_660ade02-99a8-477b-8cbc-481b8c31b0d3_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "60644e52-755c-4406-8c6e-f52924bee13b",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/60644e52-755c-4406-8c6e-f52924bee13b.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Create one cinematic editorial WEBSITE CONCEPT STILL about the designer's manufacturing decisions using this actual CAD exploded driveline as the strict mechanical reference. Maintain the five existing planetary carrier groups, their real shapes and relative ladder order, recognisable dark clutch and gearbox structure, steel planet gears and rearward coaxial extraction. Do not invent generic gears, additional stages, motors or floating unexplained parts. Do not portray real ratio speeds or a new physical disassembly procedure. Reframe at a wider 3/4 angle so the complete reference-derived driveline is visible with breathing room, across the right 65 percent of the frame, not clipped at the edges. Left 30 percent is an uncluttered editorial reading column.\nArt direction: charcoal-black studio with faint warm graphite depth, delicate neutral rim highlights, rich satin black anodized aluminium and restrained steel, tiny blue accents only in functional UI. NOT a neon grid, spaceship, chrome toy or anonymous OEM advertisement. Remove the old telemetry, chapter navigation, grid and HUD. Make the machine look designed by a person who cares.\nSet large clean readable heading on the left: \"THE DECISION BEHIND THE DETAIL\". Under it a short sentence \"A better machining sequence. A stronger section.\" Small overline \"MARK HINTZ / DESIGN NOTES\". Use a single slender graphite leader toward the integral sun / bearing relationship, avoiding a fake precise part-number annotation. Lower left a minimal pill \"Read the machining story\". The human story should balance the spectacular assembly. No dimensions, tolerance numbers, zero-prototype or cost/weight claims. These captions describe the intended story, not verified measured production results. One coherent premium portfolio frame, restrained sharp typography, realistic materials, landscape 16:9.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143232_660ade02-99a8-477b-8cbc-481b8c31b0d3.png",
+  "status": "completed"
+}

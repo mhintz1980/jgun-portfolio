@@ -1,0 +1,164 @@
+PASS intro clamps outside window and returns finite phase states
+PASS pacing map: intro owns its scroll share, downstream stays linear and invertible
+PASS storm phase boundaries and the shared .79/.88/.89 decision points are exact
+PASS lamp envelope hits five unequal failures, weak recoveries, and the fourth near-out shelf
+PASS focus completes before the pulse; the reserved onboarding window carries nothing else
+PASS the barrier always opens before pose motion, metal and light; the print never fades
+PASS pulse traverses five ordered head positions without whole-window activation
+PASS shockwave runs once, after the solved crossing, on a sheet still held opaque
+PASS pose reparameterization is monotone and leaves the pose axis itself unmoved
+PASS intro state is exact under forward/reverse evaluation
+PASS opening remap preserves its .18 endpoint
+PASS side basis reads source Z and X with source Y as view depth, printed-up on world -X
+PASS desktop: sheet is the fixed drafting-table size on every viewport
+PASS desktop: views sit inside the frame, clear of each other and the furniture
+PASS desktop: projected anchor uses the primary ortho transform
+PASS desktop: initial pose parks the model 0.0006 m beneath the sheet, rotation-free
+PASS desktop: solver contact is an actual support vertex within 1e-9 m
+PASS desktop: the lift is pure translation — monotone vertex support, no pose rotation
+PASS desktop: support cache agrees with all vertices through forward/reverse poses
+PASS desktop: release t=1 restores identity model matrix
+PASS mobile: sheet is the fixed drafting-table size on every viewport
+PASS mobile: views sit inside the frame, clear of each other and the furniture
+PASS mobile: projected anchor uses the primary ortho transform
+PASS mobile: initial pose parks the model 0.0006 m beneath the sheet, rotation-free
+PASS mobile: solver contact is an actual support vertex within 1e-9 m
+PASS mobile: the lift is pure translation — monotone vertex support, no pose rotation
+PASS mobile: support cache agrees with all vertices through forward/reverse poses
+PASS mobile: release t=1 restores identity model matrix
+PASS the sheet layout does not depend on viewport aspect
+{
+  "scope": "Pure synthetic-geometry contract; not runtime/visual/fallback/performance proof",
+  "passed": 29,
+  "failed": 0,
+  "measurements": [
+    {
+      "flickerU": 0,
+      "introT": 0.45,
+      "lampPower": 1
+    },
+    {
+      "flickerU": 0.12,
+      "introT": 0.4656,
+      "lampPower": 0.58
+    },
+    {
+      "flickerU": 0.18,
+      "introT": 0.4734,
+      "lampPower": 0.92
+    },
+    {
+      "flickerU": 0.28,
+      "introT": 0.4864,
+      "lampPower": 0.14
+    },
+    {
+      "flickerU": 0.34,
+      "introT": 0.4942,
+      "lampPower": 0.78
+    },
+    {
+      "flickerU": 0.46,
+      "introT": 0.5098,
+      "lampPower": 0.36
+    },
+    {
+      "flickerU": 0.51,
+      "introT": 0.5163,
+      "lampPower": 0.86
+    },
+    {
+      "flickerU": 0.64,
+      "introT": 0.5332,
+      "lampPower": 0.015
+    },
+    {
+      "flickerU": 0.72,
+      "introT": 0.5436,
+      "lampPower": 0.015
+    },
+    {
+      "flickerU": 0.78,
+      "introT": 0.5514,
+      "lampPower": 0.58
+    },
+    {
+      "flickerU": 0.85,
+      "introT": 0.5605,
+      "lampPower": 0.08
+    },
+    {
+      "flickerU": 0.91,
+      "introT": 0.5683,
+      "lampPower": 0.34
+    },
+    {
+      "flickerU": 1,
+      "introT": 0.58,
+      "lampPower": 0
+    },
+    {
+      "firstOpenFrameT": 0.88,
+      "firstMotionFrameT": 0.89025,
+      "illuminationStartT": 0.88,
+      "metalStartT": 0.89
+    },
+    {
+      "crossing": 0.7046512206928295,
+      "waveStartScrollT": 0.9220784892936897,
+      "waveEnd": 0.97,
+      "waveScrollSpan": 0.04792151070631023
+    },
+    {
+      "viewport": "desktop",
+      "initialBarrierClearanceM": -0.0006000000000000033
+    },
+    {
+      "viewport": "desktop",
+      "normalizedCrossing": 0.7046512202633319,
+      "analyticCrossing": 0.7046512206928148,
+      "independentCrossing": 0.7046512206928295,
+      "clearanceTravel": 0.0911999998509884,
+      "clearancePose": 0.7060909734004386,
+      "contactZ": 9.020562075079397e-16,
+      "beforeZ": -4.1634468470053143e-7,
+      "afterZ": 4.1634523317846117e-7
+    },
+    {
+      "viewport": "desktop",
+      "liftMonotone": true
+    },
+    {
+      "viewport": "desktop",
+      "releaseIdentityMaxElementError": 0
+    },
+    {
+      "viewport": "mobile",
+      "initialBarrierClearanceM": -0.0006000000000000033
+    },
+    {
+      "viewport": "mobile",
+      "normalizedCrossing": 0.7046512202633319,
+      "analyticCrossing": 0.7046512206928148,
+      "independentCrossing": 0.7046512206928295,
+      "clearanceTravel": 0.0911999998509884,
+      "clearancePose": 0.7060909734004386,
+      "contactZ": 9.020562075079397e-16,
+      "beforeZ": -4.1634468470053143e-7,
+      "afterZ": 4.1634523317846117e-7
+    },
+    {
+      "viewport": "mobile",
+      "liftMonotone": true
+    },
+    {
+      "viewport": "mobile",
+      "releaseIdentityMaxElementError": 0
+    }
+  ],
+  "sourceSha256": {
+    "src/scene/drawing/introTimeline.ts": "aceb34b6f2b01c0c681cfb3a79c6168c438794b62f1f55e31b4d42d6dfa0b752",
+    "src/scene/drawing/extractionPose.ts": "4e66d2aa9dfd4c9911bcbb7785857aeba0fe32d10d0ef1244661c66a1f16bc68",
+    "src/scene/drawing/drawingGeometry.ts": "6067558000590fccdbad49d9f035a9f9424a9426372953d80ae702ec0aa91d82"
+  }
+}

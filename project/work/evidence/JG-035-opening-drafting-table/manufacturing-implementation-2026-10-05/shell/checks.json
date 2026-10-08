@@ -1,0 +1,37 @@
+{
+  "scope": "W1 lifecycle/store/DOM shell",
+  "checks": [
+    {
+      "command": "npx vitest run src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts",
+      "exitCode": 0,
+      "filesPassed": 4,
+      "testsPassed": 26,
+      "lastRunStartAsPrinted": "14:27:59"
+    },
+    {
+      "command": "npx tsc --noEmit -p project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/tsconfig.shell.json",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "note": "Final repository run passed after concurrent integration owner corrected four unused imports; W1 did not edit shared source."
+    },
+    {
+      "command": "node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs --url=http://localhost:5201",
+      "exitCode": 0,
+      "casesPassed": 4,
+      "cases": ["desktop", "narrow", "reduced-narrow", "poster-narrow"],
+      "details": "dom-report.json",
+      "scope": "Real DOM component in isolation; no scene/runtime/CAD fetch"
+    },
+    {
+      "command": "git diff --check -- src/state/inspectionStore.ts src/state/inspectionStore.test.ts src/scene/inspection/loadLease.ts src/components/RingInspection.tsx src/components/RingInspection.css",
+      "exitCode": 0
+    }
+  ],
+  "review": "Fresh Anthropic provider review pending",
+  "runtime": "W2 and Nash independent integration verification pending",
+  "stagedByW1": false,
+  "committedByW1": false
+}

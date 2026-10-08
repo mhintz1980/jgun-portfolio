@@ -1,0 +1,29 @@
+{
+  "url": "http://localhost:4173",
+  "pixelTimes": [
+    0.8405,
+    0.845,
+    0.855,
+    0.865,
+    0.88,
+    0.92
+  ],
+  "pixelContract": "same-frame normal versus portal/model/desk hidden; profile mask, unchanged controls, zero visible desk",
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": true,
+      "errors": [],
+      "failures": [],
+      "video": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\portal-correction-2026-10-02\\production-capture\\desktop\\breakthrough.webm"
+    },
+    {
+      "name": "narrow",
+      "pass": true,
+      "errors": [],
+      "failures": [],
+      "video": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\portal-correction-2026-10-02\\production-capture\\narrow\\breakthrough.webm"
+    }
+  ],
+  "pass": true
+}

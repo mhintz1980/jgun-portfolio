@@ -1,0 +1,189 @@
+PASS intro clamps outside window and returns finite phase states
+PASS pacing map: intro owns its scroll share, downstream stays linear and invertible
+PASS storm phase boundaries retain pressure .79-.84 and fracture .84-.88
+PASS lamp envelope hits five unequal failures, weak recoveries, and the fourth near-out shelf
+PASS focus completes before the pulse; the reserved onboarding window carries nothing else
+PASS causal push precedes rupture; every fracture frame reveals fully lit metal on opaque stock
+PASS pulse traverses five ordered head positions without whole-window activation
+PASS shockwave runs once, after the solved crossing, on a sheet still held opaque
+PASS pose reparameterization is monotone and leaves the pose axis itself unmoved
+PASS intro state is exact under forward/reverse evaluation
+PASS opening remap preserves its .18 endpoint
+PASS side basis reads source Z and X with source Y as view depth, printed-up on world -X
+PASS desktop: sheet is the fixed drafting-table size on every viewport
+PASS desktop: views sit inside the frame, clear of each other and the furniture
+PASS desktop: projected anchor uses the primary ortho transform
+PASS desktop: initial pose parks the model 0.0006 m beneath the sheet, rotation-free
+PASS desktop: full/lite causal pressure pushes beneath every intact-sheet vertex
+PASS desktop: solver contact is an actual support vertex within 1e-9 m
+PASS desktop: the lift is pure translation — monotone vertex support, no pose rotation
+PASS desktop: support cache agrees with all vertices through forward/reverse poses
+PASS desktop: release t=1 restores identity model matrix
+PASS mobile: sheet is the fixed drafting-table size on every viewport
+PASS mobile: views sit inside the frame, clear of each other and the furniture
+PASS mobile: projected anchor uses the primary ortho transform
+PASS mobile: initial pose parks the model 0.0006 m beneath the sheet, rotation-free
+PASS mobile: full/lite causal pressure pushes beneath every intact-sheet vertex
+PASS mobile: solver contact is an actual support vertex within 1e-9 m
+PASS mobile: the lift is pure translation — monotone vertex support, no pose rotation
+PASS mobile: support cache agrees with all vertices through forward/reverse poses
+PASS mobile: release t=1 restores identity model matrix
+PASS the sheet layout does not depend on viewport aspect
+{
+  "scope": "Pure synthetic-geometry contract; not runtime/visual/fallback/performance proof",
+  "passed": 31,
+  "failed": 0,
+  "measurements": [
+    {
+      "flickerU": 0,
+      "introT": 0.45,
+      "lampPower": 1
+    },
+    {
+      "flickerU": 0.12,
+      "introT": 0.4656,
+      "lampPower": 0.58
+    },
+    {
+      "flickerU": 0.18,
+      "introT": 0.4734,
+      "lampPower": 0.92
+    },
+    {
+      "flickerU": 0.28,
+      "introT": 0.4864,
+      "lampPower": 0.14
+    },
+    {
+      "flickerU": 0.34,
+      "introT": 0.4942,
+      "lampPower": 0.78
+    },
+    {
+      "flickerU": 0.46,
+      "introT": 0.5098,
+      "lampPower": 0.36
+    },
+    {
+      "flickerU": 0.51,
+      "introT": 0.5163,
+      "lampPower": 0.86
+    },
+    {
+      "flickerU": 0.64,
+      "introT": 0.5332,
+      "lampPower": 0.015
+    },
+    {
+      "flickerU": 0.72,
+      "introT": 0.5436,
+      "lampPower": 0.015
+    },
+    {
+      "flickerU": 0.78,
+      "introT": 0.5514,
+      "lampPower": 0.58
+    },
+    {
+      "flickerU": 0.85,
+      "introT": 0.5605,
+      "lampPower": 0.08
+    },
+    {
+      "flickerU": 0.91,
+      "introT": 0.5683,
+      "lampPower": 0.34
+    },
+    {
+      "flickerU": 1,
+      "introT": 0.58,
+      "lampPower": 0
+    },
+    {
+      "firstOpenFrameT": 0.88,
+      "firstMotionFrameT": 0.79025,
+      "fullyLitMetalByT": 0.84
+    },
+    {
+      "crossing": 0.7538760172440275,
+      "waveStartScrollT": 0.8866596207908224,
+      "waveEnd": 0.97,
+      "waveScrollSpan": 0.08334037920917758
+    },
+    {
+      "viewport": "desktop",
+      "initialBarrierClearanceM": -0.0006000000000000033
+    },
+    {
+      "viewport": "desktop",
+      "tier": "full",
+      "pressureTravelM": 0.012,
+      "pressureTopCeilingM": 0.012
+    },
+    {
+      "viewport": "desktop",
+      "tier": "lite",
+      "pressureTravelM": 0.0054,
+      "pressureTopCeilingM": 0.0054
+    },
+    {
+      "viewport": "desktop",
+      "normalizedCrossing": 0.7538760168861187,
+      "analyticCrossing": 0.7538760172440123,
+      "independentCrossing": 0.7538760172440275,
+      "clearanceTravel": 0.0911999998509884,
+      "clearancePose": 0.7550758111670322,
+      "contactZ": 5.3013149425851225e-15,
+      "beforeZ": -4.996135518631206e-7,
+      "afterZ": 4.996143496277528e-7
+    },
+    {
+      "viewport": "desktop",
+      "liftMonotone": true
+    },
+    {
+      "viewport": "desktop",
+      "releaseIdentityMaxElementError": 0
+    },
+    {
+      "viewport": "mobile",
+      "initialBarrierClearanceM": -0.0006000000000000033
+    },
+    {
+      "viewport": "mobile",
+      "tier": "full",
+      "pressureTravelM": 0.012,
+      "pressureTopCeilingM": 0.012
+    },
+    {
+      "viewport": "mobile",
+      "tier": "lite",
+      "pressureTravelM": 0.0054,
+      "pressureTopCeilingM": 0.0054
+    },
+    {
+      "viewport": "mobile",
+      "normalizedCrossing": 0.7538760168861187,
+      "analyticCrossing": 0.7538760172440123,
+      "independentCrossing": 0.7538760172440275,
+      "clearanceTravel": 0.0911999998509884,
+      "clearancePose": 0.7550758111670322,
+      "contactZ": 5.3013149425851225e-15,
+      "beforeZ": -4.996135518631206e-7,
+      "afterZ": 4.996143496277528e-7
+    },
+    {
+      "viewport": "mobile",
+      "liftMonotone": true
+    },
+    {
+      "viewport": "mobile",
+      "releaseIdentityMaxElementError": 0
+    }
+  ],
+  "sourceSha256": {
+    "src/scene/drawing/introTimeline.ts": "b93c88ea395fa2d646b848b76ecc82e22ee81001e093afd83e1cd5ce5b9584a3",
+    "src/scene/drawing/extractionPose.ts": "3d0c606c8997c20b7413253dd4c93719dd5a5e163582c37b2ad852b22a67f506",
+    "src/scene/drawing/drawingGeometry.ts": "6067558000590fccdbad49d9f035a9f9424a9426372953d80ae702ec0aa91d82"
+  }
+}

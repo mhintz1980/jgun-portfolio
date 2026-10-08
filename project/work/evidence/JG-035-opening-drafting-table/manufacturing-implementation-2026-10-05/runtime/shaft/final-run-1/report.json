@@ -1,0 +1,189 @@
+{
+  "schema": "shaft-verifier/1",
+  "url": "http://localhost:4173",
+  "started": "2026-10-06T18:14:16.212Z",
+  "command": "node scripts/verify-shaft-inspection.mjs --url=http://localhost:4173 --out=C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\runtime\\shaft\\final-run-1",
+  "verifierSha256": "e916bcd0ddc3471dbf21c6a108a8e400cba2fba25ae1b1cd2327019a932db943",
+  "sourceHashes": {
+    "src/scene/inspection/shaft/story.ts": "a10410a0a297062a80f4491ed00bb7fff3a0a0b85785b77d3a74d555610f736f",
+    "src/scene/inspection/shaft/script.ts": "9970fdeccba3a05e0c287c3d5345b6e76a8e61f16df44df6049344c0c4653e15",
+    "src/scene/inspection/shaft/schedule.ts": "ed1cecad00363b8788e0bcf4ccb54f2833ae707ee5648902fe2d9a5d8a8d37e5",
+    "src/scene/inspection/shaft/kinematics.ts": "4509f6b247efc40b428c37ad4a8925add3a944c1e4d16fd978f62101d6cd874a",
+    "src/scene/inspection/shaft/toolSpec.ts": "1ef5e143d05af11b00a687950695fe0ef33f82df897423159647e852d7b001b3",
+    "src/scene/inspection/shaft/progression.ts": "f4d9268867556485425f39c4dcf2cd4a9a3522470a64e9da3f5040615d31a3e1",
+    "src/scene/inspection/shaft/shaftRuntime.ts": "d1525b11ab55dff3041ed97ef4ba2f1c8e95ea4451337641fd08321777242c93",
+    "src/scene/inspection/shaft/camera.ts": "0b5952f3f31bffbdf626965204e3a2b0a0c2c7443b593de728616e0b5af6203a",
+    "src/scene/inspection/InspectionScene.tsx": "fee164da19732d77ad5f915dd230ee886314fa7a84d1411967b574d3ce47069c",
+    "src/scene/inspection/story.ts": "0af6a03f8cf8bb57456bd41e5e5ff75dd7def987c2bbd1e78e4b8c0db0184ad4",
+    "src/state/inspectionStore.ts": "073824b1f127e6db1ce0e1f4f398cd03de3eda232a0e864c41c2716bed923d35",
+    "src/state/qualityStore.ts": "3d8f7794262a67d63a0c4dd8d23414c4737ca824da36890e4f1bdcc902a4d5d2",
+    "src/scene/CameraRig.tsx": "18b6a52e2780fec92aa8a0047ccdc4bc91effa44df865ed83304b02425ebd02d",
+    "src/scene/PostProcessingComposer.tsx": "29b2345c47764eb146a9fb2b994dd672bed14596f27afcf82c6ff1fd90c1d7c1",
+    "src/components/RingInspection.tsx": "7a347df1ab5d8ef84fa46614e661ef7d7187c28ab676045a44c2b3a23f93bc4a",
+    "src/components/ShaftStoryLayer.tsx": "2638696b3312c4da433e19df38626f97f331db88f95a249b835f66e52975e6cd",
+    "src/App.tsx": "84880bd230258b118a30f0458d25920aab6ea359255ffa9588fe9334d27d35f0"
+  },
+  "slowExit": [
+    7.2,
+    9.6
+  ],
+  "cases": [
+    {
+      "name": "desktop",
+      "gates": {
+        "S1": {
+          "pass": false,
+          "checks": 2,
+          "failures": [
+            "page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)\n    at settleCamera (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:198:14)\n    at enter (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:284:9)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-shaft-inspection.mjs:442:18\n    at async step (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:80:9)\n    at async dynamic (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:441:5)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-shaft-inspection.mjs:761:45",
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 2
+        },
+        "S2": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S3": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S4": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S5": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S6": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S7": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        },
+        "S8": {
+          "pass": false,
+          "checks": 1,
+          "failures": [
+            "Case setup/continuation failed: Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+          ],
+          "failureCount": 1
+        }
+      },
+      "measures": {
+        "readiness": [],
+        "sweep": [],
+        "cards": [],
+        "slowExit": [],
+        "shots": [],
+        "determinism": [],
+        "restores": [],
+        "census": [],
+        "playback": []
+      },
+      "errors": [],
+      "warnings": [
+        {
+          "text": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+          "location": {
+            "url": "http://localhost:4173/assets/vanilla-CWkA6Vqo.js",
+            "lineNumber": 0,
+            "columnNumber": 2873
+          }
+        },
+        {
+          "text": "THREE.WebGLProgram: Program Info Log: (210,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,82-106): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(209,37-61): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision\n(210,82-106): warning X4122: sum of 1 and -1.66644e-018 cannot be represented accurately in double precision",
+          "location": {
+            "url": "http://localhost:4173/assets/vanilla-CWkA6Vqo.js",
+            "lineNumber": 0,
+            "columnNumber": 2873
+          }
+        }
+      ],
+      "requests": [],
+      "allCAD": [
+        {
+          "url": "http://localhost:4173/models/m249-transformed.glb",
+          "pathname": "/models/m249-transformed.glb",
+          "at": 1791310457349,
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://localhost:4173/models/Default.glb",
+          "pathname": "/models/Default.glb",
+          "at": 1791310457349,
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://localhost:4173/models/msp-enclosure.glb",
+          "pathname": "/models/msp-enclosure.glb",
+          "at": 1791310459403,
+          "resourceType": "fetch"
+        }
+      ],
+      "inspectionRequests": [],
+      "narrativeRequests": [
+        {
+          "url": "http://localhost:4173/models/m249-transformed.glb",
+          "pathname": "/models/m249-transformed.glb",
+          "at": 1791310457349,
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://localhost:4173/models/Default.glb",
+          "pathname": "/models/Default.glb",
+          "at": 1791310457349,
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://localhost:4173/models/msp-enclosure.glb",
+          "pathname": "/models/msp-enclosure.glb",
+          "at": 1791310459403,
+          "resourceType": "fetch"
+        }
+      ],
+      "navigations": [],
+      "navigationStartedAt": 1791310456873
+    }
+  ],
+  "defects": [],
+  "harnessLimitations": [
+    {
+      "case": "desktop",
+      "gate": "S1",
+      "detail": "Error: page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)"
+    },
+    {
+      "case": "desktop",
+      "detail": "page.evaluate: Error: camera never settled\n    at tick (eval at evaluate (:290:30), <anonymous>:15:37)\n    at settleCamera (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:198:14)\n    at enter (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:284:9)\n    at dynamic (C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-shaft-inspection.mjs:455:63)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-shaft-inspection.mjs:761:45"
+    }
+  ],
+  "gates": {}
+}

@@ -1,0 +1,21 @@
+{
+  "pass": true,
+  "url": "http://localhost:4173",
+  "buildEntry": "/assets/index-BMGLFpZY.js",
+  "buildEntrySha256": "98081a0e5b8e347ce445b2c5fd556c2ffc9a76a465217b18059978575f785ce7",
+  "scope": "Complete six-case production roster from the same application build; four initial passing cases plus two complete forced-lite reruns after verifier startup settling correction. No full-tier gate or production quality policy was relaxed.",
+  "cases": [
+    { "name": "desktop", "pass": true, "tier": "full", "checkpoints": 86, "pinned": 24, "evidence": "../full-roster/desktop.json" },
+    { "name": "narrow", "pass": true, "tier": "full", "checkpoints": 86, "pinned": 24, "evidence": "../full-roster/narrow.json" },
+    { "name": "desktop-reduced", "pass": true, "tier": "full", "checkpoints": 1, "pinned": 0, "evidence": "../full-roster/desktop-reduced.json" },
+    { "name": "narrow-reduced", "pass": true, "tier": "full", "checkpoints": 1, "pinned": 0, "evidence": "../full-roster/narrow-reduced.json" },
+    { "name": "desktop-lite", "pass": true, "tier": "lite", "checkpoints": 86, "pinned": 24, "evidence": "../full-lite-roster/desktop-lite/desktop-lite.json" },
+    { "name": "narrow-lite", "pass": true, "tier": "lite", "checkpoints": 86, "pinned": 24, "evidence": "../full-lite-roster/narrow-lite/narrow-lite.json" }
+  ],
+  "errors": [],
+  "failures": [],
+  "pixelCapture": "../production-capture/summary.json",
+  "pixelCapturePass": true,
+  "ownerVisualAcceptance": "open",
+  "commitPushDeployment": "none"
+}

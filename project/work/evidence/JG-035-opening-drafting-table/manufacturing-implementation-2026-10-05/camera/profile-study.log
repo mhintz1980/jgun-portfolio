@@ -1,0 +1,7 @@
+00:01.359  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+PROFILE_SECTIONS {'legacy': {'3.5': [4.291829644216429, 6.0726788597882395], '6.0': [4.291829644216429, 6.083420626357588], '9.0': [4.291827835739182, 6.083421585978335], '9.72': [4.291827835739182, 4.502730244320748], '10.92': [4.111865872807298, 4.22469071296015], '13.78': [6.314949989318848, 6.3249322517588755], '14.18': [6.314949035644531, 6.324930907498942]}, 'approved': {'3.5': [4.291828311938385, 6.072425013894928], '6.0': [4.291829644216429, 6.083486706247194], '9.0': [4.29184975466375, 6.083416804298286], '9.72': [4.299426911917673, 6.074002500071514], '10.92': [4.460682248204111, 6.074002500071514], '13.78': [6.065512607163984, 6.074002500071514], '14.18': [6.314689099339004, 6.32493359601881]}}
+MATCHED_SHAPER 20 15.5 {'minimum_radial_gap_mm_sampled': 0.0050135068276029315, 'maximum_unremoved_radial_stock_mm_sampled': 0.06657304648368978, 'rms_unremoved_radial_stock_mm_sampled': 0.006651045716760941, 'unvisited_angular_bins': 0, 'note': 'Feasibility diagnostic only; radial differences are not Euclidean clearance or continuous proof.'}
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit

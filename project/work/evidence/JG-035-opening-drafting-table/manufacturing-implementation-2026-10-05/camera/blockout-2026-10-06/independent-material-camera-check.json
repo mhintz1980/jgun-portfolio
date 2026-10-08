@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-06T17:29:39.208Z",
+  "method": "Independent Draco decode of manufacturing-core-lite.glb legacyshaft; shaft-local y 3.2..14.2 mm band; live group rotationZ(2*cutterPhi) from anchor telemetry; projections cross-validated against the same-session saved live camera matrices before evaluating the candidate under the camera.ts composition law.",
+  "inputs": {
+    "public/models/manufacturing-core-lite.glb": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f",
+    "src/scene/inspection/shaft/camera.ts": "dda159414f4c6d4c6af66dc541b91bfc2f4cc7d4a908e0a7691d1c7be7ccdb25",
+    "camera/blockout-2026-10-06/report.json": "98280a6015a9146395c566b0fdaf52d52aefecf7646d15254e2a5edae36a2531",
+    "camera/blockout-2026-10-06/material-region-report.json": "347c19120d27f9dd241e16666ee31fcd76d0382983d9779b8b29145370e001d7"
+  },
+  "source_note": "camera.ts hash must equal the blockout-session source dda15941... recorded in report.json input_hashes (pre-fix).",
+  "critical_band_vertices": 3267,
+  "live_rotation_rad": 68.21654288004876,
+  "A_live_matrices": {
+    "min": [
+      55.854502657421236,
+      193.68965595880059
+    ],
+    "max": [
+      306.64208113846206,
+      516.5948584874848
+    ],
+    "ndc_max_abs": 0.7135666530388655,
+    "vertices": 3267
+  },
+  "A_vs_measured_region_report_max_px": 0,
+  "B_camera_law_current_anchor": {
+    "min": [
+      55.854502657419914,
+      193.6896559588009
+    ],
+    "max": [
+      306.6420811384606,
+      516.5948584874851
+    ],
+    "ndc_max_abs": 0.7135666530388722,
+    "vertices": 3267
+  },
+  "B_vs_A_max_px": 0,
+  "C_camera_law_candidate": {
+    "min": [
+      124.47674765509201,
+      352.46180715361044
+    ],
+    "max": [
+      251.58014814530893,
+      516.1410830139212
+    ],
+    "ndc_max_abs": 0.3616577043328615,
+    "vertices": 3267
+  },
+  "C_clearance": {
+    "card_bottom_px": 339.96875,
+    "card_clearance_px": 12.4931,
+    "footer_top_px": 529.5,
+    "footer_clearance_px": 13.3589,
+    "margin_floor_px": 8
+  },
+  "D_prior_script_convention": {
+    "min": [
+      119.69211895565316,
+      348.6232514262968
+    ],
+    "max": [
+      255.35437158676982,
+      523.0433416009856
+    ],
+    "ndc_max_abs": 0.38619426176588123,
+    "vertices": 3267
+  },
+  "D_vs_published_candidate_max_px": 6.902259,
+  "pass": true
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-10-03T20:14:48.148506Z",
+    "display_name": "GPT Image 2.5",
+    "id": "289e71f0-6038-433b-9610-cabe5215fe1a",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201448_289e71f0-6038-433b-9610-cabe5215fe1a_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "4d2374af-caf0-4fe4-b8d3-f80a767253a3",
+            "type": "media_input",
+            "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/4d2374af-caf0-4fe4-b8d3-f80a767253a3.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Create one cinematic concept still by editing the attached actual J-Gun engineering drawing screenshot. Preserve the exact central left-pointing pneumatic torque-wrench SIDE VIEW contour with grip down as the shape of a ruptured opening cut through a cream vellum engineering drawing. Preserve surrounding printed technical drawing context and remove browser scrollbar. Camera looks obliquely DOWN INTO this opening. Irregular burned and torn cream paper rim curls above a deep rock-bore passage that recedes FAR below the sheet. Six or more successive staggered rough angular stone wall ridges shrink with distance and bend sideways out of sight; strong layered occlusion and perspective establish immense depth. The passage has NO visible floor or end: a curve hides its continuation, with visible rocks all around, never a flat black screen, planar rectangle, desk or empty void. Thin pronounced branching cracks are embedded in the rock surfaces and glow the SAME LIGHT BLUE #79CFFF as the rim outline trace and surviving paper webbing. These blue fissures are the ONLY light source, lighting nearby facets with physically convincing falloff; shadowed rock retains texture. An obvious doorway to another realm, restrained uncanny dimensional depth, realistic stone and fibrous cream vellum, not a circular generic cave detached from the drawing. Do not invent a fully emerged metal tool or decide emergence timing in this environment concept. No white floodlight, no orange, no violet, no glowing object at the end, no people. One frame, no montage, no new labels.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201448_289e71f0-6038-433b-9610-cabe5215fe1a.png",
+    "status": "completed"
+  }
+]

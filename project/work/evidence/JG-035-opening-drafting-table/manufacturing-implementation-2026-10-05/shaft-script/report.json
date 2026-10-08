@@ -1,0 +1,915 @@
+{
+  "url": "http://localhost:5199/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.html",
+  "command": "node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/verify-shaft-script.mjs --url=http://localhost:5199",
+  "started": "2026-10-05T22:26:10.970Z",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "viewportSize": "1440x900",
+      "t": 15.8,
+      "expectations": {
+        "t": 15.8,
+        "card": "AISI 4140 (40-45 HRC)",
+        "stamp": false,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4140 (40-45 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 927.8125,
+            "top": 163,
+            "right": 1301.8125,
+            "bottom": 200.390625,
+            "width": 374,
+            "height": 37.390625
+          }
+        },
+        "stamp": null,
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 792.5,
+            "right": 455.09375,
+            "bottom": 828,
+            "width": 339.90625,
+            "height": 35.5
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 740.609375,
+            "right": 298.90625,
+            "bottom": 770,
+            "width": 183.71875,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 1440,
+          "scrollHeight": 900,
+          "innerWidth": 1440,
+          "innerHeight": 900
+        }
+      },
+      "screenshot": "desktop-t15_8.png"
+    },
+    {
+      "viewport": "desktop",
+      "viewportSize": "1440x900",
+      "t": 17.5,
+      "expectations": {
+        "t": 17.5,
+        "card": "AISI 4140 (40-45 HRC)",
+        "stamp": true,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4140 (40-45 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 927.8125,
+            "top": 163,
+            "right": 1301.8125,
+            "bottom": 200.390625,
+            "width": 374,
+            "height": 37.390625
+          }
+        },
+        "stamp": {
+          "text": "FAILED",
+          "color": [
+            255,
+            122,
+            107
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 7.286110147410826,
+          "box": {
+            "left": 923.70947265625,
+            "top": 208.5642547607422,
+            "right": 1070.66552734375,
+            "bottom": 265.21697998046875,
+            "width": 146.9560546875,
+            "height": 56.65272521972656
+          }
+        },
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 792.5,
+            "right": 455.09375,
+            "bottom": 828,
+            "width": 339.90625,
+            "height": 35.5
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 740.609375,
+            "right": 298.90625,
+            "bottom": 770,
+            "width": 183.71875,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 1440,
+          "scrollHeight": 900,
+          "innerWidth": 1440,
+          "innerHeight": 900
+        }
+      },
+      "screenshot": "desktop-t17_5.png"
+    },
+    {
+      "viewport": "desktop",
+      "viewportSize": "1440x900",
+      "t": 21,
+      "expectations": {
+        "t": 21,
+        "card": "C300 (56-58 HRC)",
+        "stamp": false,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "C300 (56-58 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 927.8125,
+            "top": 163,
+            "right": 1301.8125,
+            "bottom": 200.390625,
+            "width": 374,
+            "height": 37.390625
+          }
+        },
+        "stamp": null,
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 792.5,
+            "right": 455.09375,
+            "bottom": 828,
+            "width": 339.90625,
+            "height": 35.5
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 740.609375,
+            "right": 298.90625,
+            "bottom": 770,
+            "width": 183.71875,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 1440,
+          "scrollHeight": 900,
+          "innerWidth": 1440,
+          "innerHeight": 900
+        }
+      },
+      "screenshot": "desktop-t21.png"
+    },
+    {
+      "viewport": "desktop",
+      "viewportSize": "1440x900",
+      "t": 33.5,
+      "expectations": {
+        "t": 33.5,
+        "card": "AISI 4340 (H.T. 48-50 HRC)",
+        "stamp": false,
+        "attribution": false,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4340 (H.T. 48-50 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 927.8125,
+            "top": 163,
+            "right": 1301.8125,
+            "bottom": 237.78125,
+            "width": 374,
+            "height": 74.78125
+          }
+        },
+        "stamp": null,
+        "attribution": null,
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 740.609375,
+            "right": 298.90625,
+            "bottom": 770,
+            "width": 183.71875,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 1440,
+          "scrollHeight": 900,
+          "innerWidth": 1440,
+          "innerHeight": 900
+        }
+      },
+      "screenshot": "desktop-t33_5.png"
+    },
+    {
+      "viewport": "desktop",
+      "viewportSize": "1440x900",
+      "t": 12,
+      "expectations": {
+        "t": 12,
+        "card": null,
+        "stamp": false,
+        "attribution": false,
+        "stress": false,
+        "recap": true
+      },
+      "dom": {
+        "card": null,
+        "stamp": null,
+        "attribution": null,
+        "recap": {
+          "text": "Remaining teeth — time compressed",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 115.1875,
+            "top": 798.609375,
+            "right": 331.34375,
+            "bottom": 828,
+            "width": 216.15625,
+            "height": 29.390625
+          }
+        },
+        "stress": null,
+        "cardWrapperOpacity": null,
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 1440,
+          "scrollHeight": 900,
+          "innerWidth": 1440,
+          "innerHeight": 900
+        }
+      },
+      "screenshot": "desktop-t12.png"
+    },
+    {
+      "viewport": "narrow",
+      "viewportSize": "390x844",
+      "t": 15.8,
+      "expectations": {
+        "t": 15.8,
+        "card": "AISI 4140 (40-45 HRC)",
+        "stamp": false,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4140 (40-45 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 48.1875,
+            "top": 623.09375,
+            "right": 341.8125,
+            "bottom": 649.484375,
+            "width": 293.625,
+            "height": 26.390625
+          }
+        },
+        "stamp": null,
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 742.484375,
+            "right": 358.8125,
+            "bottom": 776.484375,
+            "width": 327.625,
+            "height": 34
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 693.09375,
+            "right": 358.8125,
+            "bottom": 722.484375,
+            "width": 327.625,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 390,
+          "scrollHeight": 844,
+          "innerWidth": 390,
+          "innerHeight": 844
+        }
+      },
+      "screenshot": "narrow-t15_8.png"
+    },
+    {
+      "viewport": "narrow",
+      "viewportSize": "390x844",
+      "t": 17.5,
+      "expectations": {
+        "t": 17.5,
+        "card": "AISI 4140 (40-45 HRC)",
+        "stamp": true,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4140 (40-45 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 48.1875,
+            "top": 576.90625,
+            "right": 341.8125,
+            "bottom": 603.296875,
+            "width": 293.625,
+            "height": 26.390625
+          }
+        },
+        "stamp": {
+          "text": "FAILED",
+          "color": [
+            255,
+            122,
+            107
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 7.286110147410826,
+          "box": {
+            "left": 36.64651870727539,
+            "top": 605.439208984375,
+            "right": 170.54098892211914,
+            "bottom": 657.342041015625,
+            "width": 133.89447021484375,
+            "height": 51.90283203125
+          }
+        },
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 742.484375,
+            "right": 358.8125,
+            "bottom": 776.484375,
+            "width": 327.625,
+            "height": 34
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 693.09375,
+            "right": 358.8125,
+            "bottom": 722.484375,
+            "width": 327.625,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 390,
+          "scrollHeight": 844,
+          "innerWidth": 390,
+          "innerHeight": 844
+        }
+      },
+      "screenshot": "narrow-t17_5.png"
+    },
+    {
+      "viewport": "narrow",
+      "viewportSize": "390x844",
+      "t": 21,
+      "expectations": {
+        "t": 21,
+        "card": "C300 (56-58 HRC)",
+        "stamp": false,
+        "attribution": true,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "C300 (56-58 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 48.1875,
+            "top": 623.09375,
+            "right": 341.8125,
+            "bottom": 649.484375,
+            "width": 293.625,
+            "height": 26.390625
+          }
+        },
+        "stamp": null,
+        "attribution": {
+          "text": "Earlier material attempts, as recounted by the designer.",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 742.484375,
+            "right": 358.8125,
+            "bottom": 776.484375,
+            "width": 327.625,
+            "height": 34
+          }
+        },
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 693.09375,
+            "right": 358.8125,
+            "bottom": 722.484375,
+            "width": 327.625,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 390,
+          "scrollHeight": 844,
+          "innerWidth": 390,
+          "innerHeight": 844
+        }
+      },
+      "screenshot": "narrow-t21.png"
+    },
+    {
+      "viewport": "narrow",
+      "viewportSize": "390x844",
+      "t": 33.5,
+      "expectations": {
+        "t": 33.5,
+        "card": "AISI 4340 (H.T. 48-50 HRC)",
+        "stamp": false,
+        "attribution": false,
+        "stress": true,
+        "recap": false
+      },
+      "dom": {
+        "card": {
+          "text": "AISI 4340 (H.T. 48-50 HRC)",
+          "color": [
+            234,
+            242,
+            248
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 16.390680478992337,
+          "box": {
+            "left": 48.1875,
+            "top": 623.09375,
+            "right": 341.8125,
+            "bottom": 649.484375,
+            "width": 293.625,
+            "height": 26.390625
+          }
+        },
+        "stamp": null,
+        "attribution": null,
+        "recap": null,
+        "stress": {
+          "text": "Illustrative stress concentration",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 693.09375,
+            "right": 358.8125,
+            "bottom": 722.484375,
+            "width": 327.625,
+            "height": 29.390625
+          }
+        },
+        "cardWrapperOpacity": "1",
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 390,
+          "scrollHeight": 844,
+          "innerWidth": 390,
+          "innerHeight": 844
+        }
+      },
+      "screenshot": "narrow-t33_5.png"
+    },
+    {
+      "viewport": "narrow",
+      "viewportSize": "390x844",
+      "t": 12,
+      "expectations": {
+        "t": 12,
+        "card": null,
+        "stamp": false,
+        "attribution": false,
+        "stress": false,
+        "recap": true
+      },
+      "dom": {
+        "card": null,
+        "stamp": null,
+        "attribution": null,
+        "recap": {
+          "text": "Remaining teeth — time compressed",
+          "color": [
+            207,
+            220,
+            230
+          ],
+          "background": [
+            11,
+            20,
+            29
+          ],
+          "contrast": 13.279636649609206,
+          "box": {
+            "left": 31.1875,
+            "top": 693.09375,
+            "right": 358.8125,
+            "bottom": 722.484375,
+            "width": 327.625,
+            "height": 29.390625
+          }
+        },
+        "stress": null,
+        "cardWrapperOpacity": null,
+        "statusRole": "status",
+        "ariaLive": "polite",
+        "overflow": {
+          "scrollWidth": 390,
+          "scrollHeight": 844,
+          "innerWidth": 390,
+          "innerHeight": 844
+        }
+      },
+      "screenshot": "narrow-t12.png"
+    }
+  ],
+  "transcript": {
+    "chaptersChecked": 4,
+    "undercutOccurrences": 2
+  },
+  "sweep": {
+    "domChanges": [
+      {
+        "t": 11,
+        "version": 12
+      },
+      {
+        "t": 15,
+        "version": 13
+      },
+      {
+        "t": 16.35,
+        "version": 14
+      },
+      {
+        "t": 17.8,
+        "version": 15
+      },
+      {
+        "t": 19.150000000000002,
+        "version": 16
+      },
+      {
+        "t": 20.3,
+        "version": 17
+      },
+      {
+        "t": 21.650000000000002,
+        "version": 18
+      },
+      {
+        "t": 22.6,
+        "version": 19
+      },
+      {
+        "t": 25,
+        "version": 20
+      },
+      {
+        "t": 32.800000000000004,
+        "version": 21
+      },
+      {
+        "t": 33.2,
+        "version": 22
+      },
+      {
+        "t": 35,
+        "version": 23
+      }
+    ],
+    "domCount": 12,
+    "expectedCoarse": 12,
+    "expectedFine": 12
+  },
+  "consoleErrors": [],
+  "failures": [],
+  "result": "pass"
+}

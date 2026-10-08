@@ -1,0 +1,25 @@
+ANCHOR desktop grooved-blank margin true cardOverlap false
+ANCHOR desktop cutter-exit margin true cardOverlap false
+ANCHOR desktop failed-4140 margin true cardOverlap false
+ANCHOR desktop failed-4340 margin true cardOverlap false
+ANCHOR desktop failed-c300 margin true cardOverlap false
+ANCHOR desktop revised-blank margin true cardOverlap false
+ANCHOR desktop hobbing margin true cardOverlap false
+ANCHOR desktop runout-withdrawn margin true cardOverlap false
+ANCHOR desktop revised-4340 margin true cardOverlap false
+ANCHOR desktop support-before margin true cardOverlap false
+ANCHOR desktop support-after margin true cardOverlap false
+ANCHOR desktop assembly margin true cardOverlap false
+ANCHOR narrow grooved-blank margin true cardOverlap false
+ANCHOR narrow cutter-exit margin true cardOverlap false
+ANCHOR narrow failed-4140 margin true cardOverlap true
+ANCHOR narrow failed-4340 margin true cardOverlap true
+ANCHOR narrow failed-c300 margin true cardOverlap true
+ANCHOR narrow revised-blank margin true cardOverlap false
+ANCHOR narrow hobbing margin true cardOverlap false
+ANCHOR narrow runout-withdrawn margin true cardOverlap false
+ANCHOR narrow revised-4340 margin true cardOverlap false
+ANCHOR narrow support-before margin true cardOverlap false
+ANCHOR narrow support-after margin true cardOverlap false
+ANCHOR narrow assembly margin true cardOverlap false
+CAMERA_CAPTURE_DONE 24 defects 3

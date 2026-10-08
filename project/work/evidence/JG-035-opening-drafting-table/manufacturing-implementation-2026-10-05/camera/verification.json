@@ -1,0 +1,294 @@
+{
+  "status": "PASS blockout checks; machining acceptance BLOCKED",
+  "renders": [
+    {
+      "layout": "desktop",
+      "shot": "shaft-overview",
+      "png": "desktop-shaft-overview.png",
+      "png_sha256": "19991cb8b7563e0a2984f10ffed59e828d21d70c2e65985c38476ae130f69fff",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 68078,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    },
+    {
+      "layout": "desktop",
+      "shot": "cutter-exit",
+      "png": "desktop-cutter-exit.png",
+      "png_sha256": "fd03f156d6fb47236db0fab4ee6602f063a9dbe0b1dd90e1e8c0ec499e55d402",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          396,
+          179,
+          566,
+          394
+        ],
+        "pixels_above_100": 21508,
+        "total_pixels": 36550,
+        "channel_mean": [
+          100.84927496580028,
+          95.92495212038304,
+          84.91953488372093
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 242788,
+      "projected_shaft_axis_vertical_drift_px": 9.271316230297089e-05
+    },
+    {
+      "layout": "desktop",
+      "shot": "hobbing",
+      "png": "desktop-hobbing.png",
+      "png_sha256": "005301d3e2d760c2ba42ac054b0becf2a30aada80b9a19c4f428096ff27a3bfa",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          413,
+          176,
+          570,
+          455
+        ],
+        "pixels_above_100": 24498,
+        "total_pixels": 43803,
+        "channel_mean": [
+          91.37844439878548,
+          95.0568910805196,
+          96.7784170034016
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 111084,
+      "projected_shaft_axis_vertical_drift_px": 3.2782554626464844e-05
+    },
+    {
+      "layout": "desktop",
+      "shot": "runout-withdrawn",
+      "png": "desktop-runout-withdrawn.png",
+      "png_sha256": "b1535c0904689d3080534ef53aab942792274db9477671bffb69052b8a6c7d4e",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          344,
+          68,
+          576,
+          482
+        ],
+        "pixels_above_100": 55881,
+        "total_pixels": 96048,
+        "channel_mean": [
+          97.36865942028986,
+          103.17747376311844,
+          108.07111027819424
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 194437,
+      "projected_shaft_axis_vertical_drift_px": 0.0002294778823852539
+    },
+    {
+      "layout": "desktop",
+      "shot": "support-before",
+      "png": "desktop-support-before.png",
+      "png_sha256": "c7364bdb40c3afd89849e98340dbb22df7eccaeb22d59f06f7b7a4c62e9c7fc8",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 83580,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    },
+    {
+      "layout": "desktop",
+      "shot": "support-after",
+      "png": "desktop-support-after.png",
+      "png_sha256": "c24017375e33c2f9a5aee2cd6c9697c6ccb51bee4787935ba39681f69cfba287",
+      "viewport_px": [
+        1440,
+        900
+      ],
+      "card_font_px": 21,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 80284,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    },
+    {
+      "layout": "mobile",
+      "shot": "shaft-overview",
+      "png": "mobile-shaft-overview.png",
+      "png_sha256": "04864f0edeed9fca1d1905f21fba775a84cc92cf39867fe9d1237cea884f0ed1",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 8706,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    },
+    {
+      "layout": "mobile",
+      "shot": "cutter-exit",
+      "png": "mobile-cutter-exit.png",
+      "png_sha256": "45c7274a2c51a594d1b94f550c8aae80ee5833e919c33563b47d61719b88c532",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          123,
+          112,
+          230,
+          247
+        ],
+        "pixels_above_100": 8465,
+        "total_pixels": 14445,
+        "channel_mean": [
+          100.79494634821738,
+          95.88736587054343,
+          84.88618899273105
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 57105,
+      "projected_shaft_axis_vertical_drift_px": 5.8156438171863556e-05
+    },
+    {
+      "layout": "mobile",
+      "shot": "hobbing",
+      "png": "mobile-hobbing.png",
+      "png_sha256": "af22f3990b7c9ffff7addd607f50458db4b8f1d35d627da133a793269ea52475",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          133,
+          110,
+          232,
+          286
+        ],
+        "pixels_above_100": 9622,
+        "total_pixels": 17424,
+        "channel_mean": [
+          90.60761019283747,
+          94.23266758494032,
+          95.88785583103765
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 31233,
+      "projected_shaft_axis_vertical_drift_px": 2.0563602447509766e-05
+    },
+    {
+      "layout": "mobile",
+      "shot": "runout-withdrawn",
+      "png": "mobile-runout-withdrawn.png",
+      "png_sha256": "fbcc8c891e23e15ca972f8f0481e56907979dc8d9b4585a6e123ac5855017686",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": {
+        "bounds_in_cad_px": [
+          90,
+          43,
+          236,
+          302
+        ],
+        "pixels_above_100": 22064,
+        "total_pixels": 37814,
+        "channel_mean": [
+          97.24324324324324,
+          103.0412545618025,
+          107.92471042471043
+        ],
+        "meaning": "Nonblank region only; no cutter contact, chip or clearance acceptance"
+      },
+      "action_geometry_nonblank_pixels": 52449,
+      "projected_shaft_axis_vertical_drift_px": 0.00014394521713256836
+    },
+    {
+      "layout": "mobile",
+      "shot": "support-before",
+      "png": "mobile-support-before.png",
+      "png_sha256": "49dd8838ac0f37f2cf2ea42f34ad5a78c0150ced7d9fced0dd96c6bb1996bd2d",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 24352,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    },
+    {
+      "layout": "mobile",
+      "shot": "support-after",
+      "png": "mobile-support-after.png",
+      "png_sha256": "756f84b2bc19e852d7b2a4270095418a12e2753f96307987ba2e24d8d3491c92",
+      "viewport_px": [
+        390,
+        844
+      ],
+      "card_font_px": 19,
+      "card_geometry_disjoint": true,
+      "critical_roi_pixels": null,
+      "action_geometry_nonblank_pixels": 23056,
+      "projected_shaft_axis_vertical_drift_px": 0.0
+    }
+  ],
+  "text_contrast_ratio": 14.993612809924079,
+  "signed_convention_checks": {
+    "shaper_pitch_velocity_residual_m_s": 0.0,
+    "hob_phase_velocity_residual_m_s": 0.0,
+    "numerical_tolerance_m_s": 1e-12,
+    "status": "analytic illustrative pitch-frame check, not actual CAD-flank contact"
+  },
+  "clearance_status": {
+    "status": "UNRESOLVED: blocks machining choreography acceptance",
+    "complete_represented_swept_minimum_separation_mm": null,
+    "combined_measurement_export_uncertainty_mm": null,
+    "reason": "No validated cutter profile/engagement/path or continuous sweep/neighbour test; source report construction sweep is not a physical rotary hob.",
+    "cropping_is_clearance_evidence": false
+  },
+  "limitations": [
+    "PNG nonblank pixels do not prove tool/face contact or chip visibility.",
+    "Orthographic static blockout does not prove camera motion continuity.",
+    "No runtime draw-call, GPU, machining stroke or strobing proof."
+  ]
+}

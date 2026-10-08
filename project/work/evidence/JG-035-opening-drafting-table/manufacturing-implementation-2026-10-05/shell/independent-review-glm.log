@@ -1,0 +1,2192 @@
+Reading additional input from stdin...
+2026-10-05T19:07:00.947318Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T19:07:00.947398Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T19:07:00.986114Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: zai/glm-5.3
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10d76-5359-7833-9db2-69014f670577
+--------
+user
+Bounded read-only cross-provider review of the JG-035 W1 lifecycle/DOM shell leaf. Do not edit files and do not read TODO.md or queue docs; this spec is complete. Spec: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/lifecycle-contract.md sections 2-4,10-11 and project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/contract-review.md. Producer notes: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/notes.md and gate project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shell.md (treat as claims). Actual source: src/state/inspectionStore.ts, src/state/inspectionStore.test.ts, src/scene/inspection/story.ts, session.ts, loadLease.ts and their tests, src/components/RingInspection.tsx and RingInspection.css. Evidence: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/dom-report.json and shell/verify-shell.mjs. Check: idempotent exit that never reapplies stale scroll; epoch-scoped fail/status/runtime/retry so stale sessions cannot fail or attach; allocation-free playhead advance with delta clamp, stamp guards, hidden suspension without time catch-up and manual pause persisting through hide/visible; absolute seek/chapter/replay; end hold until explicit Return; focus trap, inert restore, removed-trigger focus fallback, 44px controls, labeled seek, Return usable during loading/compiling/error; session resource ownership and borrow release. You may run read-only `npx vitest run src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts`. Report SHIP or FIX-FIRST, findings with severity and exact file:line, no generic risks, max 500 words. Do not certify the shared scene integration (InspectionScene/CameraRig) which is a separate leaf.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-05T19:07:02.239836Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T19:07:02.239881Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T19:07:02.248614Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+Bounded review starting: I'll read the spec, producer claims, source, and evidence in order, then run the authorized vitest pass before issuing SHIP or FIX-FIRST.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg --files project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg --files src/state src/scene/inspection src/components | rg "inspection|RingInspection"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 403ms:
+src/components\RingInspection.tsx
+src/components\RingInspection.css
+src/state\inspectionStore.ts
+src/state\inspectionStore.test.ts
+src/scene/inspection\toolContact.test.ts
+src/scene/inspection\timeline.ts
+src/scene/inspection\timeline.test.ts
+src/scene/inspection\story.ts
+src/scene/inspection\story.test.ts
+src/scene/inspection\session.ts
+src/scene/inspection\session.test.ts
+src/scene/inspection\ringRuntime.ts
+src/scene/inspection\ringGeometry.ts
+src/scene/inspection\ringGeometry.test.ts
+src/scene/inspection\renderLease.ts
+src/scene/inspection\renderLease.test.ts
+src/scene/inspection\narrativeFade.ts
+src/scene/inspection\loadLease.ts
+src/scene/inspection\lifecycle.test.ts
+src/scene/inspection\InspectionScene.tsx
+src/scene/inspection\compileLease.ts
+
+hook: PostToolUse
+ succeeded in 714ms:
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\contract-review.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\PLAN.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\vite.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\vite-error.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\verify-shell.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\tsconfig.shell.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\reduced-narrow.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\poster-narrow.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\notes.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\narrow.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\independent-review-glm.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\harness.tsx
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\harness.html
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\dom-report.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\desktop.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\shell\checks.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\source-registry.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\integration\verify-ordering.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\integration\harness.tsx
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\integration\harness.html
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\lifecycle-contract.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\review-ledger.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\report.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\mobile-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\baseline-ring\desktop-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\study-phase.stdout.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\study-phase.stderr.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\study-phase.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun_g0.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun.stdout.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun.stderr.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\source-registry.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\measurement-summary.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\early-datum.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\architecture-advisor-glm.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\clearance.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\clearance.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\clearance.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\clearance-v1-invalid.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\clearance-v1-invalid.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\blockout.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\FINDINGS.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\early-datum.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\blockout.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\corrected_clearance.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\compose_and_verify.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-hobbing.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-hobbing-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\measurement-summary.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\measurement.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\clip-probe.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\clip-contact-samples.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\coverage-evidence.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\independent-review-glm.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\focused-inspection.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\focused-inspection.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\independent-review-glm.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\README.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing-findings.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing-diagnostics.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.stdout.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.stderr.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\anthropic-review-prompt.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing.stderr.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing-section.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing-resolution.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\ring-runtime-probe.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\measure_study_phase.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\housing.stdout.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\coverage-report.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun\source-registry.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun\measurement-summary.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\mechanical-review\rerun\early-datum.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\blueprint-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\cleanup-probe.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\build.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\audit-draco.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\core-assets-report.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\cleanup.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\draco-audit.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-support-after.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-support-after-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-support-before.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\desktop-support-before-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\index.html
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\wheel-probe.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\wheel-harmonic-probe.mjs
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\typecheck.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\lite-approvedshaft-sections.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\full-legacyshaft-sections.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\full-approvedshaft-sections.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\exporter-rna.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\manufacturing-core-full.glb
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\lite-legacyshaft-sections.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\manufacturing-core-lite.glb
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\native-probe.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\method-review.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\method-review.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\source-sections.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\selected-cleanup.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\assets\native-topology-probe.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-hobbing-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-hobbing.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\parent-rerun\source-registry.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\parent-rerun\measurement-summary.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\geometry\parent-rerun\early-datum.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\desktop-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\runtime\ring-integrated-1\mobile-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-support-before.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-support-before-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-support-after.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-support-after-cad.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\profile-study.log
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\profile-study.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\profile_study.py
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\run-blockout.ps1
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\camera.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\assets.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\core-assets.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\integration.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\tool-conventions.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\camera\verification.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\ring-sampler.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\shell.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\runtime.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\gates\lifecycle-contract.md
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t9.4.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t7.7.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t6.2.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t4.2.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t4.1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t3.9.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t3.7.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\t10.2.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime-probe\runtime-probe.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\blueprint-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\report.json
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\mobile-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-0.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-od-mask-0.5.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-isolated.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-entry-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-contact.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\exploded-black-finish.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-returned.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-return-fade.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-1.png
+project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05\ring\runtime\desktop-od-mask-0.png
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/lifecycle-contract.md').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/lifecycle-contract.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 727ms:
+1
+160
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/contract-review.md').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/contract-review.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 793ms:
+1
+11
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/notes.md').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/notes.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 491ms:
+1
+20
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shell.md').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shell.md' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 464ms:
+1
+23
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/state/inspectionStore.ts').Length; (Get-Content -LiteralPath 'src/state/inspectionStore.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 534ms:
+1
+168
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/state/inspectionStore.test.ts').Length; (Get-Content -LiteralPath 'src/state/inspectionStore.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 489ms:
+1
+180
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/story.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/story.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 466ms:
+1
+88
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/story.test.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/story.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 482ms:
+1
+27
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/session.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/session.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 494ms:
+1
+75
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/session.test.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/session.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 465ms:
+1
+40
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/loadLease.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/loadLease.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 490ms:
+1
+7
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/loadLease.test.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/loadLease.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 597ms:
+1
+Get-Content: 
+Line |
+   2 |  … ').Length; (Get-Content -LiteralPath 'src/scene/inspection/loadLease. …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path 'src/scene/inspection/loadLease.test.ts' because it does not exist.
+0
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/scene/inspection/lifecycle.test.ts').Length; (Get-Content -LiteralPath 'src/scene/inspection/lifecycle.test.ts' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 526ms:
+1
+59
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/components/RingInspection.tsx').Length; (Get-Content -LiteralPath 'src/components/RingInspection.tsx' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 808ms:
+1
+155
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('src/components/RingInspection.css').Length; (Get-Content -LiteralPath 'src/components/RingInspection.css' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 939ms:
+1
+29
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/dom-report.json').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/dom-report.json' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 458ms:
+1
+142
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "@('project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs').Length; (Get-Content -LiteralPath 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs' | Measure-Object -Line).Lines" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 692ms:
+1
+98
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shell.md"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/contract-review.md"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 395ms:
+1:# G1 shell gate
+2:
+3:State: IMPLEMENTED / PRODUCER CHECKS PASS within W1; fresh Anthropic review OPEN. Full G1 integration remains OPEN. Requested reasoning: high. This session has no independent served-model/provider receipt; do not infer one from the request. No staged changes, commit, push or deployment by W1.
+4:
+5:- [x] Read accepted manufacturing plan, lifecycle-contract.md, contract-review.md and R3F performance skill. Preserve dirty/staged work and shared integration ownership.
+6:- [x] Typed ring/shaft interfaces, immutable per-story chapters/assets/duration metadata, explicit runtime factory registry. Default ring metadata has no fake factory. No shaft trigger/runtime/static substitute.
+7:- [x] StoryRuntime root:Object3D and ready:Promise<void>; create remains synchronous. Optional store runtime, epoch-scoped lifecycle assignment and instance disposal. Exact W2 compile/warm/ready contract in ../shell/notes.md.
+8:- [x] Backward-compatible ring entry, idempotent exit, epoch failures/status/controls/retry, session cancellation/abort, owned disposal and shared borrow release.
+9:- [x] Absolute seek/chapter/replay, end hold, manual intent vs hidden suspension, delta/stamp guards and allocation-free ordinary advancement. Export only: W1 installs no playhead driver.
+10:- [x] Labeled seek, >=44px controls, concise generic header, loading/compiling/error Return, retry, focusin/Tab guard, removed-trigger fallback, dynamic inert isolation, effect-local scroll/Lenis/opacity restoration.
+11:- [x] Focused unit checks: 4 files / 26 tests PASS, including existing lifecycle lease tests. Final focused run: 2026-10-05 14:27:59 local command output.
+12:- [x] Scoped shell TypeScript check PASS, includes all W1 source/tests and browser harness. It does not stand in for repository typecheck.
+13:- [x] Real DOM shell browser proof: desktop 1440x900, narrow 390x844, reduced-narrow and poster-narrow PASS; zero page/console errors and zero CAD requests. Final records: ../shell/dom-report.json and four matching PNG captures. No WebGL scene mounted in this proof.
+14:- [x] Repository typecheck: final `npm run typecheck` PASS (exit 0). Two intermediate runs found four unused imports in integration-owned renderLease.ts:1; concurrent W2 work corrected them. W1 did not edit that file.
+15:- [ ] Fresh Anthropic-provider review of actual W1 diff and evidence. This gate records producer proof only.
+16:- [ ] W2 shared driver, leased compilation/1px warm render, visible-time timeout migration, epoch boundary capture, camera/render/end-hold restore, real context loss and resource census.
+17:- [ ] Integrated ring runtime and fresh opening iteration regression; full roster/build/repository checks at integration, then owner runtime visual acceptance.
+18:
+19:Commands from repository root:
+20:
+21:```powershell
+22:npx vitest run src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts
+23:npx tsc --noEmit -p project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/tsconfig.shell.json
+24:npm run typecheck
+25:node project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs --url=http://localhost:5201
+26:```
+27:
+28:The isolated shell proof is served by a hidden Vite process on localhost:5201 (PID 31156 when started). Its HTML/TSX lives only under shell evidence; it is not an application entry or a shaft implementation. It never calls the new playhead advance function. W1 did not edit the original scene's wall timer or advance block. Final source refresh observed W2's new driver calling the export at InspectionScene.tsx:25 and a real ring factory registration; those concurrent edits are not shell-owned or verified by the DOM harness. Nash owns scripts/verify-manufacturing-inspection.mjs and runtime/ evidence. Integrated acceptance remains with W2/Nash and the fresh Anthropic reviewer.
+
+hook: PostToolUse
+ succeeded in 399ms:
+1:# Parent different-provider contract review
+2:
+3:Producer: Anthropic Sonnet requested high. Reviewer: parent OpenAI, live-source review on 2026-10-05. Verdict: SHIP for interface freeze with the implementation clarifications below. This is not G1 runtime acceptance.
+4:
+5:Read actual store, ring shell, camera inspection block, loader/compile leases and shared scene paths. The contract correctly keeps CameraRig as the sole camera writer, moves playhead advancement before camera/application, makes exit idempotent and errors epoch-scoped, and separates assembled shaft study geometry from saved exploded/blueprint context.
+6:
+7:Implementation clarifications:
+8:
+9:- The hide lease must discover unseen scene objects by identity, not only scene.children.length; replacing children can preserve the count. Do not hide inspection-owned descendants.
+10:- Descriptor metadata and runtime factories must avoid cyclic store imports. Use type-only references and an explicit registry; do not mount a shaft entry with missing assets or a placeholder runtime.
+11:- Failure/retry and manual pause must remain epoch-scoped. Visible-time load deadline must not consume hidden time; it must not disable Return.
+12:- A restore residual sampled after narrative animation resumes may legitimately differ; the verifier must compare the restored frame before resuming writers and separately prove the subsequent correct narrative evolution.
+13:- Render lease captures full light transforms/visibility and scene reference properties, not only intensity. Restoring geometry/material references must precede narrative resume. Do not invoke GL rendering on a lost context.
+14:- Repeated-feature filtering cannot reduce angular sweep below actual forming coverage; measure contact footprint and circumferential coverage before accepting ring rate changes.
+15:
+16:G0 mechanical findings remain open. They do not block bounded generic lifecycle work; they do block accepting machining/tool-envelope claims.
+
+hook: PostToolUse
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/notes.md"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/lifecycle-contract.md"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 529ms:
+1:# G1 lifecycle and DOM shell integration contract
+2:
+3:Scope: W1 store, descriptors/session resources, legacy load lease and RingInspection DOM/CSS only. Existing staged versions remain staged; this work is unstaged. Shared scene, camera, lights, post, hero and ring sampler were not edited. No commit, push or deployment.
+4:
+5:## Runtime factory and readiness
+6:
+7:`StoryRuntime` adds exactly `readonly root: Object3D` and `readonly ready: Promise<void>` to the reviewed interface. `StoryDescriptor.create(session, ctx)` remains synchronous. It constructs an instance-owned root, returns the runtime immediately, and starts session-owned async fetch/parse work. Pass `session.signal` to requests. `ready` resolves after required assets have parsed; it does not mean shaders are compiled or the store is ready.
+8:
+9:W2 registers the real ring factory with `registerStory()`. Default ring metadata intentionally has no factory; the old scene remains its only adapter until W2 migration. No shaft descriptor, factory, trigger or static shaft substitute is installed. Shaft entry throws before acquiring ownership until a complete descriptor with required assets and a synchronous factory has been registered. Static shaft entry remains explicitly unavailable even with a registered runtime; it cannot fall through to the ring schematic. The shaft descriptor/static artwork remain later work. `getInspectionStory()` retains the immutable session metadata for DOM reads even if a factory registration is removed during teardown.
+10:
+11:Integration order:
+12:
+13:1. Enter captures narrative context and creates `inspection.session`. Obtain the registered descriptor and synchronously create its runtime with that session. Factories own their resources through `session.own()`; disposal removes the root, releases owned resources and is idempotent.
+14:2. Call `setInspectionRuntime(runtime, session.id)`. It publishes the reference once and owns runtime disposal through the session. Repeating the assignment of the same instance is a no-op; assigning a stale instance disposes it and returns false. Mount `runtime.root` under the inspection world before awaiting `runtime.ready`. The runtime builds/fetches its assets under that instance-owned root; no camera writes.
+15:3. After `ready` resolves, check `session.current()`. Dispose stale results immediately and do not attach, compile, publish controls or acquire camera/render leases for them. Capture the epoch in every rejection handler and use `session.fail(error)` or `inspectionFailed(error, session.id)`.
+16:4. Publish `setInspectionStatus('compiling', session.id)`, apply lease-hidden narrative lighting, then perform the leased compile and 1px offscreen warm render, restoring renderer flags in `finally`. Check `session.current()` after each asynchronous step and again after warming. Only then call `setInspectionStatus('ready', session.id)`. Parsing alone cannot enable Play.
+17:5. A single integration-owned priority -10 driver advances and samples; CameraRig and geometry/application readers consume `inspection.runtime` imperatively. W1 only exports `advanceInspectionPlayhead(delta, stamp)` and installs no production caller. The original baseline ring scene advanced time itself; integration must delete that advancement when installing the new driver. Final source refresh observed W2's new caller in InspectionScene.tsx:25 and real ring factory registration. These are concurrent W2 edits, not W1 changes or shell verification. Audio is not installed by this leaf; seek/chapter/replay produce no audio events here.
+18:
+19:`inspection.playing` retains its compatibility setter so old ring/proof assignments update `userPlaying`; its getter derives effective playback from active/static/status/suspend/time. Frame advancement clamps delta to 0.05, rejects invalid/repeated/older stamps, holds at duration, and mutates scalars/telemetry without allocating or notifying on ordinary ticks. Chapter/end transitions alone notify. While hidden/context/error-suspended it advances neither time nor entryElapsed. Integration consumes `exiting` on its inactive frame; calling the exported advance function while inactive clears that one-frame marker.
+20:
+21:`createStorySession(kind, lifecycle)` takes explicit `{ id, current, fail }` callbacks supplied by the store. This dependency injection is the implementation clarification to the contract's one-argument sketch: session and story modules have no runtime store import/cycle. Owned resources are disposed once, stale owned results are disposed immediately, and cached borrows are reference-counted and released without disposing the cache.
+22:
+23:## DOM and restore
+24:
+25:Play/Pause, Replay, labeled native seek and chapter commands use an epoch captured at render. Same-chapter paused seek does not broadcast; the DOM polls only visible time and updates the slider/output imperatively. Captions retain discrete status announcements. Ring has one chapter; chapter buttons appear only for registered multichapter stories. Entry is still the existing ring action; no shaft entry is exposed.
+26:
+27:The dialog captures scroll coordinates, trigger, Lenis stop state, overflow, inert and chrome opacity in effect-local snapshots. It guards focusin/Tab/Escape, inerts newly inserted body siblings, restores original inert/opacity values and scroll, and resumes Lenis only if it was running. A disconnected trigger falls back to the current ring action, then the JGun chapter, then main/body; nonfocusable fallbacks retain a temporary tabindex until blur. Native focusable triggers retain their tab order. Return works while loading, compiling, failed and static. Retry cancels/restores the old epoch before opening a new paused session, with no delayed unscoped requestAnimationFrame callback.
+28:
+29:## Remaining W2 gates
+30:
+31:This bounded implementation does not claim shared scene or full G1 acceptance. W2 owns migration of the original wall-clock 15s timeout and unscoped boundary error to captured sessions, replacing old ring advancement with the single driver, wiring the required compile/warm readiness sequence, holding narrative/render ownership through the end, and exact camera/render restoration. `createVisibleLoadDeadline(session, ms)` is unit-tested support: feed visible loading/compiling deltas only, resetting wall-time baselines on visibility changes; never feed hidden wall time. W1 made no shared scene edits; its isolated DOM proof does not verify W2's subsequent timeout/driver changes.
+32:
+33:Full ring runtime round trips, priority ordering, shader program stability, context-loss GL cleanup, resource census and opening regression belong to W2/integration. The DOM harness mounts the real shell without a canvas or CAD runtime. Its screenshots and report prove DOM behavior only. Fresh Anthropic-provider review remains pending; producer-side checks do not constitute that review.
+34:
+35:Final producer evidence: 26/26 focused tests, scoped shell typecheck, repository typecheck and four DOM cases PASS. Two intermediate repository checks reported unused imports in integration-owned renderLease.ts:1; W2 corrected them before the final passing run. No changes to that file were made here. Parent separately reports 44 focused tests passing; W1's own rerun covers the exact four-file/26-test command in the shell gate. Nash owns the independent manufacturing runtime verifier and runtime/ evidence. Ring asset metadata pins the measured SHA-256 e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8; measured 1,798,620 bytes is under its 2 MiB limit. No asset was modified.
+
+hook: PostToolUse
+ succeeded in 542ms:
+1:# G0 lifecycle contract: ring | shaft manufacturing inspections
+2:
+3:Frozen 2026-10-05 against live (dirty, staged) source, three 0.185.1. Line numbers are live-source anchors. This is an interface and ownership contract, not a runtime claim. Gate: gates/lifecycle-contract.md. Plan: docs/jgun-manufacturing-inspection-plan.md section 5.
+4:
+5:## 1. Source findings that force the design
+6:
+7:| # | Finding | Anchor | Consequence |
+8:|---|---|---|---|
+9:| F1 | Store is ring-only: no kind, no per-story duration; 12 is hard-coded. | inspectionStore.ts:4,7-12,54; InspectionScene.tsx:89,101,102,109,175 | Duration and ownership come from the descriptor and sampled frame. |
+10:| F2 | exitInspection is not idempotent: it re-applies entry via setScrollState on every call and never clears entry. Escape, Return and the staticMode effect can all call it. | inspectionStore.ts:46-51; RingInspection.tsx:50,86,96 | A second exit after the visitor scrolled resets progress/mode to stale values. Exit must be a no-op unless active. |
+11:| F3 | Ring session ownership ends at t>=12 while active stays true: fade/visibility restored, camera blend 0. Plan wants ownership held until Return. | InspectionScene.tsx:175,206-209; CameraRig.tsx:201 | Ownership predicate becomes inspection.active (not time). Ring keeps its pose-return blend. |
+12:| F4 | CameraRig reads inspection.time before InspectionScene advances it each frame: camera lags geometry by one frame. Mount order is unsafe: TorqueWrenchHero is Suspense-mounted, so its subscriber registers late. | CameraRig.tsx:200 vs InspectionScene.tsx:99-104; SceneCanvas.tsx:364-385 | One playhead driver at negative useFrame priority (runs before every priority-0 writer; negative priority does not take over rendering; positive does, and the composer already holds renderPriority 1). |
+13:| F5 | CameraRig.restoredPoseError is computed after copying the snapshot into the camera: always 0. | CameraRig.tsx:221-226 | Restore telemetry must compare live pose against the entry snapshot in a later frame. |
+14:| F6 | StudioRig rewrites lights and scene.environmentIntensity every frame; FxDriver rewrites bloom/aberration/DoF every frame. Late-writer-wins is order-dependent. | SceneCanvas.tsx:141-168 (167); PostProcessingComposer.tsx:105-169 | Both need one explicit lease gate. Background (351), fog (352), environment ref (53) are written once, so they need snapshot/restore. |
+15:| F7 | InspectionScene hides non-hero scene children once, on the first frame hero exists. Later-mounted children (Suspense, backdrop) stay visible. Hide map restores recorded visibility. | InspectionScene.tsx:176-192,205-208 | Re-check scene.children.length each frame; hide unseen non-owned children; restore recorded values. |
+16:| F8 | inspectionFailed is unconditional in InspectionBoundary and timer paths; only loadLease.fail is gated. A stale boundary error can fail a newer session. | InspectionScene.tsx:171,219; inspectionStore.ts:58; loadLease.ts:7 | Failure takes the epoch of the reporter and is dropped if stale. |
+17:| F9 | Inspection assets are never compiled before play; the tool GLB compiles on first visible frame. Existing leased compile pattern exists for stations. | InspectionScene.tsx:73; SceneCanvas.tsx:193-227; compileLease.ts:5 | Add compiling status and a session-scoped compile plus 1px warm render before ready. |
+18:| F10 | P001835 is merged into the clutch-static bucket (key unit|role|ghost), originals removed from the tree. Cached rig is reused on remount. K000210, K000211, P000725 have no src reference. Planets/cages survive as intact unit groups. | nodeRoles.ts:65,265-268,499,520-556,591,194 | Shaft, housing, bearing, retaining ring cannot be isolated post-merge. They come only from the derived named bundle. Cages/planets are cloned from rig.stages groups at rest (basePositions), not current (exploded) positions. |
+19:| F11 | Ring geometry bakes unit.matrixWorld at mount, so it depends on the exploded entry pose. | ringGeometry.ts:8-14,54; InspectionScene.tsx:21 | Ring keeps this. Shaft study never reads narrative world matrices. |
+20:| F12 | Hero timeline hold/restore uses subscribeInspection plus totalTime(savedTime,true); scroll and drawing state are frozen; first inactive frame is skipped. | TorqueWrenchHero.tsx:142-159,279-282 | Keep. Adapter must not call notifyInspection per frame (it re-enters this subscriber). |
+21:| F13 | Context loss forces poster tier, which unmounts the canvas; RingInspection exits via the staticMode effect. There is no restored handler. | SceneCanvas.tsx:332-335; qualityStore.ts:74; RingInspection.tsx:86-87 | Treat loss as terminal exit through the same idempotent exit; no GL cleanup may be assumed to succeed. |
+22:| F14 | No visibilitychange handling exists in the inspection path. Frame delta is clamped to 0.05, so rAF stops implicitly, but the 15 s load timer and any audio use wall time. | InspectionScene.tsx:99,171 | Explicit suspend reason; timers and audio gated on it. |
+23:
+24:## 2. Story descriptors (new file src/scene/inspection/story.ts, owner W1)
+25:
+26:~~~ts
+27:import type { Color, Vector3 } from 'three'
+28:export type StoryKind = 'ring' | 'shaft'
+29:export type StoryId = 'ring-p003068' | 'shaft-p001835'
+30:export interface StoryChapter { id: string; label: string; start: number; end: number }   // seconds, start<end, contiguous
+31:export interface StoryAsset { id: string; url: string; tier: 'full' | 'lite' | 'both'; required: boolean; maxBytes: number; sha256: string | null }
+32:export interface StoryDescriptor {
+33:  readonly id: StoryId; readonly kind: StoryKind; readonly version: 1
+34:  readonly duration: number                       // seconds; replaces INSPECTION_DURATION (timeline.ts:1)
+35:  readonly chapters: readonly StoryChapter[]       // ring: one chapter 'finish'; shaft: the four plan chapters
+36:  readonly assets: readonly StoryAsset[]           // ring: knurling-tool.glb (InspectionScene.tsx:51); shaft: manufacturing bundle
+37:  readonly entryWindow: readonly [number, number]  // paced progress where the DOM entry is offered (ring: 0.12-0.525, RingInspection.tsx:90)
+38:  readonly staticAlt: string                       // key into the DOM-only static story; must need no GL and no CAD fetch
+39:  create(session: StorySession, ctx: StoryContext): StoryRuntime
+40:}
+41:export interface StoryContext { gl: import('three').WebGLRenderer; scene: import('three').Scene; hero: import('three').Object3D; rig: unknown /* WrenchRig */; tier: 'full' | 'lite'; aspect: number }
+42:export interface StoryFrame {            // preallocated by the runtime, mutated in place
+43:  time: number; chapter: number; phase: string; discrete: number   // discrete = integer key; DOM updates only when it changes
+44:  narrativeAlpha: number                  // 1 narrative fully visible, 0 hidden
+45:  returnBlend: number                     // ring: ease((t-10.5)/1.5) (timeline.ts:24); shaft: always 0
+46:  ownsNarrative: boolean                  // true for the whole session (never derived from time)
+47:}
+48:export interface InspectionCameraSample { valid: boolean; position: Vector3; target: Vector3; up: Vector3; fov: number }
+49:export interface StoryRuntime {
+50:  readonly frame: StoryFrame; readonly camera: InspectionCameraSample; readonly render: RenderSample
+51:  sample(time: number): void              // PURE in time: no read of previous time, no accumulators, no allocation
+52:  apply(): void                           // writes meshes/materials/lights owned by this runtime from the last sample()
+53:  telemetry(out: Record<string, unknown>): void
+54:  readonly resources: { geometries: number; materials: number; textures: number; meshes: number }
+55:  dispose(): void                         // instance-owned only; idempotent
+56:}
+57:~~~
+58:
+59:Rules:
+60:- sample(t) after any call sequence equals sample(t) from a fresh runtime (digest equality, section 9 V3). No cumulative cutter angle, chip history, particle state or stamp timers. Chips and stamps are closed-form functions of t with fixed seeds.
+61:- Audio, if enabled, is edge-triggered by the playhead driver only when advancing by playback. Seek, chapter jump and replay never fire cues.
+62:- Ring adapter: sampleInspection (timeline.ts:13-26) and the ring mesh/tool code in InspectionScene.tsx:96-154 move behind a ring StoryRuntime unchanged in behavior. The ring descriptor reports duration 12.
+63:
+64:## 3. Session, load, cancel, compile (new src/scene/inspection/session.ts, owner W1)
+65:
+66:~~~ts
+67:export interface StorySession {
+68:  readonly id: number                       // === inspection.epoch at creation
+69:  readonly kind: StoryKind
+70:  readonly signal: AbortSignal              // aborted by cancel(); pass to every fetch (pattern: InspectionScene.tsx:49-56)
+71:  current(): boolean                        // !cancelled && inspection.active && inspection.epoch === id (loadLease.ts:6)
+72:  fail(error: unknown): void                // dropped unless current()
+73:  own<T extends { dispose(): void }>(r: T): T      // disposed once on cancel
+74:  borrowShared(key: string): () => void     // refcount a cached resource; release never disposes it
+75:  cancel(): void                            // idempotent; aborts, disposes owned, releases borrowed
+76:}
+77:export function createStorySession(kind: StoryKind): StorySession
+78:export function inspectionLoadLease(epoch: number): ReturnType<typeof legacyLease>   // kept with identical behavior until ring migrates; lifecycle.test.ts:34-43 must stay green
+79:~~~
+80:
+81:- A late fetch or parse result must check session.current() before attaching anything. If stale, dispose it immediately (pattern: InspectionScene.tsx:58-62).
+82:- inspectionFailed(error, epoch?: number) in inspectionStore.ts:58: if epoch given and epoch !== inspection.epoch, ignore. InspectionBoundary and the 15 s timer pass their epoch (InspectionScene.tsx:171,219). The 15 s timer measures visible time only (suspend must pause it).
+83:- Status becomes 'idle' | 'loading' | 'compiling' | 'ready' | 'error'. Entering ready requires: all required assets parsed, then prepareStudy resolves true, then one 1px offscreen warm render, then session.current() again. The DOM treats compiling as loading. Return/Escape remain enabled in every status.
+84:- prepareStudy(session, gl, scene, camera, studyRoot): follow SceneCanvas.tsx:193-227. Attach studyRoot, apply the lease-hidden narrative light state first (so the compiled light count equals the runtime count), call compileWithLease (compileLease.ts:5) with () => !session.current(), then the warm render with flags restored in finally. three 0.185.1 compile(scene, camera, targetScene) uses traverseVisible for lights, so visibility is part of the cache key. Verify with V5, do not assume.
+85:
+86:## 4. Store extensions (owner W1; backward compatible)
+87:
+88:Add to inspection (inspectionStore.ts:6-12): kind, storyId, duration, session: StorySession | null, userPlaying: boolean, suspend: 'none' | 'hidden' | 'context' | 'error', exiting: boolean. Keep every existing field and its meaning. inspection.playing stays and is the derived effective flag: userPlaying && suspend==='none' && status==='ready' && time<duration.
+89:
+90:~~~ts
+91:export function enterInspection(trigger: HTMLElement, staticMode: boolean, story?: StoryId, chapter?: number): void  // default story 'ring-p003068': existing 2-arg calls compile and behave the same
+92:export function exitInspection(): void           // no-op unless active; clears entry/session; setScrollState(entry) exactly once; sets exiting for one frame
+93:export function seekInspection(time: number): void       // clamp [0,duration]; never starts playback; notify only if discrete changes
+94:export function seekChapter(index: number): void         // time = chapters[index].start; pauses
+95:export function playInspection(replay?: boolean): void   // same semantics as store:52-57 with descriptor duration
+96:export function setInspectionSuspend(reason: Suspend): void
+97:export function advanceInspectionPlayhead(delta: number, stamp: number): void
+98:~~~
+99:
+100:advanceInspectionPlayhead is idempotent per stamp (state.clock.elapsedTime, identical for every subscriber in a frame). It clamps delta to 0.05 (as InspectionScene.tsx:98), advances entryElapsed always (entry blend, as :99) and time only when inspection.playing, stops at duration (hold, no auto-exit), and fires audio edge cues.
+101:
+102:Document visibility (owner W1, in the DOM shell effect, RingInspection.tsx:32-83 pattern): on visibilitychange to hidden set suspend='hidden' without touching userPlaying; on visible set 'none'. A manual pause has userPlaying=false, so hide/show never resumes it. Hidden time never adds to time, entryElapsed or the load timer. Context loss: setInspectionSuspend('context') then the existing staticMode effect exits.
+103:
+104:Reentry: exit then enter in one tick must produce epoch+1, time 0, userPlaying false, no remaining refs to the old session (existing test inspectionStore.test.ts:20-24 stays).
+105:
+106:## 5. Playhead driver and frame ordering (owner W2)
+107:
+108:New component InspectionDriver, mounted inside InspectionScene (so it exists with the canvas, not with the story): useFrame(fn, -10). Per frame while inspection.active && !inspection.static: advanceInspectionPlayhead(delta, state.clock.elapsedTime); runtime.sample(inspection.time). Everything else reads the samples:
+109:
+110:1. InspectionDriver (-10): advance + sample.
+111:2. CameraRig (0): reads runtime.camera and runtime.frame.returnBlend, never calls sample (replaces CameraRig.tsx:200-213 ring math and the inspectionTelemetry.ringBounds read at :203).
+112:3. InspectionScene (0): runtime.apply(), narrative fade, hide set.
+113:4. Lease gates (section 7).
+114:Nothing may depend on mount order among priority-0 subscribers (F4). No React state or setState in any of these; discrete DOM changes go through notifyInspection only when frame.discrete changes.
+115:
+116:## 6. Camera adapter (CameraRig is the sole writer)
+117:
+118:- Story code writes only the InspectionCameraSample owned by its runtime (position, target, up, fov; preallocated Vector3s). It must not touch camera, state.camera or window.__threeCamera.
+119:- CameraRig keeps: lazy snapshot of position/quaternion/up/fov/projection plus currentPos/currentTarget (:193-199), lerp saved to sample by blend = ease(entryElapsed/1.2) * (1 - returnBlend) (:201,208-211), blend===0 projection restore (:212), one-shot restore (:219-227). The saved snapshot becomes the single source for restore telemetry: write restoredPoseError on the frame AFTER restore as camera.position.distanceTo(saved) + camera.quaternion.angleTo(saved) using a saved copy that is not mutated (fixes F5).
+120:- lookAt: matrix.lookAt(sample.position, sample.target, sample.up) to quaternion, as :206-207. aspect-dependent framing (:204) moves into the story's sample() using ctx.aspect updated on resize.
+121:- cameraOwner telemetry stays 'CameraRig'. Verifier asserts no other writer: during an inspection frame, a Proxy on camera.position logging set calls from non-CameraRig stacks is not reliable, so assert instead that three consecutive frames at paused time give identical camera pose and that Object3D matrixWorld equals the CameraRig-expected lookAt within 1e-9 (V4).
+122:- Shaft handoff continuity: story camera curves are closed-form in t; no damping, no integration (plan section 4).
+123:
+124:## 7. Render and narrative restore envelope (owner W2)
+125:
+126:New src/scene/inspection/renderLease.ts. Snapshot captured on the first active frame, before any write, by the same code path as the camera snapshot.
+127:
+128:~~~ts
+129:export interface RenderSample { background: Color; fogNear: number; fogFar: number; envIntensity: number; envRotationY: number; bloom: number; aberration: number; dofBokeh: number; exposure: number }
+130:export interface RenderSnapshot {
+131:  background: { color: Color | null; texture: unknown; intensity: number; blurriness: number }   // SceneCanvas.tsx:351
+132:  fog: { color: Color; near: number; far: number } | null                                         // :352
+133:  environment: unknown; environmentIntensity: number; environmentRotation: [number, number, number]   // :53-54,167
+134:  lights: Map<import('three').Light, { visible: boolean; intensity: number; color: number; pos: [number, number, number] }>
+135:  gl: { toneMapping: number; toneMappingExposure: number; clear: [number, number, number, number] }
+136:  post: { bloom: number; aberration: [number, number]; dofBokeh: number }                        // PostProcessingComposer.tsx:138-168
+137:  hidden: Map<import('three').Object3D, boolean>                                                 // F7 hide set
+138:  narrative: { scroll: ScrollState; materialMode: string; anim: unknown; idleAngle: number }     // inspection.entry (store:33), TorqueWrenchHero anim/idleAngle (:82,84)
+139:}
+140:~~~
+141:
+142:- Per-frame writers that need a gate (the only edits to existing writers, both owned by W2): StudioRig useFrame (SceneCanvas.tsx:141) and FxDriver useFrame (PostProcessingComposer.tsx:105) return early after their telemetry line when renderLease.owned; the lease then writes RenderSample values. LcdFillLight (:60-103) and LcdMicroRimLight (:236-246) are progress-gated and progress is frozen, but the lease still sets visible=false on every narrative light to get a clean dark studio. Inspection-owned lights live only in the study root.
+143:- Static datums (background, fog, environment, environmentRotation, gl clear/tonemap, hide set) have no per-frame writer and must be restored from the snapshot; per-frame datums restore by the gate releasing (the narrative writers rewrite on the next frame).
+144:- Hide set: re-check scene.children.length each frame; any unseen non-owned child is recorded then hidden (fixes F7). Restore uses the recorded values, never forces visible=true.
+145:- Restore is one idempotent function called from exit and from InspectionScene unmount (existing cleanup :211). Restore must tolerate a lost context: no GL calls, only property writes and dispose().
+146:- Narrative: hero already freezes pose and idle while active (TorqueWrenchHero.tsx:279-282) and the GSAP timeline holds and restores (:142-159). Required additions: the study never calls applyLiveMaterials or touches rig.basePositions; Return after blueprint re-applies the entry materialMode via setScrollState (store:48) and the fade clones restore original or blueprint material (narrativeFade.ts:35-40). Verify blueprint and exploded round trips with V7.
+147:- Fade clone discipline stays: borrow geometry, clone materials, original opacity/transparent/depthWrite untouched (narrativeFade.ts:3,19-22); telemetry narrativeOriginalsIntact keeps its meaning.
+148:
+149:## 8. Assembled study, clone-before-merge, independent finale
+150:
+151:- Study root: Group 'manufacturing-study-root' under the inspection world, orientation identity in the gearbox-local frame (train axis +Z). Never composed with hero.matrixWorld, so blueprint or exploded entry cannot change it (answers plan B2 and F11).
+152:- Bundle: shaft, grooved shaping blank, revised hobbing blank, P000725, K000210, K000211, tool props, as named nodes from the G2 export (scripts/manufacturing, public/models/manufacturing-*.glb, hashed). Placement uses shaft_world_matrix.json, the measured export registration and exactly one mm-to-m conversion (plan sections 4 and 6). StoryRuntime never reads Default.glb meshes for these parts (F10).
+153:- Cages and planets: clone rig.stages[id].carrier groups with Object3D.clone(true), remap every material to an instance-owned clone, share geometry (do not dispose it), set position from rig.basePositions.get(carrier) (rest, not exploded), apply rotation with the existing convention carrier.rotation.z = turns*2pi*(sweep+idle), planet.rotation.z = -carrier*GEAR_RATIOS.planetMultiplier (TorqueWrenchHero.tsx:249-258). Display turns are not machining rates.
+154:- Alternative to clone-before-merge: if a future story needs a Default.glb part that is merged (for example clutch static), the only sanctioned route is a named capture step inside buildWrenchRig before the bucket loop at nodeRoles.ts:461, owned by W2 as a single hook; not needed for the planned shaft story.
+155:- Leased reuse of narrative objects is not used. If it ever is, the lease records full local matrix, parent, visible and material per object and restores before narrative resumes.
+156:
+157:## 9. Telemetry (owner per section 10)
+158:
+159:- window.__inspection (store:13-25) keeps every existing key, type and unit. Additive keys only: schema: 1, kind, storyId, session, status, suspend, chapter, duration, playing. For a shaft session the ring-specific keys hold their idle defaults and loaded/disposed/active/time/phase still mirror lifecycle, so verify-ring-inspection.mjs waiters (loaded, :57,125,131,140,152,182) keep working.
+160:- window.__manufacturingInspection (new, gated like __inspection): { schema: 'manufacturing-inspection/1', kind, session, epoch, active, status, suspend, time, duration, chapter, phase, discrete, playing, camera: { position, target, fov, owner }, tier, dpr, render: { owned, restoreError }, restore: { sceneProgress, materialMode, cameraError, hiddenCount, lightsRestored }, resources: { geometries, materials, textures, meshes }, shaft: { teethFormed, teethPartial, cutter: { visible, stroke, infeed, rotation }, hob: { visible, feed, rotation }, card: { id, stamp }, stress: { kind, mix }, supports: { deltaYmm, witnesses, endpointHeld }, finale: { assembled, shaftCount, racesFollow }, narrative: { alpha, hiddenCount, originalsIntact } } }. Fields are added by W4 inside this schema, never by renaming; any removal bumps the schema string.
+161:- Proof hooks (extend InspectionScene.tsx:85-94, only with ?inspectionProof): seek(time, entryElapsed), seekChapter(i), step(dt) to call advanceInspectionPlayhead with a synthetic stamp, setSuspend(reason), digest() returning a quantized state hash of camera, runtime telemetry and render sample.
+162:
+163:## 10. Disjoint ownership
+164:
+165:| Worker | Writes only | Reads |
+166:|---|---|---|
+167:| W1 lifecycle | src/state/inspectionStore.ts(+test), src/scene/inspection/{story,session,loadLease}.ts, src/components/RingInspection.tsx/.css and a sibling shell for shaft controls (chapters, seek, Return) | everything |
+168:| W2 integration (single owner, plan section 5) | CameraRig.tsx, TorqueWrenchHero.tsx, InspectionScene.tsx, SceneCanvas.tsx (StudioRig gate, lease mount), PostProcessingComposer.tsx (FxDriver gate), src/scene/inspection/renderLease.ts, narrativeFade.ts | W1 types |
+169:| W3 ring | src/scene/inspection/{timeline,ringGeometry,ring/*}.ts, ring tool code moved out of InspectionScene | story.ts |
+170:| W4 shaft | src/scene/inspection/shaft/*, shaft descriptor and runtime | story.ts, G2 bundle |
+171:| W5 assets | scripts/manufacturing/*, public/models/manufacturing-*, geometry/ evidence | none |
+172:| W6 verifier | scripts/verify-manufacturing-inspection.mjs, camera/restore evidence | all |
+173:
+174:Merge order: W1 types first (this section 2-4 verbatim), then W3 and W4 in parallel, then W2 once, then W6. W3 and W4 never edit shared files.
+175:
+176:## 11. Verification (future workers run these; paths from the repo root)
+177:
+178:- Static: npm run typecheck; npx vitest run src/state/inspectionStore.test.ts src/scene/inspection; npm test at integration; npm run build; node scripts/check-b1b2-contract.mjs; npm run check:station2.
+179:- Ring regression: restart :4173 after rebuild; node scripts/verify-ring-inspection.mjs --url=http://localhost:4173 --out=<evidence-dir> (203 lines; covers delayed CAD, restore, loseContext at :154,187).
+180:- New unit tests (W1/W2): V1 exit twice leaves scroll state unchanged after a mutation between calls (F2). V2 InspectionDriver at -10 runs before a 0-priority subscriber in a test canvas, positive priority absent. V3 digest(sample(t)) equals digest from a fresh runtime after random seek order, for every chapter boundary +/-1e-6. V5 programs count does not grow after ready on first play (renderer.info.programs.length unchanged across frames 0-60).
+181:- V4 camera: paused time, 3 frames, identical pose; pose matches lookAt of the sample within 1e-9; restoredPoseError measured on the frame after exit and below 1e-6.
+182:- V6 delayed load: route-hold the bundle, Return, immediately re-enter; the held response then resolves: no attached object, no camera change, no control change, resources census equal to idle (stale-session test; existing pattern verify-ring-inspection.mjs:140-141).
+183:- V7 round trips: exploded entry then assembled finale then Return, and blueprint entry then finale then Return: assert materialMode, progress, chapter, hotspotId, scrollY, anim.explode, idleAngle, camera pose, background/fog/environment/light/post snapshot, hide set all equal entry within tolerance.
+184:- V8 pause/hide: userPlaying false, dispatch hidden then visible via overridden document.visibilityState plus a visibilitychange event: time and entryElapsed unchanged and still paused; playing story hidden 5 s then visible: time advance below one clamped delta, resumes only if userPlaying.
+185:- V9 seek/replay: direct chapter entry equals continuous playback at the same time (digest) in a paired run using step(1/60); replay resets time to 0 with no audio cue; chip/particle counts do not accumulate across 20 seeks.
+186:- V10 context loss: loseContext at loading, mid-motion, and at hold: exit completes once, body class and inert cleared, no console error, repeated entry after poster works through the static story with no CAD fetch.
+187:- V11 lifecycle census: five complete entry/exit cycles after warm-up, no monotonic growth in resources.geometries/materials/textures/meshes or renderer.info.memory.
+188:- Evidence rule: every claim carries the telemetry JSON and the command line; screenshots are supporting only.
+189:
+190:## 12. Unresolved and measured-later
+191:
+192:- U1 R3F 9.7.0 (node_modules/@react-three/fiber/dist/events-b1bdeb1a.cjs.dev.js:1146,1154): subscribers sort ascending by priority and only priority > 0 takes over rendering, so -10 runs before all priority-0 writers without affecting render. Read from source, not yet exercised; V2 must prove it in a test canvas before W2 merges.
+193:- U2 renderer.compile behavior for invisible roots in three 0.185.1 is unconfirmed; V5 is the proof.
+194:- U3 Entry/exit blend for shaft is the existing 1.2 s entry and an instant exit snap (CameraRig.tsx:219-227). A cross-fade on Return is not specified and not required for G1.
+195:- U4 Lite vs full tier asset swap on tier change during a session: not specified; a tier change during inspection ends the session through the existing exit path.
+196:
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Spec and claims absorbed. Now reading the actual W1 source: store, story, session, lease.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/state/inspectionStore.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/session.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/story.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/loadLease.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 487ms:
+1:import type { StoryKind } from './story'
+2:
+3:export interface StorySession {
+4:  readonly id: number
+5:  readonly kind: StoryKind
+6:  readonly signal: AbortSignal
+7:  current(): boolean
+8:  fail(error: unknown): void
+9:  own<T extends { dispose(): void }>(resource: T): T
+10:  borrowShared(key: string): () => void
+11:  cancel(): void
+12:}
+13:export interface StorySessionLifecycle {
+14:  readonly id: number
+15:  current(): boolean
+16:  fail(error: unknown): void
+17:}
+18:const sharedReferences = new Map<string, number>()
+19:export function sharedStoryRefCount(key: string): number { return sharedReferences.get(key) ?? 0 }
+20:
+21:// Explicit host callbacks keep the session and descriptor modules independent of the store.
+22:export function createStorySession(kind: StoryKind, lifecycle: StorySessionLifecycle): StorySession {
+23:  const controller = new AbortController()
+24:  const owned = new Set<{ dispose(): void }>()
+25:  const disposed = new WeakSet<object>()
+26:  const borrowed = new Set<() => void>()
+27:  let cancelled = false
+28:  function dispose(resource: { dispose(): void }) {
+29:    if (disposed.has(resource)) return
+30:    disposed.add(resource)
+31:    // One broken resource must not prevent abort/restore or the remaining releases.
+32:    try { resource.dispose() } catch { /* Context loss can make resource cleanup fail. */ }
+33:  }
+34:  const current = () => !cancelled && lifecycle.current()
+35:  return {
+36:    id: lifecycle.id, kind, signal: controller.signal, current,
+37:    fail(error) { if (current()) lifecycle.fail(error) },
+38:    own(resource) {
+39:      if (!current()) dispose(resource)
+40:      else owned.add(resource)
+41:      return resource
+42:    },
+43:    borrowShared(key) {
+44:      if (!current()) return () => {}
+45:      sharedReferences.set(key, sharedStoryRefCount(key) + 1)
+46:      let released = false
+47:      const release = () => {
+48:        if (released) return
+49:        released = true
+50:        const count = sharedStoryRefCount(key) - 1
+51:        if (count > 0) sharedReferences.set(key, count)
+52:        else sharedReferences.delete(key)
+53:        borrowed.delete(release)
+54:      }
+55:      borrowed.add(release)
+56:      return release
+57:    },
+58:    cancel() {
+59:      if (cancelled) return
+60:      cancelled = true
+61:      controller.abort()
+62:      owned.forEach(dispose); owned.clear()
+63:      borrowed.forEach(release => release()); borrowed.clear()
+64:    },
+65:  }
+66:}
+67:
+68:/** Feed only visible loading/compiling time; hidden wall time is never a deadline input. */
+69:export function createVisibleLoadDeadline(session: StorySession, timeoutMs: number) {
+70:  let elapsed = 0, expired = false
+71:  return {
+72:    advance(deltaMs: number, visible: boolean) {
+73:      if (expired || !visible || !session.current() || !Number.isFinite(deltaMs) || deltaMs <= 0) return
+74:      elapsed += deltaMs
+75:      if (elapsed >= timeoutMs) { expired = true; session.fail(new Error('The inspection could not load. Return or try again.')) }
+76:    },
+77:  }
+78:}
+
+hook: PostToolUse
+ succeeded in 795ms:
+1:import { useSyncExternalStore } from 'react'
+2:import type { Object3D, Mesh } from 'three'
+3:import { getScrollState, setScrollState, type ScrollState } from './scrollStore'
+4:import { getStory, ringStory, storyChapterAt, type StoryId, type StoryKind, type StoryMetadata, type StoryRuntime } from '../scene/inspection/story'
+5:import { createStorySession, type StorySession } from '../scene/inspection/session'
+6:
+7:export type InspectionStatus = 'idle' | 'loading' | 'compiling' | 'ready' | 'error'
+8:export type Suspend = 'none' | 'hidden' | 'context' | 'error'
+9:let story: StoryMetadata = ringStory
+10:let lastStamp = -Infinity
+11:
+12:export const inspection = {
+13:  active: false, epoch: 0, time: 0, entryElapsed: 0, static: false,
+14:  kind: 'ring' as StoryKind, storyId: 'ring-p003068' as StoryId, duration: ringStory.duration,
+15:  session: null as StorySession | null, userPlaying: false, suspend: 'none' as Suspend, exiting: false,
+16:  runtime: null as StoryRuntime | null,
+17:  get playing(): boolean { return this.active && !this.static && this.userPlaying && this.suspend === 'none' && this.status === 'ready' && this.time < this.duration },
+18:  // The legacy driver/proof hook still writes playing until integration replaces it.
+19:  set playing(value: boolean) { this.userPlaying = value },
+20:  status: 'idle' as InspectionStatus, error: '',
+21:  source: null as Object3D | null, entry: null as ScrollState | null,
+22:  meshes: [] as Mesh[],
+23:  scrollY: 0, scrollX: 0, trigger: null as HTMLElement | null,
+24:}
+25:export const inspectionTelemetry = {
+26:  schema: 1, kind: 'ring' as StoryKind, storyId: 'ring-p003068' as StoryId, session: 0,
+27:  status: 'idle' as InspectionStatus, suspend: 'none' as Suspend, chapter: 0, duration: ringStory.duration, playing: false,
+28:  active: false, phase: 'idle', time: 0, ringBounds: { min: [0, 0, 0], max: [0, 0, 0], center: [0, 0, 0], radius: 0, width: 0 },
+29:  worldBounds: { min: [0, 0, 0], max: [0, 0, 0] },
+30:  odKnurlProgress: 0, normalStrength: 0, aluminiumBlend: 0, ringAngle: 0,
+31:  toolClipTime: 0, toolVisible: false, ringMeshes: 0, toolMeshes: 0,
+32:  rollerClearance: [0, 0], rollerAxial: [0, 0], rollerCenters: [[0, 0, 0], [0, 0, 0]],
+33:  wheelAxis: [[0, 0, 1], [0, 0, 1]], wheelHands: ['RH', 'LH'],
+34:  entryScroll: 0, restoredScroll: 0, cameraOwner: 'CameraRig',
+35:  disposed: 0, loaded: false, restoredPoseError: 0, entryContext: null as ScrollState | null,
+36:  narrativeAlpha: 1, narrativeVisibleMeshes: 0, narrativeOriginalsIntact: true,
+37:  maskSamples: { bore: 0, shoulder: 0, odStart: 0, odEnd: 0 },
+38:}
+39:if (typeof window !== 'undefined') (window as unknown as Record<string, unknown>).__inspection = inspectionTelemetry
+40:const listeners = new Set<() => void>()
+41:let revision = 0
+42:function syncLifecycleTelemetry() {
+43:  inspectionTelemetry.kind = inspection.kind; inspectionTelemetry.storyId = inspection.storyId
+44:  inspectionTelemetry.session = inspection.epoch; inspectionTelemetry.status = inspection.status
+45:  inspectionTelemetry.suspend = inspection.suspend; inspectionTelemetry.duration = inspection.duration
+46:  inspectionTelemetry.chapter = storyChapterAt(story, inspection.time); inspectionTelemetry.playing = inspection.playing
+47:}
+48:function notifyListener(fn: () => void) { fn() }
+49:export function notifyInspection() { syncLifecycleTelemetry(); revision++; listeners.forEach(notifyListener) }
+50:export function subscribeInspection(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn) } }
+51:export function useInspection() { useSyncExternalStore(fn => { listeners.add(fn); return () => { listeners.delete(fn) } }, () => revision, () => revision); return inspection }
+52:export function getInspectionStory(): StoryMetadata { return story }
+53:export function enterInspection(trigger: HTMLElement, staticMode: boolean, storyId: StoryId = 'ring-p003068', chapter = 0) {
+54:  if (inspection.active) return
+55:  const descriptor = getStory(storyId)
+56:  if (staticMode && descriptor.kind === 'shaft') throw new Error('The static shaft inspection is not available yet')
+57:  if (!Number.isInteger(chapter) || !descriptor.chapters[chapter]) return
+58:  story = descriptor
+59:  inspection.entry = { ...getScrollState() }
+60:  inspection.scrollY = typeof window === 'undefined' ? 0 : window.scrollY
+61:  inspection.scrollX = typeof window === 'undefined' ? 0 : window.scrollX
+62:  inspection.trigger = trigger; inspection.active = true; inspection.static = staticMode
+63:  inspection.epoch++; inspection.time = descriptor.chapters[chapter].start; inspection.entryElapsed = 0; inspection.userPlaying = false
+64:  inspection.kind = descriptor.kind; inspection.storyId = descriptor.id; inspection.duration = descriptor.duration
+65:  inspection.suspend = typeof document !== 'undefined' && document.hidden ? 'hidden' : 'none'
+66:  inspection.exiting = false; lastStamp = -Infinity
+67:  inspection.runtime = null
+68:  const epoch = inspection.epoch
+69:  inspection.session = createStorySession(descriptor.kind, {
+70:    id: epoch, current: () => inspection.active && inspection.epoch === epoch,
+71:    fail: error => inspectionFailed(error, epoch),
+72:  })
+73:  inspection.status = staticMode ? 'ready' : 'loading'; inspection.error = ''
+74:  inspectionTelemetry.active = true; inspectionTelemetry.loaded = false
+75:  inspectionTelemetry.time = inspection.time; inspectionTelemetry.ringAngle = 0
+76:  inspectionTelemetry.toolVisible = false; inspectionTelemetry.odKnurlProgress = 0
+77:  inspectionTelemetry.aluminiumBlend = 0; inspectionTelemetry.phase = staticMode ? 'Static finish study' : descriptor.chapters[chapter].label
+78:  if (descriptor.kind === 'ring' && !staticMode) inspectionTelemetry.phase = 'Smooth black'
+79:  if (descriptor.kind === 'shaft') {
+80:    const probe = inspectionTelemetry
+81:    probe.ringBounds.min.fill(0); probe.ringBounds.max.fill(0); probe.ringBounds.center.fill(0)
+82:    probe.ringBounds.radius = 0; probe.ringBounds.width = 0
+83:    probe.worldBounds.min.fill(0); probe.worldBounds.max.fill(0)
+84:    probe.normalStrength = 0; probe.toolClipTime = 0; probe.ringMeshes = 0; probe.toolMeshes = 0
+85:    probe.rollerClearance.fill(0); probe.rollerAxial.fill(0)
+86:    for (let index = 0; index < 2; index++) { probe.rollerCenters[index].fill(0); probe.wheelAxis[index].fill(0); probe.wheelAxis[index][2] = 1 }
+87:    probe.maskSamples.bore = 0; probe.maskSamples.shoulder = 0; probe.maskSamples.odStart = 0; probe.maskSamples.odEnd = 0
+88:  }
+89:  inspectionTelemetry.entryScroll = inspection.scrollY
+90:  inspectionTelemetry.entryContext = { ...inspection.entry }
+91:  notifyInspection()
+92:}
+93:export function exitInspection() {
+94:  if (!inspection.active) return
+95:  const entry = inspection.entry, session = inspection.session
+96:  inspection.active = false; inspection.userPlaying = false; inspection.exiting = true
+97:  inspection.entry = null; inspection.session = null; inspection.runtime = null; inspection.trigger = null
+98:  inspection.status = 'idle'; inspection.error = ''; inspection.suspend = 'none'
+99:  session?.cancel()
+100:  if (entry) setScrollState(entry)
+101:  inspectionTelemetry.active = false; inspectionTelemetry.loaded = false
+102:  inspectionTelemetry.restoredScroll = typeof window === 'undefined' ? 0 : window.scrollY
+103:  notifyInspection()
+104:}
+105:function current(epoch: number) { return inspection.active && inspection.epoch === epoch }
+106:export function playInspection(replay = false, epoch = inspection.epoch) {
+107:  if (!current(epoch) || inspection.static || inspection.status !== 'ready' || inspection.suspend === 'error' || inspection.suspend === 'context') return
+108:  if (replay || inspection.time >= inspection.duration) inspection.time = 0
+109:  inspection.userPlaying = !inspection.userPlaying || replay
+110:  inspectionTelemetry.time = inspection.time
+111:  notifyInspection()
+112:}
+113:export function seekInspection(time: number, epoch = inspection.epoch) {
+114:  if (!current(epoch) || inspection.static || !Number.isFinite(time)) return
+115:  const before = storyChapterAt(story, inspection.time), wasPlaying = inspection.userPlaying, wasEnd = inspection.time >= inspection.duration
+116:  inspection.time = Math.max(0, Math.min(inspection.duration, time)); inspection.userPlaying = false
+117:  inspectionTelemetry.time = inspection.time; syncLifecycleTelemetry()
+118:  if (before !== inspectionTelemetry.chapter || wasPlaying || wasEnd !== (inspection.time >= inspection.duration)) notifyInspection()
+119:}
+120:export function seekChapter(index: number, epoch = inspection.epoch) {
+121:  if (!current(epoch) || !Number.isInteger(index) || !story.chapters[index]) return
+122:  seekInspection(story.chapters[index].start, epoch)
+123:}
+124:export function setInspectionSuspend(reason: Suspend, epoch = inspection.epoch) {
+125:  if (!current(epoch) || reason === inspection.suspend) return
+126:  // Visibility must not clear a terminal failure/context suspension.
+127:  if ((reason === 'none' || reason === 'hidden') && (inspection.suspend === 'error' || inspection.suspend === 'context')) return
+128:  inspection.suspend = reason
+129:  notifyInspection()
+130:}
+131:export function inspectionFailed(error: unknown, epoch = inspection.epoch) {
+132:  if (!current(epoch) || inspection.status === 'error') return
+133:  inspection.status = 'error'; inspection.userPlaying = false; inspection.suspend = 'error'
+134:  inspection.error = error instanceof Error ? error.message : String(error)
+135:  notifyInspection()
+136:}
+137:export function setInspectionStatus(status: 'loading' | 'compiling' | 'ready', epoch = inspection.epoch) {
+138:  if (!current(epoch) || inspection.status === 'error' || inspection.status === status) return
+139:  inspection.status = status
+140:  notifyInspection()
+141:}
+142:export function setInspectionRuntime(runtime: StoryRuntime, epoch = inspection.epoch): boolean {
+143:  if (!current(epoch) || inspection.status === 'error' || !inspection.session?.current()) { runtime.dispose(); return false }
+144:  if (inspection.runtime === runtime) return true
+145:  if (inspection.runtime) throw new Error('Inspection runtime already assigned')
+146:  inspection.runtime = inspection.session.own(runtime)
+147:  notifyInspection()
+148:  return true
+149:}
+150:export function retryInspection(epoch = inspection.epoch) {
+151:  if (!current(epoch) || inspection.status !== 'error' || !inspection.trigger) return
+152:  const trigger = inspection.trigger, staticMode = inspection.static, id = inspection.storyId
+153:  exitInspection()
+154:  enterInspection(trigger, staticMode, id)
+155:}
+156:
+157:/** Integration alone installs the -10 driver. The legacy ring driver still advances time. */
+158:export function advanceInspectionPlayhead(delta: number, stamp: number) {
+159:  if (!inspection.active) { inspection.exiting = false; return }
+160:  if (!Number.isFinite(stamp) || stamp <= lastStamp || !Number.isFinite(delta) || delta < 0) return
+161:  lastStamp = stamp
+162:  if (inspection.static || inspection.suspend !== 'none') return
+163:  const safeDelta = Math.min(delta, 0.05), chapter = storyChapterAt(story, inspection.time), wasPlaying = inspection.playing
+164:  inspection.entryElapsed += safeDelta
+165:  if (wasPlaying) {
+166:    inspection.time = Math.min(inspection.duration, inspection.time + safeDelta)
+167:    if (inspection.time >= inspection.duration) inspection.userPlaying = false
+168:  }
+169:  inspectionTelemetry.time = inspection.time; syncLifecycleTelemetry()
+170:  if (chapter !== inspectionTelemetry.chapter || wasPlaying !== inspection.playing) notifyInspection()
+171:}
+
+hook: PostToolUse
+ succeeded in 1069ms:
+1:import type { Color, Object3D, Scene, Vector3, WebGLRenderer } from 'three'
+2:import type { StorySession } from './session'
+3:
+4:export type StoryKind = 'ring' | 'shaft'
+5:export type StoryId = 'ring-p003068' | 'shaft-p001835'
+6:export interface StoryChapter { readonly id: string; readonly label: string; readonly start: number; readonly end: number }
+7:export interface StoryAsset {
+8:  readonly id: string
+9:  readonly url: string
+10:  readonly tier: 'full' | 'lite' | 'both'
+11:  readonly required: boolean
+12:  readonly maxBytes: number
+13:  readonly sha256: string | null
+14:}
+15:export interface StoryContext { gl: WebGLRenderer; scene: Scene; hero: Object3D; rig: unknown; tier: 'full' | 'lite'; aspect: number }
+16:export interface StoryFrame {
+17:  time: number; chapter: number; phase: string; discrete: number
+18:  narrativeAlpha: number; returnBlend: number; ownsNarrative: boolean
+19:}
+20:export interface InspectionCameraSample { valid: boolean; position: Vector3; target: Vector3; up: Vector3; fov: number }
+21:export interface RenderSample {
+22:  background: Color; fogNear: number; fogFar: number; envIntensity: number; envRotationY: number
+23:  bloom: number; aberration: number; dofBokeh: number; exposure: number
+24:}
+25:export interface StoryRuntime {
+26:  readonly root: Object3D
+27:  readonly ready: Promise<void>
+28:  readonly frame: StoryFrame
+29:  readonly camera: InspectionCameraSample
+30:  readonly render: RenderSample
+31:  sample(time: number): void
+32:  apply(): void
+33:  telemetry(out: Record<string, unknown>): void
+34:  readonly resources: { geometries: number; materials: number; textures: number; meshes: number }
+35:  dispose(): void
+36:}
+37:export interface StoryDescriptor {
+38:  readonly id: StoryId
+39:  readonly kind: StoryKind
+40:  readonly version: 1
+41:  readonly duration: number
+42:  readonly chapters: readonly StoryChapter[]
+43:  readonly assets: readonly StoryAsset[]
+44:  readonly entryWindow: readonly [number, number]
+45:  readonly staticAlt: string
+46:  create(session: StorySession, ctx: StoryContext): StoryRuntime
+47:}
+48:export type StoryMetadata = Omit<StoryDescriptor, 'create'>
+49:
+50:// The existing ring scene is the adapter until integration registers its factory.
+51:export const ringStory: StoryMetadata = Object.freeze({
+52:  id: 'ring-p003068', kind: 'ring', version: 1, duration: 12,
+53:  chapters: Object.freeze([Object.freeze({ id: 'finish', label: 'Finish study', start: 0, end: 12 })]),
+54:  assets: Object.freeze([Object.freeze({ id: 'knurling-tool', url: 'models/knurling-tool.glb', tier: 'both', required: true, maxBytes: 2 * 1024 * 1024, sha256: 'e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8' })]),
+55:  entryWindow: Object.freeze([0.12, 0.525] as const), staticAlt: 'ring-finish',
+56:})
+57:const stories = new Map<StoryId, StoryDescriptor>()
+58:
+59:export function registerStory(descriptor: StoryDescriptor): () => void {
+60:  if ((descriptor.id === 'ring-p003068') !== (descriptor.kind === 'ring') || descriptor.version !== 1 || typeof descriptor.create !== 'function') throw new Error('Invalid inspection story')
+61:  if (!Number.isFinite(descriptor.duration) || descriptor.duration <= 0 || !descriptor.chapters.length) throw new Error('Invalid inspection duration')
+62:  let end = 0
+63:  for (const chapter of descriptor.chapters) {
+64:    if (!chapter.id || !chapter.label || chapter.start !== end || !Number.isFinite(chapter.end) || chapter.end <= chapter.start) throw new Error('Inspection chapters must be contiguous')
+65:    end = chapter.end
+66:  }
+67:  if (end !== descriptor.duration) throw new Error('Inspection chapters must cover the duration')
+68:  if (descriptor.kind === 'shaft' && !descriptor.assets.some(asset => asset.required)) throw new Error('Shaft inspection requires its asset bundle')
+69:  for (const asset of descriptor.assets) {
+70:    if (!asset.id || !asset.url || !Number.isFinite(asset.maxBytes) || asset.maxBytes <= 0) throw new Error('Invalid inspection asset')
+71:  }
+72:  if (stories.has(descriptor.id)) throw new Error('Inspection story already registered')
+73:  const registered: StoryDescriptor = Object.freeze({ ...descriptor,
+74:    chapters: Object.freeze(descriptor.chapters.map(chapter => Object.freeze({ ...chapter }))),
+75:    assets: Object.freeze(descriptor.assets.map(asset => Object.freeze({ ...asset }))),
+76:    entryWindow: Object.freeze([...descriptor.entryWindow] as [number, number]),
+77:  })
+78:  stories.set(descriptor.id, registered)
+79:  return () => { if (stories.get(descriptor.id) === registered) stories.delete(descriptor.id) }
+80:}
+81:export function getStoryDescriptor(id: StoryId): StoryDescriptor | undefined { return stories.get(id) }
+82:export function getStory(id: StoryId): StoryMetadata {
+83:  const descriptor = stories.get(id)
+84:  if (descriptor) return descriptor
+85:  if (id === ringStory.id) return ringStory
+86:  throw new Error('The shaft inspection is not available yet')
+87:}
+88:export function storyChapterAt(story: StoryMetadata, time: number): number {
+89:  for (let index = story.chapters.length - 1; index > 0; index--) if (time >= story.chapters[index].start) return index
+90:  return 0
+91:}
+
+hook: PostToolUse
+ succeeded in 1427ms:
+1:import { inspection, inspectionFailed } from '../../state/inspectionStore'
+2:
+3:/** A late success/rejection belongs only to the session that initiated that load. */
+4:export function inspectionLoadLease(epoch: number) {
+5:  let cancelled = false
+6:  const current = () => !cancelled && inspection.active && inspection.epoch === epoch
+7:  return { current, cancel() { cancelled = true }, fail(error: unknown) { if (current()) inspectionFailed(error, epoch) } }
+8:}
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Store, session, and story logic read cleanly against §3–§4. Now the DOM shell and CSS.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/components/RingInspection.tsx"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/components/RingInspection.css"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1459ms:
+1:import { useEffect, useRef, useState } from 'react'
+2:import { createPortal } from 'react-dom'
+3:import { enterInspection, exitInspection, getInspectionStory, inspection, playInspection, retryInspection, seekChapter, seekInspection, setInspectionSuspend, useInspection } from '../state/inspectionStore'
+4:import { ringStory } from '../scene/inspection/story'
+5:import { useQuality } from '../state/qualityStore'
+6:import { useScrollValue } from '../state/scrollStore'
+7:import { useNativeScrollChapter } from './staticChapter'
+8:import './RingInspection.css'
+9:
+10:function StaticFinish() {
+11:  return <figure className="ring-static">
+12:    <svg viewBox="0 0 520 220" role="img" aria-label="Smooth ring and diamond finish schematic. Knurl covers the outer diameter band; bore and shoulders remain smooth.">
+13:      <defs><pattern id="ring-diamonds" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 6L6 0L12 6L6 12Z" fill="none" stroke="#9babb4" strokeWidth="1.5" /></pattern></defs>
+14:      <g fill="#1a222b" stroke="#b3c0cc" strokeWidth="2"><rect x="35" y="50" width="170" height="105" rx="24" /><rect x="315" y="50" width="170" height="105" rx="24" /><path d="M39 78H201M39 128H201M319 78H481M319 128H481" /></g>
+15:      <rect x="319" y="80" width="162" height="46" fill="url(#ring-diamonds)" />
+16:      <path d="M230 104H290M280 94L290 104L280 114" stroke="#74d6ee" fill="none" />
+17:      <g fill="#d5e0e9" fontSize="14" textAnchor="middle"><text x="120" y="190">Smooth black</text><text x="400" y="190">Knurled black</text></g>
+18:    </svg>
+19:    <figcaption>Finish schematic · smooth shoulders and bore preserved.</figcaption>
+20:  </figure>
+21:}
+22:
+23:export function RingInspection() {
+24:  const state = useInspection()
+25:  const { tier, reducedMotion } = useQuality()
+26:  const progress = useScrollValue('progress')
+27:  const panel = useRef<HTMLDivElement>(null)
+28:  const returnButton = useRef<HTMLButtonElement>(null)
+29:  const seek = useRef<HTMLInputElement>(null)
+30:  const playhead = useRef<HTMLOutputElement>(null)
+31:  const [phase, setPhase] = useState('Smooth black')
+32:  const staticMode = tier === 'poster' || reducedMotion
+33:  const nativeChapter = useNativeScrollChapter(staticMode)
+34:  const story = getInspectionStory()
+35:  const controlEpoch = state.epoch
+36:
+37:  useEffect(() => {
+38:    if (!state.active) return
+39:    const target = state.trigger
+40:    const epoch = state.epoch, scrollX = state.scrollX, scrollY = state.scrollY
+41:    const html = document.documentElement
+42:    const overflow = html.style.overflow
+43:    document.body.classList.add('ring-inspection-open')
+44:    const lenis = (window as unknown as { __lenis?: { stop(): void; start(): void; isStopped: boolean; scrollTo(y: number, options: object): void } }).__lenis
+45:    const wasStopped = lenis?.isStopped
+46:    lenis?.stop()
+47:    html.style.overflow = 'hidden'
+48:    const outside = new Map<HTMLElement, boolean>()
+49:    const isolate = () => {
+50:      for (const node of document.body.children) {
+51:        if (!(node instanceof HTMLElement) || node.classList.contains('ring-inspection-portal') || outside.has(node)) continue
+52:        outside.set(node, node.inert); node.inert = true
+53:      }
+54:    }
+55:    isolate()
+56:    const observer = new MutationObserver(isolate)
+57:    observer.observe(document.body, { childList: true })
+58:    const chrome = [...(document.getElementById('root')?.children ?? [])].filter(node => !node.querySelector('canvas')) as HTMLElement[]
+59:    const opacity = chrome.map(node => node.style.opacity)
+60:    chrome.forEach(node => { node.style.opacity = '0' })
+61:    returnButton.current?.focus({ preventScroll: true })
+62:    const onKey = (event: KeyboardEvent) => {
+63:      if (event.key === 'Escape') { event.preventDefault(); exitInspection(); return }
+64:      if (event.key !== 'Tab') return
+65:      const controls = panel.current?.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input')
+66:      if (!controls?.length) return
+67:      const first = controls[0], last = controls[controls.length - 1]
+68:      if (event.shiftKey && (document.activeElement === first || !panel.current?.contains(document.activeElement))) { event.preventDefault(); last.focus() }
+69:      else if (!event.shiftKey && (document.activeElement === last || !panel.current?.contains(document.activeElement))) { event.preventDefault(); first.focus() }
+70:    }
+71:    const onFocus = (event: FocusEvent) => { if (!panel.current?.contains(event.target as Node)) returnButton.current?.focus({ preventScroll: true }) }
+72:    const onVisibility = () => setInspectionSuspend(document.hidden ? 'hidden' : 'none', epoch)
+73:    const guardScroll = () => { if (window.scrollY !== scrollY || window.scrollX !== scrollX) window.scrollTo(scrollX, scrollY) }
+74:    const preventScroll = (event: Event) => { if (!panel.current?.contains(event.target as Node)) event.preventDefault() }
+75:    document.addEventListener('keydown', onKey, true)
+76:    document.addEventListener('focusin', onFocus)
+77:    document.addEventListener('visibilitychange', onVisibility)
+78:    onVisibility()
+79:    window.addEventListener('scroll', guardScroll)
+80:    window.addEventListener('wheel', preventScroll, { passive: false })
+81:    window.addEventListener('touchmove', preventScroll, { passive: false })
+82:    const timer = window.setInterval(() => {
+83:      if (document.hidden || !inspection.active || inspection.epoch !== epoch) return
+84:      const probe = (window as unknown as { __inspection?: { phase: string } }).__inspection
+85:      if (probe) setPhase(probe.phase)
+86:      updatePlayhead()
+87:    }, 150)
+88:    updatePlayhead()
+89:    return () => {
+90:      clearInterval(timer)
+91:      observer.disconnect()
+92:      document.removeEventListener('keydown', onKey, true)
+93:      document.removeEventListener('focusin', onFocus)
+94:      document.removeEventListener('visibilitychange', onVisibility)
+95:      window.removeEventListener('scroll', guardScroll)
+96:      window.removeEventListener('wheel', preventScroll)
+97:      window.removeEventListener('touchmove', preventScroll)
+98:      html.style.overflow = overflow
+99:      document.body.classList.remove('ring-inspection-open')
+100:      outside.forEach((inert, node) => { node.inert = inert })
+101:      chrome.forEach((node, i) => { node.style.opacity = opacity[i] })
+102:      lenis?.scrollTo(scrollY, { immediate: true, force: true })
+103:      window.scrollTo(scrollX, scrollY)
+104:      if (!wasStopped) lenis?.start()
+105:      const available = (node: HTMLElement | null): node is HTMLElement => Boolean(node?.isConnected && !node.closest('[inert]') && node.getClientRects().length && !node.hasAttribute('disabled'))
+106:      const replacement = document.querySelector<HTMLElement>('.ring-inspection-entry button')
+107:      const fallback = document.querySelector<HTMLElement>('[data-chapter="0"]') ?? document.querySelector<HTMLElement>('main') ?? document.body
+108:      const focus = available(target) ? target : available(replacement) ? replacement : fallback
+109:      const tabindex = focus.getAttribute('tabindex')
+110:      if (tabindex === null && !focus.matches('button,input,select,textarea,a[href],summary,[contenteditable="true"]')) {
+111:        focus.setAttribute('tabindex', '-1')
+112:        focus.addEventListener('blur', () => { if (focus.getAttribute('tabindex') === '-1') focus.removeAttribute('tabindex') }, { once: true })
+113:      }
+114:      focus.focus({ preventScroll: true })
+115:    }
+116:  }, [state.active, state.epoch])
+117:
+118:  function updatePlayhead() {
+119:    const text = `${inspection.time.toFixed(1)} / ${inspection.duration.toFixed(1)} s`
+120:    if (seek.current) {
+121:      seek.current.value = String(inspection.time)
+122:      seek.current.setAttribute('aria-valuetext', text)
+123:    }
+124:    if (playhead.current) playhead.current.value = text
+125:  }
+126:
+127:  useEffect(() => {
+128:    if (state.active && staticMode && !state.static) { setInspectionSuspend('context'); exitInspection() }
+129:  }, [state.active, state.static, staticMode])
+130:
+131:  return <>
+132:    {(state.active || (staticMode ? nativeChapter < 2 : progress > ringStory.entryWindow[0] && progress < ringStory.entryWindow[1])) && <div className="ring-inspection-entry" style={{ visibility: state.active ? 'hidden' : 'visible' }}>
+133:      <span>P003068 · Ring Switch</span>
+134:      <button onClick={event => enterInspection(event.currentTarget, staticMode)} aria-haspopup="dialog">Inspect the finish <span aria-hidden="true">↗</span></button>
+135:    </div>}
+136:    {state.active && createPortal(<div className={`ring-inspection-portal ${state.static ? 'ring-inspection-static' : ''}`}>
+137:      <div ref={panel} className="ring-inspection-dialog" role="dialog" aria-modal="true" aria-labelledby="ring-inspection-title" aria-describedby="ring-inspection-description">
+138:        <header><div><p>{state.kind === 'ring' ? 'P003068' : 'P001835'} / MANUFACTURING</p><h2 id="ring-inspection-title">{state.kind === 'ring' ? 'Ring Switch' : 'Input Shaft'}</h2></div><button ref={returnButton} onClick={exitInspection}>← Return to narrative</button></header>
+139:        <div className="ring-inspection-copy"><p id="ring-inspection-description">{state.kind === 'ring' ? 'A smooth surface becomes a tactile diamond grip. The shoulders and bore stay smooth.' : 'A revised shaft and its supports, shown in an assembled study.'}</p></div>
+140:        {state.static && <StaticFinish />}
+141:        <footer>
+142:          {state.static ? <ol><li>Smooth black → aluminium</li><li>Paired rollers traverse the outer band</li><li>Rollers clear the OD before withdrawal</li><li>Knurled black → assembly</li></ol> : <>
+143:            <p role="status" aria-live="polite">{state.status === 'loading' || state.status === 'compiling' ? 'Preparing the study…' : state.status === 'error' ? 'The study could not load. Return or try again.' : phase}</p>
+144:            <div className="ring-inspection-seek">
+145:              <label htmlFor="inspection-seek">Seek</label>
+146:              <output ref={playhead} htmlFor="inspection-seek" aria-live="off">{state.time.toFixed(1)} / {state.duration.toFixed(1)} s</output>
+147:              <input ref={seek} id="inspection-seek" type="range" min="0" max={state.duration} step="0.01" defaultValue={state.time} disabled={state.status !== 'ready'} onChange={event => { seekInspection(event.currentTarget.valueAsNumber, controlEpoch); updatePlayhead() }} />
+148:            </div>
+149:            {story.chapters.length > 1 && <nav aria-label="Study chapters" className="ring-inspection-chapters">{story.chapters.map((chapter, index) => <button key={chapter.id} disabled={state.status !== 'ready'} aria-current={state.time >= chapter.start && (state.time < chapter.end || index === story.chapters.length - 1) ? 'step' : undefined} onClick={() => { seekChapter(index, controlEpoch); updatePlayhead() }}>{chapter.label}</button>)}</nav>}
+150:            <div className="ring-inspection-controls">
+151:              <button disabled={state.status !== 'ready'} onClick={() => playInspection(false, controlEpoch)}>{state.userPlaying ? 'Pause' : 'Play sequence'}</button>
+152:              <button disabled={state.status !== 'ready'} onClick={() => { playInspection(true, controlEpoch); updatePlayhead() }}>Replay</button>
+153:              {state.status === 'error' && <button onClick={() => retryInspection(controlEpoch)}>Try again</button>}
+154:            </div>
+155:          </>}
+156:          <p className="ring-inspection-note">{state.kind === 'ring' ? 'Cinematic finish study. Tooling proportions are reference based.' : 'Revised assembly study. Return restores the original narrative.'}</p>
+157:        </footer>
+158:      </div>
+159:    </div>, document.body)}
+160:  </>
+161:}
+
+hook: PostToolUse
+ succeeded in 1472ms:
+1:.ring-inspection-entry{position:fixed;bottom:2rem;left:3rem;z-index:25;display:flex;gap:1rem;align-items:center;font:12px monospace;color:#bac7d0;text-shadow:0 2px 8px #000}
+2:.ring-inspection-entry button,.ring-inspection-dialog button{min-height:44px;border:1px solid #657786;border-radius:3px;padding:10px 16px;background:#0c1720;color:#e8f1f5;cursor:pointer;font:inherit}
+3:.ring-inspection-entry button:hover,.ring-inspection-dialog button:hover{border-color:#8ce4f2;background:#172b38}
+4:.ring-inspection-entry button:focus-visible,.ring-inspection-dialog button:focus-visible{outline:3px solid #88e7ff;outline-offset:4px}
+5:.ring-inspection-dialog button:disabled{opacity:.45;cursor:wait}
+6:.ring-inspection-portal{position:fixed;inset:0;z-index:100;pointer-events:none;background:linear-gradient(180deg,rgba(3,7,11,.95),transparent 27%,transparent 66%,rgba(3,7,11,.95))}
+7:.ring-inspection-dialog{box-sizing:border-box;height:100%;display:flex;flex-direction:column;padding:max(24px,env(safe-area-inset-top)) 4vw max(24px,env(safe-area-inset-bottom));color:#d8e5ee;font-family:inherit;pointer-events:none}
+8:.ring-inspection-dialog header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;pointer-events:auto}
+9:.ring-inspection-dialog header p{font:11px monospace;letter-spacing:0;color:#92acbd;margin:0 0 8px}
+10:.ring-inspection-dialog h2{font-size:28px;line-height:1.1;margin:0;font-weight:500}
+11:.ring-inspection-copy{max-width:350px;font-size:13px;line-height:1.6;color:#a9bac8;margin-top:12px}
+12:.ring-inspection-dialog footer{margin-top:auto;max-width:480px;pointer-events:auto;font-size:13px;line-height:1.5}
+13:.ring-inspection-controls{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}.ring-inspection-note{font-size:11px;color:#94a7b5;max-width:440px}
+14:.ring-inspection-dialog button{min-width:44px}
+15:.ring-inspection-seek{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:0 12px;margin-top:8px}
+16:.ring-inspection-seek output{text-align:right;font:12px monospace;font-variant-numeric:tabular-nums}
+17:.ring-inspection-seek input{grid-column:1/-1;width:100%;min-width:0;height:44px;margin:0;accent-color:#8ce4f2;cursor:pointer}
+18:.ring-inspection-seek input:focus-visible{outline:3px solid #88e7ff;outline-offset:2px}
+19:.ring-inspection-chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0}
+20:.ring-inspection-chapters button[aria-current]{border-color:#8ce4f2}
+21:.ring-inspection-dialog header>div{min-width:0}
+22:.ring-inspection-dialog button{white-space:normal;overflow-wrap:break-word;letter-spacing:0}
+23:.ring-inspection-static{background:#050a10;pointer-events:auto;overflow:auto}.ring-static{margin:20px auto;width:min(650px,100%)}.ring-static svg{width:100%}.ring-static figcaption{font-size:12px;color:#a8b9c5;text-align:center}.ring-inspection-static footer{margin:20px auto 0;max-width:650px}.ring-inspection-static ol{padding-left:20px;line-height:1.8}
+24:@media(max-width:600px){.ring-inspection-entry{left:20px;right:20px;bottom:20px;justify-content:space-between;gap:8px;font-size:10px}.ring-inspection-dialog{padding-left:20px;padding-right:20px}.ring-inspection-dialog h2{font-size:24px}.ring-inspection-copy{max-width:290px;font-size:12px}.ring-inspection-dialog footer{font-size:12px}.ring-inspection-dialog header button{max-width:148px;flex-shrink:0}.ring-inspection-static .ring-inspection-dialog{height:auto;min-height:100%}}
+25:@media(max-height:540px){.ring-inspection-portal{overflow:auto;pointer-events:auto}.ring-inspection-dialog{height:auto;min-height:100%}.ring-inspection-dialog footer{margin-top:32px}}
+26:@media(prefers-reduced-motion:reduce){.ring-inspection-dialog *{animation:none!important;transition:none!important}}
+27:.ring-inspection-open #root > :not(:has(canvas)){opacity:0!important}
+28:/* Leave station navigation and the device safe area reachable in the static view. */
+29:@media(max-width:600px){.ring-inspection-entry{bottom:calc(5.5rem + env(safe-area-inset-bottom))}}
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+DOM shell matches the claims so far. Now the four test files, then evidence and the live vitest run.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/story.test.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/state/inspectionStore.test.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/session.test.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "src/scene/inspection/lifecycle.test.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 456ms:
+1:import { describe, expect, it, vi } from 'vitest'
+2:import { getStory, getStoryDescriptor, registerStory, ringStory, storyChapterAt, type StoryDescriptor } from './story'
+3:
+4:describe('story descriptor registry', () => {
+5:  const descriptor = (): StoryDescriptor => ({ ...ringStory, create: vi.fn<StoryDescriptor['create']>() })
+6:  it('keeps legacy ring metadata independent of runtime factories and rejects absent shaft assets/runtime', () => {
+7:    expect(getStory('ring-p003068')).toBe(ringStory); expect(getStoryDescriptor('ring-p003068')).toBeUndefined()
+8:    expect(() => getStory('shaft-p001835')).toThrow('not available')
+9:    expect(() => registerStory({ ...descriptor(), id: 'shaft-p001835', kind: 'shaft', assets: [] })).toThrow('asset bundle')
+10:    expect(() => registerStory({ ...descriptor(), create: undefined } as unknown as StoryDescriptor)).toThrow('Invalid inspection story')
+11:  })
+12:  it('validates complete chapter coverage and duration', () => {
+13:    expect(() => registerStory({ ...descriptor(), duration: NaN })).toThrow('duration')
+14:    expect(() => registerStory({ ...descriptor(), duration: 20 })).toThrow('cover the duration')
+15:    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Gap', start: 1, end: 12 }] })).toThrow('contiguous')
+16:    expect(() => registerStory({ ...descriptor(), chapters: [{ id: 'bad', label: 'Bad', start: 0, end: NaN }] })).toThrow('contiguous')
+17:  })
+18:  it('copies mutable authored metadata so later edits cannot change a live playhead contract', () => {
+19:    const input = descriptor(), unregister = registerStory(input)
+20:    try {
+21:      expect(getStory(input.id)).not.toBe(input); expect(getStory(input.id).chapters).not.toBe(input.chapters)
+22:      expect(Object.isFrozen(getStory(input.id).chapters[0])).toBe(true)
+23:      expect(() => registerStory(input)).toThrow('already registered')
+24:      expect(storyChapterAt(getStory(input.id), 12)).toBe(0)
+25:    } finally { unregister(); unregister() }
+26:    expect(getStoryDescriptor(input.id)).toBeUndefined()
+27:  })
+28:})
+
+ succeeded in 433ms:
+1:import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+2:import { advanceInspectionPlayhead, enterInspection, exitInspection, inspection, inspectionFailed, inspectionTelemetry, playInspection, retryInspection, seekChapter, seekInspection, setInspectionRuntime, setInspectionStatus, setInspectionSuspend, subscribeInspection } from './inspectionStore'
+3:import { getScrollState, setScrollState } from './scrollStore'
+4:import { registerStory, ringStory, type StoryDescriptor, type StoryRuntime } from '../scene/inspection/story'
+5:import { Color, Group, Vector3 } from 'three'
+6:
+7:beforeEach(() => { vi.stubGlobal('window', { scrollY: 0, scrollX: 0 }) })
+8:afterEach(() => { exitInspection(); vi.unstubAllGlobals() })
+9:describe('inspection context ownership', () => {
+10:  it('snapshots full narrative context independently and restores it on exit/reentry', () => {
+11:    vi.stubGlobal('window', { scrollY: 12450, scrollX: 0 })
+12:    setScrollState({ progress: .35, chapter: 1, chapterProgress: .6, hotspotId: 'rotor', materialMode: 'blueprint', velocity: 0 })
+13:    const trigger = {} as HTMLElement
+14:    enterInspection(trigger, false)
+15:    expect(inspection.entry).not.toBe(getScrollState())
+16:    expect(inspection.entry?.hotspotId).toBe('rotor')
+17:    expect(inspectionTelemetry.entryScroll).toBe(12450)
+18:    setScrollState({ progress: .8, hotspotId: null, materialMode: 'solid' })
+19:    exitInspection()
+20:    expect(getScrollState().progress).toBe(.35)
+21:    expect(getScrollState().hotspotId).toBe('rotor')
+22:    expect(getScrollState().materialMode).toBe('blueprint')
+23:    const epoch = inspection.epoch
+24:    enterInspection(trigger, false)
+25:    expect(inspection.epoch).toBe(epoch + 1)
+26:    expect(inspection.time).toBe(0)
+27:    expect(inspection.playing).toBe(false)
+28:  })
+29:  it('never automatically spins and disallows play in static and failed modes', () => {
+30:    vi.stubGlobal('window', { scrollY: 0, scrollX: 0 })
+31:    enterInspection({} as HTMLElement, true); playInspection(true)
+32:    expect(inspection.playing).toBe(false)
+33:    exitInspection(); enterInspection({} as HTMLElement, false)
+34:    inspection.status = 'error'; playInspection(true)
+35:    expect(inspection.playing).toBe(false)
+36:    inspection.status = 'ready'; playInspection()
+37:    expect(inspection.playing).toBe(true)
+38:    playInspection(); expect(inspection.playing).toBe(false)
+39:  })
+40:})
+41:
+42:describe('session controls and absolute playhead', () => {
+43:  const trigger = {} as HTMLElement
+44:  function ready() { enterInspection(trigger, false); setInspectionStatus('ready') }
+45:
+46:  it('keeps the two-argument ring entry and never starts playback on readiness', () => {
+47:    enterInspection(trigger, false)
+48:    expect(inspection.kind).toBe('ring'); expect(inspection.storyId).toBe('ring-p003068')
+49:    expect(inspection.duration).toBe(ringStory.duration); expect(ringStory.assets[0].url).toBe('models/knurling-tool.glb')
+50:    expect(inspection.session?.id).toBe(inspection.epoch); expect(inspection.session?.current()).toBe(true)
+51:    setInspectionStatus('compiling'); expect(inspection.playing).toBe(false)
+52:    setInspectionStatus('ready'); expect(inspection.playing).toBe(false)
+53:  })
+54:  it('restores once, aborts owned resources once and drops saved session references', () => {
+55:    setScrollState({ progress: .35, chapter: 1, materialMode: 'exploded' })
+56:    ready()
+57:    const session = inspection.session!, dispose = vi.fn()
+58:    session.own({ dispose })
+59:    exitInspection()
+60:    expect(session.signal.aborted).toBe(true); expect(session.current()).toBe(false); expect(dispose).toHaveBeenCalledTimes(1)
+61:    expect(inspection.entry).toBeNull(); expect(inspection.session).toBeNull(); expect(inspection.trigger).toBeNull()
+62:    setScrollState({ progress: .7, chapter: 2, materialMode: 'solid' })
+63:    const notify = vi.fn(), unsubscribe = subscribeInspection(notify)
+64:    exitInspection(); unsubscribe()
+65:    expect(getScrollState().progress).toBe(.7); expect(getScrollState().materialMode).toBe('solid'); expect(notify).not.toHaveBeenCalled()
+66:    expect(inspection.exiting).toBe(true)
+67:    advanceInspectionPlayhead(.01, 1); expect(inspection.exiting).toBe(false)
+68:  })
+69:  it('rejects stale failures, readiness, retry, seek and playback after immediate re-entry', () => {
+70:    ready(); const epoch = inspection.epoch, session = inspection.session!
+71:    exitInspection(); ready()
+72:    inspectionFailed(new Error('late boundary'), epoch); session.fail('late parse')
+73:    setInspectionStatus('compiling', epoch); seekInspection(5, epoch); playInspection(true, epoch); retryInspection(epoch)
+74:    expect(inspection.status).toBe('ready'); expect(inspection.time).toBe(0); expect(inspection.userPlaying).toBe(false)
+75:    expect(inspection.error).toBe(''); expect(inspection.epoch).toBe(epoch + 1)
+76:  })
+77:  it('retries a failed session with a new epoch and the saved narrative context', () => {
+78:    setScrollState({ progress: .4, hotspotId: 'rotor', materialMode: 'blueprint' })
+79:    ready(); const session = inspection.session!, epoch = inspection.epoch
+80:    inspectionFailed('download denied', epoch)
+81:    expect(inspection.suspend).toBe('error'); expect(inspection.playing).toBe(false)
+82:    setInspectionSuspend('none'); expect(inspection.suspend).toBe('error')
+83:    retryInspection(epoch)
+84:    expect(session.signal.aborted).toBe(true); expect(inspection.epoch).toBe(epoch + 1)
+85:    expect(inspection.status).toBe('loading'); expect(inspection.entry?.materialMode).toBe('blueprint')
+86:    expect(inspection.entry?.hotspotId).toBe('rotor'); expect(inspection.trigger).toBe(trigger)
+87:  })
+88:  it('keeps manual pause across hiding and suspends entry blending as well as playback', () => {
+89:    ready(); playInspection(); playInspection()
+90:    setInspectionSuspend('hidden'); advanceInspectionPlayhead(5, 1)
+91:    expect(inspection.entryElapsed).toBe(0); expect(inspection.time).toBe(0)
+92:    setInspectionSuspend('none'); expect(inspection.userPlaying).toBe(false); expect(inspection.playing).toBe(false)
+93:    advanceInspectionPlayhead(.02, 2)
+94:    expect(inspection.entryElapsed).toBe(.02); expect(inspection.time).toBe(0)
+95:  })
+96:  it('retains playback intent while hidden and resumes by at most one clamped delta', () => {
+97:    ready(); playInspection(); advanceInspectionPlayhead(.02, 1)
+98:    setInspectionSuspend('hidden'); advanceInspectionPlayhead(500, 2)
+99:    expect(inspection.userPlaying).toBe(true); expect(inspection.playing).toBe(false)
+100:    expect(inspection.time).toBe(.02); expect(inspection.entryElapsed).toBe(.02)
+101:    setInspectionSuspend('none'); advanceInspectionPlayhead(500, 3)
+102:    expect(inspection.playing).toBe(true); expect(inspection.time).toBeCloseTo(.07); expect(inspection.entryElapsed).toBeCloseTo(.07)
+103:  })
+104:  it('advances once per frame stamp, rejects bad delta/stamps and never broadcasts continuous ticks', () => {
+105:    ready(); playInspection()
+106:    const notify = vi.fn(), unsubscribe = subscribeInspection(notify)
+107:    advanceInspectionPlayhead(.02, 1); advanceInspectionPlayhead(.02, 1); advanceInspectionPlayhead(.02, 0)
+108:    advanceInspectionPlayhead(NaN, 2); advanceInspectionPlayhead(-1, 2); advanceInspectionPlayhead(.02, NaN)
+109:    expect(inspection.time).toBe(.02); expect(inspection.entryElapsed).toBe(.02); expect(notify).not.toHaveBeenCalled()
+110:    advanceInspectionPlayhead(1, 2); unsubscribe()
+111:    expect(inspection.time).toBeCloseTo(.07)
+112:  })
+113:  it('seeks absolutely without starting play and replays from zero after holding the end', () => {
+114:    ready(); playInspection(); seekInspection(11.98)
+115:    expect(inspection.time).toBe(11.98); expect(inspection.playing).toBe(false)
+116:    playInspection(); advanceInspectionPlayhead(.05, 1)
+117:    expect(inspection.time).toBe(12); expect(inspection.active).toBe(true); expect(inspection.playing).toBe(false)
+118:    playInspection(true); expect(inspection.time).toBe(0); expect(inspection.playing).toBe(true)
+119:    seekInspection(-10); expect(inspection.time).toBe(0); expect(inspection.userPlaying).toBe(false)
+120:    seekInspection(500); expect(inspection.time).toBe(12)
+121:    seekChapter(0); expect(inspection.time).toBe(0)
+122:    seekInspection(NaN); seekChapter(-1); seekChapter(1); expect(inspection.time).toBe(0)
+123:  })
+124:  it('does not broadcast same-chapter paused seeks but does broadcast chapter/end transitions', () => {
+125:    ready()
+126:    const notify = vi.fn(), unsubscribe = subscribeInspection(notify)
+127:    seekInspection(3); seekInspection(5); expect(notify).not.toHaveBeenCalled()
+128:    seekInspection(12); expect(notify).toHaveBeenCalledTimes(1)
+129:    seekInspection(10); expect(notify).toHaveBeenCalledTimes(2)
+130:    unsubscribe()
+131:  })
+132:  it('uses a registered story duration and absolute chapter data without mounting a shaft runtime', () => {
+133:    const descriptor: StoryDescriptor = {
+134:      ...ringStory, id: 'shaft-p001835', kind: 'shaft', duration: 43,
+135:      chapters: [{ id: 'groove', label: 'Why the groove was needed', start: 0, end: 15 }, { id: 'materials', label: 'Material attempts', start: 15, end: 22.6 }, { id: 'process', label: 'Changing the process', start: 22.6, end: 35 }, { id: 'supports', label: 'Moving the supports', start: 35, end: 43 }],
+136:      assets: [{ ...ringStory.assets[0], id: 'test-bundle', url: 'test-only.glb' }],
+137:      create: vi.fn<StoryDescriptor['create']>(),
+138:    }
+139:    const unregister = registerStory(descriptor)
+140:    try {
+141:      inspectionTelemetry.ringBounds.radius = .1; inspectionTelemetry.toolMeshes = 2; inspectionTelemetry.maskSamples.bore = 1
+142:      expect(() => enterInspection(trigger, true, descriptor.id)).toThrow('static shaft')
+143:      expect(inspection.active).toBe(false)
+144:      enterInspection(trigger, false, descriptor.id, 2)
+145:      expect(inspection.duration).toBe(43); expect(inspection.kind).toBe('shaft'); expect(inspection.time).toBe(22.6)
+146:      expect(inspectionTelemetry.ringBounds.radius).toBe(0); expect(inspectionTelemetry.toolMeshes).toBe(0); expect(inspectionTelemetry.maskSamples.bore).toBe(0)
+147:      expect(inspectionTelemetry.chapter).toBe(2); expect(descriptor.create).not.toHaveBeenCalled()
+148:      seekChapter(3); expect(inspection.time).toBe(35); expect(inspection.playing).toBe(false)
+149:      setInspectionStatus('ready'); seekInspection(42.98); playInspection(); advanceInspectionPlayhead(.05, 1)
+150:      expect(inspection.time).toBe(43); expect(inspection.active).toBe(true); expect(inspection.playing).toBe(false)
+151:      playInspection(true); expect(inspection.time).toBe(0)
+152:    } finally { exitInspection(); unregister() }
+153:  })
+154:  it('does not expose an unimplemented shaft session or alter the ring entry snapshot', () => {
+155:    const epoch = inspection.epoch
+156:    expect(() => enterInspection(trigger, false, 'shaft-p001835')).toThrow('not available')
+157:    expect(inspection.active).toBe(false); expect(inspection.epoch).toBe(epoch); expect(inspection.entry).toBeNull()
+158:  })
+159:  it('publishes a synchronous runtime once, owns its disposal, and rejects stale mount attempts', async () => {
+160:    const runtime = (ready: Promise<void>): StoryRuntime => ({
+161:      root: new Group(), ready, frame: { time: 0, chapter: 0, phase: 'test', discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true },
+162:      camera: { valid: false, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 },
+163:      render: { background: new Color(), fogNear: 0, fogFar: 10, envIntensity: 1, envRotationY: 0, bloom: 0, aberration: 0, dofBokeh: 0, exposure: 1 },
+164:      resources: { geometries: 0, materials: 0, textures: 0, meshes: 0 },
+165:      sample: vi.fn(), apply: vi.fn(), telemetry: vi.fn(), dispose: vi.fn(),
+166:    })
+167:    enterInspection(trigger, false)
+168:    const epoch = inspection.epoch, session = inspection.session!
+169:    let complete!: () => void
+170:    const study = runtime(new Promise(resolve => { complete = resolve }))
+171:    const notify = vi.fn(), unsubscribe = subscribeInspection(notify)
+172:    expect(setInspectionRuntime(study, epoch)).toBe(true); expect(inspection.runtime).toBe(study)
+173:    expect(setInspectionRuntime(study, epoch)).toBe(true); expect(notify).toHaveBeenCalledTimes(1)
+174:    expect(inspection.status).toBe('loading'); expect(inspection.playing).toBe(false)
+175:    exitInspection(); expect(inspection.runtime).toBeNull(); expect(study.dispose).toHaveBeenCalledTimes(1)
+176:    enterInspection(trigger, false)
+177:    complete(); await study.ready
+178:    expect(session.current()).toBe(false); expect(inspection.status).toBe('loading'); expect(inspection.runtime).toBeNull()
+179:    const stale = runtime(Promise.resolve())
+180:    expect(setInspectionRuntime(stale, epoch)).toBe(false); expect(stale.dispose).toHaveBeenCalledTimes(1)
+181:    unsubscribe()
+182:  })
+183:})
+
+hook: PostToolUse
+hook: PostToolUse
+ succeeded in 675ms:
+1:import { describe, expect, it, vi } from 'vitest'
+2:import { createStorySession, createVisibleLoadDeadline, sharedStoryRefCount } from './session'
+3:
+4:describe('inspection session resources', () => {
+5:  it('aborts before disposing and disposes each owned resource once including late completions', () => {
+6:    const session = createStorySession('ring', { id: 1, current: () => true, fail: vi.fn() })
+7:    const dispose = vi.fn(() => expect(session.signal.aborted).toBe(true)), resource = { dispose }
+8:    session.own(resource); session.own(resource)
+9:    session.cancel(); session.cancel(); session.own(resource)
+10:    const late = { dispose: vi.fn() }; session.own(late); session.own(late)
+11:    expect(dispose).toHaveBeenCalledTimes(1); expect(late.dispose).toHaveBeenCalledTimes(1); expect(session.current()).toBe(false)
+12:  })
+13:  it('releases shared borrows without disposing the cache and tolerates a broken cleanup', () => {
+14:    const session = createStorySession('ring', { id: 2, current: () => true, fail: vi.fn() })
+15:    const other = createStorySession('ring', { id: 3, current: () => true, fail: vi.fn() })
+16:    const release = session.borrowShared('cached-ring'); session.borrowShared('cached-ring'); other.borrowShared('cached-ring')
+17:    expect(sharedStoryRefCount('cached-ring')).toBe(3)
+18:    release(); release(); expect(sharedStoryRefCount('cached-ring')).toBe(2)
+19:    session.own({ dispose() { throw new Error('lost context') } }); const dispose = vi.fn(); session.own({ dispose })
+20:    expect(() => session.cancel()).not.toThrow(); expect(dispose).toHaveBeenCalledTimes(1)
+21:    expect(sharedStoryRefCount('cached-ring')).toBe(1)
+22:    session.borrowShared('cached-ring')(); expect(sharedStoryRefCount('cached-ring')).toBe(1)
+23:    other.cancel(); expect(sharedStoryRefCount('cached-ring')).toBe(0)
+24:  })
+25:  it('only reports errors from the current, uncancelled session', () => {
+26:    let active = true
+27:    const fail = vi.fn(), session = createStorySession('shaft', { id: 4, current: () => active, fail })
+28:    session.fail('current'); active = false; session.fail('stale'); active = true; session.cancel(); session.fail('cancelled')
+29:    expect(fail).toHaveBeenCalledExactlyOnceWith('current')
+30:  })
+31:  it('counts visible load time once, ignores hidden time, and cannot fail a cancelled visit', () => {
+32:    const fail = vi.fn(), session = createStorySession('ring', { id: 5, current: () => true, fail })
+33:    const deadline = createVisibleLoadDeadline(session, 15000)
+34:    deadline.advance(10000, true); deadline.advance(60000, false); deadline.advance(NaN, true); deadline.advance(-1, true)
+35:    expect(fail).not.toHaveBeenCalled()
+36:    deadline.advance(4999, true); expect(fail).not.toHaveBeenCalled()
+37:    deadline.advance(1, true); deadline.advance(10000, true); expect(fail).toHaveBeenCalledTimes(1)
+38:    const cancelled = createVisibleLoadDeadline(session, 1); session.cancel(); cancelled.advance(1, true)
+39:    expect(fail).toHaveBeenCalledTimes(1)
+40:  })
+41:})
+
+hook: PostToolUse
+ succeeded in 897ms:
+1:import { afterEach, describe, expect, it, vi } from 'vitest'
+2:import { BoxGeometry, Group, Mesh, MeshStandardMaterial } from 'three'
+3:import { captureNarrativeFade } from './narrativeFade'
+4:import { inspectionLoadLease } from './loadLease'
+5:import { waitForPrograms } from './compileLease'
+6:import { inspection, notifyInspection, subscribeInspection } from '../../state/inspectionStore'
+7:import { newFrame, sampleInspection } from './timeline'
+8:
+9:afterEach(() => { vi.useRealTimers(); inspection.active = false })
+10:describe('inspection lifetimes and restoration', () => {
+11:  it('fades real mesh materials without changing original opacity, depth write or visibility', () => {
+12:    const original = new MeshStandardMaterial({ opacity: .15, transparent: true, depthWrite: false })
+13:    const compile = original.onBeforeCompile
+14:    const group = new Group(), mesh = new Mesh(new BoxGeometry(), original), hidden = new Mesh(new BoxGeometry(), original)
+15:    hidden.visible = false; group.add(mesh, hidden)
+16:    let disposed = 0
+17:    const fade = captureNarrativeFade(group, [])
+18:    const clone = mesh.material as MeshStandardMaterial
+19:    clone.addEventListener('dispose', () => disposed++)
+20:    expect(clone.onBeforeCompile).toBe(compile)
+21:    fade.apply(.5, false); expect(clone.opacity).toBeCloseTo(.075); expect(mesh.visible).toBe(true)
+22:    fade.apply(0, false); expect(mesh.visible).toBe(false)
+23:    fade.apply(.5, true); expect(mesh.visible).toBe(true); expect(hidden.visible).toBe(false)
+24:    expect(original.opacity).toBe(.15); expect(original.transparent).toBe(true); expect(original.depthWrite).toBe(false)
+25:    fade.restore(); fade.restore()
+26:    expect(mesh.material).toBe(original); expect(mesh.visible).toBe(true); expect(hidden.visible).toBe(false); expect(disposed).toBe(1)
+27:    mesh.geometry.dispose(); hidden.geometry.dispose(); original.dispose()
+28:  })
+29:  it('keeps the return angle stopped and bounds the prior deceleration velocity', () => {
+30:    for (let t = 10.5; t < 12; t += .01) expect(sampleInspection(t + .01, newFrame()).angle - sampleInspection(t, newFrame()).angle).toBeCloseTo(0, 10)
+31:    for (let t = 8.2; t < 10.49; t += .01) expect((sampleInspection(t + .01, newFrame()).angle - sampleInspection(t, newFrame()).angle) / .01).toBeLessThan(3)
+32:    expect(sampleInspection(12, newFrame()).angle / (2 * Math.PI)).toBeCloseTo(8)
+33:  })
+34:  it('rejects canceled and stale epoch failures while permitting the current load to fail', () => {
+35:    inspection.active = true; inspection.epoch = 10; inspection.status = 'loading'
+36:    const old = inspectionLoadLease(10); old.cancel()
+37:    inspection.epoch = 11; inspection.status = 'ready'; old.fail(new Error('late abort'))
+38:    expect(inspection.status).toBe('ready')
+39:    const stale = inspectionLoadLease(10); stale.fail(new Error('old epoch'))
+40:    expect(inspection.status).toBe('ready')
+41:    const current = inspectionLoadLease(11); current.fail(new Error('recoverable load'))
+42:    expect(inspection.status).toBe('error'); expect(inspection.error).toBe('recoverable load')
+43:  })
+44:  it('publishes delayed CAD readiness as a discrete lifecycle notification', () => {
+45:    let reads = 0
+46:    const unsubscribe = subscribeInspection(() => { if (inspection.source) reads++ })
+47:    inspection.source = null; notifyInspection(); expect(reads).toBe(0)
+48:    inspection.source = new Group(); notifyInspection(); expect(reads).toBe(1)
+49:    unsubscribe(); inspection.source = null
+50:  })
+51:  it('stops async shader polling before accessing disposed renderer properties', async () => {
+52:    vi.useFakeTimers()
+53:    const material = new MeshStandardMaterial(), programFor = vi.fn(() => undefined)
+54:    const promise = waitForPrograms(new Set([material]), programFor, () => true)
+55:    await vi.runAllTimersAsync(); expect(await promise).toBe(false); expect(programFor).not.toHaveBeenCalled()
+56:    const disposed = waitForPrograms(new Set([material]), programFor, () => false)
+57:    await vi.runAllTimersAsync(); expect(await disposed).toBe(true)
+58:    material.dispose()
+59:  })
+60:})
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Tests cover the checklist densely. Now the DOM evidence report and its verifier script.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/verify-shell.mjs"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n --no-heading "" "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/dom-report.json"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 862ms:
+1:{
+2:  "scope": "Real DOM shell in isolation; no inspection canvas/runtime",
+3:  "url": "http://localhost:5201/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/harness.html",
+4:  "started": "2026-10-05T18:28:41.233Z",
+5:  "cases": [
+6:    {
+7:      "name": "desktop",
+8:      "errors": [],
+9:      "cadRequests": [],
+10:      "assertions": [
+11:        "Entry/focus guard and dynamic outside inert isolation",
+12:        "Loading/compiling/error Return, absolute seek/replay, pause/hide, Tab wrapping and epoch retry",
+13:        "44px controls and non-overlapping viewport layout",
+14:        "Escape restores scroll, inert values and trigger focus",
+15:        "Removed trigger recovers focus at JGun chapter"
+16:      ],
+17:      "controls": [
+18:        {
+19:          "label": "← Return to narrative",
+20:          "width": 186.953125,
+21:          "height": 44,
+22:          "inside": true
+23:        },
+24:        {
+25:          "label": "inspection-seek",
+26:          "width": 480,
+27:          "height": 44,
+28:          "inside": true
+29:        },
+30:        {
+31:          "label": "Play sequence",
+32:          "width": 119.28125,
+33:          "height": 44,
+34:          "inside": true
+35:        },
+36:        {
+37:          "label": "Replay",
+38:          "width": 74.46875,
+39:          "height": 44,
+40:          "inside": true
+41:        },
+42:        {
+43:          "label": "Try again",
+44:          "width": 87.71875,
+45:          "height": 44,
+46:          "inside": true
+47:        }
+48:      ],
+49:      "removedTriggerFocus": {
+50:        "element": "<section data-chapter=\"0\" tabindex=\"-1\"><h1>JGun narrative</h1><button id=\"outside-focus\">Narrative action</button></section>",
+51:        "inert": false,
+52:        "progress": null
+53:      }
+54:    },
+55:    {
+56:      "name": "narrow",
+57:      "errors": [],
+58:      "cadRequests": [],
+59:      "assertions": [
+60:        "Entry/focus guard and dynamic outside inert isolation",
+61:        "Loading/compiling/error Return, absolute seek/replay, pause/hide, Tab wrapping and epoch retry",
+62:        "44px controls and non-overlapping viewport layout",
+63:        "Escape restores scroll, inert values and trigger focus",
+64:        "Removed trigger recovers focus at JGun chapter"
+65:      ],
+66:      "controls": [
+67:        {
+68:          "label": "← Return to narrative",
+69:          "width": 148,
+70:          "height": 58,
+71:          "inside": true
+72:        },
+73:        {
+74:          "label": "inspection-seek",
+75:          "width": 350,
+76:          "height": 44,
+77:          "inside": true
+78:        },
+79:        {
+80:          "label": "Play sequence",
+81:          "width": 112.734375,
+82:          "height": 44,
+83:          "inside": true
+84:        },
+85:        {
+86:          "label": "Replay",
+87:          "width": 71.359375,
+88:          "height": 44,
+89:          "inside": true
+90:        },
+91:        {
+92:          "label": "Try again",
+93:          "width": 83.578125,
+94:          "height": 44,
+95:          "inside": true
+96:        }
+97:      ],
+98:      "removedTriggerFocus": {
+99:        "element": "<section data-chapter=\"0\" tabindex=\"-1\"><h1>JGun narrative</h1><button id=\"outside-focus\">Narrative action</button></section>",
+100:        "inert": false,
+101:        "progress": null
+102:      }
+103:    },
+104:    {
+105:      "name": "reduced-narrow",
+106:      "errors": [],
+107:      "cadRequests": [],
+108:      "assertions": [
+109:        "Entry/focus guard and dynamic outside inert isolation",
+110:        "44px controls and non-overlapping viewport layout",
+111:        "Escape restores scroll, inert values and trigger focus"
+112:      ],
+113:      "controls": [
+114:        {
+115:          "label": "← Return to narrative",
+116:          "width": 148,
+117:          "height": 58,
+118:          "inside": true
+119:        }
+120:      ]
+121:    },
+122:    {
+123:      "name": "poster-narrow",
+124:      "errors": [],
+125:      "cadRequests": [],
+126:      "assertions": [
+127:        "Entry/focus guard and dynamic outside inert isolation",
+128:        "44px controls and non-overlapping viewport layout",
+129:        "Escape restores scroll, inert values and trigger focus"
+130:      ],
+131:      "controls": [
+132:        {
+133:          "label": "← Return to narrative",
+134:          "width": 148,
+135:          "height": 58,
+136:          "inside": true
+137:        }
+138:      ]
+139:    }
+140:  ],
+141:  "failures": []
+142:}
+
+hook: PostToolUse
+ succeeded in 1545ms:
+1:import { chromium } from 'playwright'
+2:import fs from 'node:fs/promises'
+3:import path from 'node:path'
+4:import { fileURLToPath } from 'node:url'
+5:
+6:const output = path.dirname(fileURLToPath(import.meta.url))
+7:const base = process.argv.find(arg => arg.startsWith('--url='))?.slice(6) ?? 'http://localhost:5201'
+8:const harness = '/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/harness.html'
+9:const report = { scope: 'Real DOM shell in isolation; no inspection canvas/runtime', url: base + harness, started: new Date().toISOString(), cases: [], failures: [] }
+10:const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=d3d11'] })
+11:function check(condition, message) { if (!condition) throw new Error(message) }
+12:try {
+13:  for (const config of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'narrow', width: 390, height: 844 }, { name: 'reduced-narrow', width: 390, height: 844, reduced: true }, { name: 'poster-narrow', width: 390, height: 844, poster: true }]) {
+14:    const context = await browser.newContext({ viewport: { width: config.width, height: config.height }, reducedMotion: config.reduced ? 'reduce' : 'no-preference' })
+15:    const page = await context.newPage(), result = { name: config.name, errors: [], cadRequests: [], assertions: [], controls: [] }
+16:    report.cases.push(result)
+17:    page.on('pageerror', error => result.errors.push(error.message))
+18:    page.on('console', message => { if (message.type() === 'error') result.errors.push(message.text()) })
+19:    page.on('request', request => { if (/\.glb(?:\?|$)/.test(request.url())) result.cadRequests.push(request.url()) })
+20:    const pass = message => result.assertions.push(message)
+21:    try {
+22:      await page.goto(report.url)
+23:      await page.waitForFunction(() => window.shellProof)
+24:      check((await page.evaluate(() => window.shellProof.getQuality().tier)) === 'full', 'Harness requires working WebGL detection, even though it mounts no scene')
+25:      if (config.poster) await page.evaluate(() => window.shellProof.forcePoster())
+26:      await page.evaluate(() => scrollTo(0, 320))
+27:      const trigger = page.getByRole('button', { name: 'Inspect the finish' })
+28:      await trigger.click()
+29:      const dialog = page.getByRole('dialog'), returnButton = page.getByRole('button', { name: 'Return to narrative' })
+30:      await dialog.waitFor()
+31:      check(await returnButton.evaluate(node => document.activeElement === node), 'Entry did not focus Return')
+32:      check(await page.evaluate(() => document.getElementById('root').inert), 'Narrative is not inert')
+33:      await page.evaluate(() => document.getElementById('outside-focus').focus())
+34:      check(await returnButton.evaluate(node => document.activeElement === node), 'Focus escaped the dialog')
+35:      await page.evaluate(() => { const node = document.createElement('button'); node.id = 'late-outside'; document.body.appendChild(node) })
+36:      await page.waitForFunction(() => document.getElementById('late-outside').inert)
+37:      pass('Entry/focus guard and dynamic outside inert isolation')
+38:      if (config.reduced || config.poster) {
+39:        check(await dialog.locator('svg').count() === 1, 'Ring static fallback missing')
+40:        check(await dialog.locator('input').count() === 0, 'Static fallback exposes playhead')
+41:      } else {
+42:        check(await returnButton.isEnabled(), 'Return unavailable during loading')
+43:        check(await page.getByLabel('Seek', { exact: true }).isDisabled(), 'Seek available before readiness')
+44:        await page.evaluate(() => window.shellProof.status('compiling'))
+45:        check(await returnButton.isEnabled(), 'Return unavailable during compile')
+46:        await page.evaluate(() => window.shellProof.status('ready'))
+47:        await page.getByLabel('Seek', { exact: true }).focus(); await page.keyboard.press('End')
+48:        check(await page.evaluate(() => window.shellProof.inspection.time === 12 && !window.shellProof.inspection.playing), 'Seek did not hold absolute end')
+49:        await page.getByRole('button', { name: 'Replay', exact: true }).click()
+50:        check(await page.evaluate(() => window.shellProof.inspection.time === 0 && window.shellProof.inspection.playing), 'Replay did not reset/play')
+51:        await page.getByRole('button', { name: 'Pause', exact: true }).click()
+52:        await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: true }); document.dispatchEvent(new Event('visibilitychange')) })
+53:        check(await page.evaluate(() => window.shellProof.inspection.suspend === 'hidden' && !window.shellProof.inspection.userPlaying), 'Hide lost manual pause')
+54:        await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: false }); document.dispatchEvent(new Event('visibilitychange')) })
+55:        check(await page.evaluate(() => !window.shellProof.inspection.playing), 'Hide/show resumed manual pause')
+56:        await page.getByRole('button', { name: 'Replay', exact: true }).focus(); await page.keyboard.press('Tab')
+57:        check(await returnButton.evaluate(node => document.activeElement === node), 'Tab did not wrap to Return')
+58:        await page.keyboard.press('Shift+Tab')
+59:        check(await page.getByRole('button', { name: 'Replay', exact: true }).evaluate(node => document.activeElement === node), 'Shift Tab did not wrap to Replay')
+60:        const epoch = await page.evaluate(() => window.shellProof.inspection.epoch)
+61:        await page.evaluate(() => window.shellProof.fail('denied CAD fetch'))
+62:        check(await returnButton.isEnabled(), 'Return unavailable on error')
+63:        await page.getByRole('button', { name: 'Try again' }).click()
+64:        check(await page.evaluate(epoch => window.shellProof.inspection.epoch === epoch + 1 && window.shellProof.inspection.status === 'loading', epoch), 'Retry did not replace failed epoch')
+65:        await page.evaluate(() => window.shellProof.fail('second failure'))
+66:        pass('Loading/compiling/error Return, absolute seek/replay, pause/hide, Tab wrapping and epoch retry')
+67:      }
+68:      result.controls = await dialog.locator('button,input').evaluateAll(nodes => nodes.map(node => { const rect = node.getBoundingClientRect(); return { label: node.textContent || node.getAttribute('id'), width: rect.width, height: rect.height, inside: rect.left >= 0 && rect.right <= innerWidth && rect.top >= 0 && rect.bottom <= innerHeight } }))
+69:      check(result.controls.every(control => control.width >= 44 && control.height >= 44 && control.inside), 'Control is smaller than 44px or outside viewport')
+70:      const overlap = await dialog.evaluate(node => {
+71:        const header = node.querySelector('header').getBoundingClientRect(), copy = node.querySelector('.ring-inspection-copy').getBoundingClientRect(), footer = node.querySelector('footer').getBoundingClientRect()
+72:        return header.bottom > copy.top || copy.bottom > footer.top
+73:      })
+74:      check(!overlap, 'Header/copy/footer overlap')
+75:      await page.screenshot({ path: path.join(output, `${config.name}.png`) })
+76:      pass('44px controls and non-overlapping viewport layout')
+77:      await page.keyboard.press('Escape'); await dialog.waitFor({ state: 'detached' })
+78:      check(await page.evaluate(() => !document.getElementById('root').inert && document.getElementById('already-inert').inert && !document.getElementById('late-outside').inert && !document.body.classList.contains('ring-inspection-open') && scrollY === 320), 'Return failed inert/scroll restoration')
+79:      check(await trigger.evaluate(node => document.activeElement === node), 'Original trigger focus not restored')
+80:      check(await trigger.evaluate(node => node.tabIndex === 0), 'Return made the trigger untabbable')
+81:      pass('Escape restores scroll, inert values and trigger focus')
+82:      if (!config.reduced && !config.poster) {
+83:        await page.evaluate(() => window.shellProof.openRemovedTrigger())
+84:        await dialog.waitFor(); await returnButton.click(); await dialog.waitFor({ state: 'detached' })
+85:        result.removedTriggerFocus = await page.evaluate(() => ({ element: document.activeElement?.outerHTML, inert: document.getElementById('root').inert, progress: window.shellProof.inspection.entry }))
+86:        check(await page.evaluate(() => document.activeElement === document.querySelector('[data-chapter="0"]')), 'Removed trigger fallback did not focus JGun chapter')
+87:        pass('Removed trigger recovers focus at JGun chapter')
+88:      }
+89:      check(result.cadRequests.length === 0, 'Isolated DOM shell fetched CAD')
+90:      check(result.errors.length === 0, `Browser errors: ${result.errors.join('; ')}`)
+91:    } catch (error) { result.failure = String(error); report.failures.push(`${config.name}: ${error}`) }
+92:    finally { await context.close() }
+93:  }
+94:} finally {
+95:  await browser.close()
+96:  await fs.writeFile(path.join(output, 'dom-report.json'), JSON.stringify(report, null, 2) + '\n')
+97:}
+98:console.log(JSON.stringify({ cases: report.cases.map(item => ({ name: item.name, assertions: item.assertions, failure: item.failure })), failures: report.failures }, null, 2))
+99:if (report.failures.length) process.exitCode = 1
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Evidence is consistent with the claims. Final step: run the authorized focused vitest pass.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts 2>&1 | Select-Object -Last 25' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ exited 1 in 2613ms:
+
+X [ERROR] Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+
+failed to load config from C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\vite.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../..": Access is denied.
+error: Could not resolve "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\vite.config.ts"
+    at failureErrorWithLog (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1752:15)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1211:25
+    at runOnEndCallbacks (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1592:45)
+    at buildResponseToResult (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1209:7)
+    at C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:1236:16
+    at responseCallbacks.<computed> (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:886:9)
+    at handleIncomingPacket (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:941:12)
+    at Socket.readFromStdout (C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\esbuild\lib\main.js:864:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Vitest hit the read-only sandbox boundary (esbuild walks above the workspace root while loading vite.config.ts). Trying the native config loader to stay inside the sandbox.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'npx vitest run --configLoader runner src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts 2>&1 | Select-Object -Last 20' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+2026-10-05T19:14:03.340967Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=operation_not_permitted path=unknown
+ exited 1 in 4117ms:
+ ❯ src/scene/inspection/story.test.ts (0 test)
+ ❯ src/scene/inspection/lifecycle.test.ts (0 test)
+ ❯ src/state/inspectionStore.test.ts (0 test)
+ ❯ src/scene/inspection/session.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/state/inspectionStore.test.ts [ src/state/inspectionStore.test.ts ]
+ FAIL  src/scene/inspection/lifecycle.test.ts [ src/scene/inspection/lifecycle.test.ts ]
+ FAIL  src/scene/inspection/session.test.ts [ src/scene/inspection/session.test.ts ]
+ FAIL  src/scene/inspection/story.test.ts [ src/scene/inspection/story.test.ts ]
+Error: EPERM: operation not permitted, mkdir 'C:\Users\Markimus\AppData\Local\Temp\KrNqn--cuTbPAMlQdStka\ssr'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  no tests
+   Start at  15:14:02
+   Duration  653ms (transform 0ms, setup 0ms, import 0ms, tests 0ms, environment 1ms)
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+Config loads now, but the sandbox blocks vitest's temp-directory writes outside the workspace. One more attempt with temp redirected inside the repo.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$env:TMP='"'C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\node_modules\\.tmp'; "'$env:TEMP=$env:TMP; New-Item -ItemType Directory -Force -Path $env:TMP | Out-Null; npx vitest run --configLoader runner src/state/inspectionStore.test.ts src/scene/inspection/session.test.ts src/scene/inspection/story.test.ts src/scene/inspection/lifecycle.test.ts 2>&1 | Select-Object -Last 16' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+2026-10-05T19:14:24.571703Z  WARN codex_sandboxing::violation: recorded sandbox violation: resource=filesystem backend=windows_sandbox reason=operation_not_permitted path=unknown
+ exited 1 in 2546ms:
+New-Item: 
+Line |
+   2 |  … P=$env:TMP; New-Item -ItemType Directory -Force -Path $env:TMP | Out- …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Access to the path 'C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\.tmp' is denied.
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/state/inspectionStore.test.ts [ src/state/inspectionStore.test.ts ]
+ FAIL  src/scene/inspection/lifecycle.test.ts [ src/scene/inspection/lifecycle.test.ts ]
+ FAIL  src/scene/inspection/session.test.ts [ src/scene/inspection/session.test.ts ]
+ FAIL  src/scene/inspection/story.test.ts [ src/scene/inspection/story.test.ts ]
+Error: EPERM: operation not permitted, mkdir 'C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\node_modules\.tmp\godgjRowI1dGoHGlPh7pa\ssr'
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  no tests
+   Start at  15:14:24
+   Duration  318ms (transform 0ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+**Verdict: SHIP** (W1 lifecycle/DOM shell leaf only; shared InspectionScene/CameraRig integration explicitly not certified).
+
+**Test rerun:** blocked by this session's read-only sandbox — vitest cannot create its temp/cache dirs (`EPERM mkdir`, even with `TMP` redirected into the repo; the default loader also cannot read above the workspace root). This is an environment limit, not a code failure. I instead traced all 26 test bodies line-by-line against the implementation; the gate's recorded 14:27:59 run of the exact four-file command is consistent with the current source.
+
+**Findings**
+
+- LOW `src/components/RingInspection.tsx:71` — the focus guard listens for `focusin`; programmatic focus moved to `document.body` fires no `focusin` in some engines, so the guard would not refocus. Tab wrap, click-outside (inert), and focusable-element escape are all covered and proven in `dom-report.json`; residual risk is minimal.
+- LOW `src/state/inspectionStore.ts:19` — the legacy `playing` setter writes `userPlaying` without epoch/status checks. Intentional compat bridge for the old ring driver (comment at :18), removed by W2; harmless while mounted.
+- INFO `src/state/inspectionStore.ts:150-155` — retry restarts at chapter 0/time 0 rather than the failed chapter. Unspecified in §3–§4; acceptable.
+- INFO `src/scene/inspection/session.ts:69-77` — `createVisibleLoadDeadline` is unwired support; the production 15 s wall timer still lives in W2's scene, matching the leaf boundary in notes.md:31.
+
+**Checklist results**
+
+- Idempotent exit: `inspectionStore.ts:93-104` no-ops unless active; `setScrollState(entry)` exactly once; proven by test :54-68 (second exit after scroll mutation changes nothing, no notify).
+- Epoch scoping: `current()` :105 gates fail :131, status :137, runtime :142 (stale runtime disposed, same-instance repeat is a no-op), retry :150, controls/seek/play :106-123; session `fail` :37 and `loadLease` :6-7 are epoch-scoped; tests :69-76, :159-182, session.test :25-30, lifecycle.test :34-43.
+- Playhead: :158-170 mutates scalars only, clamps delta 0.05, rejects repeated/older/NaN stamps and negative delta, freezes time and `entryElapsed` while suspended (no catch-up: tests :88-103), manual pause survives hide/show (test :88-95 plus live DOM proof).
+- Absolute seek/chapter/replay and end hold: :113-123, :106-112; end clamps at duration with no auto-exit (tests :113-118, :132-153); DOM proof verifies seek-to-end hold and Replay reset.
+- DOM: focus trap :62-71, dynamic inert with recorded restore :48-57/:100, removed-trigger fallback chain with temporary tabindex :105-114, 44px via CSS :2/:14/:17, labeled seek with `aria-valuetext` :118-125/:145-147, Return/Escape enabled in every status :63/:138; `dom-report.json` shows four passing cases, zero errors, zero CAD fetches.
+- Session ownership: abort-before-dispose, dispose-once with broken-cleanup tolerance, late-`own` disposal, refcounted borrows released without disposing the cache (`session.ts:28-64`, tests :5-24).
+
+Documented deviations (runtime `root`/`ready`, DI session factory) match notes.md and the accepted contract-review clarifications.
+hook: Stop
+hook: Stop Completed
+tokens used
+92,477
+**Verdict: SHIP** (W1 lifecycle/DOM shell leaf only; shared InspectionScene/CameraRig integration explicitly not certified).
+
+**Test rerun:** blocked by this session's read-only sandbox — vitest cannot create its temp/cache dirs (`EPERM mkdir`, even with `TMP` redirected into the repo; the default loader also cannot read above the workspace root). This is an environment limit, not a code failure. I instead traced all 26 test bodies line-by-line against the implementation; the gate's recorded 14:27:59 run of the exact four-file command is consistent with the current source.
+
+**Findings**
+
+- LOW `src/components/RingInspection.tsx:71` — the focus guard listens for `focusin`; programmatic focus moved to `document.body` fires no `focusin` in some engines, so the guard would not refocus. Tab wrap, click-outside (inert), and focusable-element escape are all covered and proven in `dom-report.json`; residual risk is minimal.
+- LOW `src/state/inspectionStore.ts:19` — the legacy `playing` setter writes `userPlaying` without epoch/status checks. Intentional compat bridge for the old ring driver (comment at :18), removed by W2; harmless while mounted.
+- INFO `src/state/inspectionStore.ts:150-155` — retry restarts at chapter 0/time 0 rather than the failed chapter. Unspecified in §3–§4; acceptable.
+- INFO `src/scene/inspection/session.ts:69-77` — `createVisibleLoadDeadline` is unwired support; the production 15 s wall timer still lives in W2's scene, matching the leaf boundary in notes.md:31.
+
+**Checklist results**
+
+- Idempotent exit: `inspectionStore.ts:93-104` no-ops unless active; `setScrollState(entry)` exactly once; proven by test :54-68 (second exit after scroll mutation changes nothing, no notify).
+- Epoch scoping: `current()` :105 gates fail :131, status :137, runtime :142 (stale runtime disposed, same-instance repeat is a no-op), retry :150, controls/seek/play :106-123; session `fail` :37 and `loadLease` :6-7 are epoch-scoped; tests :69-76, :159-182, session.test :25-30, lifecycle.test :34-43.
+- Playhead: :158-170 mutates scalars only, clamps delta 0.05, rejects repeated/older/NaN stamps and negative delta, freezes time and `entryElapsed` while suspended (no catch-up: tests :88-103), manual pause survives hide/show (test :88-95 plus live DOM proof).
+- Absolute seek/chapter/replay and end hold: :113-123, :106-112; end clamps at duration with no auto-exit (tests :113-118, :132-153); DOM proof verifies seek-to-end hold and Replay reset.
+- DOM: focus trap :62-71, dynamic inert with recorded restore :48-57/:100, removed-trigger fallback chain with temporary tabindex :105-114, 44px via CSS :2/:14/:17, labeled seek with `aria-valuetext` :118-125/:145-147, Return/Escape enabled in every status :63/:138; `dom-report.json` shows four passing cases, zero errors, zero CAD fetches.
+- Session ownership: abort-before-dispose, dispose-once with broken-cleanup tolerance, late-`own` disposal, refcounted borrows released without disposing the cache (`session.ts:28-64`, tests :5-24).
+
+Documented deviations (runtime `root`/`ready`, DI session factory) match notes.md and the accepted contract-review clarifications.

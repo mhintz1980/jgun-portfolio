@@ -1,0 +1,1099 @@
+Reading additional input from stdin...
+2026-10-05T18:14:49.446404Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:14:49.447392Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:14:49.512888Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: anthropic/claude-sonnet-5-5
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10d46-8afa-7c81-ba31-ec3f81033e9d
+--------
+user
+Read-only mathematical review of camera/profile_study.py and current clearance.py in project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05. Producer is OpenAI. Read accepted docs/jgun-manufacturing-inspection-plan.md and geometry/FINDINGS.md. Shaping must use SHAFT_P001835_ORIG legacy grooved geometry; hob uses SHAFT_P001835_HOBBED_NEW approved. Need matched illustrative conjugate shaper and helical generating hob on nonstandard measured 10-tooth profile, source CAD immutable. Assess inverse envelope feasibility algorithm and advise minimal robust continuous surface/path error bound and full holder clearance test. Do not edit files, do not launch Blender or make mutations. Return concise actionable method review with mathematical issues. This is method consultation, final evidence review will occur separately.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-05T18:14:50.342300Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+2026-10-05T18:14:50.521427Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-05T18:14:50.521477Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+I should check memory for the jgun-portfolio task first, then move on to actually reading the relevant files in this read-only sandbox using the exec command.
+
+
+codex
+I'll start by reading the evidence folder, the accepted plan, and the findings.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem -Recurse -File 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05' | Select-Object -First 80 FullName,Length | Format-Table -AutoSize | Out-String -Width 250; (Get-Content 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile_study.py' | Measure-Object -Line).Lines; Get-ChildItem -Recurse -Filter clearance.py 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05' | % FullName; Get-ChildItem -Recurse -Filter FINDINGS.md 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05' | % FullName; Test-Path 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/docs/jgun-manufacturing-inspection-plan.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+hook: PostToolUse
+ succeeded in 984ms:
+
+FullName                                                                                                                                                                                      Length
+--------                                                                                                                                                                                      ------
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline.md                                            2122
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\contract-review.md                                     1946
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\lifecycle-contract.md                                 26220
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\PLAN.md                                                5641
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\review-ledger.md                                       3145
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-black-finish.png               244644
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-contact.png                    504292
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-entry-fade.png                 352705
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-isolated.png                   410776
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.5.png                272606
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-0.png                  262835
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-od-mask-1.png                  272185
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-return-fade.png                319292
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\desktop-returned.png                   294539
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-black-finish.png                119926
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-contact.png                     229373
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-entry-fade.png                  169258
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-isolated.png                    195948
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.5.png                 128238
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-0.png                   123790
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-od-mask-1.png                   127953
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-return-fade.png                 120164
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\mobile-returned.png                    119169
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\baseline-ring\report.json                             85204
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\blockout.json                                  58954
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\blockout.py                                    15261
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.json                                 10356
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.log                                    855
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.py                                   17252
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\compose_and_verify.py                           8717
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit-cad.png                   538485
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-cutter-exit.png                       413069
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-hobbing-cad.png                       562658
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-hobbing.png                           442366
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn-cad.png              574310
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-runout-withdrawn.png                  456316
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview-cad.png                516148
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-shaft-overview.png                    399339
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-after-cad.png                 566767
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-after.png                     451405
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-before-cad.png                564573
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\desktop-support-before.png                    448561
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\index.html                                      3078
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\method-review.log                                  0
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit-cad.png                    122366
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-cutter-exit.png                        110292
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-hobbing-cad.png                        136239
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-hobbing.png                            124638
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn-cad.png               133087
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-runout-withdrawn.png                   123761
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview-cad.png                 112923
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-shaft-overview.png                     103938
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-after-cad.png                  137889
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-after.png                      127368
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-before-cad.png                 137376
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\mobile-support-before.png                     126351
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\profile_study.py                                4783
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\profile-study.log                                923
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\run-blockout.ps1                                 544
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\tool-conventions.md                             9901
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\verification.json                               9236
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\assets.md                                        1926
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\camera.md                                         742
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\core-assets.md                                    766
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\lifecycle-contract.md                            2897
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\ring-sampler.md                                  1731
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\gates\shell.md                                          833
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\early-datum.json                              9595
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\FINDINGS.md                                   3758
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\measurement-summary.json                      8110
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\measurement.log                            1214191
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\source-registry.json                        321113
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\early-datum.json                 9595
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\measurement-summary.json         8110
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\parent-rerun\source-registry.json           321113
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\early-datum.json               9595
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\measurement-summary.json       8110
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\reviewer-rerun\source-registry.json         321112
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.json        157721
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\mechanical-review\contact-classification.stderr.log       0
+
+
+92
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\camera\clearance.py
+C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\geometry\FINDINGS.md
+True
+
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/geometry/FINDINGS.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance.log'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile_study.py'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.log'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance.py'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1563ms:
+"""Read-only section measurements and inverse generating-envelope feasibility.
+
+All dimensions here are millimetres. No source object is modified or saved.
+"""
+import hashlib
+import json
+import math
+from pathlib import Path
+
+import bpy
+import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
+
+OUT = Path(__file__).resolve().parent
+SRC = Path(r'C:\Projects\CAD\jgun-input-shaft-hobbed\shifted')
+BLEND = SRC / 'input-shaft-assembly-parts-v1.blend'
+SHA = '88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89'
+assert hashlib.sha256(BLEND.read_bytes()).hexdigest() == SHA
+bpy.ops.wm.open_mainfile(filepath=str(BLEND))
+deps = bpy.context.evaluated_depsgraph_get()
+
+def tree_for(name):
+    ob = bpy.data.objects[name]
+    me = ob.evaluated_get(deps).to_mesh()
+    return BVHTree.FromPolygons([tuple((ob.matrix_world @ v.co) * 1000) for v in me.vertices],
+                               [tuple(p.vertices) for p in me.polygons])
+
+ANG = np.arange(7200) * 2 * math.pi / 7200
+
+def section(tree, y):
+    rr = []
+    for phi in ANG:
+        d = Vector((math.cos(phi), 0, math.sin(phi)))
+        p, _, _, _ = tree.ray_cast(d * 20 + Vector((0, y, 0)), -d, 20)
+        assert p is not None, (y, phi)
+        rr.append(math.hypot(p.x, p.z))
+    return np.array(rr)
+
+trees = {k: tree_for(n) for k, n in [('legacy', 'SHAFT_P001835_ORIG'),
+                                    ('approved', 'SHAFT_P001835_HOBBED_NEW')]}
+profiles = {k: {str(y): section(t, y).tolist() for y in [3.5, 6.0, 9.0, 9.72, 10.92, 13.78, 14.18]}
+            for k, t in trees.items()}
+print('PROFILE_SECTIONS', {k: {y: [min(r), max(r)] for y, r in v.items()} for k, v in profiles.items()}, flush=True)
+
+work = np.array(profiles['legacy']['6.0'])
+def radial(r, phi):
+    return np.interp(phi % (2 * math.pi), np.r_[ANG, 2 * math.pi], np.r_[r, r[0]])
+
+def rotate(x, z, a):
+    return x * np.cos(a) + z * np.sin(a), -x * np.sin(a) + z * np.cos(a)
+
+def inverse_shaper(teeth, centre, offset):
+    # Trim each tool ray to the first work-solid encounter over the full coupled
+    # cycle. First encounter is necessary because a larger radius can skip a solid.
+    beta = ANG
+    radius = np.full(len(beta), centre - min(work) - offset)
+    rs = np.arange(0, float(radius[0]) + .005, .01)
+    for alpha in np.arange(0, 2 * math.pi / teeth, math.radians(.05)):
+        dx, dz = rotate(np.cos(beta), np.sin(beta), alpha)
+        x = rs[:, None] * dx[None, :]
+        z = rs[:, None] * dz[None, :] + centre
+        x, z = rotate(x, z, teeth / 10 * alpha)
+        gap = np.hypot(x, z) - radial(work, np.arctan2(z, x))
+        hit = gap < offset
+        first = np.argmax(hit, axis=0)
+        radius = np.minimum(radius, np.where(hit.any(0), rs[np.maximum(0, first - 1)], radius))
+    # Enforce exact tooth repetition by the most restrictive ray of each sector.
+    sector = len(beta) // teeth
+    radius = np.tile(radius.reshape(teeth, sector).min(0), teeth)
+    return radius
+
+def forward_shaper(tool_r, teeth, centre):
+    remaining = np.full(len(ANG), 20.0)
+    worst_gap = 1e9
+    for alpha in np.arange(0, 2 * math.pi / teeth, math.radians(.025)):
+        x, z = rotate(tool_r * np.cos(ANG), tool_r * np.sin(ANG), alpha)
+        z += centre
+        x, z = rotate(x, z, teeth / 10 * alpha)
+        phi = np.arctan2(z, x) % (2 * math.pi)
+        rr = np.hypot(x, z)
+        worst_gap = min(worst_gap, float(np.min(rr - radial(work, phi))))
+        # Only the near/contact side contributes the removal envelope.
+        ok = rr < max(work) + .5
+        idx = np.round(phi[ok] / (2 * math.pi) * len(ANG)).astype(int) % len(ANG)
+        np.minimum.at(remaining, idx, rr[ok])
+    unvisited = remaining == 20
+    residual = np.minimum(remaining, max(work)) - work
+    return {'minimum_radial_gap_mm_sampled': worst_gap,
+            'maximum_unremoved_radial_stock_mm_sampled': float(residual.max()),
+            'rms_unremoved_radial_stock_mm_sampled': float(np.sqrt(np.mean(residual ** 2))),
+            'unvisited_angular_bins': int(unvisited.sum()),
+            'note': 'Feasibility diagnostic only; radial differences are not Euclidean clearance or continuous proof.'}
+
+results = []
+for teeth, centre in [(20, 15.5), (10, 10.5), (30, 20.5)]:
+    rr = inverse_shaper(teeth, centre, .04)
+    fit = forward_shaper(rr, teeth, centre)
+    print('MATCHED_SHAPER', teeth, centre, fit, flush=True)
+    results.append({'teeth': teeth, 'centre_z_mm': centre, 'radii_mm': rr.tolist(), 'fit': fit})
+
+(OUT / 'profile-study.json').write_text(json.dumps({'blender_version': bpy.app.version_string,
+    'source_sha256': SHA, 'angular_step_deg': .05, 'profiles': profiles,
+    'matched_shaper_diagnostics': results}, indent=2) + '\n', encoding='utf-8')
+assert hashlib.sha256(BLEND.read_bytes()).hexdigest() == SHA
+
+
+hook: PostToolUse
+ succeeded in 2417ms:
+"""Swept illustrative-tool clearance study against the accepted CAD.
+
+Run: Blender -b --factory-startup --python clearance.py
+Read-only on the approved source. Writes clearance.json beside this script.
+
+Two tests, each stated with what it can and cannot prove:
+1. HULL vs RETAINED NEIGHBOURS. The full rotational hull of each represented tool
+   (solid of revolution containing every tooth/ridge) is swept along the whole
+   infeed / feed / withdrawal path and its sampled surface is measured against the
+   journal-side shaft (y >= leadout end), housing, bearing and ring BVHs. The hull
+   contains the real tool, so a positive hull separation bounds the real separation.
+2. GENERATING-POSE FIT vs the accepted work zone. The ridged hob / toothed shaper
+   is placed with the signed work/tool coupling and scanned over tool phase and
+   work clock angle. Penetration depth into the accepted shaft is read from a
+   signed distance field. Any penetration found at a sample is a certain
+   violation; absence of penetration at samples is only a lower bound on fit
+   (tool phase is sampled, not swept continuously).
+"""
+import hashlib
+import json
+import math
+import time
+from pathlib import Path
+
+import bpy
+import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
+
+OUT = Path(__file__).resolve().parent
+SOURCE = Path(r'C:\Projects\CAD\jgun-input-shaft-hobbed\shifted')
+BLEND_SHA = '88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89'
+REPORT = json.loads((SOURCE / 'build-report.json').read_text())
+assert hashlib.sha256((SOURCE / 'input-shaft-assembly-parts-v1.blend').read_bytes()).hexdigest() == BLEND_SHA
+
+MM = 1e-3
+ROOT_R = REPORT['root_r_mm']          # 4.297858
+FACE_START = REPORT['y_face_mm']      # 3.174858
+FACE_END = REPORT['y_functional_end_mm']   # 9.524858
+LEADOUT_END = REPORT['leadout_end_y_mm']   # 14.063948
+# Uncertainty terms in mm: export/decode 0.002 and comparison/contact 0.02 are
+# the geometry worker's measured screens; the rest are computed per test below.
+U_EXPORT = 0.002
+U_COMPARE = 0.02
+
+bpy.ops.wm.open_mainfile(filepath=str(SOURCE / 'input-shaft-assembly-parts-v1.blend'))
+deps = bpy.context.evaluated_depsgraph_get()
+
+
+def bvh_for(name, poly_filter=None):
+    ob = bpy.data.objects[name]
+    me = ob.evaluated_get(deps).to_mesh()
+    verts = [tuple(ob.matrix_world @ v.co) for v in me.vertices]
+    polys = [tuple(p.vertices) for p in me.polygons]
+    if poly_filter is not None:
+        polys = [p for p in polys if poly_filter(np.mean([verts[i] for i in p], axis=0))]
+    return BVHTree.FromPolygons(verts, polys), len(polys)
+
+
+t0 = time.time()
+shaft_tree, shaft_polys = bvh_for('SHAFT_P001835_HOBBED_NEW')
+journal_tree, journal_polys = bvh_for('SHAFT_P001835_HOBBED_NEW', lambda c: c[1] >= LEADOUT_END * MM)
+neighbours = {'shaft_journal_side_y>=%.4f' % LEADOUT_END: journal_tree}
+neighbour_polys = {'shaft_journal_side_y>=%.4f' % LEADOUT_END: journal_polys}
+for key, name in (('housing', 'housing_NEW'), ('bearing', 'bearing_NEW'), ('ring', 'ring_NEW')):
+    neighbours[key], neighbour_polys[key] = bvh_for(name)
+print('G0_CLEAR_BVH', round(time.time() - t0, 1), 's', neighbour_polys, shaft_polys, flush=True)
+
+# ---------------- signed distance field of the accepted shaft work zone -------------
+H = 0.1 * MM
+LO = np.array([-7.0, 0.0, 2.0]) * MM
+HI = np.array([7.0, 15.0, 7.2]) * MM
+axes = [np.arange(LO[i], HI[i] + H / 2, H) for i in range(3)]
+SHAPE = tuple(len(a) for a in axes)
+t0 = time.time()
+sdf = np.empty(SHAPE, dtype=np.float32)
+for ix, x in enumerate(axes[0]):
+    for iy, y in enumerate(axes[1]):
+        for iz, z in enumerate(axes[2]):
+            loc, nor, idx, dist = shaft_tree.find_nearest(Vector((x, y, z)))
+            sdf[ix, iy, iz] = dist if (Vector((x, y, z)) - loc).dot(nor) >= 0 else -dist
+print('G0_CLEAR_SDF', round(time.time() - t0, 1), 's', SHAPE, flush=True)
+
+# Sign check: ray-parity vote on random in-grid points (non-manifold edge present).
+rng = np.random.default_rng(7)
+agree = total = 0
+for _ in range(1500):
+    p = LO + rng.random(3) * (HI - LO)
+    votes = 0
+    for d in ((1, 0, 0), (0, 0, 1), (-.577, .577, .577)):
+        hits, o = 0, Vector(p)
+        direction = Vector(d).normalized()
+        while True:
+            loc, nor, idx, dist = shaft_tree.ray_cast(o, direction)
+            if loc is None:
+                break
+            hits += 1
+            o = loc + direction * 1e-9
+        votes += hits % 2
+    inside_ray = votes >= 2
+    ip = ((p - LO) / H).round().astype(int)
+    inside_sdf = sdf[tuple(np.clip(ip, 0, np.array(SHAPE) - 1))] < 0
+    agree += int(inside_ray == inside_sdf)
+    total += 1
+SIGN_AGREEMENT = agree / total
+print('G0_CLEAR_SIGN_AGREEMENT', SIGN_AGREEMENT, flush=True)
+
+
+def sample_sdf(points):
+    """Trilinear sample of the shaft SDF; points outside the grid get +inf."""
+    g = (points - LO) / H
+    ok = np.all((g >= 0) & (g <= np.array(SHAPE) - 1.001), axis=1)
+    out = np.full(len(points), np.inf)
+    gg = g[ok]
+    i0 = np.floor(gg).astype(int)
+    f = gg - i0
+    acc = np.zeros(len(gg))
+    for dx in (0, 1):
+        for dy in (0, 1):
+            for dz in (0, 1):
+                w = (f[:, 0] if dx else 1 - f[:, 0]) * (f[:, 1] if dy else 1 - f[:, 1]) * (f[:, 2] if dz else 1 - f[:, 2])
+                acc += w * sdf[i0[:, 0] + dx, i0[:, 1] + dy, i0[:, 2] + dz]
+    out[ok] = acc
+    return out
+
+
+# ---------------- tool models (match blockout.py parameters) ------------------------
+class Hob:
+    def __init__(self, tip_r_mm=4.0, ridge_half_width=0.18, body_len_mm=16.0, module_mm=1.0, ridge_h_mm=1.0):
+        self.tip_r = tip_r_mm * MM
+        self.base_r = (tip_r_mm - ridge_h_mm) * MM
+        self.ridge_h = ridge_h_mm * MM
+        self.w = ridge_half_width
+        self.half_len = body_len_mm * MM / 2
+        self.pitch_d = (2 * tip_r_mm - 2 * module_mm) * MM  # tip - 2 modules? keeps 7/8 mm pair when tip 4 -> pitch 3.5 mm radius
+        self.gamma = math.asin(module_mm / (self.pitch_d / MM))
+        self.lead = math.pi * self.pitch_d * math.tan(self.gamma)
+        self.axis = np.array([math.cos(self.gamma), math.sin(self.gamma), 0.0])
+        self.cross = np.array([-math.sin(self.gamma), math.cos(self.gamma), 0.0])
+        step = 0.1 * MM
+        a = np.arange(-self.half_len, self.half_len + step / 2, step)
+        nphi = int(math.ceil(2 * math.pi * self.tip_r / step))
+        phi = np.arange(nphi) * 2 * math.pi / nphi
+        self.A, self.PHI = np.meshgrid(a, phi, indexing='ij')
+        self.A, self.PHI = self.A.ravel(), self.PHI.ravel()
+        # End caps: concentric rings out to the base radius.
+        rc = np.arange(step, self.base_r + step / 2, step)
+        cap_a, cap_phi, cap_r = [], [], []
+        for sgn in (-1, 1):
+            for r in rc:
+                n = max(8, int(math.ceil(2 * math.pi * r / step)))
+                ph = np.arange(n) * 2 * math.pi / n
+                cap_a.append(np.full(n, sgn * self.half_len)); cap_phi.append(ph); cap_r.append(np.full(n, r))
+        self.cap = (np.concatenate(cap_a), np.concatenate(cap_phi), np.concatenate(cap_r))
+
+    def points(self, alpha, centre):
+        """Tool points, RH rotation alpha about +axis, centre in metres (shaft-local)."""
+        rel = self.PHI - alpha
+        phase = (self.A / self.lead - rel / (2 * math.pi)) % 1.0
+        ridge = np.maximum(0, 1 - np.abs(phase - .5) / self.w)
+        r = self.base_r + self.ridge_h * ridge
+        gash = (np.floor((rel % (2 * math.pi)) / (2 * math.pi) * 160).astype(int) % 16) < 3
+        r = np.where(gash, self.base_r - 0.1 * MM, r)
+        ca, cp, cr = self.cap
+        a = np.concatenate([self.A, ca])
+        phi = np.concatenate([self.PHI, cp])
+        rr = np.concatenate([r, cr])
+        return (a[:, None] * self.axis + (rr * np.cos(phi))[:, None] * self.cross
+                + (rr * np.sin(phi))[:, None] * np.array([0, 0, 1.0]) + np.asarray(centre))
+
+    def hull_points(self, centre, step=0.1 * MM):
+        a = np.arange(-self.half_len, self.half_len + step / 2, step)
+        nphi = int(math.ceil(2 * math.pi * self.tip_r / step))
+        phi = np.arange(nphi) * 2 * math.pi / nphi
+        A, P = np.meshgrid(a, phi, indexing='ij')
+        rr = np.full(A.shape, self.tip_r)
+        pts = [(A.ravel()[:, None] * self.axis + (rr * np.cos(P)).ravel()[:, None] * self.cross
+                + (rr * np.sin(P)).ravel()[:, None] * np.array([0, 0, 1.0]))]
+        for sgn in (-1, 1):
+            for r in np.arange(step, self.tip_r, step):
+                n = max(8, int(math.ceil(2 * math.pi * r / step)))
+                ph = np.arange(n) * 2 * math.pi / n
+                pts.append(sgn * self.half_len * self.axis + (r * np.cos(ph))[:, None] * self.cross
+                           + (r * np.sin(ph))[:, None] * np.array([0, 0, 1.0]))
+        return np.vstack(pts) + np.asarray(centre)
+
+
+class Shaper:
+    """Disc pinion, axis +Y, 20 teeth, same 4-of-8-segment tooth block as blockout.py."""
+    def __init__(self, tip_r_mm=11.0, root_r_mm=8.75, thick_mm=1.2, teeth=20):
+        self.tip_r, self.root_r, self.thick, self.teeth = tip_r_mm * MM, root_r_mm * MM, thick_mm * MM, teeth
+        n = teeth * 8
+        self.vphi = np.arange(n + 1) * 2 * math.pi / n
+        self.vr = np.array([self.tip_r if (i % 8) in (2, 3, 4, 5) else self.root_r for i in range(n)] + [self.root_r])
+        step = 0.1 * MM
+        self.nph = int(math.ceil(2 * math.pi * self.tip_r / step))
+        self.phi = np.arange(self.nph) * 2 * math.pi / self.nph
+        self.ys = np.arange(-self.thick / 2, self.thick / 2 + step / 2, step)
+
+    def radius(self, phi_local):
+        return np.interp(phi_local % (2 * math.pi), self.vphi, self.vr)
+
+    def points(self, alpha, centre):
+        """alpha: RH rotation about +Y. phi increases x->z (that is RH about -Y), so local = world + alpha."""
+        loc = self.phi + alpha
+        r = self.radius(loc)
+        pts = []
+        for y in self.ys:
+            pts.append(np.column_stack((r * np.cos(self.phi), np.full(self.nph, y), r * np.sin(self.phi))))
+        for sgn in (-1, 1):
+            for k in range(1, 41):
+                rk = self.root_r - 0.2 * MM + (r - self.root_r + 0.2 * MM) * k / 40
+                pts.append(np.column_stack((rk * np.cos(self.phi), np.full(self.nph, sgn * self.thick / 2), rk * np.sin(self.phi))))
+        return np.vstack(pts) + np.asarray(centre)
+
+    def hull_points(self, centre, step=0.1 * MM):
+        pts = []
+        for y in self.ys:
+            pts.append(np.column_stack((self.tip_r * np.cos(self.phi), np.full(self.nph, y), self.tip_r * np.sin(self.phi))))
+        for sgn in (-1, 1):
+            for r in np.arange(step, self.tip_r, step):
+                n = max(8, int(math.ceil(2 * math.pi * r / step)))
+                ph = np.arange(n) * 2 * math.pi / n
+                pts.append(np.column_stack((r * np.cos(ph), np.full(n, sgn * self.thick / 2), r * np.sin(ph))))
+        return np.vstack(pts) + np.asarray(centre)
+
+
+def rot_y(points, angle):
+    """Rotate points RH about +Y by angle."""
+    c, s = math.cos(angle), math.sin(angle)
+    x, z = points[:, 0].copy(), points[:, 2].copy()
+    q = points.copy()
+    q[:, 0] = x * c + z * s
+    q[:, 2] = -x * s + z * c
+    return q
+
+
+def zone_of(y_mm):
+    if y_mm < FACE_START: return 'pre-face'
+    if y_mm <= FACE_END: return 'functional-face'
+    if y_mm <= LEADOUT_END: return 'leadout-ramp'
+    return 'journal-side'
+
+
+def hull_clearance(tool, path, step_mm, dmax_mm=6.0):
+    """Minimum sampled hull-to-neighbour distance over the whole pose path (mm)."""
+    summary = {k: {'min_signed_mm': None, 'pose': None} for k in neighbours}
+    base_pts = None
+    for pose in path:
+        pts = tool.hull_points(pose['centre_m'])
+        # Only points that can be within dmax of the journal side / supports.
+        pts = pts[pts[:, 1] > (LEADOUT_END - dmax_mm) * MM]
+        for key, tree in neighbours.items():
+            best = None
+            for p in pts:
+                loc, nor, idx, dist = tree.find_nearest(Vector(p), dmax_mm * MM)
+                if loc is None:
+                    continue
+                s = dist if (Vector(p) - loc).dot(nor) >= 0 else -dist
+                if best is None or s < best:
+                    best = s
+            if best is not None and (summary[key]['min_signed_mm'] is None or best / MM < summary[key]['min_signed_mm']):
+                summary[key] = {'min_signed_mm': best / MM, 'pose': pose['label']}
+    return summary
+
+
+def scan_fit(tool, kind, y_centres_mm, z_centre_m, sign, theta_steps, alpha_steps, alpha_period):
+    """Generating-pose scan. Returns per-y best coupling clock and its worst penetration (mm)."""
+    result = {}
+    ratio = 10.0 if kind == 'hob' else 2.0       # |omega_cutter| / |omega_work| inverse: work = sign*? see below
+    for y_mm in y_centres_mm:
+        centre = np.array([0.0, y_mm * MM, z_centre_m])
+        best = None
+        per_theta = []
+        for th0 in theta_steps:
+            worst, worst_info = 0.0, None
+            for alpha in alpha_steps:
+                work_ratio = (0.1 if kind == 'hob' else 2.0)
+                theta = th0 + sign * work_ratio * alpha
+                pts = tool.points(alpha, centre)
+                pts = rot_y(pts, -theta)      # work rotated by theta == tool rotated by -theta in shaft frame
+                d = sample_sdf(pts)
+                m = d.min()
+                if m < worst:
+                    k = int(np.argmin(d))
+                    worst, worst_info = float(m), {'alpha_deg': math.degrees(alpha), 'theta_deg': math.degrees(theta),
+                                                   'y_mm': float(pts[k, 1] / MM), 'zone': zone_of(float(pts[k, 1] / MM))}
+            per_theta.append((th0, worst, worst_info))
+            if best is None or worst > best[1]:
+                best = (th0, worst, worst_info)
+        result[y_mm] = {'best_clock_deg': math.degrees(best[0]), 'worst_penetration_mm': -best[1] / MM,
+                        'at': best[2],
+                        'median_over_clocks_mm': float(-np.median([w for _, w, _ in per_theta]) / MM)}
+    return result
+
+
+def make_path(kind, z_c, y0_mm, y1_mm, step_mm, lift_mm=3.0):
+    path = []
+    n = int(round(lift_mm / step_mm))
+    for i in range(n, 0, -1):
+        path.append({'label': 'infeed z+%.2f' % (i * step_mm), 'centre_m': np.array([0, y0_mm * MM, z_c + i * step_mm * MM])})
+    m = int(round((y1_mm - y0_mm) / step_mm))
+    for i in range(m + 1):
+        path.append({'label': 'feed y=%.3f' % (y0_mm + i * step_mm), 'centre_m': np.array([0, (y0_mm + i * step_mm) * MM, z_c])})
+    for i in range(1, n + 1):
+        path.append({'label': 'withdraw z+%.2f' % (i * step_mm), 'centre_m': np.array([0, y1_mm * MM, z_c + i * step_mm * MM])})
+    return path
+
+
+def run_candidate(name, kind, tool, y0_mm, y1_mm, depth_clear_mm, signs=(-1, 1)):
+    z_c = (ROOT_R + depth_clear_mm) * MM + tool.tip_r
+    out = {'name': name, 'kind': kind, 'tip_radius_mm': tool.tip_r / MM, 'centre_z_mm': z_c / MM,
+           'root_clearance_mm_at_nominal_depth': depth_clear_mm}
+    t0 = time.time()
+    step_mm = 0.5
+    path = make_path(kind, z_c, y0_mm, y1_mm, step_mm)
+    out['hull_vs_retained_neighbours'] = hull_clearance(tool, path, step_mm)
+    out['hull_path'] = {'poses': len(path), 'step_mm': step_mm, 'y_range_mm': [y0_mm, y1_mm]}
+    # Uncertainty (mm, linear sum, conservative): export + comparison + hull point spacing
+    # 0.1 mm * 0.71 + half the pose step (distance is 1-Lipschitz in rigid translation).
+    out['hull_uncertainty_mm'] = U_EXPORT + U_COMPARE + 0.071 + step_mm / 2
+    print('G0_CLEAR_HULL', name, round(time.time() - t0, 1), flush=True)
+    th = np.radians(np.arange(0, 36, 2.0))
+    if kind == 'hob':
+        al = np.radians(np.arange(0, 360, 5.0))
+    else:
+        al = np.radians(np.arange(0, 18, 0.75))
+    ys = [y0_mm, (y0_mm + y1_mm) / 2, y1_mm]
+    fit = {}
+    for sign in signs:
+        t1 = time.time()
+        fit['work_sign_%+d' % sign] = scan_fit(tool, kind, ys, z_c, sign, th, al, None)
+        print('G0_CLEAR_FIT', name, sign, round(time.time() - t1, 1), flush=True)
+    out['generating_pose_fit_mm'] = fit
+    out['fit_uncertainty_mm'] = U_EXPORT + U_COMPARE + 0.1 * 0.87 / 1.0  # grid 0.1 mm trilinear across a sharp edge, bound 0.087
+    return out
+
+
+candidates = []
+# 1: candidate as drawn in blockout.py (shaper centre z 15.0 mm sits 0.3 mm below the accepted root).
+shaper_drawn = Shaper()
+candidates.append(('shaper_as_drawn_z15.0', 'shaper', shaper_drawn, 2.0748584, 10.3248584, 15.0 - 11.0 - ROOT_R))
+candidates.append(('shaper_at_root_z15.298', 'shaper', Shaper(), 2.0748584, 10.3248584, 0.0))
+candidates.append(('hob_as_drawn_tip4', 'hob', Hob(), FACE_START, FACE_END, 8.3 - 4.0 - ROOT_R))
+
+results = []
+for name, kind, tool, y0, y1, dc in candidates:
+    results.append(run_candidate(name, kind, tool, y0, y1, dc))
+
+(OUT / 'clearance.json').write_text(json.dumps({
+    'schema': 'jgun-g0-clearance-v1', 'blender_version': bpy.app.version_string,
+    'source_blend_sha256': BLEND_SHA, 'sdf': {'grid_mm': H / MM, 'shape': SHAPE, 'sign_agreement_vs_ray_parity': SIGN_AGREEMENT},
+    'frame': 'shaft-local Blender metres; +Y shaft axis',
+    'results': results}, indent=2, default=float) + '\n', encoding='utf-8')
+print('G0_CLEARANCE_JSON', flush=True)
+
+
+hook: PostToolUse
+ succeeded in 3641ms:
+# G0 geometry findings
+
+Command (Blender 5.1, read-only inputs; rewrites only this folder):
+
+```powershell
+& 'C:\Program Files\Blender Foundation\Blender 5.1\blender.exe' -b --factory-startup --python-exit-code 1 --python scripts/manufacturing/measure_g0.py
+```
+
+Outputs: `early-datum.json` (camera/datum), `measurement-summary.json`, `source-registry.json`, `measurement.log`. Final stdout line starts `G0_MEASUREMENT`.
+
+## Measured
+
+- All six approved baseline files match size and SHA-256. Source hashes are re-read after the run and are unchanged.
+- Live Default.glb occurrence: nodes 0 Default > 9 gearbox > 66 A000881-1 > 71 occurrence of P001835-2 > 72 P001835-2. Mesh JSON, accessor/bufferView tables and BIN payload equal the isolated extract; decoded local vertex error 0.0 mm. A failed historical revision is not authenticated.
+- Shaft-local datum: saved matrix equals live matrix (max abs error 0). Local +Y maps to glTF -Z. Export-to-runtime registration, including rest recentering, is in registration.approved_export_gltf_to_hero_rest. Runtime parent pose is applied afterwards.
+- Bearing K000210 and ring K000211 move by +2.750000101 / +2.749999985 mm along shaft-local Y; rigid residual below 0.0021 mm. Their GLB vertex sets equal the approved native Blend. Housing P000725 has 332 moved bore-shoulder vertices at +2.749999985 mm; the housing is alternate design geometry, not a sliding part. The shift is already included in the exports.
+- Approved shaft bounds (mm, shaft-local): X -8.8646/8.8646, Y -0.00011/71.52395, Z -8.86458/8.86424.
+- Tooth section y=6 mm: 10 teeth, 36 deg pitch, 0.0 deg clock delta (0.1 deg sampling), tip 6.0834 mm, root 4.2918 mm, same-clock radial RMS 0.000209 mm, max 0.00256 mm. Module/pressure angle/cutter are unresolved.
+- Face start y=3.1749 mm; functional face end y=9.5249 mm; +X tooth-space floor reaches the 6.074 mm filler radius at y=13.78 mm; the report's 14.0639 mm is the authored sweep end, not clearance. The 6 mm value is an authored construction radius, not a verified hob OD or axial travel. Journal r about 6.32 mm from y 14.18 mm; ring groove floor about 6.04 mm from y 14.70 to 15.50 mm; shoulder r about 8.27 mm at y 19.75 mm.
+- Reported build topology has exactly one non-manifold edge at y=8.9 mm (4 linked faces). Approved Blend/GLB reimport have unwelded split edges (282998 native, 363 after 1 um weld in export), so G2 must derive a fixed copy and compare silhouette/fit.
+- K000180-1 spring: no triangle intersection with approved shaft; sampled mesh surface distance 5.461 mm. This is mesh distance only.
+- Bearing is one connected component after 1 um weld; independent races are not established.
+
+## Unresolved or blocking for G2
+
+- Planet P000247 x4 cross the revised shaft in the gear band (triangle pairs 469-656 vs 109-128 against the legacy same pose). Pair count is not penetration depth; classify mesh-contact/overlap and clocking before accepting gear envelopes.
+- ring_NEW crosses the approved shaft near y 14.447-19.323 mm (1029 vs 408 legacy-shaft pairs). The seat/groove contact must be classified as intended retained fit vs overlap before bearing or ring separability claims.
+- K000131 pair and ROTOR also cross at y 33-71 mm, nearly the same as the legacy shaft pose; far from the machined feature.
+- Production shaper/hob geometry, setting angle, starts, swept envelope and positive tool clearance are unresolved. Uncertainty screen: 0.002 mm export/decode, 0.02 mm comparison/contact; not a tolerance or CAD chord-error proof.
+
+## Served attribution
+
+Unproven. usage.jsonl shows request IDs under one shared conversation containing mixed gpt-6.1-sol and anthropic/claude-sonnet-5-5 records; I cannot reliably associate individual records with this leaf agent.
+
+
+hook: PostToolUse
+ succeeded in 5194ms:
+00:03.625  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+PROFILE_SECTIONS {'legacy': {'3.5': [4.291829644216429, 6.0726788597882395], '6.0': [4.291829644216429, 6.083420626357588], '9.0': [4.291827835739182, 6.083421585978335], '9.72': [4.291827835739182, 4.502730244320748], '10.92': [4.111865872807298, 4.22469071296015], '13.78': [6.314949989318848, 6.3249322517588755], '14.18': [6.314949035644531, 6.324930907498942]}, 'approved': {'3.5': [4.291828311938385, 6.072425013894928], '6.0': [4.291829644216429, 6.083486706247194], '9.0': [4.29184975466375, 6.083416804298286], '9.72': [4.299426911917673, 6.074002500071514], '10.92': [4.460682248204111, 6.074002500071514], '13.78': [6.065512607163984, 6.074002500071514], '14.18': [6.314689099339004, 6.32493359601881]}}
+
+
+hook: PostToolUse
+hook: PostToolUse
+ succeeded in 6338ms:
+00:01.547  blend            | Read blend: "C:\Projects\CAD\jgun-input-shaft-hobbed\shifted\input-shaft-assembly-parts-v1.blend"
+Warning: File written by newer Blender binary (502.45), expect loss of data!
+G0_CLEAR_BVH 1.9 s {'shaft_journal_side_y>=14.0639': 8738, 'housing': 19776, 'bearing': 1856, 'ring': 412} 139880
+G0_CLEAR_SDF 7.7 s (141, 151, 53)
+G0_CLEAR_SIGN_AGREEMENT 0.97
+G0_CLEAR_HULL shaper_as_drawn_z15.0 9.4
+G0_CLEAR_FIT shaper_as_drawn_z15.0 -1 10.5
+G0_CLEAR_FIT shaper_as_drawn_z15.0 1 7.8
+G0_CLEAR_HULL shaper_at_root_z15.298 8.3
+G0_CLEAR_FIT shaper_at_root_z15.298 -1 7.6
+G0_CLEAR_FIT shaper_at_root_z15.298 1 7.1
+G0_CLEAR_HULL hob_as_drawn_tip4 4.6
+G0_CLEAR_FIT hob_as_drawn_tip4 -1 30.4
+G0_CLEAR_FIT hob_as_drawn_tip4 1 22.5
+G0_CLEARANCE_JSON
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+
+
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/docs/jgun-manufacturing-inspection-plan.md'" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1124ms:
+# JG-035 — Ring Switch and Input Shaft manufacturing stories
+
+Date: 2026-10-05. Status: **ready to implement** — parent/Astra/Opus concepts agreed, Astra visual detail pass incorporated, Opus final findings corrected and bounded re-review **SHIP**, Astra final delta **AGREE**. See the [review ledger](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/review-ledger.md) and [next-session handoff](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/continuation-handoff.md). Planning only this session; implementation starts next session. This status is plan readiness, not runtime acceptance.
+
+Owner source: [verbatim storyline and model approval](../project/context/owner-specs/manufacturing-inspection-storyline-2026-10-05.md). Review packet: [manufacturing-story-plan-2026-10-05](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/). Existing Ring Switch implementation: [authorship/knurling plan](jgun-authorship-knurling-implementation-plan.md). This plan refines that implementation and adds the shaft story; it does not restart the opening.
+
+## 1. Locked direction and scope
+
+Mark approved the modified P001835-2 Input Shaft, P000725 1st & 2nd St. Housing, K000210 bearing and K000211 retaining ring after Blender review. Preserve the 6 mm authored hob lead-out and +2.75 mm shaft-local Y relocation. Source assets and live hashes: [approved asset baseline](../project/work/evidence/JG-035-opening-drafting-table/manufacturing-story-plan-2026-10-05/approved-asset-baseline.md). The larger-family P001812 reference supplies process history, not this shaft's dimensions or an authenticated legacy revision.
+
+The approved P003068 concept already has a 12-second inspection implementation. Refine contact/readability/finish staging and generalize only the lifecycle that the shaft story needs. Keep the ring bore, smooth lands and original physical assembly intact.
+
+Both stories are optional visitor-controlled inspections with the same dark studio, tool entry, neutral metallic rim and restrained DOM typography. Neither adds a scroll segment, changes the canonical mechanical ladder, or alters opening/station windows. The revised shaft assembly exists inside the inspection study. The finale shows its shaft, supports and related train operating; explicit **Return to narrative** restores the original saved narrative rig, mode, stage, scroll and focus. Make this boundary clear in the control and closing caption. Do not silently replace `Default.glb` or ask the owner to reopen this resolved scope choice.
+
+## 2. Shared presentation and control
+
+Enter from a readable JGun-only DOM action linked to the component story. Hide competing narrative geometry through reversible instance-local visibility/material ownership. One camera owner remains `CameraRig`; no other layer may write its transforms. Freeze the narrative pose/idle at entry. Save camera target/FOV/pose, original mode, stage state, scroll position and trigger focus before transitions begin. Also lease/snapshot background, environment/rotation, exposure, fog, lights and post effects; restore the full render-state snapshot on exit. Move focus into inspection controls and make the narrative DOM inert; politely announce discrete chapters/cards, not every playhead frame.
+
+Expose Play/Pause, Replay, a labeled seek control, shaft chapter buttons, Return and Escape. Entry does not begin machining before required assets are ready. Keep Return usable while loading or failed. At the end, hold the result with controls; do not close unexpectedly. Pause on hidden document; resume only without accumulating offscreen time. Closing cancels loads, audio and animation and restores the context even at intermediate phases. A missing/removed trigger needs a sensible JGun focus fallback.
+
+Four shaft chapters: **Why the groove was needed**, **Material attempts**, **Changing the process**, **Moving the supports**. All must be selectable without watching preceding chapters. The transcript explains the causal sequence and glosses “undercut” once as the cutter runout/relief groove, distinct from involute tooth-root undercut.
+
+Silent playback is complete. Optional visitor-enabled audio can follow the same speed ramp and local stamp impulse; no autoplay or requirement that audio finish first. The bullet-time impression comes from coherent movement and a readable clearance hold, not distortion effects. Reduced motion/poster have no spin, camera flight, stamping impulse or speed ramp.
+
+Each entry has a session identifier. Late load/compile completions from a closed session cannot attach objects, acquire camera ownership or change controls. Exit is idempotent. Dispose instance-owned resources; release shared cached resources without destroying them. A manually paused inspection stays paused across document hiding. Seeking samples visible chips/stamps/tools without replaying audio impulses or accumulating particles. Direct chapter entry establishes its complete geometry, light, captions and camera without prior playback.
+
+Shared light rule: one broad neutral key and a narrow grazing reflection describe machined edges against near-black; keep dark silhouettes readable and stress color localized. Move the camera to change the explanation, then hold it when judging contact, clearance or a dimension. DOM card text meets 4.5:1 contrast. At 390×844, keep tool/action/cards separate with approximately 8% margin around the critical action; establish actual projected framing in blockout.
+
+## 3. Ring Switch refinement shot list
+
+Retain the existing phase spine and approximately two-second contact traverse. Current source timings below are a baseline, not a new runtime claim.
+
+| Time (s) | Action and visual purpose |
+|---|---|
+| 0–1.2 | Isolate smooth black P003068 against black; a neutral rim makes bore and smooth lands readable. |
+| 1.2–2.8 | Cinematic aluminium inspection state and increasing spin; retain a legible silhouette. |
+| 2.8–4.2 | Paired rollers approach; a slightly oblique view exposes both contacts. Hold contact composition at least 0.3 s before axial traverse. |
+| 4.2–6.2 | OD knurl grows only at/behind contact as rollers traverse. Preserve the smooth edge lands and bore. |
+| 6.2–8.2 | Retract to measured clearance before the prop fades. Relief remains on the worked band. |
+| 8.2–10.5 | Decelerate and return to black finish; one controlled grazing reflection reveals the diamond relief, then settles. Give the finished black relief at least one second of readable presentation. |
+| 10.5–12 | Register the finished ring with the saved assembly composition while retaining inspection ownership and a frozen narrative. Hold result and controls. Only Return/Escape releases ownership and resumes the saved narrative. |
+
+Inspect the current normal/relief representation before changing it. Macro views require convincing surface relief/parallax and silhouette where visible; do not introduce a heavy full diamond lattice merely to improve a wide shot. If normal detail fails the macro, use a bounded offline detail strip or height representation restricted to the OD. Physical bore/lands remain unchanged. Aluminium-to-black is a cinematic finish study, not a claim that a finishing operation occurs under the rollers. Knurling forms the surface: no cutting chips or sparks.
+
+Validate roller axes/handedness and compatible tangential surface speed against the prop and contact geometry; existing clip display rates are not production measurements. Tune display speed to avoid apparent reversal or strobing at 30 fps lite. Use a deliberate softened high-speed representation if speed exceeds readable repeated-feature motion; make the forming/contact macro crisp and phase-readable. At t=12 inspection stays active and narrative time frozen; Return/Escape restores once. Knurl growth is limited to the swept worked region; fading the tool begins only after measured roller clearance.
+
+## 4. Input Shaft storyline and preliminary timing
+
+Initial duration target: approximately 43–45 seconds, optional and chapter-seekable. Timing is an editorial starting point; preserve cause/readability before trimming. The Opus pass extends the shaping recap and card fades. Phase anchors and holds become authored data after measured camera blockout, not scattered constants.
+
+| Time (s) | Beat | Required visible explanation |
+|---|---|---|
+| 0–2 | Isolate the grooved blank | Fade assembly to black; retain steel rim and identify the relief with neutral/cool-white light. The geared-end blank has material for the cutter to remove. |
+| 2–6 | Shaping overview | Cutter strokes, spins and feeds radially to depth; progressive tooth spaces follow real engagement. A shaft-following camera creates the apparent quarter orbit. |
+| 6–11 | Slow cutter exit | Ease into a machine-frame macro. See face end, cutter edge passing beyond it, chip curling from rake face into clearance and a relieved return. Give the critical exit/return event a readable hold. |
+| 11–15 | Pull back and finish shaping | Re-engage deterministic shaft-follow camera for rapid strokes on the slow apparent orbit. Complete the remaining circumference with explicitly time-compressed recap before the tool retracts/fades; all ten teeth exist before material attempts. |
+| 15–22.6 | Material attempts | Same groove/silhouette; one illustrative warm scan; three exact alloy cards and local FAILED stamps, approximately 2.8, 2.5 and 2.3 s including fade-out. |
+| 22.6–25 | Revised smooth blank | Align at shared axis/datum. Short axial wipe exposes retained section below the uncut geared end; warm field leaves with old geometry, no overlapping translucent solid shafts. |
+| 25–32 | Rotary hobbing | Recognizable hob, coupled shaft rotation and axial feed. Circumferential tooth formation advances as an axial band; finished result retains the approved lead-out. |
+| 32–35 | New geometry/material | Retract tool; unobstructed runout hold then one cool stress scan below the gear; same card slot shows final 4340 heat treatment without a success stamp. |
+| 35–39 | Support relocation | Legacy witnesses and capped shaft/housing section; bearing and retaining-ring rigid pair move exactly +2.75 mm into approved final placement, with corresponding housing support readable. |
+| 39–43 | Revised assembly finale | Inspection-local assembled pose independent of entry mode. Shaft already present; related planets/cages fade in and spin coherently, then remaining revised study assembly returns. Hold with Return to narrative. |
+
+### Cutter choreography and camera
+
+Use a disc/pinion-style shaper appropriate to measured gear data. In the machine frame it has radial infeed, axial cutting stroke, relieved return and correctly coupled cutter/workpiece generating rotation. Do not animate an end mill following a finished tooth profile. The quarter-orbit appearance is authored in the rotating shaft reference frame: camera follows shaft azimuth while the real cutter spins and strokes. Ease that frame-follow rate to zero during the slowdown, ending in a fixed machine-frame clearance view. Solve signed rotation ratios from real tooth counts; do not copy an unsigned review formula into production.
+
+One master inspection playhead samples both a continuous machining-time map and authored camera curves. Slowdown changes machining speed, never tool/shaft/chip phase or pose continuity. Frame-follow azimuth is derived from machining phase; dolly/FOV progress on the master playhead so the zoom keeps moving while machining slows, then settles into the stable macro. All curves are deterministic closed-form/baked lookups; there is no separate running clock or cumulative camera integration, and no independent damping that loses the cutting edge. A deliberate slow interval/readable bottom-of-cut beat is artistic compression, not a machine cycle-time claim. Place one restrained chip at the shaping rake face only where stock is removed. Hobbing may show direction-correct chips where useful; none are needed in a wide framing. No sparks.
+
+Derive cutting stroke toward the relief and relieved return away from it from measured geometry. Check signed pitch-circle rolling/contact velocity to catch reversed generating ratios. Key/grazing light/environment orientation follows the same authored reference-frame weight as the camera during shaping; switch smoothly into fixed machine-frame lighting so reflections do not reveal an inconsistent shaft spin. Hobbing deliberately shows the shaft visibly rotating. Keep shaper-stroke and hob-gash display frequencies readable for the observed tier; a provisional ceiling of ~one quarter of tier frame rate must be measured or replaced by deliberate softened high-speed appearance.
+
+Keep the projected shaft axis and cutter exit region continuous during the rotating-frame to machine-frame camera handoff. Ease follow rate down before the cutting edge reaches the face end. Frame face edge, cutter edge, relief and chip origin together. Give at least 1.2 s of stable-camera slow action covering exit and relieved return, including approximately 0.4 s with unmistakable clearance. No camera cut or independent tool freeze at that event.
+
+The hob prop, starts, setting angle and measured swept envelope must be compatible with the accepted 6 mm authored lead-out. Record the dimension type and datum: do not reinterpret construction radius as axial travel or usable clearance. That construction radius is not automatically a verified physical OD for a tilted production tool. Preserve accepted geometry; select a compatible illustrative tool representation and framing when production tooling is undocumented. Cropping simplifies explanation but cannot establish clearance or conceal an intersecting swept envelope. Validate the complete represented tool through cutting, return and withdrawal; never show a larger cutter clipping the shifted journal. Record minimum separation and combined measurement/export uncertainty; positive clearance must exceed that uncertainty. Keep an unobstructed tooth-runout/retained-section view for at least 0.8 s after tool withdrawal, before the cool illustration appears.
+
+### Mesh progression and stress illustration
+
+**Shaping stock and progression (Opus B1 resolved):** identify/hash the legacy P001835-2 occurrence in `Default.glb` and the isolated grooved `C:/Projects/CAD/jgun-input-shaft-hobbed/p001835-source-extract.glb` in G0; verify their correspondence. Create a separate derived **grooved shaping blank** by restoring stock in the tooth-space region to the measured tip-diameter OD, preserving the source relief, journal and shared datum. Do not start the cutting shot on an already fully toothed shaft. Offline-bake full-depth and partial-depth shaping states or complementary capped masks from the measured cutter engagement. Radial infeed visibly removes stock; chips arise from that current cutting region. Reveal completed tooth spaces only behind actual generating engagement, with the partial-depth zone under the cutter. The first quarter-orbit therefore shows only the portion actually worked.
+
+Implementation notes from the final SHIP pass: swap narrative teeth to the grooved blank while hidden/masked by the isolation fade, so teeth never visibly disappear. Apply lite-floor strobing checks to the compressed recap. If G0 cutter tooth count/ratio changes, re-bake its engagement-driven shaping states. Assert the card strings character-for-character, including ASCII hyphens.
+
+At 11–15 s the recap re-engages the shaft-follow frame through the same deterministic authored azimuth law, showing rapid strokes and a comparatively slow apparent orbit. Complete the remaining circumference in a visibly time-compressed recap (caption **Remaining teeth — time compressed**); extend this beat if needed. If completion must be omitted for performance, use an explicitly captioned time skip during retraction instead of silently appearing teeth. All ten complete teeth match the hashed grooved final source before the first material card. G2 owns grooved blank/intermediate states as well as revised hobbing states; G4 verifies stock removal/contact and honest completion through direct seek and playback.
+
+**Revised hobbing stock:** produce a separate sound smooth blank aligned with the approved revised shaft; restore final teeth/lead-out through bounded offline-baked cutting states or complementary capped clipping masks. No runtime CSG for either process. Hobbing is continuous generating action: every tooth space participates as the workpiece rotates, so the reveal band advances along the face around the circumference. The partial-depth zone stays inside visible tool engagement and does not run ahead. At final feed position the represented swept envelope coincides with the approved runout. Preserve final profile, 10-tooth count, pitch/clocking and support datum. Differing topology does not authorize a blind vertex morph.
+
+The grooved shaping state depicts the owner-described earlier design; label its historical reconstruction illustrative unless authenticated failure-revision geometry is available. P001812 supplies process context only. Transitioning to **Revised blank — retained section** means a different design/workpiece; machining cannot put back material removed by the previous groove. Keep the shared axis/datum fixed through the wipe. The groove stays unchanged through all three failed-material attempts; geometry changes only at redesign. A restrained grazing reflection reveals the hobbed band without competing with the tool.
+
+Keep text as readable DOM, with exactly these cards in order:
+
+1. **AISI 4140 (40-45 HRC)**, then **FAILED**.
+2. **AISI 4340 (48-50 HRC)**, then **FAILED**.
+3. **C300 (56-58 HRC)**, then **FAILED**.
+4. **AISI 4340 (H.T. 48-50 HRC)** alongside the revised section, with no FAILED/PASSED stamp.
+
+Attribute the first three to the owner's account in one restrained, readable caption. Warm/cool field caption: **Illustrative stress concentration**. Same color vocabulary in both states; localized overlay retains metallic surface edges and geometry. No numeric FEA scale, safety factor, solver contour legend or implied certified safe state. No invented load/testing results. Place the final 4340 card exactly where the earlier 4340 card appeared: the material repeats while the geometry changes. Stamp the DOM lettering with a short local compression/settle; the camera and page remain steady.
+
+Hold shaft, groove and card slot registered across material attempts. Use ~2.8/2.5/2.3 s beats, including a distinct fade-out before the next card. Preserve ≥1.0 s readable alloy text before FAILED, local impulse ≤180 ms and ≥0.8 s settled afterward. Keep owner attribution readable throughout. These are timing/readability anchors, not measured results. Pin ASCII hyphens in hardness ranges exactly as the owner wrote; never let typographic normalization break copy assertions. Warm and cool overlays each enter with one restrained axial scan; hold their stable field afterward and use no solver-like animated rainbow.
+
+### Support comparison and train return
+
+Final assets already include the shift. End pose equals the approved export; start pose equals measured legacy pose, with signed delta +2.75 mm in shaft-local Y. Derive transforms through saved `shaft_world_matrix.json`, the measured Blender-export-to-runtime-root registration and one explicit millimetre-to-metre conversion. Record the actual Z-up/Y-up mapping or existing exporter conversion so it is not applied twice. Never apply the displacement twice, derive directions from stage names, or independently slide mesh-built journal/groove. Use a capped camera-facing section of shaft AND P000725 to expose the pair, with legacy position witnesses; this is a design comparison. Housing occupies its accepted position/shape, not a translating member. Sweep-check the comparison slide; where intermediate solid designs overlap, use ghost/legacy-housing witness presentation rather than pretending physical assembly clearance.
+
+Measure both support origins in the same shaft-local frame. The pair preserves its relative transform throughout. Target +2.750 mm local Y, with zero intended local X/Z movement or rotation; record export-derived numerical tolerance before implementation, not a visually convenient tolerance. Independently check housing, journal and groove for unintended movement, and endpoint agreement after seek/replay. Establish witnesses for at least 0.5 s before movement and hold the approved endpoint for at least 0.8 s before removing them.
+
+**Finale composition (Opus B2 resolved):** build the shaft study in its own inspection-local **assembled solid pose**, independent of blueprint/exploded entry and current narrative explosion. Register revised parts and all selected legacy neighbour clones in that same assembled root before reveal. Prefer inspection-owned clones/named bundle; if narrative objects are reused, lease their complete parent/local transforms, visibility and materials, temporarily pose them to the inspection assembled frame, then restore them exactly on exit. Never reveal revised assembled supports among frozen exploded cages. The ring keeps its existing saved-composition behavior.
+
+Remove witnesses before spin. K000211 follows shaft; housing and bearing outer race remain fixed. Inner race follows shaft only where separable/verified; unsplit bearing must not rotate as a solid assembly. Measure tooth clocking/planet compatibility first. Existing cage progression and planetary convention remain canonical; display turns are not exact machining rates. Fade related planets/cages then the rest of the assembled study, with no duplicate shaft. On Return/Escape restore every leased transform/render state and saved narrative geometry/mode/idle phase. Assert **exploded entry → assembled study finale → Return to identical exploded context**, and corresponding blueprint restoration, including background/lights/post snapshot. Closing caption explains revised study versus original saved narrative.
+
+Finish assembly reveal with ≥1.5 s settled framing, then hold indefinitely with Return. Extend the approximate 43–45 s duration if contact, clearance, fades or endpoint reads do not fit; do not sacrifice them to the initial target.
+
+## 5. Architecture and bounded ownership
+
+Inspect these existing files before changing interfaces: `src/state/inspectionStore.ts`, `src/components/RingInspection.tsx` and CSS, `src/scene/inspection/{InspectionScene.tsx,timeline.ts,narrativeFade.ts,loadLease.ts,compileLease.ts}`, `src/scene/CameraRig.tsx`, `src/scene/TorqueWrenchHero.tsx`, `src/scene/rig/{nodeRoles.ts,materials.ts}`. Existing `INSPECTION_DURATION = 12`, ring-only fields and `__inspection` telemetry are assumptions to generalize explicitly.
+
+Define `kind: ring | shaft`, per-story duration/chapter/asset descriptors and a reusable lifecycle/restore envelope. Keep ring sampler/geometry adapters separate from shaft sampler/tooling/stress/support adapters. Use one mutable playhead read in `useFrame`; no React state subscriptions or allocations per frame. DOM changes only at discrete control/caption state boundaries. Seek/pause/replay/reverse sample absolute state; avoid accumulated cutter angle, cut history or particles. Allocate scratch transforms once and dispose all instance-owned geometry/materials/tools on exit.
+
+Capture part identity before destructive consolidation or use a named lightweight inspection bundle. Default consolidation merges some source parts into shared clutch/material buckets; do not hide a whole merged bucket to isolate the shaft. Registry includes occurrence path, part number, original and approved transforms, source hashes and extraction provenance. Use scene-instance materials; modifying a cached source material can corrupt the narrative. Preserve the existing ring `__inspection` contract or deliberately version the verifier with backward compatibility during migration. New shaft telemetry belongs in a clearly versioned manufacturing-inspection contract.
+
+Suggested disjoint worker scopes after interface agreement:
+
+| Work | Ownership | Independent evidence |
+|---|---|---|
+| Lifecycle/control | store, DOM shell, scroll pause/restore, camera lease | loading/error/exit/focus/context round trips |
+| Asset/tool preparation | derived CAD/export scripts and inspection assets | hashes, profile/clocking, envelope/fit, compression error |
+| Shaft sampler | new shaft timeline/process camera-data/tool/mesh state adapter | deterministic seek/reverse, continuous phase, exact deltas |
+| Ring refinement | ring sampler/contact/material adapter | OD/land/bore masks, contact/retract, display-speed check |
+| Runtime verification | inspection verifier and contract evidence | actual rendered checkpoints plus live telemetry |
+
+One integration owner changes shared `CameraRig`, `TorqueWrenchHero` and `InspectionScene`; workers never concurrently edit those files. Use the live model tool schema/CLI rather than stale skill model IDs.
+
+## 6. Geometry, performance and accessibility gates
+
+Before tooling animation, locate/hash accepted sources, measure legacy/final datum transforms and export placement, and check every neighbour including K000180-1. Resolve source-report versus handoff lead-out endpoint mismatch by measuring the actual mesh, then test swept cutter envelopes at cutting and return strokes. The informal 0.14 mm separation is not a moving-tool clearance measurement. Repair the reported single non-manifold edge and streaky normals only in derived copies, preserving approved silhouette and fits.
+
+Tag every physical datum **measured / illustrative / unresolved** with provenance and its dependent gate. Unresolved tool, rotation or clearance data prevents an unsupported mechanical-truth claim but does not reopen the approved concept or geometry. Artwork cannot substitute for the measured swept envelope.
+
+Generate compressed full/lite study exports through Blender with stable named parts, not bare `gltfjsx --transform`. `Default.glb`, M249 and enclosure remain untouched. Preflight freezes measured budget: target new shaft bundle ≤2 MiB compressed, shaft ≤50k triangles full/≤15k lite, and ≤25 added inspection draw calls over corresponding baseline. These are implementation targets, not current measurements. Inspect final-camera profile/runout preservation after reduction; adjust documented budgets only with measured visual/performance evidence and cross-provider reviewer agreement. Target full-tier p95 ≤16.7 ms on the named GPU; lite must remain readable at 30 fps. Record device, tier, DPR, bytes, calls and GPU/frame statistics; screenshots cannot establish those quantities.
+
+Separate frame interval, CPU work and GPU timing in performance reports. Calculate percentiles over active machining/assembly intervals; long held frames must not improve the motion statistic. State unavailable timing APIs explicitly rather than filling them with frame interval. Test visible repeated-feature motion at the lite floor for strobing/apparent reverse rotation.
+
+Mobile uses a measured horizontal shaft frame above a fixed DOM card slot when vertical framing would hide the cutter exit. Readable targets at least 44 CSS px; no text/tool overlap at 390×844. Static reduced/poster story contains aligned cutter-exit/groove still, three material failure cards, blank/hobbed comparison, cool illustration, support-before/after and a still assembly. Do not load heavy tools just to show static captions. Fallback must remain operable on denied CAD fetch and real WebGL context loss.
+
+Render budgeted full/narrow raster stills from accepted blockout cameras with text alternatives; static fallback needs neither a working WebGL context nor CAD downloads. Measure caps/detail-strip cost on lite rather than assuming stencil caps are free.
+
+## 7. Build sequence and adversarial reviews
+
+Planning completed here; all implementation boxes remain open.
+
+- [ ] **G0 — Freeze and measure.** Record current dirty/staged ownership, asset hashes, part registry, camera/contact dimensions, placement deltas, tooth clocking, neighbour interference and tool convention/envelopes. Record unresolved machining details without guessing. Preserve accepted CAD. Produce camera blockout and budget baseline.
+- [ ] **G1 — Shared shell and restore.** Extend existing ring lifecycle only after interface agreement. Prove entry/loading/pause/seek/chapter/replay/Return/Escape/focus and exact saved-state restore. Keep both stories JGun-only and no global scroll/ladder delta. Run fresh opening iteration regression.
+- [ ] **G2 — Assets and tooling.** Named full/lite bundle; hashed grooved source, grooved shaping blank and engagement-driven partial/full cutting states; separate revised hobbing blank/states; shaper/hob props, assembled study root, retained-part registry, raster fallback and capped transitions. Validate compression profile error, swept clearance and no double shift.
+- [ ] **G3 — Ring refinements.** Establish both contacts; contact-driven knurl progression; clearance then retract/fade; legible final black relief, with no bore/land contamination.
+- [ ] **G4 — Shaft shaping/materials.** Engagement-driven stock removal, quarter-orbit frame transition, deterministic machining/camera time maps, readable exit/chip/return, resumed slow apparent orbit during rapid-stroke recap, explicitly compressed completion to all ten teeth, three exact cards and local stamps. Verify unchanged groove before redesign and no cutting of empty finished slots.
+- [ ] **G5 — Hobbing/support/finale.** Progressive generating band, correct tool/shaft phase, retained section/cool illustration, final 4340 card, support pair comparison, coherent revised assembly return and explicit narrative restoration.
+- [ ] **G6 — Fallback, runtime, final acceptance.** Fresh production build, static and runtime checks, complete review packet, provider-diverse adversarial reviews, owner runtime visual acceptance. No task closure from historical tests or this plan's reviews.
+
+For each leaf, the producer supplies actual diff/assets, verification commands/results and captures/telemetry. A fresh-context reviewer from a **different provider** returns **ship / fix-first / rethink**, with exact findings and evidence. OpenAI GPT-6.1-Sol work can be tested by Anthropic Sonnet-5.5 or Z.ai GLM-5.3; Z.ai GLM-5.3/Flash work by OpenAI or Anthropic; DeepSeek work by OpenAI/Anthropic/Z.ai. GLM-5.3 reviewing GLM-5.3-Flash is not provider diversity. Use Flash models only where the mechanical/visual judgment is bounded and sufficient. Do not silently substitute unavailable models.
+
+The producer/reviewer provider must differ for **every** leaf, including Anthropic-produced work (reviewed by OpenAI/Z.ai/DeepSeek) and the integration owner's shared-file diff. Mechanical reviewers independently rerun measurement scripts on the hashed inputs, not merely read reported numbers.
+
+Record requested and observed model/provider/effort separately, including routing request IDs; usage is partial if parent data are absent. Reviewer sees the spec, actual diff and evidence, not the producer's self-review. Fix every blocking finding, rerun affected checks, then obtain a fresh reviewer verdict. At final integration use adversarial mechanical, lifecycle/accessibility and visual/performance passes; one reviewer can cover several axes if evidence supports it. Parent independently verifies; technical SHIP does not replace Mark's runtime visual acceptance. No commit/push/deploy is requested by this plan.
+
+## 8. Implementation validation packet
+
+Proportional static checks after code/assets change: `npm run typecheck`, affected meaningful unit tests, full `npm test` at integration, `npm run build`, `node scripts/check-b1b2-contract.mjs`, `npm run check:station2`.
+
+Restart the :4173 preview after **every rebuild**. Existing ring check: `node scripts/verify-ring-inspection.mjs --url=http://localhost:4173 --out=<evidence-dir>`. Extend it or add a shaft verifier once the telemetry contract exists. Opening iteration: `node scripts/verify-jgun-opening.mjs --quick --url=http://localhost:5199` against a confirmed full-tier GPU/dev session; full six-case opening roster only at final integration. A forced-lite capture is valid for lite proof, not full-tier proof; the prior failed run is not an opening regression finding.
+
+Record desktop+narrow, cold/delayed load, blueprint and exploded entry, reduced-mobile, poster/context-loss, every chapter direct seek, reverse/round-trip checkpoints, replay and exit during load/motion/error. Validate live canvas/epoch and actual rendered target regions alongside telemetry. Assert cutter/face/groove visibility and chip placement, exact card content/legibility, OD-only knurl, capped wipe, final ten teeth/profile, bearing/ring +2.75 mm delta with no duplicate offset, correct race/planet/shaft motion, no unsupported FEA labels, and exact context restoration. Include zero console errors, repeated-entry resource census, named performance measurements, and final same-camera before/after/rendered phases for Mark's review.
+
+After warm-up, run five complete entry/exit cycles with no monotonic growth in inspection-owned resources. Test delayed-load → Return → immediate re-entry for stale attachment/camera takeover; manually paused → hidden → visible stays paused. Compare direct seek with continuous playback at the same time/session, including contact, cutter exit, support endpoints and narrative restoration. Rendered captures and telemetry must come from the same settled playhead/session.
+
+Visual reviewers receive short frame sequences of shaping/slowdown, stamps, hobbing and support slide as well as still anchors. Supply contrast-normalized diagnostic crops and region statistics alongside the original dark frames; diagnostic enhancement is not the delivered appearance. Assert generating pitch-point relative velocity with recorded tolerance, engagement-driven shaped/hobbed progression, and the exploded/blueprint entry → assembled shaft finale → full-state restore round trips. Final visual acceptance uses original frames and motion, never vision alone.
+
+Any canonical behavior change discovered during implementation must update animation-spec §5 tables, README ladder and both rig-skill tables in the same commit; this plan intends no ladder change. Record technical proof, rendered visual review and owner acceptance separately.
+
+
+hook: PostToolUse
+hook: PostToolUse Completed
+I should check clearance.json for results and verify whether profile-study.json exists, since quoting actual numbers would strengthen the review and it's worth one more quick lookup.
+
+
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Test-Path 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'; Get-Content -Raw 'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.log' | Select-Object -Last 1 | Out-Null; "'$j=Get-Content -Raw '"'C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/clearance.json' | ConvertFrom-Json; foreach("'$x in $j.results){ $x.name; ($x.hull_vs_retained_neighbours | ConvertTo-Json -Compress -Depth 5); $x.hull_uncertainty_mm; ($x.generating_pose_fit_mm | ConvertTo-Json -Compress -Depth 6) }; $j.sdf | ConvertTo-Json -Compress' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1217ms:
+False
+shaper_as_drawn_z15.0
+{"shaft_journal_side_y>=14.0639":{"min_signed_mm":3.004558850079775,"pose":"withdraw z+0.50"},"housing":{"min_signed_mm":-1.152423326857388,"pose":"feed y=7.575"},"bearing":{"min_signed_mm":4.728340543806553,"pose":"withdraw z+0.50"},"ring":{"min_signed_mm":-5.9242406859993935,"pose":"feed y=8.075"}}
+0.343
+{"work_sign_-1":{"2.0748584":{"best_clock_deg":0.0,"worst_penetration_mm":-0.0,"at":null,"median_over_clocks_mm":0.7605783471600668},"6.1998584":{"best_clock_deg":34.0,"worst_penetration_mm":0.36951389020429837,"at":{"alpha_deg":8.25,"theta_deg":17.500000000000004,"y_mm":5.5998584000000005,"zone":"functional-face"},"median_over_clocks_mm":0.852946267372596},"10.3248584":{"best_clock_deg":18.0,"worst_penetration_mm":3.9169344712784855,"at":{"alpha_deg":14.250000000000002,"theta_deg":-10.500000000000002,"y_mm":9.7248584,"zone":"leadout-ramp"},"median_over_clocks_mm":3.9367452883813043}},"work_sign_+1":{"2.0748584":{"best_clock_deg":4.0,"worst_penetration_mm":0.42114410998345597,"at":{"alpha_deg":4.5,"theta_deg":13.0,"y_mm":2.6748584,"zone":"pre-face"},"median_over_clocks_mm":0.6186455361802194},"6.1998584":{"best_clock_deg":10.0,"worst_penetration_mm":0.8549488082562278,"at":{"alpha_deg":11.25,"theta_deg":32.5,"y_mm":5.5998584000000005,"zone":"functional-face"},"median_over_clocks_mm":0.8639095363690804},"10.3248584":{"best_clock_deg":34.0,"worst_penetration_mm":2.0365910267884333,"at":{"alpha_deg":15.75,"theta_deg":65.5,"y_mm":9.7248584,"zone":"leadout-ramp"},"median_over_clocks_mm":2.8601734969312225}}}
+shaper_at_root_z15.298
+{"shaft_journal_side_y>=14.0639":{"min_signed_mm":3.0047944746911526,"pose":"withdraw z+0.50"},"housing":{"min_signed_mm":-1.1608836939558387,"pose":"feed y=7.575"},"bearing":{"min_signed_mm":4.728340543806553,"pose":"withdraw z+0.50"},"ring":{"min_signed_mm":-5.9242406859993935,"pose":"feed y=8.075"}}
+0.343
+{"work_sign_-1":{"2.0748584":{"best_clock_deg":0.0,"worst_penetration_mm":-0.0,"at":null,"median_over_clocks_mm":0.4935466678982588},"6.1998584":{"best_clock_deg":34.0,"worst_penetration_mm":0.1373116836421597,"at":{"alpha_deg":9.75,"theta_deg":14.500000000000005,"y_mm":5.5998584000000005,"zone":"functional-face"},"median_over_clocks_mm":0.7790804961621258},"10.3248584":{"best_clock_deg":32.0,"worst_penetration_mm":2.914168626089728,"at":{"alpha_deg":5.25,"theta_deg":21.5,"y_mm":9.7248584,"zone":"leadout-ramp"},"median_over_clocks_mm":3.941093260922338}},"work_sign_+1":{"2.0748584":{"best_clock_deg":22.0,"worst_penetration_mm":0.4715099142861371,"at":{"alpha_deg":10.5,"theta_deg":43.0,"y_mm":1.4748584000000005,"zone":"pre-face"},"median_over_clocks_mm":0.6166678243038602},"6.1998584":{"best_clock_deg":29.999999999999996,"worst_penetration_mm":0.7662163369639994,"at":{"alpha_deg":5.25,"theta_deg":40.5,"y_mm":6.7998584,"zone":"functional-face"},"median_over_clocks_mm":0.782944444182392},"10.3248584":{"best_clock_deg":34.0,"worst_penetration_mm":2.2232478735110095,"at":{"alpha_deg":0.0,"theta_deg":34.0,"y_mm":9.7248584,"zone":"leadout-ramp"},"median_over_clocks_mm":2.907502653930369}}}
+hob_as_drawn_tip4
+{"shaft_journal_side_y>=14.0639":{"min_signed_mm":-5.972511135041714,"pose":"withdraw z+0.50"},"housing":{"min_signed_mm":-1.5893771778792143,"pose":"feed y=8.675"},"bearing":{"min_signed_mm":1.0563354007899761,"pose":"feed y=9.675"},"ring":{"min_signed_mm":-5.998206324875355,"pose":"feed y=7.175"}}
+0.343
+{"work_sign_-1":{"3.1748584005981684":{"best_clock_deg":26.0,"worst_penetration_mm":0.63149127015046,"at":{"alpha_deg":255.00000000000003,"theta_deg":0.4999999999999975,"y_mm":4.0800892980796695,"zone":"functional-face"},"median_over_clocks_mm":0.7001144189716412},"6.349858400598168":{"best_clock_deg":0.0,"worst_penetration_mm":3.969774462420159,"at":{"alpha_deg":185.0,"theta_deg":-18.5,"y_mm":10.033094337925265,"zone":"leadout-ramp"},"median_over_clocks_mm":3.9744331313503545},"9.524858400598168":{"best_clock_deg":0.0,"worst_penetration_mm":3.398231688540025,"at":{"alpha_deg":5.0,"theta_deg":-0.5,"y_mm":8.528741610465199,"zone":"functional-face"},"median_over_clocks_mm":3.9562963752889497}},"work_sign_+1":{"3.1748584005981684":{"best_clock_deg":32.0,"worst_penetration_mm":0.7651400576656078,"at":{"alpha_deg":239.99999999999997,"theta_deg":56.0,"y_mm":4.598152636082879,"zone":"functional-face"},"median_over_clocks_mm":0.8233598245283305},"6.349858400598168":{"best_clock_deg":16.0,"worst_penetration_mm":3.0676258635651132,"at":{"alpha_deg":330.0,"theta_deg":49.00000000000001,"y_mm":9.16069272956731,"zone":"functional-face"},"median_over_clocks_mm":3.1118047320932387},"9.524858400598168":{"best_clock_deg":28.0,"worst_penetration_mm":2.159852538582677,"at":{"alpha_deg":245.00000000000003,"theta_deg":52.50000000000001,"y_mm":12.40007486412373,"zone":"leadout-ramp"},"median_over_clocks_mm":2.557115425611364}}}
+{"grid_mm":0.1,"shape":[141,151,53],"sign_agreement_vs_ray_parity":0.97}
+
+hook: PostToolUse
+hook: PostToolUse Completed
+I'm starting to draft the review, checking the gear coupling math in profile_study.py — verifying that the rotation ratio between the shaper tool and workpiece teeth counts is applied correctly.
+
+Though the magnitude of the ratio looks right, I realize the sign convention for the external gear pair's counter-rotation isn't actually verified in the code, so I flag that as unconfirmed. I'm also working through whether sampling one tool-pitch of alpha is sufficient to cover the full meshing cycle when the ratio N/10 is an integer, since each tool tooth might repeatedly meet the same work tooth sequence rather than sampling all combinations.
+
+The real issue is whether the tool counts as a true conjugate shape: the correct derivation requires computing the tool's inner envelope as the intersection, across all relative poses, of the complement of the work solid — essentially the largest tool body that never penetrates the work. Expressing this as a polar radius function means trimming along each ray to the first contact point, which only works cleanly under a star-shaped assumption about the tool's geometry.
+
+The inverse envelope gives the maximal non-interfering tool at the touching pose, but doesn't guarantee conjugacy — the forward check with residual stock is what actually verifies the work gets fully regenerated. I still need to check whether the tool-frame rays, cast from the tool origin at various angles, could cause interference issues at the root or tip.
+
+Looking at how the composite rotation is applied, the tool centre orbits around the work origin as part of the rotation by γ=Nα/10, since the rotation is applied to the whole point including the centre offset rather than just the tool orientation — I need to double check this sign convention and whether rotating the centre along with the tool is actually correct for this gear-like coupling.
+
+Working through the rotation mapping, I find θ_t = α and θ_w = -γ, meaning the tool orientation equals α while the work rotates counter to γ — since both use the same rotate function, the composite centre angle γ combines with α consistently in the formula.
+
+This opposite-sign relationship actually makes sense for an external gear mesh, where the two bodies rotate in opposite directions in the lab frame, confirming the magnitude ratio N/10 is correct. Now I'm checking the pitch radius relationship: ω_w/ω_t = N/10 implies the work rotates faster than the tool when N exceeds 10, since the work has 10 teeth and the tool has N, and I need to verify this against r_t/r_w = ω_w/ω_t to make sure the centre distance C is consistently divided between the two pitch circles.
+
+For a nonstandard profile, a conjugate cutter exists across a range of centre distances, but the tooth-flank envelope and resulting pitch point shift depending on which C is chosen, since the pitch point location is tied to where the work profile's normals actually intersect — so the centre distance isn't truly free once I'm demanding an exact conjugate relationship.
+
+With a fixed ratio and C, the pitch point splits C accordingly, giving a work pitch radius of 10C/(10+N); checking that this falls between my root (4.29) and tip (6.08) radii confirms the chosen centres (giving r_p around 5.17–5.25) are valid. For the angular sampling and contact detection, I'm treating gap as a radial comparison in polar coordinates rather than true Euclidean distance, which only works cleanly if the work tooth profile is star-shaped (single-valued as a function of angle) — something I need to verify given the root/tip radii before trusting the ray-casting contact detection.
+
+But this outward ray-cast from radius 20 only captures the outermost hit per direction, meaning it computes the star-hull envelope and silently ignores undercut or reentrant regions where the flank folds back — a real risk since 10 teeth with standard 20° pressure angle typically undergoes root undercutting (z=10 < 17). I should test for multi-valuedness by checking ray-hit counts rather than just the first hit, or better yet, extract the exact profile via a planar mesh section (like a bisect operation) instead of relying on 7200 angular samples at 0.05° resolution.
+
+
+codex
+**Verdict: fix first.** I read `profile_study.py`, `clearance.py`, both logs, `clearance.json`, `geometry/FINDINGS.md` and the accepted plan. I ran nothing, launched no Blender and edited no files. The numbers below come from the artifacts, plus one calculation of mine that you should re-check.
+
+**What the evidence shows**
+
+- `profile-study.log` ends after `PROFILE_SECTIONS`. There is no `MATCHED_SHAPER` line and no `profile-study.json`, so the inverse shaper has no result yet. The loop is about 3×10⁹ NumPy point evaluations per candidate, so it may only be slow.
+- The `clearance.json` penetrations do not test the matched tools. `clearance.py` uses a hand-drawn tool (shaper: 20 teeth in a 4-of-8-segment pattern; hob: triangular ridges). Neither is derived from the measured profile, so large penetrations are expected.
+
+**Blocking problems in `clearance.py`**
+
+1. **Wrong shaft for the shaper.** Everything uses `SHAFT_P001835_HOBBED_NEW`. The shaper needs `SHAFT_P001835_ORIG`, whose relief groove (floor r≈4.11–4.22 at y=10.92) is what the cutter runs out into.
+2. **Retained-neighbour test is the wrong scene.** Housing, bearing and ring are not present while the shaft is machined. Their hull results (−1.15 and −5.92 mm) say nothing about the machining path. Test only the parts that are in the shot: the shaft's journal and shoulder, the centres or work-holding, and the tool, arbor and holder.
+3. **The signed-distance sign is unreliable.**
+   - The sign comes from the nearest face normal on open, unwelded, non-manifold shells.
+   - Its own check agrees with ray parity on only 97% of points.
+   - A ring penetrated by −5.92 mm is geometrically impossible. The hull values of −5.92 and −5.97 sit near the 6 mm search cap, and the fit values of 3.9–3.97 mm look like unsigned distances with a wrong sign.
+   - Use a welded derived copy (1 µm weld in numpy, source untouched) with a winding-number or 3-ray inside test. Report unsigned distance, and check containment separately.
+4. **The shaft distance grid covers too little.** It spans only x∈±7 and z∈[2, 7.2], and out-of-grid points return `+inf`, which counts as safe. The scan rotates the tool to θ up to about 70° around the shaft, which leaves that region. Penetration is therefore missed exactly where it matters. Make out-of-grid a failure, or use the full annulus. Alternatively, fold angle modulo 36° and use an analytic extruded-profile distance in the toothed zone.
+5. **Sampling errors exceed the stated uncertainty.**
+   - Work clock steps of 2° move r=6 by about 0.21 mm.
+   - Hob steps of 5° move r=4 by about 0.35 mm.
+   - The fit uncertainty of 0.109 mm omits both, and also the 0.07 mm tool-point spacing.
+   - The correct registry is also far finer than a 2° scan. A 0.04 mm clearance at r_p≈5.2 needs about ±0.4°, so choose the registry analytically.
+6. **The hull test is one-sided.** It measures only hull-surface points against the neighbour mesh. A neighbour that sits entirely inside the hull is missed. Evaluate the closed-form distance to the hull at the neighbour's vertices and subdivided triangles, plus a containment test. Subdivide where `d(centroid) < R_tri + margin`, which uses the fact that distance is 1-Lipschitz.
+7. **The hob size is inconsistent with the approved runout.**
+   - `clearance.py` models a hob with tip radius 4 mm.
+   - FINDINGS gives the tooth-space floor reaching 6.074 mm at y=13.78. With end y=9.525 and root 4.292, a circular-arc fit gives R≈5.97 mm. That matches the authored "6 mm". This is my arithmetic and assumes the ramp is an arc, so fit the full floor profile to confirm.
+   - The approved ramp is the hob's swept envelope, so there the hob must touch the shaft. Require |penetration| ≤ tolerance and a contact set that stays inside the runout zone. Require positive clearance only on the journal side, which starts at y≈14.18, not at the authored 14.0639.
+   - The helix angle is also inconsistent. The code uses `asin(m/d)` while the thread-lead formula needs `atan`.
+
+**Inverse envelope in `profile_study.py`**
+
+The logic of the algorithm is sound:
+
+- The coupling ratio N/10 is correct.
+- The counter-rotation sign is consistent in the code.
+- Sweeping one tool pitch is enough given tool and work symmetry.
+- Taking the minimum over tool teeth is valid.
+
+The problems are in the metric and the sampling:
+
+- **Radial gap is used as clearance.** `gap = |p| − r_w(φ)` is a radial gap, so the 0.04 mm margin shrinks to about 0.04·cos(angle between the flank normal and the radial direction) on flanks. It approaches zero on flanks that are nearly radial. The "residual stock" figure is distorted in the same way. Use Euclidean 2D distance to the section polyline.
+- **The star-shaped assumption is unchecked.** A single outermost ray hit per angle fills any undercut. A 10-tooth gear is a likely undercut case. Check that the profile angle stays monotone along the profile (or count all ray hits).
+- **The forward check is not an envelope.** It takes the minimum over sampled boundary points per work-angle bin, so it can miss bins (the code counts these). It also only reports radial error.
+- **There is no feasibility test.** The pitch radius is free, and `C = r_p(1 + N/10)` is hand-picked. A flank point q with unit tangent t can only be generated if |q·t| ≤ r_p, because that is the distance from the axis to its normal line. Compute this along the profile and choose r_p above its maximum. Points that fail are the unremoved stock.
+- **Registry and the 0.04 mm margin.** The tool phase is a free definition, so there is nothing to scan. A 0.04 mm offset means the tool generates the work plus 0.04 mm, so state that, or use a smaller margin such as 0.005 mm.
+- **Infeed is not covered.** Only the final centre distance is tested. Check infeed separately.
+
+**Recommended method**
+
+1. Extract the section as an exact polyline: plane–triangle intersection on the welded copy at several y (3.5, 6, 9), 10-fold averaged. Confirm the section is constant across y to about 0.003 mm.
+2. Compute the flank by the meshing equation, with no sampling. Contact occurs when the normal line through q passes the pitch point I. That gives the pose θ(s) in closed form, and the tool flank point is M_θ(s)·q(s).
+3. Trim self-loops and fill the tip and root with a distance-field envelope, `D_T(x) = min_θ D_W(M_θ x) − ε`. Extract the contour on one tool-tooth sector.
+4. For the hob, solve for the rack (graph) envelope under rolling x=r_pθ. A smooth hob thread is invariant under hob rotation, so only θ and the feed y are continuous parameters. The relative motion is a rack translation, so no hob-phase sampling is needed. Model the finite gash scallop separately: about 1 µm for 10 gashes at m≈1.
+
+**Error bound, in mm**
+
+`e_total = e_cad + e_tool + e_pose + e_grid`
+
+- `e_cad`: 0.002 export plus the CAD tessellation chord error. FINDINGS says the chord error is not proven; take it from the export tolerance.
+- `e_tool`: polyline sagitta, about h²/(8ρ), for example 6×10⁻⁵ at h=0.01 and ρ=0.2.
+- `e_pose`: the distance between tool and work changes by at most L·|Δs|, so sampling at step h loses at most L·h/2. Near the pitch point the speed is `L = (1 + N/10)·R_I` with R_I≈2.5 mm, giving about 7.5 mm/rad for N=20. The current 0.05° tool step gives about 3 µm.
+- `e_grid`: grid or sampling error such as 0.087 for the 0.1 mm grid plus 0.0707 for tool-point spacing.
+
+Certify the path with `min_samples d − e_total ≥ margin`, and subdivide where `d_i < L·h/2 + margin`. For hulls under linear translation, the swept hull is the convex hull of the start and end poses, so test it exactly with GJK.
+
+**Full holder test**
+
+- **Shaper:**
+  - Parts: the cutter (use the real conjugate teeth, not just a hull), hub, clamp nut, spindle or ram, the ORIG shaft, and the centres or work-holding.
+  - Path: infeed, stroke into the groove, radial return relief, withdrawal.
+  - Pass criteria: the stroke end clears the journal step, and the tooth tips clear the groove floor.
+- **Hob:**
+  - Parts: the hob at R≈6 mm, both collars and the arbor on the tilted axis, the head, the shaft (including journal and shoulder) and the work-holding.
+  - Path: infeed, feed along y, runout, withdrawal.
+  - Pass criteria: positive clearance on the journal side. Contact is allowed only on the generated ramp, within tolerance.
+- **Each pair:** report the minimum distance, the pose, the part names, and the margin after subtracting `e_total`. Pair the positive result with an interference check, which is what the plan's gate asks for.
+- **Sanity check:** the tool must reproduce the authored ramp.
+
+Final evidence should include the reviewer re-running these on the hashed inputs.
+hook: Stop
+hook: Stop Completed
+tokens used
+122,089
+**Verdict: fix first.** I read `profile_study.py`, `clearance.py`, both logs, `clearance.json`, `geometry/FINDINGS.md` and the accepted plan. I ran nothing, launched no Blender and edited no files. The numbers below come from the artifacts, plus one calculation of mine that you should re-check.
+
+**What the evidence shows**
+
+- `profile-study.log` ends after `PROFILE_SECTIONS`. There is no `MATCHED_SHAPER` line and no `profile-study.json`, so the inverse shaper has no result yet. The loop is about 3×10⁹ NumPy point evaluations per candidate, so it may only be slow.
+- The `clearance.json` penetrations do not test the matched tools. `clearance.py` uses a hand-drawn tool (shaper: 20 teeth in a 4-of-8-segment pattern; hob: triangular ridges). Neither is derived from the measured profile, so large penetrations are expected.
+
+**Blocking problems in `clearance.py`**
+
+1. **Wrong shaft for the shaper.** Everything uses `SHAFT_P001835_HOBBED_NEW`. The shaper needs `SHAFT_P001835_ORIG`, whose relief groove (floor r≈4.11–4.22 at y=10.92) is what the cutter runs out into.
+2. **Retained-neighbour test is the wrong scene.** Housing, bearing and ring are not present while the shaft is machined. Their hull results (−1.15 and −5.92 mm) say nothing about the machining path. Test only the parts that are in the shot: the shaft's journal and shoulder, the centres or work-holding, and the tool, arbor and holder.
+3. **The signed-distance sign is unreliable.**
+   - The sign comes from the nearest face normal on open, unwelded, non-manifold shells.
+   - Its own check agrees with ray parity on only 97% of points.
+   - A ring penetrated by −5.92 mm is geometrically impossible. The hull values of −5.92 and −5.97 sit near the 6 mm search cap, and the fit values of 3.9–3.97 mm look like unsigned distances with a wrong sign.
+   - Use a welded derived copy (1 µm weld in numpy, source untouched) with a winding-number or 3-ray inside test. Report unsigned distance, and check containment separately.
+4. **The shaft distance grid covers too little.** It spans only x∈±7 and z∈[2, 7.2], and out-of-grid points return `+inf`, which counts as safe. The scan rotates the tool to θ up to about 70° around the shaft, which leaves that region. Penetration is therefore missed exactly where it matters. Make out-of-grid a failure, or use the full annulus. Alternatively, fold angle modulo 36° and use an analytic extruded-profile distance in the toothed zone.
+5. **Sampling errors exceed the stated uncertainty.**
+   - Work clock steps of 2° move r=6 by about 0.21 mm.
+   - Hob steps of 5° move r=4 by about 0.35 mm.
+   - The fit uncertainty of 0.109 mm omits both, and also the 0.07 mm tool-point spacing.
+   - The correct registry is also far finer than a 2° scan. A 0.04 mm clearance at r_p≈5.2 needs about ±0.4°, so choose the registry analytically.
+6. **The hull test is one-sided.** It measures only hull-surface points against the neighbour mesh. A neighbour that sits entirely inside the hull is missed. Evaluate the closed-form distance to the hull at the neighbour's vertices and subdivided triangles, plus a containment test. Subdivide where `d(centroid) < R_tri + margin`, which uses the fact that distance is 1-Lipschitz.
+7. **The hob size is inconsistent with the approved runout.**
+   - `clearance.py` models a hob with tip radius 4 mm.
+   - FINDINGS gives the tooth-space floor reaching 6.074 mm at y=13.78. With end y=9.525 and root 4.292, a circular-arc fit gives R≈5.97 mm. That matches the authored "6 mm". This is my arithmetic and assumes the ramp is an arc, so fit the full floor profile to confirm.
+   - The approved ramp is the hob's swept envelope, so there the hob must touch the shaft. Require |penetration| ≤ tolerance and a contact set that stays inside the runout zone. Require positive clearance only on the journal side, which starts at y≈14.18, not at the authored 14.0639.
+   - The helix angle is also inconsistent. The code uses `asin(m/d)` while the thread-lead formula needs `atan`.
+
+**Inverse envelope in `profile_study.py`**
+
+The logic of the algorithm is sound:
+
+- The coupling ratio N/10 is correct.
+- The counter-rotation sign is consistent in the code.
+- Sweeping one tool pitch is enough given tool and work symmetry.
+- Taking the minimum over tool teeth is valid.
+
+The problems are in the metric and the sampling:
+
+- **Radial gap is used as clearance.** `gap = |p| − r_w(φ)` is a radial gap, so the 0.04 mm margin shrinks to about 0.04·cos(angle between the flank normal and the radial direction) on flanks. It approaches zero on flanks that are nearly radial. The "residual stock" figure is distorted in the same way. Use Euclidean 2D distance to the section polyline.
+- **The star-shaped assumption is unchecked.** A single outermost ray hit per angle fills any undercut. A 10-tooth gear is a likely undercut case. Check that the profile angle stays monotone along the profile (or count all ray hits).
+- **The forward check is not an envelope.** It takes the minimum over sampled boundary points per work-angle bin, so it can miss bins (the code counts these). It also only reports radial error.
+- **There is no feasibility test.** The pitch radius is free, and `C = r_p(1 + N/10)` is hand-picked. A flank point q with unit tangent t can only be generated if |q·t| ≤ r_p, because that is the distance from the axis to its normal line. Compute this along the profile and choose r_p above its maximum. Points that fail are the unremoved stock.
+- **Registry and the 0.04 mm margin.** The tool phase is a free definition, so there is nothing to scan. A 0.04 mm offset means the tool generates the work plus 0.04 mm, so state that, or use a smaller margin such as 0.005 mm.
+- **Infeed is not covered.** Only the final centre distance is tested. Check infeed separately.
+
+**Recommended method**
+
+1. Extract the section as an exact polyline: plane–triangle intersection on the welded copy at several y (3.5, 6, 9), 10-fold averaged. Confirm the section is constant across y to about 0.003 mm.
+2. Compute the flank by the meshing equation, with no sampling. Contact occurs when the normal line through q passes the pitch point I. That gives the pose θ(s) in closed form, and the tool flank point is M_θ(s)·q(s).
+3. Trim self-loops and fill the tip and root with a distance-field envelope, `D_T(x) = min_θ D_W(M_θ x) − ε`. Extract the contour on one tool-tooth sector.
+4. For the hob, solve for the rack (graph) envelope under rolling x=r_pθ. A smooth hob thread is invariant under hob rotation, so only θ and the feed y are continuous parameters. The relative motion is a rack translation, so no hob-phase sampling is needed. Model the finite gash scallop separately: about 1 µm for 10 gashes at m≈1.
+
+**Error bound, in mm**
+
+`e_total = e_cad + e_tool + e_pose + e_grid`
+
+- `e_cad`: 0.002 export plus the CAD tessellation chord error. FINDINGS says the chord error is not proven; take it from the export tolerance.
+- `e_tool`: polyline sagitta, about h²/(8ρ), for example 6×10⁻⁵ at h=0.01 and ρ=0.2.
+- `e_pose`: the distance between tool and work changes by at most L·|Δs|, so sampling at step h loses at most L·h/2. Near the pitch point the speed is `L = (1 + N/10)·R_I` with R_I≈2.5 mm, giving about 7.5 mm/rad for N=20. The current 0.05° tool step gives about 3 µm.
+- `e_grid`: grid or sampling error such as 0.087 for the 0.1 mm grid plus 0.0707 for tool-point spacing.
+
+Certify the path with `min_samples d − e_total ≥ margin`, and subdivide where `d_i < L·h/2 + margin`. For hulls under linear translation, the swept hull is the convex hull of the start and end poses, so test it exactly with GJK.
+
+**Full holder test**
+
+- **Shaper:**
+  - Parts: the cutter (use the real conjugate teeth, not just a hull), hub, clamp nut, spindle or ram, the ORIG shaft, and the centres or work-holding.
+  - Path: infeed, stroke into the groove, radial return relief, withdrawal.
+  - Pass criteria: the stroke end clears the journal step, and the tooth tips clear the groove floor.
+- **Hob:**
+  - Parts: the hob at R≈6 mm, both collars and the arbor on the tilted axis, the head, the shaft (including journal and shoulder) and the work-holding.
+  - Path: infeed, feed along y, runout, withdrawal.
+  - Pass criteria: positive clearance on the journal side. Contact is allowed only on the generated ramp, within tolerance.
+- **Each pair:** report the minimum distance, the pose, the part names, and the margin after subtracting `e_total`. Pair the positive result with an interference check, which is what the plan's gate asks for.
+- **Sanity check:** the tool must reproduce the authored ramp.
+
+Final evidence should include the reviewer re-running these on the hashed inputs.

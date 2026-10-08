@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-06T17:33:27.826Z",
+  "rows": [
+    {
+      "capture": "desktop-failed-4140.png",
+      "card_rect": {
+        "min": [
+          904.8125,
+          144
+        ],
+        "max": [
+          1324.8125,
+          369.28125
+        ],
+        "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "card_text_edge_frac": 0.08506,
+      "below_card_control_edge_frac": 0.00706
+    },
+    {
+      "capture": "narrow-failed-4140.png",
+      "card_rect": {
+        "min": [
+          31.1875,
+          156
+        ],
+        "max": [
+          358.8125,
+          339.96875
+        ],
+        "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+      },
+      "card_text_edge_frac": 0.09834,
+      "below_card_control_edge_frac": 0.02128
+    },
+    {
+      "capture": "narrow-revised-4340.png",
+      "card_rect": {
+        "min": [
+          31.1875,
+          156
+        ],
+        "max": [
+          358.8125,
+          249.78125
+        ],
+        "text": "AISI 4340 (H.T. 48-50 HRC)Illustrative stress concentration"
+      },
+      "card_text_edge_frac": 0.09333,
+      "below_card_control_edge_frac": 0.0246
+    }
+  ],
+  "conclusion": "Card rects in the full-page captures carry text-like edge density far above the WebGL-only control strip directly below the card, so the portal DOM was painted; the pixel-identical -dom-overlay-bounds captures contain the same DOM. No clean canvas raster exists in this folder."
+}

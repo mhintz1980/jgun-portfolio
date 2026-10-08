@@ -1,0 +1,3097 @@
+{
+  "url": "http://localhost:5199",
+  "started": "2026-10-05T09:26:47.899Z",
+  "cases": [
+    {
+      "name": "delayed-CAD-entry",
+      "errors": [],
+      "failures": [],
+      "loadedAfterSourceNotification": true,
+      "warmReadyBeforeFallback": false,
+      "pass": true
+    },
+    {
+      "name": "desktop",
+      "errors": [],
+      "requests": [
+        "http://localhost:5199/models/m249-transformed.glb",
+        "http://localhost:5199/models/Default.glb",
+        "http://localhost:5199/models/msp-enclosure.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb"
+      ],
+      "frames": [
+        {
+          "active": true,
+          "phase": "Aluminium · spin",
+          "time": 2.4,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05330285325974646,
+              -0.05330285325974646,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05330285325974646,
+              0.05330285325974646,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 7.068583470577033,
+          "toolClipTime": 0.03333333333333333,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.013953412761166123,
+            0.013953412761166123
+          ],
+          "rollerAxial": [
+            -0.008252107790789172,
+            -0.008252107790789144
+          ],
+          "rollerCenters": [
+            [
+              0.02199999988079071,
+              0.05922182649374008,
+              -0.008252107790789172
+            ],
+            [
+              0.02199999988079071,
+              -0.05922182649374008,
+              -0.008252107790789144
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 4.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253427,
+              -0.0514765593444369,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253427,
+              0.0514765593444369,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 16.755160819145562,
+          "toolClipTime": 1.833333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            -0.008252107790789168,
+            -0.008252107790789148
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              -0.008252107790789168
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              -0.008252107790789148
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 4.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253427,
+              -0.05147655934443689,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253427,
+              0.05147655934443689,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.25,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 23.03834612632515,
+          "toolClipTime": 2.333333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            -0.004126053115320534,
+            -0.004126053115320511
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              -0.004126053115320534
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              -0.004126053115320511
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 5.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.051496645812534284,
+              -0.05147655934443691,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.051496645812534284,
+              0.05147655934443691,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.5,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 29.321531433504735,
+          "toolClipTime": 2.833333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            6.558189192337793e-10,
+            6.558189410926622e-10
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              6.558189192337793e-10
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              6.558189410926622e-10
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 5.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253423,
+              -0.05147655934443685,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253423,
+              0.05147655934443685,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.75,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 35.604716740684324,
+          "toolClipTime": 3.333333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            0.004126055065505651,
+            0.004126055065505674
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              0.004126055065505651
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              0.004126055065505674
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Clearance · retract",
+          "time": 6.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253423,
+              -0.05147655934443686,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253423,
+              0.05147655934443686,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 41.88790204786391,
+          "toolClipTime": 3.8333333333333335,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            0.008252107790789148,
+            0.008252107790789168
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              0.008252107790789148
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              0.008252107790789168
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Clearance · retract",
+          "time": 7.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05147655934443687,
+              -0.051496645812534256,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05147655934443687,
+              0.051496645812534256,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 46.6002910282486,
+          "toolClipTime": 4.708333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.06652019419745248,
+            0.06652019419745248
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.09944445305918446,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.09944445305918446,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Black finish · decelerate",
+          "time": 8.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.051496645812534325,
+              -0.05147655934443695,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.051496645812534325,
+              0.05147655934443695,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 48.17108735504349,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.26199995588073033,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.26199995588073033,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Black finish · decelerate",
+          "time": 10,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.03846617911368063,
+              -0.03851986294984369,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.03846617911368063,
+              0.03851986294984369,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 0,
+          "ringAngle": 50.24396528904685,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.26199995588073033,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.26199995588073033,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Complete",
+          "time": 12,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.016677522750038372,
+              -0.037717107683420376,
+              0.09628136760695187
+            ],
+            "max": [
+              0.06278955009862391,
+              0.037719387561083326,
+              0.15471812579965136
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 0,
+          "ringAngle": 50.26548245743668,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789151,
+            0.008252107790789179
+          ],
+          "rollerCenters": [
+            [
+              -0.2066412778126575,
+              0.05922296643257156,
+              -0.000798426078629197
+            ],
+            [
+              -0.2066412778126575,
+              -0.05922068655490861,
+              -0.0007984260786292204
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0.4539904997395469,
+              2.220446049250313e-16,
+              -0.8910065241883678
+            ],
+            [
+              0.4539904997395469,
+              2.220446049250313e-16,
+              -0.8910065241883678
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 18285,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500165562913906,
+            "chapter": 1,
+            "chapterProgress": 0.6375387797311272,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 1,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        }
+      ],
+      "masks": [
+        {
+          "progress": 0,
+          "green": 0,
+          "red": 215767,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\desktop-od-mask-0.png"
+        },
+        {
+          "progress": 0.5,
+          "green": 39548,
+          "red": 175901,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\desktop-od-mask-0.5.png"
+        },
+        {
+          "progress": 1,
+          "green": 88937,
+          "red": 126485,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\desktop-od-mask-1.png"
+        }
+      ],
+      "failures": [],
+      "entry": {
+        "scroll": 18285,
+        "height": 29952,
+        "camera": [
+          0.2648259368886038,
+          -1.3877787807814457e-17,
+          -0.9642962320527201,
+          0,
+          -0.15077317412567248,
+          0.9877008188109095,
+          -0.04140703423729321,
+          0,
+          0.9524361779747464,
+          0.1563556603396843,
+          0.26156879470724026,
+          0,
+          0.5275656663624605,
+          0.10073737700278991,
+          0.14590678899454707,
+          1
+        ],
+        "meshes": [
+          [
+            "cb874a8b-3ade-4baf-8ed0-743e8ffad4f4",
+            2251,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "55fab5f0-3fe3-4b02-8e01-1bdd8bb1627a",
+            2251,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "8dd368c1-9271-43a1-8d11-929a54802eb3",
+            2251,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "2ee986d2-fdf5-4050-bf42-0e2641d1bed6",
+            2251,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "66cb5492-cf8e-400b-b655-dca436565b01",
+            16884,
+            "62d4eb25-3923-4a48-b687-0f61b9b129ba"
+          ],
+          [
+            "ed764927-fd3b-4ac8-b57a-4a3ac7ef3573",
+            22277,
+            "526ab5e4-4a5d-4155-b87d-fe0ae90eac60"
+          ],
+          [
+            "dfdb13ee-2f60-4acd-8ff4-1ecf273b3d08",
+            7466,
+            "0e49c2ac-3099-449f-aeee-e66b4996bde3"
+          ],
+          [
+            "718349ef-024d-4990-ad01-a7e2c9e103d7",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "7b2e5938-9eeb-442c-83af-f832d7516096",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "baa713e4-e265-4a27-a185-75a0ff219188",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "e36b3f71-be74-46cc-b7e9-014e3b4537e1",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "46fd10fa-db79-41d7-9f01-af281885c744",
+            5156,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "c122d212-f9bc-45aa-9b5c-f90994e9abde",
+            5156,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "3dff74ef-7ba1-461a-82de-ab499e6befed",
+            15291,
+            "0e49c2ac-3099-449f-aeee-e66b4996bde3"
+          ],
+          [
+            "54fdcf01-0a93-4919-8bbe-84411ffd369f",
+            5156,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "ee867106-344d-4d4d-b17e-59cc954824a1",
+            5156,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "25f1633b-939d-46c5-97be-501d83bc5c12",
+            5156,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "12742f42-765c-4d22-b028-e8a6147a23b7",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "aafc3ec9-76af-4af9-93c0-13c7e78da391",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "69e8d76d-44b2-475d-81f4-8732a7936b7c",
+            11495,
+            "0e49c2ac-3099-449f-aeee-e66b4996bde3"
+          ],
+          [
+            "110c38da-1bac-4d3d-a11f-f85bc90e0509",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "b97a2019-228b-4cc1-85db-d94de3307e5e",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "a2ac23d8-9541-43ba-91db-501067552c91",
+            3100,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "6c0e9613-6aba-4406-962b-99b8cb48c70b",
+            3100,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "1bfe6f05-0b36-4f44-9e87-16cc29da8a7d",
+            12999,
+            "0e49c2ac-3099-449f-aeee-e66b4996bde3"
+          ],
+          [
+            "cc34a63a-5d56-41c4-b6cb-1a23a6f9e4ad",
+            3100,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "111eb600-f72c-4e13-b0b8-8c07cf2d3978",
+            3100,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "1a41367c-c030-41c5-ae8b-572f24f335c7",
+            122684,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "a361d0f3-1da3-4b45-b73d-ec237e135f67",
+            12810,
+            "f921e816-2193-4dfb-971b-01f12c256982"
+          ],
+          [
+            "2c16c85b-ae49-4538-8eb8-98d44af2836c",
+            17294,
+            "f921e816-2193-4dfb-971b-01f12c256982"
+          ],
+          [
+            "6ac41909-c7bc-4a17-ae8d-4a4c45a88d98",
+            4292,
+            "b9cc6ffd-bd57-45e1-921b-3c418e47737e"
+          ],
+          [
+            "f4230a40-d322-4016-85ee-30d07a87ac2f",
+            7908,
+            "0e49c2ac-3099-449f-aeee-e66b4996bde3"
+          ],
+          [
+            "938b76e6-2aaa-4eb3-9194-91265ceed4a9",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "8ef8797d-dcff-470f-9c8f-d8ea2a389dcc",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "b5d9a25d-aaea-46cf-9af3-34f61d0829dc",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "b3b8228c-8f2d-4025-b760-d7f367b60626",
+            2120,
+            "40da8d72-ab7b-482b-8c93-571d59180bc9"
+          ],
+          [
+            "35453d71-bcba-4217-bdc4-5b414fac194d",
+            3444,
+            "5dc70a01-7ca0-4cf6-a658-3d62f94bad2e"
+          ],
+          [
+            "740db8b1-c387-45fa-8962-6f8154e266a9",
+            197477,
+            "f3da40b3-4baf-4e3b-bb33-4e057472ec0f"
+          ],
+          [
+            "144fa7fe-874b-4986-8f23-860b7a2bafc8",
+            164368,
+            "1c38107e-184c-4750-ab35-b7c324a6ff7f"
+          ],
+          [
+            "51b81dc0-c99d-4faf-96d8-af26b210a98b",
+            2927,
+            "d6f8bc4c-f8aa-437a-b05d-a2c051134cc9"
+          ],
+          [
+            "b1730ae9-d4f7-4133-b3ba-64a952cd32ea",
+            30137,
+            "75a270c3-92dc-45cf-aab1-fa501b3007ca"
+          ],
+          [
+            "63b86bce-2399-4d48-b211-55e481563230",
+            19060,
+            "40da8d72-ab7b-482b-8c93-571d59180bc9"
+          ],
+          [
+            "5b526346-028d-4166-9653-7ac21ac2ffd8",
+            39353,
+            "e1c59c1b-cec8-423c-96cb-a12fc817bfac"
+          ],
+          [
+            "0f0e2717-055d-4b21-b509-8a017e795764",
+            1416,
+            "96ac72e9-85d5-4d29-9c5d-eb33ac8af05f"
+          ],
+          [
+            "5ea799ab-b718-4b4c-b70d-1872e1451f0a",
+            3956,
+            "74fbbfdd-c9b6-45e4-8a62-99c3d0350389"
+          ],
+          [
+            "a9563100-6aa4-4b25-b1a6-8a8a1de3da22",
+            5099,
+            "4f8888ab-ae20-4909-b6fd-b44418bedfd1"
+          ],
+          [
+            "66451c64-fe03-43ce-aa69-a136a512c767",
+            9165,
+            "f3da40b3-4baf-4e3b-bb33-4e057472ec0f"
+          ],
+          [
+            "53465281-acd5-4fb1-bb8d-110afb3cef2d",
+            5078,
+            "4f8888ab-ae20-4909-b6fd-b44418bedfd1"
+          ],
+          [
+            "8adbc4c4-85c0-4f57-82ea-6fbd207b8d89",
+            1651,
+            "41c23d26-f26f-4d56-b30e-3f517286b2e1"
+          ],
+          [
+            "dd299a7e-9259-4783-afde-e01381a6d19e",
+            3206,
+            "1014671a-cfbf-4012-b6e4-b7f0cea2af37"
+          ],
+          [
+            "0b8fc556-4fa4-49c2-ae7d-53e9fc02652f",
+            568,
+            "65a7849a-33bf-45bc-a7da-cde6f288b485"
+          ],
+          [
+            "2264d15c-e6fc-4593-b77e-490d7f14250f",
+            5083,
+            "4f8888ab-ae20-4909-b6fd-b44418bedfd1"
+          ],
+          [
+            "66d0d6a4-2a80-496f-8b52-23b789492235",
+            130,
+            "29e15fa0-71e0-4d26-9300-b9f441e07cc3"
+          ],
+          [
+            "518b60d0-624a-4ac8-866a-df5e5f29c764",
+            130,
+            "8f2005c1-b3b6-47ac-8323-9b42d5f34e37"
+          ],
+          [
+            "59a06c88-de71-44e5-8ff0-49ec0a120ad6",
+            56,
+            "a2100f91-eeb2-42bf-b039-be5d722528f3"
+          ],
+          [
+            "3060faa3-a950-4194-8d11-9206bf3a1b1f",
+            4,
+            "1d217691-92bb-4bc4-97d1-93fbd285226f"
+          ],
+          [
+            "b6f86c78-7baf-498d-9dac-61b8150bf2dc",
+            4,
+            "6b5a6b64-5426-46c5-b041-b12600042158"
+          ],
+          [
+            "8810caa7-fe23-4f0a-b2f7-d627f836ba1c",
+            4,
+            "ad97dcad-7f35-419b-a8f9-18e0bb44ba84"
+          ],
+          [
+            "18a3561f-8e0a-44be-8b77-ee121333ac9c",
+            4,
+            "e191ad3a-87c8-4542-a074-6f9686048498"
+          ]
+        ],
+        "ring": [
+          -0.8910065241883678,
+          0,
+          -0.4539904997395469,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0.4539904997395469,
+          0,
+          -0.8910065241883678,
+          0,
+          0.06872009643587239,
+          1.457167719820518e-16,
+          0.03587824477315675,
+          1
+        ]
+      },
+      "fade": [
+        {
+          "time": 0,
+          "alpha": 0.3352848425925927,
+          "visibleMeshes": 58,
+          "originalsIntact": true
+        },
+        {
+          "time": 4.2,
+          "alpha": 0,
+          "visibleMeshes": 0,
+          "originalsIntact": true
+        },
+        {
+          "time": 11.25,
+          "alpha": 0.5,
+          "visibleMeshes": 59,
+          "originalsIntact": true
+        },
+        {
+          "time": 12,
+          "alpha": 1,
+          "visibleMeshes": 59,
+          "originalsIntact": true
+        }
+      ],
+      "restored": {
+        "active": false,
+        "phase": "Smooth black",
+        "time": 0.4337999999970197,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.03766337037086487,
+            -0.03771824762225151,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.03766337037086487,
+            0.03771824762225151,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 0,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 12,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789172,
+          -0.008252107790789144
+        ],
+        "rollerCenters": [
+          [
+            0.02199999988079071,
+            0.05922182649374008,
+            -0.008252107790789172
+          ],
+          [
+            0.02199999988079071,
+            -0.05922182649374008,
+            -0.008252107790789144
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 18285,
+        "cameraOwner": "CameraRig",
+        "disposed": 2,
+        "loaded": false,
+        "restoredPoseError": 2.9802322387695312e-8,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 1,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        }
+      },
+      "canceledEpochLoads": 2,
+      "failedLoadRecovered": true,
+      "qualityFallbackRestored": true,
+      "pass": true
+    },
+    {
+      "name": "mobile",
+      "errors": [],
+      "requests": [
+        "http://localhost:5199/models/m249-transformed.glb",
+        "http://localhost:5199/models/Default.glb",
+        "http://localhost:5199/models/msp-enclosure.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb",
+        "http://localhost:5199/models/knurling-tool.glb"
+      ],
+      "frames": [
+        {
+          "active": true,
+          "phase": "Aluminium · spin",
+          "time": 2.4,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05330285325974646,
+              -0.05330285325974646,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05330285325974646,
+              0.05330285325974646,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 7.068583470577033,
+          "toolClipTime": 0.03333333333333333,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.013953412761166123,
+            0.013953412761166123
+          ],
+          "rollerAxial": [
+            -0.008252107790789172,
+            -0.008252107790789144
+          ],
+          "rollerCenters": [
+            [
+              0.02199999988079071,
+              0.05922182649374008,
+              -0.008252107790789172
+            ],
+            [
+              0.02199999988079071,
+              -0.05922182649374008,
+              -0.008252107790789144
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 4.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253427,
+              -0.0514765593444369,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253427,
+              0.0514765593444369,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 16.755160819145562,
+          "toolClipTime": 1.833333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            -0.008252107790789168,
+            -0.008252107790789148
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              -0.008252107790789168
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              -0.008252107790789148
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 4.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253427,
+              -0.05147655934443689,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253427,
+              0.05147655934443689,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.25,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 23.03834612632515,
+          "toolClipTime": 2.333333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            -0.004126053115320534,
+            -0.004126053115320511
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              -0.004126053115320534
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              -0.004126053115320511
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 5.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.051496645812534284,
+              -0.05147655934443691,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.051496645812534284,
+              0.05147655934443691,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.5,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 29.321531433504735,
+          "toolClipTime": 2.833333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            6.558189192337793e-10,
+            6.558189410926622e-10
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              6.558189192337793e-10
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              6.558189410926622e-10
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Diamond knurl · traverse",
+          "time": 5.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253423,
+              -0.05147655934443685,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253423,
+              0.05147655934443685,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 0.75,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 35.604716740684324,
+          "toolClipTime": 3.333333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            0.004126055065505651,
+            0.004126055065505674
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              0.004126055065505651
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              0.004126055065505674
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 0
+          }
+        },
+        {
+          "active": true,
+          "phase": "Clearance · retract",
+          "time": 6.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05149664581253423,
+              -0.05147655934443686,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05149664581253423,
+              0.05147655934443686,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 41.88790204786391,
+          "toolClipTime": 3.8333333333333335,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            -8.991552407962983e-7,
+            -8.991552407962983e-7
+          ],
+          "rollerAxial": [
+            0.008252107790789148,
+            0.008252107790789168
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0.04922182857990265,
+              0.008252107790789148
+            ],
+            [
+              0,
+              -0.04922182857990265,
+              0.008252107790789168
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Clearance · retract",
+          "time": 7.7,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.05147655934443687,
+              -0.051496645812534256,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.05147655934443687,
+              0.051496645812534256,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 46.6002910282486,
+          "toolClipTime": 4.708333333333333,
+          "toolVisible": true,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.06652019419745248,
+            0.06652019419745248
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.09944445305918446,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.09944445305918446,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Black finish · decelerate",
+          "time": 8.2,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.051496645812534325,
+              -0.05147655934443695,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.051496645812534325,
+              0.05147655934443695,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 1,
+          "ringAngle": 48.17108735504349,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.26199995588073033,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.26199995588073033,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Black finish · decelerate",
+          "time": 10,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.03846617911368063,
+              -0.03851986294984369,
+              -0.013602107763290405
+            ],
+            "max": [
+              0.03846617911368063,
+              0.03851986294984369,
+              0.013602107763290405
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 0,
+          "ringAngle": 50.24396528904685,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789144,
+            0.008252107790789172
+          ],
+          "rollerCenters": [
+            [
+              0.26199995588073033,
+              0.05922182649374008,
+              0.008252107790789144
+            ],
+            [
+              0.26199995588073033,
+              -0.05922182649374008,
+              0.008252107790789172
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ],
+            [
+              0,
+              2.220446049250313e-16,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        },
+        {
+          "active": true,
+          "phase": "Complete",
+          "time": 12,
+          "ringBounds": {
+            "min": [
+              -0.03766368329524994,
+              -0.03771710768342018,
+              -0.11418651044368744
+            ],
+            "max": [
+              0.0376630537211895,
+              0.03771938756108284,
+              -0.08698229491710663
+            ],
+            "center": [
+              -3.1478703022003174e-7,
+              0.0000011399388313293457,
+              -0.10058440268039703
+            ],
+            "radius": 0.0377227273422921,
+            "width": 0.02720421552658081
+          },
+          "worldBounds": {
+            "min": [
+              -0.016628773704166842,
+              -0.037717107683420376,
+              0.09618569221739108
+            ],
+            "max": [
+              0.06283829914449546,
+              0.037719387561083326,
+              0.15462245041009057
+            ]
+          },
+          "odKnurlProgress": 1,
+          "normalStrength": 1.5,
+          "aluminiumBlend": 0,
+          "ringAngle": 50.26548245743668,
+          "toolClipTime": 5,
+          "toolVisible": false,
+          "ringMeshes": 1,
+          "toolMeshes": 12,
+          "rollerClearance": [
+            0.2193870293749796,
+            0.2193870293749796
+          ],
+          "rollerAxial": [
+            0.008252107790789151,
+            0.008252107790789165
+          ],
+          "rollerCenters": [
+            [
+              -0.206592528766786,
+              0.05922296643257156,
+              -0.0008941014681899868
+            ],
+            [
+              -0.206592528766786,
+              -0.05922068655490861,
+              -0.0008941014681900102
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0.4539904997395469,
+              2.220446049250313e-16,
+              -0.8910065241883678
+            ],
+            [
+              0.4539904997395469,
+              2.220446049250313e-16,
+              -0.8910065241883678
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 16075,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 1,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.349969006237985,
+            "chapter": 1,
+            "chapterProgress": 0.6373529411764706,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 1,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 1,
+            "odEnd": 1
+          }
+        }
+      ],
+      "masks": [
+        {
+          "progress": 0,
+          "green": 0,
+          "red": 100015,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\mobile-od-mask-0.png"
+        },
+        {
+          "progress": 0.5,
+          "green": 18416,
+          "red": 81467,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\mobile-od-mask-0.5.png"
+        },
+        {
+          "progress": 1,
+          "green": 40976,
+          "red": 58875,
+          "filename": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\baseline-ring\\mobile-od-mask-1.png"
+        }
+      ],
+      "failures": [],
+      "entry": {
+        "scroll": 16075,
+        "height": 26333,
+        "camera": [
+          0.32925396538920515,
+          0,
+          -0.9442414025425301,
+          0,
+          -0.14809577602737897,
+          0.9876238642959085,
+          -0.05164052474622329,
+          0,
+          0.932555342807242,
+          0.15684101081419008,
+          0.32517907363243814,
+          0,
+          0.5273940873169711,
+          0.10075695636078887,
+          0.14600057204067113,
+          1
+        ],
+        "meshes": [
+          [
+            "e08aaea0-bb2a-4337-9b6c-98c736c1dbad",
+            2251,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "47194729-6276-443d-8c72-926ffcf0a01f",
+            2251,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "676bea69-d3ef-43cd-a848-45176b4c4230",
+            2251,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "8c8b66cb-cce8-4dc1-bf11-b39b4bdcb62c",
+            2251,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "bd5f2c76-ca7d-4886-acf1-002dc1c8297d",
+            16884,
+            "ed06b58a-a5bc-49d3-9a2a-f9afeb5d05e9"
+          ],
+          [
+            "6ace05d6-7d95-46f7-8620-bed6fbf69b9e",
+            22277,
+            "63e7ece2-ae3b-42c2-a2b9-93b13d046db6"
+          ],
+          [
+            "fa179d98-fbbb-464e-997c-139d3a798d18",
+            7466,
+            "06f68417-4537-4418-9abe-d2fe18242847"
+          ],
+          [
+            "f96da8cd-bbcc-4db1-95c0-07df195c058f",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "4933237c-2c69-49d5-bad3-4dfd9530918e",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "0c2ac45c-6393-41f4-a2a7-b31d59c47df2",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "85e5676a-fa7d-4f7b-93ec-774cca82ebd2",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "2a02935c-03a4-4050-925f-31bea1653170",
+            5156,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "6a81590e-fa55-4432-90df-47f17a2e39c6",
+            5156,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "938a8f5b-0d72-4057-b793-fc00357033a0",
+            15291,
+            "06f68417-4537-4418-9abe-d2fe18242847"
+          ],
+          [
+            "d40bdb68-7933-4b13-af40-dfd83dbba6b7",
+            5156,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "91f8e5b9-a674-4ef6-a600-f7e56218743b",
+            5156,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "e8296a3f-59b3-46c0-991c-b68dd8555ce2",
+            5156,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "425b822b-c92a-483f-8f68-527519a5420a",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "e9e51678-1840-4134-b3ef-f82eafb1d506",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "c05429c1-6b14-4a5a-b13f-68745ef5dfd3",
+            11495,
+            "06f68417-4537-4418-9abe-d2fe18242847"
+          ],
+          [
+            "0060eaea-c87e-40d5-9b4e-0febaa55b7aa",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "c15a4e0f-2f61-4a91-89b5-ff252599392c",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "16bc82ce-4358-40c1-9601-47dfccbde536",
+            3100,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "5f405133-8d62-4e0d-9bce-800a1d681237",
+            3100,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "aa07161d-f27c-4b26-9faf-8c5e504151c1",
+            12999,
+            "06f68417-4537-4418-9abe-d2fe18242847"
+          ],
+          [
+            "6abb1731-6ab1-49d7-bdb5-d37ebc0b31f0",
+            3100,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "ddc6a722-20cc-48f8-a037-66650ac0b944",
+            3100,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "e6d80f46-2699-4d08-b6a3-865ebe285eab",
+            122684,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "3649e927-8d3d-44cf-879c-f64b17de9255",
+            12810,
+            "a1d81d78-bf22-4fa4-a529-ab99b378bb94"
+          ],
+          [
+            "a03a6b10-b8be-41b9-b8d9-db587378def4",
+            17294,
+            "a1d81d78-bf22-4fa4-a529-ab99b378bb94"
+          ],
+          [
+            "51e98929-350a-470c-9ec4-354bb26f7eb5",
+            4292,
+            "71194535-dd81-4802-bc13-1406ee1763f4"
+          ],
+          [
+            "7e62b9ee-f1d0-44f1-863f-3fc29329b75a",
+            7908,
+            "06f68417-4537-4418-9abe-d2fe18242847"
+          ],
+          [
+            "b6619b64-69cf-4f87-a722-df079363973b",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "78e590d1-4163-4a50-a8e4-54423c29a351",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "07ff479f-25aa-4e8b-a81f-8b709145c8ef",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "6e427d88-4134-4c6a-8095-8299e9acd851",
+            2120,
+            "6204b04e-6d21-4042-bae5-bb46d81acccc"
+          ],
+          [
+            "eb00ad8b-d8bd-4b5c-91bd-e34adbb32403",
+            3444,
+            "8786b68a-a9f7-4b40-b85b-24f1d16fe9f9"
+          ],
+          [
+            "5f14d47a-5bd7-4354-b2e7-fc09c7232b03",
+            197477,
+            "98dfa989-c9ce-4151-a222-14dc21587eef"
+          ],
+          [
+            "3f362c0d-0fd7-4c8f-bd76-27625217e28a",
+            164368,
+            "3cb5816c-b7ab-421e-85cd-f158bb52611e"
+          ],
+          [
+            "4960852d-1a27-4fa0-b9b9-b88d1dc1e03b",
+            2927,
+            "11daf823-2d30-4423-9333-e50769f9b8dd"
+          ],
+          [
+            "881f8542-4fb8-46e0-abe7-df58a937ada0",
+            30137,
+            "5b88723b-f1f0-4c13-977e-c2c57849c035"
+          ],
+          [
+            "d97ffc35-2fe6-41d8-86db-aacf8bef2b5f",
+            19060,
+            "6204b04e-6d21-4042-bae5-bb46d81acccc"
+          ],
+          [
+            "e8a27962-4a52-4355-9661-9a879930d50f",
+            39353,
+            "ff0ad823-e44e-4829-a8bd-d6859feabbec"
+          ],
+          [
+            "49f06f3b-aac1-453d-8487-01e1d661090c",
+            1416,
+            "6873980b-1691-40ed-99c8-8c8c6e342d33"
+          ],
+          [
+            "6e7a6474-7c0d-49f2-85c9-e33685e56d03",
+            3956,
+            "5c8e4aaf-c72c-47c2-ab99-6c62ef7fd403"
+          ],
+          [
+            "147d255d-38d3-450b-b258-d6089249b452",
+            5099,
+            "70159713-1fa9-44f7-b4a5-862b18b59243"
+          ],
+          [
+            "ffea22d8-5405-4b90-940e-16389f9c43fd",
+            9165,
+            "98dfa989-c9ce-4151-a222-14dc21587eef"
+          ],
+          [
+            "4f94ab81-82d1-48b2-9415-5e085940d323",
+            5078,
+            "70159713-1fa9-44f7-b4a5-862b18b59243"
+          ],
+          [
+            "c9928d1b-e556-460b-9676-6d8428a6282e",
+            1651,
+            "c61fda01-d115-4835-9f25-7628a504d7f9"
+          ],
+          [
+            "a8a6c15c-9a74-4dbf-a4dc-f58eadb97c9d",
+            3206,
+            "aaee6841-d922-4eda-a0f8-0cfb3ee10ea9"
+          ],
+          [
+            "ad881555-314a-4212-972b-5513d024dd19",
+            568,
+            "2240261f-7c4d-4716-8f1d-9e06f33fec3d"
+          ],
+          [
+            "0ae078a0-6c03-4932-b354-4a98cba0e4ae",
+            5083,
+            "70159713-1fa9-44f7-b4a5-862b18b59243"
+          ],
+          [
+            "8167cab9-b809-4e0d-a736-a68e8e5b0ba5",
+            130,
+            "609f747a-e56c-4f1c-ae10-0d341181542c"
+          ],
+          [
+            "2433b43e-3ffb-4b1b-8147-f55100e8c1d6",
+            130,
+            "11653e46-74e9-4c72-96a6-3ca728f520ef"
+          ],
+          [
+            "f2875d11-8711-4f8f-b350-8464ddb8f510",
+            56,
+            "f2fd6f06-a5d6-4162-b1cf-1e63272b886e"
+          ],
+          [
+            "1df87e4d-4fd5-44c3-afc8-d1e673b6c2ca",
+            4,
+            "e125468d-ee2a-4edf-846f-b462f849550b"
+          ],
+          [
+            "e4523c83-c144-4f9a-aac1-26a43b2264f0",
+            4,
+            "f235179b-4e0e-4472-b7e9-2ac163032329"
+          ],
+          [
+            "a1c7b09e-351e-4699-a060-dccd9fca7ad5",
+            4,
+            "46ffc0e8-8c03-43f2-9219-77bc3df5f207"
+          ],
+          [
+            "681fa0ff-15d3-4b82-9715-18ba0627e9a4",
+            4,
+            "85b2ee57-5bd3-4848-8411-d7fb6a53fb04"
+          ]
+        ],
+        "ring": [
+          -0.8910065241883678,
+          0,
+          -0.4539904997395469,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0.4539904997395469,
+          0,
+          -0.8910065241883678,
+          0,
+          0.06876884548174392,
+          1.457167719820518e-16,
+          0.03578256938359593,
+          1
+        ]
+      },
+      "fade": [
+        {
+          "time": 0,
+          "alpha": 0.3157033127569814,
+          "visibleMeshes": 58,
+          "originalsIntact": true
+        },
+        {
+          "time": 4.2,
+          "alpha": 0,
+          "visibleMeshes": 0,
+          "originalsIntact": true
+        },
+        {
+          "time": 11.25,
+          "alpha": 0.5,
+          "visibleMeshes": 59,
+          "originalsIntact": true
+        },
+        {
+          "time": 12,
+          "alpha": 1,
+          "visibleMeshes": 59,
+          "originalsIntact": true
+        }
+      ],
+      "restored": {
+        "active": false,
+        "phase": "Smooth black",
+        "time": 0.4684000000059604,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.03766337037086487,
+            -0.03771824762225151,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.03766337037086487,
+            0.03771824762225151,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 0,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 12,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789172,
+          -0.008252107790789144
+        ],
+        "rollerCenters": [
+          [
+            0.02199999988079071,
+            0.05922182649374008,
+            -0.008252107790789172
+          ],
+          [
+            0.02199999988079071,
+            -0.05922182649374008,
+            -0.008252107790789144
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 16075,
+        "restoredScroll": 16075,
+        "cameraOwner": "CameraRig",
+        "disposed": 2,
+        "loaded": false,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.349969006237985,
+          "chapter": 1,
+          "chapterProgress": 0.6373529411764706,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 1,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        }
+      },
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "finished": "2026-10-05T09:27:40.497Z"
+}

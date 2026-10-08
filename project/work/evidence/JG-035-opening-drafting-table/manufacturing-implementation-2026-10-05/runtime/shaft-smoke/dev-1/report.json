@@ -1,0 +1,1790 @@
+{
+ "url": "http://localhost:5199",
+ "cases": [
+  {
+   "name": "desktop",
+   "errors": [
+    "warning THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "warning THREE.WebGLProgram: Program Info Log: (210,81-129): warning X4122: sum of 0.996094 and -2.98545e-017 cannot be represented accurately in double precision\n(209,37-61): warning X4122: sum of 1 and -1.49272e-017 cannot be represented accurately in double precision\n(210,82-106): warning X4122: sum of 1 "
+   ],
+   "requests": [
+    "http://localhost:5199/models/m249-transformed.glb",
+    "http://localhost:5199/models/Default.glb",
+    "http://localhost:5199/models/msp-enclosure.glb",
+    "http://localhost:5199/models/manufacturing-core-lite.glb"
+   ],
+   "frames": [
+    {
+     "t": 1,
+     "file": "desktop-t1.png",
+     "litFraction": 0.1512,
+     "probe": {
+      "time": 1,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 0,
+      "narrativeAlpha": 0.07407407407407396,
+      "narrativeVisibleMeshes": 59,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 1,
+      "cameraSampleTime": 1,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 3.200583242661457,
+        "infeed": 8.08350744335997,
+        "rotation": 0,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0.07407407407407396,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 4,
+     "file": "desktop-t4.png",
+     "litFraction": 0.2476,
+     "probe": {
+      "time": 4,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 1,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 4,
+      "cameraSampleTime": 4,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 4,
+       "cutter": {
+        "visible": true,
+        "stroke": 5.8530121591433755,
+        "infeed": 6.2968285963658195,
+        "rotation": 2.356194490192345,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 8,
+     "file": "desktop-t8.png",
+     "litFraction": 0.5682,
+     "probe": {
+      "time": 8,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 2,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 8,
+      "cameraSampleTime": 8,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 8.902288079992797,
+        "infeed": 4.2968285963658195,
+        "rotation": 6.924070208511905,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 9,
+     "file": "desktop-t9.png",
+     "litFraction": 0.5448,
+     "probe": {
+      "time": 9,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 2,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 9,
+      "cameraSampleTime": 9,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 7.908054531319999,
+        "infeed": 6.2968285963658195,
+        "rotation": 7.269645400406781,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 12,
+     "file": "desktop-t12.png",
+     "litFraction": 0.29,
+     "probe": {
+      "time": 12,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 3,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 12,
+      "cameraSampleTime": 12,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 9.736965457284322,
+        "infeed": 4.555016096365837,
+        "rotation": 18.40030817207542,
+        "softened": true
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": true
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 16.5,
+     "file": "desktop-t16_5.png",
+     "litFraction": 0.5374,
+     "probe": {
+      "time": 16.5,
+      "phase": "Why the groove was needed",
+      "chapter": 1,
+      "discrete": 4,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 16.5,
+      "cameraSampleTime": 16.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "4140",
+        "stamp": "settled"
+       },
+       "stress": {
+        "kind": "warm",
+        "mix": 1
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 23.8,
+     "file": "desktop-t23_8.png",
+     "litFraction": 0.3334,
+     "probe": {
+      "time": 23.8,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 5,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 23.8,
+      "cameraSampleTime": 23.8,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "warm",
+        "mix": 0.5
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 2,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 28,
+     "file": "desktop-t28.png",
+     "litFraction": 0.4584,
+     "probe": {
+      "time": 28,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 6,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 28,
+      "cameraSampleTime": 28,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": true,
+        "feed": 2.893577359670787,
+        "rotation": 7.5398223686155035,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 33.5,
+     "file": "desktop-t33_5.png",
+     "litFraction": 0.5172,
+     "probe": {
+      "time": 33.5,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 7,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 33.5,
+      "cameraSampleTime": 33.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "4340-ht",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "cool",
+        "mix": 0.6238425925925961
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 37,
+     "file": "desktop-t37.png",
+     "litFraction": 0.3258,
+     "probe": {
+      "time": 37,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 8,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 37,
+      "cameraSampleTime": 37,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": true,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 41,
+     "file": "desktop-t41.png",
+     "litFraction": 0.3065,
+     "probe": {
+      "time": 41,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 41,
+      "cameraSampleTime": 41,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 43,
+     "file": "desktop-t43.png",
+     "litFraction": 0.304,
+     "probe": {
+      "time": 43,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 43,
+      "cameraSampleTime": 43,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    }
+   ],
+   "readyMs": 2811,
+   "status": {
+    "status": "ready",
+    "error": null,
+    "kind": "shaft",
+    "storyId": "shaft-p001835",
+    "duration": 43
+   },
+   "afterReturn": {
+    "active": false,
+    "restoredPoseError": 0,
+    "restoreObserved": true,
+    "focus": "Inspect the input shaft ↗"
+   }
+  },
+  {
+   "name": "narrow",
+   "errors": [
+    "warning THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+   ],
+   "requests": [
+    "http://localhost:5199/models/m249-transformed.glb",
+    "http://localhost:5199/models/Default.glb",
+    "http://localhost:5199/models/msp-enclosure.glb",
+    "http://localhost:5199/models/manufacturing-core-full.glb"
+   ],
+   "frames": [
+    {
+     "t": 1,
+     "file": "narrow-t1.png",
+     "litFraction": 0.353,
+     "probe": {
+      "time": 1,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 0,
+      "narrativeAlpha": 0.07407407407407396,
+      "narrativeVisibleMeshes": 59,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 1,
+      "cameraSampleTime": 1,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 3.200583242661457,
+        "infeed": 8.08350744335997,
+        "rotation": 0,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0.07407407407407396,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 4,
+     "file": "narrow-t4.png",
+     "litFraction": 0.5239,
+     "probe": {
+      "time": 4,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 1,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 4,
+      "cameraSampleTime": 4,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 4,
+       "cutter": {
+        "visible": true,
+        "stroke": 5.8530121591433755,
+        "infeed": 6.2968285963658195,
+        "rotation": 2.356194490192345,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 8,
+     "file": "narrow-t8.png",
+     "litFraction": 0.8083,
+     "probe": {
+      "time": 8,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 2,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 8,
+      "cameraSampleTime": 8,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 8.902288079992797,
+        "infeed": 4.2968285963658195,
+        "rotation": 6.924070208511905,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 9,
+     "file": "narrow-t9.png",
+     "litFraction": 0.7927,
+     "probe": {
+      "time": 9,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 2,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 9,
+      "cameraSampleTime": 9,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 7.908054531319999,
+        "infeed": 6.2968285963658195,
+        "rotation": 7.269645400406781,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 12,
+     "file": "narrow-t12.png",
+     "litFraction": 0.5176,
+     "probe": {
+      "time": 12,
+      "phase": "Why the groove was needed",
+      "chapter": 0,
+      "discrete": 3,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 12,
+      "cameraSampleTime": 12,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 10,
+       "cutter": {
+        "visible": true,
+        "stroke": 9.736965457284322,
+        "infeed": 4.555016096365837,
+        "rotation": 18.40030817207542,
+        "softened": true
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": true
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 16.5,
+     "file": "narrow-t16_5.png",
+     "litFraction": 0.4457,
+     "probe": {
+      "time": 16.5,
+      "phase": "Why the groove was needed",
+      "chapter": 1,
+      "discrete": 4,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 16.5,
+      "cameraSampleTime": 16.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "4140",
+        "stamp": "settled"
+       },
+       "stress": {
+        "kind": "warm",
+        "mix": 1
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 23.8,
+     "file": "narrow-t23_8.png",
+     "litFraction": 0.4023,
+     "probe": {
+      "time": 23.8,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 5,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 23.8,
+      "cameraSampleTime": 23.8,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -4.195,
+        "rotation": 0,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "warm",
+        "mix": 0.5
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 2,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 28,
+     "file": "narrow-t28.png",
+     "litFraction": 0.5384,
+     "probe": {
+      "time": 28,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 6,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 28,
+      "cameraSampleTime": 28,
+      "shaft": {
+       "teethFormed": 0,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": true,
+        "feed": 2.893577359670787,
+        "rotation": 7.5398223686155035,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 33.5,
+     "file": "narrow-t33_5.png",
+     "litFraction": 0.3686,
+     "probe": {
+      "time": 33.5,
+      "phase": "Why the groove was needed",
+      "chapter": 2,
+      "discrete": 7,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 33.5,
+      "cameraSampleTime": 33.5,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "4340-ht",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "cool",
+        "mix": 0.6238425925925961
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 37,
+     "file": "narrow-t37.png",
+     "litFraction": 0.4755,
+     "probe": {
+      "time": 37,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 8,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 37,
+      "cameraSampleTime": 37,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": true,
+        "endpointHeld": false
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": false,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 41,
+     "file": "narrow-t41.png",
+     "litFraction": 0.5197,
+     "probe": {
+      "time": 41,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 41,
+      "cameraSampleTime": 41,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    },
+    {
+     "t": 43,
+     "file": "narrow-t43.png",
+     "litFraction": 0.519,
+     "probe": {
+      "time": 43,
+      "phase": "Why the groove was needed",
+      "chapter": 3,
+      "discrete": 9,
+      "narrativeAlpha": 0,
+      "narrativeVisibleMeshes": 0,
+      "cameraOwner": "CameraRig",
+      "sampledTime": 43,
+      "cameraSampleTime": 43,
+      "shaft": {
+       "teethFormed": 10,
+       "teethPartial": 0,
+       "cutter": {
+        "visible": false,
+        "stroke": 2.2079345427156665,
+        "infeed": 4.2968285963658195,
+        "rotation": 34.10827144002438,
+        "softened": false
+       },
+       "hob": {
+        "visible": false,
+        "feed": -8,
+        "rotation": 18.221237390820804,
+        "softened": false
+       },
+       "card": {
+        "id": "none",
+        "stamp": "none"
+       },
+       "stress": {
+        "kind": "none",
+        "mix": 0
+       },
+       "supports": {
+        "deltaYmm": 2.749999985098839,
+        "witnesses": false,
+        "endpointHeld": true
+       },
+       "finale": {
+        "assembled": false,
+        "shaftCount": 1,
+        "racesFollow": false,
+        "carrierCount": 0,
+        "missingCarriers": true,
+        "bearingRacePolicy": "unsplit-fixed",
+        "ringFollowsShaft": true,
+        "bearingOuterFixed": true
+       },
+       "narrative": {
+        "alpha": 0,
+        "hiddenCount": 0,
+        "originalsIntact": true
+       },
+       "nodes": {
+        "housing": "approvedhousing",
+        "legacyHousing": "legacyhousing",
+        "legacyHousingPresent": true
+       }
+      },
+      "resources": {
+       "geometries": 17,
+       "materials": 17,
+       "textures": 0,
+       "meshes": 20
+      }
+     }
+    }
+   ],
+   "readyMs": 2789,
+   "status": {
+    "status": "ready",
+    "error": null,
+    "kind": "shaft",
+    "storyId": "shaft-p001835",
+    "duration": 43
+   },
+   "afterReturn": {
+    "active": false,
+    "restoredPoseError": 0,
+    "restoreObserved": true,
+    "focus": "Inspect the input shaft ↗"
+   }
+  }
+ ]
+}

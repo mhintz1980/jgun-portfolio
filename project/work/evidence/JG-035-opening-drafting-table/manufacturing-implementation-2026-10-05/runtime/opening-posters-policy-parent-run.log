@@ -1,0 +1,13 @@
+desktop: ready in 26211 ms
+desktop: FAIL (110 failures)
+narrow: ready in 4888 ms
+narrow: PASS (0 failures)
+desktop-reduced: ready in 131 ms
+desktop-reduced: PASS (0 failures)
+narrow-reduced: ready in 115 ms
+narrow-reduced: PASS (0 failures)
+desktop-lite: ready in 5242 ms
+desktop-lite: PASS (0 failures)
+narrow-lite: ready in 4994 ms
+narrow-lite: PASS (0 failures)
+Evidence: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\manufacturing-implementation-2026-10-05\runtime\opening-posters-policy-parent

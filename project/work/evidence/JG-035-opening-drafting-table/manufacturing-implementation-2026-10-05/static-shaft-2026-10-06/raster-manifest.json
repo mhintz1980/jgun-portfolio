@@ -1,0 +1,966 @@
+{
+  "captureReport": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\capture-report.json",
+  "method": "Crop empty dark canvas margins, fit into a real raster WEBP without changing aspect ratio. Support pair shares one union crop and one output transform.",
+  "assets": [
+    {
+      "file": "public\\inspection\\shaft\\cutter-exit-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-cutter-exit.png",
+      "sourceSha256": "f9675cdda6d096d3732f3f3a74fcc797f6e5230cfdf7e1f3ad48ec69ebd69768",
+      "sha256": "a890981fe1dbd880d75e5078d9be6ee7adb90d037f6a9d8f09ed688ebe9acc4e",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        230,
+        0,
+        1440,
+        900
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 15448,
+      "sampleTime": 8.4,
+      "session": 1,
+      "entryElapsed": 1.4727000000029795,
+      "camera": [
+        0.9167655379013322,
+        0.3994257734754746,
+        -5.551115123125783e-17,
+        0,
+        0.022296547808459605,
+        -0.051175232051520414,
+        -0.9984407641819812,
+        0,
+        -0.39880297450283164,
+        0.9153360842379112,
+        -0.05582150499316452,
+        0,
+        -0.08041664812659,
+        0.18919649676497427,
+        -0.021079631300350787,
+        1
+      ],
+      "projection": [
+        13.138563241410429,
+        0,
+        0,
+        0,
+        0,
+        21.021701186256685,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\material-attempts-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-material-attempts.png",
+      "sourceSha256": "81e35b8f743d82278e731a0a48794955ab8307e6ce8b2e9579e2d690a6dd5089",
+      "sha256": "6a3acf3ae48ed657c8f0e18c976e9d89d0a74aa4fab155d99d4083990fc1f036",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        35,
+        41,
+        1440,
+        694
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 20146,
+      "sampleTime": 17,
+      "session": 1,
+      "entryElapsed": 1.8067000000029794,
+      "camera": [
+        -0.009286538265790734,
+        -2.7755575615628914e-17,
+        -0.999956879173816,
+        0,
+        -0.34199237261703275,
+        0.9396973606968443,
+        0.0031760622093431334,
+        0,
+        0.939656840170288,
+        0.3420071202466185,
+        -0.008726535498373877,
+        0,
+        0.18793136803405763,
+        0.06580142404932371,
+        -0.020945307099674793,
+        1
+      ],
+      "projection": [
+        9.409826702798524,
+        0,
+        0,
+        0,
+        0,
+        15.05572272447764,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\revised-blank-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-revised-blank.png",
+      "sourceSha256": "495c143f499da01d02435b498394a6011033a43d580187210829fa0f61b6c924",
+      "sha256": "0e5be5d74c75e09bf42c8879e21fcb23516660aab3dce27838abaedceae01533",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        401,
+        270,
+        1440,
+        805
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 18608,
+      "sampleTime": 25,
+      "session": 1,
+      "entryElapsed": 2.12420000000298,
+      "camera": [
+        -0.11227140938370761,
+        5.551115123125783e-17,
+        -0.9936775788126628,
+        0,
+        -0.5373162372777651,
+        0.8411930033053925,
+        0.060709079615147904,
+        0,
+        0.8358746268386548,
+        0.5407349916456803,
+        -0.09444192404481022,
+        0,
+        0.16717492536773093,
+        0.11094699832913608,
+        -0.029888384808962054,
+        1
+      ],
+      "projection": [
+        7.365833213847971,
+        0,
+        0,
+        0,
+        0,
+        11.785333142156754,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\hobbed-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-hobbed.png",
+      "sourceSha256": "3c884ad066a55a5613cd6852472cae70b6343ef365a63556bceecb30201af5d5",
+      "sha256": "a7164b75c986f9e581f0ad961a99aa7539ba223e4e8c9918be1a463efdb787a7",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        182,
+        81,
+        1440,
+        782
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 23390,
+      "sampleTime": 32.4,
+      "session": 1,
+      "entryElapsed": 2.44160000000894,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.08085702783218703,
+        -0.028925417203304105,
+        1
+      ],
+      "projection": [
+        9.852781203643255,
+        0,
+        0,
+        0,
+        0,
+        15.764449925829208,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\cool-stress-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-cool-stress.png",
+      "sourceSha256": "68744696e53a9d36dd0f0a96085da2f8055227d37a96a9340a5f6fba3cbb6bd6",
+      "sha256": "1a0d028fc34f860d8d77243ca372e0b6ab2817a030d222cab02ab93dfd1f0ecb",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        213,
+        110,
+        1440,
+        633
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 19842,
+      "sampleTime": 34.2,
+      "session": 1,
+      "entryElapsed": 2.7591000000089405,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.07826443523959442,
+        -0.03314763942552634,
+        1
+      ],
+      "projection": [
+        7.143782689225838,
+        0,
+        0,
+        0,
+        0,
+        11.430052302761343,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\support-before-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-support-before.png",
+      "sourceSha256": "305ad4ee3bdf0978c3096f7e03e2bc047d3e384c5a5a3cf3068e02d356e2de9d",
+      "sha256": "33c991372a262d727b1b9aad6259a789ce9d0fb971231da84d2fc85b47052813",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        202,
+        66,
+        1440,
+        835
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 15272,
+      "sampleTime": 35.8,
+      "session": 1,
+      "entryElapsed": 3.067000000000001,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        4.653178438257525,
+        0,
+        0,
+        0,
+        0,
+        7.44508550121204,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\support-after-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-support-after.png",
+      "sourceSha256": "0f2dfbd966fee781368777dfe801fe8d35b0efecfa5177db6d75d98c7a679586",
+      "sha256": "29ce4633b5f9cf698a4ed89a0aea1db295871579605ee1a75bc609dafddccce7",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        202,
+        66,
+        1440,
+        835
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 15994,
+      "sampleTime": 38.2,
+      "session": 1,
+      "entryElapsed": 3.3677999999970205,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        4.653178438257525,
+        0,
+        0,
+        0,
+        0,
+        7.44508550121204,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\assembled-finale-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\desktop-assembled-finale.png",
+      "sourceSha256": "5f122cba479a1838e6f516c5078d54f35e173fbc6aefd80f9a0235c90a6fe327",
+      "sha256": "94a3e12b79d768b26436c284140fd11633df01ff79121e82f015d033a49a68c4",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        0,
+        50,
+        1440,
+        839
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "bytes": 19796,
+      "sampleTime": 42.5,
+      "session": 1,
+      "entryElapsed": 3.6685999999940404,
+      "camera": [
+        -0.053501862281273516,
+        -1.3877787807814457e-17,
+        -0.9985677496957508,
+        0,
+        -0.2073293815882546,
+        0.978208122322919,
+        0.011108418055736424,
+        0,
+        0.976807083442103,
+        0.20762675507137585,
+        -0.05233595624294396,
+        0,
+        0.21489755835726265,
+        0.045677886115702684,
+        -0.023513910373447633,
+        1
+      ],
+      "projection": [
+        3.946094696671902,
+        0,
+        0,
+        0,
+        0,
+        6.313751514675044,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\cutter-exit-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-cutter-exit.png",
+      "sourceSha256": "65e36d9206eb8b499e553e93feea4f8eaf57b0ac055b05520bafbf19cc859e9e",
+      "sha256": "b8893edda29827e16b49bdfe366a3cc964fac78211aeeaed05301ef1c8572d24",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 9810,
+      "sampleTime": 8.4,
+      "session": 1,
+      "entryElapsed": 1.4562999999970203,
+      "camera": [
+        0.9167655379013322,
+        0.3994257734754746,
+        -5.551115123125783e-17,
+        0,
+        0.022296547808459605,
+        -0.051175232051520414,
+        -0.9984407641819812,
+        0,
+        -0.39880297450283164,
+        0.9153360842379112,
+        -0.05582150499316452,
+        0,
+        -0.08041664812659,
+        0.18919649676497427,
+        -0.021079631300350787,
+        1
+      ],
+      "projection": [
+        25.9153461213262,
+        0,
+        0,
+        0,
+        0,
+        11.975100695873481,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\material-attempts-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-material-attempts.png",
+      "sourceSha256": "b9337e4a0860ff0dd9e5ae3f03a22f74e7e56ffadc1fedfaf093288eb217d87c",
+      "sha256": "b25505058bd017a6e8898c0318b74c4fce885976173ff9eb70b6f444bd37f213",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        58,
+        296,
+        390,
+        574
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 10820,
+      "sampleTime": 17,
+      "session": 1,
+      "entryElapsed": 1.7237999999970208,
+      "camera": [
+        -0.009286538265790734,
+        -2.7755575615628914e-17,
+        -0.999956879173816,
+        0,
+        -0.34199237261703275,
+        0.9396973606968443,
+        0.0031760622093431334,
+        0,
+        0.939656840170288,
+        0.3420071202466185,
+        -0.008726535498373877,
+        0,
+        0.18793136803405763,
+        0.06940142404932372,
+        -0.010245307099674777,
+        1
+      ],
+      "projection": [
+        13.288088065592445,
+        0,
+        0,
+        0,
+        0,
+        6.14023026727613,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\revised-blank-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-revised-blank.png",
+      "sourceSha256": "2a733f365c85819f71139d61e5a378032536819901e49ed41241307adb7459c7",
+      "sha256": "c591f2a020758365be3274c9bacf8b39ec07d506aae3c6e5599d51a83ac4c814",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        4,
+        310,
+        390,
+        627
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 10304,
+      "sampleTime": 25,
+      "session": 1,
+      "entryElapsed": 1.991400000005961,
+      "camera": [
+        -0.11227140938370761,
+        5.551115123125783e-17,
+        -0.9936775788126628,
+        0,
+        -0.5373162372777651,
+        0.8411930033053925,
+        0.060709079615147904,
+        0,
+        0.8358746268386548,
+        0.5407349916456803,
+        -0.09444192404481022,
+        0,
+        0.16717492536773093,
+        0.11094699832913608,
+        -0.029888384808962054,
+        1
+      ],
+      "projection": [
+        15.449255267131301,
+        0,
+        0,
+        0,
+        0,
+        7.13887387936162,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\hobbed-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-hobbed.png",
+      "sourceSha256": "dc1ad0b8381682eb8b020f20d726d28c6f985d3ff7da0a905a44510f8819391b",
+      "sha256": "334a1a66ebbe5451fd04193318f47eb808bb4b10cc3c91a709c37bc48dda9eec",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        42,
+        269,
+        390,
+        574
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 13692,
+      "sampleTime": 32.4,
+      "session": 1,
+      "entryElapsed": 2.225400000005961,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.08124591672107591,
+        -0.0234254172033041,
+        1
+      ],
+      "projection": [
+        14.691414988942295,
+        0,
+        0,
+        0,
+        0,
+        6.788687020956747,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\cool-stress-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-cool-stress.png",
+      "sourceSha256": "c7dcecd351bb6007e3e9c00b232f489b21284e418f37265a257338f76bdd00da",
+      "sha256": "e839d03547de870cbbecc508b06152e822204865b944c54a167d5b40d01f238a",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        45,
+        256,
+        390,
+        550
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 14432,
+      "sampleTime": 34.2,
+      "session": 1,
+      "entryElapsed": 2.4759999999999995,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.07976443523959442,
+        -0.023647639425526334,
+        1
+      ],
+      "projection": [
+        14.060400130675895,
+        0,
+        0,
+        0,
+        0,
+        6.497104325786255,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\support-before-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-support-before.png",
+      "sourceSha256": "b16c7bd1e2791941e9a1724476d30521004680070b39408ce5f169854ffce654",
+      "sha256": "c637dcba545c069381c40d2078efa002f6c581750eaac02fea6ae8650571415f",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        202,
+        390,
+        643
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 12624,
+      "sampleTime": 35.8,
+      "session": 1,
+      "entryElapsed": 2.7432999999970193,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017500000000000016,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\support-after-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-support-after.png",
+      "sourceSha256": "003b5b0720ce9fc584297c655e87aaf6b7920ee7c143b0e73be1d70b98f2c8a0",
+      "sha256": "fa2562f4064f727bc474bc64c8f3b8d805be91d624ecda2abc751fb5b86c81c6",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        202,
+        390,
+        643
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 12584,
+      "sampleTime": 38.2,
+      "session": 1,
+      "entryElapsed": 2.9774000000059595,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017500000000000016,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    },
+    {
+      "file": "public\\inspection\\shaft\\assembled-finale-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\static-shaft-2026-10-06\\completed-render-capture\\narrow-assembled-finale.png",
+      "sourceSha256": "28ce06f171e25931943cdf6ee42fa94d94af685f769d6884368c2a1be9c88140",
+      "sha256": "edb75088a5f63e0db48378f6f76c38ba4f71a28a4484ac037604fe7848904092",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        216,
+        390,
+        627
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "bytes": 12200,
+      "sampleTime": 42.5,
+      "session": 1,
+      "entryElapsed": 3.2112000000029792,
+      "camera": [
+        -0.053501862281273516,
+        -1.3877787807814457e-17,
+        -0.9985677496957508,
+        0,
+        -0.2073293815882546,
+        0.978208122322919,
+        0.011108418055736424,
+        0,
+        0.976807083442103,
+        0.20762675507137585,
+        -0.05233595624294396,
+        0,
+        0.21489755835726265,
+        0.045677886115702684,
+        -0.023513910373447633,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "schema": 1,
+  "method": "draco3d independent decoder; raw glTF metres converted once to shaft-local mm [x,-z,y]; normals checked from compressed attribute; correspondence uses 5um spatial hash cells",
+  "bundles": {
+    "full": {
+      "path": "public/models/manufacturing-core-full.glb",
+      "bytes": 678008,
+      "sha256": "17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be",
+      "parts": {
+        "legacyshaft": {
+          "triangles": 12671,
+          "vertices": 9393,
+          "normalMaxUnitError": 1.2853464093076639e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedshaft": {
+          "triangles": 47976,
+          "vertices": 32275,
+          "normalMaxUnitError": 1.5193466396112854e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedhousing": {
+          "triangles": 15000,
+          "vertices": 14577,
+          "normalMaxUnitError": 1.7220563064412886e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacyhousing": {
+          "triangles": 15000,
+          "vertices": 14577,
+          "normalMaxUnitError": 1.7220563064412886e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacybearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "normalMaxUnitError": 1.3734398929265978e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacyring": {
+          "triangles": 412,
+          "vertices": 420,
+          "normalMaxUnitError": 1.2902136370396278e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedbearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "normalMaxUnitError": 1.3734398929265978e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedring": {
+          "triangles": 412,
+          "vertices": 420,
+          "normalMaxUnitError": 1.2902136370396278e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        }
+      },
+      "total_triangles": 95183,
+      "primitive_calls": 8,
+      "support": {
+        "bearing": {
+          "approved_minus_shift_to_legacy": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 9.462237358093262e-7
+          },
+          "legacy_plus_shift_to_approved": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 9.462237358093262e-7
+          }
+        },
+        "ring": {
+          "approved_minus_shift_to_legacy": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 1.4901161193847656e-8
+          },
+          "legacy_plus_shift_to_approved": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 1.4901161193847656e-8
+          }
+        }
+      },
+      "housing": {
+        "legacy_to_approved": {
+          "unmatched": 0,
+          "max_matched_residual_mm": 0.000027924776077270508
+        },
+        "approved_to_legacy": {
+          "unmatched": 0,
+          "max_matched_residual_mm": 0.000027924776077270508
+        }
+      },
+      "pass": true
+    },
+    "lite": {
+      "path": "public/models/manufacturing-core-lite.glb",
+      "bytes": 415424,
+      "sha256": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f",
+      "parts": {
+        "legacyshaft": {
+          "triangles": 12671,
+          "vertices": 9393,
+          "normalMaxUnitError": 1.2853464093076639e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedshaft": {
+          "triangles": 14499,
+          "vertices": 12393,
+          "normalMaxUnitError": 1.4966912420533163e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedhousing": {
+          "triangles": 9000,
+          "vertices": 8666,
+          "normalMaxUnitError": 1.4177318952146578e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacyhousing": {
+          "triangles": 9000,
+          "vertices": 8666,
+          "normalMaxUnitError": 1.54619509862286e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacybearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "normalMaxUnitError": 1.3734398929265978e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "legacyring": {
+          "triangles": 412,
+          "vertices": 420,
+          "normalMaxUnitError": 1.2902136370396278e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedbearing": {
+          "triangles": 1856,
+          "vertices": 1856,
+          "normalMaxUnitError": 1.3734398929265978e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        },
+        "approvedring": {
+          "triangles": 412,
+          "vertices": 420,
+          "normalMaxUnitError": 1.2902136370396278e-7,
+          "nonfiniteNormals": 0,
+          "zeroNormals": 0
+        }
+      },
+      "total_triangles": 49706,
+      "primitive_calls": 8,
+      "support": {
+        "bearing": {
+          "approved_minus_shift_to_legacy": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 9.462237358093262e-7
+          },
+          "legacy_plus_shift_to_approved": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 9.462237358093262e-7
+          }
+        },
+        "ring": {
+          "approved_minus_shift_to_legacy": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 1.4901161193847656e-8
+          },
+          "legacy_plus_shift_to_approved": {
+            "unmatched": 0,
+            "max_matched_residual_mm": 1.4901161193847656e-8
+          }
+        }
+      },
+      "housing": {
+        "legacy_to_approved": {
+          "unmatched": 0,
+          "max_matched_residual_mm": 0.000027924776077270508
+        },
+        "approved_to_legacy": {
+          "unmatched": 0,
+          "max_matched_residual_mm": 0.000027924776077270508
+        }
+      },
+      "pass": true
+    }
+  },
+  "pass": true
+}

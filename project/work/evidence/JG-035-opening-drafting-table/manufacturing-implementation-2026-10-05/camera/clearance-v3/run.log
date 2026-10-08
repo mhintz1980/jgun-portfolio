@@ -1,0 +1,56 @@
+[    0.0s] STAGE 0 source hashes (before)
+[    0.5s] baseline files hashed OK: 6; blend 88d1ce4ac7ca
+[    4.6s] welded legacy 12746 tris (raw (11347, 12754)), approved 137121 tris (raw (286460, 139880))
+[    4.6s] legacy welded bounds mm: x[-8.865 8.865] y[-0.000 71.524] z[-8.865 8.864]
+[    4.6s] approved welded bounds mm: x[-8.865 8.865] y[-0.000 71.524] z[-8.865 8.864]
+[    5.4s] STAGE 1 exact sections y=3.5/6/9
+[    5.6s] section legacy y=3.5 r=[4.2918, 6.0724] outer_hits_max=2 fold_dev=0.15656 sag=0.007390
+[    5.8s] section legacy y=6.0 r=[4.2918, 6.0835] outer_hits_max=2 fold_dev=0.15695 sag=0.007394
+[    6.0s] section legacy y=9.0 r=[4.2918, 6.0834] outer_hits_max=2 fold_dev=0.15666 sag=0.007434
+[    6.3s] section approved y=3.5 r=[4.2918, 6.0724] outer_hits_max=2 fold_dev=0.15656 sag=0.007390
+[    6.6s] section approved y=6.0 r=[4.2918, 6.0835] outer_hits_max=3 fold_dev=0.15697 sag=0.007394
+[    7.0s] section approved y=9.0 r=[4.2918, 6.0834] outer_hits_max=3 fold_dev=0.18711 sag=0.005980
+[    7.0s] legacy: cross-y constancy direct 0.04132 mm, folded all-bins 0.01020, flank-bins(keep 7/720) 0.00963
+[    7.0s] approved: cross-y constancy direct 0.14464 mm, folded all-bins 0.07652, flank-bins(keep 5/720) 0.00963
+[    7.0s] STAGE 2 shaper conjugate cutter
+[    7.0s] feasibility max|q.t| = 0.83099 mm (usable samples 3289, feasible 3289) vs r_wp = 5.16667
+[    7.0s] branch selection: A 3289, B 0, both 0 (kept A), neither 0 (dropped as ungenerated)
+[    7.0s] tool tooth: tip 11.20317 root -0.00500 mm; unfilled bins 508/900; round-trip 9.8e-15 mm
+[   15.1s] gear-zone worst signed penetration -0.001081 mm at {'y_mm': 6.0, 'alpha_deg': 17.200000000000003, 'point_xz_mm': [3.430030753609982, 5.021072901358541], 'unsigned_mm': 0.0010812684657040353, 'contained': True}
+[   16.4s] coverage: 3289 feasible samples, max point-gap 0.00595 mm at (theta_deg, r)=(-142.9409012989972, 6.076286810964587)
+[   16.4s] STAGE 3 legacy loom + stroke/holder checks
+[   19.2s] legacy loom stations: 236
+[   19.7s] pair shaper_body_vs_face          min 1.84230 mm at {'y_centre': 2.55485839999999, 'station': 3.15}
+[   19.7s] pair shaper_body_vs_groove        min 0.05619 mm at {'y_centre': 10.324858399999824, 'station': 10.95}
+[   19.7s] pair shaper_body_vs_step_journal  min 0.07514 mm at {'y_centre': 10.324858399999824, 'station': 11.0}
+[   28.7s] runout worst signed penetration 0.004207 mm at {'station': 9.55, 'alpha_deg': 7.8, 'point_xz_mm': [1.0124991335244309, 4.192838700896486], 'contained': False}
+[   30.3s] holder min 0.41650 mm at ('clamp_nut', 10.004858399999831, 9.4)
+[   30.3s] return relief: 0.8 mm illustrative would leave -0.9916 mm interference; certified backoff 1.90 mm gives 0.1134 mm clearance
+[   30.3s] STAGE 4 hob: ramp extraction and least-squares fit
+[   41.2s] hob fit R_o=6.1000 y_end=9.5150 rms=0.00206 max=0.00441; arc R=6.0011; r_p=5.3918 gamma=5.3209/5.3209 deg lead=3.1552
+[   41.2s] rack profile: strand scatter 0.00744 mm (sign +1, branch theta_a, feasible 3284/3284)
+[   59.7s] rack generating fit worst signed penetration -5.397114 mm at {'y_mm': 6.0, 'theta_deg': 4.3999999999999995, 'point_xz_mm': [0.02633003575601282, -0.6834337540096119], 'contained': True}
+[   59.7s] STAGE 5 hob hull path vs approved shaft (journal side and full loom)
+[   63.2s] approved loom stations: 182
+[   65.5s] pair arbor_vs_cone_journal          min 7.11201 mm at {'phase': 'feed', 'y_centre': 12.899999999999986, 'station': 14.2}
+[   65.5s] pair arbor_vs_journal2              min 7.73795 mm at {'phase': 'feed', 'y_centre': 13.699999999999998, 'station': 15.55}
+[   65.5s] pair arbor_vs_ramp                  min 6.36532 mm at {'phase': 'feed', 'y_centre': 10.599999999999953, 'station': 9.6}
+[   65.5s] pair arbor_vs_ring_groove           min 7.61648 mm at {'phase': 'feed', 'y_centre': 13.299999999999992, 'station': 14.75}
+[   65.5s] pair arbor_vs_shoulder              min 8.47027 mm at {'phase': 'withdraw', 'y_centre': 14.524899999999983, 'station': 16.7}
+[   65.5s] pair collar_a_vs_cone_journal       min 2.34584 mm at {'phase': 'feed', 'y_centre': 10.749999999999956, 'station': 14.2}
+[   65.5s] pair collar_a_vs_journal2           min 2.53375 mm at {'phase': 'feed', 'y_centre': 11.649999999999968, 'station': 15.55}
+[   65.5s] pair collar_a_vs_ramp               min 2.48002 mm at {'phase': 'retract', 'y_centre': 9.5249, 'station': 11.8}
+[   65.5s] pair collar_a_vs_ring_groove        min 2.69167 mm at {'phase': 'feed', 'y_centre': 11.299999999999963, 'station': 14.75}
+[   65.5s] pair collar_a_vs_shoulder           min 2.23015 mm at {'phase': 'feed', 'y_centre': 13.699999999999998, 'station': 19.75}
+[   65.5s] pair collar_b_vs_cone_journal       min 3.02761 mm at {'phase': 'feed', 'y_centre': 12.44999999999998, 'station': 14.2}
+[   65.5s] pair collar_b_vs_journal2           min 3.46078 mm at {'phase': 'feed', 'y_centre': 12.699999999999983, 'station': 15.55}
+[   65.5s] pair collar_b_vs_ramp               min 2.56427 mm at {'phase': 'feed', 'y_centre': 10.549999999999953, 'station': 9.6}
+[   65.5s] pair collar_b_vs_ring_groove        min 3.46486 mm at {'phase': 'feed', 'y_centre': 12.549999999999981, 'station': 14.75}
+[   65.5s] pair collar_b_vs_shoulder           min 3.92347 mm at {'phase': 'feed', 'y_centre': 13.399999999999993, 'station': 16.65}
+[   65.5s] pair hob_hull_vs_cone_journal       min -1.09735 mm at {'phase': 'feed', 'y_centre': 11.849999999999971, 'centre_dist': np.float64(10.8656), 'station': 14.2}
+[   65.5s] pair hob_hull_vs_journal2           min -0.44481 mm at {'phase': 'feed', 'y_centre': 12.399999999999979, 'centre_dist': np.float64(11.1311), 'station': 15.55}
+[   65.5s] pair hob_hull_vs_ramp               min -1.78192 mm at {'phase': 'feed', 'y_centre': 9.549999999999939, 'centre_dist': np.float64(10.3919), 'station': 9.6}
+[   65.5s] pair hob_hull_vs_ring_groove        min -0.57419 mm at {'phase': 'feed', 'y_centre': 11.999999999999973, 'centre_dist': np.float64(10.9313), 'station': 14.75}
+[   65.5s] pair hob_hull_vs_shoulder           min 0.25445 mm at {'phase': 'feed', 'y_centre': 12.949999999999987, 'centre_dist': np.float64(11.4706), 'station': 16.65}
+[   65.5s] STAGE 6 verdicts
+[   65.6s] wrote report.json and tools.json

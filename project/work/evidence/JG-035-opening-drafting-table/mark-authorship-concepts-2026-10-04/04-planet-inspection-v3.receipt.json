@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:51:42.620828Z",
+  "display_name": "GPT Image 2.5",
+  "id": "656e2fe2-dd12-4e20-8fc5-eefe5662d050",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_145142_656e2fe2-dd12-4e20-8fc5-eefe5662d050_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "0e164435-6bdb-4584-a385-119fb00509f1",
+          "type": "image_job",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_143910_0e164435-6bdb-4584-a385-119fb00509f1.png"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Refine this proposed metrology image with a SPECIFIC GEOMETRY FIX to the single spur planet at centre. It must be a physically consistent plain STRAIGHT SPUR GEAR. Draw the FRONT FACE with one clean continuous involute spur-tooth outline; then extrude that EXACT outline STRAIGHT along the horizontal bore/arbor axis for constant face width. Each tooth's two flanks, root valley, top land and thickness align front to back. No pointed/star-shaped front teeth transitioning into square blocks, no serrated caps, no helical twist, no two incompatible tooth profiles, no extra rings. Keep the correct probe ball touching a recessed tooth space BETWEEN TWO adjacent involute teeth, clearly below the tooth-tip circle. The gap and probe contact stay in sharp focus. Maintain bore-locating arbor, proposed supports and axial restraint, stable neutral unnumbered dial, dark studio lighting and blurred context. Treat instrument/fixture as illustrative, not measured practice. Preserve \"A CLOSER LOOK\", \"Proposed inspection concept\", and the footer \"Illustrative tooth-space radial runout relative to bore axis\". No invented numeric values or bands. Single mechanically plausible true straight spur gear in a restrained photographic concept. Landscape16:9.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_145142_656e2fe2-dd12-4e20-8fc5-eefe5662d050.png",
+  "status": "completed"
+}

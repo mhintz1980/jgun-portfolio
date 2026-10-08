@@ -1,0 +1,32 @@
+[
+  {
+    "created_at": "2026-10-03T21:06:05.004893Z",
+    "display_name": "GPT Image 2.5",
+    "id": "1f32020a-ecad-4c5c-9b65-7e7b0b1d5911",
+    "job_type": "gpt_image_2_5",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_210605_1f32020a-ecad-4c5c-9b65-7e7b0b1d5911_min.webp",
+    "params": {
+      "aspect_ratio": "16:9",
+      "height": 1520,
+      "medias": [
+        {
+          "data": {
+            "id": "f808044c-6785-4860-aa7e-ccdc39cbfd7e",
+            "type": "image_job",
+            "url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_201411_f808044c-6785-4860-aa7e-ccdc39cbfd7e.png"
+          },
+          "role": "image"
+        }
+      ],
+      "model": "flare",
+      "prompt": "Refine this intact-paper concept into a polished approval still. Preserve exact left-pointing J-Gun pneumatic torque wrench profile, black printed engineering linework, dark cream vellum sheet, and light-blue branching webbing inside the tool outline. The paper interior is the SAME opaque dark cream stock as surrounding paper, no luminous white interior panel. Only light blue outline and branching webbing emit light with physically restrained local spill. Remove the incidental warm reflection and pen/object at upper left: all workshop room lights are out. Keep the scene consistently blue-lit, with no warm ambient spotlight. The paper is entirely intact; this beat comes before the physical model pushes through. No cavern or rock visible. Slight camera rake, realistic paper fibers, controlled thin glow, sharp useful composition, one frame. Do not add annotations, arrows, labels, or alter surrounding drawing layout.\n",
+      "quality": "high",
+      "reference_elements": [],
+      "remove_bg": false,
+      "resolution": "2k",
+      "width": 2688
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261003_210605_1f32020a-ecad-4c5c-9b65-7e7b0b1d5911.png",
+    "status": "completed"
+  }
+]

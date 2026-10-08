@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-04T14:51:45.683569Z",
+  "display_name": "GPT Image 2.5",
+  "id": "c55d350d-4097-4da3-9357-bff87280da2e",
+  "job_type": "gpt_image_2_5",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_145145_c55d350d-4097-4da3-9357-bff87280da2e_min.webp",
+  "params": {
+    "aspect_ratio": "16:9",
+    "height": 1520,
+    "medias": [
+      {
+        "data": {
+          "id": "4eca656c-a3a3-414f-abe6-5658aca74152",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/4eca656c-a3a3-414f-abe6-5658aca74152_resize.jpg"
+        },
+        "role": "image"
+      }
+    ],
+    "model": "flare",
+    "prompt": "Create a premium personal mechanical-design portfolio composition using this TWO-PANEL reference board as ground truth. Panel A shows the actual complete PNEUMATIC PISTOL-GRIP TORQUE WRENCH: square output drive on the LEFT, long cylindrical black gearbox, heavy black knurled switch ring at handle junction, bulky rear motor with its recognisable downward pistol grip and air connector. Panel B shows the ACTUAL internal carrier and planet assemblies, not a product housing.\nThe result MUST remain instantly recognisable as Panel A's torque wrench and show the FULL PISTOL GRIP and actual LEFT SQUARE DRIVE. This is NOT a cylindrical camera lens: NEVER use a circular lens opening at the front. The square steel output spindle must be plainly visible at left. Do not crop the grip or replace it with a cylindrical body.\nUse a 3/4 engineering studio presentation: the large barrel is partly ghosted or removed to reveal the five reference-derived coaxial planetary cage groups extending REARWARD toward the opened handle side. The complete pistol-grip handle is detached modestly to the LOWER RIGHT of the gear axis, fully visible with trigger, air connection and characteristic rear shape. Use actual carrier shapes from B, and keep five carrier groups only, no bonus stages. Allow a wider camera so all parts fit. The square output and barrel on left, carrier groups across centre, recognizable handle below-right create an unmistakable single torque-tool system. Preserve actual CAD identity as closely as possible, not generic sci-fi gears.\nCharcoal graphite studio, restrained neutral rim light, subtle cool highlights, satin BLACK aluminium and steel gears. No blue grid, portal, lamps or wood from the source. Left upper quarter stays calm for clean editorial type: \"MARK HINTZ / DESIGN NOTES\", heading \"I CHANGED HOW IT WAS MADE\", then short lines \"The relief weakened the section.\" and \"The solution started with the machining sequence.\" Bottom-left quiet pill \"Read the design decision\". No leaders, invented labels, measurements, gear ratios or test results. First-person editorial concept, not a marketing ad. Landscape16:9, elegant typography, actual gun grip and square drive are mandatory.\n",
+    "quality": "high",
+    "reference_elements": [],
+    "remove_bg": false,
+    "resolution": "2k",
+    "width": 2688
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_34GDnqUJeX9voRQXlxYUol2VeRX/hf_20261004_145145_c55d350d-4097-4da3-9357-bff87280da2e.png",
+  "status": "completed"
+}

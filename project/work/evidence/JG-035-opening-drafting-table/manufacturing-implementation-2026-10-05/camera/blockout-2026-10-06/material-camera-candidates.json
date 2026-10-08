@@ -1,0 +1,208 @@
+{
+  "schema": 1,
+  "status": "CPU-only candidates; same-session rendered validation still required before applying/accepting",
+  "source_capture": {
+    "name": "failed-4140",
+    "time": 16.4,
+    "session": 1
+  },
+  "critical_band_y_mm": [
+    3.2,
+    14.2
+  ],
+  "actual_card_column": {
+    "min": [
+      31.1875,
+      156
+    ],
+    "max": [
+      358.8125,
+      339.96875
+    ],
+    "text": "AISI 4140 (40-45 HRC)FAILEDEarlier material attempts, as recounted by the designer.Illustrative stress concentration"
+  },
+  "actual_footer": {
+    "min": [
+      20,
+      529.5
+    ],
+    "max": [
+      370,
+      820
+    ],
+    "text": "Material attemptsSeek16.4 / 43.0 sWhy the groove was neededMaterial attemptsChanging the processMoving the supportsPlay sequenceReplayRevised assembly study. Return restores the original narrative."
+  },
+  "candidates": [
+    {
+      "fov": 18,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.5
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          122.4204622566356,
+          344.1804380382191
+        ],
+        "max": [
+          253.23036066215633,
+          512.6293857275955
+        ]
+      },
+      "pass": false
+    },
+    {
+      "fov": 18,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.75
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          122.45213474819862,
+          347.3399059749575
+        ],
+        "max": [
+          253.20471295744588,
+          515.716752945428
+        ]
+      },
+      "pass": false
+    },
+    {
+      "fov": 18,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        1
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          122.48377960913217,
+          350.49667662277704
+        ],
+        "max": [
+          253.17908783597701,
+          518.8014845697257
+        ]
+      },
+      "pass": true
+    },
+    {
+      "fov": 18.5,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.5
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          124.41517045755113,
+          346.3191581687563
+        ],
+        "max": [
+          251.6300118370401,
+          510.1386123694902
+        ]
+      },
+      "pass": false
+    },
+    {
+      "fov": 18.5,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.75
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          124.44597249194909,
+          349.39179424075854
+        ],
+        "max": [
+          251.60506900988207,
+          513.1411292713778
+        ]
+      },
+      "pass": true
+    },
+    {
+      "fov": 18.5,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        1
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          124.47674765509201,
+          352.46180715361044
+        ],
+        "max": [
+          251.58014814530893,
+          516.1410830139212
+        ]
+      },
+      "pass": true
+    },
+    {
+      "fov": 19,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.5
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          126.30578322163441,
+          348.34626748516644
+        ],
+        "max": [
+          250.11317849050764,
+          507.7778220037058
+        ]
+      },
+      "pass": true
+    },
+    {
+      "fov": 19,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        0.75
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          126.33576022436809,
+          351.33660308248074
+        ],
+        "max": [
+          250.0889037563053,
+          510.69991657099433
+        ]
+      },
+      "pass": true
+    },
+    {
+      "fov": 19,
+      "tgtNarrow_mm": [
+        0,
+        8.5,
+        1
+      ],
+      "projected_critical_action_bounds": {
+        "min": [
+          126.36571107559253,
+          354.32438578189215
+        ],
+        "max": [
+          250.06465039642066,
+          513.6195166330926
+        ]
+      },
+      "pass": true
+    }
+  ]
+}

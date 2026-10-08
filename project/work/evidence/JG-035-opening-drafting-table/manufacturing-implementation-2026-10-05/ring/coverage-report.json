@@ -1,0 +1,2068 @@
+{
+  "generatedAt": "2026-10-05T18:20:24.585Z",
+  "repo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\",
+  "hashes": {
+    "src/scene/inspection/timeline.ts": "051c2f45cc47534f64a9c03047cdfae57026222d2a807985d273d708319be6c9",
+    "src/scene/inspection/timeline.test.ts": "0fee0ec2f935130b321f9ef68bc2b068f2cd8b9bde8a0b3cfaf254075545744d",
+    "src/scene/inspection/lifecycle.test.ts": "1f947fb7404bbb581624fe51c5f6017fba49cf43a6c7503a3348bc760c9b742c",
+    "src/scene/inspection/ringGeometry.ts": "9d94346223251df3dde7b9520348083967238fa29b0c439c319f3d2d24b37f7f",
+    "src/scene/inspection/ringGeometry.test.ts": "406f35111e447069a09460806d1cc13a35f218371d2463526b5881ff4d24ac1e",
+    "src/scene/inspection/InspectionScene.tsx": "8e7c3f39b28152da8065596ad8d5b9ea93e7f4be0d1bc7d603861c6ab4ed3ac6",
+    "public/models/knurling-tool.glb": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8"
+  },
+  "checks": {
+    "focusedInspection": {
+      "executable": "C:\\nvm4w\\nodejs\\node.exe",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "src/scene/inspection",
+        "--reporter=json",
+        "--outputFile=C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\manufacturing-implementation-2026-10-05\\ring\\focused-inspection.json"
+      ],
+      "exitCode": 0
+    },
+    "typecheck": {
+      "executable": "C:\\nvm4w\\nodejs\\node.exe",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0
+    }
+  },
+  "coverage": {
+    "measuredRollerWidth": 0.007499999832361937,
+    "bandWidth": 0.024004217025541764,
+    "axialFeed": 0.008252108596589914,
+    "slices": 257,
+    "angularBins": 360,
+    "sampleStep": 0.0005,
+    "minSweepAtReveal": 3.2044245066615744,
+    "minAngularBinsAtReveal": 360,
+    "finalSliceReveal": 6.4495000000000005,
+    "fullBandAt": 6.455,
+    "contactEndsAt": 6.485714285714286,
+    "clearanceTimeMargin": 0.030714285714285694,
+    "rejectedProducer": {
+      "spin": 0.11,
+      "traverseSweep": 0.22,
+      "traverseDegrees": 12.605071492878112,
+      "incompleteSlicesAtReveal": 257
+    },
+    "perSlice": [
+      {
+        "z": -0.011955407701437144,
+        "revealedAt": 4.212,
+        "sweepAtReveal": 5.095663284122644,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04443999999999997
+      },
+      {
+        "z": -0.011862006078769666,
+        "revealedAt": 4.221,
+        "sweepAtReveal": 5.233893360880597,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04531999999999998
+      },
+      {
+        "z": -0.011768604456102187,
+        "revealedAt": 4.226999999999999,
+        "sweepAtReveal": 5.36584025233136,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.046145000000000026
+      },
+      {
+        "z": -0.011675202833434711,
+        "revealedAt": 4.2325,
+        "sweepAtReveal": 5.434955290710342,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04702500000000003
+      },
+      {
+        "z": -0.011581801210767233,
+        "revealedAt": 4.237,
+        "sweepAtReveal": 5.491503958474961,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04790500000000004
+      },
+      {
+        "z": -0.011488399588099754,
+        "revealedAt": 4.241,
+        "sweepAtReveal": 5.541769440932391,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.048729999999999954
+      },
+      {
+        "z": -0.011394997965432278,
+        "revealedAt": 4.245,
+        "sweepAtReveal": 5.592034923389836,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04960999999999997
+      },
+      {
+        "z": -0.0113015963427648,
+        "revealedAt": 4.2485,
+        "sweepAtReveal": 5.63601722054009,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.050435
+      },
+      {
+        "z": -0.011208194720097321,
+        "revealedAt": 4.2515,
+        "sweepAtReveal": 5.673716332383169,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05131499999999998
+      },
+      {
+        "z": -0.011114793097429845,
+        "revealedAt": 4.255,
+        "sweepAtReveal": 5.717698629533423,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05214000000000002
+      },
+      {
+        "z": -0.011021391474762367,
+        "revealedAt": 4.258,
+        "sweepAtReveal": 5.755397741376505,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05302000000000003
+      },
+      {
+        "z": -0.010927989852094889,
+        "revealedAt": 4.261,
+        "sweepAtReveal": 5.793096853219581,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05384499999999995
+      },
+      {
+        "z": -0.010834588229427412,
+        "revealedAt": 4.264,
+        "sweepAtReveal": 5.830795965062663,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.054724999999999954
+      },
+      {
+        "z": -0.010741186606759934,
+        "revealedAt": 4.2665,
+        "sweepAtReveal": 5.862211891598552,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05560500000000006
+      },
+      {
+        "z": -0.010647784984092456,
+        "revealedAt": 4.2695,
+        "sweepAtReveal": 5.89991100344163,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05642999999999998
+      },
+      {
+        "z": -0.010554383361424977,
+        "revealedAt": 4.272,
+        "sweepAtReveal": 5.9313269299775335,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05730999999999998
+      },
+      {
+        "z": -0.0104609817387575,
+        "revealedAt": 4.2745,
+        "sweepAtReveal": 5.962742856513426,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05813500000000002
+      },
+      {
+        "z": -0.010367580116090023,
+        "revealedAt": 4.277,
+        "sweepAtReveal": 5.994158783049329,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05901500000000003
+      },
+      {
+        "z": -0.010274178493422544,
+        "revealedAt": 4.2795,
+        "sweepAtReveal": 6.0255747095852215,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05983999999999994
+      },
+      {
+        "z": -0.010180776870755068,
+        "revealedAt": 4.282,
+        "sweepAtReveal": 6.0569906361211245,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06072000000000005
+      },
+      {
+        "z": -0.01008737524808759,
+        "revealedAt": 4.2844999999999995,
+        "sweepAtReveal": 6.088406562657013,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06159999999999996
+      },
+      {
+        "z": -0.009993973625420111,
+        "revealedAt": 4.287,
+        "sweepAtReveal": 6.11982248919292,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.062425
+      },
+      {
+        "z": -0.009900572002752635,
+        "revealedAt": 4.289,
+        "sweepAtReveal": 6.144955230421633,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06330499999999997
+      },
+      {
+        "z": -0.009807170380085157,
+        "revealedAt": 4.2915,
+        "sweepAtReveal": 6.176371156957536,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06413000000000002
+      },
+      {
+        "z": -0.009713768757417678,
+        "revealedAt": 4.294,
+        "sweepAtReveal": 6.207787083493429,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06501000000000004
+      },
+      {
+        "z": -0.009620367134750202,
+        "revealedAt": 4.295999999999999,
+        "sweepAtReveal": 6.232919824722146,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06583500000000005
+      },
+      {
+        "z": -0.009526965512082724,
+        "revealedAt": 4.2985,
+        "sweepAtReveal": 6.264335751258045,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06671499999999995
+      },
+      {
+        "z": -0.009433563889415245,
+        "revealedAt": 4.3004999999999995,
+        "sweepAtReveal": 6.289468492486762,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06759500000000006
+      },
+      {
+        "z": -0.009340162266747769,
+        "revealedAt": 4.303,
+        "sweepAtReveal": 6.320884419022665,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06841999999999998
+      },
+      {
+        "z": -0.00924676064408029,
+        "revealedAt": 4.305,
+        "sweepAtReveal": 6.346017160251382,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06929999999999997
+      },
+      {
+        "z": -0.009153359021412812,
+        "revealedAt": 4.3069999999999995,
+        "sweepAtReveal": 6.371149901480095,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07012500000000002
+      },
+      {
+        "z": -0.009059957398745336,
+        "revealedAt": 4.3095,
+        "sweepAtReveal": 6.402565828015998,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07100500000000003
+      },
+      {
+        "z": -0.008966555776077858,
+        "revealedAt": 4.3115,
+        "sweepAtReveal": 6.427698569244715,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07182999999999995
+      },
+      {
+        "z": -0.00887315415341038,
+        "revealedAt": 4.3134999999999994,
+        "sweepAtReveal": 6.452831310473432,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07271000000000005
+      },
+      {
+        "z": -0.008779752530742903,
+        "revealedAt": 4.316,
+        "sweepAtReveal": 6.484247237009335,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.073535
+      },
+      {
+        "z": -0.008686350908075425,
+        "revealedAt": 4.318,
+        "sweepAtReveal": 6.509379978238048,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07441500000000001
+      },
+      {
+        "z": -0.008592949285407946,
+        "revealedAt": 4.32,
+        "sweepAtReveal": 6.534512719466775,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07529499999999999
+      },
+      {
+        "z": -0.00849954766274047,
+        "revealedAt": 4.322,
+        "sweepAtReveal": 6.559645460695492,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07612000000000002
+      },
+      {
+        "z": -0.008406146040072992,
+        "revealedAt": 4.3245,
+        "sweepAtReveal": 6.591061387231385,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.077
+      },
+      {
+        "z": -0.008312744417405513,
+        "revealedAt": 4.326499999999999,
+        "sweepAtReveal": 6.616194128460098,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07782500000000003
+      },
+      {
+        "z": -0.008219342794738037,
+        "revealedAt": 4.3285,
+        "sweepAtReveal": 6.641326869688825,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07870499999999996
+      },
+      {
+        "z": -0.008125941172070559,
+        "revealedAt": 4.3305,
+        "sweepAtReveal": 6.666459610917542,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.07952999999999998
+      },
+      {
+        "z": -0.00803253954940308,
+        "revealedAt": 4.3325,
+        "sweepAtReveal": 6.691592352146255,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08040999999999997
+      },
+      {
+        "z": -0.007939137926735604,
+        "revealedAt": 4.335,
+        "sweepAtReveal": 6.723008278682158,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08128999999999999
+      },
+      {
+        "z": -0.007845736304068126,
+        "revealedAt": 4.337,
+        "sweepAtReveal": 6.748141019910875,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08211500000000002
+      },
+      {
+        "z": -0.007752334681400648,
+        "revealedAt": 4.3389999999999995,
+        "sweepAtReveal": 6.773273761139592,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08299500000000003
+      },
+      {
+        "z": -0.00765893305873317,
+        "revealedAt": 4.341,
+        "sweepAtReveal": 6.798406502368316,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08381999999999995
+      },
+      {
+        "z": -0.007565531436065693,
+        "revealedAt": 4.3435,
+        "sweepAtReveal": 6.829822428904208,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08470000000000005
+      },
+      {
+        "z": -0.007472129813398214,
+        "revealedAt": 4.3454999999999995,
+        "sweepAtReveal": 6.854955170132925,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.085525
+      },
+      {
+        "z": -0.007378728190730737,
+        "revealedAt": 4.3475,
+        "sweepAtReveal": 6.880087911361649,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08640500000000001
+      },
+      {
+        "z": -0.007285326568063259,
+        "revealedAt": 4.35,
+        "sweepAtReveal": 6.911503837897541,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08723000000000002
+      },
+      {
+        "z": -0.007191924945395781,
+        "revealedAt": 4.352,
+        "sweepAtReveal": 6.936636579126269,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08811000000000004
+      },
+      {
+        "z": -0.007098523322728304,
+        "revealedAt": 4.3545,
+        "sweepAtReveal": 6.968052505662161,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08899
+      },
+      {
+        "z": -0.007005121700060826,
+        "revealedAt": 4.3565,
+        "sweepAtReveal": 6.993185246890878,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.08981500000000003
+      },
+      {
+        "z": -0.006911720077393348,
+        "revealedAt": 4.358499999999999,
+        "sweepAtReveal": 7.018317988119591,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09069499999999996
+      },
+      {
+        "z": -0.00681831845472587,
+        "revealedAt": 4.361,
+        "sweepAtReveal": 7.049733914655494,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09151999999999998
+      },
+      {
+        "z": -0.006724916832058393,
+        "revealedAt": 4.3635,
+        "sweepAtReveal": 7.081149841191397,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09239999999999997
+      },
+      {
+        "z": -0.006631515209390915,
+        "revealedAt": 4.3655,
+        "sweepAtReveal": 7.106282582420114,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09322500000000002
+      },
+      {
+        "z": -0.006538113586723438,
+        "revealedAt": 4.368,
+        "sweepAtReveal": 7.137698508956017,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09410500000000004
+      },
+      {
+        "z": -0.006444711964055961,
+        "revealedAt": 4.3705,
+        "sweepAtReveal": 7.169114435491906,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09498500000000003
+      },
+      {
+        "z": -0.006351310341388482,
+        "revealedAt": 4.3725,
+        "sweepAtReveal": 7.194247176720623,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09580999999999995
+      },
+      {
+        "z": -0.006257908718721005,
+        "revealedAt": 4.375,
+        "sweepAtReveal": 7.225663103256526,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09669000000000005
+      },
+      {
+        "z": -0.006164507096053528,
+        "revealedAt": 4.3774999999999995,
+        "sweepAtReveal": 7.257079029792418,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09751499999999999
+      },
+      {
+        "z": -0.006071105473386049,
+        "revealedAt": 4.38,
+        "sweepAtReveal": 7.2884949563283215,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09839500000000001
+      },
+      {
+        "z": -0.005977703850718572,
+        "revealedAt": 4.3825,
+        "sweepAtReveal": 7.3199108828642245,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.09922000000000002
+      },
+      {
+        "z": -0.005884302228051094,
+        "revealedAt": 4.3854999999999995,
+        "sweepAtReveal": 7.357609994707293,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.1001
+      },
+      {
+        "z": -0.005790900605383616,
+        "revealedAt": 4.388,
+        "sweepAtReveal": 7.389025921243196,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10098
+      },
+      {
+        "z": -0.005697498982716139,
+        "revealedAt": 4.391,
+        "sweepAtReveal": 7.426725033086274,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10180500000000005
+      },
+      {
+        "z": -0.005604097360048661,
+        "revealedAt": 4.3934999999999995,
+        "sweepAtReveal": 7.458140959622163,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10268499999999996
+      },
+      {
+        "z": -0.005510695737381183,
+        "revealedAt": 4.3965,
+        "sweepAtReveal": 7.495840071465246,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10350999999999998
+      },
+      {
+        "z": -0.005417294114713705,
+        "revealedAt": 4.3995,
+        "sweepAtReveal": 7.533539183308321,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10438999999999997
+      },
+      {
+        "z": -0.005323892492046228,
+        "revealedAt": 4.403,
+        "sweepAtReveal": 7.577521480458579,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10521500000000002
+      },
+      {
+        "z": -0.00523049086937875,
+        "revealedAt": 4.406,
+        "sweepAtReveal": 7.615220592301657,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10609500000000002
+      },
+      {
+        "z": -0.005137089246711272,
+        "revealedAt": 4.4094999999999995,
+        "sweepAtReveal": 7.659202889451912,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10692000000000007
+      },
+      {
+        "z": -0.005043687624043795,
+        "revealedAt": 4.4135,
+        "sweepAtReveal": 7.709468371909352,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10779999999999995
+      },
+      {
+        "z": -0.0049502860013763165,
+        "revealedAt": 4.4174999999999995,
+        "sweepAtReveal": 7.759733854366786,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.10868000000000005
+      },
+      {
+        "z": -0.004856884378708839,
+        "revealedAt": 4.4215,
+        "sweepAtReveal": 7.809999336824227,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.109505
+      },
+      {
+        "z": -0.004763482756041363,
+        "revealedAt": 4.4265,
+        "sweepAtReveal": 7.872831189896022,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.11038499999999998
+      },
+      {
+        "z": -0.004670081133373884,
+        "revealedAt": 4.4325,
+        "sweepAtReveal": 7.94822941358218,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.11121000000000002
+      },
+      {
+        "z": -0.004576679510706407,
+        "revealedAt": 4.4405,
+        "sweepAtReveal": 8.048760378497054,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.11209
+      },
+      {
+        "z": -0.004483277888038929,
+        "revealedAt": 4.4575,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06863999999999996
+      },
+      {
+        "z": -0.004389876265371451,
+        "revealedAt": 4.468999999999999,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06825500000000008
+      },
+      {
+        "z": -0.004296474642703973,
+        "revealedAt": 4.4799999999999995,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06792499999999994
+      },
+      {
+        "z": -0.004203073020036497,
+        "revealedAt": 4.4915,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.067485
+      },
+      {
+        "z": -0.004109671397369017,
+        "revealedAt": 4.503,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06709999999999994
+      },
+      {
+        "z": -0.00401626977470154,
+        "revealedAt": 4.513999999999999,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06671500000000005
+      },
+      {
+        "z": -0.003922868152034064,
+        "revealedAt": 4.5255,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06632999999999997
+      },
+      {
+        "z": -0.0038294665293665854,
+        "revealedAt": 4.537,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06589000000000003
+      },
+      {
+        "z": -0.003736064906699109,
+        "revealedAt": 4.548,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0655599999999999
+      },
+      {
+        "z": -0.003642663284031629,
+        "revealedAt": 4.5595,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06512
+      },
+      {
+        "z": -0.0035492616613641524,
+        "revealedAt": 4.5705,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06478999999999994
+      },
+      {
+        "z": -0.003455860038696674,
+        "revealedAt": 4.582,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06440499999999998
+      },
+      {
+        "z": -0.0033624584160291977,
+        "revealedAt": 4.5935,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06396500000000001
+      },
+      {
+        "z": -0.0032690567933617194,
+        "revealedAt": 4.6045,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06363499999999998
+      },
+      {
+        "z": -0.003175655170694241,
+        "revealedAt": 4.616,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06319499999999996
+      },
+      {
+        "z": -0.003082253548026763,
+        "revealedAt": 4.6274999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06281000000000007
+      },
+      {
+        "z": -0.0029888519253592864,
+        "revealedAt": 4.6385,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.062424999999999974
+      },
+      {
+        "z": -0.002895450302691808,
+        "revealedAt": 4.6499999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06203999999999999
+      },
+      {
+        "z": -0.00280204868002433,
+        "revealedAt": 4.6615,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06165500000000002
+      },
+      {
+        "z": -0.0027086470573568517,
+        "revealedAt": 4.672499999999999,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06127000000000004
+      },
+      {
+        "z": -0.002615245434689375,
+        "revealedAt": 4.684,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.060884999999999974
+      },
+      {
+        "z": -0.002521843812021897,
+        "revealedAt": 4.695,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06050000000000007
+      },
+      {
+        "z": -0.0024284421893544204,
+        "revealedAt": 4.7065,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.06011500000000002
+      },
+      {
+        "z": -0.0023350405666869405,
+        "revealedAt": 4.718,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.059674999999999964
+      },
+      {
+        "z": -0.002241638944019464,
+        "revealedAt": 4.729,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.059344999999999946
+      },
+      {
+        "z": -0.0021482373213519874,
+        "revealedAt": 4.7405,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.058959999999999964
+      },
+      {
+        "z": -0.002054835698684509,
+        "revealedAt": 4.752,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05851999999999997
+      },
+      {
+        "z": -0.0019614340760170327,
+        "revealedAt": 4.763,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05818999999999999
+      },
+      {
+        "z": -0.0018680324533495527,
+        "revealedAt": 4.7745,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05774999999999992
+      },
+      {
+        "z": -0.0017746308306820762,
+        "revealedAt": 4.786,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05736500000000007
+      },
+      {
+        "z": -0.001681229208014598,
+        "revealedAt": 4.797,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05697999999999997
+      },
+      {
+        "z": -0.0015878275853471215,
+        "revealedAt": 4.8084999999999996,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05659499999999999
+      },
+      {
+        "z": -0.0014944259626796432,
+        "revealedAt": 4.8195,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05621000000000002
+      },
+      {
+        "z": -0.001401024340012165,
+        "revealedAt": 4.8309999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05582500000000004
+      },
+      {
+        "z": -0.0013076227173446867,
+        "revealedAt": 4.842499999999999,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05544000000000004
+      },
+      {
+        "z": -0.0012142210946772102,
+        "revealedAt": 4.8535,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.055055000000000055
+      },
+      {
+        "z": -0.001120819472009732,
+        "revealedAt": 4.865,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05466999999999999
+      },
+      {
+        "z": -0.0010274178493422555,
+        "revealedAt": 4.8765,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.054229999999999924
+      },
+      {
+        "z": -0.0009340162266747755,
+        "revealedAt": 4.8875,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05389999999999991
+      },
+      {
+        "z": -0.000840614604007299,
+        "revealedAt": 4.899,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05345999999999997
+      },
+      {
+        "z": -0.0007472129813398207,
+        "revealedAt": 4.9105,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.053075
+      },
+      {
+        "z": -0.0006538113586723442,
+        "revealedAt": 4.9215,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.052744999999999986
+      },
+      {
+        "z": -0.000560409736004866,
+        "revealedAt": 4.933,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05230499999999992
+      },
+      {
+        "z": -0.00046700811333738775,
+        "revealedAt": 4.944,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.051975000000000035
+      },
+      {
+        "z": -0.0003736064906699095,
+        "revealedAt": 4.9555,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.051534999999999935
+      },
+      {
+        "z": -0.000280204868002433,
+        "revealedAt": 4.967,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.051149999999999994
+      },
+      {
+        "z": -0.00018680324533495649,
+        "revealedAt": 4.978,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.05076500000000001
+      },
+      {
+        "z": -0.00009340162266747824,
+        "revealedAt": 4.9895,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.050380000000000036
+      },
+      {
+        "z": 0,
+        "revealedAt": 5.0009999999999994,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04994000000000007
+      },
+      {
+        "z": 0.00009340162266747824,
+        "revealedAt": 5.012,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04961000000000006
+      },
+      {
+        "z": 0.00018680324533495475,
+        "revealedAt": 5.0235,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04922499999999999
+      },
+      {
+        "z": 0.000280204868002433,
+        "revealedAt": 5.035,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.048785000000000016
+      },
+      {
+        "z": 0.0003736064906699095,
+        "revealedAt": 5.045999999999999,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.048455
+      },
+      {
+        "z": 0.0004670081133373895,
+        "revealedAt": 5.0575,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04801499999999997
+      },
+      {
+        "z": 0.000560409736004866,
+        "revealedAt": 5.0685,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04768500000000008
+      },
+      {
+        "z": 0.0006538113586723442,
+        "revealedAt": 5.08,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04724500000000008
+      },
+      {
+        "z": 0.0007472129813398207,
+        "revealedAt": 5.0915,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04686000000000001
+      },
+      {
+        "z": 0.000840614604007299,
+        "revealedAt": 5.1025,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04653000000000003
+      },
+      {
+        "z": 0.0009340162266747772,
+        "revealedAt": 5.114,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04608999999999993
+      },
+      {
+        "z": 0.0010274178493422555,
+        "revealedAt": 5.1255,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04570499999999999
+      },
+      {
+        "z": 0.001120819472009732,
+        "revealedAt": 5.1365,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04531999999999998
+      },
+      {
+        "z": 0.0012142210946772102,
+        "revealedAt": 5.148,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04493500000000004
+      },
+      {
+        "z": 0.0013076227173446867,
+        "revealedAt": 5.1594999999999995,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.044495000000000035
+      },
+      {
+        "z": 0.0014010243400121667,
+        "revealedAt": 5.1705,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04416500000000005
+      },
+      {
+        "z": 0.0014944259626796432,
+        "revealedAt": 5.182,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.043780000000000076
+      },
+      {
+        "z": 0.0015878275853471197,
+        "revealedAt": 5.193,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.043394999999999975
+      },
+      {
+        "z": 0.001681229208014598,
+        "revealedAt": 5.2044999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04300999999999997
+      },
+      {
+        "z": 0.0017746308306820745,
+        "revealedAt": 5.215999999999999,
+        "sweepAtReveal": 3.204424506661578,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.042569999999999934
+      },
+      {
+        "z": 0.0018680324533495545,
+        "revealedAt": 5.227,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04224000000000002
+      },
+      {
+        "z": 0.001961434076017031,
+        "revealedAt": 5.2385,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04180000000000007
+      },
+      {
+        "z": 0.002054835698684509,
+        "revealedAt": 5.25,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04141500000000001
+      },
+      {
+        "z": 0.0021482373213519857,
+        "revealedAt": 5.261,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0410299999999999
+      },
+      {
+        "z": 0.002241638944019464,
+        "revealedAt": 5.2725,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.040644999999999924
+      },
+      {
+        "z": 0.002335040566686942,
+        "revealedAt": 5.284,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.04025999999999998
+      },
+      {
+        "z": 0.0024284421893544204,
+        "revealedAt": 5.295,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03987499999999997
+      },
+      {
+        "z": 0.002521843812021897,
+        "revealedAt": 5.3065,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03948999999999997
+      },
+      {
+        "z": 0.002615245434689375,
+        "revealedAt": 5.3175,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03910499999999996
+      },
+      {
+        "z": 0.0027086470573568517,
+        "revealedAt": 5.329,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03872000000000008
+      },
+      {
+        "z": 0.0028020486800243317,
+        "revealedAt": 5.3405,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.038280000000000015
+      },
+      {
+        "z": 0.002895450302691808,
+        "revealedAt": 5.3515,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03794999999999994
+      },
+      {
+        "z": 0.0029888519253592864,
+        "revealedAt": 5.3629999999999995,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03756500000000003
+      },
+      {
+        "z": 0.003082253548026763,
+        "revealedAt": 5.374499999999999,
+        "sweepAtReveal": 3.204424506661578,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03712499999999999
+      },
+      {
+        "z": 0.003175655170694243,
+        "revealedAt": 5.3855,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.036795000000000015
+      },
+      {
+        "z": 0.0032690567933617194,
+        "revealedAt": 5.397,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03635500000000007
+      },
+      {
+        "z": 0.003362458416029196,
+        "revealedAt": 5.4085,
+        "sweepAtReveal": 3.2044245066615993,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03597000000000009
+      },
+      {
+        "z": 0.003455860038696674,
+        "revealedAt": 5.419499999999999,
+        "sweepAtReveal": 3.204424506661578,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0355849999999999
+      },
+      {
+        "z": 0.0035492616613641507,
+        "revealedAt": 5.431,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.035199999999999926
+      },
+      {
+        "z": 0.003642663284031629,
+        "revealedAt": 5.442,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.034870000000000005
+      },
+      {
+        "z": 0.003736064906699109,
+        "revealedAt": 5.4535,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.034429999999999975
+      },
+      {
+        "z": 0.003829466529366582,
+        "revealedAt": 5.465,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.034045
+      },
+      {
+        "z": 0.003922868152034062,
+        "revealedAt": 5.476,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03366000000000002
+      },
+      {
+        "z": 0.004016269774701542,
+        "revealedAt": 5.4875,
+        "sweepAtReveal": 3.204424506661585,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03327499999999998
+      },
+      {
+        "z": 0.004109671397369018,
+        "revealedAt": 5.499,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03283499999999992
+      },
+      {
+        "z": 0.004203073020036495,
+        "revealedAt": 5.51,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.032505
+      },
+      {
+        "z": 0.004296474642703971,
+        "revealedAt": 5.5215,
+        "sweepAtReveal": 3.204424506661592,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03206500000000006
+      },
+      {
+        "z": 0.004389876265371451,
+        "revealedAt": 5.5329999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03168000000000002
+      },
+      {
+        "z": 0.004483277888038931,
+        "revealedAt": 5.544,
+        "sweepAtReveal": 3.204424506661592,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03135000000000001
+      },
+      {
+        "z": 0.004576679510706404,
+        "revealedAt": 5.5555,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03091000000000007
+      },
+      {
+        "z": 0.004670081133373884,
+        "revealedAt": 5.5665,
+        "sweepAtReveal": 3.204424506661592,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.03058000000000006
+      },
+      {
+        "z": 0.004763482756041361,
+        "revealedAt": 5.577999999999999,
+        "sweepAtReveal": 3.204424506661578,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0301399999999999
+      },
+      {
+        "z": 0.004856884378708841,
+        "revealedAt": 5.5895,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.029754999999999924
+      },
+      {
+        "z": 0.004950286001376317,
+        "revealedAt": 5.6005,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02937000000000004
+      },
+      {
+        "z": 0.005043687624043794,
+        "revealedAt": 5.612,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02898500000000003
+      },
+      {
+        "z": 0.005137089246711274,
+        "revealedAt": 5.6235,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.028599999999999966
+      },
+      {
+        "z": 0.005230490869378747,
+        "revealedAt": 5.6345,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02821499999999996
+      },
+      {
+        "z": 0.005323892492046227,
+        "revealedAt": 5.646,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.027830000000000073
+      },
+      {
+        "z": 0.005417294114713707,
+        "revealedAt": 5.6575,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.027390000000000036
+      },
+      {
+        "z": 0.005510695737381183,
+        "revealedAt": 5.6685,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.027059999999999935
+      },
+      {
+        "z": 0.00560409736004866,
+        "revealedAt": 5.68,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.026619999999999963
+      },
+      {
+        "z": 0.005697498982716136,
+        "revealedAt": 5.6915,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02623500000000002
+      },
+      {
+        "z": 0.005790900605383616,
+        "revealedAt": 5.7025,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.025850000000000012
+      },
+      {
+        "z": 0.005884302228051096,
+        "revealedAt": 5.714,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.025465000000000064
+      },
+      {
+        "z": 0.005977703850718569,
+        "revealedAt": 5.725,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.025135000000000022
+      },
+      {
+        "z": 0.006071105473386049,
+        "revealedAt": 5.7364999999999995,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.024694999999999988
+      },
+      {
+        "z": 0.006164507096053529,
+        "revealedAt": 5.747999999999999,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.024310000000000043
+      },
+      {
+        "z": 0.006257908718721006,
+        "revealedAt": 5.759,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.023925000000000037
+      },
+      {
+        "z": 0.006351310341388482,
+        "revealedAt": 5.7705,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02354000000000003
+      },
+      {
+        "z": 0.006444711964055959,
+        "revealedAt": 5.782,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.023099999999999933
+      },
+      {
+        "z": 0.006538113586723439,
+        "revealedAt": 5.793,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.022770000000000016
+      },
+      {
+        "z": 0.006631515209390919,
+        "revealedAt": 5.8045,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.022384999999999943
+      },
+      {
+        "z": 0.006724916832058392,
+        "revealedAt": 5.816,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.021945000000000034
+      },
+      {
+        "z": 0.006818318454725872,
+        "revealedAt": 5.827,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02161499999999993
+      },
+      {
+        "z": 0.006911720077393348,
+        "revealedAt": 5.8385,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02117500000000002
+      },
+      {
+        "z": 0.007005121700060825,
+        "revealedAt": 5.8495,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.02084499999999992
+      },
+      {
+        "z": 0.007098523322728305,
+        "revealedAt": 5.861,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.020405000000000065
+      },
+      {
+        "z": 0.007191924945395781,
+        "revealedAt": 5.8725000000000005,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.020020000000000062
+      },
+      {
+        "z": 0.007285326568063261,
+        "revealedAt": 5.8835,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.019689999999999958
+      },
+      {
+        "z": 0.007378728190730734,
+        "revealedAt": 5.895,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.019249999999999982
+      },
+      {
+        "z": 0.007472129813398214,
+        "revealedAt": 5.906499999999999,
+        "sweepAtReveal": 3.2044245066615744,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.018864999999999976
+      },
+      {
+        "z": 0.007565531436065694,
+        "revealedAt": 5.9175,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01848000000000003
+      },
+      {
+        "z": 0.007658933058733171,
+        "revealedAt": 5.929,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.018095000000000024
+      },
+      {
+        "z": 0.007752334681400647,
+        "revealedAt": 5.9405,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.017655000000000115
+      },
+      {
+        "z": 0.007845736304068124,
+        "revealedAt": 5.951499999999999,
+        "sweepAtReveal": 3.2044245066615744,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.017324999999999886
+      },
+      {
+        "z": 0.007939137926735604,
+        "revealedAt": 5.963,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.016884999999999914
+      },
+      {
+        "z": 0.008032539549403084,
+        "revealedAt": 5.974,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01655500000000006
+      },
+      {
+        "z": 0.008125941172070557,
+        "revealedAt": 5.9855,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.016169999999999927
+      },
+      {
+        "z": 0.008219342794738037,
+        "revealedAt": 5.997,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.015729999999999956
+      },
+      {
+        "z": 0.008312744417405513,
+        "revealedAt": 6.008,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.015399999999999974
+      },
+      {
+        "z": 0.008406146040072993,
+        "revealedAt": 6.0195,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.014960000000000001
+      },
+      {
+        "z": 0.00849954766274047,
+        "revealedAt": 6.031,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.014574999999999994
+      },
+      {
+        "z": 0.008592949285407946,
+        "revealedAt": 6.042,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01419000000000005
+      },
+      {
+        "z": 0.008686350908075426,
+        "revealedAt": 6.0535,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.013804999999999982
+      },
+      {
+        "z": 0.0087797525307429,
+        "revealedAt": 6.0649999999999995,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.013420000000000036
+      },
+      {
+        "z": 0.00887315415341038,
+        "revealedAt": 6.0760000000000005,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01303500000000003
+      },
+      {
+        "z": 0.00896655577607786,
+        "revealedAt": 6.0875,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.012650000000000022
+      },
+      {
+        "z": 0.009059957398745336,
+        "revealedAt": 6.0985,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.012265000000000014
+      },
+      {
+        "z": 0.009153359021412812,
+        "revealedAt": 6.109999999999999,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.011880000000000007
+      },
+      {
+        "z": 0.009246760644080289,
+        "revealedAt": 6.121499999999999,
+        "sweepAtReveal": 3.2044245066615744,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01143999999999991
+      },
+      {
+        "z": 0.009340162266747769,
+        "revealedAt": 6.1325,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.011110000000000118
+      },
+      {
+        "z": 0.009433563889415249,
+        "revealedAt": 6.144,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.01067000000000002
+      },
+      {
+        "z": 0.009526965512082722,
+        "revealedAt": 6.1555,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.010285000000000015
+      },
+      {
+        "z": 0.009620367134750202,
+        "revealedAt": 6.1665,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.00995499999999991
+      },
+      {
+        "z": 0.009713768757417678,
+        "revealedAt": 6.178,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.009515
+      },
+      {
+        "z": 0.009807170380085158,
+        "revealedAt": 6.1895,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.009130000000000055
+      },
+      {
+        "z": 0.009900572002752635,
+        "revealedAt": 6.2005,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.008744999999999985
+      },
+      {
+        "z": 0.009993973625420111,
+        "revealedAt": 6.212,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.008359999999999977
+      },
+      {
+        "z": 0.010087375248087591,
+        "revealedAt": 6.223,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.007975000000000032
+      },
+      {
+        "z": 0.010180776870755068,
+        "revealedAt": 6.2345,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.007589999999999964
+      },
+      {
+        "z": 0.010274178493422544,
+        "revealedAt": 6.246,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.007205000000000019
+      },
+      {
+        "z": 0.010367580116090024,
+        "revealedAt": 6.257,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.006820000000000073
+      },
+      {
+        "z": 0.0104609817387575,
+        "revealedAt": 6.2684999999999995,
+        "sweepAtReveal": 3.2044245066615744,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.006434999999999942
+      },
+      {
+        "z": 0.010554383361424977,
+        "revealedAt": 6.279999999999999,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.005994999999999907
+      },
+      {
+        "z": 0.010647784984092454,
+        "revealedAt": 6.291,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.005665000000000052
+      },
+      {
+        "z": 0.010741186606759934,
+        "revealedAt": 6.3025,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.005225000000000079
+      },
+      {
+        "z": 0.010834588229427414,
+        "revealedAt": 6.314,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0048400000000000725
+      },
+      {
+        "z": 0.010927989852094887,
+        "revealedAt": 6.324999999999999,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.004509999999999968
+      },
+      {
+        "z": 0.011021391474762367,
+        "revealedAt": 6.3365,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.004069999999999996
+      },
+      {
+        "z": 0.011114793097429843,
+        "revealedAt": 6.3475,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0037400000000000783
+      },
+      {
+        "z": 0.011208194720097323,
+        "revealedAt": 6.359,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0033000000000000434
+      },
+      {
+        "z": 0.0113015963427648,
+        "revealedAt": 6.3705,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.002914999999999912
+      },
+      {
+        "z": 0.011394997965432276,
+        "revealedAt": 6.3815,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.002529999999999967
+      },
+      {
+        "z": 0.011488399588099756,
+        "revealedAt": 6.393,
+        "sweepAtReveal": 3.2044245066615815,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.00214499999999996
+      },
+      {
+        "z": 0.011581801210767233,
+        "revealedAt": 6.4045000000000005,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0017050000000000494
+      },
+      {
+        "z": 0.01167520283343471,
+        "revealedAt": 6.4155,
+        "sweepAtReveal": 3.2044245066615886,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0013750000000000077
+      },
+      {
+        "z": 0.01176860445610219,
+        "revealedAt": 6.427,
+        "sweepAtReveal": 3.2044245066615957,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0009900000000001251
+      },
+      {
+        "z": 0.011862006078769666,
+        "revealedAt": 6.4384999999999994,
+        "sweepAtReveal": 3.2044245066615744,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.0005499999999999035
+      },
+      {
+        "z": 0.011955407701437146,
+        "revealedAt": 6.4495000000000005,
+        "sweepAtReveal": 3.204424506661603,
+        "binsAtReveal": 360,
+        "legacySweepAtReveal": 0.00022000000000011073
+      }
+    ]
+  },
+  "checkpoints": [
+    {
+      "phase": "Smooth black",
+      "time": 0,
+      "aluminium": 0,
+      "knurl": 0,
+      "angle": 0,
+      "clipTime": 0.03333333333333333,
+      "toolVisible": false,
+      "returnBlend": 0,
+      "spin": 0,
+      "contact": false,
+      "toolOpacity": 0,
+      "ringDetailScale": 1,
+      "rollerDetailScale": 1
+    },
+    {
+      "phase": "Paired rollers · approach",
+      "time": 2.8,
+      "aluminium": 1,
+      "knurl": 0,
+      "angle": 2.6444476421344474,
+      "clipTime": 0.03333333333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 5.986848953309321,
+      "contact": false,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.040996011086271614,
+      "rollerDetailScale": 0.018747267194893006
+    },
+    {
+      "phase": "Paired rollers · approach",
+      "time": 3.8,
+      "aluminium": 1,
+      "knurl": 0,
+      "angle": 12.670384398857365,
+      "clipTime": 1.5,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Diamond knurl · traverse",
+      "time": 4.2,
+      "aluminium": 1,
+      "knurl": 0,
+      "angle": 17.696932644601038,
+      "clipTime": 1.833333333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Diamond knurl · traverse",
+      "time": 4.455,
+      "aluminium": 1,
+      "knurl": 0.3124451004596234,
+      "angle": 20.901357151262626,
+      "clipTime": 2.088333333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Diamond knurl · traverse",
+      "time": 5.2,
+      "aluminium": 1,
+      "knurl": 0.5685593005384137,
+      "angle": 30.26330325896021,
+      "clipTime": 2.833333333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Clearance · retract",
+      "time": 6.2,
+      "aluminium": 1,
+      "knurl": 0.9123367503086022,
+      "angle": 42.82967387331938,
+      "clipTime": 3.8333333333333335,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Clearance · retract",
+      "time": 6.455,
+      "aluminium": 1,
+      "knurl": 1,
+      "angle": 46.03409837998097,
+      "clipTime": 3.982083333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Clearance · retract",
+      "time": 6.485714285714286,
+      "aluminium": 1,
+      "knurl": 1,
+      "angle": 46.420065477422,
+      "clipTime": 4,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 12.566370614359172,
+      "contact": true,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.01953125,
+      "rollerDetailScale": 0.008931541208477953
+    },
+    {
+      "phase": "Clearance · retract",
+      "time": 7.7,
+      "aluminium": 1,
+      "knurl": 1,
+      "angle": 49.440482457436694,
+      "clipTime": 4.708333333333333,
+      "toolVisible": true,
+      "returnBlend": 0,
+      "spin": 0.5,
+      "contact": false,
+      "toolOpacity": 1,
+      "ringDetailScale": 0.4908738521234052,
+      "rollerDetailScale": 0.22447411396631078
+    },
+    {
+      "phase": "Black finish · decelerate",
+      "time": 8.2,
+      "aluminium": 1,
+      "knurl": 1,
+      "angle": 49.690482457436694,
+      "clipTime": 5,
+      "toolVisible": false,
+      "returnBlend": 0,
+      "spin": 0.5,
+      "contact": false,
+      "toolOpacity": 0,
+      "ringDetailScale": 0.4908738521234052,
+      "rollerDetailScale": 0.22447411396631078
+    },
+    {
+      "phase": "Black finish · decelerate",
+      "time": 9.3,
+      "aluminium": 0,
+      "knurl": 1,
+      "angle": 50.14476247716218,
+      "clipTime": 5,
+      "toolVisible": false,
+      "returnBlend": 0,
+      "spin": 0.2662940741349549,
+      "contact": false,
+      "toolOpacity": 0,
+      "ringDetailScale": 0.921676259071833,
+      "rollerDetailScale": 0.42147786182532504
+    },
+    {
+      "phase": "Assembly return",
+      "time": 10.5,
+      "aluminium": 0,
+      "knurl": 1,
+      "angle": 50.26548245743669,
+      "clipTime": 5,
+      "toolVisible": false,
+      "returnBlend": 0,
+      "spin": 0,
+      "contact": false,
+      "toolOpacity": 0,
+      "ringDetailScale": 1,
+      "rollerDetailScale": 1
+    },
+    {
+      "phase": "Complete",
+      "time": 12,
+      "aluminium": 0,
+      "knurl": 1,
+      "angle": 50.26548245743669,
+      "clipTime": 5,
+      "toolVisible": false,
+      "returnBlend": 1,
+      "spin": 0,
+      "contact": false,
+      "toolOpacity": 0,
+      "ringDetailScale": 1,
+      "rollerDetailScale": 1
+    }
+  ],
+  "scope": "Sampler and GLB contact proof; renderer filtering, tool opacity and fresh runtime review still require integration."
+}

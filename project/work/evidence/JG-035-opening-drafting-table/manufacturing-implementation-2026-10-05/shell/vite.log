@@ -1,0 +1,16 @@
+
+  VITE v7.3.6  ready in 2315 ms
+
+  ➜  Local:   http://localhost:5201/
+  ➜  press h + enter to show help
+2:22:04 PM [vite] (client) hmr update /src/components/RingInspection.tsx
+2:22:04 PM [vite] (client) hmr update /src/components/RingInspection.css
+2:24:01 PM [vite] (client) hmr update /src/components/RingInspection.tsx
+2:24:01 PM [vite] (client) page reload src/scene/inspection/session.ts
+2:26:21 PM [vite] (client) page reload src/scene/inspection/story.ts
+2:26:21 PM [vite] (client) page reload src/state/inspectionStore.ts
+2:27:47 PM [vite] (client) page reload src/state/inspectionStore.ts
+2:27:47 PM [vite] (client) hmr update /src/components/RingInspection.tsx
+2:28:30 PM [vite] (client) page reload project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shell/harness.html
+2:33:20 PM [vite] (client) page reload project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/integration/harness.html
+4:25:35 PM [vite] (client) page reload project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-script/harness.html

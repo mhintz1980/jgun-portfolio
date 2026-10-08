@@ -1,0 +1,1771 @@
+Reading additional input from stdin...
+2026-10-06T04:03:59.058952Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T04:03:59.059009Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-06T04:03:59.197027Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.154.0
+--------
+workdir: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+model: zai/glm-5.3
+provider: opencodex
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: concise
+session id: 01a10f61-ef7f-7d80-ac2b-636c0689033f
+--------
+user
+Bounded read-only re-review. Do not edit files; do not read TODO.md or queue docs. Your earlier FIX-FIRST review: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-runtime-review-glm.md. Producer fix report: project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-runtime-fix-sol-report.md and gate project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-runtime.md (R8). Source: src/scene/inspection/shaft/frame.ts, shaftRuntime.ts, shaftRuntime.test.ts, kinematics.ts (writeShaftProgression and its withdrawal hold only), kinematics.test.ts, progression.ts. For F1, F2, F3 and the hob-withdrawal hold say RESOLVED or NOT RESOLVED with exact file:line and values; then hunt for regressions the fixes introduced (cutter face now at edgeY; previous depth ahead of the edge for passes 2-4 never below the prior pass; one source of truth for the completed hob envelope from its stop; hob thread disposed exactly once). Report SHIP or FIX-FIRST, max 350 words.
+warning: Under-development features enabled: default_mode_request_user_input. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in C:\Users\Markimus\.codex\config.toml.
+2026-10-06T04:03:59.884794Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-06T04:03:59.884843Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-06T04:04:00.387927Z  WARN codex_core_plugins::manifest: ignoring interface.defaultPrompt: maximum of 3 prompts is supported path=file:///C:/Users/Markimus/.codex/.tmp/marketplaces/builder-skills/.codex-plugin/plugin.json
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart
+hook: SessionStart Failed
+hook: SessionStart Completed
+hook: SessionStart Completed
+hook: UserPromptSubmit
+hook: UserPromptSubmit Completed
+codex
+Starting the bounded re-review: I'll read the prior FIX-FIRST review, the fix report, and the R8 gate first, then the named source files with line numbers for exact citations.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n -i "shaft-runtime|shaftRuntime|JG-035" "C:/Users/Markimus/.codex/memories/MEMORY.md"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-runtime-fix-sol-report.md' | ForEach-Object { "'$i++; '"'{0,5}: {1}' -f "'$i, $_ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/shaft-runtime-review-glm.md' | ForEach-Object { "'$i++; '"'{0,5}: {1}' -f "'$i, $_ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-runtime.md' | ForEach-Object { "'$i++; '"'{0,5}: {1}' -f "'$i, $_ }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 675ms:
+    1: All checks complete. Composing the verdict.
+    2: 
+    3: **VERDICT: FIX-FIRST** (one owned geometry error; the rest is sound)
+    4: 
+    5: **F1 — Moderate, owned. Shaper disc placed 0.6 mm behind its kinematic frame.** [frame.ts:26](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/frame.ts:26) puts the root at `strokeCentreY − SHAPER_THICKNESS_MM/2`, justified by a comment claiming the builder's disc spans y=[0,1.2]. It doesn't: [tools.ts:115](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/tools.ts:115) translates by −t/2 before `rotateX`, centering the disc on the root, and `cuttingEdgeLocal.y = +t/2` ([tools.ts:149](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/tools.ts:149)) confirms it. kinematics defines the leading face as `edgeY = yc + t/2` ([kinematics.ts:453](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:453)), and toolSpec's overtravel math confirms it (9.7749 + 0.6 = 10.375 ≈ face end 9.875 + 0.5). Net: the visible cutter face trails the material reveal edge and chip anchor by 0.6 mm and tops out 0.1 mm short of the last tooth material. The spec's own requirement is "axial position strokeCentreY". The test encodes the bug ([shaftRuntime.test.ts:126](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/shaftRuntime.test.ts:126)); gate R3's justification is factually wrong.
+    6: 
+    7: **F2 — Minor-moderate, existing modules. `engagedPreviousDepth` is never populated.** [kinematics.ts:418-429](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:418) and shaftRuntime.ts:320-331 never set it, so the shader ([progression.ts:286](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/progression.ts:286)) renders uncut blank ahead of the engaged cutter on passes 2-4 — stock visually regrows ahead of the edge.
+    8: 
+    9: **F3 — Minor, owned.** [shaftRuntime.ts:432-443](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/shaftRuntime.ts:432) never calls the hob thread's `InstancedMesh.dispose()`, so its instance-matrix GPU buffer isn't explicitly freed per session (invisible to the census).
+   10: 
+   11: **Verified clean:** stale checks after every await plus late-parse disposal (268, 271, 280-293); owned/shared split correct — shared narrative geometry/textures never disposed, `borrowShared` released idempotently; sample/apply allocation-free and pure by direct reading; mapping (x,z,−y)/1000 correct for meshes, camera, progression and hob (radial and centre distance exact); wipe uses opaque complementary planes; +2.75 mm delta measured from accessor bounds with rigid-pair assertion; §8 clone discipline followed; finale honestly reported (`assembled=false` without carriers, `racesFollow=false`); telemetry carries every §9 shaft key with additive extras; `public/draco` has all three decoder files matching the repo convention; `localClippingEnabled` is already true canvas-wide ([SceneCanvas.tsx:338](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/src/scene/SceneCanvas.tsx:338)), so the gate's parent concern is moot.
+   12: 
+   13: **Test caveat:** vitest could not execute in this read-only sandbox (esbuild probes parent directories; two attempts failed). The producer's 90-test pass remains an unverified claim; my findings are from direct source reading.
+
+hook: PostToolUse
+ succeeded in 1164ms:
+1:# Task Group: jgun-portfolio JG-035 stages 1-3 opening rework
+6:## Task 1: Plan and implement JG-035 stages 1-3
+14:- jgun-portfolio, JG-035, jgun-animation-improvements.md, jgun-stages-1-3-implementation-plan.md, sheetCamera, introTimeline, paperFlex, drawingCache, DrawingLinework, precompute-drawing, junction path, npm run build, troika
+40:- The 2026-09-26 docs mark the ANSI C/shockwave opening historical; active opening is a 0.80×0.50 m vellum sheet. On a later owner-requested commit, stage JG-035 paths only and include the matching doc updates. [Task 2]
+47:- Before calling JG-035 done: add `__drawingProof` probes for pulse registration and text/title bounds; regenerate missing `public/drawing/jgun-sheet-v1.json.gz` with cache bypass, chrome fallback, and correct `waitForFunction(pageFn, arg, options)` ordering; re-measure `projectedFeatures` at registered hold `t=0.40–0.72`; verify `ink.tri` subdivision and troika injection order; run the harness against a fresh `:5198` server and obtain a fresh read-only review. [Task 2]
+
+hook: PostToolUse
+ succeeded in 1571ms:
+    1: Completed within the specified ownership.
+    2: 
+    3: Changed paths:
+    4: 
+    5: - [frame.ts](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/frame.ts): F1 removed the erroneous **0.6 mm** offset; cutter face now matches `edgeY`.
+    6: - [kinematics.ts](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts): F2 retains **0.25 / 0.50 / 0.75** depth ahead of passes 2–4. Shared progression now holds the completed hob envelope from **30.2 s**.
+    7: - [shaftRuntime.ts](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/shaftRuntime.ts): F3 disposes the hob thread exactly once; removed the local withdrawal workaround.
+    8: - [shaftRuntime.test.ts](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/shaftRuntime.test.ts) and [kinematics.test.ts](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.test.ts): added regressions covering every finding.
+    9: - [shaft-runtime.md](/C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/gates/shaft-runtime.md): appended R8, including the corrected R3 justification.
+   10: 
+   11: Verification:
+   12: 
+   13: - `npx vitest run src/scene/inspection/shaft` — **98 tests passed**, 7 files.
+   14: - `npm run typecheck` — **passed**, exit 0.
+   15: 
+   16: Parent edits preserved. No git commands or queue-doc reads.
+   17: 
+
+hook: PostToolUse
+ succeeded in 1915ms:
+    1: # Shaft StoryRuntime producer gate
+    2: 
+    3: Ownership: six files named in shaft-runtime-spec.md; create only. No shared modules,
+    4: registration, assets, task queue, staging, commits, or integration edits.
+    5: 
+    6: - [x] R1 frame mapping and GLB bounds
+    7: - [x] R2 closed-form schedule and beats
+    8: - [x] R3 current tools/progression APIs, stress, camera and light wiring
+    9: - [x] R4 measured rigid supports and independent finale clones
+   10: - [x] R5 preallocated telemetry and resource census
+   11: - [x] R6 deterministic sampling / allocation review
+   12: - [x] R7 shaft vitest suite and repository typecheck
+   13: 
+   14: ## Delivered paths
+   15: 
+   16: - `src/scene/inspection/shaft/frame.ts`: mm/metre mapping, inverse, tool poses and measured narrative-rest registration.
+   17: - `src/scene/inspection/shaft/schedule.ts`: authored beat visibility, complementary wipe, support slide/holds and closed-form finale spin.
+   18: - `src/scene/inspection/shaft/shaftRuntime.ts`: synchronous StoryRuntime factory with async tier/Draco load, owned resources, current producer APIs, camera/render/light outputs, stress, supports, finale and telemetry.
+   19: - `src/scene/inspection/shaft/shaftRuntime.test.ts`: actual GLB metadata checks and no-WebGL factory/lifecycle/seek tests.
+   20: - `src/scene/inspection/shaft/schedule.test.ts`: authored boundaries, shuffled seeks, dense visibility rules and support timing.
+   21: - This gate file.
+   22: 
+   23: No pre-existing source or asset was edited. Factory registration/mounting remains the
+   24: parent's separately owned integration. Tools/progression were consumed through their
+   25: live exported APIs; neither shared producer file was modified.
+   26: 
+   27: ## Evidence and implementation decisions
+   28: 
+   29: R1: fixed world origin `(0,0,0)` and identity orientation. The bundle's exporter has
+   30: already converted CAD metres to `(x,z,-y)`; only camera/tool CAD coordinates need that
+   31: rotation, and only CAD mm need the `0.001` scale. Progression receives the inverse
+   32: mapping composed with each mesh's unrotated rest transform. Both actual GLBs span
+   33: approved shaft Z approximately `[-0.071524, 0]`. Round trips and raw accessor bounds
+   34: are tested. Narrative neighbours use the measured `geometry/source-registry.json`
+   35: rest registration and gearbox-local TRS, never `hero.matrixWorld` or exploded pivots.
+   36: 
+   37: R2: `shaftBeats` controls phase/discrete changes. Sampled opacity rules are checked
+   38: at 5,161 times over 0..43 s and at each boundary on both sides. During 22.6..25 both
+   39: shaft materials are opaque and use complementary axial planes. From 32..32.8 tools
+   40: are absent and the stress field is absent. Witnesses establish by 35.5, slide starts
+   41: 35.6, reaches endpoint 37.6, holds before witness fade begins at 38.6, and disappears
+   42: at 39. Narrative alpha is zero from 1.2 through the indefinite endpoint hold;
+   43: `ownsNarrative=true`, `returnBlend=0`.
+   44: 
+   45: R3: current `buildShaperCutter/buildHob` and progression/stress APIs are wired.
+   46: Shaper origin corrects the builder's disc y=[0,1.2] mm to the sampled stroke centre.
+   47: Near-edge envelope radius and hob centre distance are checked to better than 1e-9 m
+   48: over 2,581 times. Hob setting axis uses the 5.5587 degree lead angle. Cutter disc and
+   49: hob thread detail fade to 25% when `softened` is true; hubs/arbors keep tool silhouette.
+   50: The single restrained chip uses sampled fields. Legacy isolate stock is explicitly
+   51: zero-depth; all ten spaces remain finished for materials. Approved wipe stock uses
+   52: the infeed envelope. Completed hob progression is held during prop withdrawal.
+   53: Warm/cool overlay fields use the script sampler, isolated to their respective shafts.
+   54: Two owned neutral/grazing lights use the same follow azimuth, whose integral includes
+   55: the kinematics follow weight. Render exposure follows ring convention, env=0.35 and
+   56: near-black background. Camera mapping is tested through actual factory seeks.
+   57: 
+   58: R4: node transforms are identity and support poses are baked into POSITION data in
+   59: these exports. Thus the delta is derived from the union of exported accessor bounds,
+   60: including node TRS when present, rather than falsely reading zero node translations.
+   61: Both bearing and ring deltas equal +2.750 mm within 0.005 mm and have no intended
+   62: radial displacement. The approved pair has one parent translated from endpoint minus
+   63: the measured delta; its relative pose is unchanged throughout the slide. Housing
+   64: does not translate. Shaft and housing remove their camera-facing halves during
+   65: supports with darker clipped back faces as the specified cap illusion; those backs
+   66: are removed for finale. This is not a fabricated CSG cap.
+   67: 
+   68: Both `housing` and `approvedhousing` are accepted. `legacyhousing` is optional and
+   69: reported as present/absent; tests cover both layouts and absence. The latest producer
+   70: bundles contain `approvedhousing` and `legacyhousing`. Approved unsplit bearing stays
+   71: fixed; retaining ring follows the finale shaft spin. `racesFollow=false` honestly
+   72: reports that no separable animated inner race is available; `bearingRacePolicy` is
+   73: `unsplit-fixed`, with additive `ringFollowsShaft` and `bearingOuterFixed` fields.
+   74: 
+   75: Each available carrier is cloned recursively, placed at `rig.basePositions`, and
+   76: each planet is mapped to its corresponding clone. Geometry/textures remain borrowed;
+   77: materials are owned clones with narrative shader callbacks removed. Shared borrowing
+   78: is session tracked and released idempotently. Display reduction follows
+   79: `ROTATION_TURNS`; planets counterrotate at `-carrier * GEAR_RATIOS.planetMultiplier`.
+   80: `finale.assembled` is true only after 39 with all five carriers available; missing or
+   81: partial rigs remain explicitly unassembled. There is exactly one shaft in the finale.
+   82: 
+   83: R5: preallocated `shaft` telemetry implements the contract subtree and additive node,
+   84: carrier, softening and bearing-policy fields; `resources` reports the owned plus
+   85: borrowed census. Disposal releases only owned geometry/materials/textures. Narrative
+   86: originals are not modified; the runtime reports zero original nodes hidden by itself
+   87: (the host owns narrative visibility/restore and its global hidden-count probe).
+   88: 
+   89: R6: full runtime frame, camera, render, telemetry and object-state digests are identical
+   90: after 240 shuffled seeks. Frame/camera/vectors/render/telemetry/census identities stay
+   91: stable. A TypeScript AST test checks sample/apply/telemetry and their direct sampler
+   92: surfaces for allocation syntax (new objects, array/object literals, closures).
+   93: This plus source review proves explicit allocation-free code paths, not a measured
+   94: browser heap guarantee. No-WebGL factory fixtures parse actual GLB metadata into baked
+   95: bounding meshes and stub only GLTFLoader.parseAsync; actual Draco/GPU decode is not
+   96: claimed. Cancellation before fetch completion and during late parse, current failure,
+   97: idempotent disposal, untouched originals and shared-resource survival are tested.
+   98: Pending Draco workers remain alive until parse completion, then stale results and
+   99: the decoder are disposed so cancellation cannot strand the ready promise.
+  100: 
+  101: ## Verification
+  102: 
+  103: Final run 2026-10-05, 23:20 local:
+  104: 
+  105: - `npx vitest run src/scene/inspection/shaft`: PASS, 7 files / 90 tests, 5.56 s.
+  106: - `npm run typecheck`: PASS, `tsc --noEmit` exit 0.
+  107: 
+  108: An intermediate loaded run hit existing camera-test and new dense-schedule test
+  109: timeouts; the schedule test now aggregates dense-rule violations instead of doing
+  110: over 100,000 assertion calls. Two subsequent full runs passed with the requested
+  111: unmodified command. The concurrent legacyhousing export also invalidated a test's
+  112: old absence assumption; the fixture now explicitly tests both optional-node cases.
+  113: 
+  114: Latest asset snapshot consumed/read, not modified by this leaf:
+  115: 
+  116: | Tier | Bytes | SHA-256 |
+  117: |---|---:|---|
+  118: | full | 678008 | `17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be` |
+  119: | lite | 415424 | `b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f` |
+  120: 
+  121: Graph coverage was checked for source/evidence paths. The available generation is
+  122: 2026-09-30 and does not track the new modules; conclusions above are from direct live
+  123: source and actual GLB metadata, not a completeness claim from that older graph.
+  124: 
+  125: ## Existing-module defect / integration hazard
+  126: 
+  127: `src/scene/inspection/shaft/kinematics.ts:412` and `:413` transfer live tool hobYc/hobA
+  128: into progression. `:492` samples withdrawal. Passing these unchanged through
+  129: 30.2..32 would restore stock as the hob retracts and withdraws. The runtime locally
+  130: holds the completed swept envelope (y=9.5249, full-depth A) from 30.2; the tool still
+  131: uses current kinematics. Existing module remains untouched, and withdrawal regression
+  132: tests cover 30.2, 30.8, 31.2, 31.8 and 31.999.
+  133: 
+  134: ## Remaining parent/browser proof
+  135: 
+  136: Parent must register/mount the factory and own `renderer.localClippingEnabled=true`
+  137: during inspection, restoring it afterward alongside other renderer state. Three.js
+  138: material clipping planes require this renderer flag; runtime does not change shared
+  139: renderer configuration. Compile/warm-render ownership also stays with the host.
+  140: 
+  141: Browser proof belongs to the parent after registration/mounting. This producer does
+  142: not claim shader compilation, visual/camera acceptance, GPU allocation measurements,
+  143: clearance, or narrative restore proof from no-WebGL tests.
+  144: 
+  145: Required remaining checks: full/lite actual Draco loading and shader warm compile;
+  146: clipping/wipe/section/back-face appearance; progressed normals/contact/chip placement
+  147: and complete-tool clearance during cut/return/withdrawal; camera framing and card
+  148: slot at desktop/narrow sizes; visible support holds; planet tooth clocking/alignment;
+  149: exploded and blueprint entry -> independent assembled finale -> exact Return/Escape
+  150: restore; context-loss/cancel/re-entry disposal and browser heap/census stability.
+  151: 
+  152: - [x] R8 (2026-10-05): shaft-runtime-review-glm FIX-FIRST findings and shared progression hazard corrected. F1 / R3 correction (supersedes the earlier disc-origin justification): tools.ts already centres the 1.2 mm disc at y=[-0.6,+0.6] mm, so the root now sits at strokeCentreY without the erroneous -0.6 mm offset; the actual rake face matches edgeY/chipY, reaching 10.3749 mm (0.5 mm beyond the last material at 9.8749 mm). F2: writeShaftProgression counts cuts preceding the nearest current crossing in closed form without allocations, including samples before that crossing; all 10 spaces on passes 2-4 retain previous depths 0.25/0.50/0.75 ahead of the edge, with CPU-radius and shader-uniform regressions and 781 actual runtime material samples. F3: the owned hob-thread InstancedMesh is disposed exactly once on loaded-session disposal and cancellation during late parse; geometry/material disposal remains exactly once and shared-resource survival tests pass. Withdrawal hazard (supersedes the earlier runtime-local workaround): writeShaftProgression holds the completed swept envelope at yc=9.5249 mm and A=10.29182859636582 mm from 30.2 s, while live tool motion remains unchanged; the runtime-local hold is removed, and shuffled withdrawal probes compare all 101 face-band radii against the completed envelope. Regression-first run exposed all four defects; corrected dense/actual-disc placement, prior-depth, instance disposal and shared-writer withdrawal regressions pass without weakening existing checks. Verification: `npx vitest run src/scene/inspection/shaft` PASS, 7 files / 98 tests, 7.70 s, exit 0; `npm run typecheck` PASS, `tsc --noEmit`, exit 0. Only frame.ts, shaftRuntime.ts, shaftRuntime.test.ts, kinematics.ts (writeShaftProgression only), kinematics.test.ts (additions only) and this appended gate entry changed; parent SHAFT_BEAT_LABELS/out.phase edits preserved. No git commands or queue-doc reads; browser/owner proof remains with the parent.
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+The gate and fix report claim all four items fixed. Now I'll locate the exact fix sites in the source files before reading the relevant ranges.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"writeShaftProgression|engagedPreviousDepth|withdraw|30\\.2|9\\.5249|10\\.29182859636582|completed\" src/scene/inspection/shaft/kinematics.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "strokeCentreY|SHAPER_THICKNESS|edgeY|edge" src/scene/inspection/shaft/frame.ts' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"dispose|hob|envelope|hold|9\\.5249|30\\.2\" src/scene/inspection/shaft/shaftRuntime.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "engagedPreviousDepth|previousDepth|uEngaged|prior" src/scene/inspection/shaft/progression.ts' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "previous|prior|ahead|withdraw|dispose|hob|face|edge|radii|envelope" src/scene/inspection/shaft/shaftRuntime.test.ts src/scene/inspection/shaft/kinematics.test.ts' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$f=@('"'src/scene/inspection/shaft/frame.ts','src/scene/inspection/shaft/shaftRuntime.ts','src/scene/inspection/shaft/shaftRuntime.test.ts','src/scene/inspection/shaft/kinematics.ts','src/scene/inspection/shaft/kinematics.test.ts','src/scene/inspection/shaft/progression.ts'); foreach("'$p in $f){ '"'{0}: {1}' -f "'$p,(Get-Content -LiteralPath $p).Count }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 773ms:
+16: *   stop yc 9.5249, path: radial infeed at yc -4.195 -> feed +Y -> retract 2.5 mm -> withdraw.
+234:const T_HOB_FEED_END = 30.2
+242:/** Hob centre y (mm) along the certified path: infeed yc, feed +Y, hold, withdraw below the face. */
+419:export function writeShaftProgression(frame: ShaftKinematicsFrame, state: ProgressionState): ProgressionState {
+427:    state.engagedPreviousDepth = Math.min(1, countedPasses(previous, frame.engagedSpace) / SPACE_PASSES_REQUIRED)
+428:  } else state.engagedPreviousDepth = 0
+430:  // Tool withdrawal must not restore machined stock. Hold the swept envelope
+
+hook: PostToolUse
+ succeeded in 1187ms:
+26:  shaftMmPoint(out.position, distance * Math.cos(MESH_AZ_RAD), k.strokeCentreY, distance * Math.sin(MESH_AZ_RAD))
+
+hook: PostToolUse
+ succeeded in 1427ms:
+34:  hobbing: 'Rotary hobbing', 'runout-hold': 'Runout and revised material', supports: 'Moving the supports', finale: 'Revised assembly',
+109:  const hobMaterial = steel.clone(), hobDetailMaterial = steel.clone()
+111:  const shaper = buildShaperCutter(shaperMaterial), hob = buildHob(hobMaterial)
+113:  const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
+115:  if (hobThread) hobThread.material = hobDetailMaterial
+117:  chip.name = 'shaft-single-rake-chip'; root.add(shaper.root, hob.root, chip)
+119:  const ownedMaterials = new Set<Material>([steel, shaperMaterial, shaperDetailMaterial, hobMaterial, hobDetailMaterial, chipMaterial])
+140:    hob: { visible: false, feed: 0, rotation: 0, softened: false },
+147:  let disposed = false, loaded = false, supportDeltaYmm = 0, shaftMinZ = -0.071524, shaftMaxZ = 0
+168:  collect(shaper.root); collect(hob.root); collect(chip)
+270:    if (disposed || !session.current()) return
+275:    if (disposed || !session.current()) return
+278:    if (disposed || !session.current()) return
+287:    if (disposed || !session.current()) {
+298:      geometries.forEach(value => value.dispose()); materials.forEach(value => value.dispose()); textures.forEach(value => value.dispose())
+317:    if (!disposed && session.current()) { session.fail(error); runtime.dispose(); throw error }
+318:  }).finally(() => { draco?.dispose(); draco = null })
+323:      if (disposed) return
+332:      approvedState.mode = t < 32 ? 'hobbing' : 'none'
+334:        approvedState.hobYc = HOB_INFEED_YC_MM; approvedState.hobA = HOB_VISUAL_A_MM + HOB_RETRACT_MM; approvedState.hobR = HOB_VISUAL_R_MM
+347:      if (disposed) return
+354:      const approvedAngle = kinematics.hobWorkPhi + schedule.finaleAngle
+389:      placeHob(hob.root, kinematics); hob.root.visible = schedule.hob > 0
+391:      materialOpacity(hobMaterial, schedule.hob); materialOpacity(hobDetailMaterial, schedule.hob * (kinematics.softened ? 0.25 : 1))
+411:      if (disposed) return
+420:      else if (approvedState.hobYc > FACE_START_MM) partial = 10
+424:      probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
+437:    dispose() {
+438:      if (disposed) return
+439:      disposed = true; loaded = false; root.removeFromParent(); root.visible = false
+440:      hobThread?.dispose()
+441:      ownedGeometry.forEach(value => value.dispose()); ownedMaterials.forEach(value => value.dispose()); ownedTextures.forEach(value => value.dispose())
+442:      // Shared narrative geometries/textures are borrowed, never disposed here.
+443:      key.dispose(); graze.dispose(); releaseShared?.(); releaseShared = null
+
+hook: PostToolUse
+ succeeded in 2320ms:
+src/scene/inspection/shaft/frame.ts: 51
+src/scene/inspection/shaft/shaftRuntime.ts: 454
+src/scene/inspection/shaft/shaftRuntime.test.ts: 379
+src/scene/inspection/shaft/kinematics.ts: 534
+src/scene/inspection/shaft/kinematics.test.ts: 410
+src/scene/inspection/shaft/progression.ts: 387
+
+hook: PostToolUse
+ succeeded in 2780ms:
+27:  engagedPreviousDepth?: number
+133:    if (space === state.engagedSpace && y > state.edgeY) depth = state.engagedPreviousDepth ?? 0
+160:  uEngagedSpace: IUniform<number>
+161:  uEngagedPreviousDepth: IUniform<number>
+188:    uEngagedSpace: { value: -1 },
+189:    uEngagedPreviousDepth: { value: 0 },
+230:  uniforms.uEngagedSpace.value = state.engagedSpace
+231:  uniforms.uEngagedPreviousDepth.value = state.engagedPreviousDepth ?? 0
+257:uniform float uEngagedSpace;
+258:uniform float uEngagedPreviousDepth;
+286:        if (abs(uEngagedSpace - jgSpace) < 0.5 && jgLocal.y > uEdgeY) jgDepth = uEngagedPreviousDepth;
+
+hook: PostToolUse
+ succeeded in 3220ms:
+src/scene/inspection/shaft/shaftRuntime.test.ts:45:afterEach(() => { runtimes.forEach(runtime => runtime.dispose()); runtimes.length = 0; vi.restoreAllMocks(); vi.unstubAllGlobals() })
+src/scene/inspection/shaft/shaftRuntime.test.ts:122:  it('holds shaper near-edge radius, centred stroke, and hob axis/centre distance at dense times', () => {
+src/scene/inspection/shaft/shaftRuntime.test.ts:123:    const k = createShaftKinematicsFrame(), shaper = new Group(), hob = new Group(), axis = new Vector3()
+src/scene/inspection/shaft/shaftRuntime.test.ts:126:      sampleShaftKinematics(i / 60, k); placeShaper(shaper, k); placeHob(hob, k)
+src/scene/inspection/shaft/shaftRuntime.test.ts:129:      expect(Math.hypot(hob.position.x, hob.position.y)).toBeCloseTo(k.hobToolA / 1000, 12)
+src/scene/inspection/shaft/shaftRuntime.test.ts:130:      expect(-hob.position.z).toBeCloseTo(k.hobYc / 1000, 12)
+src/scene/inspection/shaft/shaftRuntime.test.ts:131:      axis.set(0, 1, 0).applyQuaternion(hob.quaternion)
+src/scene/inspection/shaft/shaftRuntime.test.ts:137:  it('places the actual centred disc and rake face at the sampled reveal edge and chip anchor', () => {
+src/scene/inspection/shaft/shaftRuntime.test.ts:139:    const k = createShaftKinematicsFrame(), edge = new Vector3(), centre = new Vector3()
+src/scene/inspection/shaft/shaftRuntime.test.ts:148:        edge.copy(cutter.cuttingEdgeLocal).applyMatrix4(cutter.root.matrixWorld)
+src/scene/inspection/shaft/shaftRuntime.test.ts:151:        expect(-edge.z * 1000).toBeCloseTo(k.edgeY, 12)
+src/scene/inspection/shaft/shaftRuntime.test.ts:152:        expect(-edge.z * 1000).toBeCloseTo(k.chipY, 12)
+src/scene/inspection/shaft/shaftRuntime.test.ts:155:      expect(k.edgeY).toBeCloseTo(10.3749, 9)
+src/scene/inspection/shaft/shaftRuntime.test.ts:156:      expect(k.edgeY - 9.8749).toBeCloseTo(0.5, 9)
+src/scene/inspection/shaft/shaftRuntime.test.ts:157:    } finally { cutter.dispose(); steel.dispose() }
+src/scene/inspection/shaft/shaftRuntime.test.ts:163:    const surfaces: Record<string, string[]> = {
+src/scene/inspection/shaft/shaftRuntime.test.ts:169:    for (const [file, names] of Object.entries(surfaces)) {
+src/scene/inspection/shaft/shaftRuntime.test.ts:202:  it('wires blank/finished progression, stress, opaque complementary wipe and freezes the formed envelope during withdrawal', async () => {
+src/scene/inspection/shaft/shaftRuntime.test.ts:242:    const caps: boolean[] = []; runtime.root.traverse(object => { if (object.name === 'study-section-backface') caps.push(object.visible) })
+src/scene/inspection/shaft/shaftRuntime.test.ts:246:  it('delivers the counted previous-pass depth to the actual legacy material uniforms', async () => {
+src/scene/inspection/shaft/shaftRuntime.test.ts:256:      let prior = 0
+src/scene/inspection/shaft/shaftRuntime.test.ts:258:        if (strokePhaseAt(crossing) < 0.5) prior++
+src/scene/inspection/shaft/shaftRuntime.test.ts:260:      const previous = Math.min(1, prior / 4)
+src/scene/inspection/shaft/shaftRuntime.test.ts:261:      expect(old.uEngagedPreviousDepth.value).toBe(previous)
+src/scene/inspection/shaft/shaftRuntime.test.ts:262:      if (prior >= 1 && prior <= 3) covered.add(prior)
+src/scene/inspection/shaft/shaftRuntime.test.ts:305:    const disposeGeometry = vi.spyOn(geometry, 'dispose'), disposeTexture = vi.spyOn(texture, 'dispose'), disposeMaterial = vi.spyOn(original, 'dispose')
+src/scene/inspection/shaft/shaftRuntime.test.ts:318:    runtime.dispose(); runtime.dispose()
+src/scene/inspection/shaft/shaftRuntime.test.ts:320:    expect(disposeGeometry).not.toHaveBeenCalled(); expect(disposeTexture).not.toHaveBeenCalled(); expect(disposeMaterial).not.toHaveBeenCalled()
+src/scene/inspection/shaft/shaftRuntime.test.ts:321:    geometry.dispose(); original.dispose(); texture.dispose()
+src/scene/inspection/shaft/shaftRuntime.test.ts:324:  it('disposes every owned resource once on cancel and prevents mounting a late parse', async () => {
+src/scene/inspection/shaft/shaftRuntime.test.ts:326:    const owned = scene.children.map(object => vi.spyOn((object as Mesh).geometry, 'dispose'))
+src/scene/inspection/shaft/shaftRuntime.test.ts:331:    const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
+src/scene/inspection/shaft/shaftRuntime.test.ts:332:    const disposeThread = vi.spyOn(thread, 'dispose')
+src/scene/inspection/shaft/shaftRuntime.test.ts:336:    owned.forEach(dispose => expect(dispose).toHaveBeenCalledOnce())
+src/scene/inspection/shaft/shaftRuntime.test.ts:337:    expect(disposeThread).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/shaftRuntime.test.ts:338:    runtime.dispose(); owned.forEach(dispose => expect(dispose).toHaveBeenCalledOnce())
+src/scene/inspection/shaft/shaftRuntime.test.ts:339:    expect(disposeThread).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/shaftRuntime.test.ts:358:    const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
+src/scene/inspection/shaft/shaftRuntime.test.ts:360:    const disposeThread = vi.spyOn(thread, 'dispose')
+src/scene/inspection/shaft/shaftRuntime.test.ts:365:      if (!geometryDisposers.has(object.geometry)) geometryDisposers.set(object.geometry, vi.spyOn(object.geometry, 'dispose'))
+src/scene/inspection/shaft/shaftRuntime.test.ts:367:        if (!materialDisposers.has(value)) materialDisposers.set(value, vi.spyOn(value, 'dispose'))
+src/scene/inspection/shaft/shaftRuntime.test.ts:372:    expect(disposeThread).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/shaftRuntime.test.ts:373:    runtime.dispose(); lease.cancel()
+src/scene/inspection/shaft/shaftRuntime.test.ts:374:    expect(disposeThread).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/shaftRuntime.test.ts:375:    for (const dispose of geometryDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/shaftRuntime.test.ts:376:    for (const dispose of materialDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
+src/scene/inspection/shaft/kinematics.test.ts:17:  hobEnvelopeTopY,
+src/scene/inspection/shaft/kinematics.test.ts:53:/** Certified stroke/edge relation: max centre + half thickness = last tooth material 9.8749 + overtravel 0.5. */
+src/scene/inspection/shaft/kinematics.test.ts:116:    expect(atPeak.edgeY).toBeCloseTo(MAX_EDGE_Y_MM, 9)
+src/scene/inspection/shaft/kinematics.test.ts:134:  it('keeps the stroke between the certified centre limits and the edge inside the groove', () => {
+src/scene/inspection/shaft/kinematics.test.ts:140:      expect(f.edgeY).toBeCloseTo(f.strokeCentreY + SHAPER_THICKNESS_MM / 2, 12)
+src/scene/inspection/shaft/kinematics.test.ts:141:      maxEdge = Math.max(maxEdge, f.edgeY)
+src/scene/inspection/shaft/kinematics.test.ts:213:  it('exposes engagedSpace/edgeY consistent with progression.ts semantics', () => {
+src/scene/inspection/shaft/kinematics.test.ts:220:        expect(f.edgeY).toBeGreaterThanOrEqual(FACE_START_MM)
+src/scene/inspection/shaft/kinematics.test.ts:225:      expect(state.edgeY).toBe(f.edgeY)
+src/scene/inspection/shaft/kinematics.test.ts:226:      expect(state.hobYc).toBe(f.hobYc)
+src/scene/inspection/shaft/kinematics.test.ts:227:      expect(state.hobA).toBe(f.hobA)
+src/scene/inspection/shaft/kinematics.test.ts:228:      expect(state.hobR).toBe(f.hobR)
+src/scene/inspection/shaft/kinematics.test.ts:234:describe('K3 hob kinematics', () => {
+src/scene/inspection/shaft/kinematics.test.ts:235:  it('follows the certified path: infeed yc, feed to stop, retract 2.5 mm, withdraw', () => {
+src/scene/inspection/shaft/kinematics.test.ts:236:    expect(sample(24.9).hobYc).toBe(HOB_INFEED_YC_MM)
+src/scene/inspection/shaft/kinematics.test.ts:237:    expect(sample(25).hobYc).toBe(HOB_INFEED_YC_MM)
+src/scene/inspection/shaft/kinematics.test.ts:238:    expect(sample(30.2).hobYc).toBeCloseTo(HOB_STOP_YC_MM, 12)
+src/scene/inspection/shaft/kinematics.test.ts:242:      expect(f.hobYc).toBeGreaterThan(prevYc)
+src/scene/inspection/shaft/kinematics.test.ts:243:      expect(f.hobToolA).toBeCloseTo(10.1618, 9)
+src/scene/inspection/shaft/kinematics.test.ts:244:      prevYc = f.hobYc
+src/scene/inspection/shaft/kinematics.test.ts:246:    expect(sample(31).hobToolA).toBeCloseTo(10.1618 + 2.5, 9)
+src/scene/inspection/shaft/kinematics.test.ts:250:    const radialClearance = f.hobToolA - HOB_RADIUS_MM - SHAFT_OD_MM
+src/scene/inspection/shaft/kinematics.test.ts:252:    expect(hobEnvelopeTopY(f.hobYc)).toBeLessThanOrEqual(FACE_START_MM - 0.5)
+src/scene/inspection/shaft/kinematics.test.ts:253:    expect(f.hobYc).toBeLessThan(HOB_INFEED_YC_MM)
+src/scene/inspection/shaft/kinematics.test.ts:260:      expect(f.hobWorkPhi).toBeCloseTo(-f.hobPhi / 10, 12)
+src/scene/inspection/shaft/kinematics.test.ts:261:      expect(f.hobPhi).toBeGreaterThanOrEqual(prevPhi - 1e-12)
+src/scene/inspection/shaft/kinematics.test.ts:262:      expect(f.hobWorkPhi).toBeLessThanOrEqual(prevWork + 1e-12)
+src/scene/inspection/shaft/kinematics.test.ts:263:      prevPhi = f.hobPhi
+src/scene/inspection/shaft/kinematics.test.ts:264:      prevWork = f.hobWorkPhi
+src/scene/inspection/shaft/kinematics.test.ts:273:      if (!f.cutting || f.mode !== 'shaping' || f.edgeY > SHAPING_FACE_END_MM + SHAPER_OVERTRAVEL_MM) {
+src/scene/inspection/shaft/kinematics.test.ts:280:        expect(f.chipY).toBeCloseTo(f.edgeY, 12)
+src/scene/inspection/shaft/kinematics.test.ts:337:      expect(Number.isFinite(f.hobYc)).toBe(true)
+src/scene/inspection/shaft/kinematics.test.ts:346:  it('retains prior depth ahead of the edge on passes 2-4 across all ten spaces and both sides of crossings', () => {
+src/scene/inspection/shaft/kinematics.test.ts:366:          // Some offsets land in the relieved return or beyond the face band;
+src/scene/inspection/shaft/kinematics.test.ts:367:          // those samples have no engaged region ahead of the edge to evaluate.
+src/scene/inspection/shaft/kinematics.test.ts:368:          if (f.engagedSpace !== space || f.edgeY >= SHAPING_FACE_END_MM) continue
+src/scene/inspection/shaft/kinematics.test.ts:370:          const previous = (pass - 1) / SPACE_PASSES_REQUIRED
+src/scene/inspection/shaft/kinematics.test.ts:371:          expect(state.engagedPreviousDepth).toBe(previous)
+src/scene/inspection/shaft/kinematics.test.ts:372:          expect(uniforms.uEngagedPreviousDepth.value).toBe(previous)
+src/scene/inspection/shaft/kinematics.test.ts:373:          const aheadY = (f.edgeY + SHAPING_FACE_END_MM) / 2
+src/scene/inspection/shaft/kinematics.test.ts:374:          const radius = progressedRadius(SHAFT_ROOT_MM, aheadY, SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD, state, 'legacy')
+src/scene/inspection/shaft/kinematics.test.ts:376:          expect(shownDepth).toBeCloseTo(previous, 12)
+src/scene/inspection/shaft/kinematics.test.ts:377:          expect(shownDepth).toBeGreaterThanOrEqual(previous - 1e-12)
+src/scene/inspection/shaft/kinematics.test.ts:389:  it('holds the completed swept hob envelope in the shared writer while the tool retracts and withdraws', () => {
+src/scene/inspection/shaft/kinematics.test.ts:392:    const radii = Array.from({ length: 101 }, (_, i) => progressedRadius(SHAFT_ROOT_MM,
+src/scene/inspection/shaft/kinematics.test.ts:396:      expect(state.hobYc).toBe(HOB_STOP_YC_MM)
+src/scene/inspection/shaft/kinematics.test.ts:397:      expect(state.hobA).toBe(HOB_VISUAL_A_MM)
+src/scene/inspection/shaft/kinematics.test.ts:400:          0, state, 'approved')).toBe(radii[i])
+src/scene/inspection/shaft/kinematics.test.ts:402:      if (t > 31) expect(f.hobYc).toBeLessThan(HOB_STOP_YC_MM)
+src/scene/inspection/shaft/kinematics.test.ts:403:      if (t > 30.2) expect(f.hobA).toBeGreaterThan(HOB_VISUAL_A_MM)
+src/scene/inspection/shaft/kinematics.test.ts:406:    expect(state.hobYc).toBe(f.hobYc); expect(state.hobA).toBe(f.hobA)
+src/scene/inspection/shaft/kinematics.test.ts:408:    expect(state.hobYc).toBe(HOB_INFEED_YC_MM); expect(state.hobA).toBe(f.hobA)
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+Fix sites located. Now reading the exact ranges: frame.ts, the `writeShaftProgression` block plus its constants in kinematics.ts, the disposal and hob-wiring regions of shaftRuntime.ts, and the new regression tests.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/frame.ts' | ForEach-Object { "'$i++; if($i -ge 1 -and $i -le 51){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/kinematics.ts' | ForEach-Object { "'$i++; if($i -ge 28 -and $i -le 70){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 318 -and $i -le 350){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 105 -and $i -le 175){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/kinematics.ts' | ForEach-Object { "'$i++; if($i -ge 220 -and $i -le 262){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 385 -and $i -le 454){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/kinematics.test.ts' | ForEach-Object { "'$i++; if($i -ge 340 -and $i -le 410){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/kinematics.ts' | ForEach-Object { "'$i++; if($i -ge 396 -and $i -le 534){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.test.ts' | ForEach-Object { "'$i++; if($i -ge 118 -and $i -le 160){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.test.ts' | ForEach-Object { "'$i++; if($i -ge 300 -and $i -le 379){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.test.ts' | ForEach-Object { "'$i++; if($i -ge 196 -and $i -le 265){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/progression.ts' | ForEach-Object { "'$i++; if($i -ge 120 -and $i -le 140){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 1101ms:
+    1: import { Matrix4, Quaternion, Vector3, type Object3D } from 'three'
+    2: import { MESH_AZ_RAD, type ShaftKinematicsFrame } from './kinematics'
+    3: import { HOB_LEAD_ANGLE_DEG, SHAPER_CENTRE_DISTANCE_MM, SHAPER_TIP_RADIUS_MM } from './toolSpec'
+    4: 
+    5: /** Fixed study world: origin (0,0,0), identity orientation. Bundle is already Y-up.
+    6:  * CAD millimetres (x,y,z) -> study metres (x,z,-y); never compose hero.matrixWorld.
+    7:  */
+    8: export function shaftLocalToStudy(out: Matrix4): Matrix4 {
+    9:   return out.set(0.001, 0, 0, 0, 0, 0, 0.001, 0, 0, -0.001, 0, 0, 0, 0, 0, 1)
+   10: }
+   11: export function studyToShaftLocal(out: Matrix4): Matrix4 { return shaftLocalToStudy(out).invert() }
+   12: export function shaftMmPoint(out: Vector3, x: number, y: number, z: number): Vector3 { return out.set(x * 0.001, z * 0.001, -y * 0.001) }
+   13: export function shaftMetrePoint(out: Vector3, x: number, y: number, z: number): Vector3 { return out.set(x, z, -y) }
+   14: export function studyPointToShaftMm(out: Vector3, x: number, y: number, z: number): Vector3 { return out.set(x * 1000, -z * 1000, y * 1000) }
+   15: 
+   16: const CAD_TO_STUDY = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2)
+   17: const Y_AXIS = new Vector3(0, 1, 0)
+   18: const lead = HOB_LEAD_ANGLE_DEG * Math.PI / 180
+   19: const HOB_TILT = new Quaternion().setFromUnitVectors(Y_AXIS, new Vector3(Math.cos(lead), Math.sin(lead), 0))
+   20: 
+   21: /** Centre moves radially with infeed/backoff; its closest crest remains at cutterRho.
+   22:  * tools.ts centres the disc on its root; the leading face is at +thickness/2.
+   23:  */
+   24: export function placeShaper(out: Object3D, k: ShaftKinematicsFrame): void {
+   25:   const distance = SHAPER_CENTRE_DISTANCE_MM + k.cutterRho - (SHAPER_CENTRE_DISTANCE_MM - SHAPER_TIP_RADIUS_MM)
+   26:   shaftMmPoint(out.position, distance * Math.cos(MESH_AZ_RAD), k.strokeCentreY, distance * Math.sin(MESH_AZ_RAD))
+   27:   out.quaternion.setFromAxisAngle(Y_AXIS, k.cutterPhi).premultiply(CAD_TO_STUDY)
+   28: }
+   29: export function placeHob(out: Object3D, k: ShaftKinematicsFrame): void {
+   30:   shaftMmPoint(out.position, k.hobToolA * Math.cos(MESH_AZ_RAD), k.hobYc, k.hobToolA * Math.sin(MESH_AZ_RAD))
+   31:   out.quaternion.setFromAxisAngle(Y_AXIS, k.hobPhi).premultiply(HOB_TILT).premultiply(CAD_TO_STUDY)
+   32: }
+   33: 
+   34: /** G0 source-registry.json registration.approved_export_gltf_to_hero_rest, inverted.
+   35:  * rig.basePositions are in the original (un-recentered) GLTF model frame. Remove the
+   36:  * measured hero rest center before applying this inverse; no live world matrices.
+   37:  */
+   38: export function narrativeModelToStudy(out: Matrix4): Matrix4 {
+   39:   out.set(
+   40:     0.9868485331535339, 0.16164754331111908, 2.7993343057879116e-16, -0.07780782878398895,
+   41:     -0.16164754331111908, 0.9868485331535339, -4.663211247979686e-16, 0.0000010723084642449976,
+   42:     -3.516315667205359e-16, 4.149377504071382e-16, 1, 0.023340754210948944,
+   43:     0, 0, 0, 1,
+   44:   ).invert()
+   45:   // Right-multiply T(-hero_rest_center) without allocating a matrix.
+   46:   const e = out.elements, x = -0.07780783086387061, y = 0.000001072308505746522, z = 0.09254183464277439
+   47:   e[12] += e[0] * x + e[4] * y + e[8] * z
+   48:   e[13] += e[1] * x + e[5] * y + e[9] * z
+   49:   e[14] += e[2] * x + e[6] * y + e[10] * z
+   50:   return out
+   51: }
+
+hook: PostToolUse
+ succeeded in 1142ms:
+   28:   HOB_INFEED_YC_MM,
+   29:   HOB_RETRACT_MM,
+   30:   HOB_VISUAL_A_MM,
+   31:   HOB_VISUAL_R_MM,
+   32:   SHAFT_OD_MM,
+   33:   SHAFT_ROOT_MM,
+   34:   SHAFT_SPACES,
+   35:   SHAPING_FACE_END_MM,
+   36:   SPACE_CLOCK_RAD,
+   37:   SPACE_PITCH_RAD,
+   38: } from './progression'
+   39: import {
+   40:   HOB_CENTRE_DISTANCE_AT_DEPTH_MM,
+   41:   HOB_LENGTH_MM,
+   42:   HOB_LEAD_ANGLE_DEG,
+   43:   HOB_RADIUS_MM,
+   44:   HOB_STARTS,
+   45:   HOB_STOP_YC_MM,
+   46:   SHAPER_BACKOFF_MM,
+   47:   SHAPER_OVERTRAVEL_MM,
+   48:   SHAPER_SIGNED_RATIO,
+   49:   SHAPER_STROKE_CENTRE_Y_MAX_MM,
+   50:   SHAPER_STROKE_CENTRE_Y_MIN_MM,
+   51:   SHAPER_TEETH,
+   52:   SHAPER_THICKNESS_MM,
+   53: } from './toolSpec'
+   54: 
+   55: // ---- master playhead -> machining time map -----------------------------------------------
+   56: 
+   57: export const SHAFT_KINEMATICS_DURATION = 43
+   58: /** 30 fps lite floor; repeated features above a quarter of it must be softened. */
+   59: export const SHAFT_LITE_FPS = 30
+   60: export const SHAFT_MAX_FEATURE_HZ = SHAFT_LITE_FPS / 4
+   61: 
+   62: const T_SHAPING_START = 2
+   63: /** End of the eased startup ramp; the full normal rate resumes here (C1 at 2.0 s and 3.0 s). */
+   64: const T_STARTUP_EASE_END = 3
+   65: const T_EASE_DOWN = 6
+   66: const T_SLOW_START = 7.2
+   67: const T_SLOW_END = 9.6
+   68: const T_EASE_UP_END = 11
+   69: const T_RECAP_END = 14
+   70: const T_SHAPING_END = 15
+
+hook: PostToolUse
+ succeeded in 1060ms:
+  105:   const key = new DirectionalLight('#f0f1f2', 2.6), graze = new DirectionalLight('#d6dde2', 1.4)
+  106:   root.add(key, key.target, graze, graze.target)
+  107:   const steel = new MeshStandardMaterial({ color: '#adb4ba', metalness: 0.94, roughness: 0.28 })
+  108:   const shaperMaterial = steel.clone(), shaperDetailMaterial = steel.clone()
+  109:   const hobMaterial = steel.clone(), hobDetailMaterial = steel.clone()
+  110:   const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38
+  111:   const shaper = buildShaperCutter(shaperMaterial), hob = buildHob(hobMaterial)
+  112:   const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined
+  113:   const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
+  114:   if (shaperDisc) shaperDisc.material = shaperDetailMaterial
+  115:   if (hobThread) hobThread.material = hobDetailMaterial
+  116:   const chip = new Mesh(new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3), chipMaterial)
+  117:   chip.name = 'shaft-single-rake-chip'; root.add(shaper.root, hob.root, chip)
+  118:   const ownedGeometry = new Set<BufferGeometry>(), sharedGeometry = new Set<BufferGeometry>()
+  119:   const ownedMaterials = new Set<Material>([steel, shaperMaterial, shaperDetailMaterial, hobMaterial, hobDetailMaterial, chipMaterial])
+  120:   const ownedTextures = new Set<Texture>(), sharedTextures = new Set<Texture>()
+  121:   const resources = { geometries: 0, materials: 0, textures: 0, meshes: 0 }
+  122:   const parts: Record<string, Part> = Object.create(null) as Record<string, Part>
+  123:   const neighbours: Neighbour[] = []
+  124:   const bindings: ProgressionBinding[] = []
+  125:   const schedule = createShaftSchedule(), kinematics = createShaftKinematicsFrame(), script = createShaftScriptFrame()
+  126:   const cameraSample = createShaftCameraSample()
+  127:   const legacyState = createProgressionState(), approvedState = createProgressionState()
+  128:   const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: SHAPING_FACE_END_MM, yMax: 12, rMax: SHAFT_OD_MM }
+  129:   const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
+  130:   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.35, envRotationY: 0,
+  131:     bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
+  132:   const frame = { time: 0, chapter: 0, phase: 'isolate', discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true }
+  133:   const toShaft = studyToShaftLocal(new Matrix4()), matrix = new Matrix4(), delta = new Vector3()
+  134:   const wipeLegacy = new Plane(new Vector3(0, 0, -1), 0), wipeApproved = new Plane(new Vector3(0, 0, 1), 0)
+  135:   const sectionPlane = new Plane(new Vector3(1, 0, 0), 0)
+  136:   const noPlanes: Plane[] = [], legacyWipePlanes = [wipeLegacy], approvedWipePlanes = [wipeApproved], sectionPlanes = [sectionPlane]
+  137:   const probe = {
+  138:     teethFormed: 0, teethPartial: 0,
+  139:     cutter: { visible: false, stroke: 0, infeed: 0, rotation: 0, softened: false },
+  140:     hob: { visible: false, feed: 0, rotation: 0, softened: false },
+  141:     card: { id: script.card, stamp: script.stamp }, stress: { kind: script.stress, mix: 0 },
+  142:     supports: { deltaYmm: 0, witnesses: false, endpointHeld: false },
+  143:     finale: { assembled: false, shaftCount: 0, racesFollow: false, carrierCount: 0, missingCarriers: true, bearingRacePolicy: 'unsplit-fixed', ringFollowsShaft: false, bearingOuterFixed: true },
+  144:     narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
+  145:     nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
+  146:   }
+  147:   let disposed = false, loaded = false, supportDeltaYmm = 0, shaftMinZ = -0.071524, shaftMaxZ = 0
+  148:   let draco: DRACOLoader | null = null
+  149:   let releaseShared: (() => void) | null = null
+  150:   let runtime!: StoryRuntime
+  151: 
+  152:   function collect(object: Object3D, shared = false): void {
+  153:     object.traverse(child => {
+  154:       if (!(child instanceof Mesh)) return
+  155:       if (shared) sharedGeometry.add(child.geometry); else ownedGeometry.add(child.geometry)
+  156:       resources.meshes++
+  157:       const materials = Array.isArray(child.material) ? child.material : [child.material]
+  158:       for (const material of materials) {
+  159:         ownedMaterials.add(material)
+  160:         for (const value of Object.values(material)) {
+  161:           if (value && typeof value === 'object' && 'isTexture' in value) {
+  162:             if (shared) sharedTextures.add(value as Texture); else ownedTextures.add(value as Texture)
+  163:           }
+  164:         }
+  165:       }
+  166:     })
+  167:   }
+  168:   collect(shaper.root); collect(hob.root); collect(chip)
+  169:   function census(): void {
+  170:     resources.geometries = ownedGeometry.size + sharedGeometry.size
+  171:     resources.materials = ownedMaterials.size; resources.textures = ownedTextures.size + sharedTextures.size
+  172:   }
+  173:   function materialOpacity(material: Material, opacity: number): void {
+  174:     const transparent = opacity < 0.999
+  175:     if (material.transparent !== transparent) { material.transparent = transparent; material.needsUpdate = true }
+
+hook: PostToolUse
+ succeeded in 1662ms:
+  318:   }).finally(() => { draco?.dispose(); draco = null })
+  319: 
+  320:   runtime = {
+  321:     root, ready, frame, camera, render, resources,
+  322:     sample(time) {
+  323:       if (disposed) return
+  324:       sampleShaftSchedule(time, schedule)
+  325:       const t = schedule.time
+  326:       sampleShaftKinematics(t, kinematics); sampleShaftScript(t, false, script)
+  327:       writeShaftProgression(kinematics, legacyState); writeShaftProgression(kinematics, approvedState)
+  328:       // Kinematics mode='none' outside cutting; explicitly preserve the appropriate stock.
+  329:       legacyState.mode = 'shaping'
+  330:       if (t < 2) { legacyState.spaceDepth.fill(0); legacyState.engagedSpace = -1 }
+  331:       if (t >= 15) { legacyState.spaceDepth.fill(1); legacyState.engagedSpace = -1 }
+  332:       approvedState.mode = t < 32 ? 'hobbing' : 'none'
+  333:       if (t < 25) {
+  334:         approvedState.hobYc = HOB_INFEED_YC_MM; approvedState.hobA = HOB_VISUAL_A_MM + HOB_RETRACT_MM; approvedState.hobR = HOB_VISUAL_R_MM
+  335:       }
+  336:       frame.time = t; frame.phase = schedule.beat; frame.discrete = schedule.beatIndex
+  337:       frame.chapter = t < 15 ? 0 : t < 22.6 ? 1 : t < 35 ? 2 : 3
+  338:       frame.narrativeAlpha = schedule.narrativeAlpha; frame.ownsNarrative = true; frame.returnBlend = 0
+  339:       sampleShaftCamera(t, ctx.aspect, kinematics, cameraSample)
+  340:       shaftMetrePoint(camera.position, cameraSample.px, cameraSample.py, cameraSample.pz)
+  341:       shaftMetrePoint(camera.target, cameraSample.tx, cameraSample.ty, cameraSample.tz)
+  342:       shaftMetrePoint(camera.up, cameraSample.ux, cameraSample.uy, cameraSample.uz).normalize()
+  343:       camera.fov = cameraSample.fov; camera.valid = cameraSample.valid
+  344:       render.envRotationY = 0 // local lights carry the authored frame-follow reflection.
+  345:     },
+  346:     apply() {
+  347:       if (disposed) return
+  348:       root.visible = true
+  349:       partOpacity(parts.legacyshaft, schedule.legacyShaft); partOpacity(parts.approvedshaft, schedule.approvedShaft)
+  350:       partOpacity(parts.housing, schedule.housing); partOpacity(parts.legacyhousing, schedule.legacyHousing)
+
+hook: PostToolUse
+ succeeded in 2173ms:
+  220:   CROSSING_FIRST_CUTS.push(strokePhaseAt(c) < 0.5)
+  221: }
+  222: 
+  223: /** Counted cutting engagements of space i by machining time m (closed form; see above). */
+  224: export function countedPasses(m: number, space: number): number {
+  225:   const c = CROSSING_M[space]
+  226:   if (m < c) return 0
+  227:   const crossings = Math.floor((m - c) / WORK_REV_M) + 1
+  228:   return CROSSING_FIRST_CUTS[space] ? Math.ceil(crossings / 2) : Math.floor(crossings / 2)
+  229: }
+  230: 
+  231: // ---- hob ---------------------------------------------------------------------------------
+  232: 
+  233: const T_HOB_INFEED_END = 25.7
+  234: const T_HOB_FEED_END = 30.2
+  235: const T_HOB_RETRACT_END = 31
+  236: const T_HOB_WITHDRAW_END = 31.8
+  237: const HOB_WITHDRAW_YC_MM = -8
+  238: const HOB_REV_RATE = 0.5
+  239: const HOB_FLUTES = 10
+  240: const HOB_FEED_SPAN_MM = HOB_STOP_YC_MM - HOB_INFEED_YC_MM
+  241: 
+  242: /** Hob centre y (mm) along the certified path: infeed yc, feed +Y, hold, withdraw below the face. */
+  243: export function hobYcAt(t: number): number {
+  244:   if (t < T_HOB_INFEED_END) return HOB_INFEED_YC_MM
+  245:   if (t < T_HOB_FEED_END) return HOB_INFEED_YC_MM + HOB_FEED_SPAN_MM * ease((t - T_HOB_INFEED_END) / (T_HOB_FEED_END - T_HOB_INFEED_END))
+  246:   if (t < T_HOB_RETRACT_END) return HOB_STOP_YC_MM
+  247:   if (t < T_HOB_WITHDRAW_END) return HOB_STOP_YC_MM + (HOB_WITHDRAW_YC_MM - HOB_STOP_YC_MM) * ease((t - T_HOB_RETRACT_END) / (T_HOB_WITHDRAW_END - T_HOB_RETRACT_END))
+  248:   return HOB_WITHDRAW_YC_MM
+  249: }
+  250: 
+  251: /** Radial offset from full depth (mm): 2.5 out before infeed and after retract. */
+  252: export function hobRadialOffsetAt(t: number): number {
+  253:   if (t < T_HOB_INFEED_END) return HOB_RETRACT_MM * (1 - ease((t - 25) / (T_HOB_INFEED_END - 25)))
+  254:   if (t < T_HOB_FEED_END) return 0
+  255:   if (t < T_HOB_RETRACT_END) return HOB_RETRACT_MM * ease((t - T_HOB_FEED_END) / (T_HOB_RETRACT_END - T_HOB_FEED_END))
+  256:   return HOB_RETRACT_MM
+  257: }
+  258: 
+  259: /** Hob rotation rate (rev/s at the master playhead), eased up 25.2..26 and down 31..31.8. */
+  260: export function hobRevRateAt(t: number): number {
+  261:   if (t <= 25.2 || t >= 31.8) return 0
+  262:   if (t < 26) return HOB_REV_RATE * ease((t - 25.2) / 0.8)
+
+hook: PostToolUse
+ succeeded in 2622ms:
+  385:           : binding.kind === 'approved' && script.stress === 'cool' ? 'cool' : 'none'
+  386:         writeStressUniforms(binding.uniforms, stress)
+  387:       }
+  388:       placeShaper(shaper.root, kinematics); shaper.root.visible = schedule.shaper > 0
+  389:       placeHob(hob.root, kinematics); hob.root.visible = schedule.hob > 0
+  390:       materialOpacity(shaperMaterial, schedule.shaper); materialOpacity(shaperDetailMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
+  391:       materialOpacity(hobMaterial, schedule.hob); materialOpacity(hobDetailMaterial, schedule.hob * (kinematics.softened ? 0.25 : 1))
+  392:       shaftMmPoint(chip.position, kinematics.chipX, kinematics.chipY, kinematics.chipZ)
+  393:       chip.rotation.set(Math.PI / 2, 0, kinematics.chipCurl); chip.scale.setScalar(0.6 + kinematics.chipCurl * 0.2)
+  394:       const chipAlpha = kinematics.chipOpacity * schedule.shaper
+  395:       chip.visible = chipAlpha > 0; materialOpacity(chipMaterial, chipAlpha)
+  396:       const follow = kinematics.followAzimuth
+  397:       shaftMetrePoint(key.position, 0.08 * Math.cos(follow) + 0.06 * Math.sin(follow), 0.1, 0.06 * Math.cos(follow) - 0.08 * Math.sin(follow))
+  398:       shaftMmPoint(key.target.position, 0, 12, 0)
+  399:       shaftMetrePoint(graze.position, -0.025 * Math.cos(follow) + 0.075 * Math.sin(follow), 0.02, 0.075 * Math.cos(follow) + 0.025 * Math.sin(follow))
+  400:       shaftMmPoint(graze.target.position, 0, 12, 0)
+  401:       for (let i = 0; i < neighbours.length; i++) {
+  402:         const neighbour = neighbours[i]
+  403:         const angle = -schedule.finaleAngle * neighbour.ratio
+  404:         neighbour.carrier.visible = schedule.neighbours > 0; neighbour.carrier.rotation.z = angle
+  405:         for (let j = 0; j < neighbour.planets.length; j++) neighbour.planets[j].rotation.z = -angle * GEAR_RATIOS.planetMultiplier
+  406:         for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours)
+  407:       }
+  408:       root.updateWorldMatrix(true, true)
+  409:     },
+  410:     telemetry(out) {
+  411:       if (disposed) return
+  412:       out.phase = SHAFT_BEAT_LABELS[frame.phase] ?? frame.phase
+  413:       let formed = 0, partial = 0
+  414:       if (frame.time < 22.6) {
+  415:         for (let i = 0; i < legacyState.spaceDepth.length; i++) {
+  416:           if (legacyState.spaceDepth[i] >= 1) formed++
+  417:           else if (legacyState.spaceDepth[i] > 0) partial++
+  418:         }
+  419:       } else if (frame.time >= 32) formed = 10
+  420:       else if (approvedState.hobYc > FACE_START_MM) partial = 10
+  421:       probe.teethFormed = formed; probe.teethPartial = partial
+  422:       probe.cutter.visible = schedule.shaper > 0; probe.cutter.stroke = kinematics.strokeCentreY
+  423:       probe.cutter.infeed = kinematics.cutterRho; probe.cutter.rotation = kinematics.cutterPhi; probe.cutter.softened = kinematics.softened
+  424:       probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
+  425:       probe.card.id = script.card; probe.card.stamp = script.stamp
+  426:       probe.stress.kind = script.stress; probe.stress.mix = script.stressMix
+  427:       probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
+  428:       probe.supports.endpointHeld = loaded && schedule.endpointHeld
+  429:       probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= 39
+  430:       probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
+  431:       // These bundles expose an unsplit bearing: do not claim an animated inner race.
+  432:       probe.finale.racesFollow = false
+  433:       probe.finale.ringFollowsShaft = loaded && frame.time >= 39
+  434:       probe.narrative.alpha = frame.narrativeAlpha
+  435:       out.shaft = probe; out.resources = resources
+  436:     },
+  437:     dispose() {
+  438:       if (disposed) return
+  439:       disposed = true; loaded = false; root.removeFromParent(); root.visible = false
+  440:       hobThread?.dispose()
+  441:       ownedGeometry.forEach(value => value.dispose()); ownedMaterials.forEach(value => value.dispose()); ownedTextures.forEach(value => value.dispose())
+  442:       // Shared narrative geometries/textures are borrowed, never disposed here.
+  443:       key.dispose(); graze.dispose(); releaseShared?.(); releaseShared = null
+  444:       // Do not terminate a pending Draco parse: worker disposal would strand its
+  445:       // promise. ready's finally releases it after stale parsed assets are cleaned up.
+  446:       ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
+  447:       resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
+  448:       root.clear()
+  449:     },
+  450:   }
+  451:   census(); runtime.sample(0); runtime.apply()
+  452:   session.own(runtime)
+  453:   return runtime
+  454: }
+
+hook: PostToolUse
+ succeeded in 3111ms:
+  340:       for (let i = 0; i < SHAFT_SPACES; i++) expect(Number.isFinite(f.spaceDepth[i])).toBe(true)
+  341:     }
+  342:   })
+  343: })
+  344: 
+  345: describe('R8 progression review regressions', () => {
+  346:   it('retains prior depth ahead of the edge on passes 2-4 across all ten spaces and both sides of crossings', () => {
+  347:     const f = createShaftKinematicsFrame(), state = createProgressionState(), uniforms = createProgressionUniforms()
+  348:     const covered = new Set<string>()
+  349:     const sides = new Set<number>()
+  350:     for (let space = 0; space < SHAFT_SPACES; space++) {
+  351:       let first = (SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD - Math.PI / 2) / -WORK_RATE
+  352:       first -= Math.floor(first / 2) * 2
+  353:       let pass = 0
+  354:       for (let crossing = first; crossing <= MACHINING_AT_SHAPING_END; crossing += 2) {
+  355:         if (strokePhaseAt(crossing) >= 0.5) continue
+  356:         pass++
+  357:         if (pass < 2 || pass > 4) continue
+  358:         for (const offset of [-0.09, -0.05, -0.025, 0, 0.025, 0.05, 0.09]) {
+  359:           const m = crossing + offset
+  360:           let lo = 2, hi = 15
+  361:           for (let i = 0; i < 60; i++) {
+  362:             const mid = (lo + hi) / 2
+  363:             if (machiningTimeAt(mid) < m) lo = mid; else hi = mid
+  364:           }
+  365:           sampleShaftKinematics((lo + hi) / 2, f)
+  366:           // Some offsets land in the relieved return or beyond the face band;
+  367:           // those samples have no engaged region ahead of the edge to evaluate.
+  368:           if (f.engagedSpace !== space || f.edgeY >= SHAPING_FACE_END_MM) continue
+  369:           writeShaftProgression(f, state); writeProgressionUniforms(uniforms, state, 'legacy')
+  370:           const previous = (pass - 1) / SPACE_PASSES_REQUIRED
+  371:           expect(state.engagedPreviousDepth).toBe(previous)
+  372:           expect(uniforms.uEngagedPreviousDepth.value).toBe(previous)
+  373:           const aheadY = (f.edgeY + SHAPING_FACE_END_MM) / 2
+  374:           const radius = progressedRadius(SHAFT_ROOT_MM, aheadY, SPACE_CLOCK_RAD + space * SPACE_PITCH_RAD, state, 'legacy')
+  375:           const shownDepth = (SHAFT_OD_MM - radius) / (SHAFT_OD_MM - SHAFT_ROOT_MM)
+  376:           expect(shownDepth).toBeCloseTo(previous, 12)
+  377:           expect(shownDepth).toBeGreaterThanOrEqual(previous - 1e-12)
+  378:           covered.add(space + ':' + pass)
+  379:           sides.add(Math.sign(offset))
+  380:         }
+  381:       }
+  382:     }
+  383:     expect(covered.size).toBe(SHAFT_SPACES * 3)
+  384:     expect([...sides].sort()).toEqual([-1, 0, 1])
+  385:     writeShaftProgression(sampleShaftKinematics(1, f), state)
+  386:     expect(state.engagedPreviousDepth).toBe(0)
+  387:   })
+  388: 
+  389:   it('holds the completed swept hob envelope in the shared writer while the tool retracts and withdraws', () => {
+  390:     const f = createShaftKinematicsFrame(), state = createProgressionState()
+  391:     writeShaftProgression(sampleShaftKinematics(30.2, f), state)
+  392:     const radii = Array.from({ length: 101 }, (_, i) => progressedRadius(SHAFT_ROOT_MM,
+  393:       FACE_START_MM + (HOBBING_FACE_END_MM - FACE_START_MM) * i / 100, 0, state, 'approved'))
+  394:     for (const t of [31.999, 30.2, 31.2, 30.8, 31.8, 31, 30.2]) {
+  395:       writeShaftProgression(sampleShaftKinematics(t, f), state)
+  396:       expect(state.hobYc).toBe(HOB_STOP_YC_MM)
+  397:       expect(state.hobA).toBe(HOB_VISUAL_A_MM)
+  398:       for (let i = 0; i <= 100; i++) {
+  399:         expect(progressedRadius(SHAFT_ROOT_MM, FACE_START_MM + (HOBBING_FACE_END_MM - FACE_START_MM) * i / 100,
+  400:           0, state, 'approved')).toBe(radii[i])
+  401:       }
+  402:       if (t > 31) expect(f.hobYc).toBeLessThan(HOB_STOP_YC_MM)
+  403:       if (t > 30.2) expect(f.hobA).toBeGreaterThan(HOB_VISUAL_A_MM)
+  404:     }
+  405:     writeShaftProgression(sampleShaftKinematics(30.2 - 1e-6, f), state)
+  406:     expect(state.hobYc).toBe(f.hobYc); expect(state.hobA).toBe(f.hobA)
+  407:     writeShaftProgression(sampleShaftKinematics(25, f), state)
+  408:     expect(state.hobYc).toBe(HOB_INFEED_YC_MM); expect(state.hobA).toBe(f.hobA)
+  409:   })
+  410: })
+
+hook: PostToolUse
+ succeeded in 3786ms:
+  396:     backoff: 0,
+  397:     cutterRho: SHAFT_OD_MM,
+  398:     engagedSpace: -1,
+  399:     spaceDepth: new Float32Array(SHAFT_SPACES),
+  400:     chipOpacity: 0,
+  401:     chipX: 0,
+  402:     chipY: 0,
+  403:     chipZ: 0,
+  404:     chipCurl: 0,
+  405:     hobPhi: 0,
+  406:     hobWorkPhi: 0,
+  407:     hobRevRate: 0,
+  408:     hobYc: HOB_INFEED_YC_MM,
+  409:     hobA: HOB_VISUAL_A_MM + HOB_RETRACT_MM,
+  410:     hobToolA: HOB_CENTRE_DISTANCE_AT_DEPTH_MM + HOB_RETRACT_MM,
+  411:     hobR: HOB_VISUAL_R_MM,
+  412:     strokeHz: 0,
+  413:     gashHz: 0,
+  414:     softened: false,
+  415:   }
+  416: }
+  417: 
+  418: /** Write the frame's progression-compatible fields into a caller-owned ProgressionState. */
+  419: export function writeShaftProgression(frame: ShaftKinematicsFrame, state: ProgressionState): ProgressionState {
+  420:   state.mode = frame.mode
+  421:   state.engagedSpace = frame.engagedSpace
+  422:   // The engaged space is selected by the nearest crossing, which can still be
+  423:   // ahead of machining time. Count only cuts before that crossing, not before t.
+  424:   if (frame.engagedSpace >= 0) {
+  425:     const first = CROSSING_M[frame.engagedSpace]
+  426:     const previous = first + (Math.round((frame.machining - first) / WORK_REV_M) - 0.5) * WORK_REV_M
+  427:     state.engagedPreviousDepth = Math.min(1, countedPasses(previous, frame.engagedSpace) / SPACE_PASSES_REQUIRED)
+  428:   } else state.engagedPreviousDepth = 0
+  429:   state.edgeY = frame.edgeY
+  430:   // Tool withdrawal must not restore machined stock. Hold the swept envelope
+  431:   // once the certified feed reaches its stop; tool pose stays in the frame.
+  432:   state.hobYc = frame.time >= T_HOB_FEED_END ? HOB_STOP_YC_MM : frame.hobYc
+  433:   state.hobA = frame.time >= T_HOB_FEED_END ? HOB_VISUAL_A_MM : frame.hobA
+  434:   state.hobR = frame.hobR
+  435:   const depth = state.spaceDepth
+  436:   for (let i = 0; i < SHAFT_SPACES; i++) depth[i] = frame.spaceDepth[i]
+  437:   return state
+  438: }
+  439: 
+  440: /** Closed-form sample of the full machining state. Writes only into out and returns it. */
+  441: export function sampleShaftKinematics(time: number, out: ShaftKinematicsFrame): ShaftKinematicsFrame {
+  442:   const t = time < 0 ? 0 : time > SHAFT_KINEMATICS_DURATION ? SHAFT_KINEMATICS_DURATION : time
+  443:   const m = machiningTimeAt(t)
+  444:   const rate = machiningRateAt(t)
+  445:   const shaping = t >= T_SHAPING_START && t < T_SHAPING_END
+  446:   const hobbing = t >= 25 && t < T_HOB_END
+  447: 
+  448:   out.time = t
+  449:   out.machining = m
+  450:   out.machiningRate = rate
+  451:   out.mode = shaping ? 'shaping' : hobbing ? 'hobbing' : 'none'
+  452:   out.followAzimuth = FOLLOW_GAIN * followMfAt(t)
+  453:   out.followWeight = followWeightAt(t)
+  454: 
+  455:   // shaper
+  456:   const mShaping = shaping || t < T_SHAPING_START ? m : t >= T_SHAPING_END ? MACHINING_AT_SHAPING_END : m
+  457:   const cutterPhi = CUTTER_RATE * mShaping
+  458:   const workPhi = SHAPER_SIGNED_RATIO * cutterPhi
+  459:   const phase = strokePhaseAt(mShaping)
+  460:   const cuttingStroke = phase < 0.5
+  461:   const yc = strokeCentreYAt(mShaping)
+  462:   const edgeY = yc + SHAPER_THICKNESS_MM * 0.5
+  463:   const backoff = backoffAt(mShaping)
+  464:   const infeedRho = infeedRhoAt(mShaping)
+  465:   out.cutterPhi = cutterPhi
+  466:   out.workPhi = workPhi
+  467:   out.strokeCentreY = yc
+  468:   out.edgeY = edgeY
+  469:   out.strokePhase = phase
+  470:   out.cutting = cuttingStroke
+  471:   out.returning = !cuttingStroke
+  472:   out.backoff = backoff
+  473:   out.cutterRho = infeedRho + backoff
+  474: 
+  475:   for (let i = 0; i < SHAFT_SPACES; i++) {
+  476:     const depth = countedPasses(mShaping, i) / SPACE_PASSES_REQUIRED
+  477:     out.spaceDepth[i] = depth > 1 ? 1 : depth
+  478:   }
+  479:   const inStock = shaping && cuttingStroke && edgeY >= FACE_START_MM && edgeY <= SHAPING_FACE_END_MM + SHAPER_OVERTRAVEL_MM
+  480:   if (inStock) {
+  481:     const raw = (MESH_AZ_RAD - SPACE_CLOCK_RAD - workPhi) / SPACE_PITCH_RAD
+  482:     const index = ((Math.round(raw) % SHAFT_SPACES) + SHAFT_SPACES) % SHAFT_SPACES
+  483:     out.engagedSpace = index
+  484:   } else {
+  485:     out.engagedSpace = -1
+  486:   }
+  487: 
+  488:   // chip: only while stock is removed at the rake face; curls toward -X (surface motion at mesh)
+  489:   const chipActive = inStock && infeedRho < SHAFT_OD_MM - 1e-3 && mShaping > 0.02
+  490:   if (chipActive) {
+  491:     const u = phase * 2
+  492:     out.chipOpacity = 0.9 * Math.sin(Math.PI * u)
+  493:     out.chipX = -(CHIP_SEED * 0.4 + 0.55 * u)
+  494:     out.chipY = edgeY
+  495:     out.chipZ = infeedRho + 0.2 + 0.6 * u
+  496:     out.chipCurl = 0.8 + 2.4 * u
+  497:   } else {
+  498:     out.chipOpacity = 0
+  499:     out.chipX = 0
+  500:     out.chipY = edgeY
+  501:     out.chipZ = out.cutterRho
+  502:     out.chipCurl = 0
+  503:   }
+  504: 
+  505:   // hob
+  506:   const hobYc = hobYcAt(t)
+  507:   const offA = hobRadialOffsetAt(t)
+  508:   const hobPhi = hobPhiAt(t)
+  509:   out.hobPhi = hobPhi
+  510:   out.hobWorkPhi = -hobPhi * (HOB_STARTS / SHAFT_SPACES)
+  511:   out.hobRevRate = hobRevRateAt(t)
+  512:   out.hobYc = hobYc
+  513:   out.hobA = HOB_VISUAL_A_MM + offA
+  514:   out.hobToolA = HOB_CENTRE_DISTANCE_AT_DEPTH_MM + offA
+  515:   out.hobR = HOB_VISUAL_R_MM
+  516: 
+  517:   // display-rate guard
+  518:   const strokeHz = shaping ? rate / STROKE_PERIOD_M : 0
+  519:   const gashHz = shaping
+  520:     ? (SHAPER_TEETH * CUTTER_RATE / (2 * Math.PI)) * rate
+  521:     : hobbing
+  522:       ? HOB_FLUTES * out.hobRevRate
+  523:       : 0
+  524:   out.strokeHz = strokeHz
+  525:   out.gashHz = gashHz
+  526:   out.softened = strokeHz > SHAFT_MAX_FEATURE_HZ || gashHz > SHAFT_MAX_FEATURE_HZ
+  527:   return out
+  528: }
+  529: 
+  530: /** Hob envelope top y (mm) at full length along its tilted axis; used for clearance checks. */
+  531: export function hobEnvelopeTopY(hobYc: number): number {
+  532:   const gamma = (HOB_LEAD_ANGLE_DEG * Math.PI) / 180
+  533:   return hobYc + (HOB_LENGTH_MM / 2) * Math.cos(gamma) + HOB_RADIUS_MM * Math.sin(gamma)
+  534: }
+
+hook: PostToolUse
+ succeeded in 4549ms:
+  118:   })
+  119: })
+  120: 
+  121: describe('R3 placement math', () => {
+  122:   it('holds shaper near-edge radius, centred stroke, and hob axis/centre distance at dense times', () => {
+  123:     const k = createShaftKinematicsFrame(), shaper = new Group(), hob = new Group(), axis = new Vector3()
+  124:     const expectedTilt = Math.sin(HOB_LEAD_ANGLE_DEG * Math.PI / 180)
+  125:     for (let i = 0; i <= 2580; i++) {
+  126:       sampleShaftKinematics(i / 60, k); placeShaper(shaper, k); placeHob(hob, k)
+  127:       expect(Math.hypot(shaper.position.x, shaper.position.y) - SHAPER_TIP_RADIUS_MM / 1000).toBeCloseTo(k.cutterRho / 1000, 12)
+  128:       expect(-shaper.position.z).toBeCloseTo(k.strokeCentreY / 1000, 12)
+  129:       expect(Math.hypot(hob.position.x, hob.position.y)).toBeCloseTo(k.hobToolA / 1000, 12)
+  130:       expect(-hob.position.z).toBeCloseTo(k.hobYc / 1000, 12)
+  131:       axis.set(0, 1, 0).applyQuaternion(hob.quaternion)
+  132:       expect(-axis.z).toBeCloseTo(expectedTilt, 12)
+  133:       axis.set(0, 1, 0).applyQuaternion(shaper.quaternion)
+  134:       expect(axis.distanceTo(new Vector3(0, 0, -1))).toBeLessThan(1e-12)
+  135:     }
+  136:   })
+  137:   it('places the actual centred disc and rake face at the sampled reveal edge and chip anchor', () => {
+  138:     const steel = new MeshStandardMaterial(), cutter = buildShaperCutter(steel)
+  139:     const k = createShaftKinematicsFrame(), edge = new Vector3(), centre = new Vector3()
+  140:     const disc = cutter.root.getObjectByName('shaper-cutter-disc') as Mesh
+  141:     disc.geometry.computeBoundingBox()
+  142:     const bounds = disc.geometry.boundingBox!
+  143:     expect(bounds.min.y).toBeCloseTo(-SHAPER_THICKNESS_MM / 2000, 9)
+  144:     expect(bounds.max.y).toBeCloseTo(SHAPER_THICKNESS_MM / 2000, 9)
+  145:     try {
+  146:       for (const t of [2, 3.5, 6, 8.4, 10, 12, 14.9]) {
+  147:         sampleShaftKinematics(t, k); placeShaper(cutter.root, k); cutter.root.updateWorldMatrix(true, true)
+  148:         edge.copy(cutter.cuttingEdgeLocal).applyMatrix4(cutter.root.matrixWorld)
+  149:         bounds.getCenter(centre).applyMatrix4(disc.matrixWorld)
+  150:         expect(-centre.z * 1000).toBeCloseTo(k.strokeCentreY, 6)
+  151:         expect(-edge.z * 1000).toBeCloseTo(k.edgeY, 12)
+  152:         expect(-edge.z * 1000).toBeCloseTo(k.chipY, 12)
+  153:       }
+  154:       sampleShaftKinematics(8.4, k)
+  155:       expect(k.edgeY).toBeCloseTo(10.3749, 9)
+  156:       expect(k.edgeY - 9.8749).toBeCloseTo(0.5, 9)
+  157:     } finally { cutter.dispose(); steel.dispose() }
+  158:   })
+  159: })
+  160: 
+
+hook: PostToolUse
+ succeeded in 5497ms:
+  300:       if (id !== 'stage1') { source.name = 'fixture-' + id; source.children[0].name = 'fixture-planet-' + id }
+  301:       basePositions.set(source, base)
+  302:       return [id, { carrier: source, planets: [source.children[0]] }]
+  303:     }))
+  304:     const rig = { stages, basePositions }
+  305:     const disposeGeometry = vi.spyOn(geometry, 'dispose'), disposeTexture = vi.spyOn(texture, 'dispose'), disposeMaterial = vi.spyOn(original, 'dispose')
+  306:     const { runtime } = await fixture({ rig })
+  307:     const clone = runtime.root.getObjectByName('fixture-carrier')!, clonePlanet = runtime.root.getObjectByName('fixture-planet')!
+  308:     expect(clone).not.toBe(carrier); expect(clone.position.toArray()).toEqual(base.toArray())
+  309:     seek(runtime, 42)
+  310:     expect(clonePlanet.rotation.z).toBeCloseTo(-clone.rotation.z * GEAR_RATIOS.planetMultiplier, 12)
+  311:     expect(carrier.position.toArray()).toEqual([0.02, 0.01, -0.4]); expect(carrier.rotation.z).toBe(1.1); expect(planet.rotation.z).toBe(2.2)
+  312:     const cloneMaterial = ((clonePlanet.children[0]) as Mesh).material as MeshStandardMaterial
+  313:     expect(cloneMaterial).not.toBe(original); expect(cloneMaterial.map).toBe(texture)
+  314:     const out = seek(runtime, 43) as { shaft: { finale: { assembled: boolean; shaftCount: number; racesFollow: boolean; ringFollowsShaft: boolean; bearingOuterFixed: boolean } } }
+  315:     expect(out.shaft.finale.assembled).toBe(true); expect(out.shaft.finale.shaftCount).toBe(1)
+  316:     expect(out.shaft.finale.racesFollow).toBe(false); expect(out.shaft.finale.ringFollowsShaft).toBe(true); expect(out.shaft.finale.bearingOuterFixed).toBe(true)
+  317:     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(1)
+  318:     runtime.dispose(); runtime.dispose()
+  319:     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(0)
+  320:     expect(disposeGeometry).not.toHaveBeenCalled(); expect(disposeTexture).not.toHaveBeenCalled(); expect(disposeMaterial).not.toHaveBeenCalled()
+  321:     geometry.dispose(); original.dispose(); texture.dispose()
+  322:   })
+  323: 
+  324:   it('disposes every owned resource once on cancel and prevents mounting a late parse', async () => {
+  325:     const data = bundle(), scene = testScene(readShaftBundleDocument(data))
+  326:     const owned = scene.children.map(object => vi.spyOn((object as Mesh).geometry, 'dispose'))
+  327:     let resolveParse!: (value: GLTF) => void
+  328:     vi.spyOn(GLTFLoader.prototype, 'parseAsync').mockImplementation(() => new Promise(resolve => { resolveParse = resolve }))
+  329:     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, arrayBuffer: async () => data }))
+  330:     const lease = session(), runtime = createShaftRuntime(lease, context()); runtimes.push(runtime)
+  331:     const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
+  332:     const disposeThread = vi.spyOn(thread, 'dispose')
+  333:     await vi.waitFor(() => expect(resolveParse).toBeTypeOf('function'))
+  334:     lease.cancel(); resolveParse({ scene } as unknown as GLTF); await runtime.ready
+  335:     expect(runtime.root.children).toHaveLength(0); expect(runtime.resources.meshes).toBe(0)
+  336:     owned.forEach(dispose => expect(dispose).toHaveBeenCalledOnce())
+  337:     expect(disposeThread).toHaveBeenCalledOnce()
+  338:     runtime.dispose(); owned.forEach(dispose => expect(dispose).toHaveBeenCalledOnce())
+  339:     expect(disposeThread).toHaveBeenCalledOnce()
+  340:   })
+  341: 
+  342:   it('reports current download failure, while cancellation before a fetch result stays silent', async () => {
+  343:     const fail = vi.fn(), lease = createStorySession('shaft', { id: 11, current: () => true, fail })
+  344:     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 404 }))
+  345:     const runtime = createShaftRuntime(lease, context()); runtimes.push(runtime)
+  346:     await expect(runtime.ready).rejects.toThrow('Shaft download failed (404)')
+  347:     expect(fail).toHaveBeenCalledOnce(); expect(runtime.resources.meshes).toBe(0)
+  348:     let resolveFetch!: (value: unknown) => void
+  349:     vi.stubGlobal('fetch', vi.fn().mockImplementation(() => new Promise(resolve => { resolveFetch = resolve })))
+  350:     const cancelledLease = session(), cancelled = createShaftRuntime(cancelledLease, context()); runtimes.push(cancelled)
+  351:     cancelledLease.cancel(); const body = vi.fn()
+  352:     resolveFetch({ ok: true, arrayBuffer: body }); await cancelled.ready
+  353:     expect(body).not.toHaveBeenCalled(); expect(cancelled.root.children).toHaveLength(0)
+  354:   })
+  355: 
+  356:   it('registers instance disposal with the session and returns the resource census to zero', async () => {
+  357:     const { runtime, lease } = await fixture()
+  358:     const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
+  359:     expect(thread.isInstancedMesh).toBe(true)
+  360:     const disposeThread = vi.spyOn(thread, 'dispose')
+  361:     const geometryDisposers = new Map()
+  362:     const materialDisposers = new Map()
+  363:     runtime.root.traverse(object => {
+  364:       if (!(object instanceof Mesh)) return
+  365:       if (!geometryDisposers.has(object.geometry)) geometryDisposers.set(object.geometry, vi.spyOn(object.geometry, 'dispose'))
+  366:       for (const value of Array.isArray(object.material) ? object.material : [object.material]) {
+  367:         if (!materialDisposers.has(value)) materialDisposers.set(value, vi.spyOn(value, 'dispose'))
+  368:       }
+  369:     })
+  370:     expect(runtime.resources.geometries).toBeGreaterThan(7); expect(runtime.resources.materials).toBeGreaterThan(7)
+  371:     lease.cancel(); expect(runtime.resources).toEqual({ geometries: 0, materials: 0, textures: 0, meshes: 0 })
+  372:     expect(disposeThread).toHaveBeenCalledOnce()
+  373:     runtime.dispose(); lease.cancel()
+  374:     expect(disposeThread).toHaveBeenCalledOnce()
+  375:     for (const dispose of geometryDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
+  376:     for (const dispose of materialDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
+  377:     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(0)
+  378:   })
+  379: })
+
+hook: PostToolUse
+ succeeded in 6609ms:
+  196:     const out = seek(runtime, 36) as { shaft: { nodes: { housing: string; legacyHousingPresent: boolean } } }
+  197:     expect(out.shaft.nodes.housing).toBe('approvedhousing'); expect(out.shaft.nodes.legacyHousingPresent).toBe(true)
+  198:     expect(runtime.root.getObjectByName('study-legacyhousing')?.visible).toBe(true)
+  199:     expect(runtime.camera.valid).toBe(true); expect(runtime.frame.ownsNarrative).toBe(true); expect(runtime.frame.returnBlend).toBe(0)
+  200:   })
+  201: 
+  202:   it('wires blank/finished progression, stress, opaque complementary wipe and freezes the formed envelope during withdrawal', async () => {
+  203:     const { runtime } = await fixture()
+  204:     const old = uniforms(runtime, 'legacyshaft'), revised = uniforms(runtime, 'approvedshaft')
+  205:     seek(runtime, 1)
+  206:     expect(old.uProgressionMode.value).toBe(1); expect(Array.from(old.uSpaceDepth.value as Float32Array)).toEqual(new Array(10).fill(0))
+  207:     seek(runtime, 16.3)
+  208:     expect(Array.from(old.uSpaceDepth.value as Float32Array)).toEqual(new Array(10).fill(1))
+  209:     expect(old.uStressKind.value).toBe(1); expect(revised.uStressKind.value).toBe(0)
+  210:     seek(runtime, 23.8)
+  211:     expect(material(runtime, 'legacyshaft').opacity).toBe(1); expect(material(runtime, 'approvedshaft').opacity).toBe(1)
+  212:     expect(material(runtime, 'legacyshaft').transparent).toBe(false); expect(material(runtime, 'approvedshaft').transparent).toBe(false)
+  213:     const oldPlane = material(runtime, 'legacyshaft').clippingPlanes![0], newPlane = material(runtime, 'approvedshaft').clippingPlanes![0]
+  214:     expect(oldPlane.normal.clone().add(newPlane.normal).length()).toBe(0)
+  215:     expect(oldPlane.constant + newPlane.constant).toBe(0)
+  216:     expect(revised.uProgressionMode.value).toBe(2); expect(revised.uHobYc.value).toBe(-4.195)
+  217:     for (const t of [30.2, 30.8, 31.2, 31.8, 31.999]) {
+  218:       seek(runtime, t); expect(revised.uHobYc.value).toBe(9.5249)
+  219:       expect(revised.uHobA.value).toBeCloseTo(10.29182859636582)
+  220:     }
+  221:     seek(runtime, 32.2); expect(revised.uProgressionMode.value).toBe(0); expect(revised.uStressKind.value).toBe(0)
+  222:     seek(runtime, 34); expect(revised.uStressKind.value).toBe(2); expect(old.uStressKind.value).toBe(0)
+  223:     seek(runtime, 12); expect(material(runtime, 'shaper-cutter-disc').opacity).toBeLessThan(material(runtime, 'shaper-hub').opacity)
+  224:   })
+  225: 
+  226:   it('moves the support pair rigidly, holds the baked endpoint, sections both shaft/housing and removes the section for finale', async () => {
+  227:     const { runtime, doc } = await fixture()
+  228:     const pair = runtime.root.getObjectByName('shaft-rigid-support-pair')!, delta = new Vector3()
+  229:     measureSupportDelta(doc, delta)
+  230:     const bearing = runtime.root.getObjectByName('study-approvedbearing')!, ring = runtime.root.getObjectByName('study-approvedring')!
+  231:     for (const t of [35.1, 35.5, 35.6, 36, 37, 37.6, 38.5]) {
+  232:       seek(runtime, t); const schedule = sampleShaftSchedule(t, createShaftSchedule())
+  233:       expect(pair.position.distanceTo(delta.clone().multiplyScalar(-(1 - schedule.supportBlend)))).toBeLessThan(1e-12)
+  234:       expect(bearing.quaternion.toArray()).toEqual(ring.quaternion.toArray())
+  235:       expect(material(runtime, 'approvedshaft').clippingPlanes).toHaveLength(1)
+  236:       expect(material(runtime, 'housing').clippingPlanes).toHaveLength(1)
+  237:       expect(material(runtime, 'housing').clippingPlanes![0].distanceToPoint(runtime.camera.position)).toBeLessThan(0)
+  238:     }
+  239:     seek(runtime, 39); expect(pair.position.length()).toBe(0)
+  240:     expect(material(runtime, 'approvedshaft').clippingPlanes).toHaveLength(0)
+  241:     expect(material(runtime, 'housing').clippingPlanes).toHaveLength(0)
+  242:     const caps: boolean[] = []; runtime.root.traverse(object => { if (object.name === 'study-section-backface') caps.push(object.visible) })
+  243:     expect(caps).toEqual([false, false])
+  244:   })
+  245: 
+  246:   it('delivers the counted previous-pass depth to the actual legacy material uniforms', async () => {
+  247:     const { runtime } = await fixture(), old = uniforms(runtime, 'legacyshaft')
+  248:     const k = createShaftKinematicsFrame(), covered = new Set<number>()
+  249:     for (let i = 0; i <= 780; i++) {
+  250:       const t = 2 + i / 60
+  251:       sampleShaftKinematics(t, k); seek(runtime, t)
+  252:       if (k.engagedSpace < 0) { expect(old.uEngagedPreviousDepth.value).toBe(0); continue }
+  253:       let first = (SPACE_CLOCK_RAD + k.engagedSpace * SPACE_PITCH_RAD - Math.PI / 2) / -WORK_RATE
+  254:       first -= Math.floor(first / 2) * 2
+  255:       const current = first + Math.round((k.machining - first) / 2) * 2
+  256:       let prior = 0
+  257:       for (let crossing = first; crossing < current - 1e-9; crossing += 2) {
+  258:         if (strokePhaseAt(crossing) < 0.5) prior++
+  259:       }
+  260:       const previous = Math.min(1, prior / 4)
+  261:       expect(old.uEngagedPreviousDepth.value).toBe(previous)
+  262:       if (prior >= 1 && prior <= 3) covered.add(prior)
+  263:     }
+  264:     expect([...covered].sort()).toEqual([1, 2, 3])
+  265:   })
+
+hook: PostToolUse
+ succeeded in 7691ms:
+  120:   r: number,
+  121:   y: number,
+  122:   azimuth: number,
+  123:   state: ProgressionState,
+  124:   shaft: ProgressionShaft,
+  125: ): number {
+  126:   if (state.mode === 'none') return r
+  127:   if (state.mode === 'shaping') {
+  128:     if (shaft !== 'legacy') return r
+  129:     if (y < FACE_START_MM || y > SHAPING_FACE_END_MM || r >= SHAFT_OD_MM) return r
+  130:     const space = spaceIndexAt(azimuth)
+  131:     let depth = state.spaceDepth[space]
+  132:     // The engaged space carries the new depth only behind the cutter's leading face.
+  133:     if (space === state.engagedSpace && y > state.edgeY) depth = state.engagedPreviousDepth ?? 0
+  134:     const value = r + (1 - depth) * (SHAFT_OD_MM - SHAFT_ROOT_MM)
+  135:     return value > SHAFT_OD_MM ? SHAFT_OD_MM : value
+  136:   }
+  137:   if (shaft !== 'approved') return r
+  138:   if (y < FACE_START_MM || y > HOBBING_FACE_END_MM) return r
+  139:   const floor = hobFloorRadius(y, state.hobYc, state.hobA, state.hobR)
+  140:   const clamped = floor > SHAFT_OD_MM ? SHAFT_OD_MM : floor
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+codex
+F1, F2 and the withdrawal-hold sites are confirmed so far; the output truncated the runtime's cancel/dispose path and hob wiring. Re-reading those two ranges, plus the `toolSpec` constants the hold relies on.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 320 -and $i -le 346){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 255 -and $i -le 320){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 405 -and $i -le 454){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"HOB_STOP_YC_MM|HOB_VISUAL_A_MM|HOB_INFEED_YC_MM|HOB_RETRACT_MM|SHAPER_THICKNESS_MM|SHAPER_OVERTRAVEL_MM|SHAPING_FACE_END|9\\.5249|10\\.291828\" src/scene/inspection/shaft/toolSpec.ts src/scene/inspection/shaft/progression.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+hook: PostToolUse
+ succeeded in 5506ms:
+  320:   runtime = {
+  321:     root, ready, frame, camera, render, resources,
+  322:     sample(time) {
+  323:       if (disposed) return
+  324:       sampleShaftSchedule(time, schedule)
+  325:       const t = schedule.time
+  326:       sampleShaftKinematics(t, kinematics); sampleShaftScript(t, false, script)
+  327:       writeShaftProgression(kinematics, legacyState); writeShaftProgression(kinematics, approvedState)
+  328:       // Kinematics mode='none' outside cutting; explicitly preserve the appropriate stock.
+  329:       legacyState.mode = 'shaping'
+  330:       if (t < 2) { legacyState.spaceDepth.fill(0); legacyState.engagedSpace = -1 }
+  331:       if (t >= 15) { legacyState.spaceDepth.fill(1); legacyState.engagedSpace = -1 }
+  332:       approvedState.mode = t < 32 ? 'hobbing' : 'none'
+  333:       if (t < 25) {
+  334:         approvedState.hobYc = HOB_INFEED_YC_MM; approvedState.hobA = HOB_VISUAL_A_MM + HOB_RETRACT_MM; approvedState.hobR = HOB_VISUAL_R_MM
+  335:       }
+  336:       frame.time = t; frame.phase = schedule.beat; frame.discrete = schedule.beatIndex
+  337:       frame.chapter = t < 15 ? 0 : t < 22.6 ? 1 : t < 35 ? 2 : 3
+  338:       frame.narrativeAlpha = schedule.narrativeAlpha; frame.ownsNarrative = true; frame.returnBlend = 0
+  339:       sampleShaftCamera(t, ctx.aspect, kinematics, cameraSample)
+  340:       shaftMetrePoint(camera.position, cameraSample.px, cameraSample.py, cameraSample.pz)
+  341:       shaftMetrePoint(camera.target, cameraSample.tx, cameraSample.ty, cameraSample.tz)
+  342:       shaftMetrePoint(camera.up, cameraSample.ux, cameraSample.uy, cameraSample.uz).normalize()
+  343:       camera.fov = cameraSample.fov; camera.valid = cameraSample.valid
+  344:       render.envRotationY = 0 // local lights carry the authored frame-follow reflection.
+  345:     },
+  346:     apply() {
+
+ succeeded in 13288ms:
+  405:         for (let j = 0; j < neighbour.planets.length; j++) neighbour.planets[j].rotation.z = -angle * GEAR_RATIOS.planetMultiplier
+  406:         for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours)
+  407:       }
+  408:       root.updateWorldMatrix(true, true)
+  409:     },
+  410:     telemetry(out) {
+  411:       if (disposed) return
+  412:       out.phase = SHAFT_BEAT_LABELS[frame.phase] ?? frame.phase
+  413:       let formed = 0, partial = 0
+  414:       if (frame.time < 22.6) {
+  415:         for (let i = 0; i < legacyState.spaceDepth.length; i++) {
+  416:           if (legacyState.spaceDepth[i] >= 1) formed++
+  417:           else if (legacyState.spaceDepth[i] > 0) partial++
+  418:         }
+  419:       } else if (frame.time >= 32) formed = 10
+  420:       else if (approvedState.hobYc > FACE_START_MM) partial = 10
+  421:       probe.teethFormed = formed; probe.teethPartial = partial
+  422:       probe.cutter.visible = schedule.shaper > 0; probe.cutter.stroke = kinematics.strokeCentreY
+  423:       probe.cutter.infeed = kinematics.cutterRho; probe.cutter.rotation = kinematics.cutterPhi; probe.cutter.softened = kinematics.softened
+  424:       probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
+  425:       probe.card.id = script.card; probe.card.stamp = script.stamp
+  426:       probe.stress.kind = script.stress; probe.stress.mix = script.stressMix
+  427:       probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
+  428:       probe.supports.endpointHeld = loaded && schedule.endpointHeld
+  429:       probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= 39
+  430:       probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
+  431:       // These bundles expose an unsplit bearing: do not claim an animated inner race.
+  432:       probe.finale.racesFollow = false
+  433:       probe.finale.ringFollowsShaft = loaded && frame.time >= 39
+  434:       probe.narrative.alpha = frame.narrativeAlpha
+  435:       out.shaft = probe; out.resources = resources
+  436:     },
+  437:     dispose() {
+  438:       if (disposed) return
+  439:       disposed = true; loaded = false; root.removeFromParent(); root.visible = false
+  440:       hobThread?.dispose()
+  441:       ownedGeometry.forEach(value => value.dispose()); ownedMaterials.forEach(value => value.dispose()); ownedTextures.forEach(value => value.dispose())
+  442:       // Shared narrative geometries/textures are borrowed, never disposed here.
+  443:       key.dispose(); graze.dispose(); releaseShared?.(); releaseShared = null
+  444:       // Do not terminate a pending Draco parse: worker disposal would strand its
+  445:       // promise. ready's finally releases it after stale parsed assets are cleaned up.
+  446:       ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
+  447:       resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
+  448:       root.clear()
+  449:     },
+  450:   }
+  451:   census(); runtime.sample(0); runtime.apply()
+  452:   session.own(runtime)
+  453:   return runtime
+  454: }
+
+ succeeded in 17838ms:
+  255:           }
+  256:           if (!materials.includes(material)) materials.push(material)
+  257:           return material
+  258:         }
+  259:         child.material = Array.isArray(child.material) ? child.material.map(cloneMaterial) : cloneMaterial(child.material)
+  260:       })
+  261:       carrier.visible = false; modelFrame.add(carrier); collect(carrier, true)
+  262:       neighbours.push({ carrier, planets, ratio: ROTATION_TURNS[id] / ROTATION_TURNS.stage1, materials })
+  263:     }
+  264:     probe.finale.carrierCount = neighbours.length
+  265:     probe.finale.missingCarriers = neighbours.length !== STAGE_IDS.length
+  266:     if (neighbours.length > 0) releaseShared = session.borrowShared('shaft-finale-carriers')
+  267:   }
+  268: 
+  269:   const ready = (async () => {
+  270:     if (disposed || !session.current()) return
+  271:     const asset = shaftStory.assets.find(candidate => candidate.tier === ctx.tier)
+  272:     if (!asset) throw new Error('Missing shaft tier asset')
+  273:     const url = `${import.meta.env.BASE_URL}${asset.url}`
+  274:     const response = await fetch(url, { signal: session.signal })
+  275:     if (disposed || !session.current()) return
+  276:     if (!response.ok) throw new Error(`Shaft download failed (${response.status})`)
+  277:     const data = await response.arrayBuffer()
+  278:     if (disposed || !session.current()) return
+  279:     if (data.byteLength > asset.maxBytes) throw new Error('Shaft bundle exceeds declared byte limit')
+  280:     const doc = readShaftBundleDocument(data)
+  281:     supportDeltaYmm = measureSupportDelta(doc, delta)
+  282:     const shaftBounds = exportedNodeBounds(doc, 'approvedshaft', new Box3())
+  283:     shaftMinZ = shaftBounds.min.z; shaftMaxZ = shaftBounds.max.z
+  284:     draco = new DRACOLoader().setDecoderPath(`${import.meta.env.BASE_URL}draco/`)
+  285:     const loader = new GLTFLoader().setDRACOLoader(draco)
+  286:     const gltf = await loader.parseAsync(data, url.slice(0, url.lastIndexOf('/') + 1))
+  287:     if (disposed || !session.current()) {
+  288:       // A parse cannot be aborted; release its unmounted results, including after cancel.
+  289:       const geometries = new Set<BufferGeometry>(), materials = new Set<Material>(), textures = new Set<Texture>()
+  290:       gltf.scene.traverse(child => {
+  291:         if (!(child instanceof Mesh)) return
+  292:         geometries.add(child.geometry)
+  293:         for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
+  294:           materials.add(material)
+  295:           for (const value of Object.values(material)) if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
+  296:         }
+  297:       })
+  298:       geometries.forEach(value => value.dispose()); materials.forEach(value => value.dispose()); textures.forEach(value => value.dispose())
+  299:       return
+  300:     }
+  301:     collect(gltf.scene)
+  302:     const names = ['legacyshaft', 'approvedshaft', 'legacybearing', 'legacyring', 'approvedbearing', 'approvedring'] as const
+  303:     for (const name of names) {
+  304:       const node = gltf.scene.getObjectByName(name)
+  305:       if (!node) throw new Error('Missing shaft bundle node: ' + name)
+  306:       attachPart(node, name, name === 'legacyshaft' ? 'legacy' : name === 'approvedshaft' ? 'approved' : undefined)
+  307:     }
+  308:     const housing = gltf.scene.getObjectByName('approvedhousing') ?? gltf.scene.getObjectByName('housing')
+  309:     if (!housing) throw new Error('Missing approvedhousing/housing')
+  310:     probe.nodes.housing = housing.name; attachPart(housing, 'housing')
+  311:     const legacyHousing = gltf.scene.getObjectByName('legacyhousing')
+  312:     if (legacyHousing) { probe.nodes.legacyHousing = legacyHousing.name; probe.nodes.legacyHousingPresent = true; attachPart(legacyHousing, 'legacyhousing') }
+  313:     cloneNeighbours(); census(); loaded = true
+  314:     // Preserve a seek issued during loading, applying only after registration is complete.
+  315:     runtime.apply()
+  316:   })().catch(error => {
+  317:     if (!disposed && session.current()) { session.fail(error); runtime.dispose(); throw error }
+  318:   }).finally(() => { draco?.dispose(); draco = null })
+  319: 
+  320:   runtime = {
+
+ succeeded in 21145ms:
+src/scene/inspection/shaft/progression.ts:63:export const SHAPING_FACE_END_MM = 9.875
+src/scene/inspection/shaft/progression.ts:77:export const HOB_VISUAL_A_MM = SHAFT_ROOT_MM + HOB_VISUAL_R_MM
+src/scene/inspection/shaft/progression.ts:78:export const HOB_FINAL_YC_MM = 9.5249
+src/scene/inspection/shaft/progression.ts:79:export const HOB_INFEED_YC_MM = -4.195
+src/scene/inspection/shaft/progression.ts:80:export const HOB_RETRACT_MM = 2.5
+src/scene/inspection/shaft/progression.ts:88:    hobYc: HOB_INFEED_YC_MM,
+src/scene/inspection/shaft/progression.ts:89:    hobA: HOB_VISUAL_A_MM,
+src/scene/inspection/shaft/progression.ts:129:    if (y < FACE_START_MM || y > SHAPING_FACE_END_MM || r >= SHAFT_OD_MM) return r
+src/scene/inspection/shaft/progression.ts:191:    uHobYc: { value: HOB_INFEED_YC_MM },
+src/scene/inspection/shaft/progression.ts:192:    uHobA: { value: HOB_VISUAL_A_MM },
+src/scene/inspection/shaft/progression.ts:195:    uFaceEnd: { value: SHAPING_FACE_END_MM },
+src/scene/inspection/shaft/progression.ts:226:  uniforms.uFaceEnd.value = resolved === 'approved' ? HOBBING_FACE_END_MM : SHAPING_FACE_END_MM
+src/scene/inspection/shaft/toolSpec.ts:24:export const SHAPER_THICKNESS_MM = 1.2
+src/scene/inspection/shaft/toolSpec.ts:27:export const SHAPER_OVERTRAVEL_MM = 0.5
+src/scene/inspection/shaft/toolSpec.ts:43:export const HOB_STOP_YC_MM = 9.5249
+src/scene/inspection/shaft/toolSpec.ts:44:export const HOB_INFEED_YC_MM = -4.195
+src/scene/inspection/shaft/toolSpec.ts:45:export const HOB_RETRACT_MM = 2.5
+
+hook: PostToolUse Completed
+codex
+Three ranges came back empty (likely a PowerShell race in parallel). Re-running them sequentially.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 255 -and $i -le 319){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 901ms:
+  255:           }
+  256:           if (!materials.includes(material)) materials.push(material)
+  257:           return material
+  258:         }
+  259:         child.material = Array.isArray(child.material) ? child.material.map(cloneMaterial) : cloneMaterial(child.material)
+  260:       })
+  261:       carrier.visible = false; modelFrame.add(carrier); collect(carrier, true)
+  262:       neighbours.push({ carrier, planets, ratio: ROTATION_TURNS[id] / ROTATION_TURNS.stage1, materials })
+  263:     }
+  264:     probe.finale.carrierCount = neighbours.length
+  265:     probe.finale.missingCarriers = neighbours.length !== STAGE_IDS.length
+  266:     if (neighbours.length > 0) releaseShared = session.borrowShared('shaft-finale-carriers')
+  267:   }
+  268: 
+  269:   const ready = (async () => {
+  270:     if (disposed || !session.current()) return
+  271:     const asset = shaftStory.assets.find(candidate => candidate.tier === ctx.tier)
+  272:     if (!asset) throw new Error('Missing shaft tier asset')
+  273:     const url = `${import.meta.env.BASE_URL}${asset.url}`
+  274:     const response = await fetch(url, { signal: session.signal })
+  275:     if (disposed || !session.current()) return
+  276:     if (!response.ok) throw new Error(`Shaft download failed (${response.status})`)
+  277:     const data = await response.arrayBuffer()
+  278:     if (disposed || !session.current()) return
+  279:     if (data.byteLength > asset.maxBytes) throw new Error('Shaft bundle exceeds declared byte limit')
+  280:     const doc = readShaftBundleDocument(data)
+  281:     supportDeltaYmm = measureSupportDelta(doc, delta)
+  282:     const shaftBounds = exportedNodeBounds(doc, 'approvedshaft', new Box3())
+  283:     shaftMinZ = shaftBounds.min.z; shaftMaxZ = shaftBounds.max.z
+  284:     draco = new DRACOLoader().setDecoderPath(`${import.meta.env.BASE_URL}draco/`)
+  285:     const loader = new GLTFLoader().setDRACOLoader(draco)
+  286:     const gltf = await loader.parseAsync(data, url.slice(0, url.lastIndexOf('/') + 1))
+  287:     if (disposed || !session.current()) {
+  288:       // A parse cannot be aborted; release its unmounted results, including after cancel.
+  289:       const geometries = new Set<BufferGeometry>(), materials = new Set<Material>(), textures = new Set<Texture>()
+  290:       gltf.scene.traverse(child => {
+  291:         if (!(child instanceof Mesh)) return
+  292:         geometries.add(child.geometry)
+  293:         for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
+  294:           materials.add(material)
+  295:           for (const value of Object.values(material)) if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
+  296:         }
+  297:       })
+  298:       geometries.forEach(value => value.dispose()); materials.forEach(value => value.dispose()); textures.forEach(value => value.dispose())
+  299:       return
+  300:     }
+  301:     collect(gltf.scene)
+  302:     const names = ['legacyshaft', 'approvedshaft', 'legacybearing', 'legacyring', 'approvedbearing', 'approvedring'] as const
+  303:     for (const name of names) {
+  304:       const node = gltf.scene.getObjectByName(name)
+  305:       if (!node) throw new Error('Missing shaft bundle node: ' + name)
+  306:       attachPart(node, name, name === 'legacyshaft' ? 'legacy' : name === 'approvedshaft' ? 'approved' : undefined)
+  307:     }
+  308:     const housing = gltf.scene.getObjectByName('approvedhousing') ?? gltf.scene.getObjectByName('housing')
+  309:     if (!housing) throw new Error('Missing approvedhousing/housing')
+  310:     probe.nodes.housing = housing.name; attachPart(housing, 'housing')
+  311:     const legacyHousing = gltf.scene.getObjectByName('legacyhousing')
+  312:     if (legacyHousing) { probe.nodes.legacyHousing = legacyHousing.name; probe.nodes.legacyHousingPresent = true; attachPart(legacyHousing, 'legacyhousing') }
+  313:     cloneNeighbours(); census(); loaded = true
+  314:     // Preserve a seek issued during loading, applying only after registration is complete.
+  315:     runtime.apply()
+  316:   })().catch(error => {
+  317:     if (!disposed && session.current()) { session.fail(error); runtime.dispose(); throw error }
+  318:   }).finally(() => { draco?.dispose(); draco = null })
+  319: 
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Completed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command '$i=0; Get-Content -LiteralPath '"'src/scene/inspection/shaft/shaftRuntime.ts' | ForEach-Object { "'$i++; if($i -ge 405 -and $i -le 454){ '"'{0,5}: {1}' -f "'$i, $_ } }' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 466ms:
+  405:         for (let j = 0; j < neighbour.planets.length; j++) neighbour.planets[j].rotation.z = -angle * GEAR_RATIOS.planetMultiplier
+  406:         for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours)
+  407:       }
+  408:       root.updateWorldMatrix(true, true)
+  409:     },
+  410:     telemetry(out) {
+  411:       if (disposed) return
+  412:       out.phase = SHAFT_BEAT_LABELS[frame.phase] ?? frame.phase
+  413:       let formed = 0, partial = 0
+  414:       if (frame.time < 22.6) {
+  415:         for (let i = 0; i < legacyState.spaceDepth.length; i++) {
+  416:           if (legacyState.spaceDepth[i] >= 1) formed++
+  417:           else if (legacyState.spaceDepth[i] > 0) partial++
+  418:         }
+  419:       } else if (frame.time >= 32) formed = 10
+  420:       else if (approvedState.hobYc > FACE_START_MM) partial = 10
+  421:       probe.teethFormed = formed; probe.teethPartial = partial
+  422:       probe.cutter.visible = schedule.shaper > 0; probe.cutter.stroke = kinematics.strokeCentreY
+  423:       probe.cutter.infeed = kinematics.cutterRho; probe.cutter.rotation = kinematics.cutterPhi; probe.cutter.softened = kinematics.softened
+  424:       probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
+  425:       probe.card.id = script.card; probe.card.stamp = script.stamp
+  426:       probe.stress.kind = script.stress; probe.stress.mix = script.stressMix
+  427:       probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
+  428:       probe.supports.endpointHeld = loaded && schedule.endpointHeld
+  429:       probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= 39
+  430:       probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
+  431:       // These bundles expose an unsplit bearing: do not claim an animated inner race.
+  432:       probe.finale.racesFollow = false
+  433:       probe.finale.ringFollowsShaft = loaded && frame.time >= 39
+  434:       probe.narrative.alpha = frame.narrativeAlpha
+  435:       out.shaft = probe; out.resources = resources
+  436:     },
+  437:     dispose() {
+  438:       if (disposed) return
+  439:       disposed = true; loaded = false; root.removeFromParent(); root.visible = false
+  440:       hobThread?.dispose()
+  441:       ownedGeometry.forEach(value => value.dispose()); ownedMaterials.forEach(value => value.dispose()); ownedTextures.forEach(value => value.dispose())
+  442:       // Shared narrative geometries/textures are borrowed, never disposed here.
+  443:       key.dispose(); graze.dispose(); releaseShared?.(); releaseShared = null
+  444:       // Do not terminate a pending Draco parse: worker disposal would strand its
+  445:       // promise. ready's finally releases it after stale parsed assets are cleaned up.
+  446:       ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
+  447:       resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
+  448:       root.clear()
+  449:     },
+  450:   }
+  451:   census(); runtime.sample(0); runtime.apply()
+  452:   session.own(runtime)
+  453:   return runtime
+  454: }
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"HOB_STOP_YC_MM|HOB_VISUAL_A_MM|HOB_INFEED_YC_MM|HOB_RETRACT_MM|SHAPER_THICKNESS_MM|SHAPER_OVERTRAVEL_MM|9\\.5249|10\\.291828\" src/scene/inspection/shaft/toolSpec.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 218ms:
+24:export const SHAPER_THICKNESS_MM = 1.2
+27:export const SHAPER_OVERTRAVEL_MM = 0.5
+43:export const HOB_STOP_YC_MM = 9.5249
+44:export const HOB_INFEED_YC_MM = -4.195
+45:export const HOB_RETRACT_MM = 2.5
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+All four fix sites are verified. One last confirmation pass: `HOB_VISUAL_A_MM`'s value, no residual local hold in the runtime, and all callers of `writeShaftProgression`.
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "HOB_VISUAL_A_MM|HOB_VISUAL_R_MM|HOBBING_FACE_END_MM|FACE_START_MM" src/scene/inspection/shaft/progression.ts | head -n 12' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "writeShaftProgression" src/scene/inspection/shaft --glob "!*.test.ts"' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"9\\.5249|30\\.2|HOB_STOP|envelope\" src/scene/inspection/shaft/shaftRuntime.ts" in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 240ms:
+src/scene/inspection/shaft\kinematics.ts:419:export function writeShaftProgression(frame: ShaftKinematicsFrame, state: ProgressionState): ProgressionState {
+src/scene/inspection/shaft\shaftRuntime.ts:14:import { createShaftKinematicsFrame, sampleShaftKinematics, writeShaftProgression } from './kinematics'
+src/scene/inspection/shaft\shaftRuntime.ts:327:      writeShaftProgression(kinematics, legacyState); writeShaftProgression(kinematics, approvedState)
+
+hook: PostToolUse
+ exited 1 in 244ms:
+hook: PostToolUse
+ exited 1 in 3247ms:
+head: 
+Line |
+   2 |  … FACE_START_MM" src/scene/inspection/shaft/progression.ts | head -n 12
+     |                                                               ~~~~
+     | The term 'head' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+
+hook: PostToolUse
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PostToolUse Completed
+hook: PreToolUse
+hook: PreToolUse
+hook: PreToolUse Failed
+hook: PreToolUse Completed
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "HOB_VISUAL_A_MM|HOB_VISUAL_R_MM|HOBBING_FACE_END_MM|FACE_START_MM" src/scene/inspection/shaft/progression.ts' in C:\Users\Markimus\.buzz\REPOS\jgun-portfolio
+ succeeded in 199ms:
+61:export const FACE_START_MM = 3.1749
+65:export const HOBBING_FACE_END_MM = 13.78
+76:export const HOB_VISUAL_R_MM = 6.0
+77:export const HOB_VISUAL_A_MM = SHAFT_ROOT_MM + HOB_VISUAL_R_MM
+89:    hobA: HOB_VISUAL_A_MM,
+90:    hobR: HOB_VISUAL_R_MM,
+129:    if (y < FACE_START_MM || y > SHAPING_FACE_END_MM || r >= SHAFT_OD_MM) return r
+138:  if (y < FACE_START_MM || y > HOBBING_FACE_END_MM) return r
+192:    uHobA: { value: HOB_VISUAL_A_MM },
+193:    uHobR: { value: HOB_VISUAL_R_MM },
+194:    uFaceStart: { value: FACE_START_MM },
+226:  uniforms.uFaceEnd.value = resolved === 'approved' ? HOBBING_FACE_END_MM : SHAPING_FACE_END_MM
+
+hook: PostToolUse
+hook: PostToolUse Completed
+codex
+**VERDICT: SHIP** — all four findings resolved at source level; no regressions found. (Vitest/typecheck could not execute in this read-only sandbox, same esbuild limit as the first review; the 98-test pass remains producer-claimed.)
+
+**F1 — RESOLVED.** [frame.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/frame.ts:26) places the root at `k.strokeCentreY`; the −0.6 mm offset and wrong comment are gone, matching `edgeY = yc + 1.2/2` ([kinematics.ts:462](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:462)). The regression test measures the actual built disc at ±0.6 mm (shaftRuntime.test.ts:143-144), disc centre at strokeCentreY and rake face at edgeY=chipY (:150-152), edgeY 10.3749 = 9.8749 + 0.5 overtravel (:155-156).
+
+**F2 — RESOLVED.** kinematics.ts:424-428 populates `engagedPreviousDepth = countedPasses(nearestCrossing − ½ rev)/4`, allocation-free; consumed at progression.ts:133 (CPU) and :286 (shader). Tests: kinematics.test.ts:346-387 cover all 10 spaces, passes 2-4, both crossing sides — uniform and shown depth equal (pass−1)/4; shaftRuntime.test.ts:246-265 recheck 781 runtime samples against an independent count, priors {1,2,3} covered.
+
+**F3 — RESOLVED.** shaftRuntime.ts:438 `if (disposed) return` guard, :440 `hobThread?.dispose()` exactly once; the late-parse cancel path (:287-299) disposes only stale GLTF-scene resources — the thread is a built tool freed via session-owned dispose. Tests :337-339 and :372-374 assert once despite repeated `dispose()`/cancel.
+
+**Withdrawal hold — RESOLVED, single source.** kinematics.ts:432-433 freezes `hobYc = HOB_STOP_YC_MM` (9.5249, toolSpec.ts:43) and `hobA = HOB_VISUAL_A_MM` (= SHAFT_ROOT_MM + 6.0 = 10.29182859636582, progression.ts:77) from t ≥ 30.2 (`T_HOB_FEED_END`, kinematics.ts:234); live tool pose unchanged. No local hold remains in shaftRuntime.ts (rg for 9.5249/30.2/HOB_STOP/envelope: zero matches); the sole writer caller is shaftRuntime.ts:327. Tests kinematics.test.ts:389-409 (101 face-band radii identical across shuffled 30.2-31.999; 30.2−1e-6 passes live values) and shaftRuntime.test.ts:217-220.
+
+**Regression hunt — clean.** Chip anchor chipY=edgeY (kinematics.ts:494) is consistent with the corrected face; nothing assumed the old root. Ahead-of-edge depth counts cuts before the nearest crossing, never below the prior pass, and pass 1 ahead stays blank. The hold reuses the same constants as the certified path, so feed and envelope cannot diverge. The t<25 infeed override (shaftRuntime.ts:333-334) merely duplicates frame values with those constants. Legacy state ignores hob fields (mode pinned 'shaping', :329); thread geometry is still disposed once via the owned sets (:441).
+hook: Stop
+hook: Stop Completed
+tokens used
+65,382
+**VERDICT: SHIP** — all four findings resolved at source level; no regressions found. (Vitest/typecheck could not execute in this read-only sandbox, same esbuild limit as the first review; the 98-test pass remains producer-claimed.)
+
+**F1 — RESOLVED.** [frame.ts](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/frame.ts:26) places the root at `k.strokeCentreY`; the −0.6 mm offset and wrong comment are gone, matching `edgeY = yc + 1.2/2` ([kinematics.ts:462](C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/src/scene/inspection/shaft/kinematics.ts:462)). The regression test measures the actual built disc at ±0.6 mm (shaftRuntime.test.ts:143-144), disc centre at strokeCentreY and rake face at edgeY=chipY (:150-152), edgeY 10.3749 = 9.8749 + 0.5 overtravel (:155-156).
+
+**F2 — RESOLVED.** kinematics.ts:424-428 populates `engagedPreviousDepth = countedPasses(nearestCrossing − ½ rev)/4`, allocation-free; consumed at progression.ts:133 (CPU) and :286 (shader). Tests: kinematics.test.ts:346-387 cover all 10 spaces, passes 2-4, both crossing sides — uniform and shown depth equal (pass−1)/4; shaftRuntime.test.ts:246-265 recheck 781 runtime samples against an independent count, priors {1,2,3} covered.
+
+**F3 — RESOLVED.** shaftRuntime.ts:438 `if (disposed) return` guard, :440 `hobThread?.dispose()` exactly once; the late-parse cancel path (:287-299) disposes only stale GLTF-scene resources — the thread is a built tool freed via session-owned dispose. Tests :337-339 and :372-374 assert once despite repeated `dispose()`/cancel.
+
+**Withdrawal hold — RESOLVED, single source.** kinematics.ts:432-433 freezes `hobYc = HOB_STOP_YC_MM` (9.5249, toolSpec.ts:43) and `hobA = HOB_VISUAL_A_MM` (= SHAFT_ROOT_MM + 6.0 = 10.29182859636582, progression.ts:77) from t ≥ 30.2 (`T_HOB_FEED_END`, kinematics.ts:234); live tool pose unchanged. No local hold remains in shaftRuntime.ts (rg for 9.5249/30.2/HOB_STOP/envelope: zero matches); the sole writer caller is shaftRuntime.ts:327. Tests kinematics.test.ts:389-409 (101 face-band radii identical across shuffled 30.2-31.999; 30.2−1e-6 passes live values) and shaftRuntime.test.ts:217-220.
+
+**Regression hunt — clean.** Chip anchor chipY=edgeY (kinematics.ts:494) is consistent with the corrected face; nothing assumed the old root. Ahead-of-edge depth counts cuts before the nearest crossing, never below the prior pass, and pass 1 ahead stays blank. The hold reuses the same constants as the certified path, so feed and envelope cannot diverge. The t<25 infeed override (shaftRuntime.ts:333-334) merely duplicates frame values with those constants. Legacy state ignores hob fields (mode pinned 'shaping', :329); thread geometry is still disposed once via the owned sets (:441).

@@ -1,0 +1,22 @@
+{
+  "available": true,
+  "portalChangedPixels": 1850,
+  "modelChangedPixels": 782,
+  "deskChangedInsidePixels": 0,
+  "sampledInsidePixels": 17942,
+  "width": 640,
+  "height": 363,
+  "sampleClipRect": {
+    "x": 218,
+    "y": 126,
+    "width": 280,
+    "height": 200
+  },
+  "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+  "fixedCamera": true,
+  "portalActive": true,
+  "modelVisible": true,
+  "deskVisible": true,
+  "capZ": -0.32,
+  "shaderValid": true
+}

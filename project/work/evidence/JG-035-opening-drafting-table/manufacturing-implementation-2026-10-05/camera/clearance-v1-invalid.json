@@ -1,0 +1,328 @@
+{
+  "schema": "jgun-g0-clearance-v1",
+  "blender_version": "5.1.1",
+  "source_blend_sha256": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89",
+  "sdf": {
+    "grid_mm": 0.1,
+    "shape": [
+      141,
+      151,
+      53
+    ],
+    "sign_agreement_vs_ray_parity": 0.97
+  },
+  "frame": "shaft-local Blender metres; +Y shaft axis",
+  "results": [
+    {
+      "name": "shaper_as_drawn_z15.0",
+      "kind": "shaper",
+      "tip_radius_mm": 11.0,
+      "centre_z_mm": 15.0,
+      "root_clearance_mm_at_nominal_depth": -0.29785835767726265,
+      "hull_vs_retained_neighbours": {
+        "shaft_journal_side_y>=14.0639": {
+          "min_signed_mm": 3.004558850079775,
+          "pose": "withdraw z+0.50"
+        },
+        "housing": {
+          "min_signed_mm": -1.152423326857388,
+          "pose": "feed y=7.575"
+        },
+        "bearing": {
+          "min_signed_mm": 4.728340543806553,
+          "pose": "withdraw z+0.50"
+        },
+        "ring": {
+          "min_signed_mm": -5.9242406859993935,
+          "pose": "feed y=8.075"
+        }
+      },
+      "hull_path": {
+        "poses": 29,
+        "step_mm": 0.5,
+        "y_range_mm": [
+          2.0748584,
+          10.3248584
+        ]
+      },
+      "hull_uncertainty_mm": 0.34299999999999997,
+      "generating_pose_fit_mm": {
+        "work_sign_-1": {
+          "2.0748584": {
+            "best_clock_deg": 0.0,
+            "worst_penetration_mm": -0.0,
+            "at": null,
+            "median_over_clocks_mm": 0.7605783471600668
+          },
+          "6.1998584": {
+            "best_clock_deg": 34.0,
+            "worst_penetration_mm": 0.36951389020429837,
+            "at": {
+              "alpha_deg": 8.25,
+              "theta_deg": 17.500000000000004,
+              "y_mm": 5.5998584000000005,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.852946267372596
+          },
+          "10.3248584": {
+            "best_clock_deg": 18.0,
+            "worst_penetration_mm": 3.9169344712784855,
+            "at": {
+              "alpha_deg": 14.250000000000002,
+              "theta_deg": -10.500000000000002,
+              "y_mm": 9.7248584,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 3.9367452883813043
+          }
+        },
+        "work_sign_+1": {
+          "2.0748584": {
+            "best_clock_deg": 4.0,
+            "worst_penetration_mm": 0.42114410998345597,
+            "at": {
+              "alpha_deg": 4.5,
+              "theta_deg": 13.0,
+              "y_mm": 2.6748584,
+              "zone": "pre-face"
+            },
+            "median_over_clocks_mm": 0.6186455361802194
+          },
+          "6.1998584": {
+            "best_clock_deg": 10.0,
+            "worst_penetration_mm": 0.8549488082562278,
+            "at": {
+              "alpha_deg": 11.25,
+              "theta_deg": 32.5,
+              "y_mm": 5.5998584000000005,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.8639095363690804
+          },
+          "10.3248584": {
+            "best_clock_deg": 34.0,
+            "worst_penetration_mm": 2.0365910267884333,
+            "at": {
+              "alpha_deg": 15.75,
+              "theta_deg": 65.5,
+              "y_mm": 9.7248584,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 2.8601734969312225
+          }
+        }
+      },
+      "fit_uncertainty_mm": 0.10900000000000001
+    },
+    {
+      "name": "shaper_at_root_z15.298",
+      "kind": "shaper",
+      "tip_radius_mm": 11.0,
+      "centre_z_mm": 15.297858357677262,
+      "root_clearance_mm_at_nominal_depth": 0.0,
+      "hull_vs_retained_neighbours": {
+        "shaft_journal_side_y>=14.0639": {
+          "min_signed_mm": 3.0047944746911526,
+          "pose": "withdraw z+0.50"
+        },
+        "housing": {
+          "min_signed_mm": -1.1608836939558387,
+          "pose": "feed y=7.575"
+        },
+        "bearing": {
+          "min_signed_mm": 4.728340543806553,
+          "pose": "withdraw z+0.50"
+        },
+        "ring": {
+          "min_signed_mm": -5.9242406859993935,
+          "pose": "feed y=8.075"
+        }
+      },
+      "hull_path": {
+        "poses": 29,
+        "step_mm": 0.5,
+        "y_range_mm": [
+          2.0748584,
+          10.3248584
+        ]
+      },
+      "hull_uncertainty_mm": 0.34299999999999997,
+      "generating_pose_fit_mm": {
+        "work_sign_-1": {
+          "2.0748584": {
+            "best_clock_deg": 0.0,
+            "worst_penetration_mm": -0.0,
+            "at": null,
+            "median_over_clocks_mm": 0.4935466678982588
+          },
+          "6.1998584": {
+            "best_clock_deg": 34.0,
+            "worst_penetration_mm": 0.1373116836421597,
+            "at": {
+              "alpha_deg": 9.75,
+              "theta_deg": 14.500000000000005,
+              "y_mm": 5.5998584000000005,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.7790804961621258
+          },
+          "10.3248584": {
+            "best_clock_deg": 32.0,
+            "worst_penetration_mm": 2.914168626089728,
+            "at": {
+              "alpha_deg": 5.25,
+              "theta_deg": 21.5,
+              "y_mm": 9.7248584,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 3.941093260922338
+          }
+        },
+        "work_sign_+1": {
+          "2.0748584": {
+            "best_clock_deg": 22.0,
+            "worst_penetration_mm": 0.4715099142861371,
+            "at": {
+              "alpha_deg": 10.5,
+              "theta_deg": 43.0,
+              "y_mm": 1.4748584000000005,
+              "zone": "pre-face"
+            },
+            "median_over_clocks_mm": 0.6166678243038602
+          },
+          "6.1998584": {
+            "best_clock_deg": 29.999999999999996,
+            "worst_penetration_mm": 0.7662163369639994,
+            "at": {
+              "alpha_deg": 5.25,
+              "theta_deg": 40.5,
+              "y_mm": 6.7998584,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.782944444182392
+          },
+          "10.3248584": {
+            "best_clock_deg": 34.0,
+            "worst_penetration_mm": 2.2232478735110095,
+            "at": {
+              "alpha_deg": 0.0,
+              "theta_deg": 34.0,
+              "y_mm": 9.7248584,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 2.907502653930369
+          }
+        }
+      },
+      "fit_uncertainty_mm": 0.10900000000000001
+    },
+    {
+      "name": "hob_as_drawn_tip4",
+      "kind": "hob",
+      "tip_radius_mm": 4.0,
+      "centre_z_mm": 8.300000000000002,
+      "root_clearance_mm_at_nominal_depth": 0.0021416423227380577,
+      "hull_vs_retained_neighbours": {
+        "shaft_journal_side_y>=14.0639": {
+          "min_signed_mm": -5.972511135041714,
+          "pose": "withdraw z+0.50"
+        },
+        "housing": {
+          "min_signed_mm": -1.5893771778792143,
+          "pose": "feed y=8.675"
+        },
+        "bearing": {
+          "min_signed_mm": 1.0563354007899761,
+          "pose": "feed y=9.675"
+        },
+        "ring": {
+          "min_signed_mm": -5.998206324875355,
+          "pose": "feed y=7.175"
+        }
+      },
+      "hull_path": {
+        "poses": 26,
+        "step_mm": 0.5,
+        "y_range_mm": [
+          3.1748584005981684,
+          9.524858400598168
+        ]
+      },
+      "hull_uncertainty_mm": 0.34299999999999997,
+      "generating_pose_fit_mm": {
+        "work_sign_-1": {
+          "3.1748584005981684": {
+            "best_clock_deg": 26.0,
+            "worst_penetration_mm": 0.63149127015046,
+            "at": {
+              "alpha_deg": 255.00000000000003,
+              "theta_deg": 0.4999999999999975,
+              "y_mm": 4.0800892980796695,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.7001144189716412
+          },
+          "6.349858400598168": {
+            "best_clock_deg": 0.0,
+            "worst_penetration_mm": 3.969774462420159,
+            "at": {
+              "alpha_deg": 185.0,
+              "theta_deg": -18.5,
+              "y_mm": 10.033094337925265,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 3.9744331313503545
+          },
+          "9.524858400598168": {
+            "best_clock_deg": 0.0,
+            "worst_penetration_mm": 3.398231688540025,
+            "at": {
+              "alpha_deg": 5.0,
+              "theta_deg": -0.5,
+              "y_mm": 8.528741610465199,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 3.9562963752889497
+          }
+        },
+        "work_sign_+1": {
+          "3.1748584005981684": {
+            "best_clock_deg": 32.0,
+            "worst_penetration_mm": 0.7651400576656078,
+            "at": {
+              "alpha_deg": 239.99999999999997,
+              "theta_deg": 56.0,
+              "y_mm": 4.598152636082879,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 0.8233598245283305
+          },
+          "6.349858400598168": {
+            "best_clock_deg": 16.0,
+            "worst_penetration_mm": 3.0676258635651132,
+            "at": {
+              "alpha_deg": 330.0,
+              "theta_deg": 49.00000000000001,
+              "y_mm": 9.16069272956731,
+              "zone": "functional-face"
+            },
+            "median_over_clocks_mm": 3.1118047320932387
+          },
+          "9.524858400598168": {
+            "best_clock_deg": 28.0,
+            "worst_penetration_mm": 2.159852538582677,
+            "at": {
+              "alpha_deg": 245.00000000000003,
+              "theta_deg": 52.50000000000001,
+              "y_mm": 12.40007486412373,
+              "zone": "leadout-ramp"
+            },
+            "median_over_clocks_mm": 2.557115425611364
+          }
+        }
+      },
+      "fit_uncertainty_mm": 0.10900000000000001
+    }
+  ]
+}

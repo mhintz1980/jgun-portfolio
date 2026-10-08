@@ -1,0 +1,56 @@
+{
+  "available": true,
+  "portalChangedPixels": 0,
+  "modelChangedPixels": 29956,
+  "deskChangedInsidePixels": 0,
+  "sampledInsidePixels": 69175,
+  "profilePixels": 69175,
+  "cameraUnchanged": true,
+  "controls": [
+    {
+      "rect": [
+        0,
+        0,
+        8,
+        8
+      ],
+      "pixels": 64,
+      "portalChangedPixels": 0,
+      "modelChangedPixels": 0,
+      "deskChangedPixels": 0
+    },
+    {
+      "rect": [
+        632,
+        1432,
+        8,
+        8
+      ],
+      "pixels": 64,
+      "portalChangedPixels": 0,
+      "modelChangedPixels": 0,
+      "deskChangedPixels": 64
+    }
+  ],
+  "clipRect": [
+    74,
+    532,
+    492,
+    384
+  ],
+  "width": 640,
+  "height": 1440,
+  "sampleClipRect": {
+    "x": 74,
+    "y": 532,
+    "width": 492,
+    "height": 384
+  },
+  "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+  "fixedCamera": true,
+  "portalActive": true,
+  "modelVisible": true,
+  "deskVisible": true,
+  "capZ": -0.32,
+  "shaderValid": true
+}

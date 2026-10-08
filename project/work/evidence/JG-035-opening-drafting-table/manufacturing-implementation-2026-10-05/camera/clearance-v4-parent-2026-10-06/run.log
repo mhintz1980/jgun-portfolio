@@ -1,0 +1,117 @@
+[    8.4s] profiles: 2421 stations each
+[    8.4s] PROFILE y= -0.20 legacy ro=0.0000 rmin=nan | approved ro=0.0000 rmin=nan
+[    8.4s] PROFILE y=  0.05 legacy ro=2.0443 rmin=2.0411 | approved ro=2.0443 rmin=2.0410
+[    8.4s] PROFILE y=  0.30 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  0.55 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  0.80 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  1.05 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  1.30 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  1.55 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  1.80 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2480 rmin=2.2445
+[    8.4s] PROFILE y=  2.05 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2481 rmin=2.2445
+[    8.4s] PROFILE y=  2.30 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2481 rmin=2.2445
+[    8.4s] PROFILE y=  2.55 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2481 rmin=2.2445
+[    8.4s] PROFILE y=  2.80 legacy ro=2.2480 rmin=2.2445 | approved ro=2.2481 rmin=2.2445
+[    8.4s] PROFILE y=  3.05 legacy ro=2.3226 rmin=2.2548 | approved ro=2.3226 rmin=2.2548
+[    8.4s] PROFILE y=  3.30 legacy ro=4.9408 rmin=4.2918 | approved ro=4.9407 rmin=4.2918
+[    8.4s] PROFILE y=  3.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  3.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  4.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  4.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  4.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  4.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0836 rmin=4.2918
+[    8.4s] PROFILE y=  5.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  5.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  5.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  5.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  6.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  6.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  6.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2918
+[    8.4s] PROFILE y=  6.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2919
+[    8.4s] PROFILE y=  7.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2919
+[    8.4s] PROFILE y=  7.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0835 rmin=4.2919
+[    8.4s] PROFILE y=  7.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  7.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  8.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  8.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  8.55 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  8.80 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2919
+[    8.4s] PROFILE y=  9.05 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2961
+[    8.4s] PROFILE y=  9.30 legacy ro=6.0835 rmin=4.2918 | approved ro=6.0834 rmin=4.2961
+[    8.4s] PROFILE y=  9.55 legacy ro=5.2420 rmin=4.2918 | approved ro=6.0740 rmin=4.2963
+[    8.4s] PROFILE y=  9.80 legacy ro=4.3773 rmin=4.2353 | approved ro=6.0740 rmin=4.3026
+[    8.4s] PROFILE y= 10.05 legacy ro=4.0903 rmin=4.0113 | approved ro=6.0740 rmin=4.3192
+[    8.4s] PROFILE y= 10.30 legacy ro=4.0023 rmin=3.9559 | approved ro=6.0740 rmin=4.3465
+[    8.4s] PROFILE y= 10.55 legacy ro=4.0213 rmin=3.9390 | approved ro=6.0740 rmin=4.3844
+[    8.4s] PROFILE y= 10.80 legacy ro=4.1432 rmin=4.0225 | approved ro=6.0740 rmin=4.4332
+[    8.4s] PROFILE y= 11.05 legacy ro=4.4421 rmin=4.2574 | approved ro=6.0740 rmin=4.4932
+[    8.4s] PROFILE y= 11.30 legacy ro=6.1951 rmin=6.1854 | approved ro=6.0740 rmin=4.5647
+[    8.4s] PROFILE y= 11.55 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=4.6482
+[    8.4s] PROFILE y= 11.80 legacy ro=6.0455 rmin=6.0360 | approved ro=6.0740 rmin=4.7443
+[    8.4s] PROFILE y= 12.05 legacy ro=6.0455 rmin=6.0360 | approved ro=6.0740 rmin=4.8534
+[    8.4s] PROFILE y= 12.30 legacy ro=6.0455 rmin=6.0360 | approved ro=6.0740 rmin=4.9765
+[    8.4s] PROFILE y= 12.55 legacy ro=6.0455 rmin=6.0360 | approved ro=6.0740 rmin=5.1145
+[    8.4s] PROFILE y= 12.80 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=5.2688
+[    8.4s] PROFILE y= 13.05 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=5.4407
+[    8.4s] PROFILE y= 13.30 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=5.6325
+[    8.4s] PROFILE y= 13.55 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=5.8465
+[    8.4s] PROFILE y= 13.80 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0740 rmin=6.0735
+[    8.4s] PROFILE y= 14.05 legacy ro=6.3250 rmin=6.3149 | approved ro=6.1952 rmin=6.1852
+[    8.4s] PROFILE y= 14.30 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 14.55 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0455 rmin=6.0360
+[    8.4s] PROFILE y= 14.80 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0455 rmin=6.0360
+[    8.4s] PROFILE y= 15.05 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0455 rmin=6.0360
+[    8.4s] PROFILE y= 15.30 legacy ro=6.3250 rmin=6.3149 | approved ro=6.0455 rmin=6.0360
+[    8.4s] PROFILE y= 15.55 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 15.80 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 16.05 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 16.30 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 16.55 legacy ro=6.3250 rmin=6.3149 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 16.80 legacy ro=6.5139 rmin=6.3396 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 17.05 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 17.30 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 17.55 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 17.80 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 18.05 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 18.30 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 18.55 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 18.80 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 19.05 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3250 rmin=6.3149
+[    8.4s] PROFILE y= 19.30 legacy ro=8.2682 rmin=8.2551 | approved ro=6.3251 rmin=6.3149
+[    8.4s] PROFILE y= 19.55 legacy ro=8.2682 rmin=8.2551 | approved ro=6.5140 rmin=6.3396
+[    8.4s] PROFILE y= 19.80 legacy ro=8.2682 rmin=8.2551 | approved ro=8.2682 rmin=8.2551
+[    8.4s] PROFILE y= 20.05 legacy ro=8.2682 rmin=8.2551 | approved ro=8.2682 rmin=8.2551
+[    8.4s] PROFILE y= 20.30 legacy ro=8.2682 rmin=8.2551 | approved ro=8.2682 rmin=8.2552
+[    8.4s] PROFILE y= 20.55 legacy ro=8.3569 rmin=8.2410 | approved ro=8.3566 rmin=8.2409
+[    8.4s] PROFILE y= 20.80 legacy ro=8.6044 rmin=8.3518 | approved ro=8.6044 rmin=8.3518
+[    8.4s] PROFILE y= 21.05 legacy ro=8.8651 rmin=8.8511 | approved ro=8.8651 rmin=8.8511
+[    8.4s] PROFILE y= 21.30 legacy ro=8.8651 rmin=8.8511 | approved ro=8.8650 rmin=8.8511
+[    8.4s] PROFILE y= 21.55 legacy ro=8.8651 rmin=8.8511 | approved ro=8.8650 rmin=8.8511
+[    8.4s] PROFILE y= 21.80 legacy ro=8.8651 rmin=8.8511 | approved ro=8.8649 rmin=8.8511
+[    8.4s] facts {"legacy_teeth_end_y": 9.8749, "legacy_groove_edge_end_y": 9.9549, "legacy_groove_floor_y": 10.41, "legacy_groove_floor_r": 3.9698778108884056, "legacy_groove_wall_y": 10.94, "legacy_pilot_end_y": 3.17, "empty_interior_stations_filled_legacy_approved": [1, 0], "legacy_face_tip_r": 6.083507443359969, "approved_face_root_r": 4.29182859636582, "approved_journal_r_at_14_18": 6.324956651245068, "approved_r_outer_13_78_to_14_18": [6.074000486547925, 6.324956651245068]}
+[    8.4s] e_cad = 0.002 decode + 0.00430 measured constancy
+[   13.0s] hob ramp fit {"R_mm": 5.87, "stop_yc_mm": 9.5249, "lead_angle_deg": 5.5587, "max_abs_dev_mm": 0.004861622932300413, "rms_dev_mm": 0.0036269702635484853, "max_overcut_mm": 0.004861622932300413, "max_undercut_mm": 0.0, "stations": 426}
+[   81.5s] shaper_cutter_cut_vs_legacy_nongenerating            d=  0.13006 e=0.01630 PASS
+[   81.5s] shaper_cutter_cut_vs_groove_lip_root_boundary        d=  0.02200 e=0.01630 PASS
+[   81.5s] shaper_hub_cut_vs_legacy                             d=  1.41649 e=0.01630 PASS
+[   81.5s] shaper_clamp_nut_cut_vs_legacy                       d=  0.41649 e=0.01630 PASS
+[   81.5s] shaper_arbor_cut_vs_legacy                           d=  2.43892 e=0.01630 PASS
+[   81.5s] shaper_cutter_return_vs_legacy_nongenerating         d=  0.21329 e=0.01630 PASS
+[   81.5s] shaper_hub_return_vs_legacy                          d=  3.41649 e=0.01630 PASS
+[   81.5s] shaper_clamp_nut_return_vs_legacy                    d=  2.41649 e=0.01630 PASS
+[   81.5s] shaper_arbor_return_vs_legacy                        d=  4.42880 e=0.01630 PASS
+[   81.5s] shaper_cutter_backoff_vs_legacy                      d=  0.13006 e=0.01630 PASS
+[   81.5s] shaper_cutter_infeed_vs_legacy                       d=  1.90807 e=0.01630 PASS
+[   81.5s] hob_final_vs_approved_journal_side_y_ge_14_18        d=  0.11865 e=0.02254 PASS
+[   81.5s] hob_final_vs_approved_turned_cone_above_filler_od    d=  0.09498 e=0.02254 PASS
+[   81.5s] hob_final_vs_approved_ramp_end_junction_filler_od_floor d= -0.00311 e=0.03268 PASS
+[   81.5s] hob_collars_arbor_final_vs_approved_all              d=  2.30331 e=0.02254 PASS
+[   81.5s] hob_path_vs_approved_journal_side                    d=  0.09502 e=0.06565 PASS
+[   81.5s] hob_infeed_vs_blank_all                              d=  3.37574 e=0.06565 PASS
+[   81.5s] hob_collars_arbor_path_vs_blank                      d=  1.00289 e=0.06565 PASS
+[   81.5s] hob_retract_vs_blank_all                             d=  0.11872 e=0.06565 PASS
+[   81.5s] hob_retract_vs_approved_ramp_end_junction_floor_contact d= -0.00121 e=0.07579 PASS
+[   81.5s] hob_withdraw_vs_blank_all                            d=  0.70821 e=0.06565 PASS
+[   81.5s] shaper_cutting_face_past_last_tooth_material         d=  0.50000 e=0.01130 PASS
+[   81.5s] shaper_cutting_face_axial_room_to_groove_wall        d=  0.56510 e=0.01130 PASS
+[   81.5s] hob_reproduces_approved_ramp_floor                   d= -0.00486 e=0.02254 PASS

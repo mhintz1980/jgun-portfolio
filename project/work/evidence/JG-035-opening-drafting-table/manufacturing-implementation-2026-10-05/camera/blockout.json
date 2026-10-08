@@ -1,0 +1,2512 @@
+{
+  "schema": "jgun-g0-camera-v1",
+  "blender_version": "5.2.2 LTS",
+  "source_hashes": [
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\input-shaft-assembly-parts-v1.blend",
+      "bytes": 6485113,
+      "sha256": "88d1ce4ac7ca112adcd370e77852cfb9977dfec81b4bfcb61ee1872895574a89"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p001835-hobbed.glb",
+      "bytes": 10846592,
+      "sha256": "043c9628336589c9ba0fdaa9bac1c7b240598a99dd449eb8df3da1a64ee9a428"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\k000210-k000211-moved.glb",
+      "bytes": 71288,
+      "sha256": "17569c9a52bf662b599774ba81e2f7dc0d84e2b805707aa8ad09fff6ed454dc9"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\p000725-modified.glb",
+      "bytes": 641292,
+      "sha256": "cc6edfefbe83e4a1ab0c55d98b80a93d588ef46debf4ec774d6881fc1660abc4"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\build-report.json",
+      "bytes": 2485,
+      "sha256": "76fa39ccefcb67dce44a4b78a12ce2b051c84a2169422adfc55c3e1307b9c265"
+    },
+    {
+      "path": "C:\\Projects\\CAD\\jgun-input-shaft-hobbed\\shifted\\shaft_world_matrix.json",
+      "bytes": 282,
+      "sha256": "c89849870eb656b6930276bfb0611ee09f7133088f0e5630acc932c2ea813195"
+    }
+  ],
+  "source_census": {
+    "legacy_shaft": {
+      "name": "SHAFT_P001835_ORIG",
+      "vertices": 11347,
+      "triangles": 12754,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.008864600211381912,
+          -1.1161318980157375e-07,
+          -0.008864577859640121
+        ],
+        [
+          0.00886461976915598,
+          0.07152394950389862,
+          0.00886461976915598
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "shaft": {
+      "name": "SHAFT_P001835_HOBBED_NEW",
+      "vertices": 286460,
+      "triangles": 139880,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.008864600211381912,
+          -1.1161318980157375e-07,
+          -0.008864577859640121
+        ],
+        [
+          0.008864600211381912,
+          0.07152394950389862,
+          0.008864238858222961
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "legacy_housing": {
+      "name": "HOUSING_P000725_ORIG",
+      "vertices": 20158,
+      "triangles": 19776,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.021667715162038803,
+          -0.009073697030544281,
+          -0.0216677226126194
+        ],
+        [
+          0.021667715162038803,
+          0.034182723611593246,
+          0.0216677226126194
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "housing": {
+      "name": "housing_NEW",
+      "vertices": 20158,
+      "triangles": 19776,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.021667715162038803,
+          -0.009073697030544281,
+          -0.0216677226126194
+        ],
+        [
+          0.021667715162038803,
+          0.034182723611593246,
+          0.0216677226126194
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "legacy_bearing": {
+      "name": "BEARING_K000210_ORIG",
+      "vertices": 1896,
+      "triangles": 1856,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.009521102532744408,
+          0.012903198599815369,
+          -0.00952189601957798
+        ],
+        [
+          0.009521693922579288,
+          0.016865598037838936,
+          0.009521815925836563
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "bearing": {
+      "name": "bearing_NEW",
+      "vertices": 1896,
+      "triangles": 1856,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.009521102532744408,
+          0.015653198584914207,
+          -0.00952189601957798
+        ],
+        [
+          0.009521693922579288,
+          0.019615598022937775,
+          0.009521815925836563
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "legacy_ring": {
+      "name": "RING_K000211_ORIG",
+      "vertices": 424,
+      "triangles": 412,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.007432611659169197,
+          0.011849098838865757,
+          -0.007439469452947378
+        ],
+        [
+          0.007436415646225214,
+          0.01278915349394083,
+          0.007441826164722443
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "ring": {
+      "name": "ring_NEW",
+      "vertices": 424,
+      "triangles": 412,
+      "materials": 1,
+      "bounds_shaft_local_m": [
+        [
+          -0.007432611659169197,
+          0.014599098823964596,
+          -0.007439469452947378
+        ],
+        [
+          0.007436415646225214,
+          0.015539153479039669,
+          0.007441826164722443
+        ]
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "shaft_world_matrix_blender_m": [
+    [
+      0.9868485331535339,
+      -2.7993343057879116e-16,
+      0.16164754331111908,
+      -1.0300505091345898e-15
+    ],
+    [
+      3.516315667205359e-16,
+      1.0,
+      -4.149377504071382e-16,
+      0.06920108199119568
+    ],
+    [
+      -0.16164754331111908,
+      4.663211247979686e-16,
+      0.9868485331535339,
+      -1.2639655926011204e-16
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "frame": "shaft-local Blender metres; +Y shaft axis. No GLB reimport, no exporter rotation, no displacement added.",
+  "support_deltas": {
+    "bearing": {
+      "vertex_delta_mean_mm": [
+        0.0,
+        2.7500001010229567,
+        0.0
+      ],
+      "vertex_delta_max_residual_mm": [
+        0.0,
+        9.164214135812254e-07,
+        0.0
+      ],
+      "extra_shift_applied": false
+    },
+    "ring": {
+      "vertex_delta_mean_mm": [
+        0.0,
+        2.749999985098839,
+        0.0
+      ],
+      "vertex_delta_max_residual_mm": [
+        0.0,
+        1.4901161034253096e-08,
+        0.0
+      ],
+      "extra_shift_applied": false
+    }
+  },
+  "source_report": {
+    "func_len_mm": 6.35,
+    "journal_shift_mm": 2.75,
+    "journal_vertices_moved": 575,
+    "materials": 1,
+    "y_face_mm": 3.1748584005981684,
+    "y_functional_end_mm": 9.524858400598168,
+    "source": {
+      "verts": 6338,
+      "faces": 12672,
+      "non_manifold_edges": 0,
+      "volume_mm3": 8028.231668146595
+    },
+    "tip_r_mm": 6.083313213336245,
+    "root_r_mm": 4.297858357677263,
+    "gap_outline_pts": 118,
+    "gap_half_angle_deg_at_tip": 13.624787373094597,
+    "R_hob_mm": 6.0,
+    "gap_depth_to_neck_mm": 1.7761416423227376,
+    "leadout_run_mm": 4.539089731310266,
+    "leadout_end_y_mm": 14.063948131908436,
+    "after_fill": {
+      "verts": 7198,
+      "faces": 11629,
+      "non_manifold_edges": 0,
+      "volume_mm3": 8212.167979323456
+    },
+    "cutter_stats": {
+      "verts": 7440,
+      "faces": 14876,
+      "non_manifold_edges": 0,
+      "volume_mm3": 22.75153305149513
+    },
+    "hobbed": {
+      "verts": 69973,
+      "faces": 125906,
+      "non_manifold_edges": 1,
+      "volume_mm3": 8109.72753899742
+    },
+    "gap_floor_checks": [
+      {
+        "y_mm": 6.0,
+        "gap_floor_r_mm": 4.298351636102239,
+        "expected_mm": 4.297858357677263,
+        "rmax_mm": 6.083507504679027
+      },
+      {
+        "y_mm": 9.2,
+        "gap_floor_r_mm": 4.296539989383715,
+        "expected_mm": 4.297858357677263,
+        "rmax_mm": 6.083421520980585
+      },
+      {
+        "y_mm": 9.6,
+        "gap_floor_r_mm": 4.296863291290442,
+        "expected_mm": 4.298328897791317,
+        "rmax_mm": 6.074000486547925
+      },
+      {
+        "y_mm": 10.0,
+        "gap_floor_r_mm": 4.3155337701551995,
+        "expected_mm": 4.316701240486822,
+        "rmax_mm": 6.074000486547925
+      },
+      {
+        "y_mm": 11.0,
+        "gap_floor_r_mm": 4.480580413817803,
+        "expected_mm": 4.4820215940022194,
+        "rmax_mm": 6.074000486547925
+      },
+      {
+        "y_mm": 12.0,
+        "gap_floor_r_mm": 4.830830239817528,
+        "expected_mm": 4.832176875655964,
+        "rmax_mm": 6.074000486547925
+      },
+      {
+        "y_mm": 13.5,
+        "gap_floor_r_mm": 5.801876979402525,
+        "expected_mm": 5.8036121177939775,
+        "rmax_mm": 6.074000486547925
+      },
+      {
+        "y_mm": 15.0,
+        "gap_floor_r_mm": 6.045199941356806,
+        "expected_mm": 6.074000000000001,
+        "rmax_mm": 6.045544089693081
+      },
+      {
+        "y_mm": 16.0,
+        "gap_floor_r_mm": 6.3205959534517895,
+        "expected_mm": 6.074000000000001,
+        "rmax_mm": 6.324956651245067
+      }
+    ],
+    "hobbed_y6_pts": 1216
+  },
+  "tool_candidates": {
+    "shaper": {
+      "status": "illustrative, compatibility unresolved",
+      "tooth_count": 20,
+      "normal_module_mm": 1,
+      "pitch_diameter_mm": 20,
+      "tip_diameter_mm": 22,
+      "root_diameter_mm": 17.5,
+      "axial_body_thickness_mm": 1.2,
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "origin_m": [
+        0.0,
+        0.010324858129024506,
+        0.014999999664723873
+      ],
+      "mesh": {
+        "name": "ILLUSTRATIVE_SHAPER_20T",
+        "vertices": 320,
+        "triangles": 636,
+        "materials": 0,
+        "bounds_shaft_local_m": [
+          [
+            -0.010966090485453606,
+            0.009724858216941357,
+            0.0040339091792702675
+          ],
+          [
+            0.010966090485453606,
+            0.010924858041107655,
+            0.025966089218854904
+          ]
+        ],
+        "matrix_world": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.010324858129024506
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.014999999664723873
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "cutting_direction": "+Y toward legacy relief",
+      "return_direction": "-Y after +0.8mm radial relief",
+      "stroke_leading_edge_y_range_mm": [
+        2.6748584,
+        10.9248584
+      ],
+      "signed_ratio_work_per_cutter": -2,
+      "work_pitch_radius_mm_illustrative": 5,
+      "production_pressure_angle_profile_shift_relief_rake": "unresolved"
+    },
+    "hob": {
+      "status": "illustrative, compatibility unresolved",
+      "starts": 1,
+      "hand": "right",
+      "gashes": 10,
+      "normal_module_mm": 1,
+      "pitch_diameter_mm": 7,
+      "tip_diameter_mm": 8,
+      "body_axial_length_mm": 16,
+      "lead_mm": 3.174148887409881,
+      "setting_angle_deg": 8.213210701738188,
+      "axis": [
+        0.9897432923316956,
+        0.1428571492433548,
+        0.0
+      ],
+      "origin_m": [
+        0.0,
+        0.00634999992325902,
+        0.008299999870359898
+      ],
+      "mesh": {
+        "name": "ILLUSTRATIVE_RH_HOB_1START",
+        "vertices": 20640,
+        "triangles": 41276,
+        "materials": 0,
+        "bounds_shaft_local_m": [
+          [
+            -0.008484145626425743,
+            0.0014952458441257477,
+            0.004308336414396763
+          ],
+          [
+            0.008346187882125378,
+            0.011415593326091766,
+            0.012291663326323032
+          ]
+        ],
+        "matrix_world": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.00634999992325902
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.008299999870359898
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "signed_ratio_work_per_hob": -0.1,
+      "axial_feed_direction": "+Y",
+      "withdrawal_direction": "+Z",
+      "production_pressure_angle_rake_profile_toolholder": "unresolved"
+    }
+  },
+  "clearance": {
+    "status": "UNRESOLVED: blocks machining choreography acceptance",
+    "complete_represented_swept_minimum_separation_mm": null,
+    "combined_measurement_export_uncertainty_mm": null,
+    "reason": "No validated cutter profile/engagement/path or continuous sweep/neighbour test; source report construction sweep is not a physical rotary hob.",
+    "cropping_is_clearance_evidence": false
+  },
+  "candidate_sweep_bounds": {
+    "status": "conservative analytic outer hull of the complete represented props; not a separation test",
+    "shaper": {
+      "centre_z_range_mm": [
+        15,
+        18
+      ],
+      "centre_y_range_mm": [
+        2.0748584,
+        10.3248584
+      ],
+      "full_rotation_hull_bounds_mm": [
+        [
+          -11,
+          1.4748584,
+          4
+        ],
+        [
+          11,
+          10.9248584,
+          29
+        ]
+      ],
+      "represented_components": "pinion body only; holder/spindle unresolved"
+    },
+    "hob": {
+      "centre_y_range_mm": [
+        3.1748584,
+        9.5248584
+      ],
+      "centre_z_range_mm": [
+        8.3,
+        20
+      ],
+      "radial_extent_mm": 4,
+      "half_body_length_mm": 8,
+      "full_rotation_hull_bounds_mm": [
+        [
+          -8.489374935626984,
+          -1.9269719632736204,
+          4.3
+        ],
+        [
+          8.489374935626984,
+          14.62668876327362,
+          24
+        ]
+      ],
+      "represented_components": "fluted threaded body only; arbor/holder unresolved",
+      "feed_end_datum": "illustrative tool-centre position; NOT source arc endpoint or approved production feed"
+    }
+  },
+  "budgets": {
+    "shaft_bundle_target_bytes": 2097152,
+    "shaft_full_target_triangles": 50000,
+    "shaft_lite_target_triangles": 15000,
+    "added_runtime_calls_target": 25,
+    "runtime_draw_calls": null,
+    "gpu_frame_timing": null,
+    "compressed_bundle_bytes": null,
+    "status": "source census only; no runtime bundle or performance claim"
+  },
+  "renders": [
+    {
+      "layout": "desktop",
+      "shot": "shaft-overview",
+      "camera": {
+        "position_shaft_local_m": [
+          0.18131861090660095,
+          0.057589635252952576,
+          0.08159340173006058
+        ],
+        "target_shaft_local_m": [
+          1.6611291357548907e-05,
+          0.03583339601755142,
+          7.512867796322098e-06
+        ],
+        "quaternion_wxyz": [
+          0.571998655796051,
+          0.35102373361587524,
+          0.415713369846344,
+          0.6138259768486023
+        ],
+        "matrix_world": [
+          [
+            -0.09919989109039307,
+            -0.41036471724510193,
+            0.9065098762512207,
+            0.18131861090660095
+          ],
+          [
+            0.9940657019615173,
+            4.235035433453049e-09,
+            0.10878117382526398,
+            0.057589635252952576
+          ],
+          [
+            -0.044639959931373596,
+            0.911921501159668,
+            0.4079294800758362,
+            0.08159340173006058
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.08958943653851748,
+        "vertical_span_m": 0.05355890227846154,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-shaft-overview-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG": {
+          "bounds_css_px": [
+            [
+              162.00010418891907,
+              333.97005796432495
+            ],
+            [
+              897.9999232292175,
+              516.0295650362968
+            ]
+          ],
+          "camera_depth_m": [
+            0.19165603816509247,
+            0.21045373380184174
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            196.6393280029297,
+            425.0001475214958
+          ],
+          [
+            894.3545722961426,
+            425.0001475214958
+          ]
+        ],
+        "camera_depth_m": [
+          0.19613566994667053,
+          0.20357075333595276
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": false,
+      "visible_mesh_count": 1,
+      "visible_triangles": 12754
+    },
+    {
+      "layout": "desktop",
+      "shot": "cutter-exit",
+      "camera": {
+        "position_shaft_local_m": [
+          0.18558265268802643,
+          0.018779132515192032,
+          0.07998306304216385
+        ],
+        "target_shaft_local_m": [
+          8.709075336810201e-05,
+          0.009504354558885098,
+          0.005784836132079363
+        ],
+        "quaternion_wxyz": [
+          0.576180100440979,
+          0.38273748755455017,
+          0.40989819169044495,
+          0.5945687890052795
+        ],
+        "matrix_world": [
+          [
+            -0.04305708780884743,
+            -0.37139058113098145,
+            0.9274777770042419,
+            0.18558265268802643
+          ],
+          [
+            0.9989241361618042,
+            -2.9922567534867994e-08,
+            0.0463738851249218,
+            0.018779132515192032
+          ],
+          [
+            -0.017222799360752106,
+            0.9284767508506775,
+            0.3709910213947296,
+            0.07998306304216385
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.01842998017867406,
+        "vertical_span_m": 0.011017922932902971,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-cutter-exit-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG": {
+          "bounds_css_px": [
+            [
+              56.61137517541647,
+              248.98889064788818
+            ],
+            [
+              3635.3103733062744,
+              1134.031319618225
+            ]
+          ],
+          "camera_depth_m": [
+            0.19235463440418243,
+            0.2105410397052765
+          ]
+        },
+        "ILLUSTRATIVE_SHAPER_20T": {
+          "bounds_css_px": [
+            [
+              507.7976703643799,
+              -552.785325050354
+            ],
+            [
+              618.5601425170898,
+              545.3437745571136
+            ]
+          ],
+          "camera_depth_m": [
+            0.18560880422592163,
+            0.2076391577720642
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            219.54757869243622,
+            691.5040224324912
+          ],
+          [
+            3627.767972946167,
+            691.5041151456535
+          ]
+        ],
+        "camera_depth_m": [
+          0.19935080409049988,
+          0.20252041518688202
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            466.9309377670288,
+            329.9871414899826
+          ],
+          [
+            635.8699250221252,
+            543.189387023449
+          ]
+        ],
+        "camera_depth_m": [
+          0.19807085394859314,
+          0.20226304233074188
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 2,
+      "visible_triangles": 13390
+    },
+    {
+      "layout": "desktop",
+      "shot": "hobbing",
+      "camera": {
+        "position_shaft_local_m": [
+          0.16651231050491333,
+          0.030981477349996567,
+          0.11123299598693848
+        ],
+        "target_shaft_local_m": [
+          -0.00033405242720618844,
+          0.010959913954138756,
+          0.0027828658930957317
+        ],
+        "quaternion_wxyz": [
+          0.6038037538528442,
+          0.30570188164711,
+          0.367995947599411,
+          0.6376098990440369
+        ],
+        "matrix_world": [
+          [
+            -0.08393478393554688,
+            -0.5449883937835693,
+            0.8342317342758179,
+            0.16651231050491333
+          ],
+          [
+            0.9949765205383301,
+            -3.5022367228521034e-08,
+            0.1001078337430954,
+            0.030981477349996567
+          ],
+          [
+            -0.054557573050260544,
+            0.8384435772895813,
+            0.5422506928443909,
+            0.11123299598693848
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.05684749736930385,
+        "vertical_span_m": 0.03398491690556208,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-hobbing-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW": {
+          "bounds_css_px": [
+            [
+              352.29469418525696,
+              322.2695052623749
+            ],
+            [
+              1512.511487007141,
+              609.1446168720722
+            ]
+          ],
+          "camera_depth_m": [
+            0.19033963978290558,
+            0.20904940366744995
+          ]
+        },
+        "ILLUSTRATIVE_RH_HOB_1START": {
+          "bounds_css_px": [
+            [
+              379.93083238601685,
+              235.79138815402985
+            ],
+            [
+              522.4409019947052,
+              469.64169293642044
+            ]
+          ],
+          "camera_depth_m": [
+            0.1888434886932373,
+            0.20553883910179138
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            406.6479694843292,
+            465.7069832086563
+          ],
+          [
+            1507.2276830673218,
+            465.70701599121094
+          ]
+        ],
+        "camera_depth_m": [
+          0.1951674222946167,
+          0.20200969278812408
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            483.3275592327118,
+            326.8952876329422
+          ],
+          [
+            639.9386668205261,
+            604.5187033712864
+          ]
+        ],
+        "camera_depth_m": [
+          0.192111536860466,
+          0.209980770945549
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 2,
+      "visible_triangles": 181156
+    },
+    {
+      "layout": "desktop",
+      "shot": "runout-withdrawn",
+      "camera": {
+        "position_shaft_local_m": [
+          0.1818479299545288,
+          0.027347832918167114,
+          0.08183156698942184
+        ],
+        "target_shaft_local_m": [
+          -5.2940657042199746e-05,
+          0.012795764952898026,
+          -2.3823295123293065e-05
+        ],
+        "quaternion_wxyz": [
+          0.5794232487678528,
+          0.36206746101379395,
+          0.40530073642730713,
+          0.6073773503303528
+        ],
+        "matrix_world": [
+          [
+            -0.06635180860757828,
+            -0.41036468744277954,
+            0.9095043540000916,
+            0.1818479299545288
+          ],
+          [
+            0.9973494410514832,
+            -1.1487803419640841e-07,
+            0.07276038080453873,
+            0.027347832918167114
+          ],
+          [
+            -0.029858188703656197,
+            0.911921501159668,
+            0.40927696228027344,
+            0.08183156698942184
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.03656882752071727,
+        "vertical_span_m": 0.02186179906129837,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-runout-withdrawn-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW": {
+          "bounds_css_px": [
+            [
+              205.17829537391663,
+              201.98654234409332
+            ],
+            [
+              2009.4379043579102,
+              648.0079255998135
+            ]
+          ],
+          "camera_depth_m": [
+            0.18972592055797577,
+            0.20819275081157684
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            288.49588453769684,
+            424.9997705221176
+          ],
+          [
+            2003.4651374816895,
+            425.0
+          ]
+        ],
+        "camera_depth_m": [
+          0.19566896557807922,
+          0.20064206421375275
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            414.62793588638306,
+            218.74980330467224
+          ],
+          [
+            645.3723931312561,
+            631.2498115003109
+          ]
+        ],
+        "camera_depth_m": [
+          0.19147425889968872,
+          0.20840923488140106
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 1,
+      "visible_triangles": 139880
+    },
+    {
+      "layout": "desktop",
+      "shot": "support-before",
+      "camera": {
+        "position_shaft_local_m": [
+          0.20000000298023224,
+          0.017500000074505806,
+          0.0
+        ],
+        "target_shaft_local_m": [
+          0.0,
+          0.017500000074505806,
+          0.0
+        ],
+        "quaternion_wxyz": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "matrix_world": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            0.20000000298023224
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.017500000074505806
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.08921211921807493,
+        "vertical_span_m": 0.05333333214124044,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-support-before-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              349.53017830848694,
+              333.58368277549744
+            ],
+            [
+              1087.1220588684082,
+              516.4160549640656
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.20886459946632385
+          ]
+        },
+        "HOUSING_P000725_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              255.95883667469025,
+              201.79925560951233
+            ],
+            [
+              702.0406913757324,
+              648.4484944492579
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.22166772186756134
+          ]
+        },
+        "BEARING_K000210_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              482.59557723999023,
+              326.87987983226776
+            ],
+            [
+              523.457840681076,
+              523.1946513056755
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2095210999250412
+          ]
+        },
+        "RING_K000211_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              471.72516345977783,
+              348.2789546251297
+            ],
+            [
+              481.41950368881226,
+              501.71961933374405
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2074326127767563
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            382.27352023124695,
+            425.0000983476639
+          ],
+          [
+            1087.1226072311401,
+            425.0000983476639
+          ]
+        ],
+        "camera_depth_m": [
+          0.20000000298023224,
+          0.20000000298023224
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 4,
+      "visible_triangles": 18048
+    },
+    {
+      "layout": "desktop",
+      "shot": "support-after",
+      "camera": {
+        "position_shaft_local_m": [
+          0.20000000298023224,
+          0.017500000074505806,
+          0.0
+        ],
+        "target_shaft_local_m": [
+          0.0,
+          0.017500000074505806,
+          0.0
+        ],
+        "quaternion_wxyz": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "matrix_world": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            0.20000000298023224
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.017500000074505806
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.08921211921807493,
+        "vertical_span_m": 0.05333333214124044,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "desktop-support-after-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          1440,
+          900
+        ],
+        "action_rect": [
+          70,
+          150,
+          920,
+          550
+        ],
+        "card_rect": [
+          1050,
+          200,
+          330,
+          440
+        ],
+        "controls_rect": [
+          70,
+          772,
+          1310,
+          64
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              349.53017830848694,
+              333.5876166820526
+            ],
+            [
+              1087.1220588684082,
+              516.4160549640656
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.20886459946632385
+          ]
+        },
+        "housing_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              255.95883667469025,
+              201.79925560951233
+            ],
+            [
+              702.0406913757324,
+              648.4484944492579
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.22166772186756134
+          ]
+        },
+        "bearing_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              510.95495104789734,
+              326.87987983226776
+            ],
+            [
+              551.8172144889832,
+              523.1946513056755
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2095210999250412
+          ]
+        },
+        "ring_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              500.08456468582153,
+              348.2789546251297
+            ],
+            [
+              509.77887749671936,
+              501.71961933374405
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2074326127767563
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            382.27352023124695,
+            425.0000983476639
+          ],
+          [
+            1087.1226072311401,
+            425.0000983476639
+          ]
+        ],
+        "camera_depth_m": [
+          0.20000000298023224,
+          0.20000000298023224
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 4,
+      "visible_triangles": 81552
+    },
+    {
+      "layout": "mobile",
+      "shot": "shaft-overview",
+      "camera": {
+        "position_shaft_local_m": [
+          0.18131861090660095,
+          0.057589635252952576,
+          0.08159340173006058
+        ],
+        "target_shaft_local_m": [
+          1.6611291357548907e-05,
+          0.03583339601755142,
+          7.512867796322098e-06
+        ],
+        "quaternion_wxyz": [
+          0.571998655796051,
+          0.35102373361587524,
+          0.415713369846344,
+          0.6138259768486023
+        ],
+        "matrix_world": [
+          [
+            -0.09919989109039307,
+            -0.41036471724510193,
+            0.9065098762512207,
+            0.18131861090660095
+          ],
+          [
+            0.9940657019615173,
+            4.235035433453049e-09,
+            0.10878117382526398,
+            0.057589635252952576
+          ],
+          [
+            -0.044639959931373596,
+            0.911921501159668,
+            0.4079294800758362,
+            0.08159340173006058
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.08958943653851748,
+        "vertical_span_m": 0.09481090676622247,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-shaft-overview-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG": {
+          "bounds_css_px": [
+            [
+              64.60003691911697,
+              295.2437275648117
+            ],
+            [
+              325.3999727964401,
+              359.75612848997116
+            ]
+          ],
+          "camera_depth_m": [
+            0.19165603816509247,
+            0.21045373380184174
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            76.87437057495117,
+            327.5000514090061
+          ],
+          [
+            324.10825061798096,
+            327.5000514090061
+          ]
+        ],
+        "camera_depth_m": [
+          0.19613566994667053,
+          0.20357075333595276
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": false,
+      "visible_mesh_count": 1,
+      "visible_triangles": 12754
+    },
+    {
+      "layout": "mobile",
+      "shot": "cutter-exit",
+      "camera": {
+        "position_shaft_local_m": [
+          0.18558265268802643,
+          0.018779132515192032,
+          0.07998306304216385
+        ],
+        "target_shaft_local_m": [
+          8.709075336810201e-05,
+          0.009504354558885098,
+          0.005784836132079363
+        ],
+        "quaternion_wxyz": [
+          0.576180100440979,
+          0.38273748755455017,
+          0.40989819169044495,
+          0.5945687890052795
+        ],
+        "matrix_world": [
+          [
+            -0.04305708780884743,
+            -0.37139058113098145,
+            0.9274777770042419,
+            0.18558265268802643
+          ],
+          [
+            0.9989241361618042,
+            -2.9922567534867994e-08,
+            0.0463738851249218,
+            0.018779132515192032
+          ],
+          [
+            -0.017222799360752106,
+            0.9284767508506775,
+            0.3709910213947296,
+            0.07998306304216385
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.010411138771380779,
+        "vertical_span_m": 0.011017922932902971,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-cutter-exit-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG": {
+          "bounds_css_px": [
+            [
+              -101.94377082586288,
+              217.0930314064026
+            ],
+            [
+              2142.8765506744385,
+              772.2559684514999
+            ]
+          ],
+          "camera_depth_m": [
+            0.19235463440418243,
+            0.2105410397052765
+          ]
+        },
+        "ILLUSTRATIVE_SHAPER_20T": {
+          "bounds_css_px": [
+            [
+              181.07308894395828,
+              -285.8379852771759
+            ],
+            [
+              250.5513597726822,
+              402.9883573949337
+            ]
+          ],
+          "camera_depth_m": [
+            0.18560880422592163,
+            0.2076391577720642
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            0.2616674154996872,
+            494.67069084290415
+          ],
+          [
+            2138.1453075408936,
+            494.6707489993423
+          ]
+        ],
+        "camera_depth_m": [
+          0.19935080409049988,
+          0.20252041518688202
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            155.4384943842888,
+            267.90102511644363
+          ],
+          [
+            261.4093109369278,
+            401.6369791328907
+          ]
+        ],
+        "camera_depth_m": [
+          0.19807085394859314,
+          0.20226304233074188
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 2,
+      "visible_triangles": 13390
+    },
+    {
+      "layout": "mobile",
+      "shot": "hobbing",
+      "camera": {
+        "position_shaft_local_m": [
+          0.16651231050491333,
+          0.030981477349996567,
+          0.11123299598693848
+        ],
+        "target_shaft_local_m": [
+          -0.00033405242720618844,
+          0.010959913954138756,
+          0.0027828658930957317
+        ],
+        "quaternion_wxyz": [
+          0.6038037538528442,
+          0.30570188164711,
+          0.367995947599411,
+          0.6376098990440369
+        ],
+        "matrix_world": [
+          [
+            -0.08393478393554688,
+            -0.5449883937835693,
+            0.8342317342758179,
+            0.16651231050491333
+          ],
+          [
+            0.9949765205383301,
+            -3.5022367228521034e-08,
+            0.1001078337430954,
+            0.030981477349996567
+          ],
+          [
+            -0.054557573050260544,
+            0.8384435772895813,
+            0.5422506928443909,
+            0.11123299598693848
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.03211328380061808,
+        "vertical_span_m": 0.03398491690556208,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-hobbing-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW": {
+          "bounds_css_px": [
+            [
+              83.53029957413673,
+              263.05996239185333
+            ],
+            [
+              811.3026337623596,
+              443.0088806152344
+            ]
+          ],
+          "camera_depth_m": [
+            0.19033963978290558,
+            0.20904940366744995
+          ]
+        },
+        "ILLUSTRATIVE_RH_HOB_1START": {
+          "bounds_css_px": [
+            [
+              100.8657049536705,
+              208.81459802389145
+            ],
+            [
+              190.2583709359169,
+              355.5025164783001
+            ]
+          ],
+          "camera_depth_m": [
+            0.1888434886932373,
+            0.20553883910179138
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            117.62463289499283,
+            353.03438037633896
+          ],
+          [
+            807.9883074760437,
+            353.0344009399414
+          ]
+        ],
+        "camera_depth_m": [
+          0.1951674222946167,
+          0.20200969278812408
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            165.7236454486847,
+            265.96161007881165
+          ],
+          [
+            263.9615294933319,
+            440.1071712374687
+          ]
+        ],
+        "camera_depth_m": [
+          0.192111536860466,
+          0.209980770945549
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 2,
+      "visible_triangles": 181156
+    },
+    {
+      "layout": "mobile",
+      "shot": "runout-withdrawn",
+      "camera": {
+        "position_shaft_local_m": [
+          0.1818479299545288,
+          0.027347832918167114,
+          0.08183156698942184
+        ],
+        "target_shaft_local_m": [
+          -5.2940657042199746e-05,
+          0.012795764952898026,
+          -2.3823295123293065e-05
+        ],
+        "quaternion_wxyz": [
+          0.5794232487678528,
+          0.36206746101379395,
+          0.40530073642730713,
+          0.6073773503303528
+        ],
+        "matrix_world": [
+          [
+            -0.06635180860757828,
+            -0.41036468744277954,
+            0.9095043540000916,
+            0.1818479299545288
+          ],
+          [
+            0.9973494410514832,
+            -1.1487803419640841e-07,
+            0.07276038080453873,
+            0.027347832918167114
+          ],
+          [
+            -0.029858188703656197,
+            0.911921501159668,
+            0.40927696228027344,
+            0.08183156698942184
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.020657815924589186,
+        "vertical_span_m": 0.02186179906129837,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-runout-withdrawn-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW": {
+          "bounds_css_px": [
+            [
+              -8.7518070936203,
+              187.60974019765854
+            ],
+            [
+              1123.0111269950867,
+              467.38678969442844
+            ]
+          ],
+          "camera_depth_m": [
+            0.18972592055797577,
+            0.20819275081157684
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            43.51104912906885,
+            327.49985605478287
+          ],
+          [
+            1119.2644972801208,
+            327.5
+          ]
+        ],
+        "camera_depth_m": [
+          0.19566896557807922,
+          0.20064206421375275
+        ]
+      },
+      "critical_roi": {
+        "bounds_css_px": [
+          [
+            122.63024336099625,
+            198.12487661838531
+          ],
+          [
+            267.3699606657028,
+            456.8748817592859
+          ]
+        ],
+        "camera_depth_m": [
+          0.19147425889968872,
+          0.20840923488140106
+        ]
+      },
+      "roi_status": "source-report anchor, not contact/visibility proof",
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 1,
+      "visible_triangles": 139880
+    },
+    {
+      "layout": "mobile",
+      "shot": "support-before",
+      "camera": {
+        "position_shaft_local_m": [
+          0.20000000298023224,
+          0.017500000074505806,
+          0.0
+        ],
+        "target_shaft_local_m": [
+          0.0,
+          0.017500000074505806,
+          0.0
+        ],
+        "quaternion_wxyz": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "matrix_world": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            0.20000000298023224
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.017500000074505806
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.050396134139259086,
+        "vertical_span_m": 0.05333333214124044,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-support-before-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              81.79620864987373,
+              270.1570373773575
+            ],
+            [
+              544.4675006866455,
+              384.8427878320217
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.20886459946632385
+          ]
+        },
+        "HOUSING_P000725_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              23.101450208574533,
+              187.49226033687592
+            ],
+            [
+              302.916424870491,
+              467.6631362363696
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.22166772186756134
+          ]
+        },
+        "BEARING_K000210_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              165.26449793577194,
+              265.95192462205887
+            ],
+            [
+              190.8962749838829,
+              389.0948164463043
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2095210999250412
+          ]
+        },
+        "RING_K000211_ORIG_camera_section": {
+          "bounds_css_px": [
+            [
+              158.44578963518143,
+              279.37498062849045
+            ],
+            [
+              164.5267762541771,
+              375.6241248548031
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2074326127767563
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            102.33521211147308,
+            327.50006169080734
+          ],
+          [
+            544.467850446701,
+            327.50006169080734
+          ]
+        ],
+        "camera_depth_m": [
+          0.20000000298023224,
+          0.20000000298023224
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 4,
+      "visible_triangles": 18048
+    },
+    {
+      "layout": "mobile",
+      "shot": "support-after",
+      "camera": {
+        "position_shaft_local_m": [
+          0.20000000298023224,
+          0.017500000074505806,
+          0.0
+        ],
+        "target_shaft_local_m": [
+          0.0,
+          0.017500000074505806,
+          0.0
+        ],
+        "quaternion_wxyz": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "matrix_world": [
+          [
+            -4.371138828673793e-08,
+            4.371138828673793e-08,
+            1.0,
+            0.20000000298023224
+          ],
+          [
+            1.0,
+            1.910685676922942e-15,
+            4.371138828673793e-08,
+            0.017500000074505806
+          ],
+          [
+            0.0,
+            1.0,
+            -4.371138828673793e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "projection": "orthographic",
+        "horizontal_span_m": 0.050396134139259086,
+        "vertical_span_m": 0.05333333214124044,
+        "near_m": 0.001,
+        "far_m": 1
+      },
+      "cad_png": "mobile-support-after-cad.png",
+      "layout_css_px": {
+        "viewport": [
+          390,
+          844
+        ],
+        "action_rect": [
+          32,
+          155,
+          326,
+          345
+        ],
+        "card_rect": [
+          32,
+          548,
+          326,
+          172
+        ],
+        "controls_rect": [
+          32,
+          750,
+          326,
+          62
+        ]
+      },
+      "projected_parts": {
+        "SHAFT_P001835_HOBBED_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              81.79620864987373,
+              270.1595050096512
+            ],
+            [
+              544.4675006866455,
+              384.8427878320217
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.20886459946632385
+          ]
+        },
+        "housing_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              23.101450208574533,
+              187.49226033687592
+            ],
+            [
+              302.916424870491,
+              467.6631362363696
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.22166772186756134
+          ]
+        },
+        "bearing_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              183.05356639623642,
+              265.95192462205887
+            ],
+            [
+              208.68533372879028,
+              389.0948164463043
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2095210999250412
+          ]
+        },
+        "ring_NEW_camera_section": {
+          "bounds_css_px": [
+            [
+              176.2348580956459,
+              279.37498062849045
+            ],
+            [
+              182.31583499908447,
+              375.6241248548031
+            ]
+          ],
+          "camera_depth_m": [
+            0.20000000298023224,
+            0.2074326127767563
+          ]
+        }
+      },
+      "projected_axis": {
+        "bounds_css_px": [
+          [
+            102.33521211147308,
+            327.50006169080734
+          ],
+          [
+            544.467850446701,
+            327.50006169080734
+          ]
+        ],
+        "camera_depth_m": [
+          0.20000000298023224,
+          0.20000000298023224
+        ]
+      },
+      "critical_roi": null,
+      "roi_status": null,
+      "macro_crops_noncritical_geometry": true,
+      "visible_mesh_count": 4,
+      "visible_triangles": 81552
+    }
+  ],
+  "geometry_worker_files_at_capture": [
+    "geometry\\early-datum.json",
+    "geometry\\measurement-summary.json",
+    "geometry\\source-registry.json"
+  ]
+}
