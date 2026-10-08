@@ -84,7 +84,8 @@ describe('toolSpec mirrors the certified clearance-v4 report', () => {
 
 describe('derived cutter outline', () => {
   it('records the actual source hash and bounded envelope sampling parameters', () => {
-    const raw = readFileSync(resolve(process.cwd(), outline.source.profile_study))
+    // Hash LF-normalised bytes so Windows (CRLF) and Linux checkouts agree with the recorded digest.
+    const raw = Buffer.from(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8').replace(/\r\n/g, '\n'))
     expect(outline.source.sha256).toBe(createHash('sha256').update(raw).digest('hex'))
     expect(outline.parameters).toMatchObject({
       cutter_teeth: 20, work_teeth: 10, centre_distance_mm: 15.5,

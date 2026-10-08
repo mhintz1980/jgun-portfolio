@@ -3,7 +3,7 @@
  "method": "conjugate envelope: roll one cutter pitch, fold the cutter polar angle into one tooth, keep the minimum work-material radius per 0.05 deg bin, subtract 0.005 mm radial stock, clamp to the certified envelope",
  "source": {
   "profile_study": "project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json",
-  "sha256": "4fe9092c39d20cdd2e32bd96ba99d71404d14c42788922653ac9ec6c3669a12a",
+  "sha256": "c8b8b9b38fe3d431628636f04ecd9841f9c8c8cbc61cb54f3cff9ec8ad4f00f0",
   "angular_step_deg": 0.05,
   "work_profile": "profiles.legacy[\"6.0\"]"
  },
