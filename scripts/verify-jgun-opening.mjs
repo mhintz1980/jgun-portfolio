@@ -1,6 +1,16 @@
 /** Browser-only stages 1–3 evidence. No app mutations. Run again with --label=integration.
  * node scripts/verify-jgun-opening.mjs [--label=baseline] [--case=desktop] [--out=absolute-path]
+ *   [--url=http://localhost:5199] [--quick]
  * Each run gets its own directory; failures still preserve JSON and screenshots.
+ *
+ * JG-035 owner revisions (2026-10-07) are asserted against LITERAL oracles written below (never read back from
+ * the app's own samplers for the expectation): the C1 close-reading scroll remap (OPENING_CLOSE_READ_ANCHORS),
+ * the electrical burst/hold score (outline / crack growth / pre-trace spark) and the handwritten-annotation ink
+ * groups. The source modules are bundled ONLY for a drift guard (`staticContract`): the literals must equal the
+ * source constants, and the source samplers must agree with the literal oracle on a dense grid.
+ * The sticky-note / floating-chip plate is gone: AuthorshipNotes renders a visually hidden transcript
+ * (full-motion) and AuthorshipInline plain text (reduced/poster); this verifier asserts exactly that DOM.
+ * (This verifier carried no sticky-note or chip expectations before the revision, so none needed removal.)
  */
 import { chromium } from 'playwright'
 import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
@@ -8,6 +18,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execFileSync } from 'node:child_process'
+import { build } from 'esbuild'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const arg = (key, fallback) => process.argv.find(x => x.startsWith(`--${key}=`))?.split('=').slice(1).join('=') ?? fallback
@@ -66,7 +77,83 @@ const HERO_TRANSIT = {
 // release. The two gate sides therefore straddle .12 by construction, and each checkpoint
 // records the measured progress error as evidence.
 const releaseGatePoints = [0.1199, 0.1201, 0.13]
+// ---- JG-035 owner-revision oracles (literals; see the header) --------------------------------------------------
+const smooth01Lit = (x) => { const c = Math.min(1, Math.max(0, x)); return c * c * (3 - 2 * c) }
+// O3 close-reading remap: [intro t, raw document fraction]. Identity (raw = t * .5) past t .66, slope .5 pinned at both
+// ends. Extra scroll before the establishing (.29) and settle (.38) shots, taken out of the lamp-failure / dark travel.
+const CLOSE_READ_ANCHORS = [[0, 0], [0.05, 0.025], [0.29, 0.18], [0.38, 0.23], [0.45, 0.265], [0.58, 0.31], [0.66, 0.33]]
+const CLOSE_READ_RAW_EPSILON = 0.001
+// O1 electrical outline: owner rhythm in a 100 s linear calibration sweep (elapsed = 100 * (t * .5 - .3825)).
+const ELECTRICAL = { sweepSeconds: 100, startRaw: 0.3825, startT: 0.765, burstSeconds: 1.25, sparkStartT: 0.66, branchStartCompletion: 0.85 }
+const BURST_KEYS_LIT = [
+  { t0: 0, t1: 0.2, from: 0, to: 0.1 }, // 10% in .20 s
+  { t0: 0.4, t1: 0.55, from: 0.1, to: 0.25 }, // after a .20 s hold
+  { t0: 0.7, t1: 0.85, from: 0.25, to: 0.45 }, // after .15 s
+  { t0: 0.93, t1: 1.05, from: 0.45, to: 0.7 }, // after .08 s
+  { t0: 1.09, t1: 1.16, from: 0.7, to: 0.85 }, // after .04 s
+  { t0: 1.18, t1: 1.25, from: 0.85, to: 1 }, // after .02 s, completion
+]
+const burstOracle = (elapsed) => {
+  if (elapsed <= 0) return 0
+  let value = 0
+  for (const key of BURST_KEYS_LIT) {
+    if (elapsed >= key.t1) { value = key.to; continue }
+    if (elapsed > key.t0) return key.from + (key.to - key.from) * smooth01Lit((elapsed - key.t0) / (key.t1 - key.t0))
+    return value
+  }
+  return value
+}
+const electricalTimeLit = (seconds) => 2 * (seconds / ELECTRICAL.sweepSeconds + ELECTRICAL.startRaw)
+const BRANCH_START_SECONDS_LIT = BURST_KEYS_LIT.find((key) => key.to >= ELECTRICAL.branchStartCompletion).t1
+const BRANCH_START_T_LIT = electricalTimeLit(BRANCH_START_SECONDS_LIT)
+const expectedElectrical = (phase) => {
+  const t = Math.min(1, Math.max(0, phase))
+  const raw = ELECTRICAL.sweepSeconds * (t * 0.5 - ELECTRICAL.startRaw)
+  return {
+    outline: burstOracle(raw),
+    branch: burstOracle(raw - BRANCH_START_SECONDS_LIT),
+    spark: t < ELECTRICAL.startT ? smooth01Lit((t - ELECTRICAL.sparkStartT) / (ELECTRICAL.startT - ELECTRICAL.sparkStartT)) : 0,
+  }
+}
+// Pinned electrical samples: burst ends, holds (exactly constant outline), branch onset and completion. `plateau`
+// values are the owner's literal percentages, asserted exactly where the pen must be at rest.
+const electricalSamples = [
+  { role: 'spark-mid', t: 0.7125, plateau: { spark: 0.5 } },
+  { role: 'spark-last-frame', t: 0.76499 },
+  { role: 'first-burst-start', t: electricalTimeLit(0), plateau: { outline: 0, spark: 0 } },
+  { role: 'burst-1-end', t: electricalTimeLit(0.2), plateau: { outline: 0.1 } },
+  { role: 'hold-1', t: electricalTimeLit(0.3), plateau: { outline: 0.1 } },
+  { role: 'burst-2-end', t: electricalTimeLit(0.55), plateau: { outline: 0.25 } },
+  { role: 'hold-2', t: electricalTimeLit(0.625), plateau: { outline: 0.25 } },
+  { role: 'burst-3-end', t: electricalTimeLit(0.85), plateau: { outline: 0.45 } },
+  { role: 'hold-3', t: electricalTimeLit(0.89), plateau: { outline: 0.45 } },
+  { role: 'burst-4-end', t: electricalTimeLit(1.05), plateau: { outline: 0.7 } },
+  { role: 'hold-4', t: electricalTimeLit(1.07), plateau: { outline: 0.7 } },
+  { role: 'burst-5-end / branch onset', t: electricalTimeLit(1.16), plateau: { outline: 0.85, branch: 0 } },
+  { role: 'hold-5', t: electricalTimeLit(1.17), plateau: { outline: 0.85 } },
+  { role: 'outline-complete', t: electricalTimeLit(1.25), plateau: { outline: 1 } },
+  { role: 'branch-burst-1-end', t: electricalTimeLit(BRANCH_START_SECONDS_LIT + 0.2), plateau: { outline: 1, branch: 0.1 } },
+  { role: 'branch-hold-2', t: electricalTimeLit(BRANCH_START_SECONDS_LIT + 0.625), plateau: { outline: 1, branch: 0.25 } },
+  { role: 'branch-complete', t: electricalTimeLit(BRANCH_START_SECONDS_LIT + 1.25), plateau: { outline: 1, branch: 1 } },
+  // Distinguishes the new crack-web onset (BRANCH_START_T, ~.7882, 0.012 ramp) from the pre-revision .75/.07 ramp.
+  { role: 'crack-web-ramp', t: 0.794 },
+].map((sample) => ({ ...sample, progress: sample.t * 0.12 }))
+// Handwritten-annotation ink groups (O2/O4): reveal windows [start, end] in intro t, linear. titleBlock first, then the
+// input-shaft note beside Detail B, then the output-spindle note + Detail E; all finish before the establishing shot (.29).
+const REVEAL_WINDOWS = { 1: [0.015, 0.095], 16: [0.12, 0.17], 17: [0.19, 0.235], 18: [0.2, 0.27] }
+const REVEAL_GROUP_COUNT = 19
+const expectedReveal = (group, phase) => { const [a, b] = REVEAL_WINDOWS[group]; return Math.min(1, Math.max(0, (phase - a) / (b - a))) }
+const annotationProbeTimes = [0.05, 0.15, 0.21, 0.29]
+const closeReadByProgress = new Map(CLOSE_READ_ANCHORS.map(([t, raw]) => [t * 0.12, { t, raw, kind: 'anchor' }]))
+const OWNER_COPY = {
+  role: 'Digital Systems Architect', name: 'Mark Hintz',
+  input: 'Failure point. Alternate materials?? 4140, 4340 and C300 are each crossed off in red. Then: change manufacturing method... ROTARY HOBB IN LATHE! (circled)',
+  output: 'Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.',
+  inlineParts: ['Failure point. Alternate materials??', 'change manufacturing method... ROTARY HOBB IN LATHE!', 'Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.'],
+}
 const phaseSamples = [
+  { t: 0.05, keys: ['focusEnd'] },
+  { t: 0.29, keys: ['establishingShot'] },
   { t: 0.38, keys: ['onboardEnd'] },
   { t: 0.45, keys: ['flickerStart'] },
   { t: 0.58, keys: ['blackoutStart'] },
@@ -104,6 +191,11 @@ for (const sample of lampFailureKeys) {
   if (existing) existing.lamp = sample
   else pinnedSampleByProgress.set(sample.progress, { phase: null, lamp: sample })
 }
+for (const sample of electricalSamples) {
+  const existing = pinnedSampleByProgress.get(sample.progress)
+  if (existing) existing.electrical = sample
+  else pinnedSampleByProgress.set(sample.progress, { phase: null, lamp: null, electrical: sample })
+}
 const pinnedSamples = [...pinnedSampleByProgress.entries()]
   .map(([progress, samples]) => ({ progress, ...samples }))
   .sort((a, b) => a.progress - b.progress)
@@ -126,8 +218,76 @@ const quickCore = [0, ...releaseGatePoints, introProgress(0.67), introProgress(0
 // handoff), so the window is sampled on both sides of its midpoint.
 const sheetRetirementPoints = [0.18, 0.2, 0.22]
 quickCore.push(...sheetRetirementPoints)
+// Close-reading anchors (.05 .29 plus the existing .38/.45/.58/.66), annotation reveal probes and the spark/trace mid-points.
+quickCore.push(...CLOSE_READ_ANCHORS.map(([t]) => t * 0.12), ...annotationProbeTimes.map((t) => t * 0.12), introProgress(0.7125), introProgress(0.765))
 const fullOnlyCore = [0.018, 0.04, introProgress(0.725)]
 const points = [...new Set([...(quick ? quickCore : [...quickCore, ...fullOnlyCore]), ...phaseProgresses, ...lampProgresses])].sort((a, b) => a - b)
+// ---- Static contract: literal oracles vs the source constants/samplers (drift guard) ----------------------------
+const staticContract = { checks: 0, failures: [], limitations: [] }
+const sc = (condition, message) => { staticContract.checks++; if (!condition) staticContract.failures.push(message) }
+const sourceModule = async (rel) => {
+  const bundled = await build({ entryPoints: [path.join(root, rel)], bundle: true, platform: 'node', format: 'esm', write: false, logLevel: 'silent' })
+  return import(`data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`)
+}
+try {
+  const intro = await sourceModule('src/scene/drawing/introTimeline.ts')
+  const electrical = await sourceModule('src/scene/drawing/electricalScore.ts')
+  // C1 close-reading remap.
+  sc(JSON.stringify(intro.OPENING_CLOSE_READ_ANCHORS) === JSON.stringify(CLOSE_READ_ANCHORS), `OPENING_CLOSE_READ_ANCHORS drifted from the owner anchors ${JSON.stringify(intro.OPENING_CLOSE_READ_ANCHORS)}`)
+  for (const [t, raw] of CLOSE_READ_ANCHORS) sc(Math.abs(intro.introRawFraction(t) - raw) <= 1e-12, `introRawFraction(${t}) = ${intro.introRawFraction(t)}, anchor ${raw}`)
+  let previous = -Infinity, monotone = true
+  for (let t = 0; t <= 1 + 1e-9; t += 0.002) { const raw = intro.introRawFraction(t); if (!(raw > previous)) monotone = false; previous = raw }
+  sc(monotone, 'introRawFraction is not strictly increasing on [0, 1]')
+  for (let t = 0.66; t <= 1 + 1e-9; t += 0.02) sc(Math.abs(intro.introRawFraction(t) - t * 0.5) <= 1e-12, `introRawFraction(${t}) must keep the identity mapping t * .5 past t .66`)
+  const slope = (t) => (intro.introRawFraction(t + 1e-6) - intro.introRawFraction(t - 1e-6)) / 2e-6
+  sc(Math.abs(slope(1e-5) - 0.5) <= 1e-3 && Math.abs(slope(0.66 - 1e-5) - 0.5) <= 1e-3 && Math.abs(slope(0.66 + 1e-5) - 0.5) <= 1e-6, `close-reading map must be C1 at both ends (slopes ${slope(1e-5)}, ${slope(0.66 - 1e-5)}, ${slope(0.66 + 1e-5)})`)
+  sc(Math.abs((intro.introRawFraction(0.29) - 0.29 * 0.5) - 0.035) <= 1e-9 && Math.abs((intro.introRawFraction(0.38) - 0.38 * 0.5) - 0.04) <= 1e-9, 'extra close-reading scroll before .29 / .38 must be .035 / .04 of the document')
+  for (const t of [0, 0.05, 0.13, 0.29, 0.31, 0.38, 0.45, 0.58, 0.659, 0.66, 0.8, 1]) {
+    sc(Math.abs(intro.introTimeFromRaw(intro.introRawFraction(t)) - t) <= 1e-9, `introTimeFromRaw is not the inverse of introRawFraction at t=${t}`)
+    sc(Math.abs(intro.pacedProgress(intro.introRawFraction(t)) - 0.12 * t) <= 1e-9 || t > 1 - 1e-9, `pacedProgress(introRawFraction(${t})) != .12 * t`)
+  }
+  sc(Math.abs(intro.pacedProgress(0.5) - 0.12) <= 1e-12, 'pacedProgress(.5) must stay exactly the .12 handoff (share-.50 identity)')
+  sc(Math.abs(intro.rawScrollFor(0.12 * 0.38) - 0.23) <= 1e-9, 'rawScrollFor(paced .38 * .12) must invert to raw .23')
+  // O1 electrical score.
+  sc(electrical.CALIBRATION_SWEEP_SECONDS === ELECTRICAL.sweepSeconds && electrical.OUTLINE_START_RAW === ELECTRICAL.startRaw && electrical.OUTLINE_START_T === ELECTRICAL.startT && electrical.OUTLINE_BURST_SECONDS === ELECTRICAL.burstSeconds, 'electricalScore calibration constants drifted')
+  sc(JSON.stringify(electrical.BURST_KEYS) === JSON.stringify(BURST_KEYS_LIT), `BURST_KEYS drifted from the owner rhythm ${JSON.stringify(electrical.BURST_KEYS)}`)
+  sc(Math.abs(electrical.BRANCH_START_T - BRANCH_START_T_LIT) <= 1e-12 && Math.abs(electrical.BRANCH_END_T - electricalTimeLit(BRANCH_START_SECONDS_LIT + ELECTRICAL.burstSeconds)) <= 1e-12, `BRANCH_START_T/END_T ${electrical.BRANCH_START_T}/${electrical.BRANCH_END_T} disagree with the owner seconds`)
+  const scratch = electrical.newElectricalSample()
+  let worst = 0, last = { outline: -1, branch: -1 }, nondecreasing = true
+  for (let t = 0.5; t <= 1 + 1e-9; t += 0.0005) {
+    const got = electrical.sampleElectrical(t, scratch, ELECTRICAL.sparkStartT), exp = expectedElectrical(t)
+    worst = Math.max(worst, Math.abs(got.outline - exp.outline), Math.abs(got.branch - exp.branch), Math.abs(got.anticipation - exp.spark))
+    if (got.outline < last.outline - 1e-12 || got.branch < last.branch - 1e-12) nondecreasing = false
+    last = { outline: got.outline, branch: got.branch }
+  }
+  sc(worst <= 1e-12, `sampleElectrical disagrees with the owner burst/hold oracle by ${worst}`)
+  sc(nondecreasing, 'electrical outline/branch must be non-decreasing in t')
+  for (const sample of electricalSamples) {
+    const got = electrical.sampleElectrical(sample.t, scratch, ELECTRICAL.sparkStartT)
+    for (const [key, field] of [['outline', 'outline'], ['branch', 'branch'], ['spark', 'anticipation']]) if (sample.plateau && key in sample.plateau) sc(Math.abs(got[field] - sample.plateau[key]) <= 1e-9, `${sample.role}: ${key} ${got[field]} != owner plateau ${sample.plateau[key]}`)
+  }
+  let wiring = 0
+  for (let t = 0.5; t <= 1 + 1e-9; t += 0.005) {
+    const state = intro.drawingIntroState(t * 0.12), exp = expectedElectrical(t), fracture = smooth01Lit((t - 0.84) / 0.04)
+    wiring = Math.max(wiring, Math.abs(state.pulseHead - exp.outline), Math.abs(state.crackGrowth - exp.branch), Math.abs(state.sparkAnticipation - exp.spark), Math.abs(state.crackWeb - smooth01Lit((t - BRANCH_START_T_LIT) / 0.012) * (1 - fracture)))
+  }
+  sc(wiring <= 1e-9, `drawingIntroState pulseHead/crackGrowth/sparkAnticipation/crackWeb disagree with the oracle by ${wiring}`)
+} catch (error) { staticContract.failures.push(`source oracle import failed (introTimeline/electricalScore): ${error}`) }
+// Annotation reveal windows (sheetCamera.sheetReveal). Importing it bundles three + ink shaders; an import failure is a
+// harness limitation (recorded), not an app failure.
+try {
+  const sheetCamera = await sourceModule('src/scene/drawing/sheetCamera.ts')
+  const out = []
+  sc(sheetCamera.sheetReveal(0.5, out).length === REVEAL_GROUP_COUNT && out[0] === 1, `sheetReveal must cover ${REVEAL_GROUP_COUNT} groups with group 0 always drawn (got ${out.length})`)
+  for (const [group, [a, b]] of Object.entries(REVEAL_WINDOWS)) {
+    const at = (t) => sheetCamera.sheetReveal(t, [])[Number(group)]
+    sc(at(a - 0.001) === 0 && at(b + 0.001) === 1 && Math.abs(at((a + b) / 2) - 0.5) <= 1e-9, `reveal window for ink group ${group} drifted from [${a}, ${b}]`)
+    sc(at(0.29) === 1 && at(0.38) === 1, `ink group ${group} must be fully drawn by the establishing shot (.29)`)
+  }
+  sc(REVEAL_WINDOWS[1][1] <= REVEAL_WINDOWS[16][0] && REVEAL_WINDOWS[16][1] <= REVEAL_WINDOWS[17][0], 'annotation order must be title block, then input note, then output note')
+} catch (error) { staticContract.limitations.push(`sheetCamera reveal import unavailable (${error}); runtime uReveal probe still applies`) }
+report.staticContract = staticContract
+console.log(`static contract: ${staticContract.checks} checks, ${staticContract.failures.length} failures${staticContract.limitations.length ? `, ${staticContract.limitations.length} limitation(s)` : ''}`)
 const browser = await launchBrowser(chromium)
 try {
   report.browserVersion = browser.version()
@@ -193,6 +353,84 @@ try {
       }
     })
     const fail = (condition, message) => { if (!condition) result.failures.push(message) }
+    // ---- JG-035 owner-revision probes -------------------------------------------------------------------------
+    // Authorship DOM (O2/O4): no sticky-note/floating-chip plate; a visually hidden transcript in every tier and plain
+    // inline text in the poster/reduced tiers. Pure DOM: safe on the zero-canvas reduced path.
+    const authorshipProbe = () => page.evaluate(() => {
+      const count = (selector) => document.querySelectorAll(selector).length
+      const layer = document.querySelector('.authorship-layer')
+      const layerRect = layer?.getBoundingClientRect()
+      const inline = document.querySelector('.authorship-inline')
+      const inlineRect = inline?.getBoundingClientRect()
+      const holders = []
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (/Failure point|ROTARY HOBB|Run FEA/.test(node.textContent ?? '')) {
+          const el = node.parentElement
+          holders.push({ tag: el?.tagName, className: String(el?.className ?? ''), inLayer: Boolean(el?.closest('.authorship-layer')), inInline: Boolean(el?.closest('.authorship-inline')) })
+        }
+      }
+      return {
+        layerCount: count('.authorship-layer'), layerRole: layer?.getAttribute('role') ?? null, layerLabel: layer?.getAttribute('aria-label') ?? null,
+        layerSrOnly: Boolean(layer?.classList.contains('sr-only')), layerText: (layer?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+        layerRect: layerRect ? { width: layerRect.width, height: layerRect.height } : null, layerHeading: layer?.querySelector('h1')?.textContent ?? null,
+        legacy: { authorshipId: count('.authorship-id'), authorshipNote: count('.authorship-note'), inlineNote: count('.authorship-inline-note'), drawingNoteAside: count('aside[aria-label="Designer\'s drawing note"]'), layerDataStatic: count('.authorship-layer[data-static]') },
+        holders,
+        inline: inline ? {
+          rect: { width: inlineRect.width, height: inlineRect.height }, text: (inline.textContent ?? '').replace(/\s+/g, ' ').trim(), heading: inline.querySelector('h1')?.textContent ?? null,
+          role: inline.querySelector('.authorship-inline-role')?.textContent ?? null, noteParagraphs: inline.querySelectorAll('.authorship-inline-notes p').length,
+          struck: [...inline.querySelectorAll('.authorship-inline-notes s')].map((el) => el.textContent),
+        } : null,
+      }
+    })
+    const checkAuthorship = (probe, name, reduced) => {
+      fail(probe.layerCount === 1 && probe.layerSrOnly && probe.layerRole === 'region' && /identity/i.test(probe.layerLabel ?? ''), `${name}: authorship transcript landmark missing or not sr-only (${JSON.stringify({ count: probe.layerCount, srOnly: probe.layerSrOnly, role: probe.layerRole, label: probe.layerLabel })})`)
+      fail(Boolean(probe.layerRect) && probe.layerRect.width <= 1.01 && probe.layerRect.height <= 1.01, `${name}: authorship transcript is visually rendered (${JSON.stringify(probe.layerRect)}); the floating plate must stay gone`)
+      fail(probe.layerHeading === OWNER_COPY.name, `${name}: transcript h1 ${JSON.stringify(probe.layerHeading)}`)
+      for (const part of [OWNER_COPY.role, OWNER_COPY.input, OWNER_COPY.output]) fail(probe.layerText.includes(part), `${name}: transcript lacks ${JSON.stringify(part)}`)
+      fail(Object.values(probe.legacy).every((n) => n === 0), `${name}: removed sticky-note/chip DOM is back ${JSON.stringify(probe.legacy)}`)
+      fail(probe.holders.length > 0 && probe.holders.every((h) => h.inLayer || h.inInline), `${name}: handwriting copy lives outside the transcript/inline blocks (floating chip?) ${JSON.stringify(probe.holders.filter((h) => !h.inLayer && !h.inInline))}`)
+      if (!reduced) {
+        fail(probe.inline === null, `${name}: AuthorshipInline must only render in the static (poster/reduced) tiers`)
+        return
+      }
+      fail(probe.inline !== null && probe.inline.rect.width > 100 && probe.inline.rect.height > 20, `${name}: reduced-motion inline authorship text absent or not visible ${JSON.stringify(probe.inline?.rect)}`)
+      if (!probe.inline) return
+      fail(probe.inline.heading === OWNER_COPY.name && probe.inline.role === OWNER_COPY.role, `${name}: inline identity ${JSON.stringify({ h1: probe.inline.heading, role: probe.inline.role })}`)
+      fail(probe.inline.noteParagraphs === 2 && JSON.stringify(probe.inline.struck) === JSON.stringify(['4140', '4340', 'C300']), `${name}: inline notes ${JSON.stringify({ paragraphs: probe.inline.noteParagraphs, struck: probe.inline.struck })}`)
+      for (const part of OWNER_COPY.inlineParts) fail(probe.inline.text.includes(part), `${name}: inline notes lack ${JSON.stringify(part)}`)
+    }
+    // Live ink-reveal uniform (length-19 uReveal) read off the scene graph: the only runtime window onto the new groups.
+    const revealProbe = () => page.evaluate((count) => {
+      const scene = window.__threeScene
+      if (!scene) return { available: false, reason: 'window.__threeScene missing' }
+      let found = null
+      scene.traverse((object) => {
+        if (found) return
+        for (const material of Array.isArray(object.material) ? object.material : object.material ? [object.material] : []) {
+          const value = material?.uniforms?.uReveal?.value
+          if (value && value.length === count) { found = Array.from(value); return }
+        }
+      })
+      return found ? { available: true, reveal: found } : { available: false, reason: `no material exposes uniforms.uReveal (length ${count})` }
+    }, REVEAL_GROUP_COUNT)
+    // Burst/hold electrical score against the literal oracle, evaluated at the MEASURED phase (real scroll quantizes the
+    // requested phase; the contract is the telemetry's internal consistency plus exact plateaus on pinned frames).
+    const checkElectrical = (drawing, name, checkpoint, sample, epsilon) => {
+      for (const key of ['pulseHead', 'crackGrowth', 'sparkAnticipation']) fail(typeof drawing[key] === 'number' && Number.isFinite(drawing[key]), `${name}: drawing.${key} telemetry unavailable`)
+      if (!Number.isFinite(drawing.phase)) { fail(false, `${name}: drawing.phase unavailable for the electrical score`); return }
+      const expected = expectedElectrical(drawing.phase)
+      checkpoint.electrical = { phase: drawing.phase, expected, measured: { pulseHead: drawing.pulseHead, crackGrowth: drawing.crackGrowth, sparkAnticipation: drawing.sparkAnticipation }, epsilon }
+      fail(Math.abs(drawing.pulseHead - expected.outline) <= epsilon, `${name}: pulseHead ${drawing.pulseHead} != burst/hold outline ${expected.outline} at phase ${drawing.phase}`)
+      fail(Math.abs(drawing.crackGrowth - expected.branch) <= epsilon, `${name}: crackGrowth ${drawing.crackGrowth} != interior branch ${expected.branch} at phase ${drawing.phase}`)
+      fail(Math.abs(drawing.sparkAnticipation - expected.spark) <= epsilon, `${name}: sparkAnticipation ${drawing.sparkAnticipation} != pre-trace spark ${expected.spark} at phase ${drawing.phase}`)
+      fail(drawing.sparkAnticipation === 0 || drawing.phase < ELECTRICAL.startT, `${name}: pre-trace spark must be zero once the first burst starts (phase ${drawing.phase})`)
+      if (sample?.plateau) {
+        for (const [key, field] of [['outline', 'pulseHead'], ['branch', 'crackGrowth'], ['spark', 'sparkAnticipation']]) {
+          if (key in sample.plateau) fail(Math.abs(drawing[field] - sample.plateau[key]) <= 1e-7, `${name}: ${sample.role}: ${field} ${drawing[field]} != owner plateau ${sample.plateau[key]}`)
+        }
+      }
+    }
     const liveCanvas = (before, snap) => snap.gl.some((g, i) => g.connected && !g.lost && g.width > 1 && g.height > 1 && g.rect.width > 1 && g.rect.height > 1 && g.draws > (before.gl[i]?.draws ?? Infinity))
     const checkProbes = (snap, name) => {
       const pulse = snap.optional.capturePulseRegistration
@@ -221,7 +459,8 @@ try {
         pressure,
         fracture,
         openingClear: t >= 0.88 ? 1 : 0,
-        crackWeb: smooth01((t - 0.75) / 0.07) * (1 - fracture),
+        // JG-035 O1: the interior web follows the electrical branch score; onset is the moment the outline reaches 85%.
+        crackWeb: smooth01((t - BRANCH_START_T_LIT) / 0.012) * (1 - fracture),
         crackGlow: t < 0.66 ? 0 : t <= 0.79 ? 1 : (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
         // Lamp return only: every breakthrough beat sits past .79, where the envelope is the
         // single smoothed ramp from the dark hold to full power.
@@ -375,6 +614,7 @@ try {
           }
         })
         const before = await posterProbe()
+        const authorship = await authorshipProbe()
         await page.waitForTimeout(250)
         const settled = await posterProbe()
         await page.evaluate(() => window.scrollTo(0, Math.floor(document.documentElement.scrollHeight / 2)))
@@ -386,7 +626,7 @@ try {
         const returned = await posterProbe()
         const harness = await read()
         const name = `${config.name}-static`
-        const checkpoint = { name, mode: 'static', direction: 'static', before, settled, scrolled, returned, gl: harness.gl, cadRequests: result.cadRequests.slice(), shaderFailures: harness.shaderFailures, contextLosses: harness.contextLosses }
+        const checkpoint = { name, mode: 'static', direction: 'static', before, authorship, settled, scrolled, returned, gl: harness.gl, cadRequests: result.cadRequests.slice(), shaderFailures: harness.shaderFailures, contextLosses: harness.contextLosses }
         result.checkpoints.push(checkpoint)
         fail(before.reducedMotion === true && settled.reducedMotion === true, `${name}: reduced-motion media query mismatch`)
         fail(before.poster.found && settled.poster.found && scrolled.poster.found, `${name}: DOM poster (STATIC RENDER MODE sheet) absent`)
@@ -400,6 +640,7 @@ try {
         fail(before.canvases.length === 0 && settled.canvases.length === 0 && scrolled.canvases.length === 0, `${name}: canvas element present in posters-throughout reduced mode (${before.canvases.length}/${settled.canvases.length}/${scrolled.canvases.length})`)
         fail([before, settled, scrolled].every(s => s.harnessContexts.every(c => !c.connected && c.draws === 0)), `${name}: connected or drawing WebGL context in posters-throughout reduced mode`)
         fail(result.cadRequests.length === 0, `${name}: ${result.cadRequests.length} CAD/tool request(s) in reduced mode: ${result.cadRequests.join(', ')}`)
+        checkAuthorship(authorship, name, true)
         fail(!before.lenis && !settled.lenis && !scrolled.lenis, `${name}: Lenis present in reduced mode`)
         fail(!before.htmlLenisClass && !settled.htmlLenisClass, `${name}: lenis html class present in reduced mode`)
         const expectedScroll = Math.max(0, Math.floor(scrolled.scrollHeight / 2))
@@ -411,6 +652,11 @@ try {
       }
       // Pass 1 — true document scroll. Finite scroll quantization is allowed an explicit
       // phase epsilon; endpoint booleans and discontinuities are proved by pinned frames below.
+      if (!reduced) {
+        result.authorship = await authorshipProbe()
+        checkAuthorship(result.authorship, `${config.name}-authorship`, false)
+      }
+      let revealMissing = false
       let canvasInactive = false
       const expectedTier = config.forceTier ?? 'full'
       const hasActiveCanvas = (snap) => snap.gl.some(g => g.connected && !g.lost && g.width > 1 && g.height > 1 && g.rect.width > 1 && g.rect.height > 1)
@@ -462,8 +708,36 @@ try {
             // the legitimate real-scroll quantization represented by REAL_SCROLL_PHASE_EPSILON.
             checkpoint.realScrollLampSample = { ...lampSample, measuredLampPower: drawing.lampPower }
           }
+          // C1 close-reading remap (O3): the MEASURED document scroll fraction at each authored anchor, and the identity
+          // mapping (raw = t * .5) past t .66. Literal oracle: CLOSE_READ_ANCHORS. Also records the requested raw.
+          {
+            const closeRead = closeReadByProgress.get(progress) ?? (phaseSample && phaseSample.t > 0.66 ? { t: phaseSample.t, raw: phaseSample.t * 0.5, kind: 'identity' } : null)
+            if (closeRead) {
+              const geometry = await page.evaluate(() => ({ scrollY: window.scrollY, travel: document.documentElement.scrollHeight - window.innerHeight }))
+              const measuredRaw = geometry.scrollY / Math.max(geometry.travel, 1)
+              checkpoint.closeRead = { ...closeRead, measuredRaw, requestedRaw: scroll.raw / Math.max(geometry.travel, 1), epsilon: CLOSE_READ_RAW_EPSILON, identityRaw: closeRead.t * 0.5 }
+              fail(Math.abs(measuredRaw - closeRead.raw) <= CLOSE_READ_RAW_EPSILON, `${name}: document scroll ${measuredRaw.toFixed(5)} at intro t ${closeRead.t} != ${closeRead.kind} raw ${closeRead.raw} (close-reading map)`)
+            }
+          }
+          // O1 electrical score and O2/O4 annotation ink groups, on every intro checkpoint.
+          if (progress <= 0.12) {
+            checkElectrical(drawing, name, checkpoint, null, 1e-6)
+            if (!revealMissing) {
+              const reveal = await revealProbe()
+              if (!reveal.available) {
+                revealMissing = true
+                result.missingTelemetry = [...(result.missingTelemetry ?? []), `ink-group reveal (uReveal): ${reveal.reason}`]
+              } else if (Number.isFinite(drawing.phase)) {
+                const measured = Object.fromEntries(Object.keys(REVEAL_WINDOWS).map((group) => [group, reveal.reveal[Number(group)]]))
+                const expectedGroups = Object.fromEntries(Object.keys(REVEAL_WINDOWS).map((group) => [group, expectedReveal(group, drawing.phase)]))
+                checkpoint.inkReveal = { phase: drawing.phase, measured, expected: expectedGroups, group0: reveal.reveal[0] }
+                fail(reveal.reveal.length === REVEAL_GROUP_COUNT && reveal.reveal[0] === 1, `${name}: ink reveal uniform must cover ${REVEAL_GROUP_COUNT} groups with printed furniture always drawn`)
+                for (const group of Object.keys(REVEAL_WINDOWS)) fail(Math.abs(measured[group] - expectedGroups[group]) <= 1e-6, `${name}: ink group ${group} reveal ${measured[group]} != authored ${expectedGroups[group]} at phase ${drawing.phase}`)
+              }
+            }
+          }
           if (phaseSample || lampSample || progress === introProgress(0.67)) {
-            for (const key of ['lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance']) {
+            for (const key of ['lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance', 'pulseHead', 'crackGrowth', 'sparkAnticipation']) {
               fail(typeof drawing[key] === 'number' && Number.isFinite(drawing[key]), `${name}: drawing.${key} telemetry unavailable`)
             }
           }
@@ -483,9 +757,12 @@ try {
               `${name}: lightning pixel proof failed (mesh visibility, fixed camera, contour, or bright-pixel delta)`)
           }
           if (progress === introProgress(0.78)) {
-            checkpoint.traceInteriorEnd = { lampPower: drawing.lampPower, blackout: drawing.blackout, pulse: drawing.pulse, pulseHead: drawing.pulseHead }
-            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0.9 && drawing.pulseHead < 1,
-              `${name}: t=.78 interior trace must remain active and dark`)
+            // Burst/hold score (O1): at .78 the outline is mid-trace (calibration ~.75 s of 1.25 s, i.e. still in burst 3), not
+            // complete. The pre-revision linear trace had it at ~.9+. The value is the oracle's at the measured phase.
+            const traceExpected = expectedElectrical(drawing.phase)
+            checkpoint.traceInteriorEnd = { lampPower: drawing.lampPower, blackout: drawing.blackout, pulse: drawing.pulse, pulseHead: drawing.pulseHead, expectedOutline: traceExpected.outline }
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0 && drawing.pulseHead < 1 && Math.abs(drawing.pulseHead - traceExpected.outline) <= 1e-6,
+              `${name}: t=.78 trace must be active, dark and mid burst/hold (pulseHead ${drawing.pulseHead}, oracle ${traceExpected.outline})`)
           }
           checkBarrierContract(snap, name, checkpoint)
           const stats = snap.sheetStats ?? {}
@@ -687,7 +964,7 @@ try {
           const tier = snap.telemetry?.performance?.tier
           const name = `${config.name}-pinned-${String(sampleIndex).padStart(2, '0')}-${sample.progress.toFixed(6)}`
           const drawing = frame?.drawing ?? snap.telemetry?.drawing ?? {}
-          const checkpoint = { name, mode: 'pinned', progress: sample.progress, requestedT: sample.phase?.t ?? sample.lamp?.t, live, tier, frameDrawing: frame?.drawing ?? null, ...snap }
+          const checkpoint = { name, mode: 'pinned', progress: sample.progress, requestedT: sample.phase?.t ?? sample.lamp?.t ?? sample.electrical?.t, live, tier, frameDrawing: frame?.drawing ?? null, ...snap }
           result.pinnedCheckpoints.push(checkpoint)
           if (!active) {
             result.canvasInactive = { name, tier, gl: snap.gl, note: 'pinned render canvas disconnected/lost' }
@@ -697,10 +974,17 @@ try {
           }
           fail(live, `${name}: no live pinned-frame GL submission`)
           fail(tier === expectedTier, `${name}: expected ${expectedTier} tier for pinned phase evidence, got ${tier}`)
-          const expectedT = sample.phase?.t ?? sample.lamp?.t
+          const expectedT = sample.phase?.t ?? sample.lamp?.t ?? sample.electrical?.t
           const phaseError = Math.abs(drawing.phase - expectedT)
           checkpoint.pinnedPhase = { expectedT, measuredPhase: drawing.phase, phaseError, epsilon: PINNED_PHASE_EPSILON }
           fail(phaseError <= PINNED_PHASE_EPSILON, `${name}: pinned phase error ${phaseError} > ${PINNED_PHASE_EPSILON}`)
+          // Exact frames: the burst/hold score must match the owner rhythm to 1e-7 (plateaus are exact holds).
+          checkElectrical(drawing, name, checkpoint, sample.electrical ?? null, 1e-7)
+          if (sample.electrical?.role === 'crack-web-ramp' || sample.electrical?.t >= BRANCH_START_T_LIT - 0.001 && sample.electrical?.t <= 0.84) {
+            const webExpected = expectedBreakthrough(drawing.phase).crackWeb
+            checkpoint.crackWebRamp = { phase: drawing.phase, expected: webExpected, measured: snap.sheetStats?.crackWeb, onset: BRANCH_START_T_LIT }
+            fail(Math.abs(snap.sheetStats?.crackWeb - webExpected) <= 1e-7, `${name}: crackWeb ${snap.sheetStats?.crackWeb} != branch-onset ramp ${webExpected} (onset ${BRANCH_START_T_LIT}) at phase ${drawing.phase}`)
+          }
           if (sample.lamp) {
             checkpoint.lampSample = { ...sample.lamp, measuredLampPower: drawing.lampPower }
             fail(Math.abs(drawing.lampPower - sample.lamp.power) <= 0.001,
@@ -784,7 +1068,7 @@ try {
       for (const forward of result.checkpoints.filter(c => !quick && c.mode === 'real-scroll' && c.direction === 'forward')) {
         const reverse = result.checkpoints.find(c => c.mode === 'real-scroll' && c.direction === 'reverse' && c.progress === forward.progress)
         const deltas = {}
-        for (const key of ['phase', 'poseT', 'pulse', 'pulseHead', 'lineOpacity', 'minZ', 'paperFlex', 'flexAmplitude', 'lightSweep', 'lightSweepPosition', 'lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance', 'pbr', 'waveTime', 'waveEnabled']) {
+        for (const key of ['phase', 'poseT', 'pulse', 'pulseHead', 'crackGrowth', 'sparkAnticipation', 'lineOpacity', 'minZ', 'paperFlex', 'flexAmplitude', 'lightSweep', 'lightSweepPosition', 'lampPower', 'blackout', 'lightningLuminance', 'bulgeDisplacement', 'readingPool', 'inkLuminance', 'pbr', 'waveTime', 'waveEnabled']) {
           const a = forward.telemetry?.drawing?.[key], b = reverse?.telemetry?.drawing?.[key]
           if (typeof a === 'number' && typeof b === 'number') deltas[key] = Math.abs(a - b)
         }
@@ -861,10 +1145,12 @@ try {
       && lite.peakDisplacement > 0 && lite.peakDisplacement <= 0.0054
     return { base, compared: true, full: full.peakDisplacement, lite: lite.peakDisplacement, passed }
   })
-  report.passed = report.cases.length === cases.length && report.cases.every(c => c.passed)
+  report.passed = report.cases.length === cases.length && report.cases.every(c => c.passed) && staticContract.failures.length === 0
     && report.flexTierComparison.every(c => !c.compared || c.passed)
   try { report.gitEnd = execFileSync('git', ['status', '--short'], { cwd: root, encoding: 'utf8' }) } catch {}
   save('summary.json', report)
+  if (staticContract.failures.length) console.log(`STATIC CONTRACT FAILURES:\n${staticContract.failures.join('\n')}`)
+  if (report.cases.some(c => c.missingTelemetry?.length)) console.log(`MISSING TELEMETRY:\n${[...new Set(report.cases.flatMap(c => c.missingTelemetry ?? []))].join('\n')}`)
   console.log(`Evidence: ${out}`)
 }
 process.exitCode = report.passed ? 0 : 1

@@ -1,13 +1,16 @@
 import { chromium } from 'playwright'
-import { launchBrowser } from './lib/browser-launch.mjs'
+import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { pixels } from './lib/preview-pixels.mjs'
+import { seamBandProfile } from './lib/seam-roi.mjs'
 
 const url = process.argv.find(arg => arg.startsWith('--url='))?.slice(6) || 'http://localhost:5199'
 const out = path.resolve(process.argv.find(arg => arg.startsWith('--out='))?.slice(6) || '.scratch/ring-inspection-runtime')
 await fs.mkdir(out, { recursive: true })
-const report = { url, started: new Date().toISOString(), cases: [], failures: [] }
+// Uncalibrated gross-defect gate for the seam image-ROI (see scripts/lib/seam-roi.mjs). Override with --seam-threshold=.
+const seamThreshold = Number(process.argv.find(arg => arg.startsWith('--seam-threshold='))?.slice(17) ?? 0.4)
+const report = { url, browser: describeLaunch(), started: new Date().toISOString(), seamRoi: { kind: 'image-ROI', threshold: seamThreshold, calibrated: false }, cases: [], failures: [] }
 const browser = await launchBrowser(chromium)
 const check = (condition, message) => { if (!condition) throw new Error(message) }
 const read = page => page.evaluate(() => JSON.parse(JSON.stringify(window.__inspection)))
@@ -26,6 +29,105 @@ function pixelCounts(buffer) {
     if (r > 70 && r > g * 1.8 && r > b * 1.4) red++
   }
   return { green, red }
+}
+// ---- JG-035 R1: hole-plug schedule (runtime telemetry from the inspection store) --------------------------------
+// Literal owner schedule, independent of timeline.ts: the six drilled holes (12 measured apertures / owned covers)
+// are concealed on a smoothstep ramp 1.2 -> 2.4 s, i.e. BEFORE the knurl tool first appears (2.8 s), stay plugged while
+// the knurl forms, reopen on a smoothstep ramp 8.2 -> 8.95 s and are open BEFORE the black finish completes (9.3 s).
+const smooth = x => { const u = Math.min(1, Math.max(0, x)); return u * u * (3 - 2 * u) }
+const holeOracle = {
+  closeStart: 1.2, closeEnd: 2.4, toolFirstVisible: 2.8, openStart: 8.2, openEnd: 8.95, blackComplete: 9.3, patches: 12, apertures: 12,
+  blend: t => smooth((t - 1.2) / 1.2) * (1 - smooth((t - 8.2) / 0.75)),
+}
+async function verifyHolePlug(page, result) {
+  const soft = []
+  const times = [0, 1.19, 1.2, 1.5, 1.8, 2.1, 2.4, 2.79, 2.8, 4.2, 5.2, 6.2, 7.7, 8.2, 8.6, 8.95, 9.3, 10, 10.6]
+  const rows = []
+  for (const time of times) {
+    const f = await seek(page, time)
+    const expected = holeOracle.blend(time)
+    const row = { time, expected, blend: f.holePlugBlend, patchOpacity: f.holePatchOpacity, patches: f.holePatches, apertures: f.holeApertures, visible: f.holePatchesVisible, toolVisible: f.toolVisible, aluminiumBlend: f.aluminiumBlend }
+    rows.push(row)
+    if (!(Math.abs(f.holePlugBlend - expected) <= 1e-6)) soft.push(`t=${time}: holePlugBlend ${f.holePlugBlend} != schedule ${expected}`)
+    if (f.holePatches !== holeOracle.patches || f.holeApertures !== holeOracle.apertures) soft.push(`t=${time}: ${f.holePatches} patches / ${f.holeApertures} apertures, expected ${holeOracle.patches}/${holeOracle.apertures}`)
+    // The cover's own opacity follows the blend exactly until the assembly return fade (10.5 s) owns it.
+    if (time < 10.5 && !(Math.abs(f.holePatchOpacity - f.holePlugBlend) <= 1e-6)) soft.push(`t=${time}: holePatchOpacity ${f.holePatchOpacity} != holePlugBlend ${f.holePlugBlend}`)
+    // Covers are drawn only while the blend is > 0 (opacity > 0.001): all 12 when plugged, none when reopened.
+    const shouldShow = f.holePatchOpacity > 0.001
+    if (f.holePatchesVisible !== (shouldShow ? holeOracle.patches : 0)) soft.push(`t=${time}: ${f.holePatchesVisible} visible covers at patch opacity ${f.holePatchOpacity}`)
+    if (time >= holeOracle.closeEnd && time <= holeOracle.openStart && !(f.holePlugBlend >= 0.999999 && f.holePatchesVisible === holeOracle.patches)) soft.push(`t=${time}: holes not fully plugged (blend ${f.holePlugBlend}, visible ${f.holePatchesVisible}) while the knurl tool can be on screen`)
+    if (time <= holeOracle.closeStart && !(f.holePlugBlend === 0 && f.holePatchesVisible === 0)) soft.push(`t=${time}: holes must still be open before the close ramp (blend ${f.holePlugBlend}, visible ${f.holePatchesVisible})`)
+  }
+  const at = time => rows.find(r => r.time === time)
+  // Ordering: plugged BEFORE the tool is visible; tool first visible at the authored approach time.
+  if (!(at(2.79).toolVisible === false && at(2.79).blend >= 0.999999)) soft.push(`tool visible or holes not plugged at 2.79 s: ${JSON.stringify(at(2.79))}`)
+  if (!(at(2.8).toolVisible === true && at(2.8).blend >= 0.999999)) soft.push(`tool not first visible at 2.8 s with holes already plugged: ${JSON.stringify(at(2.8))}`)
+  // Ramp is monotone 1.2 -> 2.4 and strictly partial mid-ramp.
+  const ramp = rows.filter(r => r.time >= 1.2 && r.time <= 2.4)
+  if (!ramp.every((r, i) => i === 0 || r.blend >= ramp[i - 1].blend)) soft.push(`close ramp not monotone: ${ramp.map(r => r.blend)}`)
+  if (!(at(1.8).blend > 0.1 && at(1.8).blend < 0.9)) soft.push(`close ramp not partial at 1.8 s: ${at(1.8).blend}`)
+  // Reopened (blend -> 0, covers hidden) by 8.95 s, while the finish is still aluminium-tinted, i.e. before black completes.
+  if (!(at(8.6).blend > 0.05 && at(8.6).blend < 0.95)) soft.push(`reopen ramp not partial at 8.6 s: ${at(8.6).blend}`)
+  if (!(at(8.95).blend === 0 && at(8.95).visible === 0 && at(8.95).aluminiumBlend > 0)) soft.push(`holes not reopened before the black finish completes at 8.95 s: ${JSON.stringify(at(8.95))}`)
+  if (!(at(9.3).aluminiumBlend === 0 && at(9.3).blend === 0 && at(9.3).visible === 0)) soft.push(`holes must stay open once the black finish completes (9.3 s): ${JSON.stringify(at(9.3))}`)
+  result.holePlug = { schedule: holeOracle, rows, failures: soft }
+  check(soft.length === 0, `hole-plug schedule: ${soft.length} deviation(s); first: ${soft[0]}`)
+}
+
+// ---- JG-035 R2: knurl-strip / CAD UV-seam image-ROI hook ---------------------------------------------------------
+// IMAGE-ROI, not telemetry: the seam (ring-local -X half-plane, atan2 = +-pi) is projected through the live camera and
+// the normal render (diagnostic mask OFF, knurl forced fully formed with __inspectionProof.progress(1)) is compared in
+// columns around it versus columns on either side (scripts/lib/seam-roi.mjs). Hole covers are excluded by their projected
+// bounding boxes because a hole pair straddles the seam. Sampling happens while the tool is hidden and the holes are
+// plugged (2.4..2.79 s, ring fully aluminium); when no sample in that window faces the camera it falls back to t=0.6 s
+// (angle 0, black finish). Only the PRECONDITIONS are structural; the ratio gate uses an uncalibrated gross-defect threshold.
+async function seamGeometry(page) {
+  return page.evaluate(() => {
+    const scene = window.__threeScene, cam = window.__threeCamera, spin = scene?.getObjectByName('inspection-P003068-spin')
+    if (!scene || !cam || !spin) return { error: 'scene/camera/ring probe missing' }
+    scene.updateMatrixWorld(true); cam.updateMatrixWorld(true)
+    const probe = window.__inspection, R = probe.ringBounds.radius, W = probe.ringBounds.width, SHOULDER = 0.0016
+    const canvas = window.__threeRenderer?.domElement ?? document.querySelector('canvas'), box = canvas.getBoundingClientRect()
+    const scratch = cam.position.clone()
+    const px = v => { const n = v.clone().project(cam); return { x: box.left + (n.x + 1) / 2 * box.width, y: box.top + (1 - n.y) / 2 * box.height, z: n.z } }
+    const world = (x, y, z) => spin.localToWorld(scratch.clone().set(x, y, z))
+    const margin = 0.0005, z0 = -W / 2 + SHOULDER + margin, z1 = W / 2 - SHOULDER - margin, count = 40
+    const points = []
+    for (let i = 0; i <= count; i++) points.push(px(world(-R, 0, z0 + (z1 - z0) * i / count)))
+    const mid = world(-R, 0, 0), normal = scratch.clone().set(-1, 0, 0).transformDirection(spin.matrixWorld), toCam = cam.position.clone().sub(mid).normalize()
+    const exclusions = []
+    for (const mesh of spin.children) {
+      if (!mesh.name.startsWith('P003068-hole-cover-')) continue
+      if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox()
+      const b = mesh.geometry.boundingBox, xs = [], ys = []
+      for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) { const p = px(mesh.localToWorld(scratch.clone().set(x, y, z))); xs.push(p.x); ys.push(p.y) }
+      exclusions.push({ x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) })
+    }
+    return { facing: normal.dot(toCam), points, exclusions, ringAngle: probe.ringAngle, toolVisible: probe.toolVisible, aluminiumBlend: probe.aluminiumBlend, canvas: { width: box.width, height: box.height } }
+  })
+}
+async function verifySeamRoi(page, result, name) {
+  const candidates = []
+  for (let time = 2.4; time <= 2.79 + 1e-9; time += 0.05) candidates.push(+time.toFixed(2))
+  let best = null
+  for (const time of candidates) {
+    await seek(page, time)
+    const g = await seamGeometry(page)
+    if (!g.error && g.toolVisible === false && g.aluminiumBlend >= 0.99 && (!best || g.facing > best.g.facing)) best = { time, g }
+  }
+  if (!best || best.g.facing < 0.6) { await seek(page, 0.6); const g = await seamGeometry(page); if (!g.error && g.toolVisible === false) best = { time: 0.6, g } }
+  check(best && !best.g.error, `seam ROI: could not obtain seam geometry ${JSON.stringify(best?.g?.error)}`)
+  await seek(page, best.time)
+  await page.evaluate(() => window.__inspectionProof.mask(false))
+  await page.evaluate(() => window.__inspectionProof.progress(1)); await page.waitForTimeout(250)
+  const geometry = await seamGeometry(page)
+  const buffer = await page.screenshot({ path: path.join(out, `${name}-seam-roi.png`) })
+  await page.evaluate(() => window.__inspectionProof.progress(null))
+  const roi = seamBandProfile(buffer, geometry.points, geometry.exclusions)
+  result.seamRoi = { time: best.time, facing: geometry.facing, ringAngle: geometry.ringAngle, aluminiumBlend: geometry.aluminiumBlend, excludedRects: geometry.exclusions.length, ...roi, threshold: seamThreshold, thresholdCalibrated: false }
+  check(geometry.facing >= 0.3, `seam ROI precondition: seam does not face the camera (facing ${geometry.facing} at ${best.time} s)`)
+  check(roi.valid, `seam ROI precondition: insufficient texture/unexcluded samples ${JSON.stringify({ counts: roi.counts, reference: roi.reference })}`)
+  check(roi.ratio >= seamThreshold, `seam ROI: texture energy at the CAD UV seam is ${roi.ratio.toFixed(3)} of its neighbours (< ${seamThreshold}, uncalibrated gross-defect gate): a flat un-knurled band is likely`)
 }
 async function run(config) {
   const result = { name: config.name, errors: [], requests: [], frames: [], masks: [], failures: [] }
@@ -54,6 +156,7 @@ async function run(config) {
       check(await page.locator('.ring-static').count() === 1, 'Static finish equivalent missing')
       check(!result.requests.some(request => request.includes('knurling-tool')), 'Static inspection fetched the tool')
       const probe = await read(page); check(probe.time === 0 && probe.ringAngle === 0, 'Static inspection advanced rapid spin')
+      check(probe.holePlugBlend === 0 && probe.holePatches === 0 && probe.holePatchesVisible === 0, `Static inspection built hole covers ${JSON.stringify({ blend: probe.holePlugBlend, patches: probe.holePatches, visible: probe.holePatchesVisible })}`)
     } else {
       await page.waitForFunction(() => window.__inspection?.loaded && window.__inspectionProof, null, { timeout: 60000 })
       const initial = await seek(page, 0)
@@ -88,6 +191,8 @@ async function run(config) {
       check(result.frames.find(f => f.time === 7.7).rollerClearance.every(gap => gap > .008), 'Rollers did not clear OD before withdrawal')
       const contact = result.frames.filter(f => f.time >= 4.2 && f.time <= 6.2)
       check(contact.every((f, i) => i === 0 || f.rollerAxial[0] > contact[i - 1].rollerAxial[0]), 'Traverse is not increasing in mapped axial frame')
+      await verifyHolePlug(page, result)
+      await verifySeamRoi(page, result, config.name)
       await seek(page, 5.2)
       await page.evaluate(() => window.__inspectionProof.mask(true))
       for (const progress of [0, .5, 1]) {

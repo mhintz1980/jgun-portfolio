@@ -1,6 +1,6 @@
 # Project Knowledge Map — JGUN Portfolio
 
-> **JG-035 owner revisions, 2026-10-07 — next-session implementation.** Mark approved the [skill selections](../docs/jgun-change-request-skill-selection-2026-10-07.md); the [registered continuation](work/plans/JG-035-owner-animation-revisions.md) links the detailed checkbox plan. Opening authorship/camera/cracks, ring holes/knurl and shaft cutter/FOS/artifacts are the next scope. Application changes start next session; prior current-state evidence below remains the baseline, with inherited G6 and owner visual approval open.
+> **JG-035 owner revisions, 2026-10-07/08 — implemented; owner visual acceptance OPEN.** Plan: [registered continuation](work/plans/JG-035-owner-animation-revisions.md) → [checkbox plan](../docs/jgun-owner-animation-revision-plan-2026-10-07.md); evidence: [folder index mapped to O1–O4/R1–R2/S1–S3](work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/README.md). Opening handwriting/camera/electrical score, ring holes/knurl seam and shaft cutter/FOS/normal repair are on `codex/jg033-signature-shot` (`524bdb4`…`2831f35`). Captures used bundled Chromium + SwiftShader software GL in a Linux cloud container (not hardware GL). Open: owner visual approval, inherited G6 desktop-full tier drop, Windows hardware verification, drawing-cache regeneration, static-still regeneration, the final full verifier roster, and visual verification of the all-caps humanized graphite hand (`2831f35`, cache v7; in progress, no capture yet).
 
 > **JG-035 final documentation closeout, 2026-10-06/07.** Start from the [current handoff](work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/continuation-handoff-2026-10-06.md) — current-state section first. The owner's [posters-throughout](work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/reduced-motion-owner-decision-2026-10-06.md) policy is verified on the current build (43 files/445 tests, 703 modules, preview PID 16784): lifecycle 14/14, static 4/4 with zero CAD requests, shaft 16 cases / 12 gates / 0 defects at FULL/FULL, B1/B2 31/31. The full opening roster finished 5/6 — desktop-full fails 110 expectations after the effective tier becomes lite, cause unestablished, no waiver. Root G0–G5 are checked; G6 is open solely for that full opening acceptance, and owner visual acceptance remains separate. No commit/push/deploy.
 
@@ -135,7 +135,12 @@ If you add, move, or delete a module below, update this map in the same commit.
 | `scene/stations/` | Tolerance stations: `stationData` (S1–S6 windows/anchors), `StationDriver` (in-canvas projection), `stationStore` |
 | `scene/inspection/` | P003068 finish study: exact CAD ring copy, OD shader mask, verified paired-tool clip, explicit inspection clock and contact telemetry |
 | `state/inspectionStore.ts` / `components/RingInspection.tsx` | Discrete entry/return lifecycle, narrative context, accessible dialog, static finish equivalent and Play/Replay controls |
-| `components/AuthorshipNotes.tsx` | Immediate Mark Hintz identity and personal margin commentary, with DOM transcription |
+| `components/AuthorshipNotes.tsx` | Screen-reader-only identity heading + transcript of the handwriting (the cream sticky notes and floating chips were removed 2026-10-08) and the inline static equivalent for poster/reduced tiers; reads the same `OWNER_*` strings as the sheet |
+| `scene/drawing/electricalScore.ts` | O1 pure `sampleElectrical(t, out)`: accelerating burst/hold outline score, interior-branch score and non-advancing spark, calibrated to a 100 s linear sweep (consumed by `introTimeline.drawingIntroState`) |
+| `scene/drawing/sheet/ownerAnnotations.ts` / `handwriting.ts` | O2/O4 owner words, title/career block data, measured anchors (sun gear P001835, output spindle) and deterministic hand-lettering strokes appended to the InkBuilder (red/ink pen colors, `noteInput`/`noteOutput`/`detailE` groups) |
+| `scene/inspection/holeApertures.ts` | R1 measured drilled-hole apertures of the P003068 ring and the runtime-owned curved cover patches driven by `holePlugBlend` |
+| `scene/inspection/shaft/fosPresentation.ts` | S2 single FOS table (4140 .55 / 4340 .72 / C300 .90, revised blue-only) shared by sampler, shader and DOM panels; provenance string recorded in code/evidence only |
+| `scene/inspection/shaft/normalRepair.ts` | S3 creased angle-weighted normal repair with revolved-surface azimuth snap, run once at load |
 | `scene/rl300/` | The `?study=rl300` "Quiet Machine" study — a deliberately separate scene (owner review route), not the portfolio Station 2 |
 | `scene/backgrounds/` | JG-023 scrubbed procedural backdrop layers |
 | `scene/Hotspots.tsx` | CH.03/CH.04 spatial hotspots (CH.01/02 hotspot rendering replaced by the stations) |
@@ -144,7 +149,7 @@ If you add, move, or delete a module below, update this map in the same commit.
 
 ### Verification + tooling (`scripts/`)
 
-Live gates named in TODO.md (`verify-jg0xx-*.mjs`, `check-station2-contract.mjs`, `check-b1b2-contract.mjs`, `lib/preview-pixels.mjs`), the lite-GLB pipeline (`build-jg033-lite.py` + `verify-jg033-lite-asset.mjs`), capture harnesses (`capture-*.mjs`), `deploy-studiomark.ps1`, `sync-assets.ps1`, `og-image-source.html`. `export-sheet-template.mjs` is documented LEGACY (JG-026 layout JSON) — retire once the owner confirms the JG-035 sheet.
+Live gates named in TODO.md (`verify-jg0xx-*.mjs`, `check-station2-contract.mjs`, `check-b1b2-contract.mjs`, `lib/preview-pixels.mjs`), the lite-GLB pipeline (`build-jg033-lite.py` + `verify-jg033-lite-asset.mjs`), capture harnesses (`capture-*.mjs`, incl. `capture-owner-revisions.mjs` and `diag-shaft-artifacts.mjs` for the owner-revision evidence), the shared browser launcher `lib/browser-launch.mjs` (Windows path unchanged; bundled Chromium + SwiftShader software GL elsewhere), `deploy-studiomark.ps1`, `sync-assets.ps1`, `og-image-source.html`. `export-sheet-template.mjs` is documented LEGACY (JG-026 layout JSON) — retire once the owner confirms the JG-035 sheet.
 
 ### Assets + owner documents
 

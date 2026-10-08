@@ -1,6 +1,6 @@
 /** Independent shaft S1..S8 real-browser verifier; source and queue files are never modified. */
 import { chromium } from 'playwright'
-import { launchBrowser } from './lib/browser-launch.mjs'
+import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
 import { build } from 'esbuild'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -13,7 +13,7 @@ const url = (process.argv.find(a => a.startsWith('--url='))?.slice(6) || 'http:/
 const out = path.resolve(process.argv.find(a => a.startsWith('--out='))?.slice(6) || 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/runtime/shaft')
 await fs.mkdir(out, { recursive: true })
 const sha256 = data => createHash('sha256').update(data).digest('hex')
-const sources = [...['story', 'script', 'schedule', 'kinematics', 'toolSpec', 'progression', 'shaftRuntime', 'camera'].map(n => `src/scene/inspection/shaft/${n}.ts`), 'src/scene/inspection/InspectionScene.tsx', 'src/scene/inspection/story.ts', 'src/state/inspectionStore.ts', 'src/state/qualityStore.ts', 'src/scene/CameraRig.tsx', 'src/scene/PostProcessingComposer.tsx', 'src/components/RingInspection.tsx', 'src/components/ShaftStoryLayer.tsx', 'src/App.tsx']
+const sources = [...['story', 'script', 'schedule', 'kinematics', 'toolSpec', 'progression', 'shaftRuntime', 'camera'].map(n => `src/scene/inspection/shaft/${n}.ts`), 'src/scene/inspection/InspectionScene.tsx', 'src/scene/inspection/story.ts', 'src/scene/inspection/shaft/fosPresentation.ts', 'src/scene/inspection/shaft/frame.ts', 'src/components/StaticShaftStory.tsx', 'src/state/inspectionStore.ts', 'src/state/qualityStore.ts', 'src/scene/CameraRig.tsx', 'src/scene/PostProcessingComposer.tsx', 'src/components/RingInspection.tsx', 'src/components/ShaftStoryLayer.tsx', 'src/App.tsx']
 const sourceHashes = Object.fromEntries(await Promise.all(sources.map(async f => [f, sha256(await fs.readFile(path.join(root, f)))])))
 // Pure authored samplers supply expectations; the actual state always comes from the browser.
 async function module(name) {
@@ -46,7 +46,7 @@ function intervalScan(t1, t2, step = 0.002) {
   }
   return { whollyDisengaged, cuts }
 }
-const report = { schema: 'shaft-verifier/1', url, started: new Date().toISOString(), command: `node scripts/verify-shaft-inspection.mjs --url=${url} --out=${out}`, verifierSha256: sha256(await fs.readFile(fileURLToPath(import.meta.url))), sourceHashes, slowExit: slow, cases: [], defects: [], harnessLimitations: [], gates: {} }
+const report = { schema: 'shaft-verifier/1', browser: describeLaunch(), url, started: new Date().toISOString(), command: `node scripts/verify-shaft-inspection.mjs --url=${url} --out=${out}`, verifierSha256: sha256(await fs.readFile(fileURLToPath(import.meta.url))), sourceHashes, slowExit: slow, cases: [], defects: [], harnessLimitations: [], gates: {} }
 const browser = await launchBrowser(chromium)
 const persist = () => fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2))
 const near = (a, b, eps = 1e-8) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= eps
@@ -57,16 +57,41 @@ const copyOracle = Object.freeze({
   cards: { '4140': 'AISI 4140 (40-45 HRC)', '4340': 'AISI 4340 (48-50 HRC)', c300: 'C300 (56-58 HRC)', '4340-ht': 'AISI 4340 (H.T. 48-50 HRC)' },
   attempts: [{ id: '4140', start: 15, end: 17.8 }, { id: '4340', start: 17.8, end: 20.3 }, { id: 'c300', start: 20.3, end: 22.6 }],
   attribution: 'Earlier material attempts, as recounted by the designer.',
-  stress: 'Illustrative stress concentration', recap: 'Remaining teeth — time compressed',
+  recap: 'Remaining teeth — time compressed',
   fade: .14, readable: 1.02, impulse: .15,
 })
+// JG-035 S2 (owner revision 2026-10-07): the stress era has NO caption and NO disclaimer. Its copy is the
+// two DOM panels instead. Authored retrospective FOS values (owner copy, recorded here as literals so the
+// verifier never imports them from the sampler or from fosPresentation.ts): every attempt < 1.0, strictly
+// ordered 4140 < 4340 < C300. The marker eases between alloys over a 0.28 s smoothstep centred on the two
+// attempt boundaries, so a plain card -> value map is wrong inside those windows; the oracle models it.
+const fosOracle = Object.freeze({
+  attempts: { '4140': 0.55, '4340': 0.72, c300: 0.90 }, boundaries: [17.8, 20.3], swap: 0.28, barMax: 3,
+  model: 'Input Shaft', plot: 'Factor of safety',
+  study: { attempt: 'Grooved blank (cutter runout groove)', revised: 'Revised, rotary hobbed' },
+  // Revised study is blue-only: the printed range starts in the blue band of the bar (cyan-blue stop at 2.35).
+  revisedBlueFloor: 2.35,
+  // Nothing in the dialog may read as a disclaimer (owner asked for none).
+  disclaimer: /illustrative|disclaimer|for illustration|not (?:a )?(?:real|actual|executed|newly)|solver/i,
+})
+const smooth = x => { const u = Math.min(1, Math.max(0, x)); return u * u * (3 - 2 * u) }
+function independentFosValue(t) {
+  const a = fosOracle.attempts, [b1, b2] = fosOracle.boundaries, h = fosOracle.swap / 2
+  return a['4140'] + (a['4340'] - a['4140']) * smooth((t - (b1 - h)) / fosOracle.swap) + (a.c300 - a['4340']) * smooth((t - (b2 - h)) / fosOracle.swap)
+}
 function independentCopyAt(t) {
   const attempt = copyOracle.attempts.find(a => t >= a.start && t < a.end)
   const id = attempt?.id ?? (t >= 33.2 && t < 35 ? '4340-ht' : 'none')
   const stampStart = attempt ? attempt.start + copyOracle.fade + copyOracle.readable : Infinity
   const stampState = t < stampStart ? 'none' : t < stampStart + copyOracle.impulse ? 'in' : 'settled'
   const stressKind = t >= 15 && t < 25 ? 'warm' : t >= 32.8 && t < 35 ? 'cool' : 'none'
-  return { id, stampState, stressKind, card: copyOracle.cards[id] ?? '', stamp: stampState === 'none' ? '' : 'FAILED', attribution: t >= 15 && t < 22.6 ? copyOracle.attribution : '', recap: t >= 11 && t < 15 ? copyOracle.recap : '', stress: stressKind === 'none' ? '' : copyOracle.stress }
+  // Panels exist exactly while the stress field does. Attempt material = the card on screen, else C300 (22.6..25 s
+  // has no card); the revised study always names the heat-treated 4340.
+  const fos = stressKind === 'warm'
+    ? { kind: 'attempt', value: independentFosValue(t), material: copyOracle.cards[id] || copyOracle.cards.c300, study: fosOracle.study.attempt }
+    : stressKind === 'cool' ? { kind: 'revised', value: null, material: copyOracle.cards['4340-ht'], study: fosOracle.study.revised }
+    : { kind: 'none', value: null, material: '', study: '' }
+  return { id, stampState, stressKind, card: copyOracle.cards[id] ?? '', stamp: stampState === 'none' ? '' : 'FAILED', attribution: t >= 15 && t < 22.6 ? copyOracle.attribution : '', recap: t >= 11 && t < 15 ? copyOracle.recap : '', fos }
 }
 function assertion(r, gate, condition, text, anchor = null) {
   const g = r.gates[gate] ||= { pass: true, checks: 0, failures: [], failureCount: 0 }
@@ -206,7 +231,27 @@ async function read(page) {
       const u = window.__shaftProgression?.[kind]?.uniforms
       if (u?.uSpaceDepth) progression[kind] = { depth: Array.from(u.uSpaceDepth.value), engaged: u.uEngagedSpace.value, previousDepth: u.uEngagedPreviousDepth.value, edgeY: u.uEdgeY.value, mode: u.uProgressionMode.value, kind: u.uShaftKind.value }
     }
-    return { probe: JSON.parse(JSON.stringify(p)), renderFrame: window.__shaftVerify.last, chip: chip ? { visible: chip.visible, opacity: chip.material.opacity, position: chip.position.toArray() } : null, progression, dom: { card: card?.querySelector('.shaft-card-text')?.textContent ?? '', stamp: card?.querySelector('.shaft-stamp')?.textContent ?? '', attribution: document.querySelector('[data-shaft-attribution]')?.textContent ?? '', stress: document.querySelector('[data-shaft-stress]')?.textContent ?? '', recap: document.querySelector('[data-shaft-recap]')?.textContent ?? '', status: document.querySelector('[data-shaft-status]')?.textContent ?? '', dialogText: document.querySelector('[role=dialog]')?.textContent ?? '' } }
+    // FOS panels (ShaftStoryLayer.tsx): left model block + right bar. Text via textContent so the narrow layout's
+    // display:none labels are still read; geometry/visibility is recorded separately for the visible-number check.
+    function fosSnapshot() {
+      const model = document.querySelector('[data-shaft-fos-model]'), bar = document.querySelector('[data-shaft-fos-bar]')
+      const marker = bar?.querySelector('[data-shaft-fos-marker]'), range = bar?.querySelector('[data-shaft-fos-range]')
+      const rect = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, display: getComputedStyle(el).display } }
+      const clone = bar ? bar.cloneNode(true) : null
+      clone?.querySelectorAll('.shaft-fos-tick').forEach(n => n.remove())
+      return {
+        modelCount: document.querySelectorAll('[data-shaft-fos-model]').length, barCount: document.querySelectorAll('[data-shaft-fos-bar]').length,
+        kind: model?.getAttribute('data-shaft-fos-kind') ?? null, barKind: bar?.getAttribute('data-shaft-fos-kind') ?? null,
+        modelOpacity: model ? parseFloat(getComputedStyle(model).opacity) : null, barOpacity: bar ? parseFloat(getComputedStyle(bar).opacity) : null,
+        lines: model ? [...model.querySelectorAll('p')].map(x => (x.textContent ?? '').replace(/\s+/g, ' ').trim()) : [],
+        minValueText: model?.querySelector('[data-shaft-fos-value]')?.textContent ?? null, minRect: rect(model?.querySelector('.shaft-fos-min')),
+        markerCount: document.querySelectorAll('[data-shaft-fos-marker]').length, markerText: marker?.querySelector('em')?.textContent ?? null,
+        markerPos: marker ? parseFloat(marker.style.getPropertyValue('--fos-pos')) : null, markerRect: rect(marker?.querySelector('em')),
+        rangeCount: document.querySelectorAll('[data-shaft-fos-range]').length, rangePos: range ? parseFloat(range.style.getPropertyValue('--fos-pos')) : null,
+        barTextNoTicks: (clone?.textContent ?? '').replace(/\s+/g, ' ').trim(), viewport: { width: innerWidth, height: innerHeight },
+      }
+    }
+    return { probe: JSON.parse(JSON.stringify(p)), renderFrame: window.__shaftVerify.last, chip: chip ? { visible: chip.visible, opacity: chip.material.opacity, position: chip.position.toArray() } : null, progression, dom: { card: card?.querySelector('.shaft-card-text')?.textContent ?? '', stamp: card?.querySelector('.shaft-stamp')?.textContent ?? '', attribution: document.querySelector('[data-shaft-attribution]')?.textContent ?? '', fos: fosSnapshot(), recap: document.querySelector('[data-shaft-recap]')?.textContent ?? '', status: document.querySelector('[data-shaft-status]')?.textContent ?? '', dialogText: document.querySelector('[role=dialog]')?.textContent ?? '' } }
   })
 }
 // Wrap the progression materials' onBeforeCompile so the live uniform objects (the
@@ -417,6 +462,61 @@ async function playWindow(page, start, end) {
   const sorted = intervals.slice().sort((a, b) => a - b), pct = q => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))]
   return { start, end, samples: intervals.length, p50ms: pct(.5), p95ms: pct(.95), p99ms: pct(.99), maxMs: sorted.at(-1) }
 }
+// FOS panel oracle check ([data-shaft-fos-model] + [data-shaft-fos-bar]). Returns the measured marker for ordering checks.
+function checkFosPanels(r, t, tuple, independent) {
+  const f = tuple.dom.fos, o = independent.fos, mix = tuple.probe.shaft.stress.mix, anchor = { file: 'src/components/ShaftStoryLayer.tsx', line: 18 }
+  const num = x => { const m = /-?\d+(?:\.\d+)?/.exec(x ?? ''); return m ? Number(m[0]) : NaN }
+  const ctx = `t=${t}`
+  if (o.kind === 'none') {
+    assertion(r, 'S3', f.modelCount === 0 && f.barCount === 0 && f.markerCount === 0 && f.rangeCount === 0, `${ctx}: FOS panels present outside the stress era ${JSON.stringify({ model: f.modelCount, bar: f.barCount, marker: f.markerCount, range: f.rangeCount })}`, anchor)
+    return null
+  }
+  assertion(r, 'S3', f.modelCount === 1 && f.barCount === 1 && f.kind === o.kind && f.barKind === o.kind, `${ctx}: expected one ${o.kind} model block and bar, got ${JSON.stringify({ model: f.modelCount, bar: f.barCount, kind: f.kind, barKind: f.barKind })}`, anchor)
+  assertion(r, 'S3', f.lines[0] === `Model Name: ${fosOracle.model}` && f.lines[1] === `Study: ${o.study}` && f.lines[2] === `Plot type: ${fosOracle.plot}` && f.lines[3] === `Material: ${o.material}`, `${ctx}: model block lines ${JSON.stringify(f.lines)}`, anchor)
+  // Panels share the stress field's opacity (appear within one frame of the colours).
+  assertion(r, 'S3', Number.isFinite(f.modelOpacity) && Math.abs(f.modelOpacity - mix) <= 2e-3 && Math.abs(f.barOpacity - mix) <= 2e-3, `${ctx}: panel opacity ${f.modelOpacity}/${f.barOpacity} != stress mix ${mix}`, anchor)
+  const viewport = f.viewport
+  if (o.kind === 'attempt') {
+    const minLine = f.lines[4] ?? '', min = num(f.minValueText), marker = num(f.markerText)
+    assertion(r, 'S3', f.lines.length === 5 && /^Min FOS = \d\.\d\d$/.test(minLine) && minLine === `Min FOS = ${f.minValueText}`, `${ctx}: Min FOS line ${JSON.stringify(f.lines)}`, anchor)
+    // Printed value is rounded to 2 dp; marker position is exact. Both must follow the independent eased oracle.
+    assertion(r, 'S3', Math.abs(min - o.value) <= .0051 && Math.abs(marker - o.value) <= .0051 && f.markerText === f.minValueText, `${ctx}: printed FOS ${f.minValueText}/${f.markerText} != independent ${o.value.toFixed(4)}`, anchor)
+    assertion(r, 'S3', f.markerCount === 1 && f.rangeCount === 0 && Math.abs(f.markerPos * fosOracle.barMax - o.value) <= 1e-5, `${ctx}: marker/range ${JSON.stringify({ marker: f.markerCount, range: f.rangeCount, pos: f.markerPos })} vs value ${o.value}`, anchor)
+    assertion(r, 'S3', min < 1 && marker < 1, `${ctx}: attempt FOS must stay < 1.0 (${f.minValueText})`, anchor)
+    assertion(r, 'S3', /^\d\.\d\d$/.test(f.barTextNoTicks.replace(/^FOS\s*/, '')), `${ctx}: bar prints something besides ticks and the marker value: ${JSON.stringify(f.barTextNoTicks)}`, anchor)
+    // The number must be on screen once the panel is opaque (desktop: Min FOS line; every layout: the bar marker).
+    if (mix >= .99) {
+      const mr = f.markerRect
+      assertion(r, 'S3', !!mr && mr.width > 0 && mr.height > 0 && mr.x >= 0 && mr.y >= 0 && mr.x + mr.width <= viewport.width + 1 && mr.y + mr.height <= viewport.height + 1, `${ctx}: marker value not visible on screen ${JSON.stringify(mr)}`, anchor)
+      if (!r.name.includes('narrow')) assertion(r, 'S3', !!f.minRect && f.minRect.width > 0 && f.minRect.height > 0 && f.minRect.display !== 'none', `${ctx}: desktop Min FOS line not visible ${JSON.stringify(f.minRect)}`, anchor)
+    }
+    return { marker, min, opacity: f.modelOpacity }
+  }
+  // Revised kind: blue range only, no number printed anywhere in the panels.
+  assertion(r, 'S3', f.lines.length === 4 && !/FOS\s*=/.test(f.lines.join(' ')) && f.minValueText === null, `${ctx}: revised block must not print Min FOS ${JSON.stringify(f.lines)}`, anchor)
+  assertion(r, 'S3', f.markerCount === 0 && f.rangeCount === 1 && f.markerText === null, `${ctx}: revised bar must show a range and no marker ${JSON.stringify({ marker: f.markerCount, range: f.rangeCount })}`, anchor)
+  assertion(r, 'S3', Number.isFinite(f.rangePos) && f.rangePos * fosOracle.barMax >= fosOracle.revisedBlueFloor - 1e-9 && f.rangePos <= 1, `${ctx}: revised range floor ${f.rangePos * fosOracle.barMax} is not in the blue end (>= ${fosOracle.revisedBlueFloor})`, anchor)
+  assertion(r, 'S3', !/\d/.test(f.barTextNoTicks), `${ctx}: revised bar prints a number besides ticks: ${JSON.stringify(f.barTextNoTicks)}`, anchor)
+  return null
+}
+// S1 (owner revision): during machining the shaper cutter sits to the viewer's RIGHT of the shaft at equal depth.
+// No screen-side field exists in the probe, so this projects live scene-graph objects through the live camera
+// (scene-graph projection, not telemetry): cutter disc centre vs the shaft axis point at the cutter's stroke height.
+// Mirrors camera.test.ts S1 (NDC dx > 0.1, depth difference <= 1.55 mm).
+async function cutterComposition(page, t) {
+  return page.evaluate(() => {
+    const scene = window.__threeScene, cam = window.__threeCamera, rootObj = scene.getObjectByName('manufacturing-study-root'), shaper = scene.getObjectByName('shaper-cutter')
+    if (!rootObj || !shaper) return { error: 'study root or shaper-cutter missing' }
+    scene.updateMatrixWorld(true); cam.updateMatrixWorld(true)
+    const stroke = window.__inspection.shaft.cutter.stroke
+    const c = cam.position.clone(), a = cam.position.clone()
+    shaper.getWorldPosition(c)
+    // Study frame: CAD mm (x, y, z) -> metres (x, z, -y); the shaft axis is CAD y at x = z = 0.
+    a.set(0, 0, -stroke * 0.001); rootObj.localToWorld(a)
+    const ndc = p => p.clone().project(cam), depth = p => -p.clone().applyMatrix4(cam.matrixWorldInverse).z
+    return { cutterNdcX: ndc(c).x, axisNdcX: ndc(a).x, cutterNdcY: ndc(c).y, depthDiffMm: Math.abs(depth(c) - depth(a)) * 1000, shaperVisible: shaper.visible, stroke, aspect: cam.aspect }
+  })
+}
 async function dynamic(narrow) {
   const r = { name: narrow ? 'narrow' : 'desktop', gates: {}, measures: { readiness: [], sweep: [], cards: [], slowExit: [], shots: [], determinism: [], restores: [], census: [], playback: [] } }
   report.cases.push(r)
@@ -496,20 +596,50 @@ async function dynamic(narrow) {
       // fov 5.4 -> 5.5), so a small drift across the window is intended; per-time paused
       // stability above is the spec check.
       r.measures.slowExitDrift = Math.max(...r.measures.slowExit.flatMap(s => s.matrices[0].map((v, i) => Math.abs(v - r.measures.slowExit[0].matrices[0][i]))))
+      // JG-035 S1 composition: cutter on the viewer's right through the isolate/shaping/slow-exit beats (incl. 8.4 s).
+      r.measures.cutterComposition = []
+      for (const t of [3, 4, 6, 8.4, 10.5]) {
+        await seek(page, t)
+        const comp = await cutterComposition(page, t)
+        r.measures.cutterComposition.push({ t, method: 'scene-graph projection (shaper-cutter vs shaft axis through live camera)', ...comp })
+        assertion(r, 'S2', !comp.error && comp.shaperVisible === true, `cutter composition probe unavailable at ${t}: ${JSON.stringify(comp)}`, { file: 'src/scene/inspection/shaft/camera.ts', line: 49 })
+        if (!comp.error) {
+          assertion(r, 'S2', comp.cutterNdcX - comp.axisNdcX > 0.1, `cutter not to the viewer's right of the shaft at ${t}: dx ${comp.cutterNdcX - comp.axisNdcX}`, { file: 'src/scene/inspection/shaft/camera.ts', line: 49 })
+          assertion(r, 'S2', comp.depthDiffMm <= 1.55, `cutter and shaft not at equal camera depth at ${t}: ${comp.depthDiffMm} mm`, { file: 'src/scene/inspection/shaft/camera.ts', line: 49 })
+        }
+      }
     })
     await step(r, 'S3', async () => {
       const times = new Set([0, 11, 12, 14.9, 15, 17.79, 17.8, 20.29, 20.3, 22.59, 22.6, 24.9, 25, 32, 32.79, 32.8, 33.19, 33.2, 33.4, 34.7, 35, 40])
       for (const a of copyOracle.attempts) for (const offset of [.14, .8, copyOracle.fade + copyOracle.readable - .01, copyOracle.fade + copyOracle.readable + .01, copyOracle.fade + copyOracle.readable + copyOracle.impulse + .01, 1.5]) times.add(a.start + offset)
+      // Settled mid-attempt samples (clear of both 0.28 s marker-ease windows) carry the authored per-alloy FOS.
+      const fosMid = {}
+      for (const a of copyOracle.attempts) times.add(+((a.start + a.end) / 2).toFixed(3))
       for (const t of [...times].sort((a, b) => a - b)) {
         const tuple = await seek(page, t), expected = script.sampleShaftScript(t, false, script.createShaftScriptFrame()), s = tuple.probe.shaft, dom = tuple.dom
         const independent = independentCopyAt(t)
         r.measures.cards.push({ t, independent, expected: clone(expected), shaft: s, dom })
-        for (const field of ['card', 'stamp', 'attribution', 'recap', 'stress']) assertion(r, 'S3', dom[field] === independent[field], `${field} at ${t}: ${JSON.stringify(dom[field])} != independent literal ${JSON.stringify(independent[field])}`, { file: 'src/components/ShaftStoryLayer.tsx', line: 60 })
+        // The stress era has no caption: card/stamp/attribution/recap remain exact copy; the old
+        // [data-shaft-stress] caption must not exist (its replacement is the FOS panel set below).
+        for (const field of ['card', 'stamp', 'attribution', 'recap']) assertion(r, 'S3', dom[field] === independent[field], `${field} at ${t}: ${JSON.stringify(dom[field])} != independent literal ${JSON.stringify(independent[field])}`, { file: 'src/components/ShaftStoryLayer.tsx', line: 60 })
+        assertion(r, 'S3', await page.locator('[data-shaft-stress]').count() === 0, `removed stress caption element [data-shaft-stress] is back at ${t}`, { file: 'src/components/ShaftStoryLayer.tsx', line: 108 })
         assertion(r, 'S3', s.card.id === independent.id && s.card.stamp === independent.stampState, `independent card/FAILED timing mismatch at ${t}: ${JSON.stringify(s.card)} vs ${JSON.stringify(independent)}`, runtimeAnchors.card)
         assertion(r, 'S3', s.stress.kind === independent.stressKind, `independent stress timing mismatch at ${t}: ${s.stress.kind}/${independent.stressKind}`, runtimeAnchors.stress)
         assertion(r, 'S3', s.card.id === expected.card && s.card.stamp === expected.stamp && s.stress.kind === expected.stress && dom.card === expected.cardText, `DOM/telemetry sampler agreement mismatch at ${t}`, runtimeAnchors.card)
         assertion(r, 'S3', !/\b(?:MPa|GPa|psi|ksi|von\s+mises|FEA\s*[:=]?\s*\d)|\d+(?:\.\d+)?\s*(?:MPa|GPa|psi|ksi|N\/mm)/i.test(dom.dialogText), `FEA numbers in dialog at ${t}`, { file: 'src/components/ShaftStoryLayer.tsx', line: 71 })
+        // Owner asked for no disclaimer: textContent (hidden transcript and live-region included) must not contain one.
+        assertion(r, 'S3', !fosOracle.disclaimer.test(dom.dialogText), `disclaimer/'illustrative' text present at ${t}: ${(dom.dialogText.match(fosOracle.disclaimer) || [''])[0]}`, { file: 'src/components/ShaftStoryLayer.tsx', line: 108 })
+        const measuredFos = checkFosPanels(r, t, tuple, independent)
+        const mid = copyOracle.attempts.find(a => +((a.start + a.end) / 2).toFixed(3) === t)
+        if (mid) fosMid[mid.id] = measuredFos
       }
+      r.measures.fosMid = fosMid
+      // Authored values and ordering, from the DOM the viewer actually reads: all attempts < 1.0 and 4140 < 4340 < C300.
+      for (const a of copyOracle.attempts) {
+        const m = fosMid[a.id]
+        assertion(r, 'S3', !!m && Number.isFinite(m.marker) && Math.abs(m.marker - fosOracle.attempts[a.id]) <= .0051 && m.marker < 1 && m.opacity >= .99, `${a.id} mid-attempt FOS panel ${JSON.stringify(m)} != authored ${fosOracle.attempts[a.id]} (<1.0, opaque)`, { file: 'src/scene/inspection/shaft/fosPresentation.ts', line: 18 })
+      }
+      assertion(r, 'S3', fosMid['4140']?.marker < fosMid['4340']?.marker && fosMid['4340']?.marker < fosMid.c300?.marker && fosMid.c300?.marker < 1, `FOS not ordered 4140 < 4340 < C300 < 1.0: ${JSON.stringify(Object.fromEntries(Object.entries(fosMid).map(([k, v]) => [k, v?.marker])))}`, { file: 'src/scene/inspection/shaft/fosPresentation.ts', line: 18 })
     })
     await step(r, 'S4', async () => {
       r.measures.hobbing = []
@@ -521,7 +651,7 @@ async function dynamic(narrow) {
         if (t >= 32 && t < 32.8) {
           assertion(r, 'S4', !s.cutter.visible, `cutter obscures runout at ${t}`, runtimeAnchors.cutter)
           assertion(r, 'S4', !s.hob.visible, `hob obscures runout at ${t}`, runtimeAnchors.hob)
-          assertion(r, 'S4', s.stress.kind === 'none' && s.stress.mix === 0 && tuple.dom.stress === '', `stress obscures runout at ${t}`, runtimeAnchors.stress)
+          assertion(r, 'S4', s.stress.kind === 'none' && s.stress.mix === 0 && tuple.dom.fos.modelCount === 0 && tuple.dom.fos.barCount === 0, `stress field or FOS panels obscure runout at ${t}: ${JSON.stringify({ kind: s.stress.kind, mix: s.stress.mix, model: tuple.dom.fos.modelCount, bar: tuple.dom.fos.barCount })}`, runtimeAnchors.stress)
         }
       }
     })
@@ -609,6 +739,9 @@ async function staticCase(narrow, kind) {
       Object.assign(r.measures, await page.evaluate(() => ({ staticCount: document.querySelectorAll('.shaft-static').length, transcript: document.querySelector('.shaft-static')?.textContent, probe: JSON.parse(JSON.stringify(window.__inspection)), reduced: matchMedia('(prefers-reduced-motion: reduce)').matches, webgl2Undefined: typeof WebGL2RenderingContext === 'undefined' })))
       const text = r.measures.transcript || ''
       assertion(r, 'S8', r.measures.staticCount === 1 && text.includes('AISI 4140') && text.includes('AISI 4340') && text.includes('C300') && text.includes('2.75'), `static transcript incomplete ${JSON.stringify(text)}`)
+      assertion(r, 'S8', !fosOracle.disclaimer.test(text) && /below 1\.0/.test(text), `static shaft copy must state FOS below 1.0 and carry no disclaimer ${JSON.stringify(text.slice(0, 400))}`)
+      r.measures.livePanels = await page.evaluate(() => ({ fosModel: document.querySelectorAll('[data-shaft-fos-model]').length, fosBar: document.querySelectorAll('[data-shaft-fos-bar]').length, canvases: document.querySelectorAll('canvas').length }))
+      assertion(r, 'S8', r.measures.livePanels.fosModel === 0 && r.measures.livePanels.fosBar === 0, `static shaft dialog mounted live FOS panels (stills only) ${JSON.stringify(r.measures.livePanels)}`)
       assertion(r, 'S8', r.errors.length === 0, `${kind} static console/page errors ${JSON.stringify(r.errors.slice(0, 3))}`)
       await page.screenshot({ path: path.join(out, `${r.name}.png`) })
       await page.keyboard.press('Escape'); await page.getByRole('dialog').waitFor({ state: 'detached' })
@@ -750,6 +883,6 @@ for (const id of ['S1','S2','S3','S4','S5','S6','S7','S8','N1','N2','N3','N4']) 
   report.gates[id] = { pass: cases.length >= 2 && cases.every(c => c.gates[id].pass), cases: cases.map(c => ({ name: c.name, ...c.gates[id] })) }
 }
 await persist()
-await fs.writeFile(path.join(out, 'README.md'), `# Shaft runtime browser verification\n\n${report.command}\n\nRun ${report.started} to ${report.finished}. Chrome, desktop 1440×900 and narrow 390×844.\n\n| Gate | Result |\n|---|---|\n${Object.entries(report.gates).map(([id, g]) => `| ${id} | ${g.pass ? 'PASS' : 'FAIL'} |`).join('\n')}\n\nreport.json preserves <=0.05 s shaping samples, exact cards, deterministic play/seek digests, restore snapshots, warmed renderer census, report-only desktop rAF percentiles and same-session screenshot tuples. Canvas PNGs are synchronous completed-frame readbacks with study-owned shaft draw callbacks and projected world bounds bound to the same session/time/render stamp. Literal owner-copy/timing expectations remain independent of the authored sampler. Node inventories all CAD/tool requests from navigation through exit: poster zero allCAD; reduced zero inspection manufacturing/knurling requests. Reduced narrative requests are reported separately and do not waive lifecycle V4. Entry mode and runtime-owned core asset selection bind requested/effective tier to creation, distinct from later adaptive tier.\n\nApp assertions and harness exceptions are retained separately. Authored-source SHA256 and verifier SHA256 identify this execution; source changes during a dev run can invalidate its acceptance provenance.\n`)
+await fs.writeFile(path.join(out, 'README.md'), `# Shaft runtime browser verification\n\n${report.command}\n\nRun ${report.started} to ${report.finished}. ${report.browser}; desktop 1440×900 and narrow 390×844.\n\n| Gate | Result |\n|---|---|\n${Object.entries(report.gates).map(([id, g]) => `| ${id} | ${g.pass ? 'PASS' : 'FAIL'} |`).join('\n')}\n\nFOS panels ([data-shaft-fos-model]/[data-shaft-fos-bar]/marker/range) are asserted against independent literals (4140 0.55, 4340 0.72, C300 0.90, eased over 0.28 s at the alloy swaps; revised study blue range with no number; no caption, no disclaimer). Cutter-right composition at 3/4/6/8.4/10.5 s is a scene-graph projection through the live camera (no screen-side telemetry field exists).\n\nreport.json preserves <=0.05 s shaping samples, exact cards, deterministic play/seek digests, restore snapshots, warmed renderer census, report-only desktop rAF percentiles and same-session screenshot tuples. Canvas PNGs are synchronous completed-frame readbacks with study-owned shaft draw callbacks and projected world bounds bound to the same session/time/render stamp. Literal owner-copy/timing expectations remain independent of the authored sampler. Node inventories all CAD/tool requests from navigation through exit: poster zero allCAD; reduced zero inspection manufacturing/knurling requests. Reduced narrative requests are reported separately and do not waive lifecycle V4. Entry mode and runtime-owned core asset selection bind requested/effective tier to creation, distinct from later adaptive tier.\n\nApp assertions and harness exceptions are retained separately. Authored-source SHA256 and verifier SHA256 identify this execution; source changes during a dev run can invalidate its acceptance provenance.\n`)
 console.log(JSON.stringify({ report: path.join(out, 'report.json'), gates: Object.fromEntries(Object.entries(report.gates).map(([k, g]) => [k, g.pass])), defectCount: report.defects.length, harnessLimitations: report.harnessLimitations.length }))
 if (Object.values(report.gates).some(g => !g.pass)) process.exitCode = 1

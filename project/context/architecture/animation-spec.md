@@ -186,6 +186,40 @@ contracted, not preserved: the post-intro band scales by `f = (1 − σ) / 0.70`
 (0.714 at σ = .50), so each downstream chapter crosses in proportionally less
 scroll. Mapping inversion and deep links still await a browser re-measure.
 
+**Opening close-reading remap (owner revision O3, 2026-10-07).** Inside the
+intro the map `raw → t` is no longer the straight line `t = raw / σ` for
+`raw ≤ .33`. `introRawFraction(t)` is a monotone (Fritsch–Carlson) cubic
+Hermite through the anchors below, with the identity slope `σ = .50` pinned at
+both ends, so it joins the unchanged `.24` intro slope C1 at `t .66 / raw .33`
+and is the identity beyond. `pacedProgress()` inverts it with
+`introTimeFromRaw()` (52-step bisection); `rawScrollFor()` stays its exact
+inverse, and from raw `.33` every trace, rupture, rise and downstream
+coordinate is unchanged. Only the raw scroll spent before the establishing and
+settle shots grows, taken from the lamp-failure / dark-idle travel.
+
+| Intro t | Old raw (`t · .5`) | Anchor raw |
+|---:|---:|---:|
+| 0 | 0 | 0 |
+| .05 | .025 | .025 |
+| .29 | .145 | .180 |
+| .38 | .190 | .230 |
+| .45 | .225 | .265 |
+| .58 | .290 | .310 |
+| .66 | .330 | .330 |
+
+At a linear 100 s sweep of the whole document that is +3.5 s before the
+establishing shot (t .29) and +4 s before the settle (t .38). Visitors set
+their own scroll speed: these seconds are a calibrated review target, not a
+wall-clock promise. Camera reading shots (`sheetCamera.ts`, intro t): title +
+career block `.065–.10`, input-shaft note beside Detail B `.125–.17`,
+output-shaft note beside Section A–A `.20–.24`, then the unchanged whole-sheet
+establishing key `.29` and registered settle `.38`. Ink windows follow the
+camera (title block `.015–.095`, Detail B `.07–.12`, input note `.12–.17`,
+output note `.19–.235`, Detail E `.20–.27`). Headline card 2 (`IntroTitles`)
+now shows in `.172–.222`, in the traverse between the two reads, so no headline
+shares the screen with a handwritten note. No secondary translucent
+handwriting layer exists (single camera, single canvas).
+
 Document height is 3120vh (scroll distance 3020vh), up from 2020vh/1920vh.
 Section track heights are DERIVED, not literals: `deriveScrollTracks()` in
 `src/scene/drawing/scrollTracks.ts` rebuilds `SCROLL_TRACK_VH` from the live
@@ -247,7 +281,7 @@ it is not a global re-windowing function and must not be applied downstream.
 
 ### 5.0 JG-026 B1/B2 engineering drawing and extraction (2026-09-05)
 
-> **Current JG-035 revision, 2026-10-03:** The owner-approved concept uses cream vellum, blue trace and branching webbing (.75–.82), model-first rupture (.84–.88), and near-vertical rock walls following the torn outline to 3.2 m depth. Ring deviations are bounded below 10 mm, with an exact contour at the lip; wall fissures fade into depth and the far closure must contribute zero visible pixels. Studio/environment illumination stays off through .96 and returns smoothly .96–1; blue portal bounce illuminates the first emerging metal. P003068 uses the handle's #040404 black anodize finish and heavy diamond knurl over its radial OD. The side elevation moves seven callouts/frames per owner markup and exposes the motor through a local oval half-depth CAD section. Locked GD&T values and downstream mechanical timing remain unchanged. [Plan](../../../docs/jgun-blue-trace-tunnel-plan.md).
+> **Current JG-035 revision, 2026-10-03:** The owner-approved concept uses cream vellum, blue trace and branching webbing (.75–.82; the branch window is now ≈.7882–.8132, see the 2026-10-07 revision below), model-first rupture (.84–.88), and near-vertical rock walls following the torn outline to 3.2 m depth. Ring deviations are bounded below 10 mm, with an exact contour at the lip; wall fissures fade into depth and the far closure must contribute zero visible pixels. Studio/environment illumination stays off through .96 and returns smoothly .96–1; blue portal bounce illuminates the first emerging metal. P003068 uses the handle's #040404 black anodize finish and heavy diamond knurl over its radial OD. The side elevation moves seven callouts/frames per owner markup and exposes the motor through a local oval half-depth CAD section. Locked GD&T values and downstream mechanical timing remain unchanged. [Plan](../../../docs/jgun-blue-trace-tunnel-plan.md).
 
 > **Opening revision, 2026-10-02 (causal portal correction — technically verified 2026-10-02; owner visual review open):** The active opening is the JG-035 0.80 × 0.50 m opaque paper sheet with six projected views and composed detail insets. The authoritative contract is this section plus the [owner correction plan](../../../docs/jgun-portal-correction-plan.md). The paper-breakthrough, storm, stages 1–3 and blackout plans and their conflicting opening evidence are superseded history. The camera goes detail → traverse → whole sheet → registered side view at intro .38, then holds registered through the trace at .79. The J-Gun pushes from below during .79–.84, with illumination and PBR ready before fracture .84–.88; the first opening reveals the object that caused the bulge. Continuous rise completes at 1. The permanent torn, charred profile opens into opaque cavernous portal depth and white-blue upward light, never wooden desk. Thick fracture pieces, crack light/web, burned rim and storm remain. No vellum alpha (`paperVellum()` returns 0) and no sheet fade. Cool room bounce keeps the dark-hold drawing readable. HUD chrome stays hidden until global .12. Scroll ownership (.00–.12) and §§5.1–5.4 mechanics are unchanged; the pressure-bound extraction pose and its clearance solve are revised below. Reduced motion parks at .38: lit, registered, fully inked, with no flicker, slit, swelling or extraction. Lite retains the sequence at 45% swelling; poster uses the DOM fallback. Current correction checks: 276/276 unit tests, production build/typecheck, 31/31 B1/B2 and Stage 2 PASS. Production captures 2/2 PASS (desktop lite and narrow full), with zero desk pixels in all 12 sampled aperture frames. Runtime roster all 6/6 PASS on the same production build: 344 forward/reverse checkpoints, 96 pinned frames and two reduced-motion static cases, zero failures/errors. The [canonical aggregate](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/verified-roster/summary.json) references four passing full-roster records and two complete repaired forced-lite records. Fresh final read-only review: [Zeno SHIP](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/technical-review.md), with no blocking findings after independent inspection of live source, canonical aggregate and narrow-lite evidence. Technically verified 2026-10-02; owner visual acceptance remains open. [Correction review](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/review.md) · [Handoff](../../work/evidence/JG-035-opening-drafting-table/portal-correction-2026-10-02/handoff.md). Owner visual acceptance remains open; the previous 184/184 tests, six browser cases and SHIP describe superseded staging. Enclosure/M249 page separation remains pending owner clarification.
 
@@ -290,11 +324,13 @@ identity at the handoff (measured residual 5.5e-17).
 
 | Owner phase | Normalized intro | Global interval | Effect and fallback |
 |---|---:|---:|---|
-| Focus and drafting pass | 0.00 → 0.38 | 0.0000 → 0.0456 | Focus completes .05; ink/camera traverse ends registered. |
+| Focus and drafting pass | 0.00 → 0.38 | 0.0000 → 0.0456 | Focus completes .05; the camera stays close and reads title/career block, input note and output note (§4.1 remap, +3.5 s / +4 s at a 100 s sweep), then the traverse ends registered. |
 | Registered lit hold | 0.38 → 0.45 | 0.0456 → 0.0540 | Dark navy print under the warm key; reduced parks at .38. |
 | Five irregular lamp failures | 0.45 → 0.58 | 0.0540 → 0.0696 | Unequal deterministic dips/recoveries and one sustained near-out beat; full/lite. |
 | Visible-dark anticipation | 0.58 → 0.66 | 0.0696 → 0.0792 | Lamp is out; cool room bounce keeps the opaque paper, navy drawing and annotations readable. No slit yet. |
-| Hairline profile slit, registered camera | 0.66 → 0.79 | 0.0792 → 0.0948 | White-blue light traced through the exact-profile slit (`crackGlow` = 1); the glow stays lit into the pressure phase. |
+| Electrical anticipation, registered camera | 0.66 → 0.765 | 0.0792 → 0.0918 | `crackGlow` = 1 and the non-advancing `sparkAnticipation` builds in the dark hold; the outline head does not move. |
+| Burst/hold electrical outline | 0.765 → 0.79 | 0.0918 → 0.0948 | Light-blue outline traced by the accelerating burst/hold score (`pulseHead` = `sampleElectrical().outline`); raw .3825–.395. The glow stays lit into the pressure phase. |
+| Interior crack branches | ≈0.7882 → ≈0.8132 | ≈0.0946 → ≈0.0976 | Begin at 85% outline completion and run the same burst/hold pattern for 1.25 calibration seconds (`crackGrowth`); `crackWeb` = smooth01((t − .7882)/.012)·(1 − fracture). Overlaps the start of the pressure push; deterministic, never the desk. |
 | Model pushes paper; lamp return | 0.79 → 0.84 | 0.0948 → 0.1008 | The already-present J-Gun rises beneath intact stock with a vertex/flex-bounded pressure push; `pressure` smooth01 swells the barrier (12 mm full / 5.4 mm lite). Illumination .79–.81 and PBR .80–.82 complete before fracture. Lamp return .79–.86; crack glow/web and camera rake remain. |
 | Rupture immediately reveals J-Gun | 0.84 → 0.88 | 0.1008 → 0.1056 | `fracture` smooth01 releases the bulge and clears fragments by .88; `openingClear` becomes 1 at .88. The J-Gun is visible in the first opening, already lit/PBR. Gaps reveal deep portal space, never desk. Crack web, light and thick fragments remain. |
 | Continuous rise | 0.79 → 1.00 | 0.0948 → 0.1200 | Pressure push precedes fracture; the post-rupture lift continues from .84 to 1 using u^1.4, without a delayed appearance. Registered side basis retained; camera perspective/orbit .90. |
@@ -308,6 +344,42 @@ lampReturnStart = .79`, `metalStart = .80`, `fractureStart = .84`,
 Illumination smooth01 spans .79–.81; PBR smooth01 spans .80–.82.
 `DRAWING_INTRO_WINDOW` remains `releaseEnd = .12`, `heroEnd = .525`.
 Lamp-failure key u-values remain normalized into `.45–.58`.
+
+**Electrical score (owner revision O1, 2026-10-07; `electricalScore.ts`).**
+`sampleElectrical(t, out)` is a pure function of intro time. Calibration
+domain: a linear 100 s sweep of the document, `elapsed = 100 · (t · .5 − .3825)`
+(direct, because the trace sits past the §4.1 remap). Perimeter completion:
+
+| Calibration s | Completion | Action |
+|---:|---:|---|
+| 0 → .20 | 0 → .10 | first burst |
+| .20 → .40 | .10 | hold .20 s |
+| .40 → .55 | .10 → .25 | second burst |
+| .55 → .70 | .25 | hold .15 s |
+| .70 → .85 | .25 → .45 | third burst |
+| .85 → .93 | .45 | hold .08 s |
+| .93 → 1.05 | .45 → .70 | fourth burst |
+| 1.05 → 1.09 | .70 | hold .04 s |
+| 1.09 → 1.16 | .70 → .85 | fifth burst |
+| 1.16 → 1.18 | .85 | hold .02 s |
+| 1.18 → 1.25 | .85 → 1 | completion |
+
+Bursts are smooth01-eased (C1 at every join, exact zero-slope plateaus). In
+intro t the outline runs `.765 → .79` and interior branches reuse the same
+score offset by the 85% completion point (calibration 1.16 s) for another
+1.25 s, `≈.7882 → .8132`. No accumulated clock and no per-frame randomness:
+forward, reverse and direct seeks give identical state. Tunnel walls: the
+rupture mouth and ring walls use triangle-wave shard relief of several scales
+with stepped per-depth phase (`portalGeometry.ts`), inside the unchanged
+ring depths, deviation envelope and zero-far-closure contract (`4035be9`; sightline and desk-exposure pixel
+proofs not re-run on it). Colour stays the
+light-blue `#79CFFF` family. Rise registration still begins at `.79`, fracture
+at `.84–.88`. Handwriting on the paper (`sheet/handwriting.ts`,
+`sheet/ownerAnnotations.ts`) is composed into the same ink buffers (cache
+version bumped for the added colour channel and groups); the first committed form was a
+deterministic mixed-case navy hand; `2831f35` replaces it with an all-caps
+humanized hand in graphite ink (cache version 7; strikes and the failure-point
+mark stay red) — in progress, pending visual verification.
 
 Scroll time and pose time are separate axes. `introPoseTime()` maps
 intro .79–.84 onto pose .4–.5 for the pressure push, then intro .84–1 onto
@@ -534,7 +606,51 @@ The visitor opens **Inspect the finish** in the JGun narrative. This is an inter
 
 `scene/inspection/` borrows exact P003068 geometry and owns temporary physical finish materials, independent of the narrative's Solid/Blueprint/Exploded mode. The verified `public/models/knurling-tool.glb` maps glTF Y-up to ring spin/traverse Z. Smooth black resolves to aluminium, the paired opposite-hand rollers contact and traverse for two seconds, relief grows only on the outer band, then the jaws clear before withdrawal. Spin decelerates before a short angular alignment and the knurled-black assembly fades back in. No bore/end-face/edge-land relief is added. These material changes are cinematic compression; no manufacturing fixture or numerical result is asserted.
 
-Poster/reduced modes expose a static semantic finish schematic without rapid spin or fetching the prop. Native chapter observation scopes the entry to JGun. The immediate Mark Hintz identity and personal commentary are DOM text; static commentary is in the introductory card and leaves with it. The documented shaft and clutch-housing machining story is first-person; undercut part/revision and exact role wording remain pending owner confirmation. [Implementation plan](../../../docs/jgun-authorship-knurling-implementation-plan.md).
+Poster/reduced modes expose a static semantic finish schematic without rapid spin or fetching the prop. Native chapter observation scopes the entry to JGun. The Mark Hintz name, role and career block and the handwritten owner notes are now drawn ON the sheet (2026-10-08); `AuthorshipNotes` keeps only a screen-reader-only heading + transcript, and the static inline equivalent is in the introductory card and leaves with it. There are no floating chips or sticky notes. The documented shaft and clutch-housing machining story is first-person; undercut part/revision and exact role wording remain pending owner confirmation. [Implementation plan](../../../docs/jgun-authorship-knurling-implementation-plan.md).
+
+### 5.7 Owner revisions to the inspections (2026-10-07, implemented 2026-10-08)
+
+Ring Switch (12 s, `inspection/timeline.ts`): `holePlugBlend` (0 open, 1
+concealed) = `ease((t − 1.2)/1.2) · (1 − ease((t − 8.2)/.75))` closes the six
+drilled holes (measured OD and bore apertures, curved runtime-owned patches
+from `holeApertures.ts`) 1.2–2.4 s with the aluminium conversion, holds them
+concealed through 2.4–8.2 s (the tool first appears at 2.8 s), and reopens
+8.2–8.95 s, fully open 0.35 s before black completes (`BLACK_FINISH_START =
+9.3`; darkening is 8.2–9.3 s). Contact, traverse, spin, finish and return
+landmarks and the 12 s duration are unchanged. The knurl UV seam is split per
+triangle so the OD band has full circumference coverage.
+
+Input Shaft (43 s): story windows are unchanged (isolate 0–2, shaping 2–6,
+slow exit 6–11, recap 11–15, materials 15–22.6, blank 22.6–25, hobbing 25–32,
+runout 32–35, supports 35–39, finale 39–43). Camera (`shaft/camera.ts`): the
+machining-era azimuth is a closed-form law, `CUTTER_VIEW_AZIMUTH_DEG = 180`
+held through 0–11 s, which puts the button cutter (machine azimuth 90°) on the
+viewer's right at zero camera-depth difference from the shaft axis; the recap
+swing then carries it `+200°` to the settled 15 s materials view with zero
+rate at 11 s and 15 s. Anchors from 15 s are re-derived against the measured
+Model Name block (left) and FOS bar (right): desktop fov 11.4 / target
+y 18.2 z −1.6 mm; narrow fov 25.7 / z 4.5 mm; revised 33.2–35 s desktop fov 13,
+narrow 32.6. The hob anchors (23.4–32 s) keep their separate framing; clearance ≥ 8 px to
+measured DOM rectangles is asserted in `camera.test.ts`.
+
+FOS presentation (`shaft/fosPresentation.ts`, one table for sampler, shader and
+DOM): bar 0–3, red → orange → yellow → green → cyan → blue; attempts 4140 **.55**,
+4340 **.72**, C300 **.90** (all < 1, ordered, eased across the 17.8 s and 20.3 s
+alloy swaps over .28 s); revised hobbed study blue only (hotspot 2.55, body 3.0,
+no printed number). The field is a deterministic localized FEA-style function
+of shaft-local position centred on the relief groove floor (y 10.41 mm; end of
+the lead-out, y 13.4 mm, on the revision). The left `Model Name: Input Shaft`
+block and right FOS bar share the field's opacity, so panel onset tracks field
+onset within a frame. No disclaimer or "Illustrative stress concentration"
+caption is printed; the values are authored retrospective presentation numbers
+recorded in code and evidence only, not a solver result.
+
+Shaft body artifacts (`shaft/normalRepair.ts`): the streaks and lumpy relief
+groove at 1.3 / 10.9 / 25.4 s came from the stored vertex normals of the
+exported meshes (sliver triangles), not from geometry or material. Repair:
+weld by position, angle-weighted face normals within a 40° crease, azimuth
+snap of near-radial normals on surfaces of revolution; run once at load.
+**Residual:** the relief groove at 10.9 s remains visibly uneven after the repair.
 
 ## 6. Chapter 4 CAD dissolve (`src/shaders/CadTransitionShader.ts`)
 
