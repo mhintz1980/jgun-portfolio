@@ -34,16 +34,18 @@
 .shaft-fos-marker em{position:absolute;left:36px;top:-7px;font-style:normal;font-weight:700;color:#fff;text-shadow:0 1px 3px #000}
 .shaft-fos-range{position:absolute;left:-6px;width:3px;top:0;bottom:calc(var(--fos-pos) * 100%);border-radius:2px;background:#8fc2ff;opacity:.9}
 @media(max-width:600px){
-  /* Narrow: one compact line of model context and a horizontal bar sit between the card band and the machining ROI. */
-  .shaft-fos-model{left:8%;right:8%;width:auto;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px);font-size:10.5px;line-height:1.35;display:flex;flex-wrap:wrap;gap:0 12px}
-  .shaft-fos-model p:nth-child(2),.shaft-fos-model p:nth-child(3){display:none}
-  .shaft-fos-bar{left:8%;right:8%;width:auto;height:34px;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px + 34px);flex-direction:row;align-items:center;gap:8px}
+  /* Narrow: ONE compact line (model + material) and a thin horizontal bar sit in py346..392 between the card band and
+     the machining ROI; camera.ts frames the shaft below it (camera.test.ts holds the >= 8 px clearance). */
+  .shaft-fos-model{left:8%;right:8%;width:auto;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px);font-size:10.5px;line-height:1.35;display:flex;flex-wrap:nowrap;gap:0 12px;white-space:nowrap;overflow:hidden}
+  .shaft-fos-model p:nth-child(2),.shaft-fos-model p:nth-child(3),.shaft-fos-model p:nth-child(5){display:none}
+  .shaft-fos-model span{display:none}
+  .shaft-fos-bar{left:8%;right:8%;width:auto;height:24px;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px + 18px);flex-direction:row;align-items:center;gap:8px}
   .shaft-fos-track{flex:1;height:12px}
   .shaft-fos-gradient{left:0;right:0;top:0;bottom:auto;width:auto;height:12px;background:var(--fos-gradient-h)}
   .shaft-fos-tick{display:none}
   .shaft-fos-marker{bottom:auto;top:0;left:calc(var(--fos-pos) * 100%);height:12px;width:0}
   .shaft-fos-marker i{top:-5px;left:0;width:0;height:22px;border-top:0;border-left:2px solid #fff}
-  .shaft-fos-marker em{left:6px;top:-16px}
+  .shaft-fos-marker em{left:6px;top:-1px;font-size:10px;text-shadow:0 0 3px #000,0 0 3px #000,0 1px 2px #000}
   .shaft-fos-range{bottom:auto;top:-3px;left:calc(var(--fos-pos) * 100%);right:0;width:auto;height:18px;background:transparent;border:2px solid #8fc2ff;border-radius:3px;opacity:.85}
 }
 /* Inside the inspection dialog the controls own the lower left (desktop) and the lower band (narrow). */

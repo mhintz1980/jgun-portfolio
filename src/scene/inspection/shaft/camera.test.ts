@@ -87,19 +87,23 @@ const REVISED_CAD_WITNESSES = [
   [3.7289439569838274, 19.729703664779663, -7.378355718433207],
 ].map(([x, y, z]) => new Vector3(x * MM, y * MM, z * MM))
 
-type Rect = { min: [number, number]; max: [number, number] }
+type Rect = { min: [number, number]; max: [number, number]; fos?: true }
 function expectDomClearance(t: number, narrow: boolean, points: Vector3[], finalCard: boolean, cardVisible = true) {
   const [width, height] = narrow ? [390, 844] : [1440, 900]
   const rects: Rect[] = narrow ? [
     { min: [20, 24], max: [370, 94] }, // header
     { min: [20, 106], max: [310, 144.375] }, // copy
     { min: [31.1875, 156], max: [358.8125, finalCard ? 249.78125 : 339.96875] },
+    { min: [31.1875, 346], max: [358.8125, 392], fos: true }, // S2 compact model line + horizontal FOS bar
     { min: [20, 529.5], max: [370, 820] }, // footer
   ] : [
     { min: [57.59375, 24], max: [1382.40625, 75.796875] },
     { min: [57.59375, 87.796875], max: [407.59375, 129.390625] },
     { min: [904.8125, 144], max: [1324.8125, finalCard ? 262.78125 : 369.28125] },
     { min: [57.59375, 596.5], max: [537.59375, 876] },
+    // S2: "Model Name: Input Shaft" study block (5 lines warm, 4 lines revised) and the right-hand FOS bar.
+    { min: [57.6, 148], max: [397.6, finalCard ? 224 : 246], fos: true },
+    { min: [1342, 148], max: [1420, 488], fos: true },
   ]
   const aspect = width / height
   const ndc = project(sampleAt(t, aspect), aspect, points)
@@ -109,8 +113,10 @@ function expectDomClearance(t: number, narrow: boolean, points: Vector3[], final
   for (const [index, rect] of rects.entries()) {
     // No attempt card exists before 15 s: the cutter pair may use the whole right-hand frame.
     if (!cardVisible && index === 2) continue
+    // The FOS panels only exist with the stress study (15 s onward).
+    if (!cardVisible && rect.fos) continue
     // Full rectangle separation: either X or Y must clear by >=8 px.
-    expect(Math.max(rect.min[0] - max[0], min[0] - rect.max[0], rect.min[1] - max[1], min[1] - rect.max[1])).toBeGreaterThanOrEqual(8)
+    expect(Math.max(rect.min[0] - max[0], min[0] - rect.max[0], rect.min[1] - max[1], min[1] - rect.max[1]), `t=${t.toFixed(2)} ${narrow ? 'narrow' : 'desktop'} rect#${index}`).toBeGreaterThanOrEqual(8)
   }
   for (const p of ndc) {
     expect(Math.abs(p.x)).toBeLessThanOrEqual(SAFE)
@@ -210,7 +216,7 @@ describe('K5 camera framing at the key beats', () => {
     // report.json, narrow failed-* anchors): tallest card bottom py 339.96875 of 844
     // (4140/C300; the 4340 card ends at 293.78125), footer top py 529.5. The cards sit in
     // the TOP band of the 390x844 layout, not the retired blockout bottom-band assumption.
-    const cardBottomNdc = 1 - (2 * 339.96875) / 844 - 16 / 844 // card bottom minus 8 px
+    const cardBottomNdc = 1 - (2 * 392) / 844 - 16 / 844 // S2 compact FOS block bottom (py392) minus 8 px
     const footerTopNdc = 1 - (2 * 529.5) / 844 + 16 / 844 // footer top plus 8 px
     for (const t of [15, 15.14, 16, 17.8, 20.3, 22.5]) {
       const desktop = sampleAt(t, DESKTOP_ASPECT)

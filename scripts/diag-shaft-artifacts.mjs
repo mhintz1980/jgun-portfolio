@@ -1,6 +1,6 @@
 // JG-035 S3 diagnosis: change ONE factor at a time on the live input-shaft meshes and capture the same
 // frame, to find what produces the body artifacts the owner marked at 1.3 / 10.9 / 25.4 s.
-//   node scripts/diag-shaft-artifacts.mjs --url=http://localhost:4173 --out=<dir> [--times=1.3,10.9,25.4] [--variants=base,flat,recompute,rough]
+//   node scripts/diag-shaft-artifacts.mjs --url=http://localhost:4173 --out=<dir> [--times=1.3,10.9,25.4] [--variants=base,flat,recompute,rough] [--viewport=1440x900]
 // Proof-only: edits live materials/geometry in the page, never the app source or assets.
 import { chromium } from 'playwright'
 import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
@@ -11,11 +11,12 @@ const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(na
 const url = arg('url') ?? 'http://localhost:4173'
 const out = path.resolve(arg('out') ?? 'diag-out')
 const times = (arg('times') ?? '1.3,10.9,25.4').split(',').map(Number)
+const [vw, vh] = (arg('viewport') ?? '1440x900').split('x').map(Number)
 const variants = (arg('variants') ?? 'base,flat,recompute,rough').split(',')
 fs.mkdirSync(out, { recursive: true })
 const report = { url, launch: describeLaunch(), times, variants, shots: [], findings: [] }
 const browser = await launchBrowser(chromium)
-const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })).newPage()
+const page = await (await browser.newContext({ viewport: { width: vw, height: vh }, deviceScaleFactor: 1 })).newPage()
 await page.goto(`${url}/?chapter=1&inspectionProof=1&qualityLock=1`, { waitUntil: 'domcontentloaded' })
 const trigger = page.getByRole('button', { name: 'Inspect the input shaft' })
 await trigger.waitFor({ state: 'visible', timeout: 240000 })
@@ -56,7 +57,7 @@ for (const t of times) {
   for (const variant of variants) {
     const names = await apply(variant)
     await page.evaluate(n => new Promise(resolve => { let k = 0; const tick = () => (++k >= n ? resolve() : requestAnimationFrame(tick)); requestAnimationFrame(tick) }), 4)
-    const file = path.join(out, `diag-${String(t).replace('.', 'p')}s-${variant}.png`)
+    const file = path.join(out, `diag-${vw < 800 ? 'narrow-' : ''}${String(t).replace('.', 'p')}s-${variant}.png`)
     await page.screenshot({ path: file, timeout: 300000 })
     report.shots.push({ t, variant, file: path.basename(file), meshes: names })
   }

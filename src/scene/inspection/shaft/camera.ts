@@ -97,17 +97,15 @@ const ANCHORS: readonly CameraAnchor[] = [
   { t: 11,   az: 180,                         el: 4.2, dist: 0.2,    fovDesktop: 8.2,  fovNarrow: 15.1, tgt: [0, 7.2, -1.6], tgtNarrow: [0, 6.5, 4] },
   // Recap pull-back completes at 14 s; 14..15 s is the C1 handoff into the settled materials
   // side view, so the camera is steady before the first card is visible (15.0 s) and fully
-  // readable (15.14 s). The hold runs the whole materials beat 15..22.6 s. Narrow layout:
-  // the cards are a TOP band (measured 2026-10-06 live DOM, blockout-2026-10-06), so the
-  // critical action band y3.2..14.2 mm is held between the tallest failed-card bottom
-  // (4140/C300, py 339.97 of 844) and the footer top (py 529.5): fovNarrow 18.5 with
-  // tgtNarrow z +1 mm gives 12.49 px / 13.36 px clearance (independent-material-camera-check.json).
-  // Desktop critical action also clears the measured footer (x57.59..537.59,
-  // py596.5..876): fov 7.6 / target z -2.6 mm gives 15.17 px footer and 21.52 px copy
-  // clearance, independently decoded in camera/footer-fix-2026-10-06/projection-report.json.
+  // readable (15.14 s). The hold runs the whole materials beat 15..22.6 s.
+  // JG-035 S2: the left "Model Name: Input Shaft" block and the right FOS bar now share the frame, so the
+  // framing is re-derived against those measured rects (desktop model block x57.6..397.6 / py148..246, FOS
+  // bar x1342..1420 / py148..488; narrow compact block py346..392 under the card). Desktop: fov 11.4, target
+  // y18.2 z-1.6 mm; narrow: the action band y3.2..14.2 mm is held between the compact block (py392) and the
+  // footer top (py529.5) with fovNarrow 25.7 and tgtNarrow z 4.5 mm (>= 8 px both sides; camera.test.ts).
   { t: 14,   az: 180 + RECAP_SWING_DEG * 0.999,  el: 5,   dist: 0.26,   fovDesktop: 14.5, fovNarrow: 20,   tgt: [0, 6.5, 0] },
-  { t: 15,   az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 7.6,  fovNarrow: 18.5, tgt: [0, 19.2, -2.6], tgtNarrow: [0, 8.5, 1] },
-  { t: 22.6, az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 7.6,  fovNarrow: 18.5, tgt: [0, 19.2, -2.6], tgtNarrow: [0, 8.5, 1] },
+  { t: 15,   az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 11.4, fovNarrow: 25.7, tgt: [0, 18.2, -1.6], tgtNarrow: [0, 8.5, 4.5] },
+  { t: 22.6, az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 11.4, fovNarrow: 25.7, tgt: [0, 18.2, -1.6], tgtNarrow: [0, 8.5, 4.5] },
   { t: 23.4, az: 26 - FOLLOW_AZIMUTH_MOD / DEG, el: 3,   dist: 0.2,  fovDesktop: 9.7,  fovNarrow: 15.5, tgt: [0, 11, 2.8] },
   { t: 25.4, az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG, el: 5.7, dist: 0.2, fovDesktop: 9.7, fovNarrow: 16,   tgt: [0, 11, 2.8] },
   { t: 30.2, az: 33.7 - FOLLOW_AZIMUTH_MOD / DEG, el: 5.7, dist: 0.2, fovDesktop: 9.7, fovNarrow: 16,   tgt: [0, 11, 2.8] },
@@ -115,11 +113,11 @@ const ANCHORS: readonly CameraAnchor[] = [
   { t: 32,   az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 6.3,  fovNarrow: 16.5, tgt: [0, 12.8, 0], tgtNarrow: [0, 8.7, 0] },
   // Final 4340 card window 33.2..35 s: card-safe runout framing, reached while no card is on
   // screen. The full revised section (axis y 3.2..20 mm, journal r 6.325 over y 9..20) stays
-  // left of the desktop right 8..44% card band and below the narrow top card band (measured
-  // revised-4340 card bottom py 249.78 of 844). Decoded broad y3.2..20 mm action clears
-  // both measured footers: desktop 14.10 px, narrow 13.63 px (same CPU evidence folder).
-  { t: 33.2, az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 10,   fovNarrow: 17.5, tgt: [0, 18.5, -3.5], tgtNarrow: [0, 9, -2] },
-  { t: 35,   az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 10,   fovNarrow: 17.5, tgt: [0, 18.5, -3.5], tgtNarrow: [0, 9, -2] },
+  // left of the desktop right 8..44% card band, clear of the model block / FOS bar, and below the narrow
+  // compact FOS block (py346..392). Decoded broad y3.2..20 mm action clears both measured footers
+  // (camera.test.ts, >= 8 px).
+  { t: 33.2, az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 13,   fovNarrow: 32.6, tgt: [0, 17.5, -4], tgtNarrow: [0, 8, 5.5] },
+  { t: 35,   az: 24.2 - FOLLOW_AZIMUTH_MOD / DEG, el: 4.2, dist: 0.2, fovDesktop: 13,   fovNarrow: 32.6, tgt: [0, 17.5, -4], tgtNarrow: [0, 8, 5.5] },
   { t: 35.8, az: -FOLLOW_AZIMUTH_MOD / DEG,       el: 0,   dist: 0.2, fovDesktop: 15.3, fovNarrow: 26,   tgt: [0, 17.5, 0] },
   { t: 38.2, az: -FOLLOW_AZIMUTH_MOD / DEG,       el: 0,   dist: 0.2, fovDesktop: 15.3, fovNarrow: 26,   tgt: [0, 17.5, 0] },
   { t: 39.4, az: 10 - FOLLOW_AZIMUTH_MOD / DEG,   el: 3,   dist: 0.21, fovDesktop: 17,  fovNarrow: 26,   tgt: [0, 13.5, 0] },

@@ -1,0 +1,52 @@
+{
+  "url": "http://localhost:4173",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "times": [
+    16.5,
+    19,
+    22,
+    34
+  ],
+  "variants": [
+    "base"
+  ],
+  "shots": [
+    {
+      "t": 16.5,
+      "variant": "base",
+      "file": "diag-16p5s-base.png",
+      "meshes": [
+        "legacyshaft",
+        "approvedshaft"
+      ]
+    },
+    {
+      "t": 19,
+      "variant": "base",
+      "file": "diag-19s-base.png",
+      "meshes": [
+        "legacyshaft",
+        "approvedshaft"
+      ]
+    },
+    {
+      "t": 22,
+      "variant": "base",
+      "file": "diag-22s-base.png",
+      "meshes": [
+        "legacyshaft",
+        "approvedshaft"
+      ]
+    },
+    {
+      "t": 34,
+      "variant": "base",
+      "file": "diag-34s-base.png",
+      "meshes": [
+        "legacyshaft",
+        "approvedshaft"
+      ]
+    }
+  ],
+  "findings": []
+}
