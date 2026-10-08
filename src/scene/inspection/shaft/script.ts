@@ -13,7 +13,6 @@ export const SHAFT_CARD_TEXT = Object.freeze({
 } as const)
 export const SHAFT_STAMP_TEXT = 'FAILED'
 export const SHAFT_ATTRIBUTION_TEXT = 'Earlier material attempts, as recounted by the designer.'
-export const SHAFT_STRESS_CAPTION_TEXT = 'Illustrative stress concentration'
 /** Recap caption; the separator is an em dash (U+2014) exactly as pinned in the manufacturing plan. */
 export const SHAFT_RECAP_CAPTION_TEXT = 'Remaining teeth — time compressed'
 
@@ -62,6 +61,7 @@ export interface ShaftScriptFrame {
   stampScale: number
   attribution: boolean
   remainingTeeth: boolean
+  /** True while a factor-of-safety field is on screen (name kept for the verifier/telemetry contract; no disclaimer is printed). */
   stressIllustrative: boolean
   stress: ShaftStressKind
   stressMix: number

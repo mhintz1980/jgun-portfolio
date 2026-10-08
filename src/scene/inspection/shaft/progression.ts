@@ -13,6 +13,7 @@
  */
 import { Matrix3, Matrix4 } from 'three'
 import type { IUniform, Material, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
+import { FOS_MAX, fosGlsl } from './fosPresentation'
 
 export type ProgressionMode = 'none' | 'shaping' | 'hobbing'
 export type ProgressionShaft = 'legacy' | 'approved'
@@ -42,6 +43,11 @@ export interface StressOverlay {
   yMin: number
   yMax: number
   rMax: number
+  /** Axial centre (mm) of the stress concentration: relief-groove floor (warm) or hobbed lead-out end (cool). */
+  centerY: number
+  /** FOS at the hotspot and in the far field; the shader maps both through the shared FOS colour bar. */
+  hotspotFos: number
+  bodyFos: number
 }
 
 // ---- measured shaft geometry (camera/clearance-v4/report.json facts) ----
@@ -173,6 +179,9 @@ export interface ProgressionUniforms {
   uStressYMin: IUniform<number>
   uStressYMax: IUniform<number>
   uStressRMax: IUniform<number>
+  uStressCenterY: IUniform<number>
+  uStressHotspotFos: IUniform<number>
+  uStressBodyFos: IUniform<number>
 }
 
 export function createProgressionUniforms(): ProgressionUniforms {
@@ -201,6 +210,9 @@ export function createProgressionUniforms(): ProgressionUniforms {
     uStressYMin: { value: 0 },
     uStressYMax: { value: 0 },
     uStressRMax: { value: SHAFT_OD_MM },
+    uStressCenterY: { value: 10.41 },
+    uStressHotspotFos: { value: 0.55 },
+    uStressBodyFos: { value: FOS_MAX },
   }
 }
 
@@ -243,6 +255,9 @@ export function writeStressUniforms(uniforms: ProgressionUniforms, stress: Stres
   uniforms.uStressYMin.value = stress.yMin
   uniforms.uStressYMax.value = stress.yMax
   uniforms.uStressRMax.value = stress.rMax
+  uniforms.uStressCenterY.value = stress.centerY
+  uniforms.uStressHotspotFos.value = stress.hotspotFos
+  uniforms.uStressBodyFos.value = stress.bodyFos
 }
 
 const VERTEX_COMMON = /* glsl */ `
@@ -310,7 +325,11 @@ uniform float uStressScanProgress;
 uniform float uStressYMin;
 uniform float uStressYMax;
 uniform float uStressRMax;
+uniform float uStressCenterY;
+uniform float uStressHotspotFos;
+uniform float uStressBodyFos;
 varying vec3 vShaftLocal;
+${fosGlsl()}
 `
 
 const NORMAL_CHUNK = /* glsl */ `
@@ -347,14 +366,28 @@ const STRESS_CHUNK = /* glsl */ `
 #include <emissivemap_fragment>
 // ${STRESS_MARKER}
 if (uStressKind > 0.5 && uStressMix > 0.001) {
+  // FEA-style factor-of-safety field (JG-035 S2): deterministic, a pure function of shaft-local position.
+  // Tight concentration at the measured fillet/floor, a broad skirt along the body, a bending-side bias and a
+  // little low-frequency blotch so it reads as a solved field. Colours come from the shared FOS bar.
   float jgStressInBand = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
   float jgStressRadius = length(vShaftLocal.xz);
   float jgStressInR = (1.0 - step(uStressRMax, jgStressRadius)) * step(0.0001, jgStressRadius);
-  float jgStressEdge = mix(uStressYMin, uStressYMax, clamp(uStressScanProgress, 0.0, 1.0));
-  float jgStressScanned = 1.0 - smoothstep(jgStressEdge - 0.05, jgStressEdge + 0.05, vShaftLocal.y);
-  float jgStressMask = jgStressInBand * jgStressInR * jgStressScanned * clamp(uStressMix, 0.0, 1.0);
-  vec3 jgStressTint = uStressKind < 1.5 ? vec3(1.0, 0.42, 0.16) : vec3(0.18, 0.72, 0.95);
-  totalEmissiveRadiance += jgStressTint * jgStressMask * 0.35;
+  float jgDy = vShaftLocal.y - uStressCenterY;
+  float jgTheta = atan(vShaftLocal.z, vShaftLocal.x);
+  float jgSide = 0.62 + 0.38 * cos(jgTheta - 0.35);
+  float jgCore = exp(-(jgDy * jgDy) / (2.0 * 0.55 * 0.55));
+  float jgSkirt = exp(-(jgDy * jgDy) / (2.0 * 2.4 * 2.4));
+  float jgFloorBias = 1.0 - 0.6 * smoothstep(3.9, 6.1, jgStressRadius);
+  float jgBlotch = 0.1 * sin(jgTheta * 3.0 + jgDy * 2.2) + 0.06 * sin(jgTheta * 5.0 - jgDy * 3.1);
+  float jgField = clamp((0.95 * jgCore * jgFloorBias + 0.38 * jgSkirt) * jgSide + jgBlotch * jgSkirt, 0.0, 1.0);
+  float jgFos = mix(uStressBodyFos, uStressHotspotFos, jgField);
+  // Reveal outward from the hotspot (scan 0 -> 1) instead of sweeping the shaft end to end.
+  float jgReach = uStressScanProgress * (uStressYMax - uStressYMin + 1.2);
+  float jgReveal = 1.0 - smoothstep(jgReach - 1.2, jgReach, abs(jgDy));
+  float jgStressMask = jgStressInBand * jgStressInR * jgReveal * clamp(uStressMix, 0.0, 1.0);
+  vec3 jgFosRgb = jgFosColor(jgFos);
+  diffuseColor.rgb = mix(diffuseColor.rgb, jgFosRgb * 0.72, jgStressMask * 0.9);
+  totalEmissiveRadiance += jgFosRgb * jgStressMask * 0.42;
 }
 `
 
@@ -381,7 +414,7 @@ export function applyProgression(
       .replace('#include <common>', '#include <common>\n' + FRAGMENT_COMMON)
       .replace('#include <emissivemap_fragment>', STRESS_CHUNK)
   }
-  material.customProgramCacheKey = () => 'jgun-shaft-progression-v2'
+  material.customProgramCacheKey = () => 'jgun-shaft-progression-v3'
   material.needsUpdate = true
   return material
 }

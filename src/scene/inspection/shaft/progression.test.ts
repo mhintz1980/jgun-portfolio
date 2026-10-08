@@ -287,7 +287,7 @@ describe('monotonicity and determinism', () => {
     const inverseIdentity = uniforms.uShaftInverse.value
     const normalIdentity = uniforms.uShaftNormalMatrix.value
     const transform = new Matrix4().makeScale(1000, 1000, 1000)
-    const stress = { kind: 'cool' as const, mix: 0.3, scanProgress: 0.6, yMin: 9, yMax: 13, rMax: 6 }
+    const stress = { kind: 'cool' as const, mix: 0.3, scanProgress: 0.6, yMin: 9, yMax: 13, rMax: 6, centerY: 13.4, hotspotFos: 2.55, bodyFos: 3 }
     // Factories allocate at setup time; only the samplers and writers run in the guarded loop.
     counts.arrays = 0
     counts.typed = 0
@@ -415,11 +415,13 @@ describe('shader patch', () => {
     expect(uniforms.uFaceEnd.value).toBe(SHAPING_FACE_END_MM)
     expect(uniforms.uEngagedPreviousDepth.value).toBe(0)
     for (const kind of ['warm', 'cool', 'none'] as const) {
-      writeStressUniforms(uniforms, { kind, mix: 0.4, scanProgress: 0.8, yMin: 9.9, yMax: 13.78, rMax: 6.074 })
+      writeStressUniforms(uniforms, { kind, mix: 0.4, scanProgress: 0.8, yMin: 9.9, yMax: 13.78, rMax: 6.074, centerY: 10.41, hotspotFos: 0.55, bodyFos: 3 })
       expect(uniforms.uStressKind.value).toBe({ none: 0, warm: 1, cool: 2 }[kind])
       expect(uniforms.uStressMix.value).toBe(0.4)
       expect(uniforms.uStressScanProgress.value).toBe(0.8)
       expect(uniforms.uStressYMin.value).toBe(9.9)
+      expect(uniforms.uStressCenterY.value).toBe(10.41)
+      expect(uniforms.uStressHotspotFos.value).toBe(0.55)
       expect(uniforms.uStressYMax.value).toBe(13.78)
       expect(uniforms.uStressRMax.value).toBe(6.074)
     }

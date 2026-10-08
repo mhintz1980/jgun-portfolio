@@ -107,7 +107,13 @@ if (only.includes('opening')) {
     const env = await renderer(page)
     for (const t of (arg('times') ?? '0.03,0.12,0.19,0.29,0.38,0.77,0.80,0.86').split(',').map(Number)) {
       await page.evaluate(p => window.__drawingProof.setProgress(p), t * 0.12)
-      await page.waitForTimeout(900)
+      // The scroll camera damps toward its goal: capture only once position and fov have converged (as capture-jgun-drawing-review does).
+      await page.waitForFunction(phase => {
+        const c = window.__telemetry?.camera
+        return window.__telemetry?.drawing?.phase !== undefined && Math.abs(window.__telemetry.drawing.phase - phase) < 1e-6 && c &&
+          Math.hypot(c.x - c.goal.position[0], c.y - c.goal.position[1], c.z - c.goal.position[2]) < 0.00005 && Math.abs(c.fov - c.goal.fov) < 0.005
+      }, t, { timeout: 180000 })
+      await page.waitForTimeout(600)
       await shot(page, `opening-${name}-t${String(t).replace('.', 'p')}`, { kind: 'opening', viewport: name, t, ...env, camera: await page.evaluate(() => window.__telemetry?.camera ?? null) })
     }
     await context.close()

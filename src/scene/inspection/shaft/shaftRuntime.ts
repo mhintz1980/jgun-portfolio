@@ -14,12 +14,13 @@ import { narrativeModelToStudy, placeHob, placeShaper, shaftMetrePoint, shaftMmP
 import { createShaftKinematicsFrame, sampleShaftKinematics, writeShaftProgression } from './kinematics'
 import {
   applyProgression, createProgressionState, createProgressionUniforms, FACE_START_MM,
-  HOB_INFEED_YC_MM, HOB_RETRACT_MM, HOB_VISUAL_A_MM, HOB_VISUAL_R_MM, HOBBING_FACE_END_MM,
-  setShaftTransform, SHAFT_OD_MM, SHAPING_FACE_END_MM, writeProgressionUniforms, writeStressUniforms,
+  HOB_INFEED_YC_MM, HOB_RETRACT_MM, HOB_VISUAL_A_MM, HOB_VISUAL_R_MM,
+  setShaftTransform, writeProgressionUniforms, writeStressUniforms,
   type ProgressionShaft, type ProgressionUniforms, type StressOverlay,
 } from './progression'
 import { createShaftSchedule, sampleShaftSchedule } from './schedule'
 import { createShaftScriptFrame, sampleShaftScript } from './script'
+import { FOS_CENTER_Y, FOS_MAX, newFosPresentation, sampleFosPresentation } from './fosPresentation'
 import { shaftStory } from './story'
 import { buildHob, buildShaperCutter } from './tools'
 
@@ -125,7 +126,8 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
   const schedule = createShaftSchedule(), kinematics = createShaftKinematicsFrame(), script = createShaftScriptFrame()
   const cameraSample = createShaftCameraSample()
   const legacyState = createProgressionState(), approvedState = createProgressionState()
-  const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: SHAPING_FACE_END_MM, yMax: 12, rMax: SHAFT_OD_MM }
+  const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: 0, yMax: 24, rMax: 9, centerY: FOS_CENTER_Y.attempt, hotspotFos: 0, bodyFos: FOS_MAX }
+  const fos = newFosPresentation()
   const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.35, envRotationY: 0,
     bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
@@ -375,8 +377,11 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
         for (let i = 0; i < part.caps.length; i++) part.caps[i].visible = schedule.section
       }
       stress.kind = script.stress; stress.mix = script.stressMix; stress.scanProgress = script.scanProgress
-      stress.yMin = script.stress === 'warm' ? SHAPING_FACE_END_MM : HOBBING_FACE_END_MM
-      stress.yMax = script.stress === 'warm' ? 12 : 17
+      // The whole shaft carries the field (body blue, hotspot warm/blue); it spreads from the hotspot centre.
+      stress.yMin = 0; stress.yMax = 24; stress.rMax = 9
+      stress.centerY = script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised
+      sampleFosPresentation(frame.time, script.stress, script.stressMix, fos)
+      stress.hotspotFos = fos.hotspot; stress.bodyFos = fos.body
       for (let i = 0; i < bindings.length; i++) {
         const binding = bindings[i]
         writeProgressionUniforms(binding.uniforms, binding.kind === 'legacy' ? legacyState : approvedState, binding.kind)

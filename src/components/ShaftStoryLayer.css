@@ -18,6 +18,34 @@
   .shaft-attribution{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){.shaft-stamp-impulse{animation:none}}
+
+/* JG-035 S2 — factor-of-safety panels: model block (left) and FOS bar (right), opacity-only, fed by the same sampler as the field. */
+.shaft-fos-model{position:absolute;left:57.6px;top:148px;width:340px;pointer-events:none;color:#dbe7ef;font:12px/1.55 ui-monospace,"SFMono-Regular",Consolas,monospace;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+.shaft-fos-model p{margin:0}
+.shaft-fos-model span{color:#8dafc3}
+.shaft-fos-min b{font-size:15px;color:#ffc2b6;font-weight:700}
+.shaft-fos-bar{position:absolute;right:1.4%;top:148px;height:340px;width:78px;display:flex;flex-direction:column;gap:7px;pointer-events:none;color:#dbe7ef;font:11px/1 ui-monospace,"SFMono-Regular",Consolas,monospace}
+.shaft-fos-title{font-weight:700;letter-spacing:.08em;color:#eaf2f8}
+.shaft-fos-track{position:relative;flex:1}
+.shaft-fos-gradient{position:absolute;left:0;top:0;bottom:0;width:18px;border:1px solid #31485a;border-radius:2px;background:var(--fos-gradient-v)}
+.shaft-fos-tick{position:absolute;left:24px;bottom:calc(var(--fos-pos) * 100%);transform:translateY(50%);color:#9bb4c6}
+.shaft-fos-marker{position:absolute;left:-7px;width:60px;height:0;bottom:calc(var(--fos-pos) * 100%);pointer-events:none}
+.shaft-fos-marker i{position:absolute;left:0;top:-1px;width:32px;border-top:2px solid #fff;filter:drop-shadow(0 0 2px #000)}
+.shaft-fos-marker em{position:absolute;left:36px;top:-7px;font-style:normal;font-weight:700;color:#fff;text-shadow:0 1px 3px #000}
+.shaft-fos-range{position:absolute;left:-6px;width:3px;top:0;bottom:calc(var(--fos-pos) * 100%);border-radius:2px;background:#8fc2ff;opacity:.9}
+@media(max-width:600px){
+  /* Narrow: one compact line of model context and a horizontal bar sit between the card band and the machining ROI. */
+  .shaft-fos-model{left:8%;right:8%;width:auto;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px);font-size:10.5px;line-height:1.35;display:flex;flex-wrap:wrap;gap:0 12px}
+  .shaft-fos-model p:nth-child(2),.shaft-fos-model p:nth-child(3){display:none}
+  .shaft-fos-bar{left:8%;right:8%;width:auto;height:34px;top:calc(max(24px,env(safe-area-inset-top)) + 132px + 192px + 34px);flex-direction:row;align-items:center;gap:8px}
+  .shaft-fos-track{flex:1;height:12px}
+  .shaft-fos-gradient{left:0;right:0;top:0;bottom:auto;width:auto;height:12px;background:var(--fos-gradient-h)}
+  .shaft-fos-tick{display:none}
+  .shaft-fos-marker{bottom:auto;top:0;left:calc(var(--fos-pos) * 100%);height:12px;width:0}
+  .shaft-fos-marker i{top:-5px;left:0;width:0;height:22px;border-top:0;border-left:2px solid #fff}
+  .shaft-fos-marker em{left:6px;top:-16px}
+  .shaft-fos-range{bottom:auto;top:-3px;left:calc(var(--fos-pos) * 100%);right:0;width:auto;height:18px;background:transparent;border:2px solid #8fc2ff;border-radius:3px;opacity:.85}
+}
 /* Inside the inspection dialog the controls own the lower left (desktop) and the lower band (narrow). */
 .ring-inspection-portal .shaft-story-layer{z-index:0}
 @media(max-width:600px){.ring-inspection-portal .shaft-story-column{bottom:auto;top:calc(max(24px,env(safe-area-inset-top)) + 132px)}}

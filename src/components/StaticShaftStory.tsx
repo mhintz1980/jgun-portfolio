@@ -1,5 +1,5 @@
 import {
-  SHAFT_ATTRIBUTION_TEXT, SHAFT_CARD_TEXT, SHAFT_STAMP_TEXT, SHAFT_STRESS_CAPTION_TEXT,
+  SHAFT_ATTRIBUTION_TEXT, SHAFT_CARD_TEXT, SHAFT_STAMP_TEXT,
 } from '../scene/inspection/shaft/script'
 import { SHAFT_TRANSCRIPT } from './ShaftStoryLayer'
 import './ShaftStoryLayer.css'
@@ -35,7 +35,7 @@ export function StaticShaftStory() {
         <p className="shaft-static-number" aria-hidden="true">02 / MATERIAL ATTEMPTS</p>
         <h3 id="shaft-static-materials">{SHAFT_TRANSCRIPT[1].heading}</h3>
         <p>{SHAFT_TRANSCRIPT[1].body}</p>
-        <ShaftStill id="material-attempts" alt="Rendered original grooved shaft retained for the three earlier material attempts, with a warm illustrative field around the relief." caption={SHAFT_STRESS_CAPTION_TEXT} />
+        <ShaftStill id="material-attempts" alt="Rendered original grooved shaft retained for the three earlier material attempts, with a red-to-blue factor-of-safety field concentrated at the relief groove, the model block on the left and the FOS bar on the right." caption="Input Shaft: factor of safety below 1.0 at the groove for every attempt, lowest for 4140 and highest for C300." />
         <ol className="shaft-static-materials" aria-label="Three earlier material attempts">
           {(['4140', '4340', 'c300'] as const).map(id => <li key={id}>
             <span className="shaft-static-alloy">{SHAFT_CARD_TEXT[id]}</span>
@@ -55,7 +55,7 @@ export function StaticShaftStory() {
         </div>
         <p className="shaft-static-comparison-note">Two process views · the blank and finished teeth are shown from their authored inspection angles.</p>
         <div className="shaft-static-cool" data-static-part="cool-stress">
-          <ShaftStill id="cool-stress" alt="Rendered revised shaft with a cool illustrative stress field below the gear; this is a visual explanation without calculated stress values." caption={SHAFT_STRESS_CAPTION_TEXT} />
+          <ShaftStill id="cool-stress" alt="Rendered revised shaft with a blue factor-of-safety field below the gear, the model block on the left and the blue end of the FOS bar on the right." caption="Revised, rotary hobbed: the field stays in the blue part of the scale." />
           <p className="shaft-static-final-alloy">{SHAFT_CARD_TEXT['4340-ht']}</p>
         </div>
       </section>

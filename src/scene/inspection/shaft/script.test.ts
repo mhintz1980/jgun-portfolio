@@ -3,7 +3,7 @@ import { storyChapterAt } from '../story'
 import { shaftBeat, shaftBeats, shaftStory } from './story'
 import {
   createShaftScriptFrame, sampleShaftScript, SHAFT_ATTRIBUTION_TEXT, SHAFT_CARD_GAP, SHAFT_CARD_TEXT, SHAFT_IMPULSE,
-  SHAFT_MATERIAL_ATTEMPTS, SHAFT_RECAP_CAPTION_TEXT, SHAFT_READABLE, SHAFT_STAMP_TEXT, SHAFT_STRESS_CAPTION_TEXT, type ShaftScriptFrame,
+  SHAFT_MATERIAL_ATTEMPTS, SHAFT_RECAP_CAPTION_TEXT, SHAFT_READABLE, SHAFT_STAMP_TEXT, type ShaftScriptFrame,
 } from './script'
 
 const STEP = 1 / 240
@@ -95,12 +95,11 @@ describe('authored strings', () => {
     expect(SHAFT_CARD_TEXT['4340-ht']).toBe('AISI 4340 (H.T. 48-50 HRC)')
     expect(SHAFT_STAMP_TEXT).toBe('FAILED')
     expect(SHAFT_ATTRIBUTION_TEXT).toBe('Earlier material attempts, as recounted by the designer.')
-    expect(SHAFT_STRESS_CAPTION_TEXT).toBe('Illustrative stress concentration')
     expect(SHAFT_RECAP_CAPTION_TEXT).toBe('Remaining teeth — time compressed')
   })
   it('pins ASCII hyphens in hardness ranges and the single em dash in the recap caption', () => {
     const dashLike = ['‐', '‑', '‒', '–', '—', '―', '−']
-    for (const text of [...Object.values(SHAFT_CARD_TEXT), SHAFT_ATTRIBUTION_TEXT, SHAFT_STRESS_CAPTION_TEXT, SHAFT_STAMP_TEXT]) {
+    for (const text of [...Object.values(SHAFT_CARD_TEXT), SHAFT_ATTRIBUTION_TEXT, SHAFT_STAMP_TEXT]) {
       for (const dash of dashLike) expect(text).not.toContain(dash)
       for (const ch of text) if (ch === '-') expect(ch.charCodeAt(0)).toBe(0x2d)
     }
