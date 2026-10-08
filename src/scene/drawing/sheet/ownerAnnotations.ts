@@ -184,7 +184,7 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const spindleDia = o ? (o.max.x - o.min.x) * section.scale : 0.015
   const ring = handCircle(spindle.x, spindle.y, spindleLen / 2 + 0.003, spindleDia / 2 + 0.0032, 13, 1.1, 0.04)
   const ox0 = 0.034
-  const oTop = 0.102
+  const oTop = 0.088
   const outLines = OWNER_NOTES.output.map((line, i) => handwrite(line, { x: ox0, y: oTop - CAP - i * PITCH, capHeight: CAP, seed: 51 + i, rotation: 0.006 }))
   const outRight = Math.max(...outLines.map(l => l.bounds.x1))
   const arrowFrom: Pt = [outRight + 0.003, oTop - CAP - PITCH * 0.3]
