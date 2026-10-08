@@ -1,0 +1,91 @@
+// JG-035 owner-revision before/after capture: exact-time ring/shaft frames and
+// opening frames through the existing proof hooks (no verifier flags added).
+// node scripts/capture-owner-revisions.mjs --url=http://localhost:5199 --out=<dir> [--only=ring,shaft,opening]
+import { chromium } from 'playwright'
+import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
+import fs from 'node:fs'
+import path from 'node:path'
+import { execSync } from 'node:child_process'
+
+const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3)
+const url = arg('url') ?? 'http://localhost:5199'
+const out = path.resolve(arg('out') ?? 'capture-out')
+const only = (arg('only') ?? 'ring,shaft,opening').split(',')
+fs.mkdirSync(out, { recursive: true })
+const report = { qualityLock: true, url, started: new Date().toISOString(), head: execSync('git rev-parse HEAD').toString().trim(), launch: describeLaunch(), only, captures: [], errors: [] }
+const browser = await launchBrowser(chromium)
+report.browserVersion = browser.version()
+const shot = async (page, name, meta = {}) => {
+  const file = path.join(out, name + '.png')
+  await page.screenshot({ path: file })
+  report.captures.push({ file: path.basename(file), ...meta })
+}
+async function open(viewport) {
+  const context = await browser.newContext({ viewport, deviceScaleFactor: 1, serviceWorkers: 'block' })
+  const page = await context.newPage()
+  page.on('pageerror', e => report.errors.push(String(e)))
+  page.on('console', m => { if (m.type() === 'error') report.errors.push(m.text()) })
+  return { context, page }
+}
+const renderer = page => page.evaluate(() => { const g = (window.__threeRenderer ?? null)?.getContext?.(); const e = g?.getExtension('WEBGL_debug_renderer_info'); return { renderer: e ? g.getParameter(e.UNMASKED_RENDERER_WEBGL) : null, tier: window.__telemetry?.performance?.tier ?? null } })
+
+if (only.includes('ring')) {
+  const { context, page } = await open({ width: 1440, height: 960 })
+  await page.goto(`${url}/?chapter=1&inspectionProof=1&qualityLock=1`, { waitUntil: 'domcontentloaded' })
+  const trigger = page.getByRole('button', { name: 'Inspect the finish' })
+  await trigger.waitFor({ state: 'visible', timeout: 180000 })
+  await page.waitForFunction(() => window.__rig && window.__telemetry?.performance?.warmReady, null, { timeout: 180000 })
+  await page.waitForTimeout(1500)
+  await trigger.focus(); await page.keyboard.press('Enter')
+  await page.getByRole('dialog').waitFor()
+  await page.waitForFunction(() => window.__inspection?.loaded && window.__inspectionProof, null, { timeout: 180000 })
+  const env = await renderer(page)
+  for (const t of [1.2, 2.6, 4.2, 5.2, 8, 8.575, 9.3, 12]) {
+    await page.waitForFunction(() => window.__inspectionProof && window.__inspection?.loaded && window.__inspection?.status === "ready", null, { timeout: 240000 })
+    await page.evaluate(time => window.__inspectionProof.seek(time, 2), t)
+    await page.waitForTimeout(600)
+    await shot(page, `ring-${String(t).replace('.', 'p')}s`, { kind: 'ring', t, ...env, probe: await page.evaluate(() => JSON.parse(JSON.stringify(window.__inspection))) })
+  }
+  await context.close()
+}
+if (only.includes('shaft')) {
+  const { context, page } = await open({ width: 1440, height: 900 })
+  await page.goto(`${url}/?chapter=1&inspectionProof=1&qualityLock=1`, { waitUntil: 'domcontentloaded' })
+  const trigger = page.getByRole('button', { name: 'Inspect the input shaft' })
+  await trigger.waitFor({ state: 'visible', timeout: 180000 })
+  await page.waitForFunction(() => window.__rig && window.__threeRenderer && window.__telemetry?.performance?.warmReady, null, { timeout: 180000 })
+  await page.waitForTimeout(1500)
+  await trigger.click()
+  await page.getByRole('dialog').waitFor()
+  await page.waitForFunction(() => ['ready', 'error'].includes(window.__inspection?.status), null, { timeout: 180000 })
+  await page.waitForTimeout(1400)
+  const env = await renderer(page)
+  for (const t of [1.3, 3, 6.5, 10.9, 13, 16, 19, 21.5, 25.4, 28, 33.5, 37, 41]) {
+    await page.locator('#inspection-seek').evaluate((e, value) => {
+      e.step = 'any'
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(e, String(value))
+      e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true }))
+    }, t)
+    await page.waitForTimeout(1200)
+    await shot(page, `shaft-${String(t).replace('.', 'p')}s`, { kind: 'shaft', t, ...env, probeTime: await page.evaluate(() => window.__inspection?.time) })
+  }
+  await context.close()
+}
+if (only.includes('opening')) {
+  for (const [name, viewport] of [['desktop', { width: 1440, height: 900 }], ['tablet', { width: 768, height: 1024 }], ['narrow', { width: 390, height: 844 }]]) {
+    const { context, page } = await open(viewport)
+    await page.goto(url + '/?qualityLock=1', { waitUntil: 'domcontentloaded' })
+    await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady, null, { timeout: 240000 })
+    const env = await renderer(page)
+    for (const t of [0.03, 0.08, 0.12, 0.19, 0.24, 0.29, 0.34, 0.38, 0.5, 0.7, 0.77, 0.8, 0.84, 0.88, 0.95]) {
+      await page.evaluate(p => window.__drawingProof.setProgress(p), t * 0.12)
+      await page.waitForTimeout(900)
+      await shot(page, `opening-${name}-t${String(t).replace('.', 'p')}`, { kind: 'opening', viewport: name, t, ...env, camera: await page.evaluate(() => window.__telemetry?.camera ?? null) })
+    }
+    await context.close()
+  }
+}
+await browser.close()
+report.finished = new Date().toISOString()
+fs.writeFileSync(path.join(out, 'capture-report.json'), JSON.stringify(report, null, 2))
+console.log(JSON.stringify({ captures: report.captures.length, errors: report.errors.slice(0, 5), launch: report.launch }, null, 2))

@@ -7,6 +7,7 @@
  * Owned files: this script + the --out evidence directory. No src changes.
  */
 import { chromium } from 'playwright'
+import { launchBrowser } from './lib/browser-launch.mjs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -54,11 +55,7 @@ const defects = []
 const noteDefect = defect => { if (!defects.some(d => d.id === defect.id)) defects.push(defect) }
 await fs.writeFile(path.join(out, 'report.json'), JSON.stringify({ ...report, running: true }, null, 2))
 
-const browser = await chromium.launch({
-  channel: 'chrome',
-  headless: true,
-  args: ['--use-angle=d3d11', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows'],
-})
+const browser = await launchBrowser(chromium)
 const check = (condition, message) => { if (!condition) throw new Error(message) }
 const near = (a, b, tolerance) => Math.abs(a - b) <= tolerance
 const read = async page => {

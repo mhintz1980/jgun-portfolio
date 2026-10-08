@@ -1,6 +1,7 @@
 // Run against a fresh Vite development server: node scripts/precompute-drawing.mjs [URL]
 // Uses the actual rest-pose snapshot and actual WebGL HLR; never transforms the source GLB.
 import { chromium } from 'playwright'
+import { launchConfig } from './lib/browser-launch.mjs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { gzipSync } from 'node:zlib'
 import { cpus, platform, release } from 'node:os'
@@ -14,8 +15,8 @@ const options = { viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 2 
 // Real GPU first (repo verifier convention). Bundled headless Chromium falls back to SwiftShader,
 // whose software render loop starves the page's main thread: the 25 MB asset fetch then outlives
 // the loader's timeout and every precomputed measurement reads as a live-bake fallback.
-const args = ['--use-angle=d3d11', '--disable-background-timer-throttling', '--disable-renderer-backgrounding']
-let channel = 'chrome'
+const args = launchConfig().args
+let channel = process.platform === 'win32' ? 'chrome' : 'bundled-chromium'
 let browser
 try {
   browser = await chromium.launch({ headless: true, channel, args })

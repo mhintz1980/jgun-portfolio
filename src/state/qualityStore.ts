@@ -65,8 +65,17 @@ export function getQuality(): QualityState {
   return state
 }
 
-/** Step down one tier: full → lite → poster. No-op at poster. */
-export function degradeQuality(): void {
+/**
+ * Proof-only: `?qualityLock` stops the frame-rate ratchet so captures on software GL
+ * (cloud/CI, SwiftShader) are not unmounted mid-run. Hard failures — WebGL context loss
+ * via `forcePoster()` — and the explicit proof hook `setTier()` are NOT affected. Never
+ * set in production URLs; harness reports must record it.
+ */
+export const qualityLocked = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('qualityLock')
+
+/** Step down one tier: full → lite → poster. No-op at poster or while `?qualityLock` is set (explicit proof-hook steps still apply). */
+export function degradeQuality(explicit = false): void {
+  if (qualityLocked && !explicit) return
   if (state.tier === 'full') state.tier = 'lite'
   else if (state.tier === 'lite') state.tier = 'poster'
   else return

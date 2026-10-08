@@ -1,4 +1,5 @@
 import { chromium } from 'playwright'
+import { launchBrowserMinimal } from './lib/browser-launch.mjs'
 import fs from 'node:fs'
 import path from 'node:path'
 import { gunzipSync } from 'node:zlib'
@@ -6,7 +7,7 @@ const outArg = process.argv.find(arg => arg.startsWith('--out='))?.slice(6)
 const url = process.argv.find(arg => arg.startsWith('--url='))?.slice(6) ?? 'http://localhost:4173'
 const out = path.resolve(outArg ?? 'project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/drawing-review')
 fs.mkdirSync(out, { recursive: true })
-const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=d3d11', '--disable-background-timer-throttling'] })
+const browser = await launchBrowserMinimal(chromium)
 try {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1200 }, deviceScaleFactor: 1 })
   const errors = []

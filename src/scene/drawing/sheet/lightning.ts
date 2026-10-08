@@ -58,7 +58,7 @@ void main() {
 }`
 
 export const LIGHTNING_FRAGMENT = /* glsl */ `
-uniform float uPulseHead; uniform float uPulse; uniform float uLampPower; uniform float uCrackGlow; uniform float uFracture;
+uniform float uPulseHead; uniform float uPulse; uniform float uLampPower; uniform float uCrackGlow; uniform float uFracture; uniform float uSpark;
 varying float vArc; varying float vAcross;
 void main() {
   float d = vArc - uPulseHead;
@@ -72,6 +72,9 @@ void main() {
   float core = 1.0 - smoothstep(0.075 - aa, 0.075 + aa, across);
   float glow = exp(-across * across * 4.0) * 0.42;
   float envelope = smoothstep(0.0, 0.035, uPulseHead);
-  float alpha = clamp(energy * (core + glow), 0.0, 1.0) * uCrackGlow * envelope;
+  // Non-advancing anticipation: a faint, irregular spark held at the trace origin before the
+  // first burst. Deterministic in vArc/uSpark only; it never moves the head.
+  float spark = uSpark * step(vArc, 0.006) * (0.35 + 0.65 * pow(0.5 + 0.5 * sin(vArc * 9100.0 + uSpark * 61.0), 2.0));
+  float alpha = clamp(energy * (core + glow) * envelope + spark * (core + glow * 0.6), 0.0, 1.0) * uCrackGlow;
   gl_FragColor = vec4(mix(vec3(0.18, 0.48, 0.88), vec3(0.475, 0.812, 1.0), core), alpha);
 }`

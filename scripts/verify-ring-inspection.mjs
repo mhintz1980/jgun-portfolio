@@ -1,4 +1,5 @@
 import { chromium } from 'playwright'
+import { launchBrowser } from './lib/browser-launch.mjs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { pixels } from './lib/preview-pixels.mjs'
@@ -7,7 +8,7 @@ const url = process.argv.find(arg => arg.startsWith('--url='))?.slice(6) || 'htt
 const out = path.resolve(process.argv.find(arg => arg.startsWith('--out='))?.slice(6) || '.scratch/ring-inspection-runtime')
 await fs.mkdir(out, { recursive: true })
 const report = { url, started: new Date().toISOString(), cases: [], failures: [] }
-const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=d3d11', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows'] })
+const browser = await launchBrowser(chromium)
 const check = (condition, message) => { if (!condition) throw new Error(message) }
 const read = page => page.evaluate(() => JSON.parse(JSON.stringify(window.__inspection)))
 const loseContext = page => page.evaluate(() => {

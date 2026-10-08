@@ -1,11 +1,17 @@
 import { describe, expect, it } from 'vitest'
 const smooth01 = (value: number) => { const x = Math.max(0, Math.min(1, value)); return x * x * (3 - 2 * x) }
+import { BRANCH_START_T } from './electricalScore'
 import {
   DRAWING_INTRO_WINDOW,
   REDUCED_MOTION_INTRO_T,
   INTRO_PHASES,
   INTRO_SCROLL_SHARE,
+  OPENING_CLOSE_READ_ANCHORS,
+  OPENING_CLOSE_READ_END_RAW,
+  OPENING_CLOSE_READ_END_T,
   drawingIntroState,
+  introRawFraction,
+  introTimeFromRaw,
   introPoseTime,
   introScrollTimeFor,
   pacedProgress,
@@ -65,6 +71,78 @@ describe('intro pacing map', () => {
     const after = pacedProgress(share + 0.05) - pacedProgress(share + 0.03)
     expect(before).toBeCloseTo((0.02 * DRAWING_INTRO_WINDOW.releaseEnd) / INTRO_SCROLL_SHARE, 10)
     expect(after).toBeCloseTo((0.02 * (1 - DRAWING_INTRO_WINDOW.releaseEnd)) / (1 - INTRO_SCROLL_SHARE), 10)
+  })
+})
+
+describe('opening close-reading scroll remap (JG-035 O3)', () => {
+  const identityRaw = (t: number) => t * INTRO_SCROLL_SHARE
+  const slope = (f: (x: number) => number, x: number, h = 1e-6) => (f(x + h) - f(x - h)) / (2 * h)
+
+  it('passes exactly through every authored anchor', () => {
+    for (const [t, raw] of OPENING_CLOSE_READ_ANCHORS) expect(introRawFraction(t)).toBeCloseTo(raw, 12)
+  })
+
+  it('adds the owner-targeted extra close-reading scroll at the establishing and settle shots', () => {
+    // At a 100 s linear sweep, raw fraction * 100 = seconds into the sweep.
+    expect((introRawFraction(0.29) - identityRaw(0.29)) * 100).toBeCloseTo(3.5, 9)
+    expect((introRawFraction(0.38) - identityRaw(0.38)) * 100).toBeCloseTo(4, 9)
+    // The recognition hold keeps its raw width (.38-.45 = .035 raw = 3.5 s at 100 s).
+    expect((introRawFraction(0.45) - introRawFraction(0.38)) * 100).toBeCloseTo(3.5, 9)
+  })
+
+  it('is strictly increasing with a positive derivative everywhere (no slope-pinning reversal)', () => {
+    let minSlope = Infinity
+    for (let i = 1; i < 20000; i += 1) minSlope = Math.min(minSlope, slope(introRawFraction, i / 20000))
+    // Measured minimum d(raw)/dt is ~.165 (t .60-.62, inside the dark hold): ~3x faster than identity, never stalled.
+    expect(minSlope).toBeGreaterThan(0.16)
+    let previous = -1
+    for (let i = 0; i <= 5000; i += 1) {
+      const raw = introRawFraction(i / 5000)
+      expect(raw).toBeGreaterThan(previous)
+      previous = raw
+    }
+  })
+
+  it('joins the unchanged intro slope C1 at t .66 / raw .33 and keeps the identity beyond', () => {
+    expect(OPENING_CLOSE_READ_END_T).toBe(0.66)
+    expect(OPENING_CLOSE_READ_END_RAW).toBe(0.33)
+    expect(introRawFraction(0.66)).toBeCloseTo(identityRaw(0.66), 12)
+    // One-sided limits of the derivative at the join (the cubic bends hard in the last .04 of t).
+    expect(slope(introRawFraction, 0.66 - 1e-5, 1e-6)).toBeCloseTo(INTRO_SCROLL_SHARE, 3)
+    expect(slope(introRawFraction, 0.66 + 1e-5, 1e-6)).toBeCloseTo(INTRO_SCROLL_SHARE, 6)
+    for (const t of [0.66, 0.7, 0.765, 0.79, 0.88, 1]) expect(introRawFraction(t)).toBeCloseTo(identityRaw(t), 12)
+    // Starts at the old pace too, so the opening focus rack does not lurch.
+    expect(slope(introRawFraction, 1e-3)).toBeCloseTo(INTRO_SCROLL_SHARE, 2)
+  })
+
+  it('leaves pacedProgress untouched from raw .33 on (trace, rupture, rise, downstream)', () => {
+    const oldPaced = (s: number) => s <= INTRO_SCROLL_SHARE ? (DRAWING_INTRO_WINDOW.releaseEnd / INTRO_SCROLL_SHARE) * s : null
+    for (let i = 0; i <= 170; i += 1) {
+      const s = 0.33 + (i / 170) * (INTRO_SCROLL_SHARE - 0.33)
+      expect(pacedProgress(s)).toBeCloseTo(oldPaced(s)!, 12)
+    }
+    expect(pacedProgress(0.33)).toBeCloseTo(0.12 * 0.66, 12)
+  })
+
+  it('inverts exactly through introTimeFromRaw and rawScrollFor', () => {
+    for (let i = 0; i <= 200; i += 1) {
+      const t = i / 200
+      expect(introTimeFromRaw(introRawFraction(t))).toBeCloseTo(t, 9)
+    }
+    for (const p of [0.001, 0.006, 0.0348, 0.045, 0.054, 0.0696, 0.0792, 0.1, 0.12]) {
+      expect(pacedProgress(rawScrollFor(p))).toBeCloseTo(p, 10)
+    }
+  })
+
+  it('keeps the rest of the paced axis monotone with a continuous slope at the join', () => {
+    const f = (s: number) => pacedProgress(s)
+    expect(slope(f, 0.33 - 1e-6, 1e-7)).toBeCloseTo(slope(f, 0.33 + 1e-6, 1e-7), 3)
+    let previous = -1
+    for (let i = 0; i <= 4000; i += 1) {
+      const value = f(i / 4000)
+      expect(value).toBeGreaterThan(previous)
+      previous = value
+    }
   })
 })
 
@@ -465,7 +543,7 @@ describe('intro phase map', () => {
       const repeated = drawingIntroState(samples[i] * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
       expect(repeated).toStrictEqual(forward[i])
       expect(repeated.blackout).toBe(repeated.lampPower <= 0.03 ? 1 : 0)
-      expect(repeated.crackWeb).toBe(smooth01((repeated.t - 0.75) / 0.07) * (1 - repeated.fracture))
+      expect(repeated.crackWeb).toBe(smooth01((repeated.t - BRANCH_START_T) / 0.012) * (1 - repeated.fracture))
       expect(repeated.openingClear).toBe(repeated.t >= INTRO_PHASES.fractureEnd ? 1 : 0)
     }
     for (let i = samples.length - 1; i >= 0; i -= 1) {
@@ -599,7 +677,7 @@ describe('paper barrier breakthrough', () => {
     for (let i = times.length - 1; i >= 0; i -= 1) {
       const again = state(times[i])
       expect(again).toStrictEqual(forward[i])
-      expect(again.crackWeb).toBe(smooth01((again.t - 0.75) / 0.07) * (1 - again.fracture))
+      expect(again.crackWeb).toBe(smooth01((again.t - BRANCH_START_T) / 0.012) * (1 - again.fracture))
       expect(again.openingClear).toBe(again.t >= INTRO_PHASES.fractureEnd ? 1 : 0)
     }
     // Unrelated evaluations in between cannot leak state into the authored ramps.

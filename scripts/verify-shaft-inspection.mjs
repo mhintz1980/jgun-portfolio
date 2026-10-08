@@ -1,5 +1,6 @@
 /** Independent shaft S1..S8 real-browser verifier; source and queue files are never modified. */
 import { chromium } from 'playwright'
+import { launchBrowser } from './lib/browser-launch.mjs'
 import { build } from 'esbuild'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -46,7 +47,7 @@ function intervalScan(t1, t2, step = 0.002) {
   return { whollyDisengaged, cuts }
 }
 const report = { schema: 'shaft-verifier/1', url, started: new Date().toISOString(), command: `node scripts/verify-shaft-inspection.mjs --url=${url} --out=${out}`, verifierSha256: sha256(await fs.readFile(fileURLToPath(import.meta.url))), sourceHashes, slowExit: slow, cases: [], defects: [], harnessLimitations: [], gates: {} }
-const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=d3d11', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows'] })
+const browser = await launchBrowser(chromium)
 const persist = () => fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2))
 const near = (a, b, eps = 1e-8) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= eps
 const clone = x => JSON.parse(JSON.stringify(x))

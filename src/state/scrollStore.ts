@@ -273,6 +273,9 @@ export interface TelemetryDrawing {
   poseT: number
   focus: number
   pulseHead: number
+  /** Interior crack-web growth threshold (JG-035 O1 burst/hold score). */
+  crackGrowth: number
+  sparkAnticipation: number
   pulse: number
   pbr: number
   illumination: number
@@ -347,6 +350,8 @@ export const telemetry: {
     poseT: 0,
     focus: 0,
     pulseHead: 0,
+    crackGrowth: 0,
+    sparkAnticipation: 0,
     pulse: 0,
     pbr: 0,
     illumination: 0,

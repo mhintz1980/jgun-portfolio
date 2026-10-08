@@ -3,6 +3,7 @@
  * Each run gets its own directory; failures still preserve JSON and screenshots.
  */
 import { chromium } from 'playwright'
+import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -19,7 +20,7 @@ const out = arg('out', '')
   : path.join(root, 'project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26', `${label}-${new Date().toISOString().replace(/[:.]/g, '-')}`)
 fs.mkdirSync(out, { recursive: true })
 const save = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n')
-const report = { url, label, started: new Date().toISOString(), browser: 'installed Playwright, channel chrome', coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, scrollShare: 0.001, realScrollPhase: 0.001 / 0.12 + 1e-6, pinnedPhase: 1e-9, reverseNumericDelta: 0.002, reverseBreakthroughDelta: 1e-9, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, registeredCameraMetres: 0.001, lampPower: 0.001, paperFlexMaxMetres: 0.012, litePaperFlexMaxMetres: 0.0054, holeAreaRelative: 1e-6, boundaryDeviationMetres: 0.0006, nearPaperMetres: 0.001, initialClearanceMetres: 0.0006, sheetRetirementWindow: [0.18, 0.22] }, cases: [] }
+const report = { url, label, started: new Date().toISOString(), browser: describeLaunch(), coldLoadDefinition: 'fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)', thresholds: { scrollProgress: 0.001, scrollShare: 0.001, realScrollPhase: 0.001 / 0.12 + 1e-6, pinnedPhase: 1e-9, reverseNumericDelta: 0.002, reverseBreakthroughDelta: 1e-9, pulseRegistrationMetres: 0.001, registeredHoldPixels: 0.1, registeredCameraMetres: 0.001, lampPower: 0.001, paperFlexMaxMetres: 0.012, litePaperFlexMaxMetres: 0.0054, holeAreaRelative: 1e-6, boundaryDeviationMetres: 0.0006, nearPaperMetres: 0.001, initialClearanceMetres: 0.0006, sheetRetirementWindow: [0.18, 0.22] }, cases: [] }
 // Fast mode (--quick): desktop + narrow only, forward owner checkpoints, no reverse pass
 // and no reduced-motion static waits.
 // Use for iteration; a --quick pass never replaces a full run as "done" evidence.
@@ -127,27 +128,7 @@ const sheetRetirementPoints = [0.18, 0.2, 0.22]
 quickCore.push(...sheetRetirementPoints)
 const fullOnlyCore = [0.018, 0.04, introProgress(0.725)]
 const points = [...new Set([...(quick ? quickCore : [...quickCore, ...fullOnlyCore]), ...phaseProgresses, ...lampProgresses])].sort((a, b) => a - b)
-const browser = await chromium.launch({
-  channel: 'chrome',
-  // Launch contract matches the sibling manufacturing verifiers
-  // (verify-shaft-inspection / verify-manufacturing-inspection /
-  // verify-ring-inspection): channel chrome, headless, --use-angle=d3d11,
-  // background flags, DPR 1. Both 2026-10-06 rosters are preserved as records:
-  // the headed one under runtime/opening-contact-final, the headless one under
-  // runtime/opening-triage-glm. Headless launching did not clear the desktop
-  // full-tier gate, and no causal claim about the headed failures is made here.
-  // Viewport, DPR, thresholds, tier expectations, and the app's adaptive ladder
-  // are unchanged.
-  headless: true,
-  args: [
-    '--use-angle=d3d11',
-    // Keep the renderer from being backgrounded/throttled by other processes.
-    // Production quality policy is unchanged.
-    '--disable-background-timer-throttling',
-    '--disable-renderer-backgrounding',
-    '--disable-backgrounding-occluded-windows',
-  ],
-})
+const browser = await launchBrowser(chromium)
 try {
   report.browserVersion = browser.version()
   for (const config of cases) {

@@ -65,6 +65,8 @@ export const REDUCED_MOTION_INTRO_T = 0.38
  */
 const HANDOFF_BLEND = 0.025
 
+import { BRANCH_START_T, newElectricalSample, sampleElectrical } from './electricalScore'
+
 export const clamp01 = (x: number): number => Math.max(0, Math.min(1, x))
 export const smooth01 = (x: number): number => {
   const t = clamp01(x)
@@ -77,9 +79,70 @@ const introLine = (s: number): number => INTRO_SLOPE * s
 const mainLine = (s: number): number =>
   DRAWING_INTRO_WINDOW.releaseEnd + MAIN_SLOPE * (s - INTRO_SCROLL_SHARE)
 
+/**
+ * JG-035 owner revision O3 (2026-10-07): extra close-reading scroll in the drafting pass.
+ *
+ * The camera stays low and tight on the handwritten notes and personal title block for longer
+ * by spending more RAW scroll before the establishing (t .29) and settle (t .38) shots, taken
+ * out of the lamp-failure / dark-idle travel (t .45-.66). Anchors are `[intro t, raw fraction]`;
+ * the old identity mapping is `raw = t * INTRO_SCROLL_SHARE` (t .29 -> .145, .38 -> .19).
+ * At a 100 s linear sweep that is +3.5 s before establishing and +4 s before settle.
+ *
+ * Everything at and after raw `OPENING_CLOSE_READ_END_RAW` (t .66) keeps the identity mapping and
+ * the unchanged `.24` intro slope, so the trace, rupture, rise and every downstream window keep
+ * their raw coordinates. The curve is a monotone (Fritsch-Carlson) cubic Hermite through the
+ * anchors with the identity slope (`INTRO_SCROLL_SHARE`) pinned at both ends, hence C1 at the join.
+ */
+export const OPENING_CLOSE_READ_ANCHORS: readonly (readonly [number, number])[] = [
+  [0, 0], [0.05, 0.025], [0.29, 0.18], [0.38, 0.23], [0.45, 0.265], [0.58, 0.31], [0.66, 0.33],
+]
+export const OPENING_CLOSE_READ_END_T = OPENING_CLOSE_READ_ANCHORS[OPENING_CLOSE_READ_ANCHORS.length - 1][0]
+export const OPENING_CLOSE_READ_END_RAW = OPENING_CLOSE_READ_ANCHORS[OPENING_CLOSE_READ_ANCHORS.length - 1][1]
+
+const READ_SLOPES: number[] = (() => {
+  const a = OPENING_CLOSE_READ_ANCHORS
+  const n = a.length
+  const h: number[] = [], d: number[] = []
+  for (let i = 0; i < n - 1; i += 1) { h.push(a[i + 1][0] - a[i][0]); d.push((a[i + 1][1] - a[i][1]) / h[i]) }
+  const m = new Array<number>(n)
+  m[0] = INTRO_SCROLL_SHARE
+  m[n - 1] = INTRO_SCROLL_SHARE
+  for (let i = 1; i < n - 1; i += 1) {
+    const w1 = 2 * h[i] + h[i - 1], w2 = h[i] + 2 * h[i - 1]
+    m[i] = (w1 + w2) / (w1 / d[i - 1] + w2 / d[i])
+  }
+  return m
+})()
+
+/** Intro-normalised time -> raw scroll fraction through the close-reading map (identity past t .66). */
+export function introRawFraction(t: number): number {
+  const x = Math.max(0, t)
+  if (x >= OPENING_CLOSE_READ_END_T) return x * INTRO_SCROLL_SHARE
+  const a = OPENING_CLOSE_READ_ANCHORS
+  let i = 0
+  while (i < a.length - 2 && x >= a[i + 1][0]) i += 1
+  const h = a[i + 1][0] - a[i][0], u = (x - a[i][0]) / h, u2 = u * u, u3 = u2 * u
+  return (2 * u3 - 3 * u2 + 1) * a[i][1] + (u3 - 2 * u2 + u) * h * READ_SLOPES[i]
+    + (-2 * u3 + 3 * u2) * a[i + 1][1] + (u3 - u2) * h * READ_SLOPES[i + 1]
+}
+
+/** Inverse of `introRawFraction` on the close-reading span (raw <= `OPENING_CLOSE_READ_END_RAW`). */
+export function introTimeFromRaw(raw: number): number {
+  if (raw <= 0) return 0
+  if (raw >= OPENING_CLOSE_READ_END_RAW) return raw / INTRO_SCROLL_SHARE
+  let lo = 0, hi = OPENING_CLOSE_READ_END_T
+  for (let i = 0; i < 52; i += 1) {
+    const mid = (lo + hi) / 2
+    if (introRawFraction(mid) > raw) hi = mid
+    else lo = mid
+  }
+  return (lo + hi) / 2
+}
+
 /** Raw document scroll fraction -> the paced progress axis the whole site is authored on. */
 export function pacedProgress(rawScroll: number): number {
   const s = clamp01(rawScroll)
+  if (s <= OPENING_CLOSE_READ_END_RAW) return DRAWING_INTRO_WINDOW.releaseEnd * introTimeFromRaw(s)
   if (s <= INTRO_SCROLL_SHARE) return introLine(s)
   if (s >= INTRO_SCROLL_SHARE + HANDOFF_BLEND) return mainLine(s)
   // Band starts AT the share (see HANDOFF_BLEND). At x = 0 both lines equal releaseEnd, so the
@@ -235,8 +298,12 @@ export interface IntroState {
   blackout: number
   /** Measured trailing reading-pool contribution; suppressed before the flicker. */
   readingPool: number
-  /** Normalized arc position of the excitation head along the traced profile. */
+  /** Normalized arc position of the excitation head along the traced profile (burst/hold score). */
   pulseHead: number
+  /** Interior crack-web growth threshold 0..1 (same burst/hold rhythm, begins near 85% outline). */
+  crackGrowth: number
+  /** Non-advancing pre-trace spark, 0..1 across the visible-dark anticipation; zero after the first burst. */
+  sparkAnticipation: number
   /** 1 while the excitation is running. */
   pulse: number
   /** Flat-shade -> PBR activation for the live model and the studio lights. */
@@ -262,8 +329,11 @@ export interface IntroState {
  * @param progress paced progress (not raw scroll)
  * @param crossing solved pose-time at which the model separates from the sheet
  */
+const electricalScratch = newElectricalSample()
+
 export function drawingIntroState(progress: number, crossing = 0.9): IntroState {
   const t = clamp01(progress / DRAWING_INTRO_WINDOW.releaseEnd)
+  const electrical = sampleElectrical(t, electricalScratch, INTRO_PHASES.pulseStart)
   const poseT = introPoseTime(t)
   const lampPower = lampPowerAt(t)
   // The wave is triggered by the solved separation, converted onto the scroll axis so
@@ -277,7 +347,7 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     pressure,
     fracture,
     openingClear: t >= INTRO_PHASES.fractureEnd ? 1 : 0,
-    crackWeb: smooth01((t - 0.75) / 0.07) * (1 - fracture),
+    crackWeb: smooth01((t - BRANCH_START_T) / 0.012) * (1 - fracture),
     crackGlow: t < INTRO_PHASES.pulseStart ? 0 : t <= INTRO_PHASES.pulseEnd ? 1 :
       (0.65 + 0.35 * pressure) * (1 - 0.78 * fracture) * (1 - smooth01((t - 0.94) / 0.05)),
     t,
@@ -286,7 +356,9 @@ export function drawingIntroState(progress: number, crossing = 0.9): IntroState 
     lampPower,
     blackout: lampPower <= 0.03 ? 1 : 0,
     readingPool: 1 - smooth01((t - 0.25) / 0.05),
-    pulseHead: clamp01((t - INTRO_PHASES.pulseStart) / (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)),
+    pulseHead: electrical.outline,
+    crackGrowth: electrical.branch,
+    sparkAnticipation: electrical.anticipation,
     pulse: t >= INTRO_PHASES.pulseStart && t <= INTRO_PHASES.pulseEnd ? 1 : 0,
     pbr: smooth01((t - INTRO_PHASES.metalStart) / 0.02),
     illumination: lampPowerAt(t) * smooth01((t - INTRO_PHASES.metalStart) / 0.02),

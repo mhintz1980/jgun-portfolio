@@ -365,6 +365,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       uCrackGlow: { value: 0 },
       uCrackWeb: { value: 0 },
       uCrackGrowth: { value: 0 },
+      uSpark: { value: 0 },
     })
     const paper = new ShaderMaterial({
       uniforms,
@@ -393,7 +394,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
       toneMapped: false,
     })
     const cracks = new ShaderMaterial({ uniforms, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
-      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb'),
+      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb').replace(/uSpark/g, 'uCrackSpark'),
       transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false })
     const edge = new ShaderMaterial({ uniforms, vertexShader: planeVertex,
       fragmentShader: `uniform float uLampPower; varying vec2 vPlane; ${PORTAL_PROFILE_GLSL}
@@ -488,7 +489,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
             )
         }),
       setTier: (tier: string) => {
-        if (tier === 'lite' && getQuality().tier === 'full') degradeQuality()
+        if (tier === 'lite' && getQuality().tier === 'full') degradeQuality(true)
         if (tier === 'poster') forcePoster()
       },
       setMode: (mode: string) => {
@@ -753,7 +754,8 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     uniforms.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
     uniforms.uCrackGlow.value = proof || reducedMotion ? 0 : intro.crackGlow
     uniforms.uCrackWeb.value = proof || reducedMotion ? 0 : intro.crackWeb
-    uniforms.uCrackGrowth.value = proof || reducedMotion ? 0 : Math.min(1, Math.max(0, (intro.t - 0.75) / 0.07))
+    uniforms.uCrackGrowth.value = proof || reducedMotion ? 0 : intro.crackGrowth
+    uniforms.uSpark.value = proof || reducedMotion ? 0 : intro.sparkAnticipation
     uniforms.uFracture.value = proof || reducedMotion ? 0 : intro.fracture
     uniforms.uWaveTime.value = intro.waveTime
     uniforms.uWaveEnabled.value = 0
@@ -817,6 +819,8 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     t.poseT = poseT
     t.focus = proof || reducedMotion ? 1 : intro.focus
     t.pulseHead = intro.pulseHead
+    t.crackGrowth = intro.crackGrowth
+    t.sparkAnticipation = intro.sparkAnticipation
     t.pulse = intro.pulse
     t.pbr = intro.pbr
     t.illumination = intro.illumination
