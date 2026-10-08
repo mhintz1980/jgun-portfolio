@@ -46,10 +46,10 @@ export const OWNER_NOTE_TEXT = {
 
 /**
  * Input-shaft sun gear (P001835, section A–A). Measured from Default.glb before the rig consolidates the
- * part into shared buckets: z extent of the toothed land and the tip radius of the 10-tooth sun, in the raw
+ * part into shared buckets: z extent of the toothed land (vertices at the 6.0835 mm tip radius above the relief groove) and the tip radius of the 10-tooth sun, in the raw
  * CAD frame. `rigCenter` (recorded by `snapshotDrawing`) converts to the recentred drawing frame.
  */
-export const SUN_GEAR = { rawZMm: [-78.73, -70.73] as const, tipRadiusMm: 6.0835 } as const
+export const SUN_GEAR = { rawZMm: [-78.6, -72.7] as const, tipRadiusMm: 6.0835 } as const
 
 export function sunGearModelPoint(data: Pick<DrawingGeometry, 'units' | 'rigCenter'>): Vector3 {
   const axisX = data.units.housing ? (data.units.housing.min.x + data.units.housing.max.x) / 2 : 0
@@ -82,7 +82,7 @@ const CAP = 0.0038
 const PITCH = 0.0068
 
 /** Emit hand strokes as one continuous pen over [key0, key1] of the group reveal, weighted by pen travel. */
-function pen(ink: InkBuilder, strokes: HandStroke[] | Pt[][], group: number, key0: number, key1: number, red = false, width = PEN_HAND): void {
+function pen(ink: InkBuilder, strokes: (HandStroke | Pt[])[], group: number, key0: number, key1: number, red = false, width = PEN_HAND): void {
   const list: HandStroke[] = strokes.map(s => (Array.isArray(s) ? { points: s as Pt[], red } : (s as HandStroke)))
   const total = strokeLength(list) || 1
   let walked = 0
@@ -116,7 +116,7 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const sunR = SUN_GEAR.tipRadiusMm * 1e-3 * 2 // 2:1
   const gearCircle = handCircle(sunOnDetail[0], sunOnDetail[1], sunR * 1.32, sunR * 1.2, 5, 1.1, -0.2)
   const nx0 = detailB.at[0] - 0.044
-  const noteTop = detailB.at[1] - detailB.radius - 0.0105 // below the DETAIL B label stack
+  const noteTop = detailB.at[1] - detailB.radius - 0.0265 // below the DETAIL B label stack (title, scale, note rows)
   const baseline = (row: number) => noteTop - CAP - row * PITCH
   const leadStrokes: HandStroke[] = []
   const lead1 = handwrite(OWNER_NOTES.input.lead[0], { x: nx0, y: baseline(0), capHeight: CAP, seed: 21, rotation: 0.012 })

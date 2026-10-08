@@ -68,13 +68,15 @@ describe('sheet text runtime proof', () => {
     vi.stubGlobal('self', globalThis)
     const geometry = new BoxGeometry(0.08, 0.08, 0.3).toNonIndexed()
     const bounds = new Box3(new Vector3(-0.04, -0.04, -0.15), new Vector3(0.04, 0.04, 0.15))
-    const data = { geometry, bounds, units: {}, features: {}, sourceTriangles: 12 }
+    const data = { geometry, bounds, units: {}, features: {}, rigCenter: new Vector3(), sourceTriangles: 12 }
     const { ink } = composeSheet({}, data, makeDrawingLayout(16 / 9, bounds))
     const titles = ink.texts.filter(t => t.group === GROUP.titleBlock)
     expect(titles.length).toBeGreaterThan(35)
     expect(titles.every(t => t.fitCell && t.size > 0)).toBe(true)
-    expect(titles.some(t => t.text === 'APPD')).toBe(true)
-    expect(titles.some(t => t.text === 'INITIAL RELEASE')).toBe(true)
+    // JG-035 owner revision: personal title + career block (A/B/C), no dates or approval columns.
+    for (const text of ['MARK HINTZ', 'Digital Systems Architect', 'ORGANIZATION', 'Myers-Seth Pumps', 'Special Tool Solutions', 'Black Creek Precision', 'A', 'B', 'C']) expect(titles.some(t => t.text === text)).toBe(true)
+    expect(titles.some(t => t.text === 'APPD' || t.text === 'DATE')).toBe(false)
+    expect(titles.some(t => /Product Design \/ R&D \/ 3D Product Visualizer/.test(t.text))).toBe(true)
     const fonts = {}
     for (const weight of ['medium', 'semibold']) {
       const bytes = readFileSync(`public/fonts/BarlowCondensed-${weight === 'medium' ? 'Medium' : 'SemiBold'}.ttf`)

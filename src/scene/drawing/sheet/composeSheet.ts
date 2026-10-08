@@ -13,6 +13,7 @@ import {
 import { buildEdgeSet, extractView, geometryFrom, type EdgeSet } from './edgeExtract'
 import { DASH, GROUP, InkBuilder, PEN, type InkText, type TextCell } from './ink'
 import { cachedSheet, rememberSheet } from './drawingCache'
+import { OWNER_CAREER, OWNER_EXTRA_FIELDS, OWNER_TITLE, composeOwnerAnnotations, sunGearModelPoint } from './ownerAnnotations'
 
 /**
  * THE SHEET — every mark on the intro drawing, composed in sheet-plane metres.
@@ -188,14 +189,26 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
 
   // ---- Detail views (2:1) -------------------------------------------------------------------
   const details: Detail[] = []
-  if (u.fork)
+  // JG-035 owner revision: Detail B is the input shaft's SUN GEAR (P001835), not the clutch fork. The fork /
+  // clutch-shift detail stays on the sheet as Detail E so its content is retained, with a consistent letter.
+  if (u.housing)
     details.push({
       letter: 'B',
       source: 'section',
-      focus: new Vector3(axisX - 0.008, 0, (u.fork.min.z + u.fork.max.z) / 2),
+      focus: sunGearModelPoint(data),
       radius: 0.05,
       at: [0.322, 0.03],
       group: GROUP.detailB,
+      note: 'INPUT SHAFT SUN GEAR — P001835',
+    })
+  if (u.fork)
+    details.push({
+      letter: 'E',
+      source: 'section',
+      focus: new Vector3(axisX - 0.008, 0, (u.fork.min.z + u.fork.max.z) / 2),
+      radius: 0.035,
+      at: [-0.325, -0.165],
+      group: GROUP.detailE,
       note: 'CLUTCH SHIFT — 2-SPEED SELECTOR',
     })
   if (u.output)
@@ -256,6 +269,25 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     ink.line(lx, ly, lx + 0.008, ly + 0.008, PEN.thin, d.group, 0.08, 0.03)
     ink.text({ text: d.letter, x: lx + 0.011, y: ly + 0.011, size: T.view, anchorX: 'center', anchorY: 'middle', weight: 'semibold', group: d.group, key: 0.1 })
     marks[`detail${d.letter}`] = d.at
+  }
+
+  // ---- Owner handwriting: input-shaft note (Detail B) and output-spindle note (Section A–A) ---------
+  {
+    const detailB = details.find((d) => d.letter === 'B')
+    const sectionView = viewNamed(layout, 'section')
+    if (detailB) {
+      const marksOwner = composeOwnerAnnotations({
+        ink,
+        detailB: { at: detailB.at, radius: detailB.radius },
+        section: { transform: sectionView.transform, scale: sectionView.scale },
+        data,
+        layout,
+      })
+      marks.noteInput = marksOwner.inputNote
+      marks.noteInputGear = marksOwner.inputGear
+      marks.noteOutput = marksOwner.outputNote
+      marks.noteOutputSpindle = marksOwner.outputSpindle
+    }
   }
 
   // ---- View titles + centre lines -----------------------------------------------------------
@@ -508,31 +540,41 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
     ink.rect(x0, y0, w, h, PEN.border, g, 0, 0.2)
     const split = x0 + w * 0.46
     ink.line(split, y0, split, y0 + h, PEN.edge, g, 0.1, 0.1)
-    // Right: project title, dwg no / rev, scale / sheet / date, tagline.
+    // Right: personal title (name / role / project), dwg no / rev, scale / sheet / units, discipline + portfolio.
     const rows = [y0 + h * 0.52, y0 + h * 0.34, y0 + h * 0.17]
     for (const y of rows) ink.line(split, y, x0 + w, y, PEN.edge, g, 0.15, 0.1)
-    ink.text({ text: 'PROJECT:', x: split + 0.003, y: y0 + h - 0.005, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.2 })
-    ink.text({ text: 'HIGH-PRECISION\nINDUSTRIAL\nTORQUE GUN', x: split + (x0 + w - split) / 2, y: y0 + h * 0.72, size: 0.0062, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.03, lineHeight: 1.05, group: g, key: 0.25, dur: 0.18 })
-    const c2 = split + (x0 + w - split) * 0.62
+    const right = x0 + w, midX = split + (right - split) / 2, top = y0 + h
+    ink.text({ text: 'DESIGNED BY:', x: split + 0.003, y: top - 0.0045, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.2 })
+    ink.text({ text: OWNER_TITLE.name, x: midX, y: top - 0.0148, size: 0.0098, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.05, group: g, key: 0.25, dur: 0.16 })
+    ink.text({ text: OWNER_TITLE.role, x: midX, y: top - 0.0232, size: 0.0046, anchorX: 'center', anchorY: 'middle', weight: 'medium', letterSpacing: 0.06, group: g, key: 0.3, dur: 0.12 })
+    ink.text({ text: 'PROJECT:  HIGH-PRECISION INDUSTRIAL TORQUE GUN', x: midX, y: top - 0.0322, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.05, group: g, key: 0.34, dur: 0.1 })
+    const c2 = split + (right - split) * 0.62
     ink.line(c2, rows[1], c2, rows[0], PEN.edge, g, 0.3, 0.05)
     ink.text({ text: 'DWG NO.', x: split + 0.003, y: rows[0] - 0.003, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.35 })
     ink.text({ text: ASSEMBLY_IDENTITY.drawingNumber, x: (split + c2) / 2, y: rows[1] + 0.0065, size: T.view * 1.1, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.06, group: g, key: 0.38 })
     ink.text({ text: 'REV', x: c2 + 0.003, y: rows[0] - 0.003, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.4 })
-    ink.text({ text: ASSEMBLY_IDENTITY.revision.replace('REV', ''), x: (c2 + x0 + w) / 2, y: rows[1] + 0.0065, size: T.view * 1.1, anchorX: 'center', anchorY: 'middle', weight: 'semibold', group: g, key: 0.42 })
-    const s1 = split + (x0 + w - split) * 0.33
-    const s2 = split + (x0 + w - split) * 0.62
+    ink.text({ text: OWNER_CAREER[OWNER_CAREER.length - 1].rev, x: (c2 + right) / 2, y: rows[1] + 0.0065, size: T.view * 1.1, anchorX: 'center', anchorY: 'middle', weight: 'semibold', group: g, key: 0.42 })
+    const s1 = split + (right - split) * 0.33
+    const s2 = split + (right - split) * 0.62
     ink.line(s1, rows[2], s1, rows[1], PEN.edge, g, 0.44, 0.04)
     ink.line(s2, rows[2], s2, rows[1], PEN.edge, g, 0.44, 0.04)
     const cells: [number, number, string, string][] = [
       [split, s1, 'SCALE:', '1:1'],
       [s1, s2, 'SHEET:', '1 OF 1'],
-      [s2, x0 + w, 'UNITS:', 'INCHES'],
+      [s2, right, 'UNITS:', 'INCHES'],
     ]
     cells.forEach(([a, c, label, value], i) => {
       ink.text({ text: label, x: a + 0.003, y: rows[1] - 0.003, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.46 + i * 0.02 })
       ink.text({ text: value, x: (a + c) / 2, y: rows[2] + 0.0045, size: T.label, anchorX: 'center', anchorY: 'middle', weight: 'semibold', group: g, key: 0.48 + i * 0.02 })
     })
-    ink.text({ text: 'MACHINED COMPLETE ON 7-AXIS MILL-TURN', x: split + (x0 + w - split) / 2, y: y0 + h * 0.085, size: T.small, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.06, group: g, key: 0.55 })
+    // Bottom row: discipline | portfolio (proposed extra fields, confirmed facts only).
+    const bx = split + (right - split) * 0.58
+    ink.line(bx, y0, bx, rows[2], PEN.edge, g, 0.52, 0.04)
+    const discipline = OWNER_EXTRA_FIELDS.find(([k]) => k === 'DISCIPLINE')![1], portfolio = OWNER_EXTRA_FIELDS.find(([k]) => k === 'PORTFOLIO')![1]
+    ink.text({ text: 'DISCIPLINE:', x: split + 0.003, y: rows[2] - 0.002, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.55 })
+    ink.text({ text: discipline, x: (split + bx) / 2, y: y0 + h * 0.065, size: T.small, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.04, group: g, key: 0.57 })
+    ink.text({ text: 'PORTFOLIO:', x: bx + 0.003, y: rows[2] - 0.002, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.58 })
+    ink.text({ text: portfolio, x: (bx + right) / 2, y: y0 + h * 0.065, size: T.small, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.04, group: g, key: 0.6 })
     // Left: tolerance block + projection symbol.
     const l1 = y0 + h * 0.36
     ink.line(x0, l1, split, l1, PEN.edge, g, 0.5, 0.08)
@@ -559,9 +601,11 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
           ? { x: x0, y: l1, w: split - x0, h: y0 + h - l1 }
           : { x: px + 0.039, y: y0, w: split - px - 0.039, h: l1 - y0 }
       } else if (item.y > rows[0]) {
-        cell = item.text === 'PROJECT:'
-          ? { x: split, y: y0 + h - 0.011, w: x0 + w - split, h: 0.011 }
-          : { x: split, y: rows[0], w: x0 + w - split, h: y0 + h - 0.011 - rows[0] }
+        const t = y0 + h
+        cell = item.text === 'DESIGNED BY:' ? { x: split, y: t - 0.0075, w: right - split, h: 0.0075 }
+          : item.text === OWNER_TITLE.name ? { x: split, y: t - 0.0215, w: right - split, h: 0.014 }
+            : item.text === OWNER_TITLE.role ? { x: split, y: t - 0.0275, w: right - split, h: 0.008 }
+              : { x: split, y: rows[0], w: right - split, h: t - 0.0285 - rows[0] }
       } else if (item.y > rows[1]) {
         const a = item.x < c2 ? split : c2
         const b = item.x < c2 ? c2 : x0 + w
@@ -570,43 +614,44 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
         const a = item.x < s1 ? split : item.x < s2 ? s1 : s2
         const b = item.x < s1 ? s1 : item.x < s2 ? s2 : x0 + w
         cell = { x: a, y: rows[2], w: b - a, h: rows[1] - rows[2] }
-      } else cell = { x: split, y: y0, w: x0 + w - split, h: rows[2] - y0 }
+      } else cell = item.x < bx ? { x: split, y: y0, w: bx - split, h: rows[2] - y0 } : { x: bx, y: y0, w: right - bx, h: rows[2] - y0 }
       fitTitleText(item, cell)
     }
     marks.titleBlock = [x0 + w / 2, y0 + h / 2]
     marks.titleText = [split + (x0 + w - split) / 2, y0 + h * 0.72]
   }
 
-  // ---- Revision block ---------------------------------------------------------------------------
+  // ---- Revision block: the career, one revision per employer (A/B/C in the owner's listed order) ------
   {
     const g = GROUP.titleBlock
     const { x, y, w, h } = rb
     ink.rect(x, y, w, h, PEN.edge, g, 0.1, 0.12)
-    const colsX = [x + 0.018, x + 0.06, x + w - 0.048, x + w - 0.024]
+    const colsX = [x + 0.014, x + 0.074]
     for (const cx of colsX) ink.line(cx, y, cx, y + h, PEN.thin, g, 0.2, 0.04)
-    const r1 = y + h - 0.009
+    const headerH = 0.0095
+    const r1 = y + h - headerH
     ink.line(x, r1, x + w, r1, PEN.thin, g, 0.2, 0.06)
-    const heads = ['REV', 'DATE', 'DESCRIPTION', 'DRN', 'APPD']
     const boundaries = [x, ...colsX, x + w]
-    const centres = [(x + colsX[0]) / 2, (colsX[0] + colsX[1]) / 2, (colsX[1] + colsX[2]) / 2, (colsX[2] + colsX[3]) / 2, (colsX[3] + x + w) / 2]
+    const heads = ['REV', 'ORGANIZATION', 'ROLE SCOPE  ·  METHODS: CAD / VISUALIZATION / PROCESS DEVELOPMENT']
     heads.forEach((t, i) => {
-      const item: InkText = { text: t, x: centres[i], y: r1 + 0.0045, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.08, weight: 'semibold', group: g, key: 0.25 }
-      fitTitleText(item, { x: boundaries[i], y: r1, w: boundaries[i + 1] - boundaries[i], h: y + h - r1 })
+      const item: InkText = { text: t, x: i === 2 ? boundaries[i] + 0.003 : (boundaries[i] + boundaries[i + 1]) / 2, y: r1 + headerH / 2, size: T.micro, anchorX: i === 2 ? 'left' : 'center', anchorY: 'middle', letterSpacing: 0.07, weight: 'semibold', group: g, key: 0.25 }
+      fitTitleText(item, { x: boundaries[i], y: r1, w: boundaries[i + 1] - boundaries[i], h: headerH })
       ink.text(item)
     })
-    const rowsData = [
-      ['03', '2026-09-25', 'TOLERANCES RELEASED — DATUMS A–E', 'M.H.', 'M.H.'],
-      ['02', '2026-09-08', '2-SPEED CLUTCH KINEMATICS', 'M.H.', 'M.H.'],
-      ['01', '2026-08-24', 'INITIAL RELEASE', 'M.H.', 'M.H.'],
-    ]
-    rowsData.forEach((row, j) => {
-      const ry = r1 - 0.0045 - j * 0.0085
-      if (j > 0) ink.line(x, ry + 0.00425, x + w, ry + 0.00425, PEN.fine, g, 0.3, 0.04)
-      row.forEach((t, i) => {
-        const item: InkText = { text: t, x: centres[i], y: ry, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.04, group: g, key: 0.32 + j * 0.05 }
-        const bottom = j === rowsData.length - 1 ? y : r1 - 0.00025 - (j + 1) * 0.0085
-        const top = j === 0 ? r1 : ry + 0.00425
-        fitTitleText(item, { x: boundaries[i], y: bottom, w: boundaries[i + 1] - boundaries[i], h: top - bottom })
+    const rowH = (r1 - y) / OWNER_CAREER.length
+    OWNER_CAREER.forEach((entry, j) => {
+      const top = r1 - j * rowH, bottom = top - rowH, cy = (top + bottom) / 2
+      if (j > 0) ink.line(x, top, x + w, top, PEN.fine, g, 0.3, 0.04)
+      // Wrap long role scopes at a ' / ' near the middle instead of shrinking them unreadably.
+      const scope = entry.scope.length > 58 ? (() => { const parts = entry.scope.split(' / '); const half = Math.ceil(parts.length / 2); return `${parts.slice(0, half).join(' / ')} /\n${parts.slice(half).join(' / ')}` })() : entry.scope
+      const cells: [string, number, 'left' | 'center', number, number, boolean][] = [
+        [entry.rev, (boundaries[0] + boundaries[1]) / 2, 'center', boundaries[0], boundaries[1], true],
+        [entry.organization, boundaries[1] + 0.003, 'left', boundaries[1], boundaries[2], false],
+        [scope, boundaries[2] + 0.003, 'left', boundaries[2], boundaries[3], false],
+      ]
+      cells.forEach(([text, tx, anchorX, a, b, bold], k) => {
+        const item: InkText = { text, x: tx, y: cy, size: k === 0 ? T.label : T.small * 0.82, anchorX, anchorY: 'middle', letterSpacing: 0.03, weight: bold || k === 1 ? 'semibold' : 'medium', lineHeight: 1.1, group: g, key: 0.32 + j * 0.06 }
+        fitTitleText(item, { x: a, y: bottom, w: b - a, h: rowH })
         ink.text(item)
       })
     })

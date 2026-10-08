@@ -91,119 +91,20 @@ html.lenis body {
 }
 
 /* ---------------------------------------------------------------------------
-   JG-035 authorship layer — Mark's identity plate and personal margin note.
-   Navy ink on its own cream vellum chip (the same pair as .station-summary) so
-   it reads over the bright drafting sheet AND the dark poster, and stays
-   visually separate from the cyan instrument chrome and the formal callouts.
-   Additive and scoped: no existing selector above is redefined.
+   JG-035 authorship (owner revision 2026-10-07): the floating cream identity plate and
+   margin-note chips were removed — name, role, career and handwriting now live on the
+   drawing itself. `.authorship-layer` is a visually hidden transcript landmark.
    ------------------------------------------------------------------------- */
-.authorship-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 16;
-  pointer-events: none;
-  color: #15295a;
-}
-.authorship-layer[data-static='true'] { display: none; }
+.authorship-layer { position: fixed; pointer-events: none; }
 .authorship-details summary { cursor: pointer; min-height: 44px; padding-block: 10px; font-size: 14px; color: #efe6d0; }
 .authorship-details summary:focus-visible { outline: 2px solid #efe6d0; outline-offset: 4px; }
 
-/* Identity plate — a small drawing title block at the top-right of the sheet.
-   The IntroTitles opening card owns the top-left, and the HUD chrome only fades
-   in after the intro hands off, exactly where this layer fades out. */
-.authorship-id {
-  position: absolute;
-  top: 3vh;
-  right: 6vw;
-  max-width: 20rem;
-  padding: 10px 14px 9px;
-  text-align: right;
-  background: #e2dac4;
-  border: 1.5px solid #15295a;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
-}
-.authorship-name {
-  margin: 0;
-  font-family: "Barlow Condensed", ui-sans-serif, sans-serif;
-  font-weight: 600;
-  font-size: clamp(20px, 2.3vw, 34px);
-  line-height: 1;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.authorship-role {
-  margin: 7px 0 0;
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 10px;
-  line-height: 1.35;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-/* Personal margin note — a slip of vellum, hand-lettered, slightly askew. */
-.authorship-note {
-  position: absolute;
-  top: 30vh;
-  right: 6vw;
-  max-width: 14rem;
-  padding: 12px 15px;
-  background: #e9e1cb;
-  border: 1px solid rgba(21, 41, 90, 0.55);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
-  transform: rotate(-1.3deg);
-}
-.authorship-note-text {
-  margin: 0;
-  font-family: "Segoe Script", "Bradley Hand", "Ink Free", "Comic Sans MS", cursive;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-/* Small screens: the note drops to the bottom-right corner, below the IntroTitles
-   band that owns the lower-left, and the plate tightens up above the CH.01 caption. */
-@media (max-width: 767px) {
-  /* Narrow poster / reduced tiers: the poster sheet stamp owns the top strip and the station nav +
-     inspection controls own the bottom, so no floating chip fits. The layer stands down and
-     <AuthorshipInline> carries the same content inside the narrative card. */
-  .authorship-layer[data-static='true'] {
-    display: none;
-  }
-  .authorship-id {
-    top: 1.4vh;
-    right: 4vw;
-    max-width: 62vw;
-    padding: 7px 10px 6px;
-  }
-  .authorship-name {
-    font-size: 18px;
-    letter-spacing: 0.1em;
-  }
-  .authorship-role {
-    margin-top: 4px;
-    font-size: 10px;
-    letter-spacing: 0.16em;
-  }
-  .authorship-note {
-    top: auto;
-    right: 4vw;
-    bottom: 1.6vh;
-    max-width: 62vw;
-    padding: 9px 12px;
-    transform: rotate(-1.1deg);
-  }
-  .authorship-note-text {
-    font-size: 13.5px;
-    line-height: 1.45;
-  }
-}
-
-/* Inline authorship for that narrow static path — same navy/cream pair, in the reading flow. */
+/* Readable inline authorship for poster / reduced-motion tiers — plain text in the card's reading flow. */
 .authorship-inline {
   margin: 0 0 18px;
-  padding: 10px 12px 9px;
-  background: #e2dac4;
-  border: 1px solid #15295a;
-  color: #15295a;
+  padding: 2px 0 2px 12px;
+  border-left: 2px solid rgba(226, 218, 196, 0.55);
+  color: inherit;
 }
 .authorship-inline-name {
   margin: 0;
@@ -221,11 +122,6 @@ html.lenis body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
-.authorship-inline-note {
-  margin: 9px 0 0;
-  padding-top: 8px;
-  border-top: 1px solid rgba(21, 41, 90, 0.35);
-  font-family: "Segoe Script", "Bradley Hand", "Ink Free", "Comic Sans MS", cursive;
-  font-size: 13px;
-  line-height: 1.45;
-}
+.authorship-inline-notes { margin: 9px 0 0; font-size: 13px; line-height: 1.5; }
+.authorship-inline-notes p { margin: 0 0 6px; }
+.authorship-inline-notes s { text-decoration-color: #d4524c; text-decoration-thickness: 2px; }

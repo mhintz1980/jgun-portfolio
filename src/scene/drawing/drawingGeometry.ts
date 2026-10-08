@@ -123,7 +123,7 @@ export const SHEET_ZONES = {
   /** Inner drawing frame. */
   frame: { x: -0.38, y: -0.23, w: 0.76, h: 0.46 },
   titleBlock: { x: 0.14, y: -0.23, w: 0.24, h: 0.085 },
-  revisionBlock: { x: 0.14, y: -0.145, w: 0.24, h: 0.036 },
+  revisionBlock: { x: 0.14, y: -0.145, w: 0.24, h: 0.052 },
   notes: { x: 0.198, y: 0.118, w: 0.176, h: 0.106 },
 } as const
 

@@ -66,10 +66,26 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
   const close = portrait ? 0.24 : 0.19
   // Detail D is a composed inset (not one of the six projected layout views).
   const [dx, dy] = [0.085, -0.165]
+  // JG-035 owner revision O3: after the Detail D opening the camera STAYS CLOSE and reads, in order, the
+  // personal title + career block, the input-shaft handwriting beside Detail B, and the output-spindle
+  // handwriting beside Section A–A. Framing derives from the real note rectangles (desktop vs narrow),
+  // not magic distances. Time spent here comes from the remap in introTimeline (O3), not these keys.
+  const reading = (cx: number, cy: number, w: number, h: number, wNarrow: number) => ({
+    x: cx, y: cy,
+    dist: Math.max(fitWidth((portrait ? wNarrow : w) * 1.1, 30, aspect), fitHeight(h * 1.1, 30)),
+  })
+  const title = reading(0.26, -0.158, 0.26, 0.15, 0.15)
+  const input = reading(0.329, -0.056, 0.125, 0.09, 0.1)
+  const output = reading(0.074, 0.074, 0.12, 0.05, 0.1)
   return [
-    // One detail, one traverse, one reveal. No tour of every annotation.
+    // One detail, one traverse, then three slow reads, then the reveal. No tour of every annotation.
     { t: 0.0, x: dx, y: dy, dist: close, elev: 38, head: -12, fov: 30, ortho: 0 },
-    { t: 0.19, x: 0.08, y: 0.08, dist: 0.38, elev: 54, head: -4, fov: 32, ortho: 0 },
+    { t: 0.065, ...title, elev: 44, head: -6, fov: 30, ortho: 0 },
+    { t: 0.1, ...title, elev: 46, head: -4, fov: 30, ortho: 0 },
+    { t: 0.125, ...input, elev: 48, head: -3, fov: 30, ortho: 0 },
+    { t: 0.17, ...input, x: input.x - 0.004, elev: 50, head: -2, fov: 30, ortho: 0 },
+    { t: 0.2, ...output, elev: 52, head: -3, fov: 30, ortho: 0 },
+    { t: 0.24, ...output, x: output.x + 0.004, elev: 54, head: -2, fov: 30, ortho: 0 },
     // Whole-sheet reveal, then the settle. This key sits at .29 rather than .31 so the
     // reveal->settle move keeps its original 0.09 of intro t after `onboardEnd` moved
     // .40 -> .38 on 2026-10-01. Compressing that move to .07 of t raised the peak camera
@@ -134,12 +150,17 @@ export function introCameraPose(layout: DrawingLayout, aspect: number, t: number
  */
 const WINDOWS: [number, number, number][] = [
   [GROUP.printed, -1, 0],
-  [GROUP.titleBlock, 0.055, 0.16],
+  // Title/revision block is read first (camera arrives at .065); Detail B then the input note; Detail E and
+  // the section with the output note follow the camera's order. Inking always finishes before the camera leaves.
+  [GROUP.titleBlock, 0.015, 0.095],
   [GROUP.detailD, 0.0, 0.1],
   [GROUP.rear, 0.08, 0.17],
   [GROUP.section, 0.1, 0.19],
   [GROUP.hatch, 0.13, 0.22],
-  [GROUP.detailB, 0.12, 0.21],
+  [GROUP.detailB, 0.07, 0.12],
+  [GROUP.noteInput, 0.12, 0.17],
+  [GROUP.noteOutput, 0.19, 0.235],
+  [GROUP.detailE, 0.2, 0.27],
   [GROUP.notes, 0.17, 0.28],
   [GROUP.detailC, 0.22, 0.3],
   [GROUP.bottom, 0.24, 0.32],

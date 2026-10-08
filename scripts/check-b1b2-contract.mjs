@@ -17,6 +17,7 @@ const { Box3, BufferGeometry, EdgesGeometry, Float32BufferAttribute, Matrix4, Ve
 
 const sourcePaths = [
   'src/scene/drawing/introTimeline.ts',
+  'src/scene/drawing/electricalScore.ts',
   'src/scene/drawing/extractionPose.ts',
   'src/scene/drawing/drawingGeometry.ts',
 ]
@@ -49,6 +50,7 @@ const {
   INTRO_PHASES,
   INTRO_SCROLL_SHARE,
   drawingIntroState,
+  electricalTimeAt,
   introPoseTime,
   introScrollTimeFor,
   pacedProgress,
@@ -301,7 +303,8 @@ check('focus completes before the pulse; the reserved onboarding window carries 
   const start = state(0)
   const focused = state(INTRO_PHASES.focusEnd)
   const reserved = state((INTRO_PHASES.onboardStart + INTRO_PHASES.onboardEnd) / 2)
-  const excited = state((INTRO_PHASES.pulseStart + INTRO_PHASES.pulseEnd) / 2)
+  // JG-035 O1: the head is a burst/hold score now; sample a moment inside the trace, past the anticipation.
+  const excited = state(electricalTimeAt(0.55))
   const lift = state(INTRO_PHASES.riseStart)
   assert.equal(start.focus, 0)
   assert.equal(start.drawingOpacity, 1)
@@ -315,7 +318,7 @@ check('focus completes before the pulse; the reserved onboarding window carries 
   assert.ok(reserved.poseT < 0.4)
   assert.equal(excited.focus, 1)
   assert.equal(excited.pulse, 1)
-  close(excited.pulseHead, 0.5)
+  close(excited.pulseHead, 0.25) // second burst complete at .55 calibration seconds
   assert.equal(lift.pulse, lift.t >= INTRO_PHASES.pulseStart && lift.t <= INTRO_PHASES.pulseEnd ? 1 : 0)
   close(lift.poseT, 0.4, 1e-12)
 })
@@ -347,10 +350,19 @@ check('causal push precedes rupture; every fracture frame reveals fully lit meta
   measurements.push({ firstOpenFrameT: firstOpenT, firstMotionFrameT: firstMotionT, fullyLitMetalByT: 0.84 })
 })
 
-check('pulse traverses five ordered head positions without whole-window activation', () => {
-  const span = INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart
-  const heads = [0.1, 0.3, 0.5, 0.7, 0.9].map((k) => state(INTRO_PHASES.pulseStart + k * span).pulseHead)
-  for (let i = 1; i < heads.length; i += 1) assert.ok(heads[i] > heads[i - 1])
+check('pulse follows the owner burst/hold score: monotone, exact plateaus, no whole-window activation', () => {
+  // 10% in .20 s, hold .20 s, 15% in .15 s, hold .15 s, 20% in .15 s ... (calibrated 100 s sweep, t = .765-.79)
+  const at = (seconds) => state(electricalTimeAt(seconds)).pulseHead
+  close(at(0.2), 0.1, 1e-9); close(at(0.3), 0.1, 1e-9); close(at(0.4), 0.1, 1e-9)
+  close(at(0.55), 0.25, 1e-9); close(at(0.7), 0.25, 1e-9); close(at(0.85), 0.45, 1e-9)
+  close(at(1.25), 1, 1e-9)
+  let last = -1
+  for (let i = 0; i <= 1000; i += 1) {
+    const head = state(INTRO_PHASES.pulseStart + (i / 1000) * (INTRO_PHASES.pulseEnd - INTRO_PHASES.pulseStart)).pulseHead
+    assert.ok(head >= last - 1e-12)
+    last = head
+  }
+  assert.equal(state(INTRO_PHASES.pulseStart + 0.05).pulseHead, 0)
   assert.equal(state(INTRO_PHASES.pulseStart - 0.05).pulse, 0)
   assert.equal(state(INTRO_PHASES.pulseEnd + 0.05).pulse, 0)
 })
