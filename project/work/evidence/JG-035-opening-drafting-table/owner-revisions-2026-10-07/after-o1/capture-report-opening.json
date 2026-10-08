@@ -1,0 +1,231 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:4173",
+  "started": "2026-10-08T04:10:29.561Z",
+  "head": "f24f482ac9cb7eed1d255d61939f0c28d5aa4035",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "only": [
+    "opening"
+  ],
+  "captures": [
+    {
+      "file": "opening-desktop-t0p74.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.74,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.15413695466838476,
+        "y": 0.4021070755650662,
+        "z": 0.051167368735713856,
+        "fov": 30.649798249139092,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p775.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.775,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.044788547731075413,
+        "y": 0.5950245273638456,
+        "z": 0.11828831558424613,
+        "fov": 30.016158753719075,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p79.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.79,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.0420351377556809,
+        "y": 0.5998822189488265,
+        "z": 0.11997843151539661,
+        "fov": 30.000203612200703,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p8.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.8,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.04623376158035578,
+        "y": 0.5999095655377398,
+        "z": 0.11999946171482645,
+        "fov": 30.000005081554445,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.051381635221978826,
+            0.5998708533767483,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.999877726622636,
+          0.0156375127161973,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p82.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.82,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.07959301789631229,
+        "y": 0.5979376246046951,
+        "z": 0.11999998623968834,
+        "fov": 30.000000129900982,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.1142001413217259,
+            0.5955839113034446,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.9927321587553374,
+          0.12034475880971107,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p86.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.86,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.2451592709293795,
+        "y": 0.5579362571199454,
+        "z": 0.1199999998259846,
+        "fov": 30.00000000164275,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.296382195676941,
+            0.5433440478490263,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.9056576232684875,
+          0.4240097515572895,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    }
+  ],
+  "errors": [],
+  "browserVersion": "141.0.7390.37",
+  "finished": "2026-10-08T04:21:54.969Z"
+}

@@ -63,8 +63,22 @@ export const PORTAL_RELIEF_BOUND_M = Math.hypot(1.5 * PORTAL_RELIEF_M, 1.5 * POR
 export const PORTAL_RING_DEVIATION_BOUND_M = PORTAL_CLEARANCE_M + PORTAL_RELIEF_BOUND_M
 /** Relief ramps in below the lip: ring 0 stays the exact torn contour. */
 export const PORTAL_RELIEF_RAMP_M = 0.08
-const RELIEF_WAVE_X = (2 * Math.PI) / 0.34
-const RELIEF_WAVE_Y = (2 * Math.PI) / 0.27
+// JG-035 O1 (owner revision 2026-10-07): the tunnel walls read as torn, angular rock rather than rolling swell.
+// The smooth sine warp is replaced by triangle-wave shards of several scales whose phase also steps with depth, so
+// adjacent rings disagree and the wall facets between them zig-zag. The amplitude bound (1.5 A per axis) and the
+// deviation envelope are unchanged, and |grad d| stays well below 1 (<= ~0.55), so rings remain fold-free.
+const RELIEF_LAMBDA_X = 0.045
+const RELIEF_LAMBDA_X_FINE = 0.013
+const RELIEF_LAMBDA_Y = 0.037
+const RELIEF_LAMBDA_Y_FINE = 0.011
+
+/** Triangle wave in [-1, 1], period 1, value 1 at integers. */
+const tri = (u: number) => 4 * Math.abs(u - Math.floor(u) - 0.5) - 1
+/** Deterministic per-depth phase in [0, 1): the strata step, they do not drift. */
+const strataPhase = (depthM: number) => {
+  const v = Math.sin(depthM * 91.3458 + 3.7) * 43758.5453
+  return v - Math.floor(v)
+}
 
 /** Extinction lengths, in metres: how fast trace light dies on rock, and how haze lingers. */
 export const PORTAL_ROCK_EXTINCTION_M = 0.55
@@ -158,10 +172,9 @@ export function portalClearanceM(depthM: number): number {
 export function portalReliefM(x: number, y: number, depthM: number): [number, number] {
   const amplitude = PORTAL_RELIEF_M * smoothstep01(Math.max(0, depthM) / PORTAL_RELIEF_RAMP_M)
   if (amplitude === 0) return [0, 0]
-  const dx = amplitude * (Math.sin(RELIEF_WAVE_X * x + 1.7 + 0.9 * depthM)
-    + 0.5 * Math.sin(RELIEF_WAVE_Y * y + 0.6 * depthM))
-  const dy = amplitude * (Math.cos(RELIEF_WAVE_Y * y + 4.1 + 1.1 * depthM)
-    + 0.5 * Math.sin(RELIEF_WAVE_X * x + 2.2 + 0.7 * depthM))
+  const p = strataPhase(depthM), q = strataPhase(depthM + 0.5)
+  const dx = amplitude * (0.55 * tri(x / RELIEF_LAMBDA_X + p) + 0.3 * tri(x / RELIEF_LAMBDA_X_FINE + 1.7 * q + 0.3) + 0.65 * tri(y / RELIEF_LAMBDA_Y + 0.37 + q))
+  const dy = amplitude * (0.55 * tri(y / RELIEF_LAMBDA_Y_FINE + p + 0.61) + 0.3 * tri(y / RELIEF_LAMBDA_Y + 1.3 * p + 0.15) + 0.65 * tri(x / RELIEF_LAMBDA_X + 0.83 + q))
   return [dx, dy]
 }
 

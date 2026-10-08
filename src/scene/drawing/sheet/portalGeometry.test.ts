@@ -310,8 +310,9 @@ describe('portal vertical rock shaft geometry', () => {
     expect(portalClearanceM(PORTAL_CLEARANCE_RAMP_M)).toBeCloseTo(PORTAL_CLEARANCE_M, 12)
     let worst = 0
     for (let d = 0; d <= PORTAL_SHAFT_DEPTH_M; d += 0.05) {
-      for (let x = -0.2; x <= 0.2; x += 0.02) {
-        for (let y = -0.15; y <= 0.15; y += 0.02) {
+      // Lattice finer than the shard scale (13 mm / 11 mm) so the peaks are actually sampled.
+      for (let x = -0.1; x <= 0.1; x += 0.0023) {
+        for (let y = -0.08; y <= 0.08; y += 0.0023) {
           const [dx, dy] = portalReliefM(x, y, d)
           worst = Math.max(worst, Math.hypot(dx, dy))
         }
