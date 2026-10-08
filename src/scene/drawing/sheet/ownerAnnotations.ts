@@ -77,30 +77,45 @@ export interface AnnotationContext {
   layout: Pick<DrawingLayout, 'views'>
 }
 
-const PEN_HAND = 0.0002
+/** Half-width of the hand's pen in sheet metres (mean; each stroke scales it by its own pressure, about +-35 %). */
+const PEN_HAND = 0.00024
+/** Heavier pen for marks that sit on the dense section linework, where a fine graphite line would be lost. */
+const PEN_HAND_HEAVY = 0.0005
 const CAP = 0.0038
 const PITCH = 0.0068
 
-/** Emit hand strokes as one continuous pen over [key0, key1] of the group reveal, weighted by pen travel. */
-function pen(ink: InkBuilder, strokes: (HandStroke | Pt[])[], group: number, key0: number, key1: number, red = false, width = PEN_HAND): void {
-  const list: HandStroke[] = strokes.map(s => (Array.isArray(s) ? { points: s as Pt[], red } : (s as HandStroke)))
+/** Slow, deterministic, never-the-same line spacing and margin wander for the hand (sheet metres). */
+const wobbleOf = (k: number, amplitude: number): number => Math.sin(k * 12.9898 + 3.1) * amplitude
+
+type PenColour = (typeof PEN_COLOR)[keyof typeof PEN_COLOR]
+
+/**
+ * Emit hand strokes as one continuous pen over [key0, key1] of the group reveal, weighted by pen travel.
+ * Bare point lists take `colour`; a HandStroke marked `red` always draws red, and every stroke's width is
+ * `width` times its own `pressure`. Unmarked hand strokes are graphite.
+ */
+function pen(ink: InkBuilder, strokes: (HandStroke | Pt[])[], group: number, key0: number, key1: number, colour: PenColour = PEN_COLOR.graphite, width = PEN_HAND): void {
+  const list: HandStroke[] = strokes.map(s => (Array.isArray(s) ? { points: s as Pt[] } : (s as HandStroke)))
   const total = strokeLength(list) || 1
   let walked = 0
   for (const s of list) {
     const len = strokeLength([s])
     const k = key0 + (walked / total) * (key1 - key0)
     const d = Math.max(1e-4, (len / total) * (key1 - key0))
-    ink.path(s.points, width, group, k, d, withPenColor(0, s.red || red ? PEN_COLOR.red : PEN_COLOR.ink))
+    ink.path(s.points, width * (s.pressure ?? 1), group, k, d, withPenColor(0, s.red ? PEN_COLOR.red : colour))
     walked += len
   }
 }
+
+/** A pen path with an explicit pressure, for the loops, leaders and strikes that are not lettering. */
+const pressed = (points: Pt[], pressure: number, red = false): HandStroke => (red ? { points, red, pressure } : { points, pressure })
 
 /** Hand-drawn arrowhead at `tip`, pointing along (dx, dy): two short barbs. */
 function arrowHead(tip: Pt, dx: number, dy: number, size = 0.0035): HandStroke[] {
   const len = Math.hypot(dx, dy) || 1
   const ux = dx / len, uy = dy / len
   const barb = (sign: number): Pt[] => [[tip[0] - ux * size + -uy * size * 0.45 * sign, tip[1] - uy * size + ux * size * 0.45 * sign], tip]
-  return [{ points: barb(1) }, { points: barb(-1) }]
+  return [{ points: barb(1), pressure: 1.1 }, { points: barb(-1), pressure: 0.9 }]
 }
 
 /**
@@ -117,22 +132,24 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const gearCircle = handCircle(sunOnDetail[0], sunOnDetail[1], sunR * 1.32, sunR * 1.2, 5, 1.1, -0.2)
   const nx0 = detailB.at[0] - 0.044
   const noteTop = detailB.at[1] - detailB.radius - 0.0265 // below the DETAIL B label stack (title, scale, note rows)
-  const baseline = (row: number) => noteTop - CAP - row * PITCH
+  // Line pitch is never quite even: each baseline sits a fraction of a millimetre off its nominal row.
+  const baseline = (row: number) => noteTop - CAP - row * PITCH + wobbleOf(row + 1, 0.0003)
   const leadStrokes: HandStroke[] = []
   const lead1 = handwrite(OWNER_NOTES.input.lead[0], { x: nx0, y: baseline(0), capHeight: CAP, seed: 21, rotation: 0.012 })
-  const lead2 = handwrite(OWNER_NOTES.input.lead[1], { x: nx0, y: baseline(1), capHeight: CAP, seed: 22, rotation: 0.008 })
+  const lead2 = handwrite(OWNER_NOTES.input.lead[1], { x: nx0 + 0.0006, y: baseline(1), capHeight: CAP, seed: 22, rotation: -0.006 })
   leadStrokes.push(...lead1.strokes, ...lead2.strokes)
   // The alloy list: three separate words so each can be crossed off on its own.
   const alloyX = [nx0, nx0 + 0.027, nx0 + 0.054]
   const alloys = OWNER_NOTES.input.alloys.map((word, i) => handwrite(word, { x: alloyX[i], y: baseline(2), capHeight: CAP * 1.08, seed: 31 + i, rotation: 0.01 - i * 0.006 }))
   const decision1 = handwrite(OWNER_NOTES.input.decision[0], { x: nx0, y: baseline(3.15), capHeight: CAP, seed: 41, rotation: 0.004 })
-  const decision2 = handwrite(OWNER_NOTES.input.decision[1], { x: nx0 + 0.003, y: baseline(4.7), capHeight: CAP * 1.12, seed: 42, rotation: -0.006 })
-  const strikes: Pt[][] = []
+  const decision2 = handwrite(OWNER_NOTES.input.decision[1], { x: nx0 + 0.003, y: baseline(4.7), capHeight: CAP * 1.12, seed: 42, rotation: -0.01 })
+  const strikes: HandStroke[] = []
   alloys.forEach((alloy, i) => {
     const { x0, x1, y0, y1 } = alloy.bounds
     const mid = (y0 + y1) / 2
-    strikes.push(handLine([x0 - 0.0014, mid - 0.0003], [x1 + 0.0016, mid + 0.0012], 60 + i, 0.0002))
-    strikes.push(handLine([x1 + 0.0012, mid + 0.0017], [x0 - 0.001, mid - 0.0012], 70 + i, 0.00025))
+    // Two quick, slightly bowed passes with a loose overshoot at each end; the wobble is a slow lean of the wrist.
+    strikes.push(pressed(handLine([x0 - 0.0014, mid - 0.0003], [x1 + 0.0016, mid + 0.0012], 60 + i, 0.00034), 1.15, true))
+    strikes.push(pressed(handLine([x1 + 0.0012, mid + 0.0017], [x0 - 0.001, mid - 0.0012], 70 + i, 0.0004), 0.85, true))
   })
   const dec = decision2.bounds
   const decCircle = handCircle((dec.x0 + dec.x1) / 2, (dec.y0 + dec.y1) / 2, (dec.x1 - dec.x0) / 2 + 0.0042, (dec.y1 - dec.y0) / 2 + 0.0032, 9, 1.12, -0.03)
@@ -150,13 +167,14 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const heading = [gearEdge[0] - leaderMid[0], gearEdge[1] - leaderMid[1]] as const
 
   const G = GROUP.noteInput
-  pen(ink, [gearCircle], G, 0.0, 0.1, true, 0.0006)
-  pen(ink, [leaderPath, ...arrowHead(gearEdge, heading[0], heading[1])], G, 0.1, 0.18, true, 0.0005)
+  // Red: the failure-point mark on the gear and the strikes. Graphite: every word and the decision circle.
+  pen(ink, [pressed(gearCircle, 1, true)], G, 0.0, 0.1, PEN_COLOR.red, 0.0006)
+  pen(ink, [pressed(leaderPath, 1, true), ...arrowHead(gearEdge, heading[0], heading[1]).map(a => ({ ...a, red: true }))], G, 0.1, 0.18, PEN_COLOR.red, 0.0005)
   pen(ink, leadStrokes, G, 0.18, 0.4)
   pen(ink, alloys.flatMap(a => a.strokes), G, 0.4, 0.52)
-  pen(ink, strikes, G, 0.54, 0.68, true, 0.00022)
+  pen(ink, strikes, G, 0.54, 0.68, PEN_COLOR.red, 0.00026)
   pen(ink, [...decision1.strokes, ...decision2.strokes], G, 0.7, 0.9)
-  pen(ink, [decCircle], G, 0.9, 1.0)
+  pen(ink, [pressed(decCircle, 1)], G, 0.9, 1.0, PEN_COLOR.graphite, 0.0003)
 
   // ---- Output spindle (P000095), Section A–A ---------------------------------------------------
   const o = data.units.output
@@ -174,8 +192,9 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const outMid: Pt = [(arrowFrom[0] + arrowTo[0]) / 2, (arrowFrom[1] + arrowTo[1]) / 2 + 0.003]
   const outLeader: Pt[] = [...handLine(arrowFrom, outMid, 91, 0.0003), ...handLine(outMid, arrowTo, 92, 0.0003).slice(1)]
   const GO = GROUP.noteOutput
-  pen(ink, [ring], GO, 0.0, 0.14)
-  pen(ink, [outLeader, ...arrowHead(arrowTo, arrowTo[0] - outMid[0], arrowTo[1] - outMid[1])], GO, 0.14, 0.26)
+  // The ring and leader cross dense section linework, so they take the heavy graphite pen.
+  pen(ink, [pressed(ring, 1)], GO, 0.0, 0.14, PEN_COLOR.graphite, PEN_HAND_HEAVY)
+  pen(ink, [pressed(outLeader, 1), ...arrowHead(arrowTo, arrowTo[0] - outMid[0], arrowTo[1] - outMid[1])], GO, 0.14, 0.26, PEN_COLOR.graphite, PEN_HAND_HEAVY)
   pen(ink, outLines.flatMap(l => l.strokes), GO, 0.26, 1.0)
 
   return {

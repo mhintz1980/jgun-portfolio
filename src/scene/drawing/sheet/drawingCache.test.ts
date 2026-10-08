@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Box3, BufferGeometry, Float32BufferAttribute, Matrix4, Vector3 } from 'three'
 import { gzipSync } from 'node:zlib'
 import type { DrawingGeometry, DrawingLayout } from '../drawingGeometry'
-import { InkBuilder } from './ink'
+import { InkBuilder, PEN_COLOR, penColorOf, withPenColor } from './ink'
 import {
   DRAWING_CACHE_VERSION, cachedProfile, cachedSheet, drawingCacheKey,
   drawingPrecomputeSource, exportDrawingPrecompute, installDrawingPrecompute,
@@ -65,6 +65,32 @@ describe('drawing precompute integrity', () => {
     expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
     expect(drawingPrecomputeSource()).toEqual({ data, layout })
     await expect(exportDrawingPrecompute()).rejects.toThrow('Cannot export an installed precompute')
+  })
+
+  it('is on cache version 7 (graphite handwriting) so a version-6 asset falls back to the live bake', async () => {
+    expect(DRAWING_CACHE_VERSION).toBe(7)
+    const { data, layout } = fixture()
+    const asset = await liveBake(data, layout)
+    expect(await installDrawingPrecompute(data, layout, { ...asset, version: 6 })).toBe(false)
+  })
+
+  it('keeps the per-stroke pen colour (dash + 10 * colour, incl. graphite = 2) through install and the binary codec', async () => {
+    const { data, layout } = fixture()
+    const ink = new InkBuilder()
+    ink.line(0, 0, 1, 0, 0.001, 0, 0, 0.1, withPenColor(0, PEN_COLOR.ink))
+    ink.line(0, 1, 1, 1, 0.001, 0, 0.1, 0.1, withPenColor(0, PEN_COLOR.red))
+    ink.line(0, 2, 1, 2, 0.001, 0, 0.2, 0.1, withPenColor(0, PEN_COLOR.graphite))
+    ink.line(0, 3, 1, 3, 0.001, 0, 0.3, 0.1, withPenColor(1, PEN_COLOR.graphite)) // dashed graphite
+    rememberSheet(data, layout, { ink, marks: { origin: [0, 0] }, stats: { segments: 4, totalMs: 1 } })
+    rememberProfile(data, layout, [[0, 0], [1, 0], [1, 1], [0, 1]])
+    const asset = await exportDrawingPrecompute()
+    const colours = (segs: number[]) => Array.from({ length: segs.length / 9 }, (_, i) => penColorOf(segs[i * 9 + 8]))
+    expect(colours(asset.segs)).toEqual([0, 1, 2, 2])
+    const decoded = decodeDrawingPrecompute(encodeDrawingPrecompute(asset))!
+    expect(colours(decoded.segs)).toEqual([0, 1, 2, 2])
+    expect(decoded.segs[3 * 9 + 8] - 10 * penColorOf(decoded.segs[3 * 9 + 8])).toBe(1)
+    expect(await installDrawingPrecompute(data, layout, decoded)).toBe(true)
+    expect(colours(cachedSheet(data, layout)!.ink.segs)).toEqual([0, 1, 2, 2])
   })
 
   it('rejects old versions, changed topology, and malformed payloads', async () => {

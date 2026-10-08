@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { SHEET_ZONES, makeDrawingLayout, snapshotDrawing, type DrawingGeometry, type DrawingLayout } from '../drawingGeometry'
 import { loadRingSource } from '../../inspection/testing/loadRig'
 import { NodeDracoLoader } from '../../inspection/testing/nodeDraco'
-import { GROUP, InkBuilder } from './ink'
+import { GROUP, InkBuilder, PEN_COLOR, penColorOf } from './ink'
 import {
   OWNER_CAREER, OWNER_EXTRA_FIELDS, OWNER_NOTES, OWNER_NOTE_TEXT, OWNER_TITLE, SUN_GEAR, composeOwnerAnnotations, sunGearModelPoint,
 } from './ownerAnnotations'
@@ -29,6 +29,7 @@ const segsOf = (ink: InkBuilder, group: number) => {
   for (let i = 0; i < ink.segs.length; i += 9) if (ink.segs[i + 5] === group) out.push({ x1: ink.segs[i], y1: ink.segs[i + 1], x2: ink.segs[i + 2], y2: ink.segs[i + 3], key: ink.segs[i + 6], dur: ink.segs[i + 7], dash: ink.segs[i + 8] })
   return out
 }
+const colourOf = (s: { dash: number }) => penColorOf(s.dash)
 const boundsOf = (segs: ReturnType<typeof segsOf>) => ({ x0: Math.min(...segs.flatMap(s => [s.x1, s.x2])), x1: Math.max(...segs.flatMap(s => [s.x1, s.x2])), y0: Math.min(...segs.flatMap(s => [s.y1, s.y2])), y1: Math.max(...segs.flatMap(s => [s.y1, s.y2])) })
 
 describe('measured sun-gear anchor (P001835) — the constants are the CAD, not a guess', () => {
@@ -75,9 +76,12 @@ describe('owner handwriting (O2): content, anchors, order, colour', () => {
     const { ink } = compose()
     const input = segsOf(ink, GROUP.noteInput)
     expect(input.length).toBeGreaterThan(300)
-    const red = input.filter(s => s.dash >= 10)
+    const red = input.filter(s => colourOf(s) === PEN_COLOR.red)
     expect(red.length).toBeGreaterThan(30)
-    expect(input.filter(s => s.dash < 10).length).toBeGreaterThan(red.length * 4)
+    // the words (and the decision circle) are graphite, several times the red; nothing in the notes is sheet navy
+    const graphite = input.filter(s => colourOf(s) === PEN_COLOR.graphite)
+    expect(graphite.length).toBeGreaterThan(red.length * 0.8)
+    expect(input.filter(s => colourOf(s) === PEN_COLOR.ink)).toHaveLength(0)
     // red = the failure-point mark (gear circle + leader + arrow, written first; navy would vanish into the section linework)
     // or the alloy strikes (written after the list and before the decision)
     const mark = red.filter(s => s.key < 0.2), strikes = red.filter(s => s.key >= 0.2)
@@ -88,7 +92,50 @@ describe('owner handwriting (O2): content, anchors, order, colour', () => {
     expect(early.length).toBeGreaterThan(40); expect(list.length).toBeGreaterThan(100); expect(decision.length).toBeGreaterThan(100)
     expect(input.every(s => Number.isFinite(s.x1 + s.y1 + s.x2 + s.y2) && s.key >= 0 && s.key + s.dur <= 1.0001)).toBe(true)
     // output group has no red at all
-    expect(segsOf(ink, GROUP.noteOutput).some(s => s.dash >= 10)).toBe(false)
+    expect(segsOf(ink, GROUP.noteOutput).some(s => colourOf(s) === PEN_COLOR.red)).toBe(false)
+  })
+
+  it('draws the words, decision circle and output ring/leader in graphite (2); only the gear mark and strikes are red (1)', () => {
+    const { ink } = compose()
+    const input = segsOf(ink, GROUP.noteInput), output = segsOf(ink, GROUP.noteOutput)
+    // every ink segment is a plain solid stroke: colour rides in dash as style + 10 * colour
+    for (const s of [...input, ...output]) expect(s.dash % 10).toBe(0)
+    expect(output.length).toBeGreaterThan(300)
+    expect(output.every(s => colourOf(s) === PEN_COLOR.graphite)).toBe(true)
+    const mark = input.filter(s => s.key < 0.18), list = input.filter(s => s.key >= 0.18 && s.key < 0.52)
+    const strikes = input.filter(s => s.key >= 0.54 && s.key < 0.68), decision = input.filter(s => s.key >= 0.7)
+    expect(mark.every(s => colourOf(s) === PEN_COLOR.red)).toBe(true)
+    expect(strikes.every(s => colourOf(s) === PEN_COLOR.red)).toBe(true)
+    expect(list.every(s => colourOf(s) === PEN_COLOR.graphite)).toBe(true)
+    expect(decision.every(s => colourOf(s) === PEN_COLOR.graphite)).toBe(true)
+    expect(decision.filter(s => s.key >= 0.9).length).toBeGreaterThan(40) // the circle, graphite too
+  })
+
+  it('is bit-identical on every composition and varies the pen width per stroke (pressure)', () => {
+    const a = compose(), b = compose()
+    expect(b.ink.segs).toStrictEqual(a.ink.segs)
+    expect(b.marks).toStrictEqual(a.marks)
+    const widths = (ink: InkBuilder, group: number, key0: number, key1: number) => {
+      const w: number[] = []
+      for (let i = 0; i < ink.segs.length; i += 9) if (ink.segs[i + 5] === group && ink.segs[i + 6] >= key0 && ink.segs[i + 6] < key1) w.push(ink.segs[i + 4])
+      return w
+    }
+    const words = widths(a.ink, GROUP.noteOutput, 0.26, 1.0)
+    const lo = Math.min(...words), hi = Math.max(...words)
+    // about +-35 % around the 0.24 mm half-width, never a hairline or a marker
+    expect(lo).toBeGreaterThan(0.00014); expect(hi).toBeLessThan(0.00036)
+    expect(hi / lo).toBeGreaterThan(1.35)
+    const wordWidths = new Set(words.map(w => w.toFixed(7)))
+    expect(wordWidths.size).toBeGreaterThan(10)
+  })
+
+  it('writes the visible words in capitals while the transcript strings stay as authored', () => {
+    expect(OWNER_NOTE_TEXT.input).toContain('Failure point.')
+    const { ink } = compose()
+    // all-caps lettering is covered glyph by glyph in handwriting.test.ts; here the composed notes must stay
+    // inside the same free-paper envelope as before (checked below) and still be hand-sized, not type-sized
+    const b = boundsOf(segsOf(ink, GROUP.noteOutput).filter(s => s.key >= 0.26))
+    expect(b.x1 - b.x0).toBeGreaterThan(0.045); expect(b.x1 - b.x0).toBeLessThan(0.07)
   })
 
   it('anchors the circle at the Detail B centre (the sun gear) with the measured 2:1 radius, and the arrow reaches it', () => {

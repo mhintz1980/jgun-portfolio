@@ -48,7 +48,7 @@ import {
 import { sheetReveal } from './sheetCamera'
 import { composeSheet } from './sheet/composeSheet'
 import { prepareDrawingCache } from './sheet/drawingCache'
-import { GROUP, INK_RED, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
+import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
 import { makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum } from './sheet/paperFlex'
 import { bakeProfile } from './sheet/profile'
 import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from './sheet/lightning'
@@ -748,6 +748,7 @@ function DrawingPrint({ data, baked }: { data: DrawingGeometry; baked: BakedShee
     const inkLight = proof ? 1 : 0.14 + 0.86 * lampPower
     uniforms.uInk.value.multiplyScalar(inkLight)
     ;(uniforms.uInkRed.value as Color).set(INK_RED).multiplyScalar(proof ? 1 : inkLight)
+    ;(uniforms.uInkGraphite.value as Color).set(INK_GRAPHITE).multiplyScalar(proof ? 1 : inkLight)
     // Faint printed notes share the ambient-lit stock rather than disappearing
     // when the practical goes out. Keep the lit hold exactly as before.
     text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))

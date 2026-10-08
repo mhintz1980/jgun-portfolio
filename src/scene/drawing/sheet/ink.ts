@@ -41,8 +41,15 @@ export const PEN = {
   fine: 0.0001,
 } as const
 
-/** Red pen for the crossed-off failed alloys (the only coloured ink on the sheet). */
+/** Red pen for the crossed-off failed alloys and the failure-point mark on the gear. */
 export const INK_RED = '#a3201c'
+
+/**
+ * Owner's handwriting: graphite / near-black pencil-ink, neutral where the sheet's typeface is saturated
+ * navy (#15295a). Their relative luminances are close, so a slightly darker value than #2a2c30 plus the
+ * hue difference and a faint grain is what separates the hand from the print.
+ */
+export const INK_GRAPHITE = '#24262a'
 
 export const DASH = { solid: 0, hidden: 1, center: 2, phantom: 3 } as const
 
@@ -77,10 +84,16 @@ export const GROUP_COUNT = 19
 
 /**
  * Per-stroke pen colour rides in the dash field (no stride change): `dash = style + 10 * colour`.
- * Colour 0 = the sheet's navy ink; 1 = red, used only for the crossed-off failed alloys.
+ * Colour 0 = the sheet's navy ink; 1 = red (failure-point mark and crossed-off alloys);
+ * 2 = graphite (the owner's handwritten notes). Dash styles are 0..3, so the two never collide.
+ * Every decoder (the shader's `floor(aDash / 10 + 0.5)`, this helper, the tests) must agree.
  */
-export const PEN_COLOR = { ink: 0, red: 1 } as const
+export const PEN_COLOR = { ink: 0, red: 1, graphite: 2 } as const
 export const withPenColor = (dash: number, color: number): number => dash + 10 * color
+/** Pen colour index of a segment's dash field (JS twin of the vertex shader's decode). */
+export const penColorOf = (dash: number): number => Math.floor(dash / 10 + 0.5)
+/** Dash style (0..3) of a segment's dash field. */
+export const dashStyleOf = (dash: number): number => dash - 10 * penColorOf(dash)
 
 export interface TextCell { x: number; y: number; w: number; h: number }
 
@@ -192,6 +205,7 @@ export interface SheetUniforms {
   uViewport: { value: Vector2 }
   uInk: { value: Color }
   uInkRed: { value: Color }
+  uInkGraphite: { value: Color }
   uOpacity: { value: number }
   uWaveTime: { value: number }
   uWaveEnabled: { value: number }
@@ -207,6 +221,7 @@ export function makeSheetUniforms(): SheetUniforms {
     uViewport: { value: new Vector2(1, 1) },
     uInk: { value: new Color(INK) },
     uInkRed: { value: new Color(INK_RED) },
+    uInkGraphite: { value: new Color(INK_GRAPHITE) },
     uOpacity: { value: 1 },
     uFlexAmplitude: { value: 0 },
     uFlexField: { value: null },
@@ -258,9 +273,21 @@ void main() {
 
 const lineFragment = /* glsl */ `
 ${PAPER_BARRIER_GLSL}
-uniform vec3 uInk; uniform vec3 uInkRed; uniform float uOpacity;
+uniform vec3 uInk; uniform vec3 uInkRed; uniform vec3 uInkGraphite; uniform float uOpacity;
 varying float vAcross; varying float vAlongM; varying float vLen; varying float vDraw;
 varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane; varying float vPen;
+// Pencil grain: smooth value noise pinned to the sheet (never to the screen or the clock), faded out
+// once its cells fall below ~1.5 px so a distant or moving camera sees an even tone, not shimmer.
+float grainHash(vec2 p) { p = fract(p * vec2(443.897, 441.423)); p += dot(p, p.yx + 19.19); return fract((p.x + p.y) * p.x); }
+float grainNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(grainHash(i), grainHash(i + vec2(1.0, 0.0)), f.x), mix(grainHash(i + vec2(0.0, 1.0)), grainHash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+float graphiteDensity(vec2 plane, float px) {
+  float coarse = grainNoise(plane * 2200.0), fine = grainNoise(plane * 6500.0 + 17.0);
+  float fadeC = smoothstep(1.2, 3.0, px / 2200.0), fadeF = smoothstep(1.2, 3.0, px / 6500.0);
+  return 1.0 - 0.16 * (0.65 * (1.0 - coarse) * fadeC + 0.35 * (1.0 - fine) * fadeF);
+}
 void main() {
   cutPrintedStock(vPlane);
   if (vDraw <= 0.0) discard;
@@ -278,8 +305,10 @@ void main() {
   }
   // Wet ink: the last millimetre behind the pen reads a touch heavier while it is moving.
   float wet = (vDraw < 1.0) ? smoothstep(0.002, 0.0, head - vAlongM) * 0.35 : 0.0;
-  // Failure strikes: red pen, lit by the same lamp as the navy ink (uInk carries the lamp factor).
-  vec3 pen = vPen > 0.5 ? uInkRed : uInk;
+  // Red pen (colour 1) and graphite hand (colour 2) are lit by the same lamp as the navy ink (the host
+  // scales each uniform by the lamp factor). Graphite also carries a faint grain density.
+  vec3 pen = vPen > 1.5 ? uInkGraphite : (vPen > 0.5 ? uInkRed : uInk);
+  if (vPen > 1.5) alpha *= graphiteDensity(vPlane, vPx);
   gl_FragColor = vec4(pen * (1.0 - wet), alpha * uOpacity);
 }`
 

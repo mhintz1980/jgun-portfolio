@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Box3, BoxGeometry, ShaderLib, Vector3 } from 'three'
+import { Box3, BoxGeometry, Color, ShaderLib, Vector3 } from 'three'
 import { Text } from 'troika-three-text'
 import parser from 'troika-three-text/src/FontParser.js'
 import { createTypesetter } from 'troika-three-text/src/Typesetter.js'
 import bidiFactory from 'bidi-js'
 import { makeDrawingLayout } from '../drawingGeometry'
 import { composeSheet } from './composeSheet'
-import { GROUP, InkBuilder, makeInkFills, makeSheetUniforms } from './ink'
+import { GROUP, INK_GRAPHITE, INK_RED, InkBuilder, PEN_COLOR, dashStyleOf, makeInkFills, makeInkLines, makeSheetUniforms, penColorOf, withPenColor } from './ink'
+import { INK } from '../drawingGeometry'
 import { PAPER_FLEX_STEP } from './paperFlex'
 import { makeSheetText } from './sheetText'
 
@@ -99,6 +100,41 @@ describe('sheet text runtime proof', () => {
     expect(proof.items.filter(item => !item.contained)).toEqual([])
     expect(proof.violations).toBe(0)
     layer.dispose(); geometry.dispose()
+  })
+})
+
+describe('ink colour encoding (dash + 10 * colour)', () => {
+  it('round-trips navy 0, red 1 and graphite 2 with every dash style, and the shader decodes all three', () => {
+    for (const color of Object.values(PEN_COLOR)) {
+      for (const style of [0, 1, 2, 3]) {
+        const dash = withPenColor(style, color)
+        expect(penColorOf(dash)).toBe(color)
+        expect(dashStyleOf(dash)).toBe(style)
+      }
+    }
+    const uniforms = makeSheetUniforms()
+    expect(uniforms.uInkGraphite.value.getHexString()).toBe(new Color(INK_GRAPHITE).getHexString())
+    expect(uniforms.uInkRed.value.getHexString()).toBe(new Color(INK_RED).getHexString())
+    const ink = new InkBuilder().line(0, 0, 0.01, 0, 0.0002, 16, 0, 0.1, withPenColor(0, PEN_COLOR.graphite))
+    const mesh = makeInkLines(ink, uniforms)
+    const { fragmentShader, vertexShader, uniforms: u } = mesh.material
+    expect(vertexShader).toContain('floor(aDash / 10.0 + 0.5)')
+    expect(fragmentShader).toContain('uniform vec3 uInkGraphite')
+    expect(fragmentShader).toMatch(/vPen > 1\.5 \? uInkGraphite : \(vPen > 0\.5 \? uInkRed : uInk\)/)
+    expect(u.uInkGraphite).toBe(uniforms.uInkGraphite)
+    // the grain is pinned to the sheet (vPlane) and never reads the clock
+    expect(fragmentShader).toContain('graphiteDensity(vPlane, vPx)')
+    expect(fragmentShader.match(/uWaveTime|uTime/g)).toBeNull()
+    mesh.geometry.dispose(); mesh.material.dispose()
+  })
+
+  it('keeps the graphite pen a neutral near-black, distinct from the saturated navy of the printed typeface', () => {
+    const g = new Color(INK_GRAPHITE), n = new Color(INK)
+    const sat = c => Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b)
+    expect(sat(g)).toBeLessThan(sat(n) * 0.25)
+    const lum = c => 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b
+    expect(lum(g)).toBeLessThan(0.03)
+    expect(lum(g)).toBeLessThan(lum(n))
   })
 })
 
