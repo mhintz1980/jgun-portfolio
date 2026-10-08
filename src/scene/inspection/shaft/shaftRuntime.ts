@@ -3,6 +3,7 @@ import {
   MeshStandardMaterial, Plane, Quaternion, TorusGeometry, Vector3,
   Material, type InstancedMesh, type Object3D, type Texture,
 } from 'three'
+import { creasedNormals } from './normalRepair'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GEAR_RATIOS, ROTATION_TURNS, STAGE_IDS } from '../../../data/caseStudies'
@@ -192,6 +193,13 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
     root.updateWorldMatrix(true, true)
     const meshes: Mesh[] = []; node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
     for (const mesh of meshes) {
+      if (kind) {
+        // S3: the exported shaft normals streak across sliver fans; rebuild them creased + angle-weighted (see normalRepair.ts).
+        const original = mesh.geometry
+        matrix.multiplyMatrices(toShaft, mesh.matrixWorld)
+        mesh.geometry = creasedNormals(original, 40, matrix).geometry
+        ownedGeometry.delete(original); ownedGeometry.add(mesh.geometry); original.dispose()
+      }
       const material = steel.clone()
       if (name.includes('housing')) { material.color.set('#596169'); material.roughness = 0.4 }
       ownedMaterials.add(material); part.materials.push(material); mesh.material = material

@@ -21,8 +21,8 @@ const trigger = page.getByRole('button', { name: 'Inspect the input shaft' })
 await trigger.waitFor({ state: 'visible', timeout: 240000 })
 await page.waitForFunction(() => window.__rig && window.__threeRenderer && window.__telemetry?.performance?.warmReady, null, { timeout: 240000 })
 await page.waitForTimeout(1500)
-await trigger.click()
-await page.getByRole('dialog').waitFor()
+await trigger.click({ timeout: 240000 })
+await page.getByRole('dialog').waitFor({ timeout: 240000 })
 await page.waitForFunction(() => ['ready', 'error'].includes(window.__inspection?.status), null, { timeout: 240000 })
 await page.waitForTimeout(12000) // let the entry camera ease finish under software GL
 const seek = async t => {

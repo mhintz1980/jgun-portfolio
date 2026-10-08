@@ -1,0 +1,231 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:4173",
+  "started": "2026-10-08T03:08:09.594Z",
+  "head": "f0bcaacc2b9ddd7709dd5367b9acc0cadc5bdb54",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "only": [
+    "opening"
+  ],
+  "captures": [
+    {
+      "file": "opening-desktop-t0p15.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.15,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.17679634930084082,
+        "y": 0.158404375770869,
+        "z": -0.3324023252316493,
+        "fov": 30.00020893374826,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.1767776850603464,
+            0.15840932314827608,
+            -0.3324413994396789
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.32666803840877917
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.75593384350779,
+          0.653869952424988,
+          0.031907829059401024
+        ],
+        "sheetDistance": 0.209368050304614
+      }
+    },
+    {
+      "file": "opening-desktop-t0p17.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.17,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.17451598736087165,
+        "y": 0.16036896682918245,
+        "z": -0.329719306525501,
+        "fov": 30.000000145586803,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.17449720659454682,
+            0.1603852315025042,
+            -0.32969674594877213
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.325
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7655777895420581,
+          0.6427876096865394,
+          0.026734565516599966
+        ],
+        "sheetDistance": 0.209368050304614
+      }
+    },
+    {
+      "file": "opening-desktop-t0p24.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.24,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.02395129105006898,
+        "y": 0.12455023959007783,
+        "z": -0.09718667750469732,
+        "fov": 30.00000000000082,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.023932709808985958,
+            0.1245458167467512,
+            -0.09715797981375371
+          ],
+          "target": [
+            -0.0665,
+            0,
+            -0.094
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.8085241630808819,
+          0.5877852522924731,
+          0.028234285927455725
+        ],
+        "sheetDistance": 0.1539470958122162
+      }
+    },
+    {
+      "file": "opening-narrow-t0p15.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.15,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.33019889011114456,
+        "y": 0.33606842919479063,
+        "z": -0.33887837563366147,
+        "fov": 30.000252855254335,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.3301969989716752,
+            0.33609217882640785,
+            -0.33891720057589675
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.32666803840877917
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.75593384350779,
+          0.653869952424988,
+          0.031907829059401024
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    },
+    {
+      "file": "opening-narrow-t0p17.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.17,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.32538043159986857,
+        "y": 0.34026546331499796,
+        "z": -0.33498278389650643,
+        "fov": 30.00000005165425,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.32535857809401086,
+            0.3402844026850518,
+            -0.33496494112811387
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.325
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7655777895420581,
+          0.6427876096865394,
+          0.026734565516599966
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    },
+    {
+      "file": "opening-narrow-t0p24.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.24,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "camera": {
+        "x": 0.19445703550312535,
+        "y": 0.3593708726810728,
+        "z": -0.10314086923768451,
+        "fov": 30.000000000000174,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.1944408789018262,
+            0.35937322849318987,
+            -0.10311225628310473
+          ],
+          "target": [
+            -0.0665,
+            0,
+            -0.094
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.8085241630808819,
+          0.5877852522924731,
+          0.028234285927455725
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    }
+  ],
+  "errors": [],
+  "browserVersion": "141.0.7390.37",
+  "finished": "2026-10-08T03:31:53.103Z"
+}
