@@ -88,7 +88,7 @@ const REVISED_CAD_WITNESSES = [
 ].map(([x, y, z]) => new Vector3(x * MM, y * MM, z * MM))
 
 type Rect = { min: [number, number]; max: [number, number] }
-function expectDomClearance(t: number, narrow: boolean, points: Vector3[], finalCard: boolean) {
+function expectDomClearance(t: number, narrow: boolean, points: Vector3[], finalCard: boolean, cardVisible = true) {
   const [width, height] = narrow ? [390, 844] : [1440, 900]
   const rects: Rect[] = narrow ? [
     { min: [20, 24], max: [370, 94] }, // header
@@ -106,7 +106,9 @@ function expectDomClearance(t: number, narrow: boolean, points: Vector3[], final
   const pixels = ndc.map(p => [(p.x + 1) * width / 2, (1 - p.y) * height / 2])
   const min = [Math.min(...pixels.map(p => p[0])), Math.min(...pixels.map(p => p[1]))]
   const max = [Math.max(...pixels.map(p => p[0])), Math.max(...pixels.map(p => p[1]))]
-  for (const rect of rects) {
+  for (const [index, rect] of rects.entries()) {
+    // No attempt card exists before 15 s: the cutter pair may use the whole right-hand frame.
+    if (!cardVisible && index === 2) continue
     // Full rectangle separation: either X or Y must clear by >=8 px.
     expect(Math.max(rect.min[0] - max[0], min[0] - rect.max[0], rect.min[1] - max[1], min[1] - rect.max[1])).toBeGreaterThanOrEqual(8)
   }
@@ -316,5 +318,86 @@ describe('camera determinism', () => {
         expect(fa[key]).toBe(fb[key])
       }
     }
+  })
+})
+
+// ---- JG-035 S1: button cutter viewer-right at equal depth --------------------------------------
+import { CUTTER_VIEW_AZIMUTH_DEG, machiningViewAzimuthDeg, RECAP_SWING_DEG } from './camera'
+
+const SHAPER_TIP_MM = 11.2032
+/** Cutter centre / near edge in the shaft-local (CAD) frame, metres, from the live kinematics frame. */
+function cutterWitnesses() {
+  const distance = kinematics.cutterRho + SHAPER_TIP_MM
+  const y = kinematics.strokeCentreY
+  return {
+    centre: new Vector3(0, y * MM, distance * MM),
+    shaftAxis: new Vector3(0, y * MM, 0),
+    nearEdge: new Vector3(0, y * MM, kinematics.cutterRho * MM),
+    farTip: new Vector3(0, y * MM, (distance + SHAPER_TIP_MM) * MM),
+  }
+}
+function cameraAt(t: number, aspect: number) {
+  const s = sampleAt(t, aspect)
+  const camera = new PerspectiveCamera(s.fov, aspect, 0.01, 1)
+  camera.position.set(s.px, s.py, s.pz); camera.up.set(s.ux, s.uy, s.uz); camera.lookAt(s.tx, s.ty, s.tz)
+  camera.updateMatrixWorld(true); camera.updateProjectionMatrix()
+  return camera
+}
+const viewDepth = (camera: PerspectiveCamera, p: Vector3) => -p.clone().applyMatrix4(camera.matrixWorldInverse).z
+
+describe('S1: cutter side-by-side composition (2..11 s)', () => {
+  const times: number[] = []
+  for (let t = 2; t <= 11 + 1e-9; t += 0.05) times.push(+t.toFixed(2))
+
+  it.each([['desktop', DESKTOP_ASPECT], ['narrow', NARROW_ASPECT]])('puts the cutter right of the shaft at <= 1.55 mm depth difference, %s', (_, aspect) => {
+    let worstDepth = 0, leastRight = Infinity
+    for (const t of times) {
+      const camera = cameraAt(t, aspect), w = cutterWitnesses()
+      worstDepth = Math.max(worstDepth, Math.abs(viewDepth(camera, w.centre) - viewDepth(camera, w.shaftAxis)) * 1000)
+      leastRight = Math.min(leastRight, w.centre.clone().project(camera).x - w.shaftAxis.clone().project(camera).x)
+    }
+    expect(worstDepth).toBeLessThanOrEqual(1.55)
+    expect(worstDepth).toBeLessThan(0.05) // the law is exact; the tolerance only guards later retuning
+    expect(leastRight).toBeGreaterThan(0.1)
+  })
+
+  it('keeps the engaging near edge and the shaft centred pair inside the 8% safe frame, clear of copy and footer', () => {
+    for (const [aspect, narrow] of [[DESKTOP_ASPECT, false], [NARROW_ASPECT, true]] as const) {
+      for (const t of times.filter((_, i) => i % 4 === 0)) {
+        sampleShaftKinematics(t, kinematics)
+        const w = cutterWitnesses()
+        const pts = [w.shaftAxis, w.nearEdge, new Vector3(0, kinematics.edgeY * MM, TIP_R * MM), new Vector3(0, kinematics.edgeY * MM, -TIP_R * MM)]
+        expectDomClearance(t, narrow, pts, false, false)
+        const camera = cameraAt(t, aspect)
+        expect(Math.abs(w.centre.clone().project(camera).y)).toBeLessThanOrEqual(SAFE)
+      }
+    }
+  })
+
+  it('holds the azimuth exactly through shaping and slow exit, then swings C1 to the settled 15 s view', () => {
+    expect(CUTTER_VIEW_AZIMUTH_DEG).toBe(180)
+    for (const t of [0, 1, 2, 4, 6, 8.4, 10, 11]) expect(machiningViewAzimuthDeg(t)).toBe(180)
+    expect(machiningViewAzimuthDeg(15 - 1e-9)).toBeCloseTo(180 + RECAP_SWING_DEG, 6)
+    // The first sample at 15 s uses the authored anchors + frozen follow: identical total azimuth, no snap.
+    const before = snapAt(15 - 1e-6, DESKTOP_ASPECT), after = snapAt(15 + 1e-6, DESKTOP_ASPECT)
+    expect(Math.hypot(before.px - after.px, before.py - after.py, before.pz - after.pz)).toBeLessThan(2e-6)
+    let last = machiningViewAzimuthDeg(11), peak = 0, maxStep = 0
+    for (let t = 11; t <= 15 + 1e-9; t += 0.01) {
+      const v = machiningViewAzimuthDeg(t)
+      expect(v).toBeGreaterThanOrEqual(last - 1e-12)
+      maxStep = Math.max(maxStep, v - last); last = v; peak = Math.max(peak, v)
+    }
+    // Existing recap follow rate was 90 deg/s; the swing never exceeds it.
+    expect(maxStep / 0.01).toBeLessThanOrEqual(90)
+    expect(peak).toBeCloseTo(380, 6)
+  })
+
+  it('mutation guard: the pre-revision follow orbit would put the cutter in front by 6 s', () => {
+    // Old law: 24 deg + follow azimuth. At 6 s the cutter sits ~12 deg off the camera line (between camera and shaft).
+    sampleShaftKinematics(6, kinematics)
+    const old = 24 + kinematics.followAzimuth / (Math.PI / 180)
+    const cutterAz = 90
+    expect(Math.abs(old - cutterAz)).toBeLessThan(20) // in front: not side by side
+    expect(Math.abs(Math.cos((180 - cutterAz) * Math.PI / 180))).toBeLessThan(1e-12) // new law: perpendicular, zero depth offset
   })
 })

@@ -40,6 +40,30 @@ const ease = (x: number) => { const t = clamp01(x); return t * t * (3 - 2 * t) }
 export const FOLLOW_AZIMUTH_MOD =
   FOLLOW_GAIN * FOLLOW_MF_TOTAL - 2 * Math.PI * Math.round((FOLLOW_GAIN * FOLLOW_MF_TOTAL) / (2 * Math.PI))
 
+/**
+ * Camera azimuth (machine frame, deg) that puts the button cutter (machine azimuth MESH_AZ = 90 deg)
+ * on the viewer's RIGHT at equal camera depth: camera at MESH_AZ + 90 deg. With up = +shaft axis the
+ * view-right vector is azimuth (camera - 90 deg), so cutter centre and shaft axis share one depth plane
+ * (zero depth difference; the owner's "side by side, same distance from the camera").
+ */
+export const CUTTER_VIEW_AZIMUTH_DEG = 180
+/** The recap swirl (11..15 s) sweeps the camera from the cutter-right view to the settled 15 s view. */
+export const RECAP_SWING_START_S = 11
+export const RECAP_SWING_DEG = 200
+const RECAP_MF_START = followMfAt(RECAP_SWING_START_S)
+
+/**
+ * Machining-era total camera azimuth, degrees, t < 15 s. Held exactly at the cutter-right view through the
+ * isolate, shaping and slow-exit beats, then the existing recap follow profile (C1: zero rate at 11 s and
+ * 15 s) carries it 200 deg to 380 deg, which is the settled materials view (20 deg + the frozen follow turn),
+ * so every anchor from 15 s on is untouched and nothing snaps.
+ */
+export function machiningViewAzimuthDeg(t: number): number {
+  if (t <= RECAP_SWING_START_S) return CUTTER_VIEW_AZIMUTH_DEG
+  const g = clamp01((followMfAt(t) - RECAP_MF_START) / (FOLLOW_MF_TOTAL - RECAP_MF_START))
+  return CUTTER_VIEW_AZIMUTH_DEG + RECAP_SWING_DEG * g
+}
+
 interface CameraAnchor {
   readonly t: number
   /** Machine azimuth (deg) while the follow is live (t <= 15), otherwise already compensated. */
@@ -59,12 +83,18 @@ interface CameraAnchor {
  * runout-withdrawn/support (camera/blockout.json renders), re-centred as documented above.
  */
 const ANCHORS: readonly CameraAnchor[] = [
-  { t: 0,    az: 24,                          el: 6.3, dist: 0.24,   fovDesktop: 17,   fovNarrow: 27,   tgt: [0, 9, 0] },
-  { t: 2,    az: 24,                          el: 6.2, dist: 0.205,  fovDesktop: 16.5, fovNarrow: 24,   tgt: [0, 7.5, 2] },
-  { t: 6,    az: 24,                          el: 4.6, dist: 0.17,   fovDesktop: 12.5, fovNarrow: 19,   tgt: [0, 6.8, 3] },
-  { t: 7.2,  az: 24,                          el: 3.2, dist: 0.2,    fovDesktop: 5.4,  fovNarrow: 9.5,  tgt: [0, 9.8, 4.6] },
-  { t: 9.7,  az: 24,                          el: 3.2, dist: 0.2035, fovDesktop: 5.5,  fovNarrow: 9.6,  tgt: [0, 9.85, 4.65] },
-  { t: 11,   az: 24,                          el: 4.2, dist: 0.225,  fovDesktop: 9.5,  fovNarrow: 15.5, tgt: [0, 7.2, 3] },
+  // JG-035 S1 (2026-10-07): through 2..11 s the button cutter sits viewer-RIGHT of the shaft at the
+  // same depth (camera azimuth = CUTTER_VIEW_AZIMUTH_DEG, see below), so targets slide toward the
+  // cutter (+Z in this frame) and the field of view widens to hold shaft and cutter edge side by
+  // side in the right-hand 62% of a desktop frame (copy column ends at x 537 px). Narrow targets are
+  // centred on the pair. `az` is documentary for t < 15: the machining-era azimuth is a closed-form
+  // law (machiningViewAzimuthDeg), not a lerp of these rows.
+  { t: 0,    az: 180,                         el: 6.3, dist: 0.24,   fovDesktop: 17,   fovNarrow: 27,   tgt: [0, 9, 0] },
+  { t: 2,    az: 180,                         el: 6.2, dist: 0.2,    fovDesktop: 9.4,  fovNarrow: 17.1, tgt: [0, 7.5, -0.8], tgtNarrow: [0, 6.8, 5.5] },
+  { t: 6,    az: 180,                         el: 4.6, dist: 0.2,    fovDesktop: 8.2,  fovNarrow: 15.1, tgt: [0, 6.8, -1.6], tgtNarrow: [0, 6.1, 4] },
+  { t: 7.2,  az: 180,                         el: 3.2, dist: 0.2,    fovDesktop: 7.5,  fovNarrow: 13.8, tgt: [0, 9, -2.2],   tgtNarrow: [0, 8.2, 3] },
+  { t: 9.7,  az: 180,                         el: 3.2, dist: 0.2,    fovDesktop: 7.5,  fovNarrow: 13.8, tgt: [0, 9, -2.2],   tgtNarrow: [0, 8.2, 3] },
+  { t: 11,   az: 180,                         el: 4.2, dist: 0.2,    fovDesktop: 8.2,  fovNarrow: 15.1, tgt: [0, 7.2, -1.6], tgtNarrow: [0, 6.5, 4] },
   // Recap pull-back completes at 14 s; 14..15 s is the C1 handoff into the settled materials
   // side view, so the camera is steady before the first card is visible (15.0 s) and fully
   // readable (15.14 s). The hold runs the whole materials beat 15..22.6 s. Narrow layout:
@@ -75,7 +105,7 @@ const ANCHORS: readonly CameraAnchor[] = [
   // Desktop critical action also clears the measured footer (x57.59..537.59,
   // py596.5..876): fov 7.6 / target z -2.6 mm gives 15.17 px footer and 21.52 px copy
   // clearance, independently decoded in camera/footer-fix-2026-10-06/projection-report.json.
-  { t: 14,   az: 24,                          el: 5,   dist: 0.26,   fovDesktop: 14.5, fovNarrow: 20,   tgt: [0, 6.5, 2.5] },
+  { t: 14,   az: 180 + RECAP_SWING_DEG * 0.999,  el: 5,   dist: 0.26,   fovDesktop: 14.5, fovNarrow: 20,   tgt: [0, 6.5, 0] },
   { t: 15,   az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 7.6,  fovNarrow: 18.5, tgt: [0, 19.2, -2.6], tgtNarrow: [0, 8.5, 1] },
   { t: 22.6, az: 20 - FOLLOW_AZIMUTH_MOD / DEG, el: 0.5, dist: 0.2,  fovDesktop: 7.6,  fovNarrow: 18.5, tgt: [0, 19.2, -2.6], tgtNarrow: [0, 8.5, 1] },
   { t: 23.4, az: 26 - FOLLOW_AZIMUTH_MOD / DEG, el: 3,   dist: 0.2,  fovDesktop: 9.7,  fovNarrow: 15.5, tgt: [0, 11, 2.8] },
@@ -165,7 +195,9 @@ export function sampleShaftCamera(
     hobFollow = 0.35 * (hobYcAt(t) - 2.66495) * weight
   }
 
-  const az = (lerp(a.az, b.az, u) * DEG) + kinematics.followAzimuth
+  // Before 15 s the azimuth is the closed-form machining view (the follow is already folded into it);
+  // from 15 s the authored anchors carry the frozen follow turn as before.
+  const az = t < 15 ? machiningViewAzimuthDeg(t) * DEG : (lerp(a.az, b.az, u) * DEG) + kinematics.followAzimuth
   const el = lerp(a.el, b.el, u) * DEG
   const dist = lerp(a.dist, b.dist, u)
   const fov = lerp(lerp(a.fovNarrow, a.fovDesktop, layout), lerp(b.fovNarrow, b.fovDesktop, layout), u)
