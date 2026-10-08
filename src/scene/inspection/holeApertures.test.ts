@@ -34,11 +34,12 @@ function patchArea(geometry: BufferGeometry, radius: number) {
 }
 
 describe('measured drilled-hole apertures of the real P003068 CAD (R1)', () => {
-  it('finds exactly the four through-holes on both the OD and the bore, with the measured sizes and positions', () => {
+  it('finds exactly the six through-holes on both the OD and the bore, including the two that straddle the CAD half-face seams', () => {
     const od = ring.apertures.filter(a => a.surface === 'od'), bore = ring.apertures.filter(a => a.surface === 'bore')
-    expect(od).toHaveLength(4)
-    expect(bore).toHaveLength(4)
-    const expected = [[-104.54, 3.453], [-44.54, 2.487], [75.46, 2.488], [135.46, 3.453]] as const
+    expect(od).toHaveLength(6)
+    expect(bore).toHaveLength(6)
+    // Six radial holes at 60 deg spacing: three 6.9 mm and three 5.0 mm (equivalent radius shown), alternating.
+    const expected = [[-164.54, 2.488], [-104.54, 3.453], [-44.54, 2.487], [15.45, 3.453], [75.46, 2.488], [135.46, 3.453]] as const
     od.forEach((a, i) => {
       expect(deg(a.theta)).toBeCloseTo(expected[i][0], 1)
       expect(a.equivalentRadius * 1000).toBeCloseTo(expected[i][1], 2)
@@ -51,8 +52,8 @@ describe('measured drilled-hole apertures of the real P003068 CAD (R1)', () => {
   })
 
   it('builds one runtime-owned cover per aperture and never touches the source CAD', () => {
-    expect(ring.patchGeometries).toHaveLength(8)
-    expect(ring.group.children.filter(c => c.name.startsWith('P003068-hole-cover-'))).toHaveLength(8)
+    expect(ring.patchGeometries).toHaveLength(12)
+    expect(ring.group.children.filter(c => c.name.startsWith('P003068-hole-cover-'))).toHaveLength(12)
     expect(ring.patchMaterial).not.toBe(ring.material)
     expect(ring.patchMaterial.transparent).toBe(true)
     const after = sourceMesh.geometry.getAttribute('position').array as Float32Array

@@ -1,0 +1,20 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:4173",
+  "started": "2026-10-08T01:34:24.364Z",
+  "head": "684f8cae97003adcad00a7ffc32c1f358daba7e4",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "only": [
+    "ringmask"
+  ],
+  "captures": [
+    {
+      "file": "ring-8s-mask.png",
+      "kind": "ringmask",
+      "t": 8
+    }
+  ],
+  "errors": [],
+  "browserVersion": "141.0.7390.37",
+  "finished": "2026-10-08T01:35:07.899Z"
+}

@@ -153,6 +153,8 @@ export interface DrawingGeometry {
   features: Record<string, Vector3>
   /** Rest-pose bounds of the named rig units, in the recentered model frame. */
   units: Record<string, UnitBounds>
+  /** Rig centre removed by the recentring (Default.glb frame, m): converts raw CAD measurements to this frame. */
+  rigCenter: Vector3
   sourceTriangles: number
 }
 
@@ -236,6 +238,7 @@ export function snapshotDrawing(rig: WrenchRig): DrawingGeometry {
     bounds,
     features,
     units,
+    rigCenter: rig.center.clone(),
     sourceTriangles: geometry.getAttribute('position').count / 3,
   }
 }

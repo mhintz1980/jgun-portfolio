@@ -41,6 +41,9 @@ export const PEN = {
   fine: 0.0001,
 } as const
 
+/** Red pen for the crossed-off failed alloys (the only coloured ink on the sheet). */
+export const INK_RED = '#a3201c'
+
 export const DASH = { solid: 0, hidden: 1, center: 2, phantom: 3 } as const
 
 /**
@@ -64,8 +67,20 @@ export const GROUP = {
   sideDims: 13,
   sideLabels: 14,
   gdt: 15,
+  /** JG-035 owner revisions: handwritten margin notes (input shaft beside Detail B, output spindle beside A-A). */
+  noteInput: 16,
+  noteOutput: 17,
+  /** The clutch-shift (fork) detail, relocated from the old Detail B slot. */
+  detailE: 18,
 } as const
-export const GROUP_COUNT = 16
+export const GROUP_COUNT = 19
+
+/**
+ * Per-stroke pen colour rides in the dash field (no stride change): `dash = style + 10 * colour`.
+ * Colour 0 = the sheet's navy ink; 1 = red, used only for the crossed-off failed alloys.
+ */
+export const PEN_COLOR = { ink: 0, red: 1 } as const
+export const withPenColor = (dash: number, color: number): number => dash + 10 * color
 
 export interface TextCell { x: number; y: number; w: number; h: number }
 
@@ -176,6 +191,7 @@ export interface SheetUniforms {
   uReveal: { value: number[] }
   uViewport: { value: Vector2 }
   uInk: { value: Color }
+  uInkRed: { value: Color }
   uOpacity: { value: number }
   uWaveTime: { value: number }
   uWaveEnabled: { value: number }
@@ -190,6 +206,7 @@ export function makeSheetUniforms(): SheetUniforms {
     uReveal: { value: new Array(GROUP_COUNT).fill(1) },
     uViewport: { value: new Vector2(1, 1) },
     uInk: { value: new Color(INK) },
+    uInkRed: { value: new Color(INK_RED) },
     uOpacity: { value: 1 },
     uFlexAmplitude: { value: 0 },
     uFlexField: { value: null },
@@ -215,7 +232,7 @@ attribute vec2 aRange;
 attribute vec4 aStyle;
 attribute float aDash;
 varying float vAcross; varying float vAlongM; varying float vLen; varying float vDraw;
-varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane;
+varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane; varying float vPen;
 void main() {
   float along = mix(aRange.x, aRange.y, corner.x);
   vec2 a = aSeg.xy; vec2 b = aSeg.zw;
@@ -232,7 +249,7 @@ void main() {
   float r = uReveal[int(aStyle.y + 0.5)];
   vDraw = clamp((r - aStyle.z) / max(aStyle.w, 1e-4), 0.0, 1.0);
   vAlongM = along * (len + 2.0 * hwEff) - hwEff;
-  vLen = len; vAcross = corner.y * ext; vPx = px; vHW = hwEff; vCov = pow(min(1.0, hw / minHW), 0.6); vDash = aDash;
+  vLen = len; vAcross = corner.y * ext; vPx = px; vHW = hwEff; vCov = pow(min(1.0, hw / minHW), 0.6); vPen = floor(aDash / 10.0 + 0.5); vDash = aDash - 10.0 * vPen;
   vPlane = p;
   vec3 pos = vec3(p, 0.0003);
   pos.z += paperDisplacement(p);
@@ -241,9 +258,9 @@ void main() {
 
 const lineFragment = /* glsl */ `
 ${PAPER_BARRIER_GLSL}
-uniform vec3 uInk; uniform float uOpacity;
+uniform vec3 uInk; uniform vec3 uInkRed; uniform float uOpacity;
 varying float vAcross; varying float vAlongM; varying float vLen; varying float vDraw;
-varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane;
+varying float vPx; varying float vHW; varying float vCov; varying float vDash; varying vec2 vPlane; varying float vPen;
 void main() {
   cutPrintedStock(vPlane);
   if (vDraw <= 0.0) discard;
@@ -261,7 +278,9 @@ void main() {
   }
   // Wet ink: the last millimetre behind the pen reads a touch heavier while it is moving.
   float wet = (vDraw < 1.0) ? smoothstep(0.002, 0.0, head - vAlongM) * 0.35 : 0.0;
-  gl_FragColor = vec4(uInk * (1.0 - wet), alpha * uOpacity);
+  // Failure strikes: red pen, lit by the same lamp as the navy ink (uInk carries the lamp factor).
+  vec3 pen = vPen > 0.5 ? uInkRed : uInk;
+  gl_FragColor = vec4(pen * (1.0 - wet), alpha * uOpacity);
 }`
 
 export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh {

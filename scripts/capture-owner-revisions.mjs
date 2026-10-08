@@ -27,6 +27,11 @@ async function open(viewport) {
   page.on('console', m => { if (m.type() === 'error') report.errors.push(m.text()) })
   return { context, page }
 }
+/** Wait until the sampled playhead (and, when published, the camera) equals t, then let several real frames render. */
+const settled = async (page, t, frames = 4) => {
+  await page.waitForFunction(time => { const p = window.__inspection; return p?.active && Math.abs((p.sampledTime ?? p.time) - time) < 1e-6 && (p.cameraSampleTime === undefined || Math.abs(p.cameraSampleTime - time) < 1e-6) }, t, { timeout: 120000 })
+  await page.evaluate(n => new Promise(resolve => { let k = 0; const tick = () => (++k >= n ? resolve() : requestAnimationFrame(tick)); requestAnimationFrame(tick) }), frames)
+}
 const renderer = page => page.evaluate(() => { const g = (window.__threeRenderer ?? null)?.getContext?.(); const e = g?.getExtension('WEBGL_debug_renderer_info'); return { renderer: e ? g.getParameter(e.UNMASKED_RENDERER_WEBGL) : null, tier: window.__telemetry?.performance?.tier ?? null } })
 
 if (only.includes('ring')) {
@@ -43,7 +48,7 @@ if (only.includes('ring')) {
   for (const t of [1.2, 2.6, 4.2, 5.2, 8, 8.575, 9.3, 12]) {
     await page.waitForFunction(() => window.__inspectionProof && window.__inspection?.loaded && window.__inspection?.status === "ready", null, { timeout: 240000 })
     await page.evaluate(time => window.__inspectionProof.seek(time, 2), t)
-    await page.waitForTimeout(600)
+    await settled(page, t)
     await shot(page, `ring-${String(t).replace('.', 'p')}s`, { kind: 'ring', t, ...env, probe: await page.evaluate(() => JSON.parse(JSON.stringify(window.__inspection))) })
   }
   await context.close()
@@ -81,13 +86,13 @@ if (only.includes('shaft')) {
   await page.waitForFunction(() => ['ready', 'error'].includes(window.__inspection?.status), null, { timeout: 180000 })
   await page.waitForTimeout(1400)
   const env = await renderer(page)
-  for (const t of [1.3, 3, 6.5, 10.9, 13, 16, 19, 21.5, 25.4, 28, 33.5, 37, 41]) {
+  for (const t of (arg('times') ?? '1.3,3,6.5,10.9,13,16,19,21.5,25.4,28,33.5,37,41').split(',').map(Number)) {
     await page.locator('#inspection-seek').evaluate((e, value) => {
       e.step = 'any'
       Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(e, String(value))
       e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true }))
     }, t)
-    await page.waitForTimeout(1200)
+    await settled(page, t, 6)
     await shot(page, `shaft-${String(t).replace('.', 'p')}s`, { kind: 'shaft', t, ...env, probeTime: await page.evaluate(() => window.__inspection?.time) })
   }
   await context.close()

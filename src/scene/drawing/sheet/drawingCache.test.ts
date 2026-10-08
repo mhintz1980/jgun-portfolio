@@ -18,7 +18,7 @@ function fixture() {
   geometry.setIndex([0, 1, 2])
   const data: DrawingGeometry = {
     geometry, bounds: new Box3(new Vector3(), new Vector3(1, 1, 0)),
-    features: {}, units: {}, sourceTriangles: 1,
+    features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 1,
   }
   const layout: DrawingLayout = {
     width: 1, height: 1, primaryRotation: new Matrix4(), primaryCenter: new Vector3(),

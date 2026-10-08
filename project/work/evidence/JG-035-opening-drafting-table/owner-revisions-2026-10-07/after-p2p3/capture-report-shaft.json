@@ -1,0 +1,119 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:4173",
+  "started": "2026-10-08T01:35:08.251Z",
+  "head": "684f8cae97003adcad00a7ffc32c1f358daba7e4",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "only": [
+    "shaft"
+  ],
+  "captures": [
+    {
+      "file": "shaft-1p3s.png",
+      "kind": "shaft",
+      "t": 1.3,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 1.3
+    },
+    {
+      "file": "shaft-3s.png",
+      "kind": "shaft",
+      "t": 3,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 3
+    },
+    {
+      "file": "shaft-6p5s.png",
+      "kind": "shaft",
+      "t": 6.5,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 6.5
+    },
+    {
+      "file": "shaft-10p9s.png",
+      "kind": "shaft",
+      "t": 10.9,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 10.9
+    },
+    {
+      "file": "shaft-13s.png",
+      "kind": "shaft",
+      "t": 13,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 13
+    },
+    {
+      "file": "shaft-16s.png",
+      "kind": "shaft",
+      "t": 16,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 16
+    },
+    {
+      "file": "shaft-19s.png",
+      "kind": "shaft",
+      "t": 19,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 19
+    },
+    {
+      "file": "shaft-21p5s.png",
+      "kind": "shaft",
+      "t": 21.5,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 21.5
+    },
+    {
+      "file": "shaft-25p4s.png",
+      "kind": "shaft",
+      "t": 25.4,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 25.4
+    },
+    {
+      "file": "shaft-28s.png",
+      "kind": "shaft",
+      "t": 28,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 28
+    },
+    {
+      "file": "shaft-33p5s.png",
+      "kind": "shaft",
+      "t": 33.5,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 33.5
+    },
+    {
+      "file": "shaft-37s.png",
+      "kind": "shaft",
+      "t": 37,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 37
+    },
+    {
+      "file": "shaft-41s.png",
+      "kind": "shaft",
+      "t": 41,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probeTime": 41
+    }
+  ],
+  "errors": [],
+  "browserVersion": "141.0.7390.37",
+  "finished": "2026-10-08T01:37:08.681Z"
+}

@@ -1,0 +1,1151 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:4173",
+  "started": "2026-10-08T01:42:33.101Z",
+  "head": "684f8cae97003adcad00a7ffc32c1f358daba7e4",
+  "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+  "only": [
+    "ring"
+  ],
+  "captures": [
+    {
+      "file": "ring-1p2s.png",
+      "kind": "ring",
+      "t": 1.2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Smooth black",
+        "time": 0,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.01684607381872352,
+            -0.0377171455279838,
+            0.08980527423691204
+          ],
+          "max": [
+            0.061427238711143264,
+            0.03771934971651922,
+            0.15286134544743896
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 0,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789165,
+          -0.008252107790789123
+        ],
+        "rollerCenters": [
+          [
+            -0.0007329455720332667,
+            0.05922292858800779,
+            0.11664135552240985
+          ],
+          [
+            -0.0007329455720332528,
+            -0.059220724399472374,
+            0.11664135552240983
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0.5310941408796982,
+            2.2204460492503136e-16,
+            -0.8473128191661303
+          ],
+          [
+            0.5310941408796982,
+            2.2204460492503136e-16,
+            -0.8473128191661303
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0.9668012329062613,
+        "narrativeVisibleMeshes": 58,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 0,
+        "sampleStamp": 33.02140000000003,
+        "cameraSampleTime": 0,
+        "cameraSampleStamp": 33.02140000000003,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 0,
+        "toolOpacity": 0,
+        "ringDetailScale": 1,
+        "rollerDetailScale": 1,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-2p6s.png",
+      "kind": "ring",
+      "t": 2.6,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Aluminium · spin",
+        "time": 2.6,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.039535307663196004,
+            -0.039483212436836876,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.039535307663196004,
+            0.039483212436836876,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 0.08585768531753954,
+        "aluminiumBlend": 1,
+        "ringAngle": 1.620287504591643,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789172,
+          -0.008252107790789144
+        ],
+        "rollerCenters": [
+          [
+            0.02199999988079071,
+            0.05922182649374008,
+            -0.008252107790789172
+          ],
+          [
+            0.02199999988079071,
+            -0.05922182649374008,
+            -0.008252107790789144
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 2.6,
+        "sampleStamp": 39.767700000000076,
+        "cameraSampleTime": 2.6,
+        "cameraSampleStamp": 39.767700000000076,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 1,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.0572384568783597,
+        "rollerDetailScale": 0.026174854979520414,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 4.287972448022015,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-4p2s.png",
+      "kind": "ring",
+      "t": 4.2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Diamond knurl · traverse",
+        "time": 4.2,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.049762934314116936,
+            -0.04973507089632092,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.049762934314116936,
+            0.04973507089632092,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 0.029296875,
+        "aluminiumBlend": 1,
+        "ringAngle": 17.696932644601038,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 1.833333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          -8.991552407962983e-7,
+          -8.991552407962983e-7
+        ],
+        "rollerAxial": [
+          -0.008252107790789168,
+          -0.008252107790789148
+        ],
+        "rollerCenters": [
+          [
+            0,
+            0.04922182857990265,
+            -0.008252107790789168
+          ],
+          [
+            0,
+            -0.04922182857990265,
+            -0.008252107790789148
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 4.2,
+        "sampleStamp": 42.878100000000096,
+        "cameraSampleTime": 4.2,
+        "cameraSampleStamp": 42.878100000000096,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 3,
+        "toolOpacity": 1,
+        "ringDetailScale": 0.01953125,
+        "rollerDetailScale": 0.008931541208477953,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 12.566370614359172,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-5p2s.png",
+      "kind": "ring",
+      "t": 5.2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Diamond knurl · traverse",
+        "time": 5.2,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04976293431411692,
+            -0.049735070896320906,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04976293431411692,
+            0.049735070896320906,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0.5685593005384137,
+        "normalStrength": 0.029296875,
+        "aluminiumBlend": 1,
+        "ringAngle": 30.26330325896021,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 2.833333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          -8.991552407962983e-7,
+          -8.991552407962983e-7
+        ],
+        "rollerAxial": [
+          6.558189192337793e-10,
+          6.558189410926622e-10
+        ],
+        "rollerCenters": [
+          [
+            0,
+            0.04922182857990265,
+            6.558189192337793e-10
+          ],
+          [
+            0,
+            -0.04922182857990265,
+            6.558189410926622e-10
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 5.2,
+        "sampleStamp": 47.144,
+        "cameraSampleTime": 5.2,
+        "cameraSampleStamp": 47.144,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 3,
+        "toolOpacity": 1,
+        "ringDetailScale": 0.01953125,
+        "rollerDetailScale": 0.008931541208477953,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 12.566370614359172,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-8s.png",
+      "kind": "ring",
+      "t": 8,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Clearance · retract",
+        "time": 8,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.052974086782425954,
+            -0.052982637186901646,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.052974086782425954,
+            0.052982637186901646,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 0.7363107781851077,
+        "aluminiumBlend": 1,
+        "ringAngle": 49.59048245743669,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 4.883333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.1822459504052467,
+          0.1822459504052467
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.22376443914707464,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.22376443914707464,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 8,
+        "sampleStamp": 51.85880000000004,
+        "cameraSampleTime": 8,
+        "cameraSampleStamp": 51.85880000000004,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 4,
+        "toolOpacity": 0.35199999999999887,
+        "ringDetailScale": 0.4908738521234052,
+        "rollerDetailScale": 0.22447411396631078,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.5,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-8p575s.png",
+      "kind": "ring",
+      "t": 8.575,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Black finish · decelerate",
+        "time": 8.575,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04921786508037742,
+            -0.04924760896007581,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04921786508037742,
+            0.04924760896007581,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 0.7926534583326262,
+        "aluminiumBlend": 0.7305832081142003,
+        "ringAngle": 49.87340444448414,
+        "holePlugBlend": 0.5,
+        "holePatchOpacity": 0.5,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.26199995588073033,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.26199995588073033,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 8.575,
+        "sampleStamp": 57.38940000000002,
+        "cameraSampleTime": 8.575,
+        "cameraSampleStamp": 57.38940000000002,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 5,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.5284356388884175,
+        "rollerDetailScale": 0.24165092785972614,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.464459449741103,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-9p3s.png",
+      "kind": "ring",
+      "t": 9.3,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Black finish · decelerate",
+        "time": 9.3,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04193155805426789,
+            -0.04197942721775079,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04193155805426789,
+            0.04197942721775079,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 1.3825143886077496,
+        "aluminiumBlend": 0,
+        "ringAngle": 50.14476247716218,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.26199995588073033,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.26199995588073033,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 9.3,
+        "sampleStamp": 61.35150000000001,
+        "cameraSampleTime": 9.3,
+        "cameraSampleStamp": 61.35150000000001,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 5,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.921676259071833,
+        "rollerDetailScale": 0.42147786182532504,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.2662940741349549,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-12s.png",
+      "kind": "ring",
+      "t": 12,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Complete",
+        "time": 12,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.01667752275003813,
+            -0.03771710768342011,
+            0.096281367606952
+          ],
+          "max": [
+            0.06278955009862368,
+            0.03771938756108306,
+            0.15471812579965122
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 50.26548245743669,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789151,
+          0.008252107790789179
+        ],
+        "rollerCenters": [
+          [
+            -0.2066412778126575,
+            0.05922296643257156,
+            -0.000798426078629197
+          ],
+          [
+            -0.2066412778126575,
+            -0.05922068655490861,
+            -0.0007984260786292204
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0.4539904997395469,
+            2.220446049250313e-16,
+            -0.8910065241883678
+          ],
+          [
+            0.4539904997395469,
+            2.220446049250313e-16,
+            -0.8910065241883678
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 1,
+        "narrativeVisibleMeshes": 59,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 12,
+        "sampleStamp": 64.42930000000005,
+        "cameraSampleTime": 12,
+        "cameraSampleStamp": 64.42930000000005,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 7,
+        "toolOpacity": 0,
+        "ringDetailScale": 1,
+        "rollerDetailScale": 1,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0,
+        "ownsNarrative": true
+      }
+    }
+  ],
+  "errors": [],
+  "browserVersion": "141.0.7390.37",
+  "finished": "2026-10-08T01:43:46.705Z"
+}

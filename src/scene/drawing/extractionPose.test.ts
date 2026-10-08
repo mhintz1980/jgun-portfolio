@@ -17,7 +17,7 @@ function fixture() {
   const positions = sheetPoints.flatMap(p => new Vector3(...p as [number, number, number]).applyMatrix4(inv).toArray())
   const attribute = new Float32BufferAttribute(positions, 3)
   const geometry = new BufferGeometry().setAttribute('position', attribute)
-  const data: DrawingGeometry = { geometry, bounds: new Box3().setFromBufferAttribute(attribute), features: {}, units: {}, sourceTriangles: 0 }
+  const data: DrawingGeometry = { geometry, bounds: new Box3().setFromBufferAttribute(attribute), features: {}, units: {}, rigCenter: new Vector3(), sourceTriangles: 0 }
   const layout: DrawingLayout = { width: 0.8, height: 0.5, primaryRotation: SIDE_ROTATION, primaryCenter: new Vector3(), views: [], fitDistance: 1, narrow: false, sectionLineY: 0 }
   const field = makePaperFlexField([[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]], 0.8, 0.5)
   const extraction = solveExtraction(data, layout)
