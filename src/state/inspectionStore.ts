@@ -28,6 +28,7 @@ export const inspectionTelemetry = {
   active: false, phase: 'idle', time: 0, ringBounds: { min: [0, 0, 0], max: [0, 0, 0], center: [0, 0, 0], radius: 0, width: 0 },
   worldBounds: { min: [0, 0, 0], max: [0, 0, 0] },
   odKnurlProgress: 0, normalStrength: 0, aluminiumBlend: 0, ringAngle: 0,
+  holePlugBlend: 0, holePatchOpacity: 0, holePatches: 0, holeApertures: 0, holePatchesVisible: 0,
   toolClipTime: 0, toolVisible: false, ringMeshes: 0, toolMeshes: 0,
   rollerClearance: [0, 0], rollerAxial: [0, 0], rollerCenters: [[0, 0, 0], [0, 0, 0]],
   wheelAxis: [[0, 0, 1], [0, 0, 1]], wheelHands: ['RH', 'LH'],
@@ -85,6 +86,7 @@ export function enterInspection(trigger: HTMLElement, staticMode: boolean, story
     probe.rollerClearance.fill(0); probe.rollerAxial.fill(0)
     for (let index = 0; index < 2; index++) { probe.rollerCenters[index].fill(0); probe.wheelAxis[index].fill(0); probe.wheelAxis[index][2] = 1 }
     probe.maskSamples.bore = 0; probe.maskSamples.shoulder = 0; probe.maskSamples.odStart = 0; probe.maskSamples.odEnd = 0
+    probe.holePlugBlend = 0; probe.holePatchOpacity = 0; probe.holePatches = 0; probe.holeApertures = 0; probe.holePatchesVisible = 0
   }
   inspectionTelemetry.entryScroll = inspection.scrollY
   inspectionTelemetry.entryContext = { ...inspection.entry }

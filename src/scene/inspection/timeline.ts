@@ -25,6 +25,15 @@ export const TOOL_FADE_START = 7.7
 export const TOOL_FADE_END = 8.2
 export const TOOL_FADE_MIN_CLEARANCE = 0.01
 export const BLACK_FINISH_START = 9.3
+/**
+ * JG-035 R1 (2026-10-07): the drilled holes are concealed before the knurling tool comes into view
+ * so the knurl forms across a smooth surface, then reopen after forming and BEFORE the black
+ * finish completes. `BLACK_FINISH_START` names black *completion* (darkening is 8.2-9.3 s).
+ */
+export const HOLE_CLOSE_START = 1.2
+export const HOLE_CLOSE_END = 2.4
+export const HOLE_OPEN_START = TOOL_FADE_END
+export const HOLE_OPEN_END = 8.95
 export const RETURN_START = 10.5
 
 // Temporal detail budget, NOT a physical spin cap. High-speed repeated features must be filtered by the renderer.
@@ -71,6 +80,8 @@ export interface InspectionFrame {
   contact: boolean
   /** Tool prop opacity: 1 until measured clearance, then fades to 0 by TOOL_FADE_END. */
   toolOpacity: number
+  /** Drilled-hole concealment: 0 = holes open, 1 = fully concealed by the runtime-owned patches. */
+  holePlugBlend: number
   /** Retained repeated-feature bandwidth in [0,1]; filter OD normals, never the formed-region mask. */
   ringDetailScale: number
   /** Retained tooth bandwidth in [0,1]; filter the roller depiction, never its true rotation/contact footprint. */
@@ -124,6 +135,7 @@ export function sampleInspection(time: number, out: InspectionFrame): Inspection
     : t < TRAVERSE_START ? CLIP_CONTACT_START + (CLIP_TRAVERSE_START - CLIP_CONTACT_START) * (t - CONTACT_START) / CONTACT_DWELL
     : t < TRAVERSE_END ? CLIP_TRAVERSE_START + t - TRAVERSE_START
     : t < 8.2 ? CLIP_TRAVERSE_END + (t - TRAVERSE_END) / 2 * (CLIP_END - CLIP_TRAVERSE_END) : CLIP_END
+  out.holePlugBlend = ease((t - HOLE_CLOSE_START) / (HOLE_CLOSE_END - HOLE_CLOSE_START)) * (1 - ease((t - HOLE_OPEN_START) / (HOLE_OPEN_END - HOLE_OPEN_START)))
   out.contact = out.clipTime >= CLIP_CONTACT_START && out.clipTime <= CLIP_CONTACT_END
   out.toolOpacity = t < APPROACH_START || t >= TOOL_FADE_END ? 0 : 1 - ease((t - TOOL_FADE_START) / (TOOL_FADE_END - TOOL_FADE_START))
   out.toolVisible = out.toolOpacity > 0
@@ -140,4 +152,4 @@ export function odMask(radius: number, z: number, normalZ: number, od: number, h
   if (radius < od - 0.00035 || Math.abs(normalZ) > 0.2 || z <= bandMin || z >= bandMax || progress <= 0) return 0
   return z <= bandMin + progress * (bandMax - bandMin) ? 1 : 0
 }
-export const newFrame = (): InspectionFrame => ({ phase: 'Smooth black', time: 0, aluminium: 0, knurl: 0, angle: 0, clipTime: 0, toolVisible: false, returnBlend: 0, spin: 0, contact: false, toolOpacity: 0, ringDetailScale: 1, rollerDetailScale: 1 })
+export const newFrame = (): InspectionFrame => ({ phase: 'Smooth black', time: 0, aluminium: 0, knurl: 0, angle: 0, clipTime: 0, toolVisible: false, returnBlend: 0, spin: 0, contact: false, toolOpacity: 0, holePlugBlend: 0, ringDetailScale: 1, rollerDetailScale: 1 })

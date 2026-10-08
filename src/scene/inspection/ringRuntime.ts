@@ -80,7 +80,8 @@ export function createRingRuntime(session: StorySession, ctx: StoryContext): Sto
   const frame = { time: 0, chapter: 0, phase: sample.phase, discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true }
   const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.7, envRotationY: 0, bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
-  const resources = { geometries: ring.geometries.length, materials: 1, textures: 1, meshes: ring.geometries.length }
+  const patchMeshes = ring.group.children.filter(child => child.name.startsWith('P003068-hole-cover-'))
+  const resources = { geometries: ring.geometries.length + ring.patchGeometries.length, materials: 2, textures: 1, meshes: ring.geometries.length + patchMeshes.length }
   let disposed = false, tool: GLTF | null = null, ownership: ReturnType<typeof toolResources> | null = null
   let mechanics: ReturnType<typeof buildMechanics> | null = null, proofProgress: number | null = null
   function buildMechanics(gltf: GLTF) {
@@ -148,6 +149,11 @@ export function createRingRuntime(session: StorySession, ctx: StoryContext): Sto
       ring.material.opacity = 1 - sample.returnBlend; ring.material.transparent = true; ring.material.depthWrite = sample.returnBlend < 0.001
       // Bandwidth filtering is independent of the forming mask and true angular sweep.
       ring.material.normalScale.set(1.5 * sample.ringDetailScale, 1.5 * sample.ringDetailScale)
+      // Hole covers: same finish as the ring, own opacity from the sampled blend and the return fade (never the ring's).
+      const cover = ring.patchMaterial
+      cover.color.copy(ring.material.color); cover.roughness = ring.material.roughness; cover.normalScale.copy(ring.material.normalScale)
+      cover.transparent = true; cover.opacity = sample.holePlugBlend * (1 - sample.returnBlend); cover.depthWrite = cover.opacity >= 0.999
+      for (const mesh of patchMeshes) mesh.visible = cover.opacity > 0.001
       ring.uniforms.progress.value = proofProgress ?? sample.knurl; detail.value = sample.rollerDetailScale
       toolFrame.visible = sample.toolVisible
       toolFrame.position.x = 0.24 * ease((sample.clipTime - 4.5) / 0.5)
@@ -172,6 +178,9 @@ export function createRingRuntime(session: StorySession, ctx: StoryContext): Sto
         axis.set(0, 1, 0).transformDirection(mechanics.wheels[i].matrixWorld)
         for (let j = 0; j < 3; j++) probe.wheelAxis[i][j] = axis.getComponent(j)
       }
+      probe.holePlugBlend = sample.holePlugBlend; probe.holePatchOpacity = ring.patchMaterial.opacity
+      probe.holePatches = patchMeshes.length; probe.holeApertures = ring.apertures.length
+      probe.holePatchesVisible = patchMeshes.filter(mesh => mesh.visible).length
       probe.time = sample.time; probe.phase = sample.phase; probe.odKnurlProgress = ring.uniforms.progress.value
       probe.normalStrength = ring.material.normalScale.x; probe.aluminiumBlend = sample.aluminium
       probe.ringAngle = sample.angle; probe.toolClipTime = sample.clipTime; probe.toolVisible = toolFrame.visible

@@ -3,7 +3,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { AnimationMixer, Group, LoopOnce, type Mesh, Vector2, Vector3 } from 'three'
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import {
-  APPROACH_START, BLACK_FINISH_START, CONTACT_END, CONTACT_START, FINAL_ANGLE, FORMING_END, MAX_FEATURE_HZ, newFrame, odMask, RETURN_START, RING_FEATURES, RING_RADIUS, RING_WIDTH,
+  APPROACH_START, BLACK_FINISH_START, CONTACT_END, INSPECTION_DURATION, CONTACT_START, FINAL_ANGLE, FORMING_END, MAX_FEATURE_HZ, newFrame, odMask, RETURN_START, RING_FEATURES, RING_RADIUS, RING_WIDTH,
   rollerAngle, ROLLER_TEETH, sampleInspection, sampleSpin, SHOULDER, SPIN_RATE, TOOL_FADE_END, TOOL_FADE_MIN_CLEARANCE, TOOL_FADE_START,
   TRAVERSE_END, TRAVERSE_START, WHEEL_RADIUS, WHEEL_WIDTH,
 } from './timeline'
@@ -236,5 +236,59 @@ describe('GLB-measured paired contact, dwell, clearance and worked band', () => 
       for (let i = 0; i < p.count; i++) if (Math.abs(p.getY(i) - 0.0015) < 0.00025 && Math.hypot(p.getX(i), p.getZ(i)) > 0.0113) tips++
       expect(tips).toBe(ROLLER_TEETH)
     }
+  })
+})
+
+describe('drilled-hole concealment blend (JG-035 R1)', () => {
+  // Independent oracle: absolute seconds straight from the owner request, not the module constants.
+  const smooth = (x: number) => { const t = Math.max(0, Math.min(1, x)); return t * t * (3 - 2 * t) }
+  const oracle = (t: number) => smooth((t - 1.2) / 1.2) * (1 - smooth((t - 8.2) / 0.75))
+  const blend = (t: number) => sampleInspection(t, newFrame()).holePlugBlend
+
+  it('is open, closes 1.2-2.4 s with the aluminium conversion, and is fully concealed before the tool appears', () => {
+    expect(blend(0)).toBe(0)
+    expect(blend(1.2)).toBe(0)
+    expect(blend(1.8)).toBeCloseTo(0.5, 12)
+    expect(blend(2.4)).toBe(1)
+    expect(APPROACH_START).toBe(2.8)
+    for (let t = 2.4; t <= 8.2 + 1e-9; t += 0.01) expect(blend(t)).toBe(1)
+  })
+
+  it('stays concealed whenever any part of the tool prop is visible', () => {
+    for (let t = 0; t <= 12; t += 0.005) {
+      const f = sampleInspection(t, newFrame())
+      if (f.toolVisible) expect(f.holePlugBlend).toBe(1)
+    }
+  })
+
+  it('reopens 8.2-8.95 s: after forming (6.455 s) and tool disappearance (8.2 s), fully open 0.35 s before black completes', () => {
+    expect(FORMING_END).toBeLessThan(8.2)
+    expect(blend(8.2)).toBe(1)
+    expect(blend(8.575)).toBeCloseTo(0.5, 12)
+    expect(blend(8.95)).toBe(0)
+    expect(BLACK_FINISH_START - 8.95).toBeCloseTo(0.35, 12)
+    for (const t of [8.95, 9.0, 9.3, 10.5, 12]) expect(blend(t)).toBe(0)
+    // Black completion keeps its landmark: darkening 8.2-9.3 s, unchanged.
+    expect(sampleInspection(9.3, newFrame()).aluminium).toBe(0)
+    expect(sampleInspection(8.2, newFrame()).aluminium).toBe(1)
+  })
+
+  it('matches the independent oracle everywhere, is monotone per ramp and reproducible under reverse and shuffled seeks', () => {
+    const times = Array.from({ length: 2401 }, (_, i) => i * 0.005)
+    const forward = times.map(blend)
+    forward.forEach((v, i) => expect(v).toBeCloseTo(oracle(times[i]), 12))
+    for (let i = 1; i < times.length; i += 1) {
+      if (times[i] <= 2.4) expect(forward[i]).toBeGreaterThanOrEqual(forward[i - 1])
+      if (times[i] >= 8.2) expect(forward[i]).toBeLessThanOrEqual(forward[i - 1])
+    }
+    const reversed = [...times].reverse().map(blend).reverse()
+    expect(reversed).toStrictEqual(forward)
+    const shuffled = times.map((_, i) => times[(i * 997) % times.length])
+    shuffled.forEach(t => expect(blend(t)).toBe(forward[Math.round(t / 0.005)]))
+  })
+
+  it('preserves the 12 s duration and the contact / spin / finish landmarks', () => {
+    expect(INSPECTION_DURATION).toBe(12)
+    expect([TRAVERSE_START, TRAVERSE_END, TOOL_FADE_END, BLACK_FINISH_START, RETURN_START]).toEqual([4.2, 6.2, 8.2, 9.3, 10.5])
   })
 })

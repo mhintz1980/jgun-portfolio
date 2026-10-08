@@ -17,7 +17,7 @@ const browser = await launchBrowser(chromium)
 report.browserVersion = browser.version()
 const shot = async (page, name, meta = {}) => {
   const file = path.join(out, name + '.png')
-  await page.screenshot({ path: file })
+  await page.screenshot({ path: file, timeout: 300000 })
   report.captures.push({ file: path.basename(file), ...meta })
 }
 async function open(viewport) {
@@ -48,6 +48,27 @@ if (only.includes('ring')) {
   }
   await context.close()
 }
+if (only.includes('ringmask')) {
+  // R2 diagnosis: green = shader knurl mask live, red = masked out. Compare with the beauty frame at the same time.
+  const { context, page } = await open({ width: 1440, height: 960 })
+  await page.goto(`${url}/?chapter=1&inspectionProof=1&qualityLock=1`, { waitUntil: 'domcontentloaded' })
+  const trigger = page.getByRole('button', { name: 'Inspect the finish' })
+  await trigger.waitFor({ state: 'visible', timeout: 180000 })
+  await page.waitForFunction(() => window.__rig && window.__telemetry?.performance?.warmReady, null, { timeout: 180000 })
+  await page.waitForTimeout(1500)
+  await trigger.focus(); await page.keyboard.press('Enter')
+  await page.getByRole('dialog').waitFor()
+  await page.waitForFunction(() => window.__inspection?.loaded && window.__inspectionProof, null, { timeout: 180000 })
+  for (const t of [8]) {
+    await page.evaluate(time => window.__inspectionProof.seek(time, 2), t)
+    await page.waitForTimeout(800)
+    await page.evaluate(() => window.__inspectionProof.mask(true))
+    await page.waitForTimeout(800)
+    await shot(page, `ring-${t}s-mask`, { kind: 'ringmask', t })
+    await page.evaluate(() => window.__inspectionProof.mask(false))
+  }
+  await context.close()
+}
 if (only.includes('shaft')) {
   const { context, page } = await open({ width: 1440, height: 900 })
   await page.goto(`${url}/?chapter=1&inspectionProof=1&qualityLock=1`, { waitUntil: 'domcontentloaded' })
@@ -72,12 +93,14 @@ if (only.includes('shaft')) {
   await context.close()
 }
 if (only.includes('opening')) {
-  for (const [name, viewport] of [['desktop', { width: 1440, height: 900 }], ['tablet', { width: 768, height: 1024 }], ['narrow', { width: 390, height: 844 }]]) {
+  const viewports = { desktop: { width: 1440, height: 900 }, tablet: { width: 768, height: 1024 }, narrow: { width: 390, height: 844 } }
+  for (const name of (arg('viewports') ?? 'desktop,narrow').split(',')) {
+    const viewport = viewports[name]
     const { context, page } = await open(viewport)
     await page.goto(url + '/?qualityLock=1', { waitUntil: 'domcontentloaded' })
     await page.waitForFunction(() => window.__drawingProof?.ready && window.__telemetry?.drawing?.annotationsReady, null, { timeout: 240000 })
     const env = await renderer(page)
-    for (const t of [0.03, 0.08, 0.12, 0.19, 0.24, 0.29, 0.34, 0.38, 0.5, 0.7, 0.77, 0.8, 0.84, 0.88, 0.95]) {
+    for (const t of (arg('times') ?? '0.03,0.12,0.19,0.29,0.38,0.77,0.80,0.86').split(',').map(Number)) {
       await page.evaluate(p => window.__drawingProof.setProgress(p), t * 0.12)
       await page.waitForTimeout(900)
       await shot(page, `opening-${name}-t${String(t).replace('.', 'p')}`, { kind: 'opening', viewport: name, t, ...env, camera: await page.evaluate(() => window.__telemetry?.camera ?? null) })
@@ -87,5 +110,5 @@ if (only.includes('opening')) {
 }
 await browser.close()
 report.finished = new Date().toISOString()
-fs.writeFileSync(path.join(out, 'capture-report.json'), JSON.stringify(report, null, 2))
+fs.writeFileSync(path.join(out, `capture-report-${only.join('+')}.json`), JSON.stringify(report, null, 2))
 console.log(JSON.stringify({ captures: report.captures.length, errors: report.errors.slice(0, 5), launch: report.launch }, null, 2))
