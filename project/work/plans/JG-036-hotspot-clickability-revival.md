@@ -28,7 +28,7 @@ Three independent failure layers (all verified 2026-10-08):
 
 1. **Z-order fix** — the hotspot badge layer (and HUD chrome generally) must reliably beat the content column at every chapter; prove with `elementFromPoint` probes at rest (see the diagnosis's false-positive lesson: never probe mid-HUD-transition) plus real actionability-checked clicks, desktop + narrow.
 2. **Def cleanup** — real `window`/chapter gating for every keeper def; retarget or drop the stale `lcd` window; delete or implement the dead defs honestly so `caseStudies.ts`/`CameraRig.tsx` describe live behavior.
-3. **Camera inspect path** — make selection → camera flight → HUD card → exit-restore work end-to-end for every keeper on HEAD (the frames table already covers all 18 ids; the consumption path is what fails).
+3. **Camera inspect path** — make selection → camera flight → HUD card → exit-restore work end-to-end for every keeper on HEAD. **Validated 2026-10-08** ([demo evidence](../evidence/JG-036-hotspot-clickability/demo-validation-2026-10-08/README.md)): with only the anchor filter unblocked and a runtime z-lift, 7/7 owner-selected hotspots clicked and flew the camera to their exact authored frames on HEAD — the "camera never flies" failure is ccr-era only. This item is now "preserve under the verifier case," not "diagnose."
 4. **Verifier guard** — add a clickable-hotspot case to the runtime verifier roster: badge present in its window, real click lands on the button, camera goal changes, HUD card opens, exit restores the scroll pose. This closes the class of rot, not just this instance.
 
 ## Required proof

@@ -1,0 +1,188 @@
+[
+  {
+    "key": "rotor",
+    "found": true,
+    "clicked": true,
+    "zLifted": 10,
+    "trace": [
+      "13%:CH.01 ASSEMBLY:0",
+      "18%:CH.01 ASSEMBLY:0",
+      "22%:CH.01 ASSEMBLY:0",
+      "26%:CH.01 ASSEMBLY:0",
+      "30%:CH.01 ASSEMBLY:0",
+      "34%:CH.01 ASSEMBLY:0",
+      "38%:CH.01 ASSEMBLY:0",
+      "42%:CH.01 ASSEMBLY:0",
+      "50%:CH.01 ASSEMBLY:0",
+      "51%:CH.01 ASSEMBLY:2"
+    ],
+    "pos": {
+      "label": "AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY",
+      "visible": true,
+      "covered": true,
+      "x": 1040,
+      "y": 279
+    },
+    "scroll": 49,
+    "camBefore": "CAM [ 0.359 0.149 0.369 ] · FOV 41.2°",
+    "camAfter": "CAM [ 0.153 0.099 0.120 ] · FOV 24.0°",
+    "camMoved": true
+  },
+  {
+    "key": "motor-housing",
+    "found": true,
+    "clicked": true,
+    "zLifted": 8,
+    "trace": [
+      "13%:CH.01 ASSEMBLY:0",
+      "18%:CH.01 ASSEMBLY:0",
+      "22%:CH.01 ASSEMBLY:0",
+      "26%:CH.01 ASSEMBLY:0",
+      "30%:CH.01 ASSEMBLY:0",
+      "34%:CH.01 ASSEMBLY:0",
+      "38%:CH.01 ASSEMBLY:0",
+      "42%:CH.01 ASSEMBLY:0",
+      "46%:CH.01 ASSEMBLY:0",
+      "51%:CH.01 ASSEMBLY:2"
+    ],
+    "pos": {
+      "label": "-A-.001\" TIRADATUM A — MOTOR BORE",
+      "visible": true,
+      "covered": true,
+      "x": 1033,
+      "y": 434
+    },
+    "scroll": 49,
+    "camBefore": "CAM [ 0.332 0.168 0.369 ] · FOV 41.2°",
+    "camAfter": "CAM [ 0.172 0.110 0.040 ] · FOV 24.0°",
+    "camMoved": true
+  },
+  {
+    "key": "duct-intake",
+    "found": true,
+    "clicked": true,
+    "zLifted": 28,
+    "trace": [
+      "57%:CH.02 X-RAY / :4",
+      "59%:CH.02 X-RAY / :4",
+      "62%:CH.02 X-RAY / :4",
+      "65%:CH.02 X-RAY / :4",
+      "67%:CH.02 X-RAY / :4",
+      "70%:CH.03 THERMAL :8",
+      "72%:CH.03 THERMAL :7",
+      "75%:CH.03 THERMAL :7",
+      "77%:CH.03 THERMAL :7"
+    ],
+    "pos": {
+      "label": "-F-LAMINAR FLOW1,850 CFM650 FPMDATUM F — 1,850",
+      "visible": true,
+      "covered": true,
+      "x": 321,
+      "y": 581
+    },
+    "scroll": 75,
+    "camBefore": "CAM [ 33.621 2.818 0.000 ] · FOV 36.0°",
+    "camAfter": "CAM [ 29.772 1.620 -2.800 ] · FOV 28.0°",
+    "camMoved": true
+  },
+  {
+    "key": "duct-exhaust",
+    "found": true,
+    "clicked": true,
+    "zLifted": 28,
+    "trace": [
+      "57%:CH.02 X-RAY / :4",
+      "59%:CH.02 X-RAY / :4",
+      "62%:CH.02 X-RAY / :4",
+      "65%:CH.02 X-RAY / :4",
+      "67%:CH.02 X-RAY / :4",
+      "70%:CH.03 THERMAL :8",
+      "72%:CH.03 THERMAL :7",
+      "75%:CH.03 THERMAL :7",
+      "77%:CH.03 THERMAL :7"
+    ],
+    "pos": {
+      "label": "-G-DISCHARGELOW BACKPRESSUREDATUM G — ATTENUAT",
+      "visible": true,
+      "covered": true,
+      "x": 1138,
+      "y": 438
+    },
+    "scroll": 75,
+    "camBefore": "CAM [ 33.621 2.818 0.000 ] · FOV 36.0°",
+    "camAfter": "CAM [ 29.573 1.820 -9.200 ] · FOV 28.0°",
+    "camMoved": true
+  },
+  {
+    "key": "m249-trunnion",
+    "found": true,
+    "clicked": true,
+    "zLifted": 24,
+    "trace": [
+      "77%:CH.03 THERMAL :7",
+      "80%:CH.03 THERMAL :7",
+      "82%:CH.04 DIGITAL :6",
+      "84%:CH.04 DIGITAL :6",
+      "86%:CH.04 DIGITAL :6"
+    ],
+    "pos": {
+      "label": "-B-.0008\" TIRADATUM B — BARREL TRUNNION BORE",
+      "visible": true,
+      "covered": true,
+      "x": 1116,
+      "y": 401
+    },
+    "scroll": 83,
+    "camBefore": "CAM [ 51.302 0.986 -7.490 ] · FOV 35.0°",
+    "camAfter": "CAM [ 56.190 0.270 -11.350 ] · FOV 22.0°",
+    "camMoved": true
+  },
+  {
+    "key": "m249-rail",
+    "found": true,
+    "clicked": true,
+    "zLifted": 24,
+    "trace": [
+      "77%:CH.03 THERMAL :7",
+      "80%:CH.03 THERMAL :7",
+      "82%:CH.04 DIGITAL :6",
+      "84%:CH.04 DIGITAL :6",
+      "86%:CH.04 DIGITAL :6"
+    ],
+    "pos": {
+      "label": "-C-.0010\"ADATUM C — MIL-STD-1913 TOP RAIL",
+      "visible": true,
+      "covered": true,
+      "x": 278,
+      "y": 338
+    },
+    "scroll": 83,
+    "camBefore": "CAM [ 51.300 0.986 -7.490 ] · FOV 35.0°",
+    "camAfter": "CAM [ 56.170 0.470 -11.400 ] · FOV 22.0°",
+    "camMoved": true
+  },
+  {
+    "key": "m249-feed-tray",
+    "found": true,
+    "clicked": true,
+    "zLifted": 24,
+    "trace": [
+      "77%:CH.03 THERMAL :7",
+      "80%:CH.03 THERMAL :7",
+      "82%:CH.04 DIGITAL :6",
+      "84%:CH.04 DIGITAL :6",
+      "86%:CH.04 DIGITAL :6"
+    ],
+    "pos": {
+      "label": "FEED TRAY & BOLT CARRIER GUIDE·DUAL-FEED GUIDE",
+      "visible": true,
+      "covered": true,
+      "x": 366,
+      "y": 429
+    },
+    "scroll": 83,
+    "camBefore": "CAM [ 51.299 0.986 -7.490 ] · FOV 35.0°",
+    "camAfter": "CAM [ 56.195 0.340 -11.300 ] · FOV 24.0°",
+    "camMoved": true
+  }
+]
