@@ -71,15 +71,19 @@ describe('owner handwriting (O2): content, anchors, order, colour', () => {
     expect(JSON.stringify(OWNER_NOTES)).not.toMatch(/4140.*4340.*C300.*(17-4|Ti|Inconel)/)
   })
 
-  it('writes in order: gear circle+arrow, list, red strikes, decision, decision circle; only strikes are red', () => {
+  it('writes in order: gear circle+arrow, list, red strikes, decision, decision circle; only the failure-point mark and the strikes are red', () => {
     const { ink } = compose()
     const input = segsOf(ink, GROUP.noteInput)
     expect(input.length).toBeGreaterThan(300)
     const red = input.filter(s => s.dash >= 10)
     expect(red.length).toBeGreaterThan(30)
     expect(input.filter(s => s.dash < 10).length).toBeGreaterThan(red.length * 4)
-    // every red segment is written inside the strike window of the group reveal, after the list and before the decision
-    for (const s of red) { expect(s.key).toBeGreaterThanOrEqual(0.54 - 1e-9); expect(s.key + s.dur).toBeLessThanOrEqual(0.68 + 1e-6) }
+    // red = the failure-point mark (gear circle + leader + arrow, written first; navy would vanish into the section linework)
+    // or the alloy strikes (written after the list and before the decision)
+    const mark = red.filter(s => s.key < 0.2), strikes = red.filter(s => s.key >= 0.2)
+    expect(mark.length).toBeGreaterThan(20); expect(strikes.length).toBeGreaterThan(30)
+    for (const s of mark) expect(s.key + s.dur).toBeLessThanOrEqual(0.18 + 1e-6)
+    for (const s of strikes) { expect(s.key).toBeGreaterThanOrEqual(0.54 - 1e-9); expect(s.key + s.dur).toBeLessThanOrEqual(0.68 + 1e-6) }
     const early = input.filter(s => s.key < 0.18), list = input.filter(s => s.key >= 0.18 && s.key < 0.52), decision = input.filter(s => s.key >= 0.7)
     expect(early.length).toBeGreaterThan(40); expect(list.length).toBeGreaterThan(100); expect(decision.length).toBeGreaterThan(100)
     expect(input.every(s => Number.isFinite(s.x1 + s.y1 + s.x2 + s.y2) && s.key >= 0 && s.key + s.dur <= 1.0001)).toBe(true)

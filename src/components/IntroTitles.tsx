@@ -31,7 +31,9 @@ const CARDS: Card[] = [
     place: 'left-[6vw] top-[8vh]',
   },
   {
-    window: [0.13, 0.25],
+    // Sits in the traverse BETWEEN the two handwriting reads (owner revision O3): the notes are the content
+    // of the close reads, so no headline may share the screen with the input-shaft note (t .12-.17).
+    window: [0.172, 0.222],
     kicker: 'MULTI-STAGE PLANETARY',
     lines: ['Every gear', 'cut in house.'],
     body: 'I turn and hob the input and output shafts in one chucking to keep related features on the same setup.',

@@ -75,8 +75,10 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     dist: Math.max(fitWidth((portrait ? wNarrow : w) * 1.1, 30, aspect), fitHeight(h * 1.1, 30)),
   })
   const title = reading(0.26, -0.158, 0.26, 0.15, 0.15)
-  const input = reading(0.329, -0.056, 0.125, 0.09, 0.1)
-  const output = reading(0.074, 0.074, 0.12, 0.05, 0.1)
+  // Input read frames the WHOLE note from the sun-gear circle (top) to the circled decision (bottom): sheet y -.09..+.05.
+  const input = reading(0.329, -0.04, 0.125, 0.102, 0.1)
+  // Output note is framed in the UPPER part of the screen: the traverse headline (bottom-left) is still on its way out.
+  const output = reading(0.074 + 0.016, 0.074 - 0.004, 0.12, 0.05, 0.1)
   return [
     // One detail, one traverse, then three slow reads, then the reveal. No tour of every annotation.
     { t: 0.0, x: dx, y: dy, dist: close, elev: 38, head: -12, fov: 30, ortho: 0 },

@@ -77,7 +77,7 @@ export interface AnnotationContext {
   layout: Pick<DrawingLayout, 'views'>
 }
 
-const PEN_HAND = 0.00017
+const PEN_HAND = 0.0002
 const CAP = 0.0038
 const PITCH = 0.0068
 
@@ -126,7 +126,7 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const alloyX = [nx0, nx0 + 0.027, nx0 + 0.054]
   const alloys = OWNER_NOTES.input.alloys.map((word, i) => handwrite(word, { x: alloyX[i], y: baseline(2), capHeight: CAP * 1.08, seed: 31 + i, rotation: 0.01 - i * 0.006 }))
   const decision1 = handwrite(OWNER_NOTES.input.decision[0], { x: nx0, y: baseline(3.15), capHeight: CAP, seed: 41, rotation: 0.004 })
-  const decision2 = handwrite(OWNER_NOTES.input.decision[1], { x: nx0 + 0.003, y: baseline(4.2), capHeight: CAP * 1.12, seed: 42, rotation: -0.006 })
+  const decision2 = handwrite(OWNER_NOTES.input.decision[1], { x: nx0 + 0.003, y: baseline(4.7), capHeight: CAP * 1.12, seed: 42, rotation: -0.006 })
   const strikes: Pt[][] = []
   alloys.forEach((alloy, i) => {
     const { x0, x1, y0, y1 } = alloy.bounds
@@ -135,17 +135,23 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
     strikes.push(handLine([x1 + 0.0012, mid + 0.0017], [x0 - 0.001, mid - 0.0012], 70 + i, 0.00025))
   })
   const dec = decision2.bounds
-  const decCircle = handCircle((dec.x0 + dec.x1) / 2, (dec.y0 + dec.y1) / 2, (dec.x1 - dec.x0) / 2 + 0.0042, (dec.y1 - dec.y0) / 2 + 0.0042, 9, 1.12, -0.03)
-  // Leader: from the top-right of the lead line up to the circle, with an arrowhead on the gear side.
-  const leaderFrom: Pt = [nx0 + 0.058, baseline(0) + CAP + 0.0012]
+  const decCircle = handCircle((dec.x0 + dec.x1) / 2, (dec.y0 + dec.y1) / 2, (dec.x1 - dec.x0) / 2 + 0.0042, (dec.y1 - dec.y0) / 2 + 0.0032, 9, 1.12, -0.03)
+  // Leader: starts clear of the DETAIL B label stack (right of "Failure point."), rises along its right-hand side
+  // and ends with an arrowhead on the gear circle. Red pen: navy hand-lines vanish into the dense section linework.
+  const leaderFrom: Pt = [nx0 + 0.056, baseline(0) + CAP * 0.45]
   const gearEdge: Pt = [sunOnDetail[0] + sunR * 1.2 * Math.cos(-0.62), sunOnDetail[1] + sunR * 1.1 * Math.sin(-0.62)]
-  const leaderMid: Pt = [(leaderFrom[0] + gearEdge[0]) / 2 + 0.006, (leaderFrom[1] + gearEdge[1]) / 2 - 0.002]
-  const leaderPath: Pt[] = [...handLine(leaderFrom, leaderMid, 81, 0.0003), ...handLine(leaderMid, gearEdge, 82, 0.00025).slice(1)]
+  const leaderElbow: Pt = [nx0 + 0.092, baseline(0) + CAP * 0.5]
+  const leaderMid: Pt = [nx0 + 0.09, (leaderElbow[1] + gearEdge[1]) / 2]
+  const leaderPath: Pt[] = [
+    ...handLine(leaderFrom, leaderElbow, 80, 0.0002),
+    ...handLine(leaderElbow, leaderMid, 81, 0.0003).slice(1),
+    ...handLine(leaderMid, gearEdge, 82, 0.00025).slice(1),
+  ]
   const heading = [gearEdge[0] - leaderMid[0], gearEdge[1] - leaderMid[1]] as const
 
   const G = GROUP.noteInput
-  pen(ink, [gearCircle], G, 0.0, 0.1)
-  pen(ink, [leaderPath, ...arrowHead(gearEdge, heading[0], heading[1])], G, 0.1, 0.18)
+  pen(ink, [gearCircle], G, 0.0, 0.1, true, 0.0006)
+  pen(ink, [leaderPath, ...arrowHead(gearEdge, heading[0], heading[1])], G, 0.1, 0.18, true, 0.0005)
   pen(ink, leadStrokes, G, 0.18, 0.4)
   pen(ink, alloys.flatMap(a => a.strokes), G, 0.4, 0.52)
   pen(ink, strikes, G, 0.54, 0.68, true, 0.00022)
