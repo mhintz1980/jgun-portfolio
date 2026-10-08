@@ -179,3 +179,5 @@ The work below predates the stable-ID system. Its detailed record is preserved i
 - Verify scene claims through runtime telemetry after restarting the `:4173` preview server; screenshots are supporting context only.
 - Do not commit `.scratch/` or modify protected parallel-session material, including `docs/orzo-style-portfolio-implemetation-roadmap.md`, without explicit release.
 - Never bare-regenerate `public/models/m249-transformed.glb`; follow the protected export procedure in [`project/context/constraints.md`](project/context/constraints.md).
+
+- [ ] **JG-035 handoff (2026-10-08):** the humanized handwriting in `2831f35` was REJECTED by the owner (wavy strokes, uneven pen weight, blobs). Redo per `docs/jgun-owner-animation-cloud-handoff-2026-10-07.md` § Next-session handoff before anything else; then run the (never-executed) updated verifiers, regenerate the drawing cache (v7), and request owner visual approval.
