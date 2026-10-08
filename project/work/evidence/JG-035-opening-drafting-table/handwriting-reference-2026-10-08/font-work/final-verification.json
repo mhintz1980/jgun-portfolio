@@ -1,0 +1,9 @@
+{
+  "DataReproducible": true,
+  "FontReproducible": true,
+  "TrianglesOmitted": true,
+  "Coverage": "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345678?",
+  "Missing": "9 ! lowercase",
+  "GeneratedTypeScriptDiagnostics": 0,
+  "Method": "Two consecutive script rebuilds matched SHA-256; isolated generated-file TypeScript strict check; TTF cmap and outline parser; visual glyph sheet and specimen inspection"
+}

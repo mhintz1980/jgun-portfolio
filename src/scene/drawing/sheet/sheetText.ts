@@ -1,9 +1,11 @@
 import { Color, LinearSRGBColorSpace, MeshBasicMaterial, Vector3 } from 'three'
 import { BatchedText, Text } from 'troika-three-text'
 import { INK } from '../drawingGeometry'
-import { GROUP, type InkText, type SheetUniforms, type TextCell } from './ink'
+import { GROUP, INK_GRAPHITE, INK_RED, type InkText, type SheetUniforms, type TextCell } from './ink'
 import { PAPER_FLEX_GLSL } from './paperFlex'
 import { PAPER_BARRIER_GLSL } from './breakthrough'
+import { REFERENCE_GLYPHS } from './referenceHandGlyphs'
+import type { ReferenceGlyph } from './handwriting'
 
 /**
  * Sheet lettering as SDF text in ONE draw call (troika BatchedText). Glyphs stay razor sharp at
@@ -17,6 +19,7 @@ import { PAPER_BARRIER_GLSL } from './breakthrough'
 export const SHEET_FONTS = {
   medium: '/fonts/BarlowCondensed-Medium.ttf',
   semibold: '/fonts/BarlowCondensed-SemiBold.ttf',
+  handwriting: '/fonts/AcFastReference.ttf',
 } as const
 
 /**
@@ -24,7 +27,11 @@ export const SHEET_FONTS = {
  * it as linear, so the ink hex has to be handed over already linearised or the lettering
  * prints a washed-out pale blue next to the navy linework.
  */
-const INK_LINEAR = new Color(INK).getHex(LinearSRGBColorSpace)
+const COLORS_LINEAR = {
+  ink: new Color(INK).getHex(LinearSRGBColorSpace),
+  graphite: new Color(INK_GRAPHITE).getHex(LinearSRGBColorSpace),
+  red: new Color(INK_RED).getHex(LinearSRGBColorSpace),
+}
 
 export interface SheetTextLayer {
   object: BatchedText
@@ -44,7 +51,7 @@ export interface SheetTextLayer {
 export interface SheetTextBoundsItem {
   text: string
   group: number
-  /** Unclipped block AABB [minX, minY, maxX, maxY], in sheet metres. */
+  /** Unclipped AABB in sheet metres: visible ink for handwriting, layout block for print. */
   bounds: [number, number, number, number] | null
   fitCell: TextCell | null
   /** null when layout is unavailable or no fit target was authored. */
@@ -54,6 +61,7 @@ export interface SheetTextBoundsItem {
 export interface SheetTextBounds {
   ready: boolean
   count: number
+  /** Fail-closed: unavailable/invalid bounds, overflow, or a missing title fit target. */
   violations: number
   items: SheetTextBoundsItem[]
 }
@@ -100,16 +108,35 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
     text.font = SHEET_FONTS[item.weight ?? 'medium']
     text.fontSize = item.size / 0.7
     text.anchorX = item.anchorX ?? 'left'
-    text.anchorY = item.anchorY ?? 'middle'
+    text.anchorY = item.weight === 'handwriting' || item.anchorY === 'baseline' ? 'top-baseline' : item.anchorY ?? 'middle'
     text.letterSpacing = item.letterSpacing ?? 0.02
     text.lineHeight = item.lineHeight ?? 1.15
     text.textAlign = item.anchorX === 'center' ? 'center' : item.anchorX === 'right' ? 'right' : 'left'
-    text.color = INK_LINEAR
+    text.color = COLORS_LINEAR[item.color ?? (item.weight === 'handwriting' ? 'graphite' : 'ink')]
     text.sdfGlyphSize = 64
     // Troika's public property is absent from this repo's minimal declaration.
     ;(text as Text & { glyphGeometryDetail: number }).glyphGeometryDetail = 4
     text.position.set(item.x, item.y, 0)
     text.rotation.z = item.rotation ?? 0
+    text.scale.x = item.scaleX ?? 1
+    if (item.weight === 'handwriting') {
+      // Match the normalized reference contours to the actual TTF black bounds,
+      // rather than its nominal cap700/LSB50 metrics. Offset BEFORE member rotation.
+      const glyph: ReferenceGlyph | undefined = REFERENCE_GLYPHS[item.text]
+      const { fontMinX, fontMinY, fontHeight } = glyph ?? {}
+      if (typeof fontMinX !== 'number' || !Number.isFinite(fontMinX)
+        || typeof fontMinY !== 'number' || !Number.isFinite(fontMinY)
+        || typeof fontHeight !== 'number' || !Number.isFinite(fontHeight) || fontHeight <= 0) {
+        throw new Error(`Missing reference font metrics for ${JSON.stringify(item.text)}`)
+      }
+      text.fontSize = item.size * 1000 / fontHeight
+      const unit = text.fontSize / 1000
+      const offsetX = fontMinX * unit * text.scale.x
+      const offsetY = fontMinY * unit
+      const c = Math.cos(text.rotation.z), s = Math.sin(text.rotation.z)
+      text.position.x -= offsetX * c - offsetY * s
+      text.position.y -= offsetX * s + offsetY * c
+    }
     text.fillOpacity = 0
     const clip = [0, 0, 0, 0]
     text.clipRect = clip
@@ -133,7 +160,8 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
   const ready = Promise.all(syncs).then(() => undefined)
   const captureBounds = (group?: number): SheetTextBounds => {
     const captured = members.filter(m => group === undefined || m.item.group === group).map(({ text, item }): SheetTextBoundsItem => {
-      const block = text.textRenderInfo?.blockBounds
+      const info = text.textRenderInfo as (typeof text.textRenderInfo & { visibleBounds?: number[] })
+      const block = item.weight === 'handwriting' ? info?.visibleBounds : info?.blockBounds
       const fitCell = item.fitCell ? { ...item.fitCell } : null
       const result: SheetTextBoundsItem = { text: item.text, group: item.group, bounds: null, fitCell, contained: null }
       if (!block || block.length !== 4 || !block.every(Number.isFinite)) return result
@@ -159,7 +187,7 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
     return {
       ready: captured.every(item => item.bounds !== null),
       count: captured.length,
-      violations: captured.filter(item => item.contained === false || (item.group === GROUP.titleBlock && !item.fitCell)).length,
+      violations: captured.filter(item => !item.bounds || item.contained === false || (item.group === GROUP.titleBlock && !item.fitCell)).length,
       items: captured,
     }
   }

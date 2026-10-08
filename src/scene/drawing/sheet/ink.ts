@@ -106,7 +106,10 @@ export interface InkText {
   anchorX?: 'left' | 'center' | 'right'
   anchorY?: 'top' | 'middle' | 'bottom' | 'baseline'
   rotation?: number
-  weight?: 'medium' | 'semibold'
+  weight?: 'medium' | 'semibold' | 'handwriting'
+  color?: 'graphite' | 'ink' | 'red'
+  /** Per-letter horizontal scale, applied before rotation. */
+  scaleX?: number
   letterSpacing?: number
   group: number
   key: number
@@ -286,7 +289,7 @@ float grainNoise(vec2 p) {
 float graphiteDensity(vec2 plane, float px) {
   float coarse = grainNoise(plane * 2200.0), fine = grainNoise(plane * 6500.0 + 17.0);
   float fadeC = smoothstep(1.2, 3.0, px / 2200.0), fadeF = smoothstep(1.2, 3.0, px / 6500.0);
-  return 1.0 - 0.16 * (0.65 * (1.0 - coarse) * fadeC + 0.35 * (1.0 - fine) * fadeF);
+  return 1.0 - 0.08 * (0.65 * (1.0 - coarse) * fadeC + 0.35 * (1.0 - fine) * fadeF);
 }
 void main() {
   cutPrintedStock(vPlane);

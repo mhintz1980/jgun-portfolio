@@ -1,0 +1,5 @@
+
+> jgun-portfolio@0.1.0 check:station2
+> node scripts/check-station2-contract.mjs
+
+Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.

@@ -1,0 +1,656 @@
+{
+  "pad": 8,
+  "photos": [
+    "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png"
+  ],
+  "blobs": [
+    {
+      "id": 0,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 60,
+        "y0": 74,
+        "x1": 110,
+        "y1": 130
+      },
+      "area": 1607,
+      "crop": "crops/0.png",
+      "cropSize": {
+        "width": 67,
+        "height": 73
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 1,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 323,
+        "y0": 84,
+        "x1": 340,
+        "y1": 177
+      },
+      "area": 1127,
+      "crop": "crops/1.png",
+      "cropSize": {
+        "width": 34,
+        "height": 110
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 2,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 569,
+        "y0": 66,
+        "x1": 651,
+        "y1": 176
+      },
+      "area": 3344,
+      "crop": "crops/2.png",
+      "cropSize": {
+        "width": 99,
+        "height": 127
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 3,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 824,
+        "y0": 69,
+        "x1": 884,
+        "y1": 182
+      },
+      "area": 2909,
+      "crop": "crops/3.png",
+      "cropSize": {
+        "width": 77,
+        "height": 130
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 4,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 1065,
+        "y0": 66,
+        "x1": 1143,
+        "y1": 178
+      },
+      "area": 3143,
+      "crop": "crops/4.png",
+      "cropSize": {
+        "width": 95,
+        "height": 129
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 5,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 1324,
+        "y0": 71,
+        "x1": 1411,
+        "y1": 174
+      },
+      "area": 2828,
+      "crop": "crops/5.png",
+      "cropSize": {
+        "width": 104,
+        "height": 120
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 6,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 0,
+      "box": {
+        "x0": 1565,
+        "y0": 64,
+        "x1": 1653,
+        "y1": 185
+      },
+      "area": 4702,
+      "crop": "crops/6.png",
+      "cropSize": {
+        "width": 105,
+        "height": 138
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 7,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 60,
+        "y0": 340,
+        "x1": 150,
+        "y1": 441
+      },
+      "area": 2831,
+      "crop": "crops/7.png",
+      "cropSize": {
+        "width": 107,
+        "height": 118
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 8,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 326,
+        "y0": 361,
+        "x1": 376,
+        "y1": 442
+      },
+      "area": 2002,
+      "crop": "crops/8.png",
+      "cropSize": {
+        "width": 67,
+        "height": 98
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 9,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 566,
+        "y0": 363,
+        "x1": 645,
+        "y1": 454
+      },
+      "area": 3180,
+      "crop": "crops/9.png",
+      "cropSize": {
+        "width": 96,
+        "height": 108
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 10,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 823,
+        "y0": 351,
+        "x1": 940,
+        "y1": 475
+      },
+      "area": 6020,
+      "crop": "crops/10.png",
+      "cropSize": {
+        "width": 134,
+        "height": 141
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 11,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 1066,
+        "y0": 363,
+        "x1": 1128,
+        "y1": 441
+      },
+      "area": 1278,
+      "crop": "crops/11.png",
+      "cropSize": {
+        "width": 79,
+        "height": 95
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 12,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 1317,
+        "y0": 365,
+        "x1": 1411,
+        "y1": 484
+      },
+      "area": 4402,
+      "crop": "crops/12.png",
+      "cropSize": {
+        "width": 111,
+        "height": 136
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 13,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 1,
+      "box": {
+        "x0": 1560,
+        "y0": 347,
+        "x1": 1642,
+        "y1": 471
+      },
+      "area": 3192,
+      "crop": "crops/13.png",
+      "cropSize": {
+        "width": 99,
+        "height": 141
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 14,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 67,
+        "y0": 638,
+        "x1": 163,
+        "y1": 747
+      },
+      "area": 3586,
+      "crop": "crops/14.png",
+      "cropSize": {
+        "width": 113,
+        "height": 126
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 15,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 310,
+        "y0": 631,
+        "x1": 395,
+        "y1": 745
+      },
+      "area": 3650,
+      "crop": "crops/15.png",
+      "cropSize": {
+        "width": 102,
+        "height": 131
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 16,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 560,
+        "y0": 633,
+        "x1": 656,
+        "y1": 749
+      },
+      "area": 3474,
+      "crop": "crops/16.png",
+      "cropSize": {
+        "width": 113,
+        "height": 133
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 17,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 829,
+        "y0": 632,
+        "x1": 845,
+        "y1": 740
+      },
+      "area": 1295,
+      "crop": "crops/17.png",
+      "cropSize": {
+        "width": 33,
+        "height": 125
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 18,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 1067,
+        "y0": 627,
+        "x1": 1221,
+        "y1": 724
+      },
+      "area": 4506,
+      "crop": "crops/18.png",
+      "cropSize": {
+        "width": 171,
+        "height": 114
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 19,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 1334,
+        "y0": 620,
+        "x1": 1422,
+        "y1": 738
+      },
+      "area": 3446,
+      "crop": "crops/19.png",
+      "cropSize": {
+        "width": 105,
+        "height": 135
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 20,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 2,
+      "box": {
+        "x0": 1570,
+        "y0": 649,
+        "x1": 1667,
+        "y1": 770
+      },
+      "area": 3073,
+      "crop": "crops/20.png",
+      "cropSize": {
+        "width": 114,
+        "height": 138
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 21,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 66,
+        "y0": 925,
+        "x1": 164,
+        "y1": 1016
+      },
+      "area": 4219,
+      "crop": "crops/21.png",
+      "cropSize": {
+        "width": 115,
+        "height": 108
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 22,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 314,
+        "y0": 923,
+        "x1": 417,
+        "y1": 1014
+      },
+      "area": 3648,
+      "crop": "crops/22.png",
+      "cropSize": {
+        "width": 120,
+        "height": 108
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 23,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 560,
+        "y0": 900,
+        "x1": 648,
+        "y1": 979
+      },
+      "area": 3440,
+      "crop": "crops/23.png",
+      "cropSize": {
+        "width": 105,
+        "height": 96
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 24,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 810,
+        "y0": 900,
+        "x1": 906,
+        "y1": 1022
+      },
+      "area": 4963,
+      "crop": "crops/24.png",
+      "cropSize": {
+        "width": 113,
+        "height": 139
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 25,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 1074,
+        "y0": 907,
+        "x1": 1197,
+        "y1": 1043
+      },
+      "area": 5920,
+      "crop": "crops/25.png",
+      "cropSize": {
+        "width": 140,
+        "height": 153
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 26,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 1310,
+        "y0": 925,
+        "x1": 1411,
+        "y1": 1036
+      },
+      "area": 4269,
+      "crop": "crops/26.png",
+      "cropSize": {
+        "width": 118,
+        "height": 128
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 27,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 3,
+      "box": {
+        "x0": 1560,
+        "y0": 915,
+        "x1": 1655,
+        "y1": 1037
+      },
+      "area": 3839,
+      "crop": "crops/27.png",
+      "cropSize": {
+        "width": 112,
+        "height": 139
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 28,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 69,
+        "y0": 1180,
+        "x1": 150,
+        "y1": 1274
+      },
+      "area": 2147,
+      "crop": "crops/28.png",
+      "cropSize": {
+        "width": 98,
+        "height": 111
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 29,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 310,
+        "y0": 1186,
+        "x1": 407,
+        "y1": 1287
+      },
+      "area": 2774,
+      "crop": "crops/29.png",
+      "cropSize": {
+        "width": 114,
+        "height": 118
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 30,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 580,
+        "y0": 1180,
+        "x1": 640,
+        "y1": 1305
+      },
+      "area": 2907,
+      "crop": "crops/30.png",
+      "cropSize": {
+        "width": 77,
+        "height": 142
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 31,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 819,
+        "y0": 1227,
+        "x1": 939,
+        "y1": 1303
+      },
+      "area": 2606,
+      "crop": "crops/31.png",
+      "cropSize": {
+        "width": 137,
+        "height": 93
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 32,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 1060,
+        "y0": 1185,
+        "x1": 1131,
+        "y1": 1272
+      },
+      "area": 2728,
+      "crop": "crops/32.png",
+      "cropSize": {
+        "width": 88,
+        "height": 104
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 33,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 1318,
+        "y0": 1193,
+        "x1": 1428,
+        "y1": 1375
+      },
+      "area": 4395,
+      "crop": "crops/33.png",
+      "cropSize": {
+        "width": 127,
+        "height": 199
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 34,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 4,
+      "box": {
+        "x0": 1560,
+        "y0": 1180,
+        "x1": 1649,
+        "y1": 1288
+      },
+      "area": 4633,
+      "crop": "crops/34.png",
+      "cropSize": {
+        "width": 106,
+        "height": 125
+      },
+      "componentCount": 1
+    },
+    {
+      "id": 35,
+      "photo": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\handwriting-reference-2026-10-08\\font-work\\alphabet-crops.png",
+      "row": 5,
+      "box": {
+        "x0": 67,
+        "y0": 1471,
+        "x1": 115,
+        "y1": 1528
+      },
+      "area": 769,
+      "crop": "crops/35.png",
+      "cropSize": {
+        "width": 65,
+        "height": 74
+      },
+      "componentCount": 1
+    }
+  ]
+}

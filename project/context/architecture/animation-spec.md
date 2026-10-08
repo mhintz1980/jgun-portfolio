@@ -375,11 +375,16 @@ ring depths, deviation envelope and zero-far-closure contract (`4035be9`; sightl
 proofs not re-run on it). Colour stays the
 light-blue `#79CFFF` family. Rise registration still begins at `.79`, fracture
 at `.84–.88`. Handwriting on the paper (`sheet/handwriting.ts`,
-`sheet/ownerAnnotations.ts`) is composed into the same ink buffers (cache
-version bumped for the added colour channel and groups); the first committed form was a
-deterministic mixed-case navy hand; `2831f35` replaces it with an all-caps
-humanized hand in graphite ink (cache version 7; strikes and the failure-point
-mark stay red) — in progress, pending visual verification.
+`sheet/ownerAnnotations.ts`) uses the screenshot-derived Ac Fast Reference font
+in the existing Troika text batch (2026-10-08; drawing cache version 8).
+Individual graphite glyphs reveal left-to-right within the existing note-group
+windows. Seeded variation affects whole-letter size, rotation, baseline and
+spacing; outlines are not stroked twice or given synthetic sine waves/retraces.
+Font ink bounds determine placement and mark alignment. Red strikes and the
+failure-point mark, plus graphite circles/leaders, remain vector ink with clean
+single-bow lines and smooth ellipses. Mark accepted the font direction and
+clarified that resemblance need only be close; full animation acceptance remains
+separate. The rejected `2831f35` hand and cache-v7 status are historical.
 
 Scroll time and pose time are separate axes. `introPoseTime()` maps
 intro .79–.84 onto pose .4–.5 for the pressure push, then intro .84–1 onto

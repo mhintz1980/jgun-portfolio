@@ -1,0 +1,16 @@
+{
+  "glyphCount": 36,
+  "missing": [
+    "9",
+    "!"
+  ],
+  "fontSha256": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870",
+  "dataSha256": "a920f6b5e2d3b0afa50877755fb31280469271d20783be48b09a1b783367eb7c",
+  "cliVersion": "0.1.0",
+  "weight": -1,
+  "threshold": 100,
+  "capHeight": 7.5,
+  "ttfOutlinesVerified": true,
+  "contoursVerified": true,
+  "trianglesOmitted": true
+}

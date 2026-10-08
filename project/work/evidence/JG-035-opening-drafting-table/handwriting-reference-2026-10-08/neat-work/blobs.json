@@ -1,0 +1,3510 @@
+{
+  "pad": 8,
+  "photos": [
+    "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png"
+  ],
+  "blobs": [
+    {
+      "id": 0,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 1,
+        "y0": 29,
+        "x1": 13,
+        "y1": 39
+      },
+      "area": 70,
+      "crop": "crops\\0.png",
+      "cropSize": {
+        "width": 29,
+        "height": 27
+      }
+    },
+    {
+      "id": 1,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 25,
+        "y0": 19,
+        "x1": 58,
+        "y1": 34
+      },
+      "area": 147,
+      "crop": "crops\\1.png",
+      "cropSize": {
+        "width": 50,
+        "height": 32
+      }
+    },
+    {
+      "id": 2,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 31,
+        "y0": 43,
+        "x1": 42,
+        "y1": 52
+      },
+      "area": 60,
+      "crop": "crops\\2.png",
+      "cropSize": {
+        "width": 28,
+        "height": 26
+      }
+    },
+    {
+      "id": 3,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 45,
+        "y0": 38,
+        "x1": 54,
+        "y1": 49
+      },
+      "area": 57,
+      "crop": "crops\\3.png",
+      "cropSize": {
+        "width": 26,
+        "height": 28
+      }
+    },
+    {
+      "id": 4,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 56,
+        "y0": 35,
+        "x1": 77,
+        "y1": 45
+      },
+      "area": 102,
+      "crop": "crops\\4.png",
+      "cropSize": {
+        "width": 38,
+        "height": 27
+      }
+    },
+    {
+      "id": 5,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 67,
+        "y0": 14,
+        "x1": 88,
+        "y1": 22
+      },
+      "area": 93,
+      "crop": "crops\\5.png",
+      "cropSize": {
+        "width": 38,
+        "height": 25
+      }
+    },
+    {
+      "id": 6,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 77,
+        "y0": 53,
+        "x1": 84,
+        "y1": 61
+      },
+      "area": 31,
+      "crop": "crops\\6.png",
+      "cropSize": {
+        "width": 24,
+        "height": 25
+      }
+    },
+    {
+      "id": 7,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 87,
+        "y0": 26,
+        "x1": 109,
+        "y1": 37
+      },
+      "area": 86,
+      "crop": "crops\\7.png",
+      "cropSize": {
+        "width": 39,
+        "height": 28
+      }
+    },
+    {
+      "id": 8,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 87,
+        "y0": 48,
+        "x1": 108,
+        "y1": 59
+      },
+      "area": 88,
+      "crop": "crops\\8.png",
+      "cropSize": {
+        "width": 38,
+        "height": 28
+      }
+    },
+    {
+      "id": 9,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 99,
+        "y0": 6,
+        "x1": 118,
+        "y1": 15
+      },
+      "area": 89,
+      "crop": "crops\\9.png",
+      "cropSize": {
+        "width": 36,
+        "height": 26
+      }
+    },
+    {
+      "id": 10,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 120,
+        "y0": 20,
+        "x1": 137,
+        "y1": 28
+      },
+      "area": 88,
+      "crop": "crops\\10.png",
+      "cropSize": {
+        "width": 34,
+        "height": 25
+      }
+    },
+    {
+      "id": 11,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 122,
+        "y0": 39,
+        "x1": 145,
+        "y1": 49
+      },
+      "area": 96,
+      "crop": "crops\\11.png",
+      "cropSize": {
+        "width": 40,
+        "height": 27
+      }
+    },
+    {
+      "id": 12,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 126,
+        "y0": 1,
+        "x1": 143,
+        "y1": 8
+      },
+      "area": 59,
+      "crop": "crops\\12.png",
+      "cropSize": {
+        "width": 34,
+        "height": 24
+      }
+    },
+    {
+      "id": 13,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 139,
+        "y0": 17,
+        "x1": 147,
+        "y1": 24
+      },
+      "area": 31,
+      "crop": "crops\\13.png",
+      "cropSize": {
+        "width": 25,
+        "height": 24
+      }
+    },
+    {
+      "id": 14,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 144,
+        "y0": 50,
+        "x1": 175,
+        "y1": 64
+      },
+      "area": 137,
+      "crop": "crops\\14.png",
+      "cropSize": {
+        "width": 48,
+        "height": 31
+      }
+    },
+    {
+      "id": 15,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 149,
+        "y0": 15,
+        "x1": 157,
+        "y1": 23
+      },
+      "area": 40,
+      "crop": "crops\\15.png",
+      "cropSize": {
+        "width": 25,
+        "height": 25
+      }
+    },
+    {
+      "id": 16,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 151,
+        "y0": 27,
+        "x1": 189,
+        "y1": 41
+      },
+      "area": 163,
+      "crop": "crops\\16.png",
+      "cropSize": {
+        "width": 55,
+        "height": 31
+      }
+    },
+    {
+      "id": 17,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 159,
+        "y0": 9,
+        "x1": 177,
+        "y1": 19
+      },
+      "area": 73,
+      "crop": "crops\\17.png",
+      "cropSize": {
+        "width": 35,
+        "height": 27
+      }
+    },
+    {
+      "id": 18,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 184,
+        "y0": 41,
+        "x1": 200,
+        "y1": 53
+      },
+      "area": 60,
+      "crop": "crops\\18.png",
+      "cropSize": {
+        "width": 33,
+        "height": 29
+      }
+    },
+    {
+      "id": 19,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 189,
+        "y0": 1,
+        "x1": 210,
+        "y1": 11
+      },
+      "area": 120,
+      "crop": "crops\\19.png",
+      "cropSize": {
+        "width": 38,
+        "height": 27
+      }
+    },
+    {
+      "id": 20,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 204,
+        "y0": 21,
+        "x1": 210,
+        "y1": 30
+      },
+      "area": 32,
+      "crop": "crops\\20.png",
+      "cropSize": {
+        "width": 23,
+        "height": 26
+      }
+    },
+    {
+      "id": 21,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 216,
+        "y0": 19,
+        "x1": 227,
+        "y1": 25
+      },
+      "area": 39,
+      "crop": "crops\\21.png",
+      "cropSize": {
+        "width": 28,
+        "height": 23
+      }
+    },
+    {
+      "id": 22,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 216,
+        "y0": 37,
+        "x1": 230,
+        "y1": 45
+      },
+      "area": 56,
+      "crop": "crops\\22.png",
+      "cropSize": {
+        "width": 31,
+        "height": 25
+      }
+    },
+    {
+      "id": 23,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 231,
+        "y0": 10,
+        "x1": 250,
+        "y1": 22
+      },
+      "area": 131,
+      "crop": "crops\\23.png",
+      "cropSize": {
+        "width": 36,
+        "height": 29
+      }
+    },
+    {
+      "id": 24,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 233,
+        "y0": 23,
+        "x1": 268,
+        "y1": 41
+      },
+      "area": 142,
+      "crop": "crops\\24.png",
+      "cropSize": {
+        "width": 52,
+        "height": 35
+      }
+    },
+    {
+      "id": 25,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 238,
+        "y0": 51,
+        "x1": 253,
+        "y1": 62
+      },
+      "area": 63,
+      "crop": "crops\\25.png",
+      "cropSize": {
+        "width": 32,
+        "height": 28
+      }
+    },
+    {
+      "id": 26,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 255,
+        "y0": 39,
+        "x1": 299,
+        "y1": 55
+      },
+      "area": 184,
+      "crop": "crops\\26.png",
+      "cropSize": {
+        "width": 61,
+        "height": 33
+      }
+    },
+    {
+      "id": 27,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 264,
+        "y0": 3,
+        "x1": 288,
+        "y1": 12
+      },
+      "area": 99,
+      "crop": "crops\\27.png",
+      "cropSize": {
+        "width": 41,
+        "height": 26
+      }
+    },
+    {
+      "id": 28,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 290,
+        "y0": 2,
+        "x1": 298,
+        "y1": 7
+      },
+      "area": 30,
+      "crop": "crops\\28.png",
+      "cropSize": {
+        "width": 25,
+        "height": 22
+      }
+    },
+    {
+      "id": 29,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 294,
+        "y0": 19,
+        "x1": 303,
+        "y1": 27
+      },
+      "area": 40,
+      "crop": "crops\\29.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 30,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 297,
+        "y0": 32,
+        "x1": 310,
+        "y1": 49
+      },
+      "area": 51,
+      "crop": "crops\\30.png",
+      "cropSize": {
+        "width": 30,
+        "height": 34
+      }
+    },
+    {
+      "id": 31,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 304,
+        "y0": 12,
+        "x1": 324,
+        "y1": 23
+      },
+      "area": 75,
+      "crop": "crops\\31.png",
+      "cropSize": {
+        "width": 37,
+        "height": 28
+      }
+    },
+    {
+      "id": 32,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 305,
+        "y0": 53,
+        "x1": 323,
+        "y1": 64
+      },
+      "area": 89,
+      "crop": "crops\\32.png",
+      "cropSize": {
+        "width": 35,
+        "height": 28
+      }
+    },
+    {
+      "id": 33,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 325,
+        "y0": 44,
+        "x1": 362,
+        "y1": 59
+      },
+      "area": 157,
+      "crop": "crops\\33.png",
+      "cropSize": {
+        "width": 54,
+        "height": 32
+      }
+    },
+    {
+      "id": 34,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 339,
+        "y0": 8,
+        "x1": 349,
+        "y1": 16
+      },
+      "area": 47,
+      "crop": "crops\\34.png",
+      "cropSize": {
+        "width": 27,
+        "height": 25
+      }
+    },
+    {
+      "id": 35,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 350,
+        "y0": 1,
+        "x1": 376,
+        "y1": 12
+      },
+      "area": 108,
+      "crop": "crops\\35.png",
+      "cropSize": {
+        "width": 43,
+        "height": 28
+      }
+    },
+    {
+      "id": 36,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 366,
+        "y0": 37,
+        "x1": 382,
+        "y1": 48
+      },
+      "area": 103,
+      "crop": "crops\\36.png",
+      "cropSize": {
+        "width": 33,
+        "height": 28
+      }
+    },
+    {
+      "id": 37,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 397,
+        "y0": 30,
+        "x1": 406,
+        "y1": 39
+      },
+      "area": 51,
+      "crop": "crops\\37.png",
+      "cropSize": {
+        "width": 26,
+        "height": 26
+      }
+    },
+    {
+      "id": 38,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 407,
+        "y0": 21,
+        "x1": 436,
+        "y1": 37
+      },
+      "area": 126,
+      "crop": "crops\\38.png",
+      "cropSize": {
+        "width": 46,
+        "height": 33
+      }
+    },
+    {
+      "id": 39,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 439,
+        "y0": 18,
+        "x1": 448,
+        "y1": 26
+      },
+      "area": 51,
+      "crop": "crops\\39.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 40,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 452,
+        "y0": 12,
+        "x1": 468,
+        "y1": 23
+      },
+      "area": 67,
+      "crop": "crops\\40.png",
+      "cropSize": {
+        "width": 33,
+        "height": 28
+      }
+    },
+    {
+      "id": 41,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 0,
+      "box": {
+        "x0": 474,
+        "y0": 5,
+        "x1": 486,
+        "y1": 14
+      },
+      "area": 47,
+      "crop": "crops\\41.png",
+      "cropSize": {
+        "width": 29,
+        "height": 26
+      }
+    },
+    {
+      "id": 42,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 1,
+        "y0": 64,
+        "x1": 32,
+        "y1": 78
+      },
+      "area": 167,
+      "crop": "crops\\42.png",
+      "cropSize": {
+        "width": 48,
+        "height": 31
+      }
+    },
+    {
+      "id": 43,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 45,
+        "y0": 59,
+        "x1": 53,
+        "y1": 68
+      },
+      "area": 56,
+      "crop": "crops\\43.png",
+      "cropSize": {
+        "width": 25,
+        "height": 26
+      }
+    },
+    {
+      "id": 44,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 55,
+        "y0": 58,
+        "x1": 61,
+        "y1": 66
+      },
+      "area": 30,
+      "crop": "crops\\44.png",
+      "cropSize": {
+        "width": 23,
+        "height": 25
+      }
+    },
+    {
+      "id": 45,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 72,
+        "y0": 74,
+        "x1": 78,
+        "y1": 82
+      },
+      "area": 42,
+      "crop": "crops\\45.png",
+      "cropSize": {
+        "width": 23,
+        "height": 25
+      }
+    },
+    {
+      "id": 46,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 82,
+        "y0": 65,
+        "x1": 112,
+        "y1": 80
+      },
+      "area": 147,
+      "crop": "crops\\46.png",
+      "cropSize": {
+        "width": 47,
+        "height": 32
+      }
+    },
+    {
+      "id": 47,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 124,
+        "y0": 61,
+        "x1": 130,
+        "y1": 70
+      },
+      "area": 42,
+      "crop": "crops\\47.png",
+      "cropSize": {
+        "width": 23,
+        "height": 26
+      }
+    },
+    {
+      "id": 48,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 133,
+        "y0": 57,
+        "x1": 142,
+        "y1": 67
+      },
+      "area": 52,
+      "crop": "crops\\48.png",
+      "cropSize": {
+        "width": 26,
+        "height": 27
+      }
+    },
+    {
+      "id": 49,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 133,
+        "y0": 77,
+        "x1": 142,
+        "y1": 85
+      },
+      "area": 48,
+      "crop": "crops\\49.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 50,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 146,
+        "y0": 76,
+        "x1": 156,
+        "y1": 83
+      },
+      "area": 48,
+      "crop": "crops\\50.png",
+      "cropSize": {
+        "width": 27,
+        "height": 24
+      }
+    },
+    {
+      "id": 51,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 173,
+        "y0": 56,
+        "x1": 226,
+        "y1": 79
+      },
+      "area": 252,
+      "crop": "crops\\51.png",
+      "cropSize": {
+        "width": 70,
+        "height": 40
+      }
+    },
+    {
+      "id": 52,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 220,
+        "y0": 71,
+        "x1": 241,
+        "y1": 86
+      },
+      "area": 115,
+      "crop": "crops\\52.png",
+      "cropSize": {
+        "width": 38,
+        "height": 32
+      }
+    },
+    {
+      "id": 53,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 254,
+        "y0": 66,
+        "x1": 274,
+        "y1": 76
+      },
+      "area": 110,
+      "crop": "crops\\53.png",
+      "cropSize": {
+        "width": 37,
+        "height": 27
+      }
+    },
+    {
+      "id": 54,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 276,
+        "y0": 61,
+        "x1": 286,
+        "y1": 71
+      },
+      "area": 59,
+      "crop": "crops\\54.png",
+      "cropSize": {
+        "width": 27,
+        "height": 27
+      }
+    },
+    {
+      "id": 55,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 291,
+        "y0": 59,
+        "x1": 299,
+        "y1": 67
+      },
+      "area": 49,
+      "crop": "crops\\55.png",
+      "cropSize": {
+        "width": 25,
+        "height": 25
+      }
+    },
+    {
+      "id": 56,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 293,
+        "y0": 78,
+        "x1": 301,
+        "y1": 86
+      },
+      "area": 43,
+      "crop": "crops\\56.png",
+      "cropSize": {
+        "width": 25,
+        "height": 25
+      }
+    },
+    {
+      "id": 57,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 305,
+        "y0": 74,
+        "x1": 323,
+        "y1": 83
+      },
+      "area": 57,
+      "crop": "crops\\57.png",
+      "cropSize": {
+        "width": 35,
+        "height": 26
+      }
+    },
+    {
+      "id": 58,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 326,
+        "y0": 70,
+        "x1": 341,
+        "y1": 79
+      },
+      "area": 93,
+      "crop": "crops\\58.png",
+      "cropSize": {
+        "width": 32,
+        "height": 26
+      }
+    },
+    {
+      "id": 59,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 479,
+        "y0": 70,
+        "x1": 490,
+        "y1": 79
+      },
+      "area": 75,
+      "crop": "crops\\59.png",
+      "cropSize": {
+        "width": 28,
+        "height": 26
+      }
+    },
+    {
+      "id": 60,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 1,
+      "box": {
+        "x0": 494,
+        "y0": 66,
+        "x1": 500,
+        "y1": 77
+      },
+      "area": 44,
+      "crop": "crops\\60.png",
+      "cropSize": {
+        "width": 23,
+        "height": 28
+      }
+    },
+    {
+      "id": 61,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 11,
+        "y0": 103,
+        "x1": 36,
+        "y1": 117
+      },
+      "area": 129,
+      "crop": "crops\\61.png",
+      "cropSize": {
+        "width": 42,
+        "height": 31
+      }
+    },
+    {
+      "id": 62,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 44,
+        "y0": 79,
+        "x1": 52,
+        "y1": 89
+      },
+      "area": 51,
+      "crop": "crops\\62.png",
+      "cropSize": {
+        "width": 25,
+        "height": 27
+      }
+    },
+    {
+      "id": 63,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 51,
+        "y0": 120,
+        "x1": 61,
+        "y1": 130
+      },
+      "area": 63,
+      "crop": "crops\\63.png",
+      "cropSize": {
+        "width": 27,
+        "height": 27
+      }
+    },
+    {
+      "id": 64,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 52,
+        "y0": 92,
+        "x1": 62,
+        "y1": 111
+      },
+      "area": 58,
+      "crop": "crops\\64.png",
+      "cropSize": {
+        "width": 27,
+        "height": 36
+      }
+    },
+    {
+      "id": 65,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 54,
+        "y0": 77,
+        "x1": 66,
+        "y1": 87
+      },
+      "area": 72,
+      "crop": "crops\\65.png",
+      "cropSize": {
+        "width": 29,
+        "height": 27
+      }
+    },
+    {
+      "id": 66,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 64,
+        "y0": 115,
+        "x1": 75,
+        "y1": 126
+      },
+      "area": 62,
+      "crop": "crops\\66.png",
+      "cropSize": {
+        "width": 28,
+        "height": 28
+      }
+    },
+    {
+      "id": 67,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 72,
+        "y0": 94,
+        "x1": 81,
+        "y1": 102
+      },
+      "area": 43,
+      "crop": "crops\\67.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 68,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 74,
+        "y0": 135,
+        "x1": 82,
+        "y1": 145
+      },
+      "area": 65,
+      "crop": "crops\\68.png",
+      "cropSize": {
+        "width": 25,
+        "height": 27
+      }
+    },
+    {
+      "id": 69,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 87,
+        "y0": 106,
+        "x1": 113,
+        "y1": 120
+      },
+      "area": 146,
+      "crop": "crops\\69.png",
+      "cropSize": {
+        "width": 43,
+        "height": 31
+      }
+    },
+    {
+      "id": 70,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 95,
+        "y0": 130,
+        "x1": 112,
+        "y1": 139
+      },
+      "area": 79,
+      "crop": "crops\\70.png",
+      "cropSize": {
+        "width": 34,
+        "height": 26
+      }
+    },
+    {
+      "id": 71,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 99,
+        "y0": 83,
+        "x1": 121,
+        "y1": 95
+      },
+      "area": 76,
+      "crop": "crops\\71.png",
+      "cropSize": {
+        "width": 39,
+        "height": 29
+      }
+    },
+    {
+      "id": 72,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 116,
+        "y0": 104,
+        "x1": 122,
+        "y1": 113
+      },
+      "area": 42,
+      "crop": "crops\\72.png",
+      "cropSize": {
+        "width": 23,
+        "height": 26
+      }
+    },
+    {
+      "id": 73,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 125,
+        "y0": 121,
+        "x1": 146,
+        "y1": 130
+      },
+      "area": 87,
+      "crop": "crops\\73.png",
+      "cropSize": {
+        "width": 38,
+        "height": 26
+      }
+    },
+    {
+      "id": 74,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 127,
+        "y0": 97,
+        "x1": 146,
+        "y1": 110
+      },
+      "area": 95,
+      "crop": "crops\\74.png",
+      "cropSize": {
+        "width": 36,
+        "height": 30
+      }
+    },
+    {
+      "id": 75,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 149,
+        "y0": 93,
+        "x1": 156,
+        "y1": 104
+      },
+      "area": 39,
+      "crop": "crops\\75.png",
+      "cropSize": {
+        "width": 24,
+        "height": 28
+      }
+    },
+    {
+      "id": 76,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 150,
+        "y0": 109,
+        "x1": 181,
+        "y1": 125
+      },
+      "area": 160,
+      "crop": "crops\\76.png",
+      "cropSize": {
+        "width": 48,
+        "height": 33
+      }
+    },
+    {
+      "id": 77,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 160,
+        "y0": 89,
+        "x1": 180,
+        "y1": 101
+      },
+      "area": 139,
+      "crop": "crops\\77.png",
+      "cropSize": {
+        "width": 37,
+        "height": 29
+      }
+    },
+    {
+      "id": 78,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 197,
+        "y0": 82,
+        "x1": 204,
+        "y1": 91
+      },
+      "area": 32,
+      "crop": "crops\\78.png",
+      "cropSize": {
+        "width": 24,
+        "height": 26
+      }
+    },
+    {
+      "id": 79,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 201,
+        "y0": 102,
+        "x1": 210,
+        "y1": 110
+      },
+      "area": 45,
+      "crop": "crops\\79.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 80,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 208,
+        "y0": 81,
+        "x1": 217,
+        "y1": 89
+      },
+      "area": 46,
+      "crop": "crops\\80.png",
+      "cropSize": {
+        "width": 26,
+        "height": 25
+      }
+    },
+    {
+      "id": 81,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 213,
+        "y0": 96,
+        "x1": 231,
+        "y1": 106
+      },
+      "area": 67,
+      "crop": "crops\\81.png",
+      "cropSize": {
+        "width": 35,
+        "height": 27
+      }
+    },
+    {
+      "id": 82,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 233,
+        "y0": 94,
+        "x1": 246,
+        "y1": 103
+      },
+      "area": 84,
+      "crop": "crops\\82.png",
+      "cropSize": {
+        "width": 30,
+        "height": 26
+      }
+    },
+    {
+      "id": 83,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 245,
+        "y0": 134,
+        "x1": 266,
+        "y1": 146
+      },
+      "area": 128,
+      "crop": "crops\\83.png",
+      "cropSize": {
+        "width": 38,
+        "height": 29
+      }
+    },
+    {
+      "id": 84,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 248,
+        "y0": 90,
+        "x1": 257,
+        "y1": 99
+      },
+      "area": 52,
+      "crop": "crops\\84.png",
+      "cropSize": {
+        "width": 26,
+        "height": 26
+      }
+    },
+    {
+      "id": 85,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 261,
+        "y0": 89,
+        "x1": 269,
+        "y1": 96
+      },
+      "area": 31,
+      "crop": "crops\\85.png",
+      "cropSize": {
+        "width": 25,
+        "height": 24
+      }
+    },
+    {
+      "id": 86,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 270,
+        "y0": 127,
+        "x1": 287,
+        "y1": 139
+      },
+      "area": 80,
+      "crop": "crops\\86.png",
+      "cropSize": {
+        "width": 34,
+        "height": 29
+      }
+    },
+    {
+      "id": 87,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 272,
+        "y0": 85,
+        "x1": 282,
+        "y1": 93
+      },
+      "area": 43,
+      "crop": "crops\\87.png",
+      "cropSize": {
+        "width": 27,
+        "height": 25
+      }
+    },
+    {
+      "id": 88,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 287,
+        "y0": 123,
+        "x1": 296,
+        "y1": 134
+      },
+      "area": 70,
+      "crop": "crops\\88.png",
+      "cropSize": {
+        "width": 26,
+        "height": 28
+      }
+    },
+    {
+      "id": 89,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 309,
+        "y0": 109,
+        "x1": 363,
+        "y1": 129
+      },
+      "area": 338,
+      "crop": "crops\\89.png",
+      "cropSize": {
+        "width": 71,
+        "height": 37
+      }
+    },
+    {
+      "id": 90,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 366,
+        "y0": 105,
+        "x1": 380,
+        "y1": 114
+      },
+      "area": 59,
+      "crop": "crops\\90.png",
+      "cropSize": {
+        "width": 31,
+        "height": 26
+      }
+    },
+    {
+      "id": 91,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 383,
+        "y0": 99,
+        "x1": 405,
+        "y1": 108
+      },
+      "area": 89,
+      "crop": "crops\\91.png",
+      "cropSize": {
+        "width": 39,
+        "height": 26
+      }
+    },
+    {
+      "id": 92,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 420,
+        "y0": 76,
+        "x1": 476,
+        "y1": 99
+      },
+      "area": 285,
+      "crop": "crops\\92.png",
+      "cropSize": {
+        "width": 73,
+        "height": 40
+      }
+    },
+    {
+      "id": 93,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 421,
+        "y0": 136,
+        "x1": 431,
+        "y1": 146
+      },
+      "area": 63,
+      "crop": "crops\\93.png",
+      "cropSize": {
+        "width": 27,
+        "height": 27
+      }
+    },
+    {
+      "id": 94,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 440,
+        "y0": 129,
+        "x1": 450,
+        "y1": 141
+      },
+      "area": 68,
+      "crop": "crops\\94.png",
+      "cropSize": {
+        "width": 27,
+        "height": 29
+      }
+    },
+    {
+      "id": 95,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 2,
+      "box": {
+        "x0": 453,
+        "y0": 113,
+        "x1": 501,
+        "y1": 139
+      },
+      "area": 337,
+      "crop": "crops\\95.png",
+      "cropSize": {
+        "width": 65,
+        "height": 43
+      }
+    },
+    {
+      "id": 96,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 1,
+        "y0": 152,
+        "x1": 9,
+        "y1": 162
+      },
+      "area": 58,
+      "crop": "crops\\96.png",
+      "cropSize": {
+        "width": 25,
+        "height": 27
+      }
+    },
+    {
+      "id": 97,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 14,
+        "y0": 150,
+        "x1": 20,
+        "y1": 159
+      },
+      "area": 36,
+      "crop": "crops\\97.png",
+      "cropSize": {
+        "width": 23,
+        "height": 26
+      }
+    },
+    {
+      "id": 98,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 44,
+        "y0": 144,
+        "x1": 55,
+        "y1": 153
+      },
+      "area": 61,
+      "crop": "crops\\98.png",
+      "cropSize": {
+        "width": 28,
+        "height": 26
+      }
+    },
+    {
+      "id": 99,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 58,
+        "y0": 141,
+        "x1": 70,
+        "y1": 150
+      },
+      "area": 58,
+      "crop": "crops\\99.png",
+      "cropSize": {
+        "width": 29,
+        "height": 26
+      }
+    },
+    {
+      "id": 100,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 134,
+        "y0": 161,
+        "x1": 147,
+        "y1": 172
+      },
+      "area": 70,
+      "crop": "crops\\100.png",
+      "cropSize": {
+        "width": 30,
+        "height": 28
+      }
+    },
+    {
+      "id": 101,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 152,
+        "y0": 159,
+        "x1": 162,
+        "y1": 168
+      },
+      "area": 54,
+      "crop": "crops\\101.png",
+      "cropSize": {
+        "width": 27,
+        "height": 26
+      }
+    },
+    {
+      "id": 102,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 165,
+        "y0": 152,
+        "x1": 186,
+        "y1": 166
+      },
+      "area": 103,
+      "crop": "crops\\102.png",
+      "cropSize": {
+        "width": 38,
+        "height": 31
+      }
+    },
+    {
+      "id": 103,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 196,
+        "y0": 140,
+        "x1": 232,
+        "y1": 159
+      },
+      "area": 227,
+      "crop": "crops\\103.png",
+      "cropSize": {
+        "width": 53,
+        "height": 36
+      }
+    },
+    {
+      "id": 104,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 211,
+        "y0": 167,
+        "x1": 224,
+        "y1": 177
+      },
+      "area": 73,
+      "crop": "crops\\104.png",
+      "cropSize": {
+        "width": 30,
+        "height": 27
+      }
+    },
+    {
+      "id": 105,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 227,
+        "y0": 163,
+        "x1": 236,
+        "y1": 173
+      },
+      "area": 50,
+      "crop": "crops\\105.png",
+      "cropSize": {
+        "width": 26,
+        "height": 27
+      }
+    },
+    {
+      "id": 106,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 331,
+        "y0": 160,
+        "x1": 347,
+        "y1": 172
+      },
+      "area": 92,
+      "crop": "crops\\106.png",
+      "cropSize": {
+        "width": 33,
+        "height": 29
+      }
+    },
+    {
+      "id": 107,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 347,
+        "y0": 157,
+        "x1": 361,
+        "y1": 167
+      },
+      "area": 86,
+      "crop": "crops\\107.png",
+      "cropSize": {
+        "width": 31,
+        "height": 27
+      }
+    },
+    {
+      "id": 108,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 368,
+        "y0": 149,
+        "x1": 384,
+        "y1": 162
+      },
+      "area": 83,
+      "crop": "crops\\108.png",
+      "cropSize": {
+        "width": 33,
+        "height": 30
+      }
+    },
+    {
+      "id": 109,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 395,
+        "y0": 140,
+        "x1": 420,
+        "y1": 153
+      },
+      "area": 119,
+      "crop": "crops\\109.png",
+      "cropSize": {
+        "width": 42,
+        "height": 30
+      }
+    },
+    {
+      "id": 110,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 421,
+        "y0": 160,
+        "x1": 428,
+        "y1": 172
+      },
+      "area": 60,
+      "crop": "crops\\110.png",
+      "cropSize": {
+        "width": 24,
+        "height": 29
+      }
+    },
+    {
+      "id": 111,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 431,
+        "y0": 148,
+        "x1": 482,
+        "y1": 171
+      },
+      "area": 298,
+      "crop": "crops\\111.png",
+      "cropSize": {
+        "width": 68,
+        "height": 40
+      }
+    },
+    {
+      "id": 112,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 3,
+      "box": {
+        "x0": 482,
+        "y0": 142,
+        "x1": 492,
+        "y1": 153
+      },
+      "area": 84,
+      "crop": "crops\\112.png",
+      "cropSize": {
+        "width": 27,
+        "height": 28
+      }
+    },
+    {
+      "id": 113,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 5,
+        "y0": 220,
+        "x1": 16,
+        "y1": 233
+      },
+      "area": 59,
+      "crop": "crops\\113.png",
+      "cropSize": {
+        "width": 28,
+        "height": 30
+      }
+    },
+    {
+      "id": 114,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 6,
+        "y0": 193,
+        "x1": 25,
+        "y1": 208
+      },
+      "area": 129,
+      "crop": "crops\\114.png",
+      "cropSize": {
+        "width": 36,
+        "height": 32
+      }
+    },
+    {
+      "id": 115,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 18,
+        "y0": 216,
+        "x1": 39,
+        "y1": 228
+      },
+      "area": 119,
+      "crop": "crops\\115.png",
+      "cropSize": {
+        "width": 38,
+        "height": 29
+      }
+    },
+    {
+      "id": 116,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 38,
+        "y0": 189,
+        "x1": 52,
+        "y1": 200
+      },
+      "area": 60,
+      "crop": "crops\\116.png",
+      "cropSize": {
+        "width": 31,
+        "height": 28
+      }
+    },
+    {
+      "id": 117,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 50,
+        "y0": 233,
+        "x1": 64,
+        "y1": 248
+      },
+      "area": 91,
+      "crop": "crops\\117.png",
+      "cropSize": {
+        "width": 31,
+        "height": 32
+      }
+    },
+    {
+      "id": 118,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 54,
+        "y0": 186,
+        "x1": 64,
+        "y1": 196
+      },
+      "area": 67,
+      "crop": "crops\\118.png",
+      "cropSize": {
+        "width": 27,
+        "height": 27
+      }
+    },
+    {
+      "id": 119,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 64,
+        "y0": 209,
+        "x1": 76,
+        "y1": 219
+      },
+      "area": 57,
+      "crop": "crops\\119.png",
+      "cropSize": {
+        "width": 29,
+        "height": 27
+      }
+    },
+    {
+      "id": 120,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 66,
+        "y0": 225,
+        "x1": 95,
+        "y1": 244
+      },
+      "area": 183,
+      "crop": "crops\\120.png",
+      "cropSize": {
+        "width": 46,
+        "height": 36
+      }
+    },
+    {
+      "id": 121,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 78,
+        "y0": 179,
+        "x1": 87,
+        "y1": 191
+      },
+      "area": 61,
+      "crop": "crops\\121.png",
+      "cropSize": {
+        "width": 26,
+        "height": 29
+      }
+    },
+    {
+      "id": 122,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 80,
+        "y0": 203,
+        "x1": 87,
+        "y1": 214
+      },
+      "area": 51,
+      "crop": "crops\\122.png",
+      "cropSize": {
+        "width": 24,
+        "height": 28
+      }
+    },
+    {
+      "id": 123,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 88,
+        "y0": 197,
+        "x1": 117,
+        "y1": 210
+      },
+      "area": 121,
+      "crop": "crops\\123.png",
+      "cropSize": {
+        "width": 46,
+        "height": 30
+      }
+    },
+    {
+      "id": 124,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 90,
+        "y0": 177,
+        "x1": 102,
+        "y1": 187
+      },
+      "area": 72,
+      "crop": "crops\\124.png",
+      "cropSize": {
+        "width": 29,
+        "height": 27
+      }
+    },
+    {
+      "id": 125,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 97,
+        "y0": 216,
+        "x1": 123,
+        "y1": 236
+      },
+      "area": 170,
+      "crop": "crops\\125.png",
+      "cropSize": {
+        "width": 43,
+        "height": 37
+      }
+    },
+    {
+      "id": 126,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 102,
+        "y0": 172,
+        "x1": 112,
+        "y1": 183
+      },
+      "area": 65,
+      "crop": "crops\\126.png",
+      "cropSize": {
+        "width": 27,
+        "height": 28
+      }
+    },
+    {
+      "id": 127,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 120,
+        "y0": 190,
+        "x1": 146,
+        "y1": 204
+      },
+      "area": 132,
+      "crop": "crops\\127.png",
+      "cropSize": {
+        "width": 43,
+        "height": 31
+      }
+    },
+    {
+      "id": 128,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 132,
+        "y0": 238,
+        "x1": 149,
+        "y1": 251
+      },
+      "area": 73,
+      "crop": "crops\\128.png",
+      "cropSize": {
+        "width": 34,
+        "height": 30
+      }
+    },
+    {
+      "id": 129,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 139,
+        "y0": 211,
+        "x1": 148,
+        "y1": 224
+      },
+      "area": 88,
+      "crop": "crops\\129.png",
+      "cropSize": {
+        "width": 26,
+        "height": 30
+      }
+    },
+    {
+      "id": 130,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 150,
+        "y0": 188,
+        "x1": 160,
+        "y1": 195
+      },
+      "area": 38,
+      "crop": "crops\\130.png",
+      "cropSize": {
+        "width": 27,
+        "height": 24
+      }
+    },
+    {
+      "id": 131,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 150,
+        "y0": 235,
+        "x1": 163,
+        "y1": 245
+      },
+      "area": 94,
+      "crop": "crops\\131.png",
+      "cropSize": {
+        "width": 30,
+        "height": 27
+      }
+    },
+    {
+      "id": 132,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 151,
+        "y0": 205,
+        "x1": 182,
+        "y1": 220
+      },
+      "area": 238,
+      "crop": "crops\\132.png",
+      "cropSize": {
+        "width": 48,
+        "height": 32
+      }
+    },
+    {
+      "id": 133,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 163,
+        "y0": 179,
+        "x1": 172,
+        "y1": 191
+      },
+      "area": 79,
+      "crop": "crops\\133.png",
+      "cropSize": {
+        "width": 26,
+        "height": 29
+      }
+    },
+    {
+      "id": 134,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 179,
+        "y0": 224,
+        "x1": 204,
+        "y1": 237
+      },
+      "area": 120,
+      "crop": "crops\\134.png",
+      "cropSize": {
+        "width": 42,
+        "height": 30
+      }
+    },
+    {
+      "id": 135,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 186,
+        "y0": 200,
+        "x1": 201,
+        "y1": 210
+      },
+      "area": 66,
+      "crop": "crops\\135.png",
+      "cropSize": {
+        "width": 32,
+        "height": 27
+      }
+    },
+    {
+      "id": 136,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 197,
+        "y0": 171,
+        "x1": 208,
+        "y1": 183
+      },
+      "area": 60,
+      "crop": "crops\\136.png",
+      "cropSize": {
+        "width": 28,
+        "height": 29
+      }
+    },
+    {
+      "id": 137,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 203,
+        "y0": 194,
+        "x1": 226,
+        "y1": 207
+      },
+      "area": 145,
+      "crop": "crops\\137.png",
+      "cropSize": {
+        "width": 40,
+        "height": 30
+      }
+    },
+    {
+      "id": 138,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 206,
+        "y0": 219,
+        "x1": 217,
+        "y1": 231
+      },
+      "area": 76,
+      "crop": "crops\\138.png",
+      "cropSize": {
+        "width": 28,
+        "height": 29
+      }
+    },
+    {
+      "id": 139,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 227,
+        "y0": 188,
+        "x1": 238,
+        "y1": 200
+      },
+      "area": 70,
+      "crop": "crops\\139.png",
+      "cropSize": {
+        "width": 28,
+        "height": 29
+      }
+    },
+    {
+      "id": 140,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 227,
+        "y0": 215,
+        "x1": 238,
+        "y1": 226
+      },
+      "area": 69,
+      "crop": "crops\\140.png",
+      "cropSize": {
+        "width": 28,
+        "height": 28
+      }
+    },
+    {
+      "id": 141,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 228,
+        "y0": 241,
+        "x1": 233,
+        "y1": 249
+      },
+      "area": 30,
+      "crop": "crops\\141.png",
+      "cropSize": {
+        "width": 22,
+        "height": 25
+      }
+    },
+    {
+      "id": 142,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 241,
+        "y0": 206,
+        "x1": 270,
+        "y1": 223
+      },
+      "area": 192,
+      "crop": "crops\\142.png",
+      "cropSize": {
+        "width": 46,
+        "height": 34
+      }
+    },
+    {
+      "id": 143,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 251,
+        "y0": 227,
+        "x1": 264,
+        "y1": 246
+      },
+      "area": 116,
+      "crop": "crops\\143.png",
+      "cropSize": {
+        "width": 30,
+        "height": 36
+      }
+    },
+    {
+      "id": 144,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 255,
+        "y0": 181,
+        "x1": 265,
+        "y1": 193
+      },
+      "area": 69,
+      "crop": "crops\\144.png",
+      "cropSize": {
+        "width": 27,
+        "height": 29
+      }
+    },
+    {
+      "id": 145,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 269,
+        "y0": 167,
+        "x1": 319,
+        "y1": 189
+      },
+      "area": 287,
+      "crop": "crops\\145.png",
+      "cropSize": {
+        "width": 67,
+        "height": 39
+      }
+    },
+    {
+      "id": 146,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 273,
+        "y0": 197,
+        "x1": 302,
+        "y1": 213
+      },
+      "area": 159,
+      "crop": "crops\\146.png",
+      "cropSize": {
+        "width": 46,
+        "height": 33
+      }
+    },
+    {
+      "id": 147,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 277,
+        "y0": 209,
+        "x1": 356,
+        "y1": 238
+      },
+      "area": 494,
+      "crop": "crops\\147.png",
+      "cropSize": {
+        "width": 96,
+        "height": 46
+      }
+    },
+    {
+      "id": 148,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 313,
+        "y0": 192,
+        "x1": 326,
+        "y1": 202
+      },
+      "area": 64,
+      "crop": "crops\\148.png",
+      "cropSize": {
+        "width": 30,
+        "height": 27
+      }
+    },
+    {
+      "id": 149,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 327,
+        "y0": 183,
+        "x1": 354,
+        "y1": 197
+      },
+      "area": 142,
+      "crop": "crops\\149.png",
+      "cropSize": {
+        "width": 44,
+        "height": 31
+      }
+    },
+    {
+      "id": 150,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 355,
+        "y0": 180,
+        "x1": 367,
+        "y1": 190
+      },
+      "area": 78,
+      "crop": "crops\\150.png",
+      "cropSize": {
+        "width": 29,
+        "height": 27
+      }
+    },
+    {
+      "id": 151,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 358,
+        "y0": 204,
+        "x1": 368,
+        "y1": 216
+      },
+      "area": 76,
+      "crop": "crops\\151.png",
+      "cropSize": {
+        "width": 27,
+        "height": 29
+      }
+    },
+    {
+      "id": 152,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 373,
+        "y0": 174,
+        "x1": 388,
+        "y1": 186
+      },
+      "area": 78,
+      "crop": "crops\\152.png",
+      "cropSize": {
+        "width": 32,
+        "height": 29
+      }
+    },
+    {
+      "id": 153,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 373,
+        "y0": 203,
+        "x1": 379,
+        "y1": 211
+      },
+      "area": 31,
+      "crop": "crops\\153.png",
+      "cropSize": {
+        "width": 23,
+        "height": 25
+      }
+    },
+    {
+      "id": 154,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 382,
+        "y0": 197,
+        "x1": 398,
+        "y1": 209
+      },
+      "area": 88,
+      "crop": "crops\\154.png",
+      "cropSize": {
+        "width": 33,
+        "height": 29
+      }
+    },
+    {
+      "id": 155,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 393,
+        "y0": 168,
+        "x1": 400,
+        "y1": 181
+      },
+      "area": 57,
+      "crop": "crops\\155.png",
+      "cropSize": {
+        "width": 24,
+        "height": 30
+      }
+    },
+    {
+      "id": 156,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 398,
+        "y0": 194,
+        "x1": 411,
+        "y1": 205
+      },
+      "area": 77,
+      "crop": "crops\\156.png",
+      "cropSize": {
+        "width": 30,
+        "height": 28
+      }
+    },
+    {
+      "id": 157,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 406,
+        "y0": 238,
+        "x1": 434,
+        "y1": 256
+      },
+      "area": 147,
+      "crop": "crops\\157.png",
+      "cropSize": {
+        "width": 45,
+        "height": 35
+      }
+    },
+    {
+      "id": 158,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 425,
+        "y0": 174,
+        "x1": 480,
+        "y1": 198
+      },
+      "area": 334,
+      "crop": "crops\\158.png",
+      "cropSize": {
+        "width": 72,
+        "height": 41
+      }
+    },
+    {
+      "id": 159,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 436,
+        "y0": 231,
+        "x1": 463,
+        "y1": 245
+      },
+      "area": 153,
+      "crop": "crops\\159.png",
+      "cropSize": {
+        "width": 44,
+        "height": 31
+      }
+    },
+    {
+      "id": 160,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 465,
+        "y0": 228,
+        "x1": 477,
+        "y1": 239
+      },
+      "area": 65,
+      "crop": "crops\\160.png",
+      "cropSize": {
+        "width": 29,
+        "height": 28
+      }
+    },
+    {
+      "id": 161,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 478,
+        "y0": 222,
+        "x1": 489,
+        "y1": 233
+      },
+      "area": 62,
+      "crop": "crops\\161.png",
+      "cropSize": {
+        "width": 28,
+        "height": 28
+      }
+    },
+    {
+      "id": 162,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 481,
+        "y0": 167,
+        "x1": 499,
+        "y1": 179
+      },
+      "area": 74,
+      "crop": "crops\\162.png",
+      "cropSize": {
+        "width": 35,
+        "height": 29
+      }
+    },
+    {
+      "id": 163,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 4,
+      "box": {
+        "x0": 488,
+        "y0": 219,
+        "x1": 501,
+        "y1": 231
+      },
+      "area": 75,
+      "crop": "crops\\163.png",
+      "cropSize": {
+        "width": 30,
+        "height": 29
+      }
+    },
+    {
+      "id": 164,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 1,
+        "y0": 268,
+        "x1": 440,
+        "y1": 402
+      },
+      "area": 3288,
+      "crop": "crops\\164.png",
+      "cropSize": {
+        "width": 456,
+        "height": 151
+      }
+    },
+    {
+      "id": 165,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 1,
+        "y0": 271,
+        "x1": 14,
+        "y1": 286
+      },
+      "area": 97,
+      "crop": "crops\\165.png",
+      "cropSize": {
+        "width": 30,
+        "height": 32
+      }
+    },
+    {
+      "id": 166,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 1,
+        "y0": 284,
+        "x1": 476,
+        "y1": 434
+      },
+      "area": 3574,
+      "crop": "crops\\166.png",
+      "cropSize": {
+        "width": 492,
+        "height": 167
+      }
+    },
+    {
+      "id": 167,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 1,
+        "y0": 316,
+        "x1": 501,
+        "y1": 464
+      },
+      "area": 1397,
+      "crop": "crops\\167.png",
+      "cropSize": {
+        "width": 517,
+        "height": 165
+      }
+    },
+    {
+      "id": 168,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 1,
+        "y0": 360,
+        "x1": 33,
+        "y1": 369
+      },
+      "area": 56,
+      "crop": "crops\\168.png",
+      "cropSize": {
+        "width": 49,
+        "height": 26
+      }
+    },
+    {
+      "id": 169,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 3,
+        "y0": 285,
+        "x1": 70,
+        "y1": 311
+      },
+      "area": 516,
+      "crop": "crops\\169.png",
+      "cropSize": {
+        "width": 84,
+        "height": 43
+      }
+    },
+    {
+      "id": 170,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 10,
+        "y0": 322,
+        "x1": 33,
+        "y1": 336
+      },
+      "area": 159,
+      "crop": "crops\\170.png",
+      "cropSize": {
+        "width": 40,
+        "height": 31
+      }
+    },
+    {
+      "id": 171,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 28,
+        "y0": 244,
+        "x1": 129,
+        "y1": 279
+      },
+      "area": 728,
+      "crop": "crops\\171.png",
+      "cropSize": {
+        "width": 118,
+        "height": 52
+      }
+    },
+    {
+      "id": 172,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 45,
+        "y0": 313,
+        "x1": 60,
+        "y1": 328
+      },
+      "area": 93,
+      "crop": "crops\\172.png",
+      "cropSize": {
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "id": 173,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 60,
+        "y0": 302,
+        "x1": 116,
+        "y1": 323
+      },
+      "area": 300,
+      "crop": "crops\\173.png",
+      "cropSize": {
+        "width": 73,
+        "height": 38
+      }
+    },
+    {
+      "id": 174,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 71,
+        "y0": 264,
+        "x1": 152,
+        "y1": 294
+      },
+      "area": 538,
+      "crop": "crops\\174.png",
+      "cropSize": {
+        "width": 98,
+        "height": 47
+      }
+    },
+    {
+      "id": 175,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 81,
+        "y0": 298,
+        "x1": 226,
+        "y1": 346
+      },
+      "area": 733,
+      "crop": "crops\\175.png",
+      "cropSize": {
+        "width": 162,
+        "height": 65
+      }
+    },
+    {
+      "id": 176,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 114,
+        "y0": 283,
+        "x1": 177,
+        "y1": 309
+      },
+      "area": 311,
+      "crop": "crops\\176.png",
+      "cropSize": {
+        "width": 80,
+        "height": 43
+      }
+    },
+    {
+      "id": 177,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 166,
+        "y0": 244,
+        "x1": 225,
+        "y1": 269
+      },
+      "area": 411,
+      "crop": "crops\\177.png",
+      "cropSize": {
+        "width": 76,
+        "height": 42
+      }
+    },
+    {
+      "id": 178,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 180,
+        "y0": 275,
+        "x1": 203,
+        "y1": 292
+      },
+      "area": 196,
+      "crop": "crops\\178.png",
+      "cropSize": {
+        "width": 40,
+        "height": 34
+      }
+    },
+    {
+      "id": 179,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 205,
+        "y0": 270,
+        "x1": 215,
+        "y1": 285
+      },
+      "area": 101,
+      "crop": "crops\\179.png",
+      "cropSize": {
+        "width": 27,
+        "height": 32
+      }
+    },
+    {
+      "id": 180,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 221,
+        "y0": 264,
+        "x1": 248,
+        "y1": 281
+      },
+      "area": 114,
+      "crop": "crops\\180.png",
+      "cropSize": {
+        "width": 44,
+        "height": 34
+      }
+    },
+    {
+      "id": 181,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 227,
+        "y0": 287,
+        "x1": 236,
+        "y1": 309
+      },
+      "area": 60,
+      "crop": "crops\\181.png",
+      "cropSize": {
+        "width": 26,
+        "height": 39
+      }
+    },
+    {
+      "id": 182,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 240,
+        "y0": 403,
+        "x1": 287,
+        "y1": 422
+      },
+      "area": 375,
+      "crop": "crops\\182.png",
+      "cropSize": {
+        "width": 64,
+        "height": 36
+      }
+    },
+    {
+      "id": 183,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 241,
+        "y0": 287,
+        "x1": 271,
+        "y1": 302
+      },
+      "area": 171,
+      "crop": "crops\\183.png",
+      "cropSize": {
+        "width": 47,
+        "height": 32
+      }
+    },
+    {
+      "id": 184,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 250,
+        "y0": 249,
+        "x1": 299,
+        "y1": 273
+      },
+      "area": 392,
+      "crop": "crops\\184.png",
+      "cropSize": {
+        "width": 66,
+        "height": 41
+      }
+    },
+    {
+      "id": 185,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 269,
+        "y0": 270,
+        "x1": 324,
+        "y1": 294
+      },
+      "area": 342,
+      "crop": "crops\\185.png",
+      "cropSize": {
+        "width": 72,
+        "height": 41
+      }
+    },
+    {
+      "id": 186,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 285,
+        "y0": 386,
+        "x1": 315,
+        "y1": 408
+      },
+      "area": 282,
+      "crop": "crops\\186.png",
+      "cropSize": {
+        "width": 47,
+        "height": 39
+      }
+    },
+    {
+      "id": 187,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 316,
+        "y0": 380,
+        "x1": 359,
+        "y1": 399
+      },
+      "area": 291,
+      "crop": "crops\\187.png",
+      "cropSize": {
+        "width": 60,
+        "height": 36
+      }
+    },
+    {
+      "id": 188,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 326,
+        "y0": 265,
+        "x1": 352,
+        "y1": 276
+      },
+      "area": 115,
+      "crop": "crops\\188.png",
+      "cropSize": {
+        "width": 43,
+        "height": 28
+      }
+    },
+    {
+      "id": 189,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 360,
+        "y0": 358,
+        "x1": 423,
+        "y1": 387
+      },
+      "area": 537,
+      "crop": "crops\\189.png",
+      "cropSize": {
+        "width": 80,
+        "height": 46
+      }
+    },
+    {
+      "id": 190,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 374,
+        "y0": 252,
+        "x1": 389,
+        "y1": 265
+      },
+      "area": 95,
+      "crop": "crops\\190.png",
+      "cropSize": {
+        "width": 32,
+        "height": 30
+      }
+    },
+    {
+      "id": 191,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 390,
+        "y0": 245,
+        "x1": 401,
+        "y1": 257
+      },
+      "area": 61,
+      "crop": "crops\\191.png",
+      "cropSize": {
+        "width": 28,
+        "height": 29
+      }
+    },
+    {
+      "id": 192,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 425,
+        "y0": 358,
+        "x1": 434,
+        "y1": 368
+      },
+      "area": 31,
+      "crop": "crops\\192.png",
+      "cropSize": {
+        "width": 26,
+        "height": 27
+      }
+    },
+    {
+      "id": 193,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 432,
+        "y0": 346,
+        "x1": 465,
+        "y1": 366
+      },
+      "area": 267,
+      "crop": "crops\\193.png",
+      "cropSize": {
+        "width": 50,
+        "height": 37
+      }
+    },
+    {
+      "id": 194,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 442,
+        "y0": 248,
+        "x1": 501,
+        "y1": 275
+      },
+      "area": 495,
+      "crop": "crops\\194.png",
+      "cropSize": {
+        "width": 76,
+        "height": 44
+      }
+    },
+    {
+      "id": 195,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 472,
+        "y0": 337,
+        "x1": 489,
+        "y1": 355
+      },
+      "area": 173,
+      "crop": "crops\\195.png",
+      "cropSize": {
+        "width": 34,
+        "height": 35
+      }
+    },
+    {
+      "id": 196,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 478,
+        "y0": 274,
+        "x1": 501,
+        "y1": 293
+      },
+      "area": 172,
+      "crop": "crops\\196.png",
+      "cropSize": {
+        "width": 40,
+        "height": 36
+      }
+    },
+    {
+      "id": 197,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 5,
+      "box": {
+        "x0": 489,
+        "y0": 333,
+        "x1": 501,
+        "y1": 348
+      },
+      "area": 100,
+      "crop": "crops\\197.png",
+      "cropSize": {
+        "width": 29,
+        "height": 32
+      }
+    },
+    {
+      "id": 198,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 1,
+        "y0": 378,
+        "x1": 501,
+        "y1": 633
+      },
+      "area": 20570,
+      "crop": "crops\\198.png",
+      "cropSize": {
+        "width": 517,
+        "height": 272
+      }
+    },
+    {
+      "id": 199,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 1,
+        "y0": 479,
+        "x1": 13,
+        "y1": 492
+      },
+      "area": 71,
+      "crop": "crops\\199.png",
+      "cropSize": {
+        "width": 29,
+        "height": 30
+      }
+    },
+    {
+      "id": 200,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 17,
+        "y0": 413,
+        "x1": 236,
+        "y1": 487
+      },
+      "area": 1634,
+      "crop": "crops\\200.png",
+      "cropSize": {
+        "width": 236,
+        "height": 91
+      }
+    },
+    {
+      "id": 201,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 112,
+        "y0": 511,
+        "x1": 117,
+        "y1": 518
+      },
+      "area": 30,
+      "crop": "crops\\201.png",
+      "cropSize": {
+        "width": 22,
+        "height": 24
+      }
+    },
+    {
+      "id": 202,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 117,
+        "y0": 499,
+        "x1": 501,
+        "y1": 633
+      },
+      "area": 19399,
+      "crop": "crops\\202.png",
+      "cropSize": {
+        "width": 401,
+        "height": 151
+      }
+    },
+    {
+      "id": 203,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 136,
+        "y0": 615,
+        "x1": 141,
+        "y1": 622
+      },
+      "area": 37,
+      "crop": "crops\\203.png",
+      "cropSize": {
+        "width": 22,
+        "height": 24
+      }
+    },
+    {
+      "id": 204,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 197,
+        "y0": 627,
+        "x1": 208,
+        "y1": 633
+      },
+      "area": 67,
+      "crop": "crops\\204.png",
+      "cropSize": {
+        "width": 28,
+        "height": 23
+      }
+    },
+    {
+      "id": 205,
+      "photo": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+      "row": 6,
+      "box": {
+        "x0": 307,
+        "y0": 622,
+        "x1": 322,
+        "y1": 633
+      },
+      "area": 59,
+      "crop": "crops\\205.png",
+      "cropSize": {
+        "width": 32,
+        "height": 28
+      }
+    }
+  ]
+}

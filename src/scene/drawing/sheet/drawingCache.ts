@@ -4,7 +4,7 @@ import { InkBuilder, type InkText } from './ink'
 import { decodeDrawingPrecompute, encodeDrawingPrecompute } from './drawingCodec'
 
 /** Bump whenever extraction, profile tracing, annotation content or font sizing changes. */
-export const DRAWING_CACHE_VERSION = 7
+export const DRAWING_CACHE_VERSION = 8
 export interface DrawingPrecompute {
   version: number
   key: string
@@ -122,7 +122,11 @@ function valid(value: unknown): value is DrawingPrecompute {
     && numbers(p.segs, 9) && numbers(p.fills, 15)
     && Array.isArray(p.profile) && p.profile.length > 3 && p.profile.every((point) => numbers(point, 2) && point.length === 2)
     && Array.isArray(p.texts) && p.texts.every((t) => t && typeof t.text === 'string'
-      && [t.x, t.y, t.size, t.group, t.key].every(Number.isFinite) && t.size > 0)
+      && [t.x, t.y, t.size, t.group, t.key].every(Number.isFinite) && t.size > 0
+      && (t.scaleX === undefined || Number.isFinite(t.scaleX) && t.scaleX > 0)
+      && (t.rotation === undefined || Number.isFinite(t.rotation))
+      && (t.color === undefined || ['ink', 'graphite', 'red'].includes(t.color))
+      && (t.weight === undefined || ['medium', 'semibold', 'handwriting'].includes(t.weight)))
     && !!p.marks && Object.values(p.marks).every((point) => numbers(point, 2) && point.length === 2)
     && !!p.stats && Object.values(p.stats).every(Number.isFinite)
 }

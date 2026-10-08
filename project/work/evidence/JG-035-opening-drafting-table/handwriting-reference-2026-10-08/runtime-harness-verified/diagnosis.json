@@ -1,0 +1,83 @@
+{
+  "initialTimeout": {
+    "cases": [
+      {
+        "case": "desktop",
+        "captures": 0,
+        "error": "page.waitForFunction: Timeout 90000ms exceeded.\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:414:18"
+      },
+      {
+        "case": "narrow",
+        "captures": 0,
+        "error": "page.waitForFunction: Timeout 90000ms exceeded.\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:414:18"
+      }
+    ],
+    "harnessMismatch": "The old harness intercepted every HTMLCanvasElement.getContext before normal startup, including capability and SDF contexts, and eagerly queried LINK_STATUS after every startup shader link. The corrected observer is installed only on the mounted actual renderer after normal proof/annotation readiness; connected live draws remain required.",
+    "proofReadyLifecycle": "DrawingLinework publishes ready:true; the flag is present. No production readiness flag was removed or synthesized."
+  },
+  "fontReadinessRootCause": "Typesetter returns fontData metrics but no top-level capHeight; TextBuilder still copies result.capHeight, so live TextRenderInfo.capHeight is undefined/null although glyph atlas, glyph count, font, bounds and rendering are ready.",
+  "capProof": "Each live visible ink height must agree with source TTF fontHeight * actual fontSize / 1000 within max(1e-8 metres, expected height * 1e-5).",
+  "checksPreserved": [
+    "actual reference font URL and successful response",
+    "live SDF atlas and exactly one glyph per letter",
+    "finite nonempty visible bounds and positive font size",
+    "actual scene/camera/renderer and connected live draws",
+    "shader/context health",
+    "per-letter reveal packing and colors",
+    "forward/reverse bounds and placement",
+    "output/AIR MOTOR non-overlap",
+    "precomputed cache at every checkpoint"
+  ],
+  "result": "verified",
+  "qualityLock": true,
+  "performanceProofEligible": false,
+  "cases": [
+    {
+      "case": "desktop",
+      "status": "verified",
+      "checks": 122,
+      "failures": 0,
+      "captures": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "requestFailures": 0,
+      "annotationsReadyMs": 16580,
+      "liveDrawReadyMs": 19361,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "precomputed": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maxInkHeightDelta": 8.673617379884035e-19
+    },
+    {
+      "case": "narrow",
+      "status": "verified",
+      "checks": 122,
+      "failures": 0,
+      "captures": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "requestFailures": 0,
+      "annotationsReadyMs": 7845,
+      "liveDrawReadyMs": 7910,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "precomputed": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maxInkHeightDelta": 8.673617379884035e-19
+    }
+  ],
+  "productionSourceChangedByThisFix": false
+}

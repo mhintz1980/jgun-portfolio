@@ -77,7 +77,7 @@ export interface AnnotationContext {
   layout: Pick<DrawingLayout, 'views'>
 }
 
-/** Half-width of the hand's pen in sheet metres (mean; each stroke scales it by its own pressure, about +-35 %). */
+/** Uniform half-width for supplementary vector lettering in sheet metres. */
 const PEN_HAND = 0.00024
 /** Heavier pen for marks that sit on the dense section linework, where a fine graphite line would be lost. */
 const PEN_HAND_HEAVY = 0.0005
@@ -102,7 +102,15 @@ function pen(ink: InkBuilder, strokes: (HandStroke | Pt[])[], group: number, key
     const len = strokeLength([s])
     const k = key0 + (walked / total) * (key1 - key0)
     const d = Math.max(1e-4, (len / total) * (key1 - key0))
-    ink.path(s.points, width * (s.pressure ?? 1), group, k, d, withPenColor(0, s.red ? PEN_COLOR.red : colour))
+    if (s.letter) {
+      const letter = s.letter
+      ink.text({ text: letter.ch, x: letter.x, y: letter.y, size: letter.capHeight, group, key: k,
+        weight: 'handwriting', color: s.red ? 'red' : colour === PEN_COLOR.red ? 'red' : colour === PEN_COLOR.ink ? 'ink' : 'graphite',
+        scaleX: letter.scaleX, rotation: letter.rotation, anchorX: 'left', anchorY: 'baseline', letterSpacing: 0, dur: d,
+      })
+    } else {
+      ink.path(s.points, width * (s.pressure ?? 1), group, k, d, withPenColor(0, s.red ? PEN_COLOR.red : colour))
+    }
     walked += len
   }
 }
@@ -141,15 +149,15 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   // The alloy list: three separate words so each can be crossed off on its own.
   const alloyX = [nx0, nx0 + 0.027, nx0 + 0.054]
   const alloys = OWNER_NOTES.input.alloys.map((word, i) => handwrite(word, { x: alloyX[i], y: baseline(2), capHeight: CAP * 1.08, seed: 31 + i, rotation: 0.01 - i * 0.006 }))
-  const decision1 = handwrite(OWNER_NOTES.input.decision[0], { x: nx0, y: baseline(3.15), capHeight: CAP, seed: 41, rotation: 0.004 })
+  const decision1 = handwrite(OWNER_NOTES.input.decision[0], { x: nx0, y: baseline(3.15), capHeight: CAP, penHalfWidth: PEN_HAND, seed: 41, rotation: 0.004 })
   const decision2 = handwrite(OWNER_NOTES.input.decision[1], { x: nx0 + 0.003, y: baseline(4.7), capHeight: CAP * 1.12, seed: 42, rotation: -0.01 })
   const strikes: HandStroke[] = []
   alloys.forEach((alloy, i) => {
     const { x0, x1, y0, y1 } = alloy.bounds
     const mid = (y0 + y1) / 2
-    // Two quick, slightly bowed passes with a loose overshoot at each end; the wobble is a slow lean of the wrist.
-    strikes.push(pressed(handLine([x0 - 0.0014, mid - 0.0003], [x1 + 0.0016, mid + 0.0012], 60 + i, 0.00034), 1.15, true))
-    strikes.push(pressed(handLine([x1 + 0.0012, mid + 0.0017], [x0 - 0.001, mid - 0.0012], 70 + i, 0.0004), 0.85, true))
+    // Two clean, slightly bowed passes extending beyond the alloy word.
+    strikes.push(pressed(handLine([x0 - 0.0014, mid - 0.0003], [x1 + 0.0016, mid + 0.0012], 60 + i, 0.00034), 1, true))
+    strikes.push(pressed(handLine([x1 + 0.0012, mid + 0.0017], [x0 - 0.001, mid - 0.0012], 70 + i, 0.0004), 1, true))
   })
   const dec = decision2.bounds
   const decCircle = handCircle((dec.x0 + dec.x1) / 2, (dec.y0 + dec.y1) / 2, (dec.x1 - dec.x0) / 2 + 0.0042, (dec.y1 - dec.y0) / 2 + 0.0032, 9, 1.12, -0.03)
@@ -185,7 +193,7 @@ export function composeOwnerAnnotations(ctx: AnnotationContext): OwnerAnnotation
   const ring = handCircle(spindle.x, spindle.y, spindleLen / 2 + 0.003, spindleDia / 2 + 0.0032, 13, 1.1, 0.04)
   const ox0 = 0.034
   const oTop = 0.088
-  const outLines = OWNER_NOTES.output.map((line, i) => handwrite(line, { x: ox0, y: oTop - CAP - i * PITCH, capHeight: CAP, seed: 51 + i, rotation: 0.006 }))
+  const outLines = OWNER_NOTES.output.map((line, i) => handwrite(line, { x: ox0, y: oTop - CAP - i * PITCH, capHeight: CAP, penHalfWidth: PEN_HAND, seed: 51 + i, rotation: 0.006 }))
   const outRight = Math.max(...outLines.map(l => l.bounds.x1))
   const arrowFrom: Pt = [outRight + 0.003, oTop - CAP - PITCH * 0.3]
   const arrowTo: Pt = [spindle.x - (spindleLen / 2 + 0.003) * 0.92, spindle.y + (spindleDia / 2 + 0.003) * 0.4]

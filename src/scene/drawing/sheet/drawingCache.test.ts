@@ -29,6 +29,9 @@ function fixture() {
 async function liveBake(data: DrawingGeometry, layout: DrawingLayout) {
   const ink = new InkBuilder()
   ink.segs.push(0, 0, 1, 1, 0.001, 0, 0, 1, 0)
+  ink.text({ text: 'R', x: 0.12, y: 0.05, size: 0.0038, group: 16, key: 0.2, dur: 0.015,
+    weight: 'handwriting', color: 'graphite', scaleX: 0.97, rotation: -0.025,
+    anchorX: 'left', anchorY: 'baseline', letterSpacing: 0 })
   rememberSheet(data, layout, { ink, marks: { origin: [0, 0] }, stats: { segments: 1, totalMs: 10 } })
   rememberProfile(data, layout, [[0, 0], [1, 0], [1, 1], [0, 1]])
   return exportDrawingPrecompute()
@@ -61,17 +64,18 @@ describe('drawing precompute integrity', () => {
     const asset = await liveBake(data, layout)
     expect(await installDrawingPrecompute(data, layout, asset)).toBe(true)
     expect(cachedSheet(data, layout)?.ink.segs).toEqual(asset.segs)
+    expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
     expect(cachedProfile(data, layout)).toEqual(asset.profile)
     expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
     expect(drawingPrecomputeSource()).toEqual({ data, layout })
     await expect(exportDrawingPrecompute()).rejects.toThrow('Cannot export an installed precompute')
   })
 
-  it('is on cache version 7 (graphite handwriting) so a version-6 asset falls back to the live bake', async () => {
-    expect(DRAWING_CACHE_VERSION).toBe(7)
+  it('is on cache version 8 (reference font lettering) so a version-7 asset falls back to the live bake', async () => {
+    expect(DRAWING_CACHE_VERSION).toBe(8)
     const { data, layout } = fixture()
     const asset = await liveBake(data, layout)
-    expect(await installDrawingPrecompute(data, layout, { ...asset, version: 6 })).toBe(false)
+    expect(await installDrawingPrecompute(data, layout, { ...asset, version: 7 })).toBe(false)
   })
 
   it('keeps the per-stroke pen colour (dash + 10 * colour, incl. graphite = 2) through install and the binary codec', async () => {
@@ -98,6 +102,10 @@ describe('drawing precompute integrity', () => {
     const asset = await liveBake(data, layout)
     expect(await installDrawingPrecompute(data, layout, { ...asset, version: DRAWING_CACHE_VERSION - 1 })).toBe(false)
     expect(await installDrawingPrecompute(data, layout, { ...asset, segs: [NaN] })).toBe(false)
+    for (const fields of [{ scaleX: 0 }, { scaleX: -1 }, { scaleX: Infinity }, { rotation: NaN },
+      { color: 'blue' }, { weight: 'synthetic' }]) {
+      expect(await installDrawingPrecompute(data, layout, { ...asset, texts: [{ ...asset.texts[0], ...fields }] })).toBe(false)
+    }
     data.geometry.setIndex([0, 2, 1])
     expect(await installDrawingPrecompute(data, layout, asset)).toBe(false)
   })
@@ -152,11 +160,13 @@ describe('drawing precompute integrity', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Uint8Array(gzipSync(container)))))
     expect(await prepareDrawingCache(data, layout)).toBe(true)
     expect(cachedSheet(data, layout)?.ink.segs).toEqual(asset.segs)
+    expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
     expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
     // Host-decoded form (vite/sirv/CDN applied Content-Encoding: gzip for us).
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Uint8Array(container))))
     expect(await prepareDrawingCache(data, layout)).toBe(true)
     expect(cachedSheet(data, layout)?.ink.segs).toEqual(asset.segs)
+    expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
     expect(JSON.stringify(cachedProfile(data, layout))).toBe(JSON.stringify(asset.profile))
   })
 

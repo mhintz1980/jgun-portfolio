@@ -1,0 +1,182 @@
+{
+  "0": {
+    "fontMinX": 62,
+    "fontMinY": 0,
+    "fontHeight": 688
+  },
+  "1": {
+    "fontMinX": 60,
+    "fontMinY": 8,
+    "fontHeight": 684
+  },
+  "2": {
+    "fontMinX": 56,
+    "fontMinY": 5,
+    "fontHeight": 689
+  },
+  "3": {
+    "fontMinX": 57,
+    "fontMinY": 8,
+    "fontHeight": 685
+  },
+  "4": {
+    "fontMinX": 54,
+    "fontMinY": 6,
+    "fontHeight": 687
+  },
+  "5": {
+    "fontMinX": 57,
+    "fontMinY": 5,
+    "fontHeight": 687
+  },
+  "6": {
+    "fontMinX": 55,
+    "fontMinY": 9,
+    "fontHeight": 685
+  },
+  "7": {
+    "fontMinX": 57,
+    "fontMinY": 4,
+    "fontHeight": 689
+  },
+  "8": {
+    "fontMinX": 55,
+    "fontMinY": 9,
+    "fontHeight": 682
+  },
+  "?": {
+    "fontMinX": 61,
+    "fontMinY": 18,
+    "fontHeight": 668
+  },
+  "A": {
+    "fontMinX": 56,
+    "fontMinY": 7,
+    "fontHeight": 685
+  },
+  "B": {
+    "fontMinX": 55,
+    "fontMinY": 6,
+    "fontHeight": 688
+  },
+  "C": {
+    "fontMinX": 55,
+    "fontMinY": 13,
+    "fontHeight": 677
+  },
+  "D": {
+    "fontMinX": 54,
+    "fontMinY": 6,
+    "fontHeight": 687
+  },
+  "E": {
+    "fontMinX": 56,
+    "fontMinY": 5,
+    "fontHeight": 689
+  },
+  "F": {
+    "fontMinX": 56,
+    "fontMinY": 7,
+    "fontHeight": 685
+  },
+  "G": {
+    "fontMinX": 56,
+    "fontMinY": 9,
+    "fontHeight": 686
+  },
+  "H": {
+    "fontMinX": 55,
+    "fontMinY": 6,
+    "fontHeight": 692
+  },
+  "I": {
+    "fontMinX": 57,
+    "fontMinY": -3,
+    "fontHeight": 697
+  },
+  "J": {
+    "fontMinX": 55,
+    "fontMinY": 12,
+    "fontHeight": 681
+  },
+  "K": {
+    "fontMinX": 56,
+    "fontMinY": 6,
+    "fontHeight": 688
+  },
+  "L": {
+    "fontMinX": 57,
+    "fontMinY": 6,
+    "fontHeight": 689
+  },
+  "M": {
+    "fontMinX": 59,
+    "fontMinY": -5,
+    "fontHeight": 697
+  },
+  "N": {
+    "fontMinX": 63,
+    "fontMinY": 4,
+    "fontHeight": 688
+  },
+  "O": {
+    "fontMinX": 59,
+    "fontMinY": 8,
+    "fontHeight": 683
+  },
+  "P": {
+    "fontMinX": 56,
+    "fontMinY": 6,
+    "fontHeight": 689
+  },
+  "Q": {
+    "fontMinX": 55,
+    "fontMinY": 5,
+    "fontHeight": 693
+  },
+  "R": {
+    "fontMinX": 56,
+    "fontMinY": 7,
+    "fontHeight": 685
+  },
+  "S": {
+    "fontMinX": 56,
+    "fontMinY": 9,
+    "fontHeight": 690
+  },
+  "T": {
+    "fontMinX": 57,
+    "fontMinY": 6,
+    "fontHeight": 687
+  },
+  "U": {
+    "fontMinX": 57,
+    "fontMinY": 7,
+    "fontHeight": 686
+  },
+  "V": {
+    "fontMinX": 56,
+    "fontMinY": 6,
+    "fontHeight": 688
+  },
+  "W": {
+    "fontMinX": 59,
+    "fontMinY": 9,
+    "fontHeight": 689
+  },
+  "X": {
+    "fontMinX": 58,
+    "fontMinY": 7,
+    "fontHeight": 687
+  },
+  "Y": {
+    "fontMinX": 54,
+    "fontMinY": 4,
+    "fontHeight": 693
+  },
+  "Z": {
+    "fontMinX": 56,
+    "fontMinY": 5,
+    "fontHeight": 689
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "url": "http://localhost:5199/?qualityLock=",
+  "started": "2026-10-08T13:38:38.541Z",
+  "launchContract": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "qualityLock": true,
+  "performanceProofEligible": false,
+  "evidenceClass": "quality-locked visual proof; performance acceptance excluded",
+  "qualityPolicy": "No forced tier, renderer, DPR, proof mode, or pass override. Explicit qualityLock disables the automatic quality ratchet for visual captures only.",
+  "readinessDefinition": "Fresh browser context, HTTP cache disabled. Navigation to actual drawn renderer and annotationsReady; server/OS caches uncontrolled.",
+  "scope": "Handwritten note typography, live bounds, colors, reveal and reverse consistency only.",
+  "cases": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900,
+      "checks": [
+        {
+          "name": "runtime execution",
+          "status": "failed",
+          "details": "TimeoutError: page.waitForFunction: Timeout 90000ms exceeded."
+        }
+      ],
+      "errors": [
+        "page.waitForFunction: Timeout 90000ms exceeded.\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:414:18"
+      ],
+      "consoleErrors": [],
+      "requestFailures": [],
+      "checkpoints": [],
+      "unverified": [
+        "Glyph font provenance inside Troika's private SDF atlas is not exposed; requested font, real layout readiness, glyph counts and font HTTP response are recorded.",
+        "Uploaded per-member texture handle and CPU packing are observed; no GPU texture-value readback is claimed."
+      ],
+      "navigationMs": 296,
+      "status": "failed"
+    },
+    {
+      "name": "narrow",
+      "width": 390,
+      "height": 844,
+      "checks": [
+        {
+          "name": "runtime execution",
+          "status": "failed",
+          "details": "TimeoutError: page.waitForFunction: Timeout 90000ms exceeded."
+        }
+      ],
+      "errors": [
+        "page.waitForFunction: Timeout 90000ms exceeded.\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:414:18"
+      ],
+      "consoleErrors": [],
+      "requestFailures": [],
+      "checkpoints": [],
+      "unverified": [
+        "Glyph font provenance inside Troika's private SDF atlas is not exposed; requested font, real layout readiness, glyph counts and font HTTP response are recorded.",
+        "Uploaded per-member texture handle and CPU packing are observed; no GPU texture-value readback is claimed."
+      ],
+      "navigationMs": 157,
+      "status": "failed"
+    }
+  ],
+  "finished": "2026-10-08T13:41:39.888Z",
+  "status": "failed"
+}

@@ -1,0 +1,28 @@
+# Handwriting task checkpoint, 2026-10-08
+
+The reference handwriting replacement is complete and the owner accepts its font direction. Do not continue retuning letter shapes unless asked. The owner clarified that close resemblance is sufficient and said "yours looks good".
+
+Branch `codex/jg033-signature-shot` starts from pulled cloud commit `d3066e4`. All current task changes remain uncommitted. No push or deployment was requested or performed. Three pre-pull recovery stashes remain (`44f2286`, `8284f58`, `e19f6f2`). Preserve restored local archives and `.scratch/`; never blanket-stage this checkout.
+
+The changed production surfaces are `handwriting.ts`, `referenceHandGlyphs.ts`, `ownerAnnotations.ts`, `ink.ts`, `sheetText.ts`, `drawingCache.ts`, their scoped tests, `public/fonts/AcFastReference.ttf`, and the v8 drawing cache/evidence. Extraction and comparison tooling plus `verify-handwriting-reference.mjs` are new. README, TODO, project knowledge map, work index and animation-spec record the superseding font status. The extraction script records actual TTF black-origin/cap-height metrics and is reproducible; current font SHA-256 is `3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870`.
+
+Final proof: typecheck exit 0; source suite 41 files/435 tests passed; production build exit 0; B1/B2 31 checks passed; Station 2 contract passed; regenerated cache version 8 exact live/cold/warm roundtrip. Parent reran the corrected runtime verifier to `runtime-final/`: desktop and narrow each pass 122 checks with seven captures and zero errors. Actual glyph ink heights agree with exported TTF metadata, cache loads precomputed, reveal/color packing passes, and reverse scrolling preserves lettering, bounds and paths.
+
+Fresh-context review returns SHIP for code. Its remaining request was a current corrected desktop/narrow verifier run; the parent supplied it in `runtime-final/report.json`. Original review is retained in `independent-review.md`. Native review was unavailable (429); the replacement was requested via ocx as `zai/glm-5.3-flash`. This is not a Fable review or a claim of full-project acceptance.
+
+Runtime failures retained under `runtime/` and intermediate harness folders were measurement failures: early GL interception disturbed startup, and Troika does not expose the expected top-level capHeight. The corrected harness observes only the mounted renderer after normal readiness and directly checks visible ink height against TTF metrics. No production readiness predicate was weakened. See `runtime-harness-verified/diagnosis.json`.
+
+Preview runs at http://localhost:4173/ after the final rebuild; dev endpoint is http://localhost:5199/. Evidence uses installed Chrome and Radeon 780M ANGLE/D3D11. qualityLock was enabled for visual evidence, so this does not close natural-tier/performance acceptance or the opening verifier's full six-case roster.
+
+Next project work remains governed by `docs/jgun-owner-animation-cloud-handoff-2026-10-07.md` and TODO.md. Its handwriting rejection is superseded for this font. Other opening/shaft/ring owner approval and full G6 remain separate. No additional feature work is introduced by this focused checkpoint.
+
+## Remaining for the next session
+
+1. Run the updated opening, ring, shaft and lifecycle verifier rosters against a fresh build on Windows hardware. Start with iteration runs, then the complete acceptance rosters. The focused handwriting proof does not replace these. Diagnose the inherited desktop-full opening tier drop with the normal quality ladder; do not use qualityLock to close G6 or waive tier expectations.
+2. Complete the outstanding revision proofs: opening electrical timing at a fixed scroll rate; jagged tunnel desk-exposure/far-closure sightlines; title-block frames at t .065-.10; tablet 768x1024 captures; ring hole closure/reopening and seam coverage; cutter engagement/occlusion; FOS panel placement; shaft artifact samples at 1.3/10.9/25.4 seconds plus/minus .05 seconds. Extend the drawing proof API where the revision plan requires sampled score, branches and camera/annotation anchors. Current handwriting checks already prove output-note/AIR MOTOR non-overlap at their sampled checkpoints.
+3. Connect the FAILED stamp to sampled `stampScale` rather than its mount-time CSS impulse. The remaining relief-groove lumpiness at 10.9 seconds is actual geometry, not the repaired normal streaks; a complete fix needs a scoped CAD/remesh decision and new proof, rather than further shader masking.
+4. Regenerate drawing/poster and shaft stills to reflect current revisions, especially the FOS presentation and approved lettering. Recheck reduced-motion/poster routes remain DOM/stills-only with zero CAD requests and zero canvases. The v8 precomputed drawing cache is already regenerated; do not repeat that item unless composition changes.
+5. Obtain owner visual review of the remaining opening, ring and shaft revisions. This includes the red gear circle/leader/arrow deviation noted in the older plan. Font direction is approved and must not be reopened by default.
+6. Complete the broader revision's requested Opus/Astra final review with model attribution, update its plan/evidence, then make a scoped commit/push checkpoint as authorized. Today's changes are still local; if the next session will run in the cloud, they must be checkpointed and pushed first. No PR is requested. Preserve unrelated archives, stashes and .scratch/.
+
+JG-034 fresh-load drawing refit remains a separately open queue item; investigate it if a new full-roster run reproduces the startup symptom. Today's passing focused captures do not establish closure of that bug.

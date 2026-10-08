@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Box3, BoxGeometry, Color, ShaderLib, Vector3 } from 'three'
+import { Box3, BoxGeometry, Color, LinearSRGBColorSpace, ShaderLib, Vector3 } from 'three'
 import { Text } from 'troika-three-text'
 import parser from 'troika-three-text/src/FontParser.js'
 import { createTypesetter } from 'troika-three-text/src/Typesetter.js'
@@ -11,6 +11,7 @@ import { GROUP, INK_GRAPHITE, INK_RED, InkBuilder, PEN_COLOR, dashStyleOf, makeI
 import { INK } from '../drawingGeometry'
 import { PAPER_FLEX_STEP } from './paperFlex'
 import { makeSheetText } from './sheetText'
+import { REFERENCE_GLYPHS } from './referenceHandGlyphs'
 
 // The test exercises real sheet composition and installed Troika typography;
 // only GPU hidden-line extraction and the SDF atlas are outside this unit gate.
@@ -43,7 +44,10 @@ describe('sheet text runtime proof', () => {
       { text: 'NOTE', x: 0, y: 0, size: 0.003, group: GROUP.notes, key: 0 },
     ])
     await layer.ready
-    expect(layer.captureBounds()).toMatchObject({ ready: false, count: 2, violations: 0 })
+    // sync is mocked here, so a resolved ready promise supplies no measured layout.
+    // Both unavailable bounds remain fail-closed until their real layouts arrive.
+    expect(layer.captureBounds()).toMatchObject({ ready: false, count: 2, violations: 2 })
+    expect(layer.captureBounds().items.every(item => item.bounds === null && item.contained === null)).toBe(true)
     setBounds(members[0], [-0.01, -0.005, 0.01, 0.005])
     setBounds(members[1], [0, 0, 0.01, 0.01])
     const title = layer.captureBounds(GROUP.titleBlock)
@@ -60,6 +64,8 @@ describe('sheet text runtime proof', () => {
   it('never silently accepts missing title targets or nonfinite layout', () => {
     const members = captureMembers()
     const layer = makeSheetText([{ text: 'UNTRACKED', x: 0, y: 0, size: 0.003, group: GROUP.titleBlock, key: 0 }])
+    setBounds(members[0], [0, 0, 0.01, 0.01])
+    expect(layer.captureBounds()).toMatchObject({ ready: true, violations: 1, count: 1 })
     setBounds(members[0], [0, 0, NaN, 0.01])
     expect(layer.captureBounds()).toMatchObject({ ready: false, violations: 1, count: 1 })
     layer.dispose()
@@ -100,6 +106,89 @@ describe('sheet text runtime proof', () => {
     expect(proof.items.filter(item => !item.contained)).toEqual([])
     expect(proof.violations).toBe(0)
     layer.dispose(); geometry.dispose()
+  })
+
+  it('measures real reference-font visible ink with baseline/LSB compensation and live scale/rotation', async () => {
+    vi.stubGlobal('self', globalThis)
+    const bytes = readFileSync('public/fonts/AcFastReference.ttf')
+    const font = await parser.onMainThread(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength))
+    font.src = 'ac-fast'
+    expect(font.unitsPerEm).toBe(1000)
+    const typesetter = createTypesetter(() => { throw new Error('Unexpected font fallback') }, bidiFactory())
+    const items = [
+      { text: 'I', x: 0.03, y: 0.06, size: 0.0038, scaleX: 0.95, rotation: 0 },
+      { text: 'M', x: 0.05, y: 0.06, size: 0.0042, scaleX: 1.05, rotation: 0.18 },
+      { text: 'A', x: 0.07, y: 0.06, size: 0.0038, scaleX: 0.97, rotation: -0.12 },
+    ].map((item, index) => ({ ...item, weight: 'handwriting', color: 'graphite', anchorY: 'baseline',
+      group: GROUP.noteInput, key: index * 0.2, dur: 0.1, fitCell: { x: 0.02, y: 0.05, w: 0.07, h: 0.03 } }))
+    const members = captureMembers(), layer = makeSheetText(items)
+    await layer.ready
+    expect(layer.captureBounds(GROUP.noteInput)).toMatchObject({ ready: false, count: 3, violations: 3 })
+    const layouts = []
+    for (const [i, text] of members.entries()) {
+      expect(text.font).toBe('/fonts/AcFastReference.ttf')
+      expect(text.anchorY).toBe('top-baseline')
+      expect(text.color).toBe(new Color(INK_GRAPHITE).getHex(LinearSRGBColorSpace))
+      typesetter.typeset({
+        text: text.text, fontSize: text.fontSize, letterSpacing: text.letterSpacing,
+        lineHeight: text.lineHeight, anchorX: text.anchorX, anchorY: text.anchorY, textAlign: text.textAlign,
+        preResolvedFonts: { chars: new Uint8Array(1), fonts: [font] },
+      }, result => {
+        layouts[i] = result
+        Object.defineProperty(text, 'textRenderInfo', { configurable: true, value: result })
+      })
+    }
+    const proof = layer.captureBounds(GROUP.noteInput)
+    expect(proof).toMatchObject({ ready: true, count: 3, violations: 0 })
+    for (const [i, item] of items.entries()) {
+      const text = members[i], layout = layouts[i]
+      let glyph
+      font.forEachGlyph(item.text, 1000, 0, value => { glyph = value })
+      expect(glyph).toBeDefined()
+      expect(glyph.xMax).toBeGreaterThan(glyph.xMin)
+      expect(glyph.yMax).toBeGreaterThan(glyph.yMin)
+      expect(layout.topBaseline).toBeCloseTo(0, 12)
+      expect(layout.visibleBounds[0]).toBeCloseTo(text.fontSize * glyph.xMin / 1000, 12)
+      expect(layout.visibleBounds[0]).toBeGreaterThan(layout.blockBounds[0])
+      text.updateMatrix()
+      const reference = REFERENCE_GLYPHS[item.text]
+      expect(reference.fontMinX).toBe(glyph.xMin)
+      expect(reference.fontMinY).toBe(glyph.yMin)
+      expect(reference.fontHeight).toBe(glyph.yMax - glyph.yMin)
+      expect(text.fontSize).toBe(item.size * 1000 / reference.fontHeight)
+      expect(layout.visibleBounds[3] - layout.visibleBounds[1]).toBeCloseTo(item.size, 12)
+      // Actual TTF black ink, including conversion offsets, must land exactly at the authored origin.
+      const origin = new Vector3(layout.visibleBounds[0], layout.visibleBounds[1], 0).applyMatrix4(text.matrix)
+      expect(origin.x).toBeCloseTo(item.x, 12)
+      expect(origin.y).toBeCloseTo(item.y, 12)
+      const unit = text.fontSize / 1000
+      const c = Math.cos(item.rotation), s = Math.sin(item.rotation)
+      const expected = [[glyph.xMin, glyph.yMin], [glyph.xMax, glyph.yMin],
+        [glyph.xMax, glyph.yMax], [glyph.xMin, glyph.yMax]]
+        .map(([x, y]) => [(x - glyph.xMin) * unit * item.scaleX, (y - glyph.yMin) * unit])
+        .map(([x, y]) => [item.x + x * c - y * s, item.y + x * s + y * c])
+      const expectedBounds = [Math.min(...expected.map(p => p[0])), Math.min(...expected.map(p => p[1])),
+        Math.max(...expected.map(p => p[0])), Math.max(...expected.map(p => p[1]))]
+      proof.items[i].bounds.forEach((value, j) => expect(value).toBeCloseTo(expectedBounds[j], 12))
+      expect(proof.items[i].contained).toBe(true)
+    }
+    const reveal = new Array(19).fill(1)
+    layer.update(reveal, 1)
+    expect(members.every(text => text.fillOpacity === 1)).toBe(true)
+    reveal[GROUP.noteInput] = items[1].key + items[1].dur / 2
+    layer.update(reveal, 1)
+    expect(members[1].clipRect[2]).toBeCloseTo((layouts[1].blockBounds[0] + layouts[1].blockBounds[2]) / 2, 12)
+    expect(members[2].fillOpacity).toBe(0)
+    reveal[GROUP.noteInput] = 1
+    layer.update(reveal, 1)
+    expect(members.every(text => text.fillOpacity === 1)).toBe(true)
+    // Available blockBounds cannot substitute for missing/nonfinite handwriting visibleBounds.
+    setBounds(members[0], layouts[0].blockBounds)
+    expect(layer.captureBounds(GROUP.noteInput)).toMatchObject({ ready: false, count: 3, violations: 1 })
+    Object.defineProperty(members[0], 'textRenderInfo', { configurable: true,
+      value: { ...layouts[0], visibleBounds: [0, 0, NaN, 0.01] } })
+    expect(layer.captureBounds(GROUP.noteInput)).toMatchObject({ ready: false, count: 3, violations: 1 })
+    layer.dispose()
   })
 })
 

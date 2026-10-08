@@ -1,0 +1,827 @@
+{
+  "0": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/std-natural.png",
+    "snapshot": "font-work/sources/std-natural.png",
+    "box": [
+      138,
+      13,
+      11,
+      16
+    ],
+    "word": "300 (first 0, top dimension)",
+    "mask": null,
+    "crop": "font-work/selected-crops/48.png",
+    "traceSource": "alphabet-build/crops/0.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "1": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      18,
+      170,
+      9,
+      22
+    ],
+    "word": "17 (line 4)",
+    "mask": null,
+    "crop": "font-work/selected-crops/49.png",
+    "traceSource": "alphabet-build/crops/1.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "2": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/std-natural.png",
+    "snapshot": "font-work/sources/std-natural.png",
+    "box": [
+      318,
+      308,
+      18,
+      23
+    ],
+    "word": "26.5.1 (first clause number)",
+    "mask": null,
+    "crop": "font-work/selected-crops/50.png",
+    "traceSource": "alphabet-build/crops/2.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "3": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/std-natural.png",
+    "snapshot": "font-work/sources/std-natural.png",
+    "box": [
+      124,
+      9,
+      14,
+      23
+    ],
+    "word": "300 (top dimension)",
+    "mask": null,
+    "crop": "font-work/selected-crops/51.png",
+    "traceSource": "alphabet-build/crops/3.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "4": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      287,
+      210,
+      14,
+      25
+    ],
+    "word": "46 (line 5)",
+    "mask": null,
+    "crop": "font-work/selected-crops/52.png",
+    "traceSource": "alphabet-build/crops/4.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "5": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/std-natural.png",
+    "snapshot": "font-work/sources/std-natural.png",
+    "box": [
+      358,
+      306,
+      19,
+      24
+    ],
+    "word": "26.5.1 (clause number)",
+    "mask": null,
+    "crop": "font-work/selected-crops/53.png",
+    "traceSource": "alphabet-build/crops/5.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "6": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      302,
+      211,
+      17,
+      25
+    ],
+    "word": "46 (line 5)",
+    "mask": null,
+    "crop": "font-work/selected-crops/54.png",
+    "traceSource": "alphabet-build/crops/6.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "7": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      27,
+      171,
+      18,
+      23
+    ],
+    "word": "17 (line 4)",
+    "mask": null,
+    "crop": "font-work/selected-crops/55.png",
+    "traceSource": "alphabet-build/crops/7.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "8": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/std-natural.png",
+    "snapshot": "font-work/sources/std-natural.png",
+    "box": [
+      264,
+      123,
+      13,
+      22
+    ],
+    "word": "8mm (top reinforcement note)",
+    "mask": null,
+    "crop": "font-work/selected-crops/56.png",
+    "traceSource": "alphabet-build/crops/8.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "A": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      257,
+      209,
+      17,
+      25
+    ],
+    "word": "A (line 5)",
+    "mask": null,
+    "crop": "font-work/selected-crops/65.png",
+    "traceSource": "alphabet-build/crops/9.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "B": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      20,
+      300,
+      23,
+      24
+    ],
+    "word": "BROWN (line 7)",
+    "mask": [
+      [
+        20,
+        300
+      ],
+      [
+        37,
+        300
+      ],
+      [
+        40,
+        307
+      ],
+      [
+        43,
+        309
+      ],
+      [
+        40,
+        314
+      ],
+      [
+        33,
+        320
+      ],
+      [
+        20,
+        324
+      ]
+    ],
+    "crop": "font-work/selected-crops/66.png",
+    "traceSource": "alphabet-build/crops/10.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "C": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      248,
+      166,
+      15,
+      27
+    ],
+    "word": "ARCHITECT (first C, line 4)",
+    "mask": [
+      [
+        248,
+        166
+      ],
+      [
+        260,
+        166
+      ],
+      [
+        260,
+        179
+      ],
+      [
+        263,
+        181
+      ],
+      [
+        263,
+        193
+      ],
+      [
+        248,
+        193
+      ]
+    ],
+    "crop": "font-work/selected-crops/67.png",
+    "traceSource": "alphabet-build/crops/11.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "D": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      23,
+      338,
+      17,
+      25
+    ],
+    "word": "DOG (line 8)",
+    "mask": null,
+    "crop": "font-work/selected-crops/68.png",
+    "traceSource": "alphabet-build/crops/12.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "E": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      403,
+      80,
+      19,
+      28
+    ],
+    "word": "I'VE (line 2)",
+    "mask": null,
+    "crop": "font-work/selected-crops/69.png",
+    "traceSource": "alphabet-build/crops/13.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "F": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      110,
+      300,
+      18,
+      25
+    ],
+    "word": "FOX (line 7)",
+    "mask": [
+      [
+        110,
+        300
+      ],
+      [
+        128,
+        300
+      ],
+      [
+        128,
+        308
+      ],
+      [
+        121,
+        310
+      ],
+      [
+        121,
+        325
+      ],
+      [
+        110,
+        325
+      ]
+    ],
+    "crop": "font-work/selected-crops/70.png",
+    "traceSource": "alphabet-build/crops/14.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "G": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      55,
+      338,
+      17,
+      25
+    ],
+    "word": "DOG (line 8)",
+    "mask": null,
+    "crop": "font-work/selected-crops/71.png",
+    "traceSource": "alphabet-build/crops/15.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "H": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      173,
+      211,
+      17,
+      26
+    ],
+    "word": "TECH (line 5)",
+    "mask": null,
+    "crop": "font-work/selected-crops/72.png",
+    "traceSource": "alphabet-build/crops/16.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "I": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      402,
+      167,
+      6,
+      24
+    ],
+    "word": "I (line 4)",
+    "mask": null,
+    "crop": "font-work/selected-crops/73.png",
+    "traceSource": "alphabet-build/crops/17.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "J": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      163,
+      300,
+      27,
+      25
+    ],
+    "word": "JUMPING (line 7)",
+    "mask": [
+      [
+        163,
+        300
+      ],
+      [
+        190,
+        300
+      ],
+      [
+        190,
+        304
+      ],
+      [
+        185,
+        307
+      ],
+      [
+        181,
+        311
+      ],
+      [
+        182,
+        318
+      ],
+      [
+        178,
+        325
+      ],
+      [
+        163,
+        325
+      ]
+    ],
+    "crop": "font-work/selected-crops/74.png",
+    "traceSource": "alphabet-build/crops/18.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "K": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      439,
+      377,
+      24,
+      28
+    ],
+    "word": "TALK (line 9)",
+    "mask": [
+      [
+        443,
+        377
+      ],
+      [
+        463,
+        377
+      ],
+      [
+        463,
+        405
+      ],
+      [
+        442,
+        405
+      ],
+      [
+        442,
+        395
+      ],
+      [
+        439,
+        393
+      ],
+      [
+        443,
+        391
+      ]
+    ],
+    "crop": "font-work/selected-crops/75.png",
+    "traceSource": "alphabet-build/crops/19.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "L": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      360,
+      295,
+      25,
+      32
+    ],
+    "word": "LAZY (line 7)",
+    "mask": [
+      [
+        360,
+        295
+      ],
+      [
+        373,
+        295
+      ],
+      [
+        373,
+        315
+      ],
+      [
+        385,
+        316
+      ],
+      [
+        385,
+        327
+      ],
+      [
+        360,
+        327
+      ]
+    ],
+    "crop": "font-work/selected-crops/76.png",
+    "traceSource": "alphabet-build/crops/20.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "M": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      24,
+      255,
+      19,
+      23
+    ],
+    "word": "MALE (line 6)",
+    "mask": null,
+    "crop": "font-work/selected-crops/77.png",
+    "traceSource": "alphabet-build/crops/21.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "N": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      205,
+      253,
+      19,
+      24
+    ],
+    "word": "NEVER (line 6)",
+    "mask": null,
+    "crop": "font-work/selected-crops/78.png",
+    "traceSource": "alphabet-build/crops/22.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "O": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      129,
+      168,
+      16,
+      21
+    ],
+    "word": "NOT (line 4)",
+    "mask": null,
+    "crop": "font-work/selected-crops/79.png",
+    "traceSource": "alphabet-build/crops/23.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "P": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      214,
+      300,
+      19,
+      26
+    ],
+    "word": "JUMPING (line 7)",
+    "mask": [
+      [
+        214,
+        300
+      ],
+      [
+        229,
+        300
+      ],
+      [
+        231,
+        307
+      ],
+      [
+        228,
+        313
+      ],
+      [
+        225,
+        316
+      ],
+      [
+        225,
+        326
+      ],
+      [
+        214,
+        326
+      ]
+    ],
+    "crop": "font-work/selected-crops/80.png",
+    "traceSource": "alphabet-build/crops/24.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "Q": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      382,
+      249,
+      23,
+      31
+    ],
+    "word": "QUICK (line 6)",
+    "mask": null,
+    "crop": "font-work/selected-crops/81.png",
+    "traceSource": "alphabet-build/crops/25.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "R": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      58,
+      28,
+      17,
+      26
+    ],
+    "word": "ALRIGHT (line 1)",
+    "mask": null,
+    "crop": "font-work/selected-crops/82.png",
+    "traceSource": "alphabet-build/crops/26.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "S": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      107,
+      83,
+      18,
+      24
+    ],
+    "word": "IS (line 2)",
+    "mask": null,
+    "crop": "font-work/selected-crops/83.png",
+    "traceSource": "alphabet-build/crops/27.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "T": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      144,
+      168,
+      20,
+      25
+    ],
+    "word": "NOT (line 4)",
+    "mask": null,
+    "crop": "font-work/selected-crops/84.png",
+    "traceSource": "alphabet-build/crops/28.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "U": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      401,
+      253,
+      18,
+      23
+    ],
+    "word": "QUICK (line 6)",
+    "mask": null,
+    "crop": "font-work/selected-crops/85.png",
+    "traceSource": "alphabet-build/crops/29.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "V": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      389,
+      80,
+      15,
+      27
+    ],
+    "word": "I'VE (line 2)",
+    "mask": null,
+    "crop": "font-work/selected-crops/86.png",
+    "traceSource": "alphabet-build/crops/30.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "W": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      17,
+      126,
+      23,
+      22
+    ],
+    "word": "WRITTEN (line 3)",
+    "mask": [
+      [
+        17,
+        126
+      ],
+      [
+        37,
+        126
+      ],
+      [
+        40,
+        133
+      ],
+      [
+        38,
+        139
+      ],
+      [
+        38,
+        148
+      ],
+      [
+        17,
+        148
+      ]
+    ],
+    "crop": "font-work/selected-crops/87.png",
+    "traceSource": "alphabet-build/crops/31.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "X": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      139,
+      304,
+      12,
+      20
+    ],
+    "word": "FOX (line 7)",
+    "mask": null,
+    "crop": "font-work/selected-crops/88.png",
+    "traceSource": "alphabet-build/crops/32.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "Y": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      154,
+      84,
+      22,
+      34
+    ],
+    "word": "MY (line 2)",
+    "mask": [
+      [
+        154,
+        84
+      ],
+      [
+        176,
+        84
+      ],
+      [
+        176,
+        118
+      ],
+      [
+        162,
+        118
+      ],
+      [
+        162,
+        102
+      ],
+      [
+        157,
+        98
+      ],
+      [
+        154,
+        94
+      ]
+    ],
+    "crop": "font-work/selected-crops/89.png",
+    "traceSource": "alphabet-build/crops/33.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "Z": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-fast.png",
+    "snapshot": "font-work/sources/ac-fast.png",
+    "box": [
+      388,
+      300,
+      17,
+      27
+    ],
+    "word": "LAZY (line 7)",
+    "mask": null,
+    "crop": "font-work/selected-crops/90.png",
+    "traceSource": "alphabet-build/crops/34.png",
+    "threshold": 100,
+    "weight": -1
+  },
+  "?": {
+    "source": "C:/Users/Markimus/Pictures/Screenshots/ac-neat.png",
+    "snapshot": "font-work/sources/ac-neat.png",
+    "box": [
+      238,
+      156,
+      13,
+      20
+    ],
+    "word": "HRP? (line 7)",
+    "mask": null,
+    "crop": "font-work/selected-crops/63.png",
+    "traceSource": "alphabet-build/crops/35.png",
+    "threshold": 100,
+    "weight": -1
+  }
+}

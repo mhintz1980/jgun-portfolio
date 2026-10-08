@@ -1,0 +1,231 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:5199",
+  "started": "2026-10-08T13:43:30.283Z",
+  "head": "d3066e4ff204d1f08096b00c5d75aa617193bb5b",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "only": [
+    "opening"
+  ],
+  "captures": [
+    {
+      "file": "opening-desktop-t0p17.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.17,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.17449773646763625,
+        "y": 0.16038509087969494,
+        "z": -0.329695607246679,
+        "fov": 30.00000717079988,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.17449720659454682,
+            0.1603852315025042,
+            -0.32969674594877213
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.325
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7655777895420581,
+          0.6427876096865394,
+          0.026734565516599966
+        ],
+        "sheetDistance": 0.209368050304614
+      }
+    },
+    {
+      "file": "opening-desktop-t0p24.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.24,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.020433338149670462,
+        "y": 0.12454596291496393,
+        "z": -0.09715892820451369,
+        "fov": 30.000000000005336,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.02043270980898597,
+            0.1245458167467512,
+            -0.09715797981375371
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.094
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.8085241630808819,
+          0.5877852522924731,
+          0.028234285927455725
+        ],
+        "sheetDistance": 0.1539470958122162
+      }
+    },
+    {
+      "file": "opening-desktop-t0p29.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.29,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.12782412733559337,
+        "y": 0.9095158942068519,
+        "z": -1.455693281659552e-7,
+        "fov": 33.999994006923295,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.12782428823673903,
+            0.9095170703050032,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "fov": 34
+        },
+        "up": [
+          -0.9902680687415703,
+          0.1391731009600657,
+          0
+        ],
+        "sheetDistance": 0.9184554152703467
+      }
+    },
+    {
+      "file": "opening-narrow-t0p17.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.17,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.32535862257160475,
+        "y": 0.34028383288475555,
+        "z": -0.3349637600400053,
+        "fov": 30.00001199892674,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.32535857809401086,
+            0.3402844026850518,
+            -0.33496494112811387
+          ],
+          "target": [
+            0.04,
+            0,
+            -0.325
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7655777895420581,
+          0.6427876096865394,
+          0.026734565516599966
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    },
+    {
+      "file": "opening-narrow-t0p24.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.24,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.19094148525514412,
+        "y": 0.35937314238280327,
+        "z": -0.10311330215896604,
+        "fov": 30.00000000002965,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.1909408789018262,
+            0.35937322849318987,
+            -0.10311225628310473
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.094
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.8085241630808819,
+          0.5877852522924731,
+          0.028234285927455725
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    },
+    {
+      "file": "opening-narrow-t0p29.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.29,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.4340881475023897,
+        "y": 3.0886972098429304,
+        "z": -4.6615586263316344e-8,
+        "fov": 33.99999819166793,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.4340882574250252,
+            3.088698443724541,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "fov": 34
+        },
+        "up": [
+          -0.9902680687415703,
+          0.1391731009600657,
+          0
+        ],
+        "sheetDistance": 3.119052851668387
+      }
+    }
+  ],
+  "errors": [],
+  "browserVersion": "154.0.8037.98",
+  "finished": "2026-10-08T13:44:03.290Z"
+}

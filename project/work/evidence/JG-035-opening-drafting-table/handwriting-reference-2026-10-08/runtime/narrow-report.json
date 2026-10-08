@@ -1,0 +1,24 @@
+{
+  "name": "narrow",
+  "width": 390,
+  "height": 844,
+  "checks": [
+    {
+      "name": "runtime execution",
+      "status": "failed",
+      "details": "TimeoutError: page.waitForFunction: Timeout 90000ms exceeded."
+    }
+  ],
+  "errors": [
+    "page.waitForFunction: Timeout 90000ms exceeded.\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:414:18"
+  ],
+  "consoleErrors": [],
+  "requestFailures": [],
+  "checkpoints": [],
+  "unverified": [
+    "Glyph font provenance inside Troika's private SDF atlas is not exposed; requested font, real layout readiness, glyph counts and font HTTP response are recorded.",
+    "Uploaded per-member texture handle and CPU packing are observed; no GPU texture-value readback is claimed."
+  ],
+  "navigationMs": 157,
+  "status": "failed"
+}

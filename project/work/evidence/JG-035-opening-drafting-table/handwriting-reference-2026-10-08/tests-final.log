@@ -1,0 +1,13 @@
+
+> jgun-portfolio@0.1.0 test
+> vitest run src --exclude=.kilo/** --fileParallelism=false
+
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+
+
+ Test Files  41 passed (41)
+      Tests  435 passed (435)
+   Start at  09:46:28
+   Duration  40.86s (transform 1.45s, setup 0ms, import 6.35s, tests 25.34s, environment 5ms)
+
