@@ -4,8 +4,6 @@
 .shaft-card{background:#0b141d;border:1px solid #2b3d4c;border-radius:6px;padding:18px 22px 20px;box-shadow:0 10px 32px rgba(0,0,0,.6)}
 .shaft-card-text{margin:0;color:#eaf2f8;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:34px;line-height:1.1;font-weight:600;letter-spacing:0;overflow-wrap:break-word}
 .shaft-stamp{display:inline-block;margin-top:14px;padding:2px 14px 4px;border:3px solid #ff7a6b;border-radius:4px;color:#ff7a6b;font-family:"Barlow Condensed",ui-sans-serif,system-ui,sans-serif;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:0;transform:rotate(-4deg);transform-origin:center}
-.shaft-stamp-impulse{animation:shaft-stamp-settle .15s cubic-bezier(.2,.75,.3,1) both}
-@keyframes shaft-stamp-settle{0%{transform:rotate(-4deg) scale(1.5)}62%{transform:rotate(-4deg) scale(.94)}100%{transform:rotate(-4deg) scale(1)}}
 .shaft-attribution,.shaft-caption{align-self:flex-start;max-width:100%;margin:0;background:#0b141d;border-radius:4px;color:#cfdce6;box-sizing:border-box}
 .shaft-attribution{padding:8px 12px;font-size:13px;line-height:1.5}
 .shaft-caption{padding:6px 10px;font-size:12px;line-height:1.45}
@@ -17,8 +15,6 @@
   .shaft-stamp{font-size:22px;margin-top:10px}
   .shaft-attribution{font-size:12px}
 }
-@media(prefers-reduced-motion:reduce){.shaft-stamp-impulse{animation:none}}
-
 /* JG-035 S2 — factor-of-safety panels: model block (left) and FOS bar (right), opacity-only, fed by the same sampler as the field. */
 .shaft-fos-model{position:absolute;left:57.6px;top:148px;width:340px;pointer-events:none;color:#dbe7ef;font:12px/1.55 ui-monospace,"SFMono-Regular",Consolas,monospace;text-shadow:0 1px 2px rgba(0,0,0,.8)}
 .shaft-fos-model p{margin:0}

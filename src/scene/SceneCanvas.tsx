@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
+import type { PerformanceMonitorApi } from '@react-three/drei'
 import { CanvasTexture, DirectionalLight, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { CameraRig } from './CameraRig'
@@ -12,6 +13,7 @@ import { SpatialWorld } from './SpatialWorld'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { PostProcessingComposer } from './PostProcessingComposer'
 import { degradeQuality, forcePoster, getQuality } from '../state/qualityStore'
+import type { QualityTier } from '../state/qualityStore'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
@@ -33,6 +35,83 @@ const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRa
 const DPR_STEPS = [MAX_DPR, 1.5, 1.25, 1].filter(
   (value, index, all) => value <= MAX_DPR && all.indexOf(value) === index,
 )
+
+/**
+ * P1 mechanical timestamp diagnostic (2026-10-08) — bounded chronology of the
+ * opening quality collapse. Discrete quality-lifecycle moments only (warmup
+ * lifecycle, offscreen cull renders, PerformanceMonitor callbacks); every
+ * event carries the same performance.now() clock drei samples with, plus the
+ * tier / DPR step / warmReady state at that instant. No per-frame writes, no
+ * React state, no threshold or adaptation change: app code never reads this
+ * buffer — proof scripts query window.__qualityEvents().
+ */
+type QualityEventType =
+  | 'warmstart'
+  | 'warmfinish'
+  | 'warmcancel'
+  | 'cullrenderstart'
+  | 'cullrenderend'
+  | 'ondecline'
+  | 'onincline'
+  | 'onfallback'
+  | 'dprstep'
+  | 'degradequality'
+
+interface QualityEvent {
+  /** performance.now() ms — the same clock PerformanceMonitor samples. */
+  t: number
+  type: QualityEventType
+  /** Quality tier at event time. */
+  tier: QualityTier
+  /** DPR staircase index at event time. */
+  step: number
+  /** telemetry.performance.warmReady at event time. */
+  warmReady: boolean
+  /** Monitor fps at callback events. */
+  fps?: number
+  /** Monitor flip-flop count at callback events. */
+  flipped?: number
+  /** Offscreen cull-render combination index (0..4). */
+  index?: number
+}
+
+const QUALITY_EVENT_CAP = 256
+const qualityEvents: QualityEvent[] = []
+/**
+ * Query guard (parent review 2026-10-08): the diagnostic is opt-in via
+ * ?qualityDiagnostics. Without the param there is no buffering, no window API
+ * and no monitor-callback work beyond one argument check — the default path
+ * pays a single URLSearchParams read at module load.
+ */
+const QUALITY_DIAGNOSTICS_ENABLED =
+  typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('qualityDiagnostics')
+/** Mirror of the component's stepRef so module-level pushes can stamp it. */
+let qualityEventStep = 0
+
+function pushQualityEvent(draft: {
+  type: QualityEventType
+  fps?: number
+  flipped?: number
+  index?: number
+}): void {
+  if (!QUALITY_DIAGNOSTICS_ENABLED) return
+  if (qualityEvents.length >= QUALITY_EVENT_CAP) qualityEvents.shift()
+  qualityEvents.push({
+    t: performance.now(),
+    type: draft.type,
+    tier: getQuality().tier,
+    step: qualityEventStep,
+    warmReady: telemetry.performance.warmReady,
+    fps: draft.fps,
+    flipped: draft.flipped,
+    index: draft.index,
+  })
+}
+
+/** Guarded proof query: bounded snapshot copy; never read by app code. */
+if (typeof window !== 'undefined' && QUALITY_DIAGNOSTICS_ENABLED) {
+  ;(window as unknown as Record<string, unknown>).__qualityEvents = () => qualityEvents.slice()
+}
 
 /**
  * Procedural IBL for the PBR assembly: PMREM-bakes three's bundled
@@ -197,33 +276,37 @@ function WarmStationPrograms() {
   const {gl,scene,camera}=useThree()
   useEffect(()=>{
     let cancelled=false
+    pushQualityEvent({ type: 'warmstart' })
     const stations=['station-1-jgun','station-2-enclosure','station-3-m249'].map(name=>scene.getObjectByName(name))
-    if(stations.some(station=>!station))return
+    if(stations.some(station=>!station)){pushQualityEvent({ type: 'warmcancel' });return}
     const warm=async()=>{
       const target=new WebGLRenderTarget(1,1)
       try{
-      for(const combination of [[true,false,false],[true,true,false],[false,true,false],[false,true,true],[false,false,true]]){
-        if(cancelled || renderOwnership.blocked)return
+      for(const [renderIndex,combination] of [[true,false,false],[true,true,false],[false,true,false],[false,true,true],[false,false,true]].entries()){
+        if(cancelled || renderOwnership.blocked){pushQualityEvent({ type: 'warmcancel' });return}
         const previous=stations.map(station=>station!.visible)
         let pending:Promise<boolean>
         // compileAsync collects lights synchronously; restore visibility before yielding.
         try{stations.forEach((station,i)=>{station!.visible=combination[i]});pending=compileWithLease(gl,scene,camera,()=>cancelled)}
         finally{stations.forEach((station,i)=>{station!.visible=previous[i]})}
-        if(!(await pending))return
-        if(cancelled || renderOwnership.blocked)return
+        if(!(await pending)){pushQualityEvent({ type: 'warmcancel' });return}
+        if(cancelled || renderOwnership.blocked){pushQualityEvent({ type: 'warmcancel' });return}
         // compileAsync does not upload vertex buffers or texture images. A 1px
         // offscreen render prepares those too, including frustum-culled stations.
         const flags:{object:typeof scene;visible:boolean;frustumCulled:boolean}[]=[]
         scene.traverse(object=>{flags.push({object:object as typeof scene,visible:object.visible,frustumCulled:object.frustumCulled});object.visible=true;object.frustumCulled=false})
         stations.forEach((station,i)=>{station!.visible=combination[i]})
         const previousTarget=gl.getRenderTarget(),viewport=gl.getViewport(new Vector4())
+        pushQualityEvent({ type: 'cullrenderstart', index: renderIndex })
         try{gl.setRenderTarget(target);gl.setViewport(0,0,1,1);gl.render(scene,camera)}
         finally{gl.setRenderTarget(previousTarget);gl.setViewport(viewport);flags.forEach(({object,visible,frustumCulled})=>{object.visible=visible;object.frustumCulled=frustumCulled})}
+        pushQualityEvent({ type: 'cullrenderend', index: renderIndex })
       }
-      if(!cancelled)telemetry.performance.warmReady=true
+      if(!cancelled){telemetry.performance.warmReady=true;pushQualityEvent({ type: 'warmfinish' })}
+      else pushQualityEvent({ type: 'warmcancel' })
       }finally{target.dispose()}
     }
-    void warm().catch(error=>{console.error('Station shader preparation failed',error)})
+    void warm().catch(error=>{pushQualityEvent({ type: 'warmcancel' });console.error('Station shader preparation failed',error)})
     return()=>{cancelled=true}
   },[gl,scene,camera])
   return null
@@ -318,7 +401,9 @@ export function SceneCanvas() {
 
   const setDprStep = (next: number): void => {
     stepRef.current = next
+    qualityEventStep = next
     setStep(next)
+    pushQualityEvent({ type: 'dprstep' })
   }
 
   return (
@@ -347,15 +432,23 @@ export function SceneCanvas() {
         <PerformanceMonitor
           bounds={() => [45, 60] as [number, number]}
           flipflops={3}
-          onDecline={() => {
+          onDecline={(api: PerformanceMonitorApi) => {
             telemetry.performance.declines++
+            pushQualityEvent({ type: 'ondecline', fps: api.fps, flipped: api.flipped })
             if (stepRef.current < DPR_STEPS.length - 1) setDprStep(stepRef.current + 1)
-            else degradeQuality()
+            else {
+              pushQualityEvent({ type: 'degradequality' })
+              degradeQuality()
+            }
           }}
-          onIncline={() => {
+          onIncline={(api: PerformanceMonitorApi) => {
+            pushQualityEvent({ type: 'onincline', fps: api.fps })
             if (stepRef.current > 0) setDprStep(stepRef.current - 1)
           }}
-          onFallback={() => setDprStep(DPR_STEPS.length - 1)}
+          onFallback={(api: PerformanceMonitorApi) => {
+            pushQualityEvent({ type: 'onfallback', fps: api.fps, flipped: api.flipped })
+            setDprStep(DPR_STEPS.length - 1)
+          }}
         >
           <color attach="background" args={['#05070a']} />
           <fog attach="fog" args={['#05070a', 25, 120]} />

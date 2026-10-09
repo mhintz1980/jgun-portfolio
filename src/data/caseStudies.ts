@@ -529,6 +529,18 @@ export const LCD_ORBIT_KEYFRAMES = {
  * 'LABYRINTH', …) legitimately stay as text. Prose (detail/processNote)
  * keeps the words where natural language belongs.
  */
+
+/**
+ * JG-036 owner decision (2026-10-08): revive exactly one authored inspection
+ * hotspot per assembly in the Station 1 legacy Hotspots keeper layer
+ * (src/scene/Hotspots.tsx), the only consumer of this set. Station 2 and
+ * Station 3 keep their own pre-existing stage producers
+ * (Station2_AcousticEnclosure.tsx, M249Stage.tsx); those extra callout badges
+ * remain active and owner-permitted (confirmed 2026-10-08), so this set does
+ * not gate them.
+ */
+export const ACTIVE_HOTSPOT_IDS = new Set(['rotor', 'duct-intake', 'm249-trunnion'])
+
 export const HOTSPOTS: HotspotDef[] = [
   {
     id: 'rotor',

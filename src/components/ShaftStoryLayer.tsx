@@ -99,7 +99,7 @@ export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
       {frame.card !== 'none' && <div className="shaft-card-slot" data-shaft-card="">
         <div className="shaft-card" style={{ opacity: frame.cardOpacity }} aria-hidden={frame.cardOpacity < 0.02}>
           <p className="shaft-card-text">{frame.cardText}</p>
-          {frame.stamp !== 'none' && <span key={frame.cardText} className={'shaft-stamp' + (reducedMotion ? '' : ' shaft-stamp-impulse')}>{SHAFT_STAMP_TEXT}</span>}
+          {frame.stamp !== 'none' && <span key={frame.cardText} className="shaft-stamp" style={{ transform: `rotate(-4deg) scale(${frame.stampScale})` }}>{SHAFT_STAMP_TEXT}</span>}
         </div>
       </div>}
       {frame.attribution && <p className="shaft-attribution" data-shaft-attribution="">{SHAFT_ATTRIBUTION_TEXT}</p>}

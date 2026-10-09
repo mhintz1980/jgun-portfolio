@@ -337,7 +337,9 @@ export function Chapters() {
              The intro track carries no `data-chapter`, so ScrollRig's per-chapter
              triggers and the hero timeline's `[data-chapter="1"]` selector are
              unaffected by its presence. */}
-      <div className="relative z-0">
+      {/* The track supplies height only. Keeping it pointer-inert lets native
+          hit testing reach the fixed canvas where no chapter control exists. */}
+      <div className="relative z-0 pointer-events-none [&_:is(button,a,[role='button'])]:pointer-events-auto">
         <section
           data-intro="b1b2"
           className="pointer-events-none"

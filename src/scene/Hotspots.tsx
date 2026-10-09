@@ -2,8 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Html } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Group, Vector3 } from 'three'
-import { EXPLODE_OFFSETS, HOTSPOTS } from '../data/caseStudies'
 import { characteristicKey, GdtSymbol } from '../components/GdtSymbols'
+import { ACTIVE_HOTSPOT_IDS, EXPLODE_OFFSETS, HOTSPOTS } from '../data/caseStudies'
+import { getHotspotLayerPortal } from '../components/TechnicalHUD'
 import { setScrollState, telemetry, useScrollValue } from '../state/scrollStore'
 import type { ChapterIndex, HotspotDef, RoleMapEntry } from '../types/portfolio'
 
@@ -264,6 +265,7 @@ export function SpatialHotspotAnchor({
   const pathRef = useRef<SVGPathElement>(null)
   const tickRef = useRef<SVGLineElement>(null)
   const [hovered, setHovered] = useState(false)
+  const hotspotPortal = useMemo(() => getHotspotLayerPortal(), [])
 
   const { camera, size } = useThree()
 
@@ -418,6 +420,7 @@ export function SpatialHotspotAnchor({
     >
       <Html
         center={false}
+        portal={hotspotPortal ?? undefined}
         zIndexRange={[40, 0]}
         style={{ pointerEvents: 'none' }}
       >
@@ -516,8 +519,14 @@ export function Hotspots() {
       const normalized = normalizeOccurrence(name)
       return roleMap.filter((entry) => normalizeOccurrence(entry.occurrence) === normalized)
     }
-    // JG-035: the CH.01/02 decorative frames are replaced by the tolerance stations (S1–S6).
-    return HOTSPOTS.filter((h) => !STATION_REPLACED.has(h.id) && (h.chapters.includes(0) || h.chapters.includes(1) || h.window)).flatMap((def) => {
+    // JG-035 keeps the decorative wrench frames replaced by S1–S6. JG-036's
+    // owner ruling makes the rotor the one deliberate exception; the enclosure
+    // and M249 keepers were previously blocked only by the legacy chapter gate.
+    // ACTIVE_HOTSPOT_IDS gates only this Station 1 legacy layer. The Station 2
+    // enclosure and Station 3 M249 stage producers own their extra clickable
+    // callout badges independently; both remain active per owner confirmation
+    // 2026-10-08 and are intentionally not filtered here.
+    return HOTSPOTS.filter((h) => ACTIVE_HOTSPOT_IDS.has(h.id) && (!STATION_REPLACED.has(h.id) || h.id === 'rotor')).flatMap((def) => {
       const rows = rowsFor(def.occurrence)
       if (rows.length === 0) return []
       let entry = rows[0]

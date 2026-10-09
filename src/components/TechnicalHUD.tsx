@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { CHAPTERS, HOTSPOTS, MATERIAL_MODE_LABELS } from '../data/caseStudies'
 import { characteristicKey, GdtSymbol } from '../components/GdtSymbols'
 import { getScrollState, navigateToStation, setScrollState, SPATIAL_STATIONS, telemetry, useScrollValue } from '../state/scrollStore'
@@ -6,6 +6,23 @@ import { useQuality } from '../state/qualityStore'
 import type { MaterialMode } from '../types/portfolio'
 
 const MODES: MaterialMode[] = ['solid', 'blueprint', 'exploded']
+
+// Created lazily so importing this module from Node/SSR never touches `document`.
+// The element is stable once created; attaching it to the host below also moves
+// any badge wrappers Drei attached before the host committed.
+let hotspotLayerElement: HTMLDivElement | null = null
+
+/**
+ * JG-036 keeper layer. Badges share the HUD's z-20 stacking context without
+ * promoting the WebGL canvas or adding a full-screen pointer target.
+ */
+export const getHotspotLayerPortal = (): { current: HTMLDivElement } | null => {
+  if (typeof document === 'undefined') return null
+  hotspotLayerElement ??= document.createElement('div')
+  hotspotLayerElement.dataset.jg036HotspotLayer = ''
+  hotspotLayerElement.style.cssText = 'position:absolute;inset:0;pointer-events:none;'
+  return { current: hotspotLayerElement }
+}
 
 /**
  * Module 4 — floating telemetry HUD & Continuous Scroll-to-Release UX.
@@ -105,6 +122,17 @@ export function TechnicalHUD() {
   const datumCoordsRef = useRef<HTMLSpanElement>(null)
   const modeControlsRef=useRef<HTMLDivElement>(null)
   const chromeRef = useRef<HTMLDivElement>(null)
+  const hotspotLayerHostRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const host = hotspotLayerHostRef.current
+    const layer = getHotspotLayerPortal()?.current
+    if (!host || !layer) return
+    host.appendChild(layer)
+    return () => {
+      if (layer.parentElement === host) host.removeChild(layer)
+    }
+  }, [])
 
   useEffect(() => {
     // Reduced motion: ScrollRig never mounts, so scroll/camera telemetry is
@@ -140,6 +168,10 @@ export function TechnicalHUD() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-20 select-none font-mono text-[11px] tracking-widest text-cyan-300/90">
+      <div
+        ref={hotspotLayerHostRef}
+        className="pointer-events-none absolute inset-0 z-0"
+      />
       {/* Scroll/chapter telemetry only makes sense when the scroll rig is
           live — under reduced motion the chapter tracker never runs, so these
           would freeze on stale values. Hide them; keep the mode switcher. */}
@@ -177,7 +209,7 @@ export function TechnicalHUD() {
           </div>
 
           {/* Top-center: spatial station navigation */}
-          <div className="pointer-events-auto absolute top-5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm px-2.5 py-1 border border-cyan-900/60 rounded">
+          <div className="pointer-events-auto absolute top-5 left-1/2 z-10 -translate-x-1/2 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm px-2.5 py-1 border border-cyan-900/60 rounded">
             {SPATIAL_STATIONS.map((st) => (
               <button
                 key={st.id}
@@ -207,7 +239,7 @@ export function TechnicalHUD() {
       )}
 
       {/* Bottom-right: material mode switcher */}
-      <div ref={modeControlsRef} style={{visibility:'hidden'}} className="pointer-events-auto absolute bottom-5 right-5 flex flex-col items-end gap-1">
+      <div ref={modeControlsRef} style={{visibility:'hidden'}} className="pointer-events-auto absolute bottom-5 right-5 z-10 flex flex-col items-end gap-1">
         {MODES.map((mode) => (
           <button
             key={mode}
@@ -227,7 +259,7 @@ export function TechnicalHUD() {
 
       {/* Bottom-center: selected hotspot detail card with continuous scroll hint */}
       {hotspot && (
-        <div className="pointer-events-auto absolute bottom-6 left-1/2 w-[min(30rem,88vw)] -translate-x-1/2 border border-cyan-400/50 bg-black/85 p-4 shadow-[0_0_25px_rgba(0,229,255,0.25)] backdrop-blur-md">
+        <div className="pointer-events-auto absolute bottom-6 left-1/2 z-10 w-[min(30rem,88vw)] -translate-x-1/2 border border-cyan-400/50 bg-black/85 p-4 shadow-[0_0_25px_rgba(0,229,255,0.25)] backdrop-blur-md">
           <div className="flex items-start justify-between gap-4 border-b border-cyan-400/30 pb-2.5">
             <div className="flex items-center gap-2">
               <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00e5ff] animate-pulse" />
