@@ -21,6 +21,12 @@ Three independent failure layers (all verified 2026-10-08):
 
 ## Owner decisions needed before/at implementation
 
+**Owner narrowed implementation, 2026-10-08 continuation:** "Just revive one per assembly. I just want to verify that they were fixed by testing it manually in the browser. We will be adding new ones later in a separate task." Inspect choice: "Preserve current inspect behavior." This supersedes the broad keeper revival below for this deliverable. Retain the passive tolerance stations and verify a representative path for each JGun, enclosure and M249 assembly (architect selection: rotor, intake, barrel trunnion). Preserve current camera flight, detail card, scroll lock and pointer parallax. The subsequent clarification below permits the existing enclosure/M249 callouts to remain active; deferred content refers to new hotspots. Manual owner verification is the visual acceptance gate.
+
+**Manual owner checkpoint, same continuation:** owner tested updated `localhost:5203/?qualityLock=1` and replied **"yes they work"** for the three assembly badges. [Record](../evidence/JG-036-hotspot-clickability/z-order-2026-10-08/owner-manual-acceptance.md). This accepts the narrowed manual functional scope; corrected automated regression coverage and natural-tier G6 remain separate.
+
+**Latest owner clarification:** additional existing working enclosure/M249 checkpoints may remain active. Their larger count was reported as a potential filter discrepancy, not a removal request. Preserve them, inspect the source/count explanation and verify the selected assembly paths; new hotspot content remains a later task.
+
 1. Which stations get clickable hotspots vs. the JG-035 tolerance stations — the wrench four were deliberately replaced (owner direction: the old hotspots "pointed at areas that don't mean anything"). Restore clickable inspection *alongside* S1–S6, or restrict revival to enclosure / M249 / electronics?
 2. Click-behavior contract: existing design (inspect-frame camera flight + `TechnicalHUD` GD&T card + Esc/click-away restore) or something newer.
 

@@ -1,0 +1,72 @@
+{
+  "task": "JG-036 Scope 1 hotspot layering and keeper revival",
+  "url": "http://localhost:5203/",
+  "qualityLock": false,
+  "evidenceClass": "normal-quality candidate",
+  "qualityPolicy": "Run without --quality-lock first. A quality-locked rerun is allowed only if the inherited global canvas failure reproduces; it never closes tier/performance/G6.",
+  "label": "keeper-layering",
+  "startedAt": "2026-10-09T00:13:55.907Z",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "requestedModel": "GLM-5.3 max (request record only)",
+  "servedModelProof": "PARENT-OWNED: not asserted by this browser verifier",
+  "ownerDecision": {
+    "narrowed": "One keeper per assembly; later additions are a separate task.",
+    "inspectParallax": "OPEN: existing behavior deliberately unchanged."
+  },
+  "staticContract": {
+    "active": [
+      "duct-intake",
+      "m249-trunnion",
+      "rotor"
+    ],
+    "authoredCount": 18,
+    "checks": {
+      "activeSetExact": true,
+      "keeperDefinitionsExact": true,
+      "authoredIdsUnique": true,
+      "allFramesRetained": false,
+      "portalWired": true,
+      "keeperFilterWired": true,
+      "noDiagnosticAllHotspotUnblock": true,
+      "hudLayerWired": true,
+      "chapterTrackPointerInert": true,
+      "chapterDescendantControlsNative": true
+    }
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "name": "desktop",
+        "width": 1600,
+        "height": 900
+      },
+      "keepers": [],
+      "errors": []
+    },
+    {
+      "name": "narrow",
+      "viewport": {
+        "name": "narrow",
+        "width": 390,
+        "height": 844
+      },
+      "keepers": [],
+      "errors": []
+    }
+  ],
+  "reducedRoute": {
+    "name": "desktop-reduced",
+    "badges": 0,
+    "canvas": 0,
+    "nativeScrollDelta": 700
+  },
+  "openGates": [],
+  "failures": [
+    "static contract: allFramesRetained",
+    "desktop: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n",
+    "narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n"
+  ],
+  "completedAt": "2026-10-09T00:15:22.204Z",
+  "status": "FAIL"
+}

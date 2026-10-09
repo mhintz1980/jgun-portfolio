@@ -1,0 +1,11 @@
+FAIL: narrow: blank pass-through point hit BUTTON, expected canvas
+FAIL: narrow: blank pass-through point hit BUTTON, expected canvas
+{
+  "status": "FAIL",
+  "reportPath": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-036-hotspot-clickability\\z-order-2026-10-08\\runtime-final-native\\final-native-1791523544036-verification-report.json",
+  "failures": [
+    "narrow: blank pass-through point hit BUTTON, expected canvas",
+    "narrow: blank pass-through point hit BUTTON, expected canvas"
+  ],
+  "openGates": []
+}

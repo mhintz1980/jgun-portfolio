@@ -1,0 +1,65 @@
+{
+  "schema": "jgun-jg036-band-sweep/1",
+  "capturedUtc": "2026-10-09",
+  "server": "http://localhost:5205/ (fresh Vite dev server, current working tree)",
+  "viewport": "1600x900",
+  "method": "Playwright headless installed Chrome ANGLE/D3D11 via scripts/lib/browser-launch.mjs; goto(waitUntil load); 180s readiness bundle (drawingProof.ready + annotationsReady + __rig + warmReady) identical to verifier; seek via __drawingProof.scrollToProgress; settle >=1.2s; census of button[aria-pressed] with rects",
+  "sweep-1": [
+    { "p": 0.3, "chapter": 1, "rotor": "VISIBLE @719,390", "intake": "absent", "trunnion": "absent", "badgeCount": 4 },
+    { "p": 0.35, "chapter": 1, "rotor": "VISIBLE @468,383", "intake": "absent", "trunnion": "absent", "badgeCount": 4 },
+    { "p": 0.4, "chapter": 1, "rotor": "VISIBLE @335,359", "intake": "absent", "trunnion": "absent", "badgeCount": 4 },
+    { "p": 0.42, "chapter": 1, "rotor": "VISIBLE @118,358", "intake": "absent", "trunnion": "absent", "badgeCount": 4 },
+    { "p": 0.44, "chapter": 2, "rotor": "absent", "intake": "hidden 0x0", "trunnion": "absent", "badgeCount": 10 },
+    { "p": 0.46, "chapter": 2, "rotor": "absent", "intake": "hidden 0x0", "trunnion": "absent", "badgeCount": 10 },
+    { "p": 0.49, "chapter": 2, "rotor": "absent", "intake": "hidden 0x0", "trunnion": "absent", "badgeCount": 10 },
+    { "p": 0.51, "chapter": 2, "rotor": "absent", "intake": "hidden 0x0", "trunnion": "absent", "badgeCount": 10 },
+    { "p": 0.6, "chapter": 2, "rotor": "absent", "intake": "VISIBLE @322,581", "trunnion": "absent", "badgeCount": 10 },
+    { "p": 0.75, "chapter": 3, "rotor": "absent", "intake": "absent", "trunnion": "VISIBLE @1095,409", "badgeCount": 7 },
+    { "p": 0.83, "chapter": 3, "rotor": "absent", "intake": "absent", "trunnion": "VISIBLE @1220,484", "badgeCount": 7 }
+  ],
+  "sweep-2-edge-refinement": [
+    { "p": 0.55, "chapter": 2, "intake": "hidden" },
+    { "p": 0.58, "chapter": 2, "intake": "VISIBLE" },
+    { "p": 0.62, "chapter": 2, "intake": "VISIBLE" },
+    { "p": 0.65, "chapter": 3, "intake": "absent", "trunnion": "absent" },
+    { "note": "sweep-2 aborted at p=0.68 on a seek-settle timeout (transient); sweep-1 rows 0.42/0.43/0.435/0.52 printed before the captured window are not present in this file; chapter flip 1->2 lies in (0.42,0.44) per sweep-1" }
+  ],
+  "sweep-3-narrow-390x844": [
+    { "p": 0.2, "chapter": 0, "rotor": "VISIBLE" },
+    { "p": 0.25, "chapter": 1, "rotor": "VISIBLE" },
+    { "p": 0.3, "chapter": 1, "rotor": "hidden" },
+    { "p": 0.35, "chapter": 1, "rotor": "hidden" },
+    { "p": 0.4, "chapter": 1, "rotor": "hidden" },
+    { "p": 0.42, "chapter": 1, "rotor": "hidden" },
+    { "p": 0.56, "chapter": 2, "intake": "hidden" },
+    { "p": 0.58, "chapter": 2, "intake": "VISIBLE" },
+    { "p": 0.6, "chapter": 2, "intake": "VISIBLE" },
+    { "p": 0.62, "chapter": 2, "intake": "VISIBLE" },
+    { "p": 0.75, "chapter": 3, "trunnion": "VISIBLE" },
+    { "p": 0.83, "chapter": 3, "trunnion": "VISIBLE" }
+  ],
+  "sweep-4-desktop-low": [
+    { "p": 0.2, "chapter": 0, "rotor": "absent" },
+    { "p": 0.22, "chapter": 1, "rotor": "VISIBLE @989,296" },
+    { "p": 0.25, "chapter": 1, "rotor": "VISIBLE @812,314" },
+    { "p": 0.28, "chapter": 1, "rotor": "VISIBLE @751,353" },
+    { "p": 0.3, "chapter": 1, "rotor": "VISIBLE @719,390" },
+    { "note": "one fresh-page seek to 0.20 settle-timed-out once on desktop; retry sweep with re-seeks and 0.004 tolerance measured it (absent, chapter 0); narrow measured 0.20 visible chapter 0 - chapter 0->1 flip is viewport-dependent" }
+  ],
+  "run-2-findings": {
+    "desktopRotorElementFromPoint": "badge VISIBLE at 0.40, real actionability click SUCCEEDED (aria-pressed true), but elementFromPoint at the badge center returned a DIV whose text is the badge's own label+processNote - the button's label descendant. Real clicks reach the button by bubbling; the raw-hit===BUTTON oracle was over-strict.",
+    "desktopPostClickHidden": "after the inspect card opened, the product culled the selected badge (display:none via anchor frustum culling, Hotspots.tsx ~302-307) and it stayed hidden - authored behavior; the post-click badge-visible wait (old line 356) was wrong.",
+    "narrowRotorBand": "rotor visible ONLY at <=~0.25 on 390x844 (hidden 0.30-0.42) - inverse of desktop band; intersection of both viewport bands is [~0.22,~0.27]; 0.25 is directly measured visible on BOTH viewports."
+  },
+  "ab-probe": {
+    "note": "Identical census (chapter 2, rotor absent, 7 enclosure badges 0x0 + 3 material controls, canvas 1600x900 alive) at paced 0.49 on BOTH the dev server :5205 and the frozen stills preview :5203 (index-BP95EhKL.js) - dev-only artifacts excluded as cause",
+    "devTier": "lite",
+    "previewTier": "full"
+  },
+  "conclusion": {
+    "rotorBand": "chapter 1, paced <= ~0.43 (visible 0.30-0.42 measured)",
+    "intakeBand": "chapter 2, paced ~[0.56,0.64] (hidden <=0.55, visible 0.58-0.62, absent >=0.65)",
+    "trunnionBand": "chapter 3, paced >= ~0.7 (absent 0.65, visible 0.75 and 0.83)",
+    "verifierAnchors": "authored rotor 0.49 / intake 0.75 / trunnion 0.83 - rotor and intake anchors sit OUTSIDE their badge bands (chapter gate flips at ~0.43 and ~0.645), so the pinned verifier could never see those badges; trunnion 0.83 is inside its band"
+  }
+}

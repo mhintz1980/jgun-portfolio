@@ -1,0 +1,48 @@
+{
+  "task": "JG-036 Scope 1 hotspot layering and keeper revival",
+  "url": "http://localhost:5199/",
+  "qualityLock": false,
+  "evidenceClass": "normal-quality candidate",
+  "qualityPolicy": "Run without --quality-lock first. A quality-locked rerun is allowed only if the inherited global canvas failure reproduces; it never closes tier/performance/G6.",
+  "label": "oracle-anchor-correction-r3",
+  "startedAt": "2026-10-09T05:12:03.437Z",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "servedModelProof": "NOT ATTRIBUTION: this browser verifier asserts no model identity; model selection is parent-owned",
+  "ownerDecision": {
+    "narrowed": "One legacy keeper per assembly in the Station 1 Hotspots layer; later additions are a separate task.",
+    "extras": "Station 2 enclosure and Station 3 M249 stage producers keep their extra callout badges active; owner-permitted (2026-10-08).",
+    "producerPaths": [
+      "src/scene/Hotspots.tsx (Station 1 legacy keeper filter)",
+      "src/scene/stages/Station2_AcousticEnclosure.tsx (Station 2 stage callouts)",
+      "src/scene/stages/M249Stage.tsx (Station 3 stage anchors)"
+    ],
+    "inspectParallax": "PRESERVED: existing inspect parallax behavior deliberately kept (owner decision 2026-10-08)."
+  },
+  "staticContract": {
+    "active": [
+      "duct-intake",
+      "m249-trunnion",
+      "rotor"
+    ],
+    "authoredCount": 18,
+    "checks": {
+      "activeSetExact": true,
+      "keeperDefinitionsExact": true,
+      "authoredIdsUnique": true,
+      "allFramesRetained": true,
+      "portalWired": true,
+      "keeperFilterWired": true,
+      "noDiagnosticAllHotspotUnblock": true,
+      "hudLayerWired": true,
+      "chapterTrackPointerInert": true,
+      "chapterDescendantControlsNative": true
+    }
+  },
+  "cases": [],
+  "reducedRoute": null,
+  "openGates": [],
+  "failures": [],
+  "staticOnly": true,
+  "completedAt": "2026-10-09T05:12:03.477Z",
+  "status": "PASS"
+}

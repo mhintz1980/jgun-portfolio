@@ -1,0 +1,35 @@
+
+> jgun-portfolio@0.1.0 build
+> tsc && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 710 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                   2.12 kB │ gzip:   0.70 kB
+dist/assets/draco_wasm_wrapper-fZCQGLGb.js       58.46 kB
+dist/assets/draco_wasm_wrapper-DxJM36Ib.js       58.76 kB
+dist/assets/draco_decoder-Z1_iN-Ht.wasm         192.42 kB │ gzip:  63.46 kB
+dist/assets/draco_decoder-C32yEggz.wasm         285.75 kB │ gzip:  88.64 kB
+dist/assets/draco_decoder-fzg4nYZr.js           719.41 kB
+dist/assets/QuietMachinePreview-TUd1Nev4.css      2.60 kB │ gzip:   0.98 kB
+dist/assets/RingInspection-Bgb0Kbjs.css          11.70 kB │ gzip:   3.02 kB
+dist/assets/index-CddUWpSY.css                   40.51 kB │ gzip:   7.78 kB
+dist/assets/vanilla-m3Xdu9cz.js                   0.34 kB │ gzip:   0.25 kB
+dist/assets/BootSequence-B6Jki2uy.js              3.02 kB │ gzip:   1.55 kB
+dist/assets/script-D6DkNSQw.js                    3.36 kB │ gzip:   1.70 kB
+dist/assets/QuietMachinePreview-CMerIdrV.js       6.51 kB │ gzip:   3.01 kB
+dist/assets/RingInspection-CjrMJw5w.js           19.10 kB │ gzip:   6.37 kB
+dist/assets/ScrollRig-BhP7vd-F.js                20.85 kB │ gzip:   6.36 kB
+dist/assets/QuietMachineScene-CNNvmwxP.js        30.91 kB │ gzip:  12.22 kB
+dist/assets/ScrollTrigger-a3sj5zmn.js           114.01 kB │ gzip:  45.16 kB
+dist/assets/sectionRenderPass-BQdKuTWY.js       318.34 kB │ gzip:  94.38 kB
+dist/assets/SceneCanvas-DZeZz-e1.js             468.53 kB │ gzip: 167.95 kB
+dist/assets/index-BP95EhKL.js                 1,147.16 kB │ gzip: 338.50 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 38.38s

@@ -1,0 +1,21 @@
+FAIL: desktop/rotor: elementFromPoint returned DIV/AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY instead of the keeper button
+FAIL: desktop: TimeoutError: locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible[22m
+[2m    63 × locator resolved to hidden <button type="button" aria-pressed="true" aria-label="AIR MOTOR ROTOR · Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing." class="group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-…>…</button>[22m
+
+FAIL: narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible[22m
+[2m    44 × locator resolved to hidden <button type="button" aria-pressed="false" aria-label="AIR MOTOR ROTOR · Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing." class="group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus…>…</button>[22m
+
+{
+  "status": "FAIL",
+  "reportPath": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-036-hotspot-clickability\\z-order-2026-10-08\\runtime-final-native\\final-native-1791521556374-verification-report.json",
+  "failures": [
+    "desktop/rotor: elementFromPoint returned DIV/AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY instead of the keeper button",
+    "desktop: TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible\u001b[22m\n\u001b[2m    63 × locator resolved to hidden <button type=\"button\" aria-pressed=\"true\" aria-label=\"AIR MOTOR ROTOR · Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing.\" class=\"group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-…>…</button>\u001b[22m\n",
+    "narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible\u001b[22m\n\u001b[2m    44 × locator resolved to hidden <button type=\"button\" aria-pressed=\"false\" aria-label=\"AIR MOTOR ROTOR · Vane-type pneumatic rotor — the input side of the reduction train. Balanced for high-RPM operation inside the machined motor housing.\" class=\"group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus…>…</button>\u001b[22m\n"
+  ],
+  "openGates": []
+}

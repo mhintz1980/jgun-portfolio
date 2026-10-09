@@ -1,0 +1,6 @@
+
+> jgun-portfolio@0.1.0 preview
+> vite preview --host localhost --port 5203 --strictPort
+
+  ➜  Local:   http://localhost:5203/
+  ➜  press h + enter to show help

@@ -1,0 +1,1645 @@
+{
+  "task": "JG-036 Scope 1 hotspot layering and keeper revival",
+  "url": "http://localhost:5205/",
+  "qualityLock": false,
+  "evidenceClass": "normal-quality candidate",
+  "qualityPolicy": "Run without --quality-lock first. A quality-locked rerun is allowed only if the inherited global canvas failure reproduces; it never closes tier/performance/G6.",
+  "label": "final-native",
+  "startedAt": "2026-10-09T05:06:09.192Z",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "servedModelProof": "NOT ATTRIBUTION: this browser verifier asserts no model identity; model selection is parent-owned",
+  "ownerDecision": {
+    "narrowed": "One legacy keeper per assembly in the Station 1 Hotspots layer; later additions are a separate task.",
+    "extras": "Station 2 enclosure and Station 3 M249 stage producers keep their extra callout badges active; owner-permitted (2026-10-08).",
+    "producerPaths": [
+      "src/scene/Hotspots.tsx (Station 1 legacy keeper filter)",
+      "src/scene/stages/Station2_AcousticEnclosure.tsx (Station 2 stage callouts)",
+      "src/scene/stages/M249Stage.tsx (Station 3 stage anchors)"
+    ],
+    "inspectParallax": "PRESERVED: existing inspect parallax behavior deliberately kept (owner decision 2026-10-08)."
+  },
+  "staticContract": {
+    "active": [
+      "duct-intake",
+      "m249-trunnion",
+      "rotor"
+    ],
+    "authoredCount": 18,
+    "checks": {
+      "activeSetExact": true,
+      "keeperDefinitionsExact": true,
+      "authoredIdsUnique": true,
+      "allFramesRetained": true,
+      "portalWired": true,
+      "keeperFilterWired": true,
+      "noDiagnosticAllHotspotUnblock": true,
+      "hudLayerWired": true,
+      "chapterTrackPointerInert": true,
+      "chapterDescendantControlsNative": true
+    }
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "name": "desktop",
+        "width": 1600,
+        "height": 900
+      },
+      "keepers": [
+        {
+          "id": "rotor",
+          "box": {
+            "x": 910.6915893554688,
+            "y": 331.840087890625,
+            "width": 196.078125,
+            "height": 41
+          },
+          "hit": {
+            "present": true,
+            "tag": "DIV",
+            "text": "AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY",
+            "chain": [
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": "relative"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 4,
+          "cameraBefore": {
+            "x": 0.45002752905068305,
+            "y": 0.13804927740369513,
+            "z": 0.24817790804016832,
+            "fov": 39.21369580605678,
+            "framingBias": 0.0278777329923461,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.4500275280016214,
+                0.13804927771382244,
+                0.24817790942642887
+              ],
+              "target": [
+                -0.005072204219729243,
+                0.006965760428658289,
+                -0.024374515743863248
+              ],
+              "fov": 39.213695828536686
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.2500250183958794,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "cameraAfter": {
+            "x": 0.18000298882158275,
+            "y": 0.09520047428070122,
+            "z": 0.1200014187475705,
+            "fov": 24.000168394025092,
+            "framingBias": 0.0278777329923461,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.18,
+                0.0952,
+                0.12
+              ],
+              "target": [
+                -0.0019876249637522233,
+                0,
+                -0.058012375036247774
+              ],
+              "fov": 24
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.2500250183958794,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "cameraExited": {
+            "x": 0.4541022363367902,
+            "y": 0.1280951756896704,
+            "z": 0.24814292271146068,
+            "fov": 39.20954318443485,
+            "framingBias": 0.0278777329923461,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.4541784626024515,
+                0.128100829363128,
+                0.24817790942642887
+              ],
+              "target": [
+                -0.005072204219729243,
+                0.006965760428658289,
+                -0.024374515743863248
+              ],
+              "fov": 39.213695828536686
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.2500250183958794,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.2500250183958794,
+              "aspect": 1.7777777777777777,
+              "portrait": false,
+              "framePosition": [
+                0.18,
+                0.08,
+                0.12
+              ],
+              "frameTarget": [
+                0,
+                0,
+                -0.06
+              ],
+              "dolly": 1,
+              "fov": 24,
+              "finalTarget": [
+                -0.0019876249637522233,
+                0,
+                -0.058012375036247774
+              ],
+              "biasX": 0.0278777329923461,
+              "biasY": 0
+            },
+            "actual": {
+              "position": [
+                0.18,
+                0.0952,
+                0.12
+              ],
+              "target": [
+                -0.0019876249637522233,
+                0,
+                -0.058012375036247774
+              ],
+              "fov": 24,
+              "portraitDolly": 1
+            },
+            "unwrappedPosition": [
+              0.18,
+              0.0952,
+              0.12
+            ],
+            "positionDelta": 0.015200000000000005,
+            "targetDelta": 0,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 910.6915893554688,
+            "y": 331.840087890625
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.010755863720493551,
+            "fovDelta": 0.004152621621933861,
+            "goalDelta": 0.010779697706652241,
+            "restored": true
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 0.45002732050010774,
+              "y": 0.12284926891887554,
+              "z": 0.248177363924127,
+              "fov": 39.21368203222177,
+              "framingBias": 0.0278777329923461,
+              "framingBiasY": 0,
+              "portraitDolly": 1,
+              "goal": {
+                "position": [
+                  0.4500275280016214,
+                  0.12284927771382245,
+                  0.24817790942642887
+                ],
+                "target": [
+                  -0.005072204219729243,
+                  0.006965760428658289,
+                  -0.024374515743863248
+                ],
+                "fov": 39.213695828536686
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.2500250183958794,
+              "chapter": 1,
+              "explodeFactor": 0
+            },
+            "restDelta": 0.0000046979237090577455
+          },
+          "badgeCountBeforeScroll": 4
+        },
+        {
+          "id": "duct-intake",
+          "box": {
+            "x": 524.8739013671875,
+            "y": 598.4852905273438,
+            "width": 411.5625,
+            "height": 36
+          },
+          "hit": {
+            "present": true,
+            "tag": "SPAN",
+            "text": "1,850 CFM",
+            "chain": [
+              {
+                "tag": "SPAN",
+                "className": "flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold last:border-r-0 border-cyan-300/40"
+              },
+              {
+                "tag": "DIV",
+                "className": "inline-flex shrink-0 items-center border text-cyan-100 border-cyan-300/45 bg-cyan-950/25"
+              },
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/35 bg-black/70 text-cyan-300/70 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "-F-LAMINAR FLOW1,850 CFM650 FPMDATUM F — 1,850 CFM INTAKE AIRWAY"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 10,
+          "cameraBefore": {
+            "x": 33.66235670198143,
+            "y": 2.8151999716407223,
+            "z": -0.010621755066236046,
+            "fov": 35.999999929112015,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                33.66235672998936,
+                2.8151999740127867,
+                -0.010621776361327662
+              ],
+              "target": [
+                26.58406058043481,
+                1.2,
+                -5.085277527418093
+              ],
+              "fov": 35.999999935031965
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.6000176600441501,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "cameraAfter": {
+            "x": 29.800047228055195,
+            "y": 1.6152146733378225,
+            "z": -2.799965892091675,
+            "fov": 28.000097822253508,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                29.8,
+                1.6152000000000002,
+                -2.8
+              ],
+              "target": [
+                27.61558065024267,
+                1.11,
+                -4.742464520194136
+              ],
+              "fov": 28
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.6000176600441501,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "cameraExited": {
+            "x": 33.66117517746397,
+            "y": 2.8148328761244046,
+            "z": -0.011475088759637037,
+            "fov": 35.99755261574296,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                33.66235672998936,
+                2.8151999740127867,
+                -0.010621776361327662
+              ],
+              "target": [
+                26.58406058043481,
+                1.2,
+                -5.085277527418093
+              ],
+              "fov": 35.999999935031965
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.6000176600441501,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.6000176600441501,
+              "aspect": 1.7777777777777777,
+              "portrait": false,
+              "framePosition": [
+                29.8,
+                1.6,
+                -2.8
+              ],
+              "frameTarget": [
+                28,
+                1.11,
+                -5.05
+              ],
+              "dolly": 1,
+              "fov": 28,
+              "finalTarget": [
+                27.61558065024267,
+                1.11,
+                -4.742464520194136
+              ],
+              "biasX": 0.38,
+              "biasY": 0
+            },
+            "actual": {
+              "position": [
+                29.8,
+                1.6152000000000002,
+                -2.8
+              ],
+              "target": [
+                27.61558065024267,
+                1.11,
+                -4.742464520194136
+              ],
+              "fov": 28,
+              "portraitDolly": 1
+            },
+            "unwrappedPosition": [
+              29.8,
+              1.6152000000000002,
+              -2.8
+            ],
+            "positionDelta": 0.015200000000000102,
+            "targetDelta": 0,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 524.8739013671875,
+            "y": 598.4852905273438
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.0015029762791742337,
+            "fovDelta": 0.002447313369053461,
+            "goalDelta": 0,
+            "restored": true
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 33.666453119243016,
+              "y": 2.8052471289181824,
+              "z": -0.010621351346340763,
+              "fov": 36.00000521091076,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1,
+              "goal": {
+                "position": [
+                  33.66650766459019,
+                  2.8052515256620922,
+                  -0.010621776361327662
+                ],
+                "target": [
+                  26.58406058043481,
+                  1.2,
+                  -5.085277527418093
+                ],
+                "fov": 35.999999935031965
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.6000176600441501,
+              "chapter": 2,
+              "explodeFactor": 1
+            },
+            "restDelta": 0.00042093489885756225
+          },
+          "badgeCountBeforeScroll": 10
+        },
+        {
+          "id": "m249-trunnion",
+          "box": {
+            "x": 1397.7891235351562,
+            "y": 502.9290771484375,
+            "width": 355.5780029296875,
+            "height": 36
+          },
+          "hit": {
+            "present": true,
+            "tag": "SPAN",
+            "text": "A",
+            "chain": [
+              {
+                "tag": "SPAN",
+                "className": "flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold last:border-r-0 border-cyan-300/70"
+              },
+              {
+                "tag": "DIV",
+                "className": "inline-flex shrink-0 items-center border text-cyan-100 border-cyan-300/90 bg-cyan-950/40"
+              },
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "-B-.0008\" TIRADATUM B — BARREL TRUNNION BORE"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 7,
+          "cameraBefore": {
+            "x": 56.487162793066204,
+            "y": 0.7492629309797906,
+            "z": -9.300560862276793,
+            "fov": 36.00875517175744,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                56.487162789338285,
+                0.7492629254974761,
+                -9.30056088310959
+              ],
+              "target": [
+                55.38646009861625,
+                0,
+                -11.889275587710697
+              ],
+              "fov": 36.00875510596971
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300220750551877,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "cameraAfter": {
+            "x": 56.22000362195328,
+            "y": 0.26520656249060975,
+            "z": -11.349972215544218,
+            "fov": 22.0001899181254,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                56.22,
+                0.2652,
+                -11.35
+              ],
+              "target": [
+                55.92921789441195,
+                0.03,
+                -11.818855873541256
+              ],
+              "fov": 22
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300220750551877,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "cameraExited": {
+            "x": 56.509433381512856,
+            "y": 0.73148043848187,
+            "z": -9.301580179266896,
+            "fov": 36.00178779958306,
+            "framingBias": 0.38,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                56.509579879182034,
+                0.7317105220686566,
+                -9.30056088310959
+              ],
+              "target": [
+                55.38646009861625,
+                0,
+                -11.889275587710697
+              ],
+              "fov": 36.00875510596971
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300220750551877,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.8300220750551877,
+              "aspect": 1.7777777777777777,
+              "portrait": false,
+              "framePosition": [
+                56.22,
+                0.25,
+                -11.35
+              ],
+              "frameTarget": [
+                56,
+                0.03,
+                -11.85
+              ],
+              "dolly": 1,
+              "fov": 22,
+              "finalTarget": [
+                55.92921789441195,
+                0.03,
+                -11.818855873541256
+              ],
+              "biasX": 0.38,
+              "biasY": 0
+            },
+            "actual": {
+              "position": [
+                56.22,
+                0.2652,
+                -11.35
+              ],
+              "target": [
+                55.92921789441195,
+                0.03,
+                -11.818855873541256
+              ],
+              "fov": 22,
+              "portraitDolly": 1
+            },
+            "unwrappedPosition": [
+              56.22,
+              0.2652,
+              -11.35
+            ],
+            "positionDelta": 0.015199999999999991,
+            "targetDelta": 0,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 1397.7891235351562,
+            "y": 502.9290771484375
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.028517278206818153,
+            "fovDelta": 0.006967372174379705,
+            "goalDelta": 0.02847126240950265,
+            "restored": false
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 56.48712466797031,
+              "y": 0.7492663757171397,
+              "z": -9.300545368016158,
+              "fov": 36.00875509004634,
+              "framingBias": 0.38,
+              "framingBiasY": 0,
+              "portraitDolly": 1,
+              "goal": {
+                "position": [
+                  56.487162789338285,
+                  0.7492629254974761,
+                  -9.30056088310959
+                ],
+                "target": [
+                  55.38646009861625,
+                  0,
+                  -11.889275587710697
+                ],
+                "fov": 36.00875510596971
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.8300220750551877,
+              "chapter": 3,
+              "explodeFactor": 1
+            },
+            "restDelta": 0.00033197187249254503
+          },
+          "badgeCountBeforeScroll": 7
+        }
+      ],
+      "errors": [],
+      "canvasPassThrough": {
+        "point": {
+          "x": 800,
+          "y": 108
+        },
+        "hit": {
+          "present": true,
+          "tag": "CANVAS",
+          "text": "",
+          "chain": [
+            {
+              "tag": "CANVAS",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": "fixed inset-0 z-0"
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "BODY",
+              "className": ""
+            }
+          ],
+          "inHotspotLayer": false,
+          "closestBadge": ""
+        },
+        "scrollDelta": 588
+      },
+      "chapterControlHit": {
+        "present": true,
+        "tag": "BUTTON",
+        "text": "[ + CASE STUDY ]",
+        "chain": [
+          {
+            "tag": "BUTTON",
+            "className": "font-mono text-[10px] tracking-[0.2em] text-cyan-300 border border-cyan-400/50 px-3 py-1.5 bg-black/70 backdrop-blur-sm rounded transition-colors hover:border-cyan-300 hover:text-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+          },
+          {
+            "tag": "DIV",
+            "className": "pointer-events-auto mt-4"
+          },
+          {
+            "tag": "DIV",
+            "className": "col-span-12 md:col-span-4 max-w-[30vw] max-md:max-w-full self-start pt-[9vh] flex flex-col transition-opacity duration-150"
+          },
+          {
+            "tag": "DIV",
+            "className": "fixed inset-0 pointer-events-none z-10 grid grid-cols-12 p-6 md:p-12 items-center"
+          },
+          {
+            "tag": "MAIN",
+            "className": ""
+          },
+          {
+            "tag": "DIV",
+            "className": ""
+          }
+        ],
+        "inHotspotLayer": false,
+        "closestBadge": ""
+      },
+      "chapterControlRealClicks": true,
+      "keyboardRoute": {
+        "focused": true,
+        "focusProbe": {
+          "tag": "BUTTON",
+          "text": "AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY",
+          "outlineWidth": "2px",
+          "outlineColor": "rgb(120, 235, 249)",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.235) 0px 0px 0px 0.473174px, oklab(0.865 -0.113079 -0.0578108 / 0.236587) 0px 0px 0px 0.946349px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+        },
+        "focusRingVisible": true,
+        "enterOpenedCard": true,
+        "escapeClosedCard": true,
+        "spaceOpenedCard": true,
+        "spaceClosedCard": true
+      }
+    },
+    {
+      "name": "narrow",
+      "viewport": {
+        "name": "narrow",
+        "width": 390,
+        "height": 844
+      },
+      "keepers": [
+        {
+          "id": "rotor",
+          "box": {
+            "x": 74.99240112304688,
+            "y": 300.0685729980469,
+            "width": 125.984375,
+            "height": 29
+          },
+          "hit": {
+            "present": true,
+            "tag": "SPAN",
+            "text": "AIR MOTOR ROTOR",
+            "chain": [
+              {
+                "tag": "SPAN",
+                "className": "truncate font-semibold tracking-wider text-cyan-100/95"
+              },
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": "relative"
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "AIR MOTOR ROTOR·BALANCED VANE ASSEMBLY"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 4,
+          "cameraBefore": {
+            "x": 0.44999597486032417,
+            "y": 0.1380715630140205,
+            "z": 0.2482196046488561,
+            "fov": 39.214371967278744,
+            "framingBias": 0.006921008481399429,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.4499959720899752,
+                0.1380715638307586,
+                0.24821960830967563
+              ],
+              "target": [
+                -0.00032735269602886225,
+                0.006964069933391527,
+                -0.03197424192311269
+              ],
+              "fov": 39.21437202664339
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.24998548393424622,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "cameraAfter": {
+            "x": 0.18000404128345387,
+            "y": 0.09521391164252414,
+            "z": 0.1200019191833161,
+            "fov": 24.000227727801803,
+            "framingBias": 0.006921008481399429,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.18,
+                0.09521327014218009,
+                0.12
+              ],
+              "target": [
+                -0.00012825994729467188,
+                0,
+                -0.059871740052705326
+              ],
+              "fov": 24
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.24998548393424622,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "cameraExited": {
+            "x": 0.4313817084328309,
+            "y": 0.1286173536878592,
+            "z": 0.24814173457978128,
+            "fov": 39.20513163109597,
+            "framingBias": 0.006921008481399429,
+            "framingBiasY": 0,
+            "portraitDolly": 1,
+            "goal": {
+              "position": [
+                0.43153326457044394,
+                0.12863703430478482,
+                0.24821960830967563
+              ],
+              "target": [
+                -0.00032735269602886225,
+                0.006964069933391527,
+                -0.03197424192311269
+              ],
+              "fov": 39.21437202664339
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.24998548393424622,
+            "chapter": 1,
+            "explodeFactor": 0
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.24998548393424622,
+              "aspect": 0.46208530805687204,
+              "portrait": true,
+              "framePosition": [
+                0.18,
+                0.08,
+                0.12
+              ],
+              "frameTarget": [
+                0,
+                0,
+                -0.06
+              ],
+              "dolly": 1,
+              "fov": 24,
+              "finalTarget": [
+                -0.0001282599472946719,
+                0,
+                -0.059871740052705326
+              ],
+              "biasX": 0.006921008481399429,
+              "biasY": 0
+            },
+            "actual": {
+              "position": [
+                0.18,
+                0.09521327014218009,
+                0.12
+              ],
+              "target": [
+                -0.00012825994729467188,
+                0,
+                -0.059871740052705326
+              ],
+              "fov": 24,
+              "portraitDolly": 1
+            },
+            "unwrappedPosition": [
+              0.18,
+              0.09521327014218009,
+              0.12
+            ],
+            "positionDelta": 0.015213270142180088,
+            "targetDelta": 2.710505431213761e-20,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 74.99240112304688,
+            "y": 300.0685729980469
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.02087771664632498,
+            "fovDelta": 0.009240336182770648,
+            "goalDelta": 0.02073359390767138,
+            "restored": false
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 0.4499957890037451,
+              "y": 0.12285833927550895,
+              "z": 0.248218926340749,
+              "fov": 39.2143551587695,
+              "framingBias": 0.006921008481399429,
+              "framingBiasY": 0,
+              "portraitDolly": 1,
+              "goal": {
+                "position": [
+                  0.4499959720899752,
+                  0.12285829368857852,
+                  0.24821960830967563
+                ],
+                "target": [
+                  -0.00032735269602886225,
+                  0.006964069933391527,
+                  -0.03197424192311269
+                ],
+                "fov": 39.21437202664339
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.24998548393424622,
+              "chapter": 1,
+              "explodeFactor": 0
+            },
+            "restDelta": 0.000005074161692993552
+          },
+          "badgeCountBeforeScroll": 4
+        },
+        {
+          "id": "duct-intake",
+          "box": {
+            "x": 191.0009765625,
+            "y": 246.07546997070312,
+            "width": 358,
+            "height": 36
+          },
+          "hit": {
+            "present": true,
+            "tag": "SPAN",
+            "text": "1,850 CFM",
+            "chain": [
+              {
+                "tag": "SPAN",
+                "className": "flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold last:border-r-0 border-cyan-300/40"
+              },
+              {
+                "tag": "DIV",
+                "className": "inline-flex shrink-0 items-center border text-cyan-100 border-cyan-300/45 bg-cyan-950/25"
+              },
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/35 bg-black/70 text-cyan-300/70 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "-F-LAMINAR FLOW1,850 CFM650 FPMDATUM F — 1,850 CFM INTAKE AIRWAY"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 10,
+          "cameraBefore": {
+            "x": 39.30625087925195,
+            "y": 4.405778706505344,
+            "z": 6.328756049799271,
+            "fov": 45.999999993086234,
+            "framingBias": 0.095,
+            "framingBiasY": 0.75,
+            "portraitDolly": 2,
+            "goal": {
+              "position": [
+                39.30625094508447,
+                4.4057787120363585,
+                6.328756000636973
+              ],
+              "target": [
+                27.759599569864474,
+                -4.307100603164674,
+                -6.13527341064763
+              ],
+              "fov": 46
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.5999968613911884,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "cameraAfter": {
+            "x": 31.58161883587362,
+            "y": 2.0958031253694305,
+            "z": -0.5499273866796387,
+            "fov": 38.00008444936288,
+            "framingBias": 0.095,
+            "framingBiasY": 0.75,
+            "portraitDolly": 2,
+            "goal": {
+              "position": [
+                31.58153729248047,
+                2.0957787406162063,
+                -0.5499999999999998
+              ],
+              "target": [
+                27.931004506510263,
+                -0.3995869993614467,
+                -4.994803605208211
+              ],
+              "fov": 38
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.5999968613911884,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "cameraExited": {
+            "x": 39.30430999605831,
+            "y": 4.405198290237364,
+            "z": 6.327027611034319,
+            "fov": 45.99798988119073,
+            "framingBias": 0.095,
+            "framingBiasY": 0.75,
+            "portraitDolly": 2,
+            "goal": {
+              "position": [
+                39.30625094508447,
+                4.4057787120363585,
+                6.328756000636973
+              ],
+              "target": [
+                27.759599569864474,
+                -4.307100603164674,
+                -6.13527341064763
+              ],
+              "fov": 46
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.5999968613911884,
+            "chapter": 2,
+            "explodeFactor": 1
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.5999968613911884,
+              "aspect": 0.46208530805687204,
+              "portrait": true,
+              "framePosition": [
+                29.8,
+                1.6,
+                -2.8
+              ],
+              "frameTarget": [
+                28,
+                1.11,
+                -5.05
+              ],
+              "dolly": 2,
+              "fov": 38,
+              "finalTarget": [
+                27.931004506510263,
+                -0.3995869993614467,
+                -4.994803605208211
+              ],
+              "biasX": 0.095,
+              "biasY": 0.75
+            },
+            "actual": {
+              "position": [
+                31.58153729248047,
+                2.0957787406162063,
+                -0.5499999999999998
+              ],
+              "target": [
+                27.931004506510263,
+                -0.3995869993614467,
+                -4.994803605208211
+              ],
+              "fov": 38,
+              "portraitDolly": 2
+            },
+            "unwrappedPosition": [
+              29.790768646240235,
+              1.602889370308103,
+              -2.8
+            ],
+            "positionDelta": 0.009672970227148203,
+            "targetDelta": 0,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 191.0009765625,
+            "y": 246.07546997070312
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.0026629703677805536,
+            "fovDelta": 0.0020101118955011543,
+            "goalDelta": 0,
+            "restored": true
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 39.30617446296118,
+              "y": 4.405770297183825,
+              "z": 6.328744037724441,
+              "fov": 45.999986638957814,
+              "framingBias": 0.095,
+              "framingBiasY": 0.75,
+              "portraitDolly": 2,
+              "goal": {
+                "position": [
+                  39.30625094508447,
+                  4.4057787120363585,
+                  6.328756000636973
+                ],
+                "target": [
+                  27.759599569864474,
+                  -4.307100603164674,
+                  -6.13527341064763
+                ],
+                "fov": 46
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.5999968613911884,
+              "chapter": 2,
+              "explodeFactor": 1
+            },
+            "restDelta": 0.0006343726718435862
+          },
+          "badgeCountBeforeScroll": 10
+        },
+        {
+          "id": "m249-trunnion",
+          "box": {
+            "x": 199.78921508789062,
+            "y": 84.91275024414062,
+            "width": 355.578125,
+            "height": 36
+          },
+          "hit": {
+            "present": true,
+            "tag": "SPAN",
+            "text": "A",
+            "chain": [
+              {
+                "tag": "SPAN",
+                "className": "flex h-5 items-center justify-center border-r px-1.5 font-mono text-[10px] font-semibold last:border-r-0 border-cyan-300/70"
+              },
+              {
+                "tag": "DIV",
+                "className": "inline-flex shrink-0 items-center border text-cyan-100 border-cyan-300/90 bg-cyan-950/40"
+              },
+              {
+                "tag": "DIV",
+                "className": "flex items-center gap-2 overflow-hidden"
+              },
+              {
+                "tag": "BUTTON",
+                "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]"
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              },
+              {
+                "tag": "DIV",
+                "className": ""
+              }
+            ],
+            "inHotspotLayer": true,
+            "closestBadge": "-B-.0008\" TIRADATUM B — BARREL TRUNNION BORE"
+          },
+          "isBadgeHit": true,
+          "badgeCount": 7,
+          "cameraBefore": {
+            "x": 57.03592296865277,
+            "y": 1.5945424273400046,
+            "z": -6.157500221448299,
+            "fov": 46.008239880875266,
+            "framingBias": 0.095,
+            "framingBiasY": 0.84,
+            "portraitDolly": 2.16446921366492,
+            "goal": {
+              "position": [
+                57.03592294520723,
+                1.5945423925143556,
+                -6.157500352016874
+              ],
+              "target": [
+                55.88727959501873,
+                -2.1917729223399967,
+                -11.979657546436853
+              ],
+              "fov": 46.00823977648372
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300003923261015,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "cameraAfter": {
+            "x": 56.457730068896375,
+            "y": 0.5119798471806005,
+            "z": -10.76768925147905,
+            "fov": 32.000231355682025,
+            "framingBias": 0.095,
+            "framingBiasY": 0.84,
+            "portraitDolly": 2.16446921366492,
+            "goal": {
+              "position": [
+                56.45772051948675,
+                0.5119619676224887,
+                -10.76776539316754
+              ],
+              "target": [
+                55.98531399214724,
+                -0.2770200100203891,
+                -11.843538156544785
+              ],
+              "fov": 32
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300003923261015,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "cameraExited": {
+            "x": 57.035570933020864,
+            "y": 1.5938833127780234,
+            "z": -6.1603071017029745,
+            "fov": 45.9997114983382,
+            "framingBias": 0.095,
+            "framingBiasY": 0.84,
+            "portraitDolly": 2.16446921366492,
+            "goal": {
+              "position": [
+                57.03592294520723,
+                1.5945423925143556,
+                -6.157500352016874
+              ],
+              "target": [
+                55.88727959501873,
+                -2.1917729223399967,
+                -11.979657546436853
+              ],
+              "fov": 46.00823977648372
+            },
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "sheetDistance": 0,
+            "progress": 0.8300003923261015,
+            "chapter": 3,
+            "explodeFactor": 1
+          },
+          "inspectGoal": {
+            "ok": true,
+            "expected": {
+              "progress": 0.8300003923261015,
+              "aspect": 0.46208530805687204,
+              "portrait": true,
+              "framePosition": [
+                56.22,
+                0.25,
+                -11.35
+              ],
+              "frameTarget": [
+                56,
+                0.03,
+                -11.85
+              ],
+              "dolly": 2.16446921366492,
+              "fov": 32,
+              "finalTarget": [
+                55.98531399214724,
+                -0.2770200100203891,
+                -11.843538156544785
+              ],
+              "biasX": 0.095,
+              "biasY": 0.84
+            },
+            "actual": {
+              "position": [
+                56.45772051948675,
+                0.5119619676224887,
+                -10.76776539316754
+              ],
+              "target": [
+                55.98531399214724,
+                -0.2770200100203891,
+                -11.843538156544785
+              ],
+              "fov": 32,
+              "portraitDolly": 2.16446921366492
+            },
+            "unwrappedPosition": [
+              56.21147009927285,
+              0.25266981880810474,
+              -11.35
+            ],
+            "positionDelta": 0.008937960555020268,
+            "targetDelta": 0,
+            "fovDelta": 0,
+            "dollyDelta": 0,
+            "limits": {
+              "position": 0.045,
+              "target": 0.01,
+              "fov": 0.01,
+              "dolly": 0.001
+            }
+          },
+          "pinnedPointer": {
+            "x": 199.78921508789062,
+            "y": 84.91275024414062
+          },
+          "exitBaseline": {
+            "progressDelta": 0,
+            "poseDelta": 0.002904640744745627,
+            "fovDelta": 0.008528382537065227,
+            "goalDelta": 0,
+            "restored": true
+          },
+          "restBeforeEnter": {
+            "camera": {
+              "x": 57.03589543959321,
+              "y": 1.5945467533319622,
+              "z": -6.157480982731425,
+              "fov": 46.0082397625631,
+              "framingBias": 0.095,
+              "framingBiasY": 0.84,
+              "portraitDolly": 2.16446921366492,
+              "goal": {
+                "position": [
+                  57.03592294520723,
+                  1.5945423925143556,
+                  -6.157500352016874
+                ],
+                "target": [
+                  55.88727959501873,
+                  -2.1917729223399967,
+                  -11.979657546436853
+                ],
+                "fov": 46.00823977648372
+              },
+              "up": [
+                0,
+                1,
+                0
+              ],
+              "sheetDistance": 0,
+              "progress": 0.8300003923261015,
+              "chapter": 3,
+              "explodeFactor": 1
+            },
+            "restDelta": 0.0002732108110160368
+          },
+          "badgeCountBeforeScroll": 7
+        }
+      ],
+      "errors": [],
+      "canvasPassThrough": {
+        "point": {
+          "x": 195,
+          "y": 101
+        },
+        "hit": {
+          "present": true,
+          "tag": "BUTTON",
+          "text": "-B-.0008\" TIRADATUM B — BARREL TRUNNION BORE",
+          "chain": [
+            {
+              "tag": "BUTTON",
+              "className": "group pointer-events-auto cursor-pointer select-none max-w-[calc(100vw-32px)] md:max-w-none border px-2.5 py-1.5 font-mono text-[10px] tracking-widest outline-none backdrop-blur-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-black border-cyan-400/60 bg-black/85 text-cyan-300 hover:border-cyan-300 hover:bg-black/95 hover:text-cyan-100 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)]"
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": "relative"
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            },
+            {
+              "tag": "DIV",
+              "className": ""
+            }
+          ],
+          "inHotspotLayer": true,
+          "closestBadge": "-B-.0008\" TIRADATUM B — BARREL TRUNNION BORE"
+        },
+        "scrollDelta": 590
+      }
+    }
+  ],
+  "reducedRoute": {
+    "name": "desktop-reduced",
+    "badges": 0,
+    "canvas": 0,
+    "nativeScrollDelta": 700
+  },
+  "openGates": [],
+  "failures": [
+    "desktop/m249-trunnion: close did not restore the pinned-pointer scroll/camera baseline",
+    "narrow/rotor: close did not restore the pinned-pointer scroll/camera baseline",
+    "narrow: blank pass-through point hit BUTTON, expected canvas",
+    "narrow: blank pass-through point hit BUTTON, expected canvas",
+    "narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n"
+  ],
+  "staticOnly": false,
+  "completedAt": "2026-10-09T05:08:00.070Z",
+  "status": "FAIL"
+}

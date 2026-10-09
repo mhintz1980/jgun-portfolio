@@ -1,0 +1,20 @@
+FAIL: desktop/m249-trunnion: close did not restore the pinned-pointer scroll/camera baseline
+FAIL: narrow/rotor: close did not restore the pinned-pointer scroll/camera baseline
+FAIL: narrow: blank pass-through point hit BUTTON, expected canvas
+FAIL: narrow: blank pass-through point hit BUTTON, expected canvas
+FAIL: narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('button[aria-controls="gearbox-case-study"]') to be visible[22m
+
+{
+  "status": "FAIL",
+  "reportPath": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-036-hotspot-clickability\\z-order-2026-10-08\\runtime-final-native\\final-native-1791522480070-verification-report.json",
+  "failures": [
+    "desktop/m249-trunnion: close did not restore the pinned-pointer scroll/camera baseline",
+    "narrow/rotor: close did not restore the pinned-pointer scroll/camera baseline",
+    "narrow: blank pass-through point hit BUTTON, expected canvas",
+    "narrow: blank pass-through point hit BUTTON, expected canvas",
+    "narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n"
+  ],
+  "openGates": []
+}

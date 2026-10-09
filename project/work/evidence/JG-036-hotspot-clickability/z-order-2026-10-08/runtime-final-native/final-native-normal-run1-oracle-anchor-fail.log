@@ -1,0 +1,17 @@
+FAIL: desktop: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible[22m
+
+FAIL: narrow: TimeoutError: page.goto: Timeout 120000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:5205/", waiting until "networkidle"[22m
+
+{
+  "status": "FAIL",
+  "reportPath": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-036-hotspot-clickability\\z-order-2026-10-08\\runtime-final-native\\final-native-verification-report.json",
+  "failures": [
+    "desktop: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-pressed]').filter({ hasText: 'AIR MOTOR ROTOR' }).first() to be visible\u001b[22m\n",
+    "narrow: TimeoutError: page.goto: Timeout 120000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5205/\", waiting until \"networkidle\"\u001b[22m\n"
+  ],
+  "openGates": []
+}

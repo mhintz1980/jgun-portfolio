@@ -1,0 +1,19 @@
+FAIL: static contract: allFramesRetained
+FAIL: desktop: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator('button[aria-controls="gearbox-case-study"]') to be visible
+
+FAIL: narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator('button[aria-controls="gearbox-case-study"]') to be visible
+
+{
+  "status": "FAIL",
+  "reportPath": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-036-hotspot-clickability\\z-order-2026-10-08\\keeper-layering-verification-report.json",
+  "failures": [
+    "static contract: allFramesRetained",
+    "desktop: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n",
+    "narrow: TimeoutError: locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-controls=\"gearbox-case-study\"]') to be visible\u001b[22m\n"
+  ],
+  "openGates": []
+}
