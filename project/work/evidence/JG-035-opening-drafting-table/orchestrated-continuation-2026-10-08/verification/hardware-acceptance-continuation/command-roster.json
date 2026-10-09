@@ -1,0 +1,118 @@
+{
+  "schema": "jgun-hardware-acceptance-continuation-roster/1",
+  "preparedUtc": "2026-10-09T00:12:40Z",
+  "status": "PREPARED_AWAIT_GPU_RELEASE",
+  "root": "C:/Users/Markimus/.buzz/REPOS/jgun-portfolio",
+  "baseline": {
+    "url": "http://127.0.0.1:4174/",
+    "outDir": ".scratch/v1-frozen-dist",
+    "commit": "8db93913b2e91182199fb7d09c40273bd61c816a",
+    "sourceTree": "02945c2618fe22db312fda9b91d58c872375480c",
+    "distFiles": 62,
+    "distAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+    "serverEvidence": "../frozen-dist-server.json",
+    "releaseEvidence": "../BUILD-RELEASED.json"
+  },
+  "originalOutputs": {
+    "opening": "../../../../../stages-1-3-2026-09-26/hardware-acceptance-2026-10-08T23-47-04-636Z",
+    "interpretation": "Preserve untouched. Live desktop/narrow failed 108/141 expectations after effective lite; desktop-reduced and narrow-reduced passed with zero CAD/canvas; forced desktop-lite was interrupted. These are failures/interruption evidence, not passes."
+  },
+  "constraints": [
+    "Run only after the parent's explicit GPU release/forward.",
+    "Run the five commands serially against the existing frozen 127.0.0.1:4174 server.",
+    "Do not rebuild, edit source, restart or replace servers, or alter .scratch/v1-frozen-dist.",
+    "No qualityLock, SwiftShader, tier threshold override, or test weakening.",
+    "Redirect every command's stdout/stderr to this packet's logs directory and persist each process exit code.",
+    "Derive pass/fail counts and errors only from each generated report and exit file; never claim an interrupted or failed run as passing.",
+    "Verify the frozen dist aggregate before and after the roster; all mixed evidence must identify the same verified hash."
+  ],
+  "parserEvidence": {
+    "scripts/verify-jgun-opening.mjs": {
+      "sha256": "32A3BB44DCE4613E914E3D1D0E3BF966ECB1B016AE7EEB5532314396B4ABD509",
+      "acceptedArgs": ["--label=", "--case=", "--out=", "--url=", "--quick"],
+      "selectedCases": ["desktop-lite", "narrow-lite"],
+      "caseSemantics": "forceTier=lite after load through the proof hook; real tier ratchet, not a synthetic uniform"
+    },
+    "scripts/verify-ring-inspection.mjs": {
+      "sha256": "C25AC8062BF4A88384CA65C5E0B083612500DD916FDE79549694E85CEA550CB7",
+      "acceptedArgs": ["--url=", "--out=", "--seam-threshold=", "--focused"],
+      "selection": "Omit --focused to run all six desktop/mobile/blueprint/exploded/reduced-mobile/poster cases"
+    },
+    "scripts/verify-shaft-inspection.mjs": {
+      "sha256": "4EB548543A15B17836B9E1E2E7080C48590E0E046D0FAA373AF3D809362813D3",
+      "acceptedArgs": ["--url=", "--out="],
+      "selection": "Complete verifier roster with script-selected cases"
+    },
+    "scripts/verify-manufacturing-inspection.mjs": {
+      "sha256": "2B20CAB6E0AF13A7FF737514A4DBF9D0C678CD44C8B7382E5A08417A2E10F378",
+      "acceptedArgs": ["--url=", "--out="],
+      "selection": "Complete shared lifecycle/ring roster with script-selected cases"
+    }
+  },
+  "wallClockBudgetMinutesPerCommand": 15,
+  "timeoutPolicy": "On wall-clock timeout, stop the command, preserve its partial report/log, and record timeout as failed/incomplete. Do not extend the budget merely to wait for a globally inactive deterministic process, and never promote partial output to a pass.",
+  "readinessTimeoutSeconds": 10,
+  "commands": [
+    {
+      "id": "opening-desktop-lite",
+      "argv": ["node", "scripts/verify-jgun-opening.mjs", "--case=desktop-lite", "--label=hardware-acceptance-continuation", "--url=http://127.0.0.1:4174", "--out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-desktop-lite"],
+      "outDir": "opening-desktop-lite",
+      "log": "logs/opening-desktop-lite.log",
+      "exitFile": "logs/opening-desktop-lite.exit",
+      "expectedReport": "opening-desktop-lite/summary.json",
+      "wallClockBudgetMinutes": 15,
+      "status": "COMPLETED_EXIT_1"
+    },
+    {
+      "id": "opening-narrow-lite",
+      "argv": ["node", "scripts/verify-jgun-opening.mjs", "--case=narrow-lite", "--label=hardware-acceptance-continuation", "--url=http://127.0.0.1:4174", "--out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-narrow-lite"],
+      "outDir": "opening-narrow-lite",
+      "log": "logs/opening-narrow-lite.log",
+      "exitFile": "logs/opening-narrow-lite.exit",
+      "expectedReport": "opening-narrow-lite/summary.json",
+      "wallClockBudgetMinutes": 15,
+      "status": "COMPLETED_EXIT_1"
+    },
+    {
+      "id": "ring-full",
+      "argv": ["node", "scripts/verify-ring-inspection.mjs", "--url=http://127.0.0.1:4174", "--out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/ring-full"],
+      "outDir": "ring-full",
+      "log": "logs/ring-full.log",
+      "exitFile": "logs/ring-full.exit",
+      "expectedReport": "ring-full/report.json",
+      "wallClockBudgetMinutes": 15,
+      "status": "COMPLETED_EXIT_1"
+    },
+    {
+      "id": "shaft-full",
+      "argv": ["node", "scripts/verify-shaft-inspection.mjs", "--url=http://127.0.0.1:4174", "--out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/shaft-full"],
+      "outDir": "shaft-full",
+      "log": "logs/shaft-full.log",
+      "exitFile": "logs/shaft-full.exit",
+      "expectedReport": "shaft-full/report.json",
+      "wallClockBudgetMinutes": 15,
+      "status": "COMPLETED_EXIT_0_PASS"
+    },
+    {
+      "id": "manufacturing-lifecycle-full",
+      "argv": ["node", "scripts/verify-manufacturing-inspection.mjs", "--url=http://127.0.0.1:4174", "--out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/manufacturing-lifecycle-full"],
+      "outDir": "manufacturing-lifecycle-full",
+      "log": "logs/manufacturing-lifecycle-full.log",
+      "exitFile": "logs/manufacturing-lifecycle-full.exit",
+      "expectedReport": "manufacturing-lifecycle-full/report.json",
+      "wallClockBudgetMinutes": 15,
+      "status": "COMPLETED_EXIT_1"
+    }
+  ],
+  "canonicalRecordPlan": {
+    "path": "canonical-record.json",
+    "reportPath": "README.md",
+    "requirements": [
+      "Reference the original failed desktop/narrow, passing reduced, and interrupted forced-lite outputs without modifying them.",
+      "Reference both new forced-lite cases separately.",
+      "Include exact command, process exit, report path, case/gate/error counts, renderer provenance, and render/draw proof for every run.",
+      "Identify the mixed record as one frozen build only after before/after aggregate hashes both equal 9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded.",
+      "Record timeout/interruption as failure evidence when a bounded run does not produce a report."
+    ]
+  }
+}

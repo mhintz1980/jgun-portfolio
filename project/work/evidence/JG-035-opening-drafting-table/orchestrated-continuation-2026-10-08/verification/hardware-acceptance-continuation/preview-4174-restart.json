@@ -1,0 +1,10 @@
+{
+    "restartedUtc":  "2026-10-09T00:19:09.8331024Z",
+    "reason":  "Recorded PID 262212 absent; no 4174 listener; frozen dist snapshot unchanged",
+    "command":  "node node_modules/vite/bin/vite.js preview --outDir .scratch/v1-frozen-dist --host 127.0.0.1 --port 4174 --strictPort",
+    "pid":  69456,
+    "hasExited":  false,
+    "httpStatus":  200,
+    "stdout":  "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\preview-4174-restart.stdout.log",
+    "stderr":  "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\preview-4174-restart.stderr.log"
+}

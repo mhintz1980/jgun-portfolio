@@ -1,0 +1,8 @@
+{
+  "commit": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "tree": "02945c2618fe22db312fda9b91d58c872375480c",
+  "distFiles": 62,
+  "distBytes": 34213544.0,
+  "distAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+  "manifest": "dist-sha256-manifest.txt"
+}

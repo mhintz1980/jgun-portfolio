@@ -1,0 +1,14 @@
+{
+  "id": "opening-desktop-lite",
+  "startedUtc": "2026-10-09T00:36:30.442Z",
+  "finishedUtc": "2026-10-09T00:42:07.325Z",
+  "wallClockSeconds": 336.883,
+  "pid": 254532,
+  "exitCode": 1,
+  "timedOut": false,
+  "error": null,
+  "command": "node scripts/verify-jgun-opening.mjs --case=desktop-lite --label=hardware-acceptance-continuation --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-desktop-lite",
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\opening-desktop-lite.log",
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\opening-desktop-lite\\summary.json",
+  "reportExists": true
+}

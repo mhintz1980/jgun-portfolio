@@ -1,0 +1,14 @@
+{
+  "id": "shaft-full",
+  "startedUtc": "2026-10-09T00:49:16.800Z",
+  "finishedUtc": "2026-10-09T00:54:37.457Z",
+  "wallClockSeconds": 320.657,
+  "pid": 59528,
+  "exitCode": 0,
+  "timedOut": false,
+  "error": null,
+  "command": "node scripts/verify-shaft-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/shaft-full",
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\shaft-full.log",
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\shaft-full\\report.json",
+  "reportExists": true
+}

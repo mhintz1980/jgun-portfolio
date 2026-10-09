@@ -1,0 +1,10 @@
+{
+  "status": "RELEASED",
+  "releasedUtc": "2026-10-09 01:05:53 UTC",
+  "owner": "JG-035 hardware-acceptance-continuation seat",
+  "reason": "All five assigned baseline 4174 roster commands completed normally with persisted reports; no timeout was required.",
+  "furtherBrowserOrGpuRuns": "None from this seat after release",
+  "baselineUrl": "http://127.0.0.1:4174/",
+  "baselineAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+  "note": "Frozen 4174 preview left running for the next assigned stills worker."
+}

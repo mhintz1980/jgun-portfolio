@@ -1,0 +1,257 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:5203",
+  "started": "2026-10-09T01:40:45.566Z",
+  "head": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "only": [
+    "shaft"
+  ],
+  "captures": [
+    {
+      "file": "shaft-1p25s.png",
+      "kind": "shaft",
+      "t": 1.25,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 1.25,
+      "sha256": "d51e803bb68bfa031313fbda38355fbe32b17e0e9654bd1c4c24f056f554d458",
+      "bytes": 178440,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 1.25 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-1p3s.png",
+      "kind": "shaft",
+      "t": 1.3,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 1.3,
+      "sha256": "95072cb47510e3bb754bc964922251f9ae70ce6165c11a30b8d55cdba8c42ea0",
+      "bytes": 180353,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 1.3 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-1p35s.png",
+      "kind": "shaft",
+      "t": 1.35,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 1.35,
+      "sha256": "d8581aabb4753ea0e84c07c5ab16a50d77c3a594ee7b4fd1db084c4e4a559b97",
+      "bytes": 182809,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 1.35 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-10p85s.png",
+      "kind": "shaft",
+      "t": 10.85,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 10.85,
+      "sha256": "0a37ceeee7260490a267490fe200041ab26b3dad37be35567cc30d20354d1efb",
+      "bytes": 268836,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 10.85 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-10p9s.png",
+      "kind": "shaft",
+      "t": 10.9,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 10.9,
+      "sha256": "70d509b748510f847c99fa9220dcde00fa467ceae8d5cdc42ad02e47797f7d4a",
+      "bytes": 280098,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 10.9 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-10p95s.png",
+      "kind": "shaft",
+      "t": 10.95,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 10.95,
+      "sha256": "9e0080da777d6a05c2366ffed189a91f4b64a5d15c85021e92d3ec144d85d9bb",
+      "bytes": 282385,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 10.95 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-25p35s.png",
+      "kind": "shaft",
+      "t": 25.35,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 25.35,
+      "sha256": "85586d941aa6c1c55c61241f6167dea6ee96c484bae012fa440146844910b189",
+      "bytes": 343506,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 25.35 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-25p4s.png",
+      "kind": "shaft",
+      "t": 25.4,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 25.4,
+      "sha256": "4ea244544115bc7d7a26a0d343a6a752df15e9cab2f6b63439fa8d0d522d0992",
+      "bytes": 343165,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 25.4 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    },
+    {
+      "file": "shaft-25p45s.png",
+      "kind": "shaft",
+      "t": 25.45,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 25.45,
+      "sha256": "108a132d1ff992072fe0dd201f1165fdfa5673156862ad3e98edea6284af17ae",
+      "bytes": 343729,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Input Shaft artifact-neighbor proof at 25.45 s (qualityLock visual-only). Residual relief geometry remains an owner decision."
+    }
+  ],
+  "errors": [],
+  "browserVersion": "154.0.8037.98",
+  "finished": "2026-10-09T01:41:13.757Z",
+  "provenance": {
+    "sourceProvenance": {
+      "src/scene/SceneCanvas.tsx": "e896a6986a80993dad65292d4c926f7ee16cb33fd40783afee63f4467c14d609",
+      "src/scene/inspection/shaft/fosPresentation.ts": "2babf8225b9a058494312a63fd766ddbc41e6eb3abdf6e2a800e0ad82afc1bb8",
+      "src/scene/inspection/shaft/script.ts": "cd419b7fbcecf08c886fcfde383994741a276f62cf754c90d88dc76af764a725",
+      "src/scene/inspection/shaft/camera.ts": "c713b7e67e3fc11358a1ad1e5b980ea15219db2d10ab82ba663c82080f0ce563",
+      "src/scene/inspection/shaft/progression.ts": "f6adf806188bacc04ac478c308e39baaf7fcdeb97c957e784c719152805de1dd",
+      "src/scene/inspection/shaft/shaftRuntime.ts": "5d9439c4b69dac53bfab7b92a04065a5a524181e25ad0e0a434706c8a1aa57ef",
+      "src/components/ShaftStoryLayer.tsx": "83056433baa808942d093babe4aedbc41126b478c6b2e9092a77d3362c703440",
+      "src/components/StaticShaftStory.tsx": "156434108dcb44da7d823cb604138d9ba9da07da8597113af6e91d608d9f4001",
+      "dist/index.html": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b"
+    },
+    "servedBundle": {
+      "indexSha256": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b",
+      "assets": [
+        {
+          "asset": "assets/BootSequence-B6Jki2uy.js",
+          "sha256": "36c3d736d995ff804cc35ebdf3c10f5a447e5ecdf9306eba239862d16fb0a438",
+          "bytes": 3018
+        },
+        {
+          "asset": "assets/draco_decoder-fzg4nYZr.js",
+          "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+          "bytes": 719410
+        },
+        {
+          "asset": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+          "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+          "bytes": 58763
+        },
+        {
+          "asset": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+          "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+          "bytes": 58456
+        },
+        {
+          "asset": "assets/index-BP95EhKL.js",
+          "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f",
+          "bytes": 1147162
+        },
+        {
+          "asset": "assets/QuietMachinePreview-CMerIdrV.js",
+          "sha256": "5fc77a7e0df5610a505cfb4b7bf1906906626ed180e06d39c54c5c6818f7878d",
+          "bytes": 6513
+        },
+        {
+          "asset": "assets/QuietMachineScene-CNNvmwxP.js",
+          "sha256": "1a0b950652b6a3e0645f907628c64144fe3f88b48629c0112311a2ae3bc710ff",
+          "bytes": 30909
+        },
+        {
+          "asset": "assets/RingInspection-CjrMJw5w.js",
+          "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48",
+          "bytes": 19095
+        },
+        {
+          "asset": "assets/SceneCanvas-DZeZz-e1.js",
+          "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab",
+          "bytes": 468531
+        },
+        {
+          "asset": "assets/script-D6DkNSQw.js",
+          "sha256": "a94e6aef0b51ce8909eeef013dae1037bdb4571f155ef34ba3adfefee4222d47",
+          "bytes": 3357
+        },
+        {
+          "asset": "assets/ScrollRig-BhP7vd-F.js",
+          "sha256": "11b62909ef092cafbe6ec36f74bd267381b284cf0cee7446dce640b100d29b53",
+          "bytes": 20853
+        },
+        {
+          "asset": "assets/ScrollTrigger-a3sj5zmn.js",
+          "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+          "bytes": 114013
+        },
+        {
+          "asset": "assets/sectionRenderPass-BQdKuTWY.js",
+          "sha256": "0c78c9292d396f393a73760faa2ca801fba2b778d622ed5b06bf44cc6cfffe50",
+          "bytes": 318339
+        },
+        {
+          "asset": "assets/vanilla-m3Xdu9cz.js",
+          "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+          "bytes": 344
+        }
+      ]
+    },
+    "note": "Working-tree source hashes identify current inputs; served JS hashes identify the frozen build actually rendered."
+  },
+  "expectedCounts": {
+    "opening": 6,
+    "shaft": 9
+  },
+  "actualCounts": {
+    "shaft": 9
+  },
+  "countsPass": true,
+  "finalized": "2026-10-09T01:41:14.240Z"
+}

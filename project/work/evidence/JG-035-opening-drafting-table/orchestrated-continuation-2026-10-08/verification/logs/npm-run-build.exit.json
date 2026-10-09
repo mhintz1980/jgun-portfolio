@@ -1,0 +1,7 @@
+{
+  "command": "npm run build",
+  "exit": 0,
+  "startedUtc": "2026-10-08T23:26:28.0560332Z",
+  "finishedUtc": "2026-10-08T23:27:00.3824955Z",
+  "log": "logs/npm-run-build.log"
+}

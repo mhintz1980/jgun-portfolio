@@ -1,0 +1,12 @@
+command: node scripts/verify-jgun-opening.mjs --url=http://127.0.0.1:4173 --out= C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\orchestrated-continuation-2026-10-08\verification\acceptance\opening --label=hardware-acceptance
+started: 2026-10-08T23:47:03.849293Z
+static contract: 92 checks, 0 failures
+desktop: ready in 32051 ms
+desktop: FAIL (108 failures)
+narrow: ready in 6804 ms
+narrow: FAIL (141 failures)
+desktop-reduced: ready in 205 ms
+desktop-reduced: PASS (0 failures)
+narrow-reduced: ready in 244 ms
+narrow-reduced: PASS (0 failures)
+desktop-lite: ready in 4893 ms

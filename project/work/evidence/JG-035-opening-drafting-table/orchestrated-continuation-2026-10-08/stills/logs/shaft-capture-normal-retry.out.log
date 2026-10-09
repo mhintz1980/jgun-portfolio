@@ -1,0 +1,21 @@
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-final\\capture-report.json",
+  "qualityLock": false,
+  "failures": [],
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": true,
+      "shots": 8,
+      "fosProofs": 2,
+      "errors": []
+    },
+    {
+      "name": "narrow",
+      "pass": true,
+      "shots": 8,
+      "fosProofs": 2,
+      "errors": []
+    }
+  ]
+}

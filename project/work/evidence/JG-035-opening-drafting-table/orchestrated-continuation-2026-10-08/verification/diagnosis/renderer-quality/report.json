@@ -1,0 +1,288 @@
+{
+  "url": "http://127.0.0.1:4173",
+  "started": "2026-10-08T23:45:55.073Z",
+  "browser": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11"
+    ]
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+  "samples": [
+    {
+      "label": "t+0ms",
+      "at": "2026-10-08T23:45:22.835Z",
+      "readyState": "complete",
+      "canvasCount": 0,
+      "canvases": [],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": false
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": false
+    },
+    {
+      "label": "t+1000ms",
+      "at": "2026-10-08T23:45:24.786Z",
+      "readyState": "complete",
+      "canvasCount": 1,
+      "canvases": [
+        {
+          "index": 0,
+          "className": "",
+          "dataEngine": "three.js r185",
+          "width": 1600,
+          "height": 900,
+          "clientWidth": 1600,
+          "clientHeight": 900,
+          "connected": true,
+          "display": "block",
+          "visibility": "visible",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+          },
+          "adapter": {
+            "type": "webgl2",
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "shadedLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "contextLost": false
+          }
+        }
+      ],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": false
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": true
+    },
+    {
+      "label": "t+2000ms",
+      "at": "2026-10-08T23:45:27.185Z",
+      "readyState": "complete",
+      "canvasCount": 1,
+      "canvases": [
+        {
+          "index": 0,
+          "className": "",
+          "dataEngine": "three.js r185",
+          "width": 1600,
+          "height": 900,
+          "clientWidth": 1600,
+          "clientHeight": 900,
+          "connected": true,
+          "display": "block",
+          "visibility": "visible",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+          },
+          "adapter": {
+            "type": "webgl2",
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "shadedLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "contextLost": false
+          }
+        }
+      ],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": false
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": true
+    },
+    {
+      "label": "t+4000ms",
+      "at": "2026-10-08T23:45:31.644Z",
+      "readyState": "complete",
+      "canvasCount": 1,
+      "canvases": [
+        {
+          "index": 0,
+          "className": "",
+          "dataEngine": "three.js r185",
+          "width": 1600,
+          "height": 900,
+          "clientWidth": 1600,
+          "clientHeight": 900,
+          "connected": true,
+          "display": "block",
+          "visibility": "visible",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+          },
+          "adapter": {
+            "type": "webgl2",
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "shadedLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "contextLost": false
+          }
+        }
+      ],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 0,
+        "tier": "full",
+        "warmReady": false
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": true
+    },
+    {
+      "label": "t+8000ms",
+      "at": "2026-10-08T23:45:43.047Z",
+      "readyState": "complete",
+      "canvasCount": 1,
+      "canvases": [
+        {
+          "index": 0,
+          "className": "",
+          "dataEngine": "three.js r185",
+          "width": 1600,
+          "height": 900,
+          "clientWidth": 1600,
+          "clientHeight": 900,
+          "connected": true,
+          "display": "block",
+          "visibility": "visible",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+          },
+          "adapter": {
+            "type": "webgl2",
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "shadedLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "contextLost": false
+          }
+        }
+      ],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 1,
+        "tier": "lite",
+        "warmReady": false
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": true
+    },
+    {
+      "label": "t+12000ms",
+      "at": "2026-10-08T23:45:55.071Z",
+      "readyState": "complete",
+      "canvasCount": 1,
+      "canvases": [
+        {
+          "index": 0,
+          "className": "",
+          "dataEngine": "three.js r185",
+          "width": 1600,
+          "height": 900,
+          "clientWidth": 1600,
+          "clientHeight": 900,
+          "connected": true,
+          "display": "block",
+          "visibility": "visible",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1600,
+            "height": 900
+          },
+          "adapter": {
+            "type": "webgl2",
+            "vendor": "Google Inc. (AMD)",
+            "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "shadedLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "contextLost": false
+          }
+        }
+      ],
+      "telemetryKeys": [
+        "camera",
+        "drawing",
+        "performance",
+        "rig",
+        "scroll",
+        "stage"
+      ],
+      "performance": {
+        "declines": 1,
+        "tier": "lite",
+        "warmReady": true
+      },
+      "qualityGlobals": [],
+      "qualityStorage": {},
+      "rendererProbePresent": true
+    }
+  ],
+  "errors": []
+}

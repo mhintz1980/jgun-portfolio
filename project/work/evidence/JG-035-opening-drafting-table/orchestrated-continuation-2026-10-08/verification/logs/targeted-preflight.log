@@ -1,0 +1,4 @@
+command: node .scratch/v1-renderer-quality-probe.mjs --url=http://127.0.0.1:4173 --out=<evidence>/diagnosis/renderer-quality
+started: 
+2026-10-08T23:45:21.3588253Z
+{"out":"C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\diagnosis\\renderer-quality\\report.json","samples":6,"errors":0}

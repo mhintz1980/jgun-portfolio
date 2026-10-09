@@ -1,0 +1,37 @@
+command: node scripts/verify-ring-inspection.mjs --url=http://localhost:4173 --out=<evidence>/focused-ring/iteration --focused
+started: 
+2026-10-08T23:42:19.1289452Z
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\focused-ring\\iteration\\report.json",
+  "cases": [
+    {
+      "name": "delayed-CAD-entry",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "desktop",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:163:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:303:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "mobile",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:163:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:303:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    }
+  ],
+  "failures": [
+    "desktop: Error: Expected actual ring and 12 verified prop meshes",
+    "mobile: Error: Expected actual ring and 12 verified prop meshes"
+  ]
+}

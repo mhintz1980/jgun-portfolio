@@ -1,0 +1,13 @@
+{
+  "schema": "encoder-digest-guard-check-v1",
+  "cleanEncode": {
+    "pass": true,
+    "assets": 16,
+    "sourceAndOutputHashesVerified": true
+  },
+  "tamperReject": {
+    "pass": true,
+    "message": "source PNG SHA-256 mismatch",
+    "encodedBeforeReject": false
+  }
+}

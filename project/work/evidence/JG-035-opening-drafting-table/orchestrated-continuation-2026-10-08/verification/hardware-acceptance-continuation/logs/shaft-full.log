@@ -1,0 +1,17 @@
+{"case":"desktop","gates":{"S1":{"pass":true,"failureCount":0},"S2":{"pass":true,"failureCount":0},"S3":{"pass":true,"failureCount":0},"S4":{"pass":true,"failureCount":0},"S5":{"pass":true,"failureCount":0},"S6":{"pass":true,"failureCount":0},"S8":{"pass":true,"failureCount":0},"S7":{"pass":true,"failureCount":0}}}
+{"case":"desktop-exploded-readiness","gate":{"pass":true,"checks":8,"failures":[],"failureCount":0}}
+{"case":"desktop-reduced-static","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"desktop-poster-static","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"desktop-denied-fetch","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"desktop-late-successful-bytes","gate":{"pass":true,"checks":4,"failures":[],"failureCount":0}}
+{"case":"desktop-real-context-loss","gate":{"pass":true,"checks":5,"failures":[],"failureCount":0}}
+{"case":"desktop-paused-hidden-visible","gate":{"pass":true,"checks":2,"failures":[],"failureCount":0}}
+{"case":"narrow","gates":{"S1":{"pass":true,"failureCount":0},"S2":{"pass":true,"failureCount":0},"S3":{"pass":true,"failureCount":0},"S4":{"pass":true,"failureCount":0},"S5":{"pass":true,"failureCount":0},"S6":{"pass":true,"failureCount":0},"S8":{"pass":true,"failureCount":0},"S7":{"pass":true,"failureCount":0}}}
+{"case":"narrow-exploded-readiness","gate":{"pass":true,"checks":8,"failures":[],"failureCount":0}}
+{"case":"narrow-reduced-static","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"narrow-poster-static","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"narrow-denied-fetch","gate":{"pass":true,"checks":6,"failures":[],"failureCount":0}}
+{"case":"narrow-late-successful-bytes","gate":{"pass":true,"checks":4,"failures":[],"failureCount":0}}
+{"case":"narrow-real-context-loss","gate":{"pass":true,"checks":5,"failures":[],"failureCount":0}}
+{"case":"narrow-paused-hidden-visible","gate":{"pass":true,"checks":2,"failures":[],"failureCount":0}}
+{"report":"C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\shaft-full\\report.json","gates":{"S1":true,"S2":true,"S3":true,"S4":true,"S5":true,"S6":true,"S7":true,"S8":true,"N1":true,"N2":true,"N3":true,"N4":true},"defectCount":0,"harnessLimitations":0}

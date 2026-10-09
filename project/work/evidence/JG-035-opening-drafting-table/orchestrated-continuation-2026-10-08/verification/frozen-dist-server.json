@@ -1,0 +1,10 @@
+{
+  "status": "READY",
+  "url": "http://127.0.0.1:4174/",
+  "pid": 262212,
+  "outDir": ".scratch/v1-frozen-dist",
+  "distAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+  "httpStatus": 200,
+  "log": "logs/preview-4174-frozen.log",
+  "gpuSeat": "V1-owned until all baseline rosters finish"
+}

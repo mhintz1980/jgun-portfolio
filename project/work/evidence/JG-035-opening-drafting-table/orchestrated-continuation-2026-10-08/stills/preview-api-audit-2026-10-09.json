@@ -1,0 +1,54 @@
+{
+  "schema": "final-still-preview-api-audit-v1",
+  "auditedAt": "2026-10-09T00:20:00Z",
+  "serverUrl": "http://localhost:5203/",
+  "evidenceClass": "static-served-bundle-audit-only",
+  "gpuUsed": false,
+  "browserUsed": false,
+  "servedBundleProvenance": {
+    "index": {
+      "asset": "assets/index-BP95EhKL.js",
+      "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f"
+    },
+    "sceneCanvas": {
+      "asset": "assets/SceneCanvas-DZeZz-e1.js",
+      "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab"
+    },
+    "ringInspection": {
+      "asset": "assets/RingInspection-CjrMJw5w.js",
+      "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48"
+    },
+    "note": "These are hashes of modules actually returned by localhost:5203. The 2026-10-08 19:26 dist manifest names older index/SceneCanvas hashes and must not be reused as current provenance."
+  },
+  "runtimeApiChecks": {
+    "__rig": "present in served SceneCanvas bundle",
+    "__threeRenderer": "present in served SceneCanvas bundle",
+    "__telemetry.performance.warmReady": "present in served index/SceneCanvas bundles",
+    "__inspection": "present in served index/SceneCanvas/RingInspection bundles",
+    "sampleStamp": "present in served SceneCanvas bundle",
+    "cameraSampleStamp": "present in served SceneCanvas bundle",
+    "canvas[data-engine]": "present in served index bundle",
+    "#inspection-seek": "present in served RingInspection bundle",
+    "Inspect the input shaft button": "present in served RingInspection bundle",
+    "[data-shaft-fos-model]": "present in served RingInspection bundle",
+    "[data-shaft-fos-bar]": "present in served RingInspection bundle",
+    "qualityLock": "present in served index/SceneCanvas bundles"
+  },
+  "issues": [
+    {
+      "helper": "scripts/verify-handwriting-reference.mjs",
+      "severity": "blocking",
+      "issue": "Browser-side dynamic import requests /src/scene/drawing/sheet/handwriting.ts from the Vite preview server; built preview returns no source module, so both desktop and narrow fail with TypeError and zero captures. This is a producer/build mismatch, not canvas collapse."
+    },
+    {
+      "helper": "capture-final-stills.mjs",
+      "severity": "blocking-invocation",
+      "issue": "argOf only recognizes separate --url VALUE/--out VALUE tokens, while revision-proof-matrix.md specifies --url=... and --out=...; the prepared command exits with usage error before browser launch."
+    },
+    {
+      "helper": "capture-final-stills.mjs",
+      "severity": "fixed-local",
+      "issue": "Original repository-root path resolved one level above jgun-portfolio. Corrected from seven parent segments to six; node --check and package.json resolution now pass."
+    }
+  ]
+}

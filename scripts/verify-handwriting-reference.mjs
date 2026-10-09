@@ -2,7 +2,8 @@
  * unless --qualityLock is explicitly supplied for visual evidence only.
  * node scripts/verify-handwriting-reference.mjs --url=http://localhost:5199 --out=...
  * Optional: --case=desktop|narrow --qualityLock --require-precomputed --timeout=90000
- * Requires Vite dev imports and the completed reference-font integration. No asset generation.
+ * Builds a local source oracle on the runner, so built Vite preview servers are supported
+ * without fetching /src from production. No asset generation.
  * Exit 0: required observations verified; 1: failure; 2: required observation unavailable.
  */
 import { chromium } from 'playwright'
@@ -10,8 +11,10 @@ import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import { createHash } from 'node:crypto'
 import { inflateSync } from 'node:zlib'
+import { build as esbuildBuild } from 'esbuild'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 if (process.argv.includes('--help')) {
@@ -37,6 +40,53 @@ const cases = [{ name: 'desktop', width: 1440, height: 900 }, { name: 'narrow', 
   .filter(item => !option('case', '') || item.name === option('case', ''))
 if (!cases.length) throw new Error('--case must be desktop or narrow')
 fs.mkdirSync(out, { recursive: true })
+const oracleSource = `import { handwrite } from './src/scene/drawing/sheet/handwriting.ts'
+import { REFERENCE_GLYPHS } from './src/scene/drawing/sheet/referenceHandGlyphs.ts'
+import { GROUP, INK_GRAPHITE, INK_RED } from './src/scene/drawing/sheet/ink.ts'
+import { OWNER_NOTES } from './src/scene/drawing/sheet/ownerAnnotations.ts'
+import { sheetReveal } from './src/scene/drawing/sheetCamera.ts'
+
+export function buildHandwritingOracle() {
+  const glyphs = REFERENCE_GLYPHS
+  if (!glyphs || !Object.keys(glyphs).length) throw new Error('REFERENCE_GLYPHS is unavailable or empty')
+  const input = [...OWNER_NOTES.input.lead, ...OWNER_NOTES.input.alloys, ...OWNER_NOTES.input.decision]
+    .join('').toUpperCase().replace(/\\s/g, '')
+  const output = OWNER_NOTES.output.join('').toUpperCase().replace(/\\s/g, '')
+  const expected = Object.fromEntries([[GROUP.noteInput, input], [GROUP.noteOutput, output]]
+    .map(([group, text]) => [group, { text, fontText: [...text].filter(ch => ch in glyphs).join(''),
+      vectorFallbackCharacters: [...text].filter(ch => !(ch in glyphs)) }]))
+  const samples = Object.entries(expected).map(([group, value]) => {
+    const text = value.text, options = { x: 0, y: 0, capHeight: 0.0038, seed: 21 }
+    const a = handwrite(text, options), b = handwrite(text, options)
+    return { group: Number(group), glyphCount: a.glyphs.length, strokeCount: a.strokes.length,
+      bounds: a.bounds, deterministic: JSON.stringify(a) === JSON.stringify(b),
+      finiteBounds: Object.values(a.bounds).every(Number.isFinite) }
+  })
+  const contourIssues = []
+  for (const ch of new Set(input + output)) {
+    if (!glyphs[ch]) continue
+    if (!(glyphs[ch].w > 0) || !glyphs[ch].contours?.length
+      || !glyphs[ch].contours.every(contour => contour.length >= 3
+        && contour.every(point => point.length === 2 && point.every(Number.isFinite)))) contourIssues.push(ch)
+  }
+  return { expected, samples, contourIssues, glyphs, referenceGlyphCount: Object.keys(glyphs).length,
+    ink: { GROUP, INK_GRAPHITE, INK_RED }, revealAt: phase => sheetReveal(phase, []),
+    modules: ['handwriting.ts', 'referenceHandGlyphs.ts', 'ink.ts', 'ownerAnnotations.ts', 'sheetCamera.ts'] }
+}`
+const oracleBundle = path.join(out, 'handwriting-oracle.mjs')
+await esbuildBuild({ stdin: { contents: oracleSource, resolveDir: root, loader: 'ts' },
+  bundle: true, format: 'esm', platform: 'node', outfile: oracleBundle, logLevel: 'silent' })
+const handwritingOracle = (await import(pathToFileURL(oracleBundle).href)).buildHandwritingOracle()
+const sourceForPage = phase => ({
+  expected: handwritingOracle.expected,
+  samples: handwritingOracle.samples,
+  contourIssues: handwritingOracle.contourIssues,
+  glyphs: handwritingOracle.glyphs,
+  referenceGlyphCount: handwritingOracle.referenceGlyphCount,
+  ink: handwritingOracle.ink,
+  camera: { expectedReveal: Number.isFinite(phase) ? handwritingOracle.revealAt(phase) : null },
+  modules: handwritingOracle.modules,
+})
 const save = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n')
 const hash = bytes => createHash('sha256').update(bytes).digest('hex')
 const check = (result, name, passed, details = null) => {
@@ -140,45 +190,10 @@ function observeGL() {
   }
 }
 
-async function importSource() {
-  const [handwriting, reference, ink, owner, camera] = await Promise.all([
-    import('/src/scene/drawing/sheet/handwriting.ts'),
-    import('/src/scene/drawing/sheet/referenceHandGlyphs.ts'),
-    import('/src/scene/drawing/sheet/ink.ts'),
-    import('/src/scene/drawing/sheet/ownerAnnotations.ts'),
-    import('/src/scene/drawing/sheetCamera.ts'),
-  ])
-  const glyphs = reference.REFERENCE_GLYPHS
-  if (!glyphs || !Object.keys(glyphs).length) throw new Error('REFERENCE_GLYPHS is unavailable or empty')
-  const input = [...owner.OWNER_NOTES.input.lead, ...owner.OWNER_NOTES.input.alloys, ...owner.OWNER_NOTES.input.decision]
-    .join('').toUpperCase().replace(/\s/g, '')
-  const output = owner.OWNER_NOTES.output.join('').toUpperCase().replace(/\s/g, '')
-  const expected = Object.fromEntries([[ink.GROUP.noteInput, input], [ink.GROUP.noteOutput, output]]
-    .map(([group, text]) => [group, { text, fontText: [...text].filter(ch => ch in glyphs).join(''),
-      vectorFallbackCharacters: [...text].filter(ch => !(ch in glyphs)) }]))
-  const samples = Object.entries(expected).map(([group, value]) => {
-    const text = value.text, options = { x: 0, y: 0, capHeight: 0.0038, seed: 21 }
-    const a = handwriting.handwrite(text, options), b = handwriting.handwrite(text, options)
-    return { group: Number(group), glyphCount: a.glyphs.length, strokeCount: a.strokes.length,
-      bounds: a.bounds, deterministic: JSON.stringify(a) === JSON.stringify(b),
-      finiteBounds: Object.values(a.bounds).every(Number.isFinite) }
-  })
-  const contourIssues = []
-  for (const ch of new Set(input + output)) {
-    if (!glyphs[ch]) continue
-    if (!(glyphs[ch].w > 0) || !glyphs[ch].contours?.length
-      || !glyphs[ch].contours.every(contour => contour.length >= 3
-        && contour.every(point => point.length === 2 && point.every(Number.isFinite)))) contourIssues.push(ch)
-  }
-  window.__handwritingSource = { ink, camera, expected, glyphs }
-  return { expected, samples, contourIssues, referenceGlyphCount: Object.keys(glyphs).length,
-    modules: ['handwriting.ts', 'referenceHandGlyphs.ts', 'ink.ts', 'ownerAnnotations.ts', 'sheetCamera.ts'] }
-}
-
 // All values are read from the scene actually being drawn, not reconstructed Text objects.
-function readRuntime() {
+function readRuntime(source) {
   const proof = window.__drawingProof, renderer = window.__threeRenderer
-  const scene = window.__threeScene, camera = window.__threeCamera, source = window.__handwritingSource
+  const scene = window.__threeScene, camera = window.__threeCamera
   const textBounds = proof?.captureTextBounds?.() ?? null
   const gl = renderer?.getContext?.(), extension = gl?.getExtension('WEBGL_debug_renderer_info')
   const observed = window.__handwritingGL?.entries.find(entry => entry.gl === gl)
@@ -267,7 +282,7 @@ function readRuntime() {
     if (u?.uInkGraphite?.value && source) graphiteColor = u.uInkGraphite.value.clone().set(source.ink.INK_GRAPHITE).getHex('srgb-linear')
   }
   const phase = window.__telemetry?.drawing?.phase
-  const expectedReveal = source && Number.isFinite(phase) ? source.camera.sheetReveal(phase, []) : null
+  const expectedReveal = source?.camera?.expectedReveal ?? null
   return { at: performance.now(), telemetry: structuredClone(window.__telemetry ?? null),
     stats: structuredClone(proof?.sheetStats?.() ?? window.__sheetStats ?? null), textBounds,
     renderer: rendererDescription, camera: camera ? { matrix: camera.matrixWorld.toArray(), fov: camera.fov,
@@ -390,6 +405,7 @@ async function warmMetrics(page) {
 }
 
 const report = { url: url.href, started: new Date().toISOString(), launchContract: describeLaunch(), qualityLock,
+  oracle: { file: oracleBundle, sha256: hash(fs.readFileSync(oracleBundle)), method: 'Runner-side esbuild bundle of local source exports; no /src request to the preview server.' },
   performanceProofEligible: !qualityLock, evidenceClass: qualityLock ? 'quality-locked visual proof; performance acceptance excluded' : 'natural quality-ladder note proof',
   qualityPolicy: 'No forced tier, renderer, DPR, proof mode, or pass override. Explicit qualityLock disables the automatic quality ratchet for visual captures only.',
   readinessDefinition: 'Fresh browser context, HTTP cache disabled. Navigation to actual drawn renderer and annotationsReady; server/OS caches uncontrolled.',
@@ -434,19 +450,21 @@ try {
         && entry.canvas.isConnected && entry.draws > 0), null, { timeout })
       result.liveDrawReadyMs = Date.now() - began
       result.observerScope = 'Mounted renderer after normal annotations readiness; startup capability/SDF probes are not intercepted.'
-      result.source = await page.evaluate(importSource)
+      const readyPhase = await page.evaluate(() => window.__telemetry?.drawing?.phase)
+      result.source = sourceForPage(readyPhase)
       result.sourceImportReadyMs = Date.now() - began
-      const readySnapshot = await page.evaluate(readRuntime)
+      const readySnapshot = await page.evaluate(readRuntime, result.source)
       result.actualFontReadyObservedMs = readySnapshot.fontMembers.length
         && readySnapshot.fontMembers.every(member => member.ready) ? Date.now() - began : null
       result.warmReadyObservedMs = readySnapshot.telemetry?.performance?.warmReady ? Date.now() - began : null
-      check(result, 'Vite source reference/pure handwriting proof', result.source.contourIssues.length === 0
+      check(result, 'Runner-bundled source reference/pure handwriting proof', result.source.contourIssues.length === 0
         && result.source.samples.every(sample => sample.deterministic && sample.finiteBounds), result.source)
       const capture = async (t, direction = 'forward') => {
         const name = `${config.name}-${direction}-${t.toFixed(2)}`
         const convergence = await settle(page, t)
         check(result, `${name}: converged camera/progress`, convergence.converged, convergence)
-        const snapshot = await page.evaluate(readRuntime)
+        const phase = await page.evaluate(() => window.__telemetry?.drawing?.phase)
+        const snapshot = await page.evaluate(readRuntime, sourceForPage(phase))
         const screenshot = path.join(out, `${name}.png`)
         await page.screenshot({ path: screenshot, animations: 'allow', timeout })
         const checkpoint = { name, normalizedT: t, pacedProgress: t * 0.12, convergence, snapshot, screenshot }

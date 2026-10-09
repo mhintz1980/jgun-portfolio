@@ -41,7 +41,7 @@ const holeOracle = {
 }
 async function verifyHolePlug(page, result) {
   const soft = []
-  const times = [0, 1.19, 1.2, 1.5, 1.8, 2.1, 2.4, 2.79, 2.8, 4.2, 5.2, 6.2, 7.7, 8.2, 8.6, 8.95, 9.3, 10, 10.6]
+  const times = [0, 1.19, 1.2, 1.5, 1.8, 2.1, 2.4, 2.79, 2.8, 4.2, 5.2, 6.2, 7.7, 8.2, 8.575, 8.6, 8.95, 9.3, 10, 10.6]
   const rows = []
   for (const time of times) {
     const f = await seek(page, time)
@@ -158,9 +158,20 @@ async function run(config) {
       const probe = await read(page); check(probe.time === 0 && probe.ringAngle === 0, 'Static inspection advanced rapid spin')
       check(probe.holePlugBlend === 0 && probe.holePatches === 0 && probe.holePatchesVisible === 0, `Static inspection built hole covers ${JSON.stringify({ blend: probe.holePlugBlend, patches: probe.holePatches, visible: probe.holePatchesVisible })}`)
     } else {
-      await page.waitForFunction(() => window.__inspection?.loaded && window.__inspectionProof, null, { timeout: 60000 })
+      // Tool census is assigned only after the async knurling-tool.glb fetch+parse (ringRuntime.ts), so the
+      // readiness gate must include it or the census check races the load (ring-full 2026-10-09 diagnosis).
+      // Counter ledger (ringRuntime.ts): resources.meshes is INITIALIZED to ring.geometries.length (1)
+      // + hole-cover patchMeshes.length (12) at :84, then the tool GLB traverse adds 12 Mesh instances
+      // at :128, and :129 subtracts ring.geometries.length — so the runtime invariant on the frozen
+      // build is toolMeshes 24 (12 covers + 12 tool meshes), measured live 2026-10-09 and independently
+      // by the lifecycle V5 ring-render proof (ringMeshes 1 / toolMeshes 24). The old `=== 12` asserted
+      // the tool-only file census, which this counter never reports.
+      await page.waitForFunction(() => window.__inspection?.loaded && window.__inspectionProof && (window.__inspection?.toolMeshes ?? 0) > 0, null, { timeout: 60000 })
       const initial = await seek(page, 0)
-      check(initial.ringMeshes > 0 && initial.toolMeshes === 12, 'Expected actual ring and 12 verified prop meshes')
+      check(
+        initial.ringMeshes > 0 && initial.toolMeshes === 24,
+        `Ring/tool census mismatch: measured ring ${initial.ringMeshes} / tool ${initial.toolMeshes}, expected 1 / 24`,
+      )
       check(Math.abs(initial.ringBounds.radius * 2 - .07544365628189591) < .00001, 'Ring OD differs from fit source')
       check(Math.abs(initial.ringBounds.width - .027204217025541766) < .000001, 'Ring width differs from fit source')
       check(initial.cameraOwner === 'CameraRig', 'Multiple camera owner')

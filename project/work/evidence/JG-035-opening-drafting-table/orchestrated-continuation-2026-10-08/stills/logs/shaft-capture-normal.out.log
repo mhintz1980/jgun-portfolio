@@ -1,0 +1,18 @@
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-final\\capture-report.json",
+  "qualityLock": false,
+  "failures": [
+    "desktop: file is not defined"
+  ],
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": false,
+      "shots": 0,
+      "fosProofs": 0,
+      "errors": [
+        "file is not defined"
+      ]
+    }
+  ]
+}

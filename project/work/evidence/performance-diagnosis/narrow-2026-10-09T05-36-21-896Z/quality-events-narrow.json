@@ -1,0 +1,5053 @@
+{
+  "url": "http://127.0.0.1:5204/?qualityDiagnostics",
+  "label": "narrow",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "wallStart": "2026-10-09T05:36:21.897Z",
+  "wallEnd": "2026-10-09T05:37:23.433Z",
+  "dwellSeconds": 60,
+  "identity": {
+    "indexHtmlSha256": "592e9ee6289566a2b4e5a77326b445f08d336396085abc7e263fff97ff00f027",
+    "loadedScripts": [
+      {
+        "url": "http://127.0.0.1:5204/assets/index-DNmI5KJC.js",
+        "sha256": "560cdb4e4f95cfc62313f1cb2835872a38c08c585e5ea48d2df99628d8c95df9"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/SceneCanvas-D3U1n6bS.js",
+        "sha256": "46686259291f725c4f29372ee5e59cf919a7652e06ebdd91c43703713b8bbbd0"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/sectionRenderPass-7BDf-TXw.js",
+        "sha256": "9b8099f5fedd132285c9df6c53eee82da85335f7f2c56bc924ccd06cc975b72b"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/script-kl-7jIz4.js",
+        "sha256": "6ff0015e5b76a11f51f343489888eb6aec0b9753661bfda4892482a9f1071248"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/ScrollRig-DccqKVbp.js",
+        "sha256": "9272ab34ae191b7feea67f4446d82c96217622ecff2fa75cc69c112b75fd7406"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/BootSequence-CWDxHiin.js",
+        "sha256": "86cbbf838925f869de914f1d06620f40a02ea5d6ec29a21d67ad72408b5a0018"
+      },
+      {
+        "url": "http://127.0.0.1:5204/assets/RingInspection-BmDgf-FN.js",
+        "sha256": "8eeb9e3539ccf191837d6d8545e907afde73255c1021319d96c4365e3103a8e2"
+      }
+    ],
+    "rendererInfo": null
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "finalEventsCount": 19,
+  "finalEvents": [
+    {
+      "t": 5572.9000000059605,
+      "type": "warmstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false
+    },
+    {
+      "t": 9213.199999988079,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 0
+    },
+    {
+      "t": 9297,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 0
+    },
+    {
+      "t": 12084.09999999404,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 1
+    },
+    {
+      "t": 17360.59999999404,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 1
+    },
+    {
+      "t": 18287.90000000596,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 2
+    },
+    {
+      "t": 20919.59999999404,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 2
+    },
+    {
+      "t": 21013.80000001192,
+      "type": "ondecline",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "fps": 3,
+      "flipped": 1
+    },
+    {
+      "t": 21013.80000001192,
+      "type": "degradequality",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false
+    },
+    {
+      "t": 21958.5,
+      "type": "cullrenderstart",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": false,
+      "index": 3
+    },
+    {
+      "t": 25913.5,
+      "type": "cullrenderend",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": false,
+      "index": 3
+    },
+    {
+      "t": 26032.5,
+      "type": "cullrenderstart",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": false,
+      "index": 4
+    },
+    {
+      "t": 26544.40000000596,
+      "type": "cullrenderend",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": false,
+      "index": 4
+    },
+    {
+      "t": 26544.40000000596,
+      "type": "warmfinish",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true
+    },
+    {
+      "t": 33748.09999999404,
+      "type": "onincline",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true,
+      "fps": 54
+    },
+    {
+      "t": 44821.90000000596,
+      "type": "onincline",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true,
+      "fps": 64
+    },
+    {
+      "t": 53027.90000000596,
+      "type": "onincline",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true,
+      "fps": 64
+    },
+    {
+      "t": 53028,
+      "type": "onfallback",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true,
+      "fps": 64,
+      "flipped": 4
+    },
+    {
+      "t": 53028,
+      "type": "dprstep",
+      "tier": "lite",
+      "step": 0,
+      "warmReady": true
+    }
+  ],
+  "samples": [
+    {
+      "wallAt": "2026-10-09T05:36:23.277Z",
+      "at": 634,
+      "eventCount": 0,
+      "events": [],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:24.866Z",
+      "at": 2221.9000000059605,
+      "eventCount": 0,
+      "events": [],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:25.961Z",
+      "at": 3317.5,
+      "eventCount": 0,
+      "events": [],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:28.410Z",
+      "at": 5766.5,
+      "eventCount": 1,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        }
+      ],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:32.117Z",
+      "at": 9473.59999999404,
+      "eventCount": 3,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        }
+      ],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:40.243Z",
+      "at": 17599.19999998808,
+      "eventCount": 5,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        }
+      ],
+      "performance": {
+        "tier": "full",
+        "declines": 0,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:43.775Z",
+      "at": 21131.69999998808,
+      "eventCount": 9,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        }
+      ],
+      "performance": {
+        "tier": "full",
+        "declines": 1,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:48.655Z",
+      "at": 26011.59999999404,
+      "eventCount": 11,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": false
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:49.698Z",
+      "at": 27054.09999999404,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:50.740Z",
+      "at": 28096.69999998808,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:51.761Z",
+      "at": 29117.69999998808,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:52.792Z",
+      "at": 30148.59999999404,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:53.804Z",
+      "at": 31160,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:54.821Z",
+      "at": 32177.80000001192,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:55.847Z",
+      "at": 33203.5,
+      "eventCount": 14,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:56.865Z",
+      "at": 34221.90000000596,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:57.888Z",
+      "at": 35244.19999998808,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:58.919Z",
+      "at": 36275.40000000596,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:36:59.949Z",
+      "at": 37305.90000000596,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:00.973Z",
+      "at": 38329.40000000596,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:01.995Z",
+      "at": 39351.80000001192,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:03.026Z",
+      "at": 40382.09999999404,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:04.046Z",
+      "at": 41402.80000001192,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:05.079Z",
+      "at": 42435.69999998808,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:06.092Z",
+      "at": 43448.69999998808,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:07.111Z",
+      "at": 44467.40000000596,
+      "eventCount": 15,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:08.136Z",
+      "at": 45492.90000000596,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:09.157Z",
+      "at": 46513.40000000596,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:10.167Z",
+      "at": 47523.90000000596,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:11.195Z",
+      "at": 48551.80000001192,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:12.220Z",
+      "at": 49576,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:13.234Z",
+      "at": 50590.90000000596,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:14.252Z",
+      "at": 51608.19999998808,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:15.271Z",
+      "at": 52627.90000000596,
+      "eventCount": 16,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:16.288Z",
+      "at": 53644.69999998808,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:17.306Z",
+      "at": 54662.19999998808,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:18.321Z",
+      "at": 55677.40000000596,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:19.347Z",
+      "at": 56703,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:20.376Z",
+      "at": 57732.09999999404,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:21.384Z",
+      "at": 58740.90000000596,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    },
+    {
+      "wallAt": "2026-10-09T05:37:22.406Z",
+      "at": 59762.59999999404,
+      "eventCount": 19,
+      "events": [
+        {
+          "t": 5572.9000000059605,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 9213.199999988079,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 9297,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 12084.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 17360.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 18287.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 20919.59999999404,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 3,
+          "flipped": 1
+        },
+        {
+          "t": 21013.80000001192,
+          "type": "degradequality",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 21958.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 25913.5,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 26032.5,
+          "type": "cullrenderstart",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "cullrenderend",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 26544.40000000596,
+          "type": "warmfinish",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        },
+        {
+          "t": 33748.09999999404,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 54
+        },
+        {
+          "t": 44821.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53027.90000000596,
+          "type": "onincline",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64
+        },
+        {
+          "t": 53028,
+          "type": "onfallback",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true,
+          "fps": 64,
+          "flipped": 4
+        },
+        {
+          "t": 53028,
+          "type": "dprstep",
+          "tier": "lite",
+          "step": 0,
+          "warmReady": true
+        }
+      ],
+      "performance": {
+        "tier": "lite",
+        "declines": 1,
+        "warmReady": true
+      }
+    }
+  ]
+}

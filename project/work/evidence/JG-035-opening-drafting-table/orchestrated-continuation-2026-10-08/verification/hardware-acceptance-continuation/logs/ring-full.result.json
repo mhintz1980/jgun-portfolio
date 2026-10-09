@@ -1,0 +1,14 @@
+{
+  "id": "ring-full",
+  "startedUtc": "2026-10-09T00:47:39.273Z",
+  "finishedUtc": "2026-10-09T00:48:45.337Z",
+  "wallClockSeconds": 66.064,
+  "pid": 60572,
+  "exitCode": 1,
+  "timedOut": false,
+  "error": null,
+  "command": "node scripts/verify-ring-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/ring-full",
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\ring-full.log",
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\ring-full\\report.json",
+  "reportExists": true
+}

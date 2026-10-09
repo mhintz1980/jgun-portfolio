@@ -1,0 +1,11 @@
+{
+  "recordedUtc": "2026-10-09T00:50:00Z",
+  "source": "Parent/architect message reporting a separate JG-036 verifier attempt",
+  "event": "An unsupported --static-only flag caused that verifier to begin a browser after static failure; the operator immediately stopped it.",
+  "approximateEventUtc": "2026-10-09T00:49:00Z",
+  "baselineCommandsPotentiallyOverlapped": ["shaft-full"],
+  "ringLaunchUtc": "2026-10-09T00:47:39.273Z",
+  "ringFinishedUtc": "2026-10-09T00:48:45.274Z",
+  "shaftLaunchUtc": "2026-10-09T00:49:16.800Z",
+  "assessment": "Exact ring timestamps end before the approximate external-browser moment, so ring-full is a near miss with no direct overlap shown. The reported ~00:49 event is close to shaft-full launch and may overlap its startup; preserve shaft evidence with a possible-contamination qualifier unless the external stop is later proven earlier. Do not silently rerun or relabel either report."
+}

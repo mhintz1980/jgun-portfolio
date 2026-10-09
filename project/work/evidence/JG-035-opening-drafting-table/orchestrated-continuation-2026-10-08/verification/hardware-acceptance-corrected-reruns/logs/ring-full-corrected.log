@@ -1,0 +1,55 @@
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-corrected-reruns\\ring-full-corrected\\report.json",
+  "cases": [
+    {
+      "name": "delayed-CAD-entry",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "mobile",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "blueprint",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "exploded",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "reduced-mobile",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "poster",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    }
+  ],
+  "failures": []
+}

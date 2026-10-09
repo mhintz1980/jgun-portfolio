@@ -1,0 +1,6 @@
+{
+  "command": "node .scratch/v1-renderer-quality-probe.mjs --url=http://127.0.0.1:4173 --out=<evidence>/diagnosis/renderer-quality",
+  "exit": 0,
+  "log": "logs/targeted-preflight.log",
+  "out": "diagnosis/renderer-quality"
+}

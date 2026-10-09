@@ -1,0 +1,191 @@
+{
+  "schema": "jgun-hardware-acceptance-continuation-record/1",
+  "completedUtc": "2026-10-09T01:05:53Z",
+  "gpu": {
+    "status": "RELEASED",
+    "releasedUtc": "2026-10-09T01:05:53Z",
+    "furtherBrowserOrGpuRuns": false
+  },
+  "baseline": {
+    "url": "http://127.0.0.1:4174/",
+    "commit": "8db93913b2e91182199fb7d09c40273bd61c816a",
+    "distOutDir": ".scratch/v1-frozen-dist",
+    "distFiles": 62,
+    "distBytes": 34213544,
+    "distAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+    "preflightBefore": "preflight-before.json",
+    "preflightAfter": "preflight-after.json",
+    "frozenBeforeAndAfter": true,
+    "sameBuildClaim": "Valid for all original and continuation records referenced here by matching before/after aggregate hash. Concurrent source diagnostics/badge work did not apply to this frozen dist."
+  },
+  "originalOpeningRecord": {
+    "path": "../../../../../stages-1-3-2026-09-26/hardware-acceptance-2026-10-08T23-47-04-636Z",
+    "desktop": "FAIL, 108 expectation failures after effective lite",
+    "narrow": "FAIL, 141 expectation failures after effective lite",
+    "reduced": "2 PASS, zero CAD requests/canvases",
+    "forcedLite": "desktop-lite interrupted; no completion claim"
+  },
+  "commands": [
+    {
+      "id": "opening-desktop-lite",
+      "status": "COMPLETED_EXIT_1",
+      "command": "node scripts/verify-jgun-opening.mjs --case=desktop-lite --label=hardware-acceptance-continuation --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-desktop-lite",
+      "startedUtc": "2026-10-09T00:36:30.442Z",
+      "finishedUtc": "2026-10-09T00:42:07.325Z",
+      "wallClockSeconds": 336.883,
+      "timedOut": false,
+      "report": "opening-desktop-lite/summary.json",
+      "result": "logs/opening-desktop-lite.result.json",
+      "rendererProvenance": "installed Chrome, ANGLE/D3D11 (hardware)",
+      "counts": {
+        "staticChecks": 92,
+        "staticFailures": 0,
+        "cases": 1,
+        "caseFailures": 2,
+        "errors": 0,
+        "warnings": 2,
+        "requestFailures": 0,
+        "httpErrors": 0,
+        "shaderFailures": 0,
+        "contextLosses": 0
+      },
+      "renderProof": {
+        "forcedTier": "lite",
+        "coldLoadReadyMs": 34898,
+        "forwardCheckpoints": 96,
+        "reverseCheckpoints": 48,
+        "pinnedCheckpoints": 43,
+        "liveConnectedGlSamples": 139,
+        "maxConnectedDraws": 7799919,
+        "warmReady": true
+      },
+      "classification": "Real pixel-proof failure at forward/reverse progress 0.080400: lightning mesh visibility, fixed camera, contour, or bright-pixel delta."
+    },
+    {
+      "id": "opening-narrow-lite",
+      "status": "COMPLETED_EXIT_1",
+      "command": "node scripts/verify-jgun-opening.mjs --case=narrow-lite --label=hardware-acceptance-continuation --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-narrow-lite",
+      "startedUtc": "2026-10-09T00:42:44.423Z",
+      "finishedUtc": "2026-10-09T00:47:14.233Z",
+      "wallClockSeconds": 269.81,
+      "timedOut": false,
+      "report": "opening-narrow-lite/summary.json",
+      "result": "logs/opening-narrow-lite.result.json",
+      "rendererProvenance": "installed Chrome, ANGLE/D3D11 (hardware)",
+      "counts": {
+        "staticChecks": 92,
+        "staticFailures": 0,
+        "cases": 1,
+        "caseFailures": 2,
+        "errors": 0,
+        "warnings": 2,
+        "requestFailures": 0,
+        "httpErrors": 0,
+        "shaderFailures": 0,
+        "contextLosses": 0
+      },
+      "renderProof": {
+        "forcedTier": "lite",
+        "coldLoadReadyMs": 29230,
+        "forwardCheckpoints": 96,
+        "reverseCheckpoints": 48,
+        "pinnedCheckpoints": 43,
+        "liveConnectedGlSamples": 139,
+        "maxConnectedDraws": 7083137,
+        "warmReady": true
+      },
+      "classification": "Real pixel-proof failure at forward/reverse progress 0.080400, matching the desktop-lite failure kind."
+    },
+    {
+      "id": "ring-full",
+      "status": "COMPLETED_EXIT_1",
+      "command": "node scripts/verify-ring-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/ring-full",
+      "startedUtc": "2026-10-09T00:47:39.273Z",
+      "finishedUtc": "2026-10-09T00:48:45.337Z",
+      "wallClockSeconds": 66.064,
+      "timedOut": false,
+      "report": "ring-full/report.json",
+      "result": "logs/ring-full.result.json",
+      "rendererProvenance": "installed Chrome, ANGLE/D3D11 (hardware)",
+      "counts": {
+        "casesTotal": 7,
+        "casesPassed": 3,
+        "casesFailed": 4,
+        "errors": 0,
+        "failures": 4
+      },
+      "passingCases": ["delayed-CAD-entry", "reduced-mobile", "poster"],
+      "failingCases": ["desktop", "mobile", "blueprint", "exploded"],
+      "classification": "Active-scene actual count mismatch, not inactive/poster fallback. All four reached warmReady, loaded inspection proof, requested knurling-tool.glb, exposed 59 narrative meshes and a ring matrix, then failed initial.ringMeshes > 0 && initial.toolMeshes === 12. Lifecycle V5 on the same frozen build proved active ring rendering and census ringMeshes=1/toolMeshes=24. Exact failed initial values were not persisted because the assertion threw.",
+      "externalConcurrency": "No direct overlap shown: ring finished 00:48:45.274Z, before the reported ~00:49 external JG-036 browser attempt. See logs/external-jg036-browser-note.json."
+    },
+    {
+      "id": "shaft-full",
+      "status": "COMPLETED_EXIT_0_PASS",
+      "command": "node scripts/verify-shaft-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/shaft-full",
+      "startedUtc": "2026-10-09T00:49:16.800Z",
+      "finishedUtc": "2026-10-09T00:54:37.457Z",
+      "wallClockSeconds": 320.657,
+      "timedOut": false,
+      "report": "shaft-full/report.json",
+      "result": "logs/shaft-full.result.json",
+      "rendererProvenance": "installed Chrome, ANGLE/D3D11 (hardware)",
+      "counts": {
+        "casesTotal": 16,
+        "casesPassed": 16,
+        "gatesPassed": 12,
+        "gatesTotal": 12,
+        "defects": 0,
+        "harnessLimitations": 0
+      },
+      "gates": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "N1", "N2", "N3", "N4"],
+      "renderProof": {
+        "ordinaryCases": ["desktop", "narrow"],
+        "errors": 0,
+        "inspectionRequestsPerOrdinaryCase": 8,
+        "verifiedShotsPerViewport": 13,
+        "desktopCanvas": "1440x900, 1,296,000 readback pixels per shot",
+        "narrowCanvas": "390x844, 329,160 readback pixels per shot",
+        "shotLabels": ["isolate", "shaping", "slow-exit", "cutter-exit", "recap", "materials", "revised-blank", "hobbing", "runout", "cool-stress", "support-before", "supports", "finale"]
+      },
+      "possibleStartupOverlap": "Shaft launched 00:49:16.800Z near the reported ~00:49 stopped JG-036 browser. It nevertheless delivered complete hardware render/gate evidence; no clean-run claim is made beyond that qualification."
+    },
+    {
+      "id": "manufacturing-lifecycle-full",
+      "status": "COMPLETED_EXIT_1",
+      "command": "node scripts/verify-manufacturing-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/manufacturing-lifecycle-full",
+      "startedUtc": "2026-10-09T00:55:43.196Z",
+      "finishedUtc": "2026-10-09T01:00:21.421Z",
+      "wallClockSeconds": 278.225,
+      "timedOut": false,
+      "report": "manufacturing-lifecycle-full/report.json",
+      "result": "logs/manufacturing-lifecycle-full.result.json",
+      "rendererProvenance": "Report does not persist a browser descriptor. It shares the same installed-Chrome hardware launcher as the passing opening/shaft/ring reports; no SwiftShader flag was used.",
+      "counts": {
+        "casesTotal": 14,
+        "casesPassed": 13,
+        "casesFailed": 1,
+        "defects": 0,
+        "gates": {"V1": true, "V2": false, "V3": true, "V4": true, "V5": true}
+      },
+      "failure": "pause-hidden-seek-desktop: playing-hidden advance 0.2494000000059604 not below 0.1 s",
+      "renderProof": {
+        "desktopRingShots": ["contact", "black-finish", "end-hold"],
+        "narrowRingShots": ["contact", "black-finish", "end-hold"],
+        "desktopDrawCalls": {"contact": 37, "blackFinish": 1, "endHold": 60},
+        "narrowDrawCalls": {"contact": 37, "blackFinish": 1, "endHold": 21},
+        "activeCensusExample": {"hasRenderer": true, "programsDuring": 156, "geometriesDuring": 331, "texturesDuring": 47, "ringMeshes": 1, "toolMeshes": 24}
+      },
+      "classification": "Real V2 hidden-playback bound failure; not an inactive-scene timeout."
+    }
+  ],
+  "overall": {
+    "allCommandsCompleted": true,
+    "timeouts": 0,
+    "openingForcedLite": "2 FAIL",
+    "ring": "1 FAIL with active count mismatch",
+    "shaft": "1 PASS",
+    "lifecycle": "1 FAIL with V2 only",
+    "acceptance": "NOT GRANTED; no threshold waiver or pass relabeling"
+  }
+}

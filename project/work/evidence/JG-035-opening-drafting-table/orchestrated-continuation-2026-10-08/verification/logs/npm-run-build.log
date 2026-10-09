@@ -1,0 +1,38 @@
+command: npm run build
+started: 
+2026-10-08T23:26:28.0471875Z
+
+> jgun-portfolio@0.1.0 build
+> tsc && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 710 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                   2.12 kB │ gzip:   0.70 kB
+dist/assets/draco_wasm_wrapper-fZCQGLGb.js       58.46 kB
+dist/assets/draco_wasm_wrapper-DxJM36Ib.js       58.76 kB
+dist/assets/draco_decoder-Z1_iN-Ht.wasm         192.42 kB │ gzip:  63.46 kB
+dist/assets/draco_decoder-C32yEggz.wasm         285.75 kB │ gzip:  88.64 kB
+dist/assets/draco_decoder-fzg4nYZr.js           719.41 kB
+dist/assets/QuietMachinePreview-TUd1Nev4.css      2.60 kB │ gzip:   0.98 kB
+dist/assets/RingInspection-DrcaxXqv.css          12.00 kB │ gzip:   3.11 kB
+dist/assets/index-BIVFFtLa.css                   40.40 kB │ gzip:   7.73 kB
+dist/assets/vanilla-m3Xdu9cz.js                   0.34 kB │ gzip:   0.25 kB
+dist/assets/BootSequence-B6_dcoJx.js              3.02 kB │ gzip:   1.55 kB
+dist/assets/script-BMj-0DZ-.js                    3.36 kB │ gzip:   1.70 kB
+dist/assets/QuietMachinePreview-DXJ6QRwD.js       6.51 kB │ gzip:   3.00 kB
+dist/assets/RingInspection-CxQY4UJM.js           19.07 kB │ gzip:   6.35 kB
+dist/assets/ScrollRig-7_bClhsM.js                20.85 kB │ gzip:   6.36 kB
+dist/assets/QuietMachineScene-pP9mISCJ.js        30.91 kB │ gzip:  12.22 kB
+dist/assets/ScrollTrigger-a3sj5zmn.js           114.01 kB │ gzip:  45.16 kB
+dist/assets/sectionRenderPass-C8TuXuLe.js       318.34 kB │ gzip:  94.38 kB
+dist/assets/SceneCanvas-BAnorJMy.js             468.50 kB │ gzip: 167.94 kB
+dist/assets/index-D0yXHZrK.js                 1,146.57 kB │ gzip: 338.32 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 15.83s

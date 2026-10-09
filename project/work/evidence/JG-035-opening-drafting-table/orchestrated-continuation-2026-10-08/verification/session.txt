@@ -1,0 +1,5 @@
+orchestrated-continuation plan V1
+objective: build and run opening/ring/shaft/lifecycle on Windows hardware GL
+repo: C:/Users/Markimus/.buzz/REPOS/jgun-portfolio
+baseline: 8db93913b2e91182199fb7d09c40273bd61c816a
+requested model: zai/glm-5.3 max; served-model proof: unavailable in this tool session

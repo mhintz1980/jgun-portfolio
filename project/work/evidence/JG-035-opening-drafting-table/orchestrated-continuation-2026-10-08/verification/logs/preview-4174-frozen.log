@@ -1,0 +1,4 @@
+command: node node_modules/vite/bin/vite.js preview --outDir .scratch/v1-frozen-dist --host 127.0.0.1 --port 4174 --strictPort
+started: 
+2026-10-08T23:52:38.9090897Z
+  ➜  Local:   http://127.0.0.1:4174/

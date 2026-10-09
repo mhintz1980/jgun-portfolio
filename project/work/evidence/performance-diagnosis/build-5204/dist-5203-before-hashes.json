@@ -1,0 +1,312 @@
+[
+  {
+    "path": "dist\\_headers",
+    "sha256": "BB225E419B3542A1F1FC813D35D7252D3DB7E1E4C1E513B4DD66B9C0EDDF3AB7",
+    "bytes": 646
+  },
+  {
+    "path": "dist\\404.html",
+    "sha256": "67AF9080F4D108BD2FA0603CE1B9B21EC9360FD3959826BA933DC5FD01236B5F",
+    "bytes": 2244
+  },
+  {
+    "path": "dist\\assets\\BootSequence-B6Jki2uy.js",
+    "sha256": "36C3D736D995FF804CC35EBDF3C10F5A447E5ECDF9306EBA239862D16FB0A438",
+    "bytes": 3018
+  },
+  {
+    "path": "dist\\assets\\draco_decoder-C32yEggz.wasm",
+    "sha256": "C55A594E8FFD18426D36B27FEA9618AF3DF5E173640A3E56D46F09D76F0574F2",
+    "bytes": 285747
+  },
+  {
+    "path": "dist\\assets\\draco_decoder-fzg4nYZr.js",
+    "sha256": "30E4D486FA020737AF10E3C56197693E5B904BDC05B8BFA5D7B06751DEC6DA04",
+    "bytes": 719410
+  },
+  {
+    "path": "dist\\assets\\draco_decoder-Z1_iN-Ht.wasm",
+    "sha256": "A680D927BED9CB864DDBD63521868891AF2BFBE755092761B4837487618DF8AC",
+    "bytes": 192420
+  },
+  {
+    "path": "dist\\assets\\draco_wasm_wrapper-DxJM36Ib.js",
+    "sha256": "E8049906EF3F8F75D3456C22A3F31BFDFE5B5B5BD09CCDEC613B9E9A49D554D8",
+    "bytes": 58763
+  },
+  {
+    "path": "dist\\assets\\draco_wasm_wrapper-fZCQGLGb.js",
+    "sha256": "8BB2952D2BA7D67E1414F8DF819410CB0434A666BE53F671FFF75F68843D76F6",
+    "bytes": 58456
+  },
+  {
+    "path": "dist\\assets\\index-BP95EhKL.js",
+    "sha256": "56E9CA6459980A2A5E87EF8294309BA9A85F6B550BE15739E3DED568CF92816F",
+    "bytes": 1147162
+  },
+  {
+    "path": "dist\\assets\\index-CddUWpSY.css",
+    "sha256": "C95D01F6D2E17ABA087E7AC10F21DA0A6D028190A49795A7F2DE32302949A152",
+    "bytes": 40514
+  },
+  {
+    "path": "dist\\assets\\QuietMachinePreview-CMerIdrV.js",
+    "sha256": "5FC77A7E0DF5610A505CFB4B7BF1906906626ED180E06D39C54C5C6818F7878D",
+    "bytes": 6513
+  },
+  {
+    "path": "dist\\assets\\QuietMachinePreview-TUd1Nev4.css",
+    "sha256": "C030F7003CC71BABE07D86D2F278AD966C382DB6D9248944A4258FAC01468B7E",
+    "bytes": 2595
+  },
+  {
+    "path": "dist\\assets\\QuietMachineScene-CNNvmwxP.js",
+    "sha256": "1A0B950652B6A3E0645F907628C64144FE3F88B48629C0112311A2AE3BC710FF",
+    "bytes": 30909
+  },
+  {
+    "path": "dist\\assets\\RingInspection-Bgb0Kbjs.css",
+    "sha256": "B1E4CE9DBD6A178465319942C182C3F947868DC0D834C7C13738E8D99CF35407",
+    "bytes": 11699
+  },
+  {
+    "path": "dist\\assets\\RingInspection-CjrMJw5w.js",
+    "sha256": "2A2293815B44EAB7FA87177825013FDE7629AAA59503F7CC2120B263780D2E48",
+    "bytes": 19095
+  },
+  {
+    "path": "dist\\assets\\SceneCanvas-DZeZz-e1.js",
+    "sha256": "74DA22B37160E9362DDEEAADD204EDE91E0DE0DB12BC880B34689FB03EBC2EAB",
+    "bytes": 468531
+  },
+  {
+    "path": "dist\\assets\\script-D6DkNSQw.js",
+    "sha256": "A94E6AEF0B51CE8909EEEF013DAE1037BDB4571F155EF34BA3ADFEFEE4222D47",
+    "bytes": 3357
+  },
+  {
+    "path": "dist\\assets\\ScrollRig-BhP7vd-F.js",
+    "sha256": "11B62909EF092CAFBE6EC36F74BD267381B284CF0CEE7446DCE640B100D29B53",
+    "bytes": 20853
+  },
+  {
+    "path": "dist\\assets\\ScrollTrigger-a3sj5zmn.js",
+    "sha256": "11F2BE75561459741488A454669FB26B048799F90E44D4FEE6288C765734B1A8",
+    "bytes": 114013
+  },
+  {
+    "path": "dist\\assets\\sectionRenderPass-BQdKuTWY.js",
+    "sha256": "0C78C9292D396F393A73760FAA2CA801FBA2B778D622ED5B06BF44CC6CFFFE50",
+    "bytes": 318339
+  },
+  {
+    "path": "dist\\assets\\vanilla-m3Xdu9cz.js",
+    "sha256": "65399DFDB398E1CBF16974D31F6DB0F5A672116D676F86BE3737AE366741074C",
+    "bytes": 344
+  },
+  {
+    "path": "dist\\draco\\draco_decoder.js",
+    "sha256": "8625489DA79A805F4F2A7D511C3E52D8B4085608A9D2A4D5F4F9DE5DB0AEA04F",
+    "bytes": 512465
+  },
+  {
+    "path": "dist\\draco\\draco_decoder.wasm",
+    "sha256": "A680D927BED9CB864DDBD63521868891AF2BFBE755092761B4837487618DF8AC",
+    "bytes": 192420
+  },
+  {
+    "path": "dist\\draco\\draco_wasm_wrapper.js",
+    "sha256": "8BB2952D2BA7D67E1414F8DF819410CB0434A666BE53F671FFF75F68843D76F6",
+    "bytes": 58456
+  },
+  {
+    "path": "dist\\drawing\\jgun-sheet-v1.evidence.json",
+    "sha256": "44E6196ECFDFAF762D6984BC32F9C52273F46791FEA5FD37DFFBE9AEF5DB575B",
+    "bytes": 4013
+  },
+  {
+    "path": "dist\\drawing\\jgun-sheet-v1.json.gz",
+    "sha256": "307E1FBB2EDF889B78F15720B8405F9E1D0EC2BA1708368F73F25D07090AC343",
+    "bytes": 6106663
+  },
+  {
+    "path": "dist\\drawing\\jgun-sheet-v2.bin.gz",
+    "sha256": "8D4A3D10EA75D7221AB510C4CD476FC762F74759E5F8FEE266284AD03FECAEC3",
+    "bytes": 4205481
+  },
+  {
+    "path": "dist\\drawing\\jgun-sheet-v2.evidence.json",
+    "sha256": "B096B2AB92A825B3C3CA1458C1A6013D8C344E381FDDFC38C0E833D6F3640D9E",
+    "bytes": 4575
+  },
+  {
+    "path": "dist\\favicon.svg",
+    "sha256": "13B8920902A7E736F95A2AFFDF7218BC4EFC51583FEAE481719E00936E5236CA",
+    "bytes": 488
+  },
+  {
+    "path": "dist\\fonts\\AcFastReference.ttf",
+    "sha256": "3BFF43202631B0A68CFDD42061C10E863407654193AB4D60E4A20BB3B7EE9870",
+    "bytes": 13392
+  },
+  {
+    "path": "dist\\fonts\\BarlowCondensed-Medium.ttf",
+    "sha256": "262BD143292CE479EE0CD09A42B47AB173FCA8E9C6EB5ED0B5C8A845BC371D17",
+    "bytes": 103360
+  },
+  {
+    "path": "dist\\fonts\\BarlowCondensed-SemiBold.ttf",
+    "sha256": "7B619D14BC2327509A9EF32B0890F709626F7ECC9FF61191C2A4314C5499D2D9",
+    "bytes": 109428
+  },
+  {
+    "path": "dist\\images\\rl300-exterior-preview.png",
+    "sha256": "FDACD1326B58F6FAA2BB2B0D2E042AE16FC087B539A52B9CE10304C312A7CE73",
+    "bytes": 156284
+  },
+  {
+    "path": "dist\\images\\rl300-intake-preview.png",
+    "sha256": "75DAFB8BE85E027F05B204228088DF57AA1513DA9C3A64EFE561BBE41FA9D6DA",
+    "bytes": 358050
+  },
+  {
+    "path": "dist\\images\\rl300-section-preview.png",
+    "sha256": "2F89B10FD308435359D6ADF646E7CC1204850B248723E2D0937C957E2F7B57E5",
+    "bytes": 223249
+  },
+  {
+    "path": "dist\\index.html",
+    "sha256": "4F4760339953F14C0368D1F8572FD71AD1E1FDD95F644C7C912B63A77202425B",
+    "bytes": 2116
+  },
+  {
+    "path": "dist\\inspection\\shaft\\assembled-finale-desktop.webp",
+    "sha256": "94A3E12B79D768B26436C284140FD11633DF01FF79121E82F015D033A49A68C4",
+    "bytes": 19796
+  },
+  {
+    "path": "dist\\inspection\\shaft\\assembled-finale-narrow.webp",
+    "sha256": "EDB75088A5F63E0DB48378F6F76C38BA4F71A28A4484AC037604FE7848904092",
+    "bytes": 12200
+  },
+  {
+    "path": "dist\\inspection\\shaft\\cool-stress-desktop.webp",
+    "sha256": "1A0D028FC34F860D8D77243CA372E0B6AB2817A030D222CAB02AB93DFD1F0ECB",
+    "bytes": 19842
+  },
+  {
+    "path": "dist\\inspection\\shaft\\cool-stress-narrow.webp",
+    "sha256": "E839D03547DE870CBBECC508B06152E822204865B944C54A167D5B40D01F238A",
+    "bytes": 14432
+  },
+  {
+    "path": "dist\\inspection\\shaft\\cutter-exit-desktop.webp",
+    "sha256": "A890981FE1DBD880D75E5078D9BE6EE7ADB90D037F6A9D8F09ED688EBE9ACC4E",
+    "bytes": 15448
+  },
+  {
+    "path": "dist\\inspection\\shaft\\cutter-exit-narrow.webp",
+    "sha256": "B8893EDDA29827E16B49BDFE366A3CC964FAC78211AEEAED05301EF1C8572D24",
+    "bytes": 9810
+  },
+  {
+    "path": "dist\\inspection\\shaft\\hobbed-desktop.webp",
+    "sha256": "A7164B75C986F9E581F0AD961A99AA7539BA223E4E8C9918BE1A463EFDB787A7",
+    "bytes": 23390
+  },
+  {
+    "path": "dist\\inspection\\shaft\\hobbed-narrow.webp",
+    "sha256": "334A1A66EBBE5451FD04193318F47EB808BB4B10CC3C91A709C37BC48DDA9EEC",
+    "bytes": 13692
+  },
+  {
+    "path": "dist\\inspection\\shaft\\material-attempts-desktop.webp",
+    "sha256": "6A3ACF3AE48ED657C8F0E18C976E9D89D0A74AA4FAB155D99D4083990FC1F036",
+    "bytes": 20146
+  },
+  {
+    "path": "dist\\inspection\\shaft\\material-attempts-narrow.webp",
+    "sha256": "B25505058BD017A6E8898C0318B74C4FCE885976173FF9EB70B6F444BD37F213",
+    "bytes": 10820
+  },
+  {
+    "path": "dist\\inspection\\shaft\\revised-blank-desktop.webp",
+    "sha256": "0E5BE5D74C75E09BF42C8879E21FCB23516660AAB3DCE27838ABAEDCEAE01533",
+    "bytes": 18608
+  },
+  {
+    "path": "dist\\inspection\\shaft\\revised-blank-narrow.webp",
+    "sha256": "C591F2A020758365BE3274C9BACF8B39EC07D506AAE3C6E5599D51A83AC4C814",
+    "bytes": 10304
+  },
+  {
+    "path": "dist\\inspection\\shaft\\support-after-desktop.webp",
+    "sha256": "29CE4633B5F9CF698A4ED89A0AEA1DB295871579605EE1A75BC609DAFDDCCCE7",
+    "bytes": 15994
+  },
+  {
+    "path": "dist\\inspection\\shaft\\support-after-narrow.webp",
+    "sha256": "FA2562F4064F727BC474BC64C8F3B8D805BE91D624ECDA2ABC751FB5B86C81C6",
+    "bytes": 12584
+  },
+  {
+    "path": "dist\\inspection\\shaft\\support-before-desktop.webp",
+    "sha256": "33C991372A262D727B1B9AAD6259A789CE9D0FB971231DA84D2FC85B47052813",
+    "bytes": 15272
+  },
+  {
+    "path": "dist\\inspection\\shaft\\support-before-narrow.webp",
+    "sha256": "C637DCBA545C069381C40D2078EFA002F6C581750EAAC02FEA6AE8650571415F",
+    "bytes": 12624
+  },
+  {
+    "path": "dist\\models\\Default.glb",
+    "sha256": "8B07246CF857ACA29D1832815D8D183E0A1FD8EF06DA5A7A089019706A57A257",
+    "bytes": 10671700
+  },
+  {
+    "path": "dist\\models\\knurling-tool.glb",
+    "sha256": "E5BFF99439EB6655EA9EDA3929FCCA2F3E388B98C5742DCEF95C371423C8FBD8",
+    "bytes": 1798620
+  },
+  {
+    "path": "dist\\models\\m249-transformed.glb",
+    "sha256": "1C251F45B05B736A08858E47C53C8FA779870B636BB1A174D1422D8003305423",
+    "bytes": 892092
+  },
+  {
+    "path": "dist\\models\\manufacturing-core-full.glb",
+    "sha256": "17F90D73A8312BB9B91B3E4468EA3A598E046DF0897714091243FED6722183BE",
+    "bytes": 678008
+  },
+  {
+    "path": "dist\\models\\manufacturing-core-lite.glb",
+    "sha256": "B38B91FA4371A1F04C28214ED5D6AAF8D97FFEDB3E099D8EADEA691C09200E6F",
+    "bytes": 415424
+  },
+  {
+    "path": "dist\\models\\msp-enclosure.glb",
+    "sha256": "C1C919AB8F747E9E2BD9EEB51B5AC31EE66DC39145CAC44AD7C8FDDFA056428E",
+    "bytes": 2671600
+  },
+  {
+    "path": "dist\\models\\rl300-lite.glb",
+    "sha256": "D4C0D9A70E45E5FA6C06AE38635336A2D03837C3CF3B3CE48A4AAAB5DA566EA4",
+    "bytes": 1139588
+  },
+  {
+    "path": "dist\\models\\role-map.json",
+    "sha256": "493207154DE241CC5756B58D563873466CD7E550C0F5717CB875DA5958DAD281",
+    "bytes": 78395
+  },
+  {
+    "path": "dist\\og-image.png",
+    "sha256": "EAC328624308020F9892D9B3CD8849E9B1D59F21B4C6DC6D9ADE3E2B1114CD37",
+    "bytes": 68525
+  },
+  {
+    "path": "dist\\robots.txt",
+    "sha256": "1CBDBC6504BE7ABE1267D01D7F565BFCFE5851BA3F6A3754D1D61C8F8A2C6AA3",
+    "bytes": 25
+  }
+]

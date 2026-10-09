@@ -1,0 +1,10 @@
+{
+  "status": "RELEASED",
+  "reason": "Original runner hit GLM provider usage cap. Parent verified original opening child PID 78852 is absent; forced-lite coverage remains incomplete and is not accepted.",
+  "baselineUrl": "http://127.0.0.1:4174/",
+  "baselineOutDir": ".scratch/v1-frozen-dist",
+  "baselineAggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+  "mainDistBuildOwnership": "Released for integrated build",
+  "gpuOwnership": "No active roster child observed; next assigned runner schedules GPU checks",
+  "acceptance": "OPEN: desktop/narrow full failed, reduced cases passed, forced-lite cases interrupted"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "manufacturing-lifecycle-full",
+  "startedUtc": "2026-10-09T00:55:43.196Z",
+  "finishedUtc": "2026-10-09T01:00:21.421Z",
+  "wallClockSeconds": 278.225,
+  "pid": 57524,
+  "exitCode": 1,
+  "timedOut": false,
+  "error": null,
+  "command": "node scripts/verify-manufacturing-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/manufacturing-lifecycle-full",
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\manufacturing-lifecycle-full.log",
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\manufacturing-lifecycle-full\\report.json",
+  "reportExists": true
+}

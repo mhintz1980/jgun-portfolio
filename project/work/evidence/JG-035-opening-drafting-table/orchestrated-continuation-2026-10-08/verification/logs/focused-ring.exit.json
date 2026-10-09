@@ -1,0 +1,8 @@
+{
+  "command": "node scripts/verify-ring-inspection.mjs --url=http://localhost:4173 --out=<evidence>/focused-ring/iteration --focused",
+  "exit": 1,
+  "startedUtc": "2026-10-08T23:42:19.1448338Z",
+  "finishedUtc": "2026-10-08T23:42:55.5797676Z",
+  "log": "logs/focused-ring.log",
+  "out": "focused-ring/iteration"
+}

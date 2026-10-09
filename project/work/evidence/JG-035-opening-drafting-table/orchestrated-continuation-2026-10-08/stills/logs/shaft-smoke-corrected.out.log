@@ -1,0 +1,18 @@
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-smoke-corrected\\capture-report.json",
+  "qualityLock": false,
+  "failures": [
+    "desktop: visibility is not defined"
+  ],
+  "cases": [
+    {
+      "name": "desktop",
+      "pass": false,
+      "shots": 0,
+      "fosProofs": 0,
+      "errors": [
+        "visibility is not defined"
+      ]
+    }
+  ]
+}

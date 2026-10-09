@@ -1,0 +1,8 @@
+{
+  "id": "manufacturing-lifecycle-full",
+  "launchedUtc": "2026-10-09T00:55:43.196Z",
+  "command": "node scripts/verify-manufacturing-inspection.mjs --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/manufacturing-lifecycle-full",
+  "pid": 57524,
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\manufacturing-lifecycle-full.log",
+  "budgetMinutes": 15
+}

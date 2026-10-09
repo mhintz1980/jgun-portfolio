@@ -1,0 +1,302 @@
+{
+  "schema": "final-shaft-still-capture-v2",
+  "url": "http://localhost:5203",
+  "out": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-smoke-corrected",
+  "qualityLock": false,
+  "smoke": true,
+  "evidenceClass": "normal-quality-candidate",
+  "started": "2026-10-09T01:33:06.373Z",
+  "gitHead": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "fileProvenance": {
+    "src/scene/inspection/shaft/fosPresentation.ts": "2babf8225b9a058494312a63fd766ddbc41e6eb3abdf6e2a800e0ad82afc1bb8",
+    "src/scene/inspection/shaft/script.ts": "cd419b7fbcecf08c886fcfde383994741a276f62cf754c90d88dc76af764a725",
+    "src/scene/inspection/shaft/camera.ts": "c713b7e67e3fc11358a1ad1e5b980ea15219db2d10ab82ba663c82080f0ce563",
+    "src/scene/inspection/shaft/progression.ts": "f6adf806188bacc04ac478c308e39baaf7fcdeb97c957e784c719152805de1dd",
+    "src/scene/inspection/shaft/shaftRuntime.ts": "5d9439c4b69dac53bfab7b92a04065a5a524181e25ad0e0a434706c8a1aa57ef",
+    "src/components/ShaftStoryLayer.tsx": "83056433baa808942d093babe4aedbc41126b478c6b2e9092a77d3362c703440",
+    "src/components/StaticShaftStory.tsx": "156434108dcb44da7d823cb604138d9ba9da07da8597113af6e91d608d9f4001",
+    "public/fonts/AcFastReference.ttf": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870",
+    "public/drawing/jgun-sheet-v2.bin.gz": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3",
+    "dist/index.html": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b"
+  },
+  "serverProvenance": {
+    "indexSha256": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b",
+    "assets": [
+      {
+        "asset": "assets/BootSequence-B6Jki2uy.js",
+        "sha256": "36c3d736d995ff804cc35ebdf3c10f5a447e5ecdf9306eba239862d16fb0a438",
+        "bytes": 3018
+      },
+      {
+        "asset": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+        "bytes": 719410
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+        "bytes": 58763
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "bytes": 58456
+      },
+      {
+        "asset": "assets/index-BP95EhKL.js",
+        "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f",
+        "bytes": 1147162
+      },
+      {
+        "asset": "assets/QuietMachinePreview-CMerIdrV.js",
+        "sha256": "5fc77a7e0df5610a505cfb4b7bf1906906626ed180e06d39c54c5c6818f7878d",
+        "bytes": 6513
+      },
+      {
+        "asset": "assets/QuietMachineScene-CNNvmwxP.js",
+        "sha256": "1a0b950652b6a3e0645f907628c64144fe3f88b48629c0112311a2ae3bc710ff",
+        "bytes": 30909
+      },
+      {
+        "asset": "assets/RingInspection-CjrMJw5w.js",
+        "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48",
+        "bytes": 19095
+      },
+      {
+        "asset": "assets/SceneCanvas-DZeZz-e1.js",
+        "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab",
+        "bytes": 468531
+      },
+      {
+        "asset": "assets/script-D6DkNSQw.js",
+        "sha256": "a94e6aef0b51ce8909eeef013dae1037bdb4571f155ef34ba3adfefee4222d47",
+        "bytes": 3357
+      },
+      {
+        "asset": "assets/ScrollRig-BhP7vd-F.js",
+        "sha256": "11b62909ef092cafbe6ec36f74bd267381b284cf0cee7446dce640b100d29b53",
+        "bytes": 20853
+      },
+      {
+        "asset": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+        "bytes": 114013
+      },
+      {
+        "asset": "assets/sectionRenderPass-BQdKuTWY.js",
+        "sha256": "0c78c9292d396f393a73760faa2ca801fba2b778d622ed5b06bf44cc6cfffe50",
+        "bytes": 318339
+      },
+      {
+        "asset": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+        "bytes": 344
+      }
+    ]
+  },
+  "method": "Real inspection entry, native exact seek, three distinct completed render stamps, camera/projection stability, composite canvas plus live FOS DOM. No camera/time override and no cache regeneration.",
+  "expected": {
+    "publicationRawCount": 2,
+    "fosProofRawCount": 0,
+    "sourceFormat": "PNG",
+    "sourcePixels": {
+      "desktop": [
+        1440,
+        900
+      ],
+      "narrow": [
+        390,
+        844
+      ]
+    },
+    "publicationIds": [
+      "cutter-exit",
+      "material-attempts"
+    ]
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": [
+        1440,
+        900
+      ],
+      "shots": [
+        {
+          "id": "cutter-exit",
+          "time": 8.4,
+          "file": "desktop-cutter-exit.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "71c91a4ad3bfd8ae622598c4cc954112ab1eb3f973d6dc1876920b59d9fd3368",
+          "bytes": 144316,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              490,
+              0,
+              1440,
+              900
+            ],
+            "nonBackgroundPixels": 519527,
+            "nonBackgroundFraction": 0.4008695987654321
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 705,
+          "session": 1,
+          "sampleStamp": 29.065299999982084,
+          "camera": [
+            4.440892098500626e-16,
+            0.9999999999999999,
+            -5.551115123125783e-17,
+            0,
+            0.05582150499316396,
+            0,
+            -0.9984407641819808,
+            0,
+            -0.9984407641819808,
+            3.3306690738754696e-16,
+            -0.05582150499316385,
+            0,
+            -0.19968815283639618,
+            -0.0021999999999999797,
+            -0.020164300998632756,
+            1
+          ],
+          "projection": [
+            9.535657305165964,
+            0,
+            0,
+            0,
+            0,
+            15.257051688265541,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "material-attempts",
+          "time": 17,
+          "file": "desktop-material-attempts.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "fafc649f5c6fc44959ccab38cca7f2b90325b85ad61794de9a7b24fb9f40534c",
+          "bytes": 226444,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              57,
+              150,
+              1440,
+              618
+            ],
+            "nonBackgroundPixels": 344245,
+            "nonBackgroundFraction": 0.2656211419753086
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55",
+              "rect": {
+                "x": 57.59375,
+                "y": 148,
+                "width": 340,
+                "height": 97.625,
+                "top": 148,
+                "right": 397.59375,
+                "bottom": 245.625,
+                "left": 57.59375
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.55",
+              "rect": {
+                "x": 1341.84375,
+                "y": 148,
+                "width": 78,
+                "height": 340,
+                "top": 148,
+                "right": 1419.84375,
+                "bottom": 488,
+                "left": 1341.84375
+              }
+            }
+          ],
+          "hiddenCount": 158,
+          "frame": 877,
+          "session": 1,
+          "sampleStamp": 29.882799999982087,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.06680142404932371,
+            -0.01994530709967479,
+            1
+          ],
+          "projection": [
+            6.261692491483519,
+            0,
+            0,
+            0,
+            0,
+            10.01870798637363,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        }
+      ],
+      "fosProofs": [],
+      "requests": [
+        "http://localhost:5203/models/m249-transformed.glb",
+        "http://localhost:5203/models/Default.glb",
+        "http://localhost:5203/models/msp-enclosure.glb",
+        "http://localhost:5203/models/manufacturing-core-lite.glb"
+      ],
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "completed": "2026-10-09T01:33:38.875Z"
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "stills-gpu-slot-release-v1",
+  "status": "RELEASED",
+  "completedAt": "2026-10-09T01:50:00Z",
+  "reason": "Authorized drawing proof, corrected normal-quality full shaft capture/encode, item2 captures, and both reduced fallback verifiers completed. Candidate review remains open; no public publish.",
+  "summary": "candidate-composition-review.md"
+}

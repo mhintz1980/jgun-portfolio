@@ -1,0 +1,1743 @@
+{
+  "schema": "final-shaft-still-capture-v2",
+  "url": "http://localhost:5203",
+  "out": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal",
+  "qualityLock": false,
+  "smoke": false,
+  "evidenceClass": "normal-quality-candidate",
+  "started": "2026-10-09T01:36:05.291Z",
+  "gitHead": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "fileProvenance": {
+    "src/scene/inspection/shaft/fosPresentation.ts": "2babf8225b9a058494312a63fd766ddbc41e6eb3abdf6e2a800e0ad82afc1bb8",
+    "src/scene/inspection/shaft/script.ts": "cd419b7fbcecf08c886fcfde383994741a276f62cf754c90d88dc76af764a725",
+    "src/scene/inspection/shaft/camera.ts": "c713b7e67e3fc11358a1ad1e5b980ea15219db2d10ab82ba663c82080f0ce563",
+    "src/scene/inspection/shaft/progression.ts": "f6adf806188bacc04ac478c308e39baaf7fcdeb97c957e784c719152805de1dd",
+    "src/scene/inspection/shaft/shaftRuntime.ts": "5d9439c4b69dac53bfab7b92a04065a5a524181e25ad0e0a434706c8a1aa57ef",
+    "src/components/ShaftStoryLayer.tsx": "83056433baa808942d093babe4aedbc41126b478c6b2e9092a77d3362c703440",
+    "src/components/StaticShaftStory.tsx": "156434108dcb44da7d823cb604138d9ba9da07da8597113af6e91d608d9f4001",
+    "public/fonts/AcFastReference.ttf": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870",
+    "public/drawing/jgun-sheet-v2.bin.gz": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3",
+    "dist/index.html": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b"
+  },
+  "serverProvenance": {
+    "indexSha256": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b",
+    "assets": [
+      {
+        "asset": "assets/BootSequence-B6Jki2uy.js",
+        "sha256": "36c3d736d995ff804cc35ebdf3c10f5a447e5ecdf9306eba239862d16fb0a438",
+        "bytes": 3018
+      },
+      {
+        "asset": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+        "bytes": 719410
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+        "bytes": 58763
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "bytes": 58456
+      },
+      {
+        "asset": "assets/index-BP95EhKL.js",
+        "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f",
+        "bytes": 1147162
+      },
+      {
+        "asset": "assets/QuietMachinePreview-CMerIdrV.js",
+        "sha256": "5fc77a7e0df5610a505cfb4b7bf1906906626ed180e06d39c54c5c6818f7878d",
+        "bytes": 6513
+      },
+      {
+        "asset": "assets/QuietMachineScene-CNNvmwxP.js",
+        "sha256": "1a0b950652b6a3e0645f907628c64144fe3f88b48629c0112311a2ae3bc710ff",
+        "bytes": 30909
+      },
+      {
+        "asset": "assets/RingInspection-CjrMJw5w.js",
+        "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48",
+        "bytes": 19095
+      },
+      {
+        "asset": "assets/SceneCanvas-DZeZz-e1.js",
+        "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab",
+        "bytes": 468531
+      },
+      {
+        "asset": "assets/script-D6DkNSQw.js",
+        "sha256": "a94e6aef0b51ce8909eeef013dae1037bdb4571f155ef34ba3adfefee4222d47",
+        "bytes": 3357
+      },
+      {
+        "asset": "assets/ScrollRig-BhP7vd-F.js",
+        "sha256": "11b62909ef092cafbe6ec36f74bd267381b284cf0cee7446dce640b100d29b53",
+        "bytes": 20853
+      },
+      {
+        "asset": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+        "bytes": 114013
+      },
+      {
+        "asset": "assets/sectionRenderPass-BQdKuTWY.js",
+        "sha256": "0c78c9292d396f393a73760faa2ca801fba2b778d622ed5b06bf44cc6cfffe50",
+        "bytes": 318339
+      },
+      {
+        "asset": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+        "bytes": 344
+      }
+    ]
+  },
+  "method": "Real inspection entry, native exact seek, three distinct completed render stamps, camera/projection stability, composite canvas plus live FOS DOM. No camera/time override and no cache regeneration.",
+  "expected": {
+    "publicationRawCount": 16,
+    "fosProofRawCount": 4,
+    "sourceFormat": "PNG",
+    "sourcePixels": {
+      "desktop": [
+        1440,
+        900
+      ],
+      "narrow": [
+        390,
+        844
+      ]
+    },
+    "publicationIds": [
+      "cutter-exit",
+      "material-attempts",
+      "revised-blank",
+      "hobbed",
+      "cool-stress",
+      "support-before",
+      "support-after",
+      "assembled-finale"
+    ]
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": [
+        1440,
+        900
+      ],
+      "shots": [
+        {
+          "id": "cutter-exit",
+          "time": 8.4,
+          "file": "desktop-cutter-exit.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "71c91a4ad3bfd8ae622598c4cc954112ab1eb3f973d6dc1876920b59d9fd3368",
+          "bytes": 144316,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              490,
+              0,
+              1440,
+              900
+            ],
+            "nonBackgroundPixels": 519527,
+            "nonBackgroundFraction": 0.4008695987654321
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 645,
+          "session": 1,
+          "sampleStamp": 29.78229999998209,
+          "camera": [
+            4.440892098500626e-16,
+            0.9999999999999999,
+            -5.551115123125783e-17,
+            0,
+            0.05582150499316396,
+            0,
+            -0.9984407641819808,
+            0,
+            -0.9984407641819808,
+            3.3306690738754696e-16,
+            -0.05582150499316385,
+            0,
+            -0.19968815283639618,
+            -0.0021999999999999797,
+            -0.020164300998632756,
+            1
+          ],
+          "projection": [
+            9.535657305165964,
+            0,
+            0,
+            0,
+            0,
+            15.257051688265541,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "material-attempts",
+          "time": 17,
+          "file": "desktop-material-attempts.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "fafc649f5c6fc44959ccab38cca7f2b90325b85ad61794de9a7b24fb9f40534c",
+          "bytes": 226444,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              57,
+              150,
+              1440,
+              618
+            ],
+            "nonBackgroundPixels": 344245,
+            "nonBackgroundFraction": 0.2656211419753086
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55",
+              "rect": {
+                "x": 57.59375,
+                "y": 148,
+                "width": 340,
+                "height": 97.625,
+                "top": 148,
+                "right": 397.59375,
+                "bottom": 245.625,
+                "left": 57.59375
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.55",
+              "rect": {
+                "x": 1341.84375,
+                "y": 148,
+                "width": 78,
+                "height": 340,
+                "top": 148,
+                "right": 1419.84375,
+                "bottom": 488,
+                "left": 1341.84375
+              }
+            }
+          ],
+          "hiddenCount": 158,
+          "frame": 781,
+          "session": 1,
+          "sampleStamp": 30.449599999994007,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.06680142404932371,
+            -0.01994530709967479,
+            1
+          ],
+          "projection": [
+            6.261692491483519,
+            0,
+            0,
+            0,
+            0,
+            10.01870798637363,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "revised-blank",
+          "time": 25,
+          "file": "desktop-revised-blank.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "98d47215051fd58c99a36b5b33eda71d81b3ca8924c82adae1adc442cacdba33",
+          "bytes": 205266,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              425,
+              294,
+              1440,
+              781
+            ],
+            "nonBackgroundPixels": 359303,
+            "nonBackgroundFraction": 0.27723996913580246
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 909,
+          "session": 1,
+          "sampleStamp": 30.98319999998804,
+          "camera": [
+            -0.11227140938370761,
+            5.551115123125783e-17,
+            -0.9936775788126628,
+            0,
+            -0.5373162372777651,
+            0.8411930033053925,
+            0.060709079615147904,
+            0,
+            0.8358746268386548,
+            0.5407349916456803,
+            -0.09444192404481022,
+            0,
+            0.16717492536773093,
+            0.11094699832913608,
+            -0.029888384808962054,
+            1
+          ],
+          "projection": [
+            7.365833213847971,
+            0,
+            0,
+            0,
+            0,
+            11.785333142156754,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "hobbed",
+          "time": 32.4,
+          "file": "desktop-hobbed.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "529b2f68b85426219d04648f1e599b9f83f123e67d8161d1b00c4a0e246ca1b0",
+          "bytes": 277112,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              264,
+              141,
+              1440,
+              725
+            ],
+            "nonBackgroundPixels": 509794,
+            "nonBackgroundFraction": 0.39335956790123455
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 1069,
+          "session": 1,
+          "sampleStamp": 31.650599999994007,
+          "camera": [
+            -0.08025100651561123,
+            -2.7755575615628914e-17,
+            -0.9967746866535243,
+            0,
+            -0.4075035965767455,
+            0.9126140631443032,
+            0.03280839112578973,
+            0,
+            0.9096705968262624,
+            0.4088221761979721,
+            -0.07323819712763191,
+            0,
+            0.1819341193652525,
+            0.0807273982025574,
+            -0.02866615794404484,
+            1
+          ],
+          "projection": [
+            8.896593407611183,
+            0,
+            0,
+            0,
+            0,
+            14.234549452177891,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "cool-stress",
+          "time": 34.2,
+          "file": "desktop-cool-stress.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "1563155ea74c86960a314a488e17366e939c984aae35b31f16c916d5eef613bc",
+          "bytes": 197863,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              57,
+              150,
+              1440,
+              564
+            ],
+            "nonBackgroundPixels": 284353,
+            "nonBackgroundFraction": 0.2194081790123457
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "revised",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Revised, rotary hobbedPlot type: Factor of safetyMaterial: AISI 4340 (H.T. 48-50 HRC)",
+              "rect": {
+                "x": 57.59375,
+                "y": 148,
+                "width": 340,
+                "height": 74.375,
+                "top": 148,
+                "right": 397.59375,
+                "bottom": 222.375,
+                "left": 57.59375
+              }
+            },
+            {
+              "kind": "revised",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.0",
+              "rect": {
+                "x": 1341.84375,
+                "y": 148,
+                "width": 78,
+                "height": 340,
+                "top": 148,
+                "right": 1419.84375,
+                "bottom": 488,
+                "left": 1341.84375
+              }
+            }
+          ],
+          "hiddenCount": 156,
+          "frame": 1205,
+          "session": 1,
+          "sampleStamp": 32.23429999998209,
+          "camera": [
+            -0.08025100651561123,
+            -2.7755575615628914e-17,
+            -0.9967746866535243,
+            0,
+            -0.4075035965767455,
+            0.9126140631443032,
+            0.03280839112578973,
+            0,
+            0.9096705968262624,
+            0.4088221761979721,
+            -0.07323819712763191,
+            0,
+            0.1819341193652525,
+            0.07776443523959442,
+            -0.03214763942552634,
+            1
+          ],
+          "projection": [
+            5.485554598043723,
+            0,
+            0,
+            0,
+            0,
+            8.776887356869956,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "support-before",
+          "time": 35.8,
+          "file": "desktop-support-before.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "dd927297f1e2805752d0ec4d44b8d20d5fee56bd07d2e4aca4fec4ad31c675f0",
+          "bytes": 173620,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              226,
+              90,
+              1440,
+              811
+            ],
+            "nonBackgroundPixels": 371438,
+            "nonBackgroundFraction": 0.2866033950617284
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 1345,
+          "session": 1,
+          "sampleStamp": 34.01929999998212,
+          "camera": [
+            2.220446049250313e-16,
+            -2.465190328815662e-32,
+            -1,
+            0,
+            2.449293598294706e-16,
+            1,
+            2.465190328815662e-32,
+            0,
+            1,
+            -2.449293598294706e-16,
+            2.220446049250313e-16,
+            0,
+            0.2,
+            -5.551115123125783e-17,
+            -0.017499999999999988,
+            1
+          ],
+          "projection": [
+            4.653178438257525,
+            0,
+            0,
+            0,
+            0,
+            7.44508550121204,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "support-after",
+          "time": 38.2,
+          "file": "desktop-support-after.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "0ea8d80673a78ae6c40a1feea0f8a7634f7e8533c571abef1d33970d5b4416bc",
+          "bytes": 177037,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              226,
+              90,
+              1440,
+              811
+            ],
+            "nonBackgroundPixels": 375556,
+            "nonBackgroundFraction": 0.28978086419753085
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 1505,
+          "session": 1,
+          "sampleStamp": 34.68640000000598,
+          "camera": [
+            2.220446049250313e-16,
+            -2.465190328815662e-32,
+            -1,
+            0,
+            2.449293598294706e-16,
+            1,
+            2.465190328815662e-32,
+            0,
+            1,
+            -2.449293598294706e-16,
+            2.220446049250313e-16,
+            0,
+            0.2,
+            -5.551115123125783e-17,
+            -0.017499999999999988,
+            1
+          ],
+          "projection": [
+            4.653178438257525,
+            0,
+            0,
+            0,
+            0,
+            7.44508550121204,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "assembled-finale",
+          "time": 42.5,
+          "file": "desktop-assembled-finale.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "060164342146d3b0b1d74e9adf7f91c3ce6dae488e7342aa856fd7c45d1a89c8",
+          "bytes": 210100,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              0,
+              74,
+              1440,
+              815
+            ],
+            "nonBackgroundPixels": 590856,
+            "nonBackgroundFraction": 0.45590740740740743
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 155,
+          "frame": 1673,
+          "session": 1,
+          "sampleStamp": 35.38690000000602,
+          "camera": [
+            -0.053501862281273516,
+            -1.3877787807814457e-17,
+            -0.9985677496957508,
+            0,
+            -0.2073293815882546,
+            0.978208122322919,
+            0.011108418055736424,
+            0,
+            0.976807083442103,
+            0.20762675507137585,
+            -0.05233595624294396,
+            0,
+            0.21489755835726265,
+            0.045677886115702684,
+            -0.023513910373447633,
+            1
+          ],
+          "projection": [
+            3.946094696671902,
+            0,
+            0,
+            0,
+            0,
+            6.313751514675044,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        }
+      ],
+      "fosProofs": [
+        {
+          "id": "fos-4340",
+          "time": 19,
+          "file": "desktop-fos-4340.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "3416ce46c15690ee36b5a737093c85451c4ca0fe4432b4d12fcbd4f6608cd048",
+          "bytes": 224881,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              57,
+              150,
+              1440,
+              618
+            ],
+            "nonBackgroundPixels": 344239,
+            "nonBackgroundFraction": 0.265616512345679
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4340 (48-50 HRC)Min FOS = 0.72",
+              "rect": {
+                "x": 57.59375,
+                "y": 148,
+                "width": 340,
+                "height": 97.625,
+                "top": 148,
+                "right": 397.59375,
+                "bottom": 245.625,
+                "left": 57.59375
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.72",
+              "rect": {
+                "x": 1341.84375,
+                "y": 148,
+                "width": 78,
+                "height": 340,
+                "top": 148,
+                "right": 1419.84375,
+                "bottom": 488,
+                "left": 1341.84375
+              }
+            }
+          ],
+          "hiddenCount": 158,
+          "frame": 1837,
+          "session": 1,
+          "sampleStamp": 36.07079999998219,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.06680142404932371,
+            -0.01994530709967479,
+            1
+          ],
+          "projection": [
+            6.261692491483519,
+            0,
+            0,
+            0,
+            0,
+            10.01870798637363,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "fos-c300",
+          "time": 21.5,
+          "file": "desktop-fos-c300.png",
+          "format": "PNG",
+          "pixels": [
+            1440,
+            900
+          ],
+          "sha256": "699e88e12f25c785bb859ad5552f4cce7dd61d5ddb13a550ad5944aeedfbc091",
+          "bytes": 223556,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              57,
+              150,
+              1440,
+              618
+            ],
+            "nonBackgroundPixels": 344140,
+            "nonBackgroundFraction": 0.2655401234567901
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: C300 (56-58 HRC)Min FOS = 0.90",
+              "rect": {
+                "x": 57.59375,
+                "y": 148,
+                "width": 340,
+                "height": 97.625,
+                "top": 148,
+                "right": 397.59375,
+                "bottom": 245.625,
+                "left": 57.59375
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.90",
+              "rect": {
+                "x": 1341.84375,
+                "y": 148,
+                "width": 78,
+                "height": 340,
+                "top": 148,
+                "right": 1419.84375,
+                "bottom": 488,
+                "left": 1341.84375
+              }
+            }
+          ],
+          "hiddenCount": 158,
+          "frame": 1981,
+          "session": 1,
+          "sampleStamp": 36.67119999998818,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.06680142404932371,
+            -0.01994530709967479,
+            1
+          ],
+          "projection": [
+            6.261692491483519,
+            0,
+            0,
+            0,
+            0,
+            10.01870798637363,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        }
+      ],
+      "requests": [
+        "http://localhost:5203/models/m249-transformed.glb",
+        "http://localhost:5203/models/Default.glb",
+        "http://localhost:5203/models/msp-enclosure.glb",
+        "http://localhost:5203/models/manufacturing-core-lite.glb"
+      ],
+      "errors": [],
+      "supportPair": {
+        "session": 1,
+        "cameraDelta": 0,
+        "projectionDelta": 0
+      },
+      "pass": true
+    },
+    {
+      "name": "narrow",
+      "viewport": [
+        390,
+        844
+      ],
+      "shots": [
+        {
+          "id": "cutter-exit",
+          "time": 8.4,
+          "file": "narrow-cutter-exit.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "d2d931ac679f7c5bcdc93830c05382e4e4177ea107b82ead373a4c2975dae16c",
+          "bytes": 98108,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              0,
+              0,
+              390,
+              788
+            ],
+            "nonBackgroundPixels": 183034,
+            "nonBackgroundFraction": 0.5560639202819297
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 497,
+          "session": 1,
+          "sampleStamp": 11.442900000005961,
+          "camera": [
+            4.440892098500626e-16,
+            0.9999999999999999,
+            -5.551115123125783e-17,
+            0,
+            0.05582150499316396,
+            0,
+            -0.9984407641819808,
+            0,
+            -0.9984407641819808,
+            3.3306690738754696e-16,
+            -0.05582150499316385,
+            0,
+            -0.19968815283639618,
+            0.0030000000000000304,
+            -0.01936430099863276,
+            1
+          ],
+          "projection": [
+            17.8831799641257,
+            0,
+            0,
+            0,
+            0,
+            8.263554722759505,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "material-attempts",
+          "time": 17,
+          "file": "narrow-material-attempts.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "1170c9709ddc4044707c3e8fae99a79cf09ec57eb8307812333e870c1a772d10",
+          "bytes": 49943,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              32,
+              350,
+              390,
+              543
+            ],
+            "nonBackgroundPixels": 37883,
+            "nonBackgroundFraction": 0.1150899258719164
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55",
+              "rect": {
+                "x": 31.1875,
+                "y": 348,
+                "width": 327.625,
+                "height": 14.171875,
+                "top": 348,
+                "right": 358.8125,
+                "bottom": 362.171875,
+                "left": 31.1875
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.55",
+              "rect": {
+                "x": 31.1875,
+                "y": 366,
+                "width": 327.625,
+                "height": 24,
+                "top": 366,
+                "right": 358.8125,
+                "bottom": 390,
+                "left": 31.1875
+              }
+            }
+          ],
+          "hiddenCount": 168,
+          "frame": 593,
+          "session": 1,
+          "sampleStamp": 11.843400000005964,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.07290142404932372,
+            -0.010245307099674777,
+            1
+          ],
+          "projection": [
+            9.487004429556855,
+            0,
+            0,
+            0,
+            0,
+            4.383805364368689,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "revised-blank",
+          "time": 25,
+          "file": "narrow-revised-blank.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "3d6ec6638cd5b75b47f0a507e61bc3a6d8e57c23b134c098ccb337a6125eb77a",
+          "bytes": 43273,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              28,
+              334,
+              390,
+              603
+            ],
+            "nonBackgroundPixels": 66866,
+            "nonBackgroundFraction": 0.20314132944464697
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 681,
+          "session": 1,
+          "sampleStamp": 12.210199999988081,
+          "camera": [
+            -0.11227140938370761,
+            5.551115123125783e-17,
+            -0.9936775788126628,
+            0,
+            -0.5373162372777651,
+            0.8411930033053925,
+            0.060709079615147904,
+            0,
+            0.8358746268386548,
+            0.5407349916456803,
+            -0.09444192404481022,
+            0,
+            0.16717492536773093,
+            0.11094699832913608,
+            -0.029888384808962054,
+            1
+          ],
+          "projection": [
+            15.449255267131301,
+            0,
+            0,
+            0,
+            0,
+            7.13887387936162,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "hobbed",
+          "time": 32.4,
+          "file": "narrow-hobbed.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "0dffbb83d21c6e0a7722d7c32c2875bd8eaa0106233a28bcf12418a263f0e982",
+          "bytes": 42511,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              95,
+              339,
+              390,
+              547
+            ],
+            "nonBackgroundPixels": 42762,
+            "nonBackgroundFraction": 0.12991250455705433
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 769,
+          "session": 1,
+          "sampleStamp": 12.57719999998808,
+          "camera": [
+            -0.08025100651561123,
+            -2.7755575615628914e-17,
+            -0.9967746866535243,
+            0,
+            -0.4075035965767455,
+            0.9126140631443032,
+            0.03280839112578973,
+            0,
+            0.9096705968262624,
+            0.4088221761979721,
+            -0.07323819712763191,
+            0,
+            0.1819341193652525,
+            0.08319036116552034,
+            -0.023166157944044863,
+            1
+          ],
+          "projection": [
+            11.864685496759856,
+            0,
+            0,
+            0,
+            0,
+            5.48249685276818,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "cool-stress",
+          "time": 34.2,
+          "file": "narrow-cool-stress.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "08790083084a8bffe689f4c3edf1fb12fa4fc2b71748740c92961fb24b0d9955",
+          "bytes": 43795,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              32,
+              350,
+              390,
+              528
+            ],
+            "nonBackgroundPixels": 29206,
+            "nonBackgroundFraction": 0.08872888564831692
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "revised",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Revised, rotary hobbedPlot type: Factor of safetyMaterial: AISI 4340 (H.T. 48-50 HRC)",
+              "rect": {
+                "x": 31.1875,
+                "y": 348,
+                "width": 327.625,
+                "height": 14.171875,
+                "top": 348,
+                "right": 358.8125,
+                "bottom": 362.171875,
+                "left": 31.1875
+              }
+            },
+            {
+              "kind": "revised",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.0",
+              "rect": {
+                "x": 31.1875,
+                "y": 366,
+                "width": 327.625,
+                "height": 24,
+                "top": 366,
+                "right": 358.8125,
+                "bottom": 390,
+                "left": 31.1875
+              }
+            }
+          ],
+          "hiddenCount": 166,
+          "frame": 857,
+          "session": 1,
+          "sampleStamp": 12.94419999998808,
+          "camera": [
+            -0.08025100651561123,
+            -2.7755575615628914e-17,
+            -0.9967746866535243,
+            0,
+            -0.4075035965767455,
+            0.9126140631443032,
+            0.03280839112578973,
+            0,
+            0.9096705968262624,
+            0.4088221761979721,
+            -0.07323819712763191,
+            0,
+            0.1819341193652525,
+            0.08726443523959443,
+            -0.022647639425526334,
+            1
+          ],
+          "projection": [
+            7.40065361292612,
+            0,
+            0,
+            0,
+            0,
+            3.419733304551169,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "support-before",
+          "time": 35.8,
+          "file": "narrow-support-before.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "52094a69ac5179815184b5bfa4f1dc9fb72a00b4039f57db2698cb3ac976a0c2",
+          "bytes": 60282,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              0,
+              226,
+              390,
+              619
+            ],
+            "nonBackgroundPixels": 90393,
+            "nonBackgroundFraction": 0.27461720743711265
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 941,
+          "session": 1,
+          "sampleStamp": 13.361099999994037,
+          "camera": [
+            2.220446049250313e-16,
+            -2.465190328815662e-32,
+            -1,
+            0,
+            2.449293598294706e-16,
+            1,
+            2.465190328815662e-32,
+            0,
+            1,
+            -2.449293598294706e-16,
+            2.220446049250313e-16,
+            0,
+            0.2,
+            -5.551115123125783e-17,
+            -0.017499999999999988,
+            1
+          ],
+          "projection": [
+            9.373758045886737,
+            0,
+            0,
+            0,
+            0,
+            4.3314758742841555,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "support-after",
+          "time": 38.2,
+          "file": "narrow-support-after.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "c70514957e57a0f3d779f2838a369322fbc17b5a4fa0b6eed3b41e6ddeacc7bf",
+          "bytes": 61642,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              0,
+              226,
+              390,
+              619
+            ],
+            "nonBackgroundPixels": 91709,
+            "nonBackgroundFraction": 0.2786152630939361
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 1013,
+          "session": 1,
+          "sampleStamp": 13.661300000011916,
+          "camera": [
+            2.220446049250313e-16,
+            -2.465190328815662e-32,
+            -1,
+            0,
+            2.449293598294706e-16,
+            1,
+            2.465190328815662e-32,
+            0,
+            1,
+            -2.449293598294706e-16,
+            2.220446049250313e-16,
+            0,
+            0.2,
+            -5.551115123125783e-17,
+            -0.017499999999999988,
+            1
+          ],
+          "projection": [
+            9.373758045886737,
+            0,
+            0,
+            0,
+            0,
+            4.3314758742841555,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "assembled-finale",
+          "time": 42.5,
+          "file": "narrow-assembled-finale.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "5fbd2dcdf1f887875aa85407b87053517c53879cd236acbe84209236c796780b",
+          "bytes": 46182,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              0,
+              240,
+              390,
+              603
+            ],
+            "nonBackgroundPixels": 108906,
+            "nonBackgroundFraction": 0.3308603718556325
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [],
+          "hiddenCount": 165,
+          "frame": 1085,
+          "session": 1,
+          "sampleStamp": 13.961400000005954,
+          "camera": [
+            -0.053501862281273516,
+            -1.3877787807814457e-17,
+            -0.9985677496957508,
+            0,
+            -0.2073293815882546,
+            0.978208122322919,
+            0.011108418055736424,
+            0,
+            0.976807083442103,
+            0.20762675507137585,
+            -0.05233595624294396,
+            0,
+            0.21489755835726265,
+            0.045677886115702684,
+            -0.023513910373447633,
+            1
+          ],
+          "projection": [
+            9.373758045886737,
+            0,
+            0,
+            0,
+            0,
+            4.3314758742841555,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        }
+      ],
+      "fosProofs": [
+        {
+          "id": "fos-4340",
+          "time": 19,
+          "file": "narrow-fos-4340.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "f1473497c770767114fe28474279847f3823c5d47341929818af652c78b138fd",
+          "bytes": 49777,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              32,
+              350,
+              390,
+              543
+            ],
+            "nonBackgroundPixels": 37882,
+            "nonBackgroundFraction": 0.115086887835703
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4340 (48-50 HRC)Min FOS = 0.72",
+              "rect": {
+                "x": 31.1875,
+                "y": 348,
+                "width": 327.625,
+                "height": 14.171875,
+                "top": 348,
+                "right": 358.8125,
+                "bottom": 362.171875,
+                "left": 31.1875
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.72",
+              "rect": {
+                "x": 31.1875,
+                "y": 366,
+                "width": 327.625,
+                "height": 24,
+                "top": 366,
+                "right": 358.8125,
+                "bottom": 390,
+                "left": 31.1875
+              }
+            }
+          ],
+          "hiddenCount": 168,
+          "frame": 1157,
+          "session": 1,
+          "sampleStamp": 14.261900000005955,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.07290142404932372,
+            -0.010245307099674777,
+            1
+          ],
+          "projection": [
+            9.487004429556855,
+            0,
+            0,
+            0,
+            0,
+            4.383805364368689,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        },
+        {
+          "id": "fos-c300",
+          "time": 21.5,
+          "file": "narrow-fos-c300.png",
+          "format": "PNG",
+          "pixels": [
+            390,
+            844
+          ],
+          "sha256": "d9df8078a6d968a41cf450166e611f9e22e018c7de927df9cff9485cb028997c",
+          "bytes": 49250,
+          "nonBackgroundPass": true,
+          "visibility": {
+            "bounds": [
+              32,
+              350,
+              390,
+              543
+            ],
+            "nonBackgroundPixels": 37756,
+            "nonBackgroundFraction": 0.11470409527281565
+          },
+          "cameraDrift": 0,
+          "projectionDrift": 0,
+          "overlay": [
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: C300 (56-58 HRC)Min FOS = 0.90",
+              "rect": {
+                "x": 31.1875,
+                "y": 348,
+                "width": 327.625,
+                "height": 14.171875,
+                "top": 348,
+                "right": 358.8125,
+                "bottom": 362.171875,
+                "left": 31.1875
+              }
+            },
+            {
+              "kind": "attempt",
+              "opacity": "1",
+              "text": "FOS0.01.02.03.00.90",
+              "rect": {
+                "x": 31.1875,
+                "y": 366,
+                "width": 327.625,
+                "height": 24,
+                "top": 366,
+                "right": 358.8125,
+                "bottom": 390,
+                "left": 31.1875
+              }
+            }
+          ],
+          "hiddenCount": 168,
+          "frame": 1229,
+          "session": 1,
+          "sampleStamp": 14.562,
+          "camera": [
+            -0.009286538265790734,
+            -2.7755575615628914e-17,
+            -0.999956879173816,
+            0,
+            -0.34199237261703275,
+            0.9396973606968443,
+            0.0031760622093431334,
+            0,
+            0.939656840170288,
+            0.3420071202466185,
+            -0.008726535498373877,
+            0,
+            0.18793136803405763,
+            0.07290142404932372,
+            -0.010245307099674777,
+            1
+          ],
+          "projection": [
+            9.487004429556855,
+            0,
+            0,
+            0,
+            0,
+            4.383805364368689,
+            0,
+            0,
+            0,
+            0,
+            -1.000066668888963,
+            -1,
+            0,
+            0,
+            -0.010000333344444815,
+            0
+          ]
+        }
+      ],
+      "requests": [
+        "http://localhost:5203/models/m249-transformed.glb",
+        "http://localhost:5203/models/Default.glb",
+        "http://localhost:5203/models/msp-enclosure.glb",
+        "http://localhost:5203/models/manufacturing-core-full.glb"
+      ],
+      "errors": [],
+      "supportPair": {
+        "session": 1,
+        "cameraDelta": 0,
+        "projectionDelta": 0
+      },
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "completed": "2026-10-09T01:36:59.628Z"
+}

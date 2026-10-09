@@ -1,0 +1,377 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:5203",
+  "started": "2026-10-09T01:37:33.082Z",
+  "head": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "only": [
+    "opening"
+  ],
+  "captures": [
+    {
+      "file": "opening-desktop-t0p065.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.065,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.3966224063064448,
+        "y": 0.23170411054169252,
+        "z": -0.2850793685588003,
+        "fov": 30.000000219460546,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.396622857115359,
+            0.23170471721325334,
+            -0.2850802729140206
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.6908529592223182,
+          0.7193398003386513,
+          0.07261157196009131
+        ],
+        "sheetDistance": 0.33355204092646845
+      },
+      "sha256": "268598049699ae5bd1a102785cf7d628eb3bfe1c8debdb6987283b7e679d0bde",
+      "bytes": 587940,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, desktop at intro t 0.065 (qualityLock visual-only)."
+    },
+    {
+      "file": "opening-desktop-t0p08.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.08,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.3937528610647278,
+        "y": 0.23497852144420453,
+        "z": -0.2815090807150672,
+        "fov": 30.00000000000302,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.39375228130572193,
+            0.23497918279065969,
+            -0.2815083593143222
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7015616737898474,
+          0.7097284797501094,
+          0.06400549117682328
+        ],
+        "sheetDistance": 0.33355204092646845
+      },
+      "sha256": "c5daba31b0953e846241740864cc204e829d2328dbc17f557089e24fb263f24d",
+      "bytes": 598907,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, desktop at intro t 0.08 (qualityLock visual-only)."
+    },
+    {
+      "file": "opening-desktop-t0p1.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.1,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.3891409321545484,
+        "y": 0.2399365748097638,
+        "z": -0.2761636411547794,
+        "fov": 30.000000000000014,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.38914029616756024,
+            0.2399372585225954,
+            -0.2761629040226763
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7175875247389181,
+          0.6946583704589974,
+          0.050178607895427454
+        ],
+        "sheetDistance": 0.33355204092646845
+      },
+      "sha256": "5e14ed10d01f53bbeaa85036488c2f1d0720cc80505e2fd4e3e246febcfffd49",
+      "bytes": 614796,
+      "pixels": [
+        1440,
+        900
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, desktop at intro t 0.1 (qualityLock visual-only)."
+    },
+    {
+      "file": "opening-tablet-t0p065.png",
+      "kind": "opening",
+      "viewport": "tablet",
+      "t": 0.065,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.45168930251020184,
+        "y": 0.28517458225749637,
+        "z": -0.2908670257334277,
+        "fov": 30.000009697006288,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.4516896702958265,
+            0.28517503657015797,
+            -0.2908680282018715
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.6908529592223182,
+          0.7193398003386513,
+          0.07261157196009131
+        ],
+        "sheetDistance": 0.41052558883257656
+      },
+      "sha256": "addd899a819980425ecaa64297d8fe9894c416eaa327882e0753d29ae0d87ca7",
+      "bytes": 334786,
+      "pixels": [
+        768,
+        1024
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, tablet at intro t 0.065 (qualityLock visual-only)."
+    },
+    {
+      "file": "opening-tablet-t0p08.png",
+      "kind": "opening",
+      "viewport": "tablet",
+      "t": 0.08,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.44815723161057436,
+        "y": 0.2892044890517748,
+        "z": -0.2864725456737342,
+        "fov": 30.00000000022941,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.4481566539147347,
+            0.2892051480500427,
+            -0.28647182684839656
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7015616737898474,
+          0.7097284797501094,
+          0.06400549117682328
+        ],
+        "sheetDistance": 0.41052558883257656
+      },
+      "sha256": "ab6209821583369c8b1806f7598bbf52db66e6275648a837f2522ce33e75c4bb",
+      "bytes": 333090,
+      "pixels": [
+        768,
+        1024
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, tablet at intro t 0.08 (qualityLock visual-only)."
+    },
+    {
+      "file": "opening-tablet-t0p1.png",
+      "kind": "opening",
+      "viewport": "tablet",
+      "t": 0.1,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.4424810082071991,
+        "y": 0.295306703107108,
+        "z": -0.2798935510152281,
+        "fov": 30.000000000000014,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.44248036451392037,
+            0.2953073951047328,
+            -0.27989280495098623
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7175875247389181,
+          0.6946583704589974,
+          0.050178607895427454
+        ],
+        "sheetDistance": 0.41052558883257656
+      },
+      "sha256": "8e57d1075822aa9c1a4178490b10472538a9801987377d589f89da51cac1a8af",
+      "bytes": 353305,
+      "pixels": [
+        768,
+        1024
+      ],
+      "qualityLockVisualOnly": true,
+      "caption": "Owner title/career reading proof, tablet at intro t 0.1 (qualityLock visual-only)."
+    }
+  ],
+  "errors": [],
+  "browserVersion": "154.0.8037.98",
+  "finished": "2026-10-09T01:38:19.178Z",
+  "provenance": {
+    "sourceProvenance": {
+      "src/scene/SceneCanvas.tsx": "e896a6986a80993dad65292d4c926f7ee16cb33fd40783afee63f4467c14d609",
+      "src/scene/drawing/sheetCamera.ts": "2ea85552d011926fcb8ba73c9ad6ae39bb99895fff8bcb3f45d32bed8f7ffe08",
+      "src/scene/drawing/sheet/ownerAnnotations.ts": "ff7ecc7f00f6dc50562d59f0df0853814b06bd3a1a76d3431ab5a8730b99cfe2",
+      "src/scene/drawing/sheet/handwriting.ts": "ae00193459667a2bf991386cadde572e07343ec81576b22b8cd0500036ea5d4c",
+      "src/scene/drawing/sheet/ink.ts": "d53d689033ffc53663afac9770491162ca65b5b358d7204cfea49cdcf8b54ef7",
+      "src/scene/drawing/sheet/referenceHandGlyphs.ts": "a920f6b5e2d3b0afa50877755fb31280469271d20783be48b09a1b783367eb7c",
+      "public/fonts/AcFastReference.ttf": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870",
+      "public/drawing/jgun-sheet-v2.bin.gz": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3",
+      "dist/index.html": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b"
+    },
+    "servedBundle": {
+      "indexSha256": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b",
+      "assets": [
+        {
+          "asset": "assets/BootSequence-B6Jki2uy.js",
+          "sha256": "36c3d736d995ff804cc35ebdf3c10f5a447e5ecdf9306eba239862d16fb0a438",
+          "bytes": 3018
+        },
+        {
+          "asset": "assets/draco_decoder-fzg4nYZr.js",
+          "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+          "bytes": 719410
+        },
+        {
+          "asset": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+          "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+          "bytes": 58763
+        },
+        {
+          "asset": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+          "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+          "bytes": 58456
+        },
+        {
+          "asset": "assets/index-BP95EhKL.js",
+          "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f",
+          "bytes": 1147162
+        },
+        {
+          "asset": "assets/QuietMachinePreview-CMerIdrV.js",
+          "sha256": "5fc77a7e0df5610a505cfb4b7bf1906906626ed180e06d39c54c5c6818f7878d",
+          "bytes": 6513
+        },
+        {
+          "asset": "assets/QuietMachineScene-CNNvmwxP.js",
+          "sha256": "1a0b950652b6a3e0645f907628c64144fe3f88b48629c0112311a2ae3bc710ff",
+          "bytes": 30909
+        },
+        {
+          "asset": "assets/RingInspection-CjrMJw5w.js",
+          "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48",
+          "bytes": 19095
+        },
+        {
+          "asset": "assets/SceneCanvas-DZeZz-e1.js",
+          "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab",
+          "bytes": 468531
+        },
+        {
+          "asset": "assets/script-D6DkNSQw.js",
+          "sha256": "a94e6aef0b51ce8909eeef013dae1037bdb4571f155ef34ba3adfefee4222d47",
+          "bytes": 3357
+        },
+        {
+          "asset": "assets/ScrollRig-BhP7vd-F.js",
+          "sha256": "11b62909ef092cafbe6ec36f74bd267381b284cf0cee7446dce640b100d29b53",
+          "bytes": 20853
+        },
+        {
+          "asset": "assets/ScrollTrigger-a3sj5zmn.js",
+          "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+          "bytes": 114013
+        },
+        {
+          "asset": "assets/sectionRenderPass-BQdKuTWY.js",
+          "sha256": "0c78c9292d396f393a73760faa2ca801fba2b778d622ed5b06bf44cc6cfffe50",
+          "bytes": 318339
+        },
+        {
+          "asset": "assets/vanilla-m3Xdu9cz.js",
+          "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+          "bytes": 344
+        }
+      ]
+    },
+    "note": "Working-tree source hashes identify current inputs; served JS hashes identify the frozen build actually rendered."
+  },
+  "expectedCounts": {
+    "opening": 6,
+    "shaft": 9
+  },
+  "actualCounts": {
+    "opening": 6
+  },
+  "countsPass": true,
+  "finalized": "2026-10-09T01:40:32.107Z"
+}

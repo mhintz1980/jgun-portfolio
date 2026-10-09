@@ -1,0 +1,9 @@
+command: node scripts/verify-jgun-opening.mjs --url=http://localhost:4173 --out=<evidence>/quick/opening --quick --label=hardware-quick
+started: 
+2026-10-08T23:36:38.9414690Z
+static contract: 92 checks, 0 failures
+desktop: ready in 70892 ms
+desktop: FAIL (1 failures)
+narrow: ready in 15655 ms
+narrow: FAIL (3 failures)
+Evidence: C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\orchestrated-continuation-2026-10-08\verification\quick\opening

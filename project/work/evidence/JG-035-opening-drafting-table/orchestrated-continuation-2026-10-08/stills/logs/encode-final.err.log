@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\orchestrated-continuation-2026-10-08\stills\encode-final-stills.py", line 74, in <module>
+    crops = {key: bounds(image) for key, image in images.items()}
+                  ~~~~~~^^^^^^^
+  File "C:\Users\Markimus\.buzz\REPOS\jgun-portfolio\project\work\evidence\JG-035-opening-drafting-table\orchestrated-continuation-2026-10-08\stills\encode-final-stills.py", line 60, in bounds
+    raise RuntimeError('Empty source render')
+RuntimeError: Empty source render

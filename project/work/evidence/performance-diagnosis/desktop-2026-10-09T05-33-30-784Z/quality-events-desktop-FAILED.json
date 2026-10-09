@@ -1,0 +1,7 @@
+{
+  "url": "http://127.0.0.1:5204/?qualityDiagnostics",
+  "label": "desktop",
+  "wallStart": "2026-10-09T05:33:30.786Z",
+  "wallEnd": "2026-10-09T05:33:31.776Z",
+  "error": "EXPLICIT_FAIL: window.__qualityEvents missing or ?qualityDiagnostics not armed (mounted page lacks the instrumentation - is this the frozen 5203 dist?)"
+}

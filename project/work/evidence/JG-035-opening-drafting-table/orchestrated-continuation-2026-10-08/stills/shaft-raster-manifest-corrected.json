@@ -1,0 +1,1159 @@
+{
+  "schema": "final-shaft-still-encode-v2",
+  "captureReport": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\capture-report.json",
+  "candidateDest": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft",
+  "publicDestAfterApproval": "public/inspection/shaft",
+  "qualityLock": false,
+  "evidenceClass": "normal-quality-candidate",
+  "method": "Crop empty dark margins, fit without aspect-ratio change, and preserve live DOM FOS panels already present in the composited source. Support pair shares one union crop.",
+  "assets": [
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\assembled-finale-desktop.webp",
+      "publicDestination": "public/inspection/shaft/assembled-finale-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-assembled-finale.png",
+      "sourceSha256": "060164342146d3b0b1d74e9adf7f91c3ce6dae488e7342aa856fd7c45d1a89c8",
+      "sha256": "be95d167b431af863e0c7cd9978efa540af7483c1cba2c1b90b1d9b387c4489c",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        0,
+        50,
+        1440,
+        839
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 19724,
+      "sampleTime": 42.5,
+      "session": 1,
+      "sampleStamp": 35.38690000000602,
+      "camera": [
+        -0.053501862281273516,
+        -1.3877787807814457e-17,
+        -0.9985677496957508,
+        0,
+        -0.2073293815882546,
+        0.978208122322919,
+        0.011108418055736424,
+        0,
+        0.976807083442103,
+        0.20762675507137585,
+        -0.05233595624294396,
+        0,
+        0.21489755835726265,
+        0.045677886115702684,
+        -0.023513910373447633,
+        1
+      ],
+      "projection": [
+        3.946094696671902,
+        0,
+        0,
+        0,
+        0,
+        6.313751514675044,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\assembled-finale-narrow.webp",
+      "publicDestination": "public/inspection/shaft/assembled-finale-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-assembled-finale.png",
+      "sourceSha256": "5fbd2dcdf1f887875aa85407b87053517c53879cd236acbe84209236c796780b",
+      "sha256": "294f260fdbe94086bb5ae808bad22f4f8780c5dc122cf48aea57c612f9cdf19b",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        216,
+        390,
+        627
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 12208,
+      "sampleTime": 42.5,
+      "session": 1,
+      "sampleStamp": 13.961400000005954,
+      "camera": [
+        -0.053501862281273516,
+        -1.3877787807814457e-17,
+        -0.9985677496957508,
+        0,
+        -0.2073293815882546,
+        0.978208122322919,
+        0.011108418055736424,
+        0,
+        0.976807083442103,
+        0.20762675507137585,
+        -0.05233595624294396,
+        0,
+        0.21489755835726265,
+        0.045677886115702684,
+        -0.023513910373447633,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\cool-stress-desktop.webp",
+      "publicDestination": "public/inspection/shaft/cool-stress-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-cool-stress.png",
+      "sourceSha256": "1563155ea74c86960a314a488e17366e939c984aae35b31f16c916d5eef613bc",
+      "sha256": "a1ee8c20aa912380f0dded62a0bdf7143e18bd36342c5a16a8347c125d0dfd5d",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        33,
+        126,
+        1440,
+        588
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 18232,
+      "sampleTime": 34.2,
+      "session": 1,
+      "sampleStamp": 32.23429999998209,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.07776443523959442,
+        -0.03214763942552634,
+        1
+      ],
+      "projection": [
+        5.485554598043723,
+        0,
+        0,
+        0,
+        0,
+        8.776887356869956,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": [
+        {
+          "kind": "revised",
+          "opacity": "1",
+          "text": "Model Name: Input ShaftStudy: Revised, rotary hobbedPlot type: Factor of safetyMaterial: AISI 4340 (H.T. 48-50 HRC)",
+          "rect": {
+            "x": 57.59375,
+            "y": 148,
+            "width": 340,
+            "height": 74.375,
+            "top": 148,
+            "right": 397.59375,
+            "bottom": 222.375,
+            "left": 57.59375
+          }
+        },
+        {
+          "kind": "revised",
+          "opacity": "1",
+          "text": "FOS0.01.02.03.0",
+          "rect": {
+            "x": 1341.84375,
+            "y": 148,
+            "width": 78,
+            "height": 340,
+            "top": 148,
+            "right": 1419.84375,
+            "bottom": 488,
+            "left": 1341.84375
+          }
+        }
+      ]
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\cool-stress-narrow.webp",
+      "publicDestination": "public/inspection/shaft/cool-stress-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-cool-stress.png",
+      "sourceSha256": "08790083084a8bffe689f4c3edf1fb12fa4fc2b71748740c92961fb24b0d9955",
+      "sha256": "603ba14fdb1013b015566025996aeb8ec8ff97fe5797a138338f734d0ab308bd",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        8,
+        326,
+        390,
+        552
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 14006,
+      "sampleTime": 34.2,
+      "session": 1,
+      "sampleStamp": 12.94419999998808,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.08726443523959443,
+        -0.022647639425526334,
+        1
+      ],
+      "projection": [
+        7.40065361292612,
+        0,
+        0,
+        0,
+        0,
+        3.419733304551169,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": [
+        {
+          "kind": "revised",
+          "opacity": "1",
+          "text": "Model Name: Input ShaftStudy: Revised, rotary hobbedPlot type: Factor of safetyMaterial: AISI 4340 (H.T. 48-50 HRC)",
+          "rect": {
+            "x": 31.1875,
+            "y": 348,
+            "width": 327.625,
+            "height": 14.171875,
+            "top": 348,
+            "right": 358.8125,
+            "bottom": 362.171875,
+            "left": 31.1875
+          }
+        },
+        {
+          "kind": "revised",
+          "opacity": "1",
+          "text": "FOS0.01.02.03.0",
+          "rect": {
+            "x": 31.1875,
+            "y": 366,
+            "width": 327.625,
+            "height": 24,
+            "top": 366,
+            "right": 358.8125,
+            "bottom": 390,
+            "left": 31.1875
+          }
+        }
+      ]
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\cutter-exit-desktop.webp",
+      "publicDestination": "public/inspection/shaft/cutter-exit-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-cutter-exit.png",
+      "sourceSha256": "71c91a4ad3bfd8ae622598c4cc954112ab1eb3f973d6dc1876920b59d9fd3368",
+      "sha256": "425303ed2c62d816881bf31e563ebc31477da7adee2d987302b6599f83b38e0e",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        466,
+        0,
+        1440,
+        900
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 11992,
+      "sampleTime": 8.4,
+      "session": 1,
+      "sampleStamp": 29.78229999998209,
+      "camera": [
+        4.440892098500626e-16,
+        0.9999999999999999,
+        -5.551115123125783e-17,
+        0,
+        0.05582150499316396,
+        0,
+        -0.9984407641819808,
+        0,
+        -0.9984407641819808,
+        3.3306690738754696e-16,
+        -0.05582150499316385,
+        0,
+        -0.19968815283639618,
+        -0.0021999999999999797,
+        -0.020164300998632756,
+        1
+      ],
+      "projection": [
+        9.535657305165964,
+        0,
+        0,
+        0,
+        0,
+        15.257051688265541,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\cutter-exit-narrow.webp",
+      "publicDestination": "public/inspection/shaft/cutter-exit-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-cutter-exit.png",
+      "sourceSha256": "d2d931ac679f7c5bcdc93830c05382e4e4177ea107b82ead373a4c2975dae16c",
+      "sha256": "9c6a3d292a101fb79c6047e4d9260e53053a0007b0297ee1acb60471a674102c",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        0,
+        390,
+        812
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 8918,
+      "sampleTime": 8.4,
+      "session": 1,
+      "sampleStamp": 11.442900000005961,
+      "camera": [
+        4.440892098500626e-16,
+        0.9999999999999999,
+        -5.551115123125783e-17,
+        0,
+        0.05582150499316396,
+        0,
+        -0.9984407641819808,
+        0,
+        -0.9984407641819808,
+        3.3306690738754696e-16,
+        -0.05582150499316385,
+        0,
+        -0.19968815283639618,
+        0.0030000000000000304,
+        -0.01936430099863276,
+        1
+      ],
+      "projection": [
+        17.8831799641257,
+        0,
+        0,
+        0,
+        0,
+        8.263554722759505,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\hobbed-desktop.webp",
+      "publicDestination": "public/inspection/shaft/hobbed-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-hobbed.png",
+      "sourceSha256": "529b2f68b85426219d04648f1e599b9f83f123e67d8161d1b00c4a0e246ca1b0",
+      "sha256": "6574d0a700dd6cbb943eee85f6e8d2039e1a5460f1fab30bd9b946630727a74d",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        240,
+        117,
+        1440,
+        749
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 21104,
+      "sampleTime": 32.4,
+      "session": 1,
+      "sampleStamp": 31.650599999994007,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.0807273982025574,
+        -0.02866615794404484,
+        1
+      ],
+      "projection": [
+        8.896593407611183,
+        0,
+        0,
+        0,
+        0,
+        14.234549452177891,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\hobbed-narrow.webp",
+      "publicDestination": "public/inspection/shaft/hobbed-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-hobbed.png",
+      "sourceSha256": "0dffbb83d21c6e0a7722d7c32c2875bd8eaa0106233a28bcf12418a263f0e982",
+      "sha256": "539b09689391ff0ced0a8bb4f3962e201984e3660754b00263b753c38dbc0624",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        71,
+        315,
+        390,
+        571
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 12200,
+      "sampleTime": 32.4,
+      "session": 1,
+      "sampleStamp": 12.57719999998808,
+      "camera": [
+        -0.08025100651561123,
+        -2.7755575615628914e-17,
+        -0.9967746866535243,
+        0,
+        -0.4075035965767455,
+        0.9126140631443032,
+        0.03280839112578973,
+        0,
+        0.9096705968262624,
+        0.4088221761979721,
+        -0.07323819712763191,
+        0,
+        0.1819341193652525,
+        0.08319036116552034,
+        -0.023166157944044863,
+        1
+      ],
+      "projection": [
+        11.864685496759856,
+        0,
+        0,
+        0,
+        0,
+        5.48249685276818,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\material-attempts-desktop.webp",
+      "publicDestination": "public/inspection/shaft/material-attempts-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-material-attempts.png",
+      "sourceSha256": "fafc649f5c6fc44959ccab38cca7f2b90325b85ad61794de9a7b24fb9f40534c",
+      "sha256": "63c90e46ddde416a85d6b6e87601c038ac34d315a0e920f318cdd20e2339b020",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        33,
+        126,
+        1440,
+        642
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 19344,
+      "sampleTime": 17,
+      "session": 1,
+      "sampleStamp": 30.449599999994007,
+      "camera": [
+        -0.009286538265790734,
+        -2.7755575615628914e-17,
+        -0.999956879173816,
+        0,
+        -0.34199237261703275,
+        0.9396973606968443,
+        0.0031760622093431334,
+        0,
+        0.939656840170288,
+        0.3420071202466185,
+        -0.008726535498373877,
+        0,
+        0.18793136803405763,
+        0.06680142404932371,
+        -0.01994530709967479,
+        1
+      ],
+      "projection": [
+        6.261692491483519,
+        0,
+        0,
+        0,
+        0,
+        10.01870798637363,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": [
+        {
+          "kind": "attempt",
+          "opacity": "1",
+          "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55",
+          "rect": {
+            "x": 57.59375,
+            "y": 148,
+            "width": 340,
+            "height": 97.625,
+            "top": 148,
+            "right": 397.59375,
+            "bottom": 245.625,
+            "left": 57.59375
+          }
+        },
+        {
+          "kind": "attempt",
+          "opacity": "1",
+          "text": "FOS0.01.02.03.00.55",
+          "rect": {
+            "x": 1341.84375,
+            "y": 148,
+            "width": 78,
+            "height": 340,
+            "top": 148,
+            "right": 1419.84375,
+            "bottom": 488,
+            "left": 1341.84375
+          }
+        }
+      ]
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\material-attempts-narrow.webp",
+      "publicDestination": "public/inspection/shaft/material-attempts-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-material-attempts.png",
+      "sourceSha256": "1170c9709ddc4044707c3e8fae99a79cf09ec57eb8307812333e870c1a772d10",
+      "sha256": "60a8f41518283c9eb8d3bb8322307364e0afe2e71ee712b5c89328e9ec8eb242",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        8,
+        326,
+        390,
+        567
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 14300,
+      "sampleTime": 17,
+      "session": 1,
+      "sampleStamp": 11.843400000005964,
+      "camera": [
+        -0.009286538265790734,
+        -2.7755575615628914e-17,
+        -0.999956879173816,
+        0,
+        -0.34199237261703275,
+        0.9396973606968443,
+        0.0031760622093431334,
+        0,
+        0.939656840170288,
+        0.3420071202466185,
+        -0.008726535498373877,
+        0,
+        0.18793136803405763,
+        0.07290142404932372,
+        -0.010245307099674777,
+        1
+      ],
+      "projection": [
+        9.487004429556855,
+        0,
+        0,
+        0,
+        0,
+        4.383805364368689,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": [
+        {
+          "kind": "attempt",
+          "opacity": "1",
+          "text": "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55",
+          "rect": {
+            "x": 31.1875,
+            "y": 348,
+            "width": 327.625,
+            "height": 14.171875,
+            "top": 348,
+            "right": 358.8125,
+            "bottom": 362.171875,
+            "left": 31.1875
+          }
+        },
+        {
+          "kind": "attempt",
+          "opacity": "1",
+          "text": "FOS0.01.02.03.00.55",
+          "rect": {
+            "x": 31.1875,
+            "y": 366,
+            "width": 327.625,
+            "height": 24,
+            "top": 366,
+            "right": 358.8125,
+            "bottom": 390,
+            "left": 31.1875
+          }
+        }
+      ]
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\revised-blank-desktop.webp",
+      "publicDestination": "public/inspection/shaft/revised-blank-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-revised-blank.png",
+      "sourceSha256": "98d47215051fd58c99a36b5b33eda71d81b3ca8924c82adae1adc442cacdba33",
+      "sha256": "6434a9e10b0c90456a27bed952eb1cc4212d48a214b42350cae28a5a6817440d",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        401,
+        270,
+        1440,
+        805
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 17762,
+      "sampleTime": 25,
+      "session": 1,
+      "sampleStamp": 30.98319999998804,
+      "camera": [
+        -0.11227140938370761,
+        5.551115123125783e-17,
+        -0.9936775788126628,
+        0,
+        -0.5373162372777651,
+        0.8411930033053925,
+        0.060709079615147904,
+        0,
+        0.8358746268386548,
+        0.5407349916456803,
+        -0.09444192404481022,
+        0,
+        0.16717492536773093,
+        0.11094699832913608,
+        -0.029888384808962054,
+        1
+      ],
+      "projection": [
+        7.365833213847971,
+        0,
+        0,
+        0,
+        0,
+        11.785333142156754,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\revised-blank-narrow.webp",
+      "publicDestination": "public/inspection/shaft/revised-blank-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-revised-blank.png",
+      "sourceSha256": "3d6ec6638cd5b75b47f0a507e61bc3a6d8e57c23b134c098ccb337a6125eb77a",
+      "sha256": "a0b4584f297cccedd16a61da5f92bbcdd063ee244566fcf7a1f87ce8b9a8d4d1",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        4,
+        310,
+        390,
+        627
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 9270,
+      "sampleTime": 25,
+      "session": 1,
+      "sampleStamp": 12.210199999988081,
+      "camera": [
+        -0.11227140938370761,
+        5.551115123125783e-17,
+        -0.9936775788126628,
+        0,
+        -0.5373162372777651,
+        0.8411930033053925,
+        0.060709079615147904,
+        0,
+        0.8358746268386548,
+        0.5407349916456803,
+        -0.09444192404481022,
+        0,
+        0.16717492536773093,
+        0.11094699832913608,
+        -0.029888384808962054,
+        1
+      ],
+      "projection": [
+        15.449255267131301,
+        0,
+        0,
+        0,
+        0,
+        7.13887387936162,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\support-after-desktop.webp",
+      "publicDestination": "public/inspection/shaft/support-after-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-support-after.png",
+      "sourceSha256": "0ea8d80673a78ae6c40a1feea0f8a7634f7e8533c571abef1d33970d5b4416bc",
+      "sha256": "666c4f70b7b76c7e31a65514f65061f1dd18f961ba5df30e80c60b86b3286431",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        202,
+        66,
+        1440,
+        835
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 15860,
+      "sampleTime": 38.2,
+      "session": 1,
+      "sampleStamp": 34.68640000000598,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        4.653178438257525,
+        0,
+        0,
+        0,
+        0,
+        7.44508550121204,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\support-after-narrow.webp",
+      "publicDestination": "public/inspection/shaft/support-after-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-support-after.png",
+      "sourceSha256": "c70514957e57a0f3d779f2838a369322fbc17b5a4fa0b6eed3b41e6ddeacc7bf",
+      "sha256": "18cd447a7bf8493518755d2cdf678ef263c34391c18994bf44da15853c86c988",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        202,
+        390,
+        643
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 12328,
+      "sampleTime": 38.2,
+      "session": 1,
+      "sampleStamp": 13.661300000011916,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\support-before-desktop.webp",
+      "publicDestination": "public/inspection/shaft/support-before-desktop.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\desktop-support-before.png",
+      "sourceSha256": "dd927297f1e2805752d0ec4d44b8d20d5fee56bd07d2e4aca4fec4ad31c675f0",
+      "sha256": "3c7e38bdcbe4440603643d5ce628b8e5529fb15e98101ff9d496059bd4850587",
+      "sourcePixels": [
+        1440,
+        900
+      ],
+      "crop": [
+        202,
+        66,
+        1440,
+        835
+      ],
+      "pixels": [
+        960,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 15616,
+      "sampleTime": 35.8,
+      "session": 1,
+      "sampleStamp": 34.01929999998212,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        4.653178438257525,
+        0,
+        0,
+        0,
+        0,
+        7.44508550121204,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    },
+    {
+      "file": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\candidate-public-corrected\\inspection\\shaft\\support-before-narrow.webp",
+      "publicDestination": "public/inspection/shaft/support-before-narrow.webp",
+      "source": "project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-capture-corrected-normal\\narrow-support-before.png",
+      "sourceSha256": "52094a69ac5179815184b5bfa4f1dc9fb72a00b4039f57db2698cb3ac976a0c2",
+      "sha256": "593e9c5dde8a5d3b9f735cf0ecce04dba5b8e94c5f7017a6f301aabe9b3ca9f2",
+      "sourcePixels": [
+        390,
+        844
+      ],
+      "crop": [
+        0,
+        202,
+        390,
+        643
+      ],
+      "pixels": [
+        600,
+        600
+      ],
+      "format": "WEBP",
+      "quality": 90,
+      "bytes": 12086,
+      "sampleTime": 35.8,
+      "session": 1,
+      "sampleStamp": 13.361099999994037,
+      "camera": [
+        2.220446049250313e-16,
+        -2.465190328815662e-32,
+        -1,
+        0,
+        2.449293598294706e-16,
+        1,
+        2.465190328815662e-32,
+        0,
+        1,
+        -2.449293598294706e-16,
+        2.220446049250313e-16,
+        0,
+        0.2,
+        -5.551115123125783e-17,
+        -0.017499999999999988,
+        1
+      ],
+      "projection": [
+        9.373758045886737,
+        0,
+        0,
+        0,
+        0,
+        4.3314758742841555,
+        0,
+        0,
+        0,
+        0,
+        -1.000066668888963,
+        -1,
+        0,
+        0,
+        -0.010000333344444815,
+        0
+      ],
+      "fosOverlay": []
+    }
+  ]
+}

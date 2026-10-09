@@ -1,0 +1,68 @@
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-corrected-reruns\\ring-full-corrected\\report.json",
+  "cases": [
+    {
+      "name": "delayed-CAD-entry",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "desktop",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:165:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:305:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "mobile",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:165:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:305:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "blueprint",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:165:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:305:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "exploded",
+      "pass": false,
+      "failures": [
+        "Error: Expected actual ring and 12 verified prop meshes\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:15:63)\n    at run (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:165:7)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-ring-inspection.mjs:305:31"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "reduced-mobile",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "poster",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    }
+  ],
+  "failures": [
+    "desktop: Error: Expected actual ring and 12 verified prop meshes",
+    "mobile: Error: Expected actual ring and 12 verified prop meshes",
+    "blueprint: Error: Expected actual ring and 12 verified prop meshes",
+    "exploded: Error: Expected actual ring and 12 verified prop meshes"
+  ]
+}

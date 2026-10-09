@@ -1,0 +1,258 @@
+{
+  "name": "desktop-reduced-static",
+  "mode": "static",
+  "direction": "static",
+  "before": {
+    "readyState": "complete",
+    "hasMain": true,
+    "mainHeadings": 4,
+    "dataChapters": 4,
+    "poster": {
+      "found": true,
+      "ariaHidden": "true",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+    },
+    "navButtons": [
+      "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+      "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "Navigate to STATION 03: M249 / MK46 PLATFORM"
+    ],
+    "canvases": [],
+    "harnessContexts": [
+      {
+        "connected": false,
+        "draws": 0
+      }
+    ],
+    "lenis": false,
+    "telemetry": true,
+    "htmlLenisClass": false,
+    "scrollHeight": 28080,
+    "clientWidth": 1600,
+    "innerHeight": 900,
+    "scrollY": 0,
+    "reducedMotion": true
+  },
+  "authorship": {
+    "layerCount": 1,
+    "layerRole": "region",
+    "layerLabel": "Designer's identity and drawing notes",
+    "layerSrOnly": true,
+    "layerText": "Mark HintzDigital Systems ArchitectHandwritten on the drawing beside the input shaft detail: Failure point. Alternate materials?? 4140, 4340 and C300 are each crossed off in red. Then: change manufacturing method... ROTARY HOBB IN LATHE! (circled)Handwritten beside the output shaft section: Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.",
+    "layerRect": {
+      "width": 1,
+      "height": 1
+    },
+    "layerHeading": "Mark Hintz",
+    "legacy": {
+      "authorshipId": 0,
+      "authorshipNote": 0,
+      "inlineNote": 0,
+      "drawingNoteAside": 0,
+      "layerDataStatic": 0
+    },
+    "holders": [
+      {
+        "tag": "P",
+        "className": "",
+        "inLayer": true,
+        "inInline": false
+      },
+      {
+        "tag": "P",
+        "className": "",
+        "inLayer": true,
+        "inInline": false
+      },
+      {
+        "tag": "P",
+        "className": "",
+        "inLayer": false,
+        "inInline": true
+      },
+      {
+        "tag": "P",
+        "className": "",
+        "inLayer": false,
+        "inInline": true
+      },
+      {
+        "tag": "P",
+        "className": "",
+        "inLayer": false,
+        "inInline": true
+      }
+    ],
+    "inline": {
+      "rect": {
+        "width": 510,
+        "height": 123.5
+      },
+      "text": "Mark HintzDigital Systems ArchitectInput shaft. Failure point. Alternate materials?? 4140, 4340, C300. change manufacturing method... ROTARY HOBB IN LATHE!Output shaft. Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.",
+      "heading": "Mark Hintz",
+      "role": "Digital Systems Architect",
+      "noteParagraphs": 2,
+      "struck": [
+        "4140",
+        "4340",
+        "C300"
+      ]
+    }
+  },
+  "settled": {
+    "readyState": "complete",
+    "hasMain": true,
+    "mainHeadings": 4,
+    "dataChapters": 4,
+    "poster": {
+      "found": true,
+      "ariaHidden": "true",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+    },
+    "navButtons": [
+      "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+      "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "Navigate to STATION 03: M249 / MK46 PLATFORM"
+    ],
+    "canvases": [],
+    "harnessContexts": [
+      {
+        "connected": false,
+        "draws": 0
+      }
+    ],
+    "lenis": false,
+    "telemetry": true,
+    "htmlLenisClass": false,
+    "scrollHeight": 28080,
+    "clientWidth": 1600,
+    "innerHeight": 900,
+    "scrollY": 0,
+    "reducedMotion": true
+  },
+  "scrolled": {
+    "readyState": "complete",
+    "hasMain": true,
+    "mainHeadings": 4,
+    "dataChapters": 4,
+    "poster": {
+      "found": true,
+      "ariaHidden": "true",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+    },
+    "navButtons": [
+      "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+      "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "Navigate to STATION 03: M249 / MK46 PLATFORM"
+    ],
+    "canvases": [],
+    "harnessContexts": [
+      {
+        "connected": false,
+        "draws": 0
+      }
+    ],
+    "lenis": false,
+    "telemetry": true,
+    "htmlLenisClass": false,
+    "scrollHeight": 28080,
+    "clientWidth": 1600,
+    "innerHeight": 900,
+    "scrollY": 14040,
+    "reducedMotion": true
+  },
+  "returned": {
+    "readyState": "complete",
+    "hasMain": true,
+    "mainHeadings": 4,
+    "dataChapters": 4,
+    "poster": {
+      "found": true,
+      "ariaHidden": "true",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 900,
+        "top": 0,
+        "right": 1600,
+        "bottom": 900,
+        "left": 0
+      },
+      "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+    },
+    "navButtons": [
+      "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+      "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+      "Navigate to STATION 03: M249 / MK46 PLATFORM"
+    ],
+    "canvases": [],
+    "harnessContexts": [
+      {
+        "connected": false,
+        "draws": 0
+      }
+    ],
+    "lenis": false,
+    "telemetry": true,
+    "htmlLenisClass": false,
+    "scrollHeight": 28080,
+    "clientWidth": 1600,
+    "innerHeight": 900,
+    "scrollY": 0,
+    "reducedMotion": true
+  },
+  "gl": [
+    {
+      "connected": false,
+      "width": 300,
+      "height": 150,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "draws": 0,
+      "lastDrawAt": 0,
+      "lost": true
+    }
+  ],
+  "cadRequests": [],
+  "shaderFailures": [],
+  "contextLosses": 0
+}

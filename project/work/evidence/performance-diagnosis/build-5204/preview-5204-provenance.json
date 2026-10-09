@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-10-09T01:09:39.6348356Z",
+  "status": "RUNTIME_GATED_WAITING_RELEASE",
+  "preview": {
+    "port": 5204,
+    "host": "127.0.0.1",
+    "strictPort": true,
+    "url": "http://127.0.0.1:5204/",
+    "server": "vite preview 7.3.6 (CPU static)"
+  },
+  "served": {
+    "servedIndexSha256": "592e9ee6289566a2b4e5a77326b445f08d336396085abc7e263fff97ff00f027",
+    "isolatedIndexSha256Expected": "592e9ee6289566a2b4e5a77326b445f08d336396085abc7e263fff97ff00f027",
+    "indexBytes": 2116,
+    "httpStatus": 200,
+    "servedMatchesIsolatedBuild": true
+  },
+  "instrumentedChunk": {
+    "name": "assets/SceneCanvas-D3U1n6bS.js",
+    "sha256": "46686259291F725C4F29372EE5E59CF919A7652E06EBDD91C43703713B8BBBD0",
+    "bytes": 469375
+  },
+  "build": {
+    "command": "npm run build -- --outDir=.scratch/quality-diagnostic-dist --emptyOutDir",
+    "log": ".scratch/quality-diagnostic-build-logs/build-20261008-205052.log",
+    "outDir": ".scratch/quality-diagnostic-dist",
+    "files": 62
+  },
+  "mainDist5203": {
+    "byteIdenticalAfterBuild": true,
+    "manifests": [
+      "dist-5203-before-hashes.json",
+      "dist-5203-after-hashes.json"
+    ],
+    "files": 62
+  },
+  "capturePlan": "desktop 1600x900 then narrow 390x844, ?qualityDiagnostics, natural, no locks; helper only, SceneCanvas frozen under Kuhn review"
+}

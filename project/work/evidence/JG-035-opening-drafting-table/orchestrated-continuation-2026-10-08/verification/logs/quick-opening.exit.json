@@ -1,0 +1,8 @@
+{
+  "command": "node scripts/verify-jgun-opening.mjs --url=http://localhost:4173 --out=<evidence>/quick/opening --quick --label=hardware-quick",
+  "exit": 1,
+  "startedUtc": "2026-10-08T23:36:39.0059005Z",
+  "finishedUtc": "2026-10-08T23:40:24.9980032Z",
+  "log": "logs/quick-opening.log",
+  "out": "quick/opening"
+}

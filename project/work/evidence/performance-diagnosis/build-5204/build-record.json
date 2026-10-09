@@ -1,0 +1,11 @@
+{
+  "stamp": "20261008-205052",
+  "command": "npm run build -- --outDir=.scratch/quality-diagnostic-dist --emptyOutDir",
+  "log": ".scratch/quality-diagnostic-build-logs/build-20261008-205052.log",
+  "viteBuiltMarker": "built in 16.04s",
+  "mainDist5203ByteIdentical": true,
+  "mainDistFiles": 62,
+  "isolatedFiles": 62,
+  "isolatedIndexSha256": "592E9EE6289566A2B4E5A77326B445F08D336396085ABC7E263FFF97FF00F027",
+  "isolatedIndexBytes": 2116
+}

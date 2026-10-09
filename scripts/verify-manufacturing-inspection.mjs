@@ -201,6 +201,47 @@ const resetRecorder = page => page.evaluate(() => {
 })
 const recorderSnapshot = page => page.evaluate(() => JSON.parse(JSON.stringify(window.__g1Recorder)))
 
+/** Compact but exact V2 evidence: playhead, emitted tuples, and the last rendered frame. */
+const hiddenEvidenceSnapshot = async page => {
+  const playhead = await read(page)
+  const recorder = await recorderSnapshot(page)
+  const frame = await page.evaluate(() => JSON.parse(JSON.stringify(window.__g1Rendered?.last ?? null)))
+  return {
+    playhead,
+    frame,
+    recorder: {
+      statuses: recorder.statuses,
+      tuples: recorder.tuples,
+      synchronousTuples: recorder.synchronousTuples,
+      tupleCount: recorder.tuples.length,
+      synchronousTupleCount: recorder.synchronousTuples.length,
+      recorderErrors: recorder.recorderErrors
+    }
+  }
+}
+
+/** V2 baseline and synthetic hidden dispatch share one browser JS turn; no CDP/frame turn intervenes. */
+const atomicHiddenBaselineAndDispatch = page => page.evaluate(() => {
+  const clone = value => JSON.parse(JSON.stringify(value ?? null))
+  const baselineAt = performance.now()
+  const playhead = clone(window.__inspection)
+  const rawRecorder = clone(window.__g1Recorder)
+  const recorder = {
+    statuses: rawRecorder?.statuses ?? [],
+    tuples: rawRecorder?.tuples ?? [],
+    synchronousTuples: rawRecorder?.synchronousTuples ?? [],
+    tupleCount: rawRecorder?.tuples?.length ?? 0,
+    synchronousTupleCount: rawRecorder?.synchronousTuples?.length ?? 0,
+    recorderErrors: rawRecorder?.recorderErrors ?? []
+  }
+  const frame = clone(window.__g1Rendered?.last)
+  Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' })
+  Object.defineProperty(document, 'hidden', { configurable: true, get: () => true })
+  const dispatchAt = performance.now()
+  document.dispatchEvent(new Event('visibilitychange'))
+  return { baselineAt, dispatchAt, playhead, frame, recorder }
+})
+
 /** Three consecutive end-of-frame camera matrixWorld reads. */
 const cameraMatrices = page => page.evaluate(() => new Promise(resolve => {
   const mats = []
@@ -603,18 +644,51 @@ async function casePauseHiddenSeek(mobile = false) {
     // Playing story hidden 3 s: advance must stay below 0.1 s.
     await page.getByRole('button', { name: 'Play sequence', exact: true }).click()
     await page.waitForTimeout(300)
-    const playingBefore = await read(page)
-    check(playingBefore.playing === true, 'story did not resume before hidden-play test')
-    await setHidden(page, true)
+    // V2 baseline and dispatch are atomic in one browser JS turn and the baseline is never recaptured.
+    const preDispatch = await atomicHiddenBaselineAndDispatch(page)
+    const playingBefore = preDispatch.playhead
+    const hiddenPlayingEvidence = {
+      baselinePolicy: 'single atomic in-page pre-dispatch clone followed immediately by synthetic hidden dispatch; never recaptured',
+      acknowledgmentWaitTimeoutMs: 500,
+      acknowledgmentPollingMs: 50,
+      baselineToDispatchMs: preDispatch.dispatchAt - preDispatch.baselineAt,
+      preDispatch
+    }
+    result.measures.hiddenPlayingEvidence = hiddenPlayingEvidence
+    const immediatePostDispatch = await hiddenEvidenceSnapshot(page)
+    const acknowledgmentWaitStarted = Date.now()
+    let hiddenAcknowledged = true, acknowledgmentError = null
+    try {
+      await page.waitForFunction(() => window.__inspection?.suspend === 'hidden', null, { polling: 50, timeout: 500 })
+    } catch (error) {
+      hiddenAcknowledged = false
+      acknowledgmentError = error instanceof Error ? error.message : String(error)
+    }
+    const acknowledgmentWaitMs = Date.now() - acknowledgmentWaitStarted
+    const acknowledged = await hiddenEvidenceSnapshot(page)
     await page.waitForTimeout(3000)
     // Measure the hidden-period contribution while still hidden: post-visible time legitimately resumes.
-    const duringHidden = await read(page)
+    const afterHiddenWindow = await hiddenEvidenceSnapshot(page)
+    const duringHidden = afterHiddenWindow.playhead
+    Object.assign(hiddenPlayingEvidence, {
+      acknowledgmentWaitMs,
+      hiddenAcknowledged,
+      acknowledgmentError,
+      immediatePostDispatch,
+      acknowledged,
+      afterHiddenWindow
+    })
     await setHidden(page, false)
     await page.waitForTimeout(250)
     const playingAfter = await read(page)
     const hiddenAdvance = duringHidden.time - playingBefore.time
     result.measures.hiddenPlaying = { timeBefore: playingBefore.time, timeWhileHidden: duringHidden.time, timeAfterVisible: playingAfter.time, hiddenAdvance, playing: playingAfter.playing, suspend: playingAfter.suspend }
-    check(hiddenAdvance >= 0 && hiddenAdvance < 0.1, `playing-hidden advance ${hiddenAdvance} not below 0.1 s`)
+    // Evaluate both V2 conditions after all evidence is persisted so one failure cannot hide the other.
+    const v2Failures = []
+    if (playingBefore.playing !== true) v2Failures.push('story did not resume before hidden-play test')
+    if (!hiddenAcknowledged) v2Failures.push(`synthetic hidden not acknowledged by __inspection.suspend within 500 ms (waited ${acknowledgmentWaitMs} ms)`)
+    if (!(hiddenAdvance >= 0 && hiddenAdvance < 0.1)) v2Failures.push(`playing-hidden advance ${hiddenAdvance} not below 0.1 s`)
+    if (v2Failures.length) throw new Error(v2Failures.join('; '))
     check(playingAfter.suspend === 'none', `suspend stuck after visible: ${playingAfter.suspend}`)
     // Direct-seek determinism at authored landmarks, repeated in reverse order and via the DOM seek control.
     await page.getByRole('button', { name: 'Pause', exact: true }).click()

@@ -1,0 +1,332 @@
+{
+  "schema": "final-shaft-still-capture-v2",
+  "url": "http://localhost:5203",
+  "out": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\stills\\shaft-smoke-corrected",
+  "qualityLock": false,
+  "smoke": true,
+  "evidenceClass": "normal-quality-candidate",
+  "started": "2026-10-09T01:31:37.406Z",
+  "gitHead": "8db93913b2e91182199fb7d09c40273bd61c816a",
+  "fileProvenance": {
+    "src/scene/inspection/shaft/fosPresentation.ts": "2babf8225b9a058494312a63fd766ddbc41e6eb3abdf6e2a800e0ad82afc1bb8",
+    "src/scene/inspection/shaft/script.ts": "cd419b7fbcecf08c886fcfde383994741a276f62cf754c90d88dc76af764a725",
+    "src/scene/inspection/shaft/camera.ts": "c713b7e67e3fc11358a1ad1e5b980ea15219db2d10ab82ba663c82080f0ce563",
+    "src/scene/inspection/shaft/progression.ts": "f6adf806188bacc04ac478c308e39baaf7fcdeb97c957e784c719152805de1dd",
+    "src/scene/inspection/shaft/shaftRuntime.ts": "5d9439c4b69dac53bfab7b92a04065a5a524181e25ad0e0a434706c8a1aa57ef",
+    "src/components/ShaftStoryLayer.tsx": "83056433baa808942d093babe4aedbc41126b478c6b2e9092a77d3362c703440",
+    "src/components/StaticShaftStory.tsx": "156434108dcb44da7d823cb604138d9ba9da07da8597113af6e91d608d9f4001",
+    "public/fonts/AcFastReference.ttf": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870",
+    "public/drawing/jgun-sheet-v2.bin.gz": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3",
+    "dist/index.html": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b"
+  },
+  "serverProvenance": {
+    "indexSha256": "4f4760339953f14c0368d1f8572fd71ad1e1fdd95f644c7c912b63a77202425b",
+    "assets": [
+      {
+        "asset": "assets/BootSequence-B6Jki2uy.js",
+        "sha256": "36c3d736d995ff804cc35ebdf3c10f5a447e5ecdf9306eba239862d16fb0a438",
+        "bytes": 3018
+      },
+      {
+        "asset": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+        "bytes": 719410
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+        "bytes": 58763
+      },
+      {
+        "asset": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "bytes": 58456
+      },
+      {
+        "asset": "assets/index-BP95EhKL.js",
+        "sha256": "56e9ca6459980a2a5e87ef8294309ba9a85f6b550be15739e3ded568cf92816f",
+        "bytes": 1147162
+      },
+      {
+        "asset": "assets/QuietMachinePreview-CMerIdrV.js",
+        "sha256": "5fc77a7e0df5610a505cfb4b7bf1906906626ed180e06d39c54c5c6818f7878d",
+        "bytes": 6513
+      },
+      {
+        "asset": "assets/QuietMachineScene-CNNvmwxP.js",
+        "sha256": "1a0b950652b6a3e0645f907628c64144fe3f88b48629c0112311a2ae3bc710ff",
+        "bytes": 30909
+      },
+      {
+        "asset": "assets/RingInspection-CjrMJw5w.js",
+        "sha256": "2a2293815b44eab7fa87177825013fde7629aaa59503f7cc2120b263780d2e48",
+        "bytes": 19095
+      },
+      {
+        "asset": "assets/SceneCanvas-DZeZz-e1.js",
+        "sha256": "74da22b37160e9362ddeeaadd204ede91e0de0db12bc880b34689fb03ebc2eab",
+        "bytes": 468531
+      },
+      {
+        "asset": "assets/script-D6DkNSQw.js",
+        "sha256": "a94e6aef0b51ce8909eeef013dae1037bdb4571f155ef34ba3adfefee4222d47",
+        "bytes": 3357
+      },
+      {
+        "asset": "assets/ScrollRig-BhP7vd-F.js",
+        "sha256": "11b62909ef092cafbe6ec36f74bd267381b284cf0cee7446dce640b100d29b53",
+        "bytes": 20853
+      },
+      {
+        "asset": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+        "bytes": 114013
+      },
+      {
+        "asset": "assets/sectionRenderPass-BQdKuTWY.js",
+        "sha256": "0c78c9292d396f393a73760faa2ca801fba2b778d622ed5b06bf44cc6cfffe50",
+        "bytes": 318339
+      },
+      {
+        "asset": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+        "bytes": 344
+      }
+    ]
+  },
+  "method": "Real inspection entry, native exact seek, three distinct completed render stamps, camera/projection stability, composite canvas plus live FOS DOM. No camera/time override and no cache regeneration.",
+  "expected": {
+    "publicationRawCount": 2,
+    "fosProofRawCount": 0,
+    "sourceFormat": "PNG",
+    "sourcePixels": {
+      "desktop": [
+        1440,
+        900
+      ],
+      "narrow": [
+        390,
+        844
+      ]
+    },
+    "publicationIds": [
+      "cutter-exit",
+      "material-attempts"
+    ]
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "viewport": [
+        1440,
+        900
+      ],
+      "shots": [],
+      "fosProofs": [],
+      "requests": [
+        "http://localhost:5203/models/m249-transformed.glb",
+        "http://localhost:5203/models/Default.glb",
+        "http://localhost:5203/models/msp-enclosure.glb",
+        "http://localhost:5203/models/manufacturing-core-lite.glb"
+      ],
+      "errors": [
+        "visibility is not defined"
+      ],
+      "pass": false,
+      "diagnostics": {
+        "canvases": 1,
+        "inspection": {
+          "schema": 1,
+          "kind": "shaft",
+          "storyId": "shaft-p001835",
+          "session": 1,
+          "status": "ready",
+          "suspend": "none",
+          "chapter": 0,
+          "duration": 43,
+          "playing": false,
+          "active": true,
+          "phase": "Cutter exit into the relief groove",
+          "time": 8.4,
+          "ringBounds": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              0,
+              0,
+              0
+            ],
+            "center": [
+              0,
+              0,
+              0
+            ],
+            "radius": 0,
+            "width": 0
+          },
+          "worldBounds": {
+            "min": [
+              0,
+              0,
+              0
+            ],
+            "max": [
+              0,
+              0,
+              0
+            ]
+          },
+          "odKnurlProgress": 0,
+          "normalStrength": 0,
+          "aluminiumBlend": 0,
+          "ringAngle": 0,
+          "holePlugBlend": 0,
+          "holePatchOpacity": 0,
+          "holePatches": 0,
+          "holeApertures": 0,
+          "holePatchesVisible": 0,
+          "toolClipTime": 0,
+          "toolVisible": false,
+          "ringMeshes": 0,
+          "toolMeshes": 0,
+          "rollerClearance": [
+            0,
+            0
+          ],
+          "rollerAxial": [
+            0,
+            0
+          ],
+          "rollerCenters": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "wheelAxis": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "wheelHands": [
+            "RH",
+            "LH"
+          ],
+          "entryScroll": 17142,
+          "restoredScroll": 0,
+          "cameraOwner": "CameraRig",
+          "disposed": 0,
+          "loaded": true,
+          "restoredPoseError": 0,
+          "entryContext": {
+            "progress": 0.3500044150110375,
+            "chapter": 1,
+            "chapterProgress": 0.6375172413793103,
+            "velocity": 0,
+            "materialMode": "solid",
+            "hotspotId": null
+          },
+          "narrativeAlpha": 0,
+          "narrativeVisibleMeshes": 0,
+          "narrativeOriginalsIntact": true,
+          "maskSamples": {
+            "bore": 0,
+            "shoulder": 0,
+            "odStart": 0,
+            "odEnd": 0
+          },
+          "runtimeVersion": 2,
+          "sampledTime": 8.4,
+          "sampleStamp": 28.83779999998213,
+          "cameraSampleTime": 8.4,
+          "cameraSampleStamp": 28.83779999998213,
+          "renderOwned": true,
+          "restoreObserved": false,
+          "restoreProjectionError": 0,
+          "restoreStateError": 0,
+          "compileReady": true,
+          "warmReady": true,
+          "discrete": 2,
+          "shaft": {
+            "teethFormed": 0,
+            "teethPartial": 10,
+            "cutter": {
+              "visible": true,
+              "stroke": 9.7749,
+              "infeed": 4.2968285963658195,
+              "rotation": 7.062300285269855,
+              "softened": false
+            },
+            "hob": {
+              "visible": false,
+              "feed": -4.195,
+              "rotation": 0,
+              "softened": false
+            },
+            "card": {
+              "id": "none",
+              "stamp": "none"
+            },
+            "stress": {
+              "kind": "none",
+              "mix": 0
+            },
+            "supports": {
+              "deltaYmm": 2.749999985098839,
+              "witnesses": false,
+              "endpointHeld": false
+            },
+            "finale": {
+              "assembled": false,
+              "shaftCount": 1,
+              "racesFollow": false,
+              "carrierCount": 5,
+              "missingCarriers": false,
+              "bearingRacePolicy": "unsplit-fixed",
+              "ringFollowsShaft": false,
+              "bearingOuterFixed": true
+            },
+            "narrative": {
+              "alpha": 0,
+              "hiddenCount": 0,
+              "originalsIntact": true
+            },
+            "nodes": {
+              "housing": "approvedhousing",
+              "legacyHousing": "legacyhousing",
+              "legacyHousingPresent": true
+            }
+          },
+          "resources": {
+            "geometries": 43,
+            "materials": 19,
+            "textures": 0,
+            "meshes": 46
+          }
+        },
+        "renderer": true,
+        "rig": true
+      }
+    }
+  ],
+  "failures": [
+    "desktop: visibility is not defined"
+  ],
+  "completed": "2026-10-09T01:32:08.367Z"
+}

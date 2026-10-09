@@ -1,0 +1,14 @@
+{
+  "id": "opening-narrow-lite",
+  "startedUtc": "2026-10-09T00:42:44.423Z",
+  "finishedUtc": "2026-10-09T00:47:14.233Z",
+  "wallClockSeconds": 269.81,
+  "pid": 164372,
+  "exitCode": 1,
+  "timedOut": false,
+  "error": null,
+  "command": "node scripts/verify-jgun-opening.mjs --case=narrow-lite --label=hardware-acceptance-continuation --url=http://127.0.0.1:4174 --out=C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/verification/hardware-acceptance-continuation/opening-narrow-lite",
+  "log": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\logs\\opening-narrow-lite.log",
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\opening-narrow-lite\\summary.json",
+  "reportExists": true
+}

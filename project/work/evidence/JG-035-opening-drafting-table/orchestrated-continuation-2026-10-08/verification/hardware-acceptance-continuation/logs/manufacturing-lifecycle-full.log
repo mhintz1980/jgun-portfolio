@@ -1,0 +1,163 @@
+[{"case":"readiness-ordering-desktop","pass":true,"failures":[]}]
+[{"case":"pause-hidden-seek-desktop","pass":false,"failures":["Error: playing-hidden advance 0.2494000000059604 not below 0.1 s\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:59:63)\n    at casePauseHiddenSeek (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:617:5)\n    at async runCase (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:1186:19)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:1208:5"]}]
+[{"case":"restore-desktop","pass":true,"failures":[]}]
+[{"case":"census-lifecycle-desktop","pass":true,"failures":[]},{"case":"reduced-motion-static-desktop","pass":true,"failures":[]},{"case":"poster-static-desktop","pass":true,"failures":[]}]
+[{"case":"ring-rendering-desktop","pass":true,"failures":[]}]
+[{"case":"readiness-ordering-narrow","pass":true,"failures":[]}]
+[{"case":"pause-hidden-seek-narrow","pass":true,"failures":[]}]
+[{"case":"restore-narrow","pass":true,"failures":[]}]
+[{"case":"census-lifecycle-narrow","pass":true,"failures":[]},{"case":"reduced-motion-static-narrow","pass":true,"failures":[]},{"case":"poster-static-narrow","pass":true,"failures":[]}]
+[{"case":"ring-rendering-narrow","pass":true,"failures":[]}]
+{
+  "report": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\project\\work\\evidence\\JG-035-opening-drafting-table\\orchestrated-continuation-2026-10-08\\verification\\hardware-acceptance-continuation\\manufacturing-lifecycle-full\\report.json",
+  "timeline": {
+    "INSPECTION_DURATION": 12,
+    "TRAVERSE_START": 4.2,
+    "TRAVERSE_END": 6.2,
+    "WHEEL_RADIUS": 0.0115,
+    "WHEEL_WIDTH": 0.0075,
+    "SHOULDER": 0.0016,
+    "CLIP_START": 0.03333333333333333,
+    "CLIP_CONTACT_START": 1.5,
+    "CLIP_TRAVERSE_START": 1.8333333333333333,
+    "CLIP_TRAVERSE_END": 3.8333333333333335,
+    "CLIP_CONTACT_END": 4,
+    "CLIP_END": 5,
+    "APPROACH_START": 2.8,
+    "CONTACT_START": 3.8,
+    "CONTACT_DWELL": 0.40000000000000036,
+    "TOOL_FADE_START": 7.7,
+    "TOOL_FADE_END": 8.2,
+    "TOOL_FADE_MIN_CLEARANCE": 0.01,
+    "BLACK_FINISH_START": 9.3,
+    "HOLE_CLOSE_START": 1.2,
+    "HOLE_CLOSE_END": 2.4,
+    "HOLE_OPEN_START": 8.2,
+    "HOLE_OPEN_END": 8.95,
+    "RETURN_START": 10.5,
+    "RING_RADIUS": 0.037721828140947954,
+    "RING_WIDTH": 0.027204217025541766,
+    "RING_FEATURES": 96,
+    "ROLLER_TEETH": 128,
+    "LITE_FPS": 30,
+    "MAX_FEATURE_HZ": 7.5,
+    "SPIN_RATE": 12.566370614359172,
+    "COVERAGE_TIME": 0.255,
+    "FORMING_END": 6.455,
+    "CONTACT_END": 6.485714285714286,
+    "FINAL_ANGLE": 50.26548245743669
+  },
+  "cases": [
+    {
+      "name": "readiness-ordering-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "pause-hidden-seek-desktop",
+      "pass": false,
+      "failures": [
+        "Error: playing-hidden advance 0.2494000000059604 not below 0.1 s\n    at check (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:59:63)\n    at casePauseHiddenSeek (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:617:5)\n    at async runCase (file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:1186:19)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/scripts/verify-manufacturing-inspection.mjs:1208:5"
+      ],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "restore-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "census-lifecycle-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "reduced-motion-static-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "poster-static-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "ring-rendering-desktop",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "readiness-ordering-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "pause-hidden-seek-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "restore-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "census-lifecycle-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "reduced-motion-static-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "poster-static-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    },
+    {
+      "name": "ring-rendering-narrow",
+      "pass": true,
+      "failures": [],
+      "errorCount": 0,
+      "firstErrors": []
+    }
+  ],
+  "gates": {
+    "V1": true,
+    "V2": false,
+    "V3": true,
+    "V4": true,
+    "V5": true
+  },
+  "defects": [],
+  "failures": [
+    "pause-hidden-seek-desktop: Error: playing-hidden advance 0.2494000000059604 not below 0.1 s"
+  ]
+}

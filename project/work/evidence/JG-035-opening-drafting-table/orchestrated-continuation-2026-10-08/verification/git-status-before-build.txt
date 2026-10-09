@@ -1,0 +1,5 @@
+?? docs/jgun-orchestrated-continuation-plan-2026-10-08.md
+?? nul
+?? project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/
+?? project/work/inbox/refactoring-assessment-2026-10-08.md
+?? scripts/manufacturing/__pycache__/

@@ -1,0 +1,9 @@
+{
+  "status": "SNAPSHOT_READY",
+  "path": ".scratch/v1-frozen-dist",
+  "files": 62,
+  "bytes": 34213544.0,
+  "aggregateSha256": "9eb4b49066d06408627aa6e38967553fd63ce8953586b99c97015956d344bded",
+  "matchesBuildReady": true,
+  "manifest": "frozen-dist-sha256-manifest.txt"
+}

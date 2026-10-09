@@ -1,0 +1,65 @@
+{
+  "name": "narrow",
+  "width": 390,
+  "height": 844,
+  "checks": [
+    {
+      "name": "runtime execution",
+      "status": "failed",
+      "details": "Error: page.evaluate: TypeError: Failed to fetch dynamically imported module: http://localhost:5203/src/scene/drawing/sheet/handwriting.ts"
+    }
+  ],
+  "errors": [
+    "page.evaluate: TypeError: Failed to fetch dynamically imported module: http://localhost:5203/src/scene/drawing/sheet/handwriting.ts\n    at C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-portfolio\\scripts\\verify-handwriting-reference.mjs:437:34"
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "requestFailures": [
+    {
+      "url": "http://localhost:5203/src/scene/drawing/sheet/handwriting.ts",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:5203/src/scene/drawing/sheet/referenceHandGlyphs.ts",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:5203/src/scene/drawing/sheet/ink.ts",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:5203/src/scene/drawing/sheet/ownerAnnotations.ts",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "url": "http://localhost:5203/src/scene/drawing/sheetCamera.ts",
+      "error": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    }
+  ],
+  "checkpoints": [],
+  "unverified": [
+    "Glyph font provenance inside Troika's private SDF atlas is not exposed; requested font, real layout readiness, glyph counts and font HTTP response are recorded.",
+    "Uploaded per-member texture handle and CPU packing are observed; no GPU texture-value readback is claimed."
+  ],
+  "navigationMs": 154,
+  "proofReadyMs": 7429,
+  "annotationsReadyMs": 7634,
+  "liveDrawReadyMs": 7702,
+  "observerScope": "Mounted renderer after normal annotations readiness; startup capability/SDF probes are not intercepted.",
+  "status": "failed"
+}

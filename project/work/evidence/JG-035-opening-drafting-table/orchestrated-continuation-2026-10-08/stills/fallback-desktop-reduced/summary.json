@@ -1,0 +1,385 @@
+{
+  "url": "http://localhost:5203",
+  "label": "baseline",
+  "started": "2026-10-09T01:41:32.170Z",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "coldLoadDefinition": "fresh browser context; HTTP cache disabled; elapsed navigation to proof, annotations, sheet stats and live WebGL draws ready (OS/server caches uncontrolled)",
+  "thresholds": {
+    "scrollProgress": 0.001,
+    "scrollShare": 0.001,
+    "realScrollPhase": 0.008334333333333332,
+    "pinnedPhase": 1e-9,
+    "reverseNumericDelta": 0.002,
+    "reverseBreakthroughDelta": 1e-9,
+    "pulseRegistrationMetres": 0.001,
+    "registeredHoldPixels": 0.1,
+    "registeredCameraMetres": 0.001,
+    "lampPower": 0.001,
+    "paperFlexMaxMetres": 0.012,
+    "litePaperFlexMaxMetres": 0.0054,
+    "holeAreaRelative": 0.000001,
+    "boundaryDeviationMetres": 0.0006,
+    "nearPaperMetres": 0.001,
+    "initialClearanceMetres": 0.0006,
+    "sheetRetirementWindow": [
+      0.18,
+      0.22
+    ]
+  },
+  "cases": [
+    {
+      "name": "desktop-reduced",
+      "width": 1600,
+      "height": 900,
+      "reducedMotion": "reduce",
+      "checkpoints": [
+        {
+          "name": "desktop-reduced-static",
+          "mode": "static",
+          "direction": "static",
+          "before": {
+            "readyState": "complete",
+            "hasMain": true,
+            "mainHeadings": 4,
+            "dataChapters": 4,
+            "poster": {
+              "found": true,
+              "ariaHidden": "true",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 900,
+                "top": 0,
+                "right": 1600,
+                "bottom": 900,
+                "left": 0
+              },
+              "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+            },
+            "navButtons": [
+              "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "Navigate to STATION 03: M249 / MK46 PLATFORM"
+            ],
+            "canvases": [],
+            "harnessContexts": [
+              {
+                "connected": false,
+                "draws": 0
+              }
+            ],
+            "lenis": false,
+            "telemetry": true,
+            "htmlLenisClass": false,
+            "scrollHeight": 28080,
+            "clientWidth": 1600,
+            "innerHeight": 900,
+            "scrollY": 0,
+            "reducedMotion": true
+          },
+          "authorship": {
+            "layerCount": 1,
+            "layerRole": "region",
+            "layerLabel": "Designer's identity and drawing notes",
+            "layerSrOnly": true,
+            "layerText": "Mark HintzDigital Systems ArchitectHandwritten on the drawing beside the input shaft detail: Failure point. Alternate materials?? 4140, 4340 and C300 are each crossed off in red. Then: change manufacturing method... ROTARY HOBB IN LATHE! (circled)Handwritten beside the output shaft section: Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.",
+            "layerRect": {
+              "width": 1,
+              "height": 1
+            },
+            "layerHeading": "Mark Hintz",
+            "legacy": {
+              "authorshipId": 0,
+              "authorshipNote": 0,
+              "inlineNote": 0,
+              "drawingNoteAside": 0,
+              "layerDataStatic": 0
+            },
+            "holders": [
+              {
+                "tag": "P",
+                "className": "",
+                "inLayer": true,
+                "inInline": false
+              },
+              {
+                "tag": "P",
+                "className": "",
+                "inLayer": true,
+                "inInline": false
+              },
+              {
+                "tag": "P",
+                "className": "",
+                "inLayer": false,
+                "inInline": true
+              },
+              {
+                "tag": "P",
+                "className": "",
+                "inLayer": false,
+                "inInline": true
+              },
+              {
+                "tag": "P",
+                "className": "",
+                "inLayer": false,
+                "inInline": true
+              }
+            ],
+            "inline": {
+              "rect": {
+                "width": 510,
+                "height": 123.5
+              },
+              "text": "Mark HintzDigital Systems ArchitectInput shaft. Failure point. Alternate materials?? 4140, 4340, C300. change manufacturing method... ROTARY HOBB IN LATHE!Output shaft. Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.",
+              "heading": "Mark Hintz",
+              "role": "Digital Systems Architect",
+              "noteParagraphs": 2,
+              "struck": [
+                "4140",
+                "4340",
+                "C300"
+              ]
+            }
+          },
+          "settled": {
+            "readyState": "complete",
+            "hasMain": true,
+            "mainHeadings": 4,
+            "dataChapters": 4,
+            "poster": {
+              "found": true,
+              "ariaHidden": "true",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 900,
+                "top": 0,
+                "right": 1600,
+                "bottom": 900,
+                "left": 0
+              },
+              "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+            },
+            "navButtons": [
+              "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "Navigate to STATION 03: M249 / MK46 PLATFORM"
+            ],
+            "canvases": [],
+            "harnessContexts": [
+              {
+                "connected": false,
+                "draws": 0
+              }
+            ],
+            "lenis": false,
+            "telemetry": true,
+            "htmlLenisClass": false,
+            "scrollHeight": 28080,
+            "clientWidth": 1600,
+            "innerHeight": 900,
+            "scrollY": 0,
+            "reducedMotion": true
+          },
+          "scrolled": {
+            "readyState": "complete",
+            "hasMain": true,
+            "mainHeadings": 4,
+            "dataChapters": 4,
+            "poster": {
+              "found": true,
+              "ariaHidden": "true",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 900,
+                "top": 0,
+                "right": 1600,
+                "bottom": 900,
+                "left": 0
+              },
+              "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+            },
+            "navButtons": [
+              "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "Navigate to STATION 03: M249 / MK46 PLATFORM"
+            ],
+            "canvases": [],
+            "harnessContexts": [
+              {
+                "connected": false,
+                "draws": 0
+              }
+            ],
+            "lenis": false,
+            "telemetry": true,
+            "htmlLenisClass": false,
+            "scrollHeight": 28080,
+            "clientWidth": 1600,
+            "innerHeight": 900,
+            "scrollY": 14040,
+            "reducedMotion": true
+          },
+          "returned": {
+            "readyState": "complete",
+            "hasMain": true,
+            "mainHeadings": 4,
+            "dataChapters": 4,
+            "poster": {
+              "found": true,
+              "ariaHidden": "true",
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 900,
+                "top": 0,
+                "right": 1600,
+                "bottom": 900,
+                "left": 0
+              },
+              "text": "DWG NO. PTG-HP-1000 · REV03 · SCALE 1:1High-Precision Industrial Torque GunMulti-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&TSTATIC RENDER MODE — REDUCED MOTION PREFERRED; ANIMATED 3D DISABLEDTITLE: PLANETARY REDUCTION ASS"
+            },
+            "navButtons": [
+              "Navigate to STATION 01: PTG-HP-1000 TORQUE GUN",
+              "Navigate to STATION 02: RL-300 ACOUSTIC SAFE ENCLOSURE",
+              "Navigate to STATION 03: M249 / MK46 PLATFORM"
+            ],
+            "canvases": [],
+            "harnessContexts": [
+              {
+                "connected": false,
+                "draws": 0
+              }
+            ],
+            "lenis": false,
+            "telemetry": true,
+            "htmlLenisClass": false,
+            "scrollHeight": 28080,
+            "clientWidth": 1600,
+            "innerHeight": 900,
+            "scrollY": 0,
+            "reducedMotion": true
+          },
+          "gl": [
+            {
+              "connected": false,
+              "width": 300,
+              "height": 150,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "draws": 0,
+              "lastDrawAt": 0,
+              "lost": true
+            }
+          ],
+          "cadRequests": [],
+          "shaderFailures": [],
+          "contextLosses": 0
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "requestFailures": [],
+      "httpErrors": [],
+      "failures": [],
+      "reverse": [],
+      "cadRequests": [],
+      "domContentLoadedMs": 127,
+      "coldLoadReadyMs": 197,
+      "navigation": [
+        {
+          "name": "http://localhost:5203/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 122.59999999403954,
+          "navigationId": 4572,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.1",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.9000000059604645,
+          "domainLookupStart": 0.9000000059604645,
+          "domainLookupEnd": 0.9000000059604645,
+          "connectStart": 0.9000000059604645,
+          "secureConnectionStart": 0,
+          "connectEnd": 0.9000000059604645,
+          "requestStart": 2.4000000059604645,
+          "responseStart": 4.5999999940395355,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 4.5999999940395355,
+          "responseEnd": 5.200000017881393,
+          "transferSize": 996,
+          "encodedBodySize": 696,
+          "decodedBodySize": 2116,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 16.5,
+          "domContentLoadedEventStart": 121.80000001192093,
+          "domContentLoadedEventEnd": 121.80000001192093,
+          "domComplete": 122.59999999403954,
+          "loadEventStart": 122.59999999403954,
+          "loadEventEnd": 122.59999999403954,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "low"
+          }
+        }
+      ],
+      "shaderFailures": [],
+      "contextLosses": 0,
+      "requestFailureNote": "none",
+      "passed": true
+    }
+  ],
+  "gitStart": " M TODO.md\n M project/work/INDEX.md\n M project/work/plans/JG-036-hotspot-clickability-revival.md\n M scripts/verify-handwriting-reference.mjs\n M scripts/verify-manufacturing-inspection.mjs\n M scripts/verify-ring-inspection.mjs\n M src/components/Chapters.tsx\n M src/components/ShaftStoryLayer.css\n M src/components/ShaftStoryLayer.tsx\n M src/components/TechnicalHUD.tsx\n M src/data/caseStudies.ts\n M src/scene/Hotspots.tsx\n M src/scene/SceneCanvas.tsx\n?? 0\n?? 1\n?? docs/jgun-orchestrated-continuation-plan-2026-10-08.md\n?? nul\n?? project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/hardware-acceptance-2026-10-08T23-47-04-636Z/\n?? project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/\n?? project/work/evidence/performance-diagnosis/\n?? project/work/inbox/refactoring-assessment-2026-10-08.md\n?? scripts/manufacturing/__pycache__/\n?? scripts/verify-jg036-hotspot-layering.mjs\n",
+  "staticContract": {
+    "checks": 92,
+    "failures": [],
+    "limitations": []
+  },
+  "browserVersion": "154.0.8037.98",
+  "finished": "2026-10-09T01:41:34.558Z",
+  "flexTierComparison": [
+    {
+      "base": "desktop",
+      "compared": false
+    },
+    {
+      "base": "narrow",
+      "compared": false
+    }
+  ],
+  "passed": true,
+  "gitEnd": " M TODO.md\n M project/work/INDEX.md\n M project/work/plans/JG-036-hotspot-clickability-revival.md\n M scripts/verify-handwriting-reference.mjs\n M scripts/verify-manufacturing-inspection.mjs\n M scripts/verify-ring-inspection.mjs\n M src/components/Chapters.tsx\n M src/components/ShaftStoryLayer.css\n M src/components/ShaftStoryLayer.tsx\n M src/components/TechnicalHUD.tsx\n M src/data/caseStudies.ts\n M src/scene/Hotspots.tsx\n M src/scene/SceneCanvas.tsx\n?? 0\n?? 1\n?? docs/jgun-orchestrated-continuation-plan-2026-10-08.md\n?? nul\n?? project/work/evidence/JG-035-opening-drafting-table/orchestrated-continuation-2026-10-08/\n?? project/work/evidence/JG-035-opening-drafting-table/stages-1-3-2026-09-26/hardware-acceptance-2026-10-08T23-47-04-636Z/\n?? project/work/evidence/JG-036-hotspot-clickability/z-order-2026-10-08/\n?? project/work/evidence/performance-diagnosis/\n?? project/work/inbox/refactoring-assessment-2026-10-08.md\n?? scripts/manufacturing/__pycache__/\n?? scripts/verify-jg036-hotspot-layering.mjs\n"
+}
