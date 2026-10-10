@@ -813,6 +813,7 @@ Return: commit SHA; `git show --stat HEAD`; gate outputs (tails); each mutation'
 ## J. Implementer cheat sheet (one page)
 | Topic | Rule |
 |---|---|
+| Skills | Orchestrator only: `docs/quiet-machine-skill-shortlist-2026-10-10.md` lists which library skill (path) fits which commit. Hand sub-agents a path in the spec; they have no Skill tool. Read one SKILL.md per need |
 | Worktree | `C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine`, branch `quiet-machine/integration`. Never edit `jgun-portfolio` (JG-035 session) or `jgun-torque-wrench` |
 | Shell | Git Bash. From PowerShell: save the block to a scratch `.sh` file outside the repo and run `& 'C:\Program Files\Git\bin\bash.exe' <file>` (section B; `-lc '…'` breaks on blocks with single quotes). Never a bare `bash` (WSL) |
 | Dependencies | this worktree (and any lane worktree) starts with no `node_modules`: `npm ci` first (QM1 pre-flight 2), then B on the unmodified tree, recorded before any edit. `package.json`/`package-lock.json` must stay unchanged |

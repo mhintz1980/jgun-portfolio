@@ -1,5 +1,7 @@
 # HANDOFF — Quiet Machine integration + torque wrench rebuild (2026-10-10)
 
+> **SUPERSEDED STATUS 2026-10-10 (evening):** the structure is approved (`d826cd38`) and the plan is approved (`520b6982`). Q1 is ruled (a). Next action is QM0. Start from [`HANDOFF-quiet-machine-2026-10-10b.md`](HANDOFF-quiet-machine-2026-10-10b.md). §4 and §5 below describe the earlier state.
+
 Written for a fresh session. Read this, then the files it points to. Do not resume from chat memory.
 Owner works with several agents and has lost feedback before: **write every owner ruling into the repo the moment it is given.**
 
@@ -40,7 +42,7 @@ Standing rules (repo and memory): visual effects need **Astra** (`gpt-6-astra`, 
 ## 4. Phase status (questions > research > design > structure > plan > implement; stop for owner approval after each phase)
 | Track | Questions | Research | Design | Structure | Plan | Implement |
 |---|---|---|---|---|---|---|
-| Quiet Machine + shell | done | done (29, 30) | **approved** | written, **needs revision** | next | no |
+| Quiet Machine + shell | done | done (29, 30) | **approved** | **approved** (rev 2, `d826cd38`) | **approved** (`520b6982`) | next: QM0 |
 | Torque wrench rebuild | not started | not started | not started | not started | not started | not started |
 
 ## 5. Next actions
