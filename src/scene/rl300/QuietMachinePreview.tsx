@@ -17,12 +17,20 @@ class SceneBoundary extends Component<{ children: React.ReactNode; onError: () =
   render() { return this.state.failed ? null : this.props.children }
 }
 
+/** First-paint mode from the visitor's motion preference and the query string. Reduced motion
+ *  is the poster path (never manual WebGL); there is no fixed pose, so `?shot=` is honoured. */
+export function initialStudyMode(reducedMotion: boolean, search: string): { poster: boolean; u: number } {
+  const params = new URLSearchParams(search)
+  return { poster: reducedMotion || params.get('quality') === 'poster', u: clamp01(Number(params.get('shot') ?? 0)) }
+}
+
 export default function QuietMachinePreview() {
   const reduced = useRef(matchMedia('(prefers-reduced-motion: reduce)').matches).current
+  const mode = initialStudyMode(reduced, location.search)
   const params = new URLSearchParams(location.search)
-  const [poster, setPoster] = useState(params.get('quality') === 'poster')
+  const [poster, setPoster] = useState(mode.poster)
   const [ready, setReady] = useState(false)
-  const [u, setU] = useState(reduced ? .52 : clamp01(Number(params.get('shot') ?? 0)))
+  const [u, setU] = useState(mode.u)
   const control = useRef<PreviewControl>({ u, invalidate: () => {}, caps: true }).current
   const beat = evaluateShot(u, false).beat
   const onReady = useCallback(() => setReady(true), [])
@@ -71,7 +79,7 @@ export default function QuietMachinePreview() {
       <div className="qm-views" aria-label="Study views">{VIEWS.map(([label, at]) =>
         <button key={label} aria-pressed={beat === evaluateShot(at, false).beat} onClick={() => navigate(at)}>{label}</button>)}</div>
       <label className="qm-scrubber">REVEAL <input aria-label="Section reveal" type="range" min="0" max="1000" step="1" value={Math.round(u * 1000)} onChange={e => navigate(Number(e.target.value) / 1000)} /></label>
-      <p className="qm-status" role="status">{poster ? 'STATIC SECTION STUDY' : !ready ? 'PREPARING THE MACHINE…' : reduced ? 'MANUAL STUDY · REDUCED MOTION' : 'SCROLL TO EXPLORE · REVERSE TO CLOSE'}</p>
+      <p className="qm-status" role="status">{poster ? 'STATIC SECTION STUDY' : !ready ? 'PREPARING THE MACHINE…' : 'SCROLL TO EXPLORE · REVERSE TO CLOSE'}</p>
     </footer>
   </main>
 }

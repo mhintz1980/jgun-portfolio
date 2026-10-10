@@ -1,4 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { BoxGeometry, CatmullRomCurve3, Float32BufferAttribute, Group, Mesh, MeshStandardMaterial, Plane, Raycaster, Vector3 } from 'three'
 import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, prepareModel, sanitizeName, SECTION_ROOTS } from './prepareModel'
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
@@ -6,6 +8,7 @@ import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
 import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
 import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
+import QuietMachinePreview, { initialStudyMode } from './QuietMachinePreview'
 
 describe('RL300 review prototype', () => {
   // Point-to-segment distance on the (y, z) plane, shared by the owner-ruled path tests.
@@ -553,5 +556,38 @@ describe('RL300 review prototype', () => {
     expect(RIBBON_COUNT.desktop).toBeLessThanOrEqual(24)
     expect(RIBBON_COUNT.mobile).toBeGreaterThanOrEqual(6)
     expect(RIBBON_COUNT.mobile).toBeLessThanOrEqual(10)
+  })
+})
+
+describe('Quiet Machine preview reduced motion', () => {
+  const g = globalThis as Record<string, unknown>
+  const saved = { matchMedia: g.matchMedia, location: g.location }
+  afterEach(() => {
+    for (const [key, value] of Object.entries(saved)) {
+      if (value === undefined) delete g[key]; else g[key] = value
+    }
+  })
+  it('initialStudyMode sends reduced motion to the poster at the requested shot, with no .52 special case', () => {
+    expect(initialStudyMode(true, '')).toEqual({ poster: true, u: 0 })
+    expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, u: .5 })
+  })
+  it('initialStudyMode keeps normal motion on WebGL unless quality=poster is asked for', () => {
+    expect(initialStudyMode(false, '')).toEqual({ poster: false, u: 0 })
+    expect(initialStudyMode(false, '?quality=poster')).toEqual({ poster: true, u: 0 })
+    expect(initialStudyMode(false, '?quality=lite&shot=.2')).toEqual({ poster: false, u: .2 })
+  })
+  it('initialStudyMode clamps a shot outside 0-1 and treats a non-numeric shot as the opening frame', () => {
+    expect(initialStudyMode(false, '?shot=abc').u).toBe(0)
+    expect(initialStudyMode(false, '?shot=7').u).toBe(1)
+    expect(initialStudyMode(false, '?shot=-3').u).toBe(0)
+  })
+  it('renders the poster and the static status, never manual WebGL, under prefers-reduced-motion', () => {
+    g.matchMedia = () => ({ matches: true })
+    g.location = { search: '' }
+    const html = renderToStaticMarkup(createElement(QuietMachinePreview))
+    expect(html).toContain('qm-poster')
+    expect(html).toContain('STATIC SECTION STUDY')
+    expect(html).not.toContain('MANUAL STUDY')
+    expect(html).not.toContain('<canvas')
   })
 })

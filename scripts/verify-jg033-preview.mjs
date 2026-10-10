@@ -159,20 +159,29 @@ try {
     await page.close()
   }
   if (process.env.CAPTURE_POSTERS !== '1') {
+    // Reduced motion is the poster path. The selector is QM-specific (data-reduced-motion on
+    // main.qm-preview), so JGUN's own StaticPoster cannot satisfy it.
     const p = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })
-    await p.goto(`${base}/?study=rl300`); await p.waitForFunction(() => window.__quietMachine?.ready)
-    assert.equal(await p.evaluate(() => window.__quietMachine.u), .52)
+    await p.goto(`${base}/?study=rl300`)
+    await p.waitForSelector('main.qm-preview[data-reduced-motion="true"] .qm-poster img')
+    await p.waitForFunction(() => document.querySelector('main.qm-preview[data-reduced-motion="true"] .qm-poster img')?.naturalWidth > 0)
+    assert.equal(await p.locator('canvas').count(), 0)
+    assert.equal((await p.locator('.qm-status').textContent()).trim(), 'STATIC SECTION STUDY')
+    const sliderBefore = await p.getByRole('slider', { name: 'Section reveal' }).inputValue()
     await p.mouse.wheel(0, 900); await p.waitForTimeout(120)
-    assert.equal(await p.evaluate(() => window.__quietMachine.u), .52)
-    await p.getByRole('button', { name: 'Exterior', exact: true }).click()
-    await p.waitForFunction(() => window.__quietMachine.u === 0)
-    await p.setViewportSize({ width: 768, height: 1024 }); await p.waitForTimeout(100)
-    assert(await p.evaluate(() => window.__quietMachine.camera.every(Number.isFinite)))
-    await p.evaluate(() => document.querySelector('canvas').dispatchEvent(new Event('webglcontextlost', { cancelable: true })))
-    await p.waitForSelector('.qm-poster img')
-    await p.waitForFunction(() => document.querySelector('.qm-poster img')?.naturalWidth > 0)
-    report.checks.reducedMotionAndContextLoss = 'pass: fixed pose, explicit controls, resize, static fallback'
+    assert.equal(await p.getByRole('slider', { name: 'Section reveal' }).inputValue(), sliderBefore, 'scroll must not drive the reduced-motion poster')
+    await p.getByRole('button', { name: 'Lower intake', exact: true }).click()
+    await p.waitForFunction(() => document.querySelector('.qm-poster img')?.src.includes('intake'))
+    report.checks.reducedMotionPoster = 'pass: poster without a canvas, scroll inert, controls swap the poster'
     await p.close()
+    // Context loss falls back to the poster (this check used to live in the reduced-motion block).
+    const lost = await browser.newPage({ viewport: { width: 768, height: 1024 } })
+    await lost.goto(`${base}/?study=rl300&quality=full`); await lost.waitForFunction(() => window.__quietMachine?.ready)
+    await lost.evaluate(() => document.querySelector('canvas').dispatchEvent(new Event('webglcontextlost', { cancelable: true })))
+    await lost.waitForSelector('.qm-poster img')
+    await lost.waitForFunction(() => document.querySelector('.qm-poster img')?.naturalWidth > 0)
+    report.checks.contextLoss = 'pass: webglcontextlost falls back to the poster'
+    await lost.close()
     for (const scenario of ['poster', 'asset-failure', 'lite-asset-failure']) {
       const page = await browser.newPage()
       if (scenario === 'asset-failure') await page.route('**/models/msp-enclosure.glb', route => route.abort())

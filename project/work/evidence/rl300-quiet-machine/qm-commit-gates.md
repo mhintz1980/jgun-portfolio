@@ -483,3 +483,124 @@ U.1 grep exit: 1
 -- U.2
 hunks=0 removed=0 first= last=
 ```
+
+## QM3
+
+Reduced motion becomes the poster path in `src/scene/rl300/QuietMachinePreview.tsx` (new pure export `initialStudyMode`, `MANUAL STUDY` branch deleted), with a table test, a static-markup test and the two verifier blocks (`reducedMotionPoster`, `contextLoss`). No `src/shared` import. Base `666cbf23`, parent `acf6b122`. Mutation run with the good version staged.
+
+### Mutation M1
+
+In `initialStudyMode`, return `poster: params.get('quality') === 'poster'` (drop `reducedMotion ||`) and `u: reducedMotion ? .52 : clamp01(...)`, then `npx vitest run src/scene/rl300/preview.test.ts`:
+
+```
+ FAIL  src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > initialStudyMode sends reduced motion to the poster at the requested shot, with no .52 special case
+AssertionError: expected { poster: false, u: 0.52 } to deeply equal { poster: true, u: +0 }
+ FAIL  src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > renders the poster and the static status, never manual WebGL, under prefers-reduced-motion
+AssertionError: expected '<main class="qm-preview" data-reduced…' to contain 'qm-poster'
+      Tests  2 failed | 27 passed (29)
+```
+
+RED: yes
+
+`git restore src/scene/rl300/QuietMachinePreview.tsx` (from the index), re-run:
+
+```
+      Tests  29 passed (29)
+```
+
+GREEN-AFTER: yes
+
+### U.4 QM3
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM3` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 1,
+  "requestsBase": 3,
+  "requestsNew": 3
+}
+```
+
+### Gate B tails (QM3)
+
+QM3 tree (3 code files staged on `acf6b122`; this file is staged after the append), default `npm test` worker count. B.2 passed on attempt 1, no retry needed. `node --check` is the only check run on the verifier script: it cannot pass at this tree (see the plan note under QM3) and was not executed.
+
+```
+== staged paths (git diff --cached --name-only, at gate time)
+scripts/verify-jg033-preview.mjs
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+== B.1 typecheck
+> tsc --noEmit
+
+B.1 exit 0
+== B.2 test
+ Test Files  45 passed (45)
+      Tests  561 passed (561)
+B.2 exit 0
+== B.3 build
+✓ built in 7.20s
+B.3 exit 0
+== B.4 / U.3 station2
+Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.
+B.4 exit 0
+== U.1 pre-commit
+U.1 grep exit: 1
+== U.2
+hunks=0 removed=0 first= last=
+== node --check verifier
+node --check exit 0
+== preview.test.ts new cases
+ ✓ src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > initialStudyMode sends reduced motion to the poster at the requested shot, with no .52 special case 0ms
+ ✓ src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > initialStudyMode keeps normal motion on WebGL unless quality=poster is asked for 0ms
+ ✓ src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > initialStudyMode clamps a shot outside 0-1 and treats a non-numeric shot as the opening frame 0ms
+ ✓ src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > renders the poster and the static status, never manual WebGL, under prefers-reduced-motion 7ms
+      Tests  29 passed (29)
+== package files (git status --short -- package.json package-lock.json, expect empty)
+```
+
+45 files / 561 tests is the 45 files / 557 tests of QM2 plus 4 new cases in `preview.test.ts` (29 tests, was 25).
+
+### Post-commit gates (QM3, run by the orchestrator after the advisor review)
+
+```
+HEAD: 7d9796ee JG-033 QM3: reduced motion becomes the poster path in the Quiet Machine preview
+-- git diff --name-only HEAD~1 HEAD
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+scripts/verify-jg033-preview.mjs
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+count: 4
+-- U.1 post
+docs/HANDOFF-quiet-machine-2026-10-10.md
+docs/HANDOFF-quiet-machine-2026-10-10b.md
+docs/quiet-machine-integration-structure-2026-10-10.md
+docs/quiet-machine-skill-shortlist-2026-10-10.md
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+project/work/plans/JG-032-station2-thermal-visualization.md
+project/work/plans/JG-033-quiet-machine-integration.md
+project/work/plans/JG-033-rl300-quiet-machine.md
+scripts/check-qm-jgun-assets.mjs
+scripts/verify-jg033-preview.mjs
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+src/shared/PageNav.test.tsx
+src/shared/PageNav.tsx
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/pages.test.ts
+src/shared/pages.ts
+src/shared/shellBoundary.test.ts
+U.1 grep exit: 1
+-- U.2
+hunks=0 removed=0 first= last=
+```
