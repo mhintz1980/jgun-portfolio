@@ -1,0 +1,71 @@
+{
+  "name": "lite-vs-full-u34-1440x900-lite",
+  "file": "lite-vs-full-tiles/u34-1440x900-lite.png",
+  "pngBytes": 331415,
+  "pngSha256": "d9b22a06e52e8260393008174270ff273da3886c352611bbc0ec9b1e5825508e",
+  "tier": "lite",
+  "requestedTier": "lite",
+  "tierMatchesRequest": true,
+  "u": 0.34,
+  "requestedU": 0.34,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=lite",
+  "nonFlatFraction": 0.4155146604938272,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "frame": 8,
+  "cutPlane": -0.15000000000000002,
+  "camera": [
+    3.615,
+    1.765,
+    2.745
+  ],
+  "fov": 33,
+  "drawCalls": 74,
+  "renderedTriangles": 586852,
+  "geometries": 60,
+  "textures": 2,
+  "counts": {
+    "sourceTriangles": 245092,
+    "keptTriangles": 244500,
+    "linerTriangles": 108,
+    "sourceMeshes": 570,
+    "batches": 30,
+    "cappedTriangles": 165216,
+    "openSectionTriangles": 16329,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 0
+  },
+  "partCount": 24,
+  "partPolicies": {
+    "keep": 3,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 19288,
+  "glbsRequested": [
+    "rl300-lite.glb"
+  ],
+  "rangeValue": 340,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": []
+}

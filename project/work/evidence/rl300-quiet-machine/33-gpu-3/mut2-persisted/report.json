@@ -1,0 +1,238 @@
+{
+  "capturedAt": "2026-10-10T16:43:41.105Z",
+  "url": "http://localhost:4173",
+  "viewport": "1440x900",
+  "out": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-quiet-machine\\project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted",
+  "constants": {
+    "FADE_KEY": "jg:fade",
+    "FADE_OUT_ANIMATION": "shell-fade-out",
+    "FADE_FALLBACK_MS": 450,
+    "FADE_IN_MS": 600,
+    "HOLD_CAP_MS": 2500,
+    "source": "src/shared/pageFade.ts"
+  },
+  "expectedCases": 7,
+  "cases": [
+    {
+      "name": "fade-out",
+      "status": "PASS",
+      "measurements": {
+        "clickHref": "/",
+        "clickOnFadeLink": true,
+        "outLatencyMs": 0.9,
+        "flagAtOut": "1791650625708",
+        "polledFromNode": true,
+        "nodeObservedLatencyMs": 230,
+        "urlBecameRootMs": 442,
+        "urlBudgetMs": 1450,
+        "assignAfterClickMs": 406.7,
+        "animationEndAfterClickMs": 406,
+        "animationEndSource": "log",
+        "animationEnds": [
+          {
+            "name": "shell-fade-out",
+            "root": true,
+            "pseudo": "::after",
+            "afterClickMs": 406
+          }
+        ],
+        "finalUrl": "http://localhost:4173/",
+        "pageErrors": []
+      },
+      "message": "click landed on an a[data-fade] link; data-fade=\"out\" 0.9 ms after the click (limit 100); sessionStorage['jg:fade'] set with the attribute; html[data-fade=\"out\"] with the flag observed from the test side; URL became / 442 ms after the click (limit 1450); exactly one shell-fade-out animationend on the root, 406 ms after the click (log); the assign (406.7 ms after the click) followed the animationend (406 ms) within 20 ms and before the 450 ms fallback: the event drove the navigation",
+      "video": {
+        "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\fade-out\\9b46d751247a65e11ff303295e2b0c31.webm",
+        "note": null
+      }
+    },
+    {
+      "name": "synthetic-arrival",
+      "status": "PASS",
+      "measurements": {
+        "dclFade": "in",
+        "timeToReleaseMs": 2045.5,
+        "inAtMs": 22.3,
+        "releaseAtMs": 1463.9,
+        "removedAtMs": 2067.8,
+        "mountedAtMs": 151.8,
+        "readyAtMs": 1546.3,
+        "holdMs": 1312.1,
+        "removedSinceMountMs": 1916,
+        "removalBoundMs": 3600,
+        "releaseReason": "ready",
+        "sceneReadyOrPoster": true,
+        "flagLeftInStorage": null,
+        "releaseBeforeReadyMs": 82.4,
+        "pageErrors": []
+      },
+      "message": "data-fade=\"in\" was set by the head shell script; data-fade at DOMContentLoaded was \"in\" (want \"in\"); the attribute was removed; removed 1916 ms after mount (bound 3600 = cap 2500 + fade 600 + slack 500); released for reason \"ready\"; sessionStorage['jg:fade'] consumed on arrival",
+      "video": {
+        "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\synthetic-arrival\\385759d191f0aa611a9067502baeb666.webm",
+        "note": null
+      }
+    },
+    {
+      "name": "back",
+      "status": "FAIL",
+      "measurements": {
+        "persisted": true,
+        "goBackError": null,
+        "pageshowFadeAfterSettle": "out",
+        "pageshowFlag": "1791650634642",
+        "judgedFrom": "pageshow snapshot",
+        "fadeClearedWithin15s": null,
+        "fade": "out",
+        "canvas": 1,
+        "ready": true,
+        "poster": 0,
+        "end": null,
+        "bfcacheNotUsed": [],
+        "pageErrors": [],
+        "disableBackForwardCacheFlagStillOnCommandLine": false
+      },
+      "message": "data-fade=\"out\" left after Back (bfcache restore)",
+      "video": {
+        "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\back\\3351e2fb64d36e3b6ab04bad47f5139a.webm",
+        "note": null
+      }
+    },
+    {
+      "name": "reduced-motion-cut",
+      "status": "PASS",
+      "measurements": {
+        "reducedMotionMatches": true,
+        "observerLive": true,
+        "clickSeen": true,
+        "outEvents": 0,
+        "flagWrites": 0,
+        "flagAtClick": null,
+        "flagAtRootDcl": null,
+        "assignAfterClickMs": 1.3,
+        "finalUrl": "http://localhost:4173/?quality=poster",
+        "pageErrors": []
+      },
+      "message": "click recorded; click navigated to /; no data-fade=\"out\"; no storage key",
+      "video": {
+        "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\reduced-motion-cut\\39cd7030dfd4f89a6fca7a86f9fcde55.webm",
+        "note": null
+      }
+    },
+    {
+      "name": "legacy-redirect",
+      "status": "PASS",
+      "measurements": {
+        "direct": {
+          "finalUrl": "/quiet-machine/?quality=lite",
+          "historyLength": 2,
+          "error": null
+        },
+        "redirected": {
+          "finalUrl": "/quiet-machine/?quality=lite",
+          "historyLength": 2,
+          "error": null
+        },
+        "wantUrl": "/quiet-machine/?quality=lite",
+        "pageErrors": []
+      },
+      "message": "ended at /quiet-machine/?quality=lite; history length 2 after the redirect vs 2 for a direct load (equal means the redirect added no entry)",
+      "video": {
+        "file": null,
+        "note": "not recorded: video is off for this case"
+      }
+    },
+    {
+      "name": "no-white-frame",
+      "status": "PASS",
+      "measurements": {
+        "screenshot": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\no-white-frame.png",
+        "size": "1440x900",
+        "brightFraction": 0,
+        "darkFraction": 1,
+        "brightFractionLimit": 0.2,
+        "lumaLimit": 0.85,
+        "fadeBeforeShot": "in",
+        "fadeAfterShot": "in",
+        "documentPath": "/quiet-machine/",
+        "cssRequestsEmptied": 2,
+        "cssUrls": [
+          "/assets/index-CddUWpSY.css",
+          "/assets/QuietMachinePreview-KK_fAZmk.css"
+        ],
+        "linkedSheets": 2,
+        "linkedRulesAfterEmptying": 0,
+        "linkedUnreadable": 0,
+        "htmlBackground": "rgb(5, 7, 10)",
+        "coverBackground": "rgb(5, 7, 10)",
+        "decodeError": null,
+        "pageErrors": []
+      },
+      "message": "bright fraction 0 (limit 0.2, luma > 0.85) with the stylesheets emptied and the cover up",
+      "video": {
+        "file": null,
+        "note": "not recorded: video is off for this case"
+      }
+    },
+    {
+      "name": "reduced-motion-arrival",
+      "status": "PASS",
+      "measurements": {
+        "reducedMotionMatches": true,
+        "seededFlag": "1791650640021",
+        "observerProbeSeen": true,
+        "dataFadeValuesEverTaken": [],
+        "dataFadeMutations": 0,
+        "dataFadeAtEnd": null,
+        "flagAfterLoad": null,
+        "rendered": "poster",
+        "posterCount": 1,
+        "canvasCount": 0,
+        "pageErrors": []
+      },
+      "message": "data-fade never took a value; sessionStorage['jg:fade'] absent after load; page rendered (poster)",
+      "video": {
+        "file": null,
+        "note": "not recorded: video is off for this case"
+      }
+    }
+  ],
+  "result": "FAIL",
+  "browserVersion": "154.0.8037.98",
+  "gateIncomplete": [],
+  "videos": [
+    {
+      "case": "fade-out",
+      "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\fade-out\\9b46d751247a65e11ff303295e2b0c31.webm",
+      "note": null
+    },
+    {
+      "case": "synthetic-arrival",
+      "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\synthetic-arrival\\385759d191f0aa611a9067502baeb666.webm",
+      "note": null
+    },
+    {
+      "case": "back",
+      "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\back\\3351e2fb64d36e3b6ab04bad47f5139a.webm",
+      "note": null
+    },
+    {
+      "case": "reduced-motion-cut",
+      "file": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\mut2-persisted\\videos\\reduced-motion-cut\\39cd7030dfd4f89a6fca7a86f9fcde55.webm",
+      "note": null
+    },
+    {
+      "case": "legacy-redirect",
+      "file": null,
+      "note": "not recorded: video is off for this case"
+    },
+    {
+      "case": "no-white-frame",
+      "file": null,
+      "note": "not recorded: video is off for this case"
+    },
+    {
+      "case": "reduced-motion-arrival",
+      "file": null,
+      "note": "not recorded: video is off for this case"
+    }
+  ]
+}

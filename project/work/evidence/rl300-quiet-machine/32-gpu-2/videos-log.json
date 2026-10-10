@@ -1,0 +1,71 @@
+{
+  "forwardReverse": {
+    "file": "forward-reverse.webm",
+    "tier": "full",
+    "loadMs": 5371,
+    "samples": [
+      {
+        "at": "forward end",
+        "u": 0.998700000000745,
+        "rangeValue": 999,
+        "scrollY": 0
+      },
+      {
+        "at": "reverse end",
+        "u": 0,
+        "rangeValue": 0,
+        "scrollY": 0
+      }
+    ],
+    "forwardMs": 12006,
+    "reverseMs": 12012.79999999702,
+    "totalMs": 27051.39999999106,
+    "frame": 1448,
+    "finalU": 0,
+    "errors": [],
+    "note": "u driven by __quietMachine.seek from an in-page rAF clock (the verifier seek path), page scrollY stays 0; video starts at context creation so it includes the load lead-in"
+  },
+  "wheel": {
+    "file": "forward-at-proposed-length.webm",
+    "tier": "full",
+    "loadMs": 1976,
+    "scrollHeight": 8100,
+    "innerHeight": 900,
+    "maxScroll": 7200,
+    "scrollHeightInVh": 9,
+    "wheelEvents": 959,
+    "scrollMs": 50580,
+    "finalScrollY": 7200,
+    "finalU": 1,
+    "finalRange": 1000,
+    "endCardRendered": true,
+    "errors": [],
+    "marks": [
+      {
+        "s": 7.4,
+        "sent": 1115
+      },
+      {
+        "s": 15,
+        "sent": 2252
+      },
+      {
+        "s": 22.5,
+        "sent": 3377
+      },
+      {
+        "s": 30,
+        "sent": 4502
+      },
+      {
+        "s": 37.5,
+        "sent": 5628
+      },
+      {
+        "s": 45,
+        "sent": 6754
+      }
+    ],
+    "note": "real mouse.wheel events at ~150 px/s through the committed page (QM_LENGTH_VH = 900)"
+  }
+}

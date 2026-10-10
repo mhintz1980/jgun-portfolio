@@ -1,0 +1,6 @@
+dist dir               /c/Users/Markimus/.buzz/REPOS/jgun-quiet-machine/dist
+served /quiet-machine/ ec536865d5c789f80dea0b5e5993545ad89309e576604234ddf1b15246d630b2
+dist   quiet-machine   ec536865d5c789f80dea0b5e5993545ad89309e576604234ddf1b15246d630b2
+served /               b850f0c8346805bb436305f2879aea3c0e5923ff41c51276736ef32353969495
+dist   index.html      b850f0c8346805bb436305f2879aea3c0e5923ff41c51276736ef32353969495
+HASHCHECK MATCH

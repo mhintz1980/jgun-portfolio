@@ -1,0 +1,73 @@
+{
+  "name": "sheet-tile-390x844-shot4",
+  "file": "sheet-tiles/390x844-shot4.png",
+  "pngBytes": 101940,
+  "pngSha256": "9c4965d86260c30fb0fe66356b1b6162647d135309f95da28b1a48223c29f7ac",
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "u": 0.51,
+  "requestedU": 0.51,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "nonFlatFraction": 0.5111192125410134,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 390,
+    "height": 447.34375
+  },
+  "canvasRect": {
+    "x": 0,
+    "y": 244.75,
+    "width": 390,
+    "height": 447.34375
+  },
+  "frame": 13,
+  "cutPlane": -0.15000000000000002,
+  "camera": [
+    1.325,
+    -0.2026,
+    1.149
+  ],
+  "fov": 42,
+  "drawCalls": 97,
+  "renderedTriangles": 1149786,
+  "geometries": 59,
+  "textures": 4,
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "partCount": 24,
+  "partPolicies": {
+    "keep": 3,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 19288,
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "rangeValue": 510,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": [],
+  "shot": 4,
+  "shotTitle": "A second breath"
+}

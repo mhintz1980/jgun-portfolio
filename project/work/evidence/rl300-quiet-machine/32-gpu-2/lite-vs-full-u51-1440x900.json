@@ -1,0 +1,50 @@
+{
+  "composite": "Chromium page compositor (no sharp/canvas/ImageMagick in node_modules)",
+  "file": "lite-vs-full-u51-1440x900.png",
+  "pngBytes": 447535,
+  "pngSha256": "763f977b0d324ffb0577e5c90058174e98bc03baf252ec80a67d179103ff9bec",
+  "tier": "full+lite",
+  "u": [
+    0.51,
+    0.51
+  ],
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": [
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=lite"
+  ],
+  "sources": [
+    {
+      "file": "lite-vs-full-tiles/u51-1440x900-full.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.51,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "lite-vs-full-tiles/u51-1440x900-lite.png",
+      "tier": "lite",
+      "requestedTier": "lite",
+      "u": 0.51,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=lite",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    }
+  ]
+}

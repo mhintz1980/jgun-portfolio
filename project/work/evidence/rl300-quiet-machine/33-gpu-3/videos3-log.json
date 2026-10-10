@@ -1,0 +1,162 @@
+[
+  {
+    "vp": "1440x900",
+    "case": "fade-out",
+    "file": "qm-to-root-fade.mp4",
+    "bytes": 123402,
+    "durationS": 4.64,
+    "webmDurationS": 4.64,
+    "stream": "h264,1440,900",
+    "frames": [
+      "qm-to-root-fade-first.png",
+      "qm-to-root-fade-mid.png",
+      "qm-to-root-fade-last.png"
+    ],
+    "frameBytes": [
+      5971,
+      139952,
+      15637
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-1440x900\\videos\\fade-out\\122492ba182d8144c4362c36b3c40ae9.webm"
+  },
+  {
+    "vp": "1440x900",
+    "case": "synthetic-arrival",
+    "file": "arrival-into-qm.mp4",
+    "bytes": 51042,
+    "durationS": 2.16,
+    "webmDurationS": 2.16,
+    "stream": "h264,1440,900",
+    "frames": [
+      "arrival-into-qm-first.png",
+      "arrival-into-qm-mid.png",
+      "arrival-into-qm-last.png"
+    ],
+    "frameBytes": [
+      5971,
+      5973,
+      206949
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-1440x900\\videos\\synthetic-arrival\\d297e9696a9e000a509ef806a19f9913.webm"
+  },
+  {
+    "vp": "1440x900",
+    "case": "back",
+    "file": "back-to-qm.mp4",
+    "bytes": 138554,
+    "durationS": 4.84,
+    "webmDurationS": 4.84,
+    "stream": "h264,1440,900",
+    "frames": [
+      "back-to-qm-first.png",
+      "back-to-qm-mid.png",
+      "back-to-qm-last.png"
+    ],
+    "frameBytes": [
+      5971,
+      137894,
+      5973
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-1440x900\\videos\\back\\b3b155691b6490fc41545d647ba730f1.webm"
+  },
+  {
+    "vp": "1440x900",
+    "case": "reduced-motion-cut",
+    "file": "reduced-motion-cut.mp4",
+    "bytes": 27237,
+    "durationS": 0.24,
+    "webmDurationS": 0.24,
+    "stream": "h264,1440,900",
+    "frames": [
+      "reduced-motion-cut-first.png",
+      "reduced-motion-cut-mid.png",
+      "reduced-motion-cut-last.png"
+    ],
+    "frameBytes": [
+      5971,
+      187326,
+      5972
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-1440x900\\videos\\reduced-motion-cut\\84291cc656152e3ac4fdfae0213dde8b.webm"
+  },
+  {
+    "vp": "390x844",
+    "case": "fade-out",
+    "file": "qm-to-root-fade-390x844.mp4",
+    "bytes": 69917,
+    "durationS": 4.12,
+    "webmDurationS": 4.12,
+    "stream": "h264,390,844",
+    "frames": [
+      "qm-to-root-fade-390x844-first.png",
+      "qm-to-root-fade-390x844-mid.png",
+      "qm-to-root-fade-390x844-last.png"
+    ],
+    "frameBytes": [
+      2852,
+      89026,
+      10902
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-390x844\\videos\\fade-out\\79649a0119102098f44345f039dab236.webm"
+  },
+  {
+    "vp": "390x844",
+    "case": "synthetic-arrival",
+    "file": "arrival-into-qm-390x844.mp4",
+    "bytes": 26279,
+    "durationS": 2,
+    "webmDurationS": 2,
+    "stream": "h264,390,844",
+    "frames": [
+      "arrival-into-qm-390x844-first.png",
+      "arrival-into-qm-390x844-mid.png",
+      "arrival-into-qm-390x844-last.png"
+    ],
+    "frameBytes": [
+      2852,
+      2854,
+      94483
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-390x844\\videos\\synthetic-arrival\\aa5960dae70bdafb9ca2080dc8b915f8.webm"
+  },
+  {
+    "vp": "390x844",
+    "case": "back",
+    "file": "back-to-qm-390x844.mp4",
+    "bytes": 79081,
+    "durationS": 4.6,
+    "webmDurationS": 4.6,
+    "stream": "h264,390,844",
+    "frames": [
+      "back-to-qm-390x844-first.png",
+      "back-to-qm-390x844-mid.png",
+      "back-to-qm-390x844-last.png"
+    ],
+    "frameBytes": [
+      2852,
+      88717,
+      2854
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-390x844\\videos\\back\\8a3865bb425bdbdde88ae366a0b8deb2.webm"
+  },
+  {
+    "vp": "390x844",
+    "case": "reduced-motion-cut",
+    "file": "reduced-motion-cut-390x844.mp4",
+    "bytes": 13983,
+    "durationS": 0.28,
+    "webmDurationS": 0.28,
+    "stream": "h264,390,844",
+    "frames": [
+      "reduced-motion-cut-390x844-first.png",
+      "reduced-motion-cut-390x844-mid.png",
+      "reduced-motion-cut-390x844-last.png"
+    ],
+    "frameBytes": [
+      2852,
+      85087,
+      80760
+    ],
+    "source": "project\\work\\evidence\\rl300-quiet-machine\\33-gpu-3\\base-390x844\\videos\\reduced-motion-cut\\0bb1e8816300b80978c440707819d769.webm"
+  }
+]

@@ -1,0 +1,73 @@
+{
+  "name": "sheet-tile-1440x900-shot2",
+  "file": "sheet-tiles/1440x900-shot2.png",
+  "pngBytes": 381652,
+  "pngSha256": "b030384867075b3d299c861c3328ebdf72daaa4752dde83c547197d3d1385fa6",
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "u": 0.195,
+  "requestedU": 0.195,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "nonFlatFraction": 0.43987037037037036,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "frame": 12,
+  "cutPlane": 0.5232139222470995,
+  "camera": [
+    3.45,
+    1.42,
+    3.0599999999999996
+  ],
+  "fov": 32,
+  "drawCalls": 111,
+  "renderedTriangles": 1201746,
+  "geometries": 59,
+  "textures": 4,
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "partCount": 24,
+  "partPolicies": {
+    "keep": 3,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 19288,
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "rangeValue": 195,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": [],
+  "shot": 2,
+  "shotTitle": "The incision"
+}

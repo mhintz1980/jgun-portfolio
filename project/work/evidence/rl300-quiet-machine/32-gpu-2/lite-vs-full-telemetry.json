@@ -1,0 +1,421 @@
+{
+  "runAt": "2026-10-10T16:25:44.697Z",
+  "rows": [
+    {
+      "viewport": "1440x900",
+      "u": 0.34,
+      "tag": "u34",
+      "pixelDiff": {
+        "changed": 139480,
+        "fraction": 0.10762345679012346,
+        "meanChannelDelta": 2.4765344650205763
+      },
+      "tiers": {
+        "full": {
+          "resolvedTier": "full",
+          "requested": "full",
+          "glbs": [
+            "msp-enclosure.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 440668,
+            "keptTriangles": 440072,
+            "linerTriangles": 108,
+            "sourceMeshes": 589,
+            "batches": 31,
+            "cappedTriangles": 154554,
+            "openSectionTriangles": 47390,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 1
+          },
+          "airwayHelperDerived": 28,
+          "renderedTriangles": 1201746,
+          "drawCalls": 111,
+          "geometries": 59,
+          "textures": 4,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 1.4618544761356547,
+            "xMin": -0.7078211041151723,
+            "xMax": 1.0580248594572088,
+            "yMin": -1.4618544761356547,
+            "yMax": 0.8407147262252787
+          },
+          "stageSize": {
+            "width": 1108.8125,
+            "height": 702
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 352092,
+          "nonFlat": 0.38907175925925924
+        },
+        "lite": {
+          "resolvedTier": "lite",
+          "requested": "lite",
+          "glbs": [
+            "rl300-lite.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 245092,
+            "keptTriangles": 244500,
+            "linerTriangles": 108,
+            "sourceMeshes": 570,
+            "batches": 30,
+            "cappedTriangles": 165216,
+            "openSectionTriangles": 16329,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 0
+          },
+          "airwayHelperDerived": 24,
+          "renderedTriangles": 586852,
+          "drawCalls": 74,
+          "geometries": 60,
+          "textures": 2,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 1.464392315839297,
+            "xMin": -0.7120267853870206,
+            "xMax": 1.0580192731972924,
+            "yMin": -1.464392315839297,
+            "yMax": 0.8410757309793296
+          },
+          "stageSize": {
+            "width": 1108.8125,
+            "height": 702
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 331415,
+          "nonFlat": 0.4155146604938272
+        }
+      }
+    },
+    {
+      "viewport": "1440x900",
+      "u": 0.51,
+      "tag": "u51",
+      "pixelDiff": {
+        "changed": 123641,
+        "fraction": 0.0954020061728395,
+        "meanChannelDelta": 1.7233567386831277
+      },
+      "tiers": {
+        "full": {
+          "resolvedTier": "full",
+          "requested": "full",
+          "glbs": [
+            "msp-enclosure.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 440668,
+            "keptTriangles": 440072,
+            "linerTriangles": 108,
+            "sourceMeshes": 589,
+            "batches": 31,
+            "cappedTriangles": 154554,
+            "openSectionTriangles": 47390,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 1
+          },
+          "airwayHelperDerived": 28,
+          "renderedTriangles": 1186429,
+          "drawCalls": 98,
+          "geometries": 59,
+          "textures": 4,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 21.586394602109436,
+            "xMin": -21.586394602109436,
+            "xMax": 3.922263370614749,
+            "yMin": -0.5724800602672752,
+            "yMax": 11.104360808574762
+          },
+          "stageSize": {
+            "width": 1108.8125,
+            "height": 702
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 267388,
+          "nonFlat": 0.5205817901234568
+        },
+        "lite": {
+          "resolvedTier": "lite",
+          "requested": "lite",
+          "glbs": [
+            "rl300-lite.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 245092,
+            "keptTriangles": 244500,
+            "linerTriangles": 108,
+            "sourceMeshes": 570,
+            "batches": 30,
+            "cappedTriangles": 165216,
+            "openSectionTriangles": 16329,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 0
+          },
+          "airwayHelperDerived": 24,
+          "renderedTriangles": 577052,
+          "drawCalls": 62,
+          "geometries": 60,
+          "textures": 2,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 22.880469468837905,
+            "xMin": -22.880469468837905,
+            "xMax": 3.922263370614749,
+            "yMin": -0.5724800602672752,
+            "yMax": 11.16042070464892
+          },
+          "stageSize": {
+            "width": 1108.8125,
+            "height": 702
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 262041,
+          "nonFlat": 0.5189992283950617
+        }
+      }
+    },
+    {
+      "viewport": "390x844",
+      "u": 0.34,
+      "tag": "u34",
+      "pixelDiff": {
+        "changed": 32299,
+        "fraction": 0.09812553165633735,
+        "meanChannelDelta": 2.188209381455827
+      },
+      "tiers": {
+        "full": {
+          "resolvedTier": "full",
+          "requested": "full",
+          "glbs": [
+            "msp-enclosure.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 440668,
+            "keptTriangles": 440072,
+            "linerTriangles": 108,
+            "sourceMeshes": 589,
+            "batches": 31,
+            "cappedTriangles": 154554,
+            "openSectionTriangles": 47390,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 1
+          },
+          "airwayHelperDerived": 28,
+          "renderedTriangles": 1196562,
+          "drawCalls": 111,
+          "geometries": 59,
+          "textures": 4,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 1.4107748343590443,
+            "xMin": -0.9287587242443487,
+            "xMax": 1.4107748343590443,
+            "yMin": -0.9974074711573253,
+            "yMax": 0.5615470366710239
+          },
+          "stageSize": {
+            "width": 390,
+            "height": 447.34375
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 121433,
+          "nonFlat": 0.3817778587920768
+        },
+        "lite": {
+          "resolvedTier": "lite",
+          "requested": "lite",
+          "glbs": [
+            "rl300-lite.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 245092,
+            "keptTriangles": 244500,
+            "linerTriangles": 108,
+            "sourceMeshes": 570,
+            "batches": 30,
+            "cappedTriangles": 165216,
+            "openSectionTriangles": 16329,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 0
+          },
+          "airwayHelperDerived": 24,
+          "renderedTriangles": 581668,
+          "drawCalls": 74,
+          "geometries": 60,
+          "textures": 2,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 1.4107686419099876,
+            "xMin": -0.9341085149991812,
+            "xMax": 1.4107686419099876,
+            "yMin": -0.9988330134599298,
+            "yMax": 0.5615878475379775
+          },
+          "stageSize": {
+            "width": 390,
+            "height": 447.34375
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 115773,
+          "nonFlat": 0.4156671527524608
+        }
+      }
+    },
+    {
+      "viewport": "390x844",
+      "u": 0.51,
+      "tag": "u51",
+      "pixelDiff": {
+        "changed": 20865,
+        "fraction": 0.06338862559241706,
+        "meanChannelDelta": 1.4558168266699072
+      },
+      "tiers": {
+        "full": {
+          "resolvedTier": "full",
+          "requested": "full",
+          "glbs": [
+            "msp-enclosure.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 440668,
+            "keptTriangles": 440072,
+            "linerTriangles": 108,
+            "sourceMeshes": 589,
+            "batches": 31,
+            "cappedTriangles": 154554,
+            "openSectionTriangles": 47390,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 1
+          },
+          "airwayHelperDerived": 28,
+          "renderedTriangles": 1149786,
+          "drawCalls": 97,
+          "geometries": 59,
+          "textures": 4,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 6.502049444096212,
+            "xMin": -5.676490042346273,
+            "xMax": 5.064527890700426,
+            "yMin": -0.46043864635588466,
+            "yMax": 6.502049444096212
+          },
+          "stageSize": {
+            "width": 390,
+            "height": 447.34375
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 101940,
+          "nonFlat": 0.5111192125410134
+        },
+        "lite": {
+          "resolvedTier": "lite",
+          "requested": "lite",
+          "glbs": [
+            "rl300-lite.glb"
+          ],
+          "counts": {
+            "sourceTriangles": 245092,
+            "keptTriangles": 244500,
+            "linerTriangles": 108,
+            "sourceMeshes": 570,
+            "batches": 30,
+            "cappedTriangles": 165216,
+            "openSectionTriangles": 16329,
+            "keptWholeTriangles": 9136,
+            "removedTriangles": 460,
+            "skippedRoots": 0
+          },
+          "airwayHelperDerived": 24,
+          "renderedTriangles": 537210,
+          "drawCalls": 60,
+          "geometries": 60,
+          "textures": 2,
+          "partCount": 24,
+          "partPolicies": {
+            "keep": 3,
+            "delete": 1,
+            "hide": 18,
+            "section": 2
+          },
+          "partTriangleSum": 19288,
+          "projectionNdc": {
+            "worst": 6.523942380505493,
+            "xMin": -5.783153287105388,
+            "xMax": 5.064527890700426,
+            "yMin": -0.46043864635588466,
+            "yMax": 6.523942380505493
+          },
+          "stageSize": {
+            "width": 390,
+            "height": 447.34375
+          },
+          "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "pngBytes": 99565,
+          "nonFlat": 0.5170069267225665
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "log": {
+    "hold-sheet-1440x900": {
+      "hold": {
+        "u34": {
+          "tier": "full",
+          "u": 0.34,
+          "uMatch": true,
+          "nonFlat": 0.38907175925925924
+        },
+        "u51": {
+          "tier": "full",
+          "u": 0.51,
+          "uMatch": true,
+          "nonFlat": 0.5205817901234568
+        }
+      },
+      "tilesTiers": [
+        "SHOT 1/7 &middot; u=0.060 &middot; tier=full &middot; The object",
+        "SHOT 2/7 &middot; u=0.195 &middot; tier=full &middot; The incision",
+        "SHOT 3/7 &middot; u=0.340 &middot; tier=full &middot; The main intake",
+        "SHOT 4/7 &middot; u=0.510 &middot; tier=full &middot; A second breath",
+        "SHOT 5/7 &middot; u=0.685 &middot; tier=full &middot; Two feeds, one exit",
+        "SHOT 6/7 &middot; u=0.825 &middot; tier=full &middot; Control the noise",
+        "SHOT 7/7 &middot; u=0.945 &middot; tier=full &middot; Resolve"
+      ]
+    },
+    "hold-sheet-390x844": {
+      "hold": {
+        "u34": {
+          "tier": "full",
+          "u": 0.34,
+          "uMatch": true,
+          "nonFlat": 0.3817778587920768
+        },
+        "u51": {
+          "tier": "full",
+          "u": 0.51,
+          "uMatch": true,
+          "nonFlat": 0.5111192125410134
+        }
+      },
+      "tilesTiers": [
+        "SHOT 1/7 &middot; u=0.060 &middot; tier=full &middot; The object",
+        "SHOT 2/7 &middot; u=0.195 &middot; tier=full &middot; The incision",
+        "SHOT 3/7 &middot; u=0.340 &middot; tier=full &middot; The main intake",
+        "SHOT 4/7 &middot; u=0.510 &middot; tier=full &middot; A second breath",
+        "SHOT 5/7 &middot; u=0.685 &middot; tier=full &middot; Two feeds, one exit",
+        "SHOT 6/7 &middot; u=0.825 &middot; tier=full &middot; Control the noise",
+        "SHOT 7/7 &middot; u=0.945 &middot; tier=full &middot; Resolve"
+      ]
+    }
+  },
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)"
+}

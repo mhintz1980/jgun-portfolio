@@ -1,0 +1,17 @@
+PASS       fade-out                click landed on an a[data-fade] link; data-fade="out" 0.9 ms after the click (limit 100); sessionStorage['jg:fade'] set with the attribute; html[data-fade="out"] with the flag observed from the test side; URL became / 442 ms after the click (limit 1450); exactly one shell-fade-out animationend on the root, 406 ms after the click (log); the assign (406.7 ms after the click) followed the animationend (406 ms) within 20 ms and before the 450 ms fallback: the event drove the navigation
+PASS       synthetic-arrival       data-fade="in" was set by the head shell script; data-fade at DOMContentLoaded was "in" (want "in"); the attribute was removed; removed 1916 ms after mount (bound 3600 = cap 2500 + fade 600 + slack 500); released for reason "ready"; sessionStorage['jg:fade'] consumed on arrival
+FAIL       back                    data-fade="out" left after Back (bfcache restore)
+PASS       reduced-motion-cut      click recorded; click navigated to /; no data-fade="out"; no storage key
+PASS       legacy-redirect         ended at /quiet-machine/?quality=lite; history length 2 after the redirect vs 2 for a direct load (equal means the redirect added no entry)
+PASS       no-white-frame          bright fraction 0 (limit 0.2, luma > 0.85) with the stylesheets emptied and the cover up
+PASS       reduced-motion-arrival  data-fade never took a value; sessionStorage['jg:fade'] absent after load; page rendered (poster)
+report: C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\33-gpu-3\mut2-persisted\report.json
+video fade-out: project\work\evidence\rl300-quiet-machine\33-gpu-3\mut2-persisted\videos\fade-out\9b46d751247a65e11ff303295e2b0c31.webm
+video synthetic-arrival: project\work\evidence\rl300-quiet-machine\33-gpu-3\mut2-persisted\videos\synthetic-arrival\385759d191f0aa611a9067502baeb666.webm
+video back: project\work\evidence\rl300-quiet-machine\33-gpu-3\mut2-persisted\videos\back\3351e2fb64d36e3b6ab04bad47f5139a.webm
+video reduced-motion-cut: project\work\evidence\rl300-quiet-machine\33-gpu-3\mut2-persisted\videos\reduced-motion-cut\39cd7030dfd4f89a6fca7a86f9fcde55.webm
+video legacy-redirect: none (not recorded: video is off for this case)
+video no-white-frame: none (not recorded: video is off for this case)
+video reduced-motion-arrival: none (not recorded: video is off for this case)
+RESULT: FAIL
+exit=1

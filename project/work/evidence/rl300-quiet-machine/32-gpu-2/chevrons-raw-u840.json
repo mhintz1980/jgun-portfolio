@@ -1,0 +1,71 @@
+{
+  "name": "chevrons-raw-u840",
+  "file": "chevrons-raw-u840.png",
+  "pngBytes": 425286,
+  "pngSha256": "c312419f12765b77f5d14936ffa634e3827171f0b44d1d3d0e1bbbd51ef0ce4b",
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "u": 0.84,
+  "requestedU": 0.84,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "nonFlatFraction": 0.3997060185185185,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "frame": 7,
+  "cutPlane": -0.15000000000000002,
+  "camera": [
+    3.8789940828402374,
+    2.086003641329085,
+    1.2620163859808815
+  ],
+  "fov": 33.30996813837051,
+  "drawCalls": 108,
+  "renderedTriangles": 1201606,
+  "geometries": 59,
+  "textures": 4,
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "partCount": 24,
+  "partPolicies": {
+    "keep": 3,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 19288,
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "rangeValue": 840,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": []
+}

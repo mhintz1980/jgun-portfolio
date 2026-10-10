@@ -1,0 +1,13 @@
+diff --git a/src/shared/pageFade.ts b/src/shared/pageFade.ts
+index fd1e08e7..ec5f4010 100644
+--- a/src/shared/pageFade.ts
++++ b/src/shared/pageFade.ts
+@@ -234,8 +234,6 @@ export function installPageFade(doc: Document, env: FadeEnv = defaultEnv()): ()
+   const onPageShow = (event: Event) => {
+     if (!(event as PageTransitionEvent).persisted) return
+     navigationSerial += 1
+-    doc.documentElement.removeAttribute(ATTRIBUTE)
+-    env.storage.removeItem(FADE_KEY)
+   }
+ 
+   const view: Pick<EventTarget, 'addEventListener' | 'removeEventListener'> = doc.defaultView ?? doc

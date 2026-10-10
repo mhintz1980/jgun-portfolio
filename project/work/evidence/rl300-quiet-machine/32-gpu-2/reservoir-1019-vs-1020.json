@@ -1,0 +1,94 @@
+{
+  "composite": "Chromium page compositor (no sharp/canvas/ImageMagick in node_modules)",
+  "file": "reservoir-1019-vs-1020.png",
+  "pngBytes": 340490,
+  "pngSha256": "26a26d1f46047e6f247cb4d843a07976cc74b09031b474f96256f8729e2ef09b",
+  "tier": "full",
+  "u": [
+    0.34
+  ],
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": [
+    "http://localhost:4173/quiet-machine/?quality=full"
+  ],
+  "sources": [
+    {
+      "file": "reservoir-raw-1440x900.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.34,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    }
+  ],
+  "reservoir": {
+    "u": 0.34,
+    "tier": "full",
+    "rects": {
+      "1019": {
+        "x": 586.4223625049267,
+        "y": 415.17344068712737,
+        "w": 160.4132096324098,
+        "h": 78.77021812400176,
+        "box": {
+          "min": [
+            -0.513,
+            1.032,
+            0.94
+          ],
+          "max": [
+            -0.294,
+            1.251,
+            1.461
+          ]
+        },
+        "nodes": [
+          "V2RL300-SAF-RES-1019-SAFE-1"
+        ]
+      },
+      "1020": {
+        "x": 670.0762805488213,
+        "y": 439.63741306943206,
+        "w": 187.72742088354084,
+        "h": 97.72009407425725,
+        "box": {
+          "min": [
+            0.293,
+            1.032,
+            0.94
+          ],
+          "max": [
+            0.512,
+            1.251,
+            1.461
+          ]
+        },
+        "nodes": [
+          "V2RL300-SAF-RES-1020-SAFE-1"
+        ]
+      }
+    },
+    "proofParts1020": {
+      "policy": "keep",
+      "clipped": false,
+      "repainted": false,
+      "removed": false,
+      "triangles": 348,
+      "xMin": 0.2932682931423187,
+      "xMax": 0.5119031667709351
+    },
+    "proofParts1019": "absent from proof.parts (24 ruled parts only)",
+    "cutPlane": -0.15000000000000002,
+    "note": "runtime cannot toggle 1019 policy: PART_POLICY is a static const and the proof object has no setter; both parts shown in the current build state"
+  }
+}

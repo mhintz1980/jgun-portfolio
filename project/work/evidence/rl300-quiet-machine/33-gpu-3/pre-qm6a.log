@@ -1,0 +1,17 @@
+FAIL       fade-out                the assign (457.4 ms after the click) does not follow the animationend (428 ms) within 20 ms or came at/after the 450 ms fallback: the fallback, not the event, drove the navigation
+PASS       synthetic-arrival       data-fade="in" was set by the head shell script; data-fade at DOMContentLoaded was "in" (want "in"); the attribute was removed; removed 2102.4 ms after mount (bound 3600 = cap 2500 + fade 600 + slack 500); released for reason "ready"; sessionStorage['jg:fade'] consumed on arrival
+PASS       back                    no data-fade after Back; 1 canvas present; __quietMachine.ready holds; no .qm-poster
+PASS       reduced-motion-cut      click recorded; click navigated to /; no data-fade="out"; no storage key
+PASS       legacy-redirect         ended at /quiet-machine/?quality=lite; history length 2 after the redirect vs 2 for a direct load (equal means the redirect added no entry)
+PASS       no-white-frame          bright fraction 0 (limit 0.2, luma > 0.85) with the stylesheets emptied and the cover up
+FAIL       reduced-motion-arrival  data-fade took ["in","release"] under reduced motion; expected to FAIL against a build without QM6a: its inline head script sets data-fade="in" under reduced motion and the page then sets "release" (QM6a never sets data-fade under reduced motion; both builds consume the flag, so the flag is not what differs); on a QM6a build this is a real regression of the reduced-motion fix
+report: C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\33-gpu-3\pre-qm6a\report.json
+video fade-out: project\work\evidence\rl300-quiet-machine\33-gpu-3\pre-qm6a\videos\fade-out\af7c8855b4525c4f2e96cf52fb02a026.webm
+video synthetic-arrival: project\work\evidence\rl300-quiet-machine\33-gpu-3\pre-qm6a\videos\synthetic-arrival\d77a6081ef75b947d07794e303c6e429.webm
+video back: project\work\evidence\rl300-quiet-machine\33-gpu-3\pre-qm6a\videos\back\95cc0347106a0fe75282099c3cbcf3a4.webm
+video reduced-motion-cut: project\work\evidence\rl300-quiet-machine\33-gpu-3\pre-qm6a\videos\reduced-motion-cut\319bae7de1d93c23e194dbc00f27c4af.webm
+video legacy-redirect: none (not recorded: video is off for this case)
+video no-white-frame: none (not recorded: video is off for this case)
+video reduced-motion-arrival: none (not recorded: video is off for this case)
+RESULT: FAIL
+exit=1
