@@ -34,7 +34,7 @@ acceptance:
   - All JGUN additions progress-gated, provably inert at CH.04 progress values; CH.04 telemetry byte-identical to baseline
   - Bloom threshold 0.6 unchanged; JGUN sequencing/timing untouched; 7 GLB roots untouched
 verification: ../evidence/JG-032-station2-thermal-verification.md
-commits: [477c9c3, 3edecce, 7f7a0c2, abae74c, 15dc719]
+commits: [477c9c3, 3edecce, 7f7a0c2, abae74c, 15dc719, d201ea8]
 replaces: null
 ---
 

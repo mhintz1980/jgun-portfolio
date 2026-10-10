@@ -218,3 +218,12 @@ This is a bounded integration map, not a claim that uninspected consumers are co
 ## Approval requested
 
 Approve the revised **The Quiet Machine** direction: a redesigned blue RL300 in a cinematic test chamber, a properly capped cross-section, the proposed lower intake and under-engine duct, two cooling supplies sharing an exit, and unrestricted documented sequence length. Include recommendations for the later JGUN visual pass while preserving its duration and authored scroll ranges. The first implementation deliverable remains the exterior-to-section prototype. Only planning documents, backups, and diagnostic inspection artifacts were created during assessment; no application source or saved model geometry/render settings were changed.
+
+## Extension record 2026-10-10 (page split)
+
+- QM moves to its own page, `/quiet-machine/`, with its own scroll (handoff section 2.1-2.3: [handoff](../../../docs/HANDOFF-quiet-machine-2026-10-10.md)).
+- The Milestone 3 "shared narrative-progress source" and the JGUN consumer corrections are moot: QM and JGUN are separate documents (design section 5, "Chapter/HUD sync" row: [design](../../../docs/quiet-machine-integration-design-2026-10-09.md)).
+- The JGUN scroll-axis pin is withdrawn (design section 10).
+- The lines in "Extending the experience and coordinating JGUN" that start `**Scroll:** extend RL300 as needed` and `**Required extension record and JGUN correction recommendations:**` are superseded for JGUN by the torque track.
+- Integration plan: [JG-033-quiet-machine-integration.md](JG-033-quiet-machine-integration.md).
+- Structure: [quiet-machine-integration-structure-2026-10-10.md](../../../docs/quiet-machine-integration-structure-2026-10-10.md).
