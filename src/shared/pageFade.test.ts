@@ -323,8 +323,17 @@ describe('fadeNavigate', () => {
     const root = stubDocumentWithRoot()
     const t = makeEnv()
     fadeNavigate('/x', t.env)
-    root.dispatch('transitionend', { target: root, propertyName: 'opacity' })
+    // A hostile shape: root target, the cover's keyframe name and pseudo-element. If the onEnd
+    // handler were also bound to transitionend this would navigate; the name filter alone does not
+    // save it. The dispatch is judged first, then the registration itself.
+    root.dispatch('transitionend', {
+      target: root,
+      animationName: FADE_OUT_ANIMATION,
+      pseudoElement: '::after',
+      propertyName: 'opacity',
+    })
     expect(t.assigns).toEqual([])
+    expect(root.listenerCount('transitionend')).toBe(0)
     t.advance(FADE_FALLBACK_MS)
     expect(t.assigns).toEqual(['/x'])
   })

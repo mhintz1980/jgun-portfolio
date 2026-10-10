@@ -1124,3 +1124,56 @@ GREEN-AFTER: yes
 Not done here: no browser, no server, no GPU, no Playwright. Whether the fade-out keyframe's `animationend` reaches the root listener in a real browser (a pseudo-element animation event is dispatched on its originating element) is by specification, not observed here; the fallback timer still guarantees navigation. Post-commit U.1 and U.2 are left to the committing seat (step 7 of the protocol).
 
 Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 13 of 13 met. A plan amendment: QM6a is one extra commit row before QM6 (advisor ruling).
+
+## QM6
+
+`scripts/verify-page-transition.mjs` (NEW, 636 lines after review round 1): the QM half of the page-fade verifier, 7 cases: `fade-out`, `synthetic-arrival`, `back`, `reduced-motion-cut`, `legacy-redirect`, `no-white-frame`, `reduced-motion-arrival`. Authored by a Sonnet 5.5 (high) seat and amended by a second one; reviewed by an Opus spawn together with QM6a (see the review note at the end of this section).
+
+Deviations from the plan table (all in the script's header comment and report):
+- `legacy-redirect` asserts "the redirect adds no history entry" against a same-harness direct-load calibration, not `history.length === 1`: GPU-1 measured a direct load at 2 in this Playwright setup (`31-gpu-1/part2e-history-calibration.json`).
+- `no-white-frame` is a still, not the plan's CDP screencast with 400 ms delayed stylesheets (that design could not go red: render-blocking CSS yields no new-document frame during the delay, the bundled CSS also paints `#05070a`, and old-page frames could satisfy its guard). Every stylesheet is answered with an empty body, the page arrives synthetically, `data-fade="in"` is asserted before and after one screenshot, and the screenshot is judged (FAIL at >= 20% of pixels above luma 0.85). UNVERIFIED (never PASS) when no stylesheet was intercepted, a linked sheet still has rules, the cover was not up, or the PNG cannot be decoded. The screencast machinery was removed: the judged image is the new document by construction, so it adds no guarantee.
+- `synthetic-arrival` bounds the attribute removal at cap 2500 + fade 600 + slack 500 = 3600 ms after mount; the plan's figure is 2500 + 600 = 3100 ms.
+- UNVERIFIED is not a gate pass. An UNVERIFIED case other than `back` must be read as a failed gate by whoever reads the GPU-3 result. The script prints `GATE-INCOMPLETE: <case names>` for it and repeats it on the `RESULT:` line; exit code semantics are unchanged (FAIL exits 1, UNVERIFIED alone exits 0).
+- `back` launches its own browser with `--disable-back-forward-cache` removed and reads `chrome://version` to record whether the flag is still on the command line; `persisted:false` is UNVERIFIED.
+- Case 7 `reduced-motion-arrival` is new: runtime proof of the QM6a reduced-motion fix (expected FAIL against a pre-QM6a build).
+
+Mutations (plan, run at GPU-3 because each needs a rebuild and a preview restart): not run here. Both are listed in plan section QM6; the GPU-3 commit records them against this commit's SHA.
+Not run here: the script itself (no GPU grant). Static only: `node --check` exit 0.
+
+### Review round 1 (Opus review, builder seat Sonnet 5.5)
+
+Script fixes (`scripts/verify-page-transition.mjs`, 636 lines):
+1. `no-white-frame` rebuilt as an emptied-stylesheet still (blocker): all `.css` responses fulfilled with an empty body, synthetic arrival, `data-fade="in"` asserted before and after the screenshot, the new-document screenshot judged at >= 20% pixels above luma 0.85; computed `html` and `::after` backgrounds, linked-sheet rule count and the PNG are recorded in the report; screencast machinery deleted (no real guarantee left once the image is the new document by construction); `pixels()` decode failure is UNVERIFIED. Expected: unmutated build dark (~0% bright), the plan mutation white (~100% bright). Not observed here (no browser).
+2. `fade-out` asserts exactly one `shell-fade-out` animationend whose target is the root before the navigation commits, recorded by a capture-phase listener installed by the init script (on `window`, since the root does not exist at init time, with `target === document.documentElement` recorded), mirrored to `sessionStorage['jg:vpt-anim']`; no such event with the navigation through the 450 ms fallback is a FAIL; the event must also precede the navigation start (10 ms slack); `assignAfterClickMs` and `animationEndAfterClickMs` are recorded.
+3. `synthetic-arrival` ready tolerance 1000 ms to 200 ms (`READY_TOLERANCE_MS`); `releaseBeforeReadyMs` still recorded.
+4. `synthetic-arrival` asserts `flagLeftInStorage === null`; the always-null `click.flag === null` conjunct is gone from `reduced-motion-cut` (the proof is the `Storage.prototype.setItem` patch plus the flag read at the root document's DOMContentLoaded).
+5. Case 7 comment and failure message corrected: a pre-QM6a build also removed the flag; the differentiator is `data-fade` taking `in` then `release` under reduced motion, which a QM6a build never does.
+6. UNVERIFIED-is-not-a-gate documented in the script header, the `GATE-INCOMPLETE: <cases>` line, the `RESULT:` line and this section; `legacy-redirect` with a null final URL (redirected or direct load) is now FAIL, not UNVERIFIED.
+7. Deviation note: removal bound 3600 ms against the plan's 3100 ms, in the header and above.
+
+Test fix (`src/shared/pageFade.test.ts`): "does not listen for transitionend" now dispatches a `transitionend` on the root with `animationName: FADE_OUT_ANIMATION` and `pseudoElement: '::after'` (a shape that would navigate if the handler were also bound to `transitionend`), asserts no navigation, then asserts `listenerCount('transitionend') === 0`. Mutation (working-tree only: `root?.addEventListener('transitionend', onEnd)` added next to the animationend registration in `src/shared/pageFade.ts`), `npx vitest run src/shared/pageFade.test.ts`:
+```
+FAIL  src/shared/pageFade.test.ts > fadeNavigate > animationend first: assigns at once, and the later fallback does not assign again
+AssertionError: expected 1 to be +0 // Object.is equality
+ ❯ src/shared/pageFade.test.ts:280:49
+FAIL  src/shared/pageFade.test.ts > fadeNavigate > does not listen for transitionend: a transitionend never navigates
+AssertionError: expected [ '/x' ] to deeply equal []
+ ❯ src/shared/pageFade.test.ts:335:23
+ Test Files  1 failed (1)
+      Tests  2 failed | 77 passed (79)
+```
+RED: yes
+After `git restore src/shared/pageFade.ts` (not modified in this commit): `Test Files  2 passed (2)` / `Tests  114 passed (114)` for `src/shared/pageFade.test.ts src/shared/pageTopology.test.ts`.
+GREEN-AFTER: yes
+
+Gates after round 1: `node --check scripts/verify-page-transition.mjs` exit 0; B.1 `npm run typecheck` exit 0; B.2 `npm test` `Test Files  46 passed (46)` / `Tests  624 passed (624)` (first run, no flake re-run needed); B.3 `npm run build` exit 0 (`built in 7.28s`); B.4 `npm run check:station2` `Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified`; U.1 `U1_OK`; U.2 `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->` `U2_OK`; U.4 `"cssEqual": true` `"sourcesEqual": true` `U4_OK`.
+
+Not verified without a browser: every runtime behaviour of the script (the new `no-white-frame` still and the animationend recorder have never executed); both are first exercised at GPU-3.
+
+Review round 2 (Opus, medium; the last round allowed): QM6a APPROVE; verifier REJECT on one blocker plus one should-fix, both with a prescribed mechanical fix. Applied by the orchestrator without a third review round (cap), disclosed here:
+- Blocker: `fade-out` ordering check could not tell the 450 ms fallback from the event (the 400 ms animationend always precedes a 450 ms fallback). Now requires `assignAfterClick < FADE_FALLBACK_MS - 1` and the assign within -10..+20 ms of the animationend (`ASSIGN_ORDER_SLACK_MS`, `ASSIGN_FOLLOW_MS`). Checked against the reviewer's synthetic scenarios with the same expression (scratch node script): event-driven (end 416, assign 418) PASS; fallback with a broken listener (end 416, assign 451) FAIL; fallback with a late event (end 455, assign 451) FAIL; fallback at 449.5 FAIL.
+- Should-fix: `fade-out` waits for `__quietMachine.ready` or `.qm-poster` before clicking, as `back` does.
+- Notes carried to the GPU-3 packet: read `darkFraction` next to `brightFraction` on the no-white-frame mutant run; run against `vite preview`/`dist`, not `vite dev` (CSS modules answered empty would break the module graph); a `fade-out` FAIL by fallback on a slow software-GL page must be read with `animationEndAfterClickMs` and `assignAfterClickMs` before it is called a regression; the `animationend` records come from the Node-side log first and the sessionStorage copy second (not merged).
+- Not run: the script itself. First execution is GPU-3.
+
+Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 12 of 12 met.
