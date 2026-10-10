@@ -603,6 +603,13 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(source.match(/releaseFadeWhen\(/g)).toHaveLength(1)
     expect(source).toMatch(/useEffect\(\(\) => \{ releaseFadeWhen\(\(\) => fadeReady\(stateRef\.current\)\) \}, \[\]\)/)
   })
+  it('listens for webglcontextlost on the stage in the capture phase, not on a canvas looked up at effect time', () => {
+    const source = readFileSync(fileURLToPath(new URL('./QuietMachinePreview.tsx', import.meta.url)), 'utf8')
+    expect(source).toContain("stage?.addEventListener('webglcontextlost', lost, true)")
+    expect(source).toContain("stage?.removeEventListener('webglcontextlost', lost, true)")
+    expect(source).not.toMatch(/querySelector\('\.qm-stage canvas'\)/)
+    expect(source).toMatch(/className="qm-stage" ref=\{stageRef\}/)
+  })
   it('initialStudyMode clamps a shot outside 0-1 and treats a non-numeric shot as the opening frame', () => {
     expect(initialStudyMode(false, '?shot=abc').u).toBe(0)
     expect(initialStudyMode(false, '?shot=7').u).toBe(1)

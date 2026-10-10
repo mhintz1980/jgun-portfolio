@@ -1,0 +1,8 @@
+{
+  "failure": "AssertionError [ERR_ASSERTION]: desktop/intake: camera is inside the machine (ndc 21.586)",
+  "build": "c6f82f47b9c38a9b1d2d42c486b22ac1ec320feab433c1b5453cf10ea4df8156",
+  "composer": "direct",
+  "ruledParts": 24,
+  "checks": {},
+  "errors": []
+}

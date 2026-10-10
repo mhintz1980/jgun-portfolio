@@ -1,0 +1,17 @@
+{
+  "direct /quiet-machine/?quality=lite": {
+    "initialAboutBlankHistoryLength": 1,
+    "finalHref": "http://localhost:4173/quiet-machine/?quality=lite",
+    "historyLength": 2
+  },
+  "direct /?quality=lite (no study)": {
+    "initialAboutBlankHistoryLength": 1,
+    "finalHref": "http://localhost:4173/?quality=lite",
+    "historyLength": 2
+  },
+  "redirect /?study=rl300&quality=lite": {
+    "initialAboutBlankHistoryLength": 1,
+    "finalHref": "http://localhost:4173/quiet-machine/?quality=lite",
+    "historyLength": 2
+  }
+}

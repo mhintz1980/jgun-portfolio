@@ -1,0 +1,22 @@
+{
+  "label": "qm4",
+  "url": "http://localhost:4173/quiet-machine/?shot=0",
+  "file": "C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine/project/work/evidence/rl300-quiet-machine/31-gpu-1/qm-stop0-qm4.png",
+  "guards": {
+    "posterElement": false,
+    "dataFade": null,
+    "ready": true,
+    "frame": 5,
+    "canvas": true,
+    "href": "http://localhost:4173/quiet-machine/?shot=0",
+    "rangeValue": "0",
+    "rect": {
+      "x": 331.1875,
+      "y": 81,
+      "width": 1108.8125,
+      "height": 702
+    }
+  },
+  "errors": [],
+  "capturedAt": "2026-10-10T09:41:59.236Z"
+}

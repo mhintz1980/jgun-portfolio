@@ -1,0 +1,173 @@
+{
+  "knownStale": [
+    {
+      "check": "lite must preserve every cap-counting triangle",
+      "lite": 165216,
+      "full": 154554,
+      "owner": "QM9 (lite policy)"
+    }
+  ],
+  "build": "9d8dd122cd898e8f5eaeb3519c93843b13f924337b0ac9c9ee7296891e828162",
+  "composer": "direct",
+  "ruledParts": 24,
+  "checks": {
+    "desktop": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 16477,
+        "fraction": 0.02116457166051395,
+        "meanChannelDelta": 2.3305125893042935
+      },
+      "closedCaps": {
+        "changed": 11,
+        "fraction": 0.000014129409981529008,
+        "meanChannelDelta": 0.00024405344513550104
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 16.69999998807907,
+        "p95": 17.19999998807907
+      },
+      "renderCpuMs": {
+        "p50": 2,
+        "p95": 2.7000000029802322
+      }
+    },
+    "portrait": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 2868,
+        "fraction": 0.016378276511906802,
+        "meanChannelDelta": 1.8330991947918451
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.00001713208840157615,
+        "meanChannelDelta": 0.0004625663868425561
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 16.69999998807907,
+        "p95": 18.200000002980232
+      },
+      "renderCpuMs": {
+        "p50": 1.8999999910593033,
+        "p95": 3
+      }
+    },
+    "tablet": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 11337,
+        "fraction": 0.024809611344537814,
+        "meanChannelDelta": 2.427361257002801
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.0000065651260504201685,
+        "meanChannelDelta": 0.00012765522875816994
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 16.700000002980232,
+        "p95": 17.599999994039536
+      },
+      "renderCpuMs": {
+        "p50": 1.800000011920929,
+        "p95": 2.5999999940395355
+      }
+    },
+    "lite": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 2868,
+        "fraction": 0.016378276511906802,
+        "meanChannelDelta": 1.8138046561209145
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.00001713208840157615,
+        "meanChannelDelta": 0.0004492414291968858
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 16.700000002980232,
+        "p95": 18
+      },
+      "renderCpuMs": {
+        "p50": 1.699999988079071,
+        "p95": 2.5
+      }
+    },
+    "reducedMotionPoster": "pass: poster without a canvas, scroll inert, controls swap the poster",
+    "contextLoss": "pass: webglcontextlost falls back to the poster",
+    "poster": "pass: readable poster views without a canvas",
+    "asset-failure": "pass: readable poster views without a canvas",
+    "lite-asset-failure": "pass: readable poster views without a canvas"
+  },
+  "errors": []
+}

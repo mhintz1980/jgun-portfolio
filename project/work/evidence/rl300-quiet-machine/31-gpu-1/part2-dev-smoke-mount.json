@@ -1,0 +1,14 @@
+{
+  "status": 200,
+  "readyMs": 2360,
+  "ready": {
+    "ready": true,
+    "frame": 3,
+    "canvas": true,
+    "poster": false,
+    "dataFade": null,
+    "href": "http://localhost:5199/quiet-machine/"
+  },
+  "failure": null,
+  "errors": []
+}

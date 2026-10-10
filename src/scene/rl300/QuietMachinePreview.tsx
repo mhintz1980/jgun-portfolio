@@ -43,6 +43,7 @@ export default function QuietMachinePreview() {
   const [u, setU] = useState(mode.u)
   const control = useRef<PreviewControl>({ u, invalidate: () => {}, caps: true }).current
   const stateRef = useRef({ poster: mode.poster, ready: false })
+  const stageRef = useRef<HTMLDivElement>(null)
   const beat = evaluateShot(u, false).beat
   const onReady = useCallback(() => { stateRef.current.ready = true; setReady(true) }, [])
   const onError = useCallback(() => { stateRef.current.poster = true; setPoster(true) }, [])
@@ -71,13 +72,15 @@ export default function QuietMachinePreview() {
     const resume = () => { if (!document.hidden) control.invalidate() }
     window.addEventListener('scroll', scroll, { passive: true }); window.addEventListener('resize', resize)
     document.addEventListener('visibilitychange', resume)
+    // Captured on the stage, not on the canvas: the canvas is created after this effect first runs and a
+    // canvas-keyed re-run lands after the scene reports ready, so a loss in that window was missed.
     const lost = (e: Event) => { e.preventDefault(); stateRef.current.poster = true; setPoster(true) }
-    const canvas = document.querySelector('.qm-stage canvas')
-    canvas?.addEventListener('webglcontextlost', lost)
-    return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); document.removeEventListener('visibilitychange', resume); canvas?.removeEventListener('webglcontextlost', lost) }
-  }, [control, reduced, seek, ready])
+    const stage = stageRef.current
+    stage?.addEventListener('webglcontextlost', lost, true)
+    return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); document.removeEventListener('visibilitychange', resume); stage?.removeEventListener('webglcontextlost', lost, true) }
+  }, [control, reduced, seek])
   return <main className="qm-preview" data-reduced-motion={reduced}>
-    <div className="qm-stage" aria-label="RL300 enclosure section study">
+    <div className="qm-stage" ref={stageRef} aria-label="RL300 enclosure section study">
       {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
     </div>

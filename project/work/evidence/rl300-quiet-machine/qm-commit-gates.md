@@ -955,3 +955,45 @@ U.1 grep exit: 1
 -- U.2
 hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
 ```
+
+## QM4-fix
+
+GPU-1 failed after QM4 (`31-gpu-1-qm-entry-smoke.md`). One fix commit, file list a subset of QM4's: `src/scene/rl300/QuietMachinePreview.tsx`, `src/scene/rl300/preview.test.ts`, `scripts/verify-jg033-preview.mjs`, plus the GPU-1 evidence files.
+
+Changes: (1) the `webglcontextlost` listener is attached to `.qm-stage` in the capture phase through a ref, no longer to a canvas looked up inside an effect keyed on `ready`; (2) a source-shape test pins it; (3) verifier constants re-derived: airway helper 28 full / 24 lite (measured from both GLBs), intake shots pinned per viewport (desktop 21.586, portrait 6.502, tablet 26.368, lite 6.524, tolerance 0.5), and the stale lite asset tolerated only at exactly its measured counts (lite airway 24, lite cap 165216 vs full 154554) with a stderr WARN on every run. Authored by the orchestrator (no builder seat), reviewed by the advisor (Opus).
+
+Mutation M1: restore the pre-fix `QuietMachinePreview.tsx` (`git show HEAD:...` over the staged good version), `npx vitest run src/scene/rl300/preview.test.ts`:
+```
+ FAIL  src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > listens for webglcontextlost on the stage in the capture phase, not on a canvas looked up at effect time
+ AssertionError: expected 'import { Component, lazy, Suspense, u…' to contain 'stage?.addEventListener(\'webglcontex…'
+ Tests  1 failed | 33 passed (34)
+```
+RED: yes
+After `git restore src/scene/rl300/QuietMachinePreview.tsx`: `Test Files 1 passed (1)`, `Tests 34 passed (34)`.
+GREEN-AFTER: yes
+
+Mutation M2 (verifier, one pin +1: `INTAKE_NDC.desktop` 22.586), full verifier on the preview build:
+```
+AssertionError: desktop/intake: intake ndc 21.586 moved from the measured 22.586
+```
+RED: yes
+After `git restore scripts/verify-jg033-preview.mjs`: verifier exit 0 (`qm4fix2-verify-jg033-preview.log`).
+GREEN-AFTER: yes
+
+Mutation M3 (verifier, `KNOWN_STALE_LITE.cap` 165217):
+```
+AssertionError: lite must preserve every cap-counting triangle (165216 vs 154554)
+```
+RED: yes
+After restore: verifier exit 0.
+GREEN-AFTER: yes
+
+Runtime proof (GPU-1 re-run, not a static gate): `contextLoss` block FAIL before (`.qm-poster img` never visible, `poster:false`), PASS after; see the re-run section of `31-gpu-1-qm-entry-smoke.md`.
+
+Gates (orchestrator, unlazy gate file; first pass recorded 11/12, G9 failed on a bug in my own grep of the U.4 JSON, fixed in the scratch verifier; the ledger line at the end of this section is the re-run on a reset copy). Items: staged set == 39 explicit paths; no unstaged tracked change; B.1 typecheck OK; B.2 npm test OK; B.3 build OK; B.4 check:station2 OK; U.1 pre-commit OK (no path outside the allowlist); U.4 `cssEqual: true`, `sourcesEqual: true` (build to qm-u4/QM4-fix-verify); `package*.json` untouched; M1 red then green.
+
+U.2 (HEAD): `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`
+
+Ledger (gate-check on a reset copy after the review amend): **12 of 12 met** (staged set == 42 explicit paths vs the parent; no unstaged; B.1-B.4; U.1; U.2; U.4 cssEqual/sourcesEqual true; evidence heading; mutations red=3 green=3; package files untouched).
+
+Post-commit (HEAD): U.1 non-allowlisted paths: none (grep exit 1 = none); U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`.
