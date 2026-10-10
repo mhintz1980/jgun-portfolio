@@ -157,28 +157,36 @@ describe('module load', () => {
   })
 
   it('importing the module touches no browser global, so defaultEnv never runs at import', async () => {
+    // Getter traps on globalThis, not value proxies: a value proxy never sees `typeof window` or a
+    // bare `window` read, which is exactly what a module-level defaultEnv() call would do.
     const touched: string[] = []
-    const trap = (name: string) =>
-      new Proxy(
-        {},
-        {
-          get(_target, key) {
-            touched.push(`${name}.${String(key)}`)
+    const names = ['window', 'document', 'sessionStorage', 'matchMedia', 'location', 'requestAnimationFrame']
+    const global = globalThis as Record<string, unknown>
+    const saved = names.map((name) => [name, Object.getOwnPropertyDescriptor(globalThis, name)] as const)
+    try {
+      for (const name of names) {
+        Object.defineProperty(globalThis, name, {
+          configurable: true,
+          get() {
+            touched.push(name)
             return undefined
           },
-          has(_target, key) {
-            touched.push(`${name} has ${String(key)}`)
-            return false
-          },
-        },
-      )
-    for (const name of ['window', 'document', 'sessionStorage', 'location', 'matchMedia', 'requestAnimationFrame']) {
-      vi.stubGlobal(name, trap(name))
+        })
+      }
+      // Control: the traps do see a typeof probe and a bare read.
+      expect(typeof global.window).toBe('undefined')
+      expect(touched).toEqual(['window'])
+      touched.length = 0
+      vi.resetModules()
+      const fresh = await import('./pageFade')
+      expect(fresh.FADE_KEY).toBe('jg:fade')
+      expect(touched).toEqual([])
+    } finally {
+      for (const [name, descriptor] of saved) {
+        if (descriptor) Object.defineProperty(globalThis, name, descriptor)
+        else delete global[name]
+      }
     }
-    vi.resetModules()
-    const fresh = await import('./pageFade')
-    expect(fresh.FADE_KEY).toBe('jg:fade')
-    expect(touched).toEqual([])
   })
 })
 
@@ -447,10 +455,14 @@ describe('releaseFadeWhen', () => {
 })
 
 describe('installPageFade', () => {
-  function setup(env: FadeEnv, location = { origin: 'https://x.test', href: 'https://x.test/jgun/' }) {
+  function setup(
+    env: FadeEnv,
+    location = { origin: 'https://x.test', href: 'https://x.test/jgun/' },
+    baseURI: string = location.href,
+  ) {
     const root = makeElement('html')
     const view = makeTarget()
-    const doc = Object.assign(makeTarget(), { documentElement: root, defaultView: view, baseURI: location.href, location })
+    const doc = Object.assign(makeTarget(), { documentElement: root, defaultView: view, baseURI, location })
     vi.stubGlobal('document', doc)
     const uninstall = installPageFade(doc as unknown as Document, env)
     return { root, view, doc, uninstall }
@@ -515,6 +527,159 @@ describe('installPageFade', () => {
     doc.dispatch('click', click(anchor).event)
     t.advance(FADE_FALLBACK_MS)
     expect(t.assigns).toEqual(['https://x.test/m249/?quality=lite'])
+  })
+
+  it.each([
+    ['a/', 'https://x.test/dir/page/a/'],
+    ['../x', 'https://x.test/dir/x'],
+  ])('resolves %s against baseURI, which differs from location.href', (href, expected) => {
+    const t = makeEnv()
+    const { doc } = setup(t.env, { origin: 'https://x.test', href: 'https://x.test/' }, 'https://x.test/dir/page/')
+    const { anchor } = link({ href, 'data-fade': '' })
+    doc.dispatch('click', click(anchor).event)
+    t.advance(FADE_FALLBACK_MS)
+    expect(t.assigns).toEqual([expected])
+  })
+
+  describe('a link that only changes the fragment', () => {
+    it.each([
+      ['a bare fragment', '#details'],
+      ['an empty fragment', '#'],
+      ['the same path with a fragment', '/jgun/#details'],
+      ['the absolute same URL with a fragment', 'https://x.test/jgun/#details'],
+    ])('%s is left to the browser: no prevent, no fade, no flag, no assign', (_name, href) => {
+      const t = makeEnv()
+      const { root, doc } = setup(t.env)
+      const { anchor } = link({ href, 'data-fade': '' })
+      const { event, prevented } = click(anchor)
+      doc.dispatch('click', event)
+      t.advance(FADE_MAX_AGE_MS * 2)
+      expect(prevented()).toBe(0)
+      expect(root.getAttribute('data-fade')).toBeNull()
+      expect(t.setItem).not.toHaveBeenCalled()
+      expect(t.assigns).toEqual([])
+    })
+
+    it('still fades for another path with a fragment, and for the same path with another query', () => {
+      for (const [href, expected] of [
+        ['/quiet-machine/#air', 'https://x.test/quiet-machine/#air'],
+        ['/jgun/?quality=lite#air', 'https://x.test/jgun/?quality=lite#air'],
+      ]) {
+        const t = makeEnv()
+        const { doc } = setup(t.env)
+        const { anchor } = link({ href, 'data-fade': '' })
+        const { event, prevented } = click(anchor)
+        doc.dispatch('click', event)
+        expect(prevented()).toBe(1)
+        t.advance(FADE_FALLBACK_MS)
+        expect(t.assigns).toEqual([expected])
+      }
+    })
+
+    it('is compared with the document location, so a fragment under another base is a real navigation', () => {
+      const t = makeEnv()
+      const { doc } = setup(t.env, { origin: 'https://x.test', href: 'https://x.test/' }, 'https://x.test/dir/page/')
+      const { anchor } = link({ href: '#top', 'data-fade': '' })
+      const { event, prevented } = click(anchor)
+      doc.dispatch('click', event)
+      expect(prevented()).toBe(1)
+      t.advance(FADE_FALLBACK_MS)
+      expect(t.assigns).toEqual(['https://x.test/dir/page/#top'])
+    })
+  })
+
+  describe('recovery when the navigation does not unload the page', () => {
+    function clickLink(doc: ReturnType<typeof setup>['doc'], href = '/quiet-machine/') {
+      const { anchor } = link({ href, 'data-fade': '' })
+      const { event, prevented } = click(anchor)
+      doc.dispatch('click', event)
+      return prevented
+    }
+
+    it('an assign that throws clears out and the flag at once and rethrows nothing', () => {
+      const t = makeEnv()
+      const { root, doc } = setup(t.env)
+      t.env.assign = () => {
+        throw new Error('blocked')
+      }
+      clickLink(doc)
+      expect(root.getAttribute('data-fade')).toBe('out')
+      expect(t.store.has(FADE_KEY)).toBe(true)
+      expect(() => t.advance(FADE_FALLBACK_MS)).not.toThrow()
+      expect(root.getAttribute('data-fade')).toBeNull()
+      expect(t.store.has(FADE_KEY)).toBe(false)
+      expect(t.pendingTimers).toBe(0)
+    })
+
+    it('an assign that never unloads the page recovers at exactly FADE_MAX_AGE_MS after assign, not before', () => {
+      const t = makeEnv()
+      const { root, doc } = setup(t.env)
+      clickLink(doc)
+      t.advance(FADE_FALLBACK_MS)
+      expect(t.assigns).toEqual(['https://x.test/quiet-machine/'])
+      expect(root.getAttribute('data-fade')).toBe('out')
+      t.advance(FADE_MAX_AGE_MS - 1)
+      expect(root.getAttribute('data-fade')).toBe('out')
+      expect(t.store.has(FADE_KEY)).toBe(true)
+      t.advance(1)
+      expect(root.getAttribute('data-fade')).toBeNull()
+      expect(t.store.has(FADE_KEY)).toBe(false)
+    })
+
+    it('a second click after recovery navigates normally', () => {
+      const t = makeEnv()
+      const { root, doc } = setup(t.env)
+      clickLink(doc)
+      t.advance(FADE_FALLBACK_MS + FADE_MAX_AGE_MS)
+      expect(root.getAttribute('data-fade')).toBeNull()
+      const prevented = clickLink(doc, '/m249/')
+      expect(prevented()).toBe(1)
+      expect(root.getAttribute('data-fade')).toBe('out')
+      t.advance(FADE_FALLBACK_MS)
+      expect(t.assigns).toEqual(['https://x.test/quiet-machine/', 'https://x.test/m249/'])
+    })
+
+    it('a persisted pageshow and a newer navigation neutralise the older recovery', () => {
+      const t = makeEnv()
+      const { root, view, doc } = setup(t.env)
+      clickLink(doc)
+      t.advance(FADE_FALLBACK_MS)
+      t.advance(1000)
+      view.dispatch('pageshow', { persisted: true })
+      expect(root.getAttribute('data-fade')).toBeNull()
+      clickLink(doc, '/m249/')
+      expect(root.getAttribute('data-fade')).toBe('out')
+      // The first navigation's recovery falls due inside this window and must not strip the
+      // second one's out; the second navigation's own recovery is still ahead.
+      t.advance(FADE_MAX_AGE_MS)
+      expect(t.assigns).toEqual(['https://x.test/quiet-machine/', 'https://x.test/m249/'])
+      expect(root.getAttribute('data-fade')).toBe('out')
+      expect(t.store.has(FADE_KEY)).toBe(true)
+      t.advance(FADE_MAX_AGE_MS)
+      expect(root.getAttribute('data-fade')).toBeNull()
+    })
+
+    it('a bfcache restore alone neutralises the recovery, even if the attribute reads out again', () => {
+      const t = makeEnv()
+      const { root, view, doc } = setup(t.env)
+      clickLink(doc)
+      t.advance(FADE_FALLBACK_MS)
+      view.dispatch('pageshow', { persisted: true })
+      root.setAttribute('data-fade', 'out')
+      t.advance(FADE_MAX_AGE_MS)
+      expect(root.getAttribute('data-fade')).toBe('out')
+    })
+
+    it('reduced motion schedules no recovery, and an assign that throws is swallowed', () => {
+      const t = makeEnv({ reduced: true })
+      const { root, doc } = setup(t.env)
+      t.env.assign = () => {
+        throw new Error('blocked')
+      }
+      expect(() => clickLink(doc)).not.toThrow()
+      expect(root.getAttribute('data-fade')).toBeNull()
+      expect(t.pendingTimers).toBe(0)
+    })
   })
 
   it.each([

@@ -9,6 +9,18 @@
 // closure chunks' source maps, made relative to that build's own root so two worktrees compare.
 //
 // Exit 0 only if cssEqual and sourcesEqual. Exit 1 on a difference. Exit 2 on a usage or I/O error.
+//
+// dynamicEntries (informational, added in QM4): the verdict above sees only the static closure of
+// `index.html`. For every key in the NEW manifest's `index.html` `dynamicImports` that also exists in
+// the base manifest, dynamicEntries reports { key, kind, srcEqual, cssEqual, sourcesAdded,
+// sourcesRemoved } over that entry's own closure: its `imports` and its nested `dynamicImports` (a
+// chunk that is itself an entry contributes only its `imports`, so the walk never becomes the whole
+// app). `srcEqual` compares the manifest `src` of the entry on the two sides; `cssEqual` compares the
+// content of the stylesheets the closure carries; sources are normalised as for the verdict. A key
+// that is a shared chunk (a `_` prefix and a content hash) is matched to the base by its chunk
+// `name`. `kind: 'qm-preview'` marks the QuietMachinePreview subtree, which QM3-QM10 change by design;
+// every other entry is `kind: 'other'`. dynamicEntries NEVER changes the exit code and never exits 2:
+// a problem reading one entry is reported as `error` on that entry.
 
 import { createHash } from 'node:crypto'
 import { appendFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs'
@@ -97,23 +109,103 @@ function cssHash(outDir) {
   return { hash: hash.digest('hex'), files }
 }
 
+/** One map `sources` entry, made relative to the build root with forward slashes when it is path-like. */
+function normaliseSource(source, mapFile, root) {
+  const pathLike = source.startsWith('.') || path.isAbsolute(source)
+  if (!pathLike) return source
+  const resolved = path.resolve(path.dirname(mapFile), source)
+  return path.relative(root, resolved).split(path.sep).join('/')
+}
+
 /** `sources` of every closure chunk's map, made relative to the build root with forward slashes. */
 function closureSources(closure, outDir, root) {
   const sources = new Set()
   for (const chunk of closure) {
     const mapFile = path.join(outDir, `${chunk.file}.map`)
     const map = readJson(mapFile)
-    for (const source of map.sources ?? []) {
-      const pathLike = source.startsWith('.') || path.isAbsolute(source)
-      if (!pathLike) {
-        sources.add(source)
-        continue
-      }
-      const resolved = path.resolve(path.dirname(mapFile), source)
-      sources.add(path.relative(root, resolved).split(path.sep).join('/'))
-    }
+    for (const source of map.sources ?? []) sources.add(normaliseSource(source, mapFile, root))
   }
   return sources
+}
+
+const QM_PREVIEW = /QuietMachinePreview/
+
+/** Keys reachable from `key` by `imports` and nested `dynamicImports`; an entry chunk gives only its `imports`. */
+function dynamicClosure(manifest, key) {
+  const seen = new Set()
+  const order = []
+  const visit = (next) => {
+    if (seen.has(next)) return
+    seen.add(next)
+    const chunk = manifest[next]
+    if (!chunk) return
+    order.push(next)
+    for (const item of chunk.imports ?? []) visit(item)
+    if (!chunk.isEntry) for (const item of chunk.dynamicImports ?? []) visit(item)
+  }
+  visit(key)
+  return order
+}
+
+/** Normalised sources, a content hash of the carried stylesheets and the entry's `src`, for one side. */
+function dynamicSummary(manifest, key, outDir, root) {
+  const sources = new Set()
+  const cssFiles = new Set()
+  for (const item of dynamicClosure(manifest, key)) {
+    const chunk = manifest[item]
+    const mapFile = path.join(outDir, `${chunk.file}.map`)
+    if (existsSync(mapFile)) {
+      for (const source of JSON.parse(readFileSync(mapFile, 'utf8')).sources ?? []) {
+        sources.add(normaliseSource(source, mapFile, root))
+      }
+    }
+    for (const css of chunk.css ?? []) cssFiles.add(path.join(outDir, css))
+  }
+  const digests = [...cssFiles].map((file) => createHash('sha256').update(readFileSync(file)).digest('hex')).sort()
+  return { src: manifest[key].src ?? null, sources, css: createHash('sha256').update(digests.join(',')).digest('hex') }
+}
+
+/** The base manifest key for a new dynamic entry: the same key, else the one dynamic entry of that `name`. */
+function baseKeyFor(baseManifest, key, chunk) {
+  if (baseManifest[key]) return key
+  if (!chunk.name) return null
+  const same = Object.keys(baseManifest).filter(
+    (candidate) => baseManifest[candidate].isDynamicEntry && baseManifest[candidate].name === chunk.name,
+  )
+  return same.length === 1 ? same[0] : null
+}
+
+/** Informational only. Never throws, never changes the exit code. */
+function dynamicEntries(baseOut, newOut, baseRoot, newRoot) {
+  try {
+    const baseManifest = JSON.parse(readFileSync(path.join(baseOut, '.vite', 'manifest.json'), 'utf8'))
+    const newManifest = JSON.parse(readFileSync(path.join(newOut, '.vite', 'manifest.json'), 'utf8'))
+    const entries = []
+    for (const key of newManifest[ENTRY_KEY]?.dynamicImports ?? []) {
+      const chunk = newManifest[key]
+      if (!chunk) continue
+      const baseKey = baseKeyFor(baseManifest, key, chunk)
+      if (baseKey === null) continue
+      const kind = QM_PREVIEW.test(key) || QM_PREVIEW.test(chunk.src ?? '') ? 'qm-preview' : 'other'
+      const named = baseKey === key ? { key, kind } : { key, baseKey, kind }
+      try {
+        const base = dynamicSummary(baseManifest, baseKey, baseOut, baseRoot)
+        const next = dynamicSummary(newManifest, key, newOut, newRoot)
+        entries.push({
+          ...named,
+          srcEqual: base.src === next.src,
+          cssEqual: base.css === next.css,
+          sourcesAdded: [...next.sources].filter((s) => !base.sources.has(s)).sort(),
+          sourcesRemoved: [...base.sources].filter((s) => !next.sources.has(s)).sort(),
+        })
+      } catch (error) {
+        entries.push({ ...named, error: String(error.message ?? error) })
+      }
+    }
+    return entries
+  } catch (error) {
+    return [{ error: String(error.message ?? error) }]
+  }
 }
 
 function summarise(outDir, root) {
@@ -151,6 +243,7 @@ function main() {
     chunksNew: next.chunks,
     requestsBase: base.requests,
     requestsNew: next.requests,
+    dynamicEntries: dynamicEntries(baseOut, newOut, baseRoot, newRoot),
   }
   const json = JSON.stringify(result, null, 2)
   console.log(json)
@@ -166,6 +259,7 @@ function main() {
       '',
       `Compare of \`${positional[1]}\` against \`${positional[0]}\`: ${verdict}.`,
       'chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.',
+      'dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.',
       '',
       '```json',
       json,

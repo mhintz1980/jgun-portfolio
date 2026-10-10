@@ -98,7 +98,7 @@ try {
   })
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })
   page.setDefaultTimeout(60000)
-  await page.goto(`${base}/?study=rl300`, { waitUntil: 'domcontentloaded', timeout: 60000 })
+  await page.goto(`${base}/quiet-machine/`, { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.waitForFunction(() => window.__quietMachine?.ready, { timeout: 60000 })
   await page.waitForFunction(() => window.__quietMachine?.ribbons, { timeout: 60000 })
   await seek(page, .70)

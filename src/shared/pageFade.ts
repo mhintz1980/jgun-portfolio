@@ -6,6 +6,11 @@
 // FADE_MAX_AGE_MS), sets data-fade="in" and removes the key; the page calls releaseFadeWhen(ready),
 // which sets data-fade="release" and removes the attribute FADE_IN_MS later.
 //
+// Recovery. A navigation that does not unload the page (Stop or Esc, a 204 response, a download,
+// an assign that throws) must not leave data-fade="out" on a page whose cover layer is opaque. A
+// link that only changes the fragment is never intercepted. After assign, a recovery runs at
+// FADE_MAX_AGE_MS and clears "out" and the flag if the page is still here and still "out".
+//
 // Nothing here runs at module load. defaultEnv() is built when a function is called without an env.
 
 export const FADE_KEY = 'jg:fade'
@@ -24,6 +29,12 @@ export const HOLD_CAP_MS = 2500
 
 const ATTRIBUTE = 'data-fade'
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+
+/**
+ * Identifies the navigation that owns data-fade="out". A recovery runs only for the navigation
+ * that scheduled it: a newer navigation, or a bfcache restore, bumps this and neutralises it.
+ */
+let navigationSerial = 0
 
 export interface FadeEnv {
   now(): number
@@ -113,14 +124,21 @@ export function isFreshFlag(raw: string | null, now: number): boolean {
 /**
  * Fade out, then navigate. Reduced motion navigates at once with no flag and no attribute.
  * `assign` runs exactly once: on the root element's own transitionend or after FADE_FALLBACK_MS,
- * whichever comes first.
+ * whichever comes first. If assign throws, the attribute and the flag are cleared at once and
+ * nothing is rethrown. Otherwise a recovery is scheduled FADE_MAX_AGE_MS after assign.
  */
 export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
   if (env.reducedMotion()) {
-    env.assign(href)
+    try {
+      env.assign(href)
+    } catch {
+      // Nothing to clear: no attribute and no flag were set on this path.
+    }
     return
   }
   const root = rootElement()
+  navigationSerial += 1
+  const serial = navigationSerial
   root?.setAttribute(ATTRIBUTE, 'out')
   try {
     env.storage.setItem(FADE_KEY, String(env.now()))
@@ -128,6 +146,17 @@ export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
     // No flag means no fade-in on the next page; the navigation still happens.
   }
   let done = false
+  /** Clears this navigation's "out" and flag, unless something newer or a restore took over. */
+  const recover = () => {
+    if (serial !== navigationSerial) return
+    if (root && root.getAttribute(ATTRIBUTE) !== 'out') return
+    root?.removeAttribute(ATTRIBUTE)
+    try {
+      env.storage.removeItem(FADE_KEY)
+    } catch {
+      // The flag goes stale on its own after FADE_MAX_AGE_MS.
+    }
+  }
   const onEnd = (event: Event) => {
     if (event.target === root) go()
   }
@@ -135,10 +164,32 @@ export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
     if (done) return
     done = true
     root?.removeEventListener('transitionend', onEnd)
-    env.assign(href)
+    try {
+      env.assign(href)
+    } catch {
+      recover()
+      return
+    }
+    // Still here FADE_MAX_AGE_MS after assign means the navigation did not unload this page.
+    env.schedule(recover, FADE_MAX_AGE_MS)
   }
   root?.addEventListener('transitionend', onEnd)
   env.schedule(go, FADE_FALLBACK_MS)
+}
+
+/** True when `destination` differs from the current document URL only by its fragment. */
+function isFragmentOnly(destination: URL, currentHref: string): boolean {
+  if (!destination.href.includes('#')) return false
+  try {
+    const current = new URL(currentHref)
+    return (
+      destination.origin === current.origin &&
+      destination.pathname === current.pathname &&
+      destination.search === current.search
+    )
+  } catch {
+    return false
+  }
 }
 
 /**
@@ -162,6 +213,8 @@ export function installPageFade(doc: Document, env: FadeEnv = defaultEnv()): () 
       return
     }
     if (destination.origin !== doc.location.origin) return
+    // A fragment-only link scrolls this document; the browser handles it and nothing fades.
+    if (isFragmentOnly(destination, doc.location.href)) return
     event.preventDefault()
     // A navigation is already fading out: a second click must not start another.
     if (doc.documentElement.getAttribute(ATTRIBUTE) === 'out') return
@@ -172,6 +225,7 @@ export function installPageFade(doc: Document, env: FadeEnv = defaultEnv()): () 
   // whatever attribute and flag it left behind, so both are cleared.
   const onPageShow = (event: Event) => {
     if (!(event as PageTransitionEvent).persisted) return
+    navigationSerial += 1
     doc.documentElement.removeAttribute(ATTRIBUTE)
     env.storage.removeItem(FADE_KEY)
   }

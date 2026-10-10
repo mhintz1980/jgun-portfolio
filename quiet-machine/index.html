@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- shell:begin -->
+    <!-- shell:fade:begin -->
+    <style>
+      html { background: #05070a; }
+      html[data-fade]::after { content: ""; position: fixed; inset: 0; z-index: 2147483647; background: #05070a; pointer-events: none; }
+      html[data-fade="in"]::after { animation: shell-fade-release 600ms ease 4000ms forwards; }
+      html[data-fade="out"]::after { animation: shell-fade-out 400ms ease forwards; }
+      html[data-fade="release"]::after { animation: shell-fade-release 600ms ease forwards; }
+      @keyframes shell-fade-out { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes shell-fade-release { from { opacity: 1; } to { opacity: 0; } }
+    </style>
+    <script>
+      try {
+        var raw = sessionStorage.getItem('jg:fade')
+        var age = Date.now() - Number(raw)
+        if (raw !== null && isFinite(age) && age >= 0 && age < 5000) document.documentElement.setAttribute('data-fade', 'in')
+        sessionStorage.removeItem('jg:fade')
+      } catch (error) {}
+    </script>
+    <!-- shell:fade:end -->
+    <!-- shell:end -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title, description and social copy are placeholders: owner content, shown at GPU-2. -->
+    <meta
+      name="description"
+      content="A scroll-driven section study of the RL300 acoustic enclosure: air path, heat and sound."
+    />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="canonical" href="https://studiomark.dev/quiet-machine/" />
+    <title>The Quiet Machine · RL300 Section Study</title>
+
+    <!-- Social preview — canonical domain studiomark.dev (JG-019) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://studiomark.dev/quiet-machine/" />
+    <meta property="og:site_name" content="studiomark.dev" />
+    <meta property="og:title" content="The Quiet Machine · RL300 Section Study" />
+    <meta
+      property="og:description"
+      content="A scroll-driven section study of the RL300 acoustic enclosure: air path, heat and sound."
+    />
+    <meta property="og:image" content="https://studiomark.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Blueprint-style title card: Physical × Digital Systems Architect — studiomark.dev" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Quiet Machine · RL300 Section Study" />
+    <meta
+      name="twitter:description"
+      content="A scroll-driven section study of the RL300 acoustic enclosure: air path, heat and sound."
+    />
+    <meta name="twitter:image" content="https://studiomark.dev/og-image.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/quiet-machine-main.tsx"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import assert from 'node:assert/strict'
 import { compare } from './lib/preview-pixels.mjs'
-const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'file:///C:/Users/Markimus/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright/index.mjs')
+import { chromium } from 'playwright'
 const out = process.env.OUT || 'output/playwright/quiet-machine'
 const base = process.env.BASE_URL || 'http://localhost:4173'
 const composer = process.env.COMPOSER || ''
@@ -48,7 +48,7 @@ function assertRuling(parts) {
   return seen
 }
 const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome', headless: true, args: ['--use-gl=angle', '--enable-gpu', '--ignore-gpu-blocklist'] })
-const report = { capturedAt: new Date().toISOString(), build: hash(fs.readFileSync('dist/index.html')), asset: hash(fs.readFileSync('public/models/msp-enclosure.glb')), captures: [], checks: {}, errors: [] }
+const report = { capturedAt: new Date().toISOString(), build: hash(fs.readFileSync('dist/quiet-machine/index.html')), asset: hash(fs.readFileSync('public/models/msp-enclosure.glb')), captures: [], checks: {}, errors: [] }
 report.liteAsset = hash(fs.readFileSync('public/models/rl300-lite.glb'))
 report.composer = composer || 'direct'
 let fullParts
@@ -63,7 +63,7 @@ try {
     const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 })
     page.on('pageerror', e => report.errors.push(String(e)))
     page.on('console', m => { if (m.type() === 'error') report.errors.push(m.text()) })
-    const response = await page.goto(`${base}/?study=rl300&quality=${quality}&composer=${composer}`, { waitUntil: 'networkidle' })
+    const response = await page.goto(`${base}/quiet-machine/?quality=${quality}&composer=${composer}`, { waitUntil: 'networkidle' })
     assert.equal(hash(await response.body()), report.build, 'served HTML must be the identified build')
     const assetResponse = await page.request.get(`${base}/models/${quality === 'lite' ? 'rl300-lite' : 'msp-enclosure'}.glb`)
     assert.equal(hash(await assetResponse.body()), quality === 'lite' ? report.liteAsset : report.asset, 'served CAD asset must match the local hash')
@@ -162,7 +162,7 @@ try {
     // Reduced motion is the poster path. The selector is QM-specific (data-reduced-motion on
     // main.qm-preview), so JGUN's own StaticPoster cannot satisfy it.
     const p = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })
-    await p.goto(`${base}/?study=rl300`)
+    await p.goto(`${base}/quiet-machine/`)
     await p.waitForSelector('main.qm-preview[data-reduced-motion="true"] .qm-poster img')
     await p.waitForFunction(() => document.querySelector('main.qm-preview[data-reduced-motion="true"] .qm-poster img')?.naturalWidth > 0)
     assert.equal(await p.locator('canvas').count(), 0)
@@ -176,7 +176,7 @@ try {
     await p.close()
     // Context loss falls back to the poster (this check used to live in the reduced-motion block).
     const lost = await browser.newPage({ viewport: { width: 768, height: 1024 } })
-    await lost.goto(`${base}/?study=rl300&quality=full`); await lost.waitForFunction(() => window.__quietMachine?.ready)
+    await lost.goto(`${base}/quiet-machine/?quality=full`); await lost.waitForFunction(() => window.__quietMachine?.ready)
     await lost.evaluate(() => document.querySelector('canvas').dispatchEvent(new Event('webglcontextlost', { cancelable: true })))
     await lost.waitForSelector('.qm-poster img')
     await lost.waitForFunction(() => document.querySelector('.qm-poster img')?.naturalWidth > 0)
@@ -186,7 +186,7 @@ try {
       const page = await browser.newPage()
       if (scenario === 'asset-failure') await page.route('**/models/msp-enclosure.glb', route => route.abort())
       if (scenario === 'lite-asset-failure') await page.route('**/models/rl300-lite.glb', route => route.abort())
-      await page.goto(`${base}/?study=rl300${scenario === 'poster' ? '&quality=poster' : scenario === 'lite-asset-failure' ? '&quality=lite' : ''}`)
+      await page.goto(`${base}/quiet-machine/${scenario === 'poster' ? '?quality=poster' : scenario === 'lite-asset-failure' ? '?quality=lite' : ''}`)
       await page.waitForSelector('.qm-poster img')
       await page.waitForFunction(() => document.querySelector('.qm-poster img')?.naturalWidth > 0)
       assert.equal(await page.locator('canvas').count(), 0)

@@ -8,7 +8,10 @@ import { createLowerIntake } from './LowerIntake'
 import { createStencilMaterials } from './SectionCaps'
 import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
 import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
-import QuietMachinePreview, { initialStudyMode } from './QuietMachinePreview'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import QuietMachinePreview, { fadeReady, initialStudyMode } from './QuietMachinePreview'
+import { resolveEntryTier } from '../../shared/pages'
 
 describe('RL300 review prototype', () => {
   // Point-to-segment distance on the (y, z) plane, shared by the owner-ruled path tests.
@@ -568,13 +571,37 @@ describe('Quiet Machine preview reduced motion', () => {
     }
   })
   it('initialStudyMode sends reduced motion to the poster at the requested shot, with no .52 special case', () => {
-    expect(initialStudyMode(true, '')).toEqual({ poster: true, u: 0 })
-    expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, u: .5 })
+    expect(initialStudyMode(true, '')).toEqual({ poster: true, tier: 'poster', u: 0 })
+    expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, tier: 'poster', u: .5 })
   })
   it('initialStudyMode keeps normal motion on WebGL unless quality=poster is asked for', () => {
-    expect(initialStudyMode(false, '')).toEqual({ poster: false, u: 0 })
-    expect(initialStudyMode(false, '?quality=poster')).toEqual({ poster: true, u: 0 })
-    expect(initialStudyMode(false, '?quality=lite&shot=.2')).toEqual({ poster: false, u: .2 })
+    expect(initialStudyMode(false, '')).toEqual({ poster: false, tier: 'full', u: 0 })
+    expect(initialStudyMode(false, '?quality=poster')).toEqual({ poster: true, tier: 'poster', u: 0 })
+    expect(initialStudyMode(false, '?quality=lite&shot=.2')).toEqual({ poster: false, tier: 'lite', u: .2 })
+  })
+  it('initialStudyMode takes its tier from resolveEntryTier, so reduced motion beats ?quality=lite', () => {
+    for (const reduced of [false, true]) {
+      for (const search of ['', '?quality=lite', '?quality=full', '?quality=poster', '?quality=bogus']) {
+        const mode = initialStudyMode(reduced, search)
+        expect(mode.tier).toBe(resolveEntryTier(search, reduced))
+        expect(mode.poster).toBe(mode.tier === 'poster')
+      }
+    }
+    expect(initialStudyMode(true, '?quality=lite').tier).toBe('poster')
+    expect(initialStudyMode(true, '?quality=lite').poster).toBe(true)
+    expect(initialStudyMode(false, '?quality=bogus').tier).toBe('full')
+  })
+  it('fadeReady is true on the poster path or once the scene reports ready', () => {
+    expect(fadeReady({ poster: false, ready: false })).toBe(false)
+    expect(fadeReady({ poster: false, ready: true })).toBe(true)
+    expect(fadeReady({ poster: true, ready: false })).toBe(true)
+    expect(fadeReady({ poster: true, ready: true })).toBe(true)
+  })
+  it('hands the fade release to the shared runtime, once, from an effect', () => {
+    const source = readFileSync(fileURLToPath(new URL('./QuietMachinePreview.tsx', import.meta.url)), 'utf8')
+    expect(source).toContain('releaseFadeWhen(')
+    expect(source.match(/releaseFadeWhen\(/g)).toHaveLength(1)
+    expect(source).toMatch(/useEffect\(\(\) => \{ releaseFadeWhen\(\(\) => fadeReady\(stateRef\.current\)\) \}, \[\]\)/)
   })
   it('initialStudyMode clamps a shot outside 0-1 and treats a non-numeric shot as the opening frame', () => {
     expect(initialStudyMode(false, '?shot=abc').u).toBe(0)
@@ -588,6 +615,19 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(html).toContain('qm-poster')
     expect(html).toContain('STATIC SECTION STUDY')
     expect(html).not.toContain('MANUAL STUDY')
+    expect(html).not.toContain('<canvas')
+  })
+  it('carries the entry tier on the header links and marks them for the fade (poster path only)', () => {
+    // A non-poster render would call the lazy import of the scene, which loads three into node.
+    g.matchMedia = () => ({ matches: false })
+    g.location = { search: '?quality=poster' }
+    const html = renderToStaticMarkup(createElement(QuietMachinePreview))
+    expect(html).toContain('qm-poster')
+    expect(html).toContain('href="/?quality=poster"')
+    expect(html).toContain('href="/quiet-machine/?quality=poster"')
+    expect(html).toContain('data-fade')
+    expect(html).toContain('aria-current="page"')
+    expect(html).toContain('in preparation')
     expect(html).not.toContain('<canvas')
   })
 })

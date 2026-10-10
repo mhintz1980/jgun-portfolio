@@ -1,6 +1,9 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
 import type { PreviewControl } from './QuietMachineScene'
+import { releaseFadeWhen } from '../../shared/pageFade'
+import { PageLink, PageNav } from '../../shared/PageNav'
+import { resolveEntryTier, type TierParam } from '../../shared/pages'
 import './quiet-machine.css'
 
 const Scene = lazy(() => import('./QuietMachineScene').then(m => ({ default: m.QuietMachineScene })))
@@ -17,24 +20,33 @@ class SceneBoundary extends Component<{ children: React.ReactNode; onError: () =
   render() { return this.state.failed ? null : this.props.children }
 }
 
-/** First-paint mode from the visitor's motion preference and the query string. Reduced motion
- *  is the poster path (never manual WebGL); there is no fixed pose, so `?shot=` is honoured. */
-export function initialStudyMode(reducedMotion: boolean, search: string): { poster: boolean; u: number } {
+/** First-paint mode from the visitor's motion preference and the query string. The tier comes from
+ *  the shared `resolveEntryTier`: reduced motion is the poster path (never manual WebGL). There is
+ *  no fixed pose, so `?shot=` is honoured. `tier` also rides on the outgoing page links. */
+export function initialStudyMode(reducedMotion: boolean, search: string): { poster: boolean; tier: TierParam; u: number } {
   const params = new URLSearchParams(search)
-  return { poster: reducedMotion || params.get('quality') === 'poster', u: clamp01(Number(params.get('shot') ?? 0)) }
+  const tier = resolveEntryTier(search, reducedMotion)
+  return { poster: tier === 'poster', tier, u: clamp01(Number(params.get('shot') ?? 0)) }
+}
+
+/** The fade-in is held until this is true: the poster path is ready as soon as it commits, the
+ *  scene when it reports ready. A scene that errors turns `poster` true, which also releases. */
+export function fadeReady(s: { poster: boolean; ready: boolean }): boolean {
+  return s.poster || s.ready
 }
 
 export default function QuietMachinePreview() {
   const reduced = useRef(matchMedia('(prefers-reduced-motion: reduce)').matches).current
   const mode = initialStudyMode(reduced, location.search)
-  const params = new URLSearchParams(location.search)
   const [poster, setPoster] = useState(mode.poster)
   const [ready, setReady] = useState(false)
   const [u, setU] = useState(mode.u)
   const control = useRef<PreviewControl>({ u, invalidate: () => {}, caps: true }).current
+  const stateRef = useRef({ poster: mode.poster, ready: false })
   const beat = evaluateShot(u, false).beat
-  const onReady = useCallback(() => setReady(true), [])
-  const onError = useCallback(() => setPoster(true), [])
+  const onReady = useCallback(() => { stateRef.current.ready = true; setReady(true) }, [])
+  const onError = useCallback(() => { stateRef.current.poster = true; setPoster(true) }, [])
+  useEffect(() => { releaseFadeWhen(() => fadeReady(stateRef.current)) }, [])
   const seek = useCallback((value: number) => {
     const next = clamp01(value)
     control.u = next; setU(next); control.invalidate()
@@ -59,7 +71,7 @@ export default function QuietMachinePreview() {
     const resume = () => { if (!document.hidden) control.invalidate() }
     window.addEventListener('scroll', scroll, { passive: true }); window.addEventListener('resize', resize)
     document.addEventListener('visibilitychange', resume)
-    const lost = (e: Event) => { e.preventDefault(); setPoster(true) }
+    const lost = (e: Event) => { e.preventDefault(); stateRef.current.poster = true; setPoster(true) }
     const canvas = document.querySelector('.qm-stage canvas')
     canvas?.addEventListener('webglcontextlost', lost)
     return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); document.removeEventListener('visibilitychange', resume); canvas?.removeEventListener('webglcontextlost', lost) }
@@ -67,9 +79,9 @@ export default function QuietMachinePreview() {
   return <main className="qm-preview" data-reduced-motion={reduced}>
     <div className="qm-stage" aria-label="RL300 enclosure section study">
       {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
-        <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={params.get('quality') === 'lite'} /></Suspense></SceneBoundary>}
+        <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
     </div>
-    <header className="qm-header"><a href="/">MARK HINTZ <span>ENGINEERING & DESIGN</span></a><span>RL300 / SECTION STUDY</span></header>
+    <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" /><span>RL300 / SECTION STUDY</span></header>
     <div className="qm-editorial">
       <p className="qm-eyebrow">THE QUIET MACHINE <span>0{beat + 1} / 0{SHOTS.length}</span></p>
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>

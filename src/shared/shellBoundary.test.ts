@@ -22,7 +22,9 @@ const TEST_FILE = /\.test\.[cm]?[jt]sx?$/
  * Limits: regex literals are not tokenized, so a quote, a double slash or a slash-star inside one
  * (reachable unescaped only inside a character class) is misread, and so is a quote in JSX text.
  * A single- or double-quoted string ends at a line break, which bounds the damage to one line.
- * None of the scanned files contains such a regex.
+ * Also not tokenized: nested template literals (a template inside a `${ }` that itself holds a
+ * double slash) and a regex character class that contains a slash-star.
+ * None of the scanned files contains such a regex or such a template.
  */
 function stripComments(src: string): string {
   let out = ''
@@ -206,5 +208,30 @@ describe('Rule 3: src/scene/rl300 imports only ./*, ../sectionRenderPass, ../../
       return withoutExtension(resolved) !== SECTION_RENDER_PASS
     })
     expect(bad, `${name} imports`).toEqual([])
+  })
+})
+
+describe('Rule 4: src/quiet-machine-main.tsx imports only ./index.css, ./scene/rl300/QuietMachinePreview, ./shared/* and packages', () => {
+  const ENTRY = path.resolve(SHARED_DIR, '..', 'quiet-machine-main.tsx')
+  const INDEX_CSS = path.resolve(SHARED_DIR, '..', 'index.css')
+  const PREVIEW = path.join(RL300_DIR, 'QuietMachinePreview')
+  const PACKAGES = new Set(['react', 'react-dom/client'])
+
+  it('imports only the allowed modules', () => {
+    const specifiers = importSpecifiers(readFileSync(ENTRY, 'utf8'))
+    expect(specifiers.length).toBeGreaterThan(0)
+    const bad = specifiers.filter((specifier) => {
+      if (!isRelative(specifier)) return !PACKAGES.has(specifier)
+      const resolved = path.resolve(path.dirname(ENTRY), specifier)
+      return resolved !== INDEX_CSS && withoutExtension(resolved) !== PREVIEW && !isUnder(resolved, SHARED_DIR)
+    })
+    expect(bad, `${rel(ENTRY)} imports`).toEqual([])
+  })
+
+  it('names the three things the page needs', () => {
+    const specifiers = importSpecifiers(readFileSync(ENTRY, 'utf8'))
+    expect(specifiers).toContain('./index.css')
+    expect(specifiers).toContain('./scene/rl300/QuietMachinePreview')
+    expect(specifiers.some((specifier) => specifier.startsWith('./shared/'))).toBe(true)
   })
 })

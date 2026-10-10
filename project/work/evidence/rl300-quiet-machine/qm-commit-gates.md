@@ -604,3 +604,354 @@ U.1 grep exit: 1
 -- U.2
 hunks=0 removed=0 first= last=
 ```
+
+## QM4
+
+Multi-page build in `vite.config.ts` (`appType: 'mpa'`, `build.rollupOptions.input` derived from `PAGES`), the second HTML entry `quiet-machine/index.html` with the shell fade block, `src/quiet-machine-main.tsx`, the legacy redirect block in `index.html`, `PageLink`/`PageNav` and `releaseFadeWhen` in `QuietMachinePreview`, and the two verifier repoints. Also absorbs F-A (page stuck at `out`: hash-only links are not intercepted, an assign that throws recovers, a recovery at `FADE_MAX_AGE_MS`), F-D (getter traps), F-E (`baseURI` case), rule 4 and the F-B note in `shellBoundary.test.ts`, F-C (flag parsing parity tested by running the inline script against `isFreshFlag`), and the QM1 F2 `dynamicEntries` field in `check-qm-jgun-assets.mjs`. Base `666cbf23`, parent `1c78b2e7`. Mutations run with the good version staged.
+
+### Mutation M1
+
+Delete the `study` row of `LEGACY_REDIRECTS` in `src/shared/pages.ts` (the only `active` row), then `npx vitest run src/shared/pageTopology.test.ts`:
+
+```
+ FAIL  src/shared/pageTopology.test.ts > the redirect sub-block > at least one redirect row is active, and every active row targets the page the script names
+AssertionError: expected 0 to be greater than 0
+ FAIL  src/shared/pageTopology.test.ts > the redirect sub-block > probe "?study=rl300" redirects if and only if an active row covers it
+AssertionError: redirected: /quiet-machine/: expected true to be false // Object.is equality
+ FAIL  src/shared/pageTopology.test.ts > the redirect sub-block > probe "?study=rl300&quality=lite" redirects if and only if an active row covers it
+AssertionError: redirected: /quiet-machine/?quality=lite: expected true to be false // Object.is equality
+      Tests  3 failed | 26 passed (29)
+```
+
+RED: yes
+
+`git restore src/shared/pages.ts` (not one of the 14 QM4 paths: the index equals HEAD for it, and `git diff --cached --name-only` does not list it), re-run:
+
+```
+      Tests  29 passed (29)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M2
+
+In the QM fade sub-block (inside the shell block), `html { background: #05070a; }` becomes `html { background: #05070a; min-height: 100vh; }` (a real declaration, not a comment), then the same command:
+
+```
+ FAIL  src/shared/pageTopology.test.ts > the shell block > has no scroll length inside it, comments stripped
+AssertionError: expected 'quiet-machine/index.html mentions "10…' to be null
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > is byte for byte the reviewed block, in every copy
+AssertionError: quiet-machine/index.html fade block sha256: expected 'ad1d9ba8d2796aeb78d36188747057e2e258e…' to be '0748289c34751d9c7f32e3387d5f5766feaea…' // Object.is equality
+      Tests  2 failed | 27 passed (29)
+```
+
+RED: yes
+
+`git restore quiet-machine/index.html` (from the index), re-run:
+
+```
+      Tests  29 passed (29)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M3
+
+One byte of the QM fade sub-block: the `::after` layer's `background: #05070a` becomes `#05070b`, then the same command:
+
+```
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > is byte for byte the reviewed block, in every copy
+AssertionError: quiet-machine/index.html fade block sha256: expected '4adcbb18b5ec8a04da94149750a480bf882b1…' to be '0748289c34751d9c7f32e3387d5f5766feaea…' // Object.is equality
+      Tests  1 failed | 28 passed (29)
+```
+
+RED: yes
+
+`git restore quiet-machine/index.html`, re-run:
+
+```
+      Tests  29 passed (29)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M4
+
+F-A recovery: in `fadeNavigate`, delete the line `env.schedule(recover, FADE_MAX_AGE_MS)` (nothing then clears `out` when the navigation never unloads the page), then `npx vitest run src/shared/pageFade.test.ts`:
+
+```
+ FAIL  src/shared/pageFade.test.ts > installPageFade > recovery when the navigation does not unload the page > an assign that never unloads the page recovers at exactly FADE_MAX_AGE_MS after assign, not before
+AssertionError: expected 'out' to be null
+ FAIL  src/shared/pageFade.test.ts > installPageFade > recovery when the navigation does not unload the page > a second click after recovery navigates normally
+AssertionError: expected 'out' to be null
+ FAIL  src/shared/pageFade.test.ts > installPageFade > recovery when the navigation does not unload the page > a persisted pageshow and a newer navigation neutralise the older recovery
+AssertionError: expected 'out' to be null
+      Tests  3 failed | 74 passed (77)
+```
+
+RED: yes
+
+`git restore src/shared/pageFade.ts` (from the index), re-run:
+
+```
+      Tests  77 passed (77)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M5
+
+QM1 F2: `dynamicEntries` must see a change inside a dynamic chunk that the static-closure verdict cannot. A copy of the QM4 build (`qm-u4/QM4-mut-dyn`; the real build dir is not touched) gets `"src/fake.ts"` appended to the `sources` of `assets/SceneCanvas-DuIWxM2V.js.map` (manifest key `src/scene/SceneCanvas.tsx`, a dynamic entry of `index.html` present in both builds). Then `node scripts/check-qm-jgun-assets.mjs $U4/base $U4/QM4-mut-dyn --base-root /c/Users/Markimus/.buzz/REPOS/jgun-qm-base --new-root .`:
+
+```
+exit 0
+cssEqual=true sourcesEqual=true
+{"key":"src/scene/SceneCanvas.tsx","kind":"other","srcEqual":true,"cssEqual":true,"sourcesAdded":["src/fake.ts"],"addedCount":1,"removedCount":0}
+```
+
+RED: yes
+
+The same compare on the unmutated `qm-u4/QM4` (all four `other` entries report no difference; exit stays 0):
+
+```
+exit 0
+cssEqual=true sourcesEqual=true
+{"key":"src/scene/SceneCanvas.tsx","kind":"other","srcEqual":true,"cssEqual":true,"sourcesAdded":[],"addedCount":0,"removedCount":0}
+{"key":"src/scene/ScrollRig.tsx","kind":"other","srcEqual":true,"cssEqual":true,"sourcesAdded":[],"addedCount":0,"removedCount":0}
+{"key":"src/components/BootSequence.tsx","kind":"other","srcEqual":true,"cssEqual":true,"sourcesAdded":[],"addedCount":0,"removedCount":0}
+{"key":"src/components/RingInspection.tsx","kind":"other","srcEqual":true,"cssEqual":true,"sourcesAdded":[],"addedCount":0,"removedCount":0}
+```
+
+GREEN-AFTER: yes
+
+(The fifth entry, `_QuietMachinePreview-BuW_rt65.js`, is `kind: "qm-preview"` and differs by design in both runs: 3 sources added under `src/shared/`, 30 removed because the preview chunk no longer imports the JGUN entry chunk.)
+
+### Chunk-graph check (QM4)
+
+`node chunk-graph.mjs $U4/QM4` (the plan's block, saved as a file): positive control from `index.html`, then the walk from `quiet-machine/index.html` over `imports` and `dynamicImports`.
+
+```
+control: 3 src/state/ sources in the JGUN graph
+none
+exit 0
+```
+
+### Chunk partition (QM4)
+
+Base is one 1120 kB entry chunk. The two-entry build splits the JGUN entry into three static pieces and adds the QM entry, with the same module set (`sourcesEqual: true`). Sizes are raw kB; `modules` counts source-map `sources` by package.
+
+```
+base   index-DNmI5KJC.js        entry   1120  react 4, scheduler 2, react-dom 4, three 3, src/* (30)
+QM4    jgun-BwmEedkA.js         entry    205  src/* (30)                         imports index-fDwt6Stp, BufferGeometryUtils
+QM4    index-fDwt6Stp.js        shared   190  react 4, scheduler 2, react-dom 4  (NEW shared chunk, no three)
+QM4    BufferGeometryUtils-*.js shared   722  three 3                            (the three core, now its own chunk)
+QM4    quiet-machine-7-GbSq2K.js entry     0  src/quiet-machine-main.tsx         imports index-fDwt6Stp, QuietMachinePreview
+QM4    QuietMachinePreview-*.js dynamic  11  src/scene 2, src/shared 3           imports index-fDwt6Stp only (base: the whole JGUN entry)
+```
+
+The QM entry's static closure is `index-fDwt6Stp` + `QuietMachinePreview` + `quiet-machine-*` (about 201 kB): no `three`, no R3F, no `src/state`. `dist/quiet-machine/index.html` carries `modulepreload` for `index-fDwt6Stp` and `QuietMachinePreview` only, and links `index-CddUWpSY.css` (the same file as `dist/index.html`) plus `QuietMachinePreview-TUd1Nev4.css`. `QuietMachineScene` stays behind the lazy import. `dist/index.html` links exactly one stylesheet, as in base, and preloads `index-fDwt6Stp` and `BufferGeometryUtils`. No `manualChunks` was needed.
+
+### U.4 QM4
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM4` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-BuW_rt65.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+### Gate B tails (QM4)
+
+QM4 tree: 13 code, test and script paths staged on `1c78b2e7`; this file is the fourteenth, staged after the append. Default `npm test` worker count; B.2 passed on attempt 1, no retry needed (the known `camera`/`handwriting`/`portalGeometry` timeout flake did not occur). No browser run was made: `verify-jg033-preview.mjs` and `verify-jg033-ribbon-clipping.mjs` are repointed and `node --check`ed, not executed (GPU-1/GPU-2 own them).
+
+```
+== staged paths (git diff --cached --name-only, at gate time)
+index.html
+quiet-machine/index.html
+scripts/check-qm-jgun-assets.mjs
+scripts/verify-jg033-preview.mjs
+scripts/verify-jg033-ribbon-clipping.mjs
+src/quiet-machine-main.tsx
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/pageTopology.test.ts
+src/shared/shellBoundary.test.ts
+vite.config.ts
+== B.1 typecheck
+> tsc --noEmit
+
+B.1 exit 0
+== B.2 test
+ Test Files  46 passed (46)
+      Tests  610 passed (610)
+B.2 exit 0
+== B.3 build
+dist/quiet-machine/index.html                   3.45 kB | gzip:   1.20 kB
+✓ built in 6.63s
+B.3 exit 0
+== B.4 / U.3 station2
+Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.
+B.4 exit 0
+== U.1 pre-commit
+U.1 grep exit: 1
+== U.2
+hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+== node --check (both verifiers and the compare script)
+node --check preview exit 0
+node --check ribbon exit 0
+node --check compare exit 0
+== verifier greps
+grep -c "dist/quiet-machine/index.html" scripts/verify-jg033-preview.mjs: 1
+grep -c "readFileSync('dist/index.html')" scripts/verify-jg033-preview.mjs: 0
+grep -c "study=rl300" scripts/verify-jg033-preview.mjs: 0
+grep -c "study=rl300" scripts/verify-jg033-ribbon-clipping.mjs: 0
+== two-entry build
+test -f dist/quiet-machine/index.html: 0
+grep -c jg:fade dist/index.html: 0
+grep -c jg:fade dist/quiet-machine/index.html: 2
+== package files (git status --short -- package.json package-lock.json, expect empty)
+```
+
+45 files / 561 tests is the QM3 tree; QM4 adds `pageTopology.test.ts` (1 file) and 49 tests: `pageTopology` 29, `pageFade` +14 (77 total), `shellBoundary` +2, `preview` +4.
+
+### Post-commit gates (QM4, run by the orchestrator after the Opus review)
+
+```
+HEAD: 1f6c28be JG-033 QM4: multi-page build, Quiet Machine entry, legacy redirect, header nav, verifier repoints
+-- git diff --name-only HEAD~1 HEAD
+index.html
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+quiet-machine/index.html
+scripts/check-qm-jgun-assets.mjs
+scripts/verify-jg033-preview.mjs
+scripts/verify-jg033-ribbon-clipping.mjs
+src/quiet-machine-main.tsx
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/pageTopology.test.ts
+src/shared/shellBoundary.test.ts
+vite.config.ts
+count: 14
+-- U.1 post
+docs/HANDOFF-quiet-machine-2026-10-10.md
+docs/HANDOFF-quiet-machine-2026-10-10b.md
+docs/quiet-machine-integration-structure-2026-10-10.md
+docs/quiet-machine-skill-shortlist-2026-10-10.md
+index.html
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+project/work/plans/JG-032-station2-thermal-visualization.md
+project/work/plans/JG-033-quiet-machine-integration.md
+project/work/plans/JG-033-rl300-quiet-machine.md
+quiet-machine/index.html
+scripts/check-qm-jgun-assets.mjs
+scripts/verify-jg033-preview.mjs
+scripts/verify-jg033-ribbon-clipping.mjs
+src/quiet-machine-main.tsx
+src/scene/rl300/QuietMachinePreview.tsx
+src/scene/rl300/preview.test.ts
+src/shared/PageNav.test.tsx
+src/shared/PageNav.tsx
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/pageTopology.test.ts
+src/shared/pages.test.ts
+src/shared/pages.ts
+src/shared/shellBoundary.test.ts
+vite.config.ts
+U.1 grep exit: 1
+-- U.2
+hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+```
