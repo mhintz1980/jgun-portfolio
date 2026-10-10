@@ -307,3 +307,179 @@ U.1 grep exit: 1
 -- U.2
 hunks=0 removed=0 first= last=
 ```
+
+## QM2
+
+Fade runtime (`src/shared/pageFade.ts`) and generic nav (`src/shared/PageNav.tsx`) with injected-env tests, nothing imports them yet; plus review finding F1 (string-literal-aware `stripComments` in `src/shared/shellBoundary.test.ts`). Base `666cbf23`, parent `837139e6`. Mutations run with the good version staged.
+
+### Mutation M1
+
+Delete the `persisted` branch (the guard and the clearing of `data-fade` and `FADE_KEY`) in the `pageshow` handler of `src/shared/pageFade.ts`, then `npx vitest run src/shared/pageFade.test.ts`:
+
+```
+     × a persisted pageshow (bfcache) clears data-fade and the flag 5ms
+ FAIL  src/shared/pageFade.test.ts > installPageFade > a persisted pageshow (bfcache) clears data-fade and the flag
+AssertionError: expected 'out' to be null
+ Test Files  1 failed (1)
+      Tests  1 failed | 62 passed (63)
+```
+
+RED: yes
+
+`git restore src/shared/pageFade.ts`, re-run:
+
+```
+ Test Files  1 passed (1)
+      Tests  63 passed (63)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M2
+
+Drop the `ctrlKey/metaKey/shiftKey/altKey` checks in `shouldIntercept` (leave `button === 0 && !defaultPrevented`), then `npx vitest run src/shared/pageFade.test.ts`:
+
+```
+     × leaves ctrl alone 8ms
+     × leaves meta alone 1ms
+     × leaves shift alone 1ms
+     × leaves alt alone 1ms
+     × leaves a ctrl click alone 2ms
+     × leaves a meta click alone 1ms
+     × leaves a shift click alone 0ms
+     × leaves an alt click alone 0ms
+AssertionError: expected true to be false // Object.is equality
+AssertionError: expected 1 to be +0 // Object.is equality
+ Test Files  1 failed (1)
+      Tests  8 failed | 55 passed (63)
+```
+
+RED: yes
+
+`git restore src/shared/pageFade.ts`, re-run:
+
+```
+ Test Files  1 passed (1)
+      Tests  63 passed (63)
+```
+
+GREEN-AFTER: yes
+
+### Mutation M3
+
+F1: put the naive stripper (`src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')`) back in `src/shared/shellBoundary.test.ts`, then `npx vitest run src/shared/shellBoundary.test.ts`. The same 5 cases were also red when first written, against the unmodified QM1 stripper, before the scanner existed:
+
+```
+       × keeps code after a // inside a single-quoted string 5ms
+       × keeps code after a quoted /* that a later */ would otherwise close 1ms
+       × does not let a double-quoted /* swallow code up to a real block comment end 1ms
+       × sees code after // or /* inside a template literal 1ms
+       × honours backslash escapes, so an escaped quote does not end the string 1ms
+AssertionError: expected undefined to be 'innerHeight' // Object.is equality
+AssertionError: expected undefined to be 'innerHeight' // Object.is equality
+AssertionError: expected undefined to be 'scrollTop' // Object.is equality
+AssertionError: expected undefined to be 'innerHeight' // Object.is equality
+AssertionError: expected undefined to be 'innerHeight' // Object.is equality
+ Test Files  1 failed (1)
+      Tests  5 failed | 19 passed (24)
+```
+
+RED: yes
+
+`git restore src/shared/shellBoundary.test.ts`, re-run:
+
+```
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+```
+
+GREEN-AFTER: yes
+
+### U.4 QM2
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM2` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 1,
+  "requestsBase": 3,
+  "requestsNew": 3
+}
+```
+
+### Gate B tails (QM2)
+
+QM2 tree (4 new code files plus the F1 edit staged on `837139e6`; this file is staged after the append), default `npm test` worker count:
+
+```
+== staged paths (git diff --cached --name-only, code files at gate time)
+src/shared/PageNav.test.tsx
+src/shared/PageNav.tsx
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/shellBoundary.test.ts
+== B.1 typecheck
+> tsc --noEmit
+B.1 exit 0
+== B.2 test (attempt 1 of 1, no retry needed)
+ Test Files  45 passed (45)
+      Tests  557 passed (557)
+B.2 exit 0
+== B.3 build
+✓ built in 8.10s
+B.3 exit 0
+== B.4 / U.3 station2
+Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.
+B.4 exit 0
+== U.1 pre-commit
+U.1 grep exit: 1
+== U.2
+hunks=0 removed=0 first= last=
+== package files (git status --short -- package.json package-lock.json, expect empty)
+```
+
+45 files / 557 tests is the 43 files / 474 tests of QM1 plus `pageFade.test.ts` (63), `PageNav.test.tsx` (10) and 10 new cases in `shellBoundary.test.ts` (24 tests, was 14).
+
+The baseline timeout flake in `camera.test.ts`, `handwriting.test.ts` and `portalGeometry.test.ts` (QM1 section above) did not occur in this run.
+
+### Post-commit gates (QM2, run by the orchestrator after the Opus review)
+
+```
+HEAD: 41c3a262 JG-033 QM2: page fade runtime and generic page nav (no consumer yet)
+-- git diff --name-only HEAD~1 HEAD
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+src/shared/PageNav.test.tsx
+src/shared/PageNav.tsx
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/shellBoundary.test.ts
+count: 6
+-- U.1 post
+docs/HANDOFF-quiet-machine-2026-10-10.md
+docs/HANDOFF-quiet-machine-2026-10-10b.md
+docs/quiet-machine-integration-structure-2026-10-10.md
+docs/quiet-machine-skill-shortlist-2026-10-10.md
+project/work/evidence/rl300-quiet-machine/qm-commit-gates.md
+project/work/plans/JG-032-station2-thermal-visualization.md
+project/work/plans/JG-033-quiet-machine-integration.md
+project/work/plans/JG-033-rl300-quiet-machine.md
+scripts/check-qm-jgun-assets.mjs
+src/shared/PageNav.test.tsx
+src/shared/PageNav.tsx
+src/shared/pageFade.test.ts
+src/shared/pageFade.ts
+src/shared/pages.test.ts
+src/shared/pages.ts
+src/shared/shellBoundary.test.ts
+U.1 grep exit: 1
+-- U.2
+hunks=0 removed=0 first= last=
+```

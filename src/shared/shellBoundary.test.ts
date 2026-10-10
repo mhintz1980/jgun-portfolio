@@ -15,9 +15,41 @@ const SECTION_RENDER_PASS = path.join(SCENE_DIR, 'sectionRenderPass')
 const SCROLL_LENGTH = /scrollHeight|scrollY|scrollTop|innerHeight|\d+\s*vh\b|lenis|ScrollTrigger/i
 const TEST_FILE = /\.test\.[cm]?[jt]sx?$/
 
-/** Remove block and line comments, but keep `://` (a URL scheme is not a comment). */
+/**
+ * Remove block and line comments, but not string contents and not `://` (a URL scheme is not a
+ * comment). A character scanner: single-quoted, double-quoted and template literals are copied
+ * through whole, with backslash escapes, so a `//` or `/*` inside a string cannot hide code.
+ * Limits: regex literals are not tokenized, so a quote, a double slash or a slash-star inside one
+ * (reachable unescaped only inside a character class) is misread, and so is a quote in JSX text.
+ * A single- or double-quoted string ends at a line break, which bounds the damage to one line.
+ * None of the scanned files contains such a regex.
+ */
 function stripComments(src: string): string {
-  return src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+  let out = ''
+  let i = 0
+  while (i < src.length) {
+    const ch = src[i]
+    const next = src[i + 1]
+    if (ch === '/' && next === '*') {
+      const end = src.indexOf('*/', i + 2)
+      i = end === -1 ? src.length : end + 2
+      out += ' '
+    } else if (ch === '/' && next === '/' && src[i - 1] !== ':') {
+      while (i < src.length && src[i] !== '\n') i += 1
+    } else if (ch === "'" || ch === '"' || ch === '`') {
+      const start = i
+      i += 1
+      while (i < src.length && src[i] !== ch && (ch === '`' || src[i] !== '\n')) {
+        i += src[i] === '\\' ? 2 : 1
+      }
+      i = Math.min(src.length, src[i] === ch ? i + 1 : i)
+      out += src.slice(start, i)
+    } else {
+      out += ch
+      i += 1
+    }
+  }
+  return out
 }
 
 const CLAUSE = String.raw`(?:type\s+)?(?:\*(?:\s+as\s+[\w$]+)?|\{[^}]*\}|[\w$]+(?:\s*,\s*(?:\{[^}]*\}|\*\s+as\s+[\w$]+))?)`
@@ -65,6 +97,53 @@ describe('boundary helpers', () => {
     expect(out).toContain('const a = 1')
     expect(out).toContain('const b = 2')
     expect(out).toContain('https://x.test/a')
+  })
+
+  describe('stripComments is string-literal aware', () => {
+    it('keeps code after a // inside a single-quoted string', () => {
+      const out = stripComments("const s = 'a//b'; const h = innerHeight")
+      expect(SCROLL_LENGTH.exec(out)?.[0]).toBe('innerHeight')
+    })
+
+    it('keeps code after a quoted /* that a later */ would otherwise close', () => {
+      const src = ["const a = '/*'", 'const h = innerHeight', "const b = '*/'"].join('\n')
+      expect(SCROLL_LENGTH.exec(stripComments(src))?.[0]).toBe('innerHeight')
+    })
+
+    it('does not let a double-quoted /* swallow code up to a real block comment end', () => {
+      const src = ['const a = "/*"', 'const h = scrollTop', '/* real */ const z = 1'].join('\n')
+      const out = stripComments(src)
+      expect(SCROLL_LENGTH.exec(out)?.[0]).toBe('scrollTop')
+      expect(out).not.toContain('real')
+      expect(out).toContain('const z = 1')
+    })
+
+    it('sees code after // or /* inside a template literal', () => {
+      const sameLine = 'const t = `a // ${innerHeight}`'
+      expect(SCROLL_LENGTH.exec(stripComments(sameLine))?.[0]).toBe('innerHeight')
+      const multiLine = ['const t = `/*', '${scrollY}`', "const e = '*/'"].join('\n')
+      expect(SCROLL_LENGTH.exec(stripComments(multiLine))?.[0]).toBe('scrollY')
+    })
+
+    it('honours backslash escapes, so an escaped quote does not end the string', () => {
+      const src = String.raw`const q = 'it\'s //'; const h = innerHeight`
+      expect(SCROLL_LENGTH.exec(stripComments(src))?.[0]).toBe('innerHeight')
+    })
+
+    it('still strips real line and block comments, including ones that hold quotes', () => {
+      const src = [
+        'const a = 1 // innerHeight',
+        '/* lenis */ const b = 2',
+        "// don't scrollTop",
+        '/* it\'s ScrollTrigger */',
+        'const u = "https://x.test/a" // 100vh',
+      ].join('\n')
+      const out = stripComments(src)
+      expect(SCROLL_LENGTH.exec(out)).toBeNull()
+      expect(out).toContain('const a = 1')
+      expect(out).toContain('const b = 2')
+      expect(out).toContain('"https://x.test/a"')
+    })
   })
 
   it('importSpecifiers finds import-from, export-from, side-effect and dynamic imports', () => {
