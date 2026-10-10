@@ -2,8 +2,18 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import vm from 'node:vm'
 import { describe, expect, it } from 'vitest'
-import { FADE_IN_MS, FADE_KEY, FADE_MAX_AGE_MS, FADE_OUT_MS, HOLD_CAP_MS, isFreshFlag } from './pageFade'
+import viteConfig from '../../vite.config'
+import {
+  FADE_IN_MS,
+  FADE_KEY,
+  FADE_MAX_AGE_MS,
+  FADE_OUT_ANIMATION,
+  FADE_OUT_MS,
+  HOLD_CAP_MS,
+  isFreshFlag,
+} from './pageFade'
 import { LEGACY_REDIRECTS, PAGES, pageHref } from './pages'
 
 // Page topology: every HTML entry in PAGES carries the shell block its row calls for, byte for
@@ -15,8 +25,13 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
  * sha256 of the fade sub-block (`<!-- shell:fade:begin -->` through `<!-- shell:fade:end -->`,
  * markers included, CRLF normalised to LF). Changing it is a deliberate, reviewed act: with one
  * fade entry, byte parity between copies would otherwise be vacuous.
+ *
+ * History. QM6a (a deliberate, reviewed change) added the reduced-motion check to the inline
+ * script, so a flag written under normal motion is consumed and ignored when the next page
+ * loads under reduced motion. Previous value:
+ * 0748289c34751d9c7f32e3387d5f5766feaeaacb98381f39aec1d1290c652561
  */
-const FADE_BLOCK_SHA256 = '0748289c34751d9c7f32e3387d5f5766feaeaacb98381f39aec1d1290c652561'
+const FADE_BLOCK_SHA256 = 'e30f6045d8cfdb71a93e4c8a3af806e9699fa7f13da28720a3f507ce79bfc05b'
 
 // Same expression as src/shared/shellBoundary.test.ts (rule 1); that file does not export it.
 const SCROLL_LENGTH = /scrollHeight|scrollY|scrollTop|innerHeight|\d+\s*vh\b|lenis|ScrollTrigger/i
@@ -40,6 +55,49 @@ const redirectBlock = (html: string) => between(html, '<!-- shell:redirect:begin
 const scriptBody = (block: string) => /<script>([\s\S]*?)<\/script>/.exec(block)?.[1] ?? null
 const sha256 = (text: string) => createHash('sha256').update(text).digest('hex')
 const count = (text: string, needle: string) => text.split(needle).length - 1
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+
+interface FadeScriptOptions {
+  raw: string | null
+  now?: number
+  reduced?: boolean
+  storageThrows?: boolean
+  mediaThrows?: boolean
+}
+
+/**
+ * Evaluate the inline fade script in a fresh vm context against stubbed browser globals, and
+ * report what it did. `Date` is a stub, so a stale-or-fresh verdict can only come from `now`.
+ */
+function runFadeScript(body: string, options: FadeScriptOptions) {
+  const attributes: Record<string, string> = {}
+  const removed: string[] = []
+  const queries: string[] = []
+  const sandbox = {
+    sessionStorage: {
+      getItem: () => {
+        if (options.storageThrows) throw new Error('SecurityError')
+        return options.raw
+      },
+      removeItem: (key: string) => void removed.push(key),
+    },
+    document: {
+      documentElement: {
+        setAttribute: (name: string, value: string) => void (attributes[name] = value),
+        getAttribute: (name: string) => attributes[name] ?? null,
+      },
+    },
+    matchMedia: (query: string) => {
+      queries.push(query)
+      if (options.mediaThrows) throw new Error('matchMedia unavailable')
+      return { matches: options.reduced ?? false }
+    },
+    Date: { now: () => options.now ?? 1_700_000_000_000 },
+  }
+  vm.runInNewContext(body, sandbox)
+  return { attributes, removed, queries }
+}
 
 /** Drop HTML comments, block comments and whole-line `//` comments. */
 function stripComments(text: string): string {
@@ -69,12 +127,22 @@ describe('the registry and its entries', () => {
     }
   })
 
-  it('the build input follows PAGES (vite.config.ts derives it and runs without the SPA fallback)', () => {
-    const config = readFileSync(path.join(ROOT, 'vite.config.ts'), 'utf8')
-    expect(config).toMatch(/import \{ PAGES \} from '\.\/src\/shared\/pages'/)
-    expect(config).toMatch(/PAGES\.filter\(\(page\) => page\.htmlEntry\)/)
-    expect(config).toMatch(/rollupOptions:\s*\{\s*input\s*\}/)
-    expect(config).toMatch(/appType: 'mpa'/)
+  it('the build is multi-page and its input keys are exactly the pages that have an HTML entry', async () => {
+    const exported: unknown = viteConfig
+    const resolved = (
+      typeof exported === 'function'
+        ? await (exported as (env: { command: 'build'; mode: string }) => unknown)({ command: 'build', mode: 'production' })
+        : await exported
+    ) as { appType?: string; build?: { rollupOptions?: { input?: unknown } } }
+    expect(resolved.appType).toBe('mpa')
+    const input = resolved.build?.rollupOptions?.input as Record<string, string>
+    expect(input && typeof input === 'object' && !Array.isArray(input), 'rollupOptions.input is a keyed object').toBe(true)
+    const live = PAGES.filter((page) => page.htmlEntry !== null)
+    expect(Object.keys(input).sort()).toEqual(live.map((page) => page.id).sort())
+    for (const page of PAGES.filter((item) => item.reserved)) expect(Object.keys(input), page.id).not.toContain(page.id)
+    for (const page of live) {
+      expect(path.normalize(input[page.id]), page.id).toBe(path.resolve(ROOT, page.htmlEntry as string))
+    }
   })
 })
 
@@ -130,6 +198,10 @@ describe('the fade sub-block', () => {
       const release = /html\[data-fade="release"\]::after\s*\{[^}]*?\b(\d+)ms/.exec(block)?.[1]
       expect(Number(out), `${entry} out ramp`).toBe(FADE_OUT_MS)
       expect(Number(release), `${entry} release fade`).toBe(FADE_IN_MS)
+      // The fade-out cover is this keyframe, and pageFade.ts navigates only on its animationend.
+      expect(block, entry).toContain(`@keyframes ${FADE_OUT_ANIMATION} `)
+      const outRule = /html\[data-fade="out"\]::after\s*\{[^}]*?animation:\s*([\w-]+)/.exec(block)?.[1]
+      expect(outRule, `${entry} out animation name`).toBe(FADE_OUT_ANIMATION)
     }
   })
 
@@ -157,35 +229,76 @@ describe('the fade sub-block', () => {
         ` ${NOW - 10} `, '0x10', `${NOW - 100}.5`,
       ]
       for (const raw of flags) {
-        const attributes: Record<string, string> = {}
-        const removed: string[] = []
-        const run = new Function('sessionStorage', 'document', 'Date', body)
-        run(
-          { getItem: () => raw, removeItem: (key: string) => void removed.push(key) },
-          { documentElement: { setAttribute: (name: string, value: string) => void (attributes[name] = value) } },
-          { now: () => NOW },
-        )
-        expect(attributes['data-fade'] === 'in', `flag ${JSON.stringify(raw)}`).toBe(isFreshFlag(raw, NOW))
-        expect(removed, `flag ${JSON.stringify(raw)} is consumed`).toEqual([FADE_KEY])
+        const label = `flag ${JSON.stringify(raw)}`
+        const run = runFadeScript(body, { raw, now: NOW })
+        expect(run.attributes['data-fade'] === 'in', label).toBe(isFreshFlag(raw, NOW))
+        expect(run.removed, `${label} is consumed`).toEqual([FADE_KEY])
+        expect(
+          run.queries.every((query) => query === REDUCED_MOTION_QUERY),
+          `${label} asks only the reduced-motion question`,
+        ).toBe(true)
+        // The same flag under reduced motion never sets the attribute, and is still consumed.
+        const reduced = runFadeScript(body, { raw, now: NOW, reduced: true })
+        expect(reduced.attributes, `${label} under reduced motion`).toEqual({})
+        expect(reduced.removed).toEqual([FADE_KEY])
       }
     }
+  })
+
+  describe('the inline script, evaluated in a vm against stubbed globals', () => {
+    const NOW = 1_700_000_000_000
+    const scripts = entries
+      .filter((item) => item.page.fadeIn)
+      .map((item) => [item.entry, scriptBody(fadeBlock(item.html) as string) as string] as const)
+
+    it('has a script to evaluate in every fade entry', () => {
+      expect(scripts.length).toBeGreaterThan(0)
+      for (const [entry, body] of scripts) expect(body, entry).toBeTruthy()
+    })
+
+    it.each(scripts)('%s: a fresh flag under normal motion sets data-fade in and consumes the flag', (_entry, body) => {
+      const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, reduced: false })
+      expect(run.attributes).toEqual({ 'data-fade': 'in' })
+      expect(run.removed).toEqual([FADE_KEY])
+      expect(run.queries).toEqual([REDUCED_MOTION_QUERY])
+    })
+
+    it.each(scripts)('%s: a fresh flag under reduced motion sets no data-fade and consumes the flag', (_entry, body) => {
+      const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, reduced: true })
+      expect(run.attributes).toEqual({})
+      expect(run.removed).toEqual([FADE_KEY])
+      expect(run.queries).toEqual([REDUCED_MOTION_QUERY])
+    })
+
+    it.each(scripts)('%s: a stale flag sets nothing and is consumed', (_entry, body) => {
+      for (const reduced of [false, true]) {
+        const run = runFadeScript(body, { raw: String(NOW - FADE_MAX_AGE_MS), now: NOW, reduced })
+        expect(run.attributes, `reduced=${reduced}`).toEqual({})
+        expect(run.removed, `reduced=${reduced}`).toEqual([FADE_KEY])
+      }
+    })
+
+    it.each(scripts)('%s: no flag sets nothing', (_entry, body) => {
+      for (const reduced of [false, true]) {
+        const run = runFadeScript(body, { raw: null, now: NOW, reduced })
+        expect(run.attributes, `reduced=${reduced}`).toEqual({})
+      }
+    })
+
+    it.each(scripts)('%s: a matchMedia that throws leaves no cover and the flag consumed', (_entry, body) => {
+      const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, mediaThrows: true })
+      expect(run.attributes).toEqual({})
+      expect(run.removed).toEqual([FADE_KEY])
+    })
   })
 
   it('does nothing, and throws nothing, when sessionStorage is unavailable', () => {
     for (const { page, html } of entries) {
       if (!page.fadeIn) continue
       const body = scriptBody(fadeBlock(html) as string) as string
-      const attributes: string[] = []
-      const run = new Function('sessionStorage', 'document', 'Date', body)
-      const hostile = {
-        getItem: () => {
-          throw new Error('SecurityError')
-        },
-      }
-      expect(() =>
-        run(hostile, { documentElement: { setAttribute: (name: string) => void attributes.push(name) } }, { now: () => 1 }),
-      ).not.toThrow()
-      expect(attributes).toEqual([])
+      const hostile = { raw: String(1), now: 1, storageThrows: true }
+      expect(() => runFadeScript(body, hostile)).not.toThrow()
+      expect(runFadeScript(body, hostile).attributes).toEqual({})
     }
   })
 })

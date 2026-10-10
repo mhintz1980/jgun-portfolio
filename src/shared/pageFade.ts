@@ -18,8 +18,10 @@ export const FADE_KEY = 'jg:fade'
 export const FADE_MAX_AGE_MS = 5000
 /** The CSS fade-out duration. */
 export const FADE_OUT_MS = 400
-/** Navigate after this long even if no transitionend arrives. */
+/** Navigate after this long even if no animationend arrives. */
 export const FADE_FALLBACK_MS = 450
+/** The keyframe that fades the cover out. The shell fade styles in each page define it. */
+export const FADE_OUT_ANIMATION = 'shell-fade-out'
 /** The CSS fade-in (release) duration. */
 export const FADE_IN_MS = 600
 /** How long a caller waits before showing a status line. Caller-owned; the shell only names it. */
@@ -123,8 +125,9 @@ export function isFreshFlag(raw: string | null, now: number): boolean {
 
 /**
  * Fade out, then navigate. Reduced motion navigates at once with no flag and no attribute.
- * `assign` runs exactly once: on the root element's own transitionend or after FADE_FALLBACK_MS,
- * whichever comes first. If assign throws, the attribute and the flag are cleared at once and
+ * `assign` runs exactly once: on the root element's own FADE_OUT_ANIMATION animationend (the
+ * cover is a keyframe animation, not a transition) or after FADE_FALLBACK_MS, whichever comes
+ * first. If assign throws, the attribute and the flag are cleared at once and
  * nothing is rethrown. Otherwise a recovery is scheduled FADE_MAX_AGE_MS after assign.
  */
 export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
@@ -158,12 +161,17 @@ export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
     }
   }
   const onEnd = (event: Event) => {
-    if (event.target === root) go()
+    // The cover is the root's ::after, so its animationend targets the root. An animation on a
+    // descendant bubbles up here and must not navigate; the release keyframe also ends on the
+    // root, and it must not navigate either.
+    if (event.target !== root) return
+    if ((event as AnimationEvent).animationName !== FADE_OUT_ANIMATION) return
+    go()
   }
   const go = () => {
     if (done) return
     done = true
-    root?.removeEventListener('transitionend', onEnd)
+    root?.removeEventListener('animationend', onEnd)
     try {
       env.assign(href)
     } catch {
@@ -173,7 +181,7 @@ export function fadeNavigate(href: string, env: FadeEnv = defaultEnv()): void {
     // Still here FADE_MAX_AGE_MS after assign means the navigation did not unload this page.
     env.schedule(recover, FADE_MAX_AGE_MS)
   }
-  root?.addEventListener('transitionend', onEnd)
+  root?.addEventListener('animationend', onEnd)
   env.schedule(go, FADE_FALLBACK_MS)
 }
 

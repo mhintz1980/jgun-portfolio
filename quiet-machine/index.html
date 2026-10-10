@@ -16,9 +16,9 @@
     <script>
       try {
         var raw = sessionStorage.getItem('jg:fade')
-        var age = Date.now() - Number(raw)
-        if (raw !== null && isFinite(age) && age >= 0 && age < 5000) document.documentElement.setAttribute('data-fade', 'in')
         sessionStorage.removeItem('jg:fade')
+        var age = Date.now() - Number(raw)
+        if (raw !== null && isFinite(age) && age >= 0 && age < 5000 && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.setAttribute('data-fade', 'in')
       } catch (error) {}
     </script>
     <!-- shell:fade:end -->

@@ -1044,3 +1044,83 @@ Not rendered here: no preview, no dev server, no GPU, no Playwright. Visual: unr
 Post-commit U.1 and U.2 are left to the committing seat (step 7 of the protocol).
 
 Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 14 of 14 met.
+
+## QM6a
+
+Plan amendment, landed before QM6: three reviewed follow-ups from the QM2/QM4 reviews (handoff 2026-10-10c, carried follow-ups, QM6 rows). Base HEAD f68db769. Files: `src/shared/pageFade.ts`, `src/shared/pageFade.test.ts`, `src/shared/pageTopology.test.ts`, `quiet-machine/index.html`, this file. `vite.config.ts` is touched by mutation M3 only and is restored (not in the diff).
+
+Changes:
+1. `fadeNavigate` listens for `animationend` instead of `transitionend`. The cover is `html[data-fade="out"]::after` running `@keyframes shell-fade-out`, so the 450 ms fallback timer was the real trigger. New export `FADE_OUT_ANIMATION = 'shell-fade-out'`. The handler navigates only when `event.target === root` and `event.animationName === FADE_OUT_ANIMATION`. `pseudoElement` is not filtered (it is `'::after'` for the cover and is accepted; the keyframe name is what separates the fade-out from the release keyframe, which also ends on the root). Assign-once and the fallback timer are unchanged. Docstring and the `FADE_FALLBACK_MS` comment no longer say `transitionend`.
+2. Inline fade script: the flag is consumed first, and `data-fade="in"` is set only when the flag is fresh and `!matchMedia('(prefers-reduced-motion: reduce)').matches`. Under reduced motion the flag is removed and nothing else happens.
+3. `appType` check in `pageTopology.test.ts` now imports `vite.config.ts` (a function-valued default export would be called with `{ command: 'build', mode: 'production' }`) and asserts `appType === 'mpa'` and that `build.rollupOptions.input` keys equal the ids of the PAGES that have an HTML entry (`jgun`, `quiet-machine`). `m249` is a reserved row with `htmlEntry: null`, so it is deliberately not an input key; the test asserts it is absent. Each input value is also compared with `path.resolve(ROOT, htmlEntry)`.
+
+Deliberate, reviewed change to the pinned hash. `FADE_BLOCK_SHA256` in `src/shared/pageTopology.test.ts` changes because the inline script changed (change 2):
+```
+old: 0748289c34751d9c7f32e3387d5f5766feaeaacb98381f39aec1d1290c652561
+new: e30f6045d8cfdb71a93e4c8a3af806e9699fa7f13da28720a3f507ce79bfc05b
+```
+Computed exactly as the test does: read `quiet-machine/index.html`, normalise CRLF to LF, slice from the first `<!-- shell:fade:begin -->` through the end of the first `<!-- shell:fade:end -->` (markers included), sha256 hex. The test is green with the new value, and red under mutation M2 (below), so it is an independent confirmation.
+
+Behaviour tests added to `pageTopology.test.ts` (inline script evaluated with `node:vm` against stubbed `document.documentElement`, `sessionStorage`, `matchMedia`, `Date`): fresh flag + normal motion sets `data-fade="in"` and removes the key; fresh flag + reduced motion sets no `data-fade` and removes the key; stale flag sets nothing and removes the key; no flag sets nothing; a `matchMedia` that throws sets nothing and still consumed the flag; the whole flag table is also run under reduced motion. The old `new Function` parity and hostile-storage tests were ported to the same vm harness (the script now references the global `matchMedia`).
+
+Gates:
+```
+B.1 npm run typecheck           -> tsc --noEmit, exit 0
+B.2 npm test                    -> Test Files  46 passed (46) / Tests  624 passed (624), exit 0 (first attempt)
+B.3 npm run build               -> built in 7.25s, exit 0
+B.4 npm run check:station2      -> Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted. exit 0
+U.1 (staged vs 666cbf23)        -> U1_OK
+U.2                             -> hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->  U2_OK
+                                   (index.html at root is untouched by this commit; this diff is HEAD vs base, so it confirms root is unchanged)
+U.4                             -> "cssEqual": true, "sourcesEqual": true  U4_OK
+```
+`quiet-machine/index.html` changes, and U.4 still shows `cssEqual: true` and `sourcesEqual: true` for JGUN.
+
+Mutations (good version staged first, working tree mutated, named test run, red lines copied, `git restore <file>`, green re-run):
+
+M1: in `pageFade.ts` listen for `transitionend` again (both `addEventListener` and `removeEventListener`). `npx vitest run src/shared/pageFade.test.ts`:
+```
+ FAIL  src/shared/pageFade.test.ts > fadeNavigate > animationend first: assigns at once, and the later fallback does not assign again
+AssertionError: expected +0 to be 1 // Object.is equality
+      Tests  1 failed | 78 passed (79)
+```
+RED: yes
+After `git restore src/shared/pageFade.ts`: `Tests  79 passed (79)`.
+GREEN-AFTER: yes
+
+M2: remove the reduced-motion check (`&& !matchMedia(...).matches`) from the inline script in `quiet-machine/index.html`, nothing else. `npx vitest run src/shared/pageTopology.test.ts`:
+```
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > is byte for byte the reviewed block, in every copy
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > parses the flag the way isFreshFlag does: Number(), finite, 0 <= age < 5000
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > the inline script, evaluated in a vm against stubbed globals > quiet-machine/index.html: a fresh flag under normal motion sets data-fade in and consumes the flag
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > the inline script, evaluated in a vm against stubbed globals > quiet-machine/index.html: a fresh flag under reduced motion sets no data-fade and consumes the flag
+ FAIL  src/shared/pageTopology.test.ts > the fade sub-block > the inline script, evaluated in a vm against stubbed globals > quiet-machine/index.html: a matchMedia that throws leaves no cover and the flag consumed
+      Tests  5 failed | 30 passed (35)
+```
+RED: yes
+After `git restore quiet-machine/index.html`: `Tests  35 passed (35)`.
+GREEN-AFTER: yes
+
+M3: `appType: 'spa'` in `vite.config.ts` (mutation only; restored from the index, which equals HEAD; not in the diff). `npx vitest run src/shared/pageTopology.test.ts`:
+```
+ FAIL  src/shared/pageTopology.test.ts > the registry and its entries > the build is multi-page and its input keys are exactly the pages that have an HTML entry
+AssertionError: expected 'spa' to be 'mpa' // Object.is equality
+      Tests  1 failed | 34 passed (35)
+```
+RED: yes
+After `git restore vite.config.ts`: `Tests  35 passed (35)`; `git diff HEAD -- vite.config.ts` is empty.
+GREEN-AFTER: yes
+
+M4: the animationend handler ignores the `target === root` filter (the line `if (event.target !== root) return` removed). `npx vitest run src/shared/pageFade.test.ts`:
+```
+ FAIL  src/shared/pageFade.test.ts > fadeNavigate > ignores an animationend that bubbles up from a child element, even with the cover name
+AssertionError: expected [ '/x' ] to deeply equal []
+      Tests  1 failed | 78 passed (79)
+```
+RED: yes
+After `git restore src/shared/pageFade.ts`: `Tests  79 passed (79)`.
+GREEN-AFTER: yes
+
+Not done here: no browser, no server, no GPU, no Playwright. Whether the fade-out keyframe's `animationend` reaches the root listener in a real browser (a pseudo-element animation event is dispatched on its originating element) is by specification, not observed here; the fallback timer still guarantees navigation. Post-commit U.1 and U.2 are left to the committing seat (step 7 of the protocol).
+
+Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 13 of 13 met. A plan amendment: QM6a is one extra commit row before QM6 (advisor ruling).

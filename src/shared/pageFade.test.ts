@@ -4,6 +4,7 @@ import {
   FADE_IN_MS,
   FADE_KEY,
   FADE_MAX_AGE_MS,
+  FADE_OUT_ANIMATION,
   FADE_OUT_MS,
   HOLD_CAP_MS,
   STATUS_DELAY_MS,
@@ -151,6 +152,7 @@ describe('module load', () => {
     expect(FADE_MAX_AGE_MS).toBe(5000)
     expect(FADE_OUT_MS).toBe(400)
     expect(FADE_FALLBACK_MS).toBe(450)
+    expect(FADE_OUT_ANIMATION).toBe('shell-fade-out')
     expect(FADE_IN_MS).toBe(600)
     expect(STATUS_DELAY_MS).toBe(800)
     expect(HOLD_CAP_MS).toBe(2500)
@@ -270,33 +272,58 @@ describe('fadeNavigate', () => {
     expect(t.flagAtAssign).toEqual(['5000'])
   })
 
-  it('transitionend first: assigns at once, and the later fallback does not assign again', () => {
+  it('animationend first: assigns at once, and the later fallback does not assign again', () => {
     const root = stubDocumentWithRoot()
     const t = makeEnv()
     fadeNavigate('/x', t.env)
-    root.dispatch('transitionend', { target: root })
+    expect(root.listenerCount('animationend')).toBe(1)
+    expect(root.listenerCount('transitionend')).toBe(0)
+    root.dispatch('animationend', { target: root, animationName: FADE_OUT_ANIMATION, pseudoElement: '::after' })
     expect(t.assigns).toEqual(['/x'])
+    expect(root.listenerCount('animationend')).toBe(0)
     t.advance(FADE_FALLBACK_MS * 2)
     expect(t.assigns).toEqual(['/x'])
   })
 
-  it('fallback first: a late transitionend does not assign again', () => {
+  it('fallback first: a late animationend does not assign again', () => {
     const root = stubDocumentWithRoot()
     const t = makeEnv()
     fadeNavigate('/x', t.env)
     t.advance(FADE_FALLBACK_MS)
-    root.dispatch('transitionend', { target: root })
-    root.dispatch('transitionend', { target: root })
+    const end = { target: root, animationName: FADE_OUT_ANIMATION, pseudoElement: '::after' }
+    root.dispatch('animationend', end)
+    root.dispatch('animationend', end)
     expect(t.assigns).toEqual(['/x'])
-    expect(root.listenerCount('transitionend')).toBe(0)
+    expect(root.listenerCount('animationend')).toBe(0)
   })
 
-  it('ignores a transitionend that bubbles up from a child element', () => {
+  it('ignores an animationend that bubbles up from a child element, even with the cover name', () => {
     const root = stubDocumentWithRoot()
     const child = makeElement('div', {}, root)
     const t = makeEnv()
     fadeNavigate('/x', t.env)
-    root.dispatch('transitionend', { target: child })
+    root.dispatch('animationend', { target: child, animationName: FADE_OUT_ANIMATION, pseudoElement: '' })
+    expect(t.assigns).toEqual([])
+    t.advance(FADE_FALLBACK_MS)
+    expect(t.assigns).toEqual(['/x'])
+  })
+
+  it('ignores an animationend of another keyframe on the root (the release keyframe)', () => {
+    const root = stubDocumentWithRoot()
+    const t = makeEnv()
+    fadeNavigate('/x', t.env)
+    root.dispatch('animationend', { target: root, animationName: 'shell-fade-release', pseudoElement: '::after' })
+    root.dispatch('animationend', { target: root, animationName: '', pseudoElement: '::after' })
+    expect(t.assigns).toEqual([])
+    t.advance(FADE_FALLBACK_MS)
+    expect(t.assigns).toEqual(['/x'])
+  })
+
+  it('does not listen for transitionend: a transitionend never navigates', () => {
+    const root = stubDocumentWithRoot()
+    const t = makeEnv()
+    fadeNavigate('/x', t.env)
+    root.dispatch('transitionend', { target: root, propertyName: 'opacity' })
     expect(t.assigns).toEqual([])
     t.advance(FADE_FALLBACK_MS)
     expect(t.assigns).toEqual(['/x'])
