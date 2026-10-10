@@ -997,3 +997,50 @@ U.2 (HEAD): `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end --
 Ledger (gate-check on a reset copy after the review amend): **12 of 12 met** (staged set == 42 explicit paths vs the parent; no unstaged; B.1-B.4; U.1; U.2; U.4 cssEqual/sourcesEqual true; evidence heading; mutations red=3 green=3; package files untouched).
 
 Post-commit (HEAD): U.1 non-allowlisted paths: none (grep exit 1 = none); U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`.
+
+## QM5
+
+Length knob, progress bar, end card, prefetch. Builder seat, nothing committed here. Files: `src/scene/rl300/QuietMachinePreview.tsx`, `src/scene/rl300/quiet-machine.css`, `src/scene/rl300/preview.test.ts`, this file. Base for the diff: HEAD f669fd57.
+
+Real `prefetchPage` signature (`src/shared/pageFade.ts:279`): `prefetchPage(doc: Document, hrefs: readonly string[]): void`. Same shape as the plan, called as `prefetchPage(document, [next])` where `next = pageHref('jgun', mode.tier)` with a null guard instead of `!`, inside a `useEffect` keyed on `[u, mode.tier]` behind a `useRef(false)` flag.
+
+Gates:
+```
+B.1 npm run typecheck        -> "> tsc --noEmit", exit 0
+B.2 npm test                 -> Test Files  46 passed (46) / Tests  616 passed (616), exit 0
+B.3 npm run build            -> "built in 7.26s", exit 0
+B.4 npm run check:station2   -> "Stage2 contract passed: 2671600 bytes, 7 named roots, 7 CAD anchors verified, AirflowField & AcousticBaffleField mounted.", exit 0
+U.1 (pre-commit, qm-verify u1) -> U1_OK
+U.2 (qm-verify u2)           -> hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->  U2_OK
+U.4 (qm-verify u4, build to qm-u4/QM5-verify):
+  "cssEqual": true,
+  "sourcesEqual": true,
+  U4_OK
+min-height 320vh in quiet-machine.css: grep -c prints 0, exit 1 (pass)
+var(--qm-length) in quiet-machine.css: grep -c prints 1, exit 0 (pass)
+```
+(grep run as `rtk proxy grep -c ...` because the rtk hook mangles plain grep output, and cross-checked with a node line count: 0 and 1.)
+
+Mutation M1 (`export const END_CARD_AT = .97` -> `.9`, good version staged first), `npx vitest run src/scene/rl300/preview.test.ts`:
+```
+ FAIL  src/scene/rl300/preview.test.ts > Quiet Machine preview reduced motion > pins the length knob and the end-card threshold
+AssertionError: expected 0.9 to be 0.97 // Object.is equality
+ Test Files  1 failed (1)
+      Tests  1 failed | 38 passed (39)
+```
+RED: yes
+After `git restore src/scene/rl300/QuietMachinePreview.tsx`: `Test Files  1 passed (1)`, `Tests  39 passed (39)`.
+GREEN-AFTER: yes
+
+Layout decisions (all unruled, owner looks at GPU-2; reasoned by construction, nothing rendered here):
+- `.qm-header`: added `flex-wrap: wrap; row-gap: 8px`; brand rules scoped to `.qm-header > a` and `.qm-header > a span` so the nav anchors are not hit. At 600px and below `.qm-header .shell-nav` takes `order: 3; flex-basis: 100%` (own row). Wrap is on at all widths so the 601-900px band cannot overflow (header needs roughly 730px of text there).
+- `.shell-nav-list`: horizontal flex, wrap, `gap: 6px 22px`, no list style. Anchors 10px, `#b7c9d2`; `aria-current="page"` `#f0f2ee`; hover `#a3deff`; reserved row `#8198a7` (existing eyebrow token, about 5.8:1 on `#101b24`).
+- `.qm-endcard`: right 4vw, bottom 110px (desktop), 170px at 900px and below, 160px full width at 600px and below; derivation of the footer heights is in the CSS comment. Background and border reuse the view-button tokens `#122330dd` / `#758d9e66`. Links are 44px minimum height, `#f0f2ee`.
+- `.qm-progress`: 2px top bar, `pointer-events: none`, span is `display: block` with `transform-origin: 0 50%`, `#a3deff`, no transition.
+- JSX: progress bar is the first child of `main`; the `aside` sits between the editorial and the `footer`, so it paints above the stage; the footer is later in DOM, and the card and the footer are kept apart by the bottom offsets, not by paint order. Neither the bar nor the card is inside `.qm-stage`.
+
+Not rendered here: no preview, no dev server, no GPU, no Playwright. Visual: unruled, nothing rendered here.
+
+Post-commit U.1 and U.2 are left to the committing seat (step 7 of the protocol).
+
+Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 14 of 14 met.

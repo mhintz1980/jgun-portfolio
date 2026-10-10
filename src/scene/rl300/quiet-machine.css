@@ -1,9 +1,9 @@
-.qm-preview { min-height: 320vh; color: #f0f2ee; background: #101b24; font-family: Arial, sans-serif; }
+.qm-preview { min-height: var(--qm-length); color: #f0f2ee; background: #101b24; font-family: Arial, sans-serif; }
 .qm-stage { position: fixed; inset: 9vh 0 13vh 23vw; }
 .qm-stage canvas { display: block; }
-.qm-header { position: fixed; top: 36px; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: .17em; color: #b7c9d2; }
-.qm-header a { color: #f0f2ee; text-decoration: none; font-weight: 700; letter-spacing: .13em; font-size: 13px; }
-.qm-header a span { display: block; font-size: 8px; letter-spacing: .16em; margin-top: 7px; font-weight: 400; color: #b7c9d2; }
+.qm-header { position: fixed; top: 36px; left: 4vw; right: 4vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; row-gap: 8px; font-size: 10px; letter-spacing: .17em; color: #b7c9d2; }
+.qm-header > a { color: #f0f2ee; text-decoration: none; font-weight: 700; letter-spacing: .13em; font-size: 13px; }
+.qm-header > a span { display: block; font-size: 8px; letter-spacing: .16em; margin-top: 7px; font-weight: 400; color: #b7c9d2; }
 .qm-editorial { position: fixed; left: 4vw; top: 16vh; width: 310px; pointer-events: none; }
 .qm-eyebrow { font-size: 9px; letter-spacing: .22em; margin: 0 0 22px; color: #b6d6e8; }
 .qm-eyebrow span { margin-left: 18px; color: #8198a7; }
@@ -18,6 +18,34 @@
 .qm-scrubber input { accent-color: #a3deff; width: 180px; min-height: 44px; cursor: ew-resize; }
 .qm-status { margin-left: auto; font-size: 8px; letter-spacing: .13em; color: #adc2ce; }
 .qm-preview :focus-visible { outline: 2px solid #a3deff; outline-offset: 5px; }
+/* unruled visual: owner looks at GPU-2 */
+/* Page nav, shared markup from PageNav. Layout and size only; colours are the ones already used on this page.
+   In the header the list sits between the brand and the section label and wraps instead of overflowing. */
+.shell-nav-list { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; list-style: none; }
+.shell-nav a, .shell-nav-reserved { font-size: 10px; letter-spacing: .17em; font-weight: 400; text-decoration: none; }
+.shell-nav a { color: #b7c9d2; }
+.shell-nav a[aria-current="page"] { color: #f0f2ee; }
+.shell-nav a:hover { color: #a3deff; }
+.shell-nav-reserved { color: #8198a7; }
+/* unruled visual: owner looks at GPU-2 */
+/* Thin progress bar along the top edge: 2 px, set by scale from the left, no transition, never takes the pointer. */
+.qm-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; pointer-events: none; }
+.qm-progress span { display: block; height: 100%; background: #a3deff; transform-origin: 0 50%; }
+/* unruled visual: owner looks at GPU-2 */
+/* End card, kept clear of the controls row and the editorial column by construction.
+   Vertical: the card is anchored above the controls footer, using that footer's own height as the floor.
+   Footer height from the bottom edge: desktop 25 + 1 border + 19 padding + 44 button = 89, card at 110.
+   At 900 and below the footer can wrap to two rows: 25 + 1 + 19 + 44 + 15 + 44 = 148, card at 170.
+   At 600 and below: 20 + 1 + 19 + 44 + 9 + 44 = 137, card at 160.
+   Horizontal: the editorial column is on the left (4vw + 310px, 4vw + 230px below 900px). On desktop the card is
+   right-aligned at 4vw with a 340px cap, so they cannot meet; below 600px it takes the full width, and sits
+   well under the editorial text, which ends near 230px from the top at 390x844.
+   Only the card takes the pointer; the 44px minimum height is on its links. */
+.qm-endcard { position: fixed; right: 4vw; bottom: 110px; max-width: 340px; padding: 8px 16px; background: #122330dd; border: 1px solid #758d9e66; pointer-events: auto; }
+.shell-nav-endcard .shell-nav-list { flex-direction: column; gap: 0; }
+.shell-nav-endcard a, .shell-nav-endcard .shell-nav-reserved { display: flex; align-items: center; min-height: 44px; font-size: 11px; letter-spacing: .13em; }
+.shell-nav-endcard a { color: #f0f2ee; }
+.shell-nav-endcard a:hover { color: #a3deff; }
 .qm-poster { width: 100%; height: 100%; background: #101b24; }
 .qm-poster img { width: 100%; height: 100%; object-fit: contain; }
 @media (max-width: 900px) {
@@ -25,11 +53,13 @@
   .qm-editorial { width: 230px; top: 13vh; }
   .qm-controls { gap: 15px; flex-wrap: wrap; }
   .qm-status { display: none; }
+  .qm-endcard { bottom: 170px; }
 }
 @media (max-width: 600px) {
   .qm-stage { inset: 29vh 0 18vh; }
   .qm-header { top: 22px; left: 22px; right: 22px; }
   .qm-header > span { font-size: 7px; }
+  .qm-header .shell-nav { order: 3; flex-basis: 100%; }
   .qm-editorial { left: 22px; right: 22px; width: auto; top: 12vh; }
   .qm-eyebrow { margin-bottom: 14px; font-size: 8px; }
   .qm-editorial h1 { font-size: 38px; letter-spacing: -.045em; margin-bottom: 10px; }
@@ -40,4 +70,6 @@
   .qm-views button { flex: 1; padding: 10px; }
   .qm-scrubber { width: 100%; }
   .qm-scrubber input { width: 100%; }
+  .qm-endcard { left: 22px; right: 22px; bottom: 160px; max-width: none; }
+  .shell-nav-endcard .shell-nav-list { flex-direction: row; column-gap: 22px; }
 }

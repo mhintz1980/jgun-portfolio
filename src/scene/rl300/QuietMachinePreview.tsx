@@ -1,10 +1,15 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
 import type { PreviewControl } from './QuietMachineScene'
-import { releaseFadeWhen } from '../../shared/pageFade'
+import { prefetchPage, releaseFadeWhen } from '../../shared/pageFade'
 import { PageLink, PageNav } from '../../shared/PageNav'
-import { resolveEntryTier, type TierParam } from '../../shared/pages'
+import { pageHref, resolveEntryTier, type TierParam } from '../../shared/pages'
 import './quiet-machine.css'
+
+/** The one length knob: the page is this many viewport heights tall, and scroll progress is the shot. */
+export const QM_LENGTH_VH = 900
+/** Progress at which the continue card appears and the next page is prefetched. */
+export const END_CARD_AT = .97
 
 const Scene = lazy(() => import('./QuietMachineScene').then(m => ({ default: m.QuietMachineScene })))
 /** Three poster frames cover seven shots; each shot names the one that stands for it, so
@@ -48,6 +53,13 @@ export default function QuietMachinePreview() {
   const onReady = useCallback(() => { stateRef.current.ready = true; setReady(true) }, [])
   const onError = useCallback(() => { stateRef.current.poster = true; setPoster(true) }, [])
   useEffect(() => { releaseFadeWhen(() => fadeReady(stateRef.current)) }, [])
+  const prefetched = useRef(false)
+  useEffect(() => {
+    if (u < END_CARD_AT || prefetched.current) return
+    prefetched.current = true
+    const next = pageHref('jgun', mode.tier)
+    if (next) prefetchPage(document, [next])
+  }, [u, mode.tier])
   const seek = useCallback((value: number) => {
     const next = clamp01(value)
     control.u = next; setU(next); control.invalidate()
@@ -79,7 +91,8 @@ export default function QuietMachinePreview() {
     stage?.addEventListener('webglcontextlost', lost, true)
     return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('resize', resize); document.removeEventListener('visibilitychange', resume); stage?.removeEventListener('webglcontextlost', lost, true) }
   }, [control, reduced, seek])
-  return <main className="qm-preview" data-reduced-motion={reduced}>
+  return <main className="qm-preview" data-reduced-motion={reduced} style={{ '--qm-length': `${QM_LENGTH_VH}vh` } as React.CSSProperties}>
+    <div className="qm-progress" aria-hidden="true"><span style={{ transform: `scaleX(${u})` }} /></div>
     <div className="qm-stage" ref={stageRef} aria-label="RL300 enclosure section study">
       {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
@@ -90,6 +103,7 @@ export default function QuietMachinePreview() {
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>
       <p className="qm-note">{SHOTS[beat].note}</p>
     </div>
+    {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue"><PageNav current="quiet-machine" tier={mode.tier} variant="endcard" /></aside>}
     <footer className="qm-controls">
       <div className="qm-views" aria-label="Study views">{VIEWS.map(([label, at]) =>
         <button key={label} aria-pressed={beat === evaluateShot(at, false).beat} onClick={() => navigate(at)}>{label}</button>)}</div>

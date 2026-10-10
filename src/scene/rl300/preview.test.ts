@@ -10,7 +10,7 @@ import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
 import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import QuietMachinePreview, { fadeReady, initialStudyMode } from './QuietMachinePreview'
+import QuietMachinePreview, { END_CARD_AT, fadeReady, initialStudyMode, QM_LENGTH_VH } from './QuietMachinePreview'
 import { resolveEntryTier } from '../../shared/pages'
 
 describe('RL300 review prototype', () => {
@@ -636,5 +636,50 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(html).toContain('aria-current="page"')
     expect(html).toContain('in preparation')
     expect(html).not.toContain('<canvas')
+  })
+  const poster = (search: string) => {
+    g.matchMedia = () => ({ matches: false })
+    g.location = { search }
+    return renderToStaticMarkup(createElement(QuietMachinePreview))
+  }
+  const sourceText = (name: string) => readFileSync(fileURLToPath(new URL(name, import.meta.url)), 'utf8')
+  it('pins the length knob and the end-card threshold', () => {
+    expect(QM_LENGTH_VH).toBe(900)
+    expect(END_CARD_AT).toBe(.97)
+  })
+  it('drives the page length from --qm-length on the main element and the CSS', () => {
+    expect(poster('?shot=.5&quality=poster')).toContain(`<main class="qm-preview" data-reduced-motion="false" style="--qm-length:${QM_LENGTH_VH}vh">`)
+    const css = sourceText('./quiet-machine.css')
+    expect(css).toContain('var(--qm-length)')
+    expect(css).not.toMatch(/min-height: *320vh/)
+  })
+  it('shows the end card from the threshold on, with the page links inside it (poster path only)', () => {
+    const html = poster('?shot=.98&quality=poster')
+    const card = html.slice(html.indexOf('qm-endcard'), html.indexOf('</aside>'))
+    expect(html).toContain('<aside class="qm-endcard" aria-label="Continue">')
+    expect(card).toContain('shell-nav-endcard')
+    expect(card).toContain('href="/?quality=poster"')
+    expect(card).toContain('data-fade')
+    expect(card).toContain('in preparation')
+    expect(poster('?shot=.5&quality=poster')).not.toContain('qm-endcard')
+    expect(poster(`?shot=${END_CARD_AT - .01}&quality=poster`)).not.toContain('qm-endcard')
+    expect(poster(`?shot=${END_CARD_AT}&quality=poster`)).toContain('qm-endcard')
+  })
+  it('keeps the progress bar and the end card outside the stage, and scales the bar from progress', () => {
+    const html = poster('?shot=.98&quality=poster')
+    const stage = html.slice(html.indexOf('class="qm-stage"'), html.indexOf('<header'))
+    expect(stage).toContain('qm-poster')
+    expect(stage).not.toContain('qm-progress')
+    expect(stage).not.toContain('qm-endcard')
+    expect(html).toContain('<div class="qm-progress" aria-hidden="true"><span style="transform:scaleX(0.98)"></span></div>')
+    expect(poster('?shot=.5&quality=poster')).toContain('scaleX(0.5)')
+  })
+  it('prefetches the torque gun page once, the first time progress reaches the end card', () => {
+    const source = sourceText('./QuietMachinePreview.tsx')
+    expect(source.match(/prefetchPage\(/g)).toHaveLength(1)
+    expect(source).toContain("prefetchPage(document, [next])")
+    expect(source).toContain("pageHref('jgun', mode.tier)")
+    expect(source).toMatch(/if \(u < END_CARD_AT \|\| prefetched\.current\) return\s+prefetched\.current = true/)
+    expect(source).toMatch(/\}, \[u, mode\.tier\]\)/)
   })
 })
