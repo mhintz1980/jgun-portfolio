@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
+import { BEATS } from './beats'
 import type { PreviewControl } from './QuietMachineScene'
 import { prefetchPage, releaseFadeWhen } from '../../shared/pageFade'
 import { PageLink, PageNav } from '../../shared/PageNav'
@@ -12,9 +13,9 @@ export const QM_LENGTH_VH = 900
 export const END_CARD_AT = .97
 
 const Scene = lazy(() => import('./QuietMachineScene').then(m => ({ default: m.QuietMachineScene })))
-/** Three poster frames cover seven shots; each shot names the one that stands for it, so
+/** Three poster frames cover the shots; each beat record names the one that stands for it, so
  *  the static fallback never asks for an image that was never captured. */
-const POSTERS = ['exterior', 'section', 'section', 'intake', 'section', 'section', 'exterior'] as const
+const POSTERS = BEATS.map(beat => beat.poster)
 /** Scrubber anchors, not a shot list: the three stops the study is navigated by. */
 const VIEWS: [string, number][] = [['Exterior', 0], ['Section', .2], ['Lower intake', .51]]
 

@@ -1,4 +1,5 @@
-import { clamp01, smooth } from './shot'
+import { clamp01, smoothWindow } from './shot'
+import { WINDOWS } from './beats'
 
 export type Bundle = 'main' | 'lower' | 'merged' | 'sound'
 export type Vec3 = readonly [number, number, number]
@@ -116,10 +117,9 @@ export const SOUND_FACES: readonly { point: Vec3; normal: Vec3 }[] = [
   { point: [.207, 1.449, 1.249], normal: [0, -.703, -.711] },
 ]
 /** Per-front draw windows in u (the staggered arrival sweep). The last contact resolves
- *  at .856 — before the chevron isolation response begins (AirRibbons shaders). */
-export const SOUND_WINDOWS: readonly (readonly [number, number])[] = [
-  [.760, .820], [.772, .832], [.784, .844], [.796, .856],
-]
+ *  at .856 — before the chevron isolation response begins (AirRibbons shaders).
+ *  Authored on the "Control the noise" beat record in `beats.ts`. */
+export const SOUND_WINDOWS: readonly (readonly [number, number])[] = WINDOWS.soundFronts
 
 const ZERO_EXTENT: Record<Bundle, number> = { main: 0, lower: 0, merged: 0, sound: 0 }
 const ZERO_WEIGHT: Record<Bundle, number> = { main: 0, lower: 0, merged: 0, sound: 0 }
@@ -140,19 +140,19 @@ function zeroState(progress: number): FlowState {
  */
 export function evaluateFlow(progress: number): FlowState {
   const u = clamp01(progress)
-  if (u <= .26 || u >= .90) return zeroState(u)
+  if (u <= WINDOWS.flowClosedBelow || u >= WINDOWS.flowClosedAbove) return zeroState(u)
 
   const extent: Record<Bundle, number> = {
-    main: smooth(.27, .40, u),
-    lower: smooth(.41, .60, u),
-    merged: smooth(.61, .68, u),
-    sound: smooth(.76, .86, u),
+    main: smoothWindow(WINDOWS.mainExtent, u),
+    lower: smoothWindow(WINDOWS.lowerExtent, u),
+    merged: smoothWindow(WINDOWS.mergedExtent, u),
+    sound: smoothWindow(WINDOWS.soundExtent, u),
   }
 
-  const handoff = smooth(.76, .86, u)
-  const fade = 1 - smooth(.86, .90, u)
+  const handoff = smoothWindow(WINDOWS.handoff, u)
+  const fade = 1 - smoothWindow(WINDOWS.fade, u)
   const airWeight = (value: number) => value > 0 ? (1 - .65 * handoff) * fade : 0
-  const mainIntroduction = 1 - .5 * smooth(.41, .47, u) + .5 * smooth(.58, .64, u)
+  const mainIntroduction = 1 - .5 * smoothWindow(WINDOWS.mainDim, u) + .5 * smoothWindow(WINDOWS.mainRestore, u)
 
   return {
     extent,
@@ -162,7 +162,7 @@ export function evaluateFlow(progress: number): FlowState {
       merged: airWeight(extent.merged),
       sound: extent.sound * fade,
     },
-    heat: smooth(.55, .66, u) * (1 - smooth(.82, .89, u)),
+    heat: smoothWindow(WINDOWS.heatRise, u) * (1 - smoothWindow(WINDOWS.heatFall, u)),
     phase: u * 12,
   }
 }
