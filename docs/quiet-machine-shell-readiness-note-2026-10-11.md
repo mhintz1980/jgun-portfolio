@@ -179,3 +179,7 @@ Recorded: shell delivery into the torque worktree and torque-side CPU verificati
 
 - **Multi-page build and Quiet Machine entry:** `project/work/plans/JG-033-quiet-machine-integration.md`, heading "QM4: multi-page build, QM entry, legacy redirect, header nav, verifier repoints" (line 295). Code: `ccc87c2f`.
 - **Private-entry contract:** not in that plan (it has no mention of "private"). It is defined here in sections 7 and 10 and was added by `37c9d5f8`/`0bc6a787`/`6f4ee77f`. The motion plan's S0 wording ("for the multi-page build and private-entry contract") is satisfied by these two pointers together.
+
+## 14. Fresh readiness run (2026-10-11), current evidence
+
+`project/work/evidence/rl300-quiet-machine/36-shell-readiness-run/README.md`. At HEAD `efea0537` (V16 round 2 included, `src/shared` unchanged since `4669e49e`): typecheck exit 0; build exit 0 to a separate outDir; `verify-page-transition.mjs` 7/7 PASS at 1440x900 and at 390x844, no UNVERIFIED case, served hashes equal dist. Chrome 154.0.8037.98; GL renderer not recorded by the verifier. Port 4191 only, released. This supersedes "Not run" in section 8 for build and the transition verifier; the GPU-3 result at `275a4c0a` stays historical. It does not approve torque's budgets or matrix and does not close torque Stage 0.
