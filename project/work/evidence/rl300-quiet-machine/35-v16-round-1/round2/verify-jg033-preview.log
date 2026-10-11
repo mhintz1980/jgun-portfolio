@@ -1,0 +1,124 @@
+{
+  "failure": "AssertionError [ERR_ASSERTION]: lite must preserve ruled geometry: EXHAUST PIPE-1\n\n578 !== 2896\n",
+  "build": "f757d3fd167ffef9db8a15af79fcf037aea4813ea40790eb3c298a813521b7b9",
+  "composer": "direct",
+  "ruledParts": 27,
+  "checks": {
+    "desktop": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 16476,
+        "fraction": 0.021163287168697448,
+        "meanChannelDelta": 2.35425085440114
+      },
+      "closedCaps": {
+        "changed": 11,
+        "fraction": 0.000014129409981529008,
+        "meanChannelDelta": 0.00024490977301316945
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.30000001192093,
+        "p95": 34.10000002384186
+      },
+      "renderCpuMs": {
+        "p50": 2.5,
+        "p95": 3.300000011920929
+      }
+    },
+    "portrait": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 2868,
+        "fraction": 0.016378276511906802,
+        "meanChannelDelta": 1.8407477204804599
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.00001713208840157615,
+        "meanChannelDelta": 0.0004625663868425561
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.30000001192093,
+        "p95": 34
+      },
+      "renderCpuMs": {
+        "p50": 2.5999999940395355,
+        "p95": 2.800000011920929
+      }
+    },
+    "tablet": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 11337,
+        "fraction": 0.024809611344537814,
+        "meanChannelDelta": 2.4481048669467786
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.0000065651260504201685,
+        "meanChannelDelta": 0.00012765522875816994
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.30000001192093,
+        "p95": 34
+      },
+      "renderCpuMs": {
+        "p50": 2.5999999940395355,
+        "p95": 3
+      }
+    }
+  },
+  "errors": []
+}
+exit=1

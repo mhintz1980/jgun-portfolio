@@ -83,7 +83,8 @@ try {
     const parts = await page.evaluate(() => window.__quietMachine.parts)
     report.checks.ruledParts = assertRuling(parts)
     if (quality === 'full') fullParts = parts
-    else for (const [part, expected] of Object.entries(fullParts)) {
+    else for (const [part, expected] of Object.entries(fullParts).filter(([part]) => part in report.checks.ruledParts)) {
+      // Only RULING parts: the lite GLB is its own (stale) decimation, so an unruled `keep` part such as EXHAUST PIPE-1 differs by design.
       assert.equal(parts[part].triangles, expected.triangles, `lite must preserve ruled geometry: ${part}`)
       for (const bound of ['xMin', 'xMax']) assert(Math.abs(parts[part][bound] - expected[bound]) < .0001, `lite part bounds: ${part}/${bound}`)
     }

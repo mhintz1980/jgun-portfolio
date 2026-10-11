@@ -1,0 +1,114 @@
+{
+  "part": "cpm",
+  "name": "closeup-cpm",
+  "u": 0.56,
+  "requestedU": 0.56,
+  "uMatchesRequest": true,
+  "plane": -0.15000000000000002,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "bboxNdc": [
+    [
+      0.8266413016391329,
+      0.16135473586868326,
+      0.984632145941132
+    ],
+    [
+      0.6029781388780896,
+      0.1684592299625814,
+      0.9843320021450997
+    ],
+    [
+      0.8187719471010075,
+      0.573085179706456,
+      0.9847847914447097
+    ],
+    [
+      0.5971315800604248,
+      0.5877529714435166,
+      0.984490387450309
+    ],
+    [
+      0.971091167330887,
+      0.21040607443649853,
+      0.982559872424731
+    ],
+    [
+      0.7209708031382397,
+      0.21948751650692408,
+      0.9821762084424065
+    ],
+    [
+      0.9606648021814677,
+      0.6742491447028869,
+      0.9827542829729325
+    ],
+    [
+      0.7130676970601765,
+      0.6929515311770159,
+      0.9823788987718535
+    ]
+  ],
+  "areaFraction": 0.04969892954195112,
+  "clip": {
+    "x": 955,
+    "y": 42,
+    "width": 485,
+    "height": 431
+  },
+  "tier": "full",
+  "requestedTier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1263614,
+    "sha256": "ad64e20996d0e1b96448bc396b8df8ec7392d87bb7ee449aa09bb94ba364040d",
+    "nonFlat": 0.5852708333333333
+  },
+  "cropPng": {
+    "bytes": 558215,
+    "sha256": "4f01a39cc7ac3454a59e3440bad08a7db811c186351a02b007e54588adba1210"
+  },
+  "glbsRequested": [
+    "rl300-extra-parts.glb",
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 454079,
+    "keptTriangles": 449483,
+    "linerTriangles": 108,
+    "sourceMeshes": 608,
+    "batches": 49,
+    "cappedTriangles": 152008,
+    "openSectionTriangles": 44494,
+    "keptWholeTriangles": 16750,
+    "removedTriangles": 460,
+    "skippedRoots": 1,
+    "replacedTriangles": 4000,
+    "materials": 49,
+    "mappedParts": 520,
+    "mappedPrimitives": 548,
+    "protectedPrimitives": 227,
+    "unmappedMultiSlot": 36,
+    "extraParts": 19,
+    "extraTriangles": 13411,
+    "v16Applied": true
+  },
+  "drawCalls": 138,
+  "renderedTriangles": 1206599,
+  "geometries": 77,
+  "textures": 4,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "pageErrors": []
+}
