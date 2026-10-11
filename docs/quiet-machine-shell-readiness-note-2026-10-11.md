@@ -1,10 +1,10 @@
 # Quiet Machine shared shell: readiness note for the torque track, 2026-10-11
 
-**Answer in one line:** the shared shell is delivered and tested in this worktree for fade, navigation, HTML entry, the poster interface, the zero-canvas/zero-CAD guard, and the private-page registry flag with an inactive torque-wrench row (commits `37c9d5f8` + review fixes `0bc6a787`, sections 6 and 7). An independent Astra review ran on `37c9d5f8`; its five findings are fixed in `0bc6a787` (section 9). What is not done: the torque HTML entry itself (torque integrator, Stage 1), the shell delivery into the torque worktree (section 10), a re-review of the fixes, and a fresh GPU readiness run (section 11).
+**Answer in one line:** the shared shell is delivered and tested in this worktree for fade, navigation, HTML entry, the poster interface, the zero-canvas/zero-CAD guard, and the private-page registry flag with an inactive torque-wrench row (commits `37c9d5f8`, review fixes `0bc6a787` and `6f4ee77f`, sections 6 and 7). Two independent Astra review rounds ran (section 9): round 2 ended ACCEPT WITH FIXES and its fixes are in `6f4ee77f`, not re-reviewed. What is not done: the torque HTML entry itself (torque integrator, Stage 1), the shell delivery into the torque worktree (section 10), and a fresh GPU readiness run (section 11).
 
 **Revision 2026-10-11 (later):** sections 6-11 were rewritten after the owner authorized the poster interface and private registry work. The first revision named these as gaps; they are now delivered. Sections 1-5 are unchanged except the commit table and export list.
 
-No build, capture, server, GPU, push or deploy was done. Worktree `C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine`, branch `quiet-machine/integration`. Code delivery commit: `0bc6a787`.
+No build, capture, server, GPU, push or deploy was done. Worktree `C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine`, branch `quiet-machine/integration`. Code delivery commit: `6f4ee77f`.
 
 ## 1. Delivery commits (local, unpushed)
 
@@ -20,7 +20,8 @@ No build, capture, server, GPU, push or deploy was done. Worktree `C:/Users/Mark
 | `e709e672` QM6 | page-transition verifier, 7 cases |
 | `1feb4e8f` | this note and the motion/background plan (docs) |
 | `37c9d5f8` | poster interface, zero-canvas/zero-CAD guard, `private` registry flag, inactive torque-wrench row |
-| `0bc6a787` | guard false-pass fixes from the independent review; torque row `fadeIn: true`; noindex pin ignores comments (**the Stage 0 delivery commit**) |
+| `0bc6a787` | guard false-pass fixes from the round-1 review; torque row `fadeIn: true`; noindex pin ignores comments |
+| `6f4ee77f` | round-2 review fixes: observer counts removed canvases, activation-proof `pageHref` test (**the Stage 0 delivery commit**) |
 
 Shell files are clean in the working tree (`git status` shows no change under `src/shared`, `quiet-machine/`, `vite.config.ts`, `src/quiet-machine-main.tsx`, `QuietMachinePreview.tsx`, `index.html`). The uncommitted changes in the tree are the V16 materials track (scene files only).
 
@@ -83,7 +84,7 @@ The torque page owns its own `Poster.tsx` (semantic story plus art) and `posterM
   - `checkPosterPath({ markup?, canvasCount?, canvasMounts?, requireMountObservation?, requestedUrls?, extraCadPatterns? })` returns `{ ok, canvases, cadRequests, problems }`.
   - Evidence rules: missing or invalid (`NaN`, negative, fractional) counts and a missing request list are problems, never passes. Contradictory evidence takes the worse reading (markup shows a canvas while `canvasCount` says 0: fails). An empty request list is evidence.
   - `CAD_ASSET_PATTERN` always applies: `*.glb|gltf|drc|ktx2`, and anything under `/models/` or `/draco/` (catches `role-map.json` and the Draco decoder). `extraCadPatterns` add to it and never replace it; `g`/`y` flags are stripped so a pattern holds no `lastIndex` state. Rasters under `/images/` and `/inspection/` pass.
-  - A canvas count read after load is a snapshot and cannot see a canvas mounted then removed. For "never mounted during the cold load", install `CANVAS_MOUNT_OBSERVER_SOURCE` with `page.addInitScript` before navigation, read `window.__posterCanvasMounts`, and pass it as `canvasMounts` with `requireMountObservation: true`. It counts `createElement('canvas')` and inserted nodes; it does not cover OffscreenCanvas or workers.
+  - A canvas count read after load is a snapshot and cannot see a canvas mounted then removed. For "never mounted during the cold load", install `CANVAS_MOUNT_OBSERVER_SOURCE` with `page.addInitScript` before navigation, read `window.__posterCanvasMounts`, and pass it as `canvasMounts` with `requireMountObservation: true`. It counts `createElement('canvas')`, inserted subtrees and removed subtrees, one count per canvas identity, so a canvas inserted and removed before the observer callback is still seen. It does not cover OffscreenCanvas, workers, or a canvas that never enters the document.
   - Browser use: `checkPosterPath({ canvasCount, canvasMounts, requireMountObservation: true, requestedUrls })`, with every cold-load request URL from the network log.
 
 Not changed: Quiet Machine still renders its own inline `<img>` (`QuietMachinePreview.tsx:97`). Adopting `PosterImage` there is a runtime edit that needs a GPU re-run, so it is left for the readiness run. Torque is the first consumer.
@@ -103,9 +104,9 @@ Shared files still need their owner. `pages.ts`, `pageFade.ts`, `PageNav.tsx`, `
 
 | Evidence | Result | Where |
 |---|---|---|
-| `npx vitest run src/shared` at `0bc6a787` | 8 files, 230 tests, all pass (was 5 files, 177) | this session, 2026-10-11 |
+| `npx vitest run src/shared` at `6f4ee77f` | 8 files, 233 tests, all pass (was 5 files, 177) | this session, 2026-10-11 |
 | `npx vitest run src/scene/rl300` (V16 dirty edits are in this tree) | 2 files, 59 tests, pass, run at `37c9d5f8` | same |
-| `npx tsc --noEmit` at `0bc6a787` | no output (clean) | same |
+| `npx tsc --noEmit` at `6f4ee77f` | no output (clean) | same |
 | GPU-3 page-transition verifier at `275a4c0a` | 7/7 PASS at 1440x900 and 390x844; shell runtime unchanged since | `project/work/evidence/rl300-quiet-machine/33-gpu-3-qm6-transition.md:26-42` |
 | GPU-1 entry smoke | recorded; found and fixed the QM4-fix context-loss defect | `31-gpu-1-qm-entry-smoke.md` |
 
@@ -115,7 +116,7 @@ Not run: `npm run build`, `verify-page-transition.mjs`, any browser or server. T
 
 - **Run:** `codex exec --model gpt-6-astra`, effort high, read-only sandbox, target `37c9d5f8`, 66,693 codex tokens. The CLI header printed `model: gpt-6-astra`, provider `opencodex`. The reviewer's own first line said "GPT-6 (Codex); the exact served variant is not exposed to me", so the served model is configured, not independently proven.
 - **Verdict:** no ACCEPT/REJECT line was returned. Two P1 and three P2 findings; read as accept with fixes.
-- **Findings and disposition (all fixed in `0bc6a787`, each with a red test that reproduces the counterexample):**
+- **Round 1 findings and disposition in `0bc6a787`.** Round 2 (below) judged #1 and #3 PARTIAL, #2, #4 and #5 FIXED; an earlier version of this note wrongly said every fix had a reproducing red test. Per round 2: #1, #2, #3 and #4 have tests that fail against round-1 code (#2's old code ignores the new `extraCadPatterns` argument, so that test does not isolate the old `g`-flag bug on its own); #5 was a relabel with no red test.
 
 | # | Sev | Finding | Fix |
 |---|---|---|---|
@@ -125,7 +126,18 @@ Not run: `npm run build`, `verify-page-transition.mjs`, any browser or server. T
 | 4 | P2 | noindex regex accepted a commented-out meta; test ran zero assertions | head only, comments stripped, positive and negative fixtures |
 | 5 | P2 | `PosterImage` test claimed network behaviour it does not observe | relabelled a markup/classifier test; acceptance needs captured request and mount evidence |
 
-- **Not done:** a round-2 re-review of `0bc6a787`. The fixes are checked by the red tests above and by `vitest` and `tsc`, not by Astra. One more focused round fits the two-round cap.
+### Round 2 (Astra, target `0bc6a787`, 125,046 codex tokens)
+
+Same invocation; the reviewer again said the served variant is not exposed to it. **VERDICT: ACCEPT WITH FIXES.** All 230 shared tests passed for it. Findings and what was done in the follow-up commit (recorded in section 1):
+
+| # | Sev | Finding | Disposition |
+|---|---|---|---|
+| A | P1 | The mount observer missed a canvas parser-created inside an inserted wrapper and removed before the callback ran (added wrapper empty, removal record not inspected) | Fixed: `removedNodes` inspected too, one count per canvas identity (also removes the create+insert double count). Four executed observer tests drive the source against a stub DOM with synthetic records, including this exact scenario. |
+| B | P2 | Activation recipe still failed `pages.test.ts` "returns null for the inactive private torque page" | Fixed: that test now holds before and after activation (null while reserved, tiered path once live). |
+| C | P2 | The fade-in "pin" test was vacuous while inactive and tautological once active | Removed. The existing fade-block pins (`pageTopology.test.ts:177-187`) are the real coverage. |
+| D | note | This note overstated red-test coverage | Corrected above. |
+
+Remaining gaps the reviewer named and I did not change: a document-less `window`/`document` makes the observer throw (outside normal page-init); a canvas that never enters the document is not counted. **No round 3 was run** (two-round cap); the follow-up fixes are checked by the executed tests, `vitest` (233 pass) and `tsc` (clean), not by Astra.
 
 ## 10. Delivery into the torque worktree, and activating the private page
 
@@ -136,15 +148,14 @@ Delivery is a merge of `quiet-machine/integration`, not a cherry-pick of one com
 Activation recipe, one commit (torque integrator, with this track's owner):
 1. Land `torque-wrench/index.html` with: the shell block (`<!-- shell:begin -->` through `<!-- shell:end -->`, fade sub-block byte-identical to the reviewed copy, hash pinned at `pageTopology.test.ts:34`), `<meta name="robots" content="noindex">` in the head, and `<script type="module" src="/src/torque-wrench-main.tsx">`. Land `src/torque-wrench-main.tsx` calling `installPageFade(document)` and keeping the return value if it unmounts.
 2. Flip the `pages.ts` row: `reserved: false`, `href: '/torque-wrench/'`, `htmlEntry: 'torque-wrench/index.html'`. Leave `fadeIn: true` and `private: true`.
-3. Update the entry list at `pageTopology.test.ts:112` and the row pin in `pages.test.ts` ("pins the torque-wrench row as private and inactive").
+3. Update the entry list at `pageTopology.test.ts:112` and the row pin in `pages.test.ts` ("pins the torque-wrench row as private and inactive"). The `pageHref` test for the torque row already handles both states and needs no edit.
 4. `npx vitest run src/shared` must pass.
 
 Failure modes, all caught before a build: a flip without the HTML file throws at `pageTopology.test.ts:39-43` (file read); a flip with `fadeIn: true` but no fade block fails the fade sub-block pins; a missing or commented-out noindex fails the private-page pin; a stale entry list or row pin fails its own test.
 
 ## 11. What remains (owner of each)
 
-1. **Round-2 Astra review** of `0bc6a787` (optional, owner's call; about 65k codex tokens).
-2. **Fresh readiness run** (either track): `npm run typecheck`, `npm run build`, `verify-page-transition.mjs` against `vite preview`, on a named tree. Needs GPU coordination (torque plan Stage 0 item 3). Separate from this delivery, per the owner.
-3. **Merge into the torque worktree** (torque integrator): section 10.
-4. **Torque HTML entry and activation** (torque integrator, Stage 1): section 10.
-5. **S0 item 5** in the motion plan (QM4 plan pointer) is still unticked.
+1. **Fresh readiness run** (either track): `npm run typecheck`, `npm run build`, `verify-page-transition.mjs` against `vite preview`, on a named tree. Needs GPU coordination (torque plan Stage 0 item 3). Separate from this delivery, per the owner.
+2. **Merge into the torque worktree** (torque integrator): section 10.
+3. **Torque HTML entry and activation** (torque integrator, Stage 1): section 10.
+4. **S0 item 5** in the motion plan (QM4 plan pointer) is still unticked.
