@@ -10,13 +10,6 @@ const composer = process.env.COMPOSER || ''
 // Measured 2026-10-10 from the committed GLBs and the QM4-fix run (31-gpu-1/qm4fix-verify-jg033-preview.report.json).
 // intake: worst |ndc| of the model box at the owner's stop-04 camera, per viewport.
 const INTAKE_NDC = { desktop: 21.586, portrait: 6.502, tablet: 26.368, lite: 6.524 }
-// rl300-lite.glb predates the 2026-09-24 export: DUCT_INTAKE_AIRWAY 24 vs 28 triangles, cap triangles 164542 vs 156052 in full.
-// Re-measured 2026-10-11 (V16 track, prepareModel run over both GLBs): FFM-1001-1 became a `keep` part, so its closed 674-triangle
-// volume left the cap count on BOTH tiers (165216 -> 164542, 154554 -> 153880). Re-measured again in V16 round 2: the extras'
-// connector pipe is `keep` (never capped, so the 2172 are gone) and RL300-CPM-3001-1, RL300-P-CPM-2001-1 and EXHAUST PIPE-1 are
-// `keep` too: 1872 closed triangles leave the caps on BOTH tiers (164542 -> 162670, 153880 -> 152008).
-const KNOWN_STALE_LITE = { airway: 24, cap: 162670, fullCap: 152008 }
-const warnStale = message => { console.error('WARN known-stale: ' + message); (report.knownStale ??= []).push(message) }
 fs.mkdirSync(out, { recursive: true })
 const hash = b => crypto.createHash('sha256').update(b).digest('hex')
 const percentile = (values, q) => [...values].sort((a, b) => a - b)[Math.floor((values.length - 1) * q)]
@@ -84,7 +77,7 @@ try {
     report.checks.ruledParts = assertRuling(parts)
     if (quality === 'full') fullParts = parts
     else for (const [part, expected] of Object.entries(fullParts).filter(([part]) => part in report.checks.ruledParts)) {
-      // Only RULING parts: the lite GLB is its own (stale) decimation, so an unruled `keep` part such as EXHAUST PIPE-1 differs by design.
+      // Only RULING parts: the lite GLB is its own decimation, so an unruled `keep` part such as EXHAUST PIPE-1 differs by design.
       assert.equal(parts[part].triangles, expected.triangles, `lite must preserve ruled geometry: ${part}`)
       for (const bound of ['xMin', 'xMax']) assert(Math.abs(parts[part][bound] - expected[bound]) < .0001, `lite part bounds: ${part}/${bound}`)
     }
@@ -115,17 +108,12 @@ try {
       if (composer === '4') assert.equal(telemetry.capTarget.samples, 4)
       if (quality === 'lite') assert(telemetry.counts.keptTriangles < 248000, 'lite CAD geometry leaves room for intake/environment under 250k')
       if (quality === 'full') fullCapTriangles = telemetry.counts.cappedTriangles
-      else if (telemetry.counts.cappedTriangles !== fullCapTriangles) {
-        // Known stale lite asset: tolerated ONLY at exactly these measured counts, so any other change fails.
-        assert(telemetry.counts.cappedTriangles === KNOWN_STALE_LITE.cap && fullCapTriangles === KNOWN_STALE_LITE.fullCap, `lite must preserve every cap-counting triangle (${telemetry.counts.cappedTriangles} vs ${fullCapTriangles})`)
-        warnStale(`lite cap triangles ${telemetry.counts.cappedTriangles} != full ${fullCapTriangles} (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)`)
-      }
+      else assert.equal(telemetry.counts.cappedTriangles, fullCapTriangles, 'lite must preserve every cap-counting triangle')
       assert(telemetry.drawCalls < (quality === 'lite' ? 90 : 150))
-      // Liner (108) + airway helper (28 full; the lite asset still has the older 24, see KNOWN_STALE_LITE) + whatever the ruling removed outright
+      // Liner (108) + airway helper (28) + whatever the ruling removed outright
       // + on the full tier the shipped fused MAN mesh the extras' V16 assembly replaces (replacedTriangles; lite has no extras), nothing else.
-      if (quality === 'lite') warnStale('lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)')
       assert.equal(telemetry.counts.sourceTriangles - telemetry.counts.keptTriangles,
-        108 + (quality === 'lite' ? KNOWN_STALE_LITE.airway : 28) + telemetry.counts.removedTriangles + (quality === 'lite' ? 0 : telemetry.counts.replacedTriangles), 'only liner, airway helper, ruled removals and the replaced MAN mesh omitted')
+        108 + 28 + telemetry.counts.removedTriangles + (quality === 'lite' ? 0 : telemetry.counts.replacedTriangles), 'only liner, airway helper, ruled removals and the replaced MAN mesh omitted')
       assert.equal(telemetry.counts.removedTriangles, 460, 'removals must be exactly the ruled push-on seal')
       report.captures.push({ name, shot, telemetry })
       // 07 resolves back to the 01 frame; the poster set stays the three distinct looks.

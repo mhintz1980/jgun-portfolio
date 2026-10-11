@@ -1183,3 +1183,114 @@ tsc 0; npm test 703/703; build 0; check:station2 0; U.4 `cssEqual` true, `source
 
 ## Intake hotspot (owner approved by PNG, Astra waived, 2026-10-11)
 tsc 0; npm test 703 passed (+1 auto-enumerated `shellBoundary` case for the new file; `camera.test.ts` K5 timed out at 5 s once under load, 17/17 alone in 2 s); build 0; check:station2 0; U.4 `cssEqual` true, `sourcesEqual` true; verify-jg033-preview exit 0, no errors. Plain-math projection cross-checked against three's PerspectiveCamera in a throwaway script (worst diff 0.0000 px, 3 viewports x 6 u). Evidence: `40-intake-hotspot/` (badge at u .31/.51/.70/.82 and open card, 3 viewports). `verify-page-transition` not run (nav and fade untouched). No new tests or gate scripts.
+
+## QM9 lite GLB regeneration (owner approved by PNG, Astra waived by "Approved. Go", 2026-10-11)
+tsc 0; npm test 701 passed (50 files); build 0; check:station2 0; verify-jg033-preview exit 0, errors [], no known-stale warnings, INTAKE_NDC.lite unchanged (6.524). `rl300-lite.glb` rebuilt by `build-jg033-lite.py` (pin a48c12e5 -> c1c919ab) in Blender 5.1: 245,092 -> 241,770 triangles, lite caps now equal full (152,008), airway 28 on both tiers. `KNOWN_STALE_LITE` and `warnStale` removed from the verifier. `v16Materials.test.ts` lite pins moved (capped 152008, batches 43, unmappedMultiSlot 48). Evidence `42-qm9-lite/`. U.1 lists `scripts/build-jg033-lite.py` and `scripts/verify-jg033-lite-asset.mjs`: neither is on the plan allowlist (the re-pin is the only change to each).
+
+### U.4 QM9-lite
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM9-lite` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-XbuE7E3Y.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (expected to FAIL the plan pass rule: two lite scripts are off the allowlist; owner asked whether to add them):
+scripts/build-jg033-lite.py
+scripts/verify-jg033-lite-asset.mjs
+U.1 grep exit: 0
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
