@@ -98,13 +98,17 @@ export default function QuietMachinePreview() {
       {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
     </div>
-    <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" /><span>RL300 / SECTION STUDY</span></header>
+    <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" numbered currentAsText /><span>RL300 / SECTION STUDY</span></header>
     <div className="qm-editorial">
       <p className="qm-eyebrow">THE QUIET MACHINE <span>0{beat + 1} / 0{SHOTS.length}</span></p>
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>
       <p className="qm-note">{SHOTS[beat].note}</p>
     </div>
-    {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue"><PageNav current="quiet-machine" tier={mode.tier} variant="endcard" /></aside>}
+    {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue">
+      <h2 className="qm-endcard-title">Closed again.</h2>
+      <p className="qm-endcard-body">The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it.</p>
+      <PageNav current="quiet-machine" tier={mode.tier} variant="endcard" label="More pages" numbered currentAsText />
+    </aside>}
     <footer className="qm-controls">
       <div className="qm-views" aria-label="Study views">{VIEWS.map(([label, at]) =>
         <button key={label} aria-pressed={beat === evaluateShot(at, false).beat} onClick={() => navigate(at)}>{label}</button>)}</div>
