@@ -186,9 +186,12 @@ describe('Rule 1: the shell carries no scroll length', () => {
   })
 })
 
-describe('Rule 2: src/shared imports only ./* and react (PageNav.tsx only)', () => {
+// The two shared components import only a type from react; every other shared file imports nothing.
+const REACT_FILES = ['PageNav.tsx', 'PosterImage.tsx']
+
+describe('Rule 2: src/shared imports only ./* and react (PageNav.tsx and PosterImage.tsx only)', () => {
   it.each(sharedSourceFiles.map((file) => [rel(file), file] as const))('%s', (name, file) => {
-    const allowedPackage = path.basename(file) === 'PageNav.tsx' ? 'react' : null
+    const allowedPackage = REACT_FILES.includes(path.basename(file)) ? 'react' : null
     const bad = importSpecifiers(readFileSync(file, 'utf8')).filter((specifier) => {
       if (specifier === allowedPackage) return false
       if (!isRelative(specifier)) return true

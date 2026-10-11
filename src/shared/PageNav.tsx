@@ -1,7 +1,7 @@
 // Generic page nav: one row per registered page, rendered from the registry.
 // Class names are shell-* only. Styling belongs to the page that mounts the nav.
 import type { ReactNode } from 'react'
-import { PAGES, pageHref, type PageId, type TierParam } from './pages'
+import { pageHref, publicPages, type PageId, type TierParam } from './pages'
 
 export interface PageLinkProps {
   id: PageId
@@ -44,7 +44,7 @@ export function PageNav({ current, tier, variant }: PageNavProps) {
   return (
     <nav className={`shell-nav ${VARIANT_CLASS[variant]}`} aria-label="Pages">
       <ul className="shell-nav-list">
-        {PAGES.map((page) => (
+        {publicPages().map((page) => (
           <li key={page.id} className="shell-nav-item">
             <PageLink id={page.id} tier={tier} current={page.id === current}>
               {page.label}

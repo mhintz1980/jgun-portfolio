@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LEGACY_REDIRECTS, PAGES, pageHref, readTierParam, resolveEntryTier } from './pages'
+import { LEGACY_REDIRECTS, PAGES, pageHref, publicPages, readTierParam, resolveEntryTier } from './pages'
 import type { PageId } from './pages'
 
 const byId = (id: PageId) => {
@@ -9,8 +9,13 @@ const byId = (id: PageId) => {
 }
 
 describe('PAGES registry', () => {
-  it('lists the three pages in owner order', () => {
-    expect(PAGES.map((page) => page.id)).toEqual(['jgun', 'quiet-machine', 'm249'])
+  it('lists the four pages in owner order, the private torque page last', () => {
+    expect(PAGES.map((page) => page.id)).toEqual(['jgun', 'quiet-machine', 'm249', 'torque-wrench'])
+  })
+
+  it('publicPages drops exactly the private rows', () => {
+    expect(publicPages().map((page) => page.id)).toEqual(['jgun', 'quiet-machine', 'm249'])
+    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['torque-wrench'])
   })
 
   it('has unique ids', () => {
@@ -22,7 +27,7 @@ describe('PAGES registry', () => {
     const indexes = PAGES.map((page) => page.index)
     expect(new Set(indexes).size).toBe(indexes.length)
     expect(indexes).toEqual([...indexes].sort((a, b) => a - b))
-    expect(indexes).toEqual([1, 2, 3])
+    expect(indexes).toEqual([1, 2, 3, 4])
   })
 
   it('marks a page reserved exactly when it has no href and no html entry', () => {
@@ -33,7 +38,7 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE GUN', 'THE QUIET MACHINE', 'M249'])
+    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE GUN', 'THE QUIET MACHINE', 'M249', 'TORQUE WRENCH'])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 
@@ -64,7 +69,23 @@ describe('PAGES registry', () => {
       htmlEntry: null,
       reserved: true,
       fadeIn: false,
+      private: false,
     })
+  })
+
+  it('pins the torque-wrench row as private and inactive: no href, no HTML entry, no build input', () => {
+    expect(byId('torque-wrench')).toMatchObject({
+      path: '/torque-wrench/',
+      href: null,
+      htmlEntry: null,
+      reserved: true,
+      fadeIn: false,
+      private: true,
+    })
+  })
+
+  it('keeps every public row public', () => {
+    for (const id of ['jgun', 'quiet-machine', 'm249'] as const) expect(byId(id).private, id).toBe(false)
   })
 })
 
@@ -90,6 +111,10 @@ describe('pageHref', () => {
     expect(pageHref('m249', 'full')).toBeNull()
     expect(pageHref('m249', 'lite')).toBeNull()
     expect(pageHref('m249', 'poster')).toBeNull()
+  })
+
+  it('returns null for the inactive private torque page at every tier', () => {
+    for (const tier of ['full', 'lite', 'poster'] as const) expect(pageHref('torque-wrench', tier)).toBeNull()
   })
 })
 

@@ -17,12 +17,29 @@ describe('PageNav', () => {
     expect(endcard).toContain('<nav class="shell-nav shell-nav-endcard" aria-label="Pages">')
   })
 
-  it('renders one row per page, in registry order', () => {
+  it('renders one row per public page, in registry order', () => {
     const markup = render(<PageNav current="jgun" tier="full" variant="header" />)
-    const positions = PAGES.map((page) => markup.indexOf(page.label))
+    const pages = PAGES.filter((page) => !page.private)
+    const positions = pages.map((page) => markup.indexOf(page.label))
     expect(positions.every((position) => position >= 0)).toBe(true)
     expect([...positions].sort((a, b) => a - b)).toEqual(positions)
-    expect(markup.match(/<li\b/g)).toHaveLength(PAGES.length)
+    expect(markup.match(/<li\b/g)).toHaveLength(pages.length)
+  })
+
+  it('never lists a private page, on any variant or tier, even as the current page', () => {
+    const privatePages = PAGES.filter((page) => page.private)
+    expect(privatePages.length).toBeGreaterThan(0)
+    for (const variant of ['header', 'endcard'] as const) {
+      for (const tier of ['full', 'lite', 'poster'] as const) {
+        for (const current of ['jgun', 'torque-wrench'] as const) {
+          const markup = render(<PageNav current={current} tier={tier} variant={variant} />)
+          for (const page of privatePages) {
+            expect(markup, `${page.id} ${variant} ${tier} current=${current}`).not.toContain(page.label)
+            expect(markup).not.toContain(page.path)
+          }
+        }
+      }
+    }
   })
 
   it('links the live pages with data-fade and an href', () => {

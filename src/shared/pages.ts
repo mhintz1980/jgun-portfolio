@@ -1,7 +1,7 @@
 // Page registry: the public shell interface shared by every page of the site.
 // Zero imports by design. It carries no scroll length and never reads page progress.
 
-export type PageId = 'jgun' | 'quiet-machine' | 'm249'
+export type PageId = 'jgun' | 'quiet-machine' | 'm249' | 'torque-wrench'
 
 export type TierParam = 'full' | 'lite' | 'poster'
 
@@ -21,6 +21,11 @@ export interface PageEntry {
   reserved: boolean
   /** The entry fades in from the previous page's fade flag. */
   fadeIn: boolean
+  /**
+   * A private page is built and reachable by direct link, but never listed in public navigation
+   * (`PageNav`), and its HTML entry carries a robots noindex meta (pinned by pageTopology.test).
+   */
+  private: boolean
 }
 
 export const PAGES: readonly PageEntry[] = [
@@ -34,6 +39,7 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: 'index.html',
     reserved: false,
     fadeIn: false,
+    private: false,
   },
   {
     id: 'quiet-machine',
@@ -45,6 +51,7 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: 'quiet-machine/index.html',
     reserved: false,
     fadeIn: true,
+    private: false,
   },
   {
     id: 'm249',
@@ -56,8 +63,29 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: null,
     reserved: true,
     fadeIn: false,
+    private: false,
+  },
+  // Private torque-wrench rebuild (JG-038). Registered but inactive, so the build has no input for
+  // it yet. Activation is one commit that lands the torque HTML entry and flips this row
+  // (reserved: false, href, htmlEntry); see the shell readiness note, "Activating a private page".
+  {
+    id: 'torque-wrench',
+    index: 4,
+    label: 'TORQUE WRENCH',
+    name: 'JGUN Torque Wrench (private rebuild)',
+    path: '/torque-wrench/',
+    href: null,
+    htmlEntry: null,
+    reserved: true,
+    fadeIn: false,
+    private: true,
   },
 ]
+
+/** The pages public navigation lists: every registered page that is not private. */
+export function publicPages(): readonly PageEntry[] {
+  return PAGES.filter((page) => !page.private)
+}
 
 const TIERS: readonly TierParam[] = ['full', 'lite', 'poster']
 

@@ -373,3 +373,30 @@ describe('the redirect sub-block', () => {
     expect(run('?study=rl300&quality=lite', '#heat')).toEqual(['/quiet-machine/?quality=lite#heat'])
   })
 })
+
+describe('private pages', () => {
+  const privatePages = PAGES.filter((page) => page.private)
+
+  it('exist in the registry', () => {
+    expect(privatePages.map((page) => page.id)).toEqual(['torque-wrench'])
+  })
+
+  it('an inactive private page is reserved, so the build has no input for it', () => {
+    for (const page of privatePages.filter((item) => item.htmlEntry === null)) {
+      expect(page.reserved, page.id).toBe(true)
+      expect(page.href, page.id).toBeNull()
+    }
+  })
+
+  it('an active private page names an HTML entry that carries a robots noindex meta', () => {
+    for (const page of privatePages.filter((item) => item.htmlEntry !== null)) {
+      const html = entries.find((item) => item.page.id === page.id)?.html ?? ''
+      expect(/<meta\s+name="robots"\s+content="[^"]*noindex[^"]*"/i.test(html), `${page.id} noindex`).toBe(true)
+    }
+  })
+
+  it('a private page is never the target of a legacy redirect', () => {
+    const privateIds = new Set<string>(privatePages.map((page) => page.id))
+    for (const row of LEGACY_REDIRECTS) expect(privateIds.has(row.to), `${row.param} -> ${row.to}`).toBe(false)
+  })
+})
