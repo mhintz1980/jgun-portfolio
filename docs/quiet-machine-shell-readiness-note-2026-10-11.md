@@ -156,6 +156,21 @@ Failure modes, all caught before a build: a flip without the HTML file throws at
 ## 11. What remains (owner of each)
 
 1. **Fresh readiness run** (either track): `npm run typecheck`, `npm run build`, `verify-page-transition.mjs` against `vite preview`, on a named tree. Needs GPU coordination (torque plan Stage 0 item 3). Separate from this delivery, per the owner.
-2. **Merge into the torque worktree** (torque integrator): section 10.
+2. ~~**Merge into the torque worktree** (torque integrator): section 10.~~ Done 2026-10-11, section 12.
 3. **Torque HTML entry and activation** (torque integrator, Stage 1): section 10.
 4. **S0 item 5** in the motion plan (QM4 plan pointer) is still unticked.
+
+## 12. Torque-side delivery receipt (2026-10-11)
+
+Reported by the torque session and checked here read-only:
+
+| Claim | Check from this worktree |
+|---|---|
+| Merge commit `92bafba5` on `torque-wrench/rebuild`, local | `git cat-file`: parents `f4671e85` (torque) and `9edfa552` (this branch, note rev 4); `9edfa552` is an ancestor of torque HEAD; `git diff --stat 9edfa552 HEAD -- src/shared` is empty (shared sources identical) |
+| No conflicts; 90 dirty/untracked files preserved by SHA-256 | not re-checked here (torque session's own check) |
+| `npx vitest run src/shared`: 8 files, 233 tests pass | not re-run here; matches this session's count at `6f4ee77f` |
+| `npx tsc --noEmit`: exit 0, no diagnostics | not re-run here |
+| Torque row still private and inactive; no shared or V16 edits; Quiet Machine inline poster unchanged | consistent with the empty `src/shared` diff above; row inactivity not re-read in the torque tree |
+| Evidence | `jgun-torque-wrench/project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/shell-source-delivery-2026-10-11.md` (exists, 6,324 bytes; contents not audited here) |
+
+Recorded: shell delivery into the torque worktree and torque-side CPU verification are complete. Not recorded as done, and not authorized by that report: resource coordination, the fresh runtime readiness run (build, `verify-page-transition.mjs`), approved numerical budgets and verification matrix, activation of the torque row, any browser/server/GPU work, push, deploy or publication.
