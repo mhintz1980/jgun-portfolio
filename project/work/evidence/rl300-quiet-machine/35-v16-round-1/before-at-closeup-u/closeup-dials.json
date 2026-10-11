@@ -1,0 +1,96 @@
+{
+  "part": "dials",
+  "u": 0.56,
+  "requestedU": 0.56,
+  "uMatchesRequest": true,
+  "plane": -0.15000000000000002,
+  "bboxNdc": [
+    [
+      0.9433207741607752,
+      0.22519714221467932,
+      0.9829850627336232
+    ],
+    [
+      0.7921092707607715,
+      0.2308635121316121,
+      0.9827590949459178
+    ],
+    [
+      0.9410387581748537,
+      0.32967126009998987,
+      0.9830278373774355
+    ],
+    [
+      0.790168626528887,
+      0.3366556205769772,
+      0.9828029685103967
+    ],
+    [
+      0.9720591440298707,
+      0.23551982952864237,
+      0.9825734067969822
+    ],
+    [
+      0.8176571182887071,
+      0.24145487750283262,
+      0.9823367244623815
+    ],
+    [
+      0.9696529948316477,
+      0.3423946683543628,
+      0.9826181938018412
+    ],
+    [
+      0.8156067530572635,
+      0.34970936640050865,
+      0.9823826893676431
+    ]
+  ],
+  "areaFraction": 0.00566,
+  "clip": {
+    "x": 1080,
+    "y": 201,
+    "width": 360,
+    "height": 240
+  },
+  "tier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1290599,
+    "sha256": "5c891d1a24b1e88e00640940645fa463d9122602b60d70bca4bd4906f8737324",
+    "nonFlat": 0.5853435570987654
+  },
+  "cropPng": {
+    "bytes": 299796,
+    "sha256": "91b8d3fb0a82c7b78c4b6f23368adf80da02fd68993db310ec368c8bd461aab4"
+  },
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "drawCalls": 108,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "note": "same u and clip as after/",
+  "pageErrors": []
+}

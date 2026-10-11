@@ -1,0 +1,119 @@
+{
+  "now": [
+    {
+      "name": "u34-1440x900",
+      "viewport": "1440x900",
+      "u": 0.34,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 111,
+      "renderedTriangles": 1201746,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u51-1440x900",
+      "viewport": "1440x900",
+      "u": 0.51,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 98,
+      "renderedTriangles": 1186429,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u34-390x844",
+      "viewport": "390x844",
+      "u": 0.34,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 111,
+      "renderedTriangles": 1196562,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u51-390x844",
+      "viewport": "390x844",
+      "u": 0.51,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 97,
+      "renderedTriangles": 1149786,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    }
+  ],
+  "committed": [
+    {
+      "name": "u34-1440x900",
+      "viewport": "1440x900",
+      "u": 0.34,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 111,
+      "renderedTriangles": 1201746,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u51-1440x900",
+      "viewport": "1440x900",
+      "u": 0.51,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 98,
+      "renderedTriangles": 1186429,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u34-390x844",
+      "viewport": "390x844",
+      "u": 0.34,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 111,
+      "renderedTriangles": 1196562,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    },
+    {
+      "name": "u51-390x844",
+      "viewport": "390x844",
+      "u": 0.51,
+      "tier": "full",
+      "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "drawCalls": 97,
+      "renderedTriangles": 1149786,
+      "geometries": 59,
+      "textures": 4,
+      "batches": 31,
+      "sourceTriangles": 440668,
+      "keptTriangles": 440072
+    }
+  ],
+  "gpuSameAsCommitted": true
+}

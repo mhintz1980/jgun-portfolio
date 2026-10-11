@@ -1,0 +1,220 @@
+{
+ "bytes": 258624,
+ "totalTris": 7248,
+ "lensAlpha": 0.03373594954609871,
+ "table": [
+  {
+   "node": "EXHAUST_CONNECTOR_PIPE",
+   "mat": "MSP_STAINLESS_FASTENER",
+   "tris": 2172,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.1266,
+     1.3775,
+     -0.4447
+    ],
+    [
+     0.218,
+     1.8207,
+     -0.3686
+    ]
+   ],
+   "delta_v16parts_mm": 2.439,
+   "delta_tight_mm": 0
+  },
+  {
+   "node": "BREP1",
+   "mat": "0.886275_0.694118_0.027451_0.000000_0.000000",
+   "tris": 147,
+   "islands": 2,
+   "bboxYup": [
+    [
+     0.4952,
+     0.766,
+     -0.5364
+    ],
+    [
+     0.52,
+     0.782,
+     -0.5225
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "BREP1.002",
+   "mat": "DIAL_FACE",
+   "tris": 150,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5411,
+     0.747,
+     -0.5564
+    ],
+    [
+     0.5411,
+     0.801,
+     -0.5024
+    ]
+   ],
+   "delta_v16parts_mm": 0.039
+  },
+  {
+   "node": "BREP1.003",
+   "mat": "DIAL_MARKS",
+   "tris": 887,
+   "islands": 30,
+   "bboxYup": [
+    [
+     0.5411,
+     0.7555,
+     -0.555
+    ],
+    [
+     0.545,
+     0.7983,
+     -0.5051
+    ]
+   ],
+   "delta_v16parts_mm": 0.033
+  },
+  {
+   "node": "DIAL_LENS_1",
+   "mat": "DIAL_LENS",
+   "tris": 380,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5452,
+     0.7428,
+     -0.5606
+    ],
+    [
+     0.5462,
+     0.8052,
+     -0.4982
+    ]
+   ],
+   "delta_v16parts_mm": 0.013
+  },
+  {
+   "node": "BREP1.001",
+   "mat": "DIAL_BEZEL",
+   "tris": 974,
+   "islands": 27,
+   "bboxYup": [
+    [
+     0.4972,
+     0.7352,
+     -0.5682
+    ],
+    [
+     0.5474,
+     0.8128,
+     -0.4907
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "BREP1.005",
+   "mat": "DIAL_MARKS",
+   "tris": 887,
+   "islands": 30,
+   "bboxYup": [
+    [
+     0.5411,
+     0.7555,
+     -0.6693
+    ],
+    [
+     0.545,
+     0.7983,
+     -0.6194
+    ]
+   ],
+   "delta_v16parts_mm": 0.049
+  },
+  {
+   "node": "BREP1.006",
+   "mat": "DIAL_FACE",
+   "tris": 150,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5411,
+     0.747,
+     -0.6707
+    ],
+    [
+     0.5411,
+     0.801,
+     -0.6168
+    ]
+   ],
+   "delta_v16parts_mm": 0.04
+  },
+  {
+   "node": "BREP1.008",
+   "mat": "0.886275_0.694118_0.027451_0.000000_0.001",
+   "tris": 147,
+   "islands": 2,
+   "bboxYup": [
+    [
+     0.4952,
+     0.766,
+     -0.6507
+    ],
+    [
+     0.52,
+     0.782,
+     -0.6368
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "DIAL_LENS_2",
+   "mat": "DIAL_LENS",
+   "tris": 380,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5452,
+     0.7428,
+     -0.6749
+    ],
+    [
+     0.5462,
+     0.8052,
+     -0.6125
+    ]
+   ],
+   "delta_v16parts_mm": 0.028
+  },
+  {
+   "node": "BREP1.007",
+   "mat": "DIAL_BEZEL",
+   "tris": 974,
+   "islands": 27,
+   "bboxYup": [
+    [
+     0.4972,
+     0.7352,
+     -0.6825
+    ],
+    [
+     0.5474,
+     0.8128,
+     -0.605
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  }
+ ],
+ "notes": [
+  "SPEC_DEVIATION EXHAUST_CONNECTOR_PIPE: v16-parts.json bbox differs 2.439 mm (reference is the AABB of the rotated object's bound_box corners); tight vertex AABB differs 0.000 mm"
+ ]
+}

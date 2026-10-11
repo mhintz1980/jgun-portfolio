@@ -1,0 +1,1183 @@
+{
+  "leaves": 557447,
+  "differing": 14414,
+  "patterns": [
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].optional.captureRegistration.projectedFeatures[].expected[]",
+      "count": 3096,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[0].expected[0]",
+          "a": -1.2327456374867725,
+          "b": -1.0659623139726342
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[0].expected[1]",
+          "a": 0.8025242910611978,
+          "b": 0.7120354540572891
+        }
+      ],
+      "numericMaxAbs": 0.3717594573246381
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].optional.captureRegistration.projectedFeatures[].actual[]",
+      "count": 3096,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[0].actual[0]",
+          "a": -1.2393928795196225,
+          "b": -1.0743950424183129
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[0].actual[1]",
+          "a": 0.7443174025445249,
+          "b": 0.6581491679894457
+        }
+      ],
+      "numericMaxAbs": 0.3561515010218299
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].optional.captureRegistration.projectedFeatures[].expected[]",
+      "count": 2189,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[0].expected[0]",
+          "a": -1.3597424488295589,
+          "b": -1.3597424519342731
+        },
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[0].expected[1]",
+          "a": 1.5257351502141576,
+          "b": 1.5257351508259087
+        }
+      ],
+      "numericMaxAbs": 0.0000011973581628410557
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].optional.captureRegistration.projectedFeatures[].actual[]",
+      "count": 2180,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[0].actual[0]",
+          "a": -1.3431863366529222,
+          "b": -1.3431863397467698
+        },
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[0].actual[1]",
+          "a": 1.4489959126484637,
+          "b": 1.4489959131739787
+        }
+      ],
+      "numericMaxAbs": 0.000001145662588797336
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].optional.captureRegistration.projectedFeatures[].errorPixels",
+      "count": 1032,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[0].errorPixels",
+          "a": 26.727465422055317,
+          "b": 25.169757181729658
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].optional.captureRegistration.projectedFeatures[1].errorPixels",
+          "a": 84.71323171350419,
+          "b": 79.86109697739636
+        }
+      ],
+      "numericMaxAbs": 23.92554103949749
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].optional.captureRegistration.projectedFeatures[].errorPixels",
+      "count": 692,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[0].errorPixels",
+          "a": 36.98555795371556,
+          "b": 36.98555799306132
+        },
+        {
+          "path": "$.cases[0].checkpoints[0].optional.captureRegistration.projectedFeatures[1].errorPixels",
+          "a": 113.49937736937613,
+          "b": 113.49937749684575
+        }
+      ],
+      "numericMaxAbs": 0.000029289708322721708
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].gl[].lastDrawAt",
+      "count": 184,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].gl[1].lastDrawAt",
+          "a": 34798.60000000894,
+          "b": 30047.79999999702
+        },
+        {
+          "path": "$.cases[0].checkpoints[0].gl[2].lastDrawAt",
+          "a": 21956.30000001192,
+          "b": 19236.69999998808
+        }
+      ],
+      "numericMaxAbs": 8086.800000011921
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].gl[].lastDrawAt",
+      "count": 172,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].gl[1].lastDrawAt",
+          "a": 141307.30000001192,
+          "b": 133166.19999998808
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].gl[2].lastDrawAt",
+          "a": 21956.30000001192,
+          "b": 19236.69999998808
+        }
+      ],
+      "numericMaxAbs": 8875.70000000298
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].at",
+      "count": 92,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].at",
+          "a": 34808.5,
+          "b": 30056.39999999106
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].at",
+          "a": 37758.90000000596,
+          "b": 32937.59999999404
+        }
+      ],
+      "numericMaxAbs": 8087.9000000059605
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].sheetStats.cacheMs",
+      "count": 92,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].sheetStats.cacheMs",
+          "a": 16181.79999999702,
+          "b": 14038.70000000298
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].sheetStats.cacheMs",
+          "a": 16181.79999999702,
+          "b": 14038.70000000298
+        }
+      ],
+      "numericMaxAbs": 2143.0999999940395
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].sheetStats.extractMs",
+      "count": 92,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].sheetStats.extractMs",
+          "a": 1007.2999999970198,
+          "b": 791.2000000029802
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].sheetStats.extractMs",
+          "a": 1007.2999999970198,
+          "b": 791.2000000029802
+        }
+      ],
+      "numericMaxAbs": 216.09999999403954
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].sheetStats.bakeMs",
+      "count": 92,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].sheetStats.bakeMs",
+          "a": 17933.09999999404,
+          "b": 15535.79999999702
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].sheetStats.bakeMs",
+          "a": 17933.09999999404,
+          "b": 15535.79999999702
+        }
+      ],
+      "numericMaxAbs": 2397.2999999970198
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].gl[].draws",
+      "count": 92,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].gl[1].draws",
+          "a": 105715,
+          "b": 104624
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].gl[1].draws",
+          "a": 197552,
+          "b": 194802
+        }
+      ],
+      "numericMaxAbs": 49033
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].settleMs",
+      "count": 91,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].settleMs",
+          "a": 12847,
+          "b": 10789
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].settleMs",
+          "a": 2534,
+          "b": 2537
+        }
+      ],
+      "numericMaxAbs": 2058
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].at",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].at",
+          "a": 141314.5,
+          "b": 133175.79999999702
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].at",
+          "a": 141447.90000000596,
+          "b": 133290.59999999404
+        }
+      ],
+      "numericMaxAbs": 8876.20000000298
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].telemetry.camera.x",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].telemetry.camera.x",
+          "a": 0.4122213795007943,
+          "b": 0.41684764184817347
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].telemetry.camera.x",
+          "a": 0.3537583658735386,
+          "b": 0.37030204953703955
+        }
+      ],
+      "numericMaxAbs": 0.03174304106641512
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].telemetry.camera.y",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].telemetry.camera.y",
+          "a": 0.14591947209720083,
+          "b": 0.1405608111142879
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].telemetry.camera.y",
+          "a": 0.2759047620531477,
+          "b": 0.23398124537089782
+        }
+      ],
+      "numericMaxAbs": 0.10776048159661067
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].telemetry.camera.z",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].telemetry.camera.z",
+          "a": 0.14960605367736074,
+          "b": 0.19236587029186974
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].telemetry.camera.z",
+          "a": -0.03523174436313341,
+          "b": -0.012278803048538612
+        }
+      ],
+      "numericMaxAbs": 0.04455494188955986
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].telemetry.camera.fov",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].telemetry.camera.fov",
+          "a": 37.386454575737325,
+          "b": 38.155135571996325
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].telemetry.camera.fov",
+          "a": 33.96371490226379,
+          "b": 34.41287358029315
+        }
+      ],
+      "numericMaxAbs": 1.0458335340649967
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].sheetStats.cacheMs",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].sheetStats.cacheMs",
+          "a": 16181.79999999702,
+          "b": 14038.70000000298
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].sheetStats.cacheMs",
+          "a": 16181.79999999702,
+          "b": 14038.70000000298
+        }
+      ],
+      "numericMaxAbs": 2143.0999999940395
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].sheetStats.extractMs",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].sheetStats.extractMs",
+          "a": 1007.2999999970198,
+          "b": 791.2000000029802
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].sheetStats.extractMs",
+          "a": 1007.2999999970198,
+          "b": 791.2000000029802
+        }
+      ],
+      "numericMaxAbs": 216.09999999403954
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].sheetStats.bakeMs",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].sheetStats.bakeMs",
+          "a": 17933.09999999404,
+          "b": 15535.79999999702
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].sheetStats.bakeMs",
+          "a": 17933.09999999404,
+          "b": 15535.79999999702
+        }
+      ],
+      "numericMaxAbs": 2397.2999999970198
+    },
+    {
+      "pattern": "$.cases[].pinnedCheckpoints[].gl[].draws",
+      "count": 86,
+      "examples": [
+        {
+          "path": "$.cases[0].pinnedCheckpoints[0].gl[1].draws",
+          "a": 3618764,
+          "b": 3568037
+        },
+        {
+          "path": "$.cases[0].pinnedCheckpoints[1].gl[1].draws",
+          "a": 3622952,
+          "b": 3571726
+        }
+      ],
+      "numericMaxAbs": 65388
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredHold.projectedFeatures[].expected[]",
+      "count": 72,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[0].expected[0]",
+          "a": -0.35672770747682525,
+          "b": -0.35672770830849204
+        },
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[0].expected[1]",
+          "a": 0.5075492505589282,
+          "b": 0.5075492479042207
+        }
+      ],
+      "numericMaxAbs": 5.2450312981733305e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredHold.projectedFeatures[].actual[]",
+      "count": 72,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[0].actual[0]",
+          "a": -0.3567277060996052,
+          "b": -0.35672770693127204
+        },
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[0].actual[1]",
+          "a": 0.507549246459024,
+          "b": 0.5075492437571152
+        }
+      ],
+      "numericMaxAbs": 5.2450312981733305e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.camera.x",
+      "count": 62,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].telemetry.camera.x",
+          "a": 0.3114502573326408,
+          "b": 0.3114502573388277
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].telemetry.camera.x",
+          "a": 0.3678080903394309,
+          "b": 0.36780809212449145
+        }
+      ],
+      "numericMaxAbs": 5.2687598006695424e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.camera.y",
+      "count": 61,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].telemetry.camera.y",
+          "a": 0.11697568038231998,
+          "b": 0.1169756804134535
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].telemetry.camera.y",
+          "a": 0.19747664778705806,
+          "b": 0.19747665033682077
+        }
+      ],
+      "numericMaxAbs": 4.153215765745344e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.camera.z",
+      "count": 41,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].telemetry.camera.z",
+          "a": -0.11612896227352144,
+          "b": -0.11612896188556465
+        },
+        {
+          "path": "$.cases[0].checkpoints[1].telemetry.camera.z",
+          "a": -0.2613734034142173,
+          "b": -0.2613734080146446
+        }
+      ],
+      "numericMaxAbs": 4.677455062163105e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.camera.fov",
+      "count": 37,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[0].telemetry.camera.fov",
+          "a": 30.000000019647942,
+          "b": 30.000000028331446
+        },
+        {
+          "path": "$.cases[0].checkpoints[2].telemetry.camera.fov",
+          "a": 30.000000000000007,
+          "b": 30.00000000000001
+        }
+      ],
+      "numericMaxAbs": 3.628575484526664e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredHold.projectedFeatures[].errorPixels",
+      "count": 24,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[0].errorPixels",
+          "a": 0.0000021489012020552183,
+          "b": 0.0000021671648434185425
+        },
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.projectedFeatures[1].errorPixels",
+          "a": 0.000007044121335996598,
+          "b": 0.000007099178458593043
+        }
+      ],
+      "numericMaxAbs": 6.520573488567848e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.rig.stageRot[]",
+      "count": 5,
+      "examples": [
+        {
+          "path": "$.cases[1].checkpoints[45].telemetry.rig.stageRot[0]",
+          "a": 35.1226091171571,
+          "b": 34.914007365033655
+        },
+        {
+          "path": "$.cases[1].checkpoints[45].telemetry.rig.stageRot[1]",
+          "a": 22.829695926152116,
+          "b": 22.69410478727188
+        }
+      ],
+      "numericMaxAbs": 0.20860175212344245
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredHold.maxErrorPixels",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredHold.maxErrorPixels",
+          "a": 0.000007044121335996598,
+          "b": 0.000007099178458593043
+        },
+        {
+          "path": "$.cases[1].checkpoints[5].registeredHold.maxErrorPixels",
+          "a": 0.0000027359419675763003,
+          "b": 0.000002763510080675813
+        }
+      ],
+      "numericMaxAbs": 5.505712259644482e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCamera.x",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredCamera.x",
+          "a": 0.042000013190909825,
+          "b": 0.04200001357462723
+        },
+        {
+          "path": "$.cases[1].checkpoints[5].registeredCamera.x",
+          "a": 0.04200008027368172,
+          "b": 0.04200008171437106
+        }
+      ],
+      "numericMaxAbs": 1.4406893386609276e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCamera.y",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredCamera.y",
+          "a": 0.5999442886445439,
+          "b": 0.5999442900286257
+        },
+        {
+          "path": "$.cases[1].checkpoints[5].registeredCamera.y",
+          "a": 1.4580958558955817,
+          "b": 1.4580958618870699
+        }
+      ],
+      "numericMaxAbs": 5.99148819446782e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCamera.z",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredCamera.z",
+          "a": 0.11999996364446233,
+          "b": 0.11999996310794689
+        },
+        {
+          "path": "$.cases[1].checkpoints[5].registeredCamera.z",
+          "a": 0.11999994323058139,
+          "b": 0.11999994278965344
+        }
+      ],
+      "numericMaxAbs": 5.365154431835606e-10
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCamera.fov",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[5].registeredCamera.fov",
+          "a": 30.00000121185119,
+          "b": 30.000001229735012
+        },
+        {
+          "path": "$.cases[1].checkpoints[5].registeredCamera.fov",
+          "a": 30.00000189231395,
+          "b": 30.000001907011555
+        }
+      ],
+      "numericMaxAbs": 1.7883824199316223e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCameraDelta.moved",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[18].registeredCameraDelta.moved",
+          "a": 8.711800868678358e-8,
+          "b": 8.86404138980597e-8
+        },
+        {
+          "path": "$.cases[1].checkpoints[18].registeredCameraDelta.moved",
+          "a": 5.421776348607401e-7,
+          "b": 5.483295560006011e-7
+        }
+      ],
+      "numericMaxAbs": 6.15192113986104e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].registeredCameraDelta.fovDelta",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[18].registeredCameraDelta.fovDelta",
+          "a": 0.0000012118511811820554,
+          "b": 0.0000012297350053813716
+        },
+        {
+          "path": "$.cases[1].checkpoints[18].registeredCameraDelta.fovDelta",
+          "a": 0.0000018923139428750346,
+          "b": 0.0000019070115477859417
+        }
+      ],
+      "numericMaxAbs": 1.7883824199316223e-8
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].tiltCamera.x",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[37].tiltCamera.x",
+          "a": 0.35909057782645276,
+          "b": 0.359090577830554
+        },
+        {
+          "path": "$.cases[1].checkpoints[37].tiltCamera.x",
+          "a": 0.7665274477641594,
+          "b": 0.7665274479328129
+        }
+      ],
+      "numericMaxAbs": 1.6865353558159768e-10
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].tiltCamera.y",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[37].tiltCamera.y",
+          "a": 0.47150865849502294,
+          "b": 0.47150865868447517
+        },
+        {
+          "path": "$.cases[1].checkpoints[37].tiltCamera.y",
+          "a": 1.1235772490189668,
+          "b": 1.1235772494148817
+        }
+      ],
+      "numericMaxAbs": 3.9591485645473767e-10
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].tiltCamera.z",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[37].tiltCamera.z",
+          "a": 0.14684717516715215,
+          "b": 0.14684717503088138
+        },
+        {
+          "path": "$.cases[1].checkpoints[37].tiltCamera.z",
+          "a": 0.1468224836287085,
+          "b": 0.1468224835348139
+        }
+      ],
+      "numericMaxAbs": 1.3627077244393604e-10
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].tiltCamera.fov",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[37].tiltCamera.fov",
+          "a": 31.178421963164176,
+          "b": 31.178421957178212
+        },
+        {
+          "path": "$.cases[1].checkpoints[37].tiltCamera.fov",
+          "a": 31.17733573129626,
+          "b": 31.17733572717179
+        }
+      ],
+      "numericMaxAbs": 5.985963724697285e-9
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].tiltCamera.holdDelta",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].checkpoints[37].tiltCamera.holdDelta",
+          "a": 0.34316598957436745,
+          "b": 0.3431659894965905
+        },
+        {
+          "path": "$.cases[1].checkpoints[37].tiltCamera.holdDelta",
+          "a": 0.7984746770033965,
+          "b": 0.7984746769874095
+        }
+      ],
+      "numericMaxAbs": 7.77769515458715e-11
+    },
+    {
+      "pattern": "$.cases[].domContentLoadedMs",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].domContentLoadedMs",
+          "a": 323,
+          "b": 145
+        },
+        {
+          "path": "$.cases[1].domContentLoadedMs",
+          "a": 98,
+          "b": 75
+        }
+      ],
+      "numericMaxAbs": 178
+    },
+    {
+      "pattern": "$.cases[].coldLoadReadyMs",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].coldLoadReadyMs",
+          "a": 21972,
+          "b": 19250
+        },
+        {
+          "path": "$.cases[1].coldLoadReadyMs",
+          "a": 4157,
+          "b": 4257
+        }
+      ],
+      "numericMaxAbs": 2722
+    },
+    {
+      "pattern": "$.cases[].navigation[].duration",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].duration",
+          "a": 318.5,
+          "b": 141.59999999403954
+        },
+        {
+          "path": "$.cases[1].navigation[0].duration",
+          "a": 94.5,
+          "b": 70.79999999701977
+        }
+      ],
+      "numericMaxAbs": 176.90000000596046
+    },
+    {
+      "pattern": "$.cases[].navigation[].navigationId",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].navigationId",
+          "a": 6138,
+          "b": 6766
+        },
+        {
+          "path": "$.cases[1].navigation[0].navigationId",
+          "a": 7309,
+          "b": 2999
+        }
+      ],
+      "numericMaxAbs": 4310
+    },
+    {
+      "pattern": "$.cases[].navigation[].fetchStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].fetchStart",
+          "a": 0.800000011920929,
+          "b": 0.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].fetchStart",
+          "a": 0.4000000059604645,
+          "b": 0.5
+        }
+      ],
+      "numericMaxAbs": 0.20000001788139343
+    },
+    {
+      "pattern": "$.cases[].navigation[].domainLookupStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domainLookupStart",
+          "a": 0.800000011920929,
+          "b": 0.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].domainLookupStart",
+          "a": 0.4000000059604645,
+          "b": 0.5
+        }
+      ],
+      "numericMaxAbs": 0.20000001788139343
+    },
+    {
+      "pattern": "$.cases[].navigation[].domainLookupEnd",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domainLookupEnd",
+          "a": 0.800000011920929,
+          "b": 0.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].domainLookupEnd",
+          "a": 0.4000000059604645,
+          "b": 0.5
+        }
+      ],
+      "numericMaxAbs": 0.20000001788139343
+    },
+    {
+      "pattern": "$.cases[].navigation[].connectStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].connectStart",
+          "a": 0.800000011920929,
+          "b": 0.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].connectStart",
+          "a": 0.4000000059604645,
+          "b": 0.5
+        }
+      ],
+      "numericMaxAbs": 0.20000001788139343
+    },
+    {
+      "pattern": "$.cases[].navigation[].connectEnd",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].connectEnd",
+          "a": 0.800000011920929,
+          "b": 0.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].connectEnd",
+          "a": 0.4000000059604645,
+          "b": 0.5
+        }
+      ],
+      "numericMaxAbs": 0.20000001788139343
+    },
+    {
+      "pattern": "$.cases[].navigation[].requestStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].requestStart",
+          "a": 1.800000011920929,
+          "b": 1.3999999910593033
+        },
+        {
+          "path": "$.cases[1].navigation[0].requestStart",
+          "a": 1.2999999970197678,
+          "b": 1.5
+        }
+      ],
+      "numericMaxAbs": 0.40000002086162567
+    },
+    {
+      "pattern": "$.cases[].navigation[].responseStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].responseStart",
+          "a": 17.700000002980232,
+          "b": 3.0999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].responseStart",
+          "a": 3.5,
+          "b": 4.0999999940395355
+        }
+      ],
+      "numericMaxAbs": 14.600000008940697
+    },
+    {
+      "pattern": "$.cases[].navigation[].finalResponseHeadersStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].finalResponseHeadersStart",
+          "a": 17.700000002980232,
+          "b": 3.0999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].finalResponseHeadersStart",
+          "a": 3.5,
+          "b": 4.0999999940395355
+        }
+      ],
+      "numericMaxAbs": 14.600000008940697
+    },
+    {
+      "pattern": "$.cases[].navigation[].responseEnd",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].responseEnd",
+          "a": 18.30000001192093,
+          "b": 3.5999999940395355
+        },
+        {
+          "path": "$.cases[1].navigation[0].responseEnd",
+          "a": 3.9000000059604645,
+          "b": 4.5999999940395355
+        }
+      ],
+      "numericMaxAbs": 14.700000017881393
+    },
+    {
+      "pattern": "$.cases[].navigation[].transferSize",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].transferSize",
+          "a": 995,
+          "b": 1234
+        },
+        {
+          "path": "$.cases[1].navigation[0].transferSize",
+          "a": 995,
+          "b": 1234
+        }
+      ],
+      "numericMaxAbs": 239
+    },
+    {
+      "pattern": "$.cases[].navigation[].encodedBodySize",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].encodedBodySize",
+          "a": 695,
+          "b": 934
+        },
+        {
+          "path": "$.cases[1].navigation[0].encodedBodySize",
+          "a": 695,
+          "b": 934
+        }
+      ],
+      "numericMaxAbs": 239
+    },
+    {
+      "pattern": "$.cases[].navigation[].decodedBodySize",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].decodedBodySize",
+          "a": 2116,
+          "b": 2729
+        },
+        {
+          "path": "$.cases[1].navigation[0].decodedBodySize",
+          "a": 2116,
+          "b": 2729
+        }
+      ],
+      "numericMaxAbs": 613
+    },
+    {
+      "pattern": "$.cases[].navigation[].domInteractive",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domInteractive",
+          "a": 28,
+          "b": 12.399999991059303
+        },
+        {
+          "path": "$.cases[1].navigation[0].domInteractive",
+          "a": 13.799999997019768,
+          "b": 14.199999988079071
+        }
+      ],
+      "numericMaxAbs": 15.600000008940697
+    },
+    {
+      "pattern": "$.cases[].navigation[].domContentLoadedEventStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domContentLoadedEventStart",
+          "a": 318.30000001192093,
+          "b": 141.5
+        },
+        {
+          "path": "$.cases[1].navigation[0].domContentLoadedEventStart",
+          "a": 94.5,
+          "b": 70.69999998807907
+        }
+      ],
+      "numericMaxAbs": 176.80000001192093
+    },
+    {
+      "pattern": "$.cases[].navigation[].domContentLoadedEventEnd",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domContentLoadedEventEnd",
+          "a": 318.40000000596046,
+          "b": 141.59999999403954
+        },
+        {
+          "path": "$.cases[1].navigation[0].domContentLoadedEventEnd",
+          "a": 94.5,
+          "b": 70.69999998807907
+        }
+      ],
+      "numericMaxAbs": 176.80000001192093
+    },
+    {
+      "pattern": "$.cases[].navigation[].domComplete",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].domComplete",
+          "a": 318.5,
+          "b": 141.59999999403954
+        },
+        {
+          "path": "$.cases[1].navigation[0].domComplete",
+          "a": 94.5,
+          "b": 70.79999999701977
+        }
+      ],
+      "numericMaxAbs": 176.90000000596046
+    },
+    {
+      "pattern": "$.cases[].navigation[].loadEventStart",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].loadEventStart",
+          "a": 318.5,
+          "b": 141.59999999403954
+        },
+        {
+          "path": "$.cases[1].navigation[0].loadEventStart",
+          "a": 94.5,
+          "b": 70.79999999701977
+        }
+      ],
+      "numericMaxAbs": 176.90000000596046
+    },
+    {
+      "pattern": "$.cases[].navigation[].loadEventEnd",
+      "count": 2,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].loadEventEnd",
+          "a": 318.5,
+          "b": 141.59999999403954
+        },
+        {
+          "path": "$.cases[1].navigation[0].loadEventEnd",
+          "a": 94.5,
+          "b": 70.79999999701977
+        }
+      ],
+      "numericMaxAbs": 176.90000000596046
+    },
+    {
+      "pattern": "$.started",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.started",
+          "a": "2026-10-10T09:34:29.905Z",
+          "b": "2026-10-10T09:43:13.158Z"
+        }
+      ],
+      "numericMaxAbs": 0
+    },
+    {
+      "pattern": "$.cases[].navigation[].confidence.value",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.cases[0].navigation[0].confidence.value",
+          "a": "high",
+          "b": "low"
+        }
+      ],
+      "numericMaxAbs": 0
+    },
+    {
+      "pattern": "$.cases[].checkpoints[].telemetry.rig.planetRot",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.cases[1].checkpoints[45].telemetry.rig.planetRot",
+          "a": -122.92913191004985,
+          "b": -122.19902577761779
+        }
+      ],
+      "numericMaxAbs": 0.7301061324320557
+    },
+    {
+      "pattern": "$.gitStart",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.gitStart",
+          "a": "",
+          "b": "?? 2\n?? document.querySelector('.qm-poster\n?? key\n?? project/work/evidence/rl300-quiet-machine/31-gpu-1/\n"
+        }
+      ],
+      "numericMaxAbs": 0
+    },
+    {
+      "pattern": "$.finished",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.finished",
+          "a": "2026-10-10T09:38:56.293Z",
+          "b": "2026-10-10T09:47:26.904Z"
+        }
+      ],
+      "numericMaxAbs": 0
+    },
+    {
+      "pattern": "$.gitEnd",
+      "count": 1,
+      "examples": [
+        {
+          "path": "$.gitEnd",
+          "a": "",
+          "b": "?? 2\n?? document.querySelector('.qm-poster\n?? key\n?? project/work/evidence/rl300-quiet-machine/31-gpu-1/\n"
+        }
+      ],
+      "numericMaxAbs": 0
+    }
+  ]
+}

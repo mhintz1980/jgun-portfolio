@@ -1,0 +1,739 @@
+{
+ "generatedBy": "asset seat (Sonnet 5.5)",
+ "v16Source": {
+  "sha256": "788ae2a2a2f784c56e70c16e81365b82fa0d236a48acce261855f4a7aa9d6146",
+  "note": "scratch copy V16-copy.blend; never saved over"
+ },
+ "outputs": {
+  "glb": {
+   "path": "public/models/rl300-extra-parts.glb",
+   "bytes": 258624,
+   "sha256": "74e6c02b00899aaf10d1e0ff87dcca7f9a9ab78733a96ff70cfc6f46c57dadf8",
+   "totalTris": 7248,
+   "note": "matched by .gitignore public/models/*.glb: needs git add -f"
+  },
+  "json": {
+   "path": "src/scene/rl300/v16-part-materials.json",
+   "bytes": 49408,
+   "sha256": "51c92d748ffd75241e9cc5789a4b4e12d0cc713db355b00f404241b9f9a8732a"
+  }
+ },
+ "counts": {
+  "v16Objects": 614,
+  "matchedMain": 540,
+  "matchedAlsoLite": 539,
+  "extras": 11,
+  "droppedV16Only": 63,
+  "collisions": 0,
+  "extrasAlsoInMain": []
+ },
+ "mapping": {
+  "single": 494,
+  "multiEqual": 21,
+  "multiUnequal": 36,
+  "multiNullPrims": 0,
+  "hasNullSlot": 0
+ },
+ "materialCount": 27,
+ "partCount": 551,
+ "decimation": [
+  {
+   "name": "BREP1.001",
+   "kind": "bezel",
+   "material": "DIAL_BEZEL",
+   "trisBefore": 21623,
+   "trisAfter": 974,
+   "budget": null,
+   "islandsBeforeWelded": 22,
+   "islandsAfterWelded": 27,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": 0.928,
+   "devSrcToDstMaxMm": 3.927,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": null
+  },
+  {
+   "name": "BREP1.002",
+   "kind": "face",
+   "material": "DIAL_FACE",
+   "trisBefore": 4750,
+   "trisAfter": 150,
+   "budget": null,
+   "islandsBeforeWelded": 1,
+   "islandsAfterWelded": 1,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": 0,
+   "devSrcToDstMaxMm": 0.259,
+   "method": "fill covered holes + Douglas-Peucker loops + triangle_fill",
+   "reusedFrom": null
+  },
+  {
+   "name": "BREP1.003",
+   "kind": "marks",
+   "material": "DIAL_MARKS",
+   "trisBefore": 9431,
+   "trisAfter": 887,
+   "budget": null,
+   "islandsBeforeWelded": 30,
+   "islandsAfterWelded": 30,
+   "bboxChangeMm": 0.0002,
+   "devDstToSrcMaxMm": 0.122,
+   "devSrcToDstMaxMm": 2.35,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": null
+  },
+  {
+   "name": "BREP1",
+   "kind": "ring",
+   "material": "0.886275_0.694118_0.027451_0.000000_0.000000",
+   "trisBefore": 1020,
+   "trisAfter": 147,
+   "budget": null,
+   "islandsBeforeWelded": 2,
+   "islandsAfterWelded": 2,
+   "bboxChangeMm": 0.0192,
+   "devDstToSrcMaxMm": 0.171,
+   "devSrcToDstMaxMm": 0.245,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": null
+  },
+  {
+   "name": "BREP1.007",
+   "kind": "bezel",
+   "material": "DIAL_BEZEL",
+   "trisBefore": 21623,
+   "trisAfter": 974,
+   "budget": null,
+   "islandsBeforeWelded": 22,
+   "islandsAfterWelded": 27,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": 0.928,
+   "devSrcToDstMaxMm": 3.927,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": "BREP1.001"
+  },
+  {
+   "name": "BREP1.006",
+   "kind": "face",
+   "material": "DIAL_FACE",
+   "trisBefore": 4750,
+   "trisAfter": 150,
+   "budget": null,
+   "islandsBeforeWelded": 1,
+   "islandsAfterWelded": 1,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": 0,
+   "devSrcToDstMaxMm": 0.259,
+   "method": "fill covered holes + Douglas-Peucker loops + triangle_fill",
+   "reusedFrom": "BREP1.002"
+  },
+  {
+   "name": "BREP1.005",
+   "kind": "marks",
+   "material": "DIAL_MARKS",
+   "trisBefore": 9431,
+   "trisAfter": 887,
+   "budget": null,
+   "islandsBeforeWelded": 30,
+   "islandsAfterWelded": 30,
+   "bboxChangeMm": 0.0002,
+   "devDstToSrcMaxMm": 0.122,
+   "devSrcToDstMaxMm": 2.35,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": "BREP1.003"
+  },
+  {
+   "name": "BREP1.008",
+   "kind": "ring",
+   "material": "0.886275_0.694118_0.027451_0.000000_0.001",
+   "trisBefore": 1020,
+   "trisAfter": 147,
+   "budget": null,
+   "islandsBeforeWelded": 2,
+   "islandsAfterWelded": 2,
+   "bboxChangeMm": 0.0192,
+   "devDstToSrcMaxMm": 0.171,
+   "devSrcToDstMaxMm": 0.245,
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "reusedFrom": "BREP1"
+  },
+  {
+   "name": "EXHAUST_CONNECTOR_PIPE",
+   "kind": "pipe",
+   "material": "MSP_STAINLESS_FASTENER",
+   "trisBefore": 2172,
+   "trisAfter": 2172,
+   "budget": null,
+   "islandsBeforeWelded": 1,
+   "islandsAfterWelded": 1,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": null,
+   "devSrcToDstMaxMm": null,
+   "method": "unchanged (triangulated)",
+   "reusedFrom": null
+  },
+  {
+   "name": "DIAL_LENS_1",
+   "kind": "lens",
+   "material": "DIAL_LENS",
+   "trisBefore": 380,
+   "trisAfter": 380,
+   "budget": null,
+   "islandsBeforeWelded": 1,
+   "islandsAfterWelded": 1,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": null,
+   "devSrcToDstMaxMm": null,
+   "method": "unchanged (triangulated)",
+   "reusedFrom": null
+  },
+  {
+   "name": "DIAL_LENS_2",
+   "kind": "lens",
+   "material": "DIAL_LENS",
+   "trisBefore": 380,
+   "trisAfter": 380,
+   "budget": null,
+   "islandsBeforeWelded": 1,
+   "islandsAfterWelded": 1,
+   "bboxChangeMm": 0,
+   "devDstToSrcMaxMm": null,
+   "devSrcToDstMaxMm": null,
+   "method": "unchanged (triangulated)",
+   "reusedFrom": null
+  }
+ ],
+ "twinCheck": {
+  "BREP1.007": {
+   "twin_of": "BREP1.001",
+   "same_vertex_count": true,
+   "shift_m": [
+    0,
+    0.11432069540023804,
+    0
+   ],
+   "max_dev_after_shift_m": 2.9802322387695312e-8,
+   "is_translated_twin": true
+  },
+  "BREP1.006": {
+   "twin_of": "BREP1.002",
+   "same_vertex_count": true,
+   "shift_m": [
+    0,
+    0.11432069540023804,
+    0
+   ],
+   "max_dev_after_shift_m": 0,
+   "is_translated_twin": true
+  },
+  "BREP1.005": {
+   "twin_of": "BREP1.003",
+   "same_vertex_count": true,
+   "shift_m": [
+    0,
+    0.11432069540023804,
+    0
+   ],
+   "max_dev_after_shift_m": 0,
+   "is_translated_twin": true
+  },
+  "BREP1.008": {
+   "twin_of": "BREP1",
+   "same_vertex_count": true,
+   "shift_m": [
+    0,
+    0.11432069540023804,
+    0
+   ],
+   "max_dev_after_shift_m": 0,
+   "is_translated_twin": true
+  }
+ },
+ "nodes": [
+  {
+   "node": "EXHAUST_CONNECTOR_PIPE",
+   "mat": "MSP_STAINLESS_FASTENER",
+   "tris": 2172,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.1266,
+     1.3775,
+     -0.4447
+    ],
+    [
+     0.218,
+     1.8207,
+     -0.3686
+    ]
+   ],
+   "delta_v16parts_mm": 2.439,
+   "delta_tight_mm": 0
+  },
+  {
+   "node": "BREP1",
+   "mat": "0.886275_0.694118_0.027451_0.000000_0.000000",
+   "tris": 147,
+   "islands": 2,
+   "bboxYup": [
+    [
+     0.4952,
+     0.766,
+     -0.5364
+    ],
+    [
+     0.52,
+     0.782,
+     -0.5225
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "BREP1.002",
+   "mat": "DIAL_FACE",
+   "tris": 150,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5411,
+     0.747,
+     -0.5564
+    ],
+    [
+     0.5411,
+     0.801,
+     -0.5024
+    ]
+   ],
+   "delta_v16parts_mm": 0.039
+  },
+  {
+   "node": "BREP1.003",
+   "mat": "DIAL_MARKS",
+   "tris": 887,
+   "islands": 30,
+   "bboxYup": [
+    [
+     0.5411,
+     0.7555,
+     -0.555
+    ],
+    [
+     0.545,
+     0.7983,
+     -0.5051
+    ]
+   ],
+   "delta_v16parts_mm": 0.033
+  },
+  {
+   "node": "DIAL_LENS_1",
+   "mat": "DIAL_LENS",
+   "tris": 380,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5452,
+     0.7428,
+     -0.5606
+    ],
+    [
+     0.5462,
+     0.8052,
+     -0.4982
+    ]
+   ],
+   "delta_v16parts_mm": 0.013
+  },
+  {
+   "node": "BREP1.001",
+   "mat": "DIAL_BEZEL",
+   "tris": 974,
+   "islands": 27,
+   "bboxYup": [
+    [
+     0.4972,
+     0.7352,
+     -0.5682
+    ],
+    [
+     0.5474,
+     0.8128,
+     -0.4907
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "BREP1.005",
+   "mat": "DIAL_MARKS",
+   "tris": 887,
+   "islands": 30,
+   "bboxYup": [
+    [
+     0.5411,
+     0.7555,
+     -0.6693
+    ],
+    [
+     0.545,
+     0.7983,
+     -0.6194
+    ]
+   ],
+   "delta_v16parts_mm": 0.049
+  },
+  {
+   "node": "BREP1.006",
+   "mat": "DIAL_FACE",
+   "tris": 150,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5411,
+     0.747,
+     -0.6707
+    ],
+    [
+     0.5411,
+     0.801,
+     -0.6168
+    ]
+   ],
+   "delta_v16parts_mm": 0.04
+  },
+  {
+   "node": "BREP1.008",
+   "mat": "0.886275_0.694118_0.027451_0.000000_0.001",
+   "tris": 147,
+   "islands": 2,
+   "bboxYup": [
+    [
+     0.4952,
+     0.766,
+     -0.6507
+    ],
+    [
+     0.52,
+     0.782,
+     -0.6368
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  },
+  {
+   "node": "DIAL_LENS_2",
+   "mat": "DIAL_LENS",
+   "tris": 380,
+   "islands": 1,
+   "bboxYup": [
+    [
+     0.5452,
+     0.7428,
+     -0.6749
+    ],
+    [
+     0.5462,
+     0.8052,
+     -0.6125
+    ]
+   ],
+   "delta_v16parts_mm": 0.028
+  },
+  {
+   "node": "BREP1.007",
+   "mat": "DIAL_BEZEL",
+   "tris": 974,
+   "islands": 27,
+   "bboxYup": [
+    [
+     0.4972,
+     0.7352,
+     -0.6825
+    ],
+    [
+     0.5474,
+     0.8128,
+     -0.605
+    ]
+   ],
+   "delta_v16parts_mm": 0.046
+  }
+ ],
+ "notes": [
+  "SPEC_DEVIATION EXHAUST_CONNECTOR_PIPE: v16-parts.json bbox differs 2.439 mm (reference is the AABB of the rotated object's bound_box corners); tight vertex AABB differs 0.000 mm"
+ ],
+ "lens": {
+  "fresnel_ior": 1.4500000476837158,
+  "f0_normal_incidence": 0.03373594919332527,
+  "mix_inputs_by_identifier": {
+   "Fac": "FRESNEL",
+   "Shader": "BSDF_TRANSPARENT",
+   "Shader_001": "BSDF_GLOSSY"
+  },
+  "mix_factor_socket_default": 0.5,
+  "factor_linked": true,
+  "glossy_color": [
+   0.800000011920929,
+   0.800000011920929,
+   0.800000011920929
+  ],
+  "glossy_roughness": 0.019999999552965164,
+  "note": "Mix Shader fac=Fresnel(IOR); slot Shader (A, fac=0) and Shader_001 (B, fac=1) hold the types listed"
+ },
+ "stainless": {
+  "from": [
+   0,
+   1
+  ],
+  "to": [
+   0.30000001192092896,
+   0.41999998688697815
+  ],
+  "midpoint": 0.35999999940395355,
+  "socket_default": 0.4000000059604645,
+  "value_source": "Object Info Random (per object, 0..1), interpolation LINEAR"
+ },
+ "glbMaterials": {
+  "MSP_STAINLESS_FASTENER": {
+   "base": [
+    0.6200000047683716,
+    0.628000020980835,
+    0.6359999775886536,
+    1
+   ],
+   "metal": 1,
+   "rough": 0.35999999940395355,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_BEZEL": {
+   "base": [
+    0.7200000286102295,
+    0.7300000190734863,
+    0.75,
+    1
+   ],
+   "metal": 1,
+   "rough": 0.30000001192092896,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_FACE": {
+   "base": [
+    0.800000011920929,
+    0.800000011920929,
+    0.7799999713897705,
+    1
+   ],
+   "metal": 0,
+   "rough": 0.6000000238418579,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_MARKS": {
+   "base": [
+    0.009999999776482582,
+    0.009999999776482582,
+    0.010999999940395355,
+    1
+   ],
+   "metal": 0,
+   "rough": 0.44999998807907104,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "0.886275_0.694118_0.027451_0.000000_0.000000": {
+   "base": [
+    0.886274516582489,
+    0.6941176652908325,
+    0.027450980618596077,
+    1
+   ],
+   "metal": 0,
+   "rough": 1,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "0.886275_0.694118_0.027451_0.000000_0.001": {
+   "base": [
+    0.886274516582489,
+    0.6941176652908325,
+    0.027450980618596077,
+    1
+   ],
+   "metal": 0,
+   "rough": 1,
+   "coat": 0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_LENS": {
+   "base": [
+    0.800000011920929,
+    0.800000011920929,
+    0.800000011920929
+   ],
+   "metal": 0,
+   "rough": 0.019999999552965164,
+   "coat": 0,
+   "coat_rough": 0,
+   "alpha": 0.03373594919332527
+  }
+ },
+ "config": {
+  "weld": 0.000001,
+  "dissolve_deg": 1,
+  "budget": {
+   "bezel": 1000,
+   "face": 150,
+   "marks": 900,
+   "ring": 150
+  },
+  "smooth_deg": 30,
+  "min_island_tris": 8,
+  "pin_weight": 1,
+  "pin_factor": 1,
+  "face_eps_mm": 0.05,
+  "alloc_exponent": 0.5,
+  "size_weight_mm": 12
+ },
+ "faceFill": {
+  "holesTotal": 31,
+  "holesFilled": 18,
+  "holesKept": [
+   {
+    "verts": 98,
+    "size_mm": [
+     3.71,
+     5
+    ],
+    "area_mm2": 12,
+    "marks_cover_ratio": 0.808,
+    "filled": false
+   },
+   {
+    "verts": 114,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 112,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 203,
+    "size_mm": [
+     1.48,
+     2.41
+    ],
+    "area_mm2": 2.206,
+    "marks_cover_ratio": 0.651,
+    "filled": false
+   },
+   {
+    "verts": 114,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 114,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 112,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 114,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 116,
+    "size_mm": [
+     1.52,
+     2.41
+    ],
+    "area_mm2": 3.023,
+    "marks_cover_ratio": 0.476,
+    "filled": false
+   },
+   {
+    "verts": 190,
+    "size_mm": [
+     1.48,
+     2.41
+    ],
+    "area_mm2": 2.217,
+    "marks_cover_ratio": 0.653,
+    "filled": false
+   },
+   {
+    "verts": 59,
+    "size_mm": [
+     2.36,
+     2.36
+    ],
+    "area_mm2": 4.374,
+    "marks_cover_ratio": 0.12,
+    "filled": false
+   },
+   {
+    "verts": 15,
+    "size_mm": [
+     1.66,
+     2.33
+    ],
+    "area_mm2": 1.76,
+    "marks_cover_ratio": 0.723,
+    "filled": false
+   },
+   {
+    "verts": 59,
+    "size_mm": [
+     1.26,
+     1.26
+    ],
+    "area_mm2": 1.241,
+    "marks_cover_ratio": 0,
+    "filled": false
+   }
+  ],
+  "rimVerts": 60,
+  "epsOuterMm": 0.05
+ }
+}

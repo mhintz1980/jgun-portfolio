@@ -1,0 +1,82 @@
+{
+  "name": "sheet-tile-1440x900-shot3",
+  "file": "sheet-tiles/1440x900-shot3.png",
+  "pngBytes": 342428,
+  "pngSha256": "319319f6f9c335a632f48f7feefb4f2a63c2813a54b6a5a1567b1a24cb016345",
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "u": 0.34,
+  "requestedU": 0.34,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "nonFlatFraction": 0.38845447530864197,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "frame": 14,
+  "cutPlane": -0.15000000000000002,
+  "camera": [
+    3.615,
+    1.765,
+    2.745
+  ],
+  "fov": 33,
+  "drawCalls": 148,
+  "renderedTriangles": 1218478,
+  "geometries": 78,
+  "textures": 4,
+  "counts": {
+    "sourceTriangles": 447916,
+    "keptTriangles": 447320,
+    "linerTriangles": 108,
+    "sourceMeshes": 600,
+    "batches": 50,
+    "cappedTriangles": 156052,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9810,
+    "removedTriangles": 460,
+    "skippedRoots": 1,
+    "materials": 50,
+    "mappedParts": 513,
+    "mappedPrimitives": 541,
+    "protectedPrimitives": 226,
+    "unmappedMultiSlot": 36,
+    "extraParts": 11,
+    "extraTriangles": 7248,
+    "v16Applied": true
+  },
+  "partCount": 25,
+  "partPolicies": {
+    "keep": 4,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 19962,
+  "glbsRequested": [
+    "rl300-extra-parts.glb",
+    "msp-enclosure.glb"
+  ],
+  "rangeValue": 340,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": [],
+  "shot": 3,
+  "shotTitle": "The main intake"
+}

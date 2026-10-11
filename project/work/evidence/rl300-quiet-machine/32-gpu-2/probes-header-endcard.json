@@ -1,0 +1,490 @@
+{
+  "390x667": {
+    "headerCapture": "header-390x667.png",
+    "endcardCapture": "endcard-390x667.png",
+    "navAt0": [
+      {
+        "label": "Pages",
+        "cls": "shell-nav shell-nav-header",
+        "within": "header",
+        "display": "block",
+        "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+      }
+    ],
+    "endProbe": {
+      "path": "/quiet-machine/",
+      "navLandmarks": [
+        {
+          "label": "Pages",
+          "cls": "shell-nav shell-nav-header",
+          "within": "header",
+          "display": "block",
+          "visibility": "visible"
+        },
+        {
+          "label": "Pages",
+          "cls": "shell-nav shell-nav-endcard",
+          "within": "endcard",
+          "display": "block",
+          "visibility": "visible"
+        }
+      ],
+      "headerLinks": [
+        {
+          "text": "TORQUE GUN",
+          "href": "/",
+          "resolvedPath": "/",
+          "hasDataFade": true,
+          "ariaCurrent": null,
+          "selfLink": false
+        },
+        {
+          "text": "THE QUIET MACHINE",
+          "href": "/quiet-machine/",
+          "resolvedPath": "/quiet-machine/",
+          "hasDataFade": true,
+          "ariaCurrent": "page",
+          "selfLink": true
+        }
+      ],
+      "endcardLinks": [
+        {
+          "text": "TORQUE GUN",
+          "href": "/",
+          "resolvedPath": "/",
+          "hasDataFade": true,
+          "ariaCurrent": null,
+          "selfLink": false
+        },
+        {
+          "text": "THE QUIET MACHINE",
+          "href": "/quiet-machine/",
+          "resolvedPath": "/quiet-machine/",
+          "hasDataFade": true,
+          "ariaCurrent": "page",
+          "selfLink": true
+        }
+      ],
+      "reserved": [
+        "M249, in preparation",
+        "M249, in preparation"
+      ],
+      "texts": [
+        {
+          "scope": ".qm-header nav",
+          "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+        },
+        {
+          "scope": ".qm-endcard",
+          "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+        }
+      ],
+      "pseudo": [],
+      "counters": [],
+      "digits": [
+        {
+          "scope": ".qm-header nav",
+          "matches": null
+        },
+        {
+          "scope": ".qm-endcard",
+          "matches": null
+        }
+      ],
+      "eyebrow": "THE QUIET MACHINE 07 / 07"
+    },
+    "overlaps": [
+      {
+        "shot": 1,
+        "u": 0,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          193.7
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "The object"
+      },
+      {
+        "shot": 2,
+        "u": 0.195,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "The incision"
+      },
+      {
+        "shot": 3,
+        "u": 0.34,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "The main intake"
+      },
+      {
+        "shot": 4,
+        "u": 0.51,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "A second breath"
+      },
+      {
+        "shot": 5,
+        "u": 0.685,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "Two feeds, one exit"
+      },
+      {
+        "shot": 6,
+        "u": 0.825,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "Control the noise"
+      },
+      {
+        "shot": 7,
+        "u": 0.945,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          80,
+          368,
+          211.3
+        ],
+        "overlapW": 346,
+        "overlapH": 24.5,
+        "overlapArea": 8466,
+        "title": "Resolve"
+      }
+    ],
+    "endcardUMatches": true,
+    "endcardRendered": true
+  },
+  "390x844": {
+    "headerCapture": "header-390x844.png",
+    "endcardCapture": "endcard-390x844.png",
+    "navAt0": [
+      {
+        "label": "Pages",
+        "cls": "shell-nav shell-nav-header",
+        "within": "header",
+        "display": "block",
+        "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+      }
+    ],
+    "endProbe": {
+      "path": "/quiet-machine/",
+      "navLandmarks": [
+        {
+          "label": "Pages",
+          "cls": "shell-nav shell-nav-header",
+          "within": "header",
+          "display": "block",
+          "visibility": "visible"
+        },
+        {
+          "label": "Pages",
+          "cls": "shell-nav shell-nav-endcard",
+          "within": "endcard",
+          "display": "block",
+          "visibility": "visible"
+        }
+      ],
+      "headerLinks": [
+        {
+          "text": "TORQUE GUN",
+          "href": "/",
+          "resolvedPath": "/",
+          "hasDataFade": true,
+          "ariaCurrent": null,
+          "selfLink": false
+        },
+        {
+          "text": "THE QUIET MACHINE",
+          "href": "/quiet-machine/",
+          "resolvedPath": "/quiet-machine/",
+          "hasDataFade": true,
+          "ariaCurrent": "page",
+          "selfLink": true
+        }
+      ],
+      "endcardLinks": [
+        {
+          "text": "TORQUE GUN",
+          "href": "/",
+          "resolvedPath": "/",
+          "hasDataFade": true,
+          "ariaCurrent": null,
+          "selfLink": false
+        },
+        {
+          "text": "THE QUIET MACHINE",
+          "href": "/quiet-machine/",
+          "resolvedPath": "/quiet-machine/",
+          "hasDataFade": true,
+          "ariaCurrent": "page",
+          "selfLink": true
+        }
+      ],
+      "reserved": [
+        "M249, in preparation",
+        "M249, in preparation"
+      ],
+      "texts": [
+        {
+          "scope": ".qm-header nav",
+          "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+        },
+        {
+          "scope": ".qm-endcard",
+          "text": "TORQUE GUNTHE QUIET MACHINEM249, in preparation"
+        }
+      ],
+      "pseudo": [],
+      "counters": [],
+      "digits": [
+        {
+          "scope": ".qm-header nav",
+          "matches": null
+        },
+        {
+          "scope": ".qm-endcard",
+          "matches": null
+        }
+      ],
+      "eyebrow": "THE QUIET MACHINE 07 / 07"
+    },
+    "overlaps": [
+      {
+        "shot": 1,
+        "u": 0,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          215
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "The object"
+      },
+      {
+        "shot": 2,
+        "u": 0.195,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "The incision"
+      },
+      {
+        "shot": 3,
+        "u": 0.34,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "The main intake"
+      },
+      {
+        "shot": 4,
+        "u": 0.51,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "A second breath"
+      },
+      {
+        "shot": 5,
+        "u": 0.685,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "Two feeds, one exit"
+      },
+      {
+        "shot": 6,
+        "u": 0.825,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "Control the noise"
+      },
+      {
+        "shot": 7,
+        "u": 0.945,
+        "header": [
+          22,
+          22,
+          368,
+          104.5
+        ],
+        "editorial": [
+          22,
+          101.3,
+          368,
+          232.6
+        ],
+        "overlapW": 346,
+        "overlapH": 3.2,
+        "overlapArea": 1119,
+        "title": "Resolve"
+      }
+    ],
+    "endcardUMatches": true,
+    "endcardRendered": true
+  },
+  "1440x900": {
+    "endcardCapture": "endcard-1440x900.png",
+    "endcardRendered": true,
+    "uMatches": true
+  },
+  "768x1024": {
+    "endcardCapture": "endcard-768x1024.png",
+    "endcardRendered": true,
+    "uMatches": true
+  }
+}

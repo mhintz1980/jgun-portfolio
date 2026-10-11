@@ -5,6 +5,8 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { prepareModel, SHELL_ROOTS } from './prepareModel'
+import type { V16Map } from './v16Materials'
+import v16Parts from './v16-part-materials.json'
 import { SectionCaps } from './SectionCaps'
 import { LowerIntake } from './LowerIntake'
 import { AirRibbons, EQUIPMENT_MASK_STENCIL_REF } from './AirRibbons'
@@ -19,7 +21,8 @@ type Prepared = ReturnType<typeof prepareModel>
 function configureEquipmentStencil(group: Group) {
   group.traverse(object => {
     if (!(object instanceof Mesh) || SHELL_ROOTS.has(object.userData.sourceRoot)) return
-    object.renderOrder = 1
+    // The dial lens keeps the render order prepareModel gave it (after the opaque equipment).
+    object.renderOrder = Math.max(object.renderOrder, 1)
     const materials = Array.isArray(object.material) ? object.material : [object.material]
     materials.forEach(material => {
       material.stencilWrite = true
@@ -55,25 +58,41 @@ function Model({ plane, control, onReady, onError, lite }: { plane: Plane; contr
     let owned: Prepared | undefined
     const draco = new DRACOLoader().setDecoderPath('/draco/')
     const loader = new GLTFLoader().setDRACOLoader(draco)
+    const disposeSource = (scene: Group) => {
+      const geometries = new Set(), materials = new Set()
+      scene.traverse(o => { if (o instanceof Mesh) {
+        if (!geometries.has(o.geometry)) { o.geometry.dispose(); geometries.add(o.geometry) }
+        for (const m of Array.isArray(o.material) ? o.material : [o.material]) if (!materials.has(m)) { m.dispose(); materials.add(m) }
+      } })
+    }
+    // The extra parts (gauge dials, exhaust connector pipe) exist on the full tier only: lite,
+    // poster and reduced-motion never fetch them. A failed load resolves to null and leaves
+    // the main model untouched (extraParts stays 0).
+    const extras = lite ? Promise.resolve<Group | null>(null) : new Promise<Group | null>(resolve => {
+      loader.load('/models/rl300-extra-parts.glb', gltf => resolve(gltf.scene), undefined, () => resolve(null))
+    })
     loader.load(lite ? '/models/rl300-lite.glb' : '/models/msp-enclosure.glb', gltf => {
-      try {
-        if (!cancelled) {
-          owned = prepareModel(gltf.scene, plane)
-          configureEquipmentStencil(owned.group)
-          setModel(owned)
-          onReady(owned)
-          invalidate()
+      extras.then(extraScene => {
+        try {
+          if (!cancelled) {
+            owned = prepareModel(gltf.scene, plane, { v16: v16Parts as unknown as V16Map, physical: !lite, extras: extraScene ?? undefined })
+            configureEquipmentStencil(owned.group)
+            setModel(owned)
+            onReady(owned)
+            invalidate()
+          }
+        } catch { if (!cancelled) onError() }
+        finally {
+          disposeSource(gltf.scene)
+          if (extraScene) disposeSource(extraScene)
+          draco.dispose()
         }
-      } catch { if (!cancelled) onError() }
-      finally {
-        const geometries = new Set(), materials = new Set()
-        gltf.scene.traverse(o => { if (o instanceof Mesh) {
-          if (!geometries.has(o.geometry)) { o.geometry.dispose(); geometries.add(o.geometry) }
-          for (const m of Array.isArray(o.material) ? o.material : [o.material]) if (!materials.has(m)) { m.dispose(); materials.add(m) }
-        } })
-        draco.dispose()
-      }
-    }, undefined, () => { draco.dispose(); if (!cancelled) onError() })
+      })
+    }, undefined, () => {
+      draco.dispose()
+      extras.then(extraScene => { if (extraScene) disposeSource(extraScene) })
+      if (!cancelled) onError()
+    })
     return () => { cancelled = true; owned?.dispose(); draco.dispose() }
   }, [plane, invalidate, onReady, onError, lite])
   useFrame(() => { if (caps.current) caps.current.visible = control.caps })

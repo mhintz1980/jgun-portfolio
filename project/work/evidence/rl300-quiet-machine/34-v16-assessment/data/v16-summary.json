@@ -1,0 +1,719 @@
+{
+ "blender": "5.1.1",
+ "file_version": [
+  5,
+  1,
+  30
+ ],
+ "scenes": [
+  "Scene"
+ ],
+ "frame_range": [
+  1,
+  600
+ ],
+ "render_engine": "BLENDER_WORKBENCH",
+ "object_types": {
+  "CAMERA": 28,
+  "MESH": 614,
+  "EMPTY": 24,
+  "LIGHT": 7,
+  "CURVE": 2
+ },
+ "mesh_objects": 614,
+ "modifier_types": {
+  "DECIMATE": 154,
+  "SUBSURF": 2
+ },
+ "triangles_all_mesh_objects_instances_counted": 3438848,
+ "triangles_not_hidden": 3438820,
+ "unique_mesh_datablocks": 272,
+ "unique_mesh_triangles": 2898978,
+ "top_roots_by_tris": [
+  [
+   "904j-e28t_eng",
+   2174774
+  ],
+  [
+   "COMPOSITE_PANELS",
+   403892
+  ],
+  [
+   "PUMP_HOUSING",
+   315917
+  ],
+  [
+   "DUCT_EXHAUST",
+   187751
+  ],
+  [
+   "RM100-PX1029008D-1",
+   108292
+  ],
+  [
+   "ENCLOSURE_CHASSIS",
+   99245
+  ],
+  [
+   "BREP1.001",
+   36824
+  ],
+  [
+   "BREP1.007",
+   36824
+  ],
+  [
+   "MAN-6650459107-1.004",
+   20002
+  ],
+  [
+   "ENCLOSURE_CHASSIS.001",
+   10480
+  ],
+  [
+   "DUCT_INTAKE",
+   7202
+  ],
+  [
+   "26-01305-1",
+   7200
+  ],
+  [
+   "MSP-WIS-5343-1 (2)",
+   3852
+  ],
+  [
+   "MAN-6650459107-1.002",
+   3206
+  ]
+ ],
+ "collections": [
+  [
+   "Collection",
+   528
+  ],
+  [
+   "Collection 2",
+   5
+  ],
+  [
+   "Collection.001",
+   61
+  ],
+  [
+   "temp move",
+   51
+  ]
+ ],
+ "objects_named_V2": 209,
+ "has_res_1019": [
+  "V2RL300-SAF-1019-3",
+  "V2RL300-SAF-1019-4",
+  "V2RL300-SAF-RES-1019-SAFE-1"
+ ],
+ "has_res_1020": [
+  "V2RL300-SAF-RES-1020-SAFE-1"
+ ],
+ "shipped_roots_present": {
+  "ENCLOSURE_CHASSIS": true,
+  "COMPOSITE_PANELS": true,
+  "PUMP_HOUSING": true,
+  "ACOUSTIC_BAFFLES": true,
+  "ISOLATION_MOUNTS": true,
+  "DUCT_INTAKE": true,
+  "DUCT_EXHAUST": true,
+  "PROPOSED_LOWER_INTAKE": false
+ },
+ "objects_with_LABYRINTH_or_EXHAUST_PORT": [],
+ "materials_used": 32,
+ "materials_total_datablocks": 33,
+ "materials_with_procedural_textures": 12,
+ "materials_with_non_principled_bsdf": 8,
+ "materials_with_any_image": 0,
+ "materials_gltf_clean": 3,
+ "node_types_top": [
+  [
+   "BSDF_PRINCIPLED",
+   36
+  ],
+  [
+   "OUTPUT_MATERIAL",
+   32
+  ],
+  [
+   "BEVEL",
+   26
+  ],
+  [
+   "TEX_NOISE",
+   24
+  ],
+  [
+   "TEX_COORD",
+   22
+  ],
+  [
+   "BUMP",
+   21
+  ],
+  [
+   "MATH",
+   17
+  ],
+  [
+   "MIX_SHADER",
+   13
+  ],
+  [
+   "MAP_RANGE",
+   11
+  ],
+  [
+   "BSDF_TRANSPARENT",
+   8
+  ],
+  [
+   "OBJECT_INFO",
+   7
+  ],
+  [
+   "SEPXYZ",
+   6
+  ],
+  [
+   "NEW_GEOMETRY",
+   5
+  ],
+  [
+   "ATTRIBUTE",
+   5
+  ],
+  [
+   "FRESNEL",
+   1
+  ],
+  [
+   "BSDF_GLOSSY",
+   1
+  ]
+ ],
+ "material_rows_first": [
+  {
+   "name": "0.886275_0.694118_0.027451_0.000000_0.000000",
+   "nodes": 2,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": []
+  },
+  {
+   "name": "0.886275_0.694118_0.027451_0.000000_0.001",
+   "nodes": 2,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": []
+  },
+  {
+   "name": "DIAL_BEZEL",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "DIAL_FACE",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "DIAL_LENS",
+   "nodes": 5,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_GLOSSY",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "BSDF_GLOSSY",
+    "BSDF_TRANSPARENT",
+    "FRESNEL",
+    "MIX_SHADER"
+   ]
+  },
+  {
+   "name": "DIAL_MARKS",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_AIRWAY_VOLUME",
+   "nodes": 2,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": []
+  },
+  {
+   "name": "MSP_ALUMINUM_CAST",
+   "nodes": 8,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "MAP_RANGE",
+    "OBJECT_INFO",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_ALUMINUM_CAST_TURNED",
+   "nodes": 8,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "MAP_RANGE",
+    "OBJECT_INFO",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_CHASSIS",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_CHASSIS__SECTION",
+   "nodes": 19,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "ATTRIBUTE",
+    "BEVEL",
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MIX_SHADER",
+    "NEW_GEOMETRY",
+    "SEPXYZ",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_GLOSS",
+   "nodes": 8,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_LACQUER",
+   "nodes": 8,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_LACQUER__SECTION",
+   "nodes": 19,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "ATTRIBUTE",
+    "BEVEL",
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MIX_SHADER",
+    "NEW_GEOMETRY",
+    "SEPXYZ",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_BLACK_POP",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_BRASS_CAST",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_INSULATION_FOAM__SECTION",
+   "nodes": 12,
+   "proc": [
+    "TEX_NOISE",
+    "TEX_VORONOI"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MIX_SHADER",
+    "SEPXYZ",
+    "TEX_NOISE",
+    "TEX_VORONOI"
+   ]
+  },
+  {
+   "name": "MSP_PLASTIC",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_PLASTIC__SECTION",
+   "nodes": 19,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "ATTRIBUTE",
+    "BEVEL",
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MIX_SHADER",
+    "NEW_GEOMETRY",
+    "SEPXYZ",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_RUBBER",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS",
+   "nodes": 5,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "MAP_RANGE",
+    "OBJECT_INFO"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS__SECTION",
+   "nodes": 21,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "ATTRIBUTE",
+    "BEVEL",
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MAP_RANGE",
+    "MIX_SHADER",
+    "NEW_GEOMETRY",
+    "OBJECT_INFO",
+    "SEPXYZ",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS_FASTENER",
+   "nodes": 5,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "MAP_RANGE",
+    "OBJECT_INFO"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS_FASTENER.001",
+   "nodes": 5,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "MAP_RANGE",
+    "OBJECT_INFO"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS_FASTENER.002",
+   "nodes": 5,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "MAP_RANGE",
+    "OBJECT_INFO"
+   ]
+  },
+  {
+   "name": "MSP_STAINLESS_POLISHED",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_STEEL_CAST",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_STEEL_MACHINED",
+   "nodes": 3,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL"
+   ]
+  },
+  {
+   "name": "MSP_YELLOW_ENAMEL",
+   "nodes": 11,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "MAP_RANGE",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_YELLOW_PAINT",
+   "nodes": 11,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED"
+   ],
+   "non_gltf": [
+    "BEVEL",
+    "BUMP",
+    "MAP_RANGE",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "MSP_YELLOW_PAINT__SECTION",
+   "nodes": 22,
+   "proc": [
+    "TEX_NOISE"
+   ],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "ATTRIBUTE",
+    "BEVEL",
+    "BSDF_TRANSPARENT",
+    "BUMP",
+    "MAP_RANGE",
+    "MIX_SHADER",
+    "NEW_GEOMETRY",
+    "SEPXYZ",
+    "TEX_NOISE"
+   ]
+  },
+  {
+   "name": "REVEAL_FLOOR_MAT",
+   "nodes": 7,
+   "proc": [],
+   "img": [],
+   "bsdf": [
+    "BSDF_PRINCIPLED",
+    "BSDF_TRANSPARENT"
+   ],
+   "non_gltf": [
+    "BSDF_TRANSPARENT",
+    "MAP_RANGE",
+    "MIX_SHADER",
+    "VECT_MATH"
+   ]
+  }
+ ],
+ "images_in_use": 1,
+ "images_pixels_total_M": 2.1,
+ "images_largest": [
+  [
+   "env_studio-softbox-v2.png",
+   2048,
+   1024,
+   "FILE",
+   true
+  ]
+ ],
+ "lights": {
+  "AREA": 4,
+  "SPOT": 1,
+  "SUN": 2
+ },
+ "cameras": 28,
+ "actions": 15,
+ "world_nodes": [
+  "BACKGROUND",
+  "LIGHT_PATH",
+  "MATH",
+  "MIX_SHADER",
+  "OUTPUT_WORLD",
+  "SEPXYZ",
+  "TEX_COORD",
+  "TEX_ENVIRONMENT",
+  "TEX_SKY",
+  "VALTORGB",
+  "VALUE"
+ ]
+}

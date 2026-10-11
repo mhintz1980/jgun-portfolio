@@ -1,0 +1,130 @@
+{
+  "composite": "Chromium page compositor (no sharp/canvas/ImageMagick in node_modules)",
+  "file": "sheet-390x844.png",
+  "pngBytes": 741854,
+  "pngSha256": "f8035c678e50ccefe557c01a59e1a45b6599ad764274a9cdb73cf92783336d80",
+  "tier": "full",
+  "u": [
+    0.06,
+    0.195,
+    0.34,
+    0.51,
+    0.685,
+    0.825,
+    0.945
+  ],
+  "ready": true,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "url": [
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full"
+  ],
+  "sources": [
+    {
+      "file": "sheet-tiles/390x844-shot1.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.06,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot2.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.195,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot3.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.34,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot4.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.51,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot5.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.685,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot6.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.825,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "sheet-tiles/390x844-shot7.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.945,
+      "ready": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    }
+  ]
+}

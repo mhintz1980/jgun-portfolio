@@ -1,0 +1,370 @@
+{
+  "composite": "Chromium page compositor (no sharp/canvas/ImageMagick in node_modules)",
+  "file": "chevrons.png",
+  "pngBytes": 549899,
+  "pngSha256": "ca51a9989bc70b9697a6c15ebe476da7a77027300493b0d9f04c4bd54d9d263a",
+  "tier": "full",
+  "u": [
+    0.84,
+    0.873,
+    0.9
+  ],
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": [
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full",
+    "http://localhost:4173/quiet-machine/?quality=full"
+  ],
+  "sources": [
+    {
+      "file": "chevrons-raw-u840.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.84,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "chevrons-raw-u873.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.873,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    },
+    {
+      "file": "chevrons-raw-u900.png",
+      "tier": "full",
+      "requestedTier": "full",
+      "u": 0.9,
+      "ready": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "url": "http://localhost:4173/quiet-machine/?quality=full",
+      "uMatchesRequest": true,
+      "tierMatchesRequest": true
+    }
+  ],
+  "chevrons": {
+    "region": {
+      "x0": 983,
+      "x1": 1321,
+      "y0": 632,
+      "y1": 765
+    },
+    "frames": [
+      {
+        "tag": "u840",
+        "u": 0.84,
+        "tier": "full",
+        "cutPlane": -0.15000000000000002,
+        "mounts": [
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              0.689,
+              -0.737
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              0.969,
+              -1.075
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.174,
+              -0.809
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.337,
+              -1.188
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.399,
+              -0.889
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.386,
+              -1.317
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          }
+        ]
+      },
+      {
+        "tag": "u873",
+        "u": 0.873,
+        "tier": "full",
+        "cutPlane": -0.15000000000000002,
+        "mounts": [
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              0.714,
+              -0.685
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              1.068,
+              -0.998
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.249,
+              -0.835
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.538,
+              -1.221
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.319,
+              -1.018
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": false
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.14,
+              -1.507
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          }
+        ]
+      },
+      {
+        "tag": "u900",
+        "u": 0.9,
+        "tier": "full",
+        "cutPlane": -0.15000000000000002,
+        "mounts": [
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              0.69,
+              -0.664
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -1.355051
+            ],
+            "ndc": [
+              1.049,
+              -0.959
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.243,
+              -0.826
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": true
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              -0.055051
+            ],
+            "ndc": [
+              0.549,
+              -1.196
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          },
+          {
+            "p": [
+              -0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.312,
+              -1.028
+            ],
+            "front": true,
+            "onKeptSide": true,
+            "inStage": false
+          },
+          {
+            "p": [
+              0.53,
+              0.025,
+              1.244949
+            ],
+            "ndc": [
+              -0.102,
+              -1.506
+            ],
+            "front": true,
+            "onKeptSide": false,
+            "inStage": false
+          }
+        ]
+      }
+    ],
+    "regionDiff": {
+      "u873_vs_u840": {
+        "changed": 34927,
+        "of": 44954,
+        "fraction": 0.7769
+      },
+      "u873_vs_u900": {
+        "changed": 20819,
+        "of": 44954,
+        "fraction": 0.4631
+      },
+      "u840_vs_u900": {
+        "changed": 33137,
+        "of": 44954,
+        "fraction": 0.7371
+      }
+    },
+    "toggle": "none available at runtime"
+  }
+}

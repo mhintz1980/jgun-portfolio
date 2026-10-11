@@ -1,0 +1,14 @@
+diff --git a/quiet-machine/index.html b/quiet-machine/index.html
+index 2e1ac18e..6b8256ee 100644
+--- a/quiet-machine/index.html
++++ b/quiet-machine/index.html
+@@ -5,8 +5,7 @@
+     <!-- shell:begin -->
+     <!-- shell:fade:begin -->
+     <style>
+-      html { background: #05070a; }
+-      html[data-fade]::after { content: ""; position: fixed; inset: 0; z-index: 2147483647; background: #05070a; pointer-events: none; }
++      html[data-fade]::after { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; }
+       html[data-fade="in"]::after { animation: shell-fade-release 600ms ease 4000ms forwards; }
+       html[data-fade="out"]::after { animation: shell-fade-out 400ms ease forwards; }
+       html[data-fade="release"]::after { animation: shell-fade-release 600ms ease forwards; }

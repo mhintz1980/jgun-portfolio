@@ -1,0 +1,10 @@
+GET / (Accept: */*) -> 200 
+GET / (Accept: text/html) -> 200 
+GET /quiet-machine/ (Accept: */*) -> 200 
+GET /quiet-machine/ (Accept: text/html) -> 200 
+GET /quiet-machine (Accept: */*) -> 404 
+GET /quiet-machine (Accept: text/html) -> 404 
+GET /m249/ (Accept: */*) -> 404 
+GET /m249/ (Accept: text/html) -> 404 
+GET /definitely-not-a-page (Accept: */*) -> 404 
+GET /definitely-not-a-page (Accept: text/html) -> 404 

@@ -1,0 +1,866 @@
+[
+ {
+  "label": "before->after u34-1440x900",
+  "out": "diff-u34-1440x900.png",
+  "changedPct": 10.89,
+  "maxDelta": 212,
+  "meanDelta": 73.4,
+  "grid": [
+   [
+    0,
+    0,
+    0.1,
+    0
+   ],
+   [
+    0,
+    5.1,
+    51.8,
+    47.9
+   ],
+   [
+    0,
+    2.4,
+    21.5,
+    1.9
+   ]
+  ]
+ },
+ {
+  "label": "NOISE after vs repeat u34-1440x900",
+  "out": "noise-u34-1440x900.png",
+  "changedPct": 0,
+  "maxDelta": 0,
+  "meanDelta": 0,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "before->after u51-1440x900",
+  "out": "diff-u51-1440x900.png",
+  "changedPct": 15.08,
+  "maxDelta": 187,
+  "meanDelta": 102.1,
+  "grid": [
+   [
+    0,
+    40.3,
+    67.6,
+    64.9
+   ],
+   [
+    0,
+    0,
+    2.2,
+    6
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "NOISE after vs repeat u51-1440x900",
+  "out": "noise-u51-1440x900.png",
+  "changedPct": 0,
+  "maxDelta": 0,
+  "meanDelta": 0,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "before->after u34-390x844",
+  "out": "diff-u34-390x844.png",
+  "changedPct": 9,
+  "maxDelta": 210,
+  "meanDelta": 71.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1.4,
+    32.4,
+    26.6,
+    38.9
+   ],
+   [
+    0,
+    6.3,
+    2.3,
+    0.1
+   ]
+  ]
+ },
+ {
+  "label": "NOISE after vs repeat u34-390x844",
+  "out": "noise-u34-390x844.png",
+  "changedPct": 0,
+  "maxDelta": 0,
+  "meanDelta": 0,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "before->after u51-390x844",
+  "out": "diff-u51-390x844.png",
+  "changedPct": 17.03,
+  "maxDelta": 187,
+  "meanDelta": 106.3,
+  "grid": [
+   [
+    13.2,
+    13.1,
+    13.2,
+    11.2
+   ],
+   [
+    30.4,
+    40,
+    43.4,
+    39.9
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "NOISE after vs repeat u51-390x844",
+  "out": "noise-u51-390x844.png",
+  "changedPct": 0,
+  "maxDelta": 0,
+  "meanDelta": 0,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "lite before->after u34-390x844",
+  "out": "diff-lite-u34-390x844.png",
+  "changedPct": 7.5,
+  "maxDelta": 210,
+  "meanDelta": 74.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1.4,
+    34.7,
+    20.2,
+    24.9
+   ],
+   [
+    0,
+    6.3,
+    2.3,
+    0.1
+   ]
+  ]
+ },
+ {
+  "label": "lite before->after u51-390x844",
+  "out": "diff-lite-u51-390x844.png",
+  "changedPct": 16.83,
+  "maxDelta": 189,
+  "meanDelta": 117.7,
+  "grid": [
+   [
+    13.2,
+    13.1,
+    13.2,
+    10
+   ],
+   [
+    30.7,
+    40,
+    41.7,
+    40
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot1",
+  "out": "diff-sheet-1440x900-shot1.png",
+  "changedPct": 0.23,
+  "maxDelta": 198,
+  "meanDelta": 42.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    2.3,
+    0.5,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot2",
+  "out": "diff-sheet-1440x900-shot2.png",
+  "changedPct": 9.4,
+  "maxDelta": 225,
+  "meanDelta": 71.4,
+  "grid": [
+   [
+    0,
+    0.2,
+    1.2,
+    0
+   ],
+   [
+    0,
+    14.3,
+    63.1,
+    22
+   ],
+   [
+    0,
+    3.3,
+    8.7,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot3",
+  "out": "diff-sheet-1440x900-shot3.png",
+  "changedPct": 10.89,
+  "maxDelta": 212,
+  "meanDelta": 73.4,
+  "grid": [
+   [
+    0,
+    0,
+    0.1,
+    0
+   ],
+   [
+    0,
+    5.1,
+    51.8,
+    47.9
+   ],
+   [
+    0,
+    2.4,
+    21.5,
+    1.9
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot4",
+  "out": "diff-sheet-1440x900-shot4.png",
+  "changedPct": 15.08,
+  "maxDelta": 187,
+  "meanDelta": 102.1,
+  "grid": [
+   [
+    0,
+    40.3,
+    67.6,
+    64.9
+   ],
+   [
+    0,
+    0,
+    2.2,
+    6
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot5",
+  "out": "diff-sheet-1440x900-shot5.png",
+  "changedPct": 9.94,
+  "maxDelta": 205,
+  "meanDelta": 64.2,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    41.2,
+    44,
+    33.1
+   ],
+   [
+    0,
+    0.1,
+    0.4,
+    0.4
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot6",
+  "out": "diff-sheet-1440x900-shot6.png",
+  "changedPct": 12.67,
+  "maxDelta": 217,
+  "meanDelta": 69.7,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    24,
+    33.4,
+    50.4
+   ],
+   [
+    0,
+    7.5,
+    22.4,
+    14.3
+   ]
+  ]
+ },
+ {
+  "label": "sheet 1440x900 shot7",
+  "out": "diff-sheet-1440x900-shot7.png",
+  "changedPct": 8.29,
+  "maxDelta": 211,
+  "meanDelta": 73.1,
+  "grid": [
+   [
+    0,
+    0,
+    0.3,
+    0
+   ],
+   [
+    0,
+    1.6,
+    50.6,
+    31.1
+   ],
+   [
+    0,
+    0,
+    15.2,
+    0.6
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot1",
+  "out": "diff-sheet-390x844-shot1.png",
+  "changedPct": 0.18,
+  "maxDelta": 159,
+  "meanDelta": 40.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0.8,
+    0.9,
+    0.4,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot2",
+  "out": "diff-sheet-390x844-shot2.png",
+  "changedPct": 7.66,
+  "maxDelta": 234,
+  "meanDelta": 71.4,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    3.2,
+    39.1,
+    31.3,
+    16.9
+   ],
+   [
+    0,
+    1.3,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot3",
+  "out": "diff-sheet-390x844-shot3.png",
+  "changedPct": 9,
+  "maxDelta": 210,
+  "meanDelta": 71.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1.4,
+    32.4,
+    26.6,
+    38.9
+   ],
+   [
+    0,
+    6.3,
+    2.3,
+    0.1
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot4",
+  "out": "diff-sheet-390x844-shot4.png",
+  "changedPct": 17.03,
+  "maxDelta": 187,
+  "meanDelta": 106.3,
+  "grid": [
+   [
+    13.2,
+    13.1,
+    13.2,
+    11.2
+   ],
+   [
+    30.4,
+    40,
+    43.4,
+    39.9
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot5",
+  "out": "diff-sheet-390x844-shot5.png",
+  "changedPct": 8.24,
+  "maxDelta": 202,
+  "meanDelta": 63.1,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    25.5,
+    18.5,
+    29.9,
+    25
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot6",
+  "out": "diff-sheet-390x844-shot6.png",
+  "changedPct": 9.58,
+  "maxDelta": 212,
+  "meanDelta": 68.3,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    14.1,
+    30.7,
+    15.2,
+    35.9
+   ],
+   [
+    2.2,
+    7.5,
+    5.5,
+    3.7
+   ]
+  ]
+ },
+ {
+  "label": "sheet 390x844 shot7",
+  "out": "diff-sheet-390x844-shot7.png",
+  "changedPct": 6.97,
+  "maxDelta": 207,
+  "meanDelta": 73.5,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1.1,
+    24.3,
+    28.2,
+    26
+   ],
+   [
+    0,
+    3.4,
+    0.6,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "closeup dials",
+  "out": "diff-closeup-dials.png",
+  "changedPct": 89.26,
+  "maxDelta": 203,
+  "meanDelta": 87.1,
+  "grid": [
+   [
+    38.1,
+    91.9,
+    89.4,
+    98.4
+   ],
+   [
+    98.8,
+    97.6,
+    82.4,
+    96.6
+   ],
+   [
+    92.4,
+    85.6,
+    99.9,
+    99.9
+   ]
+  ]
+ },
+ {
+  "label": "closeup-full dials",
+  "out": "diff-closeup-dials-full.png",
+  "changedPct": 22.1,
+  "maxDelta": 203,
+  "meanDelta": 62.7,
+  "grid": [
+   [
+    3.6,
+    61.1,
+    28.7,
+    50.6
+   ],
+   [
+    0,
+    32.1,
+    34.1,
+    55
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "closeup exhaust-connector",
+  "out": "diff-closeup-exhaust-connector.png",
+  "changedPct": 21.63,
+  "maxDelta": 178,
+  "meanDelta": 43.7,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    8,
+    0,
+    0.8,
+    7.5
+   ],
+   [
+    36.3,
+    38.9,
+    78.8,
+    89.3
+   ]
+  ]
+ },
+ {
+  "label": "closeup-full exhaust-connector",
+  "out": "diff-closeup-exhaust-connector-full.png",
+  "changedPct": 14.91,
+  "maxDelta": 209,
+  "meanDelta": 67.6,
+  "grid": [
+   [
+    0,
+    0,
+    24.1,
+    15
+   ],
+   [
+    0,
+    1.4,
+    78.2,
+    59.9
+   ],
+   [
+    0,
+    0,
+    0.3,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "closeup exhaust-connector-uncut",
+  "out": "diff-closeup-exhaust-connector-uncut.png",
+  "changedPct": 16.74,
+  "maxDelta": 216,
+  "meanDelta": 47.9,
+  "grid": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    22.8
+   ],
+   [
+    48.9,
+    24.8,
+    30.6,
+    73.8
+   ]
+  ]
+ },
+ {
+  "label": "closeup-full exhaust-connector-uncut",
+  "out": "diff-closeup-exhaust-connector-uncut-full.png",
+  "changedPct": 11.71,
+  "maxDelta": 216,
+  "meanDelta": 72.4,
+  "grid": [
+   [
+    0,
+    0.3,
+    1.1,
+    0
+   ],
+   [
+    0,
+    24.1,
+    58.1,
+    30.7
+   ],
+   [
+    0,
+    10.4,
+    15.9,
+    0
+   ]
+  ]
+ },
+ {
+  "label": "closeup ffm-1001-1",
+  "out": "diff-closeup-ffm-1001-1.png",
+  "changedPct": 71.37,
+  "maxDelta": 205,
+  "meanDelta": 84.5,
+  "grid": [
+   [
+    86.8,
+    93.3,
+    78.9,
+    100.2
+   ],
+   [
+    90.1,
+    95.7,
+    91.4,
+    88.6
+   ],
+   [
+    41.3,
+    21,
+    28.3,
+    40.7
+   ]
+  ]
+ },
+ {
+  "label": "closeup-full ffm-1001-1",
+  "out": "diff-closeup-ffm-1001-1-full.png",
+  "changedPct": 18,
+  "maxDelta": 206,
+  "meanDelta": 61.2,
+  "grid": [
+   [
+    0,
+    28.6,
+    9.1,
+    27.9
+   ],
+   [
+    0,
+    42.7,
+    39.6,
+    68.2
+   ],
+   [
+    0,
+    0,
+    0,
+    0
+   ]
+  ]
+ }
+]

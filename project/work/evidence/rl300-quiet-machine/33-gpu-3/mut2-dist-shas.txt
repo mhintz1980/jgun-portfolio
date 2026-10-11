@@ -1,0 +1,2 @@
+f0ba1bc85b897f34d2e523ad6fa4c3be9ab3401354c30a29f5ebb86af531b110 *dist/quiet-machine/index.html
+05db0894ed90aef1cbf807fbdd151c65d9b1c1c41908f3cec5799479ffc70474 *dist/index.html

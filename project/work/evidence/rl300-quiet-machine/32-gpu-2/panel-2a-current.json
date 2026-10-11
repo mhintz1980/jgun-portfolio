@@ -1,0 +1,45 @@
+{
+  "u": 0.3,
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "source": "panel-candidates/u300.png",
+  "panelBox": {
+    "min": [
+      0.417,
+      0.83,
+      -0.67
+    ],
+    "max": [
+      0.596,
+      1.078,
+      -0.475
+    ]
+  },
+  "panelRect": {
+    "x": 1106.3806691822986,
+    "y": 456.6163261890693,
+    "w": 78.13605230744156,
+    "h": 82.72627566337331
+  },
+  "cutPlane": -0.15000000000000002,
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "partCount": 24
+}

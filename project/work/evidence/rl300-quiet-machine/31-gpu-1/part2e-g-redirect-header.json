@@ -1,0 +1,251 @@
+{
+  "redirect": {
+    "href": "http://localhost:4173/quiet-machine/?quality=lite",
+    "pathname": "/quiet-machine/",
+    "search": "?quality=lite",
+    "hash": "",
+    "historyLength": 2,
+    "title": "The Quiet Machine · RL300 Section Study",
+    "ready": true,
+    "poster": false,
+    "dataFade": null,
+    "firstResponseStatus": 200,
+    "errors": [],
+    "servedQmHtmlSha256": "c6f82f47b9c38a9b1d2d42c486b22ac1ec320feab433c1b5453cf10ea4df8156",
+    "distQmHtmlSha256": "c6f82f47b9c38a9b1d2d42c486b22ac1ec320feab433c1b5453cf10ea4df8156"
+  },
+  "header": {
+    "viewport": [
+      390,
+      844
+    ],
+    "header": {
+      "x": 22,
+      "y": 22,
+      "width": 346,
+      "height": 73.5,
+      "right": 368,
+      "bottom": 95.5,
+      "scrollWidth": 346,
+      "clientWidth": 346,
+      "scrollHeight": 74,
+      "overflowsOwnBox": false,
+      "computedDisplay": "flex",
+      "flexWrap": "nowrap"
+    },
+    "navFound": true,
+    "navTag": "NAV",
+    "navClass": "shell-nav shell-nav-header",
+    "documentScrollWidth": 390,
+    "documentClientWidth": 390,
+    "documentOverflowsX": false,
+    "anyItemOverflowsOwnBox": false,
+    "anyItemPastViewportRight": false,
+    "items": [
+      {
+        "tag": "header",
+        "cls": "qm-header",
+        "text": "",
+        "rect": {
+          "x": 22,
+          "y": 22,
+          "width": 346,
+          "height": 73.5,
+          "right": 368,
+          "bottom": 95.5
+        },
+        "scrollWidth": 346,
+        "clientWidth": 346,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "",
+        "rect": {
+          "x": 22,
+          "y": 33.5,
+          "width": 104.7,
+          "height": 50.5,
+          "right": 126.7,
+          "bottom": 84
+        },
+        "scrollWidth": 105,
+        "clientWidth": 105,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "span",
+        "cls": "",
+        "text": "ENGINEERING & DESIGN",
+        "rect": {
+          "x": 22,
+          "y": 60,
+          "width": 104.7,
+          "height": 24,
+          "right": 126.7,
+          "bottom": 84
+        },
+        "scrollWidth": 105,
+        "clientWidth": 105,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "nav",
+        "cls": "shell-nav shell-nav-header",
+        "text": "",
+        "rect": {
+          "x": 126.7,
+          "y": 22,
+          "width": 139.3,
+          "height": 73.5,
+          "right": 266,
+          "bottom": 95.5
+        },
+        "scrollWidth": 139,
+        "clientWidth": 139,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "ul",
+        "cls": "shell-nav-list",
+        "text": "",
+        "rect": {
+          "x": 126.7,
+          "y": 22,
+          "width": 139.3,
+          "height": 73.5,
+          "right": 266,
+          "bottom": 95.5
+        },
+        "scrollWidth": 139,
+        "clientWidth": 139,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "li",
+        "cls": "shell-nav-item",
+        "text": "",
+        "rect": {
+          "x": 126.7,
+          "y": 22,
+          "width": 139.3,
+          "height": 19.5,
+          "right": 266,
+          "bottom": 41.5
+        },
+        "scrollWidth": 139,
+        "clientWidth": 139,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "TORQUE GUN",
+        "rect": {
+          "x": 126.7,
+          "y": 24,
+          "width": 104.8,
+          "height": 15,
+          "right": 231.5,
+          "bottom": 39
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "li",
+        "cls": "shell-nav-item",
+        "text": "",
+        "rect": {
+          "x": 126.7,
+          "y": 41.5,
+          "width": 139.3,
+          "height": 39,
+          "right": 266,
+          "bottom": 80.5
+        },
+        "scrollWidth": 139,
+        "clientWidth": 139,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "THE QUIET MACHINE",
+        "rect": {
+          "x": 126.7,
+          "y": 43.5,
+          "width": 84.5,
+          "height": 34.5,
+          "right": 211.3,
+          "bottom": 78
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "li",
+        "cls": "shell-nav-item",
+        "text": "",
+        "rect": {
+          "x": 126.7,
+          "y": 80.5,
+          "width": 139.3,
+          "height": 15,
+          "right": 266,
+          "bottom": 95.5
+        },
+        "scrollWidth": 139,
+        "clientWidth": 139,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "span",
+        "cls": "shell-nav-reserved",
+        "text": "M249, in preparation",
+        "rect": {
+          "x": 126.7,
+          "y": 82.5,
+          "width": 125.8,
+          "height": 11,
+          "right": 252.5,
+          "bottom": 93.5
+        },
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      },
+      {
+        "tag": "span",
+        "cls": "",
+        "text": "RL300 / SECTION STUDY",
+        "rect": {
+          "x": 266,
+          "y": 48.3,
+          "width": 102,
+          "height": 21,
+          "right": 368,
+          "bottom": 69.3
+        },
+        "scrollWidth": 102,
+        "clientWidth": 102,
+        "overflowsOwnBox": false,
+        "pastViewportRight": false
+      }
+    ]
+  }
+}

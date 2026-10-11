@@ -1,0 +1,6 @@
+static contract: 92 checks, 0 failures
+desktop: ready in 21972 ms
+desktop: FAIL (90 failures)
+narrow: ready in 4157 ms
+narrow: FAIL (1 failures)
+Evidence: C:\Users\Markimus\.buzz\REPOS\qm-u4\gpu1-jgun-base

@@ -1,0 +1,522 @@
+{
+ "unit_scale": 1.0,
+ "unit_system": "METRIC",
+ "rows": [
+  {
+   "name": "BREP1",
+   "type": "MESH",
+   "parent": "BREP1.001",
+   "chain": [
+    "BREP1.001"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 1020,
+   "bbox": [
+    [
+     0.4952,
+     0.5225,
+     0.766
+    ],
+    [
+     0.52,
+     0.5364,
+     0.782
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.5294,
+    0.7391
+   ],
+   "mats": [
+    "0.886275_0.694118_0.027451_0.000000_0.000000"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh"
+  },
+  {
+   "name": "BREP1.001",
+   "type": "MESH",
+   "parent": null,
+   "chain": [],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 21623,
+   "bbox": [
+    [
+     0.4972,
+     0.4907,
+     0.7352
+    ],
+    [
+     0.5474,
+     0.5682,
+     0.8128
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.5294,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_BEZEL"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.001"
+  },
+  {
+   "name": "BREP1.002",
+   "type": "MESH",
+   "parent": "BREP1.001",
+   "chain": [
+    "BREP1.001"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 4750,
+   "bbox": [
+    [
+     0.5411,
+     0.5024,
+     0.747
+    ],
+    [
+     0.5411,
+     0.5564,
+     0.801
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.5294,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_FACE"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.002"
+  },
+  {
+   "name": "BREP1.003",
+   "type": "MESH",
+   "parent": "BREP1.001",
+   "chain": [
+    "BREP1.001"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 9431,
+   "bbox": [
+    [
+     0.5411,
+     0.5051,
+     0.7555
+    ],
+    [
+     0.545,
+     0.555,
+     0.7983
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.5294,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_MARKS"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.003"
+  },
+  {
+   "name": "BREP1.005",
+   "type": "MESH",
+   "parent": "BREP1.007",
+   "chain": [
+    "BREP1.007"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 9431,
+   "bbox": [
+    [
+     0.5411,
+     0.6194,
+     0.7555
+    ],
+    [
+     0.545,
+     0.6693,
+     0.7983
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.6437,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_MARKS"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.005"
+  },
+  {
+   "name": "BREP1.006",
+   "type": "MESH",
+   "parent": "BREP1.007",
+   "chain": [
+    "BREP1.007"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 4750,
+   "bbox": [
+    [
+     0.5411,
+     0.6168,
+     0.747
+    ],
+    [
+     0.5411,
+     0.6707,
+     0.801
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.6437,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_FACE"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.006"
+  },
+  {
+   "name": "BREP1.007",
+   "type": "MESH",
+   "parent": null,
+   "chain": [],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 21623,
+   "bbox": [
+    [
+     0.4972,
+     0.605,
+     0.7352
+    ],
+    [
+     0.5474,
+     0.6825,
+     0.8128
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.6437,
+    0.7391
+   ],
+   "mats": [
+    "DIAL_BEZEL"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.007"
+  },
+  {
+   "name": "BREP1.008",
+   "type": "MESH",
+   "parent": "BREP1.007",
+   "chain": [
+    "BREP1.007"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 1020,
+   "bbox": [
+    [
+     0.4952,
+     0.6368,
+     0.766
+    ],
+    [
+     0.52,
+     0.6507,
+     0.782
+    ]
+   ],
+   "loc": [
+    0.5316,
+    0.6437,
+    0.7391
+   ],
+   "mats": [
+    "0.886275_0.694118_0.027451_0.000000_0.001"
+   ],
+   "mods": [],
+   "uv": 1,
+   "data": "mesh0_mesh.008"
+  },
+  {
+   "name": "DIAL_LENS_1",
+   "type": "MESH",
+   "parent": null,
+   "chain": [],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 380,
+   "bbox": [
+    [
+     0.5452,
+     0.4982,
+     0.7428
+    ],
+    [
+     0.5462,
+     0.5606,
+     0.8052
+    ]
+   ],
+   "loc": [
+    0.5457,
+    0.5294,
+    0.774
+   ],
+   "mats": [
+    "DIAL_LENS"
+   ],
+   "mods": [],
+   "uv": 0,
+   "data": "DIAL_LENS_1"
+  },
+  {
+   "name": "DIAL_LENS_2",
+   "type": "MESH",
+   "parent": null,
+   "chain": [],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 380,
+   "bbox": [
+    [
+     0.5452,
+     0.6125,
+     0.7428
+    ],
+    [
+     0.5462,
+     0.6749,
+     0.8052
+    ]
+   ],
+   "loc": [
+    0.5457,
+    0.6437,
+    0.774
+   ],
+   "mats": [
+    "DIAL_LENS"
+   ],
+   "mods": [],
+   "uv": 0,
+   "data": "DIAL_LENS_2"
+  },
+  {
+   "name": "EXHAUST_CONNECTOR_PIPE",
+   "type": "MESH",
+   "parent": "DUCT_EXHAUST",
+   "chain": [
+    "DUCT_EXHAUST"
+   ],
+   "collections": [
+    "Collection"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 2172,
+   "bbox": [
+    [
+     0.1243,
+     0.3662,
+     1.3775
+    ],
+    [
+     0.2204,
+     0.4471,
+     1.8207
+    ]
+   ],
+   "loc": [
+    0.1723,
+    0.4067,
+    1.5991
+   ],
+   "mats": [
+    "MSP_STAINLESS_FASTENER"
+   ],
+   "mods": [],
+   "uv": 0,
+   "data": "EXHAUST_CONNECTOR_PIPE"
+  },
+  {
+   "name": "RL300-P-FFM-1001-1",
+   "type": "MESH",
+   "parent": "RL300-P-FFM-1000",
+   "chain": [
+    "RL300-P-FFM-1000"
+   ],
+   "collections": [
+    "temp move"
+   ],
+   "hide_render": false,
+   "hide_viewport": false,
+   "tris": 860,
+   "bbox": [
+    [
+     0.3887,
+     0.9816,
+     0.6129
+    ],
+    [
+     0.468,
+     1.134,
+     0.9939
+    ]
+   ],
+   "loc": [
+    0.3887,
+    1.0578,
+    0.6129
+   ],
+   "mats": [
+    "MSP_BLACK_POP"
+   ],
+   "mods": [],
+   "uv": 0,
+   "data": "Mesh_264.001"
+  }
+ ],
+ "refs": {
+  "ENCLOSURE_CHASSIS": [
+   [
+    -0.7131,
+    -1.5346,
+    0.05
+   ],
+   [
+    0.7131,
+    1.6547,
+    1.9139
+   ],
+   181
+  ],
+  "COMPOSITE_PANELS": [
+   [
+    -0.7049,
+    -1.4606,
+    0.1426
+   ],
+   [
+    0.7049,
+    1.4838,
+    2.0979
+   ],
+   170
+  ],
+  "PUMP_HOUSING": [
+   [
+    -0.8,
+    -1.6098,
+    0.1891
+   ],
+   [
+    0.8,
+    1.635,
+    1.8592
+   ],
+   108
+  ],
+  "DUCT_INTAKE": [
+   [
+    -0.6858,
+    -1.3546,
+    0.4564
+   ],
+   [
+    0.6858,
+    -0.431,
+    1.8598
+   ],
+   2
+  ],
+  "DUCT_EXHAUST": [
+   [
+    -0.6858,
+    0.3662,
+    0.4564
+   ],
+   [
+    0.6858,
+    1.6829,
+    2.1074
+   ],
+   47
+  ],
+  "V2RL300-SAF-RES-1020-SAFE-1": [
+   [
+    0.2933,
+    -1.4606,
+    1.0317
+   ],
+   [
+    0.5119,
+    -0.9399,
+    1.2508
+   ],
+   1
+  ]
+ }
+}

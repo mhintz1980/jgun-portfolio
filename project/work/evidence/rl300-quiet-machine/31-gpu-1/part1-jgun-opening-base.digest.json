@@ -1,0 +1,110 @@
+{
+  "label": "baseline",
+  "url": "http://localhost:4173",
+  "browser": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "browserVersion": "154.0.8037.98",
+  "passed": false,
+  "staticContract": {
+    "checks": 92,
+    "failures": 0,
+    "limitations": 0
+  },
+  "cases": [
+    {
+      "keys": [
+        "name",
+        "width",
+        "height",
+        "reducedMotion",
+        "checkpoints",
+        "errors",
+        "warnings",
+        "requestFailures",
+        "httpErrors",
+        "failures",
+        "reverse",
+        "cadRequests",
+        "domContentLoadedMs",
+        "coldLoadReadyMs",
+        "navigation",
+        "authorship",
+        "pinnedCheckpoints",
+        "shaderFailures",
+        "contextLosses",
+        "exposedInspection",
+        "unavailable",
+        "requestFailureNote",
+        "passed"
+      ],
+      "scalars": {
+        "name": "desktop",
+        "width": 1600,
+        "height": 900,
+        "reducedMotion": "no-preference",
+        "domContentLoadedMs": 323,
+        "coldLoadReadyMs": 21972,
+        "contextLosses": 0,
+        "requestFailureNote": "none",
+        "passed": false
+      },
+      "failureCount": 90,
+      "failuresByMessage": {
+        "desktop-forward##: expected full tier for browser evidence, got lite": 46,
+        "desktop-forward##: lightning pixel proof failed (mesh visibility, fixed camera, contour, or bright-pixel delta)": 1,
+        "desktop-pinned##: expected full tier for pinned phase evidence, got lite": 43
+      }
+    },
+    {
+      "keys": [
+        "name",
+        "width",
+        "height",
+        "reducedMotion",
+        "checkpoints",
+        "errors",
+        "warnings",
+        "requestFailures",
+        "httpErrors",
+        "failures",
+        "reverse",
+        "cadRequests",
+        "domContentLoadedMs",
+        "coldLoadReadyMs",
+        "navigation",
+        "authorship",
+        "pinnedCheckpoints",
+        "shaderFailures",
+        "contextLosses",
+        "exposedInspection",
+        "unavailable",
+        "requestFailureNote",
+        "passed"
+      ],
+      "scalars": {
+        "name": "narrow",
+        "width": 390,
+        "height": 844,
+        "reducedMotion": "no-preference",
+        "domContentLoadedMs": 98,
+        "coldLoadReadyMs": 4157,
+        "contextLosses": 0,
+        "requestFailureNote": "none",
+        "passed": false
+      },
+      "failureCount": 1,
+      "failuresByMessage": {
+        "narrow-forward##: lightning pixel proof failed (mesh visibility, fixed camera, contour, or bright-pixel delta)": 1
+      }
+    }
+  ],
+  "flexTierComparison": [
+    {
+      "base": "desktop",
+      "compared": false
+    },
+    {
+      "base": "narrow",
+      "compared": false
+    }
+  ]
+}

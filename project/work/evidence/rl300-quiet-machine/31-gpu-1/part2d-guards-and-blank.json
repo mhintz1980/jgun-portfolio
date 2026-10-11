@@ -1,0 +1,74 @@
+{
+  "base-a": {
+    "width": 1109,
+    "height": 702,
+    "channels": 3,
+    "nonFlatFraction": 0.6196786715271837,
+    "notBlank": true,
+    "guards": {
+      "posterElement": false,
+      "dataFade": null,
+      "ready": true,
+      "frame": 5,
+      "canvas": true,
+      "href": "http://localhost:4173/?study=rl300&shot=0",
+      "rangeValue": "0",
+      "rect": {
+        "x": 331.1875,
+        "y": 81,
+        "width": 1108.8125,
+        "height": 702
+      }
+    },
+    "errors": [],
+    "guardsOk": true
+  },
+  "base-b": {
+    "width": 1109,
+    "height": 702,
+    "channels": 3,
+    "nonFlatFraction": 0.6196786715271837,
+    "notBlank": true,
+    "guards": {
+      "posterElement": false,
+      "dataFade": null,
+      "ready": true,
+      "frame": 5,
+      "canvas": true,
+      "href": "http://localhost:4173/?study=rl300&shot=0",
+      "rangeValue": "0",
+      "rect": {
+        "x": 331.1875,
+        "y": 81,
+        "width": 1108.8125,
+        "height": 702
+      }
+    },
+    "errors": [],
+    "guardsOk": true
+  },
+  "qm4": {
+    "width": 1109,
+    "height": 702,
+    "channels": 3,
+    "nonFlatFraction": 0.6196786715271837,
+    "notBlank": true,
+    "guards": {
+      "posterElement": false,
+      "dataFade": null,
+      "ready": true,
+      "frame": 5,
+      "canvas": true,
+      "href": "http://localhost:4173/quiet-machine/?shot=0",
+      "rangeValue": "0",
+      "rect": {
+        "x": 331.1875,
+        "y": 81,
+        "width": 1108.8125,
+        "height": 702
+      }
+    },
+    "errors": [],
+    "guardsOk": true
+  }
+}

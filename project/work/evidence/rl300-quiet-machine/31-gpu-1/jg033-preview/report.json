@@ -1,0 +1,182 @@
+{
+  "capturedAt": "2026-10-10T09:41:25.870Z",
+  "build": "c6f82f47b9c38a9b1d2d42c486b22ac1ec320feab433c1b5453cf10ea4df8156",
+  "asset": "c1c919ab8f747e9e2bd9eeb51b5ac31ee66dc39145cac44ad7c8fddfa056428e",
+  "captures": [],
+  "checks": {
+    "ruledParts": {
+      "V2RL300-SAF-RES-1020-SAFE-1": {
+        "policy": "keep",
+        "removed": false,
+        "triangles": 348,
+        "xMin": 0.2932682931423187,
+        "xMax": 0.5119031667709351
+      },
+      "RL300-PEM-1001-1": {
+        "policy": "keep",
+        "removed": false,
+        "triangles": 5210,
+        "xMin": -0.5080000162124634,
+        "xMax": 0.5080000162124634
+      },
+      "RL300-EMG-1001-P-1": {
+        "policy": "keep",
+        "removed": false,
+        "triangles": 3578,
+        "xMin": -0.5067051649093628,
+        "xMax": 0.5093041658401489
+      },
+      "MirrorRL200-AFS-2001-2": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 772,
+        "xMin": 0.6015678644180298,
+        "xMax": 0.6771040558815002
+      },
+      "RL300-AFS-2003-5": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 534,
+        "xMin": 0.5785490274429321,
+        "xMax": 0.6771039962768555
+      },
+      "V23028T25_Weld-on Tie-Down Ring-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 800,
+        "xMin": 0.685796856880188,
+        "xMax": 0.7927137017250061
+      },
+      "V23028T25_Weld-on Tie-Down Ring-2": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 800,
+        "xMin": 0.6857989430427551,
+        "xMax": 0.7928257584571838
+      },
+      "V2RL300-WO-NP-SAFE-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 2254,
+        "xMin": 0.6857999563217163,
+        "xMax": 0.6888487935066223
+      },
+      "V2EDW-60335 (Fuel Tank Weld On Flange)-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 308,
+        "xMin": 0.5495096445083618,
+        "xMax": 0.6188898682594299
+      },
+      "V2SKF-TB-2200-01-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 204,
+        "xMin": 0.6858043074607849,
+        "xMax": 0.6984999775886536
+      },
+      "V2MSP-MID-5406HHP24 ~-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 314,
+        "xMin": 0.5603880882263184,
+        "xMax": 0.6080281734466553
+      },
+      "V2MSP-MID-5406HHP24 ~-3": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 314,
+        "xMin": 0.5603715181350708,
+        "xMax": 0.6080116629600525
+      },
+      "V2SKF-TB-2200-01-2": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 204,
+        "xMin": 0.6858000159263611,
+        "xMax": 0.6984956860542297
+      },
+      "V2SKF-TB-2250-01-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 152,
+        "xMin": -0.006345656234771013,
+        "xMax": 0.006350009702146053
+      },
+      "V2SKF-TB-2250-01-2": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 152,
+        "xMin": -0.00635000504553318,
+        "xMax": 0.006345660891383886
+      },
+      "ISO_MOUNT_4": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 144,
+        "xMin": 0.47499996423721313,
+        "xMax": 0.5849999785423279
+      },
+      "ISO_MOUNT_5": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 144,
+        "xMin": 0.47499996423721313,
+        "xMax": 0.5849999785423279
+      },
+      "ISO_MOUNT_6": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 144,
+        "xMin": 0.47499996423721313,
+        "xMax": 0.5849999785423279
+      },
+      "V2EDW-60335 (Fuel Tank Weld On Flange)-2": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 308,
+        "xMin": 0.49847501516342163,
+        "xMax": 0.5683249831199646
+      },
+      "V2EDW-60335 (Fuel Tank Weld On Flange)-3": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 308,
+        "xMin": 0.5495101809501648,
+        "xMax": 0.6188904047012329
+      },
+      "V2WISC-4770-7-1": {
+        "policy": "hide",
+        "removed": false,
+        "triangles": 1596,
+        "xMin": 0.4794284999370575,
+        "xMax": 0.5873749852180481
+      },
+      "12335A81_Oil-Resistant Push-on Seal with Bulb-1": {
+        "policy": "delete",
+        "removed": true,
+        "triangles": 460,
+        "xMin": 0.6269782185554504,
+        "xMax": 0.6521409749984741
+      },
+      "V2SKF-TB-5500-03-1": {
+        "policy": "section",
+        "removed": false,
+        "triangles": 120,
+        "xMin": -0.6731000542640686,
+        "xMax": 0.6731000542640686
+      },
+      "V2SKF-TB-5500-03-2": {
+        "policy": "section",
+        "removed": false,
+        "triangles": 120,
+        "xMin": -0.6731000542640686,
+        "xMax": 0.6731000542640686
+      }
+    }
+  },
+  "errors": [],
+  "liteAsset": "d4c0d9a70e45e5fa6c06ae38635336a2d03837c3cf3b3ce48a4aaab5da566ea4",
+  "composer": "direct",
+  "failure": "AssertionError [ERR_ASSERTION]: only liner, airway helper and ruled removals omitted\n\n596 !== 592\n"
+}
