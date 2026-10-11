@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { checkPosterPath, countCanvases, isCadUrl } from './posterGuard'
+import { CANVAS_MOUNT_OBSERVER_SOURCE, checkPosterPath, countCanvases, isCadUrl } from './posterGuard'
 
 // URLs this repo's scenes really request (src/scene/inspection/story.ts, ringRuntime.ts,
 // Hotspots.tsx, BootSequence.tsx) and the rasters its static paths really use.
@@ -62,8 +62,51 @@ describe('checkPosterPath', () => {
     expect(checkPosterPath({ markup: '', requestedUrls: [] }).ok).toBe(true)
   })
 
-  it('honours a caller pattern', () => {
-    const report = checkPosterPath({ markup: '', requestedUrls: ['/a/b.mesh'], cadPattern: /\.mesh$/ })
-    expect(report.cadRequests).toEqual(['/a/b.mesh'])
+  it('adds a caller pattern without replacing the default detector', () => {
+    const report = checkPosterPath({
+      markup: '',
+      requestedUrls: ['/a/b.mesh', '/models/Default.glb', '/models/role-map.json', '/draco/draco_decoder.wasm'],
+      extraCadPatterns: [/\.mesh$/],
+    })
+    expect(report.cadRequests).toEqual(['/a/b.mesh', '/models/Default.glb', '/models/role-map.json', '/draco/draco_decoder.wasm'])
+  })
+
+  it('a caller pattern with the g flag does not change the verdict on a repeated URL', () => {
+    const extra = [/\.mesh$/g]
+    const first = checkPosterPath({ markup: '', requestedUrls: ['/a.mesh'], extraCadPatterns: extra })
+    const second = checkPosterPath({ markup: '', requestedUrls: ['/a.mesh'], extraCadPatterns: extra })
+    expect(first.ok).toBe(false)
+    expect(second.ok).toBe(false)
+  })
+
+  it('contradictory evidence takes the worse reading: markup shows a canvas, the count says zero', () => {
+    const report = checkPosterPath({ markup: '<canvas></canvas>', canvasCount: 0, requestedUrls: [] })
+    expect(report.ok).toBe(false)
+    expect(report.canvases).toBe(1)
+  })
+
+  it.each([Number.NaN, -1, 1.5, Number.POSITIVE_INFINITY])('rejects canvasCount %s', (value) => {
+    const report = checkPosterPath({ canvasCount: value, requestedUrls: [] })
+    expect(report.ok).toBe(false)
+    expect(report.problems.join(' ')).toMatch(/canvasCount is not a non-negative integer/)
+  })
+
+  it('a canvas mounted and then removed is caught by canvasMounts, not by the snapshot', () => {
+    const report = checkPosterPath({ markup: '<div></div>', canvasCount: 0, canvasMounts: 1, requestedUrls: [] })
+    expect(report.ok).toBe(false)
+    expect(report.canvases).toBe(1)
+  })
+
+  it('lifecycle acceptance requires a mount observation', () => {
+    const without = checkPosterPath({ canvasCount: 0, requestedUrls: [], requireMountObservation: true })
+    expect(without.ok).toBe(false)
+    expect(without.problems.join(' ')).toMatch(/no mount observation/)
+    const withIt = checkPosterPath({ canvasCount: 0, canvasMounts: 0, requestedUrls: [], requireMountObservation: true })
+    expect(withIt.ok).toBe(true)
+  })
+
+  it('the mount observer source is a well-formed function expression', () => {
+    expect(() => new Function(CANVAS_MOUNT_OBSERVER_SOURCE)).not.toThrow()
+    expect(CANVAS_MOUNT_OBSERVER_SOURCE).toContain('__posterCanvasMounts')
   })
 })

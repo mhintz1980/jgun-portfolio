@@ -66,8 +66,9 @@ export const PAGES: readonly PageEntry[] = [
     private: false,
   },
   // Private torque-wrench rebuild (JG-038). Registered but inactive, so the build has no input for
-  // it yet. Activation is one commit that lands the torque HTML entry and flips this row
-  // (reserved: false, href, htmlEntry); see the shell readiness note, "Activating a private page".
+  // it yet. Activation is one commit that lands the torque HTML entry (with the shared fade block
+  // and a robots noindex meta) and flips this row (reserved: false, href, htmlEntry); see the shell
+  // readiness note, "Delivery into the torque worktree, and activating the private page".
   {
     id: 'torque-wrench',
     index: 4,
@@ -77,7 +78,9 @@ export const PAGES: readonly PageEntry[] = [
     href: null,
     htmlEntry: null,
     reserved: true,
-    fadeIn: false,
+    // Torque structure section 1: navigation to and from this page fades through dark, so the
+    // entry carries the shared fade block. The topology tests check the block once it is active.
+    fadeIn: true,
     private: true,
   },
 ]

@@ -388,10 +388,29 @@ describe('private pages', () => {
     }
   })
 
+  // A noindex that sits inside an HTML comment is not a directive, so comments are stripped first.
+  const headOf = (html: string) => /<head\b[\s\S]*?<\/head>/i.exec(stripComments(html))?.[0] ?? ''
+  const hasNoindex = (html: string) => /<meta\s+name="robots"\s+content="[^"]*noindex[^"]*"/i.test(headOf(html))
+
+  it('the noindex check accepts a real meta and rejects a commented-out or body-only one', () => {
+    const real = '<html><head><meta name="robots" content="noindex, nofollow"></head><body></body></html>'
+    expect(hasNoindex(real)).toBe(true)
+    expect(hasNoindex('<html><head><!-- <meta name="robots" content="noindex"> --></head></html>')).toBe(false)
+    expect(hasNoindex('<html><head></head><body><meta name="robots" content="noindex"></body></html>')).toBe(false)
+    expect(hasNoindex('<html><head><meta name="robots" content="index"></head></html>')).toBe(false)
+  })
+
   it('an active private page names an HTML entry that carries a robots noindex meta', () => {
     for (const page of privatePages.filter((item) => item.htmlEntry !== null)) {
       const html = entries.find((item) => item.page.id === page.id)?.html ?? ''
-      expect(/<meta\s+name="robots"\s+content="[^"]*noindex[^"]*"/i.test(html), `${page.id} noindex`).toBe(true)
+      expect(hasNoindex(html), `${page.id} noindex`).toBe(true)
+    }
+  })
+
+  it('a private page that fades in is one the fade-block pins already cover', () => {
+    const fading = PAGES.filter((page) => page.fadeIn && page.htmlEntry !== null).map((page) => page.id)
+    for (const page of privatePages.filter((item) => item.fadeIn && item.htmlEntry !== null)) {
+      expect(fading, page.id).toContain(page.id)
     }
   })
 

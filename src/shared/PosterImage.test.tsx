@@ -39,9 +39,11 @@ describe('PosterImage', () => {
     expect(markup).toMatch(/<figcaption>Pit<\/figcaption><\/figure>$/)
   })
 
-  it('is a zero-canvas, zero-CAD path under the guard, with the poster itself as the only request', () => {
+  // A markup and classifier unit test only. It does not observe the network or a mount: poster-path
+  // acceptance needs separately captured request and mount evidence (see posterGuard.ts).
+  it('its markup has no canvas, and its own image URLs are not CAD by the guard classifier', () => {
     const markup = renderToStaticMarkup(<PosterImage entry={entry} />)
-    const requested = [entry.desktop.src, entry.narrow?.src ?? '']
-    expect(checkPosterPath({ markup, requestedUrls: requested })).toMatchObject({ ok: true, canvases: 0 })
+    const declared = [entry.desktop.src, entry.narrow?.src ?? '']
+    expect(checkPosterPath({ markup, requestedUrls: declared })).toMatchObject({ ok: true, canvases: 0 })
   })
 })
