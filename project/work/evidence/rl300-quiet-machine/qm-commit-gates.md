@@ -1177,3 +1177,9 @@ Review round 2 (Opus, medium; the last round allowed): QM6a APPROVE; verifier RE
 - Not run: the script itself. First execution is GPU-3.
 
 Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 12 of 12 met.
+
+## S2b: beat-local beats (`e2770620`, 2026-10-11)
+tsc 0; npm test 703/703; build 0; check:station2 0; U.4 `cssEqual` true, `sourcesEqual` true; verify-jg033-preview exit 0, no errors. U.1 non-allowlisted paths: none; U.2 `hunks=1 removed=0`. `BEATS`, `WINDOWS` and `collectKeys` compared against the pre-change dump: bit-identical. No new tests, no mutation proofs (standing owner rule, revised 2026-10-11).
+
+## Intake hotspot (owner approved by PNG, Astra waived, 2026-10-11)
+tsc 0; npm test 703 passed (+1 auto-enumerated `shellBoundary` case for the new file; `camera.test.ts` K5 timed out at 5 s once under load, 17/17 alone in 2 s); build 0; check:station2 0; U.4 `cssEqual` true, `sourcesEqual` true; verify-jg033-preview exit 0, no errors. Plain-math projection cross-checked against three's PerspectiveCamera in a throwaway script (worst diff 0.0000 px, 3 viewports x 6 u). Evidence: `40-intake-hotspot/` (badge at u .31/.51/.70/.82 and open card, 3 viewports). `verify-page-transition` not run (nav and fade untouched). No new tests or gate scripts.

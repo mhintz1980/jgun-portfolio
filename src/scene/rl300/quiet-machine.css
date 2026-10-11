@@ -18,6 +18,15 @@
 .qm-scrubber input { accent-color: #a3deff; width: 180px; min-height: 44px; cursor: ew-resize; }
 .qm-status { margin-left: auto; font-size: 8px; letter-spacing: .13em; color: #adc2ce; }
 .qm-preview :focus-visible { outline: 2px solid #a3deff; outline-offset: 5px; }
+/* Intake badge: a layer inside the stage, clicks pass through it except on the badge and its card. */
+.qm-hotspot-layer { position: absolute; inset: 0; pointer-events: none; }
+.qm-hotspot { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; background: none; cursor: pointer; pointer-events: auto; }
+.qm-hotspot span { display: block; width: 14px; height: 14px; margin: 13px; border: 2px solid #a3deff; border-radius: 50%; background: #122330dd; box-shadow: 0 0 0 4px #a3deff33; }
+.qm-hotspot-card { position: absolute; right: 16px; bottom: 16px; width: min(280px, calc(100% - 32px)); padding: 14px 16px 10px; background: #122330ee; border: 1px solid #758d9e66; pointer-events: auto; }
+.qm-hotspot-card h2 { margin: 0 0 8px; font-size: 18px; font-weight: 400; letter-spacing: -.03em; color: #f0f2ee; }
+.qm-hotspot-card p { margin: 0; font-size: 12px; line-height: 1.6; color: #b4c6cf; }
+.qm-hotspot-card .qm-hotspot-note { margin-bottom: 8px; font-size: 8px; letter-spacing: .14em; color: #a2bbca; }
+.qm-hotspot-close { margin-top: 8px; min-height: 44px; padding: 0 4px; border: 0; background: none; color: #a3deff; font-size: 11px; letter-spacing: .13em; cursor: pointer; }
 /* unruled visual: owner looks at GPU-2 */
 /* Page nav, shared markup from PageNav. Layout and size only; colours are the ones already used on this page.
    In the header the list sits between the brand and the section label and wraps instead of overflowing. */

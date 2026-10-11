@@ -1,6 +1,7 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
 import { BEATS } from './beats'
+import { IntakeHotspot } from './IntakeHotspot'
 import type { PreviewControl } from './QuietMachineScene'
 import { prefetchPage, releaseFadeWhen } from '../../shared/pageFade'
 import { PageLink, PageNav } from '../../shared/PageNav'
@@ -97,6 +98,7 @@ export default function QuietMachinePreview() {
     <div className="qm-stage" ref={stageRef} aria-label="RL300 enclosure section study">
       {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
+      {!poster && <IntakeHotspot u={u} onSeek={navigate} />}
     </div>
     <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" numbered currentAsText /><span>RL300 / SECTION STUDY</span></header>
     <div className="qm-editorial">

@@ -131,6 +131,7 @@ try {
       // 07 resolves back to the 01 frame; the poster set stays the three distinct looks.
       if (name === 'desktop' && !shot.startsWith('reverse') && shot !== 'resolve' && process.env.CAPTURE_POSTERS === '1') {
         fs.mkdirSync('public/images', { recursive: true })
+        await page.addStyleTag({ content: '.qm-hotspot-layer { display: none !important }' })
         await page.locator('.qm-stage').screenshot({ path: `public/images/rl300-${shot}-preview.png` })
       }
     }
