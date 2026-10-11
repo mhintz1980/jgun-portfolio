@@ -115,8 +115,15 @@ describe('pageHref', () => {
     expect(pageHref('m249', 'poster')).toBeNull()
   })
 
-  it('returns null for the inactive private torque page at every tier', () => {
-    for (const tier of ['full', 'lite', 'poster'] as const) expect(pageHref('torque-wrench', tier)).toBeNull()
+  // Holds before and after activation: null while the row is reserved, the tiered path once it is live.
+  it('the private torque page resolves to null while reserved and to its tiered path once live', () => {
+    const row = byId('torque-wrench')
+    const base = row.href
+    for (const tier of ['full', 'lite', 'poster'] as const) {
+      const href = pageHref('torque-wrench', tier)
+      if (row.reserved) expect(href, tier).toBeNull()
+      else expect(href, tier).toBe(tier === 'full' ? base : `${base}?quality=${tier}`)
+    }
   })
 })
 

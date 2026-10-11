@@ -33,23 +33,32 @@ export function countCanvases(markup: string): number {
 
 /**
  * Source for a page init script (Playwright `addInitScript`). It counts every canvas the page
- * creates or inserts, cumulatively, into `window.__posterCanvasMounts`. Read it with
+ * creates, inserts or removes, cumulatively, into `window.__posterCanvasMounts`, one count per
+ * canvas identity. Removed subtrees are inspected too, so a canvas that is parser-created inside an
+ * inserted wrapper and removed before the observer callback runs is still counted. Read it with
  * `page.evaluate(() => window.__posterCanvasMounts)` and pass it as `canvasMounts`.
- * Not covered: OffscreenCanvas, and a canvas created in a worker.
+ * Not covered: OffscreenCanvas, a canvas created in a worker, and a canvas that never enters the
+ * document.
  */
 export const CANVAS_MOUNT_OBSERVER_SOURCE = `(() => {
   let n = 0
+  const seen = new WeakSet()
+  const note = (node) => {
+    if (!node || typeof node !== 'object' || seen.has(node)) return
+    if (node.nodeName === 'CANVAS') { seen.add(node); n += 1; return }
+    if (node.querySelectorAll) for (const canvas of node.querySelectorAll('canvas')) note(canvas)
+  }
   Object.defineProperty(window, '__posterCanvasMounts', { get: () => n })
   const create = document.createElement.bind(document)
   document.createElement = (tag, options) => {
     const element = create(tag, options)
-    if (String(tag).toLowerCase() === 'canvas') n += 1
+    if (String(tag).toLowerCase() === 'canvas') note(element)
     return element
   }
   new MutationObserver((records) => {
-    for (const record of records) for (const node of record.addedNodes) {
-      if (node.nodeName === 'CANVAS') n += 1
-      else if (node.querySelectorAll) n += node.querySelectorAll('canvas').length
+    for (const record of records) {
+      for (const node of record.addedNodes) note(node)
+      for (const node of record.removedNodes) note(node)
     }
   }).observe(document, { childList: true, subtree: true })
 })()`

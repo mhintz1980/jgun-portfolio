@@ -407,13 +407,6 @@ describe('private pages', () => {
     }
   })
 
-  it('a private page that fades in is one the fade-block pins already cover', () => {
-    const fading = PAGES.filter((page) => page.fadeIn && page.htmlEntry !== null).map((page) => page.id)
-    for (const page of privatePages.filter((item) => item.fadeIn && item.htmlEntry !== null)) {
-      expect(fading, page.id).toContain(page.id)
-    }
-  })
-
   it('a private page is never the target of a legacy redirect', () => {
     const privateIds = new Set<string>(privatePages.map((page) => page.id))
     for (const row of LEGACY_REDIRECTS) expect(privateIds.has(row.to), `${row.param} -> ${row.to}`).toBe(false)

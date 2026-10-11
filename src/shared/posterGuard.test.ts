@@ -110,3 +110,62 @@ describe('checkPosterPath', () => {
     expect(CANVAS_MOUNT_OBSERVER_SOURCE).toContain('__posterCanvasMounts')
   })
 })
+
+type Node = { nodeName: string; querySelectorAll?: () => Node[] }
+type Records = { addedNodes: Node[]; removedNodes: Node[] }[]
+
+/** Execute the observer source against a stub document; `deliver` runs the observer callback. */
+function runObserver() {
+  let callback: (records: Records) => void = () => {}
+  const document = {
+    createElement: (tag: string): Node => ({ nodeName: tag.toUpperCase() }),
+  }
+  class MutationObserver {
+    constructor(cb: (records: Records) => void) { callback = cb }
+    observe() {}
+  }
+  const window: { __posterCanvasMounts?: number } = {}
+  new Function('window', 'document', 'MutationObserver', CANVAS_MOUNT_OBSERVER_SOURCE)(window, document, MutationObserver)
+  return {
+    document,
+    deliver: (records: Records) => callback(records),
+    mounts: () => window.__posterCanvasMounts as number,
+  }
+}
+
+describe('CANVAS_MOUNT_OBSERVER_SOURCE, executed', () => {
+  it('counts a canvas created through createElement, once, even when it is later inserted', () => {
+    const page = runObserver()
+    const canvas = page.document.createElement('canvas')
+    expect(page.mounts()).toBe(1)
+    page.deliver([{ addedNodes: [canvas], removedNodes: [] }])
+    expect(page.mounts()).toBe(1)
+    page.document.createElement('div')
+    expect(page.mounts()).toBe(1)
+  })
+
+  it('counts a canvas inside an inserted subtree', () => {
+    const page = runObserver()
+    const wrapper: Node = { nodeName: 'DIV', querySelectorAll: () => [{ nodeName: 'CANVAS' }, { nodeName: 'CANVAS' }] }
+    page.deliver([{ addedNodes: [wrapper], removedNodes: [] }])
+    expect(page.mounts()).toBe(2)
+  })
+
+  it('counts a parser-created canvas that was removed again before the callback ran', () => {
+    // wrapper.innerHTML = '<canvas>' ; append(wrapper) ; canvas.remove(): by delivery time the added
+    // wrapper is empty and only the removal record still names the canvas.
+    const page = runObserver()
+    const emptyWrapper: Node = { nodeName: 'DIV', querySelectorAll: () => [] }
+    page.deliver([
+      { addedNodes: [emptyWrapper], removedNodes: [] },
+      { addedNodes: [], removedNodes: [{ nodeName: 'CANVAS' }] },
+    ])
+    expect(page.mounts()).toBe(1)
+  })
+
+  it('counts nothing for a page with no canvas', () => {
+    const page = runObserver()
+    page.deliver([{ addedNodes: [{ nodeName: 'DIV', querySelectorAll: () => [] }], removedNodes: [{ nodeName: 'P' }] }])
+    expect(page.mounts()).toBe(0)
+  })
+})
