@@ -1,0 +1,24 @@
+{
+ "out": "src\\scene\\rl300\\v16-part-materials.json",
+ "bytes": 49408,
+ "sha256": "51c92d748ffd75241e9cc5789a4b4e12d0cc713db355b00f404241b9f9a8732a",
+ "counts": {
+  "v16Objects": 614,
+  "matchedMain": 540,
+  "matchedAlsoLite": 539,
+  "extras": 11,
+  "droppedV16Only": 63,
+  "collisions": 0,
+  "extrasAlsoInMain": []
+ },
+ "mapStats": {
+  "single": 494,
+  "multiEqual": 21,
+  "multiUnequal": 36,
+  "multiNullPrims": 0,
+  "hasNullSlot": 0
+ },
+ "materialCount": 27,
+ "partCount": 551,
+ "missingMats": []
+}

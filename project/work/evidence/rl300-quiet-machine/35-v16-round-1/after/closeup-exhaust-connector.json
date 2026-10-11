@@ -1,0 +1,105 @@
+{
+  "part": "exhaust-connector",
+  "u": 0.455,
+  "requestedU": 0.455,
+  "uMatchesRequest": true,
+  "plane": -0.15000000000000002,
+  "bboxNdc": [
+    [
+      0.6868061451069276,
+      0.5397979326603873,
+      0.9893108607368707
+    ],
+    [
+      0.6527649150817387,
+      0.5439667283516567,
+      0.9891894912556874
+    ],
+    [
+      0.6908485291039801,
+      0.9493601657602945,
+      0.9892440217502099
+    ],
+    [
+      0.6566482467568787,
+      0.9579570683623623,
+      0.9891212116330621
+    ],
+    [
+      0.7297189170592865,
+      0.5494613865709493,
+      0.989029520878931
+    ],
+    [
+      0.6952952180628129,
+      0.5538404600765534,
+      0.9889020294116588
+    ],
+    [
+      0.7341209231434513,
+      0.9692898210349451,
+      0.9889593188272752
+    ],
+    [
+      0.6995357950721067,
+      0.9783230220969292,
+      0.9888302760159288
+    ]
+  ],
+  "areaFraction": 0.00892,
+  "clip": {
+    "x": 1039,
+    "y": 0,
+    "width": 360,
+    "height": 355
+  },
+  "tier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1241221,
+    "sha256": "0560792a97c41899cc4e6a7e054c7a9a242b12656181c4af64bdfe0b196fc98f",
+    "nonFlat": 0.48106404320987656
+  },
+  "cropPng": {
+    "bytes": 251205,
+    "sha256": "f1d63e4857d9ca261f881b0088aa517afec6436f87b443ba061f322d7a60157d"
+  },
+  "glbsRequested": [
+    "rl300-extra-parts.glb",
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 447916,
+    "keptTriangles": 447320,
+    "linerTriangles": 108,
+    "sourceMeshes": 600,
+    "batches": 50,
+    "cappedTriangles": 156052,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9810,
+    "removedTriangles": 460,
+    "skippedRoots": 1,
+    "materials": 50,
+    "mappedParts": 513,
+    "mappedPrimitives": 541,
+    "protectedPrimitives": 226,
+    "unmappedMultiSlot": 36,
+    "extraParts": 11,
+    "extraTriangles": 7248,
+    "v16Applied": true
+  },
+  "drawCalls": 147,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "note": "spec-literal best u",
+  "pageErrors": []
+}

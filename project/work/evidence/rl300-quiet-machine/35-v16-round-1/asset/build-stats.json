@@ -1,0 +1,2804 @@
+{
+ "config": {
+  "weld": 1e-06,
+  "dissolve_deg": 1.0,
+  "budget": {
+   "bezel": 1000,
+   "face": 150,
+   "marks": 900,
+   "ring": 150
+  },
+  "smooth_deg": 30.0,
+  "min_island_tris": 8,
+  "pin_weight": 1.0,
+  "pin_factor": 1.0,
+  "face_eps_mm": 0.05,
+  "alloc_exponent": 0.5,
+  "size_weight_mm": 12.0
+ },
+ "objects": {
+  "BREP1.001": {
+   "kind": "bezel",
+   "tris_before": 21623,
+   "material": "DIAL_BEZEL",
+   "tris_after_weld": 21475,
+   "islands_before": 22,
+   "bbox_before": [
+    [
+     0.49718645215034485,
+     0.49068373441696167,
+     0.7351874709129333
+    ],
+    [
+     0.5474464297294617,
+     0.568169891834259,
+     0.8127874732017517
+    ]
+   ],
+   "tris_after_dissolve": 18568,
+   "alloc": {
+    "k": 0.7302756704104163,
+    "exponent": 0.5,
+    "budget_effective": 1000,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 175,
+      "target": 12,
+      "tris_out": 10,
+      "size_mm": [
+       3.18,
+       1.26,
+       1.26
+      ],
+      "dev_max_mm": 1.229
+     },
+     {
+      "tris_in": 948,
+      "target": 100,
+      "tris_out": 99,
+      "size_mm": [
+       0.25,
+       41.26,
+       35.28
+      ],
+      "dev_max_mm": 1.586
+     },
+     {
+      "tris_in": 169,
+      "target": 13,
+      "tris_out": 12,
+      "size_mm": [
+       0.25,
+       3.71,
+       5.0
+      ],
+      "dev_max_mm": 0.824
+     },
+     {
+      "tris_in": 491,
+      "target": 23,
+      "tris_out": 21,
+      "size_mm": [
+       0.25,
+       3.94,
+       5.13
+      ],
+      "dev_max_mm": 0.437
+     },
+     {
+      "tris_in": 138,
+      "target": 12,
+      "tris_out": 11,
+      "size_mm": [
+       0.25,
+       0.96,
+       5.13
+      ],
+      "dev_max_mm": 0.282
+     },
+     {
+      "tris_in": 256,
+      "target": 38,
+      "tris_out": 37,
+      "size_mm": [
+       3.18,
+       26.79,
+       23.17
+      ],
+      "dev_max_mm": 0.192
+     },
+     {
+      "tris_in": 15347,
+      "target": 675,
+      "tris_out": 670,
+      "size_mm": [
+       27.4,
+       77.49,
+       77.6
+      ],
+      "dev_max_mm": 0.847
+     },
+     {
+      "tris_in": 7,
+      "target": 7,
+      "tris_out": 7,
+      "size_mm": [
+       0.25,
+       0.55,
+       1.09
+      ],
+      "dev_max_mm": 0.0
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.053
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.341
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.053
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.056
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.108
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.147
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.117
+     },
+     {
+      "tris_in": 3,
+      "target": 3,
+      "tris_out": 3,
+      "size_mm": [
+       0.0,
+       0.81,
+       1.25
+      ],
+      "dev_max_mm": 0.0
+     },
+     {
+      "tris_in": 109,
+      "target": 9,
+      "tris_out": 11,
+      "size_mm": [
+       0.25,
+       1.73,
+       1.47
+      ],
+      "dev_max_mm": 0.247
+     },
+     {
+      "tris_in": 65,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.92,
+       1.04
+      ],
+      "dev_max_mm": 0.122
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.92,
+       1.05
+      ],
+      "dev_max_mm": 0.051
+     },
+     {
+      "tris_in": 118,
+      "target": 17,
+      "tris_out": 16,
+      "size_mm": [
+       0.0,
+       13.86,
+       13.86
+      ],
+      "dev_max_mm": 3.927
+     },
+     {
+      "tris_in": 56,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       2.0,
+       2.0
+      ],
+      "dev_max_mm": 0.099
+     },
+     {
+      "tris_in": 174,
+      "target": 11,
+      "tris_out": 12,
+      "size_mm": [
+       0.25,
+       1.57,
+       1.57
+      ],
+      "dev_max_mm": 0.225
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 974,
+   "islands_after": 27,
+   "bbox_after": [
+    [
+     0.49718645215034485,
+     0.49068373441696167,
+     0.7351874709129333
+    ],
+    [
+     0.5474464297294617,
+     0.568169891834259,
+     0.8127874732017517
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.9279177756980062,
+    "dst_to_src_mean_mm": 0.09237191395668304,
+    "src_to_dst_max_mm": 3.9267358370125294,
+    "src_to_dst_mean_mm": 0.1169214251768866
+   }
+  },
+  "BREP1.002": {
+   "kind": "face",
+   "tris_before": 4750,
+   "material": "DIAL_FACE",
+   "tris_after_weld": 4731,
+   "islands_before": 1,
+   "bbox_before": [
+    [
+     0.5410964488983154,
+     0.5024393200874329,
+     0.746999979019165
+    ],
+    [
+     0.5410964488983154,
+     0.556374728679657,
+     0.80097496509552
+    ]
+   ],
+   "fill": {
+    "holes_total": 31,
+    "holes_filled": 18,
+    "holes_kept": [
+     {
+      "verts": 98,
+      "size_mm": [
+       3.71,
+       5.0
+      ],
+      "area_mm2": 12.0,
+      "marks_cover_ratio": 0.808,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 203,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.206,
+      "marks_cover_ratio": 0.651,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 116,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 190,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.217,
+      "marks_cover_ratio": 0.653,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       2.36,
+       2.36
+      ],
+      "area_mm2": 4.374,
+      "marks_cover_ratio": 0.12,
+      "filled": false
+     },
+     {
+      "verts": 15,
+      "size_mm": [
+       1.66,
+       2.33
+      ],
+      "area_mm2": 1.76,
+      "marks_cover_ratio": 0.723,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       1.26,
+       1.26
+      ],
+      "area_mm2": 1.241,
+      "marks_cover_ratio": 0.0,
+      "filled": false
+     }
+    ],
+    "holes_all": [
+     {
+      "verts": 725,
+      "size_mm": [
+       41.26,
+       35.28
+      ],
+      "area_mm2": 60.277,
+      "marks_cover_ratio": 0.999,
+      "filled": true
+     },
+     {
+      "verts": 284,
+      "size_mm": [
+       3.94,
+       5.13
+      ],
+      "area_mm2": 10.823,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 69,
+      "size_mm": [
+       0.96,
+       5.13
+      ],
+      "area_mm2": 4.712,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 98,
+      "size_mm": [
+       3.71,
+       5.0
+      ],
+      "area_mm2": 12.0,
+      "marks_cover_ratio": 0.808,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 203,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.206,
+      "marks_cover_ratio": 0.651,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 116,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 266,
+      "size_mm": [
+       1.35,
+       2.41
+      ],
+      "area_mm2": 1.151,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 260,
+      "size_mm": [
+       1.35,
+       2.41
+      ],
+      "area_mm2": 1.151,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 190,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.217,
+      "marks_cover_ratio": 0.653,
+      "filled": false
+     },
+     {
+      "verts": 12,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 16,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 16,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.01,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 14,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 10,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 128,
+      "size_mm": [
+       1.43,
+       2.37
+      ],
+      "area_mm2": 1.154,
+      "marks_cover_ratio": 1.001,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 154,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 154,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 160,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       2.36,
+       2.36
+      ],
+      "area_mm2": 4.374,
+      "marks_cover_ratio": 0.12,
+      "filled": false
+     },
+     {
+      "verts": 13,
+      "size_mm": [
+       1.5,
+       2.33
+      ],
+      "area_mm2": 0.921,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 15,
+      "size_mm": [
+       1.66,
+       2.33
+      ],
+      "area_mm2": 1.76,
+      "marks_cover_ratio": 0.723,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       1.26,
+       1.26
+      ],
+      "area_mm2": 1.241,
+      "marks_cover_ratio": 0.0,
+      "filled": false
+     }
+    ],
+    "rim_verts": 60,
+    "hole_verts_total": 64,
+    "eps_outer_mm": 0.05,
+    "eps_holes_mm": 0.4458050224128
+   },
+   "method": "fill covered holes + Douglas-Peucker loops + triangle_fill",
+   "tris_after": 150,
+   "islands_after": 1,
+   "bbox_after": [
+    [
+     0.5410964488983154,
+     0.5024393200874329,
+     0.746999979019165
+    ],
+    [
+     0.5410964488983154,
+     0.556374728679657,
+     0.80097496509552
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 5.9604644775390625e-05,
+    "dst_to_src_mean_mm": 4.80682619156376e-07,
+    "src_to_dst_max_mm": 0.25850479141809046,
+    "src_to_dst_mean_mm": 0.0008555259088635385
+   }
+  },
+  "BREP1.003": {
+   "kind": "marks",
+   "tris_before": 9431,
+   "material": "DIAL_MARKS",
+   "tris_after_weld": 9408,
+   "islands_before": 30,
+   "bbox_before": [
+    [
+     0.5410964488983154,
+     0.5051093697547913,
+     0.7554721832275391
+    ],
+    [
+     0.5450334548950195,
+     0.5550286173820496,
+     0.7982905507087708
+    ]
+   ],
+   "tris_after_dissolve": 8138,
+   "alloc": {
+    "k": 1.3591129707112395,
+    "exponent": 0.5,
+    "budget_effective": 900,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 407,
+      "target": 33,
+      "tris_out": 31,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.178
+     },
+     {
+      "tris_in": 240,
+      "target": 30,
+      "tris_out": 29,
+      "size_mm": [
+       0.0,
+       3.94,
+       5.13
+      ],
+      "dev_max_mm": 0.094
+     },
+     {
+      "tris_in": 67,
+      "target": 16,
+      "tris_out": 15,
+      "size_mm": [
+       0.0,
+       0.96,
+       5.13
+      ],
+      "dev_max_mm": 0.013
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.164
+     },
+     {
+      "tris_in": 405,
+      "target": 33,
+      "tris_out": 31,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.2
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.148
+     },
+     {
+      "tris_in": 407,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.135
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.183
+     },
+     {
+      "tris_in": 405,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.195
+     },
+     {
+      "tris_in": 538,
+      "target": 38,
+      "tris_out": 36,
+      "size_mm": [
+       0.2,
+       1.48,
+       2.41
+      ],
+      "dev_max_mm": 0.237
+     },
+     {
+      "tris_in": 544,
+      "target": 38,
+      "tris_out": 37,
+      "size_mm": [
+       0.2,
+       1.48,
+       2.41
+      ],
+      "dev_max_mm": 0.293
+     },
+     {
+      "tris_in": 48,
+      "target": 11,
+      "tris_out": 10,
+      "size_mm": [
+       0.2,
+       1.66,
+       2.33
+      ],
+      "dev_max_mm": 0.231
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.434
+     },
+     {
+      "tris_in": 266,
+      "target": 27,
+      "tris_out": 26,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.57
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.227
+     },
+     {
+      "tris_in": 264,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.386
+     },
+     {
+      "tris_in": 267,
+      "target": 27,
+      "tris_out": 26,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.234
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.377
+     },
+     {
+      "tris_in": 223,
+      "target": 24,
+      "tris_out": 23,
+      "size_mm": [
+       0.2,
+       1.43,
+       2.37
+      ],
+      "dev_max_mm": 0.243
+     },
+     {
+      "tris_in": 492,
+      "target": 36,
+      "tris_out": 34,
+      "size_mm": [
+       0.2,
+       1.35,
+       2.41
+      ],
+      "dev_max_mm": 0.273
+     },
+     {
+      "tris_in": 496,
+      "target": 36,
+      "tris_out": 34,
+      "size_mm": [
+       0.2,
+       1.35,
+       2.41
+      ],
+      "dev_max_mm": 0.322
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 9,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.399
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 9,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.313
+     },
+     {
+      "tris_in": 29,
+      "target": 9,
+      "tris_out": 11,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.29
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 15,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.271
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 14,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.271
+     },
+     {
+      "tris_in": 19,
+      "target": 8,
+      "tris_out": 12,
+      "size_mm": [
+       0.2,
+       1.5,
+       2.33
+      ],
+      "dev_max_mm": 0.291
+     },
+     {
+      "tris_in": 476,
+      "target": 132,
+      "tris_out": 130,
+      "size_mm": [
+       0.0,
+       41.25,
+       35.28
+      ],
+      "dev_max_mm": 2.516
+     },
+     {
+      "tris_in": 119,
+      "target": 21,
+      "tris_out": 20,
+      "size_mm": [
+       0.0,
+       3.71,
+       5.0
+      ],
+      "dev_max_mm": 0.083
+     },
+     {
+      "tris_in": 301,
+      "target": 76,
+      "tris_out": 75,
+      "size_mm": [
+       0.76,
+       26.79,
+       23.17
+      ],
+      "dev_max_mm": 0.08
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 887,
+   "islands_after": 30,
+   "bbox_after": [
+    [
+     0.5410962104797363,
+     0.5051093697547913,
+     0.7554721832275391
+    ],
+    [
+     0.5450334548950195,
+     0.5550286173820496,
+     0.7982905507087708
+    ]
+   ],
+   "bbox_change_mm": 0.0002384185791015625,
+   "bbox_change_per_axis_mm": [
+    0.0002384185791015625,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.12214620073791593,
+    "dst_to_src_mean_mm": 0.022324221625360272,
+    "src_to_dst_max_mm": 2.349907299503684,
+    "src_to_dst_mean_mm": 0.08956209663501474
+   }
+  },
+  "BREP1": {
+   "kind": "ring",
+   "tris_before": 1020,
+   "material": "0.886275_0.694118_0.027451_0.000000_0.000000",
+   "tris_after_weld": 1020,
+   "islands_before": 2,
+   "bbox_before": [
+    [
+     0.495186448097229,
+     0.522498607635498,
+     0.7659875154495239
+    ],
+    [
+     0.5200464725494385,
+     0.5363550186157227,
+     0.7819874882698059
+    ]
+   ],
+   "tris_after_dissolve": 876,
+   "alloc": {
+    "k": 1.7182408525909771,
+    "exponent": 0.5,
+    "budget_effective": 150,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 174,
+      "target": 53,
+      "tris_out": 51,
+      "size_mm": [
+       12.7,
+       13.86,
+       16.0
+      ],
+      "dev_max_mm": 0.223
+     },
+     {
+      "tris_in": 702,
+      "target": 97,
+      "tris_out": 96,
+      "size_mm": [
+       12.16,
+       13.7,
+       13.7
+      ],
+      "dev_max_mm": 0.245
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 147,
+   "islands_after": 2,
+   "bbox_after": [
+    [
+     0.495186448097229,
+     0.5224794149398804,
+     0.7659875154495239
+    ],
+    [
+     0.5200464725494385,
+     0.5363723039627075,
+     0.7819874882698059
+    ]
+   ],
+   "bbox_change_mm": 0.01919269561767578,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.01919269561767578,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.17132525681518018,
+    "dst_to_src_mean_mm": 0.04509139761448379,
+    "src_to_dst_max_mm": 0.2446979924570769,
+    "src_to_dst_mean_mm": 0.06239168673057184
+   }
+  },
+  "BREP1.007": {
+   "kind": "bezel",
+   "tris_before": 21623,
+   "material": "DIAL_BEZEL",
+   "tris_after_weld": 21475,
+   "islands_before": 22,
+   "bbox_before": [
+    [
+     0.49718645215034485,
+     0.6050044298171997,
+     0.7351874709129333
+    ],
+    [
+     0.5474464297294617,
+     0.6824905872344971,
+     0.8127874732017517
+    ]
+   ],
+   "tris_after_dissolve": 18568,
+   "alloc": {
+    "k": 0.7302756704104163,
+    "exponent": 0.5,
+    "budget_effective": 1000,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 175,
+      "target": 12,
+      "tris_out": 10,
+      "size_mm": [
+       3.18,
+       1.26,
+       1.26
+      ],
+      "dev_max_mm": 1.229
+     },
+     {
+      "tris_in": 948,
+      "target": 100,
+      "tris_out": 99,
+      "size_mm": [
+       0.25,
+       41.26,
+       35.28
+      ],
+      "dev_max_mm": 1.586
+     },
+     {
+      "tris_in": 169,
+      "target": 13,
+      "tris_out": 12,
+      "size_mm": [
+       0.25,
+       3.71,
+       5.0
+      ],
+      "dev_max_mm": 0.824
+     },
+     {
+      "tris_in": 491,
+      "target": 23,
+      "tris_out": 21,
+      "size_mm": [
+       0.25,
+       3.94,
+       5.13
+      ],
+      "dev_max_mm": 0.437
+     },
+     {
+      "tris_in": 138,
+      "target": 12,
+      "tris_out": 11,
+      "size_mm": [
+       0.25,
+       0.96,
+       5.13
+      ],
+      "dev_max_mm": 0.282
+     },
+     {
+      "tris_in": 256,
+      "target": 38,
+      "tris_out": 37,
+      "size_mm": [
+       3.18,
+       26.79,
+       23.17
+      ],
+      "dev_max_mm": 0.192
+     },
+     {
+      "tris_in": 15347,
+      "target": 675,
+      "tris_out": 670,
+      "size_mm": [
+       27.4,
+       77.49,
+       77.6
+      ],
+      "dev_max_mm": 0.847
+     },
+     {
+      "tris_in": 7,
+      "target": 7,
+      "tris_out": 7,
+      "size_mm": [
+       0.25,
+       0.55,
+       1.09
+      ],
+      "dev_max_mm": 0.0
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.053
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.341
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.053
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.056
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.108
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.147
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.97,
+       1.96
+      ],
+      "dev_max_mm": 0.117
+     },
+     {
+      "tris_in": 3,
+      "target": 3,
+      "tris_out": 3,
+      "size_mm": [
+       0.0,
+       0.81,
+       1.25
+      ],
+      "dev_max_mm": 0.0
+     },
+     {
+      "tris_in": 109,
+      "target": 9,
+      "tris_out": 11,
+      "size_mm": [
+       0.25,
+       1.73,
+       1.47
+      ],
+      "dev_max_mm": 0.247
+     },
+     {
+      "tris_in": 65,
+      "target": 8,
+      "tris_out": 6,
+      "size_mm": [
+       0.0,
+       0.92,
+       1.04
+      ],
+      "dev_max_mm": 0.122
+     },
+     {
+      "tris_in": 64,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       0.92,
+       1.05
+      ],
+      "dev_max_mm": 0.051
+     },
+     {
+      "tris_in": 118,
+      "target": 17,
+      "tris_out": 16,
+      "size_mm": [
+       0.0,
+       13.86,
+       13.86
+      ],
+      "dev_max_mm": 3.927
+     },
+     {
+      "tris_in": 56,
+      "target": 8,
+      "tris_out": 7,
+      "size_mm": [
+       0.0,
+       2.0,
+       2.0
+      ],
+      "dev_max_mm": 0.099
+     },
+     {
+      "tris_in": 174,
+      "target": 11,
+      "tris_out": 12,
+      "size_mm": [
+       0.25,
+       1.57,
+       1.57
+      ],
+      "dev_max_mm": 0.225
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 974,
+   "islands_after": 27,
+   "bbox_after": [
+    [
+     0.49718645215034485,
+     0.6050044298171997,
+     0.7351874709129333
+    ],
+    [
+     0.5474464297294617,
+     0.6824905872344971,
+     0.8127874732017517
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.9279177756980062,
+    "dst_to_src_mean_mm": 0.09237191395668304,
+    "src_to_dst_max_mm": 3.9267358370125294,
+    "src_to_dst_mean_mm": 0.1169214251768866
+   },
+   "reused_from": "BREP1.001"
+  },
+  "BREP1.006": {
+   "kind": "face",
+   "tris_before": 4750,
+   "material": "DIAL_FACE",
+   "tris_after_weld": 4731,
+   "islands_before": 1,
+   "bbox_before": [
+    [
+     0.5410964488983154,
+     0.6167600154876709,
+     0.746999979019165
+    ],
+    [
+     0.5410964488983154,
+     0.670695424079895,
+     0.80097496509552
+    ]
+   ],
+   "fill": {
+    "holes_total": 31,
+    "holes_filled": 18,
+    "holes_kept": [
+     {
+      "verts": 98,
+      "size_mm": [
+       3.71,
+       5.0
+      ],
+      "area_mm2": 12.0,
+      "marks_cover_ratio": 0.808,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 203,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.206,
+      "marks_cover_ratio": 0.651,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 116,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 190,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.217,
+      "marks_cover_ratio": 0.653,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       2.36,
+       2.36
+      ],
+      "area_mm2": 4.374,
+      "marks_cover_ratio": 0.12,
+      "filled": false
+     },
+     {
+      "verts": 15,
+      "size_mm": [
+       1.66,
+       2.33
+      ],
+      "area_mm2": 1.76,
+      "marks_cover_ratio": 0.723,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       1.26,
+       1.26
+      ],
+      "area_mm2": 1.241,
+      "marks_cover_ratio": 0.0,
+      "filled": false
+     }
+    ],
+    "holes_all": [
+     {
+      "verts": 725,
+      "size_mm": [
+       41.26,
+       35.28
+      ],
+      "area_mm2": 60.277,
+      "marks_cover_ratio": 0.999,
+      "filled": true
+     },
+     {
+      "verts": 284,
+      "size_mm": [
+       3.94,
+       5.13
+      ],
+      "area_mm2": 10.823,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 69,
+      "size_mm": [
+       0.96,
+       5.13
+      ],
+      "area_mm2": 4.712,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 98,
+      "size_mm": [
+       3.71,
+       5.0
+      ],
+      "area_mm2": 12.0,
+      "marks_cover_ratio": 0.808,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 203,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.206,
+      "marks_cover_ratio": 0.651,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 112,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 114,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 116,
+      "size_mm": [
+       1.52,
+       2.41
+      ],
+      "area_mm2": 3.023,
+      "marks_cover_ratio": 0.476,
+      "filled": false
+     },
+     {
+      "verts": 266,
+      "size_mm": [
+       1.35,
+       2.41
+      ],
+      "area_mm2": 1.151,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 260,
+      "size_mm": [
+       1.35,
+       2.41
+      ],
+      "area_mm2": 1.151,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 190,
+      "size_mm": [
+       1.48,
+       2.41
+      ],
+      "area_mm2": 2.217,
+      "marks_cover_ratio": 0.653,
+      "filled": false
+     },
+     {
+      "verts": 12,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 16,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 16,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.01,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 14,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 10,
+      "size_mm": [
+       1.33,
+       2.39
+      ],
+      "area_mm2": 1.009,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 128,
+      "size_mm": [
+       1.43,
+       2.37
+      ],
+      "area_mm2": 1.154,
+      "marks_cover_ratio": 1.001,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 154,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 154,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 156,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 160,
+      "size_mm": [
+       1.31,
+       2.37
+      ],
+      "area_mm2": 1.198,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       2.36,
+       2.36
+      ],
+      "area_mm2": 4.374,
+      "marks_cover_ratio": 0.12,
+      "filled": false
+     },
+     {
+      "verts": 13,
+      "size_mm": [
+       1.5,
+       2.33
+      ],
+      "area_mm2": 0.921,
+      "marks_cover_ratio": 1.0,
+      "filled": true
+     },
+     {
+      "verts": 15,
+      "size_mm": [
+       1.66,
+       2.33
+      ],
+      "area_mm2": 1.76,
+      "marks_cover_ratio": 0.723,
+      "filled": false
+     },
+     {
+      "verts": 59,
+      "size_mm": [
+       1.26,
+       1.26
+      ],
+      "area_mm2": 1.241,
+      "marks_cover_ratio": 0.0,
+      "filled": false
+     }
+    ],
+    "rim_verts": 60,
+    "hole_verts_total": 64,
+    "eps_outer_mm": 0.05,
+    "eps_holes_mm": 0.4458050224128
+   },
+   "method": "fill covered holes + Douglas-Peucker loops + triangle_fill",
+   "tris_after": 150,
+   "islands_after": 1,
+   "bbox_after": [
+    [
+     0.5410964488983154,
+     0.6167600154876709,
+     0.746999979019165
+    ],
+    [
+     0.5410964488983154,
+     0.670695424079895,
+     0.80097496509552
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 5.9604644775390625e-05,
+    "dst_to_src_mean_mm": 4.80682619156376e-07,
+    "src_to_dst_max_mm": 0.25850479141809046,
+    "src_to_dst_mean_mm": 0.0008555259088635385
+   },
+   "reused_from": "BREP1.002"
+  },
+  "BREP1.005": {
+   "kind": "marks",
+   "tris_before": 9431,
+   "material": "DIAL_MARKS",
+   "tris_after_weld": 9408,
+   "islands_before": 30,
+   "bbox_before": [
+    [
+     0.5410964488983154,
+     0.6194300651550293,
+     0.7554721832275391
+    ],
+    [
+     0.5450334548950195,
+     0.6693493127822876,
+     0.7982905507087708
+    ]
+   ],
+   "tris_after_dissolve": 8138,
+   "alloc": {
+    "k": 1.3591129707112395,
+    "exponent": 0.5,
+    "budget_effective": 900,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 407,
+      "target": 33,
+      "tris_out": 31,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.178
+     },
+     {
+      "tris_in": 240,
+      "target": 30,
+      "tris_out": 29,
+      "size_mm": [
+       0.0,
+       3.94,
+       5.13
+      ],
+      "dev_max_mm": 0.094
+     },
+     {
+      "tris_in": 67,
+      "target": 16,
+      "tris_out": 15,
+      "size_mm": [
+       0.0,
+       0.96,
+       5.13
+      ],
+      "dev_max_mm": 0.013
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.164
+     },
+     {
+      "tris_in": 405,
+      "target": 33,
+      "tris_out": 31,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.2
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.148
+     },
+     {
+      "tris_in": 407,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.135
+     },
+     {
+      "tris_in": 406,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.183
+     },
+     {
+      "tris_in": 405,
+      "target": 33,
+      "tris_out": 32,
+      "size_mm": [
+       0.2,
+       1.52,
+       2.41
+      ],
+      "dev_max_mm": 0.195
+     },
+     {
+      "tris_in": 538,
+      "target": 38,
+      "tris_out": 36,
+      "size_mm": [
+       0.2,
+       1.48,
+       2.41
+      ],
+      "dev_max_mm": 0.237
+     },
+     {
+      "tris_in": 544,
+      "target": 38,
+      "tris_out": 37,
+      "size_mm": [
+       0.2,
+       1.48,
+       2.41
+      ],
+      "dev_max_mm": 0.293
+     },
+     {
+      "tris_in": 48,
+      "target": 11,
+      "tris_out": 10,
+      "size_mm": [
+       0.2,
+       1.66,
+       2.33
+      ],
+      "dev_max_mm": 0.231
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.434
+     },
+     {
+      "tris_in": 266,
+      "target": 27,
+      "tris_out": 26,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.57
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.227
+     },
+     {
+      "tris_in": 264,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.386
+     },
+     {
+      "tris_in": 267,
+      "target": 27,
+      "tris_out": 26,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.234
+     },
+     {
+      "tris_in": 265,
+      "target": 26,
+      "tris_out": 25,
+      "size_mm": [
+       0.2,
+       1.31,
+       2.37
+      ],
+      "dev_max_mm": 0.377
+     },
+     {
+      "tris_in": 223,
+      "target": 24,
+      "tris_out": 23,
+      "size_mm": [
+       0.2,
+       1.43,
+       2.37
+      ],
+      "dev_max_mm": 0.243
+     },
+     {
+      "tris_in": 492,
+      "target": 36,
+      "tris_out": 34,
+      "size_mm": [
+       0.2,
+       1.35,
+       2.41
+      ],
+      "dev_max_mm": 0.273
+     },
+     {
+      "tris_in": 496,
+      "target": 36,
+      "tris_out": 34,
+      "size_mm": [
+       0.2,
+       1.35,
+       2.41
+      ],
+      "dev_max_mm": 0.322
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 9,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.399
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 9,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.313
+     },
+     {
+      "tris_in": 29,
+      "target": 9,
+      "tris_out": 11,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.29
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 15,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.271
+     },
+     {
+      "tris_in": 28,
+      "target": 9,
+      "tris_out": 14,
+      "size_mm": [
+       0.2,
+       1.33,
+       2.39
+      ],
+      "dev_max_mm": 0.271
+     },
+     {
+      "tris_in": 19,
+      "target": 8,
+      "tris_out": 12,
+      "size_mm": [
+       0.2,
+       1.5,
+       2.33
+      ],
+      "dev_max_mm": 0.291
+     },
+     {
+      "tris_in": 476,
+      "target": 132,
+      "tris_out": 130,
+      "size_mm": [
+       0.0,
+       41.25,
+       35.28
+      ],
+      "dev_max_mm": 2.516
+     },
+     {
+      "tris_in": 119,
+      "target": 21,
+      "tris_out": 20,
+      "size_mm": [
+       0.0,
+       3.71,
+       5.0
+      ],
+      "dev_max_mm": 0.083
+     },
+     {
+      "tris_in": 301,
+      "target": 76,
+      "tris_out": 75,
+      "size_mm": [
+       0.76,
+       26.79,
+       23.17
+      ],
+      "dev_max_mm": 0.08
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 887,
+   "islands_after": 30,
+   "bbox_after": [
+    [
+     0.5410962104797363,
+     0.6194300651550293,
+     0.7554721832275391
+    ],
+    [
+     0.5450334548950195,
+     0.6693493127822876,
+     0.7982905507087708
+    ]
+   ],
+   "bbox_change_mm": 0.0002384185791015625,
+   "bbox_change_per_axis_mm": [
+    0.0002384185791015625,
+    0.0,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.12214620073791593,
+    "dst_to_src_mean_mm": 0.022324221625360272,
+    "src_to_dst_max_mm": 2.349907299503684,
+    "src_to_dst_mean_mm": 0.08956209663501474
+   },
+   "reused_from": "BREP1.003"
+  },
+  "BREP1.008": {
+   "kind": "ring",
+   "tris_before": 1020,
+   "material": "0.886275_0.694118_0.027451_0.000000_0.001",
+   "tris_after_weld": 1020,
+   "islands_before": 2,
+   "bbox_before": [
+    [
+     0.495186448097229,
+     0.6368193030357361,
+     0.7659875154495239
+    ],
+    [
+     0.5200464725494385,
+     0.6506757140159607,
+     0.7819874882698059
+    ]
+   ],
+   "tris_after_dissolve": 876,
+   "alloc": {
+    "k": 1.7182408525909771,
+    "exponent": 0.5,
+    "budget_effective": 150,
+    "attempts": 1,
+    "islands": [
+     {
+      "tris_in": 174,
+      "target": 53,
+      "tris_out": 51,
+      "size_mm": [
+       12.7,
+       13.86,
+       16.0
+      ],
+      "dev_max_mm": 0.223
+     },
+     {
+      "tris_in": 702,
+      "target": 97,
+      "tris_out": 96,
+      "size_mm": [
+       12.16,
+       13.7,
+       13.7
+      ],
+      "dev_max_mm": 0.245
+     }
+    ]
+   },
+   "method": "planar dissolve 1.0 deg + per-island collapse with pinned extremes",
+   "tris_after": 147,
+   "islands_after": 2,
+   "bbox_after": [
+    [
+     0.495186448097229,
+     0.6368001103401184,
+     0.7659875154495239
+    ],
+    [
+     0.5200464725494385,
+     0.6506929993629456,
+     0.7819874882698059
+    ]
+   ],
+   "bbox_change_mm": 0.01919269561767578,
+   "bbox_change_per_axis_mm": [
+    0.0,
+    0.01919269561767578,
+    0.0
+   ],
+   "dev": {
+    "dst_to_src_max_mm": 0.17132525681518018,
+    "dst_to_src_mean_mm": 0.04509139761448379,
+    "src_to_dst_max_mm": 0.2446979924570769,
+    "src_to_dst_mean_mm": 0.06239168673057184
+   },
+   "reused_from": "BREP1"
+  },
+  "EXHAUST_CONNECTOR_PIPE": {
+   "kind": "pipe",
+   "tris_before": 2172,
+   "material": "MSP_STAINLESS_FASTENER",
+   "islands_before": 1,
+   "bbox_before": [
+    [
+     0.12664629518985748,
+     0.3686390519142151,
+     1.3774935007095337
+    ],
+    [
+     0.21804769337177277,
+     0.44467997550964355,
+     1.8207064867019653
+    ]
+   ],
+   "tris_after": 2172,
+   "islands_after": 1,
+   "bbox_after": [
+    [
+     0.12664629518985748,
+     0.3686390519142151,
+     1.3774935007095337
+    ],
+    [
+     0.21804769337177277,
+     0.44467997550964355,
+     1.8207064867019653
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "dev": null
+  },
+  "DIAL_LENS_1": {
+   "kind": "lens",
+   "tris_before": 380,
+   "material": "DIAL_LENS",
+   "islands_before": 1,
+   "bbox_before": [
+    [
+     0.545199990272522,
+     0.4982070326805115,
+     0.7427874803543091
+    ],
+    [
+     0.5462000370025635,
+     0.5606070160865784,
+     0.805187463760376
+    ]
+   ],
+   "tris_after": 380,
+   "islands_after": 1,
+   "bbox_after": [
+    [
+     0.545199990272522,
+     0.4982070326805115,
+     0.7427874803543091
+    ],
+    [
+     0.5462000370025635,
+     0.5606070160865784,
+     0.805187463760376
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "dev": null
+  },
+  "DIAL_LENS_2": {
+   "kind": "lens",
+   "tris_before": 380,
+   "material": "DIAL_LENS",
+   "islands_before": 1,
+   "bbox_before": [
+    [
+     0.545199990272522,
+     0.6125277280807495,
+     0.7427874803543091
+    ],
+    [
+     0.5462000370025635,
+     0.6749277114868164,
+     0.805187463760376
+    ]
+   ],
+   "tris_after": 380,
+   "islands_after": 1,
+   "bbox_after": [
+    [
+     0.545199990272522,
+     0.6125277280807495,
+     0.7427874803543091
+    ],
+    [
+     0.5462000370025635,
+     0.6749277114868164,
+     0.805187463760376
+    ]
+   ],
+   "bbox_change_mm": 0.0,
+   "dev": null
+  }
+ },
+ "materials": {
+  "MSP_STAINLESS_FASTENER": {
+   "base": [
+    0.6200000047683716,
+    0.628000020980835,
+    0.6359999775886536,
+    1.0
+   ],
+   "metal": 1.0,
+   "rough": 0.35999999940395355,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_BEZEL": {
+   "base": [
+    0.7200000286102295,
+    0.7300000190734863,
+    0.75,
+    1.0
+   ],
+   "metal": 1.0,
+   "rough": 0.30000001192092896,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_FACE": {
+   "base": [
+    0.800000011920929,
+    0.800000011920929,
+    0.7799999713897705,
+    1.0
+   ],
+   "metal": 0.0,
+   "rough": 0.6000000238418579,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_MARKS": {
+   "base": [
+    0.009999999776482582,
+    0.009999999776482582,
+    0.010999999940395355,
+    1.0
+   ],
+   "metal": 0.0,
+   "rough": 0.44999998807907104,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "0.886275_0.694118_0.027451_0.000000_0.000000": {
+   "base": [
+    0.886274516582489,
+    0.6941176652908325,
+    0.027450980618596077,
+    1.0
+   ],
+   "metal": 0.0,
+   "rough": 1.0,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "0.886275_0.694118_0.027451_0.000000_0.001": {
+   "base": [
+    0.886274516582489,
+    0.6941176652908325,
+    0.027450980618596077,
+    1.0
+   ],
+   "metal": 0.0,
+   "rough": 1.0,
+   "coat": 0.0,
+   "coat_rough": 0.029999999329447746
+  },
+  "DIAL_LENS": {
+   "base": [
+    0.800000011920929,
+    0.800000011920929,
+    0.800000011920929
+   ],
+   "metal": 0.0,
+   "rough": 0.019999999552965164,
+   "coat": 0.0,
+   "coat_rough": 0.0,
+   "alpha": 0.03373594919332527
+  }
+ },
+ "twin_check": {
+  "BREP1.007": {
+   "twin_of": "BREP1.001",
+   "same_vertex_count": true,
+   "shift_m": [
+    0.0,
+    0.11432069540023804,
+    0.0
+   ],
+   "max_dev_after_shift_m": 2.9802322387695312e-08,
+   "is_translated_twin": true
+  },
+  "BREP1.006": {
+   "twin_of": "BREP1.002",
+   "same_vertex_count": true,
+   "shift_m": [
+    0.0,
+    0.11432069540023804,
+    0.0
+   ],
+   "max_dev_after_shift_m": 0.0,
+   "is_translated_twin": true
+  },
+  "BREP1.005": {
+   "twin_of": "BREP1.003",
+   "same_vertex_count": true,
+   "shift_m": [
+    0.0,
+    0.11432069540023804,
+    0.0
+   ],
+   "max_dev_after_shift_m": 0.0,
+   "is_translated_twin": true
+  },
+  "BREP1.008": {
+   "twin_of": "BREP1",
+   "same_vertex_count": true,
+   "shift_m": [
+    0.0,
+    0.11432069540023804,
+    0.0
+   ],
+   "max_dev_after_shift_m": 0.0,
+   "is_translated_twin": true
+  }
+ },
+ "lens": {
+  "fresnel_ior": 1.4500000476837158,
+  "f0_normal_incidence": 0.03373594919332527,
+  "mix_inputs_by_identifier": {
+   "Fac": "FRESNEL",
+   "Shader": "BSDF_TRANSPARENT",
+   "Shader_001": "BSDF_GLOSSY"
+  },
+  "mix_factor_socket_default": 0.5,
+  "factor_linked": true,
+  "glossy_color": [
+   0.800000011920929,
+   0.800000011920929,
+   0.800000011920929
+  ],
+  "glossy_roughness": 0.019999999552965164,
+  "note": "Mix Shader fac=Fresnel(IOR); slot Shader (A, fac=0) and Shader_001 (B, fac=1) hold the types listed"
+ },
+ "stainless": {
+  "from": [
+   0.0,
+   1.0
+  ],
+  "to": [
+   0.30000001192092896,
+   0.41999998688697815
+  ],
+  "midpoint": 0.35999999940395355,
+  "socket_default": 0.4000000059604645,
+  "value_source": "Object Info Random (per object, 0..1), interpolation LINEAR"
+ }
+}

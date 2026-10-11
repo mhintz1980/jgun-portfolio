@@ -1,0 +1,1025 @@
+{
+ "MSP_ALUMINUM_CAST": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.550000011920929
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.6899999976158142
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_ALUMINUM_CAST_TURNED": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.550000011920929
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.6899999976158142
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_STAINLESS": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.1599999964237213
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.28999999165534973
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_STAINLESS__SECTION": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.1599999964237213
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.28999999165534973
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_STAINLESS_FASTENER": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.30000001192092896
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.41999998688697815
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_STAINLESS_FASTENER.001": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.30000001192092896
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.41999998688697815
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_STAINLESS_FASTENER.002": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.30000001192092896
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.41999998688697815
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_YELLOW_ENAMEL": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.23999999463558197
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.3199999928474426
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_YELLOW_PAINT": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.46000000834465027
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.5400000214576721
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "MSP_YELLOW_PAINT__SECTION": [
+  {
+   "data_type": "FLOAT",
+   "interp": "LINEAR",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.46000000834465027
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.5400000214576721
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ],
+ "REVEAL_FLOOR_MAT": [
+  {
+   "data_type": "FLOAT",
+   "interp": "SMOOTHSTEP",
+   "clamp": true,
+   "inputs": {
+    "Value": {
+     "enabled": true,
+     "linked": true,
+     "v": 1.0
+    },
+    "From Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 2.0
+    },
+    "From Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 5.0
+    },
+    "To Min": {
+     "enabled": true,
+     "linked": false,
+     "v": 0.0
+    },
+    "To Max": {
+     "enabled": true,
+     "linked": false,
+     "v": 1.0
+    },
+    "Steps": {
+     "enabled": false,
+     "linked": false,
+     "v": 4.0
+    },
+    "Vector": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "From_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "To_Min_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "To_Max_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Steps_FLOAT3": {
+     "enabled": false,
+     "linked": false,
+     "v": [
+      4.0,
+      4.0,
+      4.0
+     ]
+    }
+   }
+  }
+ ]
+}

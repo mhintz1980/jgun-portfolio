@@ -1,0 +1,5124 @@
+{
+ "viewport": {
+  "w": 1440,
+  "h": 900
+ },
+ "step": 0.005,
+ "parts": {
+  "dials": {
+   "part": "GAUGE_DIALS",
+   "bbox": {
+    "min": [
+     0.4952,
+     0.7352,
+     -0.6825
+    ],
+    "max": [
+     0.5474,
+     0.8128,
+     -0.4907
+    ]
+   },
+   "constraint": "plane <= xMin - 0.02",
+   "best": {
+    "u": 0.56,
+    "plane": -0.15,
+    "front": true,
+    "planeOk": true,
+    "areaFraction": 0.00566,
+    "score": 0.00566,
+    "bboxNdc": [
+     [
+      0.9433207741607752,
+      0.22519714221467932,
+      0.9829850627336232
+     ],
+     [
+      0.7921092707607715,
+      0.2308635121316121,
+      0.9827590949459178
+     ],
+     [
+      0.9410387581748537,
+      0.32967126009998987,
+      0.9830278373774355
+     ],
+     [
+      0.790168626528887,
+      0.3366556205769772,
+      0.9828029685103967
+     ],
+     [
+      0.9720591440298707,
+      0.23551982952864237,
+      0.9825734067969822
+     ],
+     [
+      0.8176571182887071,
+      0.24145487750283262,
+      0.9823367244623815
+     ],
+     [
+      0.9696529948316477,
+      0.3423946683543628,
+      0.9826181938018412
+     ],
+     [
+      0.8156067530572635,
+      0.34970936640050865,
+      0.9823826893676431
+     ]
+    ],
+    "ndcRect": {
+     "x0": 0.790168626528887,
+     "x1": 0.9720591440298707,
+     "y0": 0.22519714221467932,
+     "y1": 0.34970936640050865
+    },
+    "planeVsBboxX": {
+     "xMin": 0.4952,
+     "xMax": 0.5474,
+     "plane": -0.15
+    }
+   },
+   "table": [
+    {
+     "u": 0,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0007,
+     "score": 0
+    },
+    {
+     "u": 0.005,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0007,
+     "score": 0
+    },
+    {
+     "u": 0.01,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0007,
+     "score": 0
+    },
+    {
+     "u": 0.015,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00071,
+     "score": 0
+    },
+    {
+     "u": 0.02,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00072,
+     "score": 0
+    },
+    {
+     "u": 0.025,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00073,
+     "score": 0
+    },
+    {
+     "u": 0.03,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00074,
+     "score": 0
+    },
+    {
+     "u": 0.035,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00076,
+     "score": 0
+    },
+    {
+     "u": 0.04,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00077,
+     "score": 0
+    },
+    {
+     "u": 0.045,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00079,
+     "score": 0
+    },
+    {
+     "u": 0.05,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00081,
+     "score": 0
+    },
+    {
+     "u": 0.055,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00083,
+     "score": 0
+    },
+    {
+     "u": 0.06,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00085,
+     "score": 0
+    },
+    {
+     "u": 0.065,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00087,
+     "score": 0
+    },
+    {
+     "u": 0.07,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00089,
+     "score": 0
+    },
+    {
+     "u": 0.075,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00092,
+     "score": 0
+    },
+    {
+     "u": 0.08,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00094,
+     "score": 0
+    },
+    {
+     "u": 0.085,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00096,
+     "score": 0
+    },
+    {
+     "u": 0.09,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00098,
+     "score": 0
+    },
+    {
+     "u": 0.095,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.001,
+     "score": 0
+    },
+    {
+     "u": 0.1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00102,
+     "score": 0
+    },
+    {
+     "u": 0.105,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00103,
+     "score": 0
+    },
+    {
+     "u": 0.11,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00104,
+     "score": 0
+    },
+    {
+     "u": 0.115,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00105,
+     "score": 0
+    },
+    {
+     "u": 0.12,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00105,
+     "score": 0
+    },
+    {
+     "u": 0.125,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00105,
+     "score": 0
+    },
+    {
+     "u": 0.13,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00106,
+     "score": 0
+    },
+    {
+     "u": 0.135,
+     "plane": 0.8475,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00107,
+     "score": 0
+    },
+    {
+     "u": 0.14,
+     "plane": 0.84,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00108,
+     "score": 0
+    },
+    {
+     "u": 0.145,
+     "plane": 0.828,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0011,
+     "score": 0
+    },
+    {
+     "u": 0.15,
+     "plane": 0.8117,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00112,
+     "score": 0
+    },
+    {
+     "u": 0.155,
+     "plane": 0.7915,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00115,
+     "score": 0
+    },
+    {
+     "u": 0.16,
+     "plane": 0.7676,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00117,
+     "score": 0
+    },
+    {
+     "u": 0.165,
+     "plane": 0.7403,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00121,
+     "score": 0
+    },
+    {
+     "u": 0.17,
+     "plane": 0.71,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00124,
+     "score": 0
+    },
+    {
+     "u": 0.175,
+     "plane": 0.6769,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00128,
+     "score": 0
+    },
+    {
+     "u": 0.18,
+     "plane": 0.6414,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00132,
+     "score": 0
+    },
+    {
+     "u": 0.185,
+     "plane": 0.6037,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00136,
+     "score": 0
+    },
+    {
+     "u": 0.19,
+     "plane": 0.5642,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00141,
+     "score": 0
+    },
+    {
+     "u": 0.195,
+     "plane": 0.5232,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00146,
+     "score": 0
+    },
+    {
+     "u": 0.2,
+     "plane": 0.481,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00151,
+     "score": 0
+    },
+    {
+     "u": 0.205,
+     "plane": 0.4378,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00156,
+     "score": 0.00156
+    },
+    {
+     "u": 0.21,
+     "plane": 0.3941,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00161,
+     "score": 0.00161
+    },
+    {
+     "u": 0.215,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00167,
+     "score": 0.00167
+    },
+    {
+     "u": 0.22,
+     "plane": 0.3059,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00172,
+     "score": 0.00172
+    },
+    {
+     "u": 0.225,
+     "plane": 0.2622,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00177,
+     "score": 0.00177
+    },
+    {
+     "u": 0.23,
+     "plane": 0.219,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00182,
+     "score": 0.00182
+    },
+    {
+     "u": 0.235,
+     "plane": 0.1768,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00187,
+     "score": 0.00187
+    },
+    {
+     "u": 0.24,
+     "plane": 0.1358,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00191,
+     "score": 0.00191
+    },
+    {
+     "u": 0.245,
+     "plane": 0.0963,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00195,
+     "score": 0.00195
+    },
+    {
+     "u": 0.25,
+     "plane": 0.0586,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00199,
+     "score": 0.00199
+    },
+    {
+     "u": 0.255,
+     "plane": 0.0231,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00202,
+     "score": 0.00202
+    },
+    {
+     "u": 0.26,
+     "plane": -0.01,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00204,
+     "score": 0.00204
+    },
+    {
+     "u": 0.265,
+     "plane": -0.0403,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00205,
+     "score": 0.00205
+    },
+    {
+     "u": 0.27,
+     "plane": -0.0676,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00205,
+     "score": 0.00205
+    },
+    {
+     "u": 0.275,
+     "plane": -0.0915,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00205,
+     "score": 0.00205
+    },
+    {
+     "u": 0.28,
+     "plane": -0.1117,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00204,
+     "score": 0.00204
+    },
+    {
+     "u": 0.285,
+     "plane": -0.128,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00203,
+     "score": 0.00203
+    },
+    {
+     "u": 0.29,
+     "plane": -0.14,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00201,
+     "score": 0.00201
+    },
+    {
+     "u": 0.295,
+     "plane": -0.1475,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00199,
+     "score": 0.00199
+    },
+    {
+     "u": 0.3,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00196,
+     "score": 0.00196
+    },
+    {
+     "u": 0.305,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00193,
+     "score": 0.00193
+    },
+    {
+     "u": 0.31,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0019,
+     "score": 0.0019
+    },
+    {
+     "u": 0.315,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00187,
+     "score": 0.00187
+    },
+    {
+     "u": 0.32,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00184,
+     "score": 0.00184
+    },
+    {
+     "u": 0.325,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00181,
+     "score": 0.00181
+    },
+    {
+     "u": 0.33,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00178,
+     "score": 0.00178
+    },
+    {
+     "u": 0.335,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00175,
+     "score": 0.00175
+    },
+    {
+     "u": 0.34,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00172,
+     "score": 0.00172
+    },
+    {
+     "u": 0.345,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00169,
+     "score": 0.00169
+    },
+    {
+     "u": 0.35,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00166,
+     "score": 0.00166
+    },
+    {
+     "u": 0.355,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00164,
+     "score": 0.00164
+    },
+    {
+     "u": 0.36,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00161,
+     "score": 0.00161
+    },
+    {
+     "u": 0.365,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00159,
+     "score": 0.00159
+    },
+    {
+     "u": 0.37,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00157,
+     "score": 0.00157
+    },
+    {
+     "u": 0.375,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00155,
+     "score": 0.00155
+    },
+    {
+     "u": 0.38,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00154,
+     "score": 0.00154
+    },
+    {
+     "u": 0.385,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00152,
+     "score": 0.00152
+    },
+    {
+     "u": 0.39,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00151,
+     "score": 0.00151
+    },
+    {
+     "u": 0.395,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0015,
+     "score": 0.0015
+    },
+    {
+     "u": 0.4,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0015,
+     "score": 0.0015
+    },
+    {
+     "u": 0.405,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00149,
+     "score": 0.00149
+    },
+    {
+     "u": 0.41,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00149,
+     "score": 0.00149
+    },
+    {
+     "u": 0.415,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0015,
+     "score": 0.0015
+    },
+    {
+     "u": 0.42,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00153,
+     "score": 0.00153
+    },
+    {
+     "u": 0.425,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00157,
+     "score": 0.00157
+    },
+    {
+     "u": 0.43,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00164,
+     "score": 0.00164
+    },
+    {
+     "u": 0.435,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00172,
+     "score": 0.00172
+    },
+    {
+     "u": 0.44,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00182,
+     "score": 0.00182
+    },
+    {
+     "u": 0.445,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00195,
+     "score": 0.00195
+    },
+    {
+     "u": 0.45,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0021,
+     "score": 0.0021
+    },
+    {
+     "u": 0.455,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00227,
+     "score": 0.00227
+    },
+    {
+     "u": 0.46,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00137,
+     "score": 0.00137
+    },
+    {
+     "u": 0.465,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.47,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.475,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.48,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.485,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.49,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.495,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.5,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.505,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.51,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.515,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.52,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.525,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.53,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.535,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.54,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.545,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.55,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.555,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00359,
+     "score": 0.00359
+    },
+    {
+     "u": 0.56,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00566,
+     "score": 0.00566
+    },
+    {
+     "u": 0.565,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00465,
+     "score": 0.00465
+    },
+    {
+     "u": 0.57,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00388,
+     "score": 0.00388
+    },
+    {
+     "u": 0.575,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00331,
+     "score": 0.00331
+    },
+    {
+     "u": 0.58,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00288,
+     "score": 0.00288
+    },
+    {
+     "u": 0.585,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0026,
+     "score": 0.0026
+    },
+    {
+     "u": 0.59,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00241,
+     "score": 0.00241
+    },
+    {
+     "u": 0.595,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00228,
+     "score": 0.00228
+    },
+    {
+     "u": 0.6,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00219,
+     "score": 0.00219
+    },
+    {
+     "u": 0.605,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00214,
+     "score": 0.00214
+    },
+    {
+     "u": 0.61,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00212,
+     "score": 0.00212
+    },
+    {
+     "u": 0.615,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00212,
+     "score": 0.00212
+    },
+    {
+     "u": 0.62,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00211,
+     "score": 0.00211
+    },
+    {
+     "u": 0.625,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00209,
+     "score": 0.00209
+    },
+    {
+     "u": 0.63,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00208,
+     "score": 0.00208
+    },
+    {
+     "u": 0.635,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00205,
+     "score": 0.00205
+    },
+    {
+     "u": 0.64,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00203,
+     "score": 0.00203
+    },
+    {
+     "u": 0.645,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00199,
+     "score": 0.00199
+    },
+    {
+     "u": 0.65,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00196,
+     "score": 0.00196
+    },
+    {
+     "u": 0.655,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00192,
+     "score": 0.00192
+    },
+    {
+     "u": 0.66,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00187,
+     "score": 0.00187
+    },
+    {
+     "u": 0.665,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00182,
+     "score": 0.00182
+    },
+    {
+     "u": 0.67,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00178,
+     "score": 0.00178
+    },
+    {
+     "u": 0.675,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00174,
+     "score": 0.00174
+    },
+    {
+     "u": 0.68,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00169,
+     "score": 0.00169
+    },
+    {
+     "u": 0.685,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00165,
+     "score": 0.00165
+    },
+    {
+     "u": 0.69,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0016,
+     "score": 0.0016
+    },
+    {
+     "u": 0.695,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00156,
+     "score": 0.00156
+    },
+    {
+     "u": 0.7,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00152,
+     "score": 0.00152
+    },
+    {
+     "u": 0.705,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00148,
+     "score": 0.00148
+    },
+    {
+     "u": 0.71,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00145,
+     "score": 0.00145
+    },
+    {
+     "u": 0.715,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00143,
+     "score": 0.00143
+    },
+    {
+     "u": 0.72,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0014,
+     "score": 0.0014
+    },
+    {
+     "u": 0.725,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00138,
+     "score": 0.00138
+    },
+    {
+     "u": 0.73,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00136,
+     "score": 0.00136
+    },
+    {
+     "u": 0.735,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00134,
+     "score": 0.00134
+    },
+    {
+     "u": 0.74,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00132,
+     "score": 0.00132
+    },
+    {
+     "u": 0.745,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00131,
+     "score": 0.00131
+    },
+    {
+     "u": 0.75,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0013,
+     "score": 0.0013
+    },
+    {
+     "u": 0.755,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00129,
+     "score": 0.00129
+    },
+    {
+     "u": 0.76,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00129,
+     "score": 0.00129
+    },
+    {
+     "u": 0.765,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0013,
+     "score": 0.0013
+    },
+    {
+     "u": 0.77,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00131,
+     "score": 0.00131
+    },
+    {
+     "u": 0.775,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00134,
+     "score": 0.00134
+    },
+    {
+     "u": 0.78,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00138,
+     "score": 0.00138
+    },
+    {
+     "u": 0.785,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00143,
+     "score": 0.00143
+    },
+    {
+     "u": 0.79,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00148,
+     "score": 0.00148
+    },
+    {
+     "u": 0.795,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00155,
+     "score": 0.00155
+    },
+    {
+     "u": 0.8,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00163,
+     "score": 0.00163
+    },
+    {
+     "u": 0.805,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00172,
+     "score": 0.00172
+    },
+    {
+     "u": 0.81,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00181,
+     "score": 0.00181
+    },
+    {
+     "u": 0.815,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00193,
+     "score": 0.00193
+    },
+    {
+     "u": 0.82,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00207,
+     "score": 0.00207
+    },
+    {
+     "u": 0.825,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00221,
+     "score": 0.00221
+    },
+    {
+     "u": 0.83,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00234,
+     "score": 0.00234
+    },
+    {
+     "u": 0.835,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00246,
+     "score": 0.00246
+    },
+    {
+     "u": 0.84,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00256,
+     "score": 0.00256
+    },
+    {
+     "u": 0.845,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00263,
+     "score": 0.00263
+    },
+    {
+     "u": 0.85,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00268,
+     "score": 0.00268
+    },
+    {
+     "u": 0.855,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00271,
+     "score": 0.00271
+    },
+    {
+     "u": 0.86,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00271,
+     "score": 0.00271
+    },
+    {
+     "u": 0.865,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00271,
+     "score": 0.00271
+    },
+    {
+     "u": 0.87,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0027,
+     "score": 0.0027
+    },
+    {
+     "u": 0.875,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00268,
+     "score": 0.00268
+    },
+    {
+     "u": 0.88,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00267,
+     "score": 0.00267
+    },
+    {
+     "u": 0.885,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00266,
+     "score": 0.00266
+    },
+    {
+     "u": 0.89,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00265,
+     "score": 0.00265
+    },
+    {
+     "u": 0.895,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00263,
+     "score": 0.00263
+    },
+    {
+     "u": 0.9,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00257,
+     "score": 0.00257
+    },
+    {
+     "u": 0.905,
+     "plane": -0.1411,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00247,
+     "score": 0.00247
+    },
+    {
+     "u": 0.91,
+     "plane": -0.1157,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00235,
+     "score": 0.00235
+    },
+    {
+     "u": 0.915,
+     "plane": -0.0759,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00221,
+     "score": 0.00221
+    },
+    {
+     "u": 0.92,
+     "plane": -0.0238,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00206,
+     "score": 0.00206
+    },
+    {
+     "u": 0.925,
+     "plane": 0.0386,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00191,
+     "score": 0.00191
+    },
+    {
+     "u": 0.93,
+     "plane": 0.1093,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00176,
+     "score": 0.00176
+    },
+    {
+     "u": 0.935,
+     "plane": 0.1861,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00161,
+     "score": 0.00161
+    },
+    {
+     "u": 0.94,
+     "plane": 0.267,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00148,
+     "score": 0.00148
+    },
+    {
+     "u": 0.945,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00135,
+     "score": 0.00135
+    },
+    {
+     "u": 0.95,
+     "plane": 0.433,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00124,
+     "score": 0.00124
+    },
+    {
+     "u": 0.955,
+     "plane": 0.5139,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00114,
+     "score": 0
+    },
+    {
+     "u": 0.96,
+     "plane": 0.5907,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00105,
+     "score": 0
+    },
+    {
+     "u": 0.965,
+     "plane": 0.6614,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00097,
+     "score": 0
+    },
+    {
+     "u": 0.97,
+     "plane": 0.7238,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0009,
+     "score": 0
+    },
+    {
+     "u": 0.975,
+     "plane": 0.7759,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00085,
+     "score": 0
+    },
+    {
+     "u": 0.98,
+     "plane": 0.8157,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00081,
+     "score": 0
+    },
+    {
+     "u": 0.985,
+     "plane": 0.8411,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00077,
+     "score": 0
+    },
+    {
+     "u": 0.99,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00075,
+     "score": 0
+    },
+    {
+     "u": 0.995,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00073,
+     "score": 0
+    },
+    {
+     "u": 1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00073,
+     "score": 0
+    }
+   ]
+  },
+  "exhaust-connector": {
+   "part": "EXHAUST_CONNECTOR_PIPE",
+   "bbox": {
+    "min": [
+     0.1243,
+     1.3775,
+     -0.4471
+    ],
+    "max": [
+     0.2204,
+     1.8207,
+     -0.3662
+    ]
+   },
+   "constraint": "none (spec)",
+   "best": {
+    "u": 0.455,
+    "plane": -0.15,
+    "front": true,
+    "planeOk": true,
+    "areaFraction": 0.00892,
+    "score": 0.00892,
+    "bboxNdc": [
+     [
+      0.6868061451069276,
+      0.5397979326603873,
+      0.9893108607368707
+     ],
+     [
+      0.6527649150817387,
+      0.5439667283516567,
+      0.9891894912556874
+     ],
+     [
+      0.6908485291039801,
+      0.9493601657602945,
+      0.9892440217502099
+     ],
+     [
+      0.6566482467568787,
+      0.9579570683623623,
+      0.9891212116330621
+     ],
+     [
+      0.7297189170592865,
+      0.5494613865709493,
+      0.989029520878931
+     ],
+     [
+      0.6952952180628129,
+      0.5538404600765534,
+      0.9889020294116588
+     ],
+     [
+      0.7341209231434513,
+      0.9692898210349451,
+      0.9889593188272752
+     ],
+     [
+      0.6995357950721067,
+      0.9783230220969292,
+      0.9888302760159288
+     ]
+    ],
+    "ndcRect": {
+     "x0": 0.6527649150817387,
+     "x1": 0.7341209231434513,
+     "y0": 0.5397979326603873,
+     "y1": 0.9783230220969292
+    },
+    "planeVsBboxX": {
+     "xMin": 0.1243,
+     "xMax": 0.2204,
+     "plane": -0.15
+    }
+   },
+   "alt": {
+    "constraint": "plane >= xMax + 0.01 (pipe fully uncut)",
+    "u": 0.225,
+    "plane": 0.2622,
+    "areaFraction": 0.00552,
+    "bboxNdc": [
+     [
+      0.23701193230164352,
+      0.19365033307777405,
+      0.9916676411045325
+     ],
+     [
+      0.20893027717953785,
+      0.1915651264131169,
+      0.991567777790461
+     ],
+     [
+      0.23970693126050116,
+      0.5325476701821944,
+      0.9915653130766839
+     ],
+     [
+      0.211332632994111,
+      0.534242422178006,
+      0.9914631529226446
+     ],
+     [
+      0.2691698309213466,
+      0.1903878730750873,
+      0.9915113975659826
+     ],
+     [
+      0.24095823819739398,
+      0.18822921590208072,
+      0.9914080166096032
+     ],
+     [
+      0.2722842421999525,
+      0.5351994239143477,
+      0.991405464573528
+     ],
+     [
+      0.24377807869180054,
+      0.5369545735886494,
+      0.9912996636294772
+     ]
+    ],
+    "ndcRect": {
+     "x0": 0.20893027717953785,
+     "x1": 0.2722842421999525,
+     "y0": 0.18822921590208072,
+     "y1": 0.5369545735886494
+    }
+   },
+   "table": [
+    {
+     "u": 0,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00302,
+     "score": 0.00302
+    },
+    {
+     "u": 0.005,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00302,
+     "score": 0.00302
+    },
+    {
+     "u": 0.01,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00304,
+     "score": 0.00304
+    },
+    {
+     "u": 0.015,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00306,
+     "score": 0.00306
+    },
+    {
+     "u": 0.02,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00309,
+     "score": 0.00309
+    },
+    {
+     "u": 0.025,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00313,
+     "score": 0.00313
+    },
+    {
+     "u": 0.03,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00317,
+     "score": 0.00317
+    },
+    {
+     "u": 0.035,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00323,
+     "score": 0.00323
+    },
+    {
+     "u": 0.04,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00329,
+     "score": 0.00329
+    },
+    {
+     "u": 0.045,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00335,
+     "score": 0.00335
+    },
+    {
+     "u": 0.05,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00342,
+     "score": 0.00342
+    },
+    {
+     "u": 0.055,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00349,
+     "score": 0.00349
+    },
+    {
+     "u": 0.06,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00357,
+     "score": 0.00357
+    },
+    {
+     "u": 0.065,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00365,
+     "score": 0.00365
+    },
+    {
+     "u": 0.07,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00373,
+     "score": 0.00373
+    },
+    {
+     "u": 0.075,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00381,
+     "score": 0.00381
+    },
+    {
+     "u": 0.08,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00389,
+     "score": 0.00389
+    },
+    {
+     "u": 0.085,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00397,
+     "score": 0.00397
+    },
+    {
+     "u": 0.09,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00404,
+     "score": 0.00404
+    },
+    {
+     "u": 0.095,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00411,
+     "score": 0.00411
+    },
+    {
+     "u": 0.1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00417,
+     "score": 0.00417
+    },
+    {
+     "u": 0.105,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00423,
+     "score": 0.00423
+    },
+    {
+     "u": 0.11,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00426,
+     "score": 0.00426
+    },
+    {
+     "u": 0.115,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00429,
+     "score": 0.00429
+    },
+    {
+     "u": 0.12,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0043,
+     "score": 0.0043
+    },
+    {
+     "u": 0.125,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0043,
+     "score": 0.0043
+    },
+    {
+     "u": 0.13,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00431,
+     "score": 0.00431
+    },
+    {
+     "u": 0.135,
+     "plane": 0.8475,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00433,
+     "score": 0.00433
+    },
+    {
+     "u": 0.14,
+     "plane": 0.84,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00435,
+     "score": 0.00435
+    },
+    {
+     "u": 0.145,
+     "plane": 0.828,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00438,
+     "score": 0.00438
+    },
+    {
+     "u": 0.15,
+     "plane": 0.8117,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00442,
+     "score": 0.00442
+    },
+    {
+     "u": 0.155,
+     "plane": 0.7915,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00446,
+     "score": 0.00446
+    },
+    {
+     "u": 0.16,
+     "plane": 0.7676,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0045,
+     "score": 0.0045
+    },
+    {
+     "u": 0.165,
+     "plane": 0.7403,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00455,
+     "score": 0.00455
+    },
+    {
+     "u": 0.17,
+     "plane": 0.71,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00461,
+     "score": 0.00461
+    },
+    {
+     "u": 0.175,
+     "plane": 0.6769,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00467,
+     "score": 0.00467
+    },
+    {
+     "u": 0.18,
+     "plane": 0.6414,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00474,
+     "score": 0.00474
+    },
+    {
+     "u": 0.185,
+     "plane": 0.6037,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00481,
+     "score": 0.00481
+    },
+    {
+     "u": 0.19,
+     "plane": 0.5642,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00488,
+     "score": 0.00488
+    },
+    {
+     "u": 0.195,
+     "plane": 0.5232,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00497,
+     "score": 0.00497
+    },
+    {
+     "u": 0.2,
+     "plane": 0.481,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00506,
+     "score": 0.00506
+    },
+    {
+     "u": 0.205,
+     "plane": 0.4378,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00515,
+     "score": 0.00515
+    },
+    {
+     "u": 0.21,
+     "plane": 0.3941,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00524,
+     "score": 0.00524
+    },
+    {
+     "u": 0.215,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00534,
+     "score": 0.00534
+    },
+    {
+     "u": 0.22,
+     "plane": 0.3059,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00543,
+     "score": 0.00543
+    },
+    {
+     "u": 0.225,
+     "plane": 0.2622,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00552,
+     "score": 0.00552
+    },
+    {
+     "u": 0.23,
+     "plane": 0.219,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00561,
+     "score": 0.00561
+    },
+    {
+     "u": 0.235,
+     "plane": 0.1768,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00569,
+     "score": 0.00569
+    },
+    {
+     "u": 0.24,
+     "plane": 0.1358,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00577,
+     "score": 0.00577
+    },
+    {
+     "u": 0.245,
+     "plane": 0.0963,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00584,
+     "score": 0.00584
+    },
+    {
+     "u": 0.25,
+     "plane": 0.0586,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0059,
+     "score": 0.0059
+    },
+    {
+     "u": 0.255,
+     "plane": 0.0231,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00595,
+     "score": 0.00595
+    },
+    {
+     "u": 0.26,
+     "plane": -0.01,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00598,
+     "score": 0.00598
+    },
+    {
+     "u": 0.265,
+     "plane": -0.0403,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00601,
+     "score": 0.00601
+    },
+    {
+     "u": 0.27,
+     "plane": -0.0676,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00602,
+     "score": 0.00602
+    },
+    {
+     "u": 0.275,
+     "plane": -0.0915,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00601,
+     "score": 0.00601
+    },
+    {
+     "u": 0.28,
+     "plane": -0.1117,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00599,
+     "score": 0.00599
+    },
+    {
+     "u": 0.285,
+     "plane": -0.128,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00596,
+     "score": 0.00596
+    },
+    {
+     "u": 0.29,
+     "plane": -0.14,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00593,
+     "score": 0.00593
+    },
+    {
+     "u": 0.295,
+     "plane": -0.1475,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00588,
+     "score": 0.00588
+    },
+    {
+     "u": 0.3,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00583,
+     "score": 0.00583
+    },
+    {
+     "u": 0.305,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00577,
+     "score": 0.00577
+    },
+    {
+     "u": 0.31,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00571,
+     "score": 0.00571
+    },
+    {
+     "u": 0.315,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00564,
+     "score": 0.00564
+    },
+    {
+     "u": 0.32,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00558,
+     "score": 0.00558
+    },
+    {
+     "u": 0.325,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00551,
+     "score": 0.00551
+    },
+    {
+     "u": 0.33,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00544,
+     "score": 0.00544
+    },
+    {
+     "u": 0.335,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00537,
+     "score": 0.00537
+    },
+    {
+     "u": 0.34,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00531,
+     "score": 0.00531
+    },
+    {
+     "u": 0.345,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00525,
+     "score": 0.00525
+    },
+    {
+     "u": 0.35,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00519,
+     "score": 0.00519
+    },
+    {
+     "u": 0.355,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00513,
+     "score": 0.00513
+    },
+    {
+     "u": 0.36,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00507,
+     "score": 0.00507
+    },
+    {
+     "u": 0.365,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00502,
+     "score": 0.00502
+    },
+    {
+     "u": 0.37,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00498,
+     "score": 0.00498
+    },
+    {
+     "u": 0.375,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00494,
+     "score": 0.00494
+    },
+    {
+     "u": 0.38,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0049,
+     "score": 0.0049
+    },
+    {
+     "u": 0.385,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00487,
+     "score": 0.00487
+    },
+    {
+     "u": 0.39,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00484,
+     "score": 0.00484
+    },
+    {
+     "u": 0.395,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00482,
+     "score": 0.00482
+    },
+    {
+     "u": 0.4,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0048,
+     "score": 0.0048
+    },
+    {
+     "u": 0.405,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00479,
+     "score": 0.00479
+    },
+    {
+     "u": 0.41,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00479,
+     "score": 0.00479
+    },
+    {
+     "u": 0.415,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00483,
+     "score": 0.00483
+    },
+    {
+     "u": 0.42,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00495,
+     "score": 0.00495
+    },
+    {
+     "u": 0.425,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00515,
+     "score": 0.00515
+    },
+    {
+     "u": 0.43,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00543,
+     "score": 0.00543
+    },
+    {
+     "u": 0.435,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00581,
+     "score": 0.00581
+    },
+    {
+     "u": 0.44,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00632,
+     "score": 0.00632
+    },
+    {
+     "u": 0.445,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.007,
+     "score": 0.007
+    },
+    {
+     "u": 0.45,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00785,
+     "score": 0.00785
+    },
+    {
+     "u": 0.455,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00892,
+     "score": 0.00892
+    },
+    {
+     "u": 0.46,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00763,
+     "score": 0.00763
+    },
+    {
+     "u": 0.465,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00531,
+     "score": 0.00531
+    },
+    {
+     "u": 0.47,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00237,
+     "score": 0.00237
+    },
+    {
+     "u": 0.475,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.48,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.485,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.49,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.495,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.5,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.505,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.51,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.515,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.52,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.525,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.53,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.535,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.54,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.545,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.55,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.555,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.56,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00208,
+     "score": 0.00208
+    },
+    {
+     "u": 0.565,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00442,
+     "score": 0.00442
+    },
+    {
+     "u": 0.57,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00603,
+     "score": 0.00603
+    },
+    {
+     "u": 0.575,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00712,
+     "score": 0.00712
+    },
+    {
+     "u": 0.58,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00728,
+     "score": 0.00728
+    },
+    {
+     "u": 0.585,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00651,
+     "score": 0.00651
+    },
+    {
+     "u": 0.59,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00594,
+     "score": 0.00594
+    },
+    {
+     "u": 0.595,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00552,
+     "score": 0.00552
+    },
+    {
+     "u": 0.6,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00523,
+     "score": 0.00523
+    },
+    {
+     "u": 0.605,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00506,
+     "score": 0.00506
+    },
+    {
+     "u": 0.61,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.005,
+     "score": 0.005
+    },
+    {
+     "u": 0.615,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00498,
+     "score": 0.00498
+    },
+    {
+     "u": 0.62,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00494,
+     "score": 0.00494
+    },
+    {
+     "u": 0.625,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00488,
+     "score": 0.00488
+    },
+    {
+     "u": 0.63,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00479,
+     "score": 0.00479
+    },
+    {
+     "u": 0.635,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00469,
+     "score": 0.00469
+    },
+    {
+     "u": 0.64,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00456,
+     "score": 0.00456
+    },
+    {
+     "u": 0.645,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00444,
+     "score": 0.00444
+    },
+    {
+     "u": 0.65,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0043,
+     "score": 0.0043
+    },
+    {
+     "u": 0.655,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00416,
+     "score": 0.00416
+    },
+    {
+     "u": 0.66,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.004,
+     "score": 0.004
+    },
+    {
+     "u": 0.665,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00384,
+     "score": 0.00384
+    },
+    {
+     "u": 0.67,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00368,
+     "score": 0.00368
+    },
+    {
+     "u": 0.675,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00351,
+     "score": 0.00351
+    },
+    {
+     "u": 0.68,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00335,
+     "score": 0.00335
+    },
+    {
+     "u": 0.685,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00318,
+     "score": 0.00318
+    },
+    {
+     "u": 0.69,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00307,
+     "score": 0.00307
+    },
+    {
+     "u": 0.695,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00303,
+     "score": 0.00303
+    },
+    {
+     "u": 0.7,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.003,
+     "score": 0.003
+    },
+    {
+     "u": 0.705,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00296,
+     "score": 0.00296
+    },
+    {
+     "u": 0.71,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00292,
+     "score": 0.00292
+    },
+    {
+     "u": 0.715,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00289,
+     "score": 0.00289
+    },
+    {
+     "u": 0.72,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00285,
+     "score": 0.00285
+    },
+    {
+     "u": 0.725,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00281,
+     "score": 0.00281
+    },
+    {
+     "u": 0.73,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00278,
+     "score": 0.00278
+    },
+    {
+     "u": 0.735,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00275,
+     "score": 0.00275
+    },
+    {
+     "u": 0.74,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00272,
+     "score": 0.00272
+    },
+    {
+     "u": 0.745,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0027,
+     "score": 0.0027
+    },
+    {
+     "u": 0.75,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00268,
+     "score": 0.00268
+    },
+    {
+     "u": 0.755,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00267,
+     "score": 0.00267
+    },
+    {
+     "u": 0.76,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00267,
+     "score": 0.00267
+    },
+    {
+     "u": 0.765,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00268,
+     "score": 0.00268
+    },
+    {
+     "u": 0.77,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0027,
+     "score": 0.0027
+    },
+    {
+     "u": 0.775,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00274,
+     "score": 0.00274
+    },
+    {
+     "u": 0.78,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00278,
+     "score": 0.00278
+    },
+    {
+     "u": 0.785,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00284,
+     "score": 0.00284
+    },
+    {
+     "u": 0.79,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0029,
+     "score": 0.0029
+    },
+    {
+     "u": 0.795,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00295,
+     "score": 0.00295
+    },
+    {
+     "u": 0.8,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00312,
+     "score": 0.00312
+    },
+    {
+     "u": 0.805,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00348,
+     "score": 0.00348
+    },
+    {
+     "u": 0.81,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00388,
+     "score": 0.00388
+    },
+    {
+     "u": 0.815,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00432,
+     "score": 0.00432
+    },
+    {
+     "u": 0.82,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0048,
+     "score": 0.0048
+    },
+    {
+     "u": 0.825,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00529,
+     "score": 0.00529
+    },
+    {
+     "u": 0.83,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00578,
+     "score": 0.00578
+    },
+    {
+     "u": 0.835,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00624,
+     "score": 0.00624
+    },
+    {
+     "u": 0.84,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00667,
+     "score": 0.00667
+    },
+    {
+     "u": 0.845,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00705,
+     "score": 0.00705
+    },
+    {
+     "u": 0.85,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00736,
+     "score": 0.00736
+    },
+    {
+     "u": 0.855,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00761,
+     "score": 0.00761
+    },
+    {
+     "u": 0.86,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00781,
+     "score": 0.00781
+    },
+    {
+     "u": 0.865,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00794,
+     "score": 0.00794
+    },
+    {
+     "u": 0.87,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00804,
+     "score": 0.00804
+    },
+    {
+     "u": 0.875,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00809,
+     "score": 0.00809
+    },
+    {
+     "u": 0.88,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00813,
+     "score": 0.00813
+    },
+    {
+     "u": 0.885,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00814,
+     "score": 0.00814
+    },
+    {
+     "u": 0.89,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00815,
+     "score": 0.00815
+    },
+    {
+     "u": 0.895,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00807,
+     "score": 0.00807
+    },
+    {
+     "u": 0.9,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00787,
+     "score": 0.00787
+    },
+    {
+     "u": 0.905,
+     "plane": -0.1411,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00756,
+     "score": 0.00756
+    },
+    {
+     "u": 0.91,
+     "plane": -0.1157,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00717,
+     "score": 0.00717
+    },
+    {
+     "u": 0.915,
+     "plane": -0.0759,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00673,
+     "score": 0.00673
+    },
+    {
+     "u": 0.92,
+     "plane": -0.0238,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00628,
+     "score": 0.00628
+    },
+    {
+     "u": 0.925,
+     "plane": 0.0386,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00582,
+     "score": 0.00582
+    },
+    {
+     "u": 0.93,
+     "plane": 0.1093,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00538,
+     "score": 0.00538
+    },
+    {
+     "u": 0.935,
+     "plane": 0.1861,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00497,
+     "score": 0.00497
+    },
+    {
+     "u": 0.94,
+     "plane": 0.267,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00459,
+     "score": 0.00459
+    },
+    {
+     "u": 0.945,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00425,
+     "score": 0.00425
+    },
+    {
+     "u": 0.95,
+     "plane": 0.433,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00395,
+     "score": 0.00395
+    },
+    {
+     "u": 0.955,
+     "plane": 0.5139,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0037,
+     "score": 0.0037
+    },
+    {
+     "u": 0.96,
+     "plane": 0.5907,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00347,
+     "score": 0.00347
+    },
+    {
+     "u": 0.965,
+     "plane": 0.6614,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00327,
+     "score": 0.00327
+    },
+    {
+     "u": 0.97,
+     "plane": 0.7238,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00311,
+     "score": 0.00311
+    },
+    {
+     "u": 0.975,
+     "plane": 0.7759,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00297,
+     "score": 0.00297
+    },
+    {
+     "u": 0.98,
+     "plane": 0.8157,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00285,
+     "score": 0.00285
+    },
+    {
+     "u": 0.985,
+     "plane": 0.8411,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00276,
+     "score": 0.00276
+    },
+    {
+     "u": 0.99,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0027,
+     "score": 0.0027
+    },
+    {
+     "u": 0.995,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00266,
+     "score": 0.00266
+    },
+    {
+     "u": 1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00265,
+     "score": 0.00265
+    }
+   ]
+  },
+  "ffm-1001-1": {
+   "part": "RL300-P-FFM-1001-1",
+   "bbox": {
+    "min": [
+     0.389,
+     0.613,
+     -1.134
+    ],
+    "max": [
+     0.468,
+     0.994,
+     -0.982
+    ]
+   },
+   "constraint": "plane <= xMin - 0.02",
+   "best": {
+    "u": 0.575,
+    "plane": -0.15,
+    "front": true,
+    "planeOk": true,
+    "areaFraction": 0.01345,
+    "score": 0.01345,
+    "bboxNdc": [
+     [
+      0.9341381375725912,
+      -0.1585662685809282,
+      0.9873084215056034
+     ],
+     [
+      0.8395064999914705,
+      -0.1587691311880672,
+      0.9872299359456116
+     ],
+     [
+      0.9294999731523237,
+      0.24178167424323038,
+      0.9873747487070934
+     ],
+     [
+      0.835313830843423,
+      0.24392025843143542,
+      0.9872970428689771
+     ],
+     [
+      0.9654102105737555,
+      -0.1594944508324598,
+      0.9869493168642239
+     ],
+     [
+      0.868408021451451,
+      -0.1597084006058113,
+      0.9868665417879867
+     ],
+     [
+      0.9604885736064275,
+      0.25156558120404476,
+      0.9870192487016997
+     ],
+     [
+      0.8639543219071801,
+      0.2538204410973199,
+      0.9869373179650898
+     ]
+    ],
+    "ndcRect": {
+     "x0": 0.835313830843423,
+     "x1": 0.9654102105737555,
+     "y0": -0.1597084006058113,
+     "y1": 0.2538204410973199
+    },
+    "planeVsBboxX": {
+     "xMin": 0.389,
+     "xMax": 0.468,
+     "plane": -0.15
+    }
+   },
+   "table": [
+    {
+     "u": 0,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00286,
+     "score": 0
+    },
+    {
+     "u": 0.005,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00286,
+     "score": 0
+    },
+    {
+     "u": 0.01,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00288,
+     "score": 0
+    },
+    {
+     "u": 0.015,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0029,
+     "score": 0
+    },
+    {
+     "u": 0.02,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00292,
+     "score": 0
+    },
+    {
+     "u": 0.025,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00296,
+     "score": 0
+    },
+    {
+     "u": 0.03,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.003,
+     "score": 0
+    },
+    {
+     "u": 0.035,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00304,
+     "score": 0
+    },
+    {
+     "u": 0.04,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00309,
+     "score": 0
+    },
+    {
+     "u": 0.045,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00315,
+     "score": 0
+    },
+    {
+     "u": 0.05,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00321,
+     "score": 0
+    },
+    {
+     "u": 0.055,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00327,
+     "score": 0
+    },
+    {
+     "u": 0.06,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00333,
+     "score": 0
+    },
+    {
+     "u": 0.065,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0034,
+     "score": 0
+    },
+    {
+     "u": 0.07,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00347,
+     "score": 0
+    },
+    {
+     "u": 0.075,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00354,
+     "score": 0
+    },
+    {
+     "u": 0.08,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00362,
+     "score": 0
+    },
+    {
+     "u": 0.085,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00369,
+     "score": 0
+    },
+    {
+     "u": 0.09,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00376,
+     "score": 0
+    },
+    {
+     "u": 0.095,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00382,
+     "score": 0
+    },
+    {
+     "u": 0.1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00387,
+     "score": 0
+    },
+    {
+     "u": 0.105,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00392,
+     "score": 0
+    },
+    {
+     "u": 0.11,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00395,
+     "score": 0
+    },
+    {
+     "u": 0.115,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00397,
+     "score": 0
+    },
+    {
+     "u": 0.12,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00398,
+     "score": 0
+    },
+    {
+     "u": 0.125,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00399,
+     "score": 0
+    },
+    {
+     "u": 0.13,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.004,
+     "score": 0
+    },
+    {
+     "u": 0.135,
+     "plane": 0.8475,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00402,
+     "score": 0
+    },
+    {
+     "u": 0.14,
+     "plane": 0.84,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00406,
+     "score": 0
+    },
+    {
+     "u": 0.145,
+     "plane": 0.828,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0041,
+     "score": 0
+    },
+    {
+     "u": 0.15,
+     "plane": 0.8117,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00415,
+     "score": 0
+    },
+    {
+     "u": 0.155,
+     "plane": 0.7915,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0042,
+     "score": 0
+    },
+    {
+     "u": 0.16,
+     "plane": 0.7676,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00427,
+     "score": 0
+    },
+    {
+     "u": 0.165,
+     "plane": 0.7403,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00434,
+     "score": 0
+    },
+    {
+     "u": 0.17,
+     "plane": 0.71,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00442,
+     "score": 0
+    },
+    {
+     "u": 0.175,
+     "plane": 0.6769,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00451,
+     "score": 0
+    },
+    {
+     "u": 0.18,
+     "plane": 0.6414,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00461,
+     "score": 0
+    },
+    {
+     "u": 0.185,
+     "plane": 0.6037,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00471,
+     "score": 0
+    },
+    {
+     "u": 0.19,
+     "plane": 0.5642,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00482,
+     "score": 0
+    },
+    {
+     "u": 0.195,
+     "plane": 0.5232,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00494,
+     "score": 0
+    },
+    {
+     "u": 0.2,
+     "plane": 0.481,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00506,
+     "score": 0
+    },
+    {
+     "u": 0.205,
+     "plane": 0.4378,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00518,
+     "score": 0
+    },
+    {
+     "u": 0.21,
+     "plane": 0.3941,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00531,
+     "score": 0
+    },
+    {
+     "u": 0.215,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00544,
+     "score": 0.00544
+    },
+    {
+     "u": 0.22,
+     "plane": 0.3059,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00557,
+     "score": 0.00557
+    },
+    {
+     "u": 0.225,
+     "plane": 0.2622,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0057,
+     "score": 0.0057
+    },
+    {
+     "u": 0.23,
+     "plane": 0.219,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00582,
+     "score": 0.00582
+    },
+    {
+     "u": 0.235,
+     "plane": 0.1768,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00594,
+     "score": 0.00594
+    },
+    {
+     "u": 0.24,
+     "plane": 0.1358,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00605,
+     "score": 0.00605
+    },
+    {
+     "u": 0.245,
+     "plane": 0.0963,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00615,
+     "score": 0.00615
+    },
+    {
+     "u": 0.25,
+     "plane": 0.0586,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00624,
+     "score": 0.00624
+    },
+    {
+     "u": 0.255,
+     "plane": 0.0231,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00631,
+     "score": 0.00631
+    },
+    {
+     "u": 0.26,
+     "plane": -0.01,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00636,
+     "score": 0.00636
+    },
+    {
+     "u": 0.265,
+     "plane": -0.0403,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0064,
+     "score": 0.0064
+    },
+    {
+     "u": 0.27,
+     "plane": -0.0676,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00641,
+     "score": 0.00641
+    },
+    {
+     "u": 0.275,
+     "plane": -0.0915,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0064,
+     "score": 0.0064
+    },
+    {
+     "u": 0.28,
+     "plane": -0.1117,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00639,
+     "score": 0.00639
+    },
+    {
+     "u": 0.285,
+     "plane": -0.128,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00636,
+     "score": 0.00636
+    },
+    {
+     "u": 0.29,
+     "plane": -0.14,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00632,
+     "score": 0.00632
+    },
+    {
+     "u": 0.295,
+     "plane": -0.1475,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00628,
+     "score": 0.00628
+    },
+    {
+     "u": 0.3,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00623,
+     "score": 0.00623
+    },
+    {
+     "u": 0.305,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00617,
+     "score": 0.00617
+    },
+    {
+     "u": 0.31,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00612,
+     "score": 0.00612
+    },
+    {
+     "u": 0.315,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00605,
+     "score": 0.00605
+    },
+    {
+     "u": 0.32,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00599,
+     "score": 0.00599
+    },
+    {
+     "u": 0.325,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00593,
+     "score": 0.00593
+    },
+    {
+     "u": 0.33,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00586,
+     "score": 0.00586
+    },
+    {
+     "u": 0.335,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0058,
+     "score": 0.0058
+    },
+    {
+     "u": 0.34,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00573,
+     "score": 0.00573
+    },
+    {
+     "u": 0.345,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00567,
+     "score": 0.00567
+    },
+    {
+     "u": 0.35,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00562,
+     "score": 0.00562
+    },
+    {
+     "u": 0.355,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00556,
+     "score": 0.00556
+    },
+    {
+     "u": 0.36,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00551,
+     "score": 0.00551
+    },
+    {
+     "u": 0.365,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00546,
+     "score": 0.00546
+    },
+    {
+     "u": 0.37,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00542,
+     "score": 0.00542
+    },
+    {
+     "u": 0.375,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00538,
+     "score": 0.00538
+    },
+    {
+     "u": 0.38,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00534,
+     "score": 0.00534
+    },
+    {
+     "u": 0.385,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00531,
+     "score": 0.00531
+    },
+    {
+     "u": 0.39,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00528,
+     "score": 0.00528
+    },
+    {
+     "u": 0.395,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00526,
+     "score": 0.00526
+    },
+    {
+     "u": 0.4,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00525,
+     "score": 0.00525
+    },
+    {
+     "u": 0.405,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00524,
+     "score": 0.00524
+    },
+    {
+     "u": 0.41,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00523,
+     "score": 0.00523
+    },
+    {
+     "u": 0.415,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00527,
+     "score": 0.00527
+    },
+    {
+     "u": 0.42,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00539,
+     "score": 0.00539
+    },
+    {
+     "u": 0.425,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00558,
+     "score": 0.00558
+    },
+    {
+     "u": 0.43,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00586,
+     "score": 0.00586
+    },
+    {
+     "u": 0.435,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00622,
+     "score": 0.00622
+    },
+    {
+     "u": 0.44,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00669,
+     "score": 0.00669
+    },
+    {
+     "u": 0.445,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00677,
+     "score": 0.00677
+    },
+    {
+     "u": 0.45,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00338,
+     "score": 0.00338
+    },
+    {
+     "u": 0.455,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.46,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.465,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.47,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.475,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.48,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.485,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.49,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.495,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.5,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.505,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.51,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.515,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.52,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.525,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.53,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.535,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.54,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.545,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.55,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.555,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.56,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0,
+     "score": 0
+    },
+    {
+     "u": 0.565,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00014,
+     "score": 0.00014
+    },
+    {
+     "u": 0.57,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00981,
+     "score": 0.00981
+    },
+    {
+     "u": 0.575,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.01345,
+     "score": 0.01345
+    },
+    {
+     "u": 0.58,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.01191,
+     "score": 0.01191
+    },
+    {
+     "u": 0.585,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.01072,
+     "score": 0.01072
+    },
+    {
+     "u": 0.59,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00982,
+     "score": 0.00982
+    },
+    {
+     "u": 0.595,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00917,
+     "score": 0.00917
+    },
+    {
+     "u": 0.6,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00871,
+     "score": 0.00871
+    },
+    {
+     "u": 0.605,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00844,
+     "score": 0.00844
+    },
+    {
+     "u": 0.61,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00835,
+     "score": 0.00835
+    },
+    {
+     "u": 0.615,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00834,
+     "score": 0.00834
+    },
+    {
+     "u": 0.62,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00829,
+     "score": 0.00829
+    },
+    {
+     "u": 0.625,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00823,
+     "score": 0.00823
+    },
+    {
+     "u": 0.63,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00813,
+     "score": 0.00813
+    },
+    {
+     "u": 0.635,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00802,
+     "score": 0.00802
+    },
+    {
+     "u": 0.64,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00789,
+     "score": 0.00789
+    },
+    {
+     "u": 0.645,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00777,
+     "score": 0.00777
+    },
+    {
+     "u": 0.65,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00764,
+     "score": 0.00764
+    },
+    {
+     "u": 0.655,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00749,
+     "score": 0.00749
+    },
+    {
+     "u": 0.66,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00733,
+     "score": 0.00733
+    },
+    {
+     "u": 0.665,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00715,
+     "score": 0.00715
+    },
+    {
+     "u": 0.67,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00697,
+     "score": 0.00697
+    },
+    {
+     "u": 0.675,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00678,
+     "score": 0.00678
+    },
+    {
+     "u": 0.68,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00658,
+     "score": 0.00658
+    },
+    {
+     "u": 0.685,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00637,
+     "score": 0.00637
+    },
+    {
+     "u": 0.69,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00617,
+     "score": 0.00617
+    },
+    {
+     "u": 0.695,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00596,
+     "score": 0.00596
+    },
+    {
+     "u": 0.7,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00576,
+     "score": 0.00576
+    },
+    {
+     "u": 0.705,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00557,
+     "score": 0.00557
+    },
+    {
+     "u": 0.71,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00539,
+     "score": 0.00539
+    },
+    {
+     "u": 0.715,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00521,
+     "score": 0.00521
+    },
+    {
+     "u": 0.72,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00505,
+     "score": 0.00505
+    },
+    {
+     "u": 0.725,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0049,
+     "score": 0.0049
+    },
+    {
+     "u": 0.73,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00478,
+     "score": 0.00478
+    },
+    {
+     "u": 0.735,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00469,
+     "score": 0.00469
+    },
+    {
+     "u": 0.74,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00461,
+     "score": 0.00461
+    },
+    {
+     "u": 0.745,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00455,
+     "score": 0.00455
+    },
+    {
+     "u": 0.75,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00451,
+     "score": 0.00451
+    },
+    {
+     "u": 0.755,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00449,
+     "score": 0.00449
+    },
+    {
+     "u": 0.76,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00448,
+     "score": 0.00448
+    },
+    {
+     "u": 0.765,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0045,
+     "score": 0.0045
+    },
+    {
+     "u": 0.77,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00457,
+     "score": 0.00457
+    },
+    {
+     "u": 0.775,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00469,
+     "score": 0.00469
+    },
+    {
+     "u": 0.78,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00487,
+     "score": 0.00487
+    },
+    {
+     "u": 0.785,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00513,
+     "score": 0.00513
+    },
+    {
+     "u": 0.79,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00544,
+     "score": 0.00544
+    },
+    {
+     "u": 0.795,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0058,
+     "score": 0.0058
+    },
+    {
+     "u": 0.8,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00619,
+     "score": 0.00619
+    },
+    {
+     "u": 0.805,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0066,
+     "score": 0.0066
+    },
+    {
+     "u": 0.81,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00702,
+     "score": 0.00702
+    },
+    {
+     "u": 0.815,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00746,
+     "score": 0.00746
+    },
+    {
+     "u": 0.82,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00789,
+     "score": 0.00789
+    },
+    {
+     "u": 0.825,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00829,
+     "score": 0.00829
+    },
+    {
+     "u": 0.83,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00863,
+     "score": 0.00863
+    },
+    {
+     "u": 0.835,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00889,
+     "score": 0.00889
+    },
+    {
+     "u": 0.84,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00909,
+     "score": 0.00909
+    },
+    {
+     "u": 0.845,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0092,
+     "score": 0.0092
+    },
+    {
+     "u": 0.85,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00925,
+     "score": 0.00925
+    },
+    {
+     "u": 0.855,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00923,
+     "score": 0.00923
+    },
+    {
+     "u": 0.86,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00918,
+     "score": 0.00918
+    },
+    {
+     "u": 0.865,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00909,
+     "score": 0.00909
+    },
+    {
+     "u": 0.87,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00899,
+     "score": 0.00899
+    },
+    {
+     "u": 0.875,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0089,
+     "score": 0.0089
+    },
+    {
+     "u": 0.88,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00859,
+     "score": 0.00859
+    },
+    {
+     "u": 0.885,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00839,
+     "score": 0.00839
+    },
+    {
+     "u": 0.89,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00832,
+     "score": 0.00832
+    },
+    {
+     "u": 0.895,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00867,
+     "score": 0.00867
+    },
+    {
+     "u": 0.9,
+     "plane": -0.15,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00845,
+     "score": 0.00845
+    },
+    {
+     "u": 0.905,
+     "plane": -0.1411,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0081,
+     "score": 0.0081
+    },
+    {
+     "u": 0.91,
+     "plane": -0.1157,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00768,
+     "score": 0.00768
+    },
+    {
+     "u": 0.915,
+     "plane": -0.0759,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0072,
+     "score": 0.0072
+    },
+    {
+     "u": 0.92,
+     "plane": -0.0238,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0067,
+     "score": 0.0067
+    },
+    {
+     "u": 0.925,
+     "plane": 0.0386,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.0062,
+     "score": 0.0062
+    },
+    {
+     "u": 0.93,
+     "plane": 0.1093,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00572,
+     "score": 0.00572
+    },
+    {
+     "u": 0.935,
+     "plane": 0.1861,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00526,
+     "score": 0.00526
+    },
+    {
+     "u": 0.94,
+     "plane": 0.267,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00484,
+     "score": 0.00484
+    },
+    {
+     "u": 0.945,
+     "plane": 0.35,
+     "front": true,
+     "planeOk": true,
+     "areaFraction": 0.00446,
+     "score": 0.00446
+    },
+    {
+     "u": 0.95,
+     "plane": 0.433,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00413,
+     "score": 0
+    },
+    {
+     "u": 0.955,
+     "plane": 0.5139,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00383,
+     "score": 0
+    },
+    {
+     "u": 0.96,
+     "plane": 0.5907,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00357,
+     "score": 0
+    },
+    {
+     "u": 0.965,
+     "plane": 0.6614,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00335,
+     "score": 0
+    },
+    {
+     "u": 0.97,
+     "plane": 0.7238,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00316,
+     "score": 0
+    },
+    {
+     "u": 0.975,
+     "plane": 0.7759,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.003,
+     "score": 0
+    },
+    {
+     "u": 0.98,
+     "plane": 0.8157,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00287,
+     "score": 0
+    },
+    {
+     "u": 0.985,
+     "plane": 0.8411,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00277,
+     "score": 0
+    },
+    {
+     "u": 0.99,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.0027,
+     "score": 0
+    },
+    {
+     "u": 0.995,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00265,
+     "score": 0
+    },
+    {
+     "u": 1,
+     "plane": 0.85,
+     "front": true,
+     "planeOk": false,
+     "areaFraction": 0.00264,
+     "score": 0
+    }
+   ]
+  }
+ }
+}

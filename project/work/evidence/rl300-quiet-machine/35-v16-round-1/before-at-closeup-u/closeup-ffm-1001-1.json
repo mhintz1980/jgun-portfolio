@@ -1,0 +1,96 @@
+{
+  "part": "ffm-1001-1",
+  "u": 0.575,
+  "requestedU": 0.575,
+  "uMatchesRequest": true,
+  "plane": -0.15000000000000002,
+  "bboxNdc": [
+    [
+      0.9341381375725912,
+      -0.1585662685809282,
+      0.9873084215056034
+    ],
+    [
+      0.8395064999914705,
+      -0.1587691311880672,
+      0.9872299359456116
+    ],
+    [
+      0.9294999731523237,
+      0.24178167424323038,
+      0.9873747487070934
+    ],
+    [
+      0.835313830843423,
+      0.24392025843143542,
+      0.9872970428689771
+    ],
+    [
+      0.9654102105737555,
+      -0.1594944508324598,
+      0.9869493168642239
+    ],
+    [
+      0.868408021451451,
+      -0.1597084006058113,
+      0.9868665417879867
+    ],
+    [
+      0.9604885736064275,
+      0.25156558120404476,
+      0.9870192487016997
+    ],
+    [
+      0.8639543219071801,
+      0.2538204410973199,
+      0.9869373179650898
+    ]
+  ],
+  "areaFraction": 0.01345,
+  "clip": {
+    "x": 1080,
+    "y": 261,
+    "width": 360,
+    "height": 335
+  },
+  "tier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1353640,
+    "sha256": "8bb2d17b654af3e0ffa9a6d25e2394555c3d32ef436ea1da81892a93f32d2362",
+    "nonFlat": 0.546512924382716
+  },
+  "cropPng": {
+    "bytes": 363470,
+    "sha256": "5ed1925ff83221809a6eb25d03670da2b184d6aef6d5dca3c923ac167e8ad907"
+  },
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "drawCalls": 109,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "note": "same u and clip as after/",
+  "pageErrors": []
+}

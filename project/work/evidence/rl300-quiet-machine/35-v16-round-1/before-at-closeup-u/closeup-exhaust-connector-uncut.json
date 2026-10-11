@@ -1,0 +1,96 @@
+{
+  "part": "exhaust-connector-uncut",
+  "u": 0.225,
+  "requestedU": 0.225,
+  "uMatchesRequest": true,
+  "plane": 0.26217178913087724,
+  "bboxNdc": [
+    [
+      0.23701193230164352,
+      0.19365033307777405,
+      0.9916676411045325
+    ],
+    [
+      0.20893027717953785,
+      0.1915651264131169,
+      0.991567777790461
+    ],
+    [
+      0.23970693126050116,
+      0.5325476701821944,
+      0.9915653130766839
+    ],
+    [
+      0.211332632994111,
+      0.534242422178006,
+      0.9914631529226446
+    ],
+    [
+      0.2691698309213466,
+      0.1903878730750873,
+      0.9915113975659826
+    ],
+    [
+      0.24095823819739398,
+      0.18822921590208072,
+      0.9914080166096032
+    ],
+    [
+      0.2722842421999525,
+      0.5351994239143477,
+      0.991405464573528
+    ],
+    [
+      0.24377807869180054,
+      0.5369545735886494,
+      0.9912996636294772
+    ]
+  ],
+  "areaFraction": 0.00552,
+  "clip": {
+    "x": 713,
+    "y": 146,
+    "width": 360,
+    "height": 282
+  },
+  "tier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1128274,
+    "sha256": "d69c664332c76ad83378a66ebc11512f7e6dd6a5ecb20a21eb2ff7623d1e596b",
+    "nonFlat": 0.41855497685185183
+  },
+  "cropPng": {
+    "bytes": 150076,
+    "sha256": "3267e71c3acf4ea454fd3c5947d43c45300ec86fa4e1b0633d55890b4cf830a2"
+  },
+  "glbsRequested": [
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 440668,
+    "keptTriangles": 440072,
+    "linerTriangles": 108,
+    "sourceMeshes": 589,
+    "batches": 31,
+    "cappedTriangles": 154554,
+    "openSectionTriangles": 47390,
+    "keptWholeTriangles": 9136,
+    "removedTriangles": 460,
+    "skippedRoots": 1
+  },
+  "drawCalls": 111,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "note": "same u and clip as after/",
+  "pageErrors": []
+}
