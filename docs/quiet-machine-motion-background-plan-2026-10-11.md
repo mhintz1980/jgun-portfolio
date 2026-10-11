@@ -43,13 +43,15 @@
 Each stage needs owner approval before it starts. Each ends at its Exit condition.
 
 ### S0: shell readiness note for the torque track (docs only, no code)
-- [ ] Write one note listing the shell exports the torque plan's Stage 0 needs: `prefetchPage`, `releaseFadeWhen` (`src/shared/pageFade`), `PageLink`, `PageNav` (`src/shared/PageNav`), `pageHref`, `resolveEntryTier`, `TierParam` (`src/shared/pages`), as imported at `QuietMachinePreview.tsx:4-6`.
-- [ ] Describe lifecycle: fade held until `fadeReady` (poster committed or scene ready, lines 37-41, 55). Context loss and scene error switch to poster (lines 54, 89).
-- [ ] Describe navigation: `?shot=` seek, `tier` on outgoing links, prefetch once at `END_CARD_AT`.
-- [ ] State the gap plainly: there is no generic poster primitive. The poster is an inline `<img>` path template (`QuietMachinePreview.tsx:97`). The torque plan expects a poster interface. That is a deliverable, not something to confirm.
+- [x] Write one note listing the shell exports the torque plan's Stage 0 needs: `prefetchPage`, `releaseFadeWhen` (`src/shared/pageFade`), `PageLink`, `PageNav` (`src/shared/PageNav`), `pageHref`, `resolveEntryTier`, `TierParam` (`src/shared/pages`), as imported at `QuietMachinePreview.tsx:4-6`.
+- [x] Describe lifecycle: fade held until `fadeReady` (poster committed or scene ready, lines 37-41, 55). Context loss and scene error switch to poster (lines 54, 89).
+- [x] Describe navigation: `?shot=` seek, `tier` on outgoing links, prefetch once at `END_CARD_AT`.
+- [x] State the gap plainly: there is no generic poster primitive. The poster is an inline `<img>` path template (`QuietMachinePreview.tsx:97`). The torque plan expects a poster interface. That is a deliverable, not something to confirm.
 - [ ] Point to QM4 (JG-033 plan, heading at line 295) for the multi-page build and private-entry contract.
 
 **Exit:** the note exists, every export is cited by file:line, the poster gap is named, and the torque session has acknowledged it.
+
+**S0 status (2026-10-11):** four of five items ticked on existing evidence. Item 5 (QM4 plan pointer) is not in the note and stays open. Torque receipt: `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/15-shell-readiness-acknowledgement.md` (acknowledges receipt and the contract; does not close torque Stage 0). The poster gap named in item 4 is being delivered separately (poster interface, `private` registry flag); see the shell readiness note.
 
 ### S1: evidence index and gate map
 - [ ] Create `project/work/evidence/rl300-quiet-machine/INDEX.md`. Map each artifact to a gate below.
