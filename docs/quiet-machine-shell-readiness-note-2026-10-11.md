@@ -23,7 +23,7 @@ No build, capture, server, GPU, push or deploy was done. Worktree `C:/Users/Mark
 | `0bc6a787` | guard false-pass fixes from the round-1 review; torque row `fadeIn: true`; noindex pin ignores comments |
 | `6f4ee77f` | round-2 review fixes: observer counts removed canvases, activation-proof `pageHref` test (**the Stage 0 delivery commit**) |
 
-Shell files are clean in the working tree (`git status` shows no change under `src/shared`, `quiet-machine/`, `vite.config.ts`, `src/quiet-machine-main.tsx`, `QuietMachinePreview.tsx`, `index.html`). The uncommitted changes in the tree are the V16 materials track (scene files only).
+Shell files are clean in the working tree (`git status` shows no change under `src/shared`, `quiet-machine/`, `vite.config.ts`, `src/quiet-machine-main.tsx`, `QuietMachinePreview.tsx`, `index.html`). Correction (rev 4): the V16 materials track has since been committed on this branch by its own session (`90bc07d2`, evidence `95b7dc0f`), between `234f11ae` and `6f4ee77f`. It is inside the branch tip; see section 10.
 
 ## 2. Exact exports (import from these paths, do not recreate)
 
@@ -143,7 +143,7 @@ Remaining gaps the reviewer named and I did not change: a document-less `window`
 
 Both worktrees share one Git object store (`git rev-parse --git-common-dir` is `C:/Users/Markimus/.buzz/REPOS/jgun-portfolio/.git` in each), so every commit above is already reachable from `jgun-torque-wrench`. Nothing needs copying. The merge-base of `quiet-machine/integration` and `torque-wrench/rebuild` is `666cbf23`.
 
-Delivery is a merge of `quiet-machine/integration`, not a cherry-pick of one commit. The range `666cbf23..37c9d5f8` was 19 commits (eight QM code commits QM1 `837139e6` to QM6 `e709e672`, the poster/registry commit, the rest planning and handoff docs), plus `0bc6a787`, and `PAGES` carries the Quiet Machine row, so any torque build also builds `quiet-machine/index.html` and its scene. Surfaced, not solved here. The V16 materials edits are uncommitted in this worktree and are not part of the range.
+Delivery is a merge of `quiet-machine/integration`, not a cherry-pick of one commit. The range `666cbf23..37c9d5f8` was 19 commits (eight QM code commits QM1 `837139e6` to QM6 `e709e672`, the poster/registry commit, the rest planning and handoff docs), plus `0bc6a787`, and `PAGES` carries the Quiet Machine row, so any torque build also builds `quiet-machine/index.html` and its scene. Surfaced, not solved here. **The V16 materials commit `90bc07d2` (scene: `v16Materials`, `prepareModel`, `QuietMachineScene`, `preview.test.ts`, a part-map JSON) and its evidence commit `95b7dc0f` are on this branch below `6f4ee77f`, so a merge of the tip includes them.** They do not touch `src/shared`, the registry, the fade runtime or the HTML entries; the V16 owner has not signed off the V16 render gates for this note. Merge `6f4ee77f` (shell code, tests) or `32c9eb13` (plus this note); a path-only copy of `src/shared` is not enough, because `PAGES` names `quiet-machine/index.html` and the topology tests read it.
 
 Activation recipe, one commit (torque integrator, with this track's owner):
 1. Land `torque-wrench/index.html` with: the shell block (`<!-- shell:begin -->` through `<!-- shell:end -->`, fade sub-block byte-identical to the reviewed copy, hash pinned at `pageTopology.test.ts:34`), `<meta name="robots" content="noindex">` in the head, and `<script type="module" src="/src/torque-wrench-main.tsx">`. Land `src/torque-wrench-main.tsx` calling `installPageFade(document)` and keeping the return value if it unmounts.
