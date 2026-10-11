@@ -75,8 +75,8 @@ Each stage needs owner approval before it starts. Each ends at its Exit conditio
 **Exit:** all PNGs byte-identical, all sidecar telemetry identical, B.1-B.4 pass, fixture test passes, retained pins pass unedited.
 
 ### S2b: beat-local timing (visual gate, not byte gate)
-- [ ] Express windows as fractions of their own beat. Adding a beat then re-spaces nothing else.
-- [ ] Decide whether `phase` stays u-scaled or becomes per-beat.
+- [x] Express windows as fractions of their own beat. Adding a beat then re-spaces nothing else. (Done `e2770620`: beat-local ticks, resolved to u; values bit-identical.)
+- [x] Decide whether `phase` stays u-scaled or becomes per-beat. (Owner 2026-10-11: stays u-scaled, `u * 12`.)
 
 **Exit:** owner approves PNGs and motion at the same u values. Astra is consulted if any visual effect changes.
 
