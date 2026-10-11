@@ -1,9 +1,10 @@
 import {
   BufferGeometry, DoubleSide, Float32BufferAttribute, Group, Mesh,
-  MeshStandardMaterial, Object3D, Plane,
+  MeshPhysicalMaterial, MeshStandardMaterial, Object3D, Plane,
 } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { DEEPEST_CUT } from './shot'
+import { isMultiSlotMismatch, mapFor, type V16Map, type V16Resolved } from './v16Materials'
 
 /** Shell roles carry the approved blue. Equipment and hardware keep their CAD identity. */
 export const SHELL_ROOTS = new Set(['ENCLOSURE_CHASSIS', 'COMPOSITE_PANELS', 'ACOUSTIC_BAFFLES', 'DUCT_INTAKE', 'DUCT_EXHAUST'])
@@ -34,6 +35,17 @@ export const PART_POLICY: Record<string, SectionPolicy> = {
   'V2RL300-SAF-RES-1020-SAFE-1': 'keep',
   'RL300-PEM-1001-1': 'keep',
   'RL300-EMG-1001-P-1': 'keep',
+  // V16 materials-and-parts track, owner-approved 2026-10-11: already in both shipped GLBs
+  // (ENCLOSURE_CHASSIS, MSP_BLACK_CHASSIS, 674 triangles); kept whole and never repainted.
+  'RL300-P-FFM-1001-1': 'keep',
+  // Owner, V16 round 2: these two must not disappear with the section. Both are in the full
+  // and lite GLBs.
+  'RL300-CPM-3001-1': 'keep',
+  'RL300-P-CPM-2001-1': 'keep',
+  // Owner recommendation accepted, V16 round 2: the external exhaust stack stays visible
+  // through the section. Its chrome ruling still wins (see finishFor), and
+  // EXHAUST_STACK_OFFSET moves it onto the V16 connector.
+  'EXHAUST PIPE-1': 'keep',
   'MirrorRL200-AFS-2001-2': 'hide',
   'RL300-AFS-2003-5': 'hide',
   'V23028T25_Weld-on Tie-Down Ring-1': 'hide',
@@ -89,10 +101,11 @@ export interface PartRecord {
 }
 
 export function finishFor(root: string, material: string, policy: SectionPolicy = 'section', part?: string, reservoir = false, insulation = false) {
+  // A named part rules over its root here too: the exhaust stack is chrome even inside a shell
+  // root, and even though it is a kept (never clipped) part.
+  if (part === EXHAUST_PIPE) return CHROME
   // A kept component is equipment, not shell: repainting it blue is what made it unreadable.
   if (policy === 'keep') return null
-  // A named part rules over its root here too: the exhaust stack is chrome even inside a shell root.
-  if (part === EXHAUST_PIPE) return CHROME
   // Owner ruling 2026-09-24: reservoirs are equipment (all MSP_YELLOW_PAINT) — the two
   // under COMPOSITE_PANELS were catching the shell blue and reading as a different
   // machine from their yellow siblings. CAD finish wins for any reservoir occurrence.
@@ -151,21 +164,115 @@ export function isClosedVolume(geometry: BufferGeometry): boolean {
   return edges.size > 0 && [...edges.values()].every(e => e.count === 2 && e.balance === 0)
 }
 
-export function prepareModel(source: Group, plane: Plane) {
+const has = (table: object, key: string) => Object.prototype.hasOwnProperty.call(table, key)
+
+/** Which V16 part a delivered Mesh belongs to, and where it sits among that part's slots.
+ *  GLTFLoader gives a single-primitive part as one Mesh named after the part (the JSON
+ *  key). A multi-primitive part is a non-Mesh group carrying the part name whose Mesh
+ *  children (`Mesh_422`, `Mesh_422_1`, ...) are its primitives in order. The slot count is
+ *  what the loader delivered, never the asset seat's `glbPrims`: lite splits fewer parts. */
+export function locatePart(obj: Mesh, parts: V16Map['parts']): { part: string; slotIndex: number; slotCount: number } | null {
+  if (has(parts, obj.name)) return { part: obj.name, slotIndex: 0, slotCount: 1 }
+  const parent = obj.parent
+  if (parent && !(parent instanceof Mesh) && has(parts, parent.name)) {
+    const slots = parent.children.filter(child => child instanceof Mesh && !has(parts, child.name))
+    const slotIndex = slots.indexOf(obj)
+    if (slotIndex >= 0) return { part: parent.name, slotIndex, slotCount: slots.length }
+  }
+  return null
+}
+
+/** Policy for the separate `rl300-extra-parts.glb`, by the node names GLTFLoader delivers.
+ *  Kept apart from PART_POLICY because prepareModel requires every PART_POLICY part to be
+ *  present in the main source. Everything in the extras is whole (never clipped, never
+ *  capped): the dials, the V16 MAN pump assembly that replaces the shipped fused MAN mesh,
+ *  and the exhaust connector pipe the owner wants visible through the section. */
+export const EXTRAS_POLICY: Record<string, SectionPolicy> = {
+  GAUGE_DIALS: 'keep',
+  PUMP_HOUSING: 'keep',
+  EXHAUST_CONNECTOR_PIPE: 'keep',
+}
+
+/** The shipped fused MAN mesh that the extras' PUMP_HOUSING assembly replaces on the full tier. */
+export const REPLACED_MAN = 'MAN-6650459107-1'
+
+/** Translation (glTF metres, world frame) of the external exhaust stack `EXHAUST PIPE-1`
+ *  so it stays coaxial with the V16 connector pipe. Derivation: V16 sits +0.40 in x and
+ *  -0.065 in z from the shipped stack; the extras GLB's DUCT_EXHAUST node already carries
+ *  the V16-to-shipped engine-frame shift of +0.0154 in z, so the stack needs
+ *  -0.065 + 0.0154 = -0.0496 to meet it. The shipped GLBs are never edited. */
+export const EXHAUST_STACK_OFFSET = [0.4, 0, -0.0496] as const
+
+export interface PrepareOptions {
+  /** V16 per-part materials. Absent: the GLB's own materials, exactly as before. */
+  v16?: V16Map
+  /** Build MeshPhysicalMaterial for V16 materials with clearcoat. False on the lite tier. */
+  physical?: boolean
+  /** Scene of `rl300-extra-parts.glb` (full tier). Prepared in the same call so it shares
+   *  buckets, caps, stencil and disposal with the main model. */
+  extras?: Group
+}
+
+/** A mapped, non-repainted part takes its V16 values. The clone keeps whatever else the
+ *  GLB material carried; colour (linear working space), metalness and roughness come from
+ *  the entry, and clearcoat promotes the material to physical when the tier allows it. */
+function v16Material(original: MeshStandardMaterial, entry: V16Resolved, physical: boolean): MeshStandardMaterial {
+  const clone = original.clone()
+  let mat = clone
+  if (physical && entry.clearcoat > 0) {
+    const coated = new MeshPhysicalMaterial()
+    MeshStandardMaterial.prototype.copy.call(coated, clone)
+    // The standard copy resets `defines` to STANDARD only; a physical material also carries PHYSICAL.
+    coated.defines = { STANDARD: '', PHYSICAL: '' }
+    coated.clearcoat = entry.clearcoat
+    coated.clearcoatRoughness = entry.clearcoatRoughness
+    clone.dispose()
+    mat = coated
+  }
+  mat.color.setRGB(entry.baseLinear[0], entry.baseLinear[1], entry.baseLinear[2])
+  mat.metalness = entry.metalness
+  mat.roughness = entry.roughness
+  return mat
+}
+
+export function prepareModel(source: Group, plane: Plane, options: PrepareOptions = {}) {
+  const { v16, physical = false, extras } = options
   source.updateMatrixWorld(true)
+  extras?.updateMatrixWorld(true)
   const group = new Group()
   group.name = 'RL300_PRESENTATION'
   const buckets = new Map<string, { geometries: BufferGeometry[]; material: MeshStandardMaterial; root: string }>()
   const caps = new Map<string, BufferGeometry[]>()
-  const counts = { sourceTriangles: 0, keptTriangles: 0, linerTriangles: 0, sourceMeshes: 0, batches: 0, cappedTriangles: 0, openSectionTriangles: 0, keptWholeTriangles: 0, removedTriangles: 0, skippedRoots: 0 }
+  const counts = {
+    sourceTriangles: 0, keptTriangles: 0, linerTriangles: 0, sourceMeshes: 0, batches: 0, cappedTriangles: 0, openSectionTriangles: 0, keptWholeTriangles: 0, removedTriangles: 0, skippedRoots: 0,
+    // Triangles of the shipped fused MAN mesh the extras' PUMP_HOUSING assembly replaces (full tier).
+    // Not a ruled removal, so never part of removedTriangles.
+    replacedTriangles: 0,
+    // V16 telemetry. `materials` is the unique materials in the group; mappedParts and
+    // unmappedMultiSlot are unique part names, mappedPrimitives counts delivered meshes
+    // (a mapped part whose look a ruling protects still counts: its V16 entry was found).
+    materials: 0, mappedParts: 0, mappedPrimitives: 0, protectedPrimitives: 0, unmappedMultiSlot: 0,
+    extraParts: 0, extraTriangles: 0, v16Applied: false,
+  }
+  const mappedParts = new Set<string>(), unmappedMultiSlot = new Set<string>()
   /** Measured evidence for every part the owner named, so the ruling is verifiable. */
   const parts = new Map<string, PartRecord>()
   let linerFound = false
-  for (const root of source.children) {
-    // The owner's Blender export carries the reference lower-intake geometry as its own
-    // root (coordinate source of truth for the authored copy in LowerIntake.tsx). The
-    // site draws that passage in code; building the GLB copy too would double-render it.
-    if (root.name === 'PROPOSED_LOWER_INTAKE') { counts.skippedRoots = (counts.skippedRoots ?? 0) + 1; continue }
+  // V16 materials with identical values share one bucket: the order-independent canonical
+  // name is the alphabetically first material carrying the same values.
+  const canonical = new Map<string, string>()
+  if (v16) {
+    const bySignature = new Map<string, string>()
+    for (const name of Object.keys(v16.materials).sort()) {
+      const m = v16.materials[name]
+      const signature = JSON.stringify([m.baseLinear, m.metalness, m.roughness, m.clearcoat, m.clearcoatRoughness, m.opacity])
+      if (!bySignature.has(signature)) bySignature.set(signature, name)
+      canonical.set(name, bySignature.get(signature)!)
+    }
+  }
+  // The full tier's extras replace the shipped fused MAN mesh with the V16 assembly.
+  const manReplaced = !!extras && extras.children.some(child => child.name === 'PUMP_HOUSING')
+  const ingest = (root: Object3D, extra: boolean) => {
     root.traverse((obj: Object3D) => {
       if (!(obj instanceof Mesh)) return
       counts.sourceMeshes++
@@ -178,15 +285,26 @@ export function prepareModel(source: Group, plane: Plane) {
       let policy: SectionPolicy | null = null
       let reservoir = false
       let insulation = false
-      while (p && p !== root) {
-        if (p.name === LINER_PART) liner = true
-        if (!pipe) pipe = p.name === EXHAUST_PIPE || p.name.startsWith(`${EXHAUST_PIPE}_`)
-        if (/-RES-/.test(p.name)) reservoir = true
-        if (/-SIF-/.test(p.name)) insulation = true
-        if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
-        p = p.parent
+      if (extra) {
+        // Extras are not CAD occurrences: no liner, reservoir, insulation or exhaust-stack
+        // rules, only the extras table, nearest ancestor first (the root itself counts).
+        for (; p && p !== extras; p = p.parent) if (!policy && has(EXTRAS_POLICY, p.name)) policy = EXTRAS_POLICY[p.name]
+      } else {
+        while (p && p !== root) {
+          if (p.name === LINER_PART) liner = true
+          if (!pipe) pipe = p.name === EXHAUST_PIPE || p.name.startsWith(`${EXHAUST_PIPE}_`)
+          if (/-RES-/.test(p.name)) reservoir = true
+          if (/-SIF-/.test(p.name)) insulation = true
+          if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
+          p = p.parent
+        }
       }
       if (liner) { linerFound = true; counts.linerTriangles += triangles; return }
+      if (manReplaced && !extra) {
+        let q: Object3D | null = obj
+        while (q && q !== root && q.name !== REPLACED_MAN) q = q.parent
+        if (q && q !== root) { counts.replacedTriangles += triangles; return }
+      }
       const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
       if (mats.length !== 1) throw new Error('RL300 loader must expand each CAD primitive before batching')
       const original = mats[0] as MeshStandardMaterial
@@ -194,25 +312,70 @@ export function prepareModel(source: Group, plane: Plane) {
       const resolved: SectionPolicy = policy ?? (SECTION_ROOTS.has(root.name) ? 'section' : 'keep')
       // A named part rules over its root: that is how equipment gets hidden or cut.
       const clipped = policy ? policy !== 'keep' : SECTION_ROOTS.has(root.name)
-      const color = finishFor(root.name, original.name, policy ?? 'section', pipe ? EXHAUST_PIPE : undefined, reservoir, insulation)
-      const key = `${root.name}/${original.name}/${clipped ? 'cut' : 'whole'}/${color ?? 'cad'}`
+      // Every finishFor rule keeps receiving the BASE material name; for the extras that is
+      // the V16 name their GLB carries (MSP_BLACK_CHASSIS still renders the ruled #161e25) and
+      // the root is the extras root. The extras' `keep` is a cutting policy, not a finish: they
+      // pass `section` like any unnamed part, so the root and material rules decide the finish.
+      const color = finishFor(root.name, original.name, extra ? 'section' : policy ?? 'section', pipe ? EXHAUST_PIPE : undefined, reservoir, insulation)
+      let entry: V16Resolved | null = null
+      let partName: string | null = null
+      let mismatch = false
+      if (v16) {
+        const at = locatePart(obj, v16.parts)
+        if (at) {
+          partName = at.part
+          entry = mapFor(v16, at.part, at.slotIndex, at.slotCount)
+          // A multi-slot part whose slots are not the primitives the loader delivered stays
+          // on current behaviour; it is counted, never guessed.
+          mismatch = !entry && isMultiSlotMismatch(v16, at.part, at.slotCount)
+        }
+        // An extras mesh the part table lacks still carries a V16 material name.
+        if (!entry && extra && has(v16.materials, original.name)) entry = { ...v16.materials[original.name], name: original.name }
+      }
+      // Ruled looks are protected: where finishFor returned a colour the bucket keeps the
+      // current roughness and metalness exactly and takes no V16 values. Otherwise a mapped
+      // part takes the V16 material outright.
+      const applyV16 = !!entry && !color
+      // A bucket is keyed by the material whose values it carries: the V16 name when V16
+      // values apply, else the GLB name. In V16 mode an unrepainted GLB-look bucket gets
+      // `~glb`, because V16 reuses GLB names (MSP_STAINLESS, MSP_PLASTIC, ...) with
+      // different values and the two must never merge. Repainted buckets keep the GLB name:
+      // the repaint is a base-material ruling, and several base materials (the -SIF-
+      // insulation) share one V16 name, so keying them on it would mix their looks.
+      // V16 materials with identical values share the canonical (alphabetically first) name.
+      const material = applyV16 ? canonical.get(entry!.name) ?? entry!.name : v16 && !color ? `${original.name}~glb` : original.name
+      const key = `${root.name}/${material}/${clipped ? 'cut' : 'whole'}/${color ?? 'cad'}`
       let bucket = buckets.get(key)
       if (!bucket) {
-        const mat = original.clone()
+        const mat = applyV16 ? v16Material(original, entry!, physical) : original.clone()
         mat.name = key
         if (color) mat.color.set(color)
         mat.transparent = false; mat.opacity = 1; mat.depthWrite = true
+        // The one transparent path: a mapped entry with opacity < 1 (the dial lenses, at the
+        // JSON's Fresnel normal-incidence value). Nothing else is ever transparent.
+        // DoubleSide stays; forceSinglePass stops three drawing a transparent double-sided
+        // material as a back pass then a front pass (both faces share colour and opacity, so
+        // the order is invisible and the lens costs one draw instead of two).
+        if (applyV16 && entry!.opacity < 1) { mat.transparent = true; mat.opacity = entry!.opacity; mat.depthWrite = false; mat.forceSinglePass = true }
         mat.side = DoubleSide
-        // The chrome ruling carries the stainless tip's own clamped .28/.8, so the whole
-        // stack reads as one polished pipe; repainted paint stays satin like the approved blue.
-        mat.roughness = color === CHROME ? .28 : original.name === 'MSP_YELLOW_PAINT' ? .34 : Math.max(.28, original.roughness)
-        mat.metalness = color === CHROME ? .8 : original.name === 'MSP_YELLOW_PAINT' ? .32 : Math.min(.8, original.metalness)
+        if (!applyV16) {
+          // The chrome ruling carries the stainless tip's own clamped .28/.8, so the whole
+          // stack reads as one polished pipe; repainted paint stays satin like the approved blue.
+          mat.roughness = color === CHROME ? .28 : original.name === 'MSP_YELLOW_PAINT' ? .34 : Math.max(.28, original.roughness)
+          mat.metalness = color === CHROME ? .8 : original.name === 'MSP_YELLOW_PAINT' ? .32 : Math.min(.8, original.metalness)
+        }
+        // V16 values skip the `roughness >= .28` / `metalness <= .8` clamps above on purpose:
+        // they would erase the lacquer's .16 roughness and the brass's 1.0 metalness.
         mat.envMapIntensity = .65
         if (clipped) { mat.clippingPlanes = [plane]; mat.clipShadows = true }
         bucket = { geometries: [], material: mat, root: root.name }
         buckets.set(key, bucket)
       }
       const geometry = bakeGeometry(obj)
+      // The geometry is baked into the world frame above, so the stack offset (a world-frame
+      // translation in glTF metres) is applied to the baked positions, before the bounds, the
+      // closed-volume test and the merge. Both tiers carry the same node; the GLBs stay as shipped.
+      if (pipe) geometry.translate(EXHAUST_STACK_OFFSET[0], EXHAUST_STACK_OFFSET[1], EXHAUST_STACK_OFFSET[2])
       let record: PartRecord | undefined
       if (named) {
         geometry.computeBoundingBox()
@@ -230,6 +393,10 @@ export function prepareModel(source: Group, plane: Plane) {
           return
         }
       }
+      // V16 and extras telemetry counts what survives the rulings, not what was removed.
+      if (entry && partName) { mappedParts.add(partName); counts.mappedPrimitives++; if (color) counts.protectedPrimitives++ }
+      else if (mismatch && partName) unmappedMultiSlot.add(partName)
+      if (extra) { counts.extraParts++; counts.extraTriangles += triangles }
       counts.keptTriangles += triangles
       if (!clipped && SECTION_ROOTS.has(root.name)) counts.keptWholeTriangles += triangles
       bucket.geometries.push(geometry)
@@ -241,6 +408,15 @@ export function prepareModel(source: Group, plane: Plane) {
       } else if (clipped) counts.openSectionTriangles += triangles
     })
   }
+  for (const root of source.children) {
+    // The owner's Blender export carries the reference lower-intake geometry as its own
+    // root (coordinate source of truth for the authored copy in LowerIntake.tsx). The
+    // site draws that passage in code; building the GLB copy too would double-render it.
+    if (root.name === 'PROPOSED_LOWER_INTAKE') { counts.skippedRoots = (counts.skippedRoots ?? 0) + 1; continue }
+    ingest(root, false)
+  }
+  // The extras follow the main roots, so every main bucket keeps its place.
+  if (extras) for (const root of extras.children) ingest(root, true)
   for (const name of Object.keys(PART_POLICY)) if (!parts.has(name)) throw new Error(`Ruled RL300 part absent from the CAD source: ${name}`)
   if (!linerFound) throw new Error(`Missing registered liner ${LINER_PART}`)
   const sections = [...caps].map(([name, geometries]) => {
@@ -255,12 +431,26 @@ export function prepareModel(source: Group, plane: Plane) {
     if (!geometry) throw new Error(`Incompatible CAD geometry: ${name}`)
     const mesh = new Mesh(geometry, bucket.material)
     mesh.name = name
-    mesh.castShadow = true; mesh.receiveShadow = true
+    // The 78 mm gauge dials cast no shadow (one draw per bucket instead of two); the lens
+    // below already has none.
+    mesh.castShadow = bucket.root !== 'GAUGE_DIALS'; mesh.receiveShadow = true
     mesh.userData.sourceRoot = bucket.root
+    if (bucket.material.transparent) {
+      // The lens is nearly clear glass: it renders after the opaque equipment and, being
+      // 96.6% transparent, must not throw a full shadow onto the dial face behind it
+      // (the shadow pass ignores opacity). It still receives shadow.
+      mesh.userData.lens = true
+      mesh.renderOrder = 2
+      mesh.castShadow = false
+    }
     group.add(mesh)
     bucket.geometries.forEach(g => g.dispose())
   }
   counts.batches = group.children.length
+  counts.materials = new Set(group.children.map(obj => (obj as Mesh).material)).size
+  counts.mappedParts = mappedParts.size
+  counts.unmappedMultiSlot = unmappedMultiSlot.size
+  counts.v16Applied = !!v16 && counts.mappedPrimitives > 0
   return { group, sections, counts, parts: Object.fromEntries(parts), dispose() {
     group.children.forEach(obj => { const mesh = obj as Mesh; mesh.geometry.dispose(); (mesh.material as MeshStandardMaterial).dispose() })
     sections.forEach(s => s.geometry.dispose())

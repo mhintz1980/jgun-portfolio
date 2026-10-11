@@ -165,7 +165,8 @@ describe('RL300 review prototype', () => {
     expect(policyFor('V2MSP-MID-5406HHP24_~-3')?.name).toBe('V2MSP-MID-5406HHP24 ~-3')
     expect(policyFor('V2MSP-MID-5406HHP24_~-2')).toBeNull()
     expect(policyFor('12335A81_Oil-Resistant_Push-on_Seal_with_Bulb-1')?.policy).toBe('delete')
-    expect(Object.values(PART_POLICY).filter(p => p === 'keep')).toHaveLength(3)
+    // 4 + RL300-CPM-3001-1 + RL300-P-CPM-2001-1 (never cut) + EXHAUST PIPE-1 (the stack stays visible) = 7.
+    expect(Object.values(PART_POLICY).filter(p => p === 'keep')).toHaveLength(7)
     expect(Object.values(PART_POLICY).filter(p => p === 'hide')).toHaveLength(18)
     expect(Object.values(PART_POLICY).filter(p => p === 'delete')).toHaveLength(1)
   })
