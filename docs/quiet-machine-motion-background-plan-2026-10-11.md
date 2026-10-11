@@ -47,11 +47,11 @@ Each stage needs owner approval before it starts. Each ends at its Exit conditio
 - [x] Describe lifecycle: fade held until `fadeReady` (poster committed or scene ready, lines 37-41, 55). Context loss and scene error switch to poster (lines 54, 89).
 - [x] Describe navigation: `?shot=` seek, `tier` on outgoing links, prefetch once at `END_CARD_AT`.
 - [x] State the gap plainly: there is no generic poster primitive. The poster is an inline `<img>` path template (`QuietMachinePreview.tsx:97`). The torque plan expects a poster interface. That is a deliverable, not something to confirm.
-- [ ] Point to QM4 (JG-033 plan, heading at line 295) for the multi-page build and private-entry contract.
+- [x] Point to QM4 (JG-033 plan, heading at line 295) for the multi-page build and private-entry contract. Done in the note, section 13: QM4 covers the multi-page build; the JG-033 plan has no private-entry text, so that contract is pointed to in the note's sections 7 and 10.
 
 **Exit:** the note exists, every export is cited by file:line, the poster gap is named, and the torque session has acknowledged it.
 
-**S0 status (2026-10-11):** four of five items ticked on existing evidence. Item 5 (QM4 plan pointer) is not in the note and stays open. Torque receipt: `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/15-shell-readiness-acknowledgement.md` (acknowledges receipt and the contract; does not close torque Stage 0). The poster gap named in item 4 is being delivered separately (poster interface, `private` registry flag); see the shell readiness note.
+**S0 status (2026-10-11):** all five items ticked. Items 1-4 on the first note; item 5 once the QM4 pointer was added (note section 13). Torque receipt: `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/15-shell-readiness-acknowledgement.md` (acknowledges receipt and the contract; does not close torque Stage 0). The poster gap named in item 4 is being delivered separately (poster interface, `private` registry flag); see the shell readiness note.
 
 ### S1: evidence index and gate map
 - [ ] Create `project/work/evidence/rl300-quiet-machine/INDEX.md`. Map each artifact to a gate below.

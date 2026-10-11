@@ -158,7 +158,7 @@ Failure modes, all caught before a build: a flip without the HTML file throws at
 1. **Fresh readiness run** (either track): `npm run typecheck`, `npm run build`, `verify-page-transition.mjs` against `vite preview`, on a named tree. Needs GPU coordination (torque plan Stage 0 item 3). Separate from this delivery, per the owner.
 2. ~~**Merge into the torque worktree** (torque integrator): section 10.~~ Done 2026-10-11, section 12.
 3. **Torque HTML entry and activation** (torque integrator, Stage 1): section 10.
-4. **S0 item 5** in the motion plan (QM4 plan pointer) is still unticked.
+4. ~~**S0 item 5** in the motion plan (QM4 plan pointer) is still unticked.~~ Ticked, section 13.
 
 ## 12. Torque-side delivery receipt (2026-10-11)
 
@@ -174,3 +174,8 @@ Reported by the torque session and checked here read-only:
 | Evidence | `jgun-torque-wrench/project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/shell-source-delivery-2026-10-11.md` (exists, 6,324 bytes; contents not audited here) |
 
 Recorded: shell delivery into the torque worktree and torque-side CPU verification are complete. Not recorded as done, and not authorized by that report: resource coordination, the fresh runtime readiness run (build, `verify-page-transition.mjs`), approved numerical budgets and verification matrix, activation of the torque row, any browser/server/GPU work, push, deploy or publication.
+
+## 13. Plan pointers
+
+- **Multi-page build and Quiet Machine entry:** `project/work/plans/JG-033-quiet-machine-integration.md`, heading "QM4: multi-page build, QM entry, legacy redirect, header nav, verifier repoints" (line 295). Code: `ccc87c2f`.
+- **Private-entry contract:** not in that plan (it has no mention of "private"). It is defined here in sections 7 and 10 and was added by `37c9d5f8`/`0bc6a787`/`6f4ee77f`. The motion plan's S0 wording ("for the multi-page build and private-entry contract") is satisfied by these two pointers together.
