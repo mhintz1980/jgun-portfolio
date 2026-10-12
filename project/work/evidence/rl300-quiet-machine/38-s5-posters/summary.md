@@ -21,3 +21,7 @@ Finals: `final/poster-01.png` .. `poster-07.png` plus `final/contact-sheet-final
 - Beat 4 brightness: **the 150 W fill light failed on Modal** (`final/poster-04-bright.png` is blown to near-white, luma 237 vs 93; the saved blend lit about 19x stronger than the same light previewed in memory, and added a haze). Replaced by a per-frame exposure key: -0.8 EV on frame 584, -1.5 elsewhere (`fix/fix_posters.py`, env `B4_EXPOSURE`). Local check from the saved blend: frame 584 luma 93 -> 122; frames 581, 583, 585 unchanged (177/154/149 vs Modal finals 177/154/148). The Modal render of v3 is not run yet (estimate USD 0.0868).
 - V16 master untouched (sha256 788ae2a2a2f784c5 before and after). Patched copy with only the REVEAL_FILL fix: `C:/Projects/msp-render-pipeline-scene-prep/scratch/RL300-SAFE-photoreal-V16-review-fillfix.blend` (`fix/patch_master_copy.py`).
 - Astra waived by the owner for the posters.
+
+## Update 2026-10-12 (repoint)
+- Beat 4 v3 rendered on Modal (job `rl300_posters_v16_b4v3`, frames 583-584, estimate USD 0.0868), `final/poster-04-v3.png`, luma 122 = the local preview. v2 (`poster-04-bright.png`) failed and is not used.
+- The 7 finals are encoded to WebP (1920 and 960 wide, `scripts/encode_webp.py`) and live in `public/images/rl300-shot-0N-poster[-960].webp`; the page, beats and verifier were repointed (see `qm-commit-gates.md`, "QM7b/QM10 poster repoint"). Handoff: `docs/HANDOFF-quiet-machine-2026-10-12c.md`.

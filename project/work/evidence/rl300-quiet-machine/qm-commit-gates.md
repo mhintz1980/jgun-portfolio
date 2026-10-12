@@ -1413,3 +1413,117 @@ U.1 post (K5 test-debt): prints nothing, U.1 grep exit: 1
 
 ## S5 posters (docs and scripts only)
 Owner took over the stalled S5 session 2026-10-12: glow band fixed (REVEAL_FILL), proposed intake rebuilt, beat-4 cutaway (option b), 7 posters rendered on Modal (job rl300_posters_v16_a, estimate USD 0.1087, passed). Staged: scripts, data logs, specs, fix scripts, summary.md, two small band PNGs. Left untracked: preview/, preview-fix/, final/ PNGs and fix/exp-*.png (about 25 MB). No src/ or public/ change, so no code gates; U.1 below.
+
+## QM7b/QM10 poster repoint (owner: "accept v3", WebP, "you choose size", Astra waived)
+Owner decisions 2026-10-12: replace the three blue live-page previews with the 7 orange Blender renders; WebP; size my call; beat 4 = v3.
+- **Assets:** `public/images/rl300-shot-0N-poster.webp` (1920x1080) and `-960.webp` (960x540), N = 1..7, from `38-s5-posters/final/` (beat 4 = `poster-04-v3.png`), encoded by `38-s5-posters/scripts/encode_webp.py` (Pillow, quality 90, method 6, Lanczos for the 960). 14 files, 887 KB total (1920: 47-112 KB each; 960: 21-46 KB). The three `rl300-{exterior,section,intake}-preview.png` (about 720 KB) are deleted.
+- **Why two widths:** the page serves `srcSet` 960w/1920w with `sizes="100vw"`, `width`/`height` 1920x1080 (no layout shift), `decoding="async"`. Checked in Chrome: the 1440x900 viewport loads the 1920 file, the 390x844 phone loads the 960 file. 1920 is the render's native width, so a larger file would be upscaled.
+- **Code:** `beats.ts` loses `PosterId` and the 7 `poster:` fields; `QuietMachinePreview.tsx` derives the still from the beat index (`rl300-shot-0${beat + 1}-poster`); the stale `BEATS` import is removed. The poster CSS is unchanged: the stage is an inset box on the dark page, the light still reads fine beside the editorial column (screenshots `38-s5-posters/repoint-check/`).
+- **Verifier:** the live-page poster capture block and its `CAPTURE_POSTERS` gate are removed (otherwise a capture run would overwrite the renders with blue page captures); the two reduced-motion/poster-scenario asserts `src.includes('intake')` become `src.includes('shot-04')` (Lower intake = u .51 = beat 4). No test added; none removed.
+- **Gates at this tree:** tsc 0; build 0; npm test 701/701 (50 files); check:station2 0; verify-jg033-preview exit 0, errors [], `reducedMotionPoster` and `contextLoss` pass; U.4 `cssEqual` true, `sourcesEqual` true (build `QM10-posters`).
+- **Open copy item (owner's):** beat 1's caption still reads "A blue shell. A complex machine." over an orange render. Not changed.
+
+### U.4 QM10-posters
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM10-posters` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-u1-tSDUy.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (QM10 posters, 3bfa549b): files outside the allowlist = []
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->

@@ -1,6 +1,5 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
-import { BEATS } from './beats'
 import { IntakeHotspot } from './IntakeHotspot'
 import type { PreviewControl } from './QuietMachineScene'
 import { prefetchPage, releaseFadeWhen } from '../../shared/pageFade'
@@ -14,9 +13,9 @@ export const QM_LENGTH_VH = 900
 export const END_CARD_AT = .97
 
 const Scene = lazy(() => import('./QuietMachineScene').then(m => ({ default: m.QuietMachineScene })))
-/** Three poster frames cover the shots; each beat record names the one that stands for it, so
- *  the static fallback never asks for an image that was never captured. */
-const POSTERS = BEATS.map(beat => beat.poster)
+/** One Blender still per beat (public/images/rl300-shot-0N-poster.webp, 1920 wide, and -960 for narrow screens),
+ *  so the static fallback shows the beat the visitor is on. */
+const posterBase = (beat: number) => `/images/rl300-shot-0${beat + 1}-poster`
 /** Scrubber anchors, not a shot list: the three stops the study is navigated by. */
 const VIEWS: [string, number][] = [['Exterior', 0], ['Section', .2], ['Lower intake', .51]]
 
@@ -96,7 +95,7 @@ export default function QuietMachinePreview() {
   return <main className="qm-preview" data-reduced-motion={reduced} style={{ '--qm-length': `${QM_LENGTH_VH}vh` } as React.CSSProperties}>
     <div className="qm-progress" aria-hidden="true"><span style={{ transform: `scaleX(${u})` }} /></div>
     <div className="qm-stage" ref={stageRef} aria-label="RL300 enclosure section study">
-      {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
+      {poster ? <div className="qm-poster"><img src={`${posterBase(beat)}.webp`} srcSet={`${posterBase(beat)}-960.webp 960w, ${posterBase(beat)}.webp 1920w`} sizes="100vw" width={1920} height={1080} decoding="async" alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
       {!poster && <IntakeHotspot u={u} onSeek={navigate} />}
     </div>

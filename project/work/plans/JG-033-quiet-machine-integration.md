@@ -494,6 +494,8 @@ STOP: hotspot PNGs to the owner (part of group A).
 Rollback: `git revert <QM7 sha>`.
 
 ### QM7b: rulings commit (always lands)
+> **Superseded 2026-10-12 for the posters (owner ruling, commit `3bfa549b`):** the 7 poster stills are Blender renders from `project/work/evidence/rl300-quiet-machine/38-s5-posters/` (`public/images/rl300-shot-0N-poster.webp` and `-960.webp`), not live-page captures. The `CAPTURE_POSTERS=1` capture block and its midpoint test described below were removed, not added, and **must not be re-added**: a capture run would overwrite the renders with blue page captures. GPU-7 and QM10 no longer produce posters. The rest of this section (rulings, `shot.ts`, `PART_POLICY`) is unchanged.
+
 | Field | Value |
 |---|---|
 | Goal | Apply the owner's group A rulings (QM content, scroll length), and the group B interim dark tone if that is the ruling; replace the 4-anchor poster writer with a 7-shot desktop poster loop |

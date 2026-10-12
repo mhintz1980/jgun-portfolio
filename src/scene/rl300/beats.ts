@@ -1,5 +1,5 @@
 /** RL300 "The Quiet Machine" beat records. Plain data: no `three`, no imports. One record per
- *  beat carries its length, copy, camera keys, poster and the named windows it owns.
+ *  beat carries its length, copy, camera keys and the named windows it owns.
  *
  *  Authoring is beat-local. A beat has a `len` in ticks; its keys and windows are ticks from the
  *  beat's own start (a window may run past `len`: the cut and the stubs do). `resolveBeats`
@@ -14,7 +14,6 @@ export type Win = readonly [number, number]
 
 export interface CameraKey { at: number; position: Vec3; target: Vec3; fov: number }
 
-export type PosterId = 'exterior' | 'section' | 'intake'
 
 /** Every named window the sequence uses. A window lives on the beat where it starts; each name
  *  is owned by exactly one beat. */
@@ -66,7 +65,6 @@ export interface BeatSpec {
   title: string
   note: string
   caption: string
-  poster: PosterId
   /** Camera keys this beat owns, in order. The flattened list drives `evaluateShot`'s pairwise interpolation. */
   keys: CameraKey[]
   windows: BeatWindows
@@ -83,7 +81,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'object', len: 120,
     title: 'The object', note: 'RL300-SAFE · ACOUSTIC ENCLOSURE',
     caption: 'A blue shell. A complex machine. One considered envelope.',
-    poster: 'exterior',
     keys: [
       // 01 The object — low, long-lens three-quarter; the approach reveals the chamber's depth.
       { at: 0, position: [4.3, .92, 4.55], target: [0, 1, .05], fov: 30 },
@@ -95,7 +92,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'incision', len: 150,
     title: 'The incision', note: 'RL300-SAFE · ACOUSTIC ENCLOSURE',
     caption: 'A finished section edge reveals shell, insulation, equipment and the wall that carries them.',
-    poster: 'section',
     keys: [
       // 02 The incision — rise toward the section-facing side, equipment and wall together.
       { at: 150, position: [3.28, 1.78, 2.34], target: [0, 1.18, .1], fov: 34 },
@@ -106,7 +102,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'main-intake', len: 140,
     title: 'The main intake', note: 'RL300-SAFE · SUPPLY AIR',
     caption: 'The existing supply: one continuous path from louvre to plenum, with a direction you can read.',
-    poster: 'section',
     keys: [
       // 03 The main intake — track the existing intake/plenum side (DUCT_INTAKE, z .43…1.36).
       { at: 140, position: [3.95, 1.75, 3.15], target: [0, 1.25, .95], fov: 32 },
@@ -117,7 +112,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'second-breath', len: 200,
     title: 'A second breath', note: 'LOWER INTAKE · DESIGN CONCEPT',
     caption: 'Proposed lower intake: open louvres feed a shallow duct and an outlet beneath the engine.',
-    poster: 'intake',
     keys: [
       // 04 A second breath — drop below the louver panel (y .172, z .48….78) and look up into the
       // sectioned skid bay: slats, collector, duct and the lower supply read together (owner, 2026-09-24).
@@ -136,7 +130,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'two-feeds', len: 150,
     title: 'Two feeds, one exit', note: 'RL300-SAFE · AIR PATH',
     caption: 'Both supplies warm through the equipment region and join a single shared discharge.',
-    poster: 'section',
     keys: [
       // 05 Two feeds, one exit — wider, carrying both supplies to the shared discharge (DUCT_EXHAUST, z −1.68…−.30).
       { at: 150, position: [4.75, 1.55, -1.15], target: [0, 1.15, -.3], fov: 38 },
@@ -147,7 +140,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'control-noise', len: 130,
     title: 'Control the noise', note: 'RL300-SAFE · ACOUSTIC STRUCTURE',
     caption: 'Two distinct mechanisms: absorptive structure for the air path, isolation for the machine.',
-    poster: 'section',
     keys: [
       // 06 Control the noise — the exposed acoustic structure (ACOUSTIC_BAFFLES, y 1.32…1.86) over the mounts.
       { at: 130, position: [3.45, 2.35, 2.45], target: [.05, 1.45, .85], fov: 31 },
@@ -174,7 +166,6 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
     id: 'resolve', len: 110,
     title: 'Resolve', note: 'RL300-SAFE · ACOUSTIC ENCLOSURE',
     caption: 'The section closes, and the downstream transition takes ownership of the story.',
-    poster: 'exterior',
     keys: [
       // 07 Resolve — pull back into the chamber for an exterior close.
       { at: 110, position: [4.26, 1.34, 4.06], target: [0, 1.05, .05], fov: 34 },
