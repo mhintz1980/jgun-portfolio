@@ -62,7 +62,7 @@ Block U.1-pre (a failed or empty `git diff` exits 2, so an error can never read 
 cd /c/Users/Markimus/.buzz/REPOS/jgun-quiet-machine || exit 2
 files=$(git diff --cached --name-only 666cbf23) || { echo "U.1 FAIL: git diff errored"; exit 2; }
 test -n "$files" || { echo "U.1 FAIL: empty diff list (wrong base or nothing staged)"; exit 2; }
-printf '%s\n' "$files" | grep -v -E '^(src/shared/|src/scene/rl300/|src/quiet-machine-main\.tsx$|quiet-machine/|index\.html$|vite\.config\.ts$|scripts/(verify-jg033-preview|verify-jg033-ribbon-clipping|verify-page-transition|verify-qm-intake-hotspot|measure-qm-render-passes|check-qm-jgun-assets)\.mjs$|public/images/rl300-|public/models/rl300-|docs/|project/|TODO\.md$)'
+printf '%s\n' "$files" | grep -v -E '^(src/shared/|src/scene/rl300/|src/quiet-machine-main\.tsx$|quiet-machine/|index\.html$|vite\.config\.ts$|scripts/(build-jg033-lite\.py|verify-jg033-lite-asset\.mjs)$|scripts/(verify-jg033-preview|verify-jg033-ribbon-clipping|verify-page-transition|verify-qm-intake-hotspot|measure-qm-render-passes|check-qm-jgun-assets)\.mjs$|public/images/rl300-|public/models/rl300-|docs/|project/|TODO\.md$)'
 echo "U.1 grep exit: $?"
 ```
 Block U.1-post: identical, except the second line is `files=$(git diff --name-only 666cbf23 HEAD) || { echo "U.1 FAIL: git diff errored"; exit 2; }`.
