@@ -22,7 +22,7 @@ While writing this handoff I overwrote and then moved away the untracked `docs/H
 
 ## Open items
 1. **Beat-1 caption** "A blue shell. A complex machine. One considered envelope." sits over an orange render (`shot.ts`/`beats.ts` copy, owner's words). Other beat copy may also say blue: check with him.
-2. **V16 master** still has the `REVEAL_FILL` band; a patched copy is at `C:\Projects\msp-render-pipeline-scene-prep\scratch\RL300-SAFE-photoreal-V16-review-fillfix.blend` (Size Y 2.4, Location Y 0.0). He has no Blender open: a swap with a `.bak` is allowed on his go.
+2. **V16 master: SWAPPED 2026-10-12 (owner go).** `C:ProjectsCADRL300-SAFERL300-SAFE-photoreal-V16-review.blend` is now the REVEAL_FILL-fixed copy (sha256 `acce2897bf331cc6...`; read back: Size Y 2.4, Location Y 0.0, 675 objects). The previous master is kept beside it as `RL300-SAFE-photoreal-V16-review.pre-fillfix-2026-10-12.blend` (sha256 `788ae2a2a2f784c5...`, the hash the S5 spec and pipeline scratch copy were pinned to). Blender was not running. Anything pinned to the old hash will now see a mismatch: that is expected.
 3. QM8 attribution / GPU-6 triangle acceptance: still not demonstrated (open frames carry about 304k tris of cap passes; a measurement script breaks the test rule unless a test is removed).
 4. Motion plan S3 (needs his ruling on look change) and S4.
 5. V16 vs shipped frame shifts (`35-v16-round-1/asset2/audit.md`).
@@ -41,7 +41,7 @@ Resume the Quiet Machine track in C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machi
 
 Standing owner instruction (2026-10-11): add new tests, gate scripts, mutation proofs or extra validation only if a previous test can be eliminated; run only the existing required gates once; do not reply to preference statements, just apply them. Costs and decisions in line one, model named. Use the advisor (Opus) before building and before declaring done; do small edits yourself rather than spawning.
 
-Task: ask me ONE question, which to do next: (a) beat-1 caption says "blue shell" over an orange render: fix the copy; (b) swap the V16 master with the patched copy (REVEAL_FILL band); (c) motion plan S3 per-section state (needs my ruling whether it may change the look); (d) V16 vs shipped frame shifts; (e) the eager "keeps reservoir occurrences..." test. Do not start any before I answer.
+Task: ask me ONE question, which to do next: (a) beat-1 caption says "blue shell" over an orange render: fix the copy; (b) motion plan S3 per-section state (needs my ruling whether it may change the look); (c) V16 vs shipped frame shifts; (d) the eager "keeps reservoir occurrences..." test. Do not start any before I answer.
 
-Constraints: torque wrench page and public/models/msp-enclosure.glb untouched; V16 master never overwritten by you without a go (keep a .bak); no push, PR or deploy; stage by explicit path; commit only after I approve PNGs or say go; kill only PIDs you started; one GPU; Modal only on an explicit go with the dispatcher's estimate in line one; verify every report yourself; preview Blender changes from the saved blend.
+Constraints: torque wrench page and public/models/msp-enclosure.glb untouched; V16 master already swapped with the fix (backup .pre-fillfix-2026-10-12.blend kept): do not touch it again without a go; no push, PR or deploy; stage by explicit path; commit only after I approve PNGs or say go; kill only PIDs you started; one GPU; Modal only on an explicit go with the dispatcher's estimate in line one; verify every report yourself; preview Blender changes from the saved blend.
 ```
