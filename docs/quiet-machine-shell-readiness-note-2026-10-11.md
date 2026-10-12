@@ -206,3 +206,27 @@ Requested by the torque session, relayed by the owner. This section is the Quiet
 5. Not authorized by this window: build, `verify-page-transition.mjs`, any GPU/server work, push, deploy. Those stay with the owner's separate coordination (section 11, item 1).
 
 **Not decided here.** The window has no clock; it is open until step 4. If the owner prefers a full ownership transfer of the three shared files to the torque session, that supersedes terms 2 and 3 and needs the owner's say in chat, not a note.
+
+## 16. Coordination window closed, merge deferred (2026-10-12)
+
+Closing record for section 15. Quiet Machine read the torque commit read-only from `quiet-machine/integration`; it did not merge it and did not re-run the torque session's tests or browser cases.
+
+**Reviewed**
+
+- `69ac760b` on `torque-wrench/rebuild` (parent `8945fa95`, local, unpushed). 22 files; the `src/shared` and entry changes are exactly the section 10 recipe:
+  - `pages.ts`: torque row `reserved: false`, `href: '/torque-wrench/'`, `htmlEntry: 'torque-wrench/index.html'`; `fadeIn: true` and `private: true` kept.
+  - `pages.test.ts` row pin and `pageTopology.test.ts` entry list updated, nothing else.
+  - `torque-wrench/index.html`: shell block with the fade sub-block, `noindex, nofollow` robots meta, module entry `/src/torque-wrench-main.tsx`.
+  - Every other file in the commit is torque-owned (`src/scene/torque-wrench`, torque store, boundary script, page entry).
+- `fd43759f` after it is docs and evidence only (no source or shared files).
+- Reported by the torque session, not re-run here: 240 shared tests, 20 page-local tests, typecheck, boundary check, scratch build, 14 browser cases / 396 assertions with zero canvas mounts and zero CAD requests. Evidence: `jgun-torque-wrench/project/work/evidence/torque-wrench-rebuild/05-stage1-integration/stage1-closure.md`.
+
+**Window terms**: 1 to 3 met (one commit in the torque worktree; no Quiet Machine edit to the four files). Term 4 is closed here without the merge, by owner decision.
+
+**Merge deferred.** `69ac760b` is not merged into `quiet-machine/integration`. Reasons: torque Stage 1 is a zero-Canvas placeholder with G0 to G9 still open, and merging would add 22 torque files and a third build input to a branch held at "torque page untouched" (U.1 allowlist, U.4 compare script and the transition verifier are written for two pages and are unchecked against three). The merge happens at the integration point that lands both tracks, not into this branch.
+
+**Standing consequences**
+
+1. The registry differs between the branches: the torque row is active on torque and inactive here. The three shared files are edited only through a named window; a later window starts from the torque copy of `pages.ts`, not this branch's, or the activation is reverted.
+2. `src/shared/PageNav.tsx` also differs: QM7 (`1f92aa3a`, numbered nav, current page as text) landed here after the torque merge and is not on the torque branch. The torque page runs the older nav until `1f92aa3a` is merged into it; do that before torque Stage 2 work that touches navigation.
+3. Reported, unverified here: `canonical` and `og:url` in `torque-wrench/index.html` point at the public `studiomark.dev/torque-wrench/` on a private page. `noindex` covers search; link-preview scrapers would still show it.
