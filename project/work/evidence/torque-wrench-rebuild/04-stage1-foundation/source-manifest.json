@@ -1,0 +1,78 @@
+{
+  "head": "8945fa95cc70b74bdcc9da27cc0573c3d1157da4",
+  "branch": "torque-wrench/rebuild",
+  "files": [
+    {
+      "path": "scripts/check-torque-stage1-boundary.mjs",
+      "sha256": "93706e10425fe4f694c564773762d0dfa3eb0b48e18615f71aeda565a3654d9c"
+    },
+    {
+      "path": "src/scene/torque-wrench/Poster.tsx",
+      "sha256": "135442374504ffee4f8c4a85997553856f20587179f22af88b9579a75b3ba1bc"
+    },
+    {
+      "path": "src/scene/torque-wrench/Scene.tsx",
+      "sha256": "c92bce05d13377934037c7f8c4dd0baa1b3581d9988b6a2e04927b9df5faa9a8"
+    },
+    {
+      "path": "src/scene/torque-wrench/SceneBoundary.tsx",
+      "sha256": "fb69f939a02fa3a78b981f769693a3ab22a3ed95408e69af661e86706a0cba57"
+    },
+    {
+      "path": "src/scene/torque-wrench/Story.tsx",
+      "sha256": "58d7bc2d5946275c2f053bec0cf7d10f058774a4a767714cd3c345f8987318f7"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.test.tsx",
+      "sha256": "a2d8b5b5d78be801afb0a0b4d13a669b216ae310c0b8d3445b17a238f857971c"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.tsx",
+      "sha256": "b1cecf6fa5e279f2e6f3f811ecfd196dd5a87c8d3a68d6d3f934e889e9ab21c0"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.test.ts",
+      "sha256": "7e2d701c60c8adea047dd397a3f08890754fadbca29e54963cafb7fed2b5c892"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.ts",
+      "sha256": "744838a25040ac85b108c37c8e5e01f4265f850415c8cf3c9458abd4dbc95828"
+    },
+    {
+      "path": "src/scene/torque-wrench/posterMap.ts",
+      "sha256": "02c71118579c614db06dac061d3f85aec3109f5cc4669076fd027fc40dd14e09"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.test.ts",
+      "sha256": "ac1d868be31fb2a2889106fd45c2106c3c146435bcae44e8082e80d7358726be"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.ts",
+      "sha256": "6277138b33231d8f73b20fd11b3d699ee838c998f030def14597e4de3d24f3f9"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.test.ts",
+      "sha256": "d90abf30f7ab53ffd05aff8f204625b74e85eeba98b4a47693a358752b7ea8cf"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.ts",
+      "sha256": "577bc33f0052b194beb6099272e538425755b9fc09a90c399cc962179f041183"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-wrench.css",
+      "sha256": "6e76522cd7aec0c595f385890a84053d38d704405b9e51d64fdf31c56d19d08d"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.test.ts",
+      "sha256": "210ea09d2367ef9d995051aad80c6861ce80a7aefa0edcb112331891adc88e43"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.ts",
+      "sha256": "b260832796c80315a2f46dfc07ed63cfb85c494e76a56cf403347f0592ca6812"
+    },
+    {
+      "path": "src/torque-wrench-main.tsx",
+      "sha256": "ba571878dc148f35f6bafc23c02b5f287b963b16fbc9c9a6322ebaa664a9647b"
+    }
+  ]
+}

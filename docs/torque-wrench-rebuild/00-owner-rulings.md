@@ -1,5 +1,15 @@
 # Torque wrench rebuild — owner rulings
 
+## Opening continuation clarification — 2026-10-10
+
+Owner clarified the causal sequence: the model pushes intact paper upward, shatters it into shards and rises into the air. In its wake, both the drawing paper and underlying wooden desktop give way to a cavernous pit resembling steep mountain cliffs, with near-vertical fractured walls, no visible floor/bottom, and intermittent blue lightning-like bursts racing through selected wall cracks. The cavern is revealed by this passage, not by a separate pre-emergence preview.
+
+Owner recognized September 27 `camera-pressure-2026-09-27/first-rake/` captures as the remembered angled camera treatment, then clarified that shattering and improved bulging came later. October 1 `paper-breakthrough-2026-10-01/verified-capture/desktop/` captures show the physical shatter. October 2 `portal-correction-2026-10-02/production-capture/desktop/` and its handoff document the improved model-driven pressure/rupture. Owner said the shatter-era result is closer than current output and the best found this session; the precise October 2 baseline remains a recovery candidate, not confirmed visual acceptance.
+
+Agreed direction: selectively recover camera/pressure/rupture/emergence behavior into the current rebuild, preserving approved handwriting and other goals. Apply the pit reference's light-blue branching electrical character to all three stages: profile trace, interior enclosed-profile fracture network defining shards, and exposed pit fissures. Preserve the existing accelerating burst/hold rhythm.
+
+Owner requested updating the handoff with this work outline, explicitly preserving other goals such as the wrench's own page. `/torque-wrench/` remains the private replacement created during implementation after formal design/structure/planning and shared-shell readiness; live cutover/archive follows acceptance and authorized publication. No date is scheduled. Existing JGUN content, completed cutter bullet time, extensible beat timeline, unlocked scroll distance and deferred additions remain unchanged. This request authorizes documentation; no implementation or publication approval is inferred. Detailed outline and image paths are in the updated temporary handoff linked from `08-next-session-handoff.md`.
+
 Recorded 2026-10-09 (America/New_York). Source: owner's kickoff message; the supplied handoff and owner notes carry 2026-10-10 labels. These are rulings, not an implementation plan. Append subsequent rulings immediately and distinguish proposed defaults from accepted answers.
 
 ## Workspace and process
@@ -68,7 +78,7 @@ These are owner requirements and provisional tuning targets, not verified measur
 
 - Questions: Q1–Q3 and Q5 answered; Q4 replaced by the owner motion standard. Questions phase approved to advance.
 - Research: approved on 2026-10-10 (America/New_York); in progress.
-- Design, structure, plan and implementation: not started or approved.
+- Design: accepted on 2026-10-11; complete. Structure: accepted on 2026-10-11; complete. Plan: approved on 2026-10-11; in progress. Implementation remains not started or approved.
 - GPU/build/preview release: explicitly confirmed by owner on 2026-10-10.
 - Accepted choices and the revisable motion standard are reflected in `01-questions.md`. Stop after research for owner approval before design.
 
@@ -93,3 +103,51 @@ Save the continuation brief and skill guidance; do not infer design approval fro
 Owner: "shut down any ports this session. also stop all ports this session was using to free up GPU. then run wrap-session."
 
 The session's port set was 5199 (dev) and 4173 (preview). Fresh checks found both free and no matching worktree research/preview processes, so no further process termination was necessary. Other sessions' services were not stopped. The canonical wrap procedure was read and applied: CLAUDE.md left unchanged because findings are already documented; local skill-debt ledger absent; a short memory update was submitted through Codex's permitted ad-hoc note path rather than editing its memory index. Existing handoff was refreshed. Scoped wrap checkpoint covers this rulings file and `08-next-session-handoff.md` only; remaining research docs/evidence are deliberately left uncommitted. No push. Design approval remains pending.
+
+## Owner design approval — 2026-10-10
+
+Owner clarified that the earlier “no” response was intended to reject permanently locking the design in the handoff, not to reject entering the design phase: “I approve moving on to design.” The owner also noted that later additions such as bullet time and other mini animations remain expected. Design may proceed, but it must stay extensible and must not treat the first design artifact as a permanent lock. Structure, planning and implementation still require separate approvals.
+
+## Owner poster-rendering direction — 2026-10-10
+
+Owner requested that poster assets be produced from high-quality rendering rather than stills captured from the runtime canvas. This applies to reduced-motion and fallback poster art; it does not replace the separate unaltered runtime PNG review path for live visual effects.
+
+## Owner-supplied Oryzo teardown — 2026-10-10
+
+Owner supplied `C:/vaults/markimus-SecondBrain/04-Projects/Portfolio-Site/oryzo-lusion-teardown.md` as completed Oryzo/Lusion motion research. Its findings are design input and teardown-derived candidates for later validation; supplying the document does not by itself constitute motion acceptance or authorization for structure, planning, or implementation.
+
+## Owner background-layer concern — 2026-10-11
+
+Owner noted that the subtle, dynamic, layered background is part of the total Oryzo experience. The torque-wrench design and structure must treat that background system explicitly rather than leaving it implied by post-processing or pointer parallax.
+
+## Owner design acceptance and structure approval — 2026-10-11
+
+Owner accepted the design artifact and approved continuation into the structure phase: “i approve continue.” Structure may proceed. Planning and implementation remain separately gated.
+
+## Owner plan approval — 2026-10-11
+
+Owner approved the planning phase: “approve plan’.” Planning may proceed. Implementation remains separately gated and blocked until the plan is accepted and the shared-shell dependency is ready.
+
+## Owner plan acceptance and implementation authorization — 2026-10-11
+
+Owner replied “yes” to: “Do you accept this plan and authorize implementation, beginning with Stage 0 and keeping product work gated on shared-shell readiness?” This accepts `13-implementation-plan.md` and authorizes implementation in its ordered stages. Stage 0 may proceed now; product implementation remains gated on demonstrated shared HTML/fade/navigation/poster shell readiness.
+
+This ruling supersedes earlier pending-plan/implementation status. It does not establish shell readiness, approve numerical performance budgets, reserve shared GPU/build/preview resources, or authorize commit, push, PR, deployment, publication, cutover, or archival. Preserve the private page, existing live page, all verification gates, and protected worktree boundaries.
+
+## Owner scoped shell integration authorization — 2026-10-11
+
+Owner explicitly authorized ONE local merge of `quiet-machine/integration` at `9edfa552`, only if no uncommitted file would be touched and no conflict occurred, followed by `npx vitest run src/shared` and `npx tsc --noEmit`. No stash/reset/clean/switch, shared-source fixes, private-row activation, builds, browser, server, or GPU work. The V16 materials history was explicitly acknowledged as incoming, with no edits to those files.
+
+The guarded merge succeeded as `92bafba51e66a3d0cc9ca6475e61bd2ea3ad1542`; all 90 pre-merge dirty/untracked file hashes were unchanged immediately afterward. Local shared tests passed 8 files / 233 tests; tsc exited 0 with zero diagnostics. Fresh runtime readiness and numerical budgets/verification matrix remain separately open and must not start under this scoped instruction. No further commit, push, deployment, publication, cutover, or archival authorization is inferred.
+
+## Owner Stage 0 completion instruction — 2026-10-11
+
+Owner instructed: “Finish Stage 0. Prepare the proposed verification matrix and numerical budgets for review, coordinate local resources, and complete the permitted readiness checks. Preserve dirty work and protected-checkout/shared-shell/V16 boundaries.” This authorizes the bounded proposal, resource coordination and functional readiness run, superseding the earlier record-only/no-readiness-run restriction for this work. It does not approve the proposed numerical budgets or authorize private-entry/product implementation under this instruction, shared-shell/V16 edits, protected-checkout access, Git mutations or publication. Existing ordered implementation authority remains recorded separately.
+
+The [local readiness record](../../project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/local-20261011-01a12c92/README.md) records passed shared tests, tsc, scratch production build and 7/7 transitions at each of two viewports on `8945fa95`. The [matrix/budget proposal](18-stage0-verification-contract-proposal.md) is prepared for owner review; approval is still pending. No performance or private torque runtime acceptance follows from the shell run.
+
+## Owner verification-contract approval and handoff request — 2026-10-11
+
+Owner replied “I approve. The handoff for next session and the prompt for me to paste.” in response to the request to approve document 18's matrix and numerical limits to close Stage 0. This approves the verification contract in `18-stage0-verification-contract-proposal.md` §§2–6 and closes S0.7 and Stage 0, with the delivered-shell readiness record already passed. S0.6 remains a continuing read-at-domain-entry obligation, not an unfinished readiness gate.
+
+Next session may proceed to Stage 1 under the existing accepted plan's ordered implementation authority. This approval is not a measured budget pass, private-page/runtime/effects/visual acceptance, complete G0–G9 closure, a permanent resource reservation, unilateral shared-shell/V16 change authority, Git delivery/publication or cross-chat messaging authority. Preserve every recorded boundary. Handoff and ready-to-paste prompt are saved as linked from `14-next-session-prompt.md`; this closeout starts no product implementation.

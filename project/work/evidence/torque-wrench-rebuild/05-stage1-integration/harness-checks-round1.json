@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "executor": "parent",
+  "node": "C:/nvm4w/nodejs/node.exe",
+  "harnessSha256": "8e49a58489f7161dd282ed05303c71bf0bebe40f85896aa01fa42528933f6a51",
+  "commands": [
+    {"args":["--check","scripts/verify-torque-static.mjs"],"exitCode":0,"diagnostics":""},
+    {"args":["scripts/verify-torque-static.mjs","--help"],"exitCode":0,"result":"usage and five-case roster printed"},
+    {"args":["scripts/verify-torque-static.mjs","--preflight"],"exitCode":10,"result":"Blocked on absent real HTML, but also falsely reports Playwright package unavailable: ENOENT node_modules/package.json"},
+    {"args":["scripts/verify-torque-static.mjs","--bogus"],"exitCode":2,"result":"runtime mode requires --url; unknown option not explicitly validated"},
+    {"args":["scripts/verify-torque-static.mjs","--url=http://localhost:4193/torque-wrench/","--viewport=Z"],"exitCode":10,"expectedUsageExit":2},
+    {"args":["scripts/verify-torque-static.mjs","--url=http://localhost:4193/torque-wrench/","--only=none"],"exitCode":10,"expectedUsageExit":2},
+    {"args":["scripts/verify-torque-static.mjs","--url=http://localhost:4193/torque-wrench/","--out=C:/tmp/not-owned.json"],"exitCode":2,"result":"Output outside owned runtime directory rejected; no output written there"}
+  ],
+  "browserLaunched": false,
+  "runtimeAccepted": false,
+  "disposition": "Source/CLI fixes requested from sole harness writer; independent reviewer Harness Round 1 in progress. This records the superseded initial artifact, not final validation.",
+  "sourceFindingsSentToWriter": [
+    "Correct Playwright package metadata resolution",
+    "Support exact source HTML in dev and manifest/asset identity in real built HTML",
+    "Validate all arguments before activation preflight and normalize base URL",
+    "Cancel and close timed-out case context; clear watchdog before continuing",
+    "Use DOM readiness while a lazy request is intentionally held",
+    "Do not infer hardware renderer from launch description",
+    "Include lite and mid-session reduced-motion preservation cases"
+  ]
+}

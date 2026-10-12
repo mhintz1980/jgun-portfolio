@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-12",
+  "executor": "parent",
+  "workspace": "C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench",
+  "nodeExecutable": "C:/nvm4w/nodejs/node.exe",
+  "script": "scripts/verify-torque-static.mjs",
+  "scriptSha256": "1d95755dc725c48705b535586854eab2ed2c300a956d54ce5a0f6ed00ee5de9f",
+  "preparationSha256AtCliChecks": "2c28267a2c706f32683e63b72bcdf0de4f640529524baa3859a9e7aabdeee151",
+  "preparationFinalSha256": "c667831ac20868304d18e0cef33a106d04112d342bb98b6ae51c44033603f62a",
+  "preparationRevision": "Documentation-only consolidation after CLI checks; script unchanged. Final doc independently verified by Session B within held Round 2.",
+  "cliResults": [
+    {"name":"syntax","args":["--check","scripts/verify-torque-static.mjs"],"expectedExit":0,"actualExit":0},
+    {"name":"help","args":["--help"],"expectedExit":0,"actualExit":0},
+    {"name":"preflight","args":["--preflight"],"expectedExit":10,"actualExit":10},
+    {"name":"invalid-viewport","args":["--url=http://localhost:4193/torque-wrench/","--viewport=X"],"expectedExit":2,"actualExit":2},
+    {"name":"invalid-only","args":["--url=http://localhost:4193/torque-wrench/","--only=bogus"],"expectedExit":2,"actualExit":2},
+    {"name":"external-url","args":["--url=https://example.com/torque-wrench/"],"expectedExit":2,"actualExit":2},
+    {"name":"unknown-flag","args":["--preflight","--bogus"],"expectedExit":2,"actualExit":2},
+    {"name":"flag-value","args":["--preflight=true"],"expectedExit":2,"actualExit":2},
+    {"name":"missing-url-value","args":["--url"],"expectedExit":2,"actualExit":2},
+    {"name":"empty-url","args":["--url="],"expectedExit":2,"actualExit":2},
+    {"name":"preflight-runtime-conflict","args":["--preflight","--url=http://localhost:4193/torque-wrench/"],"expectedExit":2,"actualExit":2},
+    {"name":"empty-roster","args":["--url=http://localhost:4193/torque-wrench/","--viewport=D","--only=N-lite"],"expectedExit":2,"actualExit":2},
+    {"name":"invalid-build-directory","args":["--url=http://localhost:4193/torque-wrench/","--build-dir=dist"],"expectedExit":2,"actualExit":2},
+    {"name":"output-outside-ownership","args":["--preflight","--out=README.md"],"expectedExit":2,"actualExit":2},
+    {"name":"output-is-directory","args":["--preflight","--out=project/work/evidence/torque-wrench-rebuild/05-stage1-integration/runtime"],"expectedExit":2,"actualExit":2},
+    {"name":"wrong-url-path","args":["--url=http://localhost:4193/"],"expectedExit":2,"actualExit":2},
+    {"name":"runtime-blocked","args":["--url=http://localhost:4193/torque-wrench/"],"expectedExit":10,"actualExit":10}
+  ],
+  "cliArgConvention": "Except syntax, prepend scripts/verify-torque-static.mjs to each args array. Commands were spawned directly with separate exit capture and 10-second timeout each.",
+  "preflightOutput": [
+    "PASS  playwright package resolvable - version 1.56.1",
+    "FAIL  torque-wrench/index.html exists (activation applied) - BLOCKED: activation is owner-coordinated and not applied in this worktree yet",
+    "PREFLIGHT: BLOCKED - activation not applied (exit 10; nothing ran)"
+  ],
+  "allExpectedExitsMatched": true,
+  "inMemoryMocks": {
+    "method": "Extracted existing pure parser and guarded-case functions into Node vm contexts. Synthetic strings and fake context objects only; no files, server, activation or browser created.",
+    "parserCases": ["source", "built-crossorigin", "quote-order", "dev-client-first", "wrong-entry", "ambiguous"],
+    "parserPassed": 6,
+    "lifecycleCases": [
+      {"kind":"success","expected":"PASS","actual":"PASS","contextsClosed":1,"caseRuns":1},
+      {"kind":"exception","expected":"FAIL","actual":"FAIL","contextsClosed":1,"caseRuns":1},
+      {"kind":"timeout","expected":"FAIL","actual":"FAIL","contextsClosed":2,"caseRuns":1},
+      {"kind":"late-context","expected":"FAIL","actual":"FAIL","contextsClosed":1,"caseRuns":0}
+    ],
+    "allPassed": true,
+    "limits": "These bounded mocks do not validate actual Playwright cancellation, DOM behavior, build graph, route interception or browser acceptance. The timeout mock records two idempotent close calls."
+  },
+  "browserExecuted": false,
+  "buildExecuted": false,
+  "rendererAccepted": false,
+  "gatesClosed": []
+}

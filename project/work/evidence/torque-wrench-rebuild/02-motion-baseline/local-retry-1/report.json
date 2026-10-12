@@ -1,0 +1,2419 @@
+{
+  "started": "2026-10-10T05:20:41.108Z",
+  "url": "http://localhost:5199/?qualityLock=1",
+  "mode": "local locked diagnostic",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "dpr": 1,
+  "launch": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "process": {
+    "node": "v22.19.0",
+    "versions": {
+      "node": "22.19.0",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.0",
+      "ares": "1.34.5",
+      "brotli": "1.1.0",
+      "cjs_module_lexer": "2.1.0",
+      "cldr": "47.0",
+      "icu": "77.1",
+      "llhttp": "9.3.0",
+      "modules": "127",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "3.0.17",
+      "simdjson": "3.13.0",
+      "simdutf": "6.4.2",
+      "sqlite": "3.50.4",
+      "tz": "2025b",
+      "undici": "6.21.2",
+      "unicode": "16.0",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.21",
+      "v8": "12.4.254.21-node.29",
+      "zlib": "1.3.1-470d3a2",
+      "zstd": "1.5.7"
+    },
+    "platform": "win32",
+    "release": "10.0.26340",
+    "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     "
+  },
+  "git": {
+    "head": "666cbf23d490352dc549b4730d3e9d14e042a5a4",
+    "branch": "torque-wrench/rebuild",
+    "dirty": "?? docs/torque-wrench-rebuild/00-owner-rulings.md\n?? docs/torque-wrench-rebuild/01-questions.md\n?? docs/torque-wrench-rebuild/02-research-procedure.md\n?? docs/torque-wrench-rebuild/03-current-motion-inventory.md\n?? docs/torque-wrench-rebuild/04-tunnel-research-review.md\n?? docs/torque-wrench-rebuild/README.md\n?? docs/torque-wrench-rebuild/smooth-scrolling.md\n?? project/work/evidence/torque-wrench-rebuild/"
+  },
+  "harnessSha256": "ce323562c8b573cc167609e3d39a78553eb0a30593d123df56fc3a5b64c12806",
+  "errors": [],
+  "network": [
+    {
+      "at": "2026-10-10T05:20:42.822Z",
+      "url": "http://localhost:5199/?qualityLock=1",
+      "type": "document",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:42.880Z",
+      "url": "http://localhost:5199/@react-refresh",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:43.538Z",
+      "url": "http://localhost:5199/@vite/client",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:43.838Z",
+      "url": "http://localhost:5199/node_modules/vite/dist/client/env.mjs",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:46.682Z",
+      "url": "http://localhost:5199/src/main.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.103Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.106Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/react.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.191Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/react-dom_client.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.213Z",
+      "url": "http://localhost:5199/src/App.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.223Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-PX6F3LHL.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.225Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-TAJOU4CS.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.255Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-TI2F7RXM.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.257Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-PAEJCA44.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.715Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-3RGHDBNU.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.802Z",
+      "url": "http://localhost:5199/src/components/Chapters.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.966Z",
+      "url": "http://localhost:5199/src/components/StationNav.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.968Z",
+      "url": "http://localhost:5199/src/components/StaticPoster.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.968Z",
+      "url": "http://localhost:5199/src/components/IntroTitles.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.983Z",
+      "url": "http://localhost:5199/src/components/ToleranceStations.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.985Z",
+      "url": "http://localhost:5199/src/components/TechnicalHUD.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:48.992Z",
+      "url": "http://localhost:5199/src/state/qualityStore.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.205Z",
+      "url": "http://localhost:5199/src/index.css",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.221Z",
+      "url": "http://localhost:5199/src/state/scrollStore.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.234Z",
+      "url": "http://localhost:5199/src/components/staticChapter.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.235Z",
+      "url": "http://localhost:5199/src/components/AuthorshipNotes.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.238Z",
+      "url": "http://localhost:5199/src/data/caseStudies.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.249Z",
+      "url": "http://localhost:5199/src/scene/drawing/scrollTracks.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.249Z",
+      "url": "http://localhost:5199/src/scene/drawing/introTimeline.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.251Z",
+      "url": "http://localhost:5199/src/scene/stations/stationData.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.252Z",
+      "url": "http://localhost:5199/src/scene/stations/stationStore.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.255Z",
+      "url": "http://localhost:5199/src/components/GdtSymbols.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.255Z",
+      "url": "http://localhost:5199/src/state/inspectionStore.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.286Z",
+      "url": "http://localhost:5199/src/scene/drawing/electricalScore.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.287Z",
+      "url": "http://localhost:5199/src/scene/inspection/session.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.288Z",
+      "url": "http://localhost:5199/src/scene/inspection/story.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.293Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/ownerAnnotations.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.309Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.313Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.314Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/ink.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.319Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/handwriting.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.331Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/paperFlex.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.406Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/breakthrough.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.407Z",
+      "url": "http://localhost:5199/src/scene/drawing/drawingGeometry.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.418Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_utils_BufferGeometryUtils__js.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.418Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/referenceHandGlyphs.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.419Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-A4UTKPOM.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.444Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-CBILGRLZ.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.675Z",
+      "url": "http://localhost:5199/src/scene/SceneCanvas.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.986Z",
+      "url": "http://localhost:5199/src/scene/ScrollRig.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:49.990Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_fiber.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.006Z",
+      "url": "http://localhost:5199/src/components/BootSequence.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.062Z",
+      "url": "http://localhost:5199/src/components/RingInspection.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.080Z",
+      "url": "http://localhost:5199/favicon.svg",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.081Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_environments_RoomEnvironment__js.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.083Z",
+      "url": "http://localhost:5199/src/scene/inspection/InspectionScene.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.086Z",
+      "url": "http://localhost:5199/src/scene/CameraRig.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.089Z",
+      "url": "http://localhost:5199/fonts/BarlowCondensed-SemiBold.ttf",
+      "type": "font",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.107Z",
+      "url": "http://localhost:5199/src/scene/SpatialRig.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.108Z",
+      "url": "http://localhost:5199/src/scene/backgrounds/BackdropRig.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.108Z",
+      "url": "http://localhost:5199/src/scene/stations/StationDriver.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.119Z",
+      "url": "http://localhost:5199/src/scene/SpatialWorld.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.124Z",
+      "url": "http://localhost:5199/src/scene/TorqueWrenchHero.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.130Z",
+      "url": "http://localhost:5199/src/scene/PostProcessingComposer.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.132Z",
+      "url": "http://localhost:5199/src/scene/stages/stageWindows.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.133Z",
+      "url": "http://localhost:5199/src/scene/drawing/extractionPose.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.494Z",
+      "url": "http://localhost:5199/src/scene/inspection/compileLease.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.495Z",
+      "url": "http://localhost:5199/src/scene/inspection/renderLease.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.496Z",
+      "url": "http://localhost:5199/src/scene/jgunVisualGates.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.506Z",
+      "url": "http://localhost:5199/src/scene/scrollCommit.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.508Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/lenis.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.511Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/gsap_ScrollTrigger.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.514Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/gsap.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.543Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-S4M6HJJK.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.736Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/react-dom.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.737Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-OQQYGHJS.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.740Z",
+      "url": "http://localhost:5199/src/components/ShaftStoryLayer.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.742Z",
+      "url": "http://localhost:5199/src/components/RingInspection.css",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.743Z",
+      "url": "http://localhost:5199/src/components/StaticShaftStory.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.780Z",
+      "url": "http://localhost:5199/src/scene/inspection/narrativeFade.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.784Z",
+      "url": "http://localhost:5199/src/scene/backgrounds/backdropConfig.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.790Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheetCamera.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.791Z",
+      "url": "http://localhost:5199/src/scene/inspection/ringRuntime.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.792Z",
+      "url": "http://localhost:5199/src/scene/inspection/timeline.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.793Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/shaftRuntime.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.825Z",
+      "url": "http://localhost:5199/src/scene/backgrounds/layers/BackdropGradientLayer.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.831Z",
+      "url": "http://localhost:5199/src/scene/backgrounds/layers/BackdropGridLayer.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.842Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/troika-three-text.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.845Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/sheetText.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.845Z",
+      "url": "http://localhost:5199/src/scene/stages/AcousticBaffleField.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.847Z",
+      "url": "http://localhost:5199/src/scene/stages/M249Stage.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.850Z",
+      "url": "http://localhost:5199/src/scene/stages/Station2_AcousticEnclosure.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.851Z",
+      "url": "http://localhost:5199/src/scene/stages/AirflowField.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.854Z",
+      "url": "http://localhost:5199/src/shaders/CadTransitionShader.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.856Z",
+      "url": "http://localhost:5199/src/scene/rig/nodeRoles.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.867Z",
+      "url": "http://localhost:5199/src/scene/Hotspots.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.873Z",
+      "url": "http://localhost:5199/src/scene/drawing/DrawingLinework.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.875Z",
+      "url": "http://localhost:5199/src/scene/drawing/DrawingProofRenderer.tsx",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:50.910Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_drei.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.311Z",
+      "url": "http://localhost:5199/src/scene/rig/materials.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.312Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/postprocessing.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.313Z",
+      "url": "http://localhost:5199/src/scene/sectionRenderPass.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.313Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/fosPresentation.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.314Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.315Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_postprocessing.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.315Z",
+      "url": "http://localhost:5199/src/components/ShaftStoryLayer.css",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.318Z",
+      "url": "http://localhost:5199/src/scene/inspection/ringGeometry.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.318Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_loaders_GLTFLoader__js.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.319Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/schedule.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.320Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/normalRepair.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.320Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/frame.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.321Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_loaders_DRACOLoader__js.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.322Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/camera.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.322Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/progression.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.323Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/kinematics.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.323Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/tools.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.324Z",
+      "url": "http://localhost:5199/src/scene/stages/airflowRoute.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.324Z",
+      "url": "http://localhost:5199/src/scene/stages/recolorAllowList.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.325Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_addons_utils_BufferGeometryUtils__js.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.326Z",
+      "url": "http://localhost:5199/src/scene/rig/lcdCluster.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.326Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/profile.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.327Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/registration.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.327Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/lightning.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.328Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/drawingCache.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.328Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/composeSheet.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.329Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/portal.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.329Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/breakthroughGeometry.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.330Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-UAKCBK65.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.330Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-JPR2LYHX.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.389Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-6EQKPCCN.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.390Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/toolSpec.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.391Z",
+      "url": "http://localhost:5199/src/scene/inspection/shaft/cutterOutline.json?import",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.391Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/drawingCodec.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.391Z",
+      "url": "http://localhost:5199/src/scene/inspection/holeApertures.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.392Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/portalGeometry.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.393Z",
+      "url": "http://localhost:5199/src/scene/drawing/sheet/edgeExtract.ts",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.393Z",
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-RIMNUHFQ.js?v=b708c55e",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.399Z",
+      "url": "http://localhost:5199/models/m249-transformed.glb",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.399Z",
+      "url": "http://localhost:5199/models/Default.glb",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.403Z",
+      "url": "http://localhost:5199/draco/draco_wasm_wrapper.js",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.404Z",
+      "url": "http://localhost:5199/draco/draco_decoder.wasm",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.404Z",
+      "url": "blob:http://localhost:5199/eac7630a-5a97-48d7-8412-bb03a252785c",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.404Z",
+      "url": "blob:http://localhost:5199/d2c056a0-2083-451e-a3e1-82b51647894d",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.404Z",
+      "url": "blob:http://localhost:5199/2071576c-1764-4235-a7c9-bdc66eaa9072",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:51.617Z",
+      "url": "blob:http://localhost:5199/43f93d6c-6628-4ab0-a85a-00e973ba2b3f",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:53.863Z",
+      "url": "blob:http://localhost:5199/43f93d6c-6628-4ab0-a85a-00e973ba2b3f",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:53.863Z",
+      "url": "blob:http://localhost:5199/43f93d6c-6628-4ab0-a85a-00e973ba2b3f",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:53.864Z",
+      "url": "blob:http://localhost:5199/43f93d6c-6628-4ab0-a85a-00e973ba2b3f",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:53.912Z",
+      "url": "http://localhost:5199/models/msp-enclosure.glb",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.024Z",
+      "url": "http://localhost:5199/draco/draco_wasm_wrapper.js",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.025Z",
+      "url": "http://localhost:5199/draco/draco_decoder.wasm",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.519Z",
+      "url": "blob:http://localhost:5199/54f9a2ad-027c-491d-aa15-2fe6b1bec6bb",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.522Z",
+      "url": "blob:http://localhost:5199/54f9a2ad-027c-491d-aa15-2fe6b1bec6bb",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.525Z",
+      "url": "blob:http://localhost:5199/54f9a2ad-027c-491d-aa15-2fe6b1bec6bb",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:54.527Z",
+      "url": "blob:http://localhost:5199/54f9a2ad-027c-491d-aa15-2fe6b1bec6bb",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:57.632Z",
+      "url": "http://localhost:5199/drawing/jgun-sheet-v2.bin.gz",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.202Z",
+      "url": "http://localhost:5199/models/role-map.json",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.204Z",
+      "url": "http://localhost:5199/drawing/jgun-sheet-v2.bin.gz",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.205Z",
+      "url": "http://localhost:5199/models/role-map.json",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.539Z",
+      "url": "blob:http://localhost:5199/cfdc9daa-ad17-47ca-aaa9-28500cd081b5",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.585Z",
+      "url": "blob:http://localhost:5199/e288f9f4-974c-45b9-93a4-8d5fe60f3419",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.589Z",
+      "url": "blob:http://localhost:5199/e16d17df-4a42-4081-b94f-b316ff99ae59",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.590Z",
+      "url": "blob:http://localhost:5199/62276cad-38f3-4208-b695-eabb6af66589",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.608Z",
+      "url": "blob:http://localhost:5199/25f8fc0d-2518-45f5-8aff-7009ed5461d5",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.614Z",
+      "url": "blob:http://localhost:5199/8545842e-bf45-4500-9175-df0d79f6d283",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.626Z",
+      "url": "blob:http://localhost:5199/6f237ba2-effb-48f7-abd6-3011891523f3",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.628Z",
+      "url": "blob:http://localhost:5199/ac9a0656-6550-4469-8394-ceee732ea956",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.633Z",
+      "url": "blob:http://localhost:5199/9227e30a-5fb5-4614-84f2-d98ab49348a2",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.636Z",
+      "url": "blob:http://localhost:5199/bde8d078-6f54-42c1-9321-53b5895f51b1",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.638Z",
+      "url": "blob:http://localhost:5199/e076b29a-467c-4ac2-aedc-dc19b311bfc0",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.639Z",
+      "url": "blob:http://localhost:5199/341e4c80-b0d0-4335-9cbd-19b1469d205e",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:20:58.643Z",
+      "url": "blob:http://localhost:5199/ba9c367d-5a38-40f1-b187-e33dc93f684a",
+      "type": "other",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.062Z",
+      "url": "http://localhost:5199/fonts/BarlowCondensed-SemiBold.ttf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.085Z",
+      "url": "http://localhost:5199/fonts/BarlowCondensed-Medium.ttf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.098Z",
+      "url": "http://localhost:5199/fonts/AcFastReference.ttf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.175Z",
+      "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.203Z",
+      "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:21:02.235Z",
+      "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff",
+      "type": "xhr",
+      "status": 200
+    }
+  ],
+  "scriptEvidence": [
+    {
+      "url": "http://localhost:5199/@react-refresh",
+      "status": 200,
+      "markers": [],
+      "size": 111894
+    },
+    {
+      "url": "http://localhost:5199/@vite/client",
+      "status": 200,
+      "markers": [],
+      "size": 178940
+    },
+    {
+      "url": "http://localhost:5199/node_modules/vite/dist/client/env.mjs",
+      "status": 200,
+      "markers": [],
+      "size": 3478
+    },
+    {
+      "url": "http://localhost:5199/src/main.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 2291
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 12375
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/react.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 1024
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/react-dom_client.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 1946
+    },
+    {
+      "url": "http://localhost:5199/src/App.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 16786
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-PX6F3LHL.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 8336
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-TAJOU4CS.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 45564
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-TI2F7RXM.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 16214
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-PAEJCA44.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 11879
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-3RGHDBNU.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 993650
+    },
+    {
+      "url": "http://localhost:5199/src/components/Chapters.tsx",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR' }, void 0, false, {\n ",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "gsap",
+          "excerpt": "dren: 'BUILT WITH REACT 19 · R3F · GSAP · LENIS — THE SAME HANDS THAT HOLD .001\" TIR' }, void 0, fal",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 68195
+    },
+    {
+      "url": "http://localhost:5199/src/components/StationNav.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 9351
+    },
+    {
+      "url": "http://localhost:5199/src/components/StaticPoster.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 12846
+    },
+    {
+      "url": "http://localhost:5199/src/components/IntroTitles.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 22479
+    },
+    {
+      "url": "http://localhost:5199/src/components/ToleranceStations.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 67142
+    },
+    {
+      "url": "http://localhost:5199/src/components/TechnicalHUD.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 48504
+    },
+    {
+      "url": "http://localhost:5199/src/state/qualityStore.ts",
+      "status": 200,
+      "markers": [],
+      "size": 8750
+    },
+    {
+      "url": "http://localhost:5199/src/index.css",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "t-smoothing: antialiased;\\n}\\nhtml.lenis, html.lenis body {\\n  height: auto;\\n}\\n.lenis.lenis-smooth",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 54582
+    },
+    {
+      "url": "http://localhost:5199/src/state/scrollStore.ts",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "or(target.scrollProgress);\n  const lenis = window.__lenis;\n  if (lenis && typeof lenis.scrollTo === ",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 30447
+    },
+    {
+      "url": "http://localhost:5199/src/components/staticChapter.ts",
+      "status": 200,
+      "markers": [],
+      "size": 5872
+    },
+    {
+      "url": "http://localhost:5199/src/components/AuthorshipNotes.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 12040
+    },
+    {
+      "url": "http://localhost:5199/src/data/caseStudies.ts",
+      "status": 200,
+      "markers": [],
+      "size": 82112
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/scrollTracks.ts",
+      "status": 200,
+      "markers": [],
+      "size": 18304
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/introTimeline.ts",
+      "status": 200,
+      "markers": [],
+      "size": 42704
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stations/stationData.ts",
+      "status": 200,
+      "markers": [],
+      "size": 13302
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stations/stationStore.ts",
+      "status": 200,
+      "markers": [],
+      "size": 2967
+    },
+    {
+      "url": "http://localhost:5199/src/components/GdtSymbols.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 14352
+    },
+    {
+      "url": "http://localhost:5199/src/state/inspectionStore.ts",
+      "status": 200,
+      "markers": [],
+      "size": 35870
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/electricalScore.ts",
+      "status": 200,
+      "markers": [],
+      "size": 12394
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/session.ts",
+      "status": 200,
+      "markers": [],
+      "size": 8279
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/story.ts",
+      "status": 200,
+      "markers": [],
+      "size": 12622
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/ownerAnnotations.ts",
+      "status": 200,
+      "markers": [],
+      "size": 35634
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 66288
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/story.ts",
+      "status": 200,
+      "markers": [],
+      "size": 6745
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/ink.ts",
+      "status": 200,
+      "markers": [],
+      "size": 48793
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/handwriting.ts",
+      "status": 200,
+      "markers": [],
+      "size": 65708
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/paperFlex.ts",
+      "status": 200,
+      "markers": [],
+      "size": 20316
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/breakthrough.ts",
+      "status": 200,
+      "markers": [],
+      "size": 15968
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/drawingGeometry.ts",
+      "status": 200,
+      "markers": [],
+      "size": 55303
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_utils_BufferGeometryUtils__js.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 3374
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/referenceHandGlyphs.ts",
+      "status": 200,
+      "markers": [],
+      "size": 504710
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-A4UTKPOM.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 30460
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-CBILGRLZ.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 1689459
+    },
+    {
+      "url": "http://localhost:5199/src/scene/SceneCanvas.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 74976
+    },
+    {
+      "url": "http://localhost:5199/src/scene/ScrollRig.tsx",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "rollTrigger.js?v=b708c55e\";\nimport Lenis from \"/node_modules/.vite/deps/lenis.js?v=b708c55e\";\nimport",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "gsap",
+          "excerpt": "Import0_react[\"useEffect\"];\nimport gsap from \"/node_modules/.vite/deps/gsap.js?v=b708c55e\";\nimport {",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "ScrollTrigger",
+          "excerpt": "deps/gsap.js?v=b708c55e\";\nimport { ScrollTrigger } from \"/node_modules/.vite/deps/gsap_ScrollTrigger",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 13532
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_fiber.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 5799
+    },
+    {
+      "url": "http://localhost:5199/src/components/BootSequence.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 20624
+    },
+    {
+      "url": "http://localhost:5199/src/components/RingInspection.tsx",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "\"ring-inspection-open\");\n    const lenis = window.__lenis;\n    const wasStopped = lenis?.isStopped;\n",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 64083
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_environments_RoomEnvironment__js.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 4136
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/InspectionScene.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 36489
+    },
+    {
+      "url": "http://localhost:5199/src/scene/CameraRig.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 90805
+    },
+    {
+      "url": "http://localhost:5199/src/scene/SpatialRig.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 11376
+    },
+    {
+      "url": "http://localhost:5199/src/scene/backgrounds/BackdropRig.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 22153
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stations/StationDriver.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 36461
+    },
+    {
+      "url": "http://localhost:5199/src/scene/SpatialWorld.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 23048
+    },
+    {
+      "url": "http://localhost:5199/src/scene/TorqueWrenchHero.tsx",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "gsap",
+          "excerpt": "-three_drei.js?v=b708c55e\";\nimport gsap from \"/node_modules/.vite/deps/gsap.js?v=b708c55e\";\nimport {",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "ScrollTrigger",
+          "excerpt": "deps/gsap.js?v=b708c55e\";\nimport { ScrollTrigger } from \"/node_modules/.vite/deps/gsap_ScrollTrigger",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 66189
+    },
+    {
+      "url": "http://localhost:5199/src/scene/PostProcessingComposer.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 30180
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/stageWindows.ts",
+      "status": 200,
+      "markers": [],
+      "size": 8940
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/extractionPose.ts",
+      "status": 200,
+      "markers": [],
+      "size": 25077
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/compileLease.ts",
+      "status": 200,
+      "markers": [],
+      "size": 4080
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/renderLease.ts",
+      "status": 200,
+      "markers": [],
+      "size": 25762
+    },
+    {
+      "url": "http://localhost:5199/src/scene/jgunVisualGates.ts",
+      "status": 200,
+      "markers": [],
+      "size": 4689
+    },
+    {
+      "url": "http://localhost:5199/src/scene/scrollCommit.ts",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "xport function installScrollCommit(lenis) {\n  const start = rawScrollFor(DRAWING_INTRO_WINDOW.releas",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 10451
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/lenis.js?v=b708c55e",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "L.js?v=b708c55e\";\n\n// node_modules/lenis/dist/lenis.mjs\nvar version = \"1.3.26\";\nfunction clamp(min, ",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 33315
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/gsap_ScrollTrigger.js?v=b708c55e",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "gsap",
+          "excerpt": "L.js?v=b708c55e\";\n\n// node_modules/gsap/Observer.js\nfunction _defineProperties(target, props) {\n  fo",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "ScrollTrigger",
+          "excerpt": "ar _isTouch;\nvar _pointerType;\nvar ScrollTrigger;\nvar _root;\nvar _normalizer;\nvar _eventTypes;\nvar _",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 105798
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/gsap.js?v=b708c55e",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "gsap",
+          "excerpt": "L.js?v=b708c55e\";\n\n// node_modules/gsap/gsap-core.js\nfunction _assertThisInitialized(self) {\n  if (s",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "ScrollTrigger",
+          "excerpt": "Time);\n  return timeline2;\n};\nvar _scrollTrigger = function _scrollTrigger2(animation, trigger) {\n  ",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 169273
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-S4M6HJJK.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 459438
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/react-dom.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 1352
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-OQQYGHJS.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 12731
+    },
+    {
+      "url": "http://localhost:5199/src/components/ShaftStoryLayer.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 35907
+    },
+    {
+      "url": "http://localhost:5199/src/components/RingInspection.css",
+      "status": 200,
+      "markers": [],
+      "size": 4875
+    },
+    {
+      "url": "http://localhost:5199/src/components/StaticShaftStory.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 31412
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/narrativeFade.ts",
+      "status": 200,
+      "markers": [],
+      "size": 6777
+    },
+    {
+      "url": "http://localhost:5199/src/scene/backgrounds/backdropConfig.ts",
+      "status": 200,
+      "markers": [],
+      "size": 4458
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheetCamera.ts",
+      "status": 200,
+      "markers": [],
+      "size": 24543
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/ringRuntime.ts",
+      "status": 200,
+      "markers": [],
+      "size": 50914
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/timeline.ts",
+      "status": 200,
+      "markers": [],
+      "size": 25353
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/shaftRuntime.ts",
+      "status": 200,
+      "markers": [],
+      "size": 91596
+    },
+    {
+      "url": "http://localhost:5199/src/scene/backgrounds/layers/BackdropGradientLayer.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 17447
+    },
+    {
+      "url": "http://localhost:5199/src/scene/backgrounds/layers/BackdropGridLayer.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 19153
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/troika-three-text.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 3052
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/sheetText.ts",
+      "status": 200,
+      "markers": [],
+      "size": 28416
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/AcousticBaffleField.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 33014
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/M249Stage.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 22981
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/Station2_AcousticEnclosure.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 52940
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/AirflowField.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 61674
+    },
+    {
+      "url": "http://localhost:5199/src/shaders/CadTransitionShader.ts",
+      "status": 200,
+      "markers": [],
+      "size": 14035
+    },
+    {
+      "url": "http://localhost:5199/src/scene/rig/nodeRoles.ts",
+      "status": 200,
+      "markers": [],
+      "size": 68662
+    },
+    {
+      "url": "http://localhost:5199/src/scene/Hotspots.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 79820
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/DrawingLinework.tsx",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "Lenis",
+          "excerpt": "x * rawScrollFor(p);\n        const lenis = window.__lenis;\n        lenis?.scrollTo?.(raw, { immediat",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        },
+        {
+          "marker": "gsap",
+          "excerpt": "the damped camera and the scrubbed GSAP timeline are allowed to\n       * settle before a checkpoint ",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 145054
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/DrawingProofRenderer.tsx",
+      "status": 200,
+      "markers": [],
+      "size": 29919
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_drei.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 3467902
+    },
+    {
+      "url": "http://localhost:5199/src/scene/rig/materials.ts",
+      "status": 200,
+      "markers": [],
+      "size": 48816
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/postprocessing.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 19512
+    },
+    {
+      "url": "http://localhost:5199/src/scene/sectionRenderPass.ts",
+      "status": 200,
+      "markers": [],
+      "size": 1125
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/fosPresentation.ts",
+      "status": 200,
+      "markers": [],
+      "size": 14134
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/script.ts",
+      "status": 200,
+      "markers": [],
+      "size": 18789
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/@react-three_postprocessing.js?v=b708c55e",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "gsap",
+          "excerpt": "kI8NKZ5AZDzjJnJD4VVPwVR/fNKHpzgM8QQGSapVEbQCuiSw0xjHphp0eDxZeames1Mp9WwQ2puhmhj5ql1Lv0eYJEpN8RFa01yf",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 258622
+    },
+    {
+      "url": "http://localhost:5199/src/components/ShaftStoryLayer.css",
+      "status": 200,
+      "markers": [],
+      "size": 9276
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/ringGeometry.ts",
+      "status": 200,
+      "markers": [],
+      "size": 28353
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_loaders_GLTFLoader__js.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 101070
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/schedule.ts",
+      "status": 200,
+      "markers": [],
+      "size": 9978
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/normalRepair.ts",
+      "status": 200,
+      "markers": [],
+      "size": 20506
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/frame.ts",
+      "status": 200,
+      "markers": [],
+      "size": 9122
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_examples_jsm_loaders_DRACOLoader__js.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 16590
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/camera.ts",
+      "status": 200,
+      "markers": [],
+      "size": 32729
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/progression.ts",
+      "status": 200,
+      "markers": [],
+      "size": 42490
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/kinematics.ts",
+      "status": 200,
+      "markers": [],
+      "size": 61657
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/tools.ts",
+      "status": 200,
+      "markers": [],
+      "size": 31567
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/airflowRoute.ts",
+      "status": 200,
+      "markers": [],
+      "size": 11310
+    },
+    {
+      "url": "http://localhost:5199/src/scene/stages/recolorAllowList.ts",
+      "status": 200,
+      "markers": [],
+      "size": 7728
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/three_addons_utils_BufferGeometryUtils__js.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 3366
+    },
+    {
+      "url": "http://localhost:5199/src/scene/rig/lcdCluster.ts",
+      "status": 200,
+      "markers": [],
+      "size": 42678
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/profile.ts",
+      "status": 200,
+      "markers": [],
+      "size": 10816
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/registration.ts",
+      "status": 200,
+      "markers": [],
+      "size": 3858
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/lightning.ts",
+      "status": 200,
+      "markers": [],
+      "size": 12411
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/drawingCache.ts",
+      "status": 200,
+      "markers": [],
+      "size": 25973
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/composeSheet.ts",
+      "status": 200,
+      "markers": [],
+      "size": 134222
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/portal.ts",
+      "status": 200,
+      "markers": [],
+      "size": 51093
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/breakthroughGeometry.ts",
+      "status": 200,
+      "markers": [],
+      "size": 139739
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-UAKCBK65.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 252601
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-JPR2LYHX.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 62053
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-6EQKPCCN.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 1281285
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/toolSpec.ts",
+      "status": 200,
+      "markers": [],
+      "size": 6442
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/shaft/cutterOutline.json?import",
+      "status": 200,
+      "markers": [],
+      "size": 9738
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/drawingCodec.ts",
+      "status": 200,
+      "markers": [],
+      "size": 19079
+    },
+    {
+      "url": "http://localhost:5199/src/scene/inspection/holeApertures.ts",
+      "status": 200,
+      "markers": [],
+      "size": 35954
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/portalGeometry.ts",
+      "status": 200,
+      "markers": [],
+      "size": 37353
+    },
+    {
+      "url": "http://localhost:5199/src/scene/drawing/sheet/edgeExtract.ts",
+      "status": 200,
+      "markers": [],
+      "size": 39973
+    },
+    {
+      "url": "http://localhost:5199/node_modules/.vite/deps/chunk-RIMNUHFQ.js?v=b708c55e",
+      "status": 200,
+      "markers": [],
+      "size": 611036
+    }
+  ],
+  "segments": [
+    {
+      "name": "slow-wheel",
+      "nominal": {
+        "count": 12,
+        "deltaY": 120,
+        "intervalMs": 180
+      },
+      "started": "2026-10-10T05:21:09.040Z",
+      "start": 27399.19999998808,
+      "end": 34541.69999998808,
+      "finished": "2026-10-10T05:21:16.242Z",
+      "metrics": {
+        "samples": 133,
+        "durationMs": 7156.199999999997,
+        "scrollDisplacement": 1399,
+        "lastWheelClock": 34342.79999999702,
+        "timeToRestMs": null,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 12,
+        "wheelDeltaY": 1440,
+        "p50FrameIntervalMs": 33.099999999998545,
+        "p95FrameIntervalMs": 33.900000000001455,
+        "maxScrollFrameDelta": 110,
+        "maxCameraPositionDelta": 0.24270346652953922,
+        "maxCameraQuaternionDeltaRad": 0.621806812855547,
+        "maxCameraFovDelta": 5.414260366871687
+      }
+    },
+    {
+      "name": "slow-stop",
+      "holdMs": 2000,
+      "started": "2026-10-10T05:21:16.252Z",
+      "start": 34564.29999999702,
+      "end": 37060.09999999404,
+      "finished": "2026-10-10T05:21:18.761Z",
+      "metrics": {
+        "samples": 132,
+        "durationMs": 2485.199999999997,
+        "scrollDisplacement": 36,
+        "lastWheelClock": 34342.79999999702,
+        "timeToRestMs": 870.1000000029817,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 0,
+        "wheelDeltaY": 0,
+        "p50FrameIntervalMs": 16.69999999999709,
+        "p95FrameIntervalMs": 33.400000000001455,
+        "maxScrollFrameDelta": 5,
+        "maxCameraPositionDelta": 0.00022731995209384796,
+        "maxCameraQuaternionDeltaRad": 0.000698910714713247,
+        "maxCameraFovDelta": 2.7488056275615236e-10
+      }
+    },
+    {
+      "name": "fast-wheel",
+      "nominal": {
+        "count": 4,
+        "deltaY": 1200,
+        "intervalMs": 80
+      },
+      "started": "2026-10-10T05:21:18.777Z",
+      "start": 37084.29999999702,
+      "end": 37748,
+      "finished": "2026-10-10T05:21:19.449Z",
+      "metrics": {
+        "samples": 33,
+        "durationMs": 650.5,
+        "scrollDisplacement": 3747,
+        "lastWheelClock": 37654.19999998808,
+        "timeToRestMs": null,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 4,
+        "wheelDeltaY": 4800,
+        "p50FrameIntervalMs": 16.69999999999709,
+        "p95FrameIntervalMs": 33.5,
+        "maxScrollFrameDelta": 220,
+        "maxCameraPositionDelta": 0.08446870441289711,
+        "maxCameraQuaternionDeltaRad": 0.13692798727040595,
+        "maxCameraFovDelta": 0.414629591949506
+      }
+    },
+    {
+      "name": "abrupt-stop",
+      "holdMs": 2000,
+      "started": "2026-10-10T05:21:19.461Z",
+      "start": 37772,
+      "end": 40685.69999998808,
+      "finished": "2026-10-10T05:21:22.388Z",
+      "metrics": {
+        "samples": 144,
+        "durationMs": 2936,
+        "scrollDisplacement": 922,
+        "lastWheelClock": 37654.19999998808,
+        "timeToRestMs": 1094.800000011921,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 0,
+        "wheelDeltaY": 0,
+        "p50FrameIntervalMs": 16.799999999995634,
+        "p95FrameIntervalMs": 33.400000000001455,
+        "maxScrollFrameDelta": 131,
+        "maxCameraPositionDelta": 0.050148995236062054,
+        "maxCameraQuaternionDeltaRad": 0.03276180900231677,
+        "maxCameraFovDelta": 0.18031021091902844
+      }
+    },
+    {
+      "name": "reversal",
+      "nominal": {
+        "count": 4,
+        "deltaY": -1200,
+        "intervalMs": 80
+      },
+      "holdMs": 2000,
+      "started": "2026-10-10T05:21:22.411Z",
+      "start": 40733.09999999404,
+      "end": 43894.39999999106,
+      "finished": "2026-10-10T05:21:25.595Z",
+      "metrics": {
+        "samples": 164,
+        "durationMs": 3186.2000000000044,
+        "scrollDisplacement": -4800,
+        "lastWheelClock": 41340.39999999106,
+        "timeToRestMs": 1078.2000000089392,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 4,
+        "wheelDeltaY": -4800,
+        "p50FrameIntervalMs": 16.69999999999709,
+        "p95FrameIntervalMs": 33.400000000001455,
+        "maxScrollFrameDelta": 257,
+        "maxCameraPositionDelta": 0.0682838007131103,
+        "maxCameraQuaternionDeltaRad": 0.03146879445016259,
+        "maxCameraFovDelta": 0.33806404915106825
+      }
+    },
+    {
+      "name": "document-forward",
+      "inputMeasure": true,
+      "measuredChunkTraversal": true,
+      "started": "2026-10-10T05:21:25.616Z",
+      "start": 43938.59999999404,
+      "lastMeasured": {
+        "y": 24347,
+        "height": 28080,
+        "viewport": 900,
+        "max": 27180
+      },
+      "traverseIntervalMs": 40,
+      "final": {
+        "y": 25379,
+        "max": 27180
+      },
+      "steps": 10,
+      "targetFraction": 0.9,
+      "observedFraction": 0.9337380426784401,
+      "reached": false,
+      "end": 48271.59999999404,
+      "finished": "2026-10-10T05:21:29.973Z",
+      "metrics": {
+        "samples": 197,
+        "durationMs": 4370,
+        "scrollDisplacement": 23939,
+        "lastWheelClock": 45988.79999999702,
+        "timeToRestMs": 1100.2000000029802,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 10,
+        "wheelDeltaY": 23938.700073242188,
+        "p50FrameIntervalMs": 16.700000000004366,
+        "p95FrameIntervalMs": 33.5,
+        "maxScrollFrameDelta": 2880,
+        "maxCameraPositionDelta": 5.571924716432786,
+        "maxCameraQuaternionDeltaRad": 0.8350763855945068,
+        "maxCameraFovDelta": 5.697074376691141
+      }
+    },
+    {
+      "name": "document-retrace",
+      "inputMeasure": true,
+      "measuredChunkTraversal": true,
+      "started": "2026-10-10T05:21:30.004Z",
+      "start": 48320.29999999702,
+      "lastMeasured": {
+        "y": 668,
+        "height": 28080,
+        "viewport": 900,
+        "max": 27180
+      },
+      "traverseIntervalMs": 40,
+      "final": {
+        "y": 0,
+        "max": 27180
+      },
+      "steps": 10,
+      "targetFraction": 0.02,
+      "observedFraction": 0,
+      "reached": false,
+      "end": 52288.79999999702,
+      "finished": "2026-10-10T05:21:33.989Z",
+      "metrics": {
+        "samples": 191,
+        "durationMs": 4003.699999999997,
+        "scrollDisplacement": -25379,
+        "lastWheelClock": 49819,
+        "timeToRestMs": 939.6999999999971,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 10,
+        "wheelDeltaY": -26053.369995117188,
+        "p50FrameIntervalMs": 16.700000000004366,
+        "p95FrameIntervalMs": 33.5,
+        "maxScrollFrameDelta": 1195,
+        "maxCameraPositionDelta": 9.10723511730055,
+        "maxCameraQuaternionDeltaRad": 0.3443339374697566,
+        "maxCameraFovDelta": 2.3546277229317596
+      }
+    }
+  ],
+  "pngs": [
+    {
+      "file": "slow-stop.png",
+      "at": {
+        "clock": 36583.89999999106,
+        "scrollY": 1440,
+        "max": 27180
+      },
+      "size": 612326,
+      "sha256": "34a32d5680a787303fe42c01c3c3f0bbb582c9dde159a2c364befd5fb05b6f4d"
+    },
+    {
+      "file": "abrupt-stop.png",
+      "at": {
+        "clock": 39800.79999999702,
+        "scrollY": 6240,
+        "max": 27180
+      },
+      "size": 1075809,
+      "sha256": "a8c7ea285930ed40cce332384ad98d63f8eb8aad5933fbcb89991b2f9fe3ab69"
+    },
+    {
+      "file": "reversal.png",
+      "at": {
+        "clock": 43444.29999999702,
+        "scrollY": 1440,
+        "max": 27180
+      },
+      "size": 612611,
+      "sha256": "489a7fad140b714c33ba0a5ab8d8f824bef57bbf4c4b25b687603b39dd42573a"
+    },
+    {
+      "file": "forward-stop.png",
+      "at": {
+        "clock": 48055.29999999702,
+        "scrollY": 25379,
+        "max": 27180
+      },
+      "size": 249401,
+      "sha256": "39e94781eb739e4a2e3282c8ff6ad693a811c45aeb90bc0f9f6c36a0ca4749b7"
+    },
+    {
+      "file": "retrace-stop.png",
+      "at": {
+        "clock": 51918,
+        "scrollY": 0,
+        "max": 27180
+      },
+      "size": 329209,
+      "sha256": "abade770a5848f482de7bbe8bc185b046dbcab44f661ca8612f8330adb18b3a8"
+    }
+  ],
+  "limitations": [
+    "Video, per-rAF snapshots, polling and screenshots add overhead; frame intervals are not performance certification.",
+    "Local qualityLock=1 does not prove natural tier selection or sustained full-tier performance.",
+    "The fixed slow/fast/reversal wheel profile is nominally identical across sites; adaptive traverse chunks depend on measured document extent.",
+    "Different layouts and distances are not equivalent screen geometry. Reference samples are DOM-only; script text markers do not prove runtime execution or exact Lenis/GSAP settings."
+  ],
+  "browserVersion": "154.0.8037.98",
+  "videoStarted": "2026-10-10T05:20:41.509Z",
+  "actualUrl": "http://localhost:5199/?qualityLock=1",
+  "readinessUnavailable": "TimeoutError: page.waitForFunction: Timeout 15000ms exceeded.",
+  "before": {
+    "at": 27059.5,
+    "url": "http://localhost:5199/?qualityLock=1",
+    "title": "Physical × Digital Systems Architect",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 1,
+    "documentHeight": 28080,
+    "scrollY": 0,
+    "canvases": [
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      }
+    ],
+    "internalProbe": "explicit local hooks only",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (AMD)",
+    "contextAlive": true,
+    "tier": "full",
+    "qualityLock": "1",
+    "scriptUrls": [
+      "http://localhost:5199/@vite/client",
+      "http://localhost:5199/src/main.tsx"
+    ]
+  },
+  "after": {
+    "at": 52336.09999999404,
+    "url": "http://localhost:5199/?qualityLock=1",
+    "title": "Physical × Digital Systems Architect",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 1,
+    "documentHeight": 28080,
+    "scrollY": 0,
+    "canvases": [
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      }
+    ],
+    "internalProbe": "explicit local hooks only",
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (AMD)",
+    "contextAlive": true,
+    "tier": "full",
+    "qualityLock": "1",
+    "scriptUrls": [
+      "http://localhost:5199/@vite/client",
+      "http://localhost:5199/src/main.tsx"
+    ]
+  },
+  "sampler": {
+    "count": 1524,
+    "cap": 5000,
+    "capped": false,
+    "contextEvents": []
+  },
+  "videoStopped": "2026-10-10T05:21:34.301Z",
+  "video": {
+    "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\project\\work\\evidence\\torque-wrench-rebuild\\02-motion-baseline\\local-retry-1\\video\\54b5df152a1d1672f1770c2af6d60d5e.webm",
+    "dimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "size": 5245202
+  },
+  "inflightAtClose": [],
+  "samples": 1524,
+  "finished": "2026-10-10T05:21:34.561Z",
+  "cpuUsage": {
+    "user": 6546000,
+    "system": 968000
+  },
+  "completeProfile": false,
+  "recorded": true,
+  "success": false
+}

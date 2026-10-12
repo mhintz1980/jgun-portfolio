@@ -128,6 +128,8 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
     ("i approve. check it off."). Also fixed the pre-existing lcd-buttons merge-stack defect
     (per-part `lcd-button-N` units — the three buttons rendered stacked as one blob before).
 
+- [ ] **JG-038 — Private torque-wrench page rebuild: Stage 0 closed 2026-10-11; Stage 1 next.** Plan/ordered implementation and matrix/numerical budgets approved; local shared-shell readiness passed. Coordinate private-entry/shared activation; preserve the existing live page and all open G0–G9 gates. No Git delivery/publication/cutover/archive authorization. · [registered plan](project/work/plans/JG-038-torque-wrench-rebuild.md) · [implementation plan](docs/torque-wrench-rebuild/13-implementation-plan.md) · [Stage 0 evidence](project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/README.md)
+
 ## Queued
 
 - [x] **JG-024 — Fine-tessellation JGun re-export with missing fasteners** · [plan](project/work/plans/JG-024-fine-jgun-fastener-reswap.md) · [evidence](project/work/evidence/JG-024-fine-jgun-fastener-reswap-verification.md)

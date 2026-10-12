@@ -1,8 +1,10 @@
 # Torque wrench rebuild — implementation plan
 
-**Decision needed:** Owner acceptance of this plan before implementation.
+**Current dependency:** Demonstrated shared-shell readiness before product implementation.
 
-**Status:** Planning authorized; plan artifact pending owner approval. Design and structure are accepted. Implementation is not authorized. Every unchecked item below is future work.
+**Status:** Owner accepted this plan and authorized ordered implementation on 2026-10-11. Stage 0 is closed: delivered-shell [local readiness](../../project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/local-20261011-01a12c92/README.md) on `8945fa95` passed 233 shared tests, clean tsc, scratch production build and 7/7 transitions at both viewports, and owner approved [verification matrix/numerical budgets](18-stage0-verification-contract-proposal.md). Resources were released and source/dist preserved. Stage 1 is next under existing implementation authority; private entry/activation and product implementation have not started. G0–G9 remain open, and shared-file activation requires owner coordination.
+
+**Work ID:** [JG-038](../../project/work/plans/JG-038-torque-wrench-rebuild.md). [Stage 0 evidence](../../project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/README.md).
 
 **Date:** 2026-10-11 (America/New_York).
 
@@ -27,7 +29,7 @@ Execution requirements inherited from those sources:
 
 All work stays in this worktree. Never edit, switch, build from, or otherwise alter the protected `C:/Users/Markimus/.buzz/REPOS/jgun-portfolio` checkout. Preserve existing dirty/untracked work and `.scratch/`; never commit scratch material.
 
-This planning turn creates only this artifact. No product code, builds, captures, servers, GPU work, commits, pushes, PRs, deployments, publication, cutover, or archival operations. Future implementation needs owner plan acceptance, implementation authorization, and shared-shell readiness. Coordinate resource availability before authorized builds/captures; the earlier research release is not a current reservation.
+The original planning turn created only this artifact, without product code, builds, captures, servers, GPU work, commits, pushes, PRs, deployments, publication, cutover, or archival operations. Owner acceptance and implementation authorization were subsequently recorded on 2026-10-11 in the owner rulings. Product work still requires demonstrated shared-shell readiness. Coordinate resource availability before authorized builds/captures; the earlier research release is not a current reservation.
 
 **Documentation checkpoint authorization:** After the planning turn, the owner requested a saved next-session prompt followed by a commit of this session's changes. That authorizes a scoped documentation commit of this plan and `14-next-session-prompt.md`; it does not accept the plan or authorize implementation, other sessions' changes, push, or publication.
 
@@ -78,26 +80,28 @@ Page-local runtime must not import root `App`, `Chapters`, `SceneCanvas`, or `Sc
 
 ### Stage 0 — Authorization and integration readiness
 
-- [ ] Record owner acceptance of this plan and implementation authorization.
-- [ ] Confirm shared-shell delivery, exact exports, lifecycle, fade/navigation behavior, poster interface, and private-entry integration contract.
-- [ ] Confirm authorized resource use and current availability for builds, GPU, captures, and ports.
-- [ ] Record live worktree baseline and protected changes without resetting, cleaning, or switching branches.
-- [ ] Register the approved work through `project/README.md`'s work-ID protocol, linking this plan rather than inventing or duplicating approval.
-- [ ] Read applicable domain skills through `project/context/agent-skills.md` when entering each implementation domain; read `smooth-scrolling.md` before every scrolling/cinematic-motion edit.
-- [ ] Establish verification devices, viewport matrix, baseline provenance, and approved phase-specific numerical budgets.
+- [x] Record owner acceptance of this plan and implementation authorization. Owner answered “yes” to the explicit combined approval request on 2026-10-11; see owner rulings.
+- [x] Confirm shared-shell delivery, exact exports, lifecycle, fade/navigation behavior, poster interface, and private-entry integration contract. Confirmed in `6f4ee77f` source and delivered by merge `92bafba5`; local shared tests 8 files / 233 pass and tsc clean. File:line evidence is in the linked Stage 0 delivery report. Fresh QM-side transitions are separately recorded at `efea0537` (external evidence `0c345b70`, 7/7 both viewports); they do not prove torque-entry or shared-poster runtime behavior or close G0.
+- [x] Confirm authorized resource use and current availability for the bounded readiness build/browser/capture/preview window; record ownership and release. Completed local 2026-10-11 run on port 4193; future runs recheck availability and performance-load suitability.
+- [x] Record live worktree baseline and protected changes without resetting, cleaning, or switching branches. See Stage 0 evidence.
+- [x] Register the approved work through `project/README.md`'s work-ID protocol, linking this plan rather than inventing or duplicating approval. JG-038 registration, registry row, and unchecked TODO entry added together.
+- [ ] Continuing obligation at implementation-domain entry: read applicable skills through `project/context/agent-skills.md`; read `smooth-scrolling.md` before every scrolling/cinematic-motion edit. This remains active for future work, not an outstanding Stage 0 readiness blocker.
+- [x] Establish verification devices, viewport matrix, baseline provenance, and approved phase-specific numerical budgets. Owner approved [contract 18](18-stage0-verification-contract-proposal.md) on 2026-10-11 after current local readiness/provenance checks and independent review. Approval is not numerical runtime acceptance; physical-mobile performance remains supplemental until a device is named.
 
-**Exit:** Recorded implementation authorization and demonstrated shell readiness. If either is absent, implementation remains blocked.
+**Exit — satisfied 2026-10-11:** Recorded implementation authorization, demonstrated delivered-shell readiness, bounded resource coordination and owner-approved device/matrix/provenance/numerical-budget contract. Domain skills continue to be read at each domain entry. Stage 1 creates the private entry; G0 verifies its integration afterward. Private-page performance, technical/effects/visual acceptance and all G0–G9 checks remain separate and open.
 
 ### Stage 1 — Private document and static foundation
 
-- [ ] Add the separate HTML/JS entry and consume shared fade/navigation primitives; keep the page private and avoid public navigation/cutover changes.
-- [ ] Establish ordered Drafting, Breakthrough, Mechanism, Inspection, and Close DOM chapters, controls, headings, and reachable footer.
-- [ ] Implement tier selection before evaluating narrative CAD/WebGL imports.
-- [ ] Implement poster/reduced-motion paths and WebGL-failure transition using the same semantic story.
-- [ ] Establish page-local store and cleanup for listeners, animation scheduling, Lenis, ScrollTrigger, and GPU resources.
-- [ ] Verify private topology, shared-shell parity, and existing-entry preservation.
+- [x] Add the separate HTML/JS entry and consume shared fade/navigation primitives; keep the page private and avoid public navigation/cutover changes.
+- [x] Establish ordered Drafting, Breakthrough, Mechanism, Inspection, and Close DOM chapters, controls, headings, and reachable footer.
+- [x] Implement tier selection before evaluating narrative CAD/WebGL imports.
+- [x] Implement poster/reduced-motion paths and WebGL-failure transition using the same semantic story.
+- [x] Establish page-local store and cleanup for listeners, animation scheduling, Lenis, ScrollTrigger, and GPU resources.
+- [x] Verify private topology, shared-shell parity, and existing-entry preservation.
 
 **Exit:** Correct document boundaries and complete static interaction path. Temporary art cannot pass final poster acceptance.
+
+**Static-foundation exit recorded 2026-10-12:** [Stage 1 closure](../../project/work/evidence/torque-wrench-rebuild/05-stage1-integration/stage1-closure.md), coordinated activation `69ac760b`, shared240/page-local20 tests, TypeScript/build/topology checks and14/14 real browser static/JavaScript-fallback cases (396 assertions). Actual renderer initialization/context loss, future Lenis/ScrollTrigger/GPU cleanup, final posters and all G0–G9 acceptance remain unverified. No Stage 2/3 work is advanced by this record.
 
 ### Stage 2 — Beat data and conductor
 
@@ -211,4 +215,4 @@ Exact camera rake/timing, pit relief balance, final scroll distance, validated t
 - [ ] Obtain owner visual and motion acceptance.
 - [ ] Record remaining limitations and any explicit owner exceptions without weakening inherited failures silently.
 
-Those steps do not authorize publication, live cutover, archival, or Git delivery. The immediate next action is owner review of this saved plan. Stop here; implementation remains blocked until plan acceptance, implementation authorization, and shared-shell readiness.
+Those steps do not authorize publication, live cutover, archival, or Git delivery. Owner accepted this saved plan and authorized implementation on 2026-10-11; Stage 0 readiness and its owner-approved verification contract are complete. Immediate next action is Stage 1's private document/static foundation with coordinated shared activation. All technical, effects, visual, motion, and publication gates remain separate.

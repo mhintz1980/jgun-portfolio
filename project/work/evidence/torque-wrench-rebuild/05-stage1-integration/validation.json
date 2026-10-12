@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-12",
+  "executor": "parent",
+  "commands": [
+    {
+      "command": "node scripts/check-torque-stage1-boundary.mjs",
+      "exitCode": 0,
+      "pass": true,
+      "eagerModuleCount": 16,
+      "lazyModules": ["src/scene/torque-wrench/Scene.tsx"],
+      "lazyEdges": [{"from":"src/scene/torque-wrench/cadGate.ts","specifier":"./Scene"}],
+      "errors": []
+    }
+  ],
+  "notRerun": "Unchanged Stage 0 readiness not rerun. Pre-activation foundation TypeScript/253 tests/module build were historical passes. After coordination, proportional TypeScript/shared240/page-local20/source/built/runtime checks ran and are recorded in activation-validation.json.",
+  "preservationRecheck": {
+    "head": "8945fa95cc70b74bdcc9da27cc0573c3d1157da4",
+    "branch": "torque-wrench/rebuild",
+    "indexEmpty": true,
+    "trackedProductPaths": 273,
+    "trackedProductSha256": "bfbdf1f7a819c54366a6f757148517729cda7517f756137f036c36afb4e9dd79",
+    "sourceManifestMatches": 18,
+    "sourceManifestMismatches": [],
+    "sharedInterfaceMatches": 10,
+    "sharedInterfaceMismatches": [],
+    "doc19Sha256": "e5abebf5bb3fe2ebaccc2ce87099f72ff65ff2c45c9a3e8d896b617da095f52a",
+    "privateHtmlExists": false,
+    "gitDiffCheckExit": 0,
+    "continuationLimits": "Concurrent evidence drift is recorded in concurrent-preservation.md; exhaustive unchanged continuation bytes are not claimed."
+  },
+  "harnessPreparation": {
+    "evidence": "harness-checks-final.json",
+    "scriptSha256": "1d95755dc725c48705b535586854eab2ed2c300a956d54ce5a0f6ed00ee5de9f",
+    "cliChecksExpectedExits": "17/17",
+    "parserMocksPassed": "6/6",
+    "lifecycleMocksPassed": "4/4",
+    "independentFinalReview": "PASS for source/CLI preparation; Round 2 complete in final-review.md",
+    "runtimeAcceptance": false
+  },
+  "activationEvidence": "activation-validation.json (supersedes the pre-activation snapshot above)",
+  "browser": { "executed": true, "status": "PASS 14/14 built-page cases, 396/396 assertions", "evidence": "runtime/report-built-round1.json", "scope": "Static and JavaScript import/render fallback; real WebGL acceptance deferred" },
+  "realRenderer": false,
+  "stage1Exit": true,
+  "stage1ExitEvidence": "stage1-closure.md (approved static-foundation scope)",
+  "gatesClosed": []
+}

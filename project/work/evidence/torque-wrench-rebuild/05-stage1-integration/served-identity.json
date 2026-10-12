@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-12",
+  "executor": "parent",
+  "url": "http://localhost:4193/",
+  "build": ".scratch/torque-stage1-integration/dist",
+  "scope": "Three built/served HTML entries plus torque eager/lazy JS/CSS/favicon closure. No root or Quiet Machine scene run.",
+  "recipe": "SHA-256 of raw build bytes compared to response body bytes, each HTTP 200; redirects normalized to page directory URLs for HTML.",
+  "files": [
+    {"path":"index.html","sha256":"a11a274a59f74d9e8b6fbcfe9fdb87db8303fa1e9923a938f1c5b0efea59d756","httpStatus":200,"servedMatches":true},
+    {"path":"quiet-machine/index.html","sha256":"e16e99da4943da454f2f24244808d9311faf4d7c52b25b8aa9abbf6fa0ac47bc","httpStatus":200,"servedMatches":true},
+    {"path":"torque-wrench/index.html","sha256":"d9f0ef34007bb3d3e5a94aa5e6e68dce0a032a630495121c3cb141152fbdda20","httpStatus":200,"servedMatches":true},
+    {"path":"favicon.svg","sha256":"542c96ae82f47d959020cf2036b33f1654001aaa223c85944212a584e62f6aaf","httpStatus":200,"servedMatches":true},
+    {"path":"assets/torque-wrench-BhvCqyvq.js","sha256":"886ed9488307f6160c877a63a0992b041efbd825d9084e29c516866b326d4f44","httpStatus":200,"servedMatches":true},
+    {"path":"assets/torque-wrench-Dk7j9IBo.css","sha256":"527a945b48ce5364b61e503d651ad854da3e1c050d4e1e4576fe244c03b6ee61","httpStatus":200,"servedMatches":true},
+    {"path":"assets/index-fDwt6Stp.js","sha256":"391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d","httpStatus":200,"servedMatches":true},
+    {"path":"assets/index-CddUWpSY.css","sha256":"c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152","httpStatus":200,"servedMatches":true},
+    {"path":"assets/PageNav-Bwu9dEVf.js","sha256":"8bdc728334011bc5a38bee76599b7df6a795d624033725dc3cab26b9b1be390c","httpStatus":200,"servedMatches":true},
+    {"path":"assets/Scene-CYrsnGyK.js","sha256":"a8bd8ac95581704345b0a09e3282b7504bb112a015b1e028d885953a4bd985c1","httpStatus":200,"servedMatches":true}
+  ],
+  "allMatched": true
+}

@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-12",
+  "timezone": "America/New_York",
+  "workspace": "C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench",
+  "head": "8945fa95cc70b74bdcc9da27cc0573c3d1157da4",
+  "branch": "torque-wrench/rebuild",
+  "recipe": "JavaScript string-sorted paths; SHA-256 of each path followed by NUL and raw file bytes",
+  "product": {
+    "selection": "git ls-files -- src scripts public vite.config.ts package.json package-lock.json index.html quiet-machine/index.html",
+    "count": 273,
+    "sha256": "bfbdf1f7a819c54366a6f757148517729cda7517f756137f036c36afb4e9dd79"
+  },
+  "existingDirtyAndContinuation": {
+    "selection": "Unique git diff --name-only plus git ls-files --others --exclude-standard for docs/torque-wrench-rebuild, project/work/plans/JG-038-torque-wrench-rebuild.md, evidence/03-stage0-readiness, evidence/04-stage1-foundation, src/scene/torque-wrench, src/state/torqueWrenchStore.ts and its test, src/torque-wrench-main.tsx, scripts/check-torque-stage1-boundary.mjs. Evidence paths are under project/work/evidence/torque-wrench-rebuild. New integration files are excluded.",
+    "count": 75,
+    "sha256": "01a74a5b3e6f3c122d89f4bbb14a685f02f506a048110b09a5bdbe71d5226157"
+  },
+  "concurrentDoc19Sha256": "e5abebf5bb3fe2ebaccc2ce87099f72ff65ff2c45c9a3e8d896b617da095f52a",
+  "allExistingUntrackedContinuation": {
+    "selection": "git ls-files --others --exclude-standard -- docs/torque-wrench-rebuild project/work/plans/JG-038-torque-wrench-rebuild.md project/work/evidence/torque-wrench-rebuild src/scene/torque-wrench src/state/torqueWrenchStore.ts src/state/torqueWrenchStore.test.ts src/torque-wrench-main.tsx scripts/check-torque-stage1-boundary.mjs; exclude new evidence/05-stage1-integration/",
+    "count": 132,
+    "sha256": "fab920d24bfab0c3852fa9ef9943c8708234cfa11abae9510011393ad526ddd4"
+  },
+  "sourceManifest": { "matches": 18, "mismatches": 0 },
+  "sharedInterfacePacket": { "matches": 10, "mismatches": 0 },
+  "privateHtmlExists": false,
+  "repositoryDistExists": false,
+  "resources": {
+    "freeRAMGB": 7.32,
+    "totalRAMGB": 28.81,
+    "sampledCpuLoadPercent": 13,
+    "nodeProcesses": 75,
+    "chromeProcesses": 14,
+    "blenderProcessesInNamedQuery": 0,
+    "portsChecked": [4173,4191,4193,5199],
+    "listenersObserved": [],
+    "interpretation": "Snapshots, not exclusive reservation or performance suitability. Other processes remain untouched. No heavy build/browser/GPU job starts without fresh parent check."
+  }
+}

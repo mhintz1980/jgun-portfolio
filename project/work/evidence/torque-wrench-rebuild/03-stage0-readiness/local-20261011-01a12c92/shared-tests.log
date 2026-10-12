@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench
+
+
+ Test Files  8 passed (8)
+      Tests  233 passed (233)
+   Start at  17:24:43
+   Duration  1.77s (transform 1.27s, setup 0ms, import 2.84s, tests 267ms, environment 1ms)
+

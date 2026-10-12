@@ -1,0 +1,1896 @@
+{
+  "started": "2026-10-10T05:22:05.636Z",
+  "url": "https://oryzo.ai/",
+  "mode": "DOM-only reference",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "dpr": 1,
+  "launch": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "process": {
+    "node": "v22.19.0",
+    "versions": {
+      "node": "22.19.0",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.0",
+      "ares": "1.34.5",
+      "brotli": "1.1.0",
+      "cjs_module_lexer": "2.1.0",
+      "cldr": "47.0",
+      "icu": "77.1",
+      "llhttp": "9.3.0",
+      "modules": "127",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "3.0.17",
+      "simdjson": "3.13.0",
+      "simdutf": "6.4.2",
+      "sqlite": "3.50.4",
+      "tz": "2025b",
+      "undici": "6.21.2",
+      "unicode": "16.0",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.21",
+      "v8": "12.4.254.21-node.29",
+      "zlib": "1.3.1-470d3a2",
+      "zstd": "1.5.7"
+    },
+    "platform": "win32",
+    "release": "10.0.26340",
+    "cpu": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     "
+  },
+  "git": {
+    "head": "666cbf23d490352dc549b4730d3e9d14e042a5a4",
+    "branch": "torque-wrench/rebuild",
+    "dirty": "?? docs/torque-wrench-rebuild/00-owner-rulings.md\n?? docs/torque-wrench-rebuild/01-questions.md\n?? docs/torque-wrench-rebuild/02-research-procedure.md\n?? docs/torque-wrench-rebuild/03-current-motion-inventory.md\n?? docs/torque-wrench-rebuild/04-tunnel-research-review.md\n?? docs/torque-wrench-rebuild/README.md\n?? docs/torque-wrench-rebuild/smooth-scrolling.md\n?? project/work/evidence/torque-wrench-rebuild/"
+  },
+  "harnessSha256": "ce323562c8b573cc167609e3d39a78553eb0a30593d123df56fc3a5b64c12806",
+  "errors": [
+    {
+      "at": "2026-10-10T05:22:25.851Z",
+      "kind": "requestfailed",
+      "url": "https://oryzo.ai/images/wearable-gallery/yoga.mp4",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    },
+    {
+      "at": "2026-10-10T05:22:25.851Z",
+      "kind": "requestfailed",
+      "url": "https://oryzo.ai/images/wearable-gallery/bite.mp4",
+      "failure": {
+        "errorText": "net::ERR_ABORTED"
+      }
+    }
+  ],
+  "network": [
+    {
+      "at": "2026-10-10T05:22:06.491Z",
+      "url": "https://oryzo.ai/",
+      "type": "document",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.536Z",
+      "url": "https://oryzo.ai/_astro/index.TL6TuoJb.css",
+      "type": "stylesheet",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.553Z",
+      "url": "https://oryzo.ai/images/video_thumb.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.598Z",
+      "url": "https://static.cloudflareinsights.com/beacon.min.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.612Z",
+      "url": "https://oryzo.ai/_astro/hoisted.CRsATKbF.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.677Z",
+      "url": "https://use.typekit.net/pmn6ngx.css",
+      "type": "stylesheet",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:06.807Z",
+      "url": "https://p.typekit.net/p.css?s=1&k=pmn6ngx&ht=tk&f=52149.52151&a=83030954&app=typekit&e=css",
+      "type": "stylesheet",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.063Z",
+      "url": "https://oryzo.ai/fonts/DM-Mono-400-Latin.woff2",
+      "type": "font",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.733Z",
+      "url": "https://oryzo.ai/fonts/Literata.woff2",
+      "type": "font",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.733Z",
+      "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+      "type": "xhr",
+      "status": 204
+    },
+    {
+      "at": "2026-10-10T05:22:07.733Z",
+      "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+      "type": "ping",
+      "status": 204
+    },
+    {
+      "at": "2026-10-10T05:22:07.735Z",
+      "url": "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&url=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F1174820580%3Fh%3D5aaa6219d2&width=100%25&height=100%25&responsive=true&title=false&controls=false&byline=false&dnt=true",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.738Z",
+      "url": "https://oryzo.ai/textures/brdf.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.738Z",
+      "url": "https://unpkg.com/@rive-app/canvas@2.37.0/rive.wasm",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.782Z",
+      "url": "https://oryzo.ai/textures/LDR_RGB1_0.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.783Z",
+      "url": "https://use.typekit.net/af/daa5d6/0000000000000000775abe8b/31/l?primer=388f68b35a7cbf1ee3543172445c23e26935269fadd3b392a13ac7b2903677eb&fvd=n4&v=3",
+      "type": "font",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.784Z",
+      "url": "https://oryzo.ai/textures/smaa-area.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.784Z",
+      "url": "https://oryzo.ai/textures/smaa-search.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.885Z",
+      "url": "https://oryzo.ai/textures/gobo/gobo_b_0.4630597.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.913Z",
+      "url": "https://oryzo.ai/rive/oryzo.riv",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.914Z",
+      "url": "https://oryzo.ai/rive/oryzo.riv",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.960Z",
+      "url": "https://oryzo.ai/textures/gobo/gobo_c_0.38847005.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.960Z",
+      "url": "https://oryzo.ai/textures/hero/env_hero.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.961Z",
+      "url": "https://oryzo.ai/textures/hero/BASE.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.961Z",
+      "url": "https://oryzo.ai/textures/hero/pencil_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.961Z",
+      "url": "blob:https://oryzo.ai/cb8893be-fd8a-4bfb-94a5-97e0d9042907",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.971Z",
+      "url": "blob:https://oryzo.ai/42f64cfe-f49d-4f4e-afc5-bea3d9f00e57",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/024f8dd4-3000-4d66-92cd-8b16d1483578",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/11357380-ef99-4b65-ab86-f67fb648377c",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/e94adf1d-07ac-4b87-a89d-3834bf8cae24",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/60a32988-1699-4219-a8a0-056ea93866f5",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/d581c2f4-fdcf-4283-9223-5f279134538e",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.972Z",
+      "url": "blob:https://oryzo.ai/abb13a62-a33d-46c2-b4bd-2dd903e2e4da",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/e286149e-79a0-4088-a89a-79a148427c13",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/7927b350-6c21-4018-8e96-e9cc1a6aa3f6",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/dc3a818a-ffeb-45bf-8098-729297752485",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/6cbb6d0d-9e73-4a65-a301-afdfef2a5e81",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/0abe53a1-34ad-40a9-8c67-efbea75428e7",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:07.975Z",
+      "url": "blob:https://oryzo.ai/393ca27e-68db-4029-b23e-86c0941f650e",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.007Z",
+      "url": "https://player.vimeo.com/video/1174820580?h=5aaa6219d2&title=0&byline=0&controls=0&dnt=1&app_id=122963",
+      "type": "document",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.054Z",
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/scripts/precursor/main.js",
+      "type": "script",
+      "status": 302
+    },
+    {
+      "at": "2026-10-10T05:22:08.059Z",
+      "url": "https://oryzo.ai/textures/hero/pencil_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.085Z",
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/h/g/scripts/precursor/4df4a60fa397/main.js?",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.119Z",
+      "url": "https://oryzo.ai/textures/hero/eraser_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.155Z",
+      "url": "https://f.vimeocdn.com/p/4.46.126/css/player.css",
+      "type": "stylesheet",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.157Z",
+      "url": "https://i.vimeocdn.com/video/2135496770-fdfd0b72156560b606f227a27559cd9bc49cd5253e510849ee4b312a96d067f7-d?mw=80&q=85",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.179Z",
+      "url": "https://oryzo.ai/textures/hero/eraser_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.179Z",
+      "url": "https://oryzo.ai/textures/hero/cutter_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.180Z",
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/vendor.module.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.211Z",
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/h/g/precursor/4df4a60fa397/0.05989575294281202:1791601520:5dMoF9LsGjRS4exOA1WYFWtXQdN_at8RXglspvZ8aOQ/a4832f7e1fadc25a",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.219Z",
+      "url": "https://oryzo.ai/textures/hero/pen_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.220Z",
+      "url": "https://oryzo.ai/textures/hero/cutter_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.241Z",
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/player.module.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.259Z",
+      "url": "https://oryzo.ai/textures/hero/pen_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.259Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip1_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.260Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip1_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.290Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip2_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.322Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip3_color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.322Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip2_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.337Z",
+      "url": "https://oryzo.ai/textures/hero/paperclip3_alpha.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.356Z",
+      "url": "https://oryzo.ai/models/coaster_hero_animation.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.366Z",
+      "url": "https://oryzo.ai/models/hero_camera.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.368Z",
+      "url": "https://oryzo.ai/textures/hero/env_hand.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.380Z",
+      "url": "https://oryzo.ai/textures/hero/env_hand_spec_20.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.382Z",
+      "url": "https://oryzo.ai/models/hand.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.400Z",
+      "url": "https://oryzo.ai/models/hand_animation.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.412Z",
+      "url": "https://oryzo.ai/textures/hero/AI_HAND.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.415Z",
+      "url": "https://oryzo.ai/textures/wearable/wearable_text.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.487Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/condom_anim.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.487Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/normal.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.490Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/pattern.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.491Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/front/base.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.495Z",
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/hls-js.module.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.512Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/front/harmonics_1.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.514Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/front/harmonics_0.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.518Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/back/base.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.521Z",
+      "url": "https://oryzo.ai/models/wearable/condom_front.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.553Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/back/harmonics_0.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.563Z",
+      "url": "https://oryzo.ai/models/wearable/condom_back.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.565Z",
+      "url": "https://oryzo.ai/textures/wearable/condom/back/harmonics_1.avif",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.582Z",
+      "url": "https://oryzo.ai/models/wearable/coaster_first.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.587Z",
+      "url": "https://oryzo.ai/textures/wearable/1.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.602Z",
+      "url": "https://i.vimeocdn.com/video/2135496770-fdfd0b72156560b606f227a27559cd9bc49cd5253e510849ee4b312a96d067f7-d",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.633Z",
+      "url": "https://oryzo.ai/textures/wearable/pin.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.633Z",
+      "url": "https://oryzo.ai/textures/wearable/1_clip.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.633Z",
+      "url": "https://oryzo.ai/textures/wearable/rise.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.635Z",
+      "url": "https://oryzo.ai/models/table/TRAY_COVERS.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.650Z",
+      "url": "https://oryzo.ai/models/featuresAnimations/CAMERA_ANIM.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.651Z",
+      "url": "https://oryzo.ai/textures/thermal_gradient.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.651Z",
+      "url": "https://oryzo.ai/models/featuresAnimations/COASTER_ANIM.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.652Z",
+      "url": "https://oryzo.ai/models/featuresAnimations/COFFEE_ANIM.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.686Z",
+      "url": "https://oryzo.ai/models/sustainability_text.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.695Z",
+      "url": "https://oryzo.ai/textures/table/env_grip.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.697Z",
+      "url": "https://oryzo.ai/textures/table/env_table.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.698Z",
+      "url": "https://oryzo.ai/models/COASTER_FLIP_ANIM.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.718Z",
+      "url": "https://oryzo.ai/models/stack_camera.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.723Z",
+      "url": "https://oryzo.ai/models/sustainability_text_outline.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.725Z",
+      "url": "https://oryzo.ai/textures/coffeeBean/DIFF.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.726Z",
+      "url": "https://oryzo.ai/textures/coffeeBean/HEIGHT.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.743Z",
+      "url": "https://i.vimeocdn.com/portrait/78418203_60x60?subrect=0%2C0%2C548%2C548&r=cover&sig=b46e90072398bf46e4cde158e3987b25c0e73d471c430cfe6f0bc62d321a7507&v=1&region=us",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.744Z",
+      "url": "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.751Z",
+      "url": "https://oryzo.ai/models/COFFEE_BEAN.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.762Z",
+      "url": "https://oryzo.ai/textures/coaster/DIFF.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.762Z",
+      "url": "https://oryzo.ai/textures/coaster/HEIGHT.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.765Z",
+      "url": "https://vod-adaptive-ak.vimeocdn.com/exp=1791613327~acl=%2Fa41c4e0d-edd3-47e4-9e78-7e694f4c289e%2Fpsid%3Dda2567d58d24ad3be9690a7fc7d35ea6f4dee95a1791609727%2F%2A~hmac=3ddeeed7147c42a65e56a8f5fb24cdb195c98d9431d23a53c76b3449b36d1242/a41c4e0d-edd3-47e4-9e78-7e694f4c289e/psid=da2567d58d24ad3be9690a7fc7d35ea6f4dee95a1791609727/v2/playlist/av/primary/sub/288891978-en-x-autogen/prot/cXNyPTE/playlist.m3u8?ext-subs=1&locale=en&omit=av1-hevc-opus&pathsig=8c953e4f~FHkeZRuUwyxoIbrli8X9yxZ79Gilj74mHzaTDOxAOAc&qsr=1&r=dXM%3D&rh=taKgv&sf=fmp4",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.780Z",
+      "url": "https://oryzo.ai/models/coaster.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.785Z",
+      "url": "https://oryzo.ai/fonts/msdf/Inter.json",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.819Z",
+      "url": "https://www.gstatic.com/eureka/clank/154/cast_sender.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.827Z",
+      "url": "https://www.gstatic.com/cast/sdk/libs/sender/1.0/cast_framework.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:08.833Z",
+      "url": "https://oryzo.ai/fonts/msdf/Inter.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.415Z",
+      "url": "https://oryzo.ai/models/table/COFFEE/CUP.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.418Z",
+      "url": "https://oryzo.ai/models/table/COFFEE/LABEL.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.427Z",
+      "url": "https://oryzo.ai/models/table/water_bear.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.432Z",
+      "url": "https://oryzo.ai/textures/table/DESK_HD.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.433Z",
+      "url": "https://oryzo.ai/splats/props.sog",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.436Z",
+      "url": "https://oryzo.ai/splats/table_reflection.sog",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.437Z",
+      "url": "https://oryzo.ai/models/table/DESK.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.443Z",
+      "url": "https://oryzo.ai/models/table/PINBOARD.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.444Z",
+      "url": "https://oryzo.ai/models/table/WALL.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.449Z",
+      "url": "https://oryzo.ai/models/table/COFFEE/COVER.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.452Z",
+      "url": "https://oryzo.ai/models/BARK.buf",
+      "type": "xhr",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.516Z",
+      "url": "https://oryzo.ai/textures/table/DESK.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.518Z",
+      "url": "https://oryzo.ai/textures/table/PINBOARD.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.518Z",
+      "url": "https://oryzo.ai/textures/table/WALL.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.518Z",
+      "url": "https://oryzo.ai/textures/coffee/cover-specular.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.519Z",
+      "url": "https://oryzo.ai/textures/table/WATERBEAR_2.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.519Z",
+      "url": "https://oryzo.ai/textures/coaster/STACK.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.519Z",
+      "url": "https://oryzo.ai/textures/coffee/smoke/base.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.520Z",
+      "url": "https://oryzo.ai/textures/sketches/sketches_a.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.520Z",
+      "url": "https://oryzo.ai/textures/table/microscopic.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.520Z",
+      "url": "https://oryzo.ai/textures/sketches/sketches_b.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.521Z",
+      "url": "https://oryzo.ai/textures/table/cork_closeup.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.522Z",
+      "url": "https://oryzo.ai/textures/coffee/LABEL.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.523Z",
+      "url": "https://oryzo.ai/textures/coffee/smoke/harmonics_1.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.524Z",
+      "url": "https://oryzo.ai/textures/coffee/BASE_COLOR.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.526Z",
+      "url": "https://oryzo.ai/textures/coffee/smoke/harmonics_0.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.526Z",
+      "url": "https://oryzo.ai/textures/table/WATERBEAR.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.526Z",
+      "url": "https://oryzo.ai/textures/coffee/BASE_HARMONICS_0_MOBILE.png",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.528Z",
+      "url": "https://oryzo.ai/textures/sustainability/bark.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.535Z",
+      "url": "https://cloudflareinsights.com/cdn-cgi/rum",
+      "type": "xhr",
+      "status": 204
+    },
+    {
+      "at": "2026-10-10T05:22:09.870Z",
+      "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:09.911Z",
+      "url": "https://oryzo.ai/_astro/splat_sorter_bg-BfJrILzx.wasm",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.196Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/intro.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.227Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/shoulder.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.227Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/bite.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.228Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/yoga.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.228Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/bikini.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.230Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/bikini_on.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.233Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/glasses.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.234Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/glasses.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.234Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/pocket.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.235Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/thumbs/outro.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.236Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/bikini_on.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.237Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/pocket.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.237Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/shoulder.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.635Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/bite.mp4",
+      "type": "media",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.637Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/yoga.mp4",
+      "type": "media",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.657Z",
+      "url": "https://oryzo.ai/rive/oryzo.riv",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.660Z",
+      "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+      "type": "script",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.683Z",
+      "url": "https://oryzo.ai/rive/oryzo.riv",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.703Z",
+      "url": "https://oryzo.ai/_astro/splat_sorter_bg-BfJrILzx.wasm",
+      "type": "fetch",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.708Z",
+      "url": "blob:https://oryzo.ai/f53d82b4-242d-482a-b8c2-4d89ecb1e810",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.708Z",
+      "url": "blob:https://oryzo.ai/1f2ff9dd-61be-40c9-a1b4-ce0033ab513e",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.709Z",
+      "url": "blob:https://oryzo.ai/426d8200-bd5e-4047-9a69-b1fec7092458",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.709Z",
+      "url": "blob:https://oryzo.ai/f8eb481e-9c8d-4b7c-9bd1-786ee67f5e5f",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.709Z",
+      "url": "blob:https://oryzo.ai/39b20e6e-e327-4c26-ac6c-55b991a17bb7",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.710Z",
+      "url": "blob:https://oryzo.ai/9875be5e-8b08-4f4c-ac02-fc3477b3c122",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.710Z",
+      "url": "blob:https://oryzo.ai/d151b878-9ec3-4ba6-b9ae-867ccc738975",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.810Z",
+      "url": "blob:https://oryzo.ai/12818d53-3830-4d1b-83d8-51a2fcb41893",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.813Z",
+      "url": "blob:https://oryzo.ai/77a10dd9-6d6a-4716-be36-7889e8c7da71",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.813Z",
+      "url": "blob:https://oryzo.ai/356b6001-b543-4536-ba09-bb6cd554a4c6",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.813Z",
+      "url": "blob:https://oryzo.ai/ee84c7e0-ca7c-4be1-af0e-d1cc056322fd",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.813Z",
+      "url": "blob:https://oryzo.ai/6a2df4d0-91ac-44cc-afcf-064d6d7728b1",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.813Z",
+      "url": "blob:https://oryzo.ai/3c1c8e4e-4b1a-4b47-877d-a1e0758e10f2",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:10.814Z",
+      "url": "blob:https://oryzo.ai/86a86912-0dc7-47a1-b3e1-23bba346ac2a",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.424Z",
+      "url": "https://oryzo.ai/images/testimonies/astronut.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.541Z",
+      "url": "https://oryzo.ai/images/testimonies/pirate_king.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.561Z",
+      "url": "https://oryzo.ai/images/testimonies/youtuber.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.637Z",
+      "url": "https://oryzo.ai/images/testimonies/attention.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.790Z",
+      "url": "https://oryzo.ai/images/testimonies/flat_earth.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.853Z",
+      "url": "https://oryzo.ai/images/social-content/edge.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.930Z",
+      "url": "https://oryzo.ai/images/social-content/sticker_1.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.986Z",
+      "url": "https://oryzo.ai/images/social-content/always_on.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:11.998Z",
+      "url": "https://oryzo.ai/images/social-content/always_on_cover.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.032Z",
+      "url": "https://oryzo.ai/images/social-content/color.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.081Z",
+      "url": "https://oryzo.ai/images/social-content/3090.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.101Z",
+      "url": "https://oryzo.ai/images/social-content/3090_cover.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.148Z",
+      "url": "https://oryzo.ai/images/social-content/perfect.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.161Z",
+      "url": "https://oryzo.ai/images/social-content/drop_test.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.208Z",
+      "url": "https://oryzo.ai/images/social-content/drop_test_cover.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.232Z",
+      "url": "https://oryzo.ai/images/social-content/sticker_2.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:12.252Z",
+      "url": "https://oryzo.ai/images/social-content/legacy_support.webp",
+      "type": "image",
+      "status": 200
+    },
+    {
+      "at": "2026-10-10T05:22:29.931Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/yoga.mp4",
+      "type": "media",
+      "status": 206
+    },
+    {
+      "at": "2026-10-10T05:22:31.235Z",
+      "url": "https://oryzo.ai/images/wearable-gallery/bite.mp4",
+      "type": "media",
+      "status": 206
+    },
+    {
+      "at": "2026-10-10T05:23:08.194Z",
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/h/g/precursor/4df4a60fa397/0.05989575294281202:1791601520:5dMoF9LsGjRS4exOA1WYFWtXQdN_at8RXglspvZ8aOQ/a4832f7e1fadc25a",
+      "type": "xhr",
+      "status": 200
+    }
+  ],
+  "scriptEvidence": [
+    {
+      "url": "https://static.cloudflareinsights.com/beacon.min.js",
+      "status": 200,
+      "markers": [],
+      "size": 31679
+    },
+    {
+      "url": "https://oryzo.ai/_astro/hoisted.CRsATKbF.js",
+      "status": 200,
+      "markers": [
+        {
+          "marker": "gsap",
+          "excerpt": "/*!\n * SplitText 3.14.2\n * https://gsap.com\n *\n * @license Copyright 2025, GreenSock. All rights res",
+          "meaning": "literal text in a loaded script; settings and execution not inferred"
+        }
+      ],
+      "size": 1097812
+    },
+    {
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/scripts/precursor/main.js",
+      "status": 302,
+      "markers": [],
+      "markerReadUnavailable": "Error: response.body: Response body is unavailable for redirect responses"
+    },
+    {
+      "url": "https://player.vimeo.com/cdn-cgi/challenge-platform/h/g/scripts/precursor/4df4a60fa397/main.js?",
+      "status": 200,
+      "markers": [],
+      "size": 43425
+    },
+    {
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/vendor.module.js",
+      "status": 200,
+      "markers": [],
+      "size": 323802
+    },
+    {
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/player.module.js",
+      "status": 200,
+      "markers": [],
+      "size": 926208
+    },
+    {
+      "url": "https://f.vimeocdn.com/p/4.46.126/js/hls-js.module.js",
+      "status": 200,
+      "markers": [],
+      "size": 615370
+    },
+    {
+      "url": "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1",
+      "status": 200,
+      "markers": [],
+      "size": 4272
+    },
+    {
+      "url": "https://www.gstatic.com/eureka/clank/154/cast_sender.js",
+      "status": 200,
+      "markers": [],
+      "size": 47370
+    },
+    {
+      "url": "https://www.gstatic.com/cast/sdk/libs/sender/1.0/cast_framework.js",
+      "status": 200,
+      "markers": [],
+      "size": 35946
+    },
+    {
+      "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+      "status": 200,
+      "markers": [],
+      "size": 3271
+    },
+    {
+      "url": "https://oryzo.ai/_astro/SplatsWorker-DSMxtdkh.js",
+      "status": 200,
+      "markers": [],
+      "size": 3271
+    }
+  ],
+  "segments": [
+    {
+      "name": "slow-wheel",
+      "nominal": {
+        "count": 12,
+        "deltaY": 120,
+        "intervalMs": 180
+      },
+      "started": "2026-10-10T05:22:09.572Z",
+      "start": 3507.2000000029802,
+      "end": 7434.300000011921,
+      "finished": "2026-10-10T05:22:13.755Z",
+      "metrics": {
+        "samples": 137,
+        "durationMs": 3936.7,
+        "scrollDisplacement": 1189,
+        "lastWheelClock": 7237.600000008941,
+        "timeToRestMs": null,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 12,
+        "wheelDeltaY": 1440,
+        "p50FrameIntervalMs": 16.699999999999818,
+        "p95FrameIntervalMs": 100,
+        "maxScrollFrameDelta": 58,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "slow-stop",
+      "holdMs": 2000,
+      "started": "2026-10-10T05:22:13.759Z",
+      "start": 7446.5,
+      "end": 10095.10000000894,
+      "finished": "2026-10-10T05:22:16.421Z",
+      "metrics": {
+        "samples": 160,
+        "durationMs": 2652.1000000000004,
+        "scrollDisplacement": 9,
+        "lastWheelClock": 7237.600000008941,
+        "timeToRestMs": 482.6999999910595,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 0,
+        "wheelDeltaY": 0,
+        "p50FrameIntervalMs": 16.699999999999818,
+        "p95FrameIntervalMs": 16.80000000000109,
+        "maxScrollFrameDelta": 2,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "fast-wheel",
+      "nominal": {
+        "count": 4,
+        "deltaY": 1200,
+        "intervalMs": 80
+      },
+      "started": "2026-10-10T05:22:16.425Z",
+      "start": 10111,
+      "end": 10679.40000000596,
+      "finished": "2026-10-10T05:22:17.001Z",
+      "metrics": {
+        "samples": 34,
+        "durationMs": 550.5,
+        "scrollDisplacement": 725,
+        "lastWheelClock": 10574.300000011921,
+        "timeToRestMs": null,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 4,
+        "wheelDeltaY": 4800,
+        "p50FrameIntervalMs": 16.69999999999891,
+        "p95FrameIntervalMs": 16.80000000000109,
+        "maxScrollFrameDelta": 48,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "abrupt-stop",
+      "holdMs": 2000,
+      "started": "2026-10-10T05:22:17.005Z",
+      "start": 10686.300000011921,
+      "end": 13515.20000000298,
+      "finished": "2026-10-10T05:22:19.837Z",
+      "metrics": {
+        "samples": 171,
+        "durationMs": 2835.7000000000007,
+        "scrollDisplacement": 61,
+        "lastWheelClock": 10574.300000011921,
+        "timeToRestMs": 548.6999999880791,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 0,
+        "wheelDeltaY": 0,
+        "p50FrameIntervalMs": 16.69999999999891,
+        "p95FrameIntervalMs": 16.80000000000109,
+        "maxScrollFrameDelta": 14,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "reversal",
+      "nominal": {
+        "count": 4,
+        "deltaY": -1200,
+        "intervalMs": 80
+      },
+      "holdMs": 2000,
+      "started": "2026-10-10T05:22:19.842Z",
+      "start": 13530.90000000596,
+      "end": 16804.80000001192,
+      "finished": "2026-10-10T05:22:23.127Z",
+      "metrics": {
+        "samples": 197,
+        "durationMs": 3269.399999999998,
+        "scrollDisplacement": -800,
+        "lastWheelClock": 14026.60000000894,
+        "timeToRestMs": 532.4999999910597,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 4,
+        "wheelDeltaY": -4800,
+        "p50FrameIntervalMs": 16.69999999999891,
+        "p95FrameIntervalMs": 16.799999999999272,
+        "maxScrollFrameDelta": 46,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "document-forward",
+      "inputMeasure": true,
+      "measuredChunkTraversal": true,
+      "started": "2026-10-10T05:22:23.133Z",
+      "start": 16816.5,
+      "lastMeasured": {
+        "y": 39645,
+        "height": 56691,
+        "viewport": 900,
+        "max": 55791
+      },
+      "traverseIntervalMs": 40,
+      "final": {
+        "y": 40000,
+        "max": 55791
+      },
+      "steps": 194,
+      "targetFraction": 0.9,
+      "observedFraction": 0.7169615170905702,
+      "reached": false,
+      "end": 43624.30000001192,
+      "finished": "2026-10-10T05:22:49.946Z",
+      "metrics": {
+        "samples": 1311,
+        "durationMs": 26805.399999999998,
+        "scrollDisplacement": 38800,
+        "lastWheelClock": 40815.5,
+        "timeToRestMs": 565.8000000000029,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 194,
+        "wheelDeltaY": 620800,
+        "p50FrameIntervalMs": 16.69999999999709,
+        "p95FrameIntervalMs": 16.900000000001455,
+        "maxScrollFrameDelta": 141,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    },
+    {
+      "name": "document-retrace",
+      "inputMeasure": true,
+      "measuredChunkTraversal": true,
+      "started": "2026-10-10T05:22:49.960Z",
+      "start": 43644.20000000298,
+      "lastMeasured": {
+        "y": 1381,
+        "height": 56691,
+        "viewport": 900,
+        "max": 55791
+      },
+      "traverseIntervalMs": 40,
+      "final": {
+        "y": 1255,
+        "max": 55791
+      },
+      "steps": 194,
+      "targetFraction": 0.02,
+      "observedFraction": 0.022494667598716638,
+      "reached": true,
+      "end": 65757.40000000596,
+      "finished": "2026-10-10T05:23:12.085Z",
+      "metrics": {
+        "samples": 1308,
+        "durationMs": 22118.199999999997,
+        "scrollDisplacement": -38745,
+        "lastWheelClock": 62983.30000001192,
+        "timeToRestMs": 682.7999999880776,
+        "restDefinition": "scroll delta <=0.5px/frame for >=300ms after last observed wheel; null means unavailable/unrested within segment",
+        "observedWheels": 194,
+        "wheelDeltaY": -552849.6712799072,
+        "p50FrameIntervalMs": 16.69999999999709,
+        "p95FrameIntervalMs": 16.80000000000291,
+        "maxScrollFrameDelta": 108,
+        "maxCameraPositionDelta": null,
+        "maxCameraQuaternionDeltaRad": null,
+        "maxCameraFovDelta": null
+      }
+    }
+  ],
+  "pngs": [
+    {
+      "file": "slow-stop.png",
+      "at": {
+        "clock": 9462.5,
+        "scrollY": 1200,
+        "max": 55791
+      },
+      "size": 1213735,
+      "sha256": "6ed6566e6ac248db5d2bffa0ec595cfcb43b6651c576133a1ec881392dd0c5ae"
+    },
+    {
+      "file": "abrupt-stop.png",
+      "at": {
+        "clock": 12703.40000000596,
+        "scrollY": 2000,
+        "max": 55791
+      },
+      "size": 1587361,
+      "sha256": "f2640534cccebb2b39ae3cf666323da085a3d0fe28397531662567506138ea83"
+    },
+    {
+      "file": "reversal.png",
+      "at": {
+        "clock": 16132.5,
+        "scrollY": 1200,
+        "max": 55791
+      },
+      "size": 1243194,
+      "sha256": "c25324266a8a30cda7075e614b0d8b0f70b94444aa616feeb9cc83f48332ea6b"
+    },
+    {
+      "file": "forward-stop.png",
+      "at": {
+        "clock": 42877.10000000894,
+        "scrollY": 40000,
+        "max": 55791
+      },
+      "size": 977012,
+      "sha256": "86cfdce8ddb52216275c416e96537addc4770acc6315c18a0d514ad0803d0793"
+    },
+    {
+      "file": "retrace-stop.png",
+      "at": {
+        "clock": 65048.80000001192,
+        "scrollY": 1255,
+        "max": 55791
+      },
+      "size": 1311422,
+      "sha256": "ecf630860e1cf32950a5564fe51ad5595e6253fc63f266526fc436d2484a289d"
+    }
+  ],
+  "limitations": [
+    "Video, per-rAF snapshots, polling and screenshots add overhead; frame intervals are not performance certification.",
+    "Local qualityLock=1 does not prove natural tier selection or sustained full-tier performance.",
+    "The fixed slow/fast/reversal wheel profile is nominally identical across sites; adaptive traverse chunks depend on measured document extent.",
+    "Different layouts and distances are not equivalent screen geometry. Reference samples are DOM-only; script text markers do not prove runtime execution or exact Lenis/GSAP settings."
+  ],
+  "browserVersion": "154.0.8037.98",
+  "videoStarted": "2026-10-10T05:22:06.086Z",
+  "actualUrl": "https://oryzo.ai/",
+  "before": {
+    "at": 3245.6000000089407,
+    "url": "https://oryzo.ai/",
+    "title": "ORYZO AI",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 1,
+    "documentHeight": 49967,
+    "scrollY": 0,
+    "canvases": [
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          300,
+          150
+        ],
+        "rect": {
+          "x": 569.9921875,
+          "y": 375,
+          "width": 300,
+          "height": 150,
+          "top": 375,
+          "right": 869.9921875,
+          "bottom": 525,
+          "left": 569.9921875
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          300,
+          150
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          495,
+          495
+        ],
+        "rect": {
+          "x": 387,
+          "y": 41223,
+          "width": 495,
+          "height": 495,
+          "top": 41223,
+          "right": 882,
+          "bottom": 41718,
+          "left": 387
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          321,
+          321
+        ],
+        "rect": {
+          "x": 986.625,
+          "y": 41309.625,
+          "width": 321.75,
+          "height": 321.75,
+          "top": 41309.625,
+          "right": 1308.375,
+          "bottom": 41631.375,
+          "left": 986.625
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "inline"
+      }
+    ],
+    "internalProbe": "unavailable by design: DOM-only reference",
+    "renderer": null,
+    "vendor": null,
+    "contextAlive": null,
+    "tier": null,
+    "qualityLock": null,
+    "scriptUrls": [
+      "https://static.cloudflareinsights.com/beacon.min.js",
+      "https://oryzo.ai/_astro/hoisted.CRsATKbF.js"
+    ]
+  },
+  "after": {
+    "at": 65779.30000001192,
+    "url": "https://oryzo.ai/",
+    "title": "ORYZO AI",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 1,
+    "documentHeight": 56691,
+    "scrollY": 1255,
+    "canvases": [
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          571,
+          734
+        ],
+        "rect": {
+          "x": 434.8125,
+          "y": 83,
+          "width": 570.359375,
+          "height": 734,
+          "top": 83,
+          "right": 1005.171875,
+          "bottom": 817,
+          "left": 434.8125
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          495,
+          495
+        ],
+        "rect": {
+          "x": 387,
+          "y": 39968,
+          "width": 495,
+          "height": 495,
+          "top": 39968,
+          "right": 882,
+          "bottom": 40463,
+          "left": 387
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          321,
+          321
+        ],
+        "rect": {
+          "x": 986.625,
+          "y": 40054.625,
+          "width": 321.75,
+          "height": 321.75,
+          "top": 40054.625,
+          "right": 1308.375,
+          "bottom": 40376.375,
+          "left": 986.625
+        },
+        "display": "block"
+      },
+      {
+        "attached": true,
+        "size": [
+          1440,
+          900
+        ],
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "display": "inline"
+      }
+    ],
+    "internalProbe": "unavailable by design: DOM-only reference",
+    "renderer": null,
+    "vendor": null,
+    "contextAlive": null,
+    "tier": null,
+    "qualityLock": null,
+    "scriptUrls": [
+      "https://static.cloudflareinsights.com/beacon.min.js",
+      "https://oryzo.ai/_astro/hoisted.CRsATKbF.js"
+    ]
+  },
+  "sampler": {
+    "count": 3368,
+    "cap": 5000,
+    "capped": false,
+    "contextEvents": []
+  },
+  "videoStopped": "2026-10-10T05:23:12.487Z",
+  "video": {
+    "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\project\\work\\evidence\\torque-wrench-rebuild\\02-motion-baseline\\oryzo-retry-1\\video\\ce030eb4cdcf65b10fa6478031ee7451.webm",
+    "dimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "size": 8998861
+  },
+  "inflightAtClose": [],
+  "samples": 3368,
+  "finished": "2026-10-10T05:23:12.784Z",
+  "cpuUsage": {
+    "user": 12453000,
+    "system": 1687000
+  },
+  "completeProfile": false,
+  "recorded": true,
+  "success": false
+}

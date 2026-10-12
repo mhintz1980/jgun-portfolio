@@ -1,0 +1,330 @@
+{
+  "started": "2026-10-10T04:54:10.901Z",
+  "root": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench",
+  "url": "http://localhost:5199/?qualityLock=1",
+  "runtimeMode": "dev expected; served response hashes are authoritative",
+  "query": {
+    "qualityLock": "1"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "dpr": 1,
+  "phases": [
+    0.84,
+    0.86,
+    0.9,
+    0.94,
+    0.98
+  ],
+  "git": {
+    "branch": "torque-wrench/rebuild",
+    "head": "666cbf23d490352dc549b4730d3e9d14e042a5a4",
+    "dirty": "?? docs/torque-wrench-rebuild/00-owner-rulings.md\n?? docs/torque-wrench-rebuild/01-questions.md\n?? docs/torque-wrench-rebuild/02-research-procedure.md\n?? docs/torque-wrench-rebuild/README.md\n?? docs/torque-wrench-rebuild/smooth-scrolling.md\n?? project/work/evidence/torque-wrench-rebuild/",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "launch": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "node": "v22.19.0",
+  "process": {
+    "pid": 34216,
+    "arch": "x64",
+    "versions": {
+      "node": "22.19.0",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.0",
+      "ares": "1.34.5",
+      "brotli": "1.1.0",
+      "cjs_module_lexer": "2.1.0",
+      "cldr": "47.0",
+      "icu": "77.1",
+      "llhttp": "9.3.0",
+      "modules": "127",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "3.0.17",
+      "simdjson": "3.13.0",
+      "simdutf": "6.4.2",
+      "sqlite": "3.50.4",
+      "tz": "2025b",
+      "undici": "6.21.2",
+      "unicode": "16.0",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.21",
+      "v8": "12.4.254.21-node.29",
+      "zlib": "1.3.1-470d3a2",
+      "zstd": "1.5.7"
+    }
+  },
+  "device": {
+    "platform": "win32",
+    "release": "10.0.26340",
+    "hostname": "DESKTOP-8PV4OPM",
+    "memory": 30936129536,
+    "cpus": [
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3158828,
+          "nice": 0,
+          "sys": 5016671,
+          "idle": 61524343,
+          "irq": 410781
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3288906,
+          "nice": 0,
+          "sys": 4237109,
+          "idle": 62173765,
+          "irq": 158687
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 2126593,
+          "nice": 0,
+          "sys": 2225890,
+          "idle": 65347296,
+          "irq": 116609
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 1890406,
+          "nice": 0,
+          "sys": 1916437,
+          "idle": 65892937,
+          "irq": 80953
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3661671,
+          "nice": 0,
+          "sys": 6399328,
+          "idle": 59638781,
+          "irq": 585640
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3819421,
+          "nice": 0,
+          "sys": 5672984,
+          "idle": 60207375,
+          "irq": 243625
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 5555796,
+          "nice": 0,
+          "sys": 6929234,
+          "idle": 57214750,
+          "irq": 264890
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 5706328,
+          "nice": 0,
+          "sys": 6529187,
+          "idle": 57464265,
+          "irq": 252796
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 2488062,
+          "nice": 0,
+          "sys": 4231375,
+          "idle": 62980343,
+          "irq": 186750
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 2697750,
+          "nice": 0,
+          "sys": 3799359,
+          "idle": 63202671,
+          "irq": 168234
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3517359,
+          "nice": 0,
+          "sys": 6539343,
+          "idle": 59643078,
+          "irq": 278890
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 3111781,
+          "nice": 0,
+          "sys": 5311531,
+          "idle": 61276468,
+          "irq": 232968
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 4919390,
+          "nice": 0,
+          "sys": 8343796,
+          "idle": 56436593,
+          "irq": 335062
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 4874203,
+          "nice": 0,
+          "sys": 7013921,
+          "idle": 57811656,
+          "irq": 287546
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 2071500,
+          "nice": 0,
+          "sys": 2835359,
+          "idle": 64792921,
+          "irq": 115390
+        }
+      },
+      {
+        "model": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     ",
+        "speed": 3793,
+        "times": {
+          "user": 2051468,
+          "nice": 0,
+          "sys": 2585312,
+          "idle": 65063000,
+          "irq": 106984
+        }
+      }
+    ],
+    "windows": {
+      "gpu": [
+        {
+          "Name": "AMD Radeon 780M Graphics",
+          "DriverVersion": "32.0.31041.1004",
+          "PNPDeviceID": "PCI\\VEN_1002&DEV_1900&SUBSYS_80012014&REV_B3\\4&5B043E7&0&0041"
+        }
+      ],
+      "computer": {
+        "Manufacturer": "Nimo Direct Inc.",
+        "Model": "N177L"
+      },
+      "os": {
+        "Caption": "Microsoft Windows 11 Home Insider Preview",
+        "Version": "10.0.26340",
+        "BuildNumber": "26340"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "scripts/capture-owner-revisions.mjs",
+      "size": 8742,
+      "sha256": "a08fa071ed0afcc9385f66946a1c9dd1410f8117f74f2f0ac4a4690718f642df"
+    },
+    {
+      "path": "scripts/lib/browser-launch.mjs",
+      "size": 1613,
+      "sha256": "1c72763b9bec0dfeb2fb03a8120e7628ed216c9384a6fe97b56906557eb6d595"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portal.ts",
+      "size": 17835,
+      "sha256": "77b55914d93f7738db4455dc632918237ea9691074eb88c9ffd20e626e5648e2"
+    },
+    {
+      "path": "src/scene/drawing/DrawingLinework.tsx",
+      "size": 42475,
+      "sha256": "ddbce10c394b20f539b51da6c0fdfb5554d9293710fb219a683ac97f3f3d4c7f"
+    },
+    {
+      "path": "src/scene/SceneCanvas.tsx",
+      "size": 22064,
+      "sha256": "88139d3681802b794c74b1ad8b5a5c8b4670f85f1daf6f2d6e936b0b69940674"
+    },
+    {
+      "path": "src/scene/CameraRig.tsx",
+      "size": 28237,
+      "sha256": "62bbf0f635759d04caca89d0d0b0915f7e252d587ac41ff0238ab9b1f954ce50"
+    },
+    {
+      "path": "src/state/qualityStore.ts",
+      "size": 3760,
+      "sha256": "879ab56e5e5a7d5458f7390991f16b5535959e49ba7378b826882e0cd35fa29c"
+    },
+    {
+      "path": "src/state/scrollStore.ts",
+      "size": 13910,
+      "sha256": "cb727394d9849c028ff5998e1de35d958e195d8f5fcd211c8bff6074c5f144ef"
+    },
+    {
+      "path": "project\\work\\evidence\\torque-wrench-rebuild\\01-tunnel-diagnostic\\capture-hardware-tunnel.mjs",
+      "size": 19875,
+      "sha256": "ce8e95da51a7a1fd814551c66d1913750ccbe40a9f9cd2c83d2360a7108e020e"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/concept-media/03-deep-tunnel-feedback.png",
+      "size": 5379718,
+      "sha256": "939b0f4e5b66647f8f24193b94cf5d26d77828706a1f35a1b43b16d7301aa057"
+    },
+    {
+      "path": "project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/after-o1b/opening-desktop-t0p9.png",
+      "size": 646941,
+      "sha256": "833fb5e9a97783b6e0f37a8cc0afc429493c1cc521973deff146373815993492"
+    }
+  ]
+}

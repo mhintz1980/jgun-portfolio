@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-10T05:24:41.258Z",
+  "url": "http://localhost:5199/?qualityLock=1",
+  "viewport": [
+    1440,
+    900
+  ],
+  "dpr": 1,
+  "documentHeight": 28080,
+  "maxScrollPx": 27180,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "tier": "full",
+  "readiness": {
+    "drawingProof": true,
+    "annotations": false,
+    "warm": false
+  },
+  "lenis": {
+    "options": {
+      "duration": 1.1,
+      "lerp": 0.1,
+      "smoothWheel": true,
+      "syncTouch": false,
+      "syncTouchLerp": 0.075,
+      "wheelMultiplier": 1,
+      "touchMultiplier": 1,
+      "autoRaf": false
+    },
+    "isStopped": false,
+    "isScrolling": false,
+    "animatedScroll": 0,
+    "targetScroll": 0
+  },
+  "jgunBoundary": {
+    "paced": 0.525,
+    "raw": 0.7301136363635123,
+    "scrollPx": 19844.488636360264,
+    "distanceVh": 2204.9431818178073,
+    "provisionalDoubleVh": 4409.8863636356145
+  }
+}

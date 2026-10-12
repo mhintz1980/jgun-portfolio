@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-12",
+  "workspace": "C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench",
+  "branch": "torque-wrench/rebuild",
+  "coordination": {
+    "sourceWorktree": "C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine",
+    "sourceCommit": "ad84ac05",
+    "sourceDocument": "docs/quiet-machine-shell-readiness-note-2026-10-11.md",
+    "sectionsRead": [10,15],
+    "authority": "Owner relayed the coordination window directly in chat. Parent is sole editor of four activation files together; this is not an ownership transfer. Original owner task separately authorizes resource-scheduled post-activation build/browser work.",
+    "sourceAccess": "Read commit document only; no merge, external write, or cross-chat messaging.",
+    "localClosureTermsMet": true,
+    "quietMachineClosureRecord": "pending owner relay/Quiet Machine record"
+  },
+  "activationCommit": "69ac760bf575f6d3d2c5fe63578bf423d94798db",
+  "commitScope": "Four coordinated activation files plus all 18 unchanged, hash-pinned foundation source dependencies; 22 paths. Existing docs, harness, evidence and scratch excluded. No push.",
+  "independentSourceReview": "Session B activation Round 1 PASS, final-review.md",
+  "commands": [
+    {"command":"npx vitest run src/shared","exitCode":0,"filesPassed":8,"testsPassed":240,"durationSeconds":2.07},
+    {"command":"node node_modules/vitest/vitest.mjs run src/scene/torque-wrench src/state/torqueWrenchStore.test.ts","exitCode":0,"filesPassed":5,"testsPassed":20,"durationSeconds":0.694},
+    {"command":"node node_modules/typescript/bin/tsc --noEmit","exitCode":0},
+    {"command":"node scripts/check-torque-stage1-boundary.mjs","exitCode":0,"pass":true,"eagerModules":16,"lazyEdge":"cadGate.ts -> ./Scene","errors":[]},
+    {"command":"node scripts/verify-torque-static.mjs --preflight","exitCode":0,"checksPassed":18},
+    {"command":"git diff --cached --check","exitCode":0},
+    {"command":"node node_modules/vite/bin/vite.js build --manifest --outDir .scratch/torque-stage1-integration/dist","exitCode":0,"buildSeconds":12.00}
+  ],
+  "resources": [
+    {"phase":"before shared tests","freeRAMGB":7.61,"totalRAMGB":28.81,"cpuLoadPercent":71,"nodeProcesses":74,"chromeProcesses":15,"candidatePortListeners":[]},
+    {"phase":"before build","freeRAMGB":8.01,"cpuLoadPercent":66,"nodeProcesses":74,"chromeProcesses":13,"candidatePortListeners":[]},
+    {"phase":"before preview/browser","freeRAMGB":8.04,"cpuLoadPercent":53,"nodeProcesses":74,"chromeProcesses":13,"candidatePortListeners":[]}
+  ],
+  "build": {
+    "output": ".scratch/torque-stage1-integration/dist",
+    "manifestSha256": "68f4a28270b62855ee12cdd4d5f7f4649cccfc06cf40529cf5b4cd3648447256",
+    "htmlEntries": ["index.html","quiet-machine/index.html","torque-wrench/index.html"],
+    "sourceHtmlSha256": "4e4db46a68816e134b1f11fdd918ed11848616a72c937486e2fdd239984a4d1f",
+    "builtRealHeadNoindex": true,
+    "torqueEntryAsset": "assets/torque-wrench-BhvCqyvq.js",
+    "eagerJsGzipBytes": 67001,
+    "eagerAssets": ["assets/torque-wrench-BhvCqyvq.js","assets/index-fDwt6Stp.js","assets/PageNav-Bwu9dEVf.js"],
+    "soleDynamicNarrativeScene": "assets/Scene-CYrsnGyK.js",
+    "existingEntriesPresent": true,
+    "warnings": "Existing multi-page chunks exceed 500kB. No unrelated optimization or shared chunk configuration edits made."
+  },
+  "preview": {"url":"http://localhost:4193/torque-wrench/","execSessionId":55228,"freshAfterBuild":true,"servedHttpStatus":200,"stoppedAfterValidation":true,"subsequentFetchRefused":true},
+  "runtime": {
+    "status":"PASS, executed by Session A in parent-exclusive resource window",
+    "command":"node scripts/verify-torque-static.mjs --url=http://localhost:4193/torque-wrench/ --build-dir=.scratch/torque-stage1-integration/dist --out=project/work/evidence/torque-wrench-rebuild/05-stage1-integration/runtime/report-built-round1.json",
+    "exitCode":0,
+    "report":"runtime/report-built-round1.json",
+    "reportSha256":"c2d9ff9705676659942a7e971e94e89bf83b52f7974ffa17c41cf58c5983cfbf",
+    "browserVersion":"154.0.8037.98",
+    "playwrightVersion":"1.56.1",
+    "casesPassed":14,
+    "assertionsPassed":396,
+    "assertionsFailed":0,
+    "viewports":["D 1440x900 DPR1 desktop","N 390x844 DPR3 touch/mobile"],
+    "zeroAcrossEveryCase":["document canvas mounts/removals","page OffscreenCanvas constructions","CAD/decoder requests","HTTP error responses","uncaught page errors"],
+    "expectedInjectedConsoleErrors":"One correlated error for each import-abort/render-throw case; all unrelated/clean-case console errors zero.",
+    "preserved":"Story Element identities, disclosure state and focus through import/render failure and mid-session MQL downgrade.",
+    "limits":"Scene has no renderer; no actual WebGL initialization/context-loss, GPU, hardware GL, performance or final-poster acceptance. Worker-internal OffscreenCanvas is outside page observation. Narrow input is emulated, not a physical device.",
+    "independentReview":"PASS runtime evidence Round 1 in final-review.md; report assertions/build identity independently audited"
+  },
+  "servedIdentityEvidence":"served-identity.json (10/10 raw-byte hashes matched)",
+  "finalPreservation": {
+    "head":"69ac760bf575f6d3d2c5fe63578bf423d94798db",
+    "indexEmpty":true,
+    "originalTrackedProductPaths":273,
+    "changedOriginalProductPaths":["src/shared/pageTopology.test.ts","src/shared/pages.test.ts","src/shared/pages.ts"],
+    "foundationManifestMatches":18,
+    "foundationManifestMismatches":[],
+    "doc19Sha256":"e5abebf5bb3fe2ebaccc2ce87099f72ff65ff2c45c9a3e8d896b617da095f52a",
+    "repositoryDistExists":false,
+    "gitDiffCheckExit":0,
+    "preExistingDirtyTrackedPreserved":["AGENTS.md","TODO.md","docs/torque-wrench-rebuild/00-owner-rulings.md","docs/torque-wrench-rebuild/08-next-session-handoff.md","docs/torque-wrench-rebuild/14-next-session-prompt.md","project/work/INDEX.md"],
+    "approvedPlanClosureEdit":"docs/torque-wrench-rebuild/13-implementation-plan.md: six Stage 1 checkbox markers and linked static-exit evidence added after this preservation snapshot; prior plan content retained, unstaged.",
+    "continuationLimits":"Concurrent evidence drift remains as recorded; no exhaustive unchanged continuation claim."
+  },
+  "stage1Exit": true,
+  "stage1ExitScope": "Approved static-foundation exit; stage1-closure.md. Actual WebGL/final posters/performance/owner acceptance remain open.",
+  "gatesClosed": []
+}

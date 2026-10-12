@@ -3,6 +3,10 @@
 Mark's portfolio site (Vite + React + R3F). Hero feature: the JGun Torque Wrench
 interactive exploded-view rig (Default.glb, D1-AP part numbers).
 
+## Handoff delivery preference
+
+Whenever Mark requests a handoff, provide both the saved handoff document and an accompanying ready-to-paste prompt for the receiving session. Put the prompt in the final response and save it with the handoff. Include the absolute handoff path, intended workspace, exact next action, and relevant boundaries or approval state. Preserve existing goals and do not imply authorization beyond the owner's request. This applies to every agent working in this repository.
+
 ## Session start
 
 1. Read `TODO.md` — canonical approved task queue.
