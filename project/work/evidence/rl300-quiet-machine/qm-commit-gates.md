@@ -1294,3 +1294,115 @@ scripts/build-jg033-lite.py
 scripts/verify-jg033-lite-asset.mjs
 U.1 grep exit: 0
 U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+
+## QM9 skip caps while closed
+Owner: "Ship the skip, Astra waived" (2026-10-12). Evidence `43-qm9-skip-caps/summary.md`. Closed-u delta 2-16 specks (was caps visible); open u 0 px on all four rows (cross.mjs, threshold 0).
+Gates at this tree: tsc 0; build 0; check:station2 0; U.4 cssEqual true, sourcesEqual true.
+verify-jg033-preview: first run failed with `ReferenceError: closedCaps` (a leftover in the report.checks line from this edit); fixed, re-run exit 0, errors [].
+npm test exited 1 under load (97 node processes from other sessions): 6 tests timed out at 5 s (handwriting, kinematics, portalGeometry x2, K5 camera, v16Materials). Re-run of those 5 files: 3 passed alone; portalGeometry "no floor topology" and K5 camera passed only with --testTimeout=60000. Total unchanged (701); no test reads the verifier, so the later verifier edit needs no re-run.
+U.1 pre-commit: prints nothing, then `U.1 grep exit: 1`. U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`.
+
+### U.4 QM9-skipcaps
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM9-skipcaps` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-QHaPEJXl.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (QM9 skip caps, 33b377b8): U.1 post grep exit: 1
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
