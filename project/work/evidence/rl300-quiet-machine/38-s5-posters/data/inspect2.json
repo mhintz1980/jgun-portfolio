@@ -1,0 +1,358 @@
+{
+ "materials": {
+  "0.886275_0.694118_0.027451_0.000000_0.000000": {
+   "users": 1,
+   "nodes": 2,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "0.886275_0.694118_0.027451_0.000000_0.001": {
+   "users": 1,
+   "nodes": 2,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "DIAL_BEZEL": {
+   "users": 2,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "DIAL_FACE": {
+   "users": 4,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "DIAL_LENS": {
+   "users": 2,
+   "nodes": 5,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "DIAL_MARKS": {
+   "users": 2,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_AIRWAY_VOLUME": {
+   "users": 2,
+   "nodes": 2,
+   "plane_nodes": 0,
+   "blend": "BLENDED"
+  },
+  "MSP_ALUMINUM_CAST": {
+   "users": 4,
+   "nodes": 8,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_ALUMINUM_CAST_TURNED": {
+   "users": 1,
+   "nodes": 8,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_CHASSIS": {
+   "users": 44,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_CHASSIS__SECTION": {
+   "users": 78,
+   "nodes": 19,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_GLOSS": {
+   "users": 9,
+   "nodes": 8,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_LACQUER": {
+   "users": 17,
+   "nodes": 8,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_LACQUER__SECTION": {
+   "users": 2,
+   "nodes": 19,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "MSP_BLACK_POP": {
+   "users": 21,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_BRASS_CAST": {
+   "users": 1,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_INSULATION_FOAM": {
+   "users": 24,
+   "nodes": 7,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_INSULATION_FOAM__SECTION": {
+   "users": 31,
+   "nodes": 12,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "MSP_PLASTIC": {
+   "users": 10,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_PLASTIC__SECTION": {
+   "users": 72,
+   "nodes": 19,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "MSP_RUBBER": {
+   "users": 18,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS": {
+   "users": 11,
+   "nodes": 5,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS__SECTION": {
+   "users": 47,
+   "nodes": 21,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS_FASTENER": {
+   "users": 19,
+   "nodes": 5,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS_FASTENER.001": {
+   "users": 7,
+   "nodes": 5,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS_FASTENER.002": {
+   "users": 3,
+   "nodes": 5,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STAINLESS_POLISHED": {
+   "users": 1,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STEEL_CAST": {
+   "users": 13,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_STEEL_MACHINED": {
+   "users": 11,
+   "nodes": 3,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_YELLOW_ENAMEL": {
+   "users": 21,
+   "nodes": 11,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_YELLOW_PAINT": {
+   "users": 51,
+   "nodes": 11,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  },
+  "MSP_YELLOW_PAINT__SECTION": {
+   "users": 66,
+   "nodes": 22,
+   "plane_nodes": 1,
+   "blend": "DITHERED"
+  },
+  "REVEAL_FLOOR_MAT": {
+   "users": 1,
+   "nodes": 7,
+   "plane_nodes": 0,
+   "blend": "DITHERED"
+  }
+ },
+ "cap_flip": [
+  "2751-10282-S1-Allegis-1/00020185-2-1",
+  "2751-10282-S1-Allegis-1/00020185-2-2",
+  "2751-10282-S1-Allegis-1/00022177-2-1",
+  "2751-10282-S1-Allegis-1/00022951-2-1",
+  "2751-10282-S1-Allegis-1/00022951-2-2"
+ ],
+ "cap_flip_n": 256,
+ "obj_link_slots": 295,
+ "section_slots": 296,
+ "plane_anim": {
+  "action": "SECTION_PLANEAction",
+  "frame_range": [
+   1.0,
+   600.0
+  ]
+ },
+ "plane_x_by_frame": [
+  [
+   1,
+   1.9,
+   0.0
+  ],
+  [
+   100,
+   1.9,
+   0.0
+  ],
+  [
+   211,
+   1.9,
+   0.0
+  ],
+  [
+   300,
+   1.9,
+   0.0
+  ],
+  [
+   301,
+   1.9,
+   0.0
+  ],
+  [
+   392,
+   0.85,
+   -0.2618
+  ],
+  [
+   420,
+   0.721,
+   -0.2617
+  ],
+  [
+   450,
+   0.397,
+   -0.254
+  ],
+  [
+   580,
+   -0.23,
+   0.0
+  ],
+  [
+   600,
+   -0.23,
+   0.0
+  ]
+ ],
+ "plane_empty": [
+  "ARROWS",
+  [
+   -0.23000000417232513,
+   0.0,
+   0.0
+  ],
+  [
+   0.0,
+   -0.0,
+   0.0
+  ]
+ ],
+ "doors": {
+  "1": {
+   "AF-1011-12": 0.0,
+   "SAF-1011-8": 0.0,
+   "AF-2011-10": 0.0,
+   "AF-2011-14": 0.0,
+   "SAF-1021-6": 0.0
+  },
+  "100": {
+   "AF-1011-12": 0.0,
+   "SAF-1011-8": 0.0,
+   "AF-2011-10": 0.0,
+   "AF-2011-14": 0.0,
+   "SAF-1021-6": 0.0
+  },
+  "211": {
+   "AF-1011-12": 0.0,
+   "SAF-1011-8": 0.0,
+   "AF-2011-10": 0.0,
+   "AF-2011-14": 0.0,
+   "SAF-1021-6": 0.0
+  },
+  "301": {
+   "AF-1011-12": 0.0,
+   "SAF-1011-8": 0.0,
+   "AF-2011-10": 0.0,
+   "AF-2011-14": 0.0,
+   "SAF-1021-6": 0.0
+  },
+  "600": {
+   "AF-1011-12": 0.0,
+   "SAF-1011-8": 0.0,
+   "AF-2011-10": 0.0,
+   "AF-2011-14": 0.0,
+   "SAF-1021-6": 0.0
+  }
+ },
+ "CAM_ACCESS": {
+  "constraints": [],
+  "action": "CAM_ACCESSAction",
+  "parent": null
+ },
+ "CAM_REVEAL": {
+  "constraints": [],
+  "action": "CAM_REVEALAction",
+  "parent": null
+ },
+ "HERO_CAM": {
+  "constraints": [],
+  "action": "HERO_CAMAction",
+  "parent": null
+ },
+ "render_cycles": {
+  "max_bounces": 16,
+  "transparent_max_bounces": 64,
+  "transmission_bounces": 12,
+  "use_adaptive_sampling": true,
+  "adaptive_threshold": 0.009999999776482582,
+  "film_exposure": 1.0
+ },
+ "film_transparent": false,
+ "world_color": null,
+ "bbox_blend": [
+  [
+   -6.0,
+   -6.0,
+   -0.0020000000949949026
+  ],
+  [
+   6.0,
+   6.0,
+   2.1074047088623047
+  ]
+ ]
+}

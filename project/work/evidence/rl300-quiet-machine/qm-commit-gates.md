@@ -1410,3 +1410,6 @@ U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
 ## QM test-debt: K5 camera C0 flake
 Owner: option 1 (one-file exception, allowlist amended in the plan and structure doc). `src/scene/inspection/shaft/camera.test.ts` "is C0 across the timeline at both layouts": ~20k samples x 11 expect() calls replaced by worst-case accumulators asserted once per layout, same thresholds. 2856 ms -> 191 ms alone (timed out at 5 s under full-suite load). One-off check: tightening the dp threshold to 0.0005 failed red, restored. camera.test.ts 17/17. No test added or removed (npm test total 701). Other required gates not re-run: no src/ product or verifier file changed. U.1 pre: prints nothing, `U.1 grep exit: 1`.
 U.1 post (K5 test-debt): prints nothing, U.1 grep exit: 1
+
+## S5 posters (docs and scripts only)
+Owner took over the stalled S5 session 2026-10-12: glow band fixed (REVEAL_FILL), proposed intake rebuilt, beat-4 cutaway (option b), 7 posters rendered on Modal (job rl300_posters_v16_a, estimate USD 0.1087, passed). Staged: scripts, data logs, specs, fix scripts, summary.md, two small band PNGs. Left untracked: preview/, preview-fix/, final/ PNGs and fix/exp-*.png (about 25 MB). No src/ or public/ change, so no code gates; U.1 below.
