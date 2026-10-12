@@ -142,24 +142,25 @@ for n in CUTAWAY:
         constant(m)
 print('FIX cutaway', len(CUTAWAY), 'parts hidden on frame 584')
 
-# --- 2d. beat 4 fill (owner: 'brighter'): the page eye looks at the skid underside, which no reveal light reaches.
-#         One area light under the chassis, enabled on frame 584 only. Energy from env B4_ENERGY (default 250 W).
-if 'POSTER_B4_FILL' not in bpy.data.objects:
-    ld = bpy.data.lights.new('POSTER_B4_FILL', 'AREA')
-    ld.shape = 'RECTANGLE'
-    ld.size, ld.size_y = 1.4, 1.0
-    ld.energy = float(os.environ.get('B4_ENERGY', '250'))
-    ld.color = (1.0, 0.97, 0.92)
-    lo = bpy.data.objects.new('POSTER_B4_FILL', ld)
-    sc.collection.objects.link(lo)
-    lo.location = (0.35, -0.85, -0.12)
-    lo.rotation_euler = (math.pi, 0.0, 0.0)          # area lights emit along -Z: point it up (+Z)
-    lo.visible_camera = False
-    for fr in FRAMES:
-        lo.hide_render = (fr != 584)
-        lo.keyframe_insert('hide_render', frame=fr)
-    constant(lo)
-    print('FIX b4 fill light', ld.energy, 'W')
+# --- 2d. beat 4 brightness (owner: 'brighter'): a fill light under the chassis hazed the frame (lifted blacks, and the
+#         saved blend lit about 19x stronger than the same light previewed in memory), so it is removed. Instead the
+#         scene exposure is keyed up on frame 584 only: -1.5 EV elsewhere, B4_EXPOSURE (default -0.8) on 584.
+lo = bpy.data.objects.get('POSTER_B4_FILL')
+if lo is not None:
+    ld = lo.data
+    bpy.data.objects.remove(lo, do_unlink=True)
+    bpy.data.lights.remove(ld)
+    print('FIX b4 fill light removed')
+base_ev = -1.5
+sc.view_settings.exposure = base_ev
+if sc.animation_data:
+    sc.animation_data_clear()
+b4_ev = float(os.environ.get('B4_EXPOSURE', '-0.8'))
+for fr in FRAMES:
+    sc.view_settings.exposure = b4_ev if fr == 584 else base_ev
+    sc.keyframe_insert('view_settings.exposure', frame=fr)
+constant(sc)
+print('FIX b4 exposure', b4_ev, 'on 584; others', base_ev)
 
 # --- 3. beat 4 floor ----------------------------------------------------------------------------------
 floor = bpy.data.objects['REVEAL_FLOOR']

@@ -18,6 +18,6 @@ Finals: `final/poster-01.png` .. `poster-07.png` plus `final/contact-sheet-final
 - Master blend still has the `REVEAL_FILL` band.
 
 ## Update 2026-10-12 (later)
-- Beat 4 re-rendered brighter: a 150 W area light under the chassis, enabled on frame 584 only (`fix/fix_posters.py`, env `B4_ENERGY`). Previews at 150/500 W: 500 W blows out the whites. Modal job `rl300_posters_v16_b4` (frames 583-584, the dispatcher needs two frames; estimate USD 0.0868) -> `final/poster-04-bright.png` is the current beat 4; `final/poster-04.png` is v1.
+- Beat 4 brightness: **the 150 W fill light failed on Modal** (`final/poster-04-bright.png` is blown to near-white, luma 237 vs 93; the saved blend lit about 19x stronger than the same light previewed in memory, and added a haze). Replaced by a per-frame exposure key: -0.8 EV on frame 584, -1.5 elsewhere (`fix/fix_posters.py`, env `B4_EXPOSURE`). Local check from the saved blend: frame 584 luma 93 -> 122; frames 581, 583, 585 unchanged (177/154/149 vs Modal finals 177/154/148). The Modal render of v3 is not run yet (estimate USD 0.0868).
 - V16 master untouched (sha256 788ae2a2a2f784c5 before and after). Patched copy with only the REVEAL_FILL fix: `C:/Projects/msp-render-pipeline-scene-prep/scratch/RL300-SAFE-photoreal-V16-review-fillfix.blend` (`fix/patch_master_copy.py`).
 - Astra waived by the owner for the posters.
