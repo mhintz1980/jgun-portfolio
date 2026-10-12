@@ -65,19 +65,17 @@ export const PAGES: readonly PageEntry[] = [
     fadeIn: false,
     private: false,
   },
-  // Private torque-wrench rebuild (JG-038). Registered but inactive, so the build has no input for
-  // it yet. Activation is one commit that lands the torque HTML entry (with the shared fade block
-  // and a robots noindex meta) and flips this row (reserved: false, href, htmlEntry); see the shell
-  // readiness note, "Delivery into the torque worktree, and activating the private page".
+  // Private torque-wrench rebuild (JG-038). Activated with its HTML entry, shared fade block and
+  // real head noindex under the Quiet Machine coordination window. Public navigation excludes it.
   {
     id: 'torque-wrench',
     index: 4,
     label: 'TORQUE WRENCH',
     name: 'JGUN Torque Wrench (private rebuild)',
     path: '/torque-wrench/',
-    href: null,
-    htmlEntry: null,
-    reserved: true,
+    href: '/torque-wrench/',
+    htmlEntry: 'torque-wrench/index.html',
+    reserved: false,
     // Torque structure section 1: navigation to and from this page fades through dark, so the
     // entry carries the shared fade block. The topology tests check the block once it is active.
     fadeIn: true,

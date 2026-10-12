@@ -1,0 +1,234 @@
+/* Page-local styles for the private /torque-wrench/ document. The shell ships structure only,
+   so the shell-* nav classes are styled here, by this page. */
+
+.torque-page {
+  min-height: 100vh;
+  background: #05070a;
+  color: #e8ecf1;
+}
+
+.torque-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.torque-page :focus-visible {
+  outline: 2px solid #38e8ff;
+  outline-offset: 2px;
+}
+
+.torque-skip {
+  position: absolute;
+  left: 1rem;
+  top: -3.5rem;
+  z-index: 20;
+  padding: 0.5rem 0.75rem;
+  background: #0b1016;
+  color: #38e8ff;
+  border: 1px solid #38e8ff;
+  transition: top 0.15s ease;
+}
+
+.torque-skip:focus {
+  top: 1rem;
+}
+
+.torque-header {
+  padding: 1.25rem clamp(1rem, 4vw, 3rem) 0;
+}
+
+.torque-page .shell-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.torque-page .shell-nav a,
+.torque-page .shell-nav .shell-nav-reserved {
+  color: #9fb0c0;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.torque-page .shell-nav a:hover {
+  color: #e8ecf1;
+}
+
+.torque-page .shell-nav a[aria-current='page'] {
+  color: #38e8ff;
+}
+
+.torque-hero {
+  margin: 4rem auto 2.5rem;
+  max-width: 60rem;
+}
+
+.torque-hero__eyebrow {
+  margin: 0 0 0.75rem;
+  color: #38e8ff;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.torque-hero__title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.05;
+}
+
+.torque-hero__intro {
+  margin: 0;
+  max-width: 44rem;
+  color: #b7c3ce;
+  line-height: 1.6;
+}
+
+.torque-main {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.torque-stage {
+  margin-bottom: 3rem;
+}
+
+.torque-stage[data-torque-stage='pending'] {
+  min-height: 8rem;
+  border: 1px dashed #223140;
+  border-radius: 0.5rem;
+}
+
+.torque-scene__pending {
+  margin: 0;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: #5c6c7a;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.torque-posters {
+  display: grid;
+  gap: 1rem;
+}
+
+.torque-poster-slot {
+  margin: 0;
+  min-height: 7rem;
+  border: 1px dashed #223140;
+  border-radius: 0.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.torque-poster-slot figcaption {
+  padding: 1rem;
+  color: #5c6c7a;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.torque-story {
+  display: grid;
+  gap: 3.5rem;
+  padding: 2rem 0 4rem;
+}
+
+.torque-chapter {
+  border-left: 2px solid #17222d;
+  padding-left: 1.25rem;
+}
+
+.torque-chapter__index {
+  margin: 0 0 0.35rem;
+  color: #38e8ff;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+
+.torque-chapter__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+}
+
+.torque-chapter__lede {
+  margin: 0 0 0.75rem;
+  color: #d5dde4;
+  font-weight: 600;
+}
+
+.torque-chapter__body {
+  margin: 0;
+  max-width: 44rem;
+  color: #9fb0c0;
+  line-height: 1.65;
+}
+
+.torque-inspection {
+  margin-top: 1rem;
+}
+
+.torque-inspection__toggle {
+  padding: 0.5rem 0.9rem;
+  background: transparent;
+  color: #e8ecf1;
+  border: 1px solid #2e4356;
+  border-radius: 0.25rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.torque-inspection__toggle:hover {
+  border-color: #38e8ff;
+}
+
+.torque-inspection__panel {
+  margin-top: 0.75rem;
+  max-width: 44rem;
+  padding: 1rem;
+  background: #0a0f14;
+  border: 1px solid #223140;
+  border-radius: 0.5rem;
+}
+
+.torque-inspection__panel p {
+  margin: 0;
+  color: #b7c3ce;
+  line-height: 1.6;
+}
+
+.torque-footer {
+  margin-top: 2rem;
+  padding: 2.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  border-top: 1px solid #17222d;
+}
+
+.torque-colophon {
+  margin: 1.5rem 0 0;
+  color: #5c6c7a;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .torque-skip {
+    transition: none;
+  }
+}

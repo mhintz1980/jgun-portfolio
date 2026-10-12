@@ -73,14 +73,13 @@ describe('PAGES registry', () => {
     })
   })
 
-  // Activation updates this pin together with the entry list in pageTopology.test.ts: reserved
-  // false, href '/torque-wrench/', htmlEntry 'torque-wrench/index.html'. fadeIn stays true.
-  it('pins the torque-wrench row as private and inactive: no href, no HTML entry, no build input', () => {
+  // Activation is pinned together with the entry list in pageTopology.test.ts.
+  it('pins the torque-wrench row as private and active with a real HTML build input', () => {
     expect(byId('torque-wrench')).toMatchObject({
       path: '/torque-wrench/',
-      href: null,
-      htmlEntry: null,
-      reserved: true,
+      href: '/torque-wrench/',
+      htmlEntry: 'torque-wrench/index.html',
+      reserved: false,
       fadeIn: true,
       private: true,
     })

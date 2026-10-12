@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- shell:begin -->
+    <!-- shell:fade:begin -->
+    <style>
+      html { background: #05070a; }
+      html[data-fade]::after { content: ""; position: fixed; inset: 0; z-index: 2147483647; background: #05070a; pointer-events: none; }
+      html[data-fade="in"]::after { animation: shell-fade-release 600ms ease 4000ms forwards; }
+      html[data-fade="out"]::after { animation: shell-fade-out 400ms ease forwards; }
+      html[data-fade="release"]::after { animation: shell-fade-release 600ms ease forwards; }
+      @keyframes shell-fade-out { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes shell-fade-release { from { opacity: 1; } to { opacity: 0; } }
+    </style>
+    <script>
+      try {
+        var raw = sessionStorage.getItem('jg:fade')
+        sessionStorage.removeItem('jg:fade')
+        var age = Date.now() - Number(raw)
+        if (raw !== null && isFinite(age) && age >= 0 && age < 5000 && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.setAttribute('data-fade', 'in')
+      } catch (error) {}
+    </script>
+    <!-- shell:fade:end -->
+    <!-- shell:end -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A private scroll-driven JGun torque wrench rebuild: drafting, breakthrough, mechanism, inspection, and close."
+    />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="canonical" href="https://studiomark.dev/torque-wrench/" />
+    <title>JGun Torque Wrench · Private Rebuild</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://studiomark.dev/torque-wrench/" />
+    <meta property="og:site_name" content="studiomark.dev" />
+    <meta property="og:title" content="JGun Torque Wrench · Private Rebuild" />
+    <meta
+      property="og:description"
+      content="A private scroll-driven JGun torque wrench rebuild: drafting, breakthrough, mechanism, inspection, and close."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="JGun Torque Wrench · Private Rebuild" />
+    <meta
+      name="twitter:description"
+      content="A private scroll-driven JGun torque wrench rebuild: drafting, breakthrough, mechanism, inspection, and close."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/torque-wrench-main.tsx"></script>
+  </body>
+</html>
