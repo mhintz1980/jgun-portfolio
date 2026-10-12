@@ -571,6 +571,7 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
   const [reducedMotion, setReducedMotion] = useState(readReducedMotion)
   const ribbonPlane = useMemo(() => new Plane().copy(plane), [plane])
   const clipOverride = useRef<number | null>(null)
+  const meshes = useRef<Record<string, { visible: boolean } | null>>({})
   const ribbonCounts = useMemo(() => ribbonCountsForViewport(width), [width])
   const geometries = useMemo(() => createGeometries(ribbonCounts), [ribbonCounts.main, ribbonCounts.lower, ribbonCounts.merged])
   const materials = useMemo(() => createMaterials(ribbonPlane), [ribbonPlane])
@@ -633,6 +634,16 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     ribbonPlane.constant = override === null ? plane.constant : override
 
     const flow = evaluateFlow(control.u)
+    // Skip a bundle's two draws while its final alpha multiplier is exactly zero: the fragment
+    // shader multiplies alpha by `uWeight` for every strip kind and discards below .003, so a
+    // zero-weight bundle writes no pixels. Keyed to the value, not to beat membership, so a
+    // bundle that is still fading is never cut.
+    for (const bundle of BUNDLES) {
+      const live = flow.weight[bundle] > 0
+      const hidden = meshes.current[`${bundle}-hidden`], shown = meshes.current[bundle]
+      if (hidden) hidden.visible = live
+      if (shown) shown.visible = live
+    }
     for (const bundle of BUNDLES) {
       // Reduced motion removes the temporal draw-on/dash motion while retaining
       // authored opacity handoffs and the tapered directional heads.
@@ -649,9 +660,9 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
   })
 
   return <group name="RL300_FLOW_RIBBONS">
-    {BUNDLES.map(bundle => <mesh key={`${bundle}-hidden`} geometry={geometries.geometries[bundle]}
+    {BUNDLES.map(bundle => <mesh key={`${bundle}-hidden`} ref={node => { meshes.current[`${bundle}-hidden`] = node }} geometry={geometries.geometries[bundle]}
       material={materials.hiddenMaterials[bundle]} renderOrder={20} dispose={null} />)}
-    {BUNDLES.map(bundle => <mesh key={bundle} geometry={geometries.geometries[bundle]}
+    {BUNDLES.map(bundle => <mesh key={bundle} ref={node => { meshes.current[bundle] = node }} geometry={geometries.geometries[bundle]}
       material={materials.materials[bundle]} renderOrder={21} dispose={null} />)}
   </group>
 }

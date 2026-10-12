@@ -24,6 +24,7 @@ Maps every artifact in this directory to a gate. Citations are `file:line`. Bare
 | `duct-reconstruction/` | Owner's annotated CAD screenshots for the duct airway, with README (Sept 2026) | none | historical | unknown (README has no pass/fail) |
 | `entry-fix/` | 2 owner ruling PNGs: entry and mid path (2026-09-23) | none | historical | unknown |
 | `lower-fix/` | 4 PNGs: acoustic concept and contact sheets, intake placement sketch (2026-09-24) | none | historical | unknown |
+| `44-s3-ribbon-gating/` | S3a: skip a ribbon bundle's draws while `flow.weight` is 0 (2026-10-12): summary, HEAD-vs-new pixel compare (76 compares, 0 changed), verifier and ribbon-clipping logs | B.1-B.4, U.1-U.2, G5, G8 | current | pass (uncommitted at the time of writing) |
 
 ## Gates G0-G9 mapped to existing B.1-B.4 / U.1-U.4
 

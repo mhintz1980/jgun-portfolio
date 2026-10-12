@@ -90,6 +90,8 @@ Each stage needs owner approval before it starts. Each ends at its Exit conditio
 
 **Exit:** forward, reverse, jump and reload give the same state at sampled u. Any visual change has Astra and owner approval.
 
+**S3a status (2026-10-12, owner "Go on S3"): done in the working tree, uncommitted, no look change.** One edit, `AirRibbons.tsx`: a bundle's two draws are skipped while `flow.weight` is exactly zero. 76 pixel compares at threshold 0 (4 rows x 19 u): 0 changed. Closed frames 119 > 111 draw calls (lite 61 > 53); the worst sampled open frame (19 u values) falls only 143 > 142 (lite 85 > 84), because at u .77 all four bundles are live. Also green: full vitest 701/50, check:station2, verify-jg033-preview and the ribbon-clipping verifier. Evidence `project/work/evidence/rl300-quiet-machine/44-s3-ribbon-gating/summary.md`. The `{ratio, isActive, local}` helper and `fit()` rewrite were deliberately not done in this pass (no caller in a pixel-identical change; float drift; GLSL bakes absolute-u windows). **S3b, the actual look changes the owner has now allowed, has not started and needs his direction on which transitions to move.**
+
 ### S4: layered background (candidates, approval per visual change)
 - [ ] `BackgroundDirector` plus 2-3 depth layers driven by `u`, each at its own parallax rate.
 - [ ] Gamma-correct radial base gradient with blue-noise dither (Oryzo section 3).
@@ -155,9 +157,9 @@ A passing test does not override a visual rejection.
 - Starting point: torque's final QM numbers (about 500k triangles, p95 at 60 fps desktop / 30 fps phone).
 - Background budget (draw calls, extra triangles, texture memory) is proposed in S4 and approved before S4 is measured.
 
-### S4 background budget: PROPOSED 2026-10-12, awaiting owner approval
+### S4 background budget: APPROVED by the owner 2026-10-12 ("S4 numbers approved")
 
-Owner asked for numbers 2026-10-12. Nothing below is approved. Nothing was measured for this proposal; the baseline rows are read from existing evidence (cited), and the budget rows are proposals derived from them.
+Owner asked for numbers 2026-10-12 and approved them as written below, in chat, the same day. This approves the budget rows only: it does not start S4, does not waive Astra or his PNG/motion approval per candidate, and the frame-time row is still a rule, not a number (it needs a device-named baseline first). Nothing was measured for this proposal; the baseline rows are read from existing evidence (cited), and the budget rows are proposals derived from them.
 
 | Quantity | Baseline today (source) | Existing pin | Headroom | Proposed S4 budget |
 |---|---|---|---|---|
@@ -181,7 +183,7 @@ Two consequences the owner should see before approving:
 1. Approve this plan, and which stages (full, or the cheap S0+S1+S2a variant).
 2. Runtime AO or V16 Cycles posters (S5).
 3. ~~Whether S3 may change the look, or must match it.~~ **Ruled 2026-10-12: it may change the look.** Per-change PNG/motion approval and Astra still apply (see S3).
-4. ~~Background budget numbers (S4).~~ **Numbers proposed 2026-10-12 (section 7), approval pending.** The owner asked for the numbers; he has not approved them.
+4. ~~Background budget numbers (S4).~~ **Approved 2026-10-12 (section 7).** The frame-time rule still needs a device-named baseline p95 before S4 can be accepted on performance.
 5. Pending from handoff (f): stale `rl300-lite.glb`, intake framing at u .51, end card copy and nav look, group A/B (gates QM7). Of these, stale lite landed (`114c36b3`); the rest sit in QM7/QM7b and the poster repoint.
 6. **Header at phone width wraps to 3 rows: look change authorized 2026-10-12.** Page-local: `.qm-header` and the `@media (max-width: 600px)` block in `src/scene/rl300/quiet-machine.css:4,71-75`, markup at `QuietMachinePreview.tsx:103`. Not the shared `PageNav`, so no torque coordination window is needed. The authorization does not waive Astra or the owner's PNG at 390x844 and 390x667.
 7. **Poster repoint (QM7b/QM10), answers still owed:** replace the three blue previews with the seven V16 renders; WebP size/format; beat 4 v3 (v2 failed as blown out; v3 needs a Modal go, about USD 0.0868). Details in handoff 12a, which the poster session keeps current.
