@@ -109,14 +109,14 @@ try {
         assert.equal(telemetry.capTarget.offscreen, composer === '1' || composer === '4')
         if (composer === '4') assert.equal(telemetry.capTarget.samples, 4)
       }
-      if (quality === 'lite') assert(telemetry.counts.keptTriangles < 248000, 'lite CAD geometry leaves room for intake/environment under 250k')
+      if (quality === 'lite') assert(telemetry.counts.keptTriangles < 260000, 'lite CAD geometry (with the extras, owner 2026-10-12) stays under 260k')
       if (quality === 'full') fullCapTriangles = telemetry.counts.cappedTriangles
       else assert.equal(telemetry.counts.cappedTriangles, fullCapTriangles, 'lite must preserve every cap-counting triangle')
-      assert(telemetry.drawCalls < (quality === 'lite' ? 90 : 150))
+      assert(telemetry.drawCalls < (quality === 'lite' ? 95 : 150))
       // Liner (108) + airway helper (28) + whatever the ruling removed outright
-      // + on the full tier the shipped fused MAN mesh the extras' V16 assembly replaces (replacedTriangles; lite has no extras), nothing else.
+      // + the shipped fused MAN mesh the extras' V16 assembly replaces (replacedTriangles, both tiers), nothing else.
       assert.equal(telemetry.counts.sourceTriangles - telemetry.counts.keptTriangles,
-        108 + 28 + telemetry.counts.removedTriangles + (quality === 'lite' ? 0 : telemetry.counts.replacedTriangles), 'only liner, airway helper, ruled removals and the replaced MAN mesh omitted')
+        108 + 28 + telemetry.counts.removedTriangles + telemetry.counts.replacedTriangles, 'only liner, airway helper, ruled removals and the replaced MAN mesh omitted')
       assert.equal(telemetry.counts.removedTriangles, 460, 'removals must be exactly the ruled push-on seal')
       report.captures.push({ name, shot, telemetry })
     }

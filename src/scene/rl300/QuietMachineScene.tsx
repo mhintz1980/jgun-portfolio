@@ -65,10 +65,11 @@ function Model({ plane, control, onReady, onError, lite }: { plane: Plane; contr
         for (const m of Array.isArray(o.material) ? o.material : [o.material]) if (!materials.has(m)) { m.dispose(); materials.add(m) }
       } })
     }
-    // The extra parts (gauge dials, exhaust connector pipe) exist on the full tier only: lite,
-    // poster and reduced-motion never fetch them. A failed load resolves to null and leaves
-    // the main model untouched (extraParts stays 0).
-    const extras = lite ? Promise.resolve<Group | null>(null) : new Promise<Group | null>(resolve => {
+    // The extra parts (gauge dials, V16 MAN assembly, exhaust connector pipe) load on both tiers; poster
+    // and reduced-motion never reach this loader. Owner 2026-10-12: lite gets them, at +7 draw calls and
+    // +387 KB (the lite pin moved to < 95). A failed load resolves to null and leaves the main model
+    // untouched (extraParts stays 0).
+    const extras = new Promise<Group | null>(resolve => {
       loader.load('/models/rl300-extra-parts.glb', gltf => resolve(gltf.scene), undefined, () => resolve(null))
     })
     loader.load(lite ? '/models/rl300-lite.glb' : '/models/msp-enclosure.glb', gltf => {
