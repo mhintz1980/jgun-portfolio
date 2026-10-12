@@ -142,6 +142,25 @@ for n in CUTAWAY:
         constant(m)
 print('FIX cutaway', len(CUTAWAY), 'parts hidden on frame 584')
 
+# --- 2d. beat 4 fill (owner: 'brighter'): the page eye looks at the skid underside, which no reveal light reaches.
+#         One area light under the chassis, enabled on frame 584 only. Energy from env B4_ENERGY (default 250 W).
+if 'POSTER_B4_FILL' not in bpy.data.objects:
+    ld = bpy.data.lights.new('POSTER_B4_FILL', 'AREA')
+    ld.shape = 'RECTANGLE'
+    ld.size, ld.size_y = 1.4, 1.0
+    ld.energy = float(os.environ.get('B4_ENERGY', '250'))
+    ld.color = (1.0, 0.97, 0.92)
+    lo = bpy.data.objects.new('POSTER_B4_FILL', ld)
+    sc.collection.objects.link(lo)
+    lo.location = (0.35, -0.85, -0.12)
+    lo.rotation_euler = (math.pi, 0.0, 0.0)          # area lights emit along -Z: point it up (+Z)
+    lo.visible_camera = False
+    for fr in FRAMES:
+        lo.hide_render = (fr != 584)
+        lo.keyframe_insert('hide_render', frame=fr)
+    constant(lo)
+    print('FIX b4 fill light', ld.energy, 'W')
+
 # --- 3. beat 4 floor ----------------------------------------------------------------------------------
 floor = bpy.data.objects['REVEAL_FLOOR']
 for f in FRAMES:
