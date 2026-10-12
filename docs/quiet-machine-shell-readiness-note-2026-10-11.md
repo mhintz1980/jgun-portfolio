@@ -230,3 +230,11 @@ Closing record for section 15. Quiet Machine read the torque commit read-only fr
 1. The registry differs between the branches: the torque row is active on torque and inactive here. The three shared files are edited only through a named window; a later window starts from the torque copy of `pages.ts`, not this branch's, or the activation is reverted.
 2. `src/shared/PageNav.tsx` also differs: QM7 (`1f92aa3a`, numbered nav, current page as text) landed here after the torque merge and is not on the torque branch. The torque page runs the older nav until `1f92aa3a` is merged into it; do that before torque Stage 2 work that touches navigation.
 3. Reported, unverified here: `canonical` and `og:url` in `torque-wrench/index.html` point at the public `studiomark.dev/torque-wrench/` on a private page. `noindex` covers search; link-preview scrapers would still show it.
+
+## 17. Addendum to section 16: consequences 2 and 3 resolved on the torque side (2026-10-12)
+
+Read from git, not from a report: `torque-wrench/rebuild` at `dc44fb79`.
+
+- **Consequence 2 (stale `PageNav`):** `85ca812a` took QM7 `1f92aa3a`. `git diff quiet-machine/integration torque-wrench/rebuild -- src/shared/PageNav.tsx` is empty. It was a shared-file write on the torque branch made outside a written window; it is exactly what section 16 asked for, so it is recorded as accepted, not as a breach.
+- **Consequence 3 (public canonical and og:url):** `dc44fb79` removed them; `torque-wrench/index.html` on the branch has no `canonical` or `og:url` line.
+- **Still true:** `69ac760b` and its descendants are not merged into `quiet-machine/integration`; `pages.ts`, `pages.test.ts` and `pageTopology.test.ts` are the only `src/shared` files that differ between the branches (the torque row is active there, inactive here). Any new shared edit needs a new written window.

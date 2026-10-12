@@ -1,6 +1,6 @@
 # Quiet Machine: motion, beat records and layered background, PLAN, 2026-10-11
 
-**Status:** pending owner approval. Nothing is implemented. Nothing here authorizes code, builds, captures, GPU use, commits or pushes.
+**Status (updated 2026-10-12):** S0 done; S1 `INDEX.md` and S2a landed together in `40a0b353` (handoff 11d records S2a and S2b done; the S1/S2a checkboxes below were not individually re-ticked in this edit); S2b done; S3, S4 and S5 (poster repoint) are open and are not authorized to start by this document. Owner rulings of 2026-10-12 are recorded in sections 3 (S3), 7 and 8. Nothing here authorizes code, builds, captures, GPU use, commits or pushes.
 
 **Author seat:** Opus 5.5 planning seat (medium). Branch `quiet-machine/integration`, worktree `C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine`.
 
@@ -86,6 +86,8 @@ Each stage needs owner approval before it starts. Each ends at its Exit conditio
 - [ ] Evaluate against the existing look first. A version that looks identical is a pass. A version that looks different is a visual change and needs approval.
 - [ ] Freeze check: a stationary `u` freezes all narrative state. Reverse retraces it.
 
+**Owner ruling 2026-10-12: S3 may change the look.** It no longer has to match. What this lifts: the "must look identical" constraint, so a `fit()` window may move a transition if the result reads better. What it does not lift: each changed look still reaches the owner as unaltered runtime PNGs (and motion) at the same u values, and Astra is still consulted, because the owner did not waive Astra for S3. Say which windows moved and by how much in the S3 evidence.
+
 **Exit:** forward, reverse, jump and reload give the same state at sampled u. Any visual change has Astra and owner approval.
 
 ### S4: layered background (candidates, approval per visual change)
@@ -153,10 +155,33 @@ A passing test does not override a visual rejection.
 - Starting point: torque's final QM numbers (about 500k triangles, p95 at 60 fps desktop / 30 fps phone).
 - Background budget (draw calls, extra triangles, texture memory) is proposed in S4 and approved before S4 is measured.
 
+### S4 background budget: PROPOSED 2026-10-12, awaiting owner approval
+
+Owner asked for numbers 2026-10-12. Nothing below is approved. Nothing was measured for this proposal; the baseline rows are read from existing evidence (cited), and the budget rows are proposals derived from them.
+
+| Quantity | Baseline today (source) | Existing pin | Headroom | Proposed S4 budget |
+|---|---|---|---|---|
+| Background draw cost today | none: `<color attach="background" args={['#101b24']}>` clear, `QuietMachineScene.tsx:167`; `RoomEnvironment` lights the model only | | | S4 adds everything |
+| Draw calls, full, worst open frame | 138-142 across sampled frames (handoff 11b line 17); 143 at closed u before the skip, all passes drawing (`43-qm9-skip-caps/closed-proof-head.json`, HEAD e12fa094). Current-HEAD values at the open anchors were not re-read for this proposal. Open frames were unchanged by `190e18fd` (`43-qm9-skip-caps/summary.md`) | `< 150` (`verify-jg033-preview.mjs:115`) | 6 | **<= +5 (<= 148)**: 1 gradient+dither pass, 2 depth layers, 0-2 for the pointer layer. No pin edit |
+| Draw calls, lite, worst open frame | 85 (handoff 11e line 14) | `< 90` | 4 | **<= +2 (<= 87)**: gradient+dither plus at most one layer; no pointer layer |
+| Draw calls, closed frames | full 119, lite 61 (after `190e18fd`) | same pins | 30 / 28 | not the binding case; the open worst case is |
+| Triangles added | | | | **<= 100** (quads, or one fullscreen triangle). Not the constraint |
+| Scene triangles (context) | full 1,210,464 open (906,048 closed after the skip), of which about 304k are cap passes at open frames; lite 551,736 open (247,320 closed) (`43-qm9-skip-caps/summary.md`, handoff 12a) | plan "about 500k per device" | not demonstrated | S4 does not change this; do not claim it |
+| New materials | | | | **<= 3 full, <= 1 lite** |
+| Texture memory (GPU, with mips) | | | | **<= 8 MB full, <= 1 MB lite.** Cost arithmetic: blue-noise 64x64 RGBA8 = 16 KB; a 1024x512 RGBA8 layer = 2 MB (about 2.7 MB mipped), so 2 layers = about 5.3 MB; lite carries the noise texture only |
+| Frame time | **no device-named p95 exists** (`frameResponseMs` is vsync-bound; GPU-6 never run) | 60 fps desktop / 30 fps phone | unknown | **cannot be set honestly until a baseline is measured**: proposed rule is desktop p95 within +1.0 ms of the same-device pre-S4 baseline, no fps loss, uncapped timing before and after |
+
+Two consequences the owner should see before approving:
+
+1. **The existing pins leave 6 draw calls (full) and 4 (lite).** A background with 3 passes fits only because the proposal is that tight. If the owner wants a pointer layer or a third depth layer on full, the `< 150` pin has to move first, which is an edit to an existing assert, not a new one.
+2. **S4 cannot be accepted on performance until a baseline p95 is captured** on the named desktop GPU (and the phone, if the phone path is claimed). That is the GPU-6 measurement that QM8 deferred. Cost to take it: local GPU time and one existing verifier run (`frameResponseMs`, uncapped); no Modal spend; but it needs the single GPU free.
+
 ## 8. Open owner decisions
 
 1. Approve this plan, and which stages (full, or the cheap S0+S1+S2a variant).
 2. Runtime AO or V16 Cycles posters (S5).
-3. Whether S3 may change the look, or must match it.
-4. Background budget numbers (S4).
-5. Pending from handoff (f): stale `rl300-lite.glb`, intake framing at u .51, end card copy and nav look, group A/B (gates QM7).
+3. ~~Whether S3 may change the look, or must match it.~~ **Ruled 2026-10-12: it may change the look.** Per-change PNG/motion approval and Astra still apply (see S3).
+4. ~~Background budget numbers (S4).~~ **Numbers proposed 2026-10-12 (section 7), approval pending.** The owner asked for the numbers; he has not approved them.
+5. Pending from handoff (f): stale `rl300-lite.glb`, intake framing at u .51, end card copy and nav look, group A/B (gates QM7). Of these, stale lite landed (`114c36b3`); the rest sit in QM7/QM7b and the poster repoint.
+6. **Header at phone width wraps to 3 rows: look change authorized 2026-10-12.** Page-local: `.qm-header` and the `@media (max-width: 600px)` block in `src/scene/rl300/quiet-machine.css:4,71-75`, markup at `QuietMachinePreview.tsx:103`. Not the shared `PageNav`, so no torque coordination window is needed. The authorization does not waive Astra or the owner's PNG at 390x844 and 390x667.
+7. **Poster repoint (QM7b/QM10), answers still owed:** replace the three blue previews with the seven V16 renders; WebP size/format; beat 4 v3 (v2 failed as blown out; v3 needs a Modal go, about USD 0.0868). Details in handoff 12a, which the poster session keeps current.
