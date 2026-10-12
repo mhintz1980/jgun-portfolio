@@ -183,3 +183,26 @@ Recorded: shell delivery into the torque worktree and torque-side CPU verificati
 ## 14. Fresh readiness run (2026-10-11), current evidence
 
 `project/work/evidence/rl300-quiet-machine/36-shell-readiness-run/README.md`. At HEAD `efea0537` (V16 round 2 included, `src/shared` unchanged since `4669e49e`): typecheck exit 0; build exit 0 to a separate outDir; `verify-page-transition.mjs` 7/7 PASS at 1440x900 and at 390x844, no UNVERIFIED case, served hashes equal dist. Chrome 154.0.8037.98; GL renderer not recorded by the verifier. Port 4191 only, released. This supersedes "Not run" in section 8 for build and the transition verifier; the GPU-3 result at `275a4c0a` stays historical. It does not approve torque's budgets or matrix and does not close torque Stage 0.
+
+## 15. Coordination window for the torque activation (2026-10-12)
+
+Requested by the torque session, relayed by the owner. This section is the Quiet Machine side's written answer: a coordination window, not an ownership transfer. Section 7's rule stands (the shell block, `pages.ts`, the topology and row tests belong to the Quiet Machine track); this window is the "with this track's owner" in section 10.
+
+**The four files, edited together as one unit**
+
+- `torque-wrench/index.html` (does not exist yet on either branch)
+- `src/shared/pages.ts`
+- `src/shared/pages.test.ts`
+- `src/shared/pageTopology.test.ts`
+
+**State at 2026-10-12.** `quiet-machine/integration` at `421634c2` and `torque-wrench/rebuild` at `8945fa95` hold identical copies of the three `src/shared` files (`git diff` of each against the other branch is empty). No file in the window is dirty in either worktree. The torque row is still private, reserved, `href: null`, `htmlEntry: null`.
+
+**Window terms**
+
+1. Edit owner while the window is open: the torque session, in the `jgun-torque-wrench` worktree, in one commit that follows the section 10 recipe (HTML entry plus `src/torque-wrench-main.tsx`, row flip, entry-list and row-pin updates).
+2. The Quiet Machine session makes no edit to any of the four files while the window is open. Its pending QM9/S3 work does not touch them.
+3. Quiet Machine edits to `src/shared` during the window, if one is unavoidable, go to the torque session as a request, not as a commit on `quiet-machine/integration`.
+4. The window closes when the torque commit exists locally and `npx vitest run src/shared` passes there. The Quiet Machine session then merges that commit (or the owner assigns the merge), reads the three shared diffs, and records the closing in this note. A shared-file change in the torque commit beyond the section 10 recipe is reviewed before it is merged.
+5. Not authorized by this window: build, `verify-page-transition.mjs`, any GPU/server work, push, deploy. Those stay with the owner's separate coordination (section 11, item 1).
+
+**Not decided here.** The window has no clock; it is open until step 4. If the owner prefers a full ownership transfer of the three shared files to the torque session, that supersedes terms 2 and 3 and needs the owner's say in chat, not a note.
