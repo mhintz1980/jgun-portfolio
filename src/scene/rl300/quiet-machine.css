@@ -73,6 +73,11 @@
   .qm-header { top: 22px; left: 22px; right: 22px; }
   .qm-header > span { font-size: 7px; }
   .qm-header .shell-nav { order: 3; flex-basis: 100%; }
+  /* Phone header in two rows: the three nav items fit one row at 8px / .08em down to 360px wide.
+     Below that the list still wraps (flex-wrap), so nothing overflows. */
+  .qm-header .shell-nav a, .qm-header .shell-nav-reserved, .qm-header .shell-nav-current { font-size: 8px; letter-spacing: .08em; }
+  .qm-header .shell-nav-list { gap: 4px 10px; }
+  .qm-header .shell-nav-index { margin-right: .3em; }
   .qm-editorial { left: 22px; right: 22px; width: auto; top: max(12vh, 120px); }
   .qm-eyebrow { margin-bottom: 14px; font-size: 8px; }
   .qm-editorial h1 { font-size: 38px; letter-spacing: -.045em; margin-bottom: 10px; }
