@@ -37,8 +37,8 @@ Resource note: one GPU. The poster session uses local Blender; the torque sessio
 
 Token estimates, plan section "Line one" except the header (mine, unanchored): S3 150-250k, S4 300-450k, header fix 40-80k.
 
-## V16 frame shifts: why they are in the handoff, not done
-You approved them with a 30k-token limit. Estimate 120-200k tokens (mine, unanchored): the 2026-10-11 audit data lived in an earlier session's scratch directory that is gone, and `asset2/scripts/audit.mjs` imports a loader from it. Steps: (1) read-only Blender bbox dump of the V16 master (now the REVEAL_FILL-fixed copy swapped in by the poster session; that light-only change moves no parts, but the audit cites the old hash); (2) rebuild the loader and re-run the audit; (3) per-part offset table; (4) apply it in `prepareModel.ts` like `EXHAUST_STACK_OFFSET` (the shipped GLB stays untouched); (5) PNG compare, tests, ruling. Coherent shifts to start with: engine group 34 parts +14.9 mm z, CPM and FFM +14.0 mm z. Composite panels (+94 mm x on 16 parts) and chassis bolts (+9.1 mm z) are scattered, not a frame shift.
+## V16 frame shifts: SUPERSEDED by HANDOFF-quiet-machine-2026-10-12d
+The premise here (audit data gone, fresh Blender dump needed, 120-200k tokens) was wrong. The owner's review session verified the inputs are tracked (`1977bfb8`: `asset2/v16-bboxes.json`, `asset2/scripts/load.mjs`; `audit.mjs` repo-relative). Re-estimate and plan: HANDOFF-quiet-machine-2026-10-12d.md, Job 1.
 
 ## Open items carried unchanged
 QM8 / GPU-6 triangle acceptance (not demonstrated; open frames still carry about 304k cap-pass triangles); V16 vs shipped frame shifts (`35-v16-round-1/asset2/audit.md`); lite has no `rl300-extra-parts.glb`; eager `prepareModel` reservoir test and the load-timeout tests (12a); Astra rulings for any new visual effect.
