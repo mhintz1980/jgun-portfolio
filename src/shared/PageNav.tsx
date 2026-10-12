@@ -36,21 +36,46 @@ export interface PageNavProps {
   current: PageId
   tier: TierParam
   variant: 'header' | 'endcard'
+  /** Landmark name. Two navs on one page need two names. Default "Pages". */
+  label?: string
+  /** Prefix each row with its two-digit site-order number. */
+  numbered?: boolean
+  /** Render the current row as plain text (aria-current kept) instead of a link to itself. */
+  currentAsText?: boolean
 }
 
 const VARIANT_CLASS = { header: 'shell-nav-header', endcard: 'shell-nav-endcard' } as const
 
-export function PageNav({ current, tier, variant }: PageNavProps) {
+export function PageNav({ current, tier, variant, label = 'Pages', numbered = false, currentAsText = false }: PageNavProps) {
   return (
-    <nav className={`shell-nav ${VARIANT_CLASS[variant]}`} aria-label="Pages">
+    <nav className={`shell-nav ${VARIANT_CLASS[variant]}`} aria-label={label}>
       <ul className="shell-nav-list">
-        {publicPages().map((page) => (
-          <li key={page.id} className="shell-nav-item">
-            <PageLink id={page.id} tier={tier} current={page.id === current}>
+        {publicPages().map((page) => {
+          const isCurrent = page.id === current
+          const content = (
+            <>
+              {numbered && (
+                <>
+                  <span className="shell-nav-index">{String(page.index).padStart(2, '0')}</span>{' '}
+                </>
+              )}
               {page.label}
-            </PageLink>
-          </li>
-        ))}
+            </>
+          )
+          return (
+            <li key={page.id} className="shell-nav-item">
+              {currentAsText && isCurrent && pageHref(page.id, tier) !== null ? (
+                <span className="shell-nav-current" aria-current="page">
+                  {content}
+                </span>
+              ) : (
+                <PageLink id={page.id} tier={tier} current={isCurrent}>
+                  {content}
+                </PageLink>
+              )}
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )
