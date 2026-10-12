@@ -7,7 +7,7 @@ Cwd `C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine`, branch `quiet-machine/in
 |---|---|
 | Spend, this session | Modal about **USD 0.28** in dispatcher estimates (7 posters 0.1087 + failed beat-4 v2 0.0868 + beat-4 v3 0.0868; actual charge not read). 0 spawns. Orchestrator Sonnet 5.5; Advisor (Opus 5.5) 4 calls |
 | Landed (local) | the poster repoint commit "JG-033 QM10: poster repoint ..." (see `git log`); earlier `190e18fd` skip-caps, `421634c2` K5 |
-| Owner decisions pending | (a) the beat-1 caption says "A blue shell" over an orange render: change the copy? (b) what next, below |
+| Owner decisions pending | none blocking; what next, see Open items. Beat-1 caption changed ("A sealed shell.", commit 1b2ea014); V16 master swapped |
 | Astra | waived for the posters |
 
 ## What landed
@@ -21,7 +21,7 @@ Cwd `C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine`, branch `quiet-machine/in
 While writing this handoff I overwrote and then moved away the untracked `docs/HANDOFF-quiet-machine-2026-10-12b.md` written by the docs-only session ("Coordinate Shared Page File Ownership", 09:17). It was rebuilt verbatim from that session's transcript (its Write plus its two Edits) and put back, untracked, not committed; it still says the poster repoint "waits on the owner", which this handoff (12c) supersedes. Check a file does not exist before writing a handoff on a shared branch. The plan now carries a note under `### QM7b` that the posters are Blender renders and the `CAPTURE_POSTERS` block must not be re-added.
 
 ## Open items
-1. **Beat-1 caption** "A blue shell. A complex machine. One considered envelope." sits over an orange render (`shot.ts`/`beats.ts` copy, owner's words). Other beat copy may also say blue: check with him.
+1. **Beat-1 caption: DONE 2026-10-12** (owner: change copy): "A blue shell." -> "A sealed shell." in `beats.ts`; no other copy says blue.
 2. **V16 master: SWAPPED 2026-10-12 (owner go).** `C:ProjectsCADRL300-SAFERL300-SAFE-photoreal-V16-review.blend` is now the REVEAL_FILL-fixed copy (sha256 `acce2897bf331cc6...`; read back: Size Y 2.4, Location Y 0.0, 675 objects). The previous master is kept beside it as `RL300-SAFE-photoreal-V16-review.pre-fillfix-2026-10-12.blend` (sha256 `788ae2a2a2f784c5...`, the hash the S5 spec and pipeline scratch copy were pinned to). Blender was not running. Anything pinned to the old hash will now see a mismatch: that is expected.
 3. QM8 attribution / GPU-6 triangle acceptance: still not demonstrated (open frames carry about 304k tris of cap passes; a measurement script breaks the test rule unless a test is removed).
 4. Motion plan S3 (needs his ruling on look change) and S4.
@@ -41,7 +41,7 @@ Resume the Quiet Machine track in C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machi
 
 Standing owner instruction (2026-10-11): add new tests, gate scripts, mutation proofs or extra validation only if a previous test can be eliminated; run only the existing required gates once; do not reply to preference statements, just apply them. Costs and decisions in line one, model named. Use the advisor (Opus) before building and before declaring done; do small edits yourself rather than spawning.
 
-Task: ask me ONE question, which to do next: (a) beat-1 caption says "blue shell" over an orange render: fix the copy; (b) motion plan S3 per-section state (needs my ruling whether it may change the look); (c) V16 vs shipped frame shifts; (d) the eager "keeps reservoir occurrences..." test. Do not start any before I answer.
+Task: ask me ONE question, which to do next: (a) motion plan S3 per-section state (needs my ruling whether it may change the look); (b) V16 vs shipped frame shifts; (c) the eager "keeps reservoir occurrences..." test. Do not start any before I answer.
 
 Constraints: torque wrench page and public/models/msp-enclosure.glb untouched; V16 master already swapped with the fix (backup .pre-fillfix-2026-10-12.blend kept): do not touch it again without a go; no push, PR or deploy; stage by explicit path; commit only after I approve PNGs or say go; kill only PIDs you started; one GPU; Modal only on an explicit go with the dispatcher's estimate in line one; verify every report yourself; preview Blender changes from the saved blend.
 ```

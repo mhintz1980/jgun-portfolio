@@ -80,7 +80,7 @@ export const BEAT_SPECS: readonly BeatSpec[] = [
   {
     id: 'object', len: 120,
     title: 'The object', note: 'RL300-SAFE · ACOUSTIC ENCLOSURE',
-    caption: 'A blue shell. A complex machine. One considered envelope.',
+    caption: 'A sealed shell. A complex machine. One considered envelope.',
     keys: [
       // 01 The object — low, long-lens three-quarter; the approach reveals the chamber's depth.
       { at: 0, position: [4.3, .92, 4.55], target: [0, 1, .05], fov: 30 },
