@@ -1,6 +1,14 @@
 import { clamp01, smoothWindow } from './shot'
 import { WINDOWS } from './beats'
 
+/** Air draw-on: a fast leading edge that arrives gently, so the path is visible from the start of
+ *  its beat and holds finished for the rest of it. 0 at the window start and 1 at its end, like
+ *  `smoothWindow`; sound strips keep `smoothWindow` (they draw on from their own windows). */
+const drawOnWindow = (w: readonly [number, number], x: number) => {
+  const t = clamp01((x - w[0]) / (w[1] - w[0]))
+  return 1 - (1 - t) * (1 - t) * (1 - t)
+}
+
 export type Bundle = 'main' | 'lower' | 'merged' | 'sound'
 export type Vec3 = readonly [number, number, number]
 
@@ -143,9 +151,9 @@ export function evaluateFlow(progress: number): FlowState {
   if (u <= WINDOWS.flowClosedBelow || u >= WINDOWS.flowClosedAbove) return zeroState(u)
 
   const extent: Record<Bundle, number> = {
-    main: smoothWindow(WINDOWS.mainExtent, u),
-    lower: smoothWindow(WINDOWS.lowerExtent, u),
-    merged: smoothWindow(WINDOWS.mergedExtent, u),
+    main: drawOnWindow(WINDOWS.mainExtent, u),
+    lower: drawOnWindow(WINDOWS.lowerExtent, u),
+    merged: drawOnWindow(WINDOWS.mergedExtent, u),
     sound: smoothWindow(WINDOWS.soundExtent, u),
   }
 
