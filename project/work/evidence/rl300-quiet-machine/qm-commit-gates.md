@@ -1406,3 +1406,7 @@ dynamicEntries is informational (dynamic entries of `index.html` present in both
 
 U.1 post (QM9 skip caps, 33b377b8): U.1 post grep exit: 1
 U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+
+## QM test-debt: K5 camera C0 flake
+Owner: option 1 (one-file exception, allowlist amended in the plan and structure doc). `src/scene/inspection/shaft/camera.test.ts` "is C0 across the timeline at both layouts": ~20k samples x 11 expect() calls replaced by worst-case accumulators asserted once per layout, same thresholds. 2856 ms -> 191 ms alone (timed out at 5 s under full-suite load). One-off check: tightening the dp threshold to 0.0005 failed red, restored. camera.test.ts 17/17. No test added or removed (npm test total 701). Other required gates not re-run: no src/ product or verifier file changed. U.1 pre: prints nothing, `U.1 grep exit: 1`.
+U.1 post (K5 test-debt): prints nothing, U.1 grep exit: 1
