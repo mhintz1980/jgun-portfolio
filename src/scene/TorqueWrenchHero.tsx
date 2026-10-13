@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Group, MathUtils, MeshBasicMaterial } from 'three'
 import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
-import { applyWrenchMechanics } from './rig/wrenchMechanics'
+import { applyWrenchMechanics, type WrenchMechanicsFrame } from './rig/wrenchMechanics'
 import {
   STAGE_IDS,
 } from '../data/caseStudies'
@@ -32,6 +32,7 @@ const GHOST_OPACITY = 0.15
  * scroll-driven shape is kept, with each carrier completing its display turns
  * (8 / 5.2 / 3.38 / 2.2 / 1.43) at ~65% speed of the previous stage. */
 const GEAR_ROTATION_SWEEP = Math.PI * 8
+type MechanicalProofFrame = WrenchMechanicsFrame & { ghostOpacity: number }
 
 // Draco decoders are vendored with the site (public/draco, copied from
 // three's examples) instead of drei's default gstatic CDN fetch — remote
@@ -79,6 +80,51 @@ export function TorqueWrenchHero() {
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
   const wasInspecting = useRef(false)
+  // Opt-in, root-only comparator input. Private runtime imports no root store/proof code.
+  const mechanicalProofEnabled = useMemo(() => typeof window !== 'undefined'
+    && new URLSearchParams(window.location.search).get('mechanicalProof') === '1', [])
+  const heldMechanics = useRef<MechanicalProofFrame | null>(null)
+  const appliedMechanics = useRef<MechanicalProofFrame | null>(null)
+  const mechanicalProofFrames = useRef(0)
+  useLayoutEffect(() => {
+    if (!mechanicalProofEnabled) return
+    let current = true
+    const release = () => { heldMechanics.current = null }
+    const port = {
+      version: 1,
+      seek: (frame: MechanicalProofFrame) => {
+        if (!current) throw new Error('Mechanical proof host unmounted')
+        const keys = ['shift', 'explode', 'gearAngle', 'idle', 'ghostOpacity'] as const
+        if (!frame || keys.some(key => !Number.isFinite(frame[key]))) {
+          throw new RangeError('Mechanical proof channels must be finite')
+        }
+        if (['shift', 'explode', 'ghostOpacity'].some(key => {
+          const value = frame[key as keyof MechanicalProofFrame]
+          return value < 0 || value > 1
+        })) throw new RangeError('Mechanical proof normalized channels must be in [0,1]')
+        heldMechanics.current = { shift: frame.shift, explode: frame.explode,
+          gearAngle: frame.gearAngle, idle: frame.idle, ghostOpacity: frame.ghostOpacity }
+      },
+      snapshot: () => ({ source: 'TorqueWrenchHero/useFrame', active: current && heldMechanics.current !== null,
+        frames: mechanicalProofFrames.current,
+        channels: appliedMechanics.current ? { ...appliedMechanics.current } : null }),
+      release,
+    }
+    const globals = window as unknown as Record<string, unknown>
+    globals.__torqueMechanicalProof = port
+    return () => {
+      current = false
+      release()
+      appliedMechanics.current = null
+      if (globals.__torqueMechanicalProof === port) delete globals.__torqueMechanicalProof
+    }
+  }, [mechanicalProofEnabled])
+  const recordAppliedMechanics = (frame: WrenchMechanicsFrame, ghostOpacity: number): void => {
+    if (!mechanicalProofEnabled) return
+    // Independent witness of the tuple passed to the applicator and material loop this frame.
+    appliedMechanics.current = { ...frame, ghostOpacity }
+    mechanicalProofFrames.current++
+  }
   useLayoutEffect(() => {
     scene.userData.wrenchRig = rig
     inspection.source = rig.clutch.ringSwitch
@@ -161,7 +207,7 @@ export function TorqueWrenchHero() {
     }
   }
 
-  const writeRigTelemetry = (explode: number, ghostOpacity: number, shift: number): void => {
+  const writeRigTelemetry = (explode: number, ghostOpacity: number, shift: number, gearAngle = anim.gearRotation): void => {
     telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
     telemetry.rig.outputZ = rig.outputShaft?.position.z ?? 0
     telemetry.rig.clutchZ = rig.clutch.static?.position.z ?? 0
@@ -169,7 +215,7 @@ export function TorqueWrenchHero() {
     telemetry.rig.stageZ = STAGE_IDS.map((id) => rig.stages[id].carrier?.position.z ?? 0)
     telemetry.rig.stageRot = STAGE_IDS.map((id) => rig.stages[id].carrier?.rotation.z ?? 0)
     telemetry.rig.planetRot = rig.stages.stage1.planets[0]?.rotation.z ?? 0
-    telemetry.rig.gearRotation = anim.gearRotation
+    telemetry.rig.gearRotation = gearAngle
     telemetry.rig.shift = shift
     telemetry.rig.ghostOpacity = ghostOpacity
     telemetry.rig.ghostCount = rig.ghostMaterials.size
@@ -183,7 +229,9 @@ export function TorqueWrenchHero() {
     // Freeze all narrative material/pose/idle writes; inspection owns a separate CAD copy.
     if (inspection.active || renderOwnership.blocked) { wasInspecting.current = true; return }
     if (wasInspecting.current) { wasInspecting.current = false; return }
-    const { progress, chapter, chapterProgress, materialMode } = getScrollState()
+    const held = heldMechanics.current
+    const { progress, chapter, chapterProgress, materialMode: narrativeMaterialMode } = getScrollState()
+    const materialMode = held ? 'solid' : narrativeMaterialMode
     const { tier, reducedMotion } = getQuality()
 
     const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
@@ -193,12 +241,12 @@ export function TorqueWrenchHero() {
       reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * REDUCED_MOTION_INTRO_T : progress,
       drawingRuntime.extraction?.crossing,
     )
-    introPbrActivation.value = proof ? 1 : intro.pbr
+    introPbrActivation.value = proof || held ? 1 : intro.pbr
 
     // B1/B2: while the drawing owns the frame the model IS the extraction pose —
     // it is parented to the sheet, registered to the primary elevation, and the
     // retained mechanism channels are all held at rest.
-    if ((progress <= DRAWING_INTRO_WINDOW.releaseEnd || reducedMotion || proof) && drawingRuntime.ready) {
+    if (!held && (progress <= DRAWING_INTRO_WINDOW.releaseEnd || reducedMotion || proof) && drawingRuntime.ready) {
       if (group.current) {
         group.current.matrixAutoUpdate = false
         group.current.matrix.copy(drawingRuntime.modelMatrix)
@@ -224,6 +272,7 @@ export function TorqueWrenchHero() {
       anim.shift = 0
       idleAngle.current = 0
       writeRigTelemetry(0, 1, 0)
+      recordAppliedMechanics({ shift: 0, explode: 0, gearAngle: 0, idle: 0 }, 1)
       return
     }
 
@@ -231,7 +280,7 @@ export function TorqueWrenchHero() {
     // fade, no gear rotation, no clutch shift, no scroll-driven explosion.
     // The material-mode switcher (an explicit user action, not motion) is the
     // only thing that still mutates the scene.
-    if (reducedMotion) {
+    if (!held && reducedMotion) {
       if (modelRoot.current) modelRoot.current.visible = false
       if (group.current) {
         group.current.rotation.y = 0
@@ -241,6 +290,7 @@ export function TorqueWrenchHero() {
       applyWrenchMechanics(rig, { shift: 0, explode, gearAngle: 0, idle: 0 })
       // Ghost never fades under reduced motion, so its commanded opacity is 1.
       writeRigTelemetry(explode, 1, 0)
+      recordAppliedMechanics({ shift: 0, explode, gearAngle: 0, idle: 0 }, 1)
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
         applyLiveMaterials(materialMode)
         surface.current = 'live'
@@ -271,7 +321,7 @@ export function TorqueWrenchHero() {
 
     // 2. Housing ghost fade (suppressed in blueprint mode — everything is wire).
     const ghostAmount = materialMode === 'blueprint' ? 0 : anim.ghost
-    const ghostOpacity = MathUtils.lerp(1, GHOST_OPACITY, ghostAmount)
+    const ghostOpacity = held ? held.ghostOpacity : MathUtils.lerp(1, GHOST_OPACITY, ghostAmount)
     for (const material of rig.ghostMaterials.values()) {
       material.opacity = ghostOpacity
       material.depthWrite = material.opacity > 0.5
@@ -282,10 +332,10 @@ export function TorqueWrenchHero() {
     // so all 5 stage carriers continuously rotate around their pitch circles during
     // scroll pauses. Blends seamlessly with scroll-driven rotation.
     const isExploded = anim.explode > 0.01 || (chapter === 1 && progress >= 0.22 && progress <= 0.55)
-    if (isExploded && materialMode !== 'exploded') {
+    if (!held && isExploded && materialMode !== 'exploded') {
       const IDLE_BASE_SPEED = 0.25
       idleAngle.current += delta * IDLE_BASE_SPEED
-    } else if (anim.explode === 0 && anim.gearRotation === 0) {
+    } else if (!held && anim.explode === 0 && anim.gearRotation === 0) {
       idleAngle.current = 0
     }
 
@@ -307,14 +357,16 @@ export function TorqueWrenchHero() {
     // 5. Rear extraction (forced fully open in exploded mode). One mechanics
     //    call applies gear rotation, clutch shift, and explosion in the
     //    legacy order at the same matched inputs.
-    const explode = Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
-    applyWrenchMechanics(rig, {
-      shift: shiftAmount,
+    const explode = held ? held.explode : Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
+    const frame: WrenchMechanicsFrame = {
+      shift: held ? held.shift : shiftAmount,
       explode,
-      gearAngle: materialMode === 'exploded' ? 0 : anim.gearRotation,
-      idle: idleAngle.current,
-    })
-    writeRigTelemetry(explode, ghostOpacity, shiftAmount)
+      gearAngle: held ? held.gearAngle : materialMode === 'exploded' ? 0 : anim.gearRotation,
+      idle: held ? held.idle : idleAngle.current,
+    }
+    applyWrenchMechanics(rig, frame)
+    writeRigTelemetry(explode, ghostOpacity, frame.shift, held ? frame.gearAngle : anim.gearRotation)
+    recordAppliedMechanics(frame, ghostOpacity)
 
     // 5. Material surface management: CAD dissolve owns chapter 4, the mode
     //    switcher owns everything else. In the lite tier the dissolve shader
@@ -327,8 +379,8 @@ export function TorqueWrenchHero() {
     //    ends). AND-gate both chapter-4 surfaces on raw progress (CH.04
     //    starts at 0.760; 0.755 tolerates entry-side lag invisibly) so a
     //    laggy chapter can never activate them outside the window.
-    const wantCad = chapter === 3 && progress >= 0.755 && tier === 'full'
-    const wantLiteFade = chapter === 3 && progress >= 0.755 && tier !== 'full'
+    const wantCad = !held && chapter === 3 && progress >= 0.755 && tier === 'full'
+    const wantLiteFade = !held && chapter === 3 && progress >= 0.755 && tier !== 'full'
     if (wantCad && surface.current !== 'cad') {
       for (const mesh of rig.meshes) mesh.material = cadMaterial
       surface.current = 'cad'

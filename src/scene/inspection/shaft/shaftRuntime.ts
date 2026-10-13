@@ -158,9 +158,9 @@ export function createShaftRuntime(
   const hobMaterial = steel.clone(); ownedMaterials.add(hobMaterial)
   const hobDetailMaterial = steel.clone(); ownedMaterials.add(hobDetailMaterial)
   const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38; ownedMaterials.add(chipMaterial)
-  const shaper = buildShaperCutter(shaperMaterial)
+  const shaper = buildShaperCutter(shaperMaterial, options)
   ownedDisposers.push({ resource: 'shaper-tool', dispose: () => shaper.dispose() })
-  const hob = buildHob(hobMaterial)
+  const hob = buildHob(hobMaterial, options)
   ownedDisposers.push({ resource: 'hob-tool', dispose: () => hob.dispose() })
   const toolGeometryCount = shaper.geometryCount + hob.geometryCount
   const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined

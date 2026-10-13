@@ -1,6 +1,6 @@
 import { AnimationMixer, type AnimationAction, Box3, BufferAttribute, Color, DirectionalLight, Group, LoopOnce, Matrix4, Mesh, Quaternion, Vector3, type Material, type Object3D, type Texture } from 'three'
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { createInspectionRing } from './ringGeometry'
+import { createInspectionRing, type RingGeometryCleanupResource } from './ringGeometry'
 import { ease, newFrame, odMask, rollerAngle, sampleInspection, SHOULDER, WHEEL_WIDTH } from './timeline'
 import type { StoryContext, StoryRuntime } from './story'
 import type { StorySession } from './session'
@@ -60,7 +60,7 @@ export interface RingRuntimeCoreInputs {
 
 export interface RingCleanupReport {
   phase: 'runtime' | 'construction'
-  resource: 'tool-animation' | 'tool-cache' | 'scene-root' | 'ring' | 'tool'
+  resource: 'tool-animation' | 'tool-cache' | 'scene-root' | 'ring' | 'tool' | RingGeometryCleanupResource
   error: unknown
 }
 
@@ -209,7 +209,8 @@ export function createRingRuntimeCore(session: StorySession, ctx: StoryContext, 
   let runtime: RingRuntimeCore
 
   try {
-    ring = createInspectionRing(inputs.source, [...inputs.meshes])
+    ring = createInspectionRing(inputs.source, [...inputs.meshes], report =>
+      reportCleanup(cleanupReport, report.phase === 'construction' ? 'construction' : 'runtime', report.resource, report.error))
     root = new Group(); root.name = 'ring-inspection-world'
     toolFrame = new Group(); toolFrame.name = 'inspection-tool-frame'; toolFrame.rotation.x = Math.PI / 2; toolFrame.visible = false
     root.add(ring.group, toolFrame)

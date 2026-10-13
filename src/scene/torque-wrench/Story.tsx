@@ -45,7 +45,7 @@ function InspectionControl({ playback, live }: { playback?: InspectionPlayback; 
       if (event.key !== 'Escape') return
       setOpen(false)
       playback?.close()
-      triggerRef.current?.focus()
+      triggerRef.current?.focus({ preventScroll: true })
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
@@ -77,7 +77,7 @@ function InspectionControl({ playback, live }: { playback?: InspectionPlayback; 
         aria-expanded={open}
         aria-controls="torque-inspection-detail"
         onClick={() => {
-          if (open) { playback?.close(); triggerRef.current?.focus() }
+          if (open) { playback?.close(); triggerRef.current?.focus({ preventScroll: true }) }
           else if (live) playback?.open()
           setOpen(!open)
         }}

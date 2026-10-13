@@ -61,16 +61,16 @@ export const CutterCameraArc: readonly CutterCameraKeyframe[] = Object.freeze([
   Object.freeze({
     subjectTime: 7.2, cameraTime: cameraTimeAt(0.795),
     azimuth: 168 * DEG, elevation: 3.2 * DEG, distance: 0.2,
-    fovDesktop: 7.5, fovNarrow: 13.8,
-    target: Object.freeze([0, 0.009, -0.0022] as const),
-    targetNarrow: Object.freeze([0, 0.0082, 0.003] as const),
+    fovDesktop: 10.2, fovNarrow: 24,
+    target: Object.freeze([0, 0.009, 0.0078] as const),
+    targetNarrow: Object.freeze([0, 0.0082, 0.014] as const),
   }),
   Object.freeze({
     subjectTime: 9.6, cameraTime: cameraTimeAt(0.835),
     azimuth: 192 * DEG, elevation: 6 * DEG, distance: 0.205,
-    fovDesktop: 7.5, fovNarrow: 13.8,
-    target: Object.freeze([0, 0.009, -0.0022] as const),
-    targetNarrow: Object.freeze([0, 0.0082, 0.003] as const),
+    fovDesktop: 10.2, fovNarrow: 24,
+    target: Object.freeze([0, 0.009, 0.0078] as const),
+    targetNarrow: Object.freeze([0, 0.0082, 0.014] as const),
   }),
 ])
 

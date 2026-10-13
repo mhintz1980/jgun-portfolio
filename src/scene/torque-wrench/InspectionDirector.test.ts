@@ -180,7 +180,9 @@ describe('JG-038 private InspectionDirector C1', () => {
       expect(sample.machiningRate).toBeLessThanOrEqual(0.22)
       expect(sample.arcWeight).toBe(1)
       sampleShaftCamera(sample.subjectTime, aspect, sample.kinematics, baseline)
-      for (const key of ['tx', 'ty', 'tz', 'fov', 'ux', 'uy', 'uz'] as const) {
+      // Runtime framing may author a different target/FOV; preserve baseline up and
+      // follow channels while the independent browser gate measures the actual disc.
+      for (const key of ['ux', 'uy', 'uz', 'followAzimuth', 'followWeight'] as const) {
         expect(sample.camera[key]).toBeCloseTo(baseline[key], 12)
       }
       expect(sample.camera.uy).toBe(1)

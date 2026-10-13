@@ -2,8 +2,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Group, PerspectiveCamera, PMREMGenerator, Vector3 } from 'three'
+import { Group, PerspectiveCamera, PMREMGenerator, Vector3, type Object3D } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import { STAGE_IDS } from '../../data/caseStudies'
 import { buildWrenchRig } from '../rig/nodeRoles'
 import { applyWrenchMechanics, writeWrenchMechanicsProbe, type WrenchMechanicsProbe } from '../rig/wrenchMechanics'
 import { makeDrawingLayout, snapshotDrawing } from '../drawing/drawingGeometry'
@@ -20,9 +21,11 @@ import type { TorqueSceneProps } from './cadGate'
 import { createPrivateInspectionSample, samplePrivateInspection } from './InspectionDirector'
 import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
-import { openingTimeAt, sampleOpening } from './OpeningDirector'
+import { createOpeningSampler, openingTimeAt, sampleOpening } from './OpeningDirector'
 import { PrivateSheet } from './PrivateSheet'
 import type { DrawingFrameInput } from './privateSheetRuntime'
+import { captureInstalledCutter, measureInstalledInspection } from './inspectionProof'
+import { createInspectionFailureCollector } from './inspectionFailure'
 
 const MODEL_URL = '/models/Default.glb'
 
@@ -60,6 +63,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     cameraSheetDistance: 1, delta: 0,
   }), [store])
   const previousProgress = useRef<number | null>(null)
+  const sampleOpeningFrame = useMemo(createOpeningSampler, [])
   const readSheetFrame = useMemo(() => () => sheetFrame, [sheetFrame])
   const pose = useMemo<SheetCameraPose>(() => ({
     position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0),
@@ -92,7 +96,40 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         const copy = JSON.parse(JSON.stringify(probe))
         // pulseRegistration is lazy and cached inside the bake result; never throws for a live bake.
         copy.sheet.registration = bakedSheet.current ? bakedSheet.current.pulseRegistration() : null
+        const base = (node: Object3D | null) => node ? rig.basePositions.get(node)?.z ?? null : null
+        // Opening/pit telemetry for the Stage 4 recovery A/B: the canonical intro state the
+        // private sheet is actually rendering, plus the solved bake crossing when installed.
+        // Read the bake through its ref: this port's effect does not re-run when the bake state
+        // lands, so a captured `sheetBake` binding would report a stale null forever.
+        const baked = bakedSheet.current
+        copy.opening = { ...sheetFrame.intro, retirement: sheetFrame.retirement,
+          sheetDistance: sheetFrame.cameraSheetDistance, tier: sheetFrame.tier,
+          crossing: baked?.extraction.crossing ?? null,
+          bakeInstalled: Boolean(baked), sheetVisible: Boolean(baked) && sheetFrame.retirement < 1 }
+        copy.mechanical = {
+          channels: { ...channels }, tier: store.getState().tier,
+          bearingZ: rig.bearing?.position.z ?? null,
+          baseZ: { handleZ: base(rig.handleRoot), outputZ: base(rig.outputShaft), clutchZ: base(rig.clutch.static),
+            slidingZ: base(rig.clutch.sliding), ringSwitchZ: base(rig.clutch.ringSwitch), bearingZ: base(rig.bearing),
+            stageZ: STAGE_IDS.map(id => base(rig.stages[id].carrier)) },
+          present: { handle: !!rig.handleRoot, output: !!rig.outputShaft, clutch: !!rig.clutch.static,
+            sliding: !!rig.clutch.sliding, ringSwitch: !!rig.clutch.ringSwitch, bearing: !!rig.bearing,
+            stages: STAGE_IDS.map(id => !!rig.stages[id].carrier) },
+          planetRotByStage: STAGE_IDS.map(id => rig.stages[id].planets.map(planet => planet.rotation.z)),
+          ghostMaterials: [...rig.ghostMaterials].map(([mesh, material]) => ({ mesh: mesh.name,
+            opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite,
+            attached: Array.isArray(mesh.material) ? mesh.material.includes(material) : mesh.material === material,
+          })).sort((a, b) => a.mesh.localeCompare(b.mesh)),
+        }
         return copy
+      },
+      inspection: () => {
+        if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
+        return { ...measureInstalledInspection(shaft.current, camera), playback: playback?.snapshot() }
+      },
+      cutterCapture: () => {
+        if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
+        return captureInstalledCutter(shaft.current, gl, scene, camera)
       },
     }
     globals.__torqueWorld = port
@@ -160,9 +197,8 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     if (document.hidden) { probe.hiddenFrames++; return }
     try {
       const progress = store.getProgress()
-      if (previousProgress.current !== progress || sheetFrame.intro.t !== openingTimeAt(progress)) {
-        sheetFrame.intro = sampleOpening(progress, sheetBake?.extraction.crossing ?? 0.9)
-      }
+      const crossing = sheetBake?.extraction.crossing ?? 0.9
+      sheetFrame.intro = sampleOpeningFrame(progress, crossing)
       sheetFrame.delta = previousProgress.current === progress ? 0 : Math.min(delta, 0.1)
       previousProgress.current = progress
       sheetFrame.retirement = Math.max(0, Math.min(1, (progress - 0.46) / 0.04))
@@ -183,26 +219,32 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
       }
       for (const material of rig.ghostMaterials.values()) {
         material.opacity = channels.ghostOpacity
-        material.transparent = channels.ghostOpacity < 0.999
-        material.depthWrite = channels.ghostOpacity >= 0.999
+        // Preserve the legacy host's transparent-capable clone and depth law.
+        material.depthWrite = channels.ghostOpacity > 0.5
       }
       writeWrenchMechanicsProbe(rig, channels, channels.ghostOpacity, probe.rig)
       if (group.current) group.current.visible = !studyVisible && !ringVisible
       if (ringVisible && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
-        const session = createStorySession('ring', { id: 2, current: owned.current, fail: reportFailure })
+        const failures = createInspectionFailureCollector(reportFailure)
+        const session = createStorySession('ring', { id: 2, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
-        const runtime = createRingRuntimeCore(session, { gl, scene, hero: model, rig,
+        let runtime: StoryRuntime
+        try { runtime = createRingRuntimeCore(session, { gl, scene, hero: model, rig,
           tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
           source, meshes: rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')),
           initialTime: 0, getEntryElapsed: () => 2, probe: createRingRuntimeProbe(),
-          onCleanupError: report => reportFailure(report.error),
-        })
+          onCleanupError: report => failures.cleanup(report),
+        }) } catch (error) { failures.reject(error); throw error }
+        failures.loading()
         ring.current = runtime
         scene.add(runtime.root)
-        owned.defer(() => runtime.dispose())
-        runtime.ready.catch(error => { if (owned.current()) reportFailure(error) })
+        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed() } })
+        runtime.ready.then(() => failures.resolve(), error => {
+          if (owned.current()) failures.reject(error)
+          else failures.disposed()
+        })
       }
       if (ring.current) {
         const runtime = ring.current
@@ -214,13 +256,23 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         }
       }
       if (studyVisible && !shaft.current) {
-        const session = createStorySession('shaft', { id: 1, current: owned.current, fail: reportFailure })
+        const failures = createInspectionFailureCollector(reportFailure)
+        const session = createStorySession('shaft', { id: 1, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
-        const runtime = createShaftRuntime(session, { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect })
+        let runtime: StoryRuntime
+        try { runtime = createShaftRuntime(session, { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
+          onCleanupFailure: reports => {
+            failures.cleanupMany(reports.map(failure => ({ phase: failures.phase(), ...failure })))
+          },
+        }) } catch (error) { failures.reject(error); throw error }
+        failures.loading()
         shaft.current = runtime
         scene.add(runtime.root)
-        owned.defer(() => { runtime.dispose(); runtime.root.removeFromParent() })
-        runtime.ready.then(() => { if (owned.current()) probe.inspection.ready = true }, error => { if (owned.current()) reportFailure(error) })
+        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed(); runtime.root.removeFromParent() } })
+        runtime.ready.then(() => {
+          failures.resolve()
+          if (owned.current()) probe.inspection.ready = true
+        }, error => { if (owned.current()) failures.reject(error); else failures.disposed() })
       }
       if (shaft.current) {
         const runtime = shaft.current

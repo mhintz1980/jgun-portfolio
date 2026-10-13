@@ -20,3 +20,16 @@ export function openingTimeAt(progress: number): number {
 export function sampleOpening(progress: number, crossing = 0.9): IntroState {
   return drawingIntroState(openingTimeAt(progress) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
 }
+
+/** Page-owned cache: a newly solved bake must invalidate a stationary frame. */
+export function createOpeningSampler() {
+  let lastProgress = NaN, lastCrossing = NaN
+  let result: IntroState | null = null
+  return (progress: number, crossing = 0.9): IntroState => {
+    if (result === null || progress !== lastProgress || crossing !== lastCrossing) {
+      const next = sampleOpening(progress, crossing)
+      lastProgress = progress; lastCrossing = crossing; result = next
+    }
+    return result
+  }
+}

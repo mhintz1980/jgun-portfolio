@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   AnimationClip, Color, CylinderGeometry, Group, Mesh, MeshBasicMaterial,
-  MeshPhysicalMaterial, MeshStandardMaterial, Quaternion, Scene, Vector3, VectorKeyframeTrack,
+  MeshPhysicalMaterial, MeshStandardMaterial, Quaternion, Scene, Texture, Vector3, VectorKeyframeTrack,
 } from 'three'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -147,6 +147,72 @@ describe('matched ring samples', () => {
 })
 
 describe('tool and lifecycle ownership', () => {
+  it('forwards partial ring-factory cleanup phases/resources through the core despite a throwing reporter', () => {
+    const source = sourceFixture()
+    const sourceGeometryDispose = vi.spyOn(source.geometry, 'dispose')
+    const sourceMaterialDispose = vi.spyOn(source.material, 'dispose')
+    const primary = new Error('second ring material construction failed')
+    const geometryCleanup = new Error('owned ring geometry cleanup failed')
+    const textureCleanup = new Error('owned ring normal map cleanup failed')
+    const reporterError = new Error('runtime cleanup sink failed')
+    const reports: RingCleanupReport[] = []
+    const reporter = vi.fn((report: RingCleanupReport) => {
+      reports.push(report)
+      throw reporterError
+    })
+    const cloneGeometry = source.geometry.clone.bind(source.geometry)
+    let geometryDispose: ReturnType<typeof vi.spyOn> | undefined
+    vi.spyOn(source.geometry, 'clone').mockImplementation(() => {
+      const geometry = cloneGeometry()
+      geometryDispose = vi.spyOn(geometry, 'dispose').mockImplementation(() => { throw geometryCleanup })
+      return geometry
+    })
+    // Exercise the real createInspectionRing body via createRingRuntimeCore: geometry,
+    // normal map and the first material exist when the second material clone fails.
+    const cloneMaterial = MeshPhysicalMaterial.prototype.clone
+    let clones = 0, materialDispose: ReturnType<typeof vi.spyOn> | undefined
+    vi.spyOn(MeshPhysicalMaterial.prototype, 'clone').mockImplementation(function (this: MeshPhysicalMaterial) {
+      if (++clones === 2) throw primary
+      const material = cloneMaterial.call(this) as MeshPhysicalMaterial
+      materialDispose = vi.spyOn(material, 'dispose')
+      return material
+    })
+    const normalMaps: Texture[] = []
+    const normalMapDispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(function (this: Texture) {
+      normalMaps.push(this)
+      throw textureCleanup
+    })
+    const currentSession = session(), probe = createRingRuntimeProbe()
+    let caught: unknown
+    try {
+      createRingRuntimeCore(currentSession, context(), {
+        source: source.source, meshes: [source.mesh], initialTime: 0,
+        getEntryElapsed: () => 0, probe, onCleanupError: reporter,
+      })
+    } catch (error) { caught = error }
+    expect(caught).toBe(primary)
+    expect(clones).toBe(2)
+    expect(geometryDispose).toHaveBeenCalledOnce()
+    expect(materialDispose).toHaveBeenCalledOnce() // attempted after geometry cleanup/reporting failed
+    expect(normalMapDispose).toHaveBeenCalledOnce()
+    expect(normalMaps).toHaveLength(1)
+    expect(reporter).toHaveBeenCalledTimes(2)
+    expect(reports).toEqual([
+      { phase: 'construction', resource: 'geometry', error: geometryCleanup },
+      { phase: 'construction', resource: 'normal-map', error: textureCleanup },
+    ])
+    expect(reports[0].error).toBe(geometryCleanup)
+    expect(reports[1].error).toBe(textureCleanup)
+    expect(sourceGeometryDispose).not.toHaveBeenCalled()
+    expect(sourceMaterialDispose).not.toHaveBeenCalled()
+    expect(probe.loaded).toBe(false)
+    currentSession.cancel()
+    expect(geometryDispose).toHaveBeenCalledOnce()
+    expect(materialDispose).toHaveBeenCalledOnce()
+    expect(normalMapDispose).toHaveBeenCalledOnce()
+    expect(reporter).toHaveBeenCalledTimes(2)
+  })
+
   it('installs only a current parse and preserves sampled tool law', async () => {
     const tool = toolFixture(), parse = await installTool(tool.gltf), fixture = coreFixture(2, undefined, false)
     const sourceGeometryDispose = vi.spyOn(fixture.geometry, 'dispose'), sourceMaterialDispose = vi.spyOn(fixture.material, 'dispose')

@@ -9,7 +9,7 @@ Authority: owner autonomous execution request, 2026-10-12. Canonical requirement
 - [ ] G2 Import/lifecycle isolation: actual lazy GPU tree, one conductor, remount/failure cleanup, zero frame React churn.
   EVIDENCE: partial — final boundary PASS with one cadGate→Scene edge; eager closure 4 chunks/217,063 B and zero drawing markers; static14/14, timeline17/17, and real context-loss fallback PASS. StrictMode remount, zero-frame churn, BFCache and hardware lifecycle remain open.
 - [ ] G3 Compatibility and cutter: registration/mechanics, controls, moving-camera bullet time, legacy preservation.
-  EVIDENCE: partial — M1 measured-law tests, drawing frozen inventory/registration max8.79e-5m, annotation pixels, cutter C1 CPU motion tests, and accessible controls pass. Real cutter framing/clearance/control operation and matched mechanical parity remain unaccepted.
+  EVIDENCE: partial — Stage3 leaf exit recorded 2026-10-13 (`stage3-exit-2026-10-13.md`) on build `.scratch/jg038-stage3-20261013-h`: M1 measured-law tests, drawing frozen inventory/registration max8.79e-5m, annotation pixels, real installed cutter framing/beauty-visibility/clearance and DOM controls roster 4/4 cases at 258/258, matched desktop/full mechanical parity 3493 PASS/0 FAIL/0 UNVERIFIED, static 14/14, timeline 17/17. Still open for G3 closure: narrow/lite parity, continuous (not sampled-frame) clearance, and final approved motion/pacing acceptance.
 - [ ] G4 Recovery/opening: controlled A/B, pressure/shatter/emergence/pit/electricity, measured clearance and PNGs.
   EVIDENCE: pending
 - [ ] G5 Motion: complete input/reverse/seek/stress roster, pacing/response/continuity.

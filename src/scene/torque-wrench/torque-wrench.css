@@ -241,6 +241,30 @@
   border-radius: 0.5rem;
 }
 
+/* Keep the installed study's controls reachable without scrolling away from its
+   camera window. Reading copy stays above the cutter; controls stay below it. */
+.torque-page[data-torque-mode='live'] .torque-chapter[data-torque-chapter='inspection']:is([data-torque-active='true'], :has(.torque-inspection__toggle[aria-expanded='true'])) {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: min(24rem, calc(100vw - 2rem));
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.torque-page[data-torque-mode='live'] .torque-chapter[data-torque-chapter='inspection']:is([data-torque-active='true'], :has(.torque-inspection__toggle[aria-expanded='true'])) .torque-inspection {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  width: min(44rem, calc(100vw - 2rem));
+  pointer-events: auto;
+}
+
+.torque-page[data-torque-mode='live'] .torque-inspection__panel {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
 .torque-inspection__panel p {
   margin: 0;
   color: #b7c3ce;
