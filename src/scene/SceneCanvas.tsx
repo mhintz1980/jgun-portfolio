@@ -269,10 +269,13 @@ function StudioRig() {
  *  - At DPR 1 and still declining: degradeQuality() — first drop kills the
  *    Module 3 dissolve shader (lite), second unmounts the canvas (poster).
  *  - onFallback pins DPR to 1 after repeated flip-flops (thrash guard).
+ *  - JG-035: the monitor itself mounts only after station warm-up completes —
+ *    warm-up frames (compileAsync + offscreen cull renders) are never sampled,
+ *    so they can never count as tier evidence.
  *  - WebGL context loss bails straight to the static poster.
  *  - Frustum culling stays enabled on every mesh (asserted in buildWrenchRig).
  */
-function WarmStationPrograms() {
+function WarmStationPrograms({ onWarmReady }: { onWarmReady: () => void }) {
   const {gl,scene,camera}=useThree()
   useEffect(()=>{
     let cancelled=false
@@ -302,7 +305,7 @@ function WarmStationPrograms() {
         finally{gl.setRenderTarget(previousTarget);gl.setViewport(viewport);flags.forEach(({object,visible,frustumCulled})=>{object.visible=visible;object.frustumCulled=frustumCulled})}
         pushQualityEvent({ type: 'cullrenderend', index: renderIndex })
       }
-      if(!cancelled){telemetry.performance.warmReady=true;pushQualityEvent({ type: 'warmfinish' })}
+      if(!cancelled){telemetry.performance.warmReady=true;pushQualityEvent({ type: 'warmfinish' });onWarmReady()}
       else pushQualityEvent({ type: 'warmcancel' })
       }finally{target.dispose()}
     }
@@ -397,6 +400,8 @@ function NarrativeStationDriver() {
 
 export function SceneCanvas() {
   const [step, setStep] = useState(0)
+  /** JG-035 G6 warmup gate — false until WarmStationPrograms reports warmfinish. */
+  const [qualityMonitoring, setQualityMonitoring] = useState(false)
   const stepRef = useRef(0)
 
   const setDprStep = (next: number): void => {
@@ -429,63 +434,73 @@ export function SceneCanvas() {
           })
         }}
       >
-        <PerformanceMonitor
-          bounds={() => [45, 60] as [number, number]}
-          flipflops={3}
-          onDecline={(api: PerformanceMonitorApi) => {
-            telemetry.performance.declines++
-            pushQualityEvent({ type: 'ondecline', fps: api.fps, flipped: api.flipped })
-            if (stepRef.current < DPR_STEPS.length - 1) setDprStep(stepRef.current + 1)
-            else {
-              pushQualityEvent({ type: 'degradequality' })
-              degradeQuality()
-            }
-          }}
-          onIncline={(api: PerformanceMonitorApi) => {
-            pushQualityEvent({ type: 'onincline', fps: api.fps })
-            if (stepRef.current > 0) setDprStep(stepRef.current - 1)
-          }}
-          onFallback={(api: PerformanceMonitorApi) => {
-            pushQualityEvent({ type: 'onfallback', fps: api.fps, flipped: api.flipped })
-            setDprStep(DPR_STEPS.length - 1)
-          }}
-        >
-          <color attach="background" args={['#05070a']} />
-          <fog attach="fog" args={['#05070a', 25, 120]} />
+        {/* JG-035 G6 warmup gate: the monitor mounts only after station warm-up
+            completes. Warm-up frames are compileAsync + offscreen cull renders —
+            sub-45 fps by construction — and at DPR 1 the DPR staircase is a
+            single step, so a decline sampled during warm-up demoted full→lite
+            permanently before the first steady-state frame. Mounting fresh at
+            warmfinish keeps warm-up frames out of the monitor's rolling averages
+            entirely. Nothing consumes its context, so it carries no children
+            (drei PerformanceMonitor renders children optionally). */}
+        {qualityMonitoring && (
+          <PerformanceMonitor
+            bounds={() => [45, 60] as [number, number]}
+            flipflops={3}
+            onDecline={(api: PerformanceMonitorApi) => {
+              telemetry.performance.declines++
+              pushQualityEvent({ type: 'ondecline', fps: api.fps, flipped: api.flipped })
+              if (stepRef.current < DPR_STEPS.length - 1) setDprStep(stepRef.current + 1)
+              else {
+                pushQualityEvent({ type: 'degradequality' })
+                degradeQuality()
+              }
+            }}
+            onIncline={(api: PerformanceMonitorApi) => {
+              pushQualityEvent({ type: 'onincline', fps: api.fps })
+              if (stepRef.current > 0) setDprStep(stepRef.current - 1)
+            }}
+            onFallback={(api: PerformanceMonitorApi) => {
+              pushQualityEvent({ type: 'onfallback', fps: api.fps, flipped: api.flipped })
+              setDprStep(DPR_STEPS.length - 1)
+            }}
+          />
+        )}
 
-          {/* Studio balance for the photoreal PBR pass (2026-08-24): the
-              environment carries the softbox reflections the clearcoat
-              shells need, so the punctual key steps back from blowing out
-              gloss highlights. StudioRig crossfades this balance per
-              station (see StudioRig notes). */}
-          <ambientLight intensity={0.25} />
-          <StudioRig />
+        <color attach="background" args={['#05070a']} />
+        <fog attach="fog" args={['#05070a', 25, 120]} />
 
-          <RoomEnvironmentIbl />
+        {/* Studio balance for the photoreal PBR pass (2026-08-24): the
+            environment carries the softbox reflections the clearcoat
+            shells need, so the punctual key steps back from blowing out
+            gloss highlights. StudioRig crossfades this balance per
+            station (see StudioRig notes). */}
+        <ambientLight intensity={0.25} />
+        <StudioRig />
 
-          <Suspense fallback={null}>
-            <SpatialWorld>
-              <TorqueWrenchHero />
-            </SpatialWorld>
-            <LcdFillLight />
-            <LcdMicroRimLight />
-            <WarmStationPrograms />
-            <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
-            <ExplodeShadow />
-          </Suspense>
+        <RoomEnvironmentIbl />
 
-          <CameraRig />
-          {/* JG-035 — after CameraRig at the same priority: station anchors read this frame's camera. */}
-          <NarrativeStationDriver />
-          {/* JG-023 — scroll-scrubbed procedural backdrop (camera-locked layers).
-              Flag-gated in backdropConfig; flag-off = module no-op. */}
-          <BackdropRig />
-          <SpatialRig />
-          <InspectionScene />
-          {/* JG-017 — restrained post-processing FX (transition chromatic aberration + bloom).
-              Returns null for poster and reduced-motion tiers; safe to always mount. */}
-          <PostProcessingComposer />
-        </PerformanceMonitor>
+        <Suspense fallback={null}>
+          <SpatialWorld>
+            <TorqueWrenchHero />
+          </SpatialWorld>
+          <LcdFillLight />
+          <LcdMicroRimLight />
+          <WarmStationPrograms onWarmReady={() => setQualityMonitoring(true)} />
+          <ContactShadows position={[0, -0.16, 0]} opacity={0.4} scale={1.2} blur={2.4} far={0.4} />
+          <ExplodeShadow />
+        </Suspense>
+
+        <CameraRig />
+        {/* JG-035 — after CameraRig at the same priority: station anchors read this frame's camera. */}
+        <NarrativeStationDriver />
+        {/* JG-023 — scroll-scrubbed procedural backdrop (camera-locked layers).
+            Flag-gated in backdropConfig; flag-off = module no-op. */}
+        <BackdropRig />
+        <SpatialRig />
+        <InspectionScene />
+        {/* JG-017 — restrained post-processing FX (transition chromatic aberration + bloom).
+            Returns null for poster and reduced-motion tiers; safe to always mount. */}
+        <PostProcessingComposer />
       </Canvas>
     </div>
   )

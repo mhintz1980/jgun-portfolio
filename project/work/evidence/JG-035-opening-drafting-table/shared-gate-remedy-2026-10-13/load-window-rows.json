@@ -1,0 +1,229 @@
+{
+  "url": "http://localhost:5199/",
+  "started": "2026-10-13T09:23:43.328Z",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "browserVersion": "154.0.8037.98",
+  "rows": [
+    {
+      "t": 669,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": null,
+      "model": null,
+      "meshCount": null,
+      "sheetStats": null
+    },
+    {
+      "t": 3099,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": null,
+      "model": null,
+      "meshCount": null,
+      "sheetStats": null
+    },
+    {
+      "t": 3467,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": null,
+      "model": null,
+      "meshCount": null,
+      "sheetStats": null
+    },
+    {
+      "t": 3955,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": false,
+      "meshCount": 59,
+      "sheetStats": null
+    },
+    {
+      "t": 9180,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": false,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 13221,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 15358,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 15637,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 15919,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 16184,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 18748,
+      "warm": false,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 19148,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 19749,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 20028,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 20300,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 20559,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 20839,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 21116,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 21387,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 21660,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 21917,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    },
+    {
+      "t": 22187,
+      "warm": true,
+      "bakeMs": null,
+      "cacheMs": null,
+      "named": true,
+      "model": true,
+      "meshCount": 59,
+      "sheetStats": 60
+    }
+  ],
+  "errors": []
+}

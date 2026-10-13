@@ -1,0 +1,8 @@
+t0p7s_modelnull_sheet0.png                   {"w":1600,"h":900,"nonBgFrac":0.0034,"bbox":[608,366,990,534],"meanLum":79.3}
+t13p2s_modeltrue_sheet1.png                  {"w":1600,"h":900,"nonBgFrac":0.0004,"bbox":[0,872,516,898],"meanLum":173.8}
+t19p2s_modeltrue_sheet1.png                  {"w":1600,"h":900,"nonBgFrac":0.0516,"bbox":[0,76,884,898],"meanLum":55.9}
+t4s_modelfalse_sheet0.png                    {"w":1600,"h":900,"nonBgFrac":0.5241,"bbox":[152,104,1446,898],"meanLum":18.3}
+t9p2s_modelfalse_sheet1.png                  {"w":1600,"h":900,"nonBgFrac":0,"bbox":null,"meanLum":null}
+t0p5s.png                                    {"w":1600,"h":900,"nonBgFrac":0,"bbox":null,"meanLum":null}
+t1p5s.png                                    {"w":1600,"h":900,"nonBgFrac":0.5241,"bbox":[152,104,1446,898],"meanLum":18}
+t3s.png                                      {"w":1600,"h":900,"nonBgFrac":0.5241,"bbox":[152,104,1446,898],"meanLum":18.2}

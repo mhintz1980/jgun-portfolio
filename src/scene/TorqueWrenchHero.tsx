@@ -351,8 +351,14 @@ export function TorqueWrenchHero() {
     }
 
     // The extraction ends at identity, exactly where the retained mechanism begins.
+    // JG-035 load-flash gate: reaching this branch before drawingRuntime.ready means
+    // the sheet world does not exist yet (DrawingLinework renders null until the
+    // bake) and the under-paper concealment pose is not armed, so the identity pose
+    // would leak a shadowed wrench for the 1.5–8 s bake window. Stay dark until the
+    // drawing runtime owns the frame; once ready, the registered branch above (or
+    // this one, past releaseEnd) restores visibility.
     if (modelRoot.current) {
-      modelRoot.current.visible = true
+      modelRoot.current.visible = drawingRuntime.ready
       modelRoot.current.position.set(0, 0, 0)
     }
 

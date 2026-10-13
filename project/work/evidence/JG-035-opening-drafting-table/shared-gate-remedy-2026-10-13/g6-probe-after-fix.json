@@ -1,0 +1,322 @@
+{
+  "url": "http://localhost:5199/?qualityDiagnostics",
+  "started": "2026-10-13T09:19:42.121Z",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "browserVersion": "154.0.8037.98",
+  "samples": [
+    {
+      "t": 10919,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 11430,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 11942,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 12455,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 12968,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 13481,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 13992,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 14495,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 15060,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 16757,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 17745,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 18482,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 19002,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 22508,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 25268,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 26686,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 27211,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 29911,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 30417,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 30950,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 31465,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 31979,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 32490,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 33006,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 33527,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 34045,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 34582,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 35096,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 35616,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ],
+  "events": [
+    {
+      "t": 18612.30000001192,
+      "type": "warmstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false
+    },
+    {
+      "t": 18711.100000023842,
+      "type": "warmstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false
+    },
+    {
+      "t": 19001.5,
+      "type": "warmcancel",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false
+    },
+    {
+      "t": 19349.80000001192,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 0
+    },
+    {
+      "t": 20572.600000023842,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 0
+    },
+    {
+      "t": 22699,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 1
+    },
+    {
+      "t": 25115,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 1
+    },
+    {
+      "t": 26700.69999998808,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 2
+    },
+    {
+      "t": 26727.600000023842,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 2
+    },
+    {
+      "t": 27695.5,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 3
+    },
+    {
+      "t": 29878.600000023842,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 3
+    },
+    {
+      "t": 29924.900000035763,
+      "type": "cullrenderstart",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 4
+    },
+    {
+      "t": 30203.100000023842,
+      "type": "cullrenderend",
+      "tier": "full",
+      "step": 0,
+      "warmReady": false,
+      "index": 4
+    },
+    {
+      "t": 30203.19999998808,
+      "type": "warmfinish",
+      "tier": "full",
+      "step": 0,
+      "warmReady": true
+    }
+  ],
+  "errors": []
+}

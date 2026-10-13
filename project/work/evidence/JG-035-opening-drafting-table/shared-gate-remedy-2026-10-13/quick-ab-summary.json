@@ -1,0 +1,92 @@
+{
+  "recorded": "2026-10-13T09:39:25.231Z",
+  "tool": "node scripts/verify-jgun-opening.mjs --url=http://localhost:5199 --quick",
+  "withFix": {
+    "run": "with fix (both gate halves live)",
+    "verifierEvidenceDir": "(raw iteration baseline, deleted after distillation; full-roster evidence comes with the O1-updated roster)",
+    "desktop": {
+      "failures": 1,
+      "tierFailures": 0,
+      "lightning": 1,
+      "coldLoadReadyMs": 22974,
+      "errors": 0,
+      "requestFailures": 0
+    },
+    "narrow": {
+      "failures": 1,
+      "tierFailures": 0,
+      "lightning": 1,
+      "coldLoadReadyMs": 6030,
+      "errors": 0,
+      "requestFailures": 0
+    },
+    "lightningCheckpoint": {
+      "name": "desktop-forward-20-0.080400",
+      "tier": "full",
+      "warmReady": true,
+      "lightning": {
+        "lampPower": 0,
+        "blackout": 1,
+        "lightningLuminance": 1,
+        "pulse": 1,
+        "readingPool": 0
+      },
+      "lightningPixelProof": {
+        "available": true,
+        "meshName": "lightning",
+        "meshVisible": true,
+        "fixedCamera": true,
+        "shaderValid": true,
+        "consoleErrors": 0,
+        "changedBrightPixels": 0,
+        "contourPixels": 6,
+        "width": 512,
+        "height": 288
+      }
+    }
+  },
+  "abStashed": {
+    "run": "WITHOUT fix (2-file stash A/B at same HEAD)",
+    "verifierEvidenceDir": "(raw iteration baseline, deleted after distillation; full-roster evidence comes with the O1-updated roster)",
+    "desktop": {
+      "failures": 90,
+      "tierFailures": 89,
+      "lightning": 1,
+      "coldLoadReadyMs": 23337,
+      "errors": 0,
+      "requestFailures": 0
+    },
+    "narrow": {
+      "failures": 90,
+      "tierFailures": 89,
+      "lightning": 1,
+      "coldLoadReadyMs": 6212,
+      "errors": 0,
+      "requestFailures": 0
+    },
+    "lightningCheckpoint": {
+      "name": "desktop-forward-20-0.080400",
+      "tier": "lite",
+      "warmReady": true,
+      "lightning": {
+        "lampPower": 0,
+        "blackout": 1,
+        "lightningLuminance": 1,
+        "pulse": 1,
+        "readingPool": 0
+      },
+      "lightningPixelProof": {
+        "available": true,
+        "meshName": "lightning",
+        "meshVisible": true,
+        "fixedCamera": true,
+        "shaderValid": true,
+        "consoleErrors": 0,
+        "changedBrightPixels": 0,
+        "contourPixels": 6,
+        "width": 512,
+        "height": 288
+      }
+    }
+  }
+}
