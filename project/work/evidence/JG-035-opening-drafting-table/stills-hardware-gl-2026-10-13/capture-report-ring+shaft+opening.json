@@ -1,0 +1,1833 @@
+{
+  "qualityLock": true,
+  "url": "http://localhost:5199",
+  "started": "2026-10-13T07:28:17.813Z",
+  "head": "eb550958c49c327ab4ef6d3c8446f6c4419c4eff",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "only": [
+    "ring",
+    "shaft",
+    "opening"
+  ],
+  "captures": [
+    {
+      "file": "ring-1p2s.png",
+      "kind": "ring",
+      "t": 1.2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Aluminium · spin",
+        "time": 1.2,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.03766337037086487,
+            -0.03771824762225151,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.03766337037086487,
+            0.03771824762225151,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 0,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789172,
+          -0.008252107790789144
+        ],
+        "rollerCenters": [
+          [
+            0.02199999988079071,
+            0.05922182649374008,
+            -0.008252107790789172
+          ],
+          [
+            0.02199999988079071,
+            -0.05922182649374008,
+            -0.008252107790789144
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 1.2,
+        "sampleStamp": 22.250900000035745,
+        "cameraSampleTime": 1.2,
+        "cameraSampleStamp": 22.250900000035745,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 1,
+        "toolOpacity": 0,
+        "ringDetailScale": 1,
+        "rollerDetailScale": 1,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-2p6s.png",
+      "kind": "ring",
+      "t": 2.6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Aluminium · spin",
+        "time": 2.6,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.039535307663196004,
+            -0.039483212436836876,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.039535307663196004,
+            0.039483212436836876,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 0.08585768531753954,
+        "aluminiumBlend": 1,
+        "ringAngle": 1.620287504591643,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 0.03333333333333333,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.013953412761166123,
+          0.013953412761166123
+        ],
+        "rollerAxial": [
+          -0.008252107790789172,
+          -0.008252107790789144
+        ],
+        "rollerCenters": [
+          [
+            0.02199999988079071,
+            0.05922182649374008,
+            -0.008252107790789172
+          ],
+          [
+            0.02199999988079071,
+            -0.05922182649374008,
+            -0.008252107790789144
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 2.6,
+        "sampleStamp": 22.55219999998807,
+        "cameraSampleTime": 2.6,
+        "cameraSampleStamp": 22.55219999998807,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 1,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.0572384568783597,
+        "rollerDetailScale": 0.026174854979520414,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 4.287972448022015,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-4p2s.png",
+      "kind": "ring",
+      "t": 4.2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Diamond knurl · traverse",
+        "time": 4.2,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.049762934314116936,
+            -0.04973507089632092,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.049762934314116936,
+            0.04973507089632092,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0,
+        "normalStrength": 0.029296875,
+        "aluminiumBlend": 1,
+        "ringAngle": 17.696932644601038,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 1.833333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          -8.991552407962983e-7,
+          -8.991552407962983e-7
+        ],
+        "rollerAxial": [
+          -0.008252107790789168,
+          -0.008252107790789148
+        ],
+        "rollerCenters": [
+          [
+            0,
+            0.04922182857990265,
+            -0.008252107790789168
+          ],
+          [
+            0,
+            -0.04922182857990265,
+            -0.008252107790789148
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 0,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 4.2,
+        "sampleStamp": 22.96969999998807,
+        "cameraSampleTime": 4.2,
+        "cameraSampleStamp": 22.96969999998807,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 3,
+        "toolOpacity": 1,
+        "ringDetailScale": 0.01953125,
+        "rollerDetailScale": 0.008931541208477953,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 12.566370614359172,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-5p2s.png",
+      "kind": "ring",
+      "t": 5.2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Diamond knurl · traverse",
+        "time": 5.2,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04976293431411692,
+            -0.049735070896320906,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04976293431411692,
+            0.049735070896320906,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 0.5685593005384137,
+        "normalStrength": 0.029296875,
+        "aluminiumBlend": 1,
+        "ringAngle": 30.26330325896021,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 2.833333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          -8.991552407962983e-7,
+          -8.991552407962983e-7
+        ],
+        "rollerAxial": [
+          6.558189192337793e-10,
+          6.558189410926622e-10
+        ],
+        "rollerCenters": [
+          [
+            0,
+            0.04922182857990265,
+            6.558189192337793e-10
+          ],
+          [
+            0,
+            -0.04922182857990265,
+            6.558189410926622e-10
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 0
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 5.2,
+        "sampleStamp": 23.432199999988065,
+        "cameraSampleTime": 5.2,
+        "cameraSampleStamp": 23.432199999988065,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 3,
+        "toolOpacity": 1,
+        "ringDetailScale": 0.01953125,
+        "rollerDetailScale": 0.008931541208477953,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 12.566370614359172,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-8s.png",
+      "kind": "ring",
+      "t": 8,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Clearance · retract",
+        "time": 8,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.052974086782425954,
+            -0.052982637186901646,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.052974086782425954,
+            0.052982637186901646,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 0.7363107781851077,
+        "aluminiumBlend": 1,
+        "ringAngle": 49.59048245743669,
+        "holePlugBlend": 1,
+        "holePatchOpacity": 1,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 4.883333333333333,
+        "toolVisible": true,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.1822459504052467,
+          0.1822459504052467
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.22376443914707464,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.22376443914707464,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 8,
+        "sampleStamp": 23.888800000011905,
+        "cameraSampleTime": 8,
+        "cameraSampleStamp": 23.888800000011905,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 4,
+        "toolOpacity": 0.35199999999999887,
+        "ringDetailScale": 0.4908738521234052,
+        "rollerDetailScale": 0.22447411396631078,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.5,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-8p575s.png",
+      "kind": "ring",
+      "t": 8.575,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Black finish · decelerate",
+        "time": 8.575,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04921786508037742,
+            -0.04924760896007581,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04921786508037742,
+            0.04924760896007581,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 0.7926534583326262,
+        "aluminiumBlend": 0.7305832081142003,
+        "ringAngle": 49.87340444448414,
+        "holePlugBlend": 0.5,
+        "holePatchOpacity": 0.5,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 12,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.26199995588073033,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.26199995588073033,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 8.575,
+        "sampleStamp": 24.2398000000119,
+        "cameraSampleTime": 8.575,
+        "cameraSampleStamp": 24.2398000000119,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 5,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.5284356388884175,
+        "rollerDetailScale": 0.24165092785972614,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.464459449741103,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-9p3s.png",
+      "kind": "ring",
+      "t": 9.3,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Black finish · decelerate",
+        "time": 9.3,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.04193155805426789,
+            -0.04197942721775079,
+            -0.013602107763290405
+          ],
+          "max": [
+            0.04193155805426789,
+            0.04197942721775079,
+            0.013602107763290405
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 1.3825143886077496,
+        "aluminiumBlend": 0,
+        "ringAngle": 50.14476247716218,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789144,
+          0.008252107790789172
+        ],
+        "rollerCenters": [
+          [
+            0.26199995588073033,
+            0.05922182649374008,
+            0.008252107790789144
+          ],
+          [
+            0.26199995588073033,
+            -0.05922182649374008,
+            0.008252107790789172
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ],
+          [
+            0,
+            2.220446049250313e-16,
+            1
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 0,
+        "narrativeVisibleMeshes": 0,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 9.3,
+        "sampleStamp": 24.573800000011907,
+        "cameraSampleTime": 9.3,
+        "cameraSampleStamp": 24.573800000011907,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 5,
+        "toolOpacity": 0,
+        "ringDetailScale": 0.921676259071833,
+        "rollerDetailScale": 0.42147786182532504,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0.2662940741349549,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "ring-12s.png",
+      "kind": "ring",
+      "t": 12,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probe": {
+        "schema": 1,
+        "kind": "ring",
+        "storyId": "ring-p003068",
+        "session": 1,
+        "status": "ready",
+        "suspend": "none",
+        "chapter": 0,
+        "duration": 12,
+        "playing": false,
+        "active": true,
+        "phase": "Complete",
+        "time": 12,
+        "ringBounds": {
+          "min": [
+            -0.03766368329524994,
+            -0.03771710768342018,
+            -0.11418651044368744
+          ],
+          "max": [
+            0.0376630537211895,
+            0.03771938756108284,
+            -0.08698229491710663
+          ],
+          "center": [
+            -3.1478703022003174e-7,
+            0.0000011399388313293457,
+            -0.10058440268039703
+          ],
+          "radius": 0.0377227273422921,
+          "width": 0.02720421552658081
+        },
+        "worldBounds": {
+          "min": [
+            -0.01667752275003813,
+            -0.03771710768342011,
+            0.096281367606952
+          ],
+          "max": [
+            0.06278955009862368,
+            0.03771938756108306,
+            0.15471812579965122
+          ]
+        },
+        "odKnurlProgress": 1,
+        "normalStrength": 1.5,
+        "aluminiumBlend": 0,
+        "ringAngle": 50.26548245743669,
+        "holePlugBlend": 0,
+        "holePatchOpacity": 0,
+        "holePatches": 12,
+        "holeApertures": 12,
+        "holePatchesVisible": 0,
+        "toolClipTime": 5,
+        "toolVisible": false,
+        "ringMeshes": 1,
+        "toolMeshes": 24,
+        "rollerClearance": [
+          0.2193870293749796,
+          0.2193870293749796
+        ],
+        "rollerAxial": [
+          0.008252107790789151,
+          0.008252107790789179
+        ],
+        "rollerCenters": [
+          [
+            -0.2066412778126575,
+            0.05922296643257156,
+            -0.000798426078629197
+          ],
+          [
+            -0.2066412778126575,
+            -0.05922068655490861,
+            -0.0007984260786292204
+          ]
+        ],
+        "wheelAxis": [
+          [
+            0.4539904997395469,
+            2.220446049250313e-16,
+            -0.8910065241883678
+          ],
+          [
+            0.4539904997395469,
+            2.220446049250313e-16,
+            -0.8910065241883678
+          ]
+        ],
+        "wheelHands": [
+          "RH",
+          "LH"
+        ],
+        "entryScroll": 18285,
+        "restoredScroll": 0,
+        "cameraOwner": "CameraRig",
+        "disposed": 0,
+        "loaded": true,
+        "restoredPoseError": 0,
+        "entryContext": {
+          "progress": 0.3500165562913906,
+          "chapter": 1,
+          "chapterProgress": 0.6375387797311272,
+          "velocity": 0,
+          "materialMode": "solid",
+          "hotspotId": null
+        },
+        "narrativeAlpha": 1,
+        "narrativeVisibleMeshes": 59,
+        "narrativeOriginalsIntact": true,
+        "maskSamples": {
+          "bore": 0,
+          "shoulder": 0,
+          "odStart": 1,
+          "odEnd": 1
+        },
+        "runtimeVersion": 2,
+        "sampledTime": 12,
+        "sampleStamp": 25.008300000011904,
+        "cameraSampleTime": 12,
+        "cameraSampleStamp": 25.008300000011904,
+        "renderOwned": true,
+        "restoreObserved": false,
+        "restoreProjectionError": 0,
+        "restoreStateError": 0,
+        "compileReady": true,
+        "warmReady": true,
+        "discrete": 7,
+        "toolOpacity": 0,
+        "ringDetailScale": 1,
+        "rollerDetailScale": 1,
+        "rollerFilter": "blended-geometry-and-normals",
+        "trueSpin": 0,
+        "ownsNarrative": true
+      }
+    },
+    {
+      "file": "shaft-1p3s.png",
+      "kind": "shaft",
+      "t": 1.3,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 1.3
+    },
+    {
+      "file": "shaft-3s.png",
+      "kind": "shaft",
+      "t": 3,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 3
+    },
+    {
+      "file": "shaft-6p5s.png",
+      "kind": "shaft",
+      "t": 6.5,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 6.5
+    },
+    {
+      "file": "shaft-10p9s.png",
+      "kind": "shaft",
+      "t": 10.9,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 10.9
+    },
+    {
+      "file": "shaft-13s.png",
+      "kind": "shaft",
+      "t": 13,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 13
+    },
+    {
+      "file": "shaft-16s.png",
+      "kind": "shaft",
+      "t": 16,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 16
+    },
+    {
+      "file": "shaft-19s.png",
+      "kind": "shaft",
+      "t": 19,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 19
+    },
+    {
+      "file": "shaft-21p5s.png",
+      "kind": "shaft",
+      "t": 21.5,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 21.5
+    },
+    {
+      "file": "shaft-25p4s.png",
+      "kind": "shaft",
+      "t": 25.4,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 25.4
+    },
+    {
+      "file": "shaft-28s.png",
+      "kind": "shaft",
+      "t": 28,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 28
+    },
+    {
+      "file": "shaft-33p5s.png",
+      "kind": "shaft",
+      "t": 33.5,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 33.5
+    },
+    {
+      "file": "shaft-37s.png",
+      "kind": "shaft",
+      "t": 37,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 37
+    },
+    {
+      "file": "shaft-41s.png",
+      "kind": "shaft",
+      "t": 41,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "probeTime": 41
+    },
+    {
+      "file": "opening-desktop-t0p03.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.03,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.34434507479369125,
+        "y": 0.1587805936908832,
+        "z": -0.19244752254352346,
+        "fov": 30.00001245369303,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.3443452507496938,
+            0.15878078393265116,
+            -0.19244850776333322
+          ],
+          "target": [
+            0.16190304961310878,
+            0,
+            -0.1624237596722804
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.6428493143272418,
+          0.7586516159618019,
+          0.10579453987584547
+        ],
+        "sheetDistance": 0.24371700720253517
+      }
+    },
+    {
+      "file": "opening-desktop-t0p12.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.12,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.19969495478829363,
+        "y": 0.16277711825737054,
+        "z": -0.3298176228473117,
+        "fov": 30.000000000009045,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.19969411677389992,
+            0.16277714140980282,
+            -0.3298184186798814
+          ],
+          "target": [
+            0.05227200000000003,
+            0,
+            -0.321824
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7396240967943641,
+          0.6718240186094377,
+          0.04010839638513515
+        ],
+        "sheetDistance": 0.21975802376630885
+      }
+    },
+    {
+      "file": "opening-desktop-t0p19.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.19,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.06222942847353633,
+        "y": 0.13044454070644346,
+        "z": -0.15589154298023308,
+        "fov": 30.00000000000001,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.06222875200684579,
+            0.13044438159713628,
+            -0.15589068708331888
+          ],
+          "target": [
+            -0.04148148148148143,
+            0,
+            -0.15092592592592602
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7815119393692138,
+          0.622767550212249,
+          0.03741212405095717
+        ],
+        "sheetDistance": 0.1667219183965102
+      }
+    },
+    {
+      "file": "opening-desktop-t0p29.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.29,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.12782419540234902,
+        "y": 0.9095159677175917,
+        "z": -2.2062538139892418e-7,
+        "fov": 33.99999433897529,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.12782428823673903,
+            0.9095170703050032,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "fov": 34
+        },
+        "up": [
+          -0.9902680687415703,
+          0.1391731009600657,
+          0
+        ],
+        "sheetDistance": 0.9184554152703467
+      }
+    },
+    {
+      "file": "opening-desktop-t0p38.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.38,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.04200026259490437,
+        "y": 0.5999451577755582,
+        "z": 0.11999963283828916,
+        "fov": 30.00001223872197,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p77.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.77,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.04200000010895863,
+        "y": 0.5999442109746256,
+        "z": 0.11999999984765347,
+        "fov": 30.000000005078217,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p8.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.8,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.051380454283602495,
+        "y": 0.5998708626107848,
+        "z": 0.11999999999999901,
+        "fov": 30.000000000000036,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.051381635221978826,
+            0.5998708533767483,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.999877726622636,
+          0.0156375127161973,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-desktop-t0p86.png",
+      "kind": "opening",
+      "viewport": "desktop",
+      "t": 0.86,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.2963810683875255,
+        "y": 0.5433443079384542,
+        "z": 0.11999999999999994,
+        "fov": 30.00000000000001,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.296382195676941,
+            0.5433440478490263,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.9056576232684875,
+          0.4240097515572895,
+          0
+        ],
+        "sheetDistance": 0.5999442105816061
+      }
+    },
+    {
+      "file": "opening-narrow-t0p03.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.03,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.4441632619433969,
+        "y": 0.24565305610874655,
+        "z": -0.20887503794259119,
+        "fov": 30.000005570123403,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.44416381883442446,
+            0.24565361485000412,
+            -0.20887577811461516
+          ],
+          "target": [
+            0.16190304961310878,
+            0,
+            -0.1624237596722804
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.6428493143272418,
+          0.7586516159618019,
+          0.10579453987584547
+        ],
+        "sheetDistance": 0.37706051284594894
+      }
+    },
+    {
+      "file": "opening-narrow-t0p12.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.12,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.3631000360611926,
+        "y": 0.34320172722977427,
+        "z": -0.33867876119844975,
+        "fov": 30.00000000001027,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.36309952435472775,
+            0.34320234299407404,
+            -0.3386795805689167
+          ],
+          "target": [
+            0.05227200000000003,
+            0,
+            -0.321824
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7396240967943641,
+          0.6718240186094377,
+          0.04010839638513515
+        ],
+        "sheetDistance": 0.4633418918352043
+      }
+    },
+    {
+      "file": "opening-narrow-t0p19.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.19,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.2348422037201206,
+        "y": 0.3475527471990393,
+        "z": -0.1641548841096764,
+        "fov": 30.00000000000001,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.23484148952504955,
+            0.34755277142527363,
+            -0.16415391227987655
+          ],
+          "target": [
+            -0.04148148148148143,
+            0,
+            -0.15092592592592602
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.7815119393692138,
+          0.622767550212249,
+          0.03741212405095717
+        ],
+        "sheetDistance": 0.44420973971114697
+      }
+    },
+    {
+      "file": "opening-narrow-t0p29.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.29,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.4340881728487685,
+        "y": 3.088697280161922,
+        "z": -6.968024294980453e-8,
+        "fov": 33.999998302078396,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.4340882574250252,
+            3.088698443724541,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "fov": 34
+        },
+        "up": [
+          -0.9902680687415703,
+          0.1391731009600657,
+          0
+        ],
+        "sheetDistance": 3.119052851668387
+      }
+    },
+    {
+      "file": "opening-narrow-t0p38.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.38,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.04200023458018675,
+        "y": 1.4580962982709937,
+        "z": 0.11999992820589178,
+        "fov": 30.00000239313647,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.4580953227070996,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.4580953227070996
+      }
+    },
+    {
+      "file": "opening-narrow-t0p77.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.77,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.04200000085265318,
+        "y": 1.4580953262530836,
+        "z": 0.11999999973904246,
+        "fov": 30.00000000869858,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.0420000000000001,
+            1.4580953227070996,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -1,
+          6.123233995736766e-17,
+          0
+        ],
+        "sheetDistance": 1.4580953227070996
+      }
+    },
+    {
+      "file": "opening-narrow-t0p8.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.8,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.06480004955435566,
+        "y": 1.4579170437753348,
+        "z": 0.11999999999999728,
+        "fov": 30.00000000000009,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.06480098415026009,
+            1.4579170364674736,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.999877726622636,
+          0.0156375127161973,
+          0
+        ],
+        "sheetDistance": 1.4580953227070996
+      }
+    },
+    {
+      "file": "opening-narrow-t0p86.png",
+      "kind": "opening",
+      "viewport": "narrow",
+      "t": 0.86,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "tier": "full",
+      "camera": {
+        "x": 0.6602454477719734,
+        "y": 1.320535418502103,
+        "z": 0.11999999999999995,
+        "fov": 30.00000000000001,
+        "framingBias": 0,
+        "framingBiasY": 0,
+        "portraitDolly": 1,
+        "goal": {
+          "position": [
+            0.6602466355278832,
+            1.32053514446181,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "up": [
+          -0.9056576232684875,
+          0.4240097515572895,
+          0
+        ],
+        "sheetDistance": 1.4580953227070996
+      }
+    }
+  ],
+  "errors": [],
+  "browserVersion": "154.0.8037.98",
+  "finished": "2026-10-13T07:29:55.629Z"
+}

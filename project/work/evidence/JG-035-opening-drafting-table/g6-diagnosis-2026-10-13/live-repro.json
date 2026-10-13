@@ -1,0 +1,143 @@
+{
+  "url": "http://localhost:5199/",
+  "started": "2026-10-13T07:27:42.198Z",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "browserVersion": "154.0.8037.98",
+  "samples": [
+    {
+      "t": 12433,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 12958,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 13462,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 14116,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": null
+    },
+    {
+      "t": 15868,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 16416,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 17743,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 19334,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 20020,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 22724,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 29399,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 31290,
+      "tier": "full",
+      "declines": 0,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 31819,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 34709,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": false,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 35225,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 35739,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 36250,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 36755,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "t": 37285,
+      "tier": "lite",
+      "declines": 1,
+      "warmReady": true,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ],
+  "events": null,
+  "errors": []
+}
