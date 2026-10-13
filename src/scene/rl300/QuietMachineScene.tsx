@@ -14,6 +14,7 @@ import { evaluateShot } from './shot'
 import { EffectComposer, ToneMapping } from '@react-three/postprocessing'
 import { ToneMappingMode } from 'postprocessing'
 import { createSectionRenderPass } from '../sectionRenderPass'
+import { BackgroundDirector } from './BackgroundDirector'
 
 export interface PreviewControl { u: number; invalidate: () => void; caps: boolean }
 type Prepared = ReturnType<typeof prepareModel>
@@ -167,6 +168,8 @@ export function QuietMachineScene({ control, onReady, onError, lite }: { control
     fallback={<p>3D is unavailable. The section study remains available below.</p>}>
     <color attach="background" args={['#101b24']} />
     <fog attach="fog" args={['#101b24', 12, 30]} />
+    {/* S4 layered background: full tier only, the lite tier carries none (owner 2026-10-12). */}
+    {!lite && <BackgroundDirector control={control} />}
     <Environment />
     <hemisphereLight args={['#c8e3ef', '#26303c', .35]} />
     <directionalLight position={[4, 6, 3]} intensity={1.7} color="#e6f1ff" castShadow={!lite}
