@@ -39,6 +39,47 @@ import {
   Vector2,
   Vector3,
 } from 'three'
+import type { CleanupFailureSink } from '../drawingGeometry'
+
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // Preserve the geometry factory's primary error.
+    }
+  }
+}
+
+function disposeAll(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (!errors.length) return
+  if (!cleanupFailureSink) throw errors[0]
+  try {
+    cleanupFailureSink(errors)
+  } catch {
+    // Cleanup reporting cannot make disposal throw.
+  }
+}
 
 /** Sheet thickness the fragments and the hole wall carry, in metres. */
 export const BREAKTHROUGH_THICKNESS = 0.00045
@@ -105,7 +146,7 @@ export interface BreakthroughGeometry {
   maxBoundaryDeviation: number
   /** Vertical extent of the fragment geometry, front to back, in metres. */
   fragmentZRange: [number, number]
-  dispose: () => void
+  dispose: (cleanupFailureSink?: CleanupFailureSink) => void
 }
 
 /** Seed placement targets the main pieces; disconnected perimeter chips are retained too. */
@@ -763,7 +804,12 @@ function seamRibbons(seams: Seam[]): { id: number; points: number[][] }[] {
 /**
 
 /** Exact stock complement, then grid clipping for flex. No boundary cell is discarded. */
-function buildPaperGeometry(width: number, height: number, hole: number[][]): BufferGeometry {
+function buildPaperGeometry(
+  width: number,
+  height: number,
+  hole: number[][],
+  cleanupFailureSink?: CleanupFailureSink,
+): BufferGeometry {
   const outer = [[-width / 2, -height / 2], [width / 2, -height / 2],
     [width / 2, height / 2], [-width / 2, height / 2]]
   const all = [...outer, ...hole]
@@ -799,14 +845,23 @@ function buildPaperGeometry(width: number, height: number, hole: number[][]): Bu
     }
   }
   const geometry = new BufferGeometry()
-  geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
-  geometry.setAttribute('normal', new Float32BufferAttribute(normals, 3))
-  geometry.setIndex(new Uint32BufferAttribute(indices, 1))
-  return geometry
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
+    geometry.setAttribute('normal', new Float32BufferAttribute(normals, 3))
+    geometry.setIndex(new Uint32BufferAttribute(indices, 1))
+    return geometry
+  } catch (error) {
+    rollbackOwned([geometry], cleanupFailureSink)
+    throw error
+  }
 }
 
 /** One closed prism per component, local to its area centroid; no two fronts overlap. */
-function buildFragmentGeometry(ring: number[][], center: Vector2): BufferGeometry {
+function buildFragmentGeometry(
+  ring: number[][],
+  center: Vector2,
+  cleanupFailureSink?: CleanupFailureSink,
+): BufferGeometry {
   const count = ring.length
   const positions: number[] = []
   for (let i = 0; i < count; i += 1) positions.push(ring[i][0] - center.x, ring[i][1] - center.y, 0)
@@ -838,23 +893,33 @@ function buildFragmentGeometry(ring: number[][], center: Vector2): BufferGeometr
     indices.push(base, base + 2, base + 3, base, base + 1, base + 2)
   }
   const geometry = new BufferGeometry()
-  geometry.setAttribute('position', new Float32BufferAttribute(new Float32Array(positions), 3))
-  geometry.setIndex(indices)
-  // Front, back and the side walls need real normals: the rest plane reads normal.z.
-  geometry.computeVertexNormals()
-  const faceNormals = geometry.getAttribute('normal')
-  for (let i=0;i<count;i++) {
-    faceNormals.setXYZ(i,0,0,1)
-    faceNormals.setXYZ(count+i,0,0,-1)
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(new Float32Array(positions), 3))
+    geometry.setIndex(indices)
+    // Front, back and the side walls need real normals: the rest plane reads normal.z.
+    geometry.computeVertexNormals()
+    const faceNormals = geometry.getAttribute('normal')
+    for (let i=0;i<count;i++) {
+      faceNormals.setXYZ(i,0,0,1)
+      faceNormals.setXYZ(count+i,0,0,-1)
+    }
+    return geometry
+  } catch (error) {
+    rollbackOwned([geometry], cleanupFailureSink)
+    throw error
   }
-  return geometry
 }
 
 /**
  * Ribbon strips in the makeLightningRibbon layout, one per path, plus a crackId per ribbon so a
  * mask can skip the joins between disjoint ribbons instead of bridging them.
  */
-function buildRibbonGeometry(paths: { id: number; points: number[][] }[], z: number, halfWidth: number): BufferGeometry {
+function buildRibbonGeometry(
+  paths: { id: number; points: number[][] }[],
+  z: number,
+  halfWidth: number,
+  cleanupFailureSink?: CleanupFailureSink,
+): BufferGeometry {
   const positions: number[] = []
   const arcLengths: number[] = []
   const sides: number[] = []
@@ -898,13 +963,18 @@ function buildRibbonGeometry(paths: { id: number; points: number[][] }[], z: num
     }
   }
   const geometry = new BufferGeometry()
-  geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
-  geometry.setAttribute('arcLength', new Float32BufferAttribute(arcLengths, 1))
-  geometry.setAttribute('ribbonSide', new Float32BufferAttribute(sides, 1))
-  geometry.setAttribute('ribbonNormal', new Float32BufferAttribute(normals, 2))
-  geometry.setAttribute('crackId', new Float32BufferAttribute(crackIds, 1))
-  geometry.setIndex(indices)
-  return geometry
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
+    geometry.setAttribute('arcLength', new Float32BufferAttribute(arcLengths, 1))
+    geometry.setAttribute('ribbonSide', new Float32BufferAttribute(sides, 1))
+    geometry.setAttribute('ribbonNormal', new Float32BufferAttribute(normals, 2))
+    geometry.setAttribute('crackId', new Float32BufferAttribute(crackIds, 1))
+    geometry.setIndex(indices)
+    return geometry
+  } catch (error) {
+    rollbackOwned([geometry], cleanupFailureSink)
+    throw error
+  }
 }
 
 
@@ -937,7 +1007,7 @@ function vertexBisectors(points: number[][]): number[][] {
  * Permanent charred rim: a band from the hole contour outward only (so the aperture is never
  * narrowed) plus the hole wall through the full sheet thickness.
  */
-function buildRimGeometry(outline: number[][]): BufferGeometry {
+function buildRimGeometry(outline: number[][], cleanupFailureSink?: CleanupFailureSink): BufferGeometry {
   const path = simplifyClosed(outline, BREAKTHROUGH_RIM_TOLERANCE)
   const bisectors = vertexBisectors(path)
   const count = path.length
@@ -973,13 +1043,23 @@ function buildRimGeometry(outline: number[][]): BufferGeometry {
     indices.push(top, nextTop, nextBottom, top, nextBottom, bottom)
   }
   const geometry = new BufferGeometry()
-  geometry.setAttribute('position', new Float32BufferAttribute(new Float32Array(positions), 3))
-  geometry.setAttribute('normal', new Float32BufferAttribute(new Float32Array(normals), 3))
-  geometry.setIndex(indices)
-  return geometry
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(new Float32Array(positions), 3))
+    geometry.setAttribute('normal', new Float32BufferAttribute(new Float32Array(normals), 3))
+    geometry.setIndex(indices)
+    return geometry
+  } catch (error) {
+    rollbackOwned([geometry], cleanupFailureSink)
+    throw error
+  }
 }
 
-export function makeBreakthroughGeometry(points: number[][], width: number, height: number): BreakthroughGeometry {
+export function makeBreakthroughGeometry(
+  points: number[][],
+  width: number,
+  height: number,
+  cleanupFailureSink?: CleanupFailureSink,
+): BreakthroughGeometry {
   if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
     throw new Error('breakthrough geometry needs a positive sheet size')
   }
@@ -1002,12 +1082,15 @@ export function makeBreakthroughGeometry(points: number[][], width: number, heig
   const cells = partitionOutline(outline, seeds)
   if(cells.length<BREAKTHROUGH_FRAGMENT_MIN || cells.length>BREAKTHROUGH_FRAGMENT_MAX) throw new Error('Paper fragment count outside the geometry budget')
   const fragments: BreakthroughFragment[] = []
+  const ownedGeometries: BufferGeometry[] = []
   let fragmentArea = 0
   let fragmentZMin = Infinity
   let fragmentZMax = -Infinity
+try {
   cells.forEach((ring, index) => {
     const center = ringCentroid(ring)
-    const geometry = buildFragmentGeometry(ring, center)
+    const geometry = buildFragmentGeometry(ring, center, cleanupFailureSink)
+    ownedGeometries.push(geometry)
     fragmentArea += Math.abs(signedArea(ring))
     const zValues = geometry.getAttribute('position').array
     for (let i = 2; i < zValues.length; i += 3) {
@@ -1035,9 +1118,12 @@ export function makeBreakthroughGeometry(points: number[][], width: number, heig
 
   const seams = collectSeams(cells, outlineIndex)
   const ribbons = seamRibbons(seams)
-  const cracks = buildRibbonGeometry(ribbons, BREAKTHROUGH_CRACK_Z, BREAKTHROUGH_CRACK_HALF_WIDTH)
-  const paper = buildPaperGeometry(width, height, outline)
-  const edge = buildRimGeometry(outline)
+  const cracks = buildRibbonGeometry(ribbons, BREAKTHROUGH_CRACK_Z, BREAKTHROUGH_CRACK_HALF_WIDTH, cleanupFailureSink)
+  ownedGeometries.push(cracks)
+  const paper = buildPaperGeometry(width, height, outline, cleanupFailureSink)
+  ownedGeometries.push(paper)
+  const edge = buildRimGeometry(outline, cleanupFailureSink)
+  ownedGeometries.push(edge)
 
   // Measured, not assumed: how far past the exact profile the hole actually reaches.
   const profileIndex = new SegmentIndex(profile, GRID_CELL)
@@ -1049,6 +1135,7 @@ export function makeBreakthroughGeometry(points: number[][], width: number, heig
     if (deviation > maxBoundaryDeviation) maxBoundaryDeviation = deviation
   }
 
+  let disposed = false
   return {
     paper,
     fragments,
@@ -1062,11 +1149,14 @@ export function makeBreakthroughGeometry(points: number[][], width: number, heig
     thickness: BREAKTHROUGH_THICKNESS,
     maxBoundaryDeviation,
     fragmentZRange: [Number.isFinite(fragmentZMin) ? fragmentZMin : 0, Number.isFinite(fragmentZMax) ? fragmentZMax : 0],
-    dispose: () => {
-      paper.dispose()
-      edge.dispose()
-      cracks.dispose()
-      for (const fragment of fragments) fragment.geometry.dispose()
+    dispose: (sink?: CleanupFailureSink) => {
+      if (disposed) return
+      disposed = true
+      disposeAll([paper, edge, cracks, ...fragments.map((fragment) => fragment.geometry)], sink)
     },
   }
+} catch (error) {
+  rollbackOwned(ownedGeometries, cleanupFailureSink)
+  throw error
+}
 }

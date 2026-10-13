@@ -3,6 +3,7 @@
 // exactly once, outside every tier/failure conditional, so focus and state survive transitions.
 import { useEffect, useRef, useState } from 'react'
 import { TORQUE_POSTER_CHAPTERS, type TorquePosterChapterId } from './posterMap'
+import type { InspectionPlayback } from './inspectionPlayback'
 
 const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
   drafting: {
@@ -32,20 +33,40 @@ const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string;
   },
 }
 
-function InspectionControl() {
+function InspectionControl({ playback, live }: { playback?: InspectionPlayback; live?: boolean }) {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement | null>(null)
+  const seekRef = useRef<HTMLInputElement | null>(null)
+  const wasLive = useRef(live)
 
   useEffect(() => {
     if (!open) return
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return
       setOpen(false)
+      playback?.close()
       triggerRef.current?.focus()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [open])
+  }, [open, playback])
+
+  useEffect(() => {
+    // Automatic tier/failure fallback is not a user inspection exit: preserve the open
+    // disclosure, stop explicit playback, and let the static controls disappear safely.
+    if (wasLive.current && !live && open) playback?.close()
+    wasLive.current = live
+  }, [live, open, playback])
+
+  useEffect(() => () => playback?.close(), [playback])
+
+  useEffect(() => {
+    if (!open || !live) return
+    const sync = () => { if (seekRef.current) seekRef.current.value = String((playback?.snapshot().progress ?? 0) * 100) }
+    sync()
+    const timer = window.setInterval(sync, 100)
+    return () => window.clearInterval(timer)
+  }, [open, live, playback])
 
   return (
     <div className="torque-inspection">
@@ -55,7 +76,11 @@ function InspectionControl() {
         className="torque-inspection__toggle"
         aria-expanded={open}
         aria-controls="torque-inspection-detail"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          if (open) { playback?.close(); triggerRef.current?.focus() }
+          else if (live) playback?.open()
+          setOpen(!open)
+        }}
       >
         {open ? 'Hide cutter inspection details' : 'Open cutter inspection details'}
       </button>
@@ -72,12 +97,20 @@ function InspectionControl() {
           attempts in 4140, 4340 and C300, the switch from shaping to hobbing, the runout hold,
           and the supports that moved so the finished shaft runs true.
         </p>
+        {live && <div className="torque-inspection__playback">
+          <button type="button" onClick={() => playback?.play()}>Play shaft study</button>
+          <button type="button" onClick={() => playback?.pause()}>Pause shaft study</button>
+          <label>Study position
+            <input ref={seekRef} type="range" min="0" max="100" defaultValue="0"
+              onChange={event => playback?.seek(Number(event.currentTarget.value) / 100)} />
+          </label>
+        </div>}
       </div>
     </div>
   )
 }
 
-export function Story() {
+export function Story({ playback, live }: { playback?: InspectionPlayback; live?: boolean }) {
   return (
     <article
       id="torque-story"
@@ -91,7 +124,7 @@ export function Story() {
       {TORQUE_POSTER_CHAPTERS.map((chapter, index) => {
         const copy = CHAPTER_COPY[chapter.id]
         return (
-          <section key={chapter.id} className="torque-chapter" aria-labelledby={`torque-chapter-${chapter.id}-title`}>
+          <section key={chapter.id} className="torque-chapter" data-torque-chapter={chapter.id} aria-labelledby={`torque-chapter-${chapter.id}-title`}>
             <p className="torque-chapter__index" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}
             </p>
@@ -100,7 +133,7 @@ export function Story() {
             </h3>
             <p className="torque-chapter__lede">{copy.lede}</p>
             <p className="torque-chapter__body">{copy.body}</p>
-            {chapter.id === 'inspection' && <InspectionControl />}
+            {chapter.id === 'inspection' && <InspectionControl playback={playback} live={live} />}
           </section>
         )
       })}

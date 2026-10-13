@@ -1,6 +1,6 @@
-import { Color, LinearSRGBColorSpace, MeshBasicMaterial, Vector3 } from 'three'
+import { Color, LinearSRGBColorSpace, MeshBasicMaterial, Vector3, type Texture } from 'three'
 import { BatchedText, Text } from 'troika-three-text'
-import { INK } from '../drawingGeometry'
+import { INK, type CleanupFailureSink } from '../drawingGeometry'
 import { GROUP, INK_GRAPHITE, INK_RED, type InkText, type SheetUniforms, type TextCell } from './ink'
 import { PAPER_FLEX_GLSL } from './paperFlex'
 import { PAPER_BARRIER_GLSL } from './breakthrough'
@@ -45,7 +45,78 @@ export interface SheetTextLayer {
     generatedFragment: boolean
     fragmentShader: string | null
   }
+  dispose: (cleanupFailureSink?: CleanupFailureSink) => void
+}
+
+interface OwnedDisposable {
   dispose: () => void
+}
+
+function disposeAll(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (!errors.length) return
+  if (!cleanupFailureSink) throw errors[0]
+  try {
+    cleanupFailureSink(errors)
+  } catch {
+    // Cleanup reporting cannot make disposal throw.
+  }
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // Preserve the primary text-factory error.
+    }
+  }
+}
+
+function disposeBatchResilient(batch: BatchedText, cleanupFailureSink?: CleanupFailureSink): void {
+  const internalBatch = batch as BatchedText & { _dataTextures?: Record<string, Texture> }
+  const errors: unknown[] = []
+  let dataTextures: Texture[] = []
+  try {
+    dataTextures = Object.values(internalBatch._dataTextures ?? {})
+    internalBatch._dataTextures = {}
+  } catch (error) {
+    errors.push(error)
+  }
+  try {
+    batch.dispose()
+  } catch (error) {
+    errors.push(error)
+  }
+  for (const texture of dataTextures) {
+    try {
+      texture.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (!errors.length) return
+  if (!cleanupFailureSink) throw errors[0]
+  try {
+    cleanupFailureSink(errors)
+  } catch {
+    // Cleanup reporting cannot replace successful text disposal.
+  }
 }
 
 export interface SheetTextBoundsItem {
@@ -66,9 +137,18 @@ export interface SheetTextBounds {
   items: SheetTextBoundsItem[]
 }
 
-export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): SheetTextLayer {
+export function makeSheetText(
+  items: InkText[],
+  uniforms?: SheetUniforms,
+  cleanupFailureSink?: CleanupFailureSink,
+): SheetTextLayer {
   const batch = new BatchedText()
+  let materialValue: MeshBasicMaterial | null = null
+  const allocatedTexts: Text[] = []
+  const syncDetachers: (() => void)[] = []
+try {
   const material = new MeshBasicMaterial({ color: INK, transparent: true, depthWrite: false, toneMapped: false })
+  materialValue = material
   if (uniforms) {
     material.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniforms)
@@ -104,6 +184,7 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
   const syncs: Promise<void>[] = []
   for (const item of items) {
     const text = new Text()
+    allocatedTexts.push(text)
     text.text = item.text
     text.font = SHEET_FONTS[item.weight ?? 'medium']
     text.fontSize = item.size / 0.7
@@ -146,16 +227,21 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
     // consumed (e.g. by BatchedText's own render-time sync) — observed as a cold load whose
     // annotationsReady never fired. 'synccomplete' is dispatched by every completed sync,
     // whoever started it, so resolve on either.
-    syncs.push(
-      new Promise((resolve) => {
-        const done = () => {
-          text.removeEventListener('synccomplete', done)
-          resolve()
-        }
-        text.addEventListener('synccomplete', done)
-        text.sync(done)
-      }),
-    )
+    let done = () => {}
+    const detachSync = () => text.removeEventListener('synccomplete', done)
+    syncDetachers.push(detachSync)
+    let resolveReady!: () => void
+    const ready = new Promise<void>((resolve) => {
+      resolveReady = resolve
+    })
+    done = () => {
+      detachSync()
+      resolveReady()
+    }
+    text.addEventListener('synccomplete', done)
+    syncDetachers.push(detachSync)
+    text.sync(done)
+    syncs.push(ready)
   }
   const ready = Promise.all(syncs).then(() => undefined)
   const captureBounds = (group?: number): SheetTextBounds => {
@@ -208,6 +294,7 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
       m.text.fillOpacity = local > 0 ? (m.item.opacity ?? 1) * opacity : 0
     }
   }
+  let disposed = false
   return {
     object: batch,
     ready,
@@ -219,10 +306,29 @@ export function makeSheetText(items: InkText[], uniforms?: SheetUniforms): Sheet
       generatedFragment: fragmentShader !== null,
       fragmentShader,
     }),
-    dispose: () => {
-      for (const m of members) m.text.dispose()
-      batch.dispose()
-      material.dispose()
+    dispose: (sink?: CleanupFailureSink) => {
+      if (disposed) return
+      disposed = true
+      disposeAll([
+        ...allocatedTexts,
+        { dispose: () => disposeBatchResilient(batch, sink) },
+        material,
+      ], sink)
     },
   }
+} catch (error) {
+  for (const detachSync of syncDetachers) {
+    try {
+      detachSync()
+    } catch {
+      // Continue to resource disposal if listener removal fails.
+    }
+  }
+  rollbackOwned([
+    ...allocatedTexts,
+    { dispose: () => disposeBatchResilient(batch, cleanupFailureSink) },
+    ...(materialValue ? [materialValue] : []),
+  ], cleanupFailureSink)
+  throw error
+}
 }

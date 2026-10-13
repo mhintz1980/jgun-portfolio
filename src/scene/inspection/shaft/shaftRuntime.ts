@@ -23,7 +23,9 @@ import { createShaftSchedule, sampleShaftSchedule } from './schedule'
 import { createShaftScriptFrame, sampleShaftScript } from './script'
 import { FOS_CENTER_Y, FOS_MAX, newFosPresentation, sampleFosPresentation } from './fosPresentation'
 import { shaftStory } from './story'
-import { buildHob, buildShaperCutter } from './tools'
+import {
+  buildHob, buildShaperCutter, type ShaftCleanupFailure, type ShaftLifecycleOptions,
+} from './tools'
 
 interface BundleNode {
   name?: string; mesh?: number; children?: number[]; matrix?: number[]
@@ -100,27 +102,75 @@ interface Neighbour { carrier: Object3D; planets: Object3D[]; ratio: number; mat
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
 /** Synchronous factory; async readiness owns every parsed/created resource by this session. */
-export function createShaftRuntime(session: StorySession, ctx: StoryContext): StoryRuntime {
+export function createShaftRuntime(
+  session: StorySession,
+  ctx: StoryContext,
+  options: ShaftLifecycleOptions = {},
+): StoryRuntime {
   const root = new Group(); root.name = 'manufacturing-study-root'
+  const ownedGeometry = new Set<BufferGeometry>(), sharedGeometry = new Set<BufferGeometry>()
+  const ownedMaterials = new Set<Material>(), ownedTextures = new Set<Texture>(), sharedTextures = new Set<Texture>()
+  const ownedDisposers: Array<{ resource: string; dispose: () => void }> = []
+  const resources = { geometries: 0, materials: 0, textures: 0, meshes: 0 }
+  let disposed = false, loaded = false, supportDeltaYmm = 0, shaftMinZ = -0.071524, shaftMaxZ = 0
+  let draco: DRACOLoader | null = null
+  let releaseShared: (() => void) | null = null
+  let runtime!: StoryRuntime
+
+  const attempt = (resource: string, dispose: () => void, failures: ShaftCleanupFailure[]): void => {
+    try { dispose() } catch (error) { failures.push(Object.freeze({ resource, error })) }
+  }
+  const disposeAll = (): void => {
+    if (disposed) return
+    disposed = true; loaded = false
+    const failures: ShaftCleanupFailure[] = []
+    attempt('scene-root', () => { root.removeFromParent(); root.visible = false }, failures)
+    for (let i = ownedDisposers.length - 1; i >= 0; i--) {
+      const owner = ownedDisposers[i]
+      attempt(owner.resource, owner.dispose, failures)
+    }
+    ownedGeometry.forEach(value => attempt('geometry', () => value.dispose(), failures))
+    ownedMaterials.forEach(value => attempt('material', () => value.dispose(), failures))
+    ownedTextures.forEach(value => attempt('texture', () => value.dispose(), failures))
+    attempt('shared-lease', () => { releaseShared?.(); releaseShared = null }, failures)
+    // Shared narrative geometries/textures are borrowed, never disposed here.
+    ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
+    resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
+    attempt('scene-children', () => root.clear(), failures)
+    if (failures.length) {
+      try { options.onCleanupFailure?.(Object.freeze(failures)) } catch { /* Reporting cannot interrupt cleanup. */ }
+    }
+  }
+  session.own({ dispose: disposeAll })
+  if (!session.current()) throw new DOMException('Shaft runtime session cancelled', 'AbortError')
+
+  try {
   // Fixed origin/identity. Every asset, camera and light is in this independent world.
   const supportPair = new Group(); supportPair.name = 'shaft-rigid-support-pair'; root.add(supportPair)
   const key = new DirectionalLight('#f0f1f2', 2.6), graze = new DirectionalLight('#d6dde2', 1.4)
   root.add(key, key.target, graze, graze.target)
+  ownedDisposers.push({ resource: 'key-light', dispose: () => key.dispose() })
+  ownedDisposers.push({ resource: 'graze-light', dispose: () => graze.dispose() })
   const steel = new MeshStandardMaterial({ color: '#adb4ba', metalness: 0.94, roughness: 0.28 })
-  const shaperMaterial = steel.clone(), shaperDetailMaterial = steel.clone()
-  const hobMaterial = steel.clone(), hobDetailMaterial = steel.clone()
-  const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38
-  const shaper = buildShaperCutter(shaperMaterial), hob = buildHob(hobMaterial)
+  ownedMaterials.add(steel)
+  const shaperMaterial = steel.clone(); ownedMaterials.add(shaperMaterial)
+  const shaperDetailMaterial = steel.clone(); ownedMaterials.add(shaperDetailMaterial)
+  const hobMaterial = steel.clone(); ownedMaterials.add(hobMaterial)
+  const hobDetailMaterial = steel.clone(); ownedMaterials.add(hobDetailMaterial)
+  const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38; ownedMaterials.add(chipMaterial)
+  const shaper = buildShaperCutter(shaperMaterial)
+  ownedDisposers.push({ resource: 'shaper-tool', dispose: () => shaper.dispose() })
+  const hob = buildHob(hobMaterial)
+  ownedDisposers.push({ resource: 'hob-tool', dispose: () => hob.dispose() })
+  const toolGeometryCount = shaper.geometryCount + hob.geometryCount
   const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined
   const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
   if (shaperDisc) shaperDisc.material = shaperDetailMaterial
   if (hobThread) hobThread.material = hobDetailMaterial
-  const chip = new Mesh(new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3), chipMaterial)
+  const chipGeometry = new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3)
+  ownedGeometry.add(chipGeometry)
+  const chip = new Mesh(chipGeometry, chipMaterial)
   chip.name = 'shaft-single-rake-chip'; root.add(shaper.root, hob.root, chip)
-  const ownedGeometry = new Set<BufferGeometry>(), sharedGeometry = new Set<BufferGeometry>()
-  const ownedMaterials = new Set<Material>([steel, shaperMaterial, shaperDetailMaterial, hobMaterial, hobDetailMaterial, chipMaterial])
-  const ownedTextures = new Set<Texture>(), sharedTextures = new Set<Texture>()
-  const resources = { geometries: 0, materials: 0, textures: 0, meshes: 0 }
   const parts: Record<string, Part> = Object.create(null) as Record<string, Part>
   const neighbours: Neighbour[] = []
   const bindings: ProgressionBinding[] = []
@@ -147,15 +197,12 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
     narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
     nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
   }
-  let disposed = false, loaded = false, supportDeltaYmm = 0, shaftMinZ = -0.071524, shaftMaxZ = 0
-  let draco: DRACOLoader | null = null
-  let releaseShared: (() => void) | null = null
-  let runtime!: StoryRuntime
-
-  function collect(object: Object3D, shared = false): void {
+  function collect(object: Object3D, shared = false, includeGeometry = true): void {
     object.traverse(child => {
       if (!(child instanceof Mesh)) return
-      if (shared) sharedGeometry.add(child.geometry); else ownedGeometry.add(child.geometry)
+      if (!includeGeometry) {
+        // Tools own their geometries; the runtime still counts them for census.
+      } else if (shared) sharedGeometry.add(child.geometry); else ownedGeometry.add(child.geometry)
       resources.meshes++
       const materials = Array.isArray(child.material) ? child.material : [child.material]
       for (const material of materials) {
@@ -168,9 +215,9 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
       }
     })
   }
-  collect(shaper.root); collect(hob.root); collect(chip)
+  collect(shaper.root, false, false); collect(hob.root, false, false); collect(chip)
   function census(): void {
-    resources.geometries = ownedGeometry.size + sharedGeometry.size
+    resources.geometries = ownedGeometry.size + sharedGeometry.size + toolGeometryCount
     resources.materials = ownedMaterials.size; resources.textures = ownedTextures.size + sharedTextures.size
   }
   function materialOpacity(material: Material, opacity: number): void {
@@ -305,7 +352,13 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
           for (const value of Object.values(material)) if (value && typeof value === 'object' && 'isTexture' in value) textures.add(value as Texture)
         }
       })
-      geometries.forEach(value => value.dispose()); materials.forEach(value => value.dispose()); textures.forEach(value => value.dispose())
+      const failures: ShaftCleanupFailure[] = []
+      geometries.forEach(value => attempt('stale-geometry', () => value.dispose(), failures))
+      materials.forEach(value => attempt('stale-material', () => value.dispose(), failures))
+      textures.forEach(value => attempt('stale-texture', () => value.dispose(), failures))
+      if (failures.length) {
+        try { options.onCleanupFailure?.(Object.freeze(failures)) } catch { /* Late cleanup still completed. */ }
+      }
       return
     }
     collect(gltf.scene)
@@ -448,20 +501,15 @@ export function createShaftRuntime(session: StorySession, ctx: StoryContext): St
       out.shaft = probe; out.resources = resources
     },
     dispose() {
-      if (disposed) return
-      disposed = true; loaded = false; root.removeFromParent(); root.visible = false
-      hobThread?.dispose()
-      ownedGeometry.forEach(value => value.dispose()); ownedMaterials.forEach(value => value.dispose()); ownedTextures.forEach(value => value.dispose())
-      // Shared narrative geometries/textures are borrowed, never disposed here.
-      key.dispose(); graze.dispose(); releaseShared?.(); releaseShared = null
       // Do not terminate a pending Draco parse: worker disposal would strand its
       // promise. ready's finally releases it after stale parsed assets are cleaned up.
-      ownedGeometry.clear(); ownedMaterials.clear(); ownedTextures.clear(); sharedGeometry.clear(); sharedTextures.clear()
-      resources.geometries = 0; resources.materials = 0; resources.textures = 0; resources.meshes = 0
-      root.clear()
+      disposeAll()
     },
   }
   census(); runtime.sample(0); runtime.apply()
-  session.own(runtime)
+  } catch (error) {
+    disposeAll()
+    throw error
+  }
   return runtime
 }

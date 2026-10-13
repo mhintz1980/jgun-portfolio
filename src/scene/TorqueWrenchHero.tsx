@@ -3,18 +3,11 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Group, MathUtils, MeshBasicMaterial, Object3D } from 'three'
+import { Group, MathUtils, MeshBasicMaterial } from 'three'
 import { createCadTransitionMaterial } from '../shaders/CadTransitionShader'
 import { buildWrenchRig } from './rig/nodeRoles'
+import { applyWrenchMechanics } from './rig/wrenchMechanics'
 import {
-  CLUTCH_SHIFT_DISTANCE,
-  EXPLODE_OFFSETS,
-  GB_FASTENER_POP_COMPLETE,
-  GB_FASTENER_POP_M,
-  GEAR_RATIOS,
-  RING_SWITCH_ROTATION,
-  RING_SWITCH_TRAVEL_Z,
-  ROTATION_TURNS,
   STAGE_IDS,
 } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
@@ -168,98 +161,6 @@ export function TorqueWrenchHero() {
     }
   }
 
-  const offsetZ = (node: Object3D | null, offset: number): void => {
-    if (!node) return
-    const base = rig.basePositions.get(node)
-    if (base) node.position.z = base.z + offset
-  }
-
-  /**
-   * Shift mechanism: the fork train (shifter fork P000724, shifter cam P000297)
-   * slides −Z while the ring switch assembly (P003068 knurled ring, 3× P000464
-   * pins, 3× K000156 ball plungers) follows the cam groove in P000420 — traveling
-   * +Z (away from handle) and rotating +120° (CCW when viewed from rear).
-   * Called every frame from useFrame with the current shift value (0→1).
-   */
-  const applyShift = (shift: number): void => {
-    // Fork train — slides toward handle (−Z)
-    offsetZ(rig.clutch.sliding, shift * CLUTCH_SHIFT_DISTANCE)
-    // Ring switch — travels +Z along cam groove with simultaneous positive rotation
-    const rs = rig.clutch.ringSwitch
-    if (rs) {
-      const base = rig.basePositions.get(rs)
-      if (base) {
-        rs.position.z = base.z + shift * RING_SWITCH_TRAVEL_Z
-        rs.rotation.z = +shift * RING_SWITCH_ROTATION  // +Z travel = positive rotation
-      }
-    }
-  }
-
-  /** Rear extraction + snout exit, driven by the explode factor 0..1. */
-  const applyExplosion = (explode: number, shift: number): void => {
-    offsetZ(rig.outputShaft, EXPLODE_OFFSETS.output * explode)
-    for (const id of STAGE_IDS) {
-      offsetZ(rig.stages[id].carrier, EXPLODE_OFFSETS[id] * explode)
-    }
-    // K000004 bearing ring parks between A000606 (stage 5) and stage 2.
-    offsetZ(rig.bearing, EXPLODE_OFFSETS.bearing * explode)
-    offsetZ(rig.clutch.static, EXPLODE_OFFSETS.clutch * explode)
-    // Fork train rides the clutch explosion offset plus its own shift travel
-    offsetZ(rig.clutch.sliding, EXPLODE_OFFSETS.clutch * explode + shift * CLUTCH_SHIFT_DISTANCE)
-    // Ring switch also rides the clutch explosion, plus its own cam travel
-    const rs = rig.clutch.ringSwitch
-    if (rs) {
-      const base = rig.basePositions.get(rs)
-      if (base) {
-        rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_TRAVEL_Z
-        rs.rotation.z = +shift * RING_SWITCH_ROTATION
-      }
-    }
-    offsetZ(rig.handleRoot, EXPLODE_OFFSETS.handle * explode)
-    // Gearbox radial bolts (90910A815): pop outward along their own radial
-    // axes on the explode's LEADING edge (fully out by
-    // GB_FASTENER_POP_COMPLETE, ahead of the rear extraction), then ride the
-    // clutch — their groups are clutch-static children, so the offsetZ above
-    // already carries them.
-    for (const f of rig.gbFasteners) {
-      const base = rig.basePositions.get(f.group)
-      if (!base) continue
-      const t = MathUtils.clamp(explode / GB_FASTENER_POP_COMPLETE, 0, 1)
-      const pop = GB_FASTENER_POP_M * t * t * (3 - 2 * t)
-      f.group.position.set(base.x + f.dir.x * pop, base.y + f.dir.y * pop, base.z)
-    }
-  }
-
-  /**
-   * Epicyclic rotation: each carrier turns about the gear-train axis while
-   * each planet counter-rotates on its own pin (planet groups are carrier
-   * children, so they also revolve with it). JG-031 display turns: the proxy
-   * sweep is normalized 0..1 and remapped through ROTATION_TURNS mapped to the
-   * physical driveline order from motor to snout (stage1: 8.0 → stage2: 5.2 →
-   * stage5 [A000606]: 3.38 → stage3: 2.20 → stage4: 1.43), so each successive
-   * physical cage spins at ~65% of the preceding cage's speed. This provides
-   * strictly monotonic reduction across the physical visual assembly and clear,
-   * perceptible motion even during fast scroll scrub. GEAR_RATIOS keeps the
-   * kinematic reference, and planets stay pegged to their carrier's display angle
-   * via the multiplier.
-   *
-   * Continuous Kinematic Idling (Milestone 4):
-   * When scroll pauses during CH.02 explosion range, idle rotation accumulates
-   * delta-time at a rate proportional to each stage's ROTATION_TURNS and blends
-   * seamlessly with scroll-driven sweep without pops or jumps.
-   */
-  const applyGearRotation = (angle: number, idle: number = 0): void => {
-    const sweep = angle / GEAR_ROTATION_SWEEP
-    for (const id of STAGE_IDS) {
-      const stage = rig.stages[id]
-      const turns = ROTATION_TURNS[id]
-      const carrierAngle = (sweep + idle) * turns * Math.PI * 2
-      if (stage.carrier) stage.carrier.rotation.z = carrierAngle
-      const planetAngle = -carrierAngle * GEAR_RATIOS.planetMultiplier
-      for (const planet of stage.planets) planet.rotation.z = planetAngle
-    }
-  }
-
   const writeRigTelemetry = (explode: number, ghostOpacity: number, shift: number): void => {
     telemetry.rig.handleZ = rig.handleRoot?.position.z ?? 0
     telemetry.rig.outputZ = rig.outputShaft?.position.z ?? 0
@@ -315,8 +216,7 @@ export function TorqueWrenchHero() {
         material.opacity = 1
         material.depthWrite = true
       }
-      applyGearRotation(0, 0)
-      applyExplosion(0, 0)
+      applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
       anim.spin = 0
       anim.ghost = 0
       anim.explode = 0
@@ -337,9 +237,8 @@ export function TorqueWrenchHero() {
         group.current.rotation.y = 0
         group.current.rotation.x = 0
       }
-      applyGearRotation(0, 0)
       const explode = materialMode === 'exploded' ? 1 : 0
-      applyExplosion(explode, 0)
+      applyWrenchMechanics(rig, { shift: 0, explode, gearAngle: 0, idle: 0 })
       // Ghost never fades under reduced motion, so its commanded opacity is 1.
       writeRigTelemetry(explode, 1, 0)
       if (surface.current !== 'live' || lastMode.current !== materialMode) {
@@ -389,7 +288,6 @@ export function TorqueWrenchHero() {
     } else if (anim.explode === 0 && anim.gearRotation === 0) {
       idleAngle.current = 0
     }
-    applyGearRotation(materialMode === 'exploded' ? 0 : anim.gearRotation, idleAngle.current)
 
     // 4. Clutch shift window in CH.01:
     // B3 is remapped after B1/B2. Values preserve the old 0.05→0.17 local
@@ -406,11 +304,16 @@ export function TorqueWrenchHero() {
     } else if (progress > shiftHoldEnd && progress <= shiftOutEnd) {
       shiftAmount = 1 - MathUtils.smoothstep(progress, shiftHoldEnd, shiftOutEnd)
     }
-    applyShift(shiftAmount)
-
-    // 5. Rear extraction (forced fully open in exploded mode).
+    // 5. Rear extraction (forced fully open in exploded mode). One mechanics
+    //    call applies gear rotation, clutch shift, and explosion in the
+    //    legacy order at the same matched inputs.
     const explode = Math.max(anim.explode, materialMode === 'exploded' ? 1 : 0)
-    applyExplosion(explode, shiftAmount)
+    applyWrenchMechanics(rig, {
+      shift: shiftAmount,
+      explode,
+      gearAngle: materialMode === 'exploded' ? 0 : anim.gearRotation,
+      idle: idleAngle.current,
+    })
     writeRigTelemetry(explode, ghostOpacity, shiftAmount)
 
     // 5. Material surface management: CAD dissolve owns chapter 4, the mode

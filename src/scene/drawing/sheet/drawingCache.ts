@@ -25,6 +25,29 @@ interface Entry {
 const entries = new WeakMap<DrawingGeometry, Entry>()
 let latest: { data: DrawingGeometry; layout: DrawingLayout } | undefined
 
+// AbortSignal.reason may be any value; this API always rejects with AbortError.
+function checkAbort(signal?: AbortSignal): void {
+  if (signal?.aborted) throw new DOMException('Drawing cache cancelled', 'AbortError')
+}
+
+/** Hashing and decompression do not accept a signal. Stop waiting and block publication. */
+async function abortable<T>(work: Promise<T>, signal?: AbortSignal): Promise<T> {
+  if (!signal) return await work
+  let onAbort: (() => void) | undefined
+  try {
+    const cancelled = new Promise<never>((_, reject) => {
+      onAbort = () => reject(new DOMException('Drawing cache cancelled', 'AbortError'))
+      signal.addEventListener('abort', onAbort, { once: true })
+      if (signal.aborted) onAbort()
+    })
+    const value = await Promise.race([work, cancelled])
+    checkAbort(signal)
+    return value
+  } finally {
+    if (onAbort) signal.removeEventListener('abort', onAbort)
+  }
+}
+
 /** Generator opt-out lives here so DrawingLinework needs no tooling-only branch. */
 export function drawingCacheBypassed(): boolean {
   return typeof window !== 'undefined'
@@ -59,12 +82,17 @@ function entryFor(data: DrawingGeometry, layout: DrawingLayout): Entry {
 /** SHA-256 includes every rest-pose position and index byte, including winding/order.
  * Snapshot geometry is immutable. No model simplification, welding or rounding is done here.
  */
-export async function drawingCacheKey(data: DrawingGeometry, layout: DrawingLayout): Promise<string> {
+export async function drawingCacheKey(data: DrawingGeometry, layout: DrawingLayout, signal?: AbortSignal): Promise<string> {
+  checkAbort(signal)
   const position = data.geometry.getAttribute('position').array
   const bytes = new Uint8Array(position.buffer, position.byteOffset, position.byteLength)
   const index = data.geometry.getIndex()?.array
-  const hash = async (input: Uint8Array) => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new Uint8Array(input))),
-    (n) => n.toString(16).padStart(2, '0')).join('')
+  const hash = async (input: Uint8Array) => {
+    checkAbort(signal)
+    const digest = await abortable(crypto.subtle.digest('SHA-256', new Uint8Array(input)), signal)
+    checkAbort(signal)
+    return Array.from(new Uint8Array(digest), (n) => n.toString(16).padStart(2, '0')).join('')
+  }
   const topology = index
     ? `${index.constructor.name}:${await hash(new Uint8Array(index.buffer, index.byteOffset, index.byteLength))}`
     : 'non-indexed'
@@ -131,19 +159,26 @@ function valid(value: unknown): value is DrawingPrecompute {
     && !!p.stats && Object.values(p.stats).every(Number.isFinite)
 }
 
-export async function installDrawingPrecompute(data: DrawingGeometry, layout: DrawingLayout, value: unknown): Promise<boolean> {
+export async function installDrawingPrecompute(data: DrawingGeometry, layout: DrawingLayout, value: unknown,
+  signal?: AbortSignal): Promise<boolean> {
+  checkAbort(signal)
   if (drawingCacheBypassed()) return false
-  if (!valid(value) || value.key !== await drawingCacheKey(data, layout)) return false
+  if (!valid(value)) return false
+  const key = await drawingCacheKey(data, layout, signal)
+  checkAbort(signal)
+  if (value.key !== key) return false
   const ink = new InkBuilder()
   // Avoid spread's argument limit on the full CAD line set.
   for (const n of value.segs) ink.segs.push(n)
   for (const n of value.fills) ink.fills.push(n)
   for (const text of value.texts) ink.texts.push({ ...text })
-  entries.set(data, {
+  const entry: Entry = {
     layout: layoutKey(data, layout), precomputed: true,
     sheet: { ink, marks: structuredClone(value.marks), stats: { ...value.stats } },
     profile: value.profile.map((point) => [...point]),
-  })
+  }
+  checkAbort(signal)
+  entries.set(data, entry)
   latest = { data, layout }
   return true
 }
@@ -156,10 +191,12 @@ export async function installDrawingPrecompute(data: DrawingGeometry, layout: Dr
  * legacy v2 JSON (still parseable so an old asset fails its version gate cleanly, not as
  * a decode crash).
  */
-export async function decodeDrawingPayload(bytes: Uint8Array<ArrayBuffer>): Promise<unknown> {
+export async function decodeDrawingPayload(bytes: Uint8Array<ArrayBuffer>, signal?: AbortSignal): Promise<unknown> {
+  checkAbort(signal)
   if (bytes.length >= 2 && bytes[0] === 0x1f && bytes[1] === 0x8b) {
     const body = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
-    bytes = new Uint8Array(await new Response(body).arrayBuffer())
+    bytes = new Uint8Array(await abortable(new Response(body).arrayBuffer(), signal))
+    checkAbort(signal)
   }
   if (bytes.length >= 4 && bytes[0] === 0x4a && bytes[1] === 0x47 && bytes[2] === 0x44 && bytes[3] === 0x33) {
     return decodeDrawingPrecompute(bytes)
@@ -169,7 +206,8 @@ export async function decodeDrawingPayload(bytes: Uint8Array<ArrayBuffer>): Prom
 
 /** Call before composeSheet/bakeProfile. Any missing/stale/broken asset falls back to live CAD. */
 export async function prepareDrawingCache(data: DrawingGeometry, layout: DrawingLayout,
-  url = '/drawing/jgun-sheet-v2.bin.gz'): Promise<boolean> {
+  url = '/drawing/jgun-sheet-v2.bin.gz', signal?: AbortSignal): Promise<boolean> {
+  checkAbort(signal)
   if (drawingCacheBypassed()) {
     entries.delete(data)
     return false
@@ -177,17 +215,32 @@ export async function prepareDrawingCache(data: DrawingGeometry, layout: Drawing
   // A dead host fails fast (headers), but a responding one gets to finish the body: aborting a
   // valid asset on a busy first load only swaps a download for the heavier live bake.
   const controller = new AbortController()
+  const onCallerAbort = () => controller.abort()
+  signal?.addEventListener('abort', onCallerAbort, { once: true })
   let timer = setTimeout(() => controller.abort(), 8000)
   try {
-    const response = await fetch(url, { signal: controller.signal })
+    checkAbort(signal)
+    const response = await abortable(fetch(url, { signal: controller.signal }), controller.signal)
+    checkAbort(signal)
+    checkAbort(controller.signal)
     if (!response.ok) return false
     clearTimeout(timer)
     timer = setTimeout(() => controller.abort(), 30000)
-    const value = await decodeDrawingPayload(new Uint8Array(await response.arrayBuffer()))
-    return await installDrawingPrecompute(data, layout, value)
+    const bytes = new Uint8Array(await abortable(response.arrayBuffer(), controller.signal))
+    checkAbort(signal)
+    checkAbort(controller.signal)
+    const value = await decodeDrawingPayload(bytes, controller.signal)
+    checkAbort(signal)
+    checkAbort(controller.signal)
+    const installed = await installDrawingPrecompute(data, layout, value, controller.signal)
+    checkAbort(signal)
+    checkAbort(controller.signal)
+    return installed
   } catch {
+    checkAbort(signal)
     return false
   } finally {
     clearTimeout(timer)
+    signal?.removeEventListener('abort', onCallerAbort)
   }
 }

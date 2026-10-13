@@ -6,6 +6,7 @@ import {
   SHEET_ZONES,
   VIEW_ROTATIONS,
   sectionLinework,
+  type CleanupFailureSink,
   type DrawingGeometry,
   type DrawingLayout,
   type DrawingView,
@@ -90,7 +91,48 @@ function clipToCircle(data: Float32Array, cx: number, cy: number, r: number): Fl
 const sweep = (rect: [number, number, number, number], span = 0.82) => (x: number, y: number) =>
   Math.min(1, Math.max(0, ((x - rect[0]) / rect[2]) * span + (1 - (y - rect[1]) / rect[3]) * (1 - span) * 0.9))
 
-export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: DrawingLayout): ComposedSheet {
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function disposeOwned(resource: OwnedDisposable, cleanupFailureSink?: CleanupFailureSink): void {
+  let failed = false
+  let error: unknown = null
+  try {
+    resource.dispose()
+  } catch (cleanupError) {
+    failed = true
+    error = cleanupError
+  }
+  if (!failed) return
+  if (!cleanupFailureSink) throw error
+  try {
+    cleanupFailureSink([error])
+  } catch {
+    // Cleanup reporting cannot make successful composition throw.
+  }
+}
+
+function rollbackOwned(resource: OwnedDisposable, cleanupFailureSink?: CleanupFailureSink): void {
+  try {
+    resource.dispose()
+  } catch (error) {
+    if (cleanupFailureSink) {
+      try {
+        cleanupFailureSink([error])
+      } catch {
+        // Preserve the primary composition error.
+      }
+    }
+  }
+}
+
+export function composeSheet(
+  gl: WebGLRenderer,
+  data: DrawingGeometry,
+  layout: DrawingLayout,
+  cleanupFailureSink?: CleanupFailureSink,
+): ComposedSheet {
   const started = performance.now()
   const cached = cachedSheet(data, layout)
   if (cached) return cached
@@ -102,7 +144,8 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   stats.edgeSetMs = performance.now() - started
   stats.hardEdges = edges.hard.length / 6
   stats.smoothEdges = edges.smooth.length / 6
-  const geometry = geometryFrom(position)
+  const geometry = geometryFrom(position, cleanupFailureSink)
+  try {
   const sectionClip = new Plane(new Vector3(0, -1, 0), 0)
   const sideView = viewNamed(layout, 'side')
   const handle = data.units.handle
@@ -145,13 +188,13 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
       rect: view.rect,
       resolution: view.scale >= 1 ? 7000 : 9000,
       clip: view.section ? sectionClip : undefined,
-    })
+    }, cleanupFailureSink)
     const group = viewGroups[view.name]
     const order = sweep(view.rect)
     ink.segments(view.name === 'side' ? ovalClip(lines.outline, false) : lines.outline, view.scale >= 1 ? PEN.outline : PEN.edge, group, (x, y) => order(x, y) * 0.86, 0.1)
     ink.segments(view.name === 'side' ? ovalClip(lines.edges, false) : lines.edges, view.scale >= 1 ? PEN.edge : PEN.thin, group, (x, y) => order(x, y) * 0.86 + 0.02, 0.1)
     if (view.name === 'side' && motorWindow) {
-      const cutView = extractView(gl, geometry, edges, { transform: view.transform, rect: view.rect, resolution: 7000, clip: sectionClip })
+      const cutView = extractView(gl, geometry, edges, { transform: view.transform, rect: view.rect, resolution: 7000, clip: sectionClip }, cleanupFailureSink)
       ink.segments(ovalClip(cutView.outline, true), PEN.edge, group, () => 0.4, 0.1)
       ink.segments(ovalClip(cutView.edges, true), PEN.thin, group, () => 0.4, 0.1)
       const cut = sectionLinework(position, view.transform, 0.0019)
@@ -244,7 +287,7 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
       rect,
       resolution: 9000,
       clip: d.source === 'section' ? sectionClip : undefined,
-    })
+    }, cleanupFailureSink)
     const order = sweep(rect)
     ink.segments(clipToCircle(lines.outline, d.at[0], d.at[1], d.radius), PEN.outline, d.group, (x, y) => 0.18 + order(x, y) * 0.66, 0.1)
     ink.segments(clipToCircle(lines.edges, d.at[0], d.at[1], d.radius), PEN.edge, d.group, (x, y) => 0.2 + order(x, y) * 0.66, 0.1)
@@ -685,7 +728,11 @@ export function composeSheet(gl: WebGLRenderer, data: DrawingGeometry, layout: D
   stats.fills = ink.fills.length / 15
   stats.texts = ink.texts.length
   stats.totalMs = performance.now() - started
-  geometry.dispose()
+} catch (error) {
+  rollbackOwned(geometry, cleanupFailureSink)
+  throw error
+}
+disposeOwned(geometry, cleanupFailureSink)
   const result = { ink, stats, marks }
   rememberSheet(data, layout, result)
   return result

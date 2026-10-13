@@ -1,0 +1,498 @@
+/**
+ * JG-038 private sheet presentation. Borrows the bake and host pose; owns only
+ * presentation resources. Shader/fragment laws copied from DrawingPrint.
+ */
+import {
+  Color, DoubleSide, Group, Matrix4, Mesh, PlaneGeometry, ShaderMaterial,
+  Vector2, Vector3, Vector4,
+  type BufferGeometry, type ShaderMaterialParameters, type Texture,
+} from 'three'
+import { INK, PAPER, SHEET_HEIGHT, SHEET_WIDTH, SHEET_ZONES, makePaperGrainTexture } from '../drawing/drawingGeometry'
+import { INTRO_PHASES, type IntroState } from '../drawing/introTimeline'
+import type { ExtractionContext } from '../drawing/poseCore'
+import type { SheetBakeResult, SheetBakeTier } from '../drawing/sheet/sheetBake'
+import { sheetReveal } from '../drawing/sheetCamera'
+import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL } from '../drawing/sheet/ink'
+import { paperContactShadow, paperFlexAmplitude, paperVellum } from '../drawing/sheet/paperFlex'
+import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from '../drawing/sheet/lightning'
+import { CRACK_APERTURE_GLSL } from '../drawing/sheet/breakthrough'
+import { makePortal, PORTAL_DESK_Z, PORTAL_PROFILE_GLSL } from '../drawing/sheet/portal'
+
+const NOISE_GLSL = /* glsl */ `
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p) {
+  vec2 i = floor(p); vec2 f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+}
+float fbm(vec2 p) {
+  float s = 0.0; float a = 0.5;
+  for (int i = 0; i < 5; i++) { s += a * noise(p); p = p * 2.03 + vec2(17.1, 9.3); a *= 0.5; }
+  return s;
+}`
+
+const planeVertex = /* glsl */ `
+${WAVE_GLSL}
+uniform float uDisplace;
+uniform vec2 uFragmentCenter;
+varying vec2 vPlane;
+varying float vFront;
+void main() {
+  vPlane = position.xy + uFragmentCenter;
+  vFront = normal.z;
+  vec3 p = position;
+  p.z += paperDisplacement(vPlane) * uDisplace;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}`
+
+/**
+ * Vellum: warm cream stock with low-frequency mottle, pressed fibres and tooth, a pale
+ * non-repro graph grid inside the drawing frame, and the lamp. The lamp is a fixed warm key
+ * off the top-left corner plus a small reading pool that trails the camera's look-at point.
+ */
+const paperFragment = /* glsl */ `
+${WAVE_GLSL}
+${NOISE_GLSL}
+${CRACK_APERTURE_GLSL}
+${PORTAL_PROFILE_GLSL}
+uniform sampler2D uGrain;
+uniform sampler2D uFragmentPrint;
+uniform float uFragment; uniform float uFracture;
+uniform vec3 uPaper; uniform vec3 uGrid;
+uniform vec4 uFrame; uniform vec2 uSheetHalf;
+uniform vec3 uKey; uniform vec3 uLamp;
+uniform float uLampPower; uniform float uReadingPool;
+uniform float uContrast; uniform float uOpacity; uniform float uMode;
+uniform vec2 uContact; uniform float uVellum;
+varying vec2 vPlane;
+varying float vFront;
+float gridLine(float coord, float spacing, float hw) {
+  float fw = max(fwidth(coord), 1e-7);
+  float d = abs(fract(coord / spacing - 0.5) - 0.5) * spacing;
+  float hwEff = max(hw, 0.5 * fw);
+  return clamp((hwEff - d) / fw + 0.5, 0.0, 1.0) * min(1.0, hw / (0.5 * fw));
+}
+void main() {
+  if (uMode > 0.5) { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); return; }
+  vec2 p = vPlane;
+  openHairline(p);
+  vec3 c = uPaper;
+  // Stock: cloudy formation, fibres pressed in two loose directions, tooth.
+  c *= 0.965 + 0.07 * fbm(p * 14.0);
+  vec2 q1 = mat2(0.94, 0.34, -0.34, 0.94) * p;
+  vec2 q2 = mat2(0.82, -0.57, 0.57, 0.82) * p;
+  float fib = pow(noise(q1 * vec2(1500.0, 110.0)), 9.0) + pow(noise(q2 * vec2(1300.0, 95.0) + 7.0), 9.0);
+  c *= 1.0 - 0.07 * fib;
+  c += (texture2D(uGrain, p * 9.0).r - 0.5) * 0.018;
+  // Graph grid: 5 mm minor, 25 mm major, inside the frame only. Fades as it drops below a
+  // few pixels so it never moires.
+  vec2 fr = step(uFrame.xy, p) * step(p, uFrame.xy + uFrame.zw);
+  float inFrame = fr.x * fr.y;
+  float px = max(fwidth(p.x), fwidth(p.y));
+  float minorFade = 1.0 - smoothstep(0.0005, 0.0011, px);
+  float minor = max(gridLine(p.x, 0.005, 0.00005), gridLine(p.y, 0.005, 0.00005)) * minorFade;
+  float major = max(gridLine(p.x, 0.025, 0.00008), gridLine(p.y, 0.025, 0.00008));
+  c = mix(c, uGrid, inFrame * max(minor * 0.16, major * 0.26));
+  // Deckle: the last few millimetres of the stock catch less light.
+  vec2 e2 = uSheetHalf - abs(p);
+  c *= mix(0.86, 1.0, smoothstep(0.0, 0.007, min(e2.x, e2.y)));
+  // Lamp.
+  float dk = length(p - uKey.xy) / uKey.z;
+  float key = exp(-dk * dk);
+  float dl = length(p - uLamp.xy) / uLamp.z;
+  float pool = exp(-dl * dl);
+  float light = (0.64 + 0.34 * key + 0.1 * pool * uReadingPool) * uLampPower;
+  // Cool room bounce is independent of the failed practical lamp. The stock and
+  // printed drawing remain present while the white electrical core owns the light.
+  vec3 ambient = vec3(0.034, 0.042, 0.061) * (1.0 - uLampPower);
+  c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key) + ambient;
+  // Pressure emboss: the bowed vellum under a raking lamp. Faces tilted toward the lamp
+  // brighten, faces tilted away darken; the square-on camera sees no parallax, so this
+  // shading is what carries the flex.
+  float w = paperFlexWeight(p);
+  float pressure = uFlexAmplitude / 0.012;
+  vec2 h = vec2(0.004, 0.0);
+  vec2 grad = vec2(paperDisplacement(p + h.xy) - paperDisplacement(p - h.xy),
+                   paperDisplacement(p + h.yx) - paperDisplacement(p - h.yx)) / (2.0 * h.x);
+  vec2 toLamp = normalize(uKey.xy - p);
+  c *= 1.0 + clamp(dot(grad, toLamp) * 4.5, -0.28, 0.22);
+  c *= 1.0 - 0.14 * pressure * (4.0 * w * (1.0 - w));
+  // Contact shadow: the tool's footprint thrown away from the lamp. Tight while touching,
+  // offset, widening and fading as the tool lifts clear.
+  if (uContact.x > 0.0) {
+    vec2 q = p + toLamp * uContact.y * 0.8;
+    float shadow = 0.2 * paperFlexWeight(q);
+    for (int i = 0; i < 8; i++) {
+      float a = float(i) * 0.7853982;
+      shadow += 0.1 * paperFlexWeight(q + uContact.y * vec2(cos(a), sin(a)));
+    }
+    c *= 1.0 - uContact.x * shadow;
+  }
+  // Every face is opaque physical stock. Printed ink rides the departing fronts.
+  if (uFragment > 0.5) {
+    float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
+    c = mix(c, vec3(0.005, 0.014, 0.025) * (0.14 + 0.86 * uLampPower), ink * step(0.001, uFracture));
+    if (abs(vFront) < 0.5) c = vec3(0.025, 0.012, 0.006) * (0.2 + uLampPower);
+    if (vFront < -0.5) c *= 0.65;
+  }
+  // Restrict blue spill to the torn lip; never backlight the entire profile.
+  float underlight = portalRim(p) * uPortalLight;
+  c += vec3(0.475, 0.812, 1.0) * underlight * (vFront < -0.5 ? 0.06 : 0.018);
+  gl_FragColor = vec4(c * uContrast, 1.0);
+}`
+
+/**
+ * Walnut desk: dark figured grain running along the sheet's long axis, lit by the same lamp,
+ * with the sheet's soft contact shadow. Fades to transparent well before its edge so it
+ * dissolves into the scene's dark backdrop at every framing.
+ */
+const deskFragment = /* glsl */ `
+${WAVE_GLSL}
+${NOISE_GLSL}
+${PORTAL_PROFILE_GLSL}
+uniform vec3 uKey; uniform vec2 uSheetHalf;
+uniform float uContrast; uniform float uOpacity; uniform float uMode; uniform float uVellum; uniform float uLampPower;
+varying vec2 vPlane;
+void main() {
+  if (uMode > 0.5) discard;
+  vec2 p = vPlane;
+  // This opening exists before the first hairline and is never restored during the lift.
+  // Slight mask dilation prevents a raster texel of wood leaking along the torn contour.
+  if (portalProfile(p) > 0.5 || portalRim(p) > 0.0) discard;
+  float warp = fbm(p * vec2(2.6, 9.0));
+  float figure = fbm(p * vec2(3.0, 38.0) + warp * 1.8);
+  float rings = 0.5 + 0.5 * sin(p.y * 150.0 + warp * 10.0 + figure * 5.0);
+  rings = pow(rings, 1.6);
+  // Open walnut pores: short dark dashes running with the grain.
+  float pores = smoothstep(0.62, 0.9, noise(vec2(p.x * 260.0, p.y * 2400.0)));
+  pores = 1.0 - pores * 0.6 + 0.25 * noise(vec2(p.x * 90.0, p.y * 900.0));
+  vec3 dark = vec3(0.020, 0.0105, 0.0055);
+  vec3 lite = vec3(0.078, 0.040, 0.019);
+  vec3 wood = mix(dark, lite, clamp(rings * 0.55 + (figure - 0.5) * 0.9 + 0.2, 0.0, 1.0));
+  wood *= 0.72 + 0.34 * pores;
+  float dk = length(p - uKey.xy) / (uKey.z * 1.35);
+  float key = exp(-dk * dk);
+  // Lacquer sheen: a broad soft highlight elongated along the grain.
+  vec2 s = (p - uKey.xy - vec2(0.18, -0.1)) * vec2(1.4, 3.2);
+  float sheen = exp(-dot(s, s) * 3.0) * (0.6 + 0.4 * pores);
+  vec3 c = (wood * (0.22 + 1.9 * key) + vec3(0.05, 0.032, 0.02) * sheen)
+    * mix(vec3(0.07, 0.09, 0.14), vec3(1.0), uLampPower);
+  // Contact shadow of the sheet, thrown away from the lamp.
+  vec2 o = normalize(uKey.xy) * -0.007;
+  vec2 q = abs(p - o) - uSheetHalf;
+  float sd = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0);
+  c *= 1.0 - 0.72 * (1.0 - smoothstep(-0.002, 0.03, sd));
+  float r = length(p * vec2(0.62, 0.95));
+  float fade = 1.0 - smoothstep(0.42, 1.05, r);
+  gl_FragColor = vec4(c * uContrast, fade);
+}`
+
+export interface DrawingFrameInput {
+  intro: IntroState
+  tier: SheetBakeTier
+  reducedMotion: boolean
+  /** Current private interface supports normal and drawing-edges only. */
+  proofMode: string
+  retirement: number
+  cameraLookTargetWorld: Vector3 | null
+  cameraSheetDistance: number
+  delta: number
+}
+
+export interface PrivateSheetRuntime {
+  readonly group: Group
+  /** Page-local presentation probes, published into the host-owned bake stats. */
+  readonly stats: Record<string, number>
+  apply(frame: DrawingFrameInput, context: ExtractionContext, viewport: Vector2): void
+  dispose(): void
+}
+
+/** CPU fault fixtures replace allocation boundaries, never shader/frame behavior. */
+export interface PrivateSheetFactories {
+  grain(): Texture
+  desk(): BufferGeometry
+  ribbon(points: number[][]): BufferGeometry
+  material(parameters: ShaderMaterialParameters): ShaderMaterial
+  portal: typeof makePortal
+}
+
+const DEFAULT_FACTORIES: PrivateSheetFactories = {
+  grain: makePaperGrainTexture,
+  desk: () => new PlaneGeometry(3.4, 2.4, 1, 1),
+  ribbon: makeLightningRibbon,
+  material: parameters => new ShaderMaterial(parameters),
+  portal: makePortal,
+}
+
+export function createPrivateSheetRuntime(
+  baked: SheetBakeResult,
+  onCleanupFailure: (errors: readonly unknown[]) => void,
+  factories: PrivateSheetFactories = DEFAULT_FACTORIES,
+): PrivateSheetRuntime {
+  const { layout, extraction, uniforms: u, lines, fills, text } = baked
+  const group = new Group()
+  group.name = 'private-engineering-drawing-plane-frame'
+  group.matrixAutoUpdate = false
+  group.visible = false // The first explicit frame establishes the composition.
+  const cleanups: Array<() => void> = []
+  const owned = new Set<object>()
+  let disposed = false
+  const own = <T extends { dispose(): void }>(resource: T): T => {
+    if (!owned.has(resource)) {
+      owned.add(resource)
+      cleanups.push(() => resource.dispose())
+    }
+    return resource
+  }
+  const dispose = () => {
+    if (disposed) return
+    disposed = true
+    group.visible = false
+    const errors: unknown[] = []
+    for (let i = cleanups.length - 1; i >= 0; i--) {
+      try { cleanups[i]() } catch (error) { errors.push(error) }
+    }
+    cleanups.length = 0
+    owned.clear()
+    try { onCleanupFailure(Object.freeze(errors)) } catch { /* Keep the primary error. */ }
+  }
+  cleanups.push(() => group.clear())
+  // Detach, never dispose, borrowed meshes/text. Restore their previous parent.
+  for (const object of [lines, fills, text.object]) {
+    const parent = object.parent
+    cleanups.push(() => {
+      if (object.parent === group) {
+        group.remove(object)
+        parent?.add(object)
+      }
+    })
+  }
+  cleanups.push(() => group.removeFromParent())
+  try {
+    const grain = own(factories.grain())
+    const decorate = (key: string, value: unknown) => {
+      const previous = u[key]
+      const entry = { value }
+      u[key] = entry
+      cleanups.push(() => {
+        // A later owner may have replaced the binding: do not overwrite it.
+        if (u[key] !== entry) return
+        if (previous) u[key] = previous
+        else delete u[key]
+      })
+    }
+    decorate('uGrain', grain)
+    decorate('uPaper', new Color(PAPER))
+    decorate('uGrid', new Color('#7fa7c4'))
+    decorate('uFrame', new Vector4(SHEET_ZONES.frame.x, SHEET_ZONES.frame.y, SHEET_ZONES.frame.w, SHEET_ZONES.frame.h))
+    decorate('uSheetHalf', new Vector2(SHEET_WIDTH / 2, SHEET_HEIGHT / 2))
+    decorate('uKey', new Vector3(-0.16, 0.2, 0.62))
+    for (const [key, value] of Object.entries({
+      uContrast: 1, uMode: 0, uDisplace: 1, uPulseHead: 0, uPulse: 0,
+      uLampPower: 1, uReadingPool: 1, uFragment: 0, uCrackGlow: 0,
+      uCrackWeb: 0, uCrackGrowth: 0, uSpark: 0,
+    })) decorate(key, value)
+    decorate('uFragmentCenter', new Vector2())
+    decorate('uFragmentPrint', baked.fragmentPrint)
+    decorate('uCrackMask', baked.crackMask)
+
+    const material = (parameters: ShaderMaterialParameters) => own(factories.material(parameters))
+    const paperMaterial = material({
+      uniforms: u, vertexShader: planeVertex, fragmentShader: paperFragment,
+      side: DoubleSide, depthWrite: true, transparent: false, toneMapped: false,
+    })
+    const deskMaterial = material({
+      uniforms: u, vertexShader: planeVertex.replace('p.z += paperDisplacement(vPlane) * uDisplace;', ''),
+      fragmentShader: deskFragment, transparent: true, depthWrite: false, toneMapped: false,
+    })
+    const pulseMaterial = material({
+      uniforms: u, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX, fragmentShader: LIGHTNING_FRAGMENT,
+      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+    })
+    const cracksMaterial = material({
+      uniforms: u, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
+      fragmentShader: LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth')
+        .replace(/uCrackGlow/g, 'uCrackWeb').replace(/uSpark/g, 'uCrackSpark'),
+      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+    })
+    const edgeMaterial = material({
+      uniforms: u, vertexShader: planeVertex,
+      fragmentShader: 'uniform float uLampPower; varying vec2 vPlane; ' + PORTAL_PROFILE_GLSL
+        + 'void main(){ gl_FragColor=vec4(vec3(0.012,0.006,0.003)*(0.3+uLampPower)'
+        + '+vec3(0.21,0.45,0.76)*portalRim(vPlane)*uPortalLight*0.18,1.0); }',
+      side: DoubleSide, toneMapped: false,
+    })
+    const paper = new Mesh(baked.fracture.paper, paperMaterial)
+    paper.name = 'engineering-drawing-Z0'; paper.renderOrder = 1
+    const desk = new Mesh(own(factories.desk()), deskMaterial)
+    desk.name = 'drafting-desk'; desk.position.z = PORTAL_DESK_Z
+    desk.renderOrder = -1; desk.frustumCulled = false
+    const pulse = new Mesh(own(factories.ribbon(baked.rendered.profilePoints)), pulseMaterial)
+    pulse.name = 'lightning'; pulse.renderOrder = 4; pulse.frustumCulled = false
+    const edge = new Mesh(baked.fracture.edge, edgeMaterial)
+    edge.name = 'charred-profile-edge'; edge.renderOrder = 2; edge.frustumCulled = false
+    const cracks = new Mesh(baked.fracture.cracks, cracksMaterial)
+    cracks.name = 'pressure-crack-web'; cracks.renderOrder = 4; cracks.frustumCulled = false
+    const fragments = baked.fracture.fragments.map((fragment, i) => {
+      const mesh = new Mesh(fragment.geometry, material({
+        uniforms: { ...u, uFragmentCenter: { value: fragment.center }, uFragment: { value: 1 } },
+        vertexShader: planeVertex, fragmentShader: paperFragment,
+        side: DoubleSide, toneMapped: false,
+      }))
+      mesh.name = 'paper-fragment-' + i; mesh.renderOrder = 1; mesh.frustumCulled = false
+      mesh.position.set(fragment.center.x, fragment.center.y, 0)
+      return mesh
+    })
+    // solveExtraction: clearanceTravel = -(side.min.z + initialZ) + 0.0006.
+    // Recover the same bound as DrawingPrint without borrowing the CAD snapshot.
+    const initialModelBottom = 0.0006 - extraction.clearanceTravel
+    const portal = factories.portal(baked.fracture.outline, initialModelBottom,
+      new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), u.uPortalLight as { value: number })
+    // Register each returned portal resource separately: a throwing dispose listener
+    // must not prevent cleanup of its other geometry/material/light resources.
+    own(portal.walls.geometry); own(portal.cap.geometry)
+    for (const mesh of [portal.walls, portal.cap]) {
+      for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) own(m)
+    }
+    own(portal.light)
+    group.add(desk, paper, portal.group, ...fragments, edge, cracks, lines, fills, text.object, pulse)
+
+    const inverseSheet = new Matrix4()
+    const look = new Vector3()
+    const lamp = new Vector3(0, 0, 0.2)
+    let lampSeeded = false
+    const navy = new Color(INK)
+    const white = new Color(1, 1, 1)
+    const stats = baked.stats
+    stats.annotationsReady = 0
+    stats.annotationsFailed = 0
+    let readinessError: unknown
+    let readinessFailed = false
+    void text.ready.then(() => {
+      if (!disposed) stats.annotationsReady = 1
+    }, error => {
+      if (disposed) return
+      readinessFailed = true; readinessError = error
+      stats.annotationsFailed = 1
+    })
+
+    return {
+      group, stats, dispose,
+      apply(frame, context, viewport) {
+        if (disposed) throw new Error('Private sheet presentation is disposed')
+        if (frame.proofMode !== 'normal' && frame.proofMode !== 'drawing-edges') {
+          throw new RangeError('Unsupported private sheet proofMode: ' + frame.proofMode)
+        }
+        if (readinessFailed) throw readinessError
+        if (!Number.isFinite(frame.delta) || !Number.isFinite(frame.retirement)
+          || !Number.isFinite(frame.cameraSheetDistance)) throw new RangeError('Private sheet frame inputs must be finite')
+        const { intro, tier, reducedMotion } = frame
+        const proof = frame.proofMode === 'drawing-edges'
+        const poseT = proof ? 0 : intro.poseT
+        const retirement = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, frame.retirement))
+        // Consume host matrices; never recompute or modify the extraction context.
+        group.matrix.copy(context.sheetMatrix)
+        group.matrix.elements[13] -= 1.4 * retirement * retirement
+        group.matrixWorldNeedsUpdate = true
+        group.visible = retirement < 1 || proof || reducedMotion
+
+        const reveal = u.uReveal.value
+        if (proof || reducedMotion) reveal.fill(1)
+        else sheetReveal(intro.t, reveal)
+        if (proof) { reveal.fill(0); reveal[GROUP.side] = 1 }
+        u.uInk.value.copy(proof ? white : navy)
+        paper.visible = true; desk.visible = !proof
+        lines.visible = true; fills.visible = !proof; text.object.visible = !proof
+        edge.visible = !proof && intro.fracture > 0
+        cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0
+        portal.group.visible = !proof
+        portal.cap.visible = portal.walls.visible = !proof && intro.t >= INTRO_PHASES.bulgeStart
+        const portalStrength = proof || reducedMotion ? 0
+          : Math.max(intro.crackGlow, intro.pressure * 0.75, intro.fracture * 0.68)
+        const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
+        for (let i = 0; i < fragments.length; i++) {
+          const f = baked.fracture.fragments[i], mesh = fragments[i]
+          const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1,
+            ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart)
+              - f.delay) / (1 - f.delay)))
+          const flight = Math.pow(event, 0.72)
+          mesh.position.set(f.center.x + f.velocity.x * flight,
+            f.center.y + f.velocity.y * flight - 0.12 * flight * flight,
+            0.00002 + f.velocity.z * flight)
+          mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
+          mesh.visible = true
+        }
+        u.uMode.value = proof ? 1 : 0
+        const contrast = proof ? 1 : intro.contrast
+        const opacity = proof ? 1 : intro.drawingOpacity
+        const lampPower = proof || reducedMotion ? 1 : intro.lampPower
+        u.uContrast.value = contrast; u.uOpacity.value = opacity
+        u.uLampPower.value = lampPower; u.uReadingPool.value = proof ? 0 : intro.readingPool
+        const inkLight = proof ? 1 : 0.14 + 0.86 * lampPower
+        u.uInk.value.multiplyScalar(inkLight)
+        ;(u.uInkRed.value as Color).set(INK_RED).multiplyScalar(inkLight)
+        ;(u.uInkGraphite.value as Color).set(INK_GRAPHITE).multiplyScalar(inkLight)
+        text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))
+        u.uPulseHead.value = intro.pulseHead
+        u.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
+        u.uCrackGlow.value = proof || reducedMotion ? 0 : intro.crackGlow
+        u.uCrackWeb.value = proof || reducedMotion ? 0 : intro.crackWeb
+        u.uCrackGrowth.value = proof || reducedMotion ? 0 : intro.crackGrowth
+        u.uSpark.value = proof || reducedMotion ? 0 : intro.sparkAnticipation
+        u.uFracture.value = proof || reducedMotion ? 0 : intro.fracture
+        u.uWaveTime.value = intro.waveTime; u.uWaveEnabled.value = 0
+        u.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
+        const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
+        ;(u.uContact.value as Vector2).set(contactStrength, contactRadius)
+        u.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
+        pulse.visible = (u.uCrackGlow.value as number) > 0
+        u.uViewport.value.copy(viewport)
+
+        // Only the reading lamp is transient. Null target holds its current pool;
+        // the first explicit target seeds it even when delta is zero.
+        if (frame.cameraLookTargetWorld) {
+          inverseSheet.copy(context.sheetMatrix).invert()
+          look.copy(frame.cameraLookTargetWorld).applyMatrix4(inverseSheet)
+          const reach = Math.min(0.32, Math.max(0.09, (frame.cameraSheetDistance || 0.4) * 0.55))
+          if (!lampSeeded) { lamp.set(look.x, look.y, reach); lampSeeded = true }
+          else {
+            const k = 1 - Math.exp(-3 * Math.min(Math.max(frame.delta, 0), 0.1))
+            lamp.x += (look.x - lamp.x) * k
+            lamp.y += (look.y - lamp.y) * k
+            lamp.z += (reach - lamp.z) * k
+          }
+        }
+        u.uLamp.value.copy(lamp)
+        stats.flexAmplitude = u.uFlexAmplitude.value
+        stats.flexPeakDisplacement = u.uFlexAmplitude.value * baked.flex.peak
+        stats.flexEnabled = u.uFlexAmplitude.value > 0 ? 1 : 0
+        stats.vellum = u.uVellum.value as number
+        stats.contactShadow = contactStrength; stats.contactRadius = contactRadius
+        const matrix = context.sheetMatrix.elements
+        stats.flexNormalX = matrix[8]; stats.flexNormalY = matrix[9]; stats.flexNormalZ = matrix[10]
+        stats.fracture = intro.fracture; stats.openingClear = intro.openingClear
+        stats.fragmentCount = fragments.length; stats.fragmentThickness = baked.fracture.thickness
+        stats.fragmentArea = baked.fracture.fragmentArea; stats.holeArea = baked.fracture.area
+        stats.maxBoundaryDeviation = baked.fracture.maxBoundaryDeviation
+        stats.crackGlow = intro.crackGlow; stats.crackWeb = intro.crackWeb; stats.paperOpacity = 1
+        stats.modelBarrierSafe = intro.openingClear || intro.poseT <= 0.4 ? 1 : 0
+        stats.portalActive = portal.group.visible && group.visible ? 1 : 0
+        stats.portalCapZ = portal.capZ; stats.portalMouthZ = portal.mouthZ
+        stats.portalDeskZ = desk.position.z
+        stats.portalCapBehindModel = portal.capZ < portal.initialModelBottom ? 1 : 0
+        stats.portalInitialModelBottom = portal.initialModelBottom
+        stats.portalProfilePoints = portal.profilePoints; stats.portalWallLevels = portal.wallLevels
+        stats.portalDepthWrite = 1; stats.portalDeskDiscard = 1
+        stats.portalPulse = portalPulse; stats.portalLight = u.uPortalLight.value as number
+        stats.phase = intro.t; stats.poseT = poseT; stats.lineOpacity = opacity
+        stats.focus = proof || reducedMotion ? 1 : intro.focus
+        stats.lampPower = lampPower; stats.blackout = lampPower <= 0.03 ? 1 : 0
+        stats.readingPool = u.uReadingPool.value as number
+        inverseSheet.copy(context.sheetMatrix).invert().multiply(context.modelMatrix)
+        stats.localZ = inverseSheet.elements[14]
+      },
+    }
+  } catch (error) {
+    dispose()
+    throw error
+  }
+}

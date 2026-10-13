@@ -1,0 +1,246 @@
+{
+  "harness": "verify-torque-timeline",
+  "capturedAt": "2026-10-12T14:08:02.700Z",
+  "url": "http://localhost:5278/torque-wrench/",
+  "mode": "built",
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage2-20261012-c",
+  "sceneIdentity": "/assets/Scene-BVrNEM_P.js",
+  "expectedModuleSrc": "/assets/torque-wrench-SiOv26MX.js",
+  "viewports": [
+    "D 1440x900 DPR1 desktop",
+    "N 390x844 DPR3 touch/mobile"
+  ],
+  "roster": [
+    "D-live-scrollbar-drag"
+  ],
+  "inputContract": "native input only: page.mouse.wheel, page.keyboard, scrollbar mouse drag, page.emulateMedia (real MQL), window.scrollTo direct seek; store setters and port mutation are never called; samples taken only after bounded settling",
+  "diagnosticsContract": {
+    "fields": [
+      "activeConductors",
+      "lenisInstances",
+      "lenisScrollHandlers",
+      "tickerCallbacks",
+      "scrollTriggers",
+      "domListeners",
+      "storeLifecycleSubscriptions",
+      "mountCount",
+      "disposeCount",
+      "refreshCount",
+      "visibilityResamples",
+      "pageShowResamples",
+      "invalidProgressInputs",
+      "startupFailureCount",
+      "cleanupFailureCount",
+      "lagSmoothingMode"
+    ],
+    "scope": "scoped lifecycle accounting from the page store; NOT an independent browser-global census",
+    "teardownNote": "public port deleted on unmount; MQL retains a read-only getter handle for scoped post-teardown diagnostics"
+  },
+  "playwrightVersion": "1.56.1",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ],
+    "ignoreDefaultArgs": [
+      "--hide-scrollbars"
+    ]
+  },
+  "glRenderer": "unmeasured (Stage 2 Scene is zero-GPU placeholder; no hardware or software rendering claim; configuration only)",
+  "assetIdentity": {
+    "entryAsset": {
+      "url": "http://localhost:5278/assets/torque-wrench-SiOv26MX.js",
+      "localSha256": "3df544d97c267e5acb9dc3baddd4739ef667b75a62ef6f8a8800e8a26098a09a",
+      "servedSha256": "3df544d97c267e5acb9dc3baddd4739ef667b75a62ef6f8a8800e8a26098a09a",
+      "servedShaVerified": true
+    },
+    "sceneAsset": {
+      "url": "http://localhost:5278/assets/Scene-BVrNEM_P.js",
+      "localSha256": "bedbe13fc1dff315022918ee70778befc1560dd79b0aa76673eaf85a70fe1a1c",
+      "servedSha256": "bedbe13fc1dff315022918ee70778befc1560dd79b0aa76673eaf85a70fe1a1c",
+      "servedShaVerified": true
+    }
+  },
+  "browserVersion": "154.0.8037.98",
+  "dependencies": [
+    "Runtime port dependency: window.__torqueNarrative (parent-saved) is the only narrative state source; snapshot()/beats/diagnostics() per the parent contract. No production hooks were added by this verifier.",
+    "Diagnostics are scoped lifecycle accounting owned by the page store; they are not an independent browser-global census, so no global instance-absence claim is made from them.",
+    "Single-conductor evidence combines diagnostics identity (active/lenis/ticker/trigger = 1) with functional mapping proof (settled progress vs native displacement).",
+    "Beat windows are read from the live port beats array; production beats.ts/beatTimeline.ts are owned by the timeline worker and are not imported here."
+  ],
+  "limits": [
+    "MQL teardown counters are read through a retained read-only getter handle, separately from public port deletion; scoped accounting is not a browser-global resource census.",
+    "visibilityResamples/pageShowResamples are recorded when they occur; hidden-tab resumption is not inducible without faking browser state and remains a separate contract18 functional-stress case.",
+    "invalidProgressInputs is expected stable across this roster (native input cannot produce nonfinite progress without bypassing the mapping, which is forbidden); induced invalid-input proof belongs to conductor-runtime CPU tests.",
+    "lagSmoothingMode is recorded verbatim; its accepted representation is owned by the conductor worker, so no semantic assertion is made.",
+    "Duplicate-lease protection is observable only through conductor counters; this roster asserts actives stay 1 and counters do not drift during native input. Induced double-mount would require production-hook edits (forbidden here) or a parent-scheduled dev-server StrictMode window (deferred; production preview has no StrictMode double-mount).",
+    "Scrollbar drag requires classic (non-overlay) scrollbars in headless Chrome; zero native displacement is a FAIL with recorded evidence, never a silent skip. Case is D-viewport only (N is touch emulation).",
+    "Physical hold-drift tolerances (position/quaternion/FOV/shader channels) are unmeasurable at the Stage 2 zero-GPU placeholder; hold equality is asserted at progress/beat/sample level.",
+    "No hardware or software rendering claim: launch configuration and browser version are recorded as configuration only; Stage 2 Scene is zero-GPU (data-torque-scene=\"placeholder\")."
+  ],
+  "preflight": [
+    {
+      "name": "playwright package resolvable",
+      "pass": true,
+      "detail": "version 1.56.1"
+    },
+    {
+      "name": "browser-launch contract present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "private torque entry present",
+      "pass": true,
+      "detail": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\torque-wrench\\index.html"
+    },
+    {
+      "name": "Scene.tsx carries parent port integration markers",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "torqueWrenchStore carries narrative + diagnostics contract markers",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "cases": [
+    {
+      "id": "D-live-scrollbar-drag",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "live-scrollbar-drag",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 2706,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-SiOv26MX.js"
+        },
+        {
+          "name": "page resolves to live mode with narrative port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true,\"stage\":\"scene\",\"scenePlaceholder\":\"placeholder\"}"
+        },
+        {
+          "name": "exactly one .torque-scene placeholder element",
+          "pass": true,
+          "detail": "count=1"
+        },
+        {
+          "name": "lazy Scene module requested exactly once",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-BVrNEM_P.js\"]"
+        },
+        {
+          "name": "port exposes snapshot()/beats/diagnostics()",
+          "pass": true,
+          "detail": "snapshot=true beats=true diagnostics=true"
+        },
+        {
+          "name": "beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "single conductor via diagnostics (active/lenis/ticker/trigger = 1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "initial progress settles at 0 with first beat entering",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "scrollbar drag produced native displacement",
+          "pass": true,
+          "detail": "dPx=4988 (classic scrollbars required; overlay/absent scrollbars fail here by design)"
+        },
+        {
+          "name": "scrollbar drag mapping within 2% of native displacement",
+          "pass": true,
+          "detail": "expected=0.1263808655113003 actual=0.1263808655113003"
+        },
+        {
+          "name": "scrollbar roster leaves exactly one Scene request",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-BVrNEM_P.js\"]"
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":0}"
+        },
+        {
+          "name": "zero OffscreenCanvas constructions",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD-shaped requests",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-BVrNEM_P.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-BVrNEM_P.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-BVrNEM_P.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    }
+  ],
+  "result": "PASS",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0
+  }
+}

@@ -7,6 +7,23 @@
   color: #e8ecf1;
 }
 
+/* Reserve the live track while the lazy scene loads so native reload restoration sees
+   the same document range. Terminal static modes retain compact native flow. */
+.torque-page:not([data-torque-mode='static']) .torque-main {
+  position: relative;
+  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh);
+}
+
+.torque-page:not([data-torque-mode='static']) .torque-stage {
+  position: sticky;
+  top: 0;
+}
+
+.torque-page:not([data-torque-mode='static']) .torque-story {
+  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh);
+  align-content: space-between;
+}
+
 .torque-sr {
   position: absolute;
   width: 1px;
@@ -104,6 +121,8 @@
 
 .torque-stage {
   margin-bottom: 3rem;
+  min-height: 8rem;
+  box-sizing: border-box;
 }
 
 .torque-stage[data-torque-stage='pending'] {
@@ -120,6 +139,20 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.torque-page[data-torque-mode='live'] .torque-scene {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.torque-page[data-torque-mode='live'] .torque-header,
+.torque-page[data-torque-mode='live'] .torque-story,
+.torque-page[data-torque-mode='live'] .torque-footer {
+  position: relative;
+  z-index: 1;
 }
 
 .torque-posters {

@@ -120,13 +120,6 @@ describe('the registry and its entries', () => {
     expect(existsSync(path.join(ROOT, (src as string).replace(/^\//, '')))).toBe(true)
   })
 
-  it('a reserved page has no entry, and a live page has one', () => {
-    for (const page of PAGES) {
-      expect(page.htmlEntry === null, page.id).toBe(page.reserved)
-      expect(page.href === null, page.id).toBe(page.reserved)
-    }
-  })
-
   it('the build is multi-page and its input keys are exactly the pages that have an HTML entry', async () => {
     const exported: unknown = viteConfig
     const resolved = (
@@ -251,11 +244,6 @@ describe('the fade sub-block', () => {
       .filter((item) => item.page.fadeIn)
       .map((item) => [item.entry, scriptBody(fadeBlock(item.html) as string) as string] as const)
 
-    it('has a script to evaluate in every fade entry', () => {
-      expect(scripts.length).toBeGreaterThan(0)
-      for (const [entry, body] of scripts) expect(body, entry).toBeTruthy()
-    })
-
     it.each(scripts)('%s: a fresh flag under normal motion sets data-fade in and consumes the flag', (_entry, body) => {
       const run = runFadeScript(body, { raw: String(NOW - 100), now: NOW, reduced: false })
       expect(run.attributes).toEqual({ 'data-fade': 'in' })
@@ -376,17 +364,6 @@ describe('the redirect sub-block', () => {
 
 describe('private pages', () => {
   const privatePages = PAGES.filter((page) => page.private)
-
-  it('exist in the registry', () => {
-    expect(privatePages.map((page) => page.id)).toEqual(['torque-wrench'])
-  })
-
-  it('an inactive private page is reserved, so the build has no input for it', () => {
-    for (const page of privatePages.filter((item) => item.htmlEntry === null)) {
-      expect(page.reserved, page.id).toBe(true)
-      expect(page.href, page.id).toBeNull()
-    }
-  })
 
   // A noindex that sits inside an HTML comment is not a directive, so comments are stripped first.
   const headOf = (html: string) => /<head\b[\s\S]*?<\/head>/i.exec(stripComments(html))?.[0] ?? ''

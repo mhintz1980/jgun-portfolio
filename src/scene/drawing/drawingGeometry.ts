@@ -14,6 +14,31 @@ import {
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import type { WrenchRig } from '../rig/nodeRoles'
 
+/** Receives cleanup failures without replacing a factory's primary construction error. */
+export type CleanupFailureSink = (errors: readonly unknown[]) => void
+
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // A reporting failure must not replace the original construction error.
+    }
+  }
+}
+
 /** Cream drafting vellum with navy ink — owner-supplied reference sheet, 2026-09-24. */
 export const PAPER = '#e2dac4'
 export const INK = '#15295a'
@@ -342,7 +367,7 @@ export interface RenderedDrawing {
   profileRibbon: BufferGeometry
   profilePoints: number[][]
   perimeter: number
-  dispose: () => void
+  dispose: (cleanupFailureSink?: CleanupFailureSink) => void
 }
 
 /** Half-width of the excitation ribbon, in sheet metres. */
@@ -353,7 +378,7 @@ const PROFILE_RIBBON_HALF_WIDTH = 0.0011
  * than a hairline. `LineBasicMaterial.linewidth` is ignored on every WebGL platform, so the
  * width has to be geometry.
  */
-export function buildProfileRibbon(points: number[][], arc: number[]): BufferGeometry {
+export function buildProfileRibbon(points: number[][], arc: number[], cleanupFailureSink?: CleanupFailureSink): BufferGeometry {
   const count = points.length
   const positions = new Float32Array(count * 6)
   const arcLength = new Float32Array(count * 2)
@@ -387,10 +412,15 @@ export function buildProfileRibbon(points: number[][], arc: number[]): BufferGeo
     indices[i * 6 + 5] = a + 2
   }
   const ribbon = new BufferGeometry()
-  ribbon.setAttribute('position', new Float32BufferAttribute(positions, 3))
-  ribbon.setAttribute('arcLength', new Float32BufferAttribute(arcLength, 1))
-  ribbon.setIndex(new Uint32BufferAttribute(indices, 1))
-  return ribbon
+  try {
+    ribbon.setAttribute('position', new Float32BufferAttribute(positions, 3))
+    ribbon.setAttribute('arcLength', new Float32BufferAttribute(arcLength, 1))
+    ribbon.setIndex(new Uint32BufferAttribute(indices, 1))
+    return ribbon
+  } catch (error) {
+    rollbackOwned([ribbon], cleanupFailureSink)
+    throw error
+  }
 }
 
 /** Ordered outer contour of a binary silhouette mask (R channel), in mask pixels. */

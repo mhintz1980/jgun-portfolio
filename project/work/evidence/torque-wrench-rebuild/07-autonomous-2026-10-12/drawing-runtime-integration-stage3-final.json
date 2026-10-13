@@ -1,0 +1,334 @@
+{
+  "startedAt": "2026-10-13T06:47:44.463Z",
+  "url": "http://localhost:5278",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "playwrightVersion": "1.56.1",
+  "checks": [
+    {
+      "id": "D-built-chunk-isolation",
+      "status": "PASS",
+      "detail": {
+        "eagerChunks": [
+          "assets/torque-wrench-CooSRxLs.js",
+          "assets/index-fDwt6Stp.js",
+          "assets/index-BWkoJ37d.js",
+          "assets/PageNav-BCe4durP.js"
+        ],
+        "eagerBytes": 217063,
+        "eagerDrawingHits": [],
+        "dynamicImports": [
+          "src/scene/torque-wrench/Scene.tsx"
+        ],
+        "lazyChunks": [
+          "assets/Scene-DkH1B4uZ.js",
+          "assets/index-fDwt6Stp.js",
+          "assets/DRACOLoader-DXwgrymA.js",
+          "assets/BufferGeometryUtils-kpzxVW70.js",
+          "assets/vanilla-m3Xdu9cz.js",
+          "assets/ScrollTrigger-a3sj5zmn.js",
+          "assets/lenis-D7TmsVAo.js",
+          "assets/torque-wrench-CooSRxLs.js",
+          "assets/index-BWkoJ37d.js",
+          "assets/PageNav-BCe4durP.js",
+          "assets/portal-CznLUrhB.js",
+          "assets/session-Dif0e_TN.js",
+          "assets/script-CyNJ_Tpc.js"
+        ],
+        "lazyDrawingHits": [
+          "jgun-sheet-v2",
+          "AcFastReference"
+        ],
+        "lazySceneChunk": "assets/Scene-DkH1B4uZ.js"
+      }
+    },
+    {
+      "id": "A-private-mount",
+      "status": "PASS",
+      "detail": {
+        "mode": "live",
+        "stage": "scene",
+        "canvases": 1,
+        "frames": 21,
+        "beatId": "drafting-detail",
+        "chapters": [
+          "drafting",
+          "breakthrough",
+          "mechanism",
+          "inspection",
+          "close"
+        ],
+        "storyText": 1347,
+        "footer": true,
+        "pageErrors": 0,
+        "consoleErrors": 0
+      }
+    },
+    {
+      "id": "B-matched-input-registration",
+      "status": "PASS",
+      "detail": {
+        "precomputed": 1,
+        "segments": 226783,
+        "fills": 21,
+        "texts": 254,
+        "registered": true,
+        "maxDistance": 0.0000878836103067627,
+        "meanDistance": 0.00003259773610423831,
+        "pointCount": 10203,
+        "segmentCount": 24383,
+        "units": "metres",
+        "frozenInventory": {
+          "segments": 226783,
+          "fills": 21,
+          "texts": 254
+        },
+        "inventoryMatchesFrozenEvidence": true,
+        "precomputeMeaning": "frozen precompute matched these inputs",
+        "cacheAssetRequested": true
+      }
+    },
+    {
+      "id": "C-annotation-pixel-visibility",
+      "status": "PASS",
+      "detail": {
+        "introPixel": {
+          "width": 864,
+          "height": 129,
+          "samples": 111456,
+          "meanLuma": 157.45,
+          "medianLuma": 158.33,
+          "lumaStdDev": 3.08,
+          "paperFraction": 1,
+          "featureFraction": 0.012965,
+          "minLuma": 135,
+          "maxLuma": 163.3
+        },
+        "drawingPixel": {
+          "width": 864,
+          "height": 128,
+          "samples": 110592,
+          "meanLuma": 159.98,
+          "medianLuma": 162,
+          "lumaStdDev": 12.79,
+          "paperFraction": 0.999738,
+          "featureFraction": 0.0354,
+          "minLuma": 11.3,
+          "maxLuma": 171
+        },
+        "screenshots": [
+          ".scratch\\jg038-parent-integration\\sheet-pixels.png",
+          ".scratch\\jg038-parent-integration\\sheet-pixels-drawing.png"
+        ],
+        "rendererAtRest": {
+          "calls": 139,
+          "triangles": 1353127,
+          "geometries": 176,
+          "textures": 15
+        },
+        "rendererAfterScroll": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15
+        },
+        "scrollChanged": true,
+        "measure": "featureFraction = pixels deviating >10 luma from the image median (vellum linework is low-contrast)"
+      }
+    },
+    {
+      "id": "F-real-context-loss-fallback",
+      "status": "PASS",
+      "detail": {
+        "trigger": "lost",
+        "fallback": {
+          "mode": "static",
+          "stage": "poster",
+          "storyText": 1300,
+          "canvases": 0,
+          "worldProbe": false
+        },
+        "note": "real WEBGL_lose_context on the live canvas; poster layer plus intact DOM story is the required fallback"
+      }
+    },
+    {
+      "id": "E-bfcache-restore",
+      "status": "UNVERIFIED",
+      "detail": {
+        "persisted": false,
+        "live": true,
+        "mode": "live",
+        "storyText": 1347,
+        "reinitialized": true,
+        "note": "no BFCache restore observed in this run; the browser reloaded the document instead — recorded, not claimed as BFCache proof"
+      }
+    }
+  ],
+  "cases": {
+    "live": {
+      "sceneReadyMs": 7356,
+      "world": {
+        "ready": true,
+        "frames": 21,
+        "hiddenFrames": 0,
+        "progress": 0,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "quaternion": [
+            -0.20488667827635168,
+            0.7348059425095568,
+            0.25301397641537865,
+            0.5950341197410474
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 138,
+          "triangles": 1349761,
+          "geometries": 176,
+          "textures": 13
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 953.6000000238419,
+            "extractMs": 1832.699999988079,
+            "bakeMs": 4453.800000011921,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 0,
+            "flexNormalZ": 1,
+            "contactShadow": 0,
+            "contactRadius": 0,
+            "vellum": 0
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host"
+      },
+      "narrative": {
+        "progress": 0,
+        "beatId": "drafting-detail",
+        "localProgress": 0,
+        "phase": "entering",
+        "stateKey": "[0,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0,null,\"drafting-authorship\",\"entering\"]",
+        "previousId": null,
+        "nextId": "drafting-authorship"
+      },
+      "dom": {
+        "mode": "live",
+        "stage": "scene",
+        "canvases": 1,
+        "chapters": [
+          "drafting",
+          "breakthrough",
+          "mechanism",
+          "inspection",
+          "close"
+        ],
+        "sheetHost": true,
+        "storyText": 1347,
+        "footer": true
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "cacheRequested": true,
+      "finalPageErrors": [],
+      "finalConsoleErrors": []
+    }
+  },
+  "summary": {
+    "pass": 5,
+    "fail": 0,
+    "unverified": 1
+  }
+}

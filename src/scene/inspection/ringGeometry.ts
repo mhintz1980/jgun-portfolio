@@ -6,6 +6,54 @@ import { SHOULDER } from './timeline'
 /** Radial lift of the hole covers off the cylinder (m): far above depth resolution, far below visibility. */
 export const PATCH_LIFT = 6e-6
 
+export type RingGeometryCleanupResource = 'geometry' | 'normal-map' | 'material' | 'patch-geometry'
+export type RingGeometryCleanupPhase = 'construction' | 'dispose'
+
+export interface RingGeometryCleanupReport {
+  readonly phase: RingGeometryCleanupPhase
+  readonly resource: RingGeometryCleanupResource
+  readonly error: unknown
+}
+
+export type RingGeometryCleanupCallback = (report: RingGeometryCleanupReport) => void
+
+interface OwnedRingResources {
+  readonly geometries: BufferGeometry[]
+  readonly materials: MeshPhysicalMaterial[]
+  readonly patchGeometries: BufferGeometry[]
+  ownGeometry(geometry: BufferGeometry): BufferGeometry
+  ownNormalMap(texture: ReturnType<typeof createDiamondKnurlNormalMap>): ReturnType<typeof createDiamondKnurlNormalMap>
+  ownMaterial(material: MeshPhysicalMaterial): MeshPhysicalMaterial
+  ownPatchGeometry(geometry: BufferGeometry): BufferGeometry
+  dispose(phase: RingGeometryCleanupPhase): void
+}
+
+function createOwnedRingResources(onCleanupError?: RingGeometryCleanupCallback): OwnedRingResources {
+  const geometries: BufferGeometry[] = [], materials: MeshPhysicalMaterial[] = [], patchGeometries: BufferGeometry[] = []
+  let normalMap: ReturnType<typeof createDiamondKnurlNormalMap> | null = null, disposed = false
+  function attempt(resource: RingGeometryCleanupResource, phase: RingGeometryCleanupPhase, dispose: () => void): void {
+    try { dispose() } catch (error) {
+      try { onCleanupError?.({ phase, resource, error }) } catch { /* Reporting must never abort sibling cleanup. */ }
+    }
+  }
+  return {
+    geometries, materials, patchGeometries,
+    ownGeometry(geometry) { geometries.push(geometry); return geometry },
+    ownNormalMap(texture) { normalMap = texture; return texture },
+    ownMaterial(material) { materials.push(material); return material },
+    ownPatchGeometry(geometry) { patchGeometries.push(geometry); return geometry },
+    dispose(phase) {
+      if (disposed) return
+      disposed = true
+      for (const geometry of geometries) attempt('geometry', phase, () => geometry.dispose())
+      for (const geometry of patchGeometries) attempt('patch-geometry', phase, () => geometry.dispose())
+      for (const material of materials) attempt('material', phase, () => material.dispose())
+      const texture = normalMap
+      if (texture) attempt('normal-map', phase, () => texture.dispose())
+    },
+  }
+}
+
 /**
  * Cylindrical UVs with the branch cut handled per triangle (JG-035 R2, 2026-10-07).
  *
@@ -70,12 +118,13 @@ export function seamSplitCylindricalUv(geometry: BufferGeometry, width: number):
 }
 
 /** Exact CAD union baked in its rigid unit frame; pins/plungers never enter this copy. */
-export function createInspectionRing(unit: Object3D, sources: Mesh[]) {
+function createInspectionRingBody(unit: Object3D, sources: Mesh[], owned: OwnedRingResources) {
   if (!sources.length) throw new Error('P003068 CAD surface is unavailable')
   unit.updateWorldMatrix(true, true)
   const inverse = unit.matrixWorld.clone().invert(), bake = new Matrix4(), union = new Box3()
   const geometries = sources.map(source => {
-    const geometry = source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inverse, source.matrixWorld))
+    const geometry = owned.ownGeometry(source.geometry.clone())
+    geometry.applyMatrix4(bake.multiplyMatrices(inverse, source.matrixWorld))
     geometry.computeBoundingBox(); union.union(geometry.boundingBox!)
     return geometry
   })
@@ -88,11 +137,11 @@ export function createInspectionRing(unit: Object3D, sources: Mesh[]) {
     seamSplitCylindricalUv(geometry, width)
     geometry.computeBoundingBox(); geometry.normalizeNormals()
   }
-  const normalMap = createDiamondKnurlNormalMap()
+  const normalMap = owned.ownNormalMap(createDiamondKnurlNormalMap())
   const uniforms = { progress: { value: 0 }, strength: { value: 1.5 }, diagnostic: { value: 0 } }
   // Blueprint is a narrative view; the finish study always owns a physical copy.
   const makeMaterial = (transparent: boolean) => {
-    const material = (roleMaterial('ringSwitch') as MeshPhysicalMaterial).clone()
+    const material = owned.ownMaterial((roleMaterial('ringSwitch') as MeshPhysicalMaterial).clone())
     material.normalMap = normalMap; material.normalScale.set(1.5, 1.5)
     material.transparent = transparent; material.opacity = 1; material.depthWrite = true
     material.onBeforeCompile = shader => {
@@ -121,20 +170,29 @@ export function createInspectionRing(unit: Object3D, sources: Mesh[]) {
   const group = new Group(); group.name = 'inspection-P003068-spin'
   geometries.forEach(geometry => { const mesh = new Mesh(geometry, material); mesh.name = 'P003068-inspection-CAD'; group.add(mesh) })
   // Measured apertures -> owned curved covers (the CAD mesh and its holes are never modified).
-  const apertures: Aperture[] = [], patchGeometries: BufferGeometry[] = []
+  const apertures: Aperture[] = []
   for (const geometry of geometries) {
     const p = geometry.getAttribute('position')
     let boreRadius = Infinity
     for (let i = 0; i < p.count; i++) boreRadius = Math.min(boreRadius, Math.hypot(p.getX(i), p.getY(i)))
     for (const aperture of findApertures(geometry, { radius, boreRadius })) {
-      const patch = buildAperturePatch(aperture, width, { lift: PATCH_LIFT })
+      const patch = owned.ownPatchGeometry(buildAperturePatch(aperture, width, { lift: PATCH_LIFT }))
       const mesh = new Mesh(patch, patchMaterial)
       mesh.name = `P003068-hole-cover-${aperture.surface}-${apertures.length}`
       mesh.userData.aperture = aperture
-      group.add(mesh); apertures.push(aperture); patchGeometries.push(patch)
+      group.add(mesh); apertures.push(aperture)
     }
   }
   const entryMatrix = unit.matrixWorld.clone().multiply(new Matrix4().makeTranslation(center.x, center.y, center.z))
-  return { group, geometries, material, patchMaterial, patchGeometries, apertures, normalMap, uniforms, radius, width, center, union, entryMatrix,
-    dispose() { geometries.forEach(g => g.dispose()); patchGeometries.forEach(g => g.dispose()); material.dispose(); patchMaterial.dispose(); normalMap.dispose() } }
+  return { group, geometries, material, patchMaterial, patchGeometries: owned.patchGeometries, apertures, normalMap, uniforms, radius, width, center, union, entryMatrix,
+    dispose: () => owned.dispose('dispose') }
+}
+
+/** Source-compatible factory with unconditional cleanup for every allocation made before a fault. */
+export function createInspectionRing(unit: Object3D, sources: Mesh[], onCleanupError?: RingGeometryCleanupCallback) {
+  const owned = createOwnedRingResources(onCleanupError)
+  try { return createInspectionRingBody(unit, sources, owned) } catch (error) {
+    owned.dispose('construction')
+    throw error
+  }
 }

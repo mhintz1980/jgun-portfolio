@@ -1,0 +1,5746 @@
+{
+  "harness": "verify-torque-static",
+  "capturedAt": "2026-10-13T02:17:54.862Z",
+  "url": "http://localhost:5278/torque-wrench/",
+  "mode": "built",
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage3-20261012-a",
+  "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+  "expectedModuleSrc": "/assets/torque-wrench-CooSRxLs.js",
+  "viewports": [
+    "D 1440x900 DPR1 desktop",
+    "N 390x844 DPR3 touch/mobile"
+  ],
+  "roster": [
+    "D-static-full",
+    "D-lite",
+    "D-poster-explicit",
+    "D-reduced-motion",
+    "D-scene-import-abort",
+    "D-scene-render-throw",
+    "D-scene-mql-downgrade",
+    "N-static-full",
+    "N-lite",
+    "N-poster-explicit",
+    "N-reduced-motion",
+    "N-scene-import-abort",
+    "N-scene-render-throw",
+    "N-scene-mql-downgrade"
+  ],
+  "playwrightVersion": "1.56.1",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "glRenderer": "unmeasured (no hardware or software rendering claim; configuration only)",
+  "assetIdentity": {
+    "entryAsset": {
+      "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+      "localSha256": "8f84cde8c6998d59056faab5d09f78c997635dbd0be49c0e982c2b3d03a6c716",
+      "servedSha256": "8f84cde8c6998d59056faab5d09f78c997635dbd0be49c0e982c2b3d03a6c716",
+      "servedShaVerified": true
+    },
+    "sceneAsset": {
+      "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+      "localSha256": "334196936862bf0394990aaca51eb0b8c33751ba4c7451503584e3a4f2c7b00a",
+      "servedSha256": "334196936862bf0394990aaca51eb0b8c33751ba4c7451503584e3a4f2c7b00a",
+      "servedShaVerified": true
+    }
+  },
+  "browserVersion": "154.0.8037.98",
+  "preflight": [
+    {
+      "name": "playwright package resolvable",
+      "pass": true,
+      "detail": "version 1.56.1"
+    },
+    {
+      "name": "torque-wrench/index.html exists (activation applied)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exactly one shell block",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "shell block found",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "fade sub-block present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "fade sub-block matches pinned sha256",
+      "pass": true,
+      "detail": "e30f6045d8cfdb71a93e4c8a3af806e9699fa7f13da28720a3f507ce79bfc05b"
+    },
+    {
+      "name": "real head robots noindex meta (comments stripped)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "module entry is exactly /src/torque-wrench-main.tsx (attr-order tolerant, dev client excluded)",
+      "pass": true,
+      "detail": "candidates=/src/torque-wrench-main.tsx"
+    },
+    {
+      "name": "private module file exists",
+      "pass": true,
+      "detail": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\src\\torque-wrench-main.tsx"
+    },
+    {
+      "name": "no legacy redirect block (root index.html only)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row torque-wrench found",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: href '/torque-wrench/'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: htmlEntry 'torque-wrench/index.html'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: reserved false",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row keeps private true (never in public nav)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row keeps fadeIn true",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "pages.test.ts torque pin updated to the active row",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "pageTopology.test.ts entries pin includes 'torque-wrench/index.html'",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "cases": [
+    {
+      "id": "D-static-full",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "clean",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 14217,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "tier resolves to the ready live renderer scene",
+          "pass": true,
+          "detail": "{\"placeholder\":false,\"stage\":\"scene\"}"
+        },
+        {
+          "name": "lazy Scene module requested exactly once (lazy-load evidence)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "no poster layer in scene mode",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "[{\"t\":480,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live narrative CAD asset initialized (request observed or browser-cached world ready)",
+          "pass": true,
+          "detail": "worldReady=true requests=http://localhost:5278/models/Default.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm, http://localhost:5278/models/manufacturing-core-full.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm"
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5278/models/Default.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm",
+          "http://localhost:5278/models/manufacturing-core-full.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/Default.glb"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/manufacturing-core-full.glb"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/ee916d03-c19e-48de-ad0e-f657250a65d8"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/82216368-bf96-45a6-994e-0a73f4e4fe72"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/6c348c9f-722a-420e-bef6-74610894dd36"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/42ff3494-b5f2-4e2f-b5f0-62418f9f4083"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/1b7f7783-2602-453d-9401-bd5d78360cfd"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/e74ef55a-b382-4108-ae5d-585d6952befd"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/afe56952-d3df-41c0-83ec-55d856fcb4f2"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/92261f5a-cd92-4afe-bee0-d6a6ca30d5e1"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/5e342a40-648b-47ef-82f9-896adbff4c5a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/c1add99e-a617-4d86-bf81-30664c0fa26b"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/a0ec432a-7306-4875-a8f6-865548cc8b49"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/1a7c2690-780e-49fe-8c6d-1594eecd27be"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/7bb00e59-f198-4268-b05d-5ca365d5df06"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/bf4be9f0-abcc-42b6-b332-f3c2518a1807"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/models/Default.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/e0da5712-57ba-4527-b79a-180ab958c210",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz",
+            "status": 200,
+            "contentType": "application/octet-stream"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/models/manufacturing-core-full.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "blob:http://localhost:5278/82216368-bf96-45a6-994e-0a73f4e4fe72",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "blob:http://localhost:5278/6c348c9f-722a-420e-bef6-74610894dd36",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/42ff3494-b5f2-4e2f-b5f0-62418f9f4083",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/1b7f7783-2602-453d-9401-bd5d78360cfd",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/e74ef55a-b382-4108-ae5d-585d6952befd",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/afe56952-d3df-41c0-83ec-55d856fcb4f2",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/92261f5a-cd92-4afe-bee0-d6a6ca30d5e1",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/5e342a40-648b-47ef-82f9-896adbff4c5a",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/c1add99e-a617-4d86-bf81-30664c0fa26b",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/a0ec432a-7306-4875-a8f6-865548cc8b49",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/1a7c2690-780e-49fe-8c6d-1594eecd27be",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/42605078-8bef-4822-975f-536315b22780",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/7bb00e59-f198-4268-b05d-5ca365d5df06",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/bf4be9f0-abcc-42b6-b332-f3c2518a1807",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff",
+            "status": 200,
+            "contentType": "font/woff"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "D-lite",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "clean",
+      "url": "http://localhost:5278/torque-wrench/?quality=lite",
+      "status": "PASS",
+      "durationMs": 10577,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/?quality=lite"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "tier resolves to the ready live renderer scene",
+          "pass": true,
+          "detail": "{\"placeholder\":false,\"stage\":\"scene\"}"
+        },
+        {
+          "name": "lazy Scene module requested exactly once (lazy-load evidence)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "no poster layer in scene mode",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "[{\"t\":475,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live narrative CAD asset initialized (request observed or browser-cached world ready)",
+          "pass": true,
+          "detail": "worldReady=true requests=http://localhost:5278/models/Default.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm, http://localhost:5278/models/manufacturing-core-lite.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm"
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5278/models/Default.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm",
+          "http://localhost:5278/models/manufacturing-core-lite.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/?quality=lite"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/Default.glb"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/manufacturing-core-lite.glb"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/4306b57b-9187-4aa4-a288-464a634fcbf5"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2bf9e4ed-e543-4da6-870d-9b1d7347e103"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/23ed5e9a-b6cc-4d05-99c2-9282806c2916"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0c1ddce7-0228-48ce-8c01-a5d4397fd245"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/fa2d3104-672f-4ee7-82a0-678a5eb8e66a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0990c01b-32e0-43db-b0aa-07790f5dc0b6"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/9bda91a3-844d-4c47-9da9-76226e9d1124"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/1b51ad25-dc4e-48b0-8c98-db05b6b5d344"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/a714151c-213c-42aa-8678-52e5a4af845d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/8e723c0e-61ef-4872-9a0d-299814b74d88"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/529b7fa4-c5eb-4eba-be06-2d66d2e883c4"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/c4778ee1-e3f4-4e92-9669-8429157a97a5"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2321dbee-1534-4b66-9a3b-8a82707c995a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/931fe396-8899-4ef6-bc9c-4ba7932069db"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/?quality=lite",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/models/Default.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/28d9d351-7db8-46ee-97d7-3ca46072211d",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz",
+            "status": 200,
+            "contentType": "application/octet-stream"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/models/manufacturing-core-lite.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "blob:http://localhost:5278/2bf9e4ed-e543-4da6-870d-9b1d7347e103",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/23ed5e9a-b6cc-4d05-99c2-9282806c2916",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/0c1ddce7-0228-48ce-8c01-a5d4397fd245",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "blob:http://localhost:5278/fa2d3104-672f-4ee7-82a0-678a5eb8e66a",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/0990c01b-32e0-43db-b0aa-07790f5dc0b6",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/9bda91a3-844d-4c47-9da9-76226e9d1124",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/1b51ad25-dc4e-48b0-8c98-db05b6b5d344",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/a714151c-213c-42aa-8678-52e5a4af845d",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/0bd9228e-e153-48b3-8dd9-273e483613ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/8e723c0e-61ef-4872-9a0d-299814b74d88",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/529b7fa4-c5eb-4eba-be06-2d66d2e883c4",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/c4778ee1-e3f4-4e92-9669-8429157a97a5",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/2321dbee-1534-4b66-9a3b-8a82707c995a",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/931fe396-8899-4ef6-bc9c-4ba7932069db",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff",
+            "status": 200,
+            "contentType": "font/woff"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "D-poster-explicit",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "poster",
+      "url": "http://localhost:5278/torque-wrench/?quality=poster",
+      "status": "PASS",
+      "durationMs": 1163,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/?quality=poster"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "poster tier never requests the lazy Scene module",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/?quality=poster"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/?quality=poster",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "D-reduced-motion",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "poster",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1014,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "poster tier never requests the lazy Scene module",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "D-scene-import-abort",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "abort",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1718,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exact Scene module request observed before assertions",
+          "pass": true,
+          "detail": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        },
+        {
+          "name": "Scene module intercepted exactly once and held pending",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=4"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through failure (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "import rejection: exactly one Scene request, no response",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "import rejection observed as requestfailed",
+          "pass": true,
+          "detail": "[{\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\",\"error\":\"net::ERR_FAILED\"}]"
+        },
+        {
+          "name": "exactly one Scene request total after failure (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Failed to load resource: net::ERR_FAILED\",\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors (SceneBoundary must catch render throws)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no further Scene/CAD requests in the bounded post-failure window",
+          "pass": true,
+          "detail": "scene=1 cad=0"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Failed to load resource: net::ERR_FAILED",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          }
+        ],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "requestFailed": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "error": "net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "D-scene-render-throw",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "throw",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1656,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exact Scene module request observed before assertions",
+          "pass": true,
+          "detail": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        },
+        {
+          "name": "Scene module intercepted exactly once and held pending",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=4"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through failure (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "render-throw injection served with HTTP 200 + JS content type",
+          "pass": true,
+          "detail": "{\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\",\"status\":200,\"contentType\":\"text/javascript; charset=utf-8\"}"
+        },
+        {
+          "name": "injection body is the controlled throwing ESM (non-vacuous)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exactly one Scene request total after failure (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Error: TORQUE_STATIC_RENDER_FAILURE_INJECTION\\n    at http://localhost:5278/assets/Scene-DkH1B4uZ.js:2:17\",\"url\":\"http://localhost:5278/assets/index-fDwt6Stp.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors (SceneBoundary must catch render throws)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no further Scene/CAD requests in the bounded post-failure window",
+          "pass": true,
+          "detail": "scene=1 cad=0"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript; charset=utf-8"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Error: TORQUE_STATIC_RENDER_FAILURE_INJECTION\n    at http://localhost:5278/assets/Scene-DkH1B4uZ.js:2:17",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          }
+        ],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript; charset=utf-8"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "D-scene-mql-downgrade",
+      "viewport": "D 1440x900 DPR1 desktop",
+      "kind": "mql",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 968,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through MQL downgrade (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through MQL downgrade",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through MQL downgrade",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "no additional Scene module requests after downgrade",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "one-way floor: restoring motion preference never re-enters the scene tier",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "the live document canvas is removed after downgrade",
+          "pass": true,
+          "detail": "[{\"t\":307,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-static-full",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "clean",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 10720,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "tier resolves to the ready live renderer scene",
+          "pass": true,
+          "detail": "{\"placeholder\":false,\"stage\":\"scene\"}"
+        },
+        {
+          "name": "lazy Scene module requested exactly once (lazy-load evidence)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "no poster layer in scene mode",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "[{\"t\":555,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live narrative CAD asset initialized (request observed or browser-cached world ready)",
+          "pass": true,
+          "detail": "worldReady=true requests=http://localhost:5278/models/Default.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm, http://localhost:5278/models/manufacturing-core-full.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm"
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5278/models/Default.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm",
+          "http://localhost:5278/models/manufacturing-core-full.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/Default.glb"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/manufacturing-core-full.glb"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b981093b-ee2e-477f-9719-91fe7879b717"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/40c518a6-1d85-4e55-a39b-953325605db7"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2200e6f0-d54a-48d3-b8f0-27330946c2eb"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/89412b9a-0c3c-421c-99c8-4d4626252cca"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/48096d52-07bc-4882-88e0-1c85cfd17aad"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/9b781bd2-14b5-48bb-a1dd-6a566eaa38dd"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/60e62eb5-248e-4f2f-b26a-e1fc05819f1c"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/9f584c39-af0f-49a6-bbef-7e04b8440bc6"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/5de0476d-5878-41da-abbd-349d2d7db626"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/5f536e42-d723-4880-81b5-c1742cdfc325"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/ed7454f7-a27d-4a99-9164-6844bfacbf45"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/cdcc3bf9-7d47-4051-a571-d6f485115698"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/82070c70-44c5-4263-a840-222966028194"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b45c961b-352d-451c-b63f-5163e49d1298"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/models/Default.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/eb299753-9f87-4e9c-8c3c-216a1c09231a",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz",
+            "status": 200,
+            "contentType": "application/octet-stream"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/models/manufacturing-core-full.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "blob:http://localhost:5278/40c518a6-1d85-4e55-a39b-953325605db7",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "blob:http://localhost:5278/2200e6f0-d54a-48d3-b8f0-27330946c2eb",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/89412b9a-0c3c-421c-99c8-4d4626252cca",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/48096d52-07bc-4882-88e0-1c85cfd17aad",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/9b781bd2-14b5-48bb-a1dd-6a566eaa38dd",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/60e62eb5-248e-4f2f-b26a-e1fc05819f1c",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/9f584c39-af0f-49a6-bbef-7e04b8440bc6",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/5de0476d-5878-41da-abbd-349d2d7db626",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/5f536e42-d723-4880-81b5-c1742cdfc325",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/ed7454f7-a27d-4a99-9164-6844bfacbf45",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/cdcc3bf9-7d47-4051-a571-d6f485115698",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/82070c70-44c5-4263-a840-222966028194",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/b45c961b-352d-451c-b63f-5163e49d1298",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/2838e3ef-ebcb-43e8-a1a3-f7a0681a69c7",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-meta/symbols.json",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8"
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/font-files/symbols/sans-serif.normal.400.woff",
+            "status": 200,
+            "contentType": "font/woff"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-lite",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "clean",
+      "url": "http://localhost:5278/torque-wrench/?quality=lite",
+      "status": "PASS",
+      "durationMs": 11442,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/?quality=lite"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "tier resolves to the ready live renderer scene",
+          "pass": true,
+          "detail": "{\"placeholder\":false,\"stage\":\"scene\"}"
+        },
+        {
+          "name": "lazy Scene module requested exactly once (lazy-load evidence)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "no poster layer in scene mode",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "[{\"t\":527,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live narrative CAD asset initialized (request observed or browser-cached world ready)",
+          "pass": true,
+          "detail": "worldReady=true requests=http://localhost:5278/models/Default.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm, http://localhost:5278/models/manufacturing-core-lite.glb, http://localhost:5278/draco/draco_wasm_wrapper.js, http://localhost:5278/draco/draco_decoder.wasm"
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5278/models/Default.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm",
+          "http://localhost:5278/models/manufacturing-core-lite.glb",
+          "http://localhost:5278/draco/draco_wasm_wrapper.js",
+          "http://localhost:5278/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/?quality=lite"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/Default.glb"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/models/manufacturing-core-lite.glb"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/9581acd7-5c99-4eb6-ba1f-39eb840bdb00"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/5c84b2d3-1dcf-4fe7-bc76-080feb100a34"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/5958c93e-74f9-4727-b6f3-1a0f095d3db2"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/125945ea-3d82-4c69-aeeb-6e4560b27b22"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/3e0b1a41-2572-42aa-bef5-d91f79803404"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/b7439cdb-662c-4ade-889d-9548b6b68392"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/0c855dc6-c693-4686-bd15-562568bcdc2b"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/053e5c51-500c-403c-b391-20ed1a29ef08"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/368880d7-99da-442f-9bb6-747e4f095a9f"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/f208e3da-7102-40c1-9960-95f7b0c2d6dc"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/78de6195-ca42-4704-883a-f8c4dfdae46d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/a0e9671f-c031-4204-bed4-abda8892e5ee"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/3af64fa3-a245-47f0-bead-97f72d15d216"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5278/3e5037fd-4b95-46b3-be50-ed3d1c65d842"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/?quality=lite",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/models/Default.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/b9abffe5-771c-4970-ae57-05b3de9831ae",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/drawing/jgun-sheet-v2.bin.gz",
+            "status": 200,
+            "contentType": "application/octet-stream"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/models/manufacturing-core-lite.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "blob:http://localhost:5278/5c84b2d3-1dcf-4fe7-bc76-080feb100a34",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "blob:http://localhost:5278/5958c93e-74f9-4727-b6f3-1a0f095d3db2",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/125945ea-3d82-4c69-aeeb-6e4560b27b22",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/3e0b1a41-2572-42aa-bef5-d91f79803404",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/b7439cdb-662c-4ade-889d-9548b6b68392",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/0c855dc6-c693-4686-bd15-562568bcdc2b",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/053e5c51-500c-403c-b391-20ed1a29ef08",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/368880d7-99da-442f-9bb6-747e4f095a9f",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/f208e3da-7102-40c1-9960-95f7b0c2d6dc",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/78de6195-ca42-4704-883a-f8c4dfdae46d",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/a0e9671f-c031-4204-bed4-abda8892e5ee",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/3af64fa3-a245-47f0-bead-97f72d15d216",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/3e5037fd-4b95-46b3-be50-ed3d1c65d842",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5278/eba72911-ce5c-4ad4-b0d3-9682d517ccd0",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-SemiBold.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/BarlowCondensed-Medium.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5278/fonts/AcFastReference.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-poster-explicit",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "poster",
+      "url": "http://localhost:5278/torque-wrench/?quality=poster",
+      "status": "PASS",
+      "durationMs": 1151,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/?quality=poster"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "poster tier never requests the lazy Scene module",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/?quality=poster"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/?quality=poster",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-reduced-motion",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "poster",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1410,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "poster tier never requests the lazy Scene module",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "disclosure initially closed",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "panel initially hidden",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Enter opens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space closes disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Space reopens disclosure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focus moved off the trigger before Escape",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "Escape restores trigger focus and closed panel state (expanded false, hidden true)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "chapter order drafting,breakthrough,mechanism,inspection,close",
+          "pass": true,
+          "detail": "drafting,breakthrough,mechanism,inspection,close"
+        },
+        {
+          "name": "private page excluded from public nav (no torque anchors)",
+          "pass": true,
+          "detail": "torqueLinks=0"
+        },
+        {
+          "name": "m249 still rendered as reserved text",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "footer reachable (in flow, enters viewport on scroll)",
+          "pass": true,
+          "detail": "{\"present\":true,\"inViewport\":true,\"anchors\":2,\"colophon\":true}"
+        },
+        {
+          "name": "footer colophon present",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-scene-import-abort",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "abort",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1905,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exact Scene module request observed before assertions",
+          "pass": true,
+          "detail": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        },
+        {
+          "name": "Scene module intercepted exactly once and held pending",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=4"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through failure (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "import rejection: exactly one Scene request, no response",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "import rejection observed as requestfailed",
+          "pass": true,
+          "detail": "[{\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\",\"error\":\"net::ERR_FAILED\"}]"
+        },
+        {
+          "name": "exactly one Scene request total after failure (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Failed to load resource: net::ERR_FAILED\",\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors (SceneBoundary must catch render throws)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no further Scene/CAD requests in the bounded post-failure window",
+          "pass": true,
+          "detail": "scene=1 cad=0"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Failed to load resource: net::ERR_FAILED",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          }
+        ],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "requestFailed": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "error": "net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "N-scene-render-throw",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "throw",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1965,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exact Scene module request observed before assertions",
+          "pass": true,
+          "detail": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        },
+        {
+          "name": "Scene module intercepted exactly once and held pending",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=4"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through failure (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through failure",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "render-throw injection served with HTTP 200 + JS content type",
+          "pass": true,
+          "detail": "{\"url\":\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\",\"status\":200,\"contentType\":\"text/javascript; charset=utf-8\"}"
+        },
+        {
+          "name": "injection body is the controlled throwing ESM (non-vacuous)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "exactly one Scene request total after failure (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Error: TORQUE_STATIC_RENDER_FAILURE_INJECTION\\n    at http://localhost:5278/assets/Scene-DkH1B4uZ.js:2:17\",\"url\":\"http://localhost:5278/assets/index-fDwt6Stp.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors (SceneBoundary must catch render throws)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no further Scene/CAD requests in the bounded post-failure window",
+          "pass": true,
+          "detail": "scene=1 cad=0"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript; charset=utf-8"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Error: TORQUE_STATIC_RENDER_FAILURE_INJECTION\n    at http://localhost:5278/assets/Scene-DkH1B4uZ.js:2:17",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          }
+        ],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript; charset=utf-8"
+          }
+        ],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-scene-mql-downgrade",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "mql",
+      "url": "http://localhost:5278/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 1294,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5278/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-CooSRxLs.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "Story DOM identity preserved through MQL downgrade (retained Element refs)",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "disclosure open state preserved through MQL downgrade",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "focused control preserved through MQL downgrade",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "five explicit poster slots in chapter order",
+          "pass": true,
+          "detail": "[\"drafting\",\"breakthrough\",\"mechanism\",\"inspection\",\"close\"]"
+        },
+        {
+          "name": "poster slots are explicit Stage 6 placeholders",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "poster layer has zero live canvas elements",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "no additional Scene module requests after downgrade",
+          "pass": true,
+          "detail": "[\"http://localhost:5278/assets/Scene-DkH1B4uZ.js\"]"
+        },
+        {
+          "name": "one-way floor: restoring motion preference never re-enters the scene tier",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "canvas probe installed from init",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "the live document canvas is removed after downgrade",
+          "pass": true,
+          "detail": "[{\"t\":567,\"id\":null,\"cls\":null}]"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "no Scene-shaped request outside the exact derived identity",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero console errors",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": ""
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DkH1B4uZ.js",
+        "sceneModuleRequests": [
+          "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5278/favicon.svg"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5278/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-CooSRxLs.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/torque-wrench-VpZaaqdx.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5278/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/Scene-DkH1B4uZ.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/script-CyNJ_Tpc.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/session-Dif0e_TN.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5278/assets/DRACOLoader-DXwgrymA.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/portal-CznLUrhB.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/assets/BufferGeometryUtils-kpzxVW70.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5278/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          }
+        ],
+        "requestFailed": []
+      }
+    }
+  ],
+  "result": "PASS"
+}

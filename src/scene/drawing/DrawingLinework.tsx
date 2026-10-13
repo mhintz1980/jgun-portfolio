@@ -31,31 +31,21 @@ import {
   SHEET_WIDTH,
   SHEET_ZONES,
   type DrawingGeometry,
-  type DrawingLayout,
-  type RenderedDrawing,
   makeDrawingLayout,
   makePaperGrainTexture,
 } from './drawingGeometry'
 import {
   applyExtraction,
-  bindExtractionPressure,
   drawingRuntime,
   relativePose,
   lowestVertex,
-  solveExtraction,
-  type Extraction,
 } from './extractionPose'
 import { sheetReveal } from './sheetCamera'
-import { composeSheet } from './sheet/composeSheet'
-import { prepareDrawingCache } from './sheet/drawingCache'
-import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './sheet/ink'
-import { makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum } from './sheet/paperFlex'
-import { bakeProfile } from './sheet/profile'
+import { bakeSheet, type SheetBakeResult } from './sheet/sheetBake'
+import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL } from './sheet/ink'
+import { paperContactShadow, paperFlexAmplitude, paperVellum } from './sheet/paperFlex'
 import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from './sheet/lightning'
-import { measureProfileRegistration } from './sheet/registration'
-import { makeSheetText, type SheetTextLayer } from './sheet/sheetText'
-import { makeBreakthroughGeometry } from './sheet/breakthroughGeometry'
-import { makeBarrierMask, makeFragmentPrint, makeCrackMask, CRACK_APERTURE_GLSL } from './sheet/breakthrough'
+import { CRACK_APERTURE_GLSL } from './sheet/breakthrough'
 import { capturePortalPixels, makePortal, PORTAL_DESK_Z, PORTAL_PROFILE_GLSL } from './sheet/portal'
 
 /**
@@ -252,83 +242,47 @@ const INK_NAVY = new Color(INK)
 const INK_PROOF = new Color(1, 1, 1)
 const DESK = { width: 3.4, height: 2.4 }
 
-interface BakedSheet {
-  layout: DrawingLayout
-  extraction: Extraction
-  rendered: RenderedDrawing
-  uniforms: SheetUniforms
-  lines: Mesh
-  fills: Mesh
-  text: SheetTextLayer
-  stats: Record<string, number>
-  pulseRegistration: () => ReturnType<typeof measureProfileRegistration>
-  fracture: ReturnType<typeof makeBreakthroughGeometry>
-  barrierMask: ReturnType<typeof makeBarrierMask>
-  fragmentPrint: ReturnType<typeof makeFragmentPrint>
-  crackMask: ReturnType<typeof makeCrackMask>
-}
+type BakedSheet = SheetBakeResult
 
 export function DrawingLinework({ data }: { data: DrawingGeometry }) {
   const { gl } = useThree()
   const [baked, setBaked] = useState<BakedSheet | null>(null)
+  const bakeEpoch = useRef(0)
 
   // JG-034: the sheet is baked once per model, never per viewport. The old layout was
   // re-derived from a transient R3F size at mount and nothing re-fitted it until a resize.
   useLayoutEffect(() => {
-    let cancelled = false
-    let dispose: (() => void) | undefined
-    const started = performance.now()
+    const controller = new AbortController()
+    const epoch = ++bakeEpoch.current
+    let installed: SheetBakeResult | undefined
+    setBaked(null)
     const layout = makeDrawingLayout(1, data.bounds)
-    const bake = async () => {
-    const precomputed = await prepareDrawingCache(data, layout)
-    if (cancelled) return
-    const cacheMs = performance.now() - started
-    const extractStart = performance.now()
-    const extraction = solveExtraction(data, layout)
-    const extractMs = performance.now() - extractStart
-    const composed = composeSheet(gl, data, layout)
-    const rendered = bakeProfile(gl, data, layout)
-    const fracture = makeBreakthroughGeometry(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
-    const barrierMask = makeBarrierMask(fracture.outline, SHEET_WIDTH, SHEET_HEIGHT)
-    const fragmentPrint = makeFragmentPrint(composed.ink.segs, composed.ink.fills, SHEET_WIDTH, SHEET_HEIGHT)
-    const crackMask = makeCrackMask(rendered.profilePoints, fracture.cracks, SHEET_WIDTH, SHEET_HEIGHT)
-    const uniforms = makeSheetUniforms()
-    uniforms.uBarrierMask.value = barrierMask
-    uniforms.uPortalSheetSize = { value: new Vector2(SHEET_WIDTH, SHEET_HEIGHT) }
-    uniforms.uPortalLight = { value: 0 }
-    const flex = makePaperFlexField(rendered.profilePoints, SHEET_WIDTH, SHEET_HEIGHT)
-    bindExtractionPressure(extraction, layout, flex, getQuality().tier)
-    uniforms.uFlexField.value = flex.texture
-    uniforms.uFlexRect.value = flex.rect
-    uniforms.uOrigin.value.set(extraction.contact.x, extraction.contact.y)
-    const lines = makeInkLines(composed.ink, uniforms)
-    const fills = makeInkFills(composed.ink, uniforms)
-    const text = makeSheetText(composed.ink.texts, uniforms)
-    const stats = { ...composed.stats, cacheMs, precomputed: precomputed ? 1 : 0, extractMs, bakeMs: performance.now() - started, flexFieldPeak: flex.peak, flexAmplitude: 0, flexPeakDisplacement: 0, flexEnabled: 0, flexNormalX: 0, flexNormalY: 0, flexNormalZ: 1, contactShadow: 0, contactRadius: 0, vellum: 0 }
-    window.__sheetStats = stats
-    // Diagnostics are lazy: the independent ink comparison must not tax startup.
-    let registration: ReturnType<typeof measureProfileRegistration> | undefined
-    const pulseRegistration = () => registration ??= measureProfileRegistration(rendered.profilePoints, composed.ink.segs, GROUP.side)
-    setBaked({ layout, extraction, rendered, uniforms, lines, fills, text, stats, pulseRegistration, fracture, barrierMask, fragmentPrint, crackMask })
-    dispose = () => {
-      flex.texture.dispose()
-      fracture.dispose()
-      barrierMask.dispose(); fragmentPrint.dispose(); crackMask.dispose()
-      rendered.dispose()
-      lines.geometry.dispose()
-      ;(lines.material as ShaderMaterial).dispose()
-      fills.geometry.dispose()
-      ;(fills.material as ShaderMaterial).dispose()
-      text.dispose()
-    }
-    }
-    void bake().catch((error) => {
-      if (!cancelled) {
+    const tier = getQuality().tier === 'full' ? 'full' : 'lite'
+    void bakeSheet({
+      gl, data, layout, tier, signal: controller.signal,
+      onCleanupFailure: (errors) => {
+        if (errors.length) console.error('Drawing cleanup failed', errors)
+      },
+    }).then((result) => {
+      if (controller.signal.aborted || bakeEpoch.current !== epoch) {
+        result.dispose()
+        return
+      }
+      installed = result
+      window.__sheetStats = result.stats
+      setBaked(result)
+    }).catch((error) => {
+      if (!controller.signal.aborted && bakeEpoch.current === epoch) {
         console.error('Drawing initialization failed', error)
         forcePoster()
       }
     })
-    return () => { cancelled = true; dispose?.() }
+    return () => {
+      if (bakeEpoch.current === epoch) ++bakeEpoch.current
+      controller.abort()
+      installed?.dispose()
+      installed = undefined
+    }
   }, [gl, data])
 
   return baked ? <DrawingPrint data={data} baked={baked} /> : null

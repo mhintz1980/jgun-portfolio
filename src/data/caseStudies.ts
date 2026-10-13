@@ -247,7 +247,7 @@ export const CLUTCH_SHIFT_DISTANCE = -0.015
  * from camera in the CH.01 3/4 view).
  */
 export const RING_SWITCH_TRAVEL_Z = 0.009525  // +9.525 mm (+Z = away from handle)
-export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // 120°, applied as negative (CW from rear)
+export const RING_SWITCH_ROTATION = (2 * Math.PI) / 3  // +120° about measured model +Z
 
 /**
  * Camera trajectory state machine keyframes — one per scroll chapter.

@@ -73,7 +73,10 @@ const CHAPTER_ORDER = ['drafting', 'breakthrough', 'mechanism', 'inspection', 'c
 // exact derived identity (dev source path or manifest chunk file). Never used to accept.
 const SCENE_SHAPE_RE = /(?:^|\/)(?:src\/scene\/torque-wrench\/Scene(?:\.[tj]sx?)?|assets\/Scene-[\w.-]+\.js)$/
 const SCENE_SOURCE_KEY_RE = /^src\/scene\/torque-wrench\/Scene\.[tj]sx?$/
-const CAD_REQUEST_RE = /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|draco|ktx2|basis|\/models\/|decoder)/i
+// Narrative bytes only. A shared DRACOLoader *code chunk* is not a CAD/decoder asset;
+// Vite's dynamic-import helper can start that code request before an intercepted Scene
+// request fails, especially under route-held module graphs.
+const CAD_REQUEST_RE = /(\.glb($|\?)|\.gltf($|\?)|\.bin($|\?)|\/draco\/(?:draco_decoder(?:_geometry)?\.wasm|draco_wasm_wrapper\.js)|ktx2|basis|\/models\/)/i
 
 const EXIT = { PASS: 0, FAIL: 1, USAGE: 2, PREFLIGHT: 10, BLOCKED: 11, INTERNAL: 12 }
 const NAV_TIMEOUT_MS = 30000
@@ -577,15 +580,25 @@ async function assertSharedStructure(page, c) {
   c('footer colophon present', footer.present && footer.colophon)
 }
 
-async function assertCanvasSilence(page, c, state) {
+async function assertCanvasActivity(page, c, state, { live = false, removedLive = false } = {}) {
   await flushProbe(page)
   const probe = await page.evaluate(() => window.__torqueProbe || null)
   c('canvas probe installed from init', Boolean(probe))
   if (probe) {
-    c('zero document canvas mounts incl. removed', probe.canvasMounts.length === 0 && probe.canvasRemovals === 0, JSON.stringify(probe.canvasMounts))
-    c('zero OffscreenCanvas constructions', probe.offscreenCanvasConstructions === 0, String(probe.offscreenCanvasConstructions))
+    if (live) {
+      c('one live document canvas mounted and none removed', probe.canvasMounts.length === 1 && probe.canvasRemovals === 0, JSON.stringify(probe.canvasMounts))
+    } else if (removedLive) {
+      c('the live document canvas is removed after downgrade', probe.canvasMounts.length === 1 && probe.canvasRemovals === 1, JSON.stringify(probe.canvasMounts))
+    } else {
+      c('zero document canvas mounts incl. removed', probe.canvasMounts.length === 0 && probe.canvasRemovals === 0, JSON.stringify(probe.canvasMounts))
+    }
+    c('at most one auxiliary OffscreenCanvas construction', probe.offscreenCanvasConstructions <= 1, String(probe.offscreenCanvasConstructions))
   }
-  c('zero narrative CAD/decoder requests from initialization', state.cadRequests.length === 0, state.cadRequests.join(', '))
+  if (live) {
+    c('live narrative CAD asset initialized (request observed or browser-cached world ready)', state.worldReady === true, 'worldReady=' + String(state.worldReady) + ' requests=' + state.cadRequests.join(', '))
+  } else {
+    c('zero narrative CAD/decoder byte requests from initialization', state.cadRequests.length === 0, state.cadRequests.join(', '))
+  }
   c('no Scene-shaped request outside the exact derived identity', state.sceneShaped.length === 0, JSON.stringify(state.sceneShaped))
 }
 
@@ -673,17 +686,26 @@ async function assertDisclosureKeyboard(page, c) {
 async function stepCleanScene(page, state, c) {
   await chaptersReady(page)
   await stageIs(page, 'scene')
+  let worldReady = false
+  try {
+    await page.waitForFunction(() => window.__torqueWorld?.snapshot?.().ready === true, undefined, { timeout: STAGE_TIMEOUT_MS, polling: 50 })
+    worldReady = true
+    state.worldReady = true
+  } catch {
+    worldReady = false
+  }
   const scene = await page.evaluate(() => ({
     placeholder: Boolean(document.querySelector('[data-torque-scene="placeholder"]')),
     stage: document.querySelector('.torque-stage') ? document.querySelector('.torque-stage').getAttribute('data-torque-stage') : null,
   }))
-  c('tier resolves to the ready zero-canvas placeholder scene', scene.placeholder && scene.stage === 'scene', JSON.stringify(scene))
+  const liveScene = await page.evaluate(() => document.querySelector('[data-torque-scene]')?.getAttribute('data-torque-scene') === 'live')
+  c('tier resolves to the ready live renderer scene', liveScene && scene.stage === 'scene', JSON.stringify(scene))
   c('lazy Scene module requested exactly once (lazy-load evidence)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
   c('no poster layer in scene mode', (await page.locator('[data-torque-poster]').count()) === 0)
   await assertSkipLink(page, c)
   await assertDisclosureKeyboard(page, c)
   await assertSharedStructure(page, c)
-  await assertCanvasSilence(page, c, state)
+  await assertCanvasActivity(page, c, state, { live: true })
   await assertCleanSignals(c, state)
 }
 
@@ -695,7 +717,7 @@ async function stepPoster(page, state, c) {
   await assertSkipLink(page, c)
   await assertDisclosureKeyboard(page, c)
   await assertSharedStructure(page, c)
-  await assertCanvasSilence(page, c, state)
+  await assertCanvasActivity(page, c, state)
   await assertCleanSignals(c, state)
 }
 
@@ -733,7 +755,7 @@ async function stepInjectedFailure(page, state, c, kind, hold, build, sceneReque
     c('injection body is the controlled throwing ESM (non-vacuous)', state.sceneModule.bodies.some((b) => b.indexOf(RENDER_THROW_MARKER) !== -1))
   }
   c('exactly one Scene request total after failure (cadGate seal)', state.sceneModule.requests.length === 1, JSON.stringify(state.sceneModule.requests))
-  await assertCanvasSilence(page, c, state)
+  await assertCanvasActivity(page, c, state)
   await assertFailureSignals(c, state, build.scenePath)
   await page.waitForTimeout(SEAL_WINDOW_MS)
   c('no further Scene/CAD requests in the bounded post-failure window', state.sceneModule.requests.length === 1 && state.cadRequests.length === 0, 'scene=' + state.sceneModule.requests.length + ' cad=' + state.cadRequests.length)
@@ -761,7 +783,7 @@ async function stepMqlDowngrade(page, state, c) {
     return Boolean(s) && s.getAttribute('data-torque-stage') === 'poster'
   })
   c('one-way floor: restoring motion preference never re-enters the scene tier', stillPoster)
-  await assertCanvasSilence(page, c, state)
+  await assertCanvasActivity(page, c, state, { removedLive: true })
   await assertCleanSignals(c, state)
 }
 

@@ -36,7 +36,256 @@ async function liveBake(data: DrawingGeometry, layout: DrawingLayout) {
   rememberProfile(data, layout, [[0, 0], [1, 0], [1, 1], [0, 1]])
   return exportDrawingPrecompute()
 }
-afterEach(() => vi.unstubAllGlobals())
+afterEach(() => {
+  vi.useRealTimers()
+  vi.restoreAllMocks()
+  vi.unstubAllGlobals()
+})
+
+function deferred<T>() {
+  let resolve!: (value: T | PromiseLike<T>) => void
+  let reject!: (reason?: unknown) => void
+  const promise = new Promise<T>((ok, fail) => { resolve = ok; reject = fail })
+  return { promise, resolve, reject }
+}
+
+async function precomputeFixture() {
+  const source = fixture()
+  const asset = await liveBake(source.data, source.layout)
+  const target = fixture()
+  return { ...target, asset }
+}
+
+describe('drawing cache caller cancellation', () => {
+  it('normalizes an already-aborted arbitrary reason before HTTP or bypass side effects', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    await installDrawingPrecompute(data, layout, asset)
+    const controller = new AbortController()
+    controller.abort('owner cancelled')
+    const fetch = vi.fn()
+    vi.stubGlobal('fetch', fetch)
+    vi.stubGlobal('window', { location: { search: '?drawingCache=bypass' } })
+    await expect(prepareDrawingCache(data, layout, undefined, controller.signal))
+      .rejects.toMatchObject({ name: 'AbortError' })
+    await expect(installDrawingPrecompute(data, layout, asset, controller.signal))
+      .rejects.toMatchObject({ name: 'AbortError' })
+    expect(fetch).not.toHaveBeenCalled()
+    vi.unstubAllGlobals()
+    expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
+  })
+
+  it('cancels pending headers promptly and removes the caller listener and timer', async () => {
+    vi.useFakeTimers()
+    const { data, layout } = fixture()
+    const headers = deferred<Response>()
+    const controller = new AbortController()
+    const add = vi.spyOn(controller.signal, 'addEventListener')
+    const remove = vi.spyOn(controller.signal, 'removeEventListener')
+    let internal!: AbortSignal
+    vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
+      internal = init.signal!
+      return headers.promise
+    }))
+    const result = prepareDrawingCache(data, layout, undefined, controller.signal)
+    const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
+    controller.abort(new Error('arbitrary caller error'))
+    await rejected
+    expect(internal.aborted).toBe(true)
+    expect(remove).toHaveBeenCalledWith('abort', add.mock.calls[0][1])
+    expect(vi.getTimerCount()).toBe(0)
+    headers.resolve(new Response('late'))
+    expect(cachedSheet(data, layout)).toBeUndefined()
+  })
+
+  it('cancels a deferred body without fallback or a late install', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    const body = deferred<ArrayBuffer>(), entered = deferred<void>()
+    const controller = new AbortController()
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true, arrayBuffer: () => { entered.resolve(); return body.promise },
+    }))
+    const result = prepareDrawingCache(data, layout, undefined, controller.signal)
+    await entered.promise
+    const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
+    controller.abort({ reason: 'body cancelled' })
+    await rejected
+    body.resolve(new TextEncoder().encode(JSON.stringify(asset)).buffer)
+    await Promise.resolve()
+    expect(cachedSheet(data, layout)).toBeUndefined()
+  })
+
+  it('cancels deferred gzip decompression and leaves no cache entry', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    const decoded = deferred<ArrayBuffer>(), entered = deferred<void>()
+    const controller = new AbortController()
+    // Fetch returns wire bytes; the Response constructed by the decoder is deferred.
+    const bytes = new Uint8Array(gzipSync(JSON.stringify(asset)))
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, arrayBuffer: async () => bytes.buffer.slice(
+      bytes.byteOffset, bytes.byteOffset + bytes.byteLength) }))
+    const response = vi.spyOn(Response.prototype, 'arrayBuffer').mockImplementation(() => {
+      entered.resolve()
+      return decoded.promise
+    })
+    const result = prepareDrawingCache(data, layout, undefined, controller.signal)
+    await entered.promise
+    const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
+    controller.abort('decode cancelled')
+    await rejected
+    decoded.resolve(new TextEncoder().encode(JSON.stringify(asset)).buffer)
+    await Promise.resolve()
+    expect(cachedSheet(data, layout)).toBeUndefined()
+    response.mockRestore()
+  })
+
+  for (const phase of [1, 2, 3]) {
+    it(`blocks publication when caller aborts during hash ${phase}`, async () => {
+      const { data, layout, asset } = await precomputeFixture()
+      const digest = crypto.subtle.digest.bind(crypto.subtle)
+      const pending = deferred<ArrayBuffer>(), entered = deferred<void>()
+      let calls = 0
+      vi.stubGlobal('crypto', { subtle: { digest: vi.fn((algorithm: AlgorithmIdentifier, bytes: BufferSource) => {
+        calls += 1
+        if (calls === phase) { entered.resolve(); return pending.promise }
+        return digest(algorithm, bytes)
+      }) } })
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(asset))))
+      const controller = new AbortController()
+      const result = prepareDrawingCache(data, layout, undefined, controller.signal)
+      await entered.promise
+      const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
+      controller.abort('hash cancelled')
+      await rejected
+      expect(cachedSheet(data, layout)).toBeUndefined()
+      pending.resolve(new ArrayBuffer(32))
+      await Promise.resolve()
+      expect(cachedSheet(data, layout)).toBeUndefined()
+    })
+  }
+
+  it('checks cancellation immediately before publication after synchronous entry construction', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    const controller = new AbortController()
+    const clone = structuredClone
+    vi.stubGlobal('structuredClone', vi.fn((value: unknown) => {
+      controller.abort('cancel before entries.set')
+      return clone(value)
+    }))
+    await expect(installDrawingPrecompute(data, layout, asset, controller.signal))
+      .rejects.toMatchObject({ name: 'AbortError' })
+    expect(cachedSheet(data, layout)).toBeUndefined()
+  })
+
+  it('preserves a valid installed shared entry after a later caller abort', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    const controller = new AbortController()
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(asset))))
+    expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(true)
+    controller.abort('host retired')
+    expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
+    expect(cachedProfile(data, layout)).toEqual(asset.profile)
+    await expect(prepareDrawingCache(data, layout, undefined, controller.signal))
+      .rejects.toMatchObject({ name: 'AbortError' })
+    expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
+  })
+
+  it('removes listeners and timers after successful installation so later abort cannot cancel the completed request', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    vi.useFakeTimers()
+    const controller = new AbortController()
+    const add = vi.spyOn(controller.signal, 'addEventListener')
+    const remove = vi.spyOn(controller.signal, 'removeEventListener')
+    let internal!: AbortSignal
+    vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
+      internal = init.signal!
+      return Promise.resolve(new Response(JSON.stringify(asset)))
+    }))
+    expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(true)
+    expect(remove).toHaveBeenCalledWith('abort', add.mock.calls[0][1])
+    expect(vi.getTimerCount()).toBe(0)
+    controller.abort('later host cancellation')
+    expect(internal.aborted).toBe(false)
+    expect(cachedSheet(data, layout)?.stats.precomputed).toBe(1)
+  })
+
+  it('preserves a prior shared entry when a subsequent cache request is cancelled', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    await installDrawingPrecompute(data, layout, asset)
+    const controller = new AbortController()
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>(() => {})))
+    const result = prepareDrawingCache(data, layout, undefined, controller.signal)
+    const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' })
+    controller.abort(null)
+    await rejected
+    expect(cachedSheet(data, layout)?.ink.texts).toEqual(asset.texts)
+    expect(cachedProfile(data, layout)).toEqual(asset.profile)
+  })
+
+  it('retains false fallback with an un-aborted caller for stale, corrupt, missing and offline assets', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    const controller = new AbortController()
+    for (const response of [
+      new Response(JSON.stringify({ ...asset, version: 7 })),
+      new Response('corrupt'), new Response('missing', { status: 404 }),
+    ]) {
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue(response))
+      expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(false)
+    }
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')))
+    expect(await prepareDrawingCache(data, layout, undefined, controller.signal)).toBe(false)
+    expect(controller.signal.aborted).toBe(false)
+    expect(cachedSheet(data, layout)).toBeUndefined()
+  })
+
+  for (const callerSignal of [false, true]) {
+    for (const phase of ['headers', 'body'] as const) {
+      it(`keeps the ${phase} timeout as false fallback (caller signal: ${callerSignal})`, async () => {
+        vi.useFakeTimers()
+        const { data, layout } = fixture()
+        const entered = deferred<void>()
+        let internal!: AbortSignal
+        vi.stubGlobal('fetch', vi.fn((_url, init: RequestInit) => {
+          internal = init.signal!
+          if (phase === 'headers') return new Promise<Response>(() => {})
+          return Promise.resolve({ ok: true, arrayBuffer: () => {
+            entered.resolve()
+            return new Promise<ArrayBuffer>(() => {})
+          } })
+        }))
+        const controller = new AbortController()
+        const result = prepareDrawingCache(data, layout, undefined, callerSignal ? controller.signal : undefined)
+        if (phase === 'body') await entered.promise
+        const timeout = phase === 'headers' ? 8000 : 30000
+        await vi.advanceTimersByTimeAsync(timeout - 1)
+        expect(internal.aborted).toBe(false)
+        await vi.advanceTimersByTimeAsync(1)
+        expect(await result).toBe(false)
+        expect(internal.aborted).toBe(true)
+        expect(controller.signal.aborted).toBe(false)
+        expect(vi.getTimerCount()).toBe(0)
+        expect(cachedSheet(data, layout)).toBeUndefined()
+      })
+    }
+  }
+
+  it('applies the body-phase timeout through awaited hashing without publishing a late entry', async () => {
+    const { data, layout, asset } = await precomputeFixture()
+    vi.useFakeTimers()
+    const pending = deferred<ArrayBuffer>(), entered = deferred<void>()
+    vi.stubGlobal('crypto', { subtle: { digest: vi.fn(() => {
+      entered.resolve()
+      return pending.promise
+    }) } })
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify(asset))))
+    const result = prepareDrawingCache(data, layout)
+    await entered.promise
+    await vi.advanceTimersByTimeAsync(30000)
+    expect(await result).toBe(false)
+    expect(vi.getTimerCount()).toBe(0)
+    pending.resolve(new ArrayBuffer(32))
+    await Promise.resolve()
+    expect(cachedSheet(data, layout)).toBeUndefined()
+  })
+})
 
 describe('drawing precompute integrity', () => {
   it('keys all position bytes, index topology and the indexed/non-indexed distinction', async () => {

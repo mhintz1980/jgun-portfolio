@@ -15,6 +15,12 @@ export interface PaperFlexField {
 
 let activeField: PaperFlexField | null = null
 export const getPaperFlexField = (): PaperFlexField | null => activeField
+/** A stale owner may clear only the field it published. */
+export function clearPaperFlexField(field: PaperFlexField | null): boolean {
+  if (activeField !== field) return false
+  activeField = null
+  return true
+}
 export const paperFlexTierScale = (tier: string): number => tier === 'poster' ? 0 : tier === 'full' ? 1 : 0.45
 
 export function paperFlexAmplitude(t: number, poseT: number, crossing: number, tier: string, flat = false): number {
@@ -60,7 +66,8 @@ float paperDisplacement(vec2 p) { return uFlexAmplitude * paperFlexWeight(p); }
 `
 
 /** Scanline raster + separable soft mask: bounded startup cost, no per-frame CPU geometry work. */
-export function makePaperFlexField(points: number[][], width: number, height: number, nx = 256, ny = 160) {
+export function makePaperFlexField(points: number[][], width: number, height: number, nx = 256, ny = 160,
+  cleanupFailureSink?: (errors: readonly unknown[]) => void) {
   const mask = new Float32Array(nx * ny)
   for (let y = 0; y < ny; y += 1) {
     const py = ((y + 0.5) / ny - 0.5) * height
@@ -113,19 +120,28 @@ export function makePaperFlexField(points: number[][], width: number, height: nu
     }
   }
   const texture = new DataTexture(bytes, nx, ny, RGBAFormat, UnsignedByteType)
-  texture.minFilter = texture.magFilter = LinearFilter
-  texture.generateMipmaps = false
-  texture.needsUpdate = true
-  const sample = (x: number, y: number): number => {
-    const u = x / width + 0.5, v = y / height + 0.5
-    if (Math.min(u, v) <= 0 || Math.max(u, v) >= 1) return 0
-    const px = u * nx - 0.5, py = v * ny - 0.5
-    const ix = Math.floor(px), iy = Math.floor(py)
-    const fx = px - ix, fy = py - iy
-    const read = (xx: number, yy: number) => bytes[(Math.max(0, Math.min(ny - 1, yy)) * nx + Math.max(0, Math.min(nx - 1, xx))) * 4] / 255
-    return (read(ix, iy) * (1 - fx) + read(ix + 1, iy) * fx) * (1 - fy) +
-      (read(ix, iy + 1) * (1 - fx) + read(ix + 1, iy + 1) * fx) * fy
+  try {
+    texture.minFilter = texture.magFilter = LinearFilter
+    texture.generateMipmaps = false
+    texture.needsUpdate = true
+    const sample = (x: number, y: number): number => {
+      const u = x / width + 0.5, v = y / height + 0.5
+      if (Math.min(u, v) <= 0 || Math.max(u, v) >= 1) return 0
+      const px = u * nx - 0.5, py = v * ny - 0.5
+      const ix = Math.floor(px), iy = Math.floor(py)
+      const fx = px - ix, fy = py - iy
+      const read = (xx: number, yy: number) => bytes[(Math.max(0, Math.min(ny - 1, yy)) * nx + Math.max(0, Math.min(nx - 1, xx))) * 4] / 255
+      return (read(ix, iy) * (1 - fx) + read(ix + 1, iy) * fx) * (1 - fy) +
+        (read(ix, iy + 1) * (1 - fx) + read(ix + 1, iy + 1) * fx) * fy
+    }
+    activeField = { texture, rect: new Vector4(-width / 2, -height / 2, width, height), peak, sample }
+    return activeField
+  } catch (error) {
+    const errors: unknown[] = []
+    try { texture.dispose() } catch (cleanupError) { errors.push(cleanupError) }
+    if (errors.length) {
+      try { cleanupFailureSink?.(Object.freeze(errors)) } catch { /* Preserve the construction error. */ }
+    }
+    throw error
   }
-  activeField = { texture, rect: new Vector4(-width / 2, -height / 2, width, height), peak, sample }
-  return activeField
 }

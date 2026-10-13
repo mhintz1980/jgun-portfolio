@@ -2,7 +2,7 @@
 // remounted; the scene/poster stage layers swap around it. The only narrative import path is
 // cadGate's dynamic import, triggered here for non-poster tiers; failure is terminal for the
 // document, keeps the DOM story, controls, and footer usable, and loads no further CAD.
-import { useCallback, useEffect, useState, useSyncExternalStore, type ComponentType } from 'react'
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ComponentType } from 'react'
 import { PageNav } from '../../shared/PageNav'
 import { releaseFade } from '../../shared/pageFade'
 import { createTorqueWrenchStore } from '../../state/torqueWrenchStore'
@@ -11,6 +11,7 @@ import { SceneBoundary } from './SceneBoundary'
 import { runSceneLifecycle } from './sceneLifecycle'
 import type { TorqueSceneProps } from './cadGate'
 import Story from './Story'
+import { createInspectionPlayback } from './inspectionPlayback'
 import { REDUCED_MOTION_QUERY, downgradeForReducedMotion } from './tier'
 import './torque-wrench.css'
 
@@ -21,6 +22,7 @@ export interface TorqueWrenchPageProps {
 export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
   const { tier, sceneStatus } = useSyncExternalStore(store.subscribe, store.getState, store.getState)
   const [SceneComponent, setSceneComponent] = useState<ComponentType<TorqueSceneProps> | null>(null)
+  const playback = useMemo(createInspectionPlayback, [])
   const sceneWanted = tier !== 'poster'
   const posterLayer = tier === 'poster' || sceneStatus === 'failed'
 
@@ -64,7 +66,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
   const stage = posterLayer ? 'poster' : SceneComponent && sceneStatus === 'ready' ? 'scene' : 'pending'
 
   return (
-    <div className="torque-page">
+    <div className="torque-page" data-torque-mode={posterLayer ? 'static' : stage === 'scene' ? 'live' : 'pending'}>
       <a className="torque-skip" href="#torque-story">
         Skip to story
       </a>
@@ -83,12 +85,12 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         <div className="torque-stage" data-torque-stage={stage} aria-hidden="true">
           {SceneComponent && sceneStatus === 'ready' && !posterLayer && (
             <SceneBoundary onFailure={failScene}>
-              <SceneComponent onFailure={failScene} />
+              <SceneComponent store={store} onFailure={failScene} playback={playback} />
             </SceneBoundary>
           )}
           {posterLayer && <Poster />}
         </div>
-        <Story />
+        <Story playback={playback} live={stage === 'scene'} />
       </main>
       <footer className="torque-footer">
         <PageNav current="torque-wrench" tier={tier} variant="endcard" />

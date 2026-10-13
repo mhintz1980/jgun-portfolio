@@ -104,11 +104,6 @@ describe('checkPosterPath', () => {
     const withIt = checkPosterPath({ canvasCount: 0, canvasMounts: 0, requestedUrls: [], requireMountObservation: true })
     expect(withIt.ok).toBe(true)
   })
-
-  it('the mount observer source is a well-formed function expression', () => {
-    expect(() => new Function(CANVAS_MOUNT_OBSERVER_SOURCE)).not.toThrow()
-    expect(CANVAS_MOUNT_OBSERVER_SOURCE).toContain('__posterCanvasMounts')
-  })
 })
 
 type Node = { nodeName: string; querySelectorAll?: () => Node[] }

@@ -1,11 +1,16 @@
-import { describe, expect, it } from 'vitest'
-import { InstancedBufferGeometry, ShaderLib, ShaderMaterial, type WebGLRenderer } from 'three'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { InstancedBufferGeometry, ShaderLib, ShaderMaterial, Texture, type WebGLRenderer } from 'three'
 import { drawingIntroState, DRAWING_INTRO_WINDOW, INTRO_PHASES, introScrollTimeFor, REDUCED_MOTION_INTRO_T } from '../introTimeline'
 import { InkBuilder, makeInkFills, makeInkLines, makeSheetUniforms } from './ink'
 import { makeSheetText } from './sheetText'
-import { CONTACT_SHADOW_MAX, makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
+import { clearPaperFlexField, getPaperFlexField, CONTACT_SHADOW_MAX, makePaperFlexField, paperContactShadow, paperFlexAmplitude, paperVellum, PAPER_FLEX_MAX, PAPER_FLEX_STEP } from './paperFlex'
 
 const rectangle = [[-0.15, -0.05], [0.15, -0.05], [0.15, 0.05], [-0.15, 0.05]]
+
+afterEach(() => {
+  vi.restoreAllMocks()
+  clearPaperFlexField(getPaperFlexField())
+})
 
 describe('barrier pressure and release', () => {
   const at = (t: number, tier = 'full', flat = false, crossing = 0.6) => {
@@ -91,6 +96,48 @@ describe('barrier pressure and release', () => {
 })
 
 describe('profile-derived pressure field', () => {
+  it('clears only the currently published identity, preserving a newer owner', () => {
+    const a = makePaperFlexField(rectangle, 0.8, 0.5)
+    const b = makePaperFlexField(rectangle, 0.8, 0.5)
+    expect(clearPaperFlexField(a)).toBe(false)
+    expect(clearPaperFlexField(null)).toBe(false)
+    expect(getPaperFlexField()).toBe(b)
+    expect(clearPaperFlexField(b)).toBe(true)
+    expect(getPaperFlexField()).toBeNull()
+    expect(clearPaperFlexField(b)).toBe(false)
+    a.texture.dispose(); b.texture.dispose()
+  })
+
+  it('rolls back a post-allocation failure without changing the previous publication', () => {
+    const previous = makePaperFlexField(rectangle, 0.8, 0.5)
+    const primary = new Error('texture setup')
+    const dispose = vi.spyOn(Texture.prototype, 'dispose')
+    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => { throw primary })
+    const sink = vi.fn()
+    expect(() => makePaperFlexField(rectangle, 0.8, 0.5, 256, 160, sink)).toThrow(primary)
+    expect(dispose).toHaveBeenCalledOnce()
+    expect(dispose.mock.contexts[0]).not.toBe(previous.texture)
+    expect(sink).not.toHaveBeenCalled()
+    expect(getPaperFlexField()).toBe(previous)
+    vi.restoreAllMocks()
+    previous.texture.dispose()
+  })
+
+  it('reports a throwing rollback disposer separately and preserves the primary error if its sink throws', () => {
+    const previous = makePaperFlexField(rectangle, 0.8, 0.5)
+    const primary = new Error('texture setup'), cleanup = new Error('dispose listener')
+    const dispose = vi.spyOn(Texture.prototype, 'dispose').mockImplementation(() => { throw cleanup })
+    vi.spyOn(Texture.prototype, 'needsUpdate', 'set').mockImplementation(() => { throw primary })
+    const sink = vi.fn((_errors: readonly unknown[]) => { throw new Error('reporting sink') })
+    expect(() => makePaperFlexField(rectangle, 0.8, 0.5, 256, 160, sink)).toThrow(primary)
+    expect(dispose).toHaveBeenCalledOnce()
+    expect(sink).toHaveBeenCalledExactlyOnceWith([cleanup])
+    expect(Object.isFrozen(sink.mock.calls[0][0])).toBe(true)
+    expect(getPaperFlexField()).toBe(previous)
+    vi.restoreAllMocks()
+    previous.texture.dispose()
+  })
+
   it('is deterministic, peaks near centerline, softly shoulders and leaves edges pinned', () => {
     const a = makePaperFlexField(rectangle, 0.8, 0.5)
     const b = makePaperFlexField(rectangle, 0.8, 0.5)

@@ -1,0 +1,29 @@
+# Stage3 runtime integration contract — v1
+
+Prerequisite satisfied: stage2-closure.md. External D-core/D-bake follows extraction-contracts.md and external-drawing-session.md. Parent owns Scene.tsx integration, private world/resource host and aggregate evidence. Lorentz GLM-Flash/High owns only M1 mechanics and legacy hero adapter, plus wrenchMechanics.test.ts. Camera worker owns only InspectionDirector.ts and InspectionDirector.test.ts under src/scene/torque-wrench/.
+
+One persistent R3F Canvas below cadGate, one camera writer, document-local imperative store; conductor remains outside Canvas but inside lazy Scene. Static tiers never import this tree. No root stores, preload side effects, global legacy probes, extra renderer or trigger. Borrowed cached rig resources survive remount; page-owned bake/inspection resources have epochs, cancellation, complete idempotent disposal and explicit cleanup reporting. Renderer/context failure reports to onFailure. Parent handles DOM controls/host arbitration later in this stage.
+
+## Inspection director C1 input/output
+
+`samplePrivateInspection(progress:number, aspect:number, out:PrivateInspectionSample):PrivateInspectionSample`; `createPrivateInspectionSample()` allocates caller output. Pure explicit progress, no clocks/stores/Three objects. Reject nonfinite input, clamp finite progress, retain plain kinematics and camera fields.
+
+Monotonic private subject master-time knots: canonical .735→0s, .795→7.2s, .835→9.6s, .87→24.6s, .905→32s, .94→43s. Use smooth monotonic C1 interpolation and constant endpoints. `subjectTime` is this master-time input to existing root-free sampleShaftKinematics; expose `machiningRate` from existing machiningRateAt and explicit `cameraTime`/`arcWeight` for proof. No accumulated idle or narrative time.
+
+Use existing root-free sampleShaftCamera as baseline. Export immutable data-only `CutterCameraArc` keyframes, gated by subject master time; add a authored orbit with nonzero translation and changing look orientation through the stable7.2–9.6s slow window (machiningRate≤.22). Blend arc entry/exit C1 into baseline around6.5–10.3s. Preserve target/units/+Y up and explicit shaft-local metre coordinates. Retain desktop/narrow aspect behavior. Exact numeric amplitudes are author choices for subsequent real-runtime framing review, never accepted visual proof.
+
+Tests: nonfinite/clamp, exact holds, reverse/seek equality, monotonic time mapping and continuity at knots/arc seams, finite normalized camera orientation, measured nonzero camera position/orientation change at interior slow-window samples while machining rate≤.22. These CPU checks are preparation; actual runtime cutter clearances/framing/control/focus/arbitration and GPU lifecycle remain open.
+
+Parent-owned future frame host consumes one canonical sample, M1 frame and this plain inspection output. No worker edits Scene/store/beat data/shared files or external drawing lane files. Heavy tests/build/browser/GPU work are serialized by parent; workers do not run them.
+
+## Ring root-free adapter R1
+
+Additional exact writer owns inspection/ringRuntimeCore.ts, inspection/ringRuntimeCore.test.ts (new), inspection/ringRuntime.ts (legacy adapter only). Extract existing runtime bodies preserving geometry/tool laws. `createRingRuntimeCore(session,ctx,inputs)` receives `{source:Object3D,meshes:readonly Mesh[],initialTime:number,getEntryElapsed:()=>number,probe:RingRuntimeProbe}`; export `createRingRuntimeProbe()` for fresh page-local numeric/array fields matching legacy inspectionTelemetry accesses. No store/global/location reads in core. Optional explicit diagnostic hooks (`mask`, `progress`) return on a typed runtime extension; core writes no browser globals. Legacy wrapper supplies source/meshes/time/entry/probe, publishes and clears existing __inspectionProof and retains existing seek mutations/query behavior. Private host passes canonical-derived entry inputs and owns proof port separately. Core async and final cleanup attempt all resources idempotently, prevent stale installs, report cleanup errors through optional host callback; borrowed source untouched. Legacy no-op reporting keeps old signature. Match old sampled transforms/materials/masks and fault/late-disposal behavior in bounded tests. Parent schedules execution.
+
+## Reviewed factory amendments / ownership — 2026-10-12
+
+Astra confirmed that shaftRuntime.ts alone cannot close construction faults. Prior GLM-Flash lane made no edits and was closed. New Sol/High writer owns shaft/shaftRuntime.ts, shaft/tools.ts and their named new Lifecycle.test.ts files. Register cleanup shell before allocation; factories register each allocation before transforms; tools own their resources, runtime excludes tool resources from duplicate disposal while retaining census. Optional trailing options.onCleanupFailure freezes all-attempt failure lists; reporter exceptions cannot interrupt disposal/original exceptions. Preserve legacy session.fail async policy and deferred Draco lifetime. Parent terminal guard deduplicates outward errors and blocks retries.
+
+R1 reviewer independently found unchanged ringGeometry.ts internal partial leaks. Noether GLM/High owns ringGeometry.ts and new ringGeometryLifecycle.test.ts to add a backward-compatible cleanup sink and internal exception-safe registry. Parent will wire its sink into ringRuntimeCore after release. No mechanical/shader math changes authorized by these fixes.
+
+Private presentation Sol owns PrivateSheet.tsx, privateSheetRuntime.ts/test only. Named PrivateSheet props `{baked,frame,context,onCleanupFailure}`; exported DrawingFrameInput follows D2§2.4. Bake/snapshot are borrowed, presentation resources owned. Supported proofMode normal/drawing-edges; reject diagnostic mask modes explicitly. Parent verification renderer owns masks requiring extra geometry. No silent API question remains; no external drawing writes.

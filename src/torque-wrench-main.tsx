@@ -3,6 +3,7 @@
 // the only narrative import path is cadGate's dynamic import, which cannot run earlier.
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { flushSync } from 'react-dom'
 import './index.css'
 import { TorqueWrenchPage } from './scene/torque-wrench/TorqueWrenchPage'
 import { readReducedMotion } from './scene/torque-wrench/tier'
@@ -23,11 +24,16 @@ const store = createTorqueWrenchStore({
 })
 
 const torqueRoot = createRoot(container)
-torqueRoot.render(
-  <StrictMode>
-    <TorqueWrenchPage store={store} />
-  </StrictMode>,
-)
+// Commit the initial semantic layout before the document load/pageshow restoration.
+// Otherwise a cached production module can finish loading while the concurrent root
+// is still empty, and the browser clamps a saved position to a zero-height document.
+flushSync(() => {
+  torqueRoot.render(
+    <StrictMode>
+      <TorqueWrenchPage store={store} />
+    </StrictMode>,
+  )
+})
 
 if (import.meta.hot) {
   import.meta.hot.dispose(() => {

@@ -68,12 +68,21 @@ export interface ShaperCutter {
   readonly root: Group
   /** Rake-face point at the cutter crest on the leading (+Y) face, in the root's local metre frame. */
   readonly cuttingEdgeLocal: Vector3
+  /** Owned geometry count, retained by the runtime for census without duplicate ownership. */
+  readonly geometryCount: number
   dispose(): void
 }
 
 export interface HobProp {
   readonly root: Group
+  /** Owned geometry and instance-buffer count, retained by the runtime for census. */
+  readonly geometryCount: number
   dispose(): void
+}
+
+export interface ShaftCleanupFailure { readonly resource: string; readonly error: unknown }
+export interface ShaftLifecycleOptions {
+  readonly onCleanupFailure?: (failures: readonly ShaftCleanupFailure[]) => void
 }
 
 /** Keep every stride-th outline point, always preserving index 0. */
@@ -85,7 +94,10 @@ function decimateTooth(points: number[][], target: number): number[][] {
   return kept
 }
 
-export function buildShaperCutter(material: Material): ShaperCutter {
+export function buildShaperCutter(material: Material, options: ShaftLifecycleOptions = {}): ShaperCutter {
+  const geometries: BufferGeometry[] = []
+  const dispose = makeDisposer(geometries, [], options)
+  try {
   const root = new Group()
   root.name = 'shaper-cutter'
 
@@ -111,6 +123,7 @@ export function buildShaperCutter(material: Material): ShaperCutter {
   shape.closePath()
 
   const discGeometry = new ExtrudeGeometry(shape, { depth: SHAPER_THICKNESS_MM, bevelEnabled: false, steps: 1, curveSegments: 1 })
+  geometries.push(discGeometry)
   // Certified stroke positions are disc-centre positions; the leading face is +thickness/2.
   discGeometry.translate(0, 0, -SHAPER_THICKNESS_MM / 2)
   discGeometry.rotateX(-Math.PI / 2)
@@ -134,7 +147,6 @@ export function buildShaperCutter(material: Material): ShaperCutter {
       y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM - SHAPER_CLAMP_LENGTH_MM - SHAPER_ARBOR_LENGTH_MM / 2,
     },
   ]
-  const geometries: BufferGeometry[] = [discGeometry]
   for (const part of trailing) {
     const geometry = new CylinderGeometry(part.radius * MM, part.radius * MM, part.length * MM, 24, 1, false)
     geometries.push(geometry)
@@ -150,13 +162,20 @@ export function buildShaperCutter(material: Material): ShaperCutter {
     -tipRadius * MM * Math.sin(tipAngle),
   )
 
-  return { root, cuttingEdgeLocal, dispose: makeDisposer(geometries) }
+    return { root, cuttingEdgeLocal, geometryCount: geometries.length, dispose }
+  } catch (error) {
+    dispose()
+    throw error
+  }
 }
 
-export function buildHob(material: Material): HobProp {
+export function buildHob(material: Material, options: ShaftLifecycleOptions = {}): HobProp {
+  const geometries: BufferGeometry[] = []
+  const instances: InstancedMesh[] = []
+  const dispose = makeDisposer(geometries, instances, options)
+  try {
   const root = new Group()
   root.name = 'hob'
-  const geometries: BufferGeometry[] = []
 
   const bodyRadius = HOB_RADIUS_MM - HOB_THREAD_DEPTH_MM
   const bodyGeometry = new CylinderGeometry(bodyRadius * MM, bodyRadius * MM, HOB_LENGTH_MM * MM, 32, 1, false)
@@ -194,9 +213,9 @@ export function buildHob(material: Material): HobProp {
   threadShape.lineTo(bodyRadius, axialHalfRoot)
   threadShape.closePath()
   const threadGeometry = new ExtrudeGeometry(threadShape, { depth: tangentialWidth, bevelEnabled: false, steps: 1, curveSegments: 1 })
+  geometries.push(threadGeometry)
   threadGeometry.translate(0, 0, -tangentialWidth / 2)
   threadGeometry.scale(MM, MM, MM)
-  geometries.push(threadGeometry)
 
   const yPositions: number[] = []
   const angles: number[] = []
@@ -221,6 +240,7 @@ export function buildHob(material: Material): HobProp {
   }
 
   const thread = new InstancedMesh(threadGeometry, material, yPositions.length)
+  instances.push(thread)
   thread.name = 'hob-thread'
   const matrix = new Matrix4()
   const quaternion = new Quaternion()
@@ -248,14 +268,11 @@ export function buildHob(material: Material): HobProp {
   const axis = new Vector3(Math.cos(HOB_LEAD_ANGLE_DEG * DEG), Math.sin(HOB_LEAD_ANGLE_DEG * DEG), 0).normalize()
   root.quaternion.setFromUnitVectors(Y_AXIS, axis)
 
-  const disposeGeometry = makeDisposer(geometries)
-  let disposed = false
-  return { root, dispose() {
-    if (disposed) return
-    disposed = true
-    thread.dispose()
-    disposeGeometry()
-  } }
+    return { root, geometryCount: geometries.length, dispose }
+  } catch (error) {
+    dispose()
+    throw error
+  }
 }
 
 /** Triangle count for a prop, counting InstancedMesh instances. */
@@ -274,14 +291,20 @@ export function countTriangles(object: Object3D): number {
   return total
 }
 
-/** Idempotent geometry disposer: repeated calls never re-dispose. */
-function makeDisposer(geometries: BufferGeometry[]): () => void {
-  const seen = new Set<BufferGeometry>()
+/** Tools own their geometry and instance buffers, but borrow the caller's material. */
+function makeDisposer(geometries: BufferGeometry[], instances: InstancedMesh[], options: ShaftLifecycleOptions): () => void {
+  let disposed = false
   return () => {
-    for (const geometry of geometries) {
-      if (seen.has(geometry)) continue
-      seen.add(geometry)
-      geometry.dispose()
+    if (disposed) return
+    disposed = true
+    const failures: ShaftCleanupFailure[] = []
+    const attempt = (resource: string, release: () => void) => {
+      try { release() } catch (error) { failures.push(Object.freeze({ resource, error })) }
+    }
+    for (const instance of instances) attempt('tool-instance', () => instance.dispose())
+    for (const geometry of new Set(geometries)) attempt('tool-geometry', () => geometry.dispose())
+    if (failures.length) {
+      try { options.onCleanupFailure?.(Object.freeze(failures)) } catch { /* Reporting must not interrupt cleanup. */ }
     }
   }
 }

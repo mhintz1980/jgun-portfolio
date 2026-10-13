@@ -11,7 +11,7 @@ import {
   Vector3,
   Vector4,
 } from 'three'
-import { INK } from '../drawingGeometry'
+import { INK, type CleanupFailureSink } from '../drawingGeometry'
 import { PAPER_FLEX_GLSL, PAPER_FLEX_STEP } from './paperFlex'
 import { PAPER_BARRIER_GLSL } from './breakthrough'
 
@@ -218,6 +218,28 @@ export interface SheetUniforms {
   [key: string]: { value: unknown }
 }
 
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // Preserve the factory's primary construction error.
+    }
+  }
+}
+
 export function makeSheetUniforms(): SheetUniforms {
   return {
     uReveal: { value: new Array(GROUP_COUNT).fill(1) },
@@ -315,7 +337,11 @@ void main() {
   gl_FragColor = vec4(pen * (1.0 - wet), alpha * uOpacity);
 }`
 
-export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh {
+export function makeInkLines(
+  builder: InkBuilder,
+  uniforms: SheetUniforms,
+  cleanupFailureSink?: CleanupFailureSink,
+): Mesh {
   // Split long strokes without resetting dash phase, reveal timing or end caps.
   const pieces: { source: number; lo: number; hi: number }[] = []
   for (let i = 0; i < builder.segs.length / 9; i += 1) {
@@ -325,6 +351,8 @@ export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh
   }
   const count = pieces.length
   const geometry = new InstancedBufferGeometry()
+  let material: ShaderMaterial | null = null
+try {
   geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 3))
   geometry.setAttribute('corner', new Float32BufferAttribute([0, -1, 1, -1, 1, 1, 0, 1], 2))
   geometry.setIndex([0, 1, 2, 0, 2, 3])
@@ -345,7 +373,7 @@ export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh
   geometry.setAttribute('aRange', new InstancedBufferAttribute(range, 2))
   geometry.setAttribute('aDash', new InstancedBufferAttribute(dash, 1))
   geometry.instanceCount = count
-  const material = new ShaderMaterial({
+  material = new ShaderMaterial({
     uniforms,
     vertexShader: lineVertex,
     fragmentShader: lineFragment,
@@ -359,6 +387,10 @@ export function makeInkLines(builder: InkBuilder, uniforms: SheetUniforms): Mesh
   mesh.renderOrder = 2
   mesh.name = 'sheet-ink-lines'
   return mesh
+} catch (error) {
+  rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
+  throw error
+}
 }
 
 const fillVertex = /* glsl */ `
@@ -385,7 +417,11 @@ void main() {
   gl_FragColor = vec4(uInk, vDraw * uOpacity);
 }`
 
-export function makeInkFills(builder: InkBuilder, uniforms: SheetUniforms): Mesh {
+export function makeInkFills(
+  builder: InkBuilder,
+  uniforms: SheetUniforms,
+  cleanupFailureSink?: CleanupFailureSink,
+): Mesh {
   // Four-way midpoint subdivision preserves winding, area and the original reveal
   // style. Bound every edge (including diagonals), not just a triangle's X/Y span.
   const f: number[] = []
@@ -410,9 +446,11 @@ export function makeInkFills(builder: InkBuilder, uniforms: SheetUniforms): Mesh
     style.set([f[i * 5 + 2], f[i * 5 + 3], f[i * 5 + 4]], i * 3)
   }
   const geometry = new BufferGeometry()
+  let material: ShaderMaterial | null = null
+try {
   geometry.setAttribute('position', new Float32BufferAttribute(position, 3))
   geometry.setAttribute('aStyle', new Float32BufferAttribute(style, 3))
-  const material = new ShaderMaterial({
+  material = new ShaderMaterial({
     uniforms,
     vertexShader: fillVertex,
     fragmentShader: fillFragment,
@@ -426,4 +464,8 @@ export function makeInkFills(builder: InkBuilder, uniforms: SheetUniforms): Mesh
   mesh.renderOrder = 2
   mesh.name = 'sheet-ink-fills'
   return mesh
+} catch (error) {
+  rollbackOwned(material ? [geometry, material] : [geometry], cleanupFailureSink)
+  throw error
+}
 }

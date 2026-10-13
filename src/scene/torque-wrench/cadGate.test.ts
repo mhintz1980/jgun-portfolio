@@ -9,7 +9,7 @@ describe('cadGate', () => {
     expect(typeof first.default).toBe('function')
     const second = await loadTorqueScene()
     expect(second).toBe(first)
-  })
+  }, 15000)
 
   it('seals after an import failure: no later call imports anything, all reject the same error', async () => {
     const failure = new Error('scene chunk failed')

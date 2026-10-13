@@ -24,7 +24,11 @@ function inspect(file, deferred = false) {
   if (seen.has(file)) return
   seen.add(file)
   const rel = relative(file)
-  if (rel !== 'src/torque-wrench-main.tsx' && rel !== 'src/state/torqueWrenchStore.ts' && !rel.startsWith('src/scene/torque-wrench/') && !rel.startsWith('src/shared/')) {
+  const privateReuse = deferred && (
+    rel.startsWith('src/scene/rig/') || rel.startsWith('src/scene/drawing/') ||
+    rel.startsWith('src/scene/inspection/') || rel === 'src/data/caseStudies.ts'
+  )
+  if (rel !== 'src/torque-wrench-main.tsx' && rel !== 'src/state/torqueWrenchStore.ts' && !rel.startsWith('src/scene/torque-wrench/') && !rel.startsWith('src/shared/') && !privateReuse) {
     errors.push(`Outside Stage 1 local/shared surface: ${rel}`)
     return
   }
@@ -48,8 +52,8 @@ function inspect(file, deferred = false) {
       else inspect(target.resolvedFileName, true)
       return
     }
-    if (rel === 'src/state/torqueWrenchStore.ts') {
-      errors.push(`Page-local store must remain dependency-free: ${specifier}`)
+    if (rel === 'src/state/torqueWrenchStore.ts' && !['../scene/torque-wrench/beatTimeline', '../scene/torque-wrench/beats'].includes(specifier)) {
+      errors.push(`Page-local store imports outside its pure timeline contract: ${specifier}`)
       return
     }
     const resolved = ts.resolveModuleName(specifier, file, options, ts.sys).resolvedModule

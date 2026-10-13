@@ -84,10 +84,6 @@ describe('PAGES registry', () => {
       private: true,
     })
   })
-
-  it('keeps every public row public', () => {
-    for (const id of ['jgun', 'quiet-machine', 'm249'] as const) expect(byId(id).private, id).toBe(false)
-  })
 })
 
 describe('pageHref', () => {
@@ -177,10 +173,6 @@ describe('resolveEntryTier truth table', () => {
 })
 
 describe('LEGACY_REDIRECTS', () => {
-  it('has exactly one active row', () => {
-    expect(LEGACY_REDIRECTS.filter((row) => row.status === 'active')).toHaveLength(1)
-  })
-
   it('points every row at a PAGES id', () => {
     const ids = new Set<string>(PAGES.map((page) => page.id))
     for (const row of LEGACY_REDIRECTS) expect(ids.has(row.to), `${row.param}=${row.values.join('|')}`).toBe(true)

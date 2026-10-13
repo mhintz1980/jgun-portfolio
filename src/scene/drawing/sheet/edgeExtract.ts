@@ -13,6 +13,7 @@ import {
   WebGLRenderTarget,
   type WebGLRenderer,
 } from 'three'
+import type { CleanupFailureSink } from '../drawingGeometry'
 
 /**
  * VECTOR LINEWORK FROM THE GLB (JG-035 rebuild).
@@ -151,6 +152,28 @@ const tmpA = new Vector3()
 const tmpB = new Vector3()
 const visBuffer = new Uint8Array(65)
 
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // Preserve the factory's primary error.
+    }
+  }
+}
+
 /**
  * Orthographic depth of `geometry` through `view`, as linear sheet-plane z per pixel
  * (larger = nearer the viewer). Background is -Infinity.
@@ -159,6 +182,7 @@ function depthField(
   gl: WebGLRenderer,
   geometry: BufferGeometry,
   view: ViewSpec,
+  cleanupFailureSink?: CleanupFailureSink,
 ): { z: Float32Array; w: number; h: number } {
   const [rx, ry, rw, rh] = view.rect
   const w = Math.max(8, Math.ceil(rw * view.resolution))
@@ -170,7 +194,29 @@ function depthField(
   camera.updateMatrixWorld()
   camera.updateProjectionMatrix()
   // Linear sheet-plane z, 24-bit fixed point over [-0.5, 0.5] m in RGB; alpha marks coverage.
-  const material = new ShaderMaterial({
+  let material: ShaderMaterial | null = null
+  let target: WebGLRenderTarget | null = null
+  let materialCleanupAttempted = false
+  let targetCleanupAttempted = false
+  const attemptOwnedCleanup = (errors: unknown[]) => {
+    if (target && !targetCleanupAttempted) {
+      targetCleanupAttempted = true
+      try {
+        target.dispose()
+      } catch (error) {
+        errors.push(error)
+      }
+    }
+    if (material && !materialCleanupAttempted) {
+      materialCleanupAttempted = true
+      try {
+        material.dispose()
+      } catch (error) {
+        errors.push(error)
+      }
+    }
+  }
+  const allocatedMaterial = new ShaderMaterial({
     clipping: true,
     vertexShader: /* glsl */ `
       #include <clipping_planes_pars_vertex>
@@ -194,46 +240,100 @@ function depthField(
       }`,
     side: DoubleSide,
   })
-  if (view.clip) {
-    // Clip in model space by transforming the plane into the sheet frame.
-    material.clippingPlanes = [view.clip.clone().applyMatrix4(view.transform)]
-  }
-  const mesh = new Mesh(geometry, material)
-  mesh.matrixAutoUpdate = false
-  mesh.matrix.copy(view.transform)
-  mesh.matrixWorld.copy(view.transform)
-  const scene = new Scene()
-  scene.add(mesh)
-  const target = new WebGLRenderTarget(w, h, { depthBuffer: true })
-  const previous = gl.getRenderTarget()
-  const clipping = gl.localClippingEnabled
-  const clearAlpha = gl.getClearAlpha()
-  const clearColor = gl.getClearColor(new Color())
-  const pixels = new Uint8Array(w * h * 4)
+  material = allocatedMaterial
+  let pixels!: Uint8Array
+  let hasPrimaryError = false
   try {
-    gl.localClippingEnabled = true
-    gl.setRenderTarget(target)
-    // setRenderTarget installs physical pixels. setViewport would apply DPR a second time.
-    gl.setClearColor(0x000000, 0)
-    gl.clear()
-    gl.render(scene, camera)
-    gl.readRenderTargetPixels(target, 0, 0, w, h, pixels)
-  } finally {
-    gl.setRenderTarget(previous)
-    gl.setClearColor(clearColor, clearAlpha)
-    gl.localClippingEnabled = clipping
-    target.dispose()
-    material.dispose()
-  }
-  const z = new Float32Array(w * h)
-  for (let i = 0; i < w * h; i += 1) {
-    if (pixels[i * 4 + 3] < 128) {
-      z[i] = -Infinity
-      continue
+    if (view.clip) {
+      // Clip in model space by transforming the plane into the sheet frame.
+      material.clippingPlanes = [view.clip.clone().applyMatrix4(view.transform)]
     }
-    z[i] = pixels[i * 4] / 255 + pixels[i * 4 + 1] / 65025 + pixels[i * 4 + 2] / 16581375 - 0.5
+    const mesh = new Mesh(geometry, allocatedMaterial)
+    mesh.matrixAutoUpdate = false
+    mesh.matrix.copy(view.transform)
+    mesh.matrixWorld.copy(view.transform)
+    const scene = new Scene()
+    scene.add(mesh)
+    const renderTarget = new WebGLRenderTarget(w, h, { depthBuffer: true })
+    target = renderTarget
+    try {
+      const previous = gl.getRenderTarget()
+      const clipping = gl.localClippingEnabled
+      const clearAlpha = gl.getClearAlpha()
+      const clearColor = gl.getClearColor(new Color())
+      pixels = new Uint8Array(w * h * 4)
+      try {
+        gl.localClippingEnabled = true
+        gl.setRenderTarget(renderTarget)
+        // setRenderTarget installs physical pixels. setViewport would apply DPR a second time.
+        gl.setClearColor(0x000000, 0)
+        gl.clear()
+        gl.render(scene, camera)
+        gl.readRenderTargetPixels(renderTarget, 0, 0, w, h, pixels)
+      } catch (error) {
+        hasPrimaryError = true
+        throw error
+      } finally {
+        const cleanupErrors: unknown[] = []
+        const attempt = (action: () => void) => {
+          try {
+            action()
+          } catch (error) {
+            cleanupErrors.push(error)
+          }
+        }
+        attempt(() => gl.setRenderTarget(previous))
+        attempt(() => gl.setClearColor(clearColor, clearAlpha))
+        attempt(() => {
+          gl.localClippingEnabled = clipping
+        })
+        attempt(() => {
+          if (target && !targetCleanupAttempted) {
+            targetCleanupAttempted = true
+            target.dispose()
+          }
+        })
+        attempt(() => {
+          if (material && !materialCleanupAttempted) {
+            materialCleanupAttempted = true
+            material.dispose()
+          }
+        })
+        if (cleanupErrors.length) {
+          if (cleanupFailureSink) {
+            try {
+              cleanupFailureSink(cleanupErrors)
+            } catch {
+              // Reporting failures cannot interrupt renderer restoration.
+            }
+          } else if (!hasPrimaryError) throw cleanupErrors[0]
+          }
+        }
+      } catch (error) {
+        hasPrimaryError = true
+        throw error
+      }
+    const z = new Float32Array(w * h)
+    for (let i = 0; i < w * h; i += 1) {
+      if (pixels[i * 4 + 3] < 128) {
+        z[i] = -Infinity
+        continue
+      }
+      z[i] = pixels[i * 4] / 255 + pixels[i * 4 + 1] / 65025 + pixels[i * 4 + 2] / 16581375 - 0.5
+    }
+    return { z, w, h }
+  } catch (error) {
+    const rollbackErrors: unknown[] = []
+    attemptOwnedCleanup(rollbackErrors)
+    if (rollbackErrors.length && cleanupFailureSink) {
+      try {
+        cleanupFailureSink(rollbackErrors)
+      } catch {
+        // Preserve the depth-field original error.
+      }
+    }
+    throw error
   }
-  return { z, w, h }
 }
 
 /**
@@ -241,8 +341,14 @@ function depthField(
  * a sample is visible when it is within `eps` of the nearest surface in a 3x3 neighbourhood
  * minimum (so silhouettes on depth steps survive, while lines behind a surface do not).
  */
-export function extractView(gl: WebGLRenderer, geometry: BufferGeometry, edges: EdgeSet, view: ViewSpec): ViewLines {
-  const field = depthField(gl, geometry, view)
+export function extractView(
+  gl: WebGLRenderer,
+  geometry: BufferGeometry,
+  edges: EdgeSet,
+  view: ViewSpec,
+  cleanupFailureSink?: CleanupFailureSink,
+): ViewLines {
+  const field = depthField(gl, geometry, view, cleanupFailureSink)
   const [rx, ry, rw, rh] = view.rect
   const sx = field.w / rw
   const sy = field.h / rh
@@ -347,6 +453,13 @@ export function extractView(gl: WebGLRenderer, geometry: BufferGeometry, edges: 
 }
 
 /** Build a position-only BufferGeometry from a raw float array (helper for callers). */
-export function geometryFrom(position: Float32Array): BufferGeometry {
-  return new BufferGeometry().setAttribute('position', new Float32BufferAttribute(position, 3))
+export function geometryFrom(position: Float32Array, cleanupFailureSink?: CleanupFailureSink): BufferGeometry {
+  const geometry = new BufferGeometry()
+  try {
+    geometry.setAttribute('position', new Float32BufferAttribute(position, 3))
+    return geometry
+  } catch (error) {
+    rollbackOwned([geometry], cleanupFailureSink)
+    throw error
+  }
 }

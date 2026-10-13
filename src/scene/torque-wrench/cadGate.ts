@@ -3,8 +3,13 @@
 // scene tree. After any import failure the gate seals: every later call rejects the same error
 // and no further imports are attempted, so a failed document never fetches narrative CAD again.
 import type { ComponentType } from 'react'
+import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
+import type { InspectionPlayback } from './inspectionPlayback'
 
 export interface TorqueSceneProps {
+  /** Document-local state; imperative narrative reads do not subscribe React to scroll frames. */
+  store: TorqueWrenchStore
+  playback?: InspectionPlayback
   /** Initialization, context-loss and asynchronous renderer failures share the static fallback. */
   onFailure: (error: unknown) => void
 }

@@ -1,4 +1,27 @@
 import { BufferGeometry, CanvasTexture, DataTexture, LinearFilter, NearestFilter, RGBAFormat, UnsignedByteType } from 'three'
+import type { CleanupFailureSink } from '../drawingGeometry'
+
+interface OwnedDisposable {
+  dispose: () => void
+}
+
+function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink?: CleanupFailureSink): void {
+  const errors: unknown[] = []
+  for (const resource of resources) {
+    try {
+      resource.dispose()
+    } catch (error) {
+      errors.push(error)
+    }
+  }
+  if (errors.length && cleanupFailureSink) {
+    try {
+      cleanupFailureSink(errors)
+    } catch {
+      // Preserve the texture factory's primary error.
+    }
+  }
+}
 
 /** Printed layers stop at missing stock; this mask never hides model geometry. */
 export const PAPER_BARRIER_GLSL = /* glsl */ `
@@ -12,7 +35,12 @@ void cutPrintedStock(vec2 p) {
 }
 `
 
-export function makeBarrierMask(points: number[][], width: number, height: number) {
+export function makeBarrierMask(
+  points: number[][],
+  width: number,
+  height: number,
+  cleanupFailureSink?: CleanupFailureSink,
+) {
   const nx = 1536, ny = 960
   const bytes = new Uint8Array(nx * ny * 4)
   for (let y = 0; y < ny; y++) {
@@ -30,14 +58,25 @@ export function makeBarrierMask(points: number[][], width: number, height: numbe
     }
   }
   const texture = new DataTexture(bytes, nx, ny, RGBAFormat, UnsignedByteType)
-  texture.minFilter = texture.magFilter = NearestFilter
-  texture.generateMipmaps = false
-  texture.needsUpdate = true
-  return texture
+  try {
+    texture.minFilter = texture.magFilter = NearestFilter
+    texture.generateMipmaps = false
+    texture.needsUpdate = true
+    return texture
+  } catch (error) {
+    rollbackOwned([texture], cleanupFailureSink)
+    throw error
+  }
 }
 
 /** A once-baked print travels on fragment fronts instead of floating in the hole. */
-export function makeFragmentPrint(segs: number[], fills: number[], width: number, height: number) {
+export function makeFragmentPrint(
+  segs: number[],
+  fills: number[],
+  width: number,
+  height: number,
+  cleanupFailureSink?: CleanupFailureSink,
+) {
   const canvas = document.createElement('canvas')
   canvas.width = 2048; canvas.height = 1280
   const ctx = canvas.getContext('2d')!
@@ -61,9 +100,14 @@ export function makeFragmentPrint(segs: number[], fills: number[], width: number
     ctx.closePath();ctx.fill()
   }
   const texture = new CanvasTexture(canvas)
-  texture.minFilter = texture.magFilter = LinearFilter
-  texture.generateMipmaps = false
-  return texture
+  try {
+    texture.minFilter = texture.magFilter = LinearFilter
+    texture.generateMipmaps = false
+    return texture
+  } catch (error) {
+    rollbackOwned([texture], cleanupFailureSink)
+    throw error
+  }
 }
 
 export const CRACK_APERTURE_GLSL = /* glsl */ `
@@ -77,7 +121,13 @@ void openHairline(vec2 p) {
 `
 
 /** Rasterized apertures only, with growth coordinates; the sheet remains opaque elsewhere. */
-export function makeCrackMask(points: number[][], cracks: BufferGeometry, width: number, height: number) {
+export function makeCrackMask(
+  points: number[][],
+  cracks: BufferGeometry,
+  width: number,
+  height: number,
+  cleanupFailureSink?: CleanupFailureSink,
+) {
   const canvas = document.createElement('canvas')
   canvas.width = 4096; canvas.height = 2560
   const ctx = canvas.getContext('2d')!, scale = canvas.width / width
@@ -99,6 +149,11 @@ export function makeCrackMask(points: number[][], cracks: BufferGeometry, width:
     if ((!ids || ids.getX(i) === ids.getX(i-2)) && Math.hypot(bx - ax, by - ay) < 0.012) stroke(ax, ay, bx, by, `rgb(0,${Math.max(1, Math.round(255 * arc.getX(i)))},0)`)
   }
   const texture = new CanvasTexture(canvas)
-  texture.minFilter = texture.magFilter = NearestFilter; texture.generateMipmaps = false
-  return texture
+  try {
+    texture.minFilter = texture.magFilter = NearestFilter; texture.generateMipmaps = false
+    return texture
+  } catch (error) {
+    rollbackOwned([texture], cleanupFailureSink)
+    throw error
+  }
 }

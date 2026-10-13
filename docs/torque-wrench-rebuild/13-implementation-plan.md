@@ -1,8 +1,8 @@
 # Torque wrench rebuild — implementation plan
 
-**Current dependency:** Demonstrated shared-shell readiness before product implementation.
+**Current execution frontier (2026-10-12):** Stage 0 and Stage 1 static foundation are complete. Stage 2 starts with the motion/progress audit and fixed timeline/conductor interfaces. G0–G9 remain open until their exact evidence is recorded. Current joint-landing coordination is described in `project/work/evidence/torque-wrench-rebuild/06-qm-window-closure-sync-2026-10-12.md`; shared writes require a new named window.
 
-**Status:** Owner accepted this plan and authorized ordered implementation on 2026-10-11. Stage 0 is closed: delivered-shell [local readiness](../../project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/local-20261011-01a12c92/README.md) on `8945fa95` passed 233 shared tests, clean tsc, scratch production build and 7/7 transitions at both viewports, and owner approved [verification matrix/numerical budgets](18-stage0-verification-contract-proposal.md). Resources were released and source/dist preserved. Stage 1 is next under existing implementation authority; private entry/activation and product implementation have not started. G0–G9 remain open, and shared-file activation requires owner coordination.
+**Status (2026-10-12):** Owner accepted ordered implementation on 2026-10-11 and authorized autonomous orchestration with the dated skill/model amendment below on 2026-10-12. Stage 0 readiness and approved [matrix/budgets](18-stage0-verification-contract-proposal.md) are complete. [Stage 1 static foundation](../../project/work/evidence/torque-wrench-rebuild/05-stage1-integration/stage1-closure.md) is complete. Stage 2 is running from baseline `dc44fb79`; remaining G0–G9 stay open until exact acceptance evidence exists. Shared ownership and joint-landing coordination remain in effect.
 
 **Work ID:** [JG-038](../../project/work/plans/JG-038-torque-wrench-rebuild.md). [Stage 0 evidence](../../project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/README.md).
 
@@ -78,6 +78,37 @@ Page-local runtime must not import root `App`, `Chapters`, `SceneCanvas`, or `Sc
 
 ## 4. Ordered implementation work
 
+### Skill activation and autonomous dispatch amendment — 2026-10-12
+
+Owner authorized autonomous orchestration of the remaining G0–G9 work after adding this roster. Use GLM-5.3-Flash/High for bounded implementation and GLM-5.3/High for contracts and independent review; either may increase to Max when warranted. GPT-6.1-Sol/High and Opus-5.5/High are authorized when greater capability is needed. The live native tool exposes Sol through fixed `tier-worker`/High; Opus-5.5 is not exposed, so it must not be silently substituted. Earlier seat recommendations are historical, not new launch authorization. Final Astra/effects and owner visual/motion requirements remain separate. No new Git delivery, publication, shared-shell ownership, or cross-chat messaging follows.
+
+MasterSkillLibrary is reference-only. Every path below was verified on disk. Read each named SKILL.md **when entering its domain**, not all of them at child startup. Each child brief includes its applicable complete paths, read timing, accepted source contracts, exact write ownership, and observable checks. Do not install/deactivate plugins or edit global configuration. Project facts and owner instructions override a skill's legacy root-store, reduced-motion canvas, mechanical constants, or generic implementation examples. Static private paths retain zero narrative CAD/canvas.
+
+| Agent / responsibility | Full skill path | WHEN to read / apply |
+| --- | --- | --- |
+| Parent: decomposition, ownership, integration | `C:/Users/Markimus/.codex/skills/parallel-workstreams/SKILL.md`; `C:/Users/Markimus/.codex/skills/codex-tiers/SKILL.md` | Before wave decomposition/dispatch; reuse accepted model authorization. Maintain one writer per file, stage order and independent review. |
+| Parent: completion tracking | `C:/Users/Markimus/.agents/skills/unlazy/SKILL.md` | Before product work; use the existing accepted plan plus task evidence `07-autonomous-2026-10-12/GATES.md` and wave evidence, without replacing inherited root `GATES.md`, adding another orchestration authority or weakening gates. |
+| Every agent using third-party APIs | `C:/Projects/skills-master/local/read-the-damn-docs/SKILL.md` | Before implementing unfamiliar React/Lenis/GSAP/Three/R3F/Playwright behavior. Read installed types/source and official docs for the actual version; no dependency upgrades by inference. |
+| Timeline/conductor workers | `C:/Projects/skills-master/local/r3f-scroll-performance-guard/SKILL.md` | Before progress/store/clock/lifecycle edits, Stages 2–5: imperative frame reads, no per-frame React notifications, single conductor, clamped frame delta. |
+| Conductor worker | `C:/Projects/skills-master/local/gsap-scrolltrigger/SKILL.md` | Before Lenis/GSAP integration or ScrollTrigger changes, Stage 2/G2/G5. Preserve 1.1s starting duration and avoid stacked scrub delay. |
+| Motion author / camera director | `C:/Projects/skills-master/local/cinematic-gsap-lenis-motion-system/SKILL.md` | After baseline and interfaces are fixed, before authored pacing/camera paths in Stages 2–5/G1/G4/G5. Apply relevant pacing/clock guidance; live Three world follows build-threejs-scroll-worlds, not generic DOM demos. |
+| Conditional image/video sequence author | `C:/Projects/skills-master/local/scroll-scrubbed-visual-sequence/SKILL.md` | Only if an authorized image/video sequence is actually introduced. Not required for the pure beat resolver or live Three world; current scope uses offline static posters, not a scrubbed film. |
+| Motion author | `C:/Projects/skills-master/local/animate/SKILL.md` | Before authoring transitions/easing in Stages 2–5; use deliberate anticipation/impact/reading holds and reduced-motion equivalents. |
+| CAD compatibility/mechanism worker | `C:/Projects/skills-master/local/cad-scene-graph-rigging/SKILL.md` | At Stage 3 before rig/applicator extraction. Preserve part keys, measured ladder, positive ring rotation, gear laws, cache and borrowed resources. |
+| Drawing/opening/pit/scene worker | `C:/Projects/skills-master/local/build-threejs-scroll-worlds/SKILL.md` | Before scene composition/resource ownership and director integration, Stages 3–5. Adapt to one document-local world behind `cadGate`; do not create a second scroll spine. |
+| Shader/rendering worker | `C:/Projects/skills-master/local/glsl-transition-shader-pipeline/SKILL.md` | Only before GLSL/material/shader/tier changes in Stages 3–5/G4/G6. Do not add deferred mask scanning. |
+| Story/inspection/accessibility worker | `C:/Projects/skills-master/local/spatial-hotspot-a11y/SKILL.md` | Before inspection controls, projected callouts, keyboard/focus or equivalent DOM interactions, Stages 3/6/G7. |
+| Verification worker | `C:/Projects/skills-master/local/playwright/SKILL.md` | Before creating/adapting browser verifiers; browser execution waits for parent-owned stable build and resource window. Reuse existing static verifier. |
+| Verification / rendering / compatibility | `C:/Projects/skills-master/local/webgl-telemetry-verifier/SKILL.md` | Before camera/mechanics/shader/clearance/performance claims or runtime PNG collection, G2–G8. Actual telemetry and provenance accompany unaltered captures. |
+| Build/asset validation / poster producer | `C:/Projects/skills-master/local/asset-and-bundle-hygiene/SKILL.md` | Before validating import chunks, Draco/assets, poster mapping and production build, G0/G2/G7/G8. No cleanup, publication or worktree pruning is implied. |
+| Independent animation reviewer | `C:/Projects/skills-master/local/review-animations/SKILL.md` | After a stable motion delivery, before G5/G9 acceptance; read-only critique independent of author. |
+| Motion correction worker | `C:/Projects/skills-master/local/improve-animations/SKILL.md` | Only after a concrete review/measurement defect warrants a correction pass; no speculative expansion. |
+| Optional page-load investigator | `C:/Projects/skills-master/local/web-perf/SKILL.md` | Only if startup/load results fail approved budgets; supplemental to device-named GPU/frame measurements, not a replacement. |
+| Agents processing large output | `C:/Users/Markimus/.codex/plugins/cache/context-mode/context-mode/1.0.169/skills/context-mode/SKILL.md` | Before bulk logs/source/browser analysis; use exposed context-mode tools and return derived findings. No plugin repair/install. |
+| Offline poster producer | Plan Stage 6, approved scene sources and repository offline-render procedures | At Stage 6 after representative compositions settle. No dedicated still-render/provenance skill was found. Do not use mesh-generation or cloud media skills as substitutes. Preserve immutable source scenes, record settings/assets/hashes and desktop/narrow art provenance. |
+
+Before **every** scrolling/cinematic edit, also read `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/smooth-scrolling.md`. Domain readers use this worktree's live source, not the graph index for the protected sibling checkout. Wave ownership/contracts/results are recorded in `project/work/evidence/torque-wrench-rebuild/07-autonomous-2026-10-12/README.md` and linked leaf records. Final owner/Astra acceptance is not inferred from autonomous implementation authority.
+
 ### Stage 0 — Authorization and integration readiness
 
 - [x] Record owner acceptance of this plan and implementation authorization. Owner answered “yes” to the explicit combined approval request on 2026-10-11; see owner rulings.
@@ -117,16 +148,20 @@ Page-local runtime must not import root `App`, `Chapters`, `SceneCanvas`, or `Sc
 
 **Exit:** Forward, reverse, jump, reload, hold, and boundary sampling resolve consistently.
 
+**Stage2 leaf exit recorded 2026-10-12:** [closure](../../project/work/evidence/torque-wrench-rebuild/07-autonomous-2026-10-12/stage2-closure.md), current import-boundary/TypeScript/build topology, independent two-round source review, final-build17/17 timeline cases373 assertions and14/14 static/failure cases396 assertions. Canonical channels are exposed; GPU/director application enters Stage3. Provisional physical range and final pacing remain subject to later review. D-core/D-bake external extraction and parallel M1/private runtime work may begin under the saved contracts. This exit closes no later GPU/effects/performance/owner requirement.
+
 ### Stage 3 — Page-safe reuse and mechanical story
 
-- [ ] Prefer validated lower-level `sheetCamera` pose math, `introTimeline`, `paperFlex`, `breakthrough`, `breakthroughGeometry`, `portal`, `portalGeometry`, `electricalScore`, drawing geometry, and CAD/inspection primitives.
-- [ ] Extract page-safe primitives only where needed, preserving existing caller behavior. Do not mount `TorqueWrenchHero` or `DrawingLinework` unchanged.
-- [ ] Trace imports transitively to exclude root stores, chapter selectors, extra conductors/triggers, eager CAD loading, and hidden frame-accumulated narrative state.
-- [ ] Drive mechanism channels from canonical progress while preserving part-number identity, extraction order/offsets, gear relationships, clutch behavior, and inspection content.
+- [x] Prefer validated lower-level `sheetCamera` pose math, `introTimeline`, `paperFlex`, `breakthrough`, `breakthroughGeometry`, `portal`, `portalGeometry`, `electricalScore`, drawing geometry, and CAD/inspection primitives.
+- [x] Extract page-safe primitives only where needed, preserving existing caller behavior. Do not mount `TorqueWrenchHero` or `DrawingLinework` unchanged.
+- [x] Trace imports transitively to exclude root stores, chapter selectors, extra conductors/triggers, eager CAD loading, and hidden frame-accumulated narrative state.
+- [x] Drive mechanism channels from canonical progress while preserving part-number identity, extraction order/offsets, gear relationships, clutch behavior, and inspection content.
 - [ ] Complete cutter camera arcs and subject-time mapping, including entry, exit, reverse, and accessible DOM controls. Measure subject slowing and camera motion independently.
 - [ ] Keep optional transient pointer state outside canonical narrative state.
 
 **Exit:** Compatible reuse and mechanical parity without root-runtime coupling. If a mechanical behavior change becomes necessary, update the spec §5 tables, README ladder, and required rig-skill tables together under coordinated scope before delivery; this plan does not authorize external skill-file or protected-checkout edits. Preserve the ladder by default.
+
+**Stage3 integration checkpoint recorded 2026-10-13:** [checkpoint](../../project/work/evidence/torque-wrench-rebuild/07-autonomous-2026-10-12/stage3-integration-checkpoint.md). Final current source has TypeScript exit0, full suite947 pass/4 skip, one lazy CAD gate, production build, real-browser static/fallback14/14, timeline17/17, and drawing integration5 PASS/1 BFCache-unverified. M1, D-core/D-bake, ring/shaft extraction and private sheet are integrated. The leaf exit remains open pending independent integrated review plus real cutter framing/clearance/control and matched mechanical-parity proof; Stage4 effects recovery has not begun.
 
 ### Stage 4 — Opening recovery and pit
 
@@ -215,4 +250,4 @@ Exact camera rake/timing, pit relief balance, final scroll distance, validated t
 - [ ] Obtain owner visual and motion acceptance.
 - [ ] Record remaining limitations and any explicit owner exceptions without weakening inherited failures silently.
 
-Those steps do not authorize publication, live cutover, archival, or Git delivery. Owner accepted this saved plan and authorized implementation on 2026-10-11; Stage 0 readiness and its owner-approved verification contract are complete. Immediate next action is Stage 1's private document/static foundation with coordinated shared activation. All technical, effects, visual, motion, and publication gates remain separate.
+Those steps do not authorize publication, live cutover, archival, or Git delivery. Owner accepted this saved plan and authorized implementation on 2026-10-11; Stage 0 and Stage 1 static foundation are complete. Current action is the authorized Stage 2 timeline/conductor wave, followed by ordered implementation and current evidence. All technical, effects, visual, motion, and publication gates remain separate.

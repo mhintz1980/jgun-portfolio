@@ -128,7 +128,7 @@ Start every task by reading [`AGENTS.md`](AGENTS.md), [`project/README.md`](proj
     ("i approve. check it off."). Also fixed the pre-existing lcd-buttons merge-stack defect
     (per-part `lcd-button-N` units — the three buttons rendered stacked as one blob before).
 
-- [ ] **JG-038 — Private torque-wrench page rebuild: Stage 0 closed 2026-10-11; Stage 1 next.** Plan/ordered implementation and matrix/numerical budgets approved; local shared-shell readiness passed. Coordinate private-entry/shared activation; preserve the existing live page and all open G0–G9 gates. No Git delivery/publication/cutover/archive authorization. · [registered plan](project/work/plans/JG-038-torque-wrench-rebuild.md) · [implementation plan](docs/torque-wrench-rebuild/13-implementation-plan.md) · [Stage 0 evidence](project/work/evidence/torque-wrench-rebuild/03-stage0-readiness/README.md)
+- [ ] **JG-038 — Private torque-wrench page rebuild: Stages 0–2 closed; Stage 3 integration checkpoint recorded 2026-10-13.** Current TypeScript/full-suite/build/browser checks pass; independent integrated review, real cutter proof, Stage4 recovery/effects and all G0–G9 acceptance remain. No publication/cutover/archive authorization. · [registered plan](project/work/plans/JG-038-torque-wrench-rebuild.md) · [implementation plan](docs/torque-wrench-rebuild/13-implementation-plan.md) · [Stage 3 checkpoint](project/work/evidence/torque-wrench-rebuild/07-autonomous-2026-10-12/stage3-integration-checkpoint.md)
 
 ## Queued
 
