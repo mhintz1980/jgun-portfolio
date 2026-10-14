@@ -742,8 +742,23 @@ try {
             }
           }
           if (progress === introProgress(0.67)) {
-            checkpoint.lightning = { lampPower: drawing.lampPower, blackout: drawing.blackout, lightningLuminance: drawing.lightningLuminance, pulse: drawing.pulse, readingPool: drawing.readingPool }
-            fail(drawing.lampPower <= 0.001 && drawing.pulse >= 0.999 && drawing.lightningLuminance > 0, `${name}: t=.67 must show lightning while the lamp is off and pulse is active`)
+            checkpoint.lightning = { lampPower: drawing.lampPower, blackout: drawing.blackout, lightningLuminance: drawing.lightningLuminance, pulse: drawing.pulse, readingPool: drawing.readingPool, sparkAnticipation: drawing.sparkAnticipation }
+            fail(drawing.lampPower <= 0.001 && drawing.pulse >= 0.999 && drawing.lightningLuminance > 0, `${name}: t=.67 must arm the spark window while the lamp is off and pulse is active`)
+            // O1 oracle correction (2026-10-13): the restaged trace is a NON-ADVANCING spark
+            // building by smooth01 from ELECTRICAL.sparkStartT (.66) toward the first burst at
+            // .765. At t .67 the authored spark is smooth01(1/105) ≈ 0.0253 — armed (telemetry
+            // above; checkElectrical pins it exactly against expectedElectrical) but
+            // deliberately sub-visual, so a bright-pixel toggle proof placed here can never
+            // pass honestly. The visual proof lives at the t=.78 burst/hold checkpoint below,
+            // where pulseHead is mid-burst and the trace head is at full glow.
+          }
+          if (progress === introProgress(0.78)) {
+            // Burst/hold score (O1): at .78 the outline is mid-trace (calibration ~.75 s of 1.25 s, i.e. still in burst 3), not
+            // complete. The pre-revision linear trace had it at ~.9+. The value is the oracle's at the measured phase.
+            const traceExpected = expectedElectrical(drawing.phase)
+            checkpoint.traceInteriorEnd = { lampPower: drawing.lampPower, blackout: drawing.blackout, pulse: drawing.pulse, pulseHead: drawing.pulseHead, expectedOutline: traceExpected.outline }
+            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0 && drawing.pulseHead < 1 && Math.abs(drawing.pulseHead - traceExpected.outline) <= 1e-6,
+              `${name}: t=.78 trace must be active, dark and mid burst/hold (pulseHead ${drawing.pulseHead}, oracle ${traceExpected.outline})`)
             const pixels = await page.evaluate(async () => {
               const capture = window.__drawingProof?.captureLightningPixels
               if (typeof capture !== 'function') return { available: false }
@@ -755,14 +770,6 @@ try {
               && Number.isFinite(pixels.changedBrightPixels) && pixels.changedBrightPixels > 0
               && Number.isFinite(pixels.contourPixels) && pixels.contourPixels > 0,
               `${name}: lightning pixel proof failed (mesh visibility, fixed camera, contour, or bright-pixel delta)`)
-          }
-          if (progress === introProgress(0.78)) {
-            // Burst/hold score (O1): at .78 the outline is mid-trace (calibration ~.75 s of 1.25 s, i.e. still in burst 3), not
-            // complete. The pre-revision linear trace had it at ~.9+. The value is the oracle's at the measured phase.
-            const traceExpected = expectedElectrical(drawing.phase)
-            checkpoint.traceInteriorEnd = { lampPower: drawing.lampPower, blackout: drawing.blackout, pulse: drawing.pulse, pulseHead: drawing.pulseHead, expectedOutline: traceExpected.outline }
-            fail(drawing.lampPower <= 0.001 && drawing.blackout >= 0.999 && drawing.pulse >= 0.999 && drawing.pulseHead > 0 && drawing.pulseHead < 1 && Math.abs(drawing.pulseHead - traceExpected.outline) <= 1e-6,
-              `${name}: t=.78 trace must be active, dark and mid burst/hold (pulseHead ${drawing.pulseHead}, oracle ${traceExpected.outline})`)
           }
           checkBarrierContract(snap, name, checkpoint)
           const stats = snap.sheetStats ?? {}

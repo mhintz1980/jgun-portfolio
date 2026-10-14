@@ -1,0 +1,107 @@
+{
+  "recorded": "2026-10-14T02:36:14.181Z",
+  "tool": "node scripts/verify-jgun-opening.mjs --url=http://localhost:5199 --quick",
+  "context": "2026-10-14 ~02:19-02:35 local; owner actively using the machine (Manus/Chrome/ChatGPT top consumers; CPU 40-93%). Page code identical to the calm-machine green run distilled in ../shared-gate-remedy-2026-10-13/quick-ab-summary.json (commit e1b47188).",
+  "runs": {
+    "run1_0219": {
+      "dir": "stages-1-3-2026-09-26/baseline-2026-10-14T02-19-41-123Z",
+      "note": "first corrected-contract run; dev server freshly restarted (cold 90 s desktop load). NARROW FULLY GREEN including the new t=.78 pixel proof.",
+      "desktop": {
+        "failures": 18,
+        "tierFailures": 17,
+        "canvasInactive": 1,
+        "lightning": 0,
+        "coldLoadReadyMs": 90264,
+        "errors": 0
+      },
+      "narrow": {
+        "failures": 0,
+        "tierFailures": 0,
+        "canvasInactive": 0,
+        "lightning": 0,
+        "coldLoadReadyMs": 6605,
+        "errors": 0
+      }
+    },
+    "run2_0225": {
+      "dir": "stages-1-3-2026-09-26/baseline-2026-10-14T02-25-11-454Z",
+      "note": "warm server; CPU 40-93% during window",
+      "desktop": {
+        "failures": 2,
+        "tierFailures": 1,
+        "canvasInactive": 1,
+        "lightning": 0,
+        "coldLoadReadyMs": 30383,
+        "errors": 0
+      },
+      "narrow": {
+        "failures": 4,
+        "tierFailures": 3,
+        "canvasInactive": 1,
+        "lightning": 0,
+        "coldLoadReadyMs": 8724,
+        "errors": 0
+      }
+    },
+    "run3_0229": {
+      "dir": "stages-1-3-2026-09-26/baseline-2026-10-14T02-29-47-125Z",
+      "note": "after CPU dipped to 40%; load bursty again during run",
+      "desktop": {
+        "failures": 2,
+        "tierFailures": 1,
+        "canvasInactive": 1,
+        "lightning": 0,
+        "coldLoadReadyMs": 44270,
+        "errors": 0
+      },
+      "narrow": {
+        "failures": 2,
+        "tierFailures": 1,
+        "canvasInactive": 1,
+        "lightning": 0,
+        "coldLoadReadyMs": 10794,
+        "errors": 0
+      }
+    }
+  },
+  "proofAt078_greenNarrowRun": {
+    "checkpoint": "narrow-forward-23-0.093600",
+    "tier": "full",
+    "phase": 0.7800227549138844,
+    "pulseHead": 0.30388584267091684,
+    "sparkAnticipation": 0,
+    "lightningPixelProof": {
+      "available": true,
+      "meshName": "lightning",
+      "meshVisible": true,
+      "fixedCamera": true,
+      "shaderValid": true,
+      "consoleErrors": 0,
+      "changedBrightPixels": 629,
+      "contourPixels": 708,
+      "width": 512,
+      "height": 288
+    }
+  },
+  "sparkCheckpoint067_greenNarrowRun": {
+    "checkpoint": "narrow-forward-20-0.080400",
+    "phase": 0.6700145160657539,
+    "sparkAnticipation": 0.025554730850924634,
+    "lightning": {
+      "lampPower": 0,
+      "blackout": 1,
+      "lightningLuminance": 1,
+      "pulse": 1,
+      "readingPool": 0,
+      "sparkAnticipation": 0.025554730850924634
+    },
+    "lightningPixelProofPresent": false,
+    "tier": "full"
+  },
+  "demotedCheckpoint_run3": {
+    "checkpoint": "desktop-forward-00-0.000000",
+    "tier": "lite",
+    "declines": 1,
+    "warmReady": true
+  }
+}
