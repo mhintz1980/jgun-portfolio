@@ -1,0 +1,50 @@
+{
+  "capturedAt": "2026-10-14T15:45:57.012Z",
+  "build": ".scratch/jg038-functional-20261014-t",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "binding": [
+    {
+      "path": "torque-wrench/index.html",
+      "status": 200,
+      "actual": "6c9758dc769bf959945a2683521975c98a1eaa054c7151880e63874c5692a7c9",
+      "expected": "6c9758dc769bf959945a2683521975c98a1eaa054c7151880e63874c5692a7c9"
+    },
+    {
+      "path": "assets/torque-wrench-TVIBm2F-.js",
+      "status": 200,
+      "actual": "cdcd7c99439c506a4760d917ea685d8c507b17f077767775b6c76e6f537df874",
+      "expected": "cdcd7c99439c506a4760d917ea685d8c507b17f077767775b6c76e6f537df874"
+    },
+    {
+      "path": "assets/Scene-CHJ2fOXp.js",
+      "status": 200,
+      "actual": "2855182b43c2926ee71cd627c4693937a92d8a44a5c8a8537e3e9119e860dffa",
+      "expected": "2855182b43c2926ee71cd627c4693937a92d8a44a5c8a8537e3e9119e860dffa"
+    }
+  ],
+  "errors": [],
+  "signals": [],
+  "before": {
+    "frames": 11,
+    "canvas": 1
+  },
+  "loss": {
+    "supported": true
+  },
+  "after": {
+    "stage": "poster",
+    "canvases": 0,
+    "world": false,
+    "chapters": 5
+  },
+  "pass": true
+}

@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { Vector2 } from 'three'
+import { makePrivatePitGeometry } from '../../torque-wrench/PitGeometry'
 // @ts-ignore — node builtins: the torn contour is read from the tracked precompute asset.
 import { gunzipSync } from 'node:zlib'
 // @ts-ignore — node builtins, see above.
@@ -121,6 +122,16 @@ const ringAt = (geometry: { getAttribute: (name: string) => { array: ArrayLike<n
 describe('portal vertical rock shaft geometry', () => {
   let profilePoints: number[][]
   beforeAll(() => { profilePoints = loadTrackedProfile() })
+  it('private cavern keeps the real tracked contour fold-free at every ring', () => {
+    const shaft = makePrivatePitGeometry(profilePoints)
+    for (let k = 0; k < shaft.ringCount; k++) {
+      const ring = ringAt(shaft.wallGeometry, profilePoints.length, k)
+      expect(findFold(ring), `private ring ${k}`).toBe(null)
+      expect(signedArea(ring)).toBeGreaterThan(0)
+    }
+    expect(shaft.maxRingDeviationM).toBeLessThan(0.018)
+    shaft.wallGeometry.dispose(); shaft.closureGeometry.dispose()
+  })
 
   it('extrudes the exact torn contour: ring 0 is the outline itself', () => {
     const shaft = makePortalShaftGeometry(SYNTHETIC_RING)

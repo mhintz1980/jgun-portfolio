@@ -1,0 +1,1342 @@
+{
+  "harness": "verify-torque-timeline",
+  "capturedAt": "2026-10-14T14:15:32.273Z",
+  "url": "http://localhost:5288/torque-wrench/",
+  "mode": "built",
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage4-20261013-s",
+  "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+  "expectedModuleSrc": "/assets/torque-wrench-DzCqm0A7.js",
+  "viewports": [
+    "N 390x844 DPR3 touch/mobile"
+  ],
+  "roster": [
+    "N-live-conductor-forward",
+    "N-live-keyboard-inputs",
+    "N-live-equality",
+    "N-poster-explicit",
+    "N-reduced-motion",
+    "N-mql-downgrade",
+    "N-scene-import-abort",
+    "N-scene-render-throw"
+  ],
+  "inputContract": "native input only: page.mouse.wheel, page.keyboard, scrollbar mouse drag, page.emulateMedia (real MQL), window.scrollTo direct seek; store setters and port mutation are never called; samples taken only after bounded settling",
+  "diagnosticsContract": {
+    "fields": [
+      "activeConductors",
+      "lenisInstances",
+      "lenisScrollHandlers",
+      "tickerCallbacks",
+      "scrollTriggers",
+      "domListeners",
+      "storeLifecycleSubscriptions",
+      "mountCount",
+      "disposeCount",
+      "refreshCount",
+      "visibilityResamples",
+      "pageShowResamples",
+      "invalidProgressInputs",
+      "startupFailureCount",
+      "cleanupFailureCount",
+      "lagSmoothingMode"
+    ],
+    "scope": "scoped lifecycle accounting from the page store; NOT an independent browser-global census",
+    "teardownNote": "public port deleted on unmount; MQL retains a read-only getter handle for scoped post-teardown diagnostics"
+  },
+  "playwrightVersion": "1.56.1",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ],
+    "ignoreDefaultArgs": [
+      "--hide-scrollbars"
+    ]
+  },
+  "glRenderer": "unmeasured (Stage 2 Scene is zero-GPU placeholder; no hardware or software rendering claim; configuration only)",
+  "assetIdentity": {
+    "entryAsset": {
+      "url": "http://localhost:5288/assets/torque-wrench-DzCqm0A7.js",
+      "localSha256": "6cb6f4404183a31a0599d1422c54dcff92586d763ef60f7fa00f9f5f6c8b82ee",
+      "servedSha256": "6cb6f4404183a31a0599d1422c54dcff92586d763ef60f7fa00f9f5f6c8b82ee",
+      "servedShaVerified": true
+    },
+    "sceneAsset": {
+      "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+      "localSha256": "94b5f6ad6466608a2d8f57d6a3dfc492cfb9d0bd0ed4c82cefb2f4b51fb7dea4",
+      "servedSha256": "94b5f6ad6466608a2d8f57d6a3dfc492cfb9d0bd0ed4c82cefb2f4b51fb7dea4",
+      "servedShaVerified": true
+    }
+  },
+  "browserVersion": "154.0.8037.98",
+  "dependencies": [
+    "Runtime port dependency: window.__torqueNarrative (parent-saved) is the only narrative state source; snapshot()/beats/diagnostics() per the parent contract. No production hooks were added by this verifier.",
+    "Diagnostics are scoped lifecycle accounting owned by the page store; they are not an independent browser-global census, so no global instance-absence claim is made from them.",
+    "Single-conductor evidence combines diagnostics identity (active/lenis/ticker/trigger = 1) with functional mapping proof (settled progress vs native displacement).",
+    "Beat windows are read from the live port beats array; production beats.ts/beatTimeline.ts are owned by the timeline worker and are not imported here."
+  ],
+  "limits": [
+    "MQL teardown counters are read through a retained read-only getter handle, separately from public port deletion; scoped accounting is not a browser-global resource census.",
+    "visibilityResamples/pageShowResamples are recorded when they occur; hidden-tab resumption is not inducible without faking browser state and remains a separate contract18 functional-stress case.",
+    "invalidProgressInputs is expected stable across this roster (native input cannot produce nonfinite progress without bypassing the mapping, which is forbidden); induced invalid-input proof belongs to conductor-runtime CPU tests.",
+    "lagSmoothingMode is recorded verbatim; its accepted representation is owned by the conductor worker, so no semantic assertion is made.",
+    "Duplicate-lease protection is observable only through conductor counters; this roster asserts actives stay 1 and counters do not drift during native input. Induced double-mount would require production-hook edits (forbidden here) or a parent-scheduled dev-server StrictMode window (deferred; production preview has no StrictMode double-mount).",
+    "Scrollbar drag requires classic (non-overlay) scrollbars in headless Chrome; zero native displacement is a FAIL with recorded evidence, never a silent skip. Case is D-viewport only (N is touch emulation).",
+    "Physical hold-drift tolerances (position/quaternion/FOV/shader channels) are unmeasurable at the Stage 2 zero-GPU placeholder; hold equality is asserted at progress/beat/sample level.",
+    "No hardware or software rendering claim: launch configuration and browser version are recorded as configuration only; Stage 2 Scene is zero-GPU (data-torque-scene=\"placeholder\")."
+  ],
+  "preflight": [
+    {
+      "name": "playwright package resolvable",
+      "pass": true,
+      "detail": "version 1.56.1"
+    },
+    {
+      "name": "browser-launch contract present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "private torque entry present",
+      "pass": true,
+      "detail": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\torque-wrench\\index.html"
+    },
+    {
+      "name": "Scene.tsx carries parent port integration markers",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "torqueWrenchStore carries narrative + diagnostics contract markers",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "cases": [
+    {
+      "id": "N-live-conductor-forward",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "live-conductor-forward",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 25069,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "page resolves to live mode with narrative port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true,\"stage\":\"scene\",\"scenePlaceholder\":\"live\"}"
+        },
+        {
+          "name": "live renderer and initial sheet bake ready before input",
+          "pass": true,
+          "detail": "worldReady=true"
+        },
+        {
+          "name": "exactly one .torque-scene live host element",
+          "pass": true,
+          "detail": "count=1"
+        },
+        {
+          "name": "lazy Scene module requested exactly once",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "port exposes snapshot()/beats/diagnostics()",
+          "pass": true,
+          "detail": "snapshot=true beats=true diagnostics=true"
+        },
+        {
+          "name": "beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "single conductor via diagnostics (active/lenis/ticker/trigger = 1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "initial progress settles at 0 with first beat entering",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "wheel 12x120px settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=1322"
+        },
+        {
+          "name": "wheel 12x120px advances progress via native mapping",
+          "pass": true,
+          "detail": "{\"dPx\":480,\"dProg\":0.012901838511987958,\"expected\":0.012901838511987958}"
+        },
+        {
+          "name": "wheel 12x120px mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=480 expectedDProgress=0.012901838511987958 actualDProgress=0.012901838511987958"
+        },
+        {
+          "name": "wheel 4x1200px settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=1661"
+        },
+        {
+          "name": "wheel 4x1200px mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=1600 expectedDProgress=0.04300612837329319 actualDProgress=0.04300612837329319"
+        },
+        {
+          "name": "settled beatId matches the [start,end) beat table",
+          "pass": true,
+          "detail": "progress=0.05590796688528115 beatId=drafting-detail expected=drafting-detail"
+        },
+        {
+          "name": "phase matches contract derivation from localProgress",
+          "pass": true,
+          "detail": "{\"progress\":0.05590796688528115,\"beatId\":\"drafting-detail\",\"localProgress\":0.9317994480880192,\"phase\":\"exiting\",\"stateKey\":\"[0.05590796688528115,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0.9317994480880192,null,\\\"drafting-authorship\\\",\\\"exiting\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "wheel 4x-1200px reverse mapping within 1%",
+          "pass": true,
+          "detail": "dPx=-1600 expectedDProgress=-0.04300612837329319 actualDProgress=-0.04300612837329319"
+        },
+        {
+          "name": "repeat identical wheel burst settles to the same progress (deterministic single mapping)",
+          "pass": true,
+          "detail": "repeatDelta=0"
+        },
+        {
+          "name": "repeat burst mapping within 1%",
+          "pass": true,
+          "detail": "dPx=1600 expectedDProgress=0.04300612837329319 actualDProgress=0.04300612837329319"
+        },
+        {
+          "name": "diagnostics unchanged by native input (no conductor churn, no invalid inputs)",
+          "pass": true,
+          "detail": "{\"before\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"after\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"}}"
+        },
+        {
+          "name": "resize triggers conductor refresh accounting and resamples mapping",
+          "pass": true,
+          "detail": "{\"refreshBefore\":0,\"refreshAfter\":2}"
+        },
+        {
+          "name": "post-resize progress re-derived from native document metrics",
+          "pass": true,
+          "detail": "scrollY=2080 max=35049 expected=0.05934548774572741 actual=0.059430269436269605"
+        },
+        {
+          "name": "progress returns to pre-resize value after viewport restore",
+          "pass": true,
+          "detail": "{\"before\":0.05590796688528115,\"after\":0.05590796688528115}"
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[{\"t\":218,\"id\":null,\"cls\":null}],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":1}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live initialization requests narrative CAD assets",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/models/Default.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\"]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-live-keyboard-inputs",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "live-keyboard-inputs",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 25093,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "page resolves to live mode with narrative port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true,\"stage\":\"scene\",\"scenePlaceholder\":\"live\"}"
+        },
+        {
+          "name": "live renderer and initial sheet bake ready before input",
+          "pass": true,
+          "detail": "worldReady=true"
+        },
+        {
+          "name": "exactly one .torque-scene live host element",
+          "pass": true,
+          "detail": "count=1"
+        },
+        {
+          "name": "lazy Scene module requested exactly once",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "port exposes snapshot()/beats/diagnostics()",
+          "pass": true,
+          "detail": "snapshot=true beats=true diagnostics=true"
+        },
+        {
+          "name": "beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "single conductor via diagnostics (active/lenis/ticker/trigger = 1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "initial progress settles at 0 with first beat entering",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "ArrowDown x10 @100ms settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=821"
+        },
+        {
+          "name": "ArrowDown x10 @100ms mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=400 expectedDProgress=0.010751532093323298 actualDProgress=0.010751532093323298"
+        },
+        {
+          "name": "PageDown x3 @500ms settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=718"
+        },
+        {
+          "name": "PageDown x3 @500ms mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=2214 expectedDProgress=0.05950973013654446 actualDProgress=0.05950973013654445"
+        },
+        {
+          "name": "ArrowUp x10 @100ms settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=824"
+        },
+        {
+          "name": "ArrowUp x10 @100ms mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=-400 expectedDProgress=-0.010751532093323298 actualDProgress=-0.010751532093323295"
+        },
+        {
+          "name": "PageUp x3 @500ms settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=727"
+        },
+        {
+          "name": "PageUp x3 @500ms mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=-2214 expectedDProgress=-0.05950973013654446 actualDProgress=-0.05950973013654446"
+        },
+        {
+          "name": "Home settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=704"
+        },
+        {
+          "name": "Home mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=0 expectedDProgress=0 actualDProgress=0"
+        },
+        {
+          "name": "Home returns progress to 0",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "End settles within bound",
+          "pass": true,
+          "detail": "convergenceMs=1054"
+        },
+        {
+          "name": "End mapping within 1% of native displacement",
+          "pass": true,
+          "detail": "dPx=37204 expectedDProgress=1 actualDProgress=1"
+        },
+        {
+          "name": "End reaches progress 1 with final beat exiting",
+          "pass": true,
+          "detail": "{\"progress\":1,\"beatId\":\"close-ownership\",\"localProgress\":1,\"phase\":\"exiting\",\"stateKey\":\"[1,22,{\\\"id\\\":\\\"close-ownership\\\",\\\"start\\\":0.98,\\\"end\\\":1,\\\"title\\\":\\\"Ownership and next action\\\",\\\"copy\\\":\\\"Keep the final composition settled while the story hands off to the page links.\\\",\\\"camera\\\":\\\"close\\\",\\\"scene\\\":\\\"close\\\",\\\"director\\\":\\\"close\\\",\\\"poster\\\":\\\"close\\\"},1,\\\"close-settle\\\",null,\\\"exiting\\\"]\",\"previousId\":\"close-settle\",\"nextId\":null}"
+        },
+        {
+          "name": "keyboard roster leaves exactly one Scene request (no re-import)",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[{\"t\":197,\"id\":null,\"cls\":null}],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":1}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live initialization requests narrative CAD assets",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/models/Default.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\"]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-live-equality",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "live-equality",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 77616,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "page resolves to live mode with narrative port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true,\"stage\":\"scene\",\"scenePlaceholder\":\"live\"}"
+        },
+        {
+          "name": "live renderer and initial sheet bake ready before input",
+          "pass": true,
+          "detail": "worldReady=true"
+        },
+        {
+          "name": "exactly one .torque-scene live host element",
+          "pass": true,
+          "detail": "count=1"
+        },
+        {
+          "name": "lazy Scene module requested exactly once",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "port exposes snapshot()/beats/diagnostics()",
+          "pass": true,
+          "detail": "snapshot=true beats=true diagnostics=true"
+        },
+        {
+          "name": "beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "single conductor via diagnostics (active/lenis/ticker/trigger = 1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "initial progress settles at 0 with first beat entering",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "reference seek 0 settles",
+          "pass": true,
+          "detail": "convergenceMs=791"
+        },
+        {
+          "name": "reference seek 0.25 settles",
+          "pass": true,
+          "detail": "convergenceMs=835"
+        },
+        {
+          "name": "reference seek 0.5 settles",
+          "pass": true,
+          "detail": "convergenceMs=744"
+        },
+        {
+          "name": "reference seek 0.75 settles",
+          "pass": true,
+          "detail": "convergenceMs=1389"
+        },
+        {
+          "name": "reference seek 1 settles",
+          "pass": true,
+          "detail": "convergenceMs=844"
+        },
+        {
+          "name": "forward/reverse approaches equal direct-seek reference at matched progress",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "progress equality within 1e-9 across approaches",
+          "pass": true,
+          "detail": "maxDelta=0"
+        },
+        {
+          "name": "beat boundary ownership follows [start,end) with final beat including 1",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "after reload page returns to live mode with port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true}"
+        },
+        {
+          "name": "post-reload sample equals pre-reload sample at the same position (restoration respected, no forced top)",
+          "pass": true,
+          "detail": "[] scrollY=18602 max=37204"
+        },
+        {
+          "name": "post-reload diagnostics identity fresh mount (1/1/1/1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "reload produced exactly two Scene requests total (one per document load)",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\",\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "5s fixed-progress hold: progress drift <= 1e-9 and beat/phase/stateKey constant",
+          "pass": true,
+          "detail": "drift=0 identityOk=true samples=4"
+        },
+        {
+          "name": "hold produces no conductor churn (mount/dispose/refresh stable)",
+          "pass": true,
+          "detail": "{\"anchor\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"final\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"}}"
+        },
+        {
+          "name": "one live document canvas mounted and none removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[{\"t\":197,\"id\":null,\"cls\":null}],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":1}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "live initialization requests narrative CAD assets",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/models/Default.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\",\"http://localhost:5288/models/manufacturing-core-full.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\",\"http://localhost:5288/models/knurling-tool.glb\",\"http://localhost:5288/models/Default.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\"]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js",
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          },
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm",
+          "http://localhost:5288/models/manufacturing-core-full.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm",
+          "http://localhost:5288/models/knurling-tool.glb",
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-poster-explicit",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "poster-explicit",
+      "url": "http://localhost:5288/torque-wrench/?quality=poster",
+      "status": "PASS",
+      "durationMs": 4352,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/?quality=poster"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "poster-explicit: terminal static poster state",
+          "pass": true,
+          "detail": "{\"mode\":\"static\",\"stage\":\"poster\",\"present\":false}"
+        },
+        {
+          "name": "poster-explicit: no telemetry port on static path",
+          "pass": true,
+          "detail": "{\"present\":false,\"sceneCount\":0}"
+        },
+        {
+          "name": "poster-explicit: zero Scene module requests (tier decided before narrative imports)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "poster-explicit: port stays absent and mode stays static across native scroll",
+          "pass": true,
+          "detail": "{\"present\":false,\"mode\":\"static\"}"
+        },
+        {
+          "name": "poster-explicit: no additional Scene requests after scroll",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":0}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-reduced-motion",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "reduced-motion",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 4334,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "reduced-motion(fresh): terminal static poster state",
+          "pass": true,
+          "detail": "{\"mode\":\"static\",\"stage\":\"poster\",\"present\":false}"
+        },
+        {
+          "name": "reduced-motion(fresh): no telemetry port on static path",
+          "pass": true,
+          "detail": "{\"present\":false,\"sceneCount\":0}"
+        },
+        {
+          "name": "reduced-motion(fresh): zero Scene module requests (tier decided before narrative imports)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "reduced-motion(fresh): port stays absent and mode stays static across native scroll",
+          "pass": true,
+          "detail": "{\"present\":false,\"mode\":\"static\"}"
+        },
+        {
+          "name": "reduced-motion(fresh): no additional Scene requests after scroll",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":0}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-mql-downgrade",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "mql-downgrade",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 22736,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "page resolves to live mode with narrative port",
+          "pass": true,
+          "detail": "{\"mode\":\"live\",\"present\":true,\"stage\":\"scene\",\"scenePlaceholder\":\"live\"}"
+        },
+        {
+          "name": "live renderer and initial sheet bake ready before input",
+          "pass": true,
+          "detail": "worldReady=true"
+        },
+        {
+          "name": "exactly one .torque-scene live host element",
+          "pass": true,
+          "detail": "count=1"
+        },
+        {
+          "name": "lazy Scene module requested exactly once",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "port exposes snapshot()/beats/diagnostics()",
+          "pass": true,
+          "detail": "snapshot=true beats=true diagnostics=true"
+        },
+        {
+          "name": "beat windows valid: unique ids, ordered 0..1 coverage, five semantic chapters present",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "single conductor via diagnostics (active/lenis/ticker/trigger = 1)",
+          "pass": true,
+          "detail": "{\"diagnostics\":{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"},\"errors\":[]}"
+        },
+        {
+          "name": "initial progress settles at 0 with first beat entering",
+          "pass": true,
+          "detail": "{\"progress\":0,\"beatId\":\"drafting-detail\",\"localProgress\":0,\"phase\":\"entering\",\"stateKey\":\"[0,0,{\\\"id\\\":\\\"drafting-detail\\\",\\\"start\\\":0,\\\"end\\\":0.06,\\\"title\\\":\\\"Read the detail\\\",\\\"copy\\\":\\\"Begin close to the registered drawing and its engineering detail.\\\",\\\"camera\\\":\\\"rake\\\",\\\"scene\\\":\\\"drawing\\\",\\\"director\\\":\\\"opening\\\",\\\"poster\\\":\\\"drafting\\\"},0,null,\\\"drafting-authorship\\\",\\\"entering\\\"]\",\"previousId\":null,\"nextId\":\"drafting-authorship\"}"
+        },
+        {
+          "name": "mql-downgrade: mid-session MQL step-down reaches terminal static poster",
+          "pass": true,
+          "detail": "{\"mode\":\"static\",\"stage\":\"poster\",\"present\":false}"
+        },
+        {
+          "name": "mql-downgrade: telemetry port deleted on terminal teardown",
+          "pass": true,
+          "detail": "deleted=true sceneCount=0"
+        },
+        {
+          "name": "mql-downgrade: all scoped owned conductor resources released",
+          "pass": true,
+          "detail": "{\"activeConductors\":0,\"lenisInstances\":0,\"lenisScrollHandlers\":0,\"tickerCallbacks\":0,\"scrollTriggers\":0,\"domListeners\":0,\"storeLifecycleSubscriptions\":0,\"mountCount\":1,\"disposeCount\":1,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"}"
+        },
+        {
+          "name": "mql-downgrade: exactly one Scene request total (no re-import after downgrade)",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "mql-downgrade: last readable diagnostics show one mount, zero actives-candidate churn markers preserved",
+          "pass": true,
+          "detail": "{\"activeConductors\":1,\"lenisInstances\":1,\"lenisScrollHandlers\":1,\"tickerCallbacks\":1,\"scrollTriggers\":1,\"domListeners\":3,\"storeLifecycleSubscriptions\":1,\"mountCount\":1,\"disposeCount\":0,\"refreshCount\":0,\"visibilityResamples\":0,\"pageShowResamples\":0,\"invalidProgressInputs\":0,\"startupFailureCount\":0,\"cleanupFailureCount\":0,\"lagSmoothingMode\":\"configured-once\"}"
+        },
+        {
+          "name": "mql-downgrade: port stays deleted and no Scene re-request after post-downgrade scroll (terminal path)",
+          "pass": true,
+          "detail": "{\"present\":false,\"sceneRequests\":1}"
+        },
+        {
+          "name": "downgraded live document canvas removed exactly once",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[{\"t\":273,\"id\":null,\"cls\":null}],\"canvasRemovals\":1,\"offscreenCanvasConstructions\":1}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "1"
+        },
+        {
+          "name": "downgrade follows initialized narrative CAD assets",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/models/Default.glb\",\"http://localhost:5288/draco/draco_wasm_wrapper.js\",\"http://localhost:5288/draco/draco_decoder.wasm\"]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": {
+          "activeConductors": 1,
+          "lenisInstances": 1,
+          "lenisScrollHandlers": 1,
+          "tickerCallbacks": 1,
+          "scrollTriggers": 1,
+          "domListeners": 3,
+          "storeLifecycleSubscriptions": 1,
+          "mountCount": 1,
+          "disposeCount": 0,
+          "refreshCount": 0,
+          "visibilityResamples": 0,
+          "pageShowResamples": 0,
+          "invalidProgressInputs": 0,
+          "startupFailureCount": 0,
+          "cleanupFailureCount": 0,
+          "lagSmoothingMode": "configured-once"
+        },
+        "disposedDiagnostics": {
+          "activeConductors": 0,
+          "lenisInstances": 0,
+          "lenisScrollHandlers": 0,
+          "tickerCallbacks": 0,
+          "scrollTriggers": 0,
+          "domListeners": 0,
+          "storeLifecycleSubscriptions": 0,
+          "mountCount": 1,
+          "disposeCount": 1,
+          "refreshCount": 0,
+          "visibilityResamples": 0,
+          "pageShowResamples": 0,
+          "invalidProgressInputs": 0,
+          "startupFailureCount": 0,
+          "cleanupFailureCount": 0,
+          "lagSmoothingMode": "configured-once"
+        },
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm"
+        ],
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    },
+    {
+      "id": "N-scene-import-abort",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "scene-import-abort",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 5869,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "failure case: port absent while the Scene response is held",
+          "pass": true,
+          "detail": "{\"mode\":\"pending\",\"present\":false}"
+        },
+        {
+          "name": "failure case: exact Scene request observed before release",
+          "pass": true,
+          "detail": "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        },
+        {
+          "name": "abort: semantic fallback reaches terminal static poster",
+          "pass": true,
+          "detail": "{\"mode\":\"static\",\"stage\":\"poster\",\"present\":false}"
+        },
+        {
+          "name": "abort: telemetry port absent after terminal fallback (never installed or deleted)",
+          "pass": true,
+          "detail": "{\"present\":false,\"sceneCount\":0}"
+        },
+        {
+          "name": "abort: exactly one Scene request and no response body committed",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "abort: console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Failed to load resource: net::ERR_FAILED\",\"url\":\"http://localhost:5288/assets/Scene-DLot1vMW.js\"}]"
+        },
+        {
+          "name": "abort: zero uncaught page errors (SceneBoundary catches)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "abort: no additional Scene requests after post-failure scroll (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "abort: port stays absent across post-failure scroll",
+          "pass": true,
+          "detail": "present=false"
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":0}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[{\"text\":\"Failed to load resource: net::ERR_FAILED\",\"url\":\"http://localhost:5288/assets/Scene-DLot1vMW.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [],
+        "sceneModuleRequestFailed": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "error": "net::ERR_FAILED"
+          }
+        ],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Failed to load resource: net::ERR_FAILED",
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js"
+          }
+        ],
+        "pageErrors": [],
+        "requestFailed": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "error": "net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "N-scene-render-throw",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "scene-render-throw",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "PASS",
+      "durationMs": 7509,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-DzCqm0A7.js"
+        },
+        {
+          "name": "failure case: port absent while the Scene response is held",
+          "pass": true,
+          "detail": "{\"mode\":\"pending\",\"present\":false}"
+        },
+        {
+          "name": "failure case: exact Scene request observed before release",
+          "pass": true,
+          "detail": "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        },
+        {
+          "name": "throw: semantic fallback reaches terminal static poster",
+          "pass": true,
+          "detail": "{\"mode\":\"static\",\"stage\":\"poster\",\"present\":false}"
+        },
+        {
+          "name": "throw: telemetry port absent after terminal fallback (never installed or deleted)",
+          "pass": true,
+          "detail": "{\"present\":false,\"sceneCount\":0}"
+        },
+        {
+          "name": "throw: exactly one Scene request and no response body committed",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "throw: console errors all correlate to the exact Scene failure",
+          "pass": true,
+          "detail": "[{\"text\":\"Error: TORQUE_TIMELINE_RENDER_THROW_INJECTION\\n    at http://localhost:5288/assets/Scene-DLot1vMW.js:2:17\",\"url\":\"http://localhost:5288/assets/index-fDwt6Stp.js\"}]"
+        },
+        {
+          "name": "throw: zero uncaught page errors (SceneBoundary catches)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "throw: no additional Scene requests after post-failure scroll (cadGate seal)",
+          "pass": true,
+          "detail": "[\"http://localhost:5288/assets/Scene-DLot1vMW.js\"]"
+        },
+        {
+          "name": "throw: port stays absent across post-failure scroll",
+          "pass": true,
+          "detail": "present=false"
+        },
+        {
+          "name": "zero document canvas mounts incl. removed",
+          "pass": true,
+          "detail": "{\"canvasMounts\":[],\"canvasRemovals\":0,\"offscreenCanvasConstructions\":0}"
+        },
+        {
+          "name": "at most one auxiliary OffscreenCanvas construction",
+          "pass": true,
+          "detail": "0"
+        },
+        {
+          "name": "zero narrative CAD/decoder byte requests from initialization",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero HTTP error responses (>=400)",
+          "pass": true,
+          "detail": "[]"
+        },
+        {
+          "name": "zero unrelated console errors",
+          "pass": true,
+          "detail": "[{\"text\":\"Error: TORQUE_TIMELINE_RENDER_THROW_INJECTION\\n    at http://localhost:5288/assets/Scene-DLot1vMW.js:2:17\",\"url\":\"http://localhost:5288/assets/index-fDwt6Stp.js\"}]"
+        },
+        {
+          "name": "zero uncaught page errors",
+          "pass": true,
+          "detail": "[]"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-DLot1vMW.js",
+        "finalDiagnostics": null,
+        "disposedDiagnostics": null,
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-DLot1vMW.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-DLot1vMW.js",
+            "status": 200
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [],
+        "httpErrors": [],
+        "consoleErrors": [
+          {
+            "text": "Error: TORQUE_TIMELINE_RENDER_THROW_INJECTION\n    at http://localhost:5288/assets/Scene-DLot1vMW.js:2:17",
+            "url": "http://localhost:5288/assets/index-fDwt6Stp.js"
+          }
+        ],
+        "pageErrors": [],
+        "requestFailed": []
+      }
+    }
+  ],
+  "result": "PASS",
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0
+  }
+}

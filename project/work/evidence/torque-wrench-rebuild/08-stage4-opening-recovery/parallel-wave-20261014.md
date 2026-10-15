@@ -1,0 +1,21 @@
+# JG-038 functional-readiness parallel preparation wave — 2026-10-14
+
+Documentation closeout: current continuation is `docs/torque-wrench-rebuild/HANDOFF-2026-10-14-parallel-functional.md`. Subsequent documentation audit/map agents failed429 and DNS/502 and were closed; parent completed the reconciliation. They are distinct from the successful preparation workers in the table below. TODO's authorized status delta is recorded in `doc-refresh-provenance-20261014.json`; original frozen capture records retained.
+
+Authority: existing autonomous JG-038 implementation request and selected GLM lineup. Functional readiness is a prioritization lens; no approved gate is waived.
+
+Frozen production input: `.scratch/jg038-stage4-20261013-s`, preview `http://localhost:5288/torque-wrench/`. Browser/build/GPU jobs are serialized by the parent. No worker may mutate frozen source or start heavy jobs.
+
+| Lane | Configured model/effort | Exact write ownership | Output and dependencies |
+| --- | --- | --- | --- |
+| Opening reliability | Parent | `.scratch/stage4-continuity.mjs`, fresh `continuity-20261014-s3-D/`, subsequent unique captures | Add request failure/console-location diagnostics; obtain provenance-bound clean desktop/narrow sweeps before manifest finalization |
+| Compatibility preparation | `zai/glm-5.3-flash` / high, agent `01a138cb-3d2b-7f82-b529-2f1885a97a17` | `parallel-compatibility-prep-20261014.md` only | Existing verifier commands and pass conditions; parent schedules runtime checks after opening runs |
+| Lifecycle/performance preparation | `zai/glm-5.3` / high, agent `01a138cb-569c-78a0-acdc-0a0c4fa72642` | `parallel-lifecycle-perf-prep-20261014.md` only | Source risks, approved performance thresholds and dependency-ordered checks; actual device proof remains separate |
+
+Launch settings above are configured routing, not independent proof of the provider backend. GLM source/preparation work is distinct from mandatory Astra and owner acceptance. Parent integrates only delivered artifacts, verifies claims, and closes worker ownership before editing their files.
+
+Stage 5 implementation follows the Stage 4 checkpoint. Offline-art planning can proceed from the beat inventory; final compositions/art depend on settled rendering. Preserve protected sibling and unrelated drift. No commit, push, publish, cutover, or acceptance claim.
+
+Status: this bounded preparation/verification wave is complete. Opening D/N diagnostic captures complete and clean (each1083 observations,zero console/page/request errors,no>100ms gap,max17.1/16.9ms). Manifest generated and verified347source/6preserved/4reports/116PNGs. Earlier s2 fetch errors remain preserved and unexplained; a clean rerun is not a root-cause fix. Both preparation artifacts delivered and workers closed; parent now owns their files. Integration corrected the G8 phase-report count to60 (2viewports×2tiers×3runs×5phases), avoided output writes inside the frozen build, and corrected timeline output ownership. Cutter/control roster `functional-cutter-20261014-s/report.json` passes four cases each258/258 with zero errors/unmapped responses. Static D/N each7/7 pass in `../05-stage1-integration/runtime/functional-20261014-s-D.json` and `-N.json`; reduced-motion/poster/import-failure/render-failure/mql transition checks are fresh on build s. Static checks do not prove real WebGL initialization failure, final poster artwork or all keyboard-visible focus. Desktop timeline roster passes9/9 in `../07-autonomous-2026-10-12/runtime-timeline/functional-20261014-s-D.json`; current-build narrow timeline8-case roster remains pending. No heavy job or child agent remains running; unchanged task preview remains available. Rejected static output-path attempts ran no browser cases. G0–G9 remain open.
+
+Next functional checks: narrow timeline8-case roster; all-viewports/tiers mechanical parity; fresh real context-loss and BFCache attempt; actual renderer-init failure and integrated remount/churn/hidden-low-rate checks; device performance pilot and full approved roster. Stage5/6 rendering/art and Astra/owner review remain distinct dependencies. Exact reusable commands and unproven observations are in the two preparation artifacts.

@@ -1,0 +1,1771 @@
+{
+  "createdAt": "2026-10-14T02:23:19.867Z",
+  "branch": "torque-wrench/rebuild",
+  "head": "1c7a7d2d1d73b1a94d015bfcae10c101cd94b72c",
+  "files": [
+    {
+      "path": "package-lock.json",
+      "bytes": 139779,
+      "sha256": "3c15aa2730f8ff2f63ebe487ac72ecdf5ce02cdb58bc4b07af37829701dbb1c2"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1327,
+      "sha256": "e835e0f32288b5b58b120e852f0cc1757976d8b146c06b9c7e278e33aa7f42b1"
+    },
+    {
+      "path": "public/_headers",
+      "bytes": 646,
+      "sha256": "bb225e419b3542a1f1fc813d35d7252d3db7e1e4c1e513b4dd66b9c0eddf3ab7"
+    },
+    {
+      "path": "public/404.html",
+      "bytes": 2244,
+      "sha256": "67af9080f4d108bd2fa0603ce1b9b21ec9360fd3959826ba933dc5fd01236b5f"
+    },
+    {
+      "path": "public/draco/draco_decoder.js",
+      "bytes": 512498,
+      "sha256": "a47cd7c84911c5175bb0511c01ba41ddafb71873fd391f055def514398f5e7c4"
+    },
+    {
+      "path": "public/draco/draco_decoder.wasm",
+      "bytes": 192420,
+      "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+    },
+    {
+      "path": "public/draco/draco_wasm_wrapper.js",
+      "bytes": 58572,
+      "sha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960"
+    },
+    {
+      "path": "public/drawing/jgun-sheet-v1.evidence.json",
+      "bytes": 4149,
+      "sha256": "9d96e4c815cf11375cfb863f64bca8ebfc165cccc8cb896afa5bc9ef0bbacf6c"
+    },
+    {
+      "path": "public/drawing/jgun-sheet-v1.json.gz",
+      "bytes": 6106663,
+      "sha256": "307e1fbb2edf889b78f15720b8405f9e1d0ec2ba1708368f73f25d07090ac343"
+    },
+    {
+      "path": "public/drawing/jgun-sheet-v2.bin.gz",
+      "bytes": 4205481,
+      "sha256": "8d4a3d10ea75d7221ab510c4cd476fc762f74759e5f8fee266284ad03fecaec3"
+    },
+    {
+      "path": "public/drawing/jgun-sheet-v2.evidence.json",
+      "bytes": 4728,
+      "sha256": "3de7c90fdf12be636cb58a02dfc900e07d2a96419ba2beb3c3dcf1a57b78b5eb"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 495,
+      "sha256": "542c96ae82f47d959020cf2036b33f1654001aaa223c85944212a584e62f6aaf"
+    },
+    {
+      "path": "public/fonts/AcFastReference.ttf",
+      "bytes": 13392,
+      "sha256": "3bff43202631b0a68cfdd42061c10e863407654193ab4d60e4a20bb3b7ee9870"
+    },
+    {
+      "path": "public/fonts/BarlowCondensed-Medium.ttf",
+      "bytes": 103360,
+      "sha256": "262bd143292ce479ee0cd09a42b47ab173fca8e9c6eb5ed0b5c8a845bc371d17"
+    },
+    {
+      "path": "public/fonts/BarlowCondensed-SemiBold.ttf",
+      "bytes": 109428,
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9"
+    },
+    {
+      "path": "public/images/rl300-exterior-preview.png",
+      "bytes": 156284,
+      "sha256": "fdacd1326b58f6faa2bb2b0d2e042ae16fc087b539a52b9ce10304c312a7ce73"
+    },
+    {
+      "path": "public/images/rl300-intake-preview.png",
+      "bytes": 358050,
+      "sha256": "75dafb8be85e027f05b204228088df57aa1513da9c3a64efe561bbe41fa9d6da"
+    },
+    {
+      "path": "public/images/rl300-section-preview.png",
+      "bytes": 223249,
+      "sha256": "2f89b10fd308435359d6adf646e7cc1204850b248723e2d0937c957e2f7b57e5"
+    },
+    {
+      "path": "public/inspection/shaft/assembled-finale-desktop.webp",
+      "bytes": 19796,
+      "sha256": "94a3e12b79d768b26436c284140fd11633df01ff79121e82f015d033a49a68c4"
+    },
+    {
+      "path": "public/inspection/shaft/assembled-finale-narrow.webp",
+      "bytes": 12200,
+      "sha256": "edb75088a5f63e0db48378f6f76c38ba4f71a28a4484ac037604fe7848904092"
+    },
+    {
+      "path": "public/inspection/shaft/cool-stress-desktop.webp",
+      "bytes": 19842,
+      "sha256": "1a0d028fc34f860d8d77243ca372e0b6ab2817a030d222cab02ab93dfd1f0ecb"
+    },
+    {
+      "path": "public/inspection/shaft/cool-stress-narrow.webp",
+      "bytes": 14432,
+      "sha256": "e839d03547de870cbbecc508b06152e822204865b944c54a167d5b40d01f238a"
+    },
+    {
+      "path": "public/inspection/shaft/cutter-exit-desktop.webp",
+      "bytes": 15448,
+      "sha256": "a890981fe1dbd880d75e5078d9be6ee7adb90d037f6a9d8f09ed688ebe9acc4e"
+    },
+    {
+      "path": "public/inspection/shaft/cutter-exit-narrow.webp",
+      "bytes": 9810,
+      "sha256": "b8893edda29827e16b49bdfe366a3cc964fac78211aeeaed05301ef1c8572d24"
+    },
+    {
+      "path": "public/inspection/shaft/hobbed-desktop.webp",
+      "bytes": 23390,
+      "sha256": "a7164b75c986f9e581f0ad961a99aa7539ba223e4e8c9918be1a463efdb787a7"
+    },
+    {
+      "path": "public/inspection/shaft/hobbed-narrow.webp",
+      "bytes": 13692,
+      "sha256": "334a1a66ebbe5451fd04193318f47eb808bb4b10cc3c91a709c37bc48dda9eec"
+    },
+    {
+      "path": "public/inspection/shaft/material-attempts-desktop.webp",
+      "bytes": 20146,
+      "sha256": "6a3acf3ae48ed657c8f0e18c976e9d89d0a74aa4fab155d99d4083990fc1f036"
+    },
+    {
+      "path": "public/inspection/shaft/material-attempts-narrow.webp",
+      "bytes": 10820,
+      "sha256": "b25505058bd017a6e8898c0318b74c4fce885976173ff9eb70b6f444bd37f213"
+    },
+    {
+      "path": "public/inspection/shaft/revised-blank-desktop.webp",
+      "bytes": 18608,
+      "sha256": "0e5be5d74c75e09bf42c8879e21fcb23516660aab3dce27838abaedceae01533"
+    },
+    {
+      "path": "public/inspection/shaft/revised-blank-narrow.webp",
+      "bytes": 10304,
+      "sha256": "c591f2a020758365be3274c9bacf8b39ec07d506aae3c6e5599d51a83ac4c814"
+    },
+    {
+      "path": "public/inspection/shaft/support-after-desktop.webp",
+      "bytes": 15994,
+      "sha256": "29ce4633b5f9cf698a4ed89a0aea1db295871579605ee1a75bc609dafddccce7"
+    },
+    {
+      "path": "public/inspection/shaft/support-after-narrow.webp",
+      "bytes": 12584,
+      "sha256": "fa2562f4064f727bc474bc64c8f3b8d805be91d624ecda2abc751fb5b86c81c6"
+    },
+    {
+      "path": "public/inspection/shaft/support-before-desktop.webp",
+      "bytes": 15272,
+      "sha256": "33c991372a262d727b1b9aad6259a789ce9d0fb971231da84d2fc85b47052813"
+    },
+    {
+      "path": "public/inspection/shaft/support-before-narrow.webp",
+      "bytes": 12624,
+      "sha256": "c637dcba545c069381c40d2078efa002f6c581750eaac02fea6ae8650571415f"
+    },
+    {
+      "path": "public/models/Default.glb",
+      "bytes": 10671700,
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257"
+    },
+    {
+      "path": "public/models/knurling-tool.glb",
+      "bytes": 1798620,
+      "sha256": "e5bff99439eb6655ea9eda3929fcca2f3e388b98c5742dcef95c371423c8fbd8"
+    },
+    {
+      "path": "public/models/m249-transformed.glb",
+      "bytes": 892092,
+      "sha256": "1c251f45b05b736a08858e47c53c8fa779870b636bb1a174d1422d8003305423"
+    },
+    {
+      "path": "public/models/manufacturing-core-full.glb",
+      "bytes": 678008,
+      "sha256": "17f90d73a8312bb9b91b3e4468ea3a598e046df0897714091243fed6722183be"
+    },
+    {
+      "path": "public/models/manufacturing-core-lite.glb",
+      "bytes": 415424,
+      "sha256": "b38b91fa4371a1f04c28214ed5d6aaf8d97ffedb3e099d8eadea691c09200e6f"
+    },
+    {
+      "path": "public/models/msp-enclosure.glb",
+      "bytes": 2671600,
+      "sha256": "c1c919ab8f747e9e2bd9eeb51b5ac31ee66dc39145cac44ad7c8fddfa056428e"
+    },
+    {
+      "path": "public/models/rl300-lite.glb",
+      "bytes": 1139588,
+      "sha256": "d4c0d9a70e45e5fa6c06ae38635336a2d03837c3cf3b3ce48a4aaab5da566ea4"
+    },
+    {
+      "path": "public/models/role-map.json",
+      "bytes": 83136,
+      "sha256": "8c2699ad2e01302aad3e553a22bafc21fbfbb8fa301b6160c39e03f10fad302a"
+    },
+    {
+      "path": "public/og-image.png",
+      "bytes": 68525,
+      "sha256": "eac328624308020f9892d9b3cd8849e9b1d59f21b4c6dc6d9ade3e2b1114cd37"
+    },
+    {
+      "path": "public/robots.txt",
+      "bytes": 25,
+      "sha256": "1cbdbc6504be7abe1267d01d7f565bfcfe5851ba3f6a3754d1d61c8f8a2c6aa3"
+    },
+    {
+      "path": "scripts/build-jg033-lite.py",
+      "bytes": 4121,
+      "sha256": "9cd07fd0e960e795afac0b766bb3df065ee14b2a5d59cd2fc409eca3dd583f3d"
+    },
+    {
+      "path": "scripts/capture-b1b2-baseline.mjs",
+      "bytes": 6079,
+      "sha256": "b31fc87763e03269cb13675ef92bfb6e7d6888abf3470e7e07a403540ebc0fc1"
+    },
+    {
+      "path": "scripts/capture-drawing-sheet.mjs",
+      "bytes": 1133,
+      "sha256": "c030ea752ca87d4107ff14a0221fed4d1f95e5a5bc051b0679a03ce42c9dc78f"
+    },
+    {
+      "path": "scripts/capture-jgun-blackout-motion.mjs",
+      "bytes": 36098,
+      "sha256": "ded7d6ccff49fb0a4626e81ffed9e4fcfa259a22f26a6862d2f4addddfd147e5"
+    },
+    {
+      "path": "scripts/capture-jgun-breakthrough.mjs",
+      "bytes": 9360,
+      "sha256": "4f996977b67c3c17b3210ddb135c3b6bc31f08b8fe20220a05a30c1dc31f3dea"
+    },
+    {
+      "path": "scripts/capture-jgun-drawing-review.mjs",
+      "bytes": 4044,
+      "sha256": "5dd6722a1a13f142490acbd641ef5581a314d37b830947b1ed22b3a52f838955"
+    },
+    {
+      "path": "scripts/capture-jgun-opening.mjs",
+      "bytes": 4084,
+      "sha256": "b51d4586fc853353ddabeb9b66fc28824f639f8b7f8b40ca8b89e69fae1b159b"
+    },
+    {
+      "path": "scripts/capture-owner-revisions.mjs",
+      "bytes": 8742,
+      "sha256": "a08fa071ed0afcc9385f66946a1c9dd1410f8117f74f2f0ac4a4690718f642df"
+    },
+    {
+      "path": "scripts/capture-rl300-baseline.mjs",
+      "bytes": 17176,
+      "sha256": "6e5b3817b2c8c855ca267f96a0b3e937b158539ca620f5beded7d4a377bd69a1"
+    },
+    {
+      "path": "scripts/check-b1b2-contract.mjs",
+      "bytes": 32590,
+      "sha256": "99915c7965425ee893b5ab8076b08294da2efefb49a9fa3fdd878a3f99be1749"
+    },
+    {
+      "path": "scripts/check-fallback.tsx",
+      "bytes": 3559,
+      "sha256": "66f43a3ec9ec23e3f62ae4c7e407eb04fa8080f17e827dda94c927cde4e3011e"
+    },
+    {
+      "path": "scripts/check-qm-jgun-assets.mjs",
+      "bytes": 11641,
+      "sha256": "9a3d9a742a84c0e97b916c3da4992e1396966e5ee6bf9c9cdf5214938c21c034"
+    },
+    {
+      "path": "scripts/check-station2-contract.mjs",
+      "bytes": 2488,
+      "sha256": "4a1ec72baee4f4bfd22ec15208e5e4dfda744b7d4e1493d41eebb623a797a654"
+    },
+    {
+      "path": "scripts/check-torque-stage1-boundary.mjs",
+      "bytes": 5817,
+      "sha256": "9bc378e8478b58989a760e3c7ec9a2a352a721cc96ad7e46d0a970149c7f7ed3"
+    },
+    {
+      "path": "scripts/convert-drawing-precompute.mjs",
+      "bytes": 3453,
+      "sha256": "ee05252ee3fbbc0370fe96beff72157c88811d312f5278c627e1561c2dbe4c64"
+    },
+    {
+      "path": "scripts/deploy-studiomark.ps1",
+      "bytes": 1181,
+      "sha256": "f91b6a2b3e3c40297694bda43120c28265bead0a6a442b9228df05fa2a656092"
+    },
+    {
+      "path": "scripts/diag-shaft-artifacts.mjs",
+      "bytes": 4869,
+      "sha256": "8380dd67141d451af74e24292f8ee1acad9a543cb880cd219cc127237316a038"
+    },
+    {
+      "path": "scripts/export-sheet-template.mjs",
+      "bytes": 7086,
+      "sha256": "4bad0d321ea682b8f8483cfe3bb2d5a37192b1186a7d89221924e05d2ca29c50"
+    },
+    {
+      "path": "scripts/handwriting-reference-extract.cjs",
+      "bytes": 15280,
+      "sha256": "4610c90c4e7e84a3d58df305b255c99206f3625e62a27f99610e531fc766f348"
+    },
+    {
+      "path": "scripts/handwriting-reference-extract.py",
+      "bytes": 875,
+      "sha256": "10748693eacaa0014b4ec263531158d8acd75c28f29a5d1fd0dfb3e4250b7f2b"
+    },
+    {
+      "path": "scripts/higgsfield-example.ts",
+      "bytes": 1691,
+      "sha256": "7e75ac4f7a37a47ba876f48a13b4f6f0c7943b176f0ce466512159509308ba10"
+    },
+    {
+      "path": "scripts/higgsfield-mcp-call.ps1",
+      "bytes": 1103,
+      "sha256": "bf6a3afc6f29d93f3f9416ddd32c08beea7c5ad1a60e1ae605e11ac33acf62fc"
+    },
+    {
+      "path": "scripts/lib/browser-launch.mjs",
+      "bytes": 1613,
+      "sha256": "1c72763b9bec0dfeb2fb03a8120e7628ed216c9384a6fe97b56906557eb6d595"
+    },
+    {
+      "path": "scripts/lib/preview-pixels.mjs",
+      "bytes": 2146,
+      "sha256": "558550bbe1bb43126529cbc7c377c9117132992d4d21c0cbd4bde712c4d17a76"
+    },
+    {
+      "path": "scripts/lib/seam-roi.mjs",
+      "bytes": 3227,
+      "sha256": "c4f2414d0989498a398564e7d8befd14678dfad8769052ebe36b06bf98322f63"
+    },
+    {
+      "path": "scripts/lib/torque-verification-contract.mjs",
+      "bytes": 6380,
+      "sha256": "7cb7fb5578172e972158ff28a9260a768dc0ad1b95e75b4bc92dc4cc8fcbc9bd"
+    },
+    {
+      "path": "scripts/lib/torque-verification-contract.test.ts",
+      "bytes": 3450,
+      "sha256": "e0222b90e63e8a0e01e6754a92bf20949a507e7fca32f317840104e5d511239c"
+    },
+    {
+      "path": "scripts/manufacturing/classify_contacts.py",
+      "bytes": 26749,
+      "sha256": "807c13cf2aef70c5b94c7de2a5756b5a306e9e7afd80229402b57c48310528fb"
+    },
+    {
+      "path": "scripts/manufacturing/cutter_outline.mjs",
+      "bytes": 9931,
+      "sha256": "92cf017859ebd95de9334c8736c69351f0d591ee820e092b73327f259dc9c3a6"
+    },
+    {
+      "path": "scripts/manufacturing/export_study.py",
+      "bytes": 61066,
+      "sha256": "31c2d587358883337235afd6c332c8fbee5d102377265a84f0e3b56f6833e303"
+    },
+    {
+      "path": "scripts/manufacturing/measure_g0.py",
+      "bytes": 27684,
+      "sha256": "24d6e098435ebc188aa7b1ace2b249741a7941aec924fc8748b63117a7a1f4cd"
+    },
+    {
+      "path": "scripts/manufacturing/tool_clearance_meridian.py",
+      "bytes": 26556,
+      "sha256": "ba364481f051fb58b630ef808acd726701c81b9fa125bb72341c683ca5893deb"
+    },
+    {
+      "path": "scripts/manufacturing/tool_clearance.py",
+      "bytes": 47427,
+      "sha256": "51fe3e6ab9f0582b0ca71fdce3dd924a8e603f63f60a37ecad2155fc4173df3b"
+    },
+    {
+      "path": "scripts/measure-jgun-pre-pulse.mjs",
+      "bytes": 6029,
+      "sha256": "4d002da49ab323751af3cbb63b66447633734ea633e4d74d4c9ee050aa0f5b4b"
+    },
+    {
+      "path": "scripts/measure-jgun-visible-dark.mjs",
+      "bytes": 43721,
+      "sha256": "83f26d5c920b71a0ee8997f442d141cb7fc7ec97b2e0a281b5b6521ce9c61beb"
+    },
+    {
+      "path": "scripts/og-image-source.html",
+      "bytes": 2992,
+      "sha256": "76120d9b66d931b0553a158939ae6bbae69a49cdaff952409f8c29bcad388d6c"
+    },
+    {
+      "path": "scripts/precompute-drawing.mjs",
+      "bytes": 6951,
+      "sha256": "1166e6f387b44bfca583d2f9b430bc163eb3658b42733983d6b63c463ca80662"
+    },
+    {
+      "path": "scripts/probe-jgun-vellum.mjs",
+      "bytes": 12757,
+      "sha256": "535bf57ac385899d601d3ac4ae5ede54f6f5833eb054244312d87cb50fbaa9b1"
+    },
+    {
+      "path": "scripts/record-torque-stage4-provenance.mjs",
+      "bytes": 2193,
+      "sha256": "b644e4365bcbb858973e9bda001043d7c901d228aa31856d275944c7c748698e"
+    },
+    {
+      "path": "scripts/render-handwriting-comparison.py",
+      "bytes": 7818,
+      "sha256": "5957aa633d9a070807e27386253038ee5eaf6d5591371b9cc04659aa5c487438"
+    },
+    {
+      "path": "scripts/sync-assets.ps1",
+      "bytes": 2910,
+      "sha256": "581b0ce51fcbc5beb2ccae44100ec9950330b68c31212b77d46b77da62fad119"
+    },
+    {
+      "path": "scripts/verify-b1b2-rebuild.mjs",
+      "bytes": 26683,
+      "sha256": "09af8320b0e384f8f0c416bf3eb34224be80c6aa245ff7c0eae11568f9a6befe"
+    },
+    {
+      "path": "scripts/verify-b1b2-supplemental.mjs",
+      "bytes": 9871,
+      "sha256": "281721ee28f93d136bc93d629bad2c1733008ce1bd615e84a7fc24a13e82a4d0"
+    },
+    {
+      "path": "scripts/verify-handwriting-reference.mjs",
+      "bytes": 36967,
+      "sha256": "6c2375d9e0524fa1036ab1d7cbbae9b4bbb31f5a1fedc6b8acc6eef9059406b1"
+    },
+    {
+      "path": "scripts/verify-jg027-lcd-cluster.mjs",
+      "bytes": 14658,
+      "sha256": "d037e2307590415fadf5a82e311a95a820a31c64dfc88d620293e8b8802e8b82"
+    },
+    {
+      "path": "scripts/verify-jg028-handle-realism.mjs",
+      "bytes": 14325,
+      "sha256": "a46092ade150ffb43576c9453e33ff236657dcb1f1a83ae1fa6cf08bc5a2e0cc"
+    },
+    {
+      "path": "scripts/verify-jg031-gear-rotation.mjs",
+      "bytes": 9541,
+      "sha256": "112402776ee3ac0cf1dca3596bf7ca99785f24f7c5d85e4d785b5629b5e02701"
+    },
+    {
+      "path": "scripts/verify-jg032-station2-thermal.mjs",
+      "bytes": 30042,
+      "sha256": "ef5dfb4dca769c705966fb8637163ab6c1e8f2dc7f8180eacb110306df9fc14b"
+    },
+    {
+      "path": "scripts/verify-jg033-lite-asset.mjs",
+      "bytes": 3335,
+      "sha256": "f8779f755644a9b4ccaf7337cacac3bf824fcb6405d6d2533aaf1e0afbbc0766"
+    },
+    {
+      "path": "scripts/verify-jg033-preview.mjs",
+      "bytes": 18063,
+      "sha256": "ce497ee93468b27ae452efdf6952d4c4f34e182a2daf525b87756a7716de57a0"
+    },
+    {
+      "path": "scripts/verify-jg033-ribbon-clipping.mjs",
+      "bytes": 7162,
+      "sha256": "7807c8e3ecbf12419f002fb111b7187e0ba752f3d5a2d4af04df0684c86b2468"
+    },
+    {
+      "path": "scripts/verify-jg036-hotspot-layering.mjs",
+      "bytes": 34705,
+      "sha256": "bbd97a62ec9d9cf837dcbe46032bfc38cc1b916df881bbea09808a21afc85e4c"
+    },
+    {
+      "path": "scripts/verify-jgun-opening.mjs",
+      "bytes": 95536,
+      "sha256": "32a3bb44dce4613e914e3d1d0e3bf966ecb1b016ae7eeb5532314396b4abd509"
+    },
+    {
+      "path": "scripts/verify-manufacturing-inspection.mjs",
+      "bytes": 83559,
+      "sha256": "1a7786f41a75dc92d22692b3ca6e8730c2116deae2f0761b1b55e3002ae7ca81"
+    },
+    {
+      "path": "scripts/verify-page-transition.mjs",
+      "bytes": 49209,
+      "sha256": "5aaeffb573e4632e1ee2c6a1196d11b5a261d49f6967840558d87cd94d316f38"
+    },
+    {
+      "path": "scripts/verify-ring-inspection.mjs",
+      "bytes": 28140,
+      "sha256": "13bc54014ff90750658c1b3840287ecc2d5e55ef1ea94bd648cc484c594480ff"
+    },
+    {
+      "path": "scripts/verify-shaft-inspection.mjs",
+      "bytes": 88903,
+      "sha256": "4eb548543a15b17836b9e1e2e7080c48590e0e046d0faa373af3d809362813d3"
+    },
+    {
+      "path": "scripts/verify-torque-cutter.mjs",
+      "bytes": 46834,
+      "sha256": "1d1edf06f529d6dae3854f173ea590fba05035dd8d59b89d67e532dd88234d92"
+    },
+    {
+      "path": "scripts/verify-torque-drawing-integration.mjs",
+      "bytes": 17902,
+      "sha256": "5ffb62906bddb42562a7399f2a2f33916facf98b2799e83c4199c4709e6018a8"
+    },
+    {
+      "path": "scripts/verify-torque-mechanical-parity.mjs",
+      "bytes": 37672,
+      "sha256": "84989526ed945e574bce234d417d6f8d95222eb6982a510234b2d0d673137122"
+    },
+    {
+      "path": "scripts/verify-torque-opening-ab.mjs",
+      "bytes": 12485,
+      "sha256": "15e959cce5537b4c85a829e96d4354b54ac097730793fcb8ff8391798ca89d43"
+    },
+    {
+      "path": "scripts/verify-torque-pit-ab.mjs",
+      "bytes": 8786,
+      "sha256": "0a79295e2a098a89c7db1fc5e88fb42d0b449e6b77f2d225e80dc3ea85b8d800"
+    },
+    {
+      "path": "scripts/verify-torque-stage4-effects.mjs",
+      "bytes": 32848,
+      "sha256": "1a4e48d54bfdf43c7721eda519f24fe7cf5e1071fd863b1a9cf9af0e3f697ada"
+    },
+    {
+      "path": "scripts/verify-torque-static.mjs",
+      "bytes": 56670,
+      "sha256": "794cb9a92590ed9c99c2374999f05a74fa5e2ffc61eb17dc30a1d5ccf76a6e1d"
+    },
+    {
+      "path": "scripts/verify-torque-timeline.mjs",
+      "bytes": 68870,
+      "sha256": "dc638bfe97b3732456bea4401ea95899cc1288634d7d2df57b305e9a77ecd147"
+    },
+    {
+      "path": "src/App.tsx",
+      "bytes": 3971,
+      "sha256": "fe76186e150b2919f17d0bbd4bf918c7827b16e95a2190226a19daf27587bef0"
+    },
+    {
+      "path": "src/components/AuthorshipNotes.tsx",
+      "bytes": 2234,
+      "sha256": "e335573973bb7830cb444e1f6279b727899d35bc12201398c1c5c7d7f926b962"
+    },
+    {
+      "path": "src/components/BootSequence.tsx",
+      "bytes": 5022,
+      "sha256": "87ac54e339d07cc16c0a39cd62961b6f6ab9a638f4acd2bf78d1a1525d44150c"
+    },
+    {
+      "path": "src/components/Chapters.tsx",
+      "bytes": 18777,
+      "sha256": "b9fd3195f0b8d82e582311a856499b21d8e87e8d97f440753ceb43754e9f9f3d"
+    },
+    {
+      "path": "src/components/GdtSymbols.tsx",
+      "bytes": 3482,
+      "sha256": "977d8cb45cffeb0145fb0dc0d0a02fadbadd82c13ad0968c363ff305342df5bb"
+    },
+    {
+      "path": "src/components/IntroTitles.tsx",
+      "bytes": 5789,
+      "sha256": "c94a2ba4604b198fb3c180d4b3ef3f293de26b19881de670569471a8c9c8c3c4"
+    },
+    {
+      "path": "src/components/RingInspection.css",
+      "bytes": 4293,
+      "sha256": "31c31bd88d4175b71d32014258cf1ed3c8c41eb4653e5ca8242b63c159b2ccc8"
+    },
+    {
+      "path": "src/components/RingInspection.tsx",
+      "bytes": 12956,
+      "sha256": "cf1733b094e43088d1d0c71f3bc30b4bfa257877ceb7fd3713e6a1aca5979795"
+    },
+    {
+      "path": "src/components/ShaftStoryLayer.css",
+      "bytes": 8568,
+      "sha256": "3971ffda30ff78c23ded787d8f43b8c249107e1903e5bf5276967868e4897c58"
+    },
+    {
+      "path": "src/components/ShaftStoryLayer.tsx",
+      "bytes": 7657,
+      "sha256": "83056433baa808942d093babe4aedbc41126b478c6b2e9092a77d3362c703440"
+    },
+    {
+      "path": "src/components/staticChapter.test.tsx",
+      "bytes": 5516,
+      "sha256": "5fd8692a597640f5e50b3f5e8aaead1efe595280235b9a0b91637162f27ffb41"
+    },
+    {
+      "path": "src/components/staticChapter.ts",
+      "bytes": 2317,
+      "sha256": "d8944fe69f7da720bcaecd323951794a1dd7cb21e454956bb725b34c8174276a"
+    },
+    {
+      "path": "src/components/StaticPoster.tsx",
+      "bytes": 3047,
+      "sha256": "c6c58db04b33d0ddb9aa02ed8e4ba2a48504423d53bc13248aeba3a97cdc2c24"
+    },
+    {
+      "path": "src/components/StaticShaftStory.tsx",
+      "bytes": 5987,
+      "sha256": "156434108dcb44da7d823cb604138d9ba9da07da8597113af6e91d608d9f4001"
+    },
+    {
+      "path": "src/components/StationNav.tsx",
+      "bytes": 2730,
+      "sha256": "fbf858b3794cbd8058d2bd812cdc0c3fd872d7e42c892d4ec3b34f2188f24494"
+    },
+    {
+      "path": "src/components/TechnicalHUD.tsx",
+      "bytes": 13147,
+      "sha256": "07c56ab1073475b7dd4e8b03593163db0cbbce9b055464d8aaf65ad76de8209f"
+    },
+    {
+      "path": "src/components/ToleranceStations.tsx",
+      "bytes": 15930,
+      "sha256": "8e4e71248d65c8a870346269503d3f531884f17e96eb2221029a5e4ca82c72f8"
+    },
+    {
+      "path": "src/data/caseStudies.ts",
+      "bytes": 34227,
+      "sha256": "3c8eda4c50e017247bf5bc402deb9e4e7ffa5703727a0d9421c25af1b2235584"
+    },
+    {
+      "path": "src/index.css",
+      "bytes": 4315,
+      "sha256": "a556f1a177aa58d47d539679bc4e7d75d5367916f34a99d83b8e5a2734a76a1e"
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 324,
+      "sha256": "688b77709793488de203162e0065a775e06b9896e6817b0d5e04b29661bedb4a"
+    },
+    {
+      "path": "src/quiet-machine-main.tsx",
+      "bytes": 466,
+      "sha256": "c841f8faed9794bb4a1df8f0e9ed54dcbf5c2b3acb16f8af34f94dde140cda53"
+    },
+    {
+      "path": "src/scene/backgrounds/backdropConfig.ts",
+      "bytes": 2099,
+      "sha256": "0566b3a35ac5921bb7090764c40be5575814d718e365ef0beca2deb9055adeb1"
+    },
+    {
+      "path": "src/scene/backgrounds/BackdropRig.tsx",
+      "bytes": 7149,
+      "sha256": "dd3eff25f294825d9f9a9803ea15e97af8163612ebd8a021afb557091833dffe"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/BackdropGradientLayer.tsx",
+      "bytes": 5269,
+      "sha256": "8ff0f76cd43a74510705ab79b36502190e661e7a8256dec9bd7677674b328cc5"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/BackdropGridLayer.tsx",
+      "bytes": 6100,
+      "sha256": "20b53fe16a45a346613c553ce09ca13a9440016d63e64c2c0003beb5c0faca6e"
+    },
+    {
+      "path": "src/scene/backgrounds/layers/types.ts",
+      "bytes": 890,
+      "sha256": "7885415b5affd8f33cad0976e3f59700499ff58e125c2c19d99c7eac75f6c0d6"
+    },
+    {
+      "path": "src/scene/CameraRig.tsx",
+      "bytes": 28237,
+      "sha256": "62bbf0f635759d04caca89d0d0b0915f7e252d587ac41ff0238ab9b1f954ce50"
+    },
+    {
+      "path": "src/scene/drawing/drawingGeometry.ts",
+      "bytes": 20336,
+      "sha256": "d6d763222530f7a1c4146fddee9f3263936c80f3fc609171e8fd424753b7a58f"
+    },
+    {
+      "path": "src/scene/drawing/DrawingLinework.tsx",
+      "bytes": 39462,
+      "sha256": "83b40f2b905ab2ba3e5569b4cf1bf7915d12ddfe663dcb5a27a894e7aa3a954c"
+    },
+    {
+      "path": "src/scene/drawing/DrawingProofRenderer.tsx",
+      "bytes": 8562,
+      "sha256": "3cd48c16b896c401d83e4243a393c48dc1b6a65a1be826e5ae5a0c1be871ce73"
+    },
+    {
+      "path": "src/scene/drawing/electricalScore.test.ts",
+      "bytes": 5721,
+      "sha256": "6d28e265ae67cb686a007d655acfb8e3f276e1068c51bcfc327f31f770c098b8"
+    },
+    {
+      "path": "src/scene/drawing/electricalScore.ts",
+      "bytes": 5573,
+      "sha256": "584d5f3a8b753ec1cc62d2b91891051c8ebab1d99e5086eb07db53150c17de13"
+    },
+    {
+      "path": "src/scene/drawing/extractionPose.test.ts",
+      "bytes": 8544,
+      "sha256": "387da653e1fab8a75c603e14f1a27268ced7de96110107ecfdd5126e88da51ce"
+    },
+    {
+      "path": "src/scene/drawing/extractionPose.ts",
+      "bytes": 1656,
+      "sha256": "92574ec65107b4a4dbe3cc56f327a7dc9b65e037ae03d05a83f288b9e5dbebc3"
+    },
+    {
+      "path": "src/scene/drawing/introTimeline.test.ts",
+      "bytes": 35837,
+      "sha256": "62c1ff331c39ca4701b02aafec8fa11fff0c8fcdf0b6aa48cf31102d921fdf2b"
+    },
+    {
+      "path": "src/scene/drawing/introTimeline.ts",
+      "bytes": 18638,
+      "sha256": "61c02c1a787dbce4a3a34c3cf3db8ae0a5e574aafaa9ba7a8435021575516695"
+    },
+    {
+      "path": "src/scene/drawing/paperGrain.test.ts",
+      "bytes": 1667,
+      "sha256": "2b749fe76b6df4c8500df9bb4d49b687ba19835696e4c7ef6f9e6dba374bbb02"
+    },
+    {
+      "path": "src/scene/drawing/poseCore.test.ts",
+      "bytes": 6404,
+      "sha256": "412913c15c690bda0f94ef4bcca3b37a4fd53f30386af85e3a2f06d59bee90e4"
+    },
+    {
+      "path": "src/scene/drawing/poseCore.ts",
+      "bytes": 9234,
+      "sha256": "d81a30c0ec58e3e0b5267d6678d97b2dc5c5e0715d7c451faa5569051485a703"
+    },
+    {
+      "path": "src/scene/drawing/scrollTracks.test.ts",
+      "bytes": 9128,
+      "sha256": "3948c1ef98bbd696f463a9fdd979cf95ec966a210232903b6d0d69151d738a5f"
+    },
+    {
+      "path": "src/scene/drawing/scrollTracks.ts",
+      "bytes": 9765,
+      "sha256": "4bd318f9804c7d37e1d8164b99f45ff45e763c91c25be7da1281728476dbf73d"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthrough.ts",
+      "bytes": 5946,
+      "sha256": "ea3d5f033a6948840a740a4b0cf58e9eeba25934e78dcbc67f29db42bf65ba7d"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthroughGeometry.test.ts",
+      "bytes": 18012,
+      "sha256": "f66b86f96e1c76973e408d0140d0d40a7122a50dcde0c9d7cf5ff4ee62f8b328"
+    },
+    {
+      "path": "src/scene/drawing/sheet/breakthroughGeometry.ts",
+      "bytes": 49053,
+      "sha256": "472d0547ea59472a26648f9d1dafbfa9788ef52a027f982a9bb062ee725f0f25"
+    },
+    {
+      "path": "src/scene/drawing/sheet/composeSheet.ts",
+      "bytes": 42222,
+      "sha256": "eaeca80cd6ecb81d155704d7fa87b9daf3bddc01974b2a7319b72bf2e262f75c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCache.test.ts",
+      "bytes": 23687,
+      "sha256": "b4b03e470c3df0f8c264a6018bf842c83d1a806e6526c6ca7bd0af9751f9ebf8"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCache.ts",
+      "bytes": 11225,
+      "sha256": "d00fb9bf55534f66c8622433b51258a5706f97f117b0923c6032033d3d156196"
+    },
+    {
+      "path": "src/scene/drawing/sheet/drawingCodec.ts",
+      "bytes": 6883,
+      "sha256": "52c01cab1c745fe33d6c22c6e82eb438b22ab3c71ddde40a11a212a01c224100"
+    },
+    {
+      "path": "src/scene/drawing/sheet/edgeExtract.ts",
+      "bytes": 16768,
+      "sha256": "d00397a6f476bc6e969e02616c2470a632fc286ce4e9e81d24332410fac44ef3"
+    },
+    {
+      "path": "src/scene/drawing/sheet/handwriting.test.ts",
+      "bytes": 9439,
+      "sha256": "41ca76c1857688ce71509bfce7e891b30781462889640a7a2fc2d401afa587c5"
+    },
+    {
+      "path": "src/scene/drawing/sheet/handwriting.ts",
+      "bytes": 19155,
+      "sha256": "ae00193459667a2bf991386cadde572e07343ec81576b22b8cd0500036ea5d4c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ink.ts",
+      "bytes": 18567,
+      "sha256": "3be9983321d866d18827e2f0374254e951ee2594dc0e009ff13f3ac8b711bac1"
+    },
+    {
+      "path": "src/scene/drawing/sheet/lightning.ts",
+      "bytes": 4323,
+      "sha256": "94e7eefe945799237e9fcf26e473f12a1b41c2a470912c13ec128f21d3de71fc"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ownerAnnotations.test.ts",
+      "bytes": 18293,
+      "sha256": "4364b62687e6bf7f1c9269f42c603d61ac6b4b3a9a22418c41290a96b656289c"
+    },
+    {
+      "path": "src/scene/drawing/sheet/ownerAnnotations.ts",
+      "bytes": 13088,
+      "sha256": "ff7ecc7f00f6dc50562d59f0df0853814b06bd3a1a76d3431ab5a8730b99cfe2"
+    },
+    {
+      "path": "src/scene/drawing/sheet/paperFlex.test.ts",
+      "bytes": 14608,
+      "sha256": "1f139e332f3aad26d87cf4b8b8123cb476141ae327ba9c153868f58732219013"
+    },
+    {
+      "path": "src/scene/drawing/sheet/paperFlex.ts",
+      "bytes": 7182,
+      "sha256": "976b272986c8438b798e7b37321482900cf80d3f3860c82a56c0a231ecc38c2b"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portal.ts",
+      "bytes": 19735,
+      "sha256": "68652df9f556002bbca7cbfd011d6eebf9d96a7c3fac028bc936749398badef2"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portalGeometry.test.ts",
+      "bytes": 19937,
+      "sha256": "de73093f23cb079d4f51cf32a2efdab5bd1dd43b0712a3a6f98e3c8d2e4ad18f"
+    },
+    {
+      "path": "src/scene/drawing/sheet/portalGeometry.ts",
+      "bytes": 15508,
+      "sha256": "49e0a39dd0f34b35b977aa0176c9331f5f5f487938c279afd52102e7bee35891"
+    },
+    {
+      "path": "src/scene/drawing/sheet/profile.ts",
+      "bytes": 6955,
+      "sha256": "dc6fa125b31af3b4529162cc33e66c8f11b33f15ee743f04ecd0db93213b587f"
+    },
+    {
+      "path": "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+      "bytes": 130729,
+      "sha256": "d9608024f9d2f69b0e764e7eb3c2e4b389be2eafbd4a1572b3bbba3a303e4a22"
+    },
+    {
+      "path": "src/scene/drawing/sheet/registration.test.ts",
+      "bytes": 901,
+      "sha256": "e920ff30bea776b4c091013afbc7921393f9489f47be25c10e5df620eb6c584b"
+    },
+    {
+      "path": "src/scene/drawing/sheet/registration.ts",
+      "bytes": 1154,
+      "sha256": "807488ed5763aecb520f4c96620b99bb9d36dd3d6aa10ee8c4b9e0905e02202a"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetBake.test.ts",
+      "bytes": 44523,
+      "sha256": "75e42595f634ae02670df62a26c99e7aef61181172c4dfb350eb2d884abb507e"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetBake.ts",
+      "bytes": 6150,
+      "sha256": "0bf816399e29ea655c48cbd324bcd056b564544b0be52e3e71066c207c1f2971"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetInkRuntime.test.js",
+      "bytes": 17319,
+      "sha256": "603f32b04db55c06500aef1472b3114c02faff7ab053d28f78d2ddd89a3b20ce"
+    },
+    {
+      "path": "src/scene/drawing/sheet/sheetText.ts",
+      "bytes": 13490,
+      "sha256": "6710c1d5a6e324b2d9fc1732fe63fc1062ba51e46e9a82b587352ea341636d10"
+    },
+    {
+      "path": "src/scene/drawing/sheetCamera.test.ts",
+      "bytes": 6466,
+      "sha256": "a955b811eb8218ee192ed5796f26c802d39b51bfbefe8171edbbe452da4deb6a"
+    },
+    {
+      "path": "src/scene/drawing/sheetCamera.ts",
+      "bytes": 8915,
+      "sha256": "2ea85552d011926fcb8ba73c9ad6ae39bb99895fff8bcb3f45d32bed8f7ffe08"
+    },
+    {
+      "path": "src/scene/Hotspots.tsx",
+      "bytes": 22323,
+      "sha256": "94a0983d9b4e1d1652e503898d5ce2c59a8f048c0e9d7b2e7b10a3642378d1f4"
+    },
+    {
+      "path": "src/scene/inspection/compileLease.ts",
+      "bytes": 1457,
+      "sha256": "fe30f1545ccfa7763a02d7402dd3df99a4210f0e43f2f57a24fbafa7245780cd"
+    },
+    {
+      "path": "src/scene/inspection/holeApertures.test.ts",
+      "bytes": 10189,
+      "sha256": "725031ead49de7f8ada55c6cd02a8d390e28bd49d227f5c5c14f58ec9ff6b4b3"
+    },
+    {
+      "path": "src/scene/inspection/holeApertures.ts",
+      "bytes": 12226,
+      "sha256": "23608d5e6e04ff4e4d8d2b3facb1d97ebb52c7624526f367a55ebf35781a073d"
+    },
+    {
+      "path": "src/scene/inspection/InspectionScene.tsx",
+      "bytes": 9296,
+      "sha256": "a7d575e77c4f03f034abdaf8a21f53fa622f49945987a9c137c4ec01d49d118c"
+    },
+    {
+      "path": "src/scene/inspection/lifecycle.test.ts",
+      "bytes": 4040,
+      "sha256": "f4ee72a7c79b08b3ed25ac6771da1a02cd9e8fcc8c9a425b5ce933ae73d05afc"
+    },
+    {
+      "path": "src/scene/inspection/loadLease.ts",
+      "bytes": 459,
+      "sha256": "1522d3b8d259134a1c18a9ffdd8243235ca7e1caa135edb305f5971db68a78ff"
+    },
+    {
+      "path": "src/scene/inspection/narrativeFade.ts",
+      "bytes": 2190,
+      "sha256": "cfd6b5642a595ec019af8c33ae89f595d62c3b60b38c9a59dd2585b6cf4b8509"
+    },
+    {
+      "path": "src/scene/inspection/renderLease.test.ts",
+      "bytes": 9351,
+      "sha256": "72064602e28011dc222c8f1a4abc8477268978486fc329e580bf79c9b069798f"
+    },
+    {
+      "path": "src/scene/inspection/renderLease.ts",
+      "bytes": 8402,
+      "sha256": "d7511d07f25c998e8b50f2ed08f2fac53647f3cd62debf75d1bcf99e3ad11643"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometry.test.ts",
+      "bytes": 5785,
+      "sha256": "7fef4fdb99b8d222665407c2137dd9ca0238a1137519d94b69a266a2d88ab1be"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometry.ts",
+      "bytes": 12193,
+      "sha256": "bb3bf854776dd7d9a4caa73d0c828cbc7a3555881e6085540a391342b5cf5b32"
+    },
+    {
+      "path": "src/scene/inspection/ringGeometryLifecycle.test.ts",
+      "bytes": 7210,
+      "sha256": "865aac220c22004f3cfce44a59349391b61fc344ba33732d3fc204923db8a627"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntime.ts",
+      "bytes": 1871,
+      "sha256": "ee4f25d29a49745199650a4f24ac45ef559dd3b9e7f14c99793320b4d7e5053a"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntimeCore.test.ts",
+      "bytes": 18641,
+      "sha256": "cd816f553b74651da1b1abacc6275b631a06d76a46ba06f811d0172bb9b0f71f"
+    },
+    {
+      "path": "src/scene/inspection/ringRuntimeCore.ts",
+      "bytes": 19951,
+      "sha256": "9d3b2cb7f6b51e4687267ccd833ad9c9f52d52e996369939b5eaa3068f21df89"
+    },
+    {
+      "path": "src/scene/inspection/session.test.ts",
+      "bytes": 2983,
+      "sha256": "064cc130027d255f501df1a1a59e4be9211326995c680ff9b8b324a72df799e9"
+    },
+    {
+      "path": "src/scene/inspection/session.ts",
+      "bytes": 2901,
+      "sha256": "aea958c9898f68496e313a41138127be54fa1590f3e5e732fcfbbb0b67aa1e6f"
+    },
+    {
+      "path": "src/scene/inspection/shaft/camera.test.ts",
+      "bytes": 21233,
+      "sha256": "9afdec4fdf8d9b97e9a0a5977d27c64e83a33cd1c1157a39b61080e3de88cf18"
+    },
+    {
+      "path": "src/scene/inspection/shaft/camera.ts",
+      "bytes": 12886,
+      "sha256": "c713b7e67e3fc11358a1ad1e5b980ea15219db2d10ab82ba663c82080f0ce563"
+    },
+    {
+      "path": "src/scene/inspection/shaft/cutterOutline.json",
+      "bytes": 17691,
+      "sha256": "09f478a76f43e5b71d150133d205665ff54e4e95f78087af160cbc1a6cbeed6e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/fosPresentation.test.ts",
+      "bytes": 4425,
+      "sha256": "b8f338892cb25ba29b655db9cdbe627630654c7de10bd85849c59322f0658796"
+    },
+    {
+      "path": "src/scene/inspection/shaft/fosPresentation.ts",
+      "bytes": 5748,
+      "sha256": "2babf8225b9a058494312a63fd766ddbc41e6eb3abdf6e2a800e0ad82afc1bb8"
+    },
+    {
+      "path": "src/scene/inspection/shaft/frame.ts",
+      "bytes": 3166,
+      "sha256": "90b538370bffb010398150a619ab8aab2b00b27b13c905f0e1c554b818d94573"
+    },
+    {
+      "path": "src/scene/inspection/shaft/kinematics.test.ts",
+      "bytes": 26641,
+      "sha256": "65f229c6666bf388c95d1a7ea8977c107c59d4b990252ece856b5d3658c9953e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/kinematics.ts",
+      "bytes": 24401,
+      "sha256": "4d0a13857604742948ca3ebac2a07860711d4a84fc2303e8cdda021d40f447a9"
+    },
+    {
+      "path": "src/scene/inspection/shaft/normalRepair.test.ts",
+      "bytes": 7012,
+      "sha256": "6f62f92ceba646cfa2ac3c47b9cc4f801aa21e545deaa9b50f95b5b13a2a65aa"
+    },
+    {
+      "path": "src/scene/inspection/shaft/normalRepair.ts",
+      "bytes": 7040,
+      "sha256": "40afab63f9e5feb65f5118f8df0022bae23abc7a45e544be6d1a8a3671dfacff"
+    },
+    {
+      "path": "src/scene/inspection/shaft/progression.test.ts",
+      "bytes": 20897,
+      "sha256": "6534d90538bbe090570f1d4478214d0a0a9481202b6a01af92475687147d7faa"
+    },
+    {
+      "path": "src/scene/inspection/shaft/progression.ts",
+      "bytes": 17605,
+      "sha256": "f6adf806188bacc04ac478c308e39baaf7fcdeb97c957e784c719152805de1dd"
+    },
+    {
+      "path": "src/scene/inspection/shaft/schedule.test.ts",
+      "bytes": 4075,
+      "sha256": "06953e22ead145f5f2565bc43cad7368f525d5a3048dc2ed0ba557e29d3bf6f1"
+    },
+    {
+      "path": "src/scene/inspection/shaft/schedule.ts",
+      "bytes": 3332,
+      "sha256": "a81f0190a2677633f080e15b70543856da45804bada2485cc76e64e32ac23068"
+    },
+    {
+      "path": "src/scene/inspection/shaft/script.test.ts",
+      "bytes": 16200,
+      "sha256": "90b954c31030cbc4f8009aae76186ab245f4f853f03aaa9cc261117e04b52767"
+    },
+    {
+      "path": "src/scene/inspection/shaft/script.ts",
+      "bytes": 6903,
+      "sha256": "cd419b7fbcecf08c886fcfde383994741a276f62cf754c90d88dc76af764a725"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntime.test.ts",
+      "bytes": 26193,
+      "sha256": "7bc89b415f23836e54ca58369996e1141c833562b6d4689afefde6836daa515c"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntime.ts",
+      "bytes": 32302,
+      "sha256": "d3b74e0b6489eefabd1c7a685552910042bf088f27e6b9096f6a2a1aed6e064e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/shaftRuntimeLifecycle.test.ts",
+      "bytes": 5424,
+      "sha256": "dc143b541e2f1b6b45beffd86ab77a741d0a232e68e9f036938211908c60376f"
+    },
+    {
+      "path": "src/scene/inspection/shaft/story.ts",
+      "bytes": 2383,
+      "sha256": "beb78686bca2ac8569d5a15fb34ccf82edc84671642aee2aaa59a9739938225e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/tools.test.ts",
+      "bytes": 12721,
+      "sha256": "16b7852bdabb2334b0f5248894dff5d4b466a10b73a40ab74448c60c47d37d0e"
+    },
+    {
+      "path": "src/scene/inspection/shaft/tools.ts",
+      "bytes": 12392,
+      "sha256": "50b4b60b8b835b93625c54327a5eadb9a96bc38a317725cc430667114436a87d"
+    },
+    {
+      "path": "src/scene/inspection/shaft/toolsLifecycle.test.ts",
+      "bytes": 1947,
+      "sha256": "a1ac2808dff9853c72644da15ff2002e790ac974a9057da4ca4218d8ca304aae"
+    },
+    {
+      "path": "src/scene/inspection/shaft/toolSpec.ts",
+      "bytes": 2833,
+      "sha256": "000070f737cb3edcad58b643d50c38be3d12f012644b7669195e2542440a737d"
+    },
+    {
+      "path": "src/scene/inspection/story.test.ts",
+      "bytes": 4101,
+      "sha256": "bbf974af5f50b44f64ed268e0cb3451d9d4374195f790ae4be915079735f165d"
+    },
+    {
+      "path": "src/scene/inspection/story.ts",
+      "bytes": 5102,
+      "sha256": "f8b93ac5c35803873b9e90b19ee582be3419f3a36e7df5063350831ab3949824"
+    },
+    {
+      "path": "src/scene/inspection/testing/loadRig.ts",
+      "bytes": 2101,
+      "sha256": "9e4f61745952c52bc1ccf322c2e0f430c9e857706c758b52fd274b2986e03cec"
+    },
+    {
+      "path": "src/scene/inspection/testing/nodeDraco.ts",
+      "bytes": 3408,
+      "sha256": "e8bfa04f22ae820fd485f1a1f3a42fc6c2205cf9580a24798750f5650aac0cf5"
+    },
+    {
+      "path": "src/scene/inspection/timeline.test.ts",
+      "bytes": 17407,
+      "sha256": "4ea89de9543bc8cee75d887ef5597a37210033bb587b8063b47eeabb5bbfd18b"
+    },
+    {
+      "path": "src/scene/inspection/timeline.ts",
+      "bytes": 9777,
+      "sha256": "6683e941888c8d1d77bb86d3fb7742077cc910b9b82ab07dc06c7563e0e524cc"
+    },
+    {
+      "path": "src/scene/inspection/toolContact.test.ts",
+      "bytes": 2293,
+      "sha256": "48225d3f9d697c76fb05aa59ac8eed9909b69eb5ccd53763841b191c6463c92e"
+    },
+    {
+      "path": "src/scene/jgunVisualGates.test.ts",
+      "bytes": 3066,
+      "sha256": "ce6d3b953055e93b16407f798a34080d29067287a4417e86ec447ebb958afa6c"
+    },
+    {
+      "path": "src/scene/jgunVisualGates.ts",
+      "bytes": 2072,
+      "sha256": "be5b34fa61893d121a7f94f7c2d43ad0df2ab001e332a20ff83924aa3c9a3711"
+    },
+    {
+      "path": "src/scene/PostProcessingComposer.tsx",
+      "bytes": 9765,
+      "sha256": "29b2345c47764eb146a9fb2b994dd672bed14596f27afcf82c6ff1fd90c1d7c1"
+    },
+    {
+      "path": "src/scene/rig/gearRotation.test.ts",
+      "bytes": 2265,
+      "sha256": "3f9fe9a42ecb217b19bdbd4e803a0445b0ec272dd043e070bac90f2b1abefadc"
+    },
+    {
+      "path": "src/scene/rig/lcdCluster.ts",
+      "bytes": 15780,
+      "sha256": "7985b96be61d9438632087630b78cb06089d2cc26da51258a7406cb69f849e5a"
+    },
+    {
+      "path": "src/scene/rig/materials.test.ts",
+      "bytes": 1527,
+      "sha256": "81c1082ef17468ffeb9ae55ba166e5e48d0a40995e9bc98765fc9184434df618"
+    },
+    {
+      "path": "src/scene/rig/materials.ts",
+      "bytes": 18440,
+      "sha256": "85358c3698f708dc77ca23cbe7becac107c9c85365ec73503e6ccdb26dfc12ed"
+    },
+    {
+      "path": "src/scene/rig/nodeRoles.ts",
+      "bytes": 29195,
+      "sha256": "37dbdf8ba2d0a4a397ac28afdc2825cacd2fd3f25c7adbd6451f06632602aa99"
+    },
+    {
+      "path": "src/scene/rig/wrenchMechanics.test.ts",
+      "bytes": 13054,
+      "sha256": "d1af38cefef2ffc7e33de6ad186433f25295394357cf67d77c52748a5a1d016e"
+    },
+    {
+      "path": "src/scene/rig/wrenchMechanics.ts",
+      "bytes": 8668,
+      "sha256": "d008f13d3b012497808e8845073bd224cad2673c35ece4bd81470fe6437e5824"
+    },
+    {
+      "path": "src/scene/rl300/AirRibbons.tsx",
+      "bytes": 25529,
+      "sha256": "9d9ccd72ec69f6208b8e1c14664e20e8e645dd75685cc01e83d3ca9f2895b8cd"
+    },
+    {
+      "path": "src/scene/rl300/flow.ts",
+      "bytes": 8227,
+      "sha256": "e3308f776ac3a278339f321b5d24f5dfcb137b4cc7684a25ceaaccdb263d3dd9"
+    },
+    {
+      "path": "src/scene/rl300/LowerIntake.tsx",
+      "bytes": 4857,
+      "sha256": "12da936ebec912d59d75329b1cef990fa2cc9c0a642dadb2808a1e4a49cea0ac"
+    },
+    {
+      "path": "src/scene/rl300/prepareModel.ts",
+      "bytes": 26882,
+      "sha256": "3b3e7531cc411f886916e2ec2975ed0dec5f70c96f6349d80fa33307fc3c0e8a"
+    },
+    {
+      "path": "src/scene/rl300/preview.test.ts",
+      "bytes": 42140,
+      "sha256": "e3a265ee22c419d3e6c513519523b352c664baa3c51a8f2c4b4476d56ed6b68b"
+    },
+    {
+      "path": "src/scene/rl300/quiet-machine.css",
+      "bytes": 5827,
+      "sha256": "8d8c6f8196f137cf8c27f47eb9bb3976803cc1181a905865551ac99ce7e35496"
+    },
+    {
+      "path": "src/scene/rl300/QuietMachinePreview.tsx",
+      "bytes": 7753,
+      "sha256": "a1df7598a3aad5ed97da65b3fd2a767737211a79b680c3c401e9c97b87016f4f"
+    },
+    {
+      "path": "src/scene/rl300/QuietMachineScene.tsx",
+      "bytes": 10457,
+      "sha256": "79c8c52c5e42ac315bac3fba6a4d5f6a6dc02c0e8c65be7259cc8e8e0c84cf3f"
+    },
+    {
+      "path": "src/scene/rl300/SectionCaps.tsx",
+      "bytes": 3684,
+      "sha256": "440eeaa729dfcbee3162c9789099ec67f745948de9da82e2fb6964ad84626050"
+    },
+    {
+      "path": "src/scene/rl300/shot.ts",
+      "bytes": 6291,
+      "sha256": "e361fd0a160e1a7d64dac09af091c46f7ac3721006af0ef8fdae560ea2042665"
+    },
+    {
+      "path": "src/scene/rl300/v16-part-materials.json",
+      "bytes": 49875,
+      "sha256": "3a7fbe4b180c2082ad2b92403ee0e1bed9291826fe144c48e8b205770169f803"
+    },
+    {
+      "path": "src/scene/rl300/v16Materials.test.ts",
+      "bytes": 22582,
+      "sha256": "7f17ffb63262bacc381dd389112b8327ab78f8768250edfa548e526aeacf7946"
+    },
+    {
+      "path": "src/scene/rl300/v16Materials.ts",
+      "bytes": 3395,
+      "sha256": "ad930b66cb9aa05083504eec53204599bdaae1a782b265654ba1d74e6672f826"
+    },
+    {
+      "path": "src/scene/SceneCanvas.tsx",
+      "bytes": 22064,
+      "sha256": "88139d3681802b794c74b1ad8b5a5c8b4670f85f1daf6f2d6e936b0b69940674"
+    },
+    {
+      "path": "src/scene/scrollCommit.ts",
+      "bytes": 4280,
+      "sha256": "b7a9d03ba9bb828f60abaadaa7f7b61897f6551ae9f7e825bde420a77acd7409"
+    },
+    {
+      "path": "src/scene/ScrollRig.tsx",
+      "bytes": 3796,
+      "sha256": "f29f88cfc6710bdd3e8b35557732856af67dd13d4a2dbf1abf0a67ba6f0a8f1c"
+    },
+    {
+      "path": "src/scene/sectionRenderPass.ts",
+      "bytes": 366,
+      "sha256": "533c32d5ec7a96dbbebacb42fa17ac51686ea6541c781c0e0565f5e7c5e5f423"
+    },
+    {
+      "path": "src/scene/SpatialRig.tsx",
+      "bytes": 3471,
+      "sha256": "76f1835ee691d713cb630137b8d4c11b2467d0cc4b7851d7b4cad31cf3304cff"
+    },
+    {
+      "path": "src/scene/SpatialWorld.tsx",
+      "bytes": 5858,
+      "sha256": "e7d3b26fe4ff93f115193d421061d738689909aaa8b3ab950bfa8ac5d82a98bb"
+    },
+    {
+      "path": "src/scene/stages/AcousticBaffleField.tsx",
+      "bytes": 8773,
+      "sha256": "36c69051582c46cd6e55d14411b0b0c6816614d84b0060903bd6aea044ba3168"
+    },
+    {
+      "path": "src/scene/stages/AirflowField.tsx",
+      "bytes": 20552,
+      "sha256": "6c8505a162dbe10dac357c744e430033da8c56941ad56f1456f588a93eac46b3"
+    },
+    {
+      "path": "src/scene/stages/airflowRoute.test.ts",
+      "bytes": 6123,
+      "sha256": "4a8a9cbaa92d38a1b9519e850decac4005825bd08eb4fad4601bd2f172c0f53c"
+    },
+    {
+      "path": "src/scene/stages/airflowRoute.ts",
+      "bytes": 4853,
+      "sha256": "763288a7cfbf93c011f3a76d09db9fe8b421b1700494f800fdb5a57cda3b7f4f"
+    },
+    {
+      "path": "src/scene/stages/M249Stage.tsx",
+      "bytes": 5754,
+      "sha256": "c8297ce3411e2be1109dd8d1ff1e028f5c231be3591e8aac320dccf53a272ee0"
+    },
+    {
+      "path": "src/scene/stages/recolorAllowList.test.ts",
+      "bytes": 5189,
+      "sha256": "c0ffc362d0c2c84d0de73310cbbc5325147a792fa49b5a33ecbb4c57e3aae29a"
+    },
+    {
+      "path": "src/scene/stages/recolorAllowList.ts",
+      "bytes": 4184,
+      "sha256": "b7a72c47aad9c0bf4320bf5b4301a1975361af89f6a3b3db880443ef1c4f33ad"
+    },
+    {
+      "path": "src/scene/stages/stageWindows.test.ts",
+      "bytes": 12346,
+      "sha256": "63d20aaf16831c7b999c0b0daaebd0f92b180aff42fedd328423188fbe25b037"
+    },
+    {
+      "path": "src/scene/stages/stageWindows.ts",
+      "bytes": 4240,
+      "sha256": "219c98053f91dfbe379af78f53f5323c562b100e30557a500b787b35e927c1bf"
+    },
+    {
+      "path": "src/scene/stages/Station2_AcousticEnclosure.tsx",
+      "bytes": 17202,
+      "sha256": "5600f26630746b2c0391a0ada3be2c8dd53564d3c1bf501ce5db46664457db5b"
+    },
+    {
+      "path": "src/scene/stations/stationData.ts",
+      "bytes": 5143,
+      "sha256": "d6f4c26c59d42a8d9a2dac6957a3552bb716743f3bc1afd3e2360f105f98cc2d"
+    },
+    {
+      "path": "src/scene/stations/StationDriver.tsx",
+      "bytes": 9901,
+      "sha256": "7842b0515bb0689de0b7a8c34bdc791a858cd90813e9fab063d350a90e2af78e"
+    },
+    {
+      "path": "src/scene/stations/stationStore.ts",
+      "bytes": 1427,
+      "sha256": "f313eb6049dc063b9429ab4f9f765b9d69fdc13e095df085c8175d2b88f50ec6"
+    },
+    {
+      "path": "src/scene/torque-wrench/beats.test.ts",
+      "bytes": 3125,
+      "sha256": "ad8f0593d1053fbfcb05bd490d26c674572ba1f293b7f54bda583ca68bccd8b4"
+    },
+    {
+      "path": "src/scene/torque-wrench/beats.ts",
+      "bytes": 7713,
+      "sha256": "dbe90d214fbf0127d5e5b23835135ba8525ff604210cfe667639872dfa66f8bf"
+    },
+    {
+      "path": "src/scene/torque-wrench/beatTimeline.test.ts",
+      "bytes": 7007,
+      "sha256": "8ad3b64d69de6eb91747a787b05be11e949a781ece8b2dc7b794d9b2706d16da"
+    },
+    {
+      "path": "src/scene/torque-wrench/beatTimeline.ts",
+      "bytes": 4204,
+      "sha256": "51a3b99fe1d2eb264dc6e83e14a563b4048a1d1cdca769738250c9731f1d134e"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.test.ts",
+      "bytes": 1145,
+      "sha256": "a41223d3d336d909b6620692015dcbdb39580855f89e3fe367ffa3c628f6b032"
+    },
+    {
+      "path": "src/scene/torque-wrench/cadGate.ts",
+      "bytes": 2195,
+      "sha256": "1dfa70b510a61ffaa77c781043f6d091c896b699a34f08afd101433e4a806b06"
+    },
+    {
+      "path": "src/scene/torque-wrench/conductorRuntime.test.ts",
+      "bytes": 17208,
+      "sha256": "6d53a624f59917c36fee74194422ea0eb25f20d4bb0d6ac430ba3ac308d351bb"
+    },
+    {
+      "path": "src/scene/torque-wrench/conductorRuntime.ts",
+      "bytes": 11289,
+      "sha256": "aa5419ca29b0d2fe7ed4ab5236bea3a4a1ea40ac17ba54c79b5dc8b59208ae2c"
+    },
+    {
+      "path": "src/scene/torque-wrench/directorRegistry.test.ts",
+      "bytes": 6760,
+      "sha256": "0d7ba08689de48c6626e101cba7c38c8abea557fc8ab507682215223b5523892"
+    },
+    {
+      "path": "src/scene/torque-wrench/directorRegistry.ts",
+      "bytes": 2363,
+      "sha256": "dd3f1a927c197b377ecb2df85afbdb17bbb774b8e466c1e72cf654dca75800dd"
+    },
+    {
+      "path": "src/scene/torque-wrench/ElectricalDirector.test.ts",
+      "bytes": 1772,
+      "sha256": "54018f1d01aa7decc23a35f0a2a0f5795f84a11fdab06e4e71b5c95355206e38"
+    },
+    {
+      "path": "src/scene/torque-wrench/ElectricalDirector.ts",
+      "bytes": 1672,
+      "sha256": "99d84f12cecece86384bfae6d6763bbac38e6077d31511bd1d100700f6ba4990"
+    },
+    {
+      "path": "src/scene/torque-wrench/InspectionDirector.test.ts",
+      "bytes": 11511,
+      "sha256": "bc7c1a0fa5396b75a0872aff446a7a6e560fa196923f59df2837725fd0b1a871"
+    },
+    {
+      "path": "src/scene/torque-wrench/InspectionDirector.ts",
+      "bytes": 7747,
+      "sha256": "bfc925caacfb3714bc434f92201fcb634bc9fc1df7c5350f13466796808bce21"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailure.test.ts",
+      "bytes": 3171,
+      "sha256": "7b655d665b31c3ab380582122680e31070c70a5f69e6cff5d68883a94bfcf495"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailure.ts",
+      "bytes": 2317,
+      "sha256": "3c74ade81e9306ecae7d39a41ad7a37c98f5c56a36c9fcc63bb8ba81cf6912a3"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionFailureHost.test.ts",
+      "bytes": 5397,
+      "sha256": "48398e1ae7cc0bbd894eb9c36657be244e3735713aed71f8d608902085049baf"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionPlayback.test.ts",
+      "bytes": 723,
+      "sha256": "0f37a2bf709e2885fbdf8dc73725cb177405b7b5fa478f1fc180e97271b43c62"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionPlayback.ts",
+      "bytes": 1228,
+      "sha256": "43f45e2adfad6312b2e147210398b65e1fa0d2375d550e676aec127ae8e6b623"
+    },
+    {
+      "path": "src/scene/torque-wrench/inspectionProof.ts",
+      "bytes": 6264,
+      "sha256": "869fae028a897d96998459ff88b4fe0169cdc38254edd415ce66c0d1332166e8"
+    },
+    {
+      "path": "src/scene/torque-wrench/MechanismDirector.ts",
+      "bytes": 939,
+      "sha256": "1f093e718181ed846a1a06cfd79b674fe3f435b0fd31a5cc712207d924c83044"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningCamera.test.ts",
+      "bytes": 1904,
+      "sha256": "276a5dcb629a8f018895a04d869768566e5b6095ea8b81cf51a192c486976238"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningCamera.ts",
+      "bytes": 1414,
+      "sha256": "ee7173ae572d8e55f3cfaec3c2a76491c26f0df5af82c537928d8073185e1010"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningDirector.test.ts",
+      "bytes": 1978,
+      "sha256": "52f51ffcd4497c294574cb28196554f34fb0d0b67968e347782fc35d1a636a75"
+    },
+    {
+      "path": "src/scene/torque-wrench/OpeningDirector.ts",
+      "bytes": 1486,
+      "sha256": "0d3b1d903755366ed4750deb2ca398db83b8d1344961bc5f83ebd8fe315adb66"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitDirector.test.ts",
+      "bytes": 432,
+      "sha256": "6a3e6fe5e559c6870b25d40bc79571ecad0f4cd2e0f490c6f3ce22a2efd4dee7"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitDirector.ts",
+      "bytes": 272,
+      "sha256": "26a556103d68d58d27bf14f6a447f42bc70c78237025198911d7a9bd71307b49"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitGeometry.test.ts",
+      "bytes": 1741,
+      "sha256": "1f33d6a6118bfe375a2781c27c6b757ae3428a7a6d7085a8c41b20e59be567eb"
+    },
+    {
+      "path": "src/scene/torque-wrench/PitGeometry.ts",
+      "bytes": 2631,
+      "sha256": "60f7e2f33202be5fa680231fdb64959a8bead9b9df31a226bd355897ecbd307c"
+    },
+    {
+      "path": "src/scene/torque-wrench/Poster.tsx",
+      "bytes": 1174,
+      "sha256": "135442374504ffee4f8c4a85997553856f20587179f22af88b9579a75b3ba1bc"
+    },
+    {
+      "path": "src/scene/torque-wrench/posterMap.ts",
+      "bytes": 958,
+      "sha256": "02c71118579c614db06dac061d3f85aec3109f5cc4669076fd027fc40dd14e09"
+    },
+    {
+      "path": "src/scene/torque-wrench/PrivateSheet.tsx",
+      "bytes": 2362,
+      "sha256": "12f80294dd69beb1eb4e84e6744eca2280425312b1ea3f3990127c44541645f7"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetRuntime.test.ts",
+      "bytes": 17412,
+      "sha256": "2b893985996edb9124949eb65bc4f797f38d1273aaec5b2d5c5e152336968e04"
+    },
+    {
+      "path": "src/scene/torque-wrench/privateSheetRuntime.ts",
+      "bytes": 31924,
+      "sha256": "7e9c476380b7f37f46224ee4c50fdcc2ae12de77a9cea72bd82bdf8ebcbfe6b0"
+    },
+    {
+      "path": "src/scene/torque-wrench/resourceScope.test.ts",
+      "bytes": 1377,
+      "sha256": "e5c9aad1b9031e9f66f202535194ee8c3e620adf90afda47367b43ffd38c542d"
+    },
+    {
+      "path": "src/scene/torque-wrench/resourceScope.ts",
+      "bytes": 1585,
+      "sha256": "022d9936b7ab7be0448b1f8d24737117e14656830e5b1e654269c69028112f9e"
+    },
+    {
+      "path": "src/scene/torque-wrench/RuntimeWorld.tsx",
+      "bytes": 20397,
+      "sha256": "ee11b6614ea6527382079d9f02e28bb8876f0f3e7596f1b870763fa51b38d76a"
+    },
+    {
+      "path": "src/scene/torque-wrench/Scene.tsx",
+      "bytes": 3030,
+      "sha256": "5a8bf2a037bbcfb7a5760cb6a3d4f5e64f8aecb7beded2a19c27d180801ff4c3"
+    },
+    {
+      "path": "src/scene/torque-wrench/SceneBoundary.tsx",
+      "bytes": 988,
+      "sha256": "fb69f939a02fa3a78b981f769693a3ab22a3ed95408e69af661e86706a0cba57"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.test.ts",
+      "bytes": 4540,
+      "sha256": "ac1d868be31fb2a2889106fd45c2106c3c146435bcae44e8082e80d7358726be"
+    },
+    {
+      "path": "src/scene/torque-wrench/sceneLifecycle.ts",
+      "bytes": 1950,
+      "sha256": "6277138b33231d8f73b20fd11b3d699ee838c998f030def14597e4de3d24f3f9"
+    },
+    {
+      "path": "src/scene/torque-wrench/ScrollConductor.test.tsx",
+      "bytes": 3721,
+      "sha256": "a4b00f598761f6b6858b06f76987dad504d4b09ed6ec86fa76558f2ee6068a8a"
+    },
+    {
+      "path": "src/scene/torque-wrench/ScrollConductor.tsx",
+      "bytes": 1952,
+      "sha256": "8d8e274a010ccb0079a471ff0f96886cdda831f09fd695eb9859a3115abeed8d"
+    },
+    {
+      "path": "src/scene/torque-wrench/Story.tsx",
+      "bytes": 6016,
+      "sha256": "ea266c8d6a109870b03d43643e312500134ae79d54ea459b714bce152883ecfb"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.test.ts",
+      "bytes": 849,
+      "sha256": "d90abf30f7ab53ffd05aff8f204625b74e85eeba98b4a47693a358752b7ea8cf"
+    },
+    {
+      "path": "src/scene/torque-wrench/tier.ts",
+      "bytes": 1017,
+      "sha256": "577bc33f0052b194beb6099272e538425755b9fc09a90c399cc962179f041183"
+    },
+    {
+      "path": "src/scene/torque-wrench/torque-wrench.css",
+      "bytes": 5742,
+      "sha256": "f4cf98ef7d95770af4e36cb86a5fb532ca4fdb9e9a06a9573edaa7413eb237a6"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.test.tsx",
+      "bytes": 2840,
+      "sha256": "a2d8b5b5d78be801afb0a0b4d13a669b216ae310c0b8d3445b17a238f857971c"
+    },
+    {
+      "path": "src/scene/torque-wrench/TorqueWrenchPage.tsx",
+      "bytes": 4784,
+      "sha256": "9f21965cd056ca2742eb739dbd2fc7f83e29b4b893e56134809cff70a9b50458"
+    },
+    {
+      "path": "src/scene/TorqueWrenchHero.tsx",
+      "bytes": 20830,
+      "sha256": "bff3a6813b5632e81030cb97597c68c463eebeb0307c5d9984577e3ae8f72477"
+    },
+    {
+      "path": "src/shaders/CadTransitionShader.ts",
+      "bytes": 5835,
+      "sha256": "db4cb7abf15965c7f8175c7cc008919ef99e0f18bf3d36178cf9a69fc1a6ea07"
+    },
+    {
+      "path": "src/shared/pageFade.test.ts",
+      "bytes": 34598,
+      "sha256": "d804d28892f464a3b10bada388e9992400376bfe1e3319553fd5df1dcafd697d"
+    },
+    {
+      "path": "src/shared/pageFade.ts",
+      "bytes": 11248,
+      "sha256": "da86f1b2488999d486d5f306e399dab940a35688ae027e0b232eac42439e453c"
+    },
+    {
+      "path": "src/shared/PageNav.test.tsx",
+      "bytes": 5550,
+      "sha256": "67f94dd0b92174cf30eb85dfeda8093b24490e7e47a1032d644a099a9f2bad5a"
+    },
+    {
+      "path": "src/shared/PageNav.tsx",
+      "bytes": 2743,
+      "sha256": "6b941ed2f09c542cd6b0c9eebeaad003188713a969d3c2b03c188f9fca3c89c2"
+    },
+    {
+      "path": "src/shared/pages.test.ts",
+      "bytes": 7335,
+      "sha256": "5cefde54a9dd9ccd7fb25540144bda44b25be8ddead73e9344b80edc8ac9dfcf"
+    },
+    {
+      "path": "src/shared/pages.ts",
+      "bytes": 4486,
+      "sha256": "2c10c646895dda86bbcfa5f90717af92f6e4ffec1377695b52b4d0cf9a6040e9"
+    },
+    {
+      "path": "src/shared/pageTopology.test.ts",
+      "bytes": 18090,
+      "sha256": "a2046710d8c919ee861a844587b0d868caf30ec7a8b0f8e6627d0dee2c64685a"
+    },
+    {
+      "path": "src/shared/poster.test.ts",
+      "bytes": 3193,
+      "sha256": "079c955516a196fae736fa2c6f97b86a0412a5104b5915acae1ec0a1fa91020d"
+    },
+    {
+      "path": "src/shared/poster.ts",
+      "bytes": 3865,
+      "sha256": "304d4265cbc7b633f915fd7051e7dc16c81476d23a5c916db879ddd20f339b79"
+    },
+    {
+      "path": "src/shared/posterGuard.test.ts",
+      "bytes": 7383,
+      "sha256": "b1d3e9d3ac02a232069d41c8665f8fbe3e2763ee9d6d7a86c37140729425cbe9"
+    },
+    {
+      "path": "src/shared/posterGuard.ts",
+      "bytes": 5868,
+      "sha256": "94cd4f033d6d9ff36cd4e6254f3d03ebdc45f3b583557b0a19a234db450aade6"
+    },
+    {
+      "path": "src/shared/PosterImage.test.tsx",
+      "bytes": 2639,
+      "sha256": "7ea616d4afe7c1a893e127c40b55ca9a19daa6e14f3b7bcdceeb0383b626718c"
+    },
+    {
+      "path": "src/shared/PosterImage.tsx",
+      "bytes": 1216,
+      "sha256": "7ebfd4ca8b7b2c1863c5baf9ba44a0db83204804b4419bcf91d7be5cb65d7fa7"
+    },
+    {
+      "path": "src/shared/shellBoundary.test.ts",
+      "bytes": 10811,
+      "sha256": "d59b8ff75410a2491ddf243de333d60c73725551f0c0b6849c46899f09bb8f87"
+    },
+    {
+      "path": "src/state/inspectionStore.test.ts",
+      "bytes": 14921,
+      "sha256": "5ba01f6abfd39b3217061829428a7b14f2c20dc9748b0b7f2d9e2b645d671fcf"
+    },
+    {
+      "path": "src/state/inspectionStore.ts",
+      "bytes": 11399,
+      "sha256": "30c561c6de498ba07090796af8c6486342b53b8ad0a957bccfca85b889f4a7cb"
+    },
+    {
+      "path": "src/state/qualityStore.ts",
+      "bytes": 3760,
+      "sha256": "879ab56e5e5a7d5458f7390991f16b5535959e49ba7378b826882e0cd35fa29c"
+    },
+    {
+      "path": "src/state/scrollStore.test.ts",
+      "bytes": 1338,
+      "sha256": "b1775f9533b8f9999eb585204411814fbf8be7fde80278dacbc7ccf45b8aa50d"
+    },
+    {
+      "path": "src/state/scrollStore.ts",
+      "bytes": 13910,
+      "sha256": "cb727394d9849c028ff5998e1de35d958e195d8f5fcd211c8bff6074c5f144ef"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.test.ts",
+      "bytes": 6456,
+      "sha256": "f8245211674afa056619ac3dfd0bab062873de8954c75264078373052c61d8af"
+    },
+    {
+      "path": "src/state/torqueWrenchStore.ts",
+      "bytes": 5864,
+      "sha256": "015d57e00110c6856e000fcfe8919fe7cda36f638f2fc5d0bfd5bc702303c922"
+    },
+    {
+      "path": "src/torque-wrench-main.tsx",
+      "bytes": 1792,
+      "sha256": "f6b5a15f7fdb9425d823c7c8d724fc07bf565aa23ff2b417f9b5cb59798334fd"
+    },
+    {
+      "path": "src/types/portfolio.ts",
+      "bytes": 3504,
+      "sha256": "dd36880db79758067fb98846d1336f070bf5d7af87e5e39d21bcbdc0c2524930"
+    },
+    {
+      "path": "src/types/troika-three-text.d.ts",
+      "bytes": 1316,
+      "sha256": "9c234be2d8a56153b9593e5db77e6d301813e30a43a298157464b2ca25d19391"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 621,
+      "sha256": "b091912d8aade7c4bea861cc2b07e77297b776fbd8cfe51484cb55c0e2780dc7"
+    },
+    {
+      "path": "vite.config.ts",
+      "bytes": 976,
+      "sha256": "887896de4d3b287da3c90988b807bb27892b8dccf3a5235aeddd1153bda59157"
+    }
+  ],
+  "sourceAggregateSha256": "898faa787daf55937a95724da4a96bdc9a687212251c5126da808bb99618caa1",
+  "preserved": [
+    {
+      "path": "GATES.md",
+      "sha256": "2bfef0973a31768a93728dc37cb61a120bbd2998dc1c222bd58cc2a632273612"
+    },
+    {
+      "path": "TODO.md",
+      "sha256": "02e58b35fa940de0a0fd071525a8cb7379944a30d47481a7e5606060170239cc"
+    },
+    {
+      "path": "docs/HANDOFF-rea-integration-and-cross-project-strategy-2026-10-12.md",
+      "sha256": "ed53fb5cc11baeeb3478f78fe3033d451c392d28bcb767abf188b9602aebd6a1"
+    },
+    {
+      "path": "docs/HANDOFF-rea-phase3-complete-2026-10-13.md",
+      "sha256": "504fbcf767ad56842addbf30ba6ce05a794c44a5d8e2df7611b2b04f86c9423f"
+    },
+    {
+      "path": "docs/HANDOFF-rea-phase3-runtime-2026-10-13.md",
+      "sha256": "8e38295c71b31feb1c527ffa1b479279edefe145c710ddc070e48c43a4484ee6"
+    },
+    {
+      "path": "docs/rea-integration-implementation-plan-2026-10-13.md",
+      "sha256": "1416acb852e5e29225a4bc06c5bfee15c42d4aed48e27bf108800b64ade6a1d6"
+    }
+  ],
+  "buildDir": ".scratch/jg038-stage4-20261013-p",
+  "scope": "Exact local source/public inputs. Protected sibling not accessed. Build and served-byte hashes are bound separately by the runtime reports."
+}

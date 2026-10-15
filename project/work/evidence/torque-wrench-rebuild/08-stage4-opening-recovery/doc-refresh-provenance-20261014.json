@@ -1,0 +1,23 @@
+{
+  "schema": "JG038-authorized-documentation-refresh-v1",
+  "date": "2026-10-14",
+  "authority": "Owner requested all JG038 documentation updates and a parallel-orchestrator handoff; no product/source/runtime-evidence edits.",
+  "frozenSourceManifest": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/source-20261013-s.json",
+  "frozenSourceAggregateSha256": "8a7ef37cc4fbcf99c392409e4dcf28becccbabfb7c77b920c325811e33b31390",
+  "frozenSourceInputsChecked": 347,
+  "sourceDrift": [],
+  "unchangedPreservedFilesChecked": 5,
+  "unexpectedPreservedDrift": [],
+  "authorizedPreservedDelta": {
+    "path": "TODO.md",
+    "beforeSha256": "02e58b35fa940de0a0fd071525a8cb7379944a30d47481a7e5606060170239cc",
+    "afterSha256": "7ad276c84c6ada529197b199434587ed26f47a72cebf17633148c7214c514620",
+    "change": "Only JG038 status line updated; unrelated REA/other task text preserved.",
+    "normalization": "Normalize CRLF to LF and exclude the single line starting '- [ ] **JG-038 —' before comparison.",
+    "outsideJG038BeforeAndAfterSha256": "49ac3854c3e0de812421d55c793b3204fef8d8527580530d24477a304fb0e901",
+    "outsideJG038TextEqual": true
+  },
+  "note": "Original source/review manifests retain capture-time protected hashes. Original strict review recorder rejects this expected TODO documentation delta; verify this explicit authorized delta separately, never regenerate old evidence to hide it.",
+  "audit": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/documentation-audit-20261014.md",
+  "handoff": "docs/torque-wrench-rebuild/HANDOFF-2026-10-14-parallel-functional.md"
+}

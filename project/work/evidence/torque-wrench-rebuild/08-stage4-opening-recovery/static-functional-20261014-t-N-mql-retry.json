@@ -1,0 +1,675 @@
+{
+  "harness": "verify-torque-static-functional",
+  "reportFamily": "JG-038-static-functional",
+  "harnessSha256": "470aa8bdb1c9e6f79a3c3ab2259b33ac6206ec3819a61670f249fcfb0249b4ee",
+  "copiedSource": {
+    "path": "scripts/verify-torque-static.mjs",
+    "sha256AtCopy": "794cb9a92590ed9c99c2374999f05a74fa5e2ffc61eb17dc30a1d5ccf76a6e1d",
+    "currentSha256AtRun": "794cb9a92590ed9c99c2374999f05a74fa5e2ffc61eb17dc30a1d5ccf76a6e1d"
+  },
+  "correction": "MQL ready-live prerequisite; initialization requests retained; zero NEW Scene/CAD/decoder requests through downgrade and bounded restoration windows. Static poster zero-from-init gate retained.",
+  "capturedAt": "2026-10-14T15:38:28.226Z",
+  "url": "http://localhost:5288/torque-wrench/",
+  "mode": "built",
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-functional-20261014-t",
+  "sceneIdentity": "/assets/Scene-CHJ2fOXp.js",
+  "expectedModuleSrc": "/assets/torque-wrench-TVIBm2F-.js",
+  "viewports": [
+    "N 390x844 DPR3 touch/mobile"
+  ],
+  "roster": [
+    "N-scene-mql-downgrade"
+  ],
+  "playwrightVersion": "1.56.1",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "glRenderer": "unmeasured (no hardware or software rendering claim; configuration only)",
+  "assetIdentity": {
+    "entryAsset": {
+      "url": "http://localhost:5288/assets/torque-wrench-TVIBm2F-.js",
+      "localSha256": "cdcd7c99439c506a4760d917ea685d8c507b17f077767775b6c76e6f537df874",
+      "servedSha256": "cdcd7c99439c506a4760d917ea685d8c507b17f077767775b6c76e6f537df874",
+      "servedShaVerified": true
+    },
+    "sceneAsset": {
+      "url": "http://localhost:5288/assets/Scene-CHJ2fOXp.js",
+      "localSha256": "2855182b43c2926ee71cd627c4693937a92d8a44a5c8a8537e3e9119e860dffa",
+      "servedSha256": "2855182b43c2926ee71cd627c4693937a92d8a44a5c8a8537e3e9119e860dffa",
+      "servedShaVerified": true
+    }
+  },
+  "browserVersion": "154.0.8037.98",
+  "preflight": [
+    {
+      "name": "playwright package resolvable",
+      "pass": true,
+      "detail": "version 1.56.1"
+    },
+    {
+      "name": "torque-wrench/index.html exists (activation applied)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exactly one shell block",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "shell block found",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "fade sub-block present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "fade sub-block matches pinned sha256",
+      "pass": true,
+      "detail": "e30f6045d8cfdb71a93e4c8a3af806e9699fa7f13da28720a3f507ce79bfc05b"
+    },
+    {
+      "name": "real head robots noindex meta (comments stripped)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "module entry is exactly /src/torque-wrench-main.tsx (attr-order tolerant, dev client excluded)",
+      "pass": true,
+      "detail": "candidates=/src/torque-wrench-main.tsx"
+    },
+    {
+      "name": "private module file exists",
+      "pass": true,
+      "detail": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\src\\torque-wrench-main.tsx"
+    },
+    {
+      "name": "no legacy redirect block (root index.html only)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row torque-wrench found",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: href '/torque-wrench/'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: htmlEntry 'torque-wrench/index.html'",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row active: reserved false",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row keeps private true (never in public nav)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "registry row keeps fadeIn true",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "pages.test.ts torque pin updated to the active row",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "pageTopology.test.ts entries pin includes 'torque-wrench/index.html'",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "cases": [
+    {
+      "id": "N-scene-mql-downgrade",
+      "viewport": "N 390x844 DPR3 touch/mobile",
+      "kind": "mql",
+      "url": "http://localhost:5288/torque-wrench/",
+      "status": "FAIL",
+      "durationMs": 35665,
+      "assertions": [
+        {
+          "name": "document responds 200",
+          "pass": true,
+          "detail": "status=200"
+        },
+        {
+          "name": "document is the private /torque-wrench page",
+          "pass": true,
+          "detail": "http://localhost:5288/torque-wrench/"
+        },
+        {
+          "name": "served module entry is the exact expected identity (dev client ignored)",
+          "pass": true,
+          "detail": "candidates=/assets/torque-wrench-TVIBm2F-.js"
+        },
+        {
+          "name": "served HTML carries fade markers + noindex",
+          "pass": true,
+          "detail": ""
+        },
+        {
+          "name": "skip link is the first Tab stop",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "activating skip link moves focus to the story container",
+          "pass": true,
+          "detail": "activeElement=torque-story"
+        },
+        {
+          "name": "inspection toggle reachable by Tab order before the transition",
+          "pass": true,
+          "detail": "tabs=1"
+        },
+        {
+          "name": "DOM identity + disclosure + focus captured pre-transition",
+          "pass": true,
+          "detail": "{\"captured\":true,\"expanded\":\"true\",\"focusedIsToggle\":true}"
+        },
+        {
+          "name": "MQL downgrade requires actual ready live world before transition",
+          "pass": false,
+          "detail": "{\"ready\":true,\"sheetBaked\":true,\"frames\":30,\"calls\":0,\"live\":true,\"stage\":\"scene\"}"
+        },
+        {
+          "name": "case completed without harness exception",
+          "pass": false,
+          "detail": "Error: MQL live-world prerequisite failed; downgrade not attempted\n    at stepMqlDowngrade (file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:817:32)\n    at async runCaseOnContext (file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:939:33)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:972:7\n    at async runCaseGuarded (file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:990:13)\n    at async main (file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:1246:21)\n    at async file:///C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/scripts/verify-torque-static-functional.mjs:1274:1"
+        }
+      ],
+      "observations": {
+        "sceneIdentity": "/assets/Scene-CHJ2fOXp.js",
+        "sceneModuleRequests": [
+          "http://localhost:5288/assets/Scene-CHJ2fOXp.js"
+        ],
+        "sceneModuleResponses": [
+          {
+            "url": "http://localhost:5288/assets/Scene-CHJ2fOXp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          }
+        ],
+        "sceneModuleRequestFailed": [],
+        "sceneShapedUnidentified": [],
+        "cadRequests": [
+          "http://localhost:5288/models/Default.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm",
+          "http://localhost:5288/models/manufacturing-core-full.glb",
+          "http://localhost:5288/draco/draco_wasm_wrapper.js",
+          "http://localhost:5288/draco/draco_decoder.wasm"
+        ],
+        "mqlTransition": null,
+        "mqlReadiness": {
+          "elapsedMs": 33136,
+          "pass": true
+        },
+        "httpErrors": [],
+        "consoleErrors": [],
+        "pageErrors": [],
+        "requests": [
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/torque-wrench/"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/torque-wrench-TVIBm2F-.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/index-fDwt6Stp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/index-BWkoJ37d.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/PageNav-BCe4durP.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/index-CddUWpSY.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/torque-wrench-9cRJ2z0O.css"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/Scene-CHJ2fOXp.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/DRACOLoader-B7Zl1e1S.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/BufferGeometryUtils-CJf3_5-U.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/vanilla-m3Xdu9cz.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/ScrollTrigger-a3sj5zmn.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/lenis-D7TmsVAo.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/session-Cg--RoEM.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/portal-CrO962__.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/assets/script-fArmm6da.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/models/Default.glb"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/drawing/jgun-sheet-v2.bin.gz"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/37330a19-079e-4c87-ae02-d6c7b157d82d"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/ecf511f0-2ba3-43d5-86d8-057b68139da6"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/13b242f2-f69c-4189-bba5-9e66f737cda3"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/5df0bbbf-0a5d-4410-ac73-8918d2db2db9"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/58d33781-b373-4614-b1e9-cff85f236469"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/182d7b60-557d-49a3-adf5-52533f32a50c"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/82e2df3e-1084-4e5e-94a4-c9bf6cbbef76"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/d6337c11-4f0d-43ab-be7f-64d1c5a2c241"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/favicon.svg"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/fcadcb75-e081-4c7d-8af4-c0ed107320e3"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/4e61aa6c-e951-4311-ad05-d01e3db5c079"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/49b2f684-bb86-4354-a2c5-711e0ddf6e2c"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/32ae7328-da6b-4dbe-b2ec-bc7add4ceb2e"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/63341a30-e6d2-451a-91cb-b6c548a2cad9"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/50430872-5375-4cc9-8f29-1cda4ceb92f0"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/fonts/BarlowCondensed-SemiBold.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/fonts/BarlowCondensed-Medium.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/fonts/AcFastReference.ttf"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/models/manufacturing-core-full.glb"
+          },
+          {
+            "method": "GET",
+            "url": "https://cdn.jsdelivr.net/gh/lojjic/unicode-font-resolver@v1.0.1/packages/data/codepoint-index/plane0/2300-23ff.json"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/draco/draco_wasm_wrapper.js"
+          },
+          {
+            "method": "GET",
+            "url": "http://localhost:5288/draco/draco_decoder.wasm"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/135b1789-1163-4be8-aa8c-660bae174c18"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/135b1789-1163-4be8-aa8c-660bae174c18"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/135b1789-1163-4be8-aa8c-660bae174c18"
+          },
+          {
+            "method": "GET",
+            "url": "blob:http://localhost:5288/135b1789-1163-4be8-aa8c-660bae174c18"
+          }
+        ],
+        "responses": [
+          {
+            "url": "http://localhost:5288/torque-wrench/",
+            "status": 200,
+            "contentType": "text/html"
+          },
+          {
+            "url": "http://localhost:5288/assets/torque-wrench-TVIBm2F-.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/index-BWkoJ37d.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/torque-wrench-9cRJ2z0O.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5288/assets/PageNav-BCe4durP.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/index-CddUWpSY.css",
+            "status": 200,
+            "contentType": "text/css"
+          },
+          {
+            "url": "http://localhost:5288/assets/index-fDwt6Stp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/vanilla-m3Xdu9cz.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/Scene-CHJ2fOXp.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/script-fArmm6da.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/lenis-D7TmsVAo.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/ScrollTrigger-a3sj5zmn.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/session-Cg--RoEM.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/DRACOLoader-B7Zl1e1S.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/portal-CrO962__.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/assets/BufferGeometryUtils-CJf3_5-U.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "http://localhost:5288/models/Default.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5288/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "http://localhost:5288/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "blob:http://localhost:5288/930b6194-6630-4bbd-8ea8-659c44529cd2",
+            "status": 200,
+            "contentType": ""
+          },
+          {
+            "url": "http://localhost:5288/drawing/jgun-sheet-v2.bin.gz",
+            "status": 200,
+            "contentType": "application/octet-stream"
+          },
+          {
+            "url": "blob:http://localhost:5288/ecf511f0-2ba3-43d5-86d8-057b68139da6",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/13b242f2-f69c-4189-bba5-9e66f737cda3",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/5df0bbbf-0a5d-4410-ac73-8918d2db2db9",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/58d33781-b373-4614-b1e9-cff85f236469",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/182d7b60-557d-49a3-adf5-52533f32a50c",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/82e2df3e-1084-4e5e-94a4-c9bf6cbbef76",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/d6337c11-4f0d-43ab-be7f-64d1c5a2c241",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/fcadcb75-e081-4c7d-8af4-c0ed107320e3",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/4e61aa6c-e951-4311-ad05-d01e3db5c079",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5288/favicon.svg",
+            "status": 200,
+            "contentType": "image/svg+xml"
+          },
+          {
+            "url": "blob:http://localhost:5288/49b2f684-bb86-4354-a2c5-711e0ddf6e2c",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/32ae7328-da6b-4dbe-b2ec-bc7add4ceb2e",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/63341a30-e6d2-451a-91cb-b6c548a2cad9",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "blob:http://localhost:5288/50430872-5375-4cc9-8f29-1cda4ceb92f0",
+            "status": 200,
+            "contentType": "application/javascript"
+          },
+          {
+            "url": "http://localhost:5288/fonts/BarlowCondensed-SemiBold.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5288/models/manufacturing-core-full.glb",
+            "status": 200,
+            "contentType": "model/gltf-binary"
+          },
+          {
+            "url": "http://localhost:5288/fonts/BarlowCondensed-Medium.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5288/fonts/AcFastReference.ttf",
+            "status": 200,
+            "contentType": "font/ttf"
+          },
+          {
+            "url": "http://localhost:5288/draco/draco_wasm_wrapper.js",
+            "status": 200,
+            "contentType": "text/javascript"
+          },
+          {
+            "url": "http://localhost:5288/draco/draco_decoder.wasm",
+            "status": 200,
+            "contentType": "application/wasm"
+          },
+          {
+            "url": "blob:http://localhost:5288/135b1789-1163-4be8-aa8c-660bae174c18",
+            "status": 200,
+            "contentType": ""
+          }
+        ],
+        "requestFailed": []
+      }
+    }
+  ],
+  "result": "FAIL"
+}

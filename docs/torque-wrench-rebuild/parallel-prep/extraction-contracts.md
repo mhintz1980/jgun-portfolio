@@ -1,5 +1,7 @@
 # Stage 3 extraction and resource contracts — interface v1
 
+> Status reconciliation2026-10-14: this is the historical interface contract. Stage2 exit and Stage3 extraction/integration/leaf exit have since been recorded; do not restart extraction from its old baseline. Use [current parallel handoff](../HANDOFF-2026-10-14-parallel-functional.md) and current source/evidence for new ownership, lifecycle and parity follow-ups. Interface history retained below.
+
 Work: JG-038. Date: 2026-10-12 (America/New_York). Workspace:
 `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench`, branch `torque-wrench/rebuild`.
 Source baseline `dc44fb79ed43d6a62db47ae58900afb718ad15d1` (HEAD verified this session).

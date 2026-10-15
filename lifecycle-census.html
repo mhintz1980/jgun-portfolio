@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05070a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>JGun Torque Wrench · Lifecycle Census (dev only)</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Instrument only a hook that already exists. This must run before the module script's
+      // static React imports; if no DevTools hook is present, R3F commits stay UNVERIFIED.
+      ;(function () {
+        var hook = window.__REACT_DEVTOOLS_GLOBAL_HOOK__
+        var bridge = {
+          presentBeforeReactImports: Boolean(hook),
+          supportsFiber: hook ? Boolean(hook.supportsFiber) : null,
+          disabled: hook ? Boolean(hook.isDisabled) : null,
+          injectWrapped: false,
+          onCommitFiberRootWrapped: false,
+          missingReason: hook ? null : 'no existing __REACT_DEVTOOLS_GLOBAL_HOOK__ existed before React static imports',
+          registrations: [],
+          commits: [],
+        }
+        window.__torqueCensusBridge = bridge
+        if (!hook) return
+
+        function packageName(config) {
+          return config && config.rendererPackageName !== undefined ? config.rendererPackageName : null
+        }
+        function version(config, field) {
+          return config && config[field] !== undefined ? config[field] : null
+        }
+        function record(rendererId, config, observedBy) {
+          bridge.registrations.push({
+            rendererId: rendererId,
+            packageName: packageName(config),
+            version: version(config, 'version'),
+            reconcilerVersion: version(config, 'reconcilerVersion'),
+            observedBy: observedBy,
+          })
+        }
+
+        Object.keys(hook._renderers || {}).forEach(function (id) {
+          var renderer = hook._renderers[id] || {}
+          record(Number.isFinite(Number(id)) ? Number(id) : id, {
+            rendererPackageName: renderer.rendererPackageName,
+            version: renderer.version,
+          }, 'initial-roster')
+        })
+
+        if (typeof hook.inject === 'function') {
+          var originalInject = hook.inject
+          hook.inject = function () {
+            var rendererId = originalInject.apply(hook, arguments)
+            record(rendererId, arguments[0], 'inject-wrapper')
+            return rendererId
+          }
+          bridge.injectWrapped = true
+        }
+
+        if (typeof hook.onCommitFiberRoot === 'function') {
+          var originalOnCommitFiberRoot = hook.onCommitFiberRoot
+          hook.onCommitFiberRoot = function (rendererId, fiberRoot, priority, didError) {
+            var known = bridge.registrations.some(function (entry) {
+              return String(entry.rendererId) === String(rendererId) && entry.packageName === '@react-three/fiber'
+            })
+            bridge.commits.push({
+              rendererId: rendererId,
+              knownR3fRenderer: known,
+              censusPhase: (window.__torqueCensus && window.__torqueCensus.state.phase) || 'startup',
+              timestamp: performance.now(),
+              didError: typeof didError === 'boolean' ? didError : null,
+            })
+            return originalOnCommitFiberRoot.apply(hook, arguments)
+          }
+          bridge.onCommitFiberRootWrapped = true
+        } else {
+          bridge.missingReason = 'existing pre-React DevTools hook has no onCommitFiberRoot function'
+        }
+      })()
+    </script>
+    <script type="module" src="/src/torque-wrench-lifecycle-census-main.tsx"></script>
+  </body>
+</html>

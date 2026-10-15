@@ -1,0 +1,141 @@
+{
+  "startedAt": "2026-10-14T14:35:54.495Z",
+  "lane": "A-lifecycle",
+  "url": "http://localhost:5288",
+  "only": [
+    "init-failure"
+  ],
+  "caseDurations": {
+    "init-failure": "bounded ~35 s worst case: navigation + 20 s poster wait + 1.5 s error settle",
+    "churn-scroll": "~15 s plus readiness waits (up to 90 s ready / 120 s bake / 60 s frames): 12x120px @100ms same-beat, 4x(-1200px) reversal @100ms, 1.2 s settle",
+    "low-rate": "~8 s: 30 updates at 30 Hz then 15 updates at 15 Hz, 1 s settle",
+    "hidden-resume": "~3 s when headless stays visible (UNVERIFIED); 5 s hidden hold + ~4 s resume window when a real hidden document is obtainable"
+  },
+  "notes": [
+    "React-commit absence is NOT verified: the churn case observes DOM mutations only, a functional proxy.",
+    "StrictMode integrated remount proof requires a dev harness and remains separate; the production build cannot exercise it.",
+    "BFCache restore remains UNVERIFIED (persisted=false observed historically); this harness does not attempt BFCache.",
+    "No qualityLock, no tier forcing, no invented thresholds; controlled-rate cases are excluded from performance distributions per contract18 section 3."
+  ],
+  "provenance": {
+    "harness": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\scripts\\verify-torque-lifecycle-functional.mjs",
+      "sha256": "a5b149a7fde7b132fe4780f6afb2e2bf2c0c3a2e965ae1243cc8c60e9128bbaf"
+    },
+    "sourceManifest": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\project\\work\\evidence\\torque-wrench-rebuild\\08-stage4-opening-recovery\\source-functional-20261014-t-build.json",
+      "sha256": "1cb17659bc01f83078b33b1572c2b27e77136f59b5677398a9dc29e37549bcf8"
+    },
+    "observedBuildAssets": {
+      "headUrl": "http://localhost:5288/torque-wrench/",
+      "servedAssetCount": 7,
+      "truncated": false,
+      "assets": [
+        {
+          "url": "http://localhost:5288/torque-wrench/",
+          "status": 200,
+          "bytes": 2882,
+          "sha256": "6c9758dc769bf959945a2683521975c98a1eaa054c7151880e63874c5692a7c9"
+        },
+        {
+          "url": "http://localhost:5288/assets/torque-wrench-TVIBm2F-.js",
+          "status": 200,
+          "bytes": 17693,
+          "sha256": "cdcd7c99439c506a4760d917ea685d8c507b17f077767775b6c76e6f537df874"
+        },
+        {
+          "url": "http://localhost:5288/assets/index-fDwt6Stp.js",
+          "status": 200,
+          "bytes": 194384,
+          "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+        },
+        {
+          "url": "http://localhost:5288/assets/index-BWkoJ37d.js",
+          "status": 200,
+          "bytes": 66,
+          "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+        },
+        {
+          "url": "http://localhost:5288/assets/PageNav-BCe4durP.js",
+          "status": 200,
+          "bytes": 4956,
+          "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+        },
+        {
+          "url": "http://localhost:5288/assets/index-CddUWpSY.css",
+          "status": 200,
+          "bytes": 40514,
+          "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+        },
+        {
+          "url": "http://localhost:5288/assets/torque-wrench-9cRJ2z0O.css",
+          "status": 200,
+          "bytes": 4347,
+          "sha256": "56ddd1f528433004d4cceee73c069081fefcaf97affcec785776d90a3d532df9"
+        }
+      ]
+    }
+  },
+  "cases": {},
+  "launch": {
+    "described": "installed Chrome, ANGLE/D3D11 (hardware)",
+    "config": {
+      "channel": "chrome",
+      "headless": true,
+      "args": [
+        "--use-angle=d3d11",
+        "--disable-background-timer-throttling",
+        "--disable-renderer-backgrounding",
+        "--disable-backgrounding-occluded-windows"
+      ]
+    },
+    "playwrightVersion": "1.56.1"
+  },
+  "checks": [
+    {
+      "id": "init-failure-renderer-construction",
+      "status": "PASS",
+      "detail": {
+        "route": "renderer-construction",
+        "posterObserved": true,
+        "precheckPassed": true,
+        "deniedConnectedContextCalls": 2,
+        "getContextCalls": [
+          {
+            "type": "webgl2",
+            "connected": false
+          },
+          {
+            "type": "webgl2",
+            "connected": true
+          },
+          {
+            "type": "webgl2",
+            "connected": true
+          }
+        ],
+        "dom": {
+          "mode": "static",
+          "stage": "poster",
+          "canvases": 0,
+          "storyText": 1300,
+          "footer": true,
+          "worldProbe": false
+        },
+        "worldProbePresent": false,
+        "pageErrors": [],
+        "consoleErrors": [
+          "THREE.WebGLRenderer: THREE.WebGLRenderer: Error creating WebGL context."
+        ],
+        "constructionErrorSeen": true,
+        "precheckMessageSeen": false,
+        "note": "PASS requires the detached capability-probe canvas to obtain a context (precheck passed) BEFORE a connected canvas context is denied at renderer construction; this is an actual renderer-construction-failure observation, distinct from import abort (static verifier), render throw, and WEBGL_lose_context loss (drawing-integration F). A capability-precheck route means the gate reached the precheck and must never be labeled construction evidence."
+      }
+    }
+  ],
+  "summary": {
+    "pass": 1,
+    "fail": 0,
+    "unverified": 0
+  }
+}

@@ -1,5 +1,7 @@
 # JG-038 autonomous execution — 2026-10-12
 
+> Current frontier refreshed2026-10-14: Stages0–2 closed; [Stage3 leaf exit](stage3-exit-2026-10-13.md) recorded; Stage4 implemented and review evidence prepared. Use [current handoff](../../../../../docs/torque-wrench-rebuild/HANDOFF-2026-10-14-parallel-functional.md), [Stage4 index](../08-stage4-opening-recovery/README.md) and [task-local gates](GATES.md). The baseline, resource observations and wave statuses below are historical snapshots, not current ownership or next-action authority. Original workers are closed. Current functional proof: s effects D/N70/70, clean opening D/N sweeps, cutter4×258/258, static14/14, desktop timeline9/9. Narrow timeline, lifecycle/parity/performance, Stage5/6 and acceptance remain open.
+
 Workspace: C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench. Branch: torque-wrench/rebuild. Baseline: dc44fb79ed43d6a62db47ae58900afb718ad15d1; clean tracked/untracked status before session writes. Stage 0/static Stage 1 complete; Stage 2 begins next. Preserve protected sibling, shared-window files and immutable CAD sources. No Git delivery/publication authority is inferred.
 
 Owner authorized autonomous completion of remaining G0–G9, GLM High/Max and Sol High/Opus High escalation when necessary. Callable default seats: GLM-5.3-Flash and GLM-5.3. Sol High available via pinned tier-worker. Opus-5.5 unavailable in exposed subagent roster. Models/efforts below are configured routing, not backend observation.

@@ -1,0 +1,14 @@
+# Independent source review — 2026-10-13
+
+Configured seats are recorded from tool dispatch arguments; model self-identification is not proof of the served backend.
+
+- GLM-5.3-Flash/high verifier preparation produced the draft `scripts/verify-torque-stage4-effects.mjs`. The worker was stopped and parent took ownership before final integration. The separate Flash/high pit lane was stopped before producing source; parent authored the private pit modules.
+- GLM-5.3/high attribution review: two rounds. First requested viewport, topology/lip, pixel observability, cap/closure guards, errors and restoration checks. Final reports `pit-ab-20261013-m2-D` and `-N` include the hardened schema v2, harness hash, observed viewport/DPR/raster, exact unchanged/restored controls and byte-matched served assets. Both pass15/15. These are wall-position-only measurements, not complete historical-portal replay or aesthetic root-cause acceptance.
+- DeepSeek-Flash/high final-source reviewer could not start: provider429 Too Many Requests exceeded retry limit. No review result was received from that seat.
+- GLM-5.3/high final effects source review: two rounds. First found six verifier defects: missing HTML/lazy assets from provenance, absent page/console-error listeners, optional activity/finite telemetry allowing false PASS, missing pixel-backed emission/dark holds and metal exposure. Parent corrected them and added null-render electricity and lit-metal luminance probes. Round2 returned **no remaining source-review blockers**. It specifically distinguished source-review clearance from GPU runtime proof and acceptance.
+
+Parent performed TypeScript and focused checks. Default all-worker full-suite run had four timeout-only failures; rerun with `--maxWorkers=2` passed79 files/961 tests/four existing skips. Shader compilation, exact-build runtime proof and owner/Astra effects acceptance are not inferred from those CPU results. No Sol or Astra seat was called.
+
+No commits, pushes, publication, cutover or protected-sibling access. No owner/Astra acceptance.
+
+Continuation review, GLM-5.3/high: effects observed-progress readiness is a justified strengthening; snapshot serialization/map keys have no found shared-mutation flaw. Original o-D timing cause remains unproven. Review found incomplete gap/catch-up summaries and standalone provenance; final harness records before/stalled/catchUp, source/verifier/harness hashes, exact URL, and built/served public assets. Precompile delta review returned no source blocker after replacing subtree compile with whole attached-scene compile to collect the point light once; temporary visibility restores in finally. Raw Node http/https responses correctly avoid Fetch's transparent gzip decoding. Final s runtime remains a separate required check. HTML document matching uses decoded Fetch bytes; preview serves the matching literal HTML, while all public assets use raw bytes. No acceptance inferred.

@@ -1,5 +1,7 @@
 # JG-038 Stage 4 handoff — 2026-10-13
 
+> Historical checkpoint; superseded by [HANDOFF-2026-10-14-parallel-functional.md](HANDOFF-2026-10-14-parallel-functional.md). Pit attribution, relief/electricity and opening handoff are now implemented; current build is s with review evidence prepared. Do not repeat the immediate-next-action list below or treat its dirty-state snapshot as current.
+
 ## Immediate next action
 
 1. Read this handoff, then `project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/README.md`, the task ledger `project/work/evidence/torque-wrench-rebuild/07-autonomous-2026-10-12/GATES.md`, and `docs/torque-wrench-rebuild/09-design.md` (recovery baseline).

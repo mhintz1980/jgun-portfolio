@@ -145,9 +145,9 @@ describe('JG-038 private InspectionDirector C1', () => {
     }
   })
 
-  it.each([DESKTOP, NARROW, 0.82])('retains the entire baseline camera outside the arc at aspect %s', (aspect) => {
+  it.each([DESKTOP, NARROW, 0.82])('retains the baseline camera outside private cutter framing at aspect %s', (aspect) => {
     const baseline = createShaftCameraSample()
-    for (const time of [0, 2, 6.4, 6.5, 10.3, 11, 14.5, 15, 24.6, 28, 32, 43]) {
+    for (const time of [0, 16, 24.6, 28, 32, 43]) {
       const sample = at(progressAtTime(time), aspect)
       // Bisection may land a few ulps inside a seam; its smooth weight is negligible.
       expect(sample.arcWeight).toBeLessThan(1e-20)
@@ -222,7 +222,8 @@ describe('JG-038 private InspectionDirector C1', () => {
   })
 
   it.each([DESKTOP, NARROW])('is C1 at master knots and arc entry/exit seams at aspect %s', (aspect) => {
-    const seams = [...KNOTS.map(([p]) => p), progressAtTime(6.5), progressAtTime(10.3)]
+    const seams = [...KNOTS.map(([p]) => p), progressAtTime(2), progressAtTime(6.5),
+      progressAtTime(10.3), progressAtTime(15), progressAtTime(16)]
     // Small enough to distinguish a seam from the compressed exit's curvature.
     const h = 1e-9
     const channels: [string, (s: PrivateInspectionSample) => number, number][] = [

@@ -163,6 +163,24 @@ export function samplePrivateInspection(
   sampleShaftKinematics(subjectTime, out.kinematics)
   const camera = sampleShaftCamera(subjectTime, aspect, out.kinematics, out.camera)
 
+  // The inherited macro crops the outer disc at the arc's two blend edges and
+  // during the recap. Settle a private, wider cutter composition before its
+  // reveal, then return smoothly after retirement. Geometry/subject laws stay
+  // borrowed unchanged; this framing belongs only to the private page.
+  const framingWeight = smooth01(subjectTime / 2)
+    * (1 - smooth01((subjectTime - 15) / 1))
+  if (framingWeight > 0) {
+    const layout = clamp01((aspect - 0.62) / 0.4)
+    const ty = lerp(0.0082, 0.009, layout)
+    const tz = lerp(0.014, 0.0078, layout)
+    const dx = (0 - camera.tx) * framingWeight
+    const dy = (ty - camera.ty) * framingWeight
+    const dz = (tz - camera.tz) * framingWeight
+    camera.px += dx; camera.py += dy; camera.pz += dz
+    camera.tx += dx; camera.ty += dy; camera.tz += dz
+    camera.fov = lerp(camera.fov, lerp(27, 14, layout), framingWeight)
+  }
+
   if (arcWeight > 0) {
     const u = smooth01((cameraTime - a.cameraTime) / (b.cameraTime - a.cameraTime))
     // Match the root-free leaf's layout law exactly; no extra aspect policy.

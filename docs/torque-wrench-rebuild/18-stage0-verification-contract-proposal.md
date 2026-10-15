@@ -1,5 +1,7 @@
 # JG-038 — Approved Stage 0 verification matrix and numerical budgets
 
+**Current repetition policy:** owner selected JG-038-LEAN-V1 on 2026-10-14; §8 explicitly supersedes only the two primary repetition counts in §5. All original results and other requirements remain.
+
 Date: 2026-10-11 (America/New_York). Workspace: `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench`; branch `torque-wrench/rebuild`; source baseline `8945fa95cc70b74bdcc9da27cc0573c3d1157da4` plus preserved planning changes.
 
 **Approved by owner 2026-10-11.** Owner replied “I approve” to the request to approve this matrix and numerical limits to close Stage 0. Sections 2–6 are the approved starting verification contract; this is not a measured performance pass. Stage 0 is closed. Stage 1 proceeds under existing ordered implementation authority; shared-shell/V16 coordination and all later gate/acceptance boundaries remain. The filename retains its proposal-era name for link stability.
@@ -121,3 +123,16 @@ Independent native `tier-reviewer` (configured Astra/medium) returned **ship for
 Parent final checks: 274 product hashes unchanged, all proposal/local-record relative links resolved, HEAD/branch unchanged, scoped ports free and no task server/verifier processes remain. Only the intended existing owner/plan/Stage 0 records were updated; prior content was retained. This pass made no Git mutation or product/shared/V16/protected-checkout edits. Stage 0 is prepared for matrix/budget approval; it is not fully closed while that approval remains pending.
 
 Subsequent owner approval supersedes the review-time pending statements in the two preceding historical paragraphs. Stage 0 is now closed; next is Stage 1. Technical performance, effects/visual acceptance and downstream gates were not closed by approval.
+
+## 8. JG-038-LEAN-V1 — owner-selected verification amendment (2026-10-14)
+
+Owner selection recorded 2026-10-14. This supersedes only two primary repetition requirements in §5:
+
+- Three independent runs for each D/N live tier become **20 primary phase measurements**: D/N × full/lite × five phases × one independent run.
+- Five fresh-context trials per valid/missing/stale cache condition become **three primary startup trials**: valid, missing and stale drawing cache, one fresh context each.
+
+All other §§2–6 requirements remain: numerical ceilings, hardware GL and natural adaptation, D/N/H/L scope, five phases, readiness timeout and fields, phase-confined 60s windows (20s forward/20s reverse/20s holds), and response/determinism tolerances. Failed/incomplete/inconsistent observations repeat. Positive ceilings other than refresh-bound warm-frame p50 trigger **two additional independent runs** at ≥90% and ≤100% of the ceiling. Zero-ceiling metrics repeat on failure. Retain every attempt/raw report and the worst governing value; never pool away failures. Missing readiness or program-identity observables stay UNVERIFIED. Three startup conditions establish minimum coverage, not universal reliability. Never describe this as the original 60 phase-run/15 startup-trial protocol passing.
+
+Final functional coverage remains comprehensive: D/N full/lite, reduced motion, explicit poster, actual renderer-initialization failure, runtime context loss, controls/focus, reverse/seek/hold/reload, and every required input/response/continuity category. Supplemental H/L and named physical-device requirements are unchanged. Dev StrictMode, actual hidden/resume, capture-free unthrottled performance, and visual recordings need separate environments. Share compatible journeys and use representative boundary/defect captures; preserve original raw evidence. Full repository checks run at stable final delivery, then affected checks repeat when changes/failures warrant it. Independent review remains for substantial integrated changes, measurement correctness, shared boundaries, cleanup and effects, with at most two rounds per piece.
+
+Use the [single current checklist](../../project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/lean-verification-checklist-20261014-V1.md) for build/source/harness/served identities, case/phase/cache condition, attempts, retry triggers, worst values, raw report links, failures and limitations. This prospective amendment closes no gate and supplies no owner visual or Astra acceptance.

@@ -1,0 +1,341 @@
+{
+  "schema": "JG-038-pit-geometry-ab-v1",
+  "createdAt": "2026-10-13T19:18:26.935Z",
+  "viewport": "D",
+  "size": {
+    "width": 1440,
+    "height": 900
+  },
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "candidateRevision": "4035be9d^",
+  "currentSourceSha256": "49e0a39dd0f34b35b977aa0176c9331f5f5f487938c279afd52102e7bee35891",
+  "candidateSourceSha256": "504ade00e85b13a36b08325f421e345a8a134cfde6a1f57f3fd813e009666650",
+  "provenance": {
+    "head": "1c7a7d2d1d73b1a94d015bfcae10c101cd94b72c",
+    "buildDir": ".scratch/jg038-stage4-20261013-k",
+    "assets": [
+      {
+        "path": "assets/BootSequence-CVHSSrgy.js",
+        "sha256": "c4f202f784920975fecf8c874a71588d9831885b825d5ce473cc4e184b67c1cd"
+      },
+      {
+        "path": "assets/BufferGeometryUtils-DiUZtcLn.js",
+        "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873"
+      },
+      {
+        "path": "assets/draco_decoder-C32yEggz.wasm",
+        "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+      },
+      {
+        "path": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+      },
+      {
+        "path": "assets/draco_decoder-Z1_iN-Ht.wasm",
+        "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+      },
+      {
+        "path": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+      },
+      {
+        "path": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+      },
+      {
+        "path": "assets/DRACOLoader-BG0x9_ow.js",
+        "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191"
+      },
+      {
+        "path": "assets/index-BWkoJ37d.js",
+        "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+      },
+      {
+        "path": "assets/index-CddUWpSY.css",
+        "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+      },
+      {
+        "path": "assets/index-fDwt6Stp.js",
+        "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+      },
+      {
+        "path": "assets/jgun-k0d3XZei.js",
+        "sha256": "2e2d563273a832dcd26c93fba117cef4d5608aafd66c3a504b507e2e0f9eada4"
+      },
+      {
+        "path": "assets/lenis-D7TmsVAo.js",
+        "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603"
+      },
+      {
+        "path": "assets/PageNav-BCe4durP.js",
+        "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+      },
+      {
+        "path": "assets/portal-Dkfom1xl.js",
+        "sha256": "b78d0a07a61ed94d5be5089709df963f31d99bb37382901f9f2c88ea0109c2d2"
+      },
+      {
+        "path": "assets/quiet-machine-BzfCO-kI.js",
+        "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e"
+      },
+      {
+        "path": "assets/QuietMachinePreview-Dt1jbrqY.js",
+        "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5"
+      },
+      {
+        "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+        "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+      },
+      {
+        "path": "assets/QuietMachineScene-DlyXDuR4.js",
+        "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241"
+      },
+      {
+        "path": "assets/RingInspection-DHWtcfvt.js",
+        "sha256": "f27759678b68cad2b7b3196412a56440f7a442fc18657d897b4c3501a0ad4cb9"
+      },
+      {
+        "path": "assets/Scene-C7MpBONZ.js",
+        "sha256": "77797d34b21d17268b820b16ab3164ddc84fec68070d890ddb689c2e4d242641"
+      },
+      {
+        "path": "assets/SceneCanvas-C7Wfmbj6.js",
+        "sha256": "c2539f642d7e6ac0e9aa40718251b91f38e88fabfe5de92d02dc7eb5b029b7b2"
+      },
+      {
+        "path": "assets/script-D7QDdYe0.js",
+        "sha256": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb"
+      },
+      {
+        "path": "assets/ScrollRig-Cw6n0tl_.js",
+        "sha256": "7a087d69af24ee4a3a27c170b13361f07473ef57001020e7fe33a665f943ebe5"
+      },
+      {
+        "path": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+      },
+      {
+        "path": "assets/sectionRenderPass-BDUUbMLE.js",
+        "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca"
+      },
+      {
+        "path": "assets/session-CQxiOB_6.js",
+        "sha256": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa"
+      },
+      {
+        "path": "assets/torque-wrench-unWJUvAF.js",
+        "sha256": "e0cf381f3e33d2a3fe57c51aeb8cdd8f8d67126d117191266bbd7f52c6bb2334"
+      },
+      {
+        "path": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+      }
+    ],
+    "aggregateSha256": "f51481b6c56252556b6e778c4299f95b6825e7d6c5f8b587d932cc5d2b6defdb"
+  },
+  "samples": [],
+  "served": [
+    {
+      "path": "assets/BootSequence-CVHSSrgy.js",
+      "status": 200,
+      "sha256": "c4f202f784920975fecf8c874a71588d9831885b825d5ce473cc4e184b67c1cd",
+      "expected": "c4f202f784920975fecf8c874a71588d9831885b825d5ce473cc4e184b67c1cd"
+    },
+    {
+      "path": "assets/BufferGeometryUtils-DiUZtcLn.js",
+      "status": 200,
+      "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873",
+      "expected": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873"
+    },
+    {
+      "path": "assets/draco_decoder-C32yEggz.wasm",
+      "status": 200,
+      "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2",
+      "expected": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+    },
+    {
+      "path": "assets/draco_decoder-fzg4nYZr.js",
+      "status": 200,
+      "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+      "expected": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+    },
+    {
+      "path": "assets/draco_decoder-Z1_iN-Ht.wasm",
+      "status": 200,
+      "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+      "expected": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+    },
+    {
+      "path": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+      "status": 200,
+      "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+      "expected": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+    },
+    {
+      "path": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+      "status": 200,
+      "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+      "expected": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+    },
+    {
+      "path": "assets/DRACOLoader-BG0x9_ow.js",
+      "status": 200,
+      "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191",
+      "expected": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191"
+    },
+    {
+      "path": "assets/index-BWkoJ37d.js",
+      "status": 200,
+      "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c",
+      "expected": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+    },
+    {
+      "path": "assets/index-CddUWpSY.css",
+      "status": 200,
+      "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+      "expected": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+    },
+    {
+      "path": "assets/index-fDwt6Stp.js",
+      "status": 200,
+      "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d",
+      "expected": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+    },
+    {
+      "path": "assets/jgun-k0d3XZei.js",
+      "status": 200,
+      "sha256": "2e2d563273a832dcd26c93fba117cef4d5608aafd66c3a504b507e2e0f9eada4",
+      "expected": "2e2d563273a832dcd26c93fba117cef4d5608aafd66c3a504b507e2e0f9eada4"
+    },
+    {
+      "path": "assets/lenis-D7TmsVAo.js",
+      "status": 200,
+      "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603",
+      "expected": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603"
+    },
+    {
+      "path": "assets/PageNav-BCe4durP.js",
+      "status": 200,
+      "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964",
+      "expected": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+    },
+    {
+      "path": "assets/portal-Dkfom1xl.js",
+      "status": 200,
+      "sha256": "b78d0a07a61ed94d5be5089709df963f31d99bb37382901f9f2c88ea0109c2d2",
+      "expected": "b78d0a07a61ed94d5be5089709df963f31d99bb37382901f9f2c88ea0109c2d2"
+    },
+    {
+      "path": "assets/quiet-machine-BzfCO-kI.js",
+      "status": 200,
+      "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e",
+      "expected": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e"
+    },
+    {
+      "path": "assets/QuietMachinePreview-Dt1jbrqY.js",
+      "status": 200,
+      "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5",
+      "expected": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5"
+    },
+    {
+      "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+      "status": 200,
+      "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5",
+      "expected": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+    },
+    {
+      "path": "assets/QuietMachineScene-DlyXDuR4.js",
+      "status": 200,
+      "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241",
+      "expected": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241"
+    },
+    {
+      "path": "assets/RingInspection-DHWtcfvt.js",
+      "status": 200,
+      "sha256": "f27759678b68cad2b7b3196412a56440f7a442fc18657d897b4c3501a0ad4cb9",
+      "expected": "f27759678b68cad2b7b3196412a56440f7a442fc18657d897b4c3501a0ad4cb9"
+    },
+    {
+      "path": "assets/Scene-C7MpBONZ.js",
+      "status": 200,
+      "sha256": "77797d34b21d17268b820b16ab3164ddc84fec68070d890ddb689c2e4d242641",
+      "expected": "77797d34b21d17268b820b16ab3164ddc84fec68070d890ddb689c2e4d242641"
+    },
+    {
+      "path": "assets/SceneCanvas-C7Wfmbj6.js",
+      "status": 200,
+      "sha256": "c2539f642d7e6ac0e9aa40718251b91f38e88fabfe5de92d02dc7eb5b029b7b2",
+      "expected": "c2539f642d7e6ac0e9aa40718251b91f38e88fabfe5de92d02dc7eb5b029b7b2"
+    },
+    {
+      "path": "assets/script-D7QDdYe0.js",
+      "status": 200,
+      "sha256": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb",
+      "expected": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb"
+    },
+    {
+      "path": "assets/ScrollRig-Cw6n0tl_.js",
+      "status": 200,
+      "sha256": "7a087d69af24ee4a3a27c170b13361f07473ef57001020e7fe33a665f943ebe5",
+      "expected": "7a087d69af24ee4a3a27c170b13361f07473ef57001020e7fe33a665f943ebe5"
+    },
+    {
+      "path": "assets/ScrollTrigger-a3sj5zmn.js",
+      "status": 200,
+      "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+      "expected": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+    },
+    {
+      "path": "assets/sectionRenderPass-BDUUbMLE.js",
+      "status": 200,
+      "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca",
+      "expected": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca"
+    },
+    {
+      "path": "assets/session-CQxiOB_6.js",
+      "status": 200,
+      "sha256": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa",
+      "expected": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa"
+    },
+    {
+      "path": "assets/torque-wrench-unWJUvAF.js",
+      "status": 200,
+      "sha256": "e0cf381f3e33d2a3fe57c51aeb8cdd8f8d67126d117191266bbd7f52c6bb2334",
+      "expected": "e0cf381f3e33d2a3fe57c51aeb8cdd8f8d67126d117191266bbd7f52c6bb2334"
+    },
+    {
+      "path": "assets/vanilla-m3Xdu9cz.js",
+      "status": 200,
+      "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+      "expected": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+    }
+  ],
+  "assertions": [
+    {
+      "name": "harness completed",
+      "pass": false,
+      "actual": "Error: page.evaluate: Error: Portal pixel proof requires the live registered JGun root\n    at sg (http://localhost:5288/assets/portal-Dkfom1xl.js:554:1910)\n    at Object.captureEffects (http://localhost:5288/assets/Scene-C7MpBONZ.js:151:3603)\n    at Object.effectsCapture (http://localhost:5288/assets/Scene-C7MpBONZ.js:151:15528)\n    at eval (eval at evaluate (:290:30), <anonymous>:2:87)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  ],
+  "input": {
+    "points": 2384,
+    "ringDepthsM": [
+      0,
+      0.012,
+      0.032,
+      0.07,
+      0.14,
+      0.28,
+      0.55,
+      1.05,
+      1.75,
+      2.4,
+      3.2
+    ],
+    "sha256": "918c04127f3b8eae57a805807e1f8a834bf3749db20f691e52a1ea6aedef6138",
+    "candidatePositionsSha256": "d4fb6a1e0d169741039401446ea4a778b1902970a1ae274171baec0242aa60a2"
+  },
+  "error": "Error: page.evaluate: Error: Portal pixel proof requires the live registered JGun root\n    at sg (http://localhost:5288/assets/portal-Dkfom1xl.js:554:1910)\n    at Object.captureEffects (http://localhost:5288/assets/Scene-C7MpBONZ.js:151:3603)\n    at Object.effectsCapture (http://localhost:5288/assets/Scene-C7MpBONZ.js:151:15528)\n    at eval (eval at evaluate (:290:30), <anonymous>:2:87)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+  "pass": false,
+  "scope": "Pit wall position attribute only under the current camera/remap. Pixel changes measure this contribution, not subjective root cause or owner acceptance."
+}

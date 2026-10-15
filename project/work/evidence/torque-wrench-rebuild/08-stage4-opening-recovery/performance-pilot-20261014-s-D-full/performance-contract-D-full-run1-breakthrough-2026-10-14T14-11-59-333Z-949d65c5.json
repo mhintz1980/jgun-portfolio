@@ -1,0 +1,386 @@
+{
+  "schema": "JG-038-g8-performance-sample-v1",
+  "runId": "949d65c5-3aa7-444d-9e63-2fffe8485d4a",
+  "viewportCase": "D",
+  "run": 1,
+  "requestedTier": "full",
+  "effectiveTier": "full",
+  "qualityLock": false,
+  "phase": "breakthrough",
+  "phaseInput": {
+    "forwardSeconds": 20,
+    "reverseSeconds": 20,
+    "holdSeconds": 20
+  },
+  "url": "http://localhost:5288/torque-wrench/",
+  "ready": true,
+  "prewarmComplete": true,
+  "captureActive": false,
+  "captures": 0,
+  "throttled": false,
+  "hardwareGL": true,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "backend": "webgl2,webgl2,webgl / Google Inc. (AMD)",
+  "device": "unreported device model (browser platform: Win32)",
+  "os": "Windows NT 10.0 (browser-reported)",
+  "browser": "154.0.8037.98 (installed Chrome, ANGLE/D3D11 (hardware))",
+  "sourceHash": "3fc8a8ce9e0c95ce130b1c266dfe58256390d0a27019e012adffea0a77f54fc7",
+  "assetHash": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+  "servedHash": "806a051f0cc76a6df8e837f1ef15141d3df1c1bfc7e9aaf0e48db85292e3f487",
+  "buildHash": "4aa176d38f8c49bf8ff7e638c753dfd3d6e61cef84ae7e4dacb2e0c8778944b8",
+  "inputScript": "harness native scrollTo rAF sweep confined to the breakthrough window; 20s forward, 20s reverse, 20s hold at canonical progress 0.42",
+  "refreshHz": 59.88,
+  "p50": null,
+  "p95": null,
+  "p99": null,
+  "tailPercent": null,
+  "maximum": null,
+  "presentedFrames": 0,
+  "peakFrameCalls": 0,
+  "peakFrameTriangles": 0,
+  "lineSegments": 0,
+  "points": 0,
+  "memoryMethod": "unavailable: no observer memory summary",
+  "allPassTotals": false,
+  "programCreationObserved": false,
+  "hardwareBasis": "observed WEBGL_debug_renderer_info renderer string does not identify software rendering",
+  "power": "battery/discharge observed by navigator.getBattery",
+  "dpr": 0.2083,
+  "dprMethod": "measured drawingBufferWidth / CSS width from the live private context; never a requested or assumed value",
+  "pixels": 45000,
+  "pageMode": "live",
+  "measurementEnvironment": {
+    "contextAttributes": {},
+    "drawingBuffer": [
+      300,
+      150
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1
+    },
+    "deviceMemoryGB": 32,
+    "hardwareConcurrency": 16,
+    "battery": {
+      "status": "battery/discharge observed by navigator.getBattery",
+      "charging": false,
+      "level": 0.9,
+      "dischargingTime": 4855,
+      "chargingTime": null
+    },
+    "visibilityChanges": []
+  },
+  "refresh": {
+    "observedHz": 59.88,
+    "sampleCount": 70,
+    "medianIntervalMs": 16.7,
+    "p95IntervalMs": 17,
+    "method": "idle presented rAF intervals before the measured window; 1/median is an estimate, not a display-mode read"
+  },
+  "readiness": {
+    "ready": true,
+    "spanMs": 17963,
+    "timeoutMs": 30000,
+    "requirement": "__torqueWorld.ready and sheet.baked inside the readiness timeout",
+    "startupBudgetSeconds": 10,
+    "startupBudgetEvaluated": false,
+    "reason": "startup budgets require five fresh-context trials per valid/stale/missing cache condition"
+  },
+  "prewarm": {
+    "complete": true,
+    "directions": [
+      "forward",
+      "reverse"
+    ],
+    "secondsPerDirection": 6,
+    "settleMs": 5000,
+    "order": "readiness wait, then forward/reverse prewarm, then settle; the settle is the contract 5 s idle gap"
+  },
+  "input": {
+    "driver": "harness native scrollTo rAF sweep (window.scrollTo each frame, instant)",
+    "phaseWindow": {
+      "phase": "breakthrough",
+      "start": 0.32,
+      "end": 0.46,
+      "beats": [
+        "breakthrough-anticipation",
+        "breakthrough-trace",
+        "breakthrough-pressure",
+        "breakthrough-rupture",
+        "breakthrough-emergence"
+      ]
+    },
+    "portions": {
+      "forward": {
+        "requestedMs": 20000,
+        "startedAt": 37513.5,
+        "endedAt": 57529.9,
+        "scrollYMin": 12630,
+        "scrollYMax": 18155,
+        "boundaries": [
+          {
+            "at": 57538.69999998808,
+            "progress": 0.45999290564507955,
+            "beatId": "breakthrough-emergence",
+            "phase": "exiting",
+            "hidden": false
+          }
+        ]
+      },
+      "reverse": {
+        "requestedMs": 20000,
+        "startedAt": 57546.5,
+        "endedAt": 77563,
+        "scrollYMin": 12630,
+        "scrollYMax": 18155,
+        "boundaries": [
+          {
+            "at": 77571.69999998808,
+            "progress": 0.3200060808756461,
+            "beatId": "breakthrough-anticipation",
+            "phase": "entering",
+            "hidden": false
+          }
+        ]
+      },
+      "hold": {
+        "requestedMs": 20000,
+        "startedAt": 77563,
+        "endedAt": 97813,
+        "scrollYMin": 16577,
+        "scrollYMax": 16577,
+        "boundaries": [
+          {
+            "at": 77571.79999995232,
+            "progress": 0.3200060808756461,
+            "beatId": "breakthrough-anticipation",
+            "phase": "entering",
+            "hidden": false
+          },
+          {
+            "at": 97823.29999995232,
+            "progress": 0.42001114827201785,
+            "beatId": "breakthrough-rupture",
+            "phase": "entering",
+            "hidden": false
+          }
+        ]
+      }
+    },
+    "progressSampleCount": 63,
+    "hiddenDuringSweep": false,
+    "note": "input is a harness native-scroll fixture (window.scrollTo per frame); it is not CDP wheel or touch input"
+  },
+  "phaseConfinement": {
+    "confined": false,
+    "windowStart": 0.32,
+    "windowEnd": 0.46,
+    "observedMin": 0,
+    "observedMax": 0.459993,
+    "sampleCount": 63,
+    "basis": "canonical progress from __torqueNarrative.snapshot(), sampled about once per second inside the measured window"
+  },
+  "hold": {
+    "entryProgress": 0.320006,
+    "exitProgress": 0.420011,
+    "progressDrift": 0.100005,
+    "note": "hold stability is recorded raw; the contract-18 hold/pointer tolerance comparison is a separate gate and is not evaluated here"
+  },
+  "budgets": {
+    "requestedTier": {
+      "dpr": 1.5,
+      "pixels": 3686400,
+      "p50": 17.2,
+      "p95": 20,
+      "p99": 33.4,
+      "tailPercent": 1,
+      "maximum": 100
+    },
+    "phase": [
+      500,
+      3000000,
+      256
+    ],
+    "phaseBudgetFields": [
+      "peakFrameCalls",
+      "peakFrameTriangles",
+      "residentTextureTargetMiB"
+    ]
+  },
+  "servedIdentity": [
+    {
+      "pathname": "/torque-wrench/",
+      "status": 200,
+      "bytes": 2882,
+      "sha256": "806a051f0cc76a6df8e837f1ef15141d3df1c1bfc7e9aaf0e48db85292e3f487",
+      "localFile": "torque-wrench/index.html",
+      "localSha256": "806a051f0cc76a6df8e837f1ef15141d3df1c1bfc7e9aaf0e48db85292e3f487",
+      "match": true
+    },
+    {
+      "pathname": "/models/Default.glb",
+      "status": 200,
+      "bytes": 10671700,
+      "sha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+      "localFile": "models/Default.glb",
+      "localSha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+      "match": true
+    }
+  ],
+  "observerSnapshot": {
+    "installedAt": 22.099999964237213,
+    "drawCallsTotal": 715453,
+    "unsupportedDrawCalls": 148,
+    "instrumentationOverhead": {
+      "available": false,
+      "reason": "Total wrapper and sentinel overhead is not observable without perturbing the measured path; no partial proxy is reported as total overhead"
+    }
+  },
+  "programEvents": {
+    "count": 0,
+    "recent": [],
+    "identityMethod": "program object sequence plus attached shader source hashes at create/attach/link; deletes stay in event identity and are never netted out"
+  },
+  "draw": {
+    "totalObservedCalls": null,
+    "unsupportedDrawCalls": null,
+    "wrappedMethods": [],
+    "unsupportedMethods": [],
+    "allDrawPathsObserved": false
+  },
+  "frames": [],
+  "textures": [],
+  "renderTargets": {
+    "renderbuffers": [],
+    "buffers": [],
+    "framebuffers": []
+  },
+  "tierIdentity": {
+    "requested": "full",
+    "observedStart": "full",
+    "observedEnd": "full",
+    "sheetBakeTier": "full",
+    "note": "the tier ladder is one-way, so a start/end pair that matches the request excludes a mid-run step down"
+  },
+  "provenance": {
+    "workspace": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench",
+    "head": "1c7a7d2d1d73b1a94d015bfcae10c101cd94b72c",
+    "branch": "torque-wrench/rebuild",
+    "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+    "sourceFiles": [
+      {
+        "file": "src/scene/torque-wrench/RuntimeWorld.tsx",
+        "sha256": "ee11b6614ea6527382079d9f02e28bb8876f0f3e7596f1b870763fa51b38d76a"
+      },
+      {
+        "file": "src/scene/torque-wrench/Scene.tsx",
+        "sha256": "5a8bf2a037bbcfb7a5760cb6a3d4f5e64f8aecb7beded2a19c27d180801ff4c3"
+      },
+      {
+        "file": "src/scene/torque-wrench/ScrollConductor.tsx",
+        "sha256": "8d8e274a010ccb0079a471ff0f96886cdda831f09fd695eb9859a3115abeed8d"
+      },
+      {
+        "file": "src/scene/torque-wrench/beats.ts",
+        "sha256": "dbe90d214fbf0127d5e5b23835135ba8525ff604210cfe667639872dfa66f8bf"
+      },
+      {
+        "file": "src/scene/torque-wrench/conductorRuntime.ts",
+        "sha256": "aa5419ca29b0d2fe7ed4ab5236bea3a4a1ea40ac17ba54c79b5dc8b59208ae2c"
+      },
+      {
+        "file": "src/state/torqueWrenchStore.ts",
+        "sha256": "015d57e00110c6856e000fcfe8919fe7cda36f638f2fc5d0bfd5bc702303c922"
+      },
+      {
+        "file": "src/state/qualityStore.ts",
+        "sha256": "879ab56e5e5a7d5458f7390991f16b5535959e49ba7378b826882e0cd35fa29c"
+      }
+    ],
+    "sourceHash": "3fc8a8ce9e0c95ce130b1c266dfe58256390d0a27019e012adffea0a77f54fc7",
+    "buildHash": "4aa176d38f8c49bf8ff7e638c753dfd3d6e61cef84ae7e4dacb2e0c8778944b8",
+    "buildManifest": {
+      "path": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage4-20261013-s\\.vite\\manifest.json",
+      "bytes": 7839
+    },
+    "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage4-20261013-s",
+    "verifierSha256": "bb88a3ae46b455ac33c3e5368d0533bfb1b388f5660156874aba970f883f989a",
+    "observerSha256": "a2967b0c32ff7a5df6fff60dfdb60d4ef75e5f4ceb5450ec977b9ef8cd987ac6",
+    "node": "v22.19.0",
+    "playwrightVersion": "1.56.1",
+    "launchConfig": {
+      "channel": "chrome",
+      "headless": true,
+      "args": [
+        "--use-angle=d3d11",
+        "--disable-background-timer-throttling",
+        "--disable-renderer-backgrounding",
+        "--disable-backgrounding-occluded-windows"
+      ]
+    },
+    "browserVersion": "154.0.8037.98"
+  },
+  "errors": [],
+  "unverifiedObservables": [
+    {
+      "observable": "physicalMemoryResidency",
+      "reason": "WebGL API instrumentation estimates texture/renderbuffer storage; driver residency is not observable"
+    },
+    {
+      "observable": "residentTextureTargetMiB",
+      "reason": "texture/target byte estimate incomplete (unknownFormatEvents=unreported)"
+    },
+    {
+      "observable": "instrumentationOverheadMs",
+      "reason": "Total wrapper and sentinel overhead is not observable without perturbing the measured path; no partial proxy is reported as total overhead"
+    },
+    {
+      "observable": "startupCacheAndShaderBudgets",
+      "reason": "startup budgets require five fresh-context trials per cache condition; this producer covers the measured phase window only"
+    },
+    {
+      "observable": "gpuExecutionTime",
+      "reason": "rAF intervals are presented-frame timing, not GPU execution time"
+    },
+    {
+      "observable": "physicalMobile",
+      "reason": "viewport N is emulated on the reference laptop; no physical narrow device is named"
+    }
+  ],
+  "limitations": [
+    "No driver memory residency, GPU execution time or instrumentation overhead is claimed.",
+    "Input is a harness native-scroll fixture; the contract repeatable wheel and touch rosters are separate.",
+    "Startup cache and shader budgets and the full 60-report roster are out of scope for this single sample.",
+    "Viewport N is emulated on the reference laptop; physical mobile performance remains unverified."
+  ],
+  "contractValidation": {
+    "pass": false,
+    "errors": [
+      "Phase observation must cover at least 60 seconds",
+      "Calls/triangles must sum every render pass per presented frame"
+    ],
+    "unverified": [
+      "Missing or invalid p50",
+      "Missing or invalid p95",
+      "Missing or invalid p99",
+      "Missing or invalid tailPercent",
+      "Missing or invalid maximum",
+      "Missing or invalid residentTextureTargetMiB",
+      "Missing or invalid geometryBufferBytes",
+      "Missing or invalid program-creation/link-event observability",
+      "Missing or invalid newWarmPrograms",
+      "Missing or invalid instrumentationOverheadMs"
+    ]
+  },
+  "extraGateFailures": [
+    "measured progress left the breakthrough window ({\"confined\":false,\"windowStart\":0.32,\"windowEnd\":0.46,\"observedMin\":0,\"observedMax\":0.459993,\"sampleCount\":63,\"basis\":\"canonical progress from __torqueNarrative.snapshot(), sampled about once per second inside the measured window\"})"
+  ],
+  "counts": {
+    "errors": 2,
+    "unverified": 10,
+    "extraGateFailures": 1
+  },
+  "status": "FAIL",
+  "finishedAt": "2026-10-14T14:11:59.333Z"
+}

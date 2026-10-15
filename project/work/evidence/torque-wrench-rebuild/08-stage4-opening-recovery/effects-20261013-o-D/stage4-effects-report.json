@@ -1,0 +1,4951 @@
+{
+  "schema": "JG-038-stage4-effects-v1",
+  "startedAt": "2026-10-14T01:28:10.466Z",
+  "url": "http://localhost:5288/torque-wrench/",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "provenance": {
+    "buildDir": ".scratch/jg038-stage4-20261013-o",
+    "entry": "assets/torque-wrench-C1B8Fqdl.js",
+    "fileCount": 33,
+    "aggregateSha256": "74532980351801e9722355ce2bfb8fd649206543fe38e333f2f7d4300924087d",
+    "files": [
+      {
+        "key": "src/components/BootSequence.tsx",
+        "path": "assets/BootSequence-byaLhHhA.js",
+        "sha256": "aa67fa1146bd04223e5fd5e61c60c0ef7bf72d653b757ec2a7da42be2e9c945f"
+      },
+      {
+        "key": "_BufferGeometryUtils-DiUZtcLn.js",
+        "path": "assets/BufferGeometryUtils-DiUZtcLn.js",
+        "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873"
+      },
+      {
+        "key": "_DRACOLoader-BG0x9_ow.js",
+        "path": "assets/DRACOLoader-BG0x9_ow.js",
+        "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191"
+      },
+      {
+        "key": "_PageNav-BCe4durP.js",
+        "path": "assets/PageNav-BCe4durP.js",
+        "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+      },
+      {
+        "key": "_QuietMachinePreview-Dt1jbrqY.js",
+        "path": "assets/QuietMachinePreview-Dt1jbrqY.js",
+        "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5"
+      },
+      {
+        "key": "css",
+        "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+        "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+      },
+      {
+        "key": "_QuietMachinePreview-KK_fAZmk.css",
+        "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+        "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+      },
+      {
+        "key": "src/scene/rl300/QuietMachineScene.tsx",
+        "path": "assets/QuietMachineScene-DlyXDuR4.js",
+        "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241"
+      },
+      {
+        "key": "src/components/RingInspection.tsx",
+        "path": "assets/RingInspection-BQDTdowf.js",
+        "sha256": "6c52c8478412c70ebec47b3822993bfa58b8b81781dceee6cc72d8c80fd7acc1"
+      },
+      {
+        "key": "css",
+        "path": "assets/RingInspection-Bgb0Kbjs.css",
+        "sha256": "b1e4ce9dbd6a178465319942c182c3f947868dc0d834c7c13738e8d99cf35407"
+      },
+      {
+        "key": "src/scene/torque-wrench/Scene.tsx",
+        "path": "assets/Scene-DAgD-OdE.js",
+        "sha256": "4190ba4aafb385db11061b920b983bea9c8cb4133d1f607c4dff93be218089bc"
+      },
+      {
+        "key": "src/scene/SceneCanvas.tsx",
+        "path": "assets/SceneCanvas-DogwY9uy.js",
+        "sha256": "5b30f93e226eb355c5d3287430b3ef2d20a7cf3533ebe0f8cfc1c8db2713dd0f"
+      },
+      {
+        "key": "src/scene/ScrollRig.tsx",
+        "path": "assets/ScrollRig-BPsSQcoV.js",
+        "sha256": "58232c73e9a5d95a590f6c3de139e6a3bdc2104feb3c31b92cf6a978b7c08c2d"
+      },
+      {
+        "key": "_ScrollTrigger-a3sj5zmn.js",
+        "path": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+      },
+      {
+        "key": "node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm",
+        "path": "assets/draco_decoder-C32yEggz.wasm",
+        "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+      },
+      {
+        "key": "node_modules/three/examples/jsm/libs/draco/gltf/draco_decoder.wasm",
+        "path": "assets/draco_decoder-Z1_iN-Ht.wasm",
+        "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+      },
+      {
+        "key": "node_modules/three/examples/jsm/libs/draco/draco_decoder.js",
+        "path": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+      },
+      {
+        "key": "node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js",
+        "path": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+      },
+      {
+        "key": "node_modules/three/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js",
+        "path": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+      },
+      {
+        "key": "_index-BWkoJ37d.js",
+        "path": "assets/index-BWkoJ37d.js",
+        "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+      },
+      {
+        "key": "_index-CddUWpSY.css",
+        "path": "assets/index-CddUWpSY.css",
+        "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+      },
+      {
+        "key": "_index-fDwt6Stp.js",
+        "path": "assets/index-fDwt6Stp.js",
+        "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+      },
+      {
+        "key": "index.html",
+        "path": "assets/jgun-lOVO9T6e.js",
+        "sha256": "86a5515c2a41b7086499607766a39ba3a2dea009250cc07815fd0dd3f4ad3bd4"
+      },
+      {
+        "key": "_lenis-D7TmsVAo.js",
+        "path": "assets/lenis-D7TmsVAo.js",
+        "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603"
+      },
+      {
+        "key": "_portal-CgDqKZPl.js",
+        "path": "assets/portal-CgDqKZPl.js",
+        "sha256": "c9046bcbb516093ac2ed995be691fed3288fe8fc830a353f6b445e21bff0d542"
+      },
+      {
+        "key": "quiet-machine/index.html",
+        "path": "assets/quiet-machine-BzfCO-kI.js",
+        "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e"
+      },
+      {
+        "key": "_script-DkhIeT48.js",
+        "path": "assets/script-DkhIeT48.js",
+        "sha256": "5545cabf5aae309252bd5c7588bf9adc6a7c41978e08dcbe165fc9a9b7af4844"
+      },
+      {
+        "key": "_sectionRenderPass-BDUUbMLE.js",
+        "path": "assets/sectionRenderPass-BDUUbMLE.js",
+        "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca"
+      },
+      {
+        "key": "_session-CfA1xuk8.js",
+        "path": "assets/session-CfA1xuk8.js",
+        "sha256": "b9fe2b64f815aed113d4f42a2db9a1c7d5022b2f5db4b7adf7eb150970fc6552"
+      },
+      {
+        "key": "css",
+        "path": "assets/torque-wrench-9cRJ2z0O.css",
+        "sha256": "56ddd1f528433004d4cceee73c069081fefcaf97affcec785776d90a3d532df9"
+      },
+      {
+        "key": "torque-wrench/index.html",
+        "path": "assets/torque-wrench-C1B8Fqdl.js",
+        "sha256": "27a9a0160826e2f75dccaa1005512f0340e2417991a26d40a18b5885de88e20a"
+      },
+      {
+        "key": "_vanilla-m3Xdu9cz.js",
+        "path": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+      },
+      {
+        "key": "html",
+        "path": "torque-wrench/index.html",
+        "sha256": "997f136488a175dcd1d092d40fc8e61fd861736fe9c3a86228bc1c006fa63ac3"
+      }
+    ],
+    "note": "aggregateSha256 covers per-file BYTE digests, unlike the filename-only opening-ab aggregate"
+  },
+  "served": {
+    "servedHtmlSha256": "997f136488a175dcd1d092d40fc8e61fd861736fe9c3a86228bc1c006fa63ac3",
+    "htmlMatchesBuildEntry": true,
+    "pass": true,
+    "assets": [
+      {
+        "url": "http://localhost:5288/assets/BootSequence-byaLhHhA.js",
+        "sha256": "aa67fa1146bd04223e5fd5e61c60c0ef7bf72d653b757ec2a7da42be2e9c945f",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/BufferGeometryUtils-DiUZtcLn.js",
+        "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/DRACOLoader-BG0x9_ow.js",
+        "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/PageNav-BCe4durP.js",
+        "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/QuietMachinePreview-Dt1jbrqY.js",
+        "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/QuietMachinePreview-KK_fAZmk.css",
+        "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/QuietMachineScene-DlyXDuR4.js",
+        "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/RingInspection-BQDTdowf.js",
+        "sha256": "6c52c8478412c70ebec47b3822993bfa58b8b81781dceee6cc72d8c80fd7acc1",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/RingInspection-Bgb0Kbjs.css",
+        "sha256": "b1e4ce9dbd6a178465319942c182c3f947868dc0d834c7c13738e8d99cf35407",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/Scene-DAgD-OdE.js",
+        "sha256": "4190ba4aafb385db11061b920b983bea9c8cb4133d1f607c4dff93be218089bc",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/SceneCanvas-DogwY9uy.js",
+        "sha256": "5b30f93e226eb355c5d3287430b3ef2d20a7cf3533ebe0f8cfc1c8db2713dd0f",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/ScrollRig-BPsSQcoV.js",
+        "sha256": "58232c73e9a5d95a590f6c3de139e6a3bdc2104feb3c31b92cf6a978b7c08c2d",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/index-BWkoJ37d.js",
+        "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/index-CddUWpSY.css",
+        "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/index-fDwt6Stp.js",
+        "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/jgun-lOVO9T6e.js",
+        "sha256": "86a5515c2a41b7086499607766a39ba3a2dea009250cc07815fd0dd3f4ad3bd4",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/lenis-D7TmsVAo.js",
+        "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/portal-CgDqKZPl.js",
+        "sha256": "c9046bcbb516093ac2ed995be691fed3288fe8fc830a353f6b445e21bff0d542",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/quiet-machine-BzfCO-kI.js",
+        "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/script-DkhIeT48.js",
+        "sha256": "5545cabf5aae309252bd5c7588bf9adc6a7c41978e08dcbe165fc9a9b7af4844",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/sectionRenderPass-BDUUbMLE.js",
+        "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/session-CfA1xuk8.js",
+        "sha256": "b9fe2b64f815aed113d4f42a2db9a1c7d5022b2f5db4b7adf7eb150970fc6552",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/torque-wrench-9cRJ2z0O.css",
+        "sha256": "56ddd1f528433004d4cceee73c069081fefcaf97affcec785776d90a3d532df9",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/torque-wrench-C1B8Fqdl.js",
+        "sha256": "27a9a0160826e2f75dccaa1005512f0340e2417991a26d40a18b5885de88e20a",
+        "matchedToBuild": true
+      },
+      {
+        "url": "http://localhost:5288/assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+        "matchedToBuild": true
+      }
+    ],
+    "matchedCount": 29,
+    "mismatches": []
+  },
+  "scope": "Real-runtime effects proof over the parent contract v1. No pit-geometry attribution (pitGeometryAb is parent-owned), no gate closure, no owner or Astra acceptance.",
+  "runtime": {
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1,
+      "isMobile": false
+    },
+    "samples": [
+      {
+        "requested": 0,
+        "progress": 0,
+        "frames": 86,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "quaternion": [
+            -0.20488667827635168,
+            0.7348059425095568,
+            0.25301397641537865,
+            0.5950341197410474
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0,
+          "poseT": 0,
+          "focus": 0,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.19,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 139,
+          "triangles": 1352987,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9625476190533191,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0,
+          "beatId": "drafting-detail",
+          "localProgress": 0,
+          "phase": "entering",
+          "stateKey": "[0,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0,null,\"drafting-authorship\",\"entering\"]",
+          "previousId": null,
+          "nextId": "drafting-authorship"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.06,
+        "progress": 0.059997973041451304,
+        "frames": 197,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.3821018745144813,
+            0.21065881885495136,
+            -0.2620316036336147
+          ],
+          "target": [
+            0.15899067747517232,
+            0,
+            -0.23523306312069192
+          ],
+          "quaternion": [
+            -0.24402476337762088,
+            0.6956678574082875,
+            0.2750892770293618,
+            0.6171094203550306
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.04961643002766642,
+          "poseT": 0.025122243051982997,
+          "focus": 0.9998243518209724,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.3080160807154382,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 121,
+          "triangles": 1110624,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9340589821569909,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0.059997973041451304,
+          "beatId": "drafting-detail",
+          "localProgress": 0.9999662173575218,
+          "phase": "exiting",
+          "stateKey": "[0.059997973041451304,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.9999662173575218,null,\"drafting-authorship\",\"exiting\"]",
+          "previousId": null,
+          "nextId": "drafting-authorship"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.15,
+        "progress": 0.14999493260362826,
+        "frames": 327,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.021435873312022763,
+            0.12380007014164975,
+            -0.09662908557375015
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.09306089084728206
+          ],
+          "quaternion": [
+            -0.31216508863302606,
+            0.6435386441184516,
+            0.3245846267317421,
+            0.6189150111722412
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.22741192787475437,
+          "poseT": 0.11514527993658448,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.1539470958122162,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 113,
+          "triangles": 1058888,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9093786095420335,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0.14999493260362826,
+          "beatId": "drafting-input-note",
+          "localProgress": 0.9998873911917392,
+          "phase": "exiting",
+          "stateKey": "[0.14999493260362826,2,{\"id\":\"drafting-input-note\",\"start\":0.105,\"end\":0.15,\"title\":\"Read the input-shaft note\",\"copy\":\"Read the handwritten annotation beside Detail B and P001835.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.9998873911917392,\"drafting-authorship\",\"drafting-output-note\",\"exiting\"]",
+          "previousId": "drafting-authorship",
+          "nextId": "drafting-output-note"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.265,
+        "progress": 0.2649994932603628,
+        "frames": 436,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.37999999999583145,
+          "poseT": 0.1924050632890286,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9774418601322117,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0.2649994932603628,
+          "beatId": "drafting-rake",
+          "localProgress": 0.9999927608623258,
+          "phase": "exiting",
+          "stateKey": "[0.2649994932603628,4,{\"id\":\"drafting-rake\",\"start\":0.195,\"end\":0.265,\"title\":\"Across the sheet\",\"copy\":\"Travel across the oversized opaque sheet toward the side elevation.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.9999927608623258,\"drafting-output-note\",\"drafting-registered\",\"exiting\"]",
+          "previousId": "drafting-output-note",
+          "nextId": "drafting-registered"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.32,
+        "progress": 0.3200060808756461,
+        "frames": 597,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.4500000145582373,
+          "poseT": 0.2278481086370822,
+          "focus": 1,
+          "lampPower": 0.9999999999989027,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9566090680356067,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0.3200060808756461,
+          "beatId": "breakthrough-anticipation",
+          "localProgress": 0.00015202189115187678,
+          "phase": "entering",
+          "stateKey": "[0.3200060808756461,6,{\"id\":\"breakthrough-anticipation\",\"start\":0.32,\"end\":0.36,\"title\":\"The light falters\",\"copy\":\"Keep the drawing legible through the failures and dark anticipation.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.00015202189115187678,\"drafting-registered\",\"breakthrough-trace\",\"entering\"]",
+          "previousId": "drafting-registered",
+          "nextId": "breakthrough-trace"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.36,
+        "progress": 0.35998783824870784,
+        "frames": 759,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.6599999417729532,
+          "poseT": 0.3341771857078244,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9349468244494413,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        },
+        "narrative": {
+          "progress": 0.35998783824870784,
+          "beatId": "breakthrough-anticipation",
+          "localProgress": 0.9996959562176962,
+          "phase": "exiting",
+          "stateKey": "[0.35998783824870784,6,{\"id\":\"breakthrough-anticipation\",\"start\":0.32,\"end\":0.36,\"title\":\"The light falters\",\"copy\":\"Keep the drawing legible through the failures and dark anticipation.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9996959562176962,\"drafting-registered\",\"breakthrough-trace\",\"exiting\"]",
+          "previousId": "drafting-registered",
+          "nextId": "breakthrough-trace"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 0,
+          "electricalBranch": 0
+        }
+      },
+      {
+        "requested": 0.395,
+        "progress": 0.3950035471774602,
+        "frames": 885,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.04200000000000098,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.49999999999999967,
+            0.5000000000000004,
+            0.49999999999999967,
+            0.5000000000000003
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1.0940904012522124e-14,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0.06075019249368309,
+          "crackGlow": 0.6500000000000038,
+          "t": 0.7900000030195067,
+          "poseT": 0.4000000060390133,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 0.042525112099202164,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9999999999999998,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1514079,
+          "geometries": 178,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0.9393466025751304,
+          "portalPulse": 0.9629099814151503,
+          "portalActive": 1,
+          "crackGlow": 0.6500000000000038,
+          "crackWeb": 0.06075019249368309,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0.9755289909806628,
+          "electricalOutline": 1,
+          "electricalBranch": 0.042525112099202164
+        },
+        "narrative": {
+          "progress": 0.3950035471774602,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.0001418870984082334,
+          "phase": "entering",
+          "stateKey": "[0.3950035471774602,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.0001418870984082334,\"breakthrough-trace\",\"breakthrough-rupture\",\"entering\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0.9755289909806628,
+          "electricalOutline": 1,
+          "electricalBranch": 0.042525112099202164
+        }
+      },
+      {
+        "requested": 0.408,
+        "progress": 0.40800141887098407,
+        "frames": 1016,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.10004275447017302,
+            0.5971298807327445,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4751981376556853,
+            0.5236284273877503,
+            0.4751981376556853,
+            0.5236284273877502
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0.5450491200567014,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 1,
+          "crackGlow": 0.8407671920198455,
+          "t": 0.8165034497830266,
+          "poseT": 0.45300689956605317,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0.9189931106996836,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9875570334241669,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1514079,
+          "geometries": 178,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.950027911925645,
+          "portalActive": 1,
+          "crackGlow": 0.8407671920198455,
+          "crackWeb": 1,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.40800141887098407,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.5200567548393626,
+          "phase": "active",
+          "stateKey": "[0.40800141887098407,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.5200567548393626,\"breakthrough-trace\",\"breakthrough-rupture\",\"active\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.415,
+        "progress": 0.4149944258639911,
+        "frames": 1137,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.1821347847324248,
+            0.5833483504034133,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.43772717149324053,
+            0.5553331642685562,
+            0.43772717149324053,
+            0.5553331642685562
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0.9696818946162004,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 1,
+          "crackGlow": 0.9893886631156701,
+          "t": 0.8347892931857485,
+          "poseT": 0.489578586371497,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9658080507413368,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1514079,
+          "geometries": 178,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.941676483308838,
+          "portalActive": 1,
+          "crackGlow": 0.9893886631156701,
+          "crackWeb": 1,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.4149944258639911,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.7997770345596444,
+          "phase": "active",
+          "stateKey": "[0.4149944258639911,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.7997770345596444,\"breakthrough-trace\",\"breakthrough-rupture\",\"active\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.42,
+        "progress": 0.42001114827201785,
+        "frames": 1233,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.2073675159747278,
+            0.5767032516561136,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4255472488126591,
+            0.5647207619947906,
+            0.4255472488126591,
+            0.5647207619947905
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1.851741161533447e-11,
+          "openingClear": 0,
+          "crackWeb": 0.9999999999814826,
+          "crackGlow": 0.9999999999855564,
+          "t": 0.8400000993779111,
+          "poseT": 0.5001928472450154,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9578667253959529,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9428085069578768,
+          "portalActive": 1,
+          "crackGlow": 0.9999999999855564,
+          "crackWeb": 0.9999999999814826,
+          "fracture": 1.851741161533447e-11,
+          "openingClear": 0,
+          "pitReveal": 1.851741161533447e-11,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.42001114827201785,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.000743218134524603,
+          "phase": "entering",
+          "stateKey": "[0.42001114827201785,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.000743218134524603,\"breakthrough-pressure\",\"breakthrough-emergence\",\"entering\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1.851741161533447e-11,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.422,
+        "progress": 0.4219874328569981,
+        "frames": 1330,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.22122045222640097,
+            0.5725496356772493,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4187097651728471,
+            0.5698088561516917,
+            0.4187097651728471,
+            0.5698088561516916
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.014813476868541838,
+          "openingClear": 0,
+          "crackWeb": 0.9851865231314582,
+          "crackGlow": 0.9884454880425374,
+          "t": 0.8428807954036086,
+          "poseT": 0.5548827472205082,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9531670875893506,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9382436504196676,
+          "portalActive": 1,
+          "crackGlow": 0.9884454880425374,
+          "crackWeb": 0.9851865231314582,
+          "fracture": 0.014813476868541838,
+          "openingClear": 0,
+          "pitReveal": 0.014813476868541838,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.4219874328569981,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.13249552379987287,
+          "phase": "active",
+          "stateKey": "[0.4219874328569981,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.13249552379987287,\"breakthrough-pressure\",\"breakthrough-emergence\",\"active\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0.014813476868541838,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.423,
+        "progress": 0.42300091213134694,
+        "frames": 1432,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.23713762975613892,
+            0.567322096576136,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4107129087526148,
+            0.5755996061360418,
+            0.4107129087526148,
+            0.5755996061360417
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.06548436635494242,
+          "openingClear": 0,
+          "crackWeb": 0.9345156336450575,
+          "crackGlow": 0.948922194243145,
+          "t": 0.8462435029836974,
+          "poseT": 0.5839826533934929,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9474111927323515,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0.5817899885685279,
+          "portalPulse": 0.9278868277153982,
+          "portalActive": 1,
+          "crackGlow": 0.948922194243145,
+          "crackWeb": 0.9345156336450575,
+          "fracture": 0.06548436635494242,
+          "openingClear": 0,
+          "pitReveal": 0.06548436635494242,
+          "pitFissureEnergy": 0.6270053321060559,
+          "electricalEnergy": 0.6270053321060559,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.42300091213134694,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.20006080875646354,
+          "phase": "active",
+          "stateKey": "[0.42300091213134694,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.20006080875646354,\"breakthrough-pressure\",\"breakthrough-emergence\",\"active\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0.06548436635494242,
+          "pitFissureEnergy": 0.6270053321060559,
+          "electricalEnergy": 0.6270053321060559,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.424,
+        "progress": 0.42398905442383705,
+        "frames": 1533,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.25654688930532465,
+            0.5602701920500458,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4007457422120645,
+            0.5825829126389664,
+            0.4007457422120645,
+            0.5825829126389664
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.16976298433251777,
+          "openingClear": 0,
+          "crackWeb": 0.8302370156674822,
+          "crackGlow": 0.8675848722206361,
+          "t": 0.8504731179810499,
+          "poseT": 0.6116209749799,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.939770933565112,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.599944210581606,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9099300725270689,
+          "portalActive": 1,
+          "crackGlow": 0.8675848722206361,
+          "crackWeb": 0.8302370156674822,
+          "fracture": 0.16976298433251777,
+          "openingClear": 0,
+          "pitReveal": 0.16976298433251777,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.42398905442383705,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.26593696158913765,
+          "phase": "active",
+          "stateKey": "[0.42398905442383705,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.26593696158913765,\"breakthrough-pressure\",\"breakthrough-emergence\",\"active\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0.16976298433251777,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.426,
+        "progress": 0.42599067599067597,
+        "frames": 1629,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.3004101409632488,
+            0.5414399826922097,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.3772520318128497,
+            0.598064297958904,
+            0.3772520318128497,
+            0.5980642979589039
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.5399486490465405,
+          "openingClear": 0,
+          "crackWeb": 0.4600513509534595,
+          "crackGlow": 0.5788400537436984,
+          "t": 0.8610663076450591,
+          "poseT": 0.6639372501614906,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9187820239689967,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0.6089995322556753,
+          "portalPulse": 0.8856219125557497,
+          "portalActive": 1,
+          "crackGlow": 0.5788400537436984,
+          "crackWeb": 0.4600513509534595,
+          "fracture": 0.5399486490465405,
+          "openingClear": 0,
+          "pitReveal": 0.5399486490465405,
+          "pitFissureEnergy": 0.687651833837545,
+          "electricalEnergy": 0.687651833837545,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.42599067599067597,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.39937839937839875,
+          "phase": "active",
+          "stateKey": "[0.42599067599067597,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.39937839937839875,\"breakthrough-pressure\",\"breakthrough-emergence\",\"active\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0.5399486490465405,
+          "pitFissureEnergy": 0.687651833837545,
+          "electricalEnergy": 0.687651833837545,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.428,
+        "progress": 0.42799229755751494,
+        "frames": 1728,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.33766674162600074,
+            0.5220289586858666,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.3560815473226838,
+            0.6109058287954725,
+            0.3560815473226838,
+            0.6109058287954726
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.9177479450750918,
+          "openingClear": 0,
+          "crackWeb": 0.08225205492490817,
+          "crackGlow": 0.2841566028414283,
+          "t": 0.8729495431512195,
+          "poseT": 0.7096627039579132,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.8923453164447627,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.944313578879597,
+          "portalActive": 1,
+          "crackGlow": 0.2841566028414283,
+          "crackWeb": 0.08225205492490817,
+          "fracture": 0.9177479450750918,
+          "openingClear": 0,
+          "pitReveal": 0.9177479450750918,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.42799229755751494,
+          "beatId": "breakthrough-rupture",
+          "localProgress": 0.5328198371676636,
+          "phase": "active",
+          "stateKey": "[0.42799229755751494,9,{\"id\":\"breakthrough-rupture\",\"start\":0.42,\"end\":0.435,\"title\":\"The sheet fractures\",\"copy\":\"The first rupture reveals the wrench that caused it, over deep pit space.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.5328198371676636,\"breakthrough-pressure\",\"breakthrough-emergence\",\"active\"]",
+          "previousId": "breakthrough-pressure",
+          "nextId": "breakthrough-emergence"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 0.9177479450750918,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.435,
+        "progress": 0.43501064153238067,
+        "frames": 1837,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.3599219946216056,
+            0.5087815453149765,
+            0.12000000023122585
+          ],
+          "target": [
+            0.04199999996762839,
+            0,
+            0.11999999990750965
+          ],
+          "quaternion": [
+            -0.34281216989404834,
+            0.6184495257518964,
+            0.3428121700790219,
+            0.6184495260855977
+          ],
+          "fov": 30.000000009249035
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0.21999999999999997,
+          "t": 0.9000000543408366,
+          "poseT": 0.7915327960609677,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 8.858776360569721e-13,
+          "contrast": 0.8226743858325656,
+          "drawingOpacity": 1,
+          "waveTime": 0.23034555944453983,
+          "waveActive": 1,
+          "lightSweep": 0.2680125878089068,
+          "lightSweepPosition": 0.17321140388287198,
+          "retirement": 0,
+          "sheetDistance": 0.5999442103544788,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1567273,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9493321808115175,
+          "portalActive": 1,
+          "crackGlow": 0.21999999999999997,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.43501064153238067,
+          "beatId": "breakthrough-emergence",
+          "localProgress": 0.0004256612952269197,
+          "phase": "entering",
+          "stateKey": "[0.43501064153238067,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.0004256612952269197,\"breakthrough-rupture\",\"mechanism-switch\",\"entering\"]",
+          "previousId": "breakthrough-rupture",
+          "nextId": "mechanism-switch"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.46,
+        "progress": 0.45999290564507955,
+        "frames": 1936,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32000000000911893,
+            0.16000000007966814,
+            0.41999999993147447
+          ],
+          "target": [
+            9.593575933664056e-12,
+            0,
+            2.7410212988243643e-11
+          ],
+          "quaternion": [
+            -0.13888448506741832,
+            0.31636434252740736,
+            0.046880089678348995,
+            0.9372443436887251
+          ],
+          "fov": 41.99999999725898
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.9999999758462319,
+          "poseT": 0.9999999584857097,
+          "focus": 1,
+          "lampPower": 0.9999999999989061,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0.9999999999989061,
+          "perspective": 0.9999999999998249,
+          "contrast": 0.5152860484581443,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 3.9360350524702575e-13,
+          "lightSweepPosition": 0.9999998002992914,
+          "retirement": 0,
+          "sheetDistance": 0.5517245689151463,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 166,
+          "triangles": 1526467,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347837154908272,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.45999290564507955,
+          "beatId": "breakthrough-emergence",
+          "localProgress": 0.9997162258031813,
+          "phase": "exiting",
+          "stateKey": "[0.45999290564507955,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9997162258031813,\"breakthrough-rupture\",\"mechanism-switch\",\"exiting\"]",
+          "previousId": "breakthrough-rupture",
+          "nextId": "mechanism-switch"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.47,
+        "progress": 0.47000101347927437,
+        "frames": 2061,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.25002533698185864,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 166,
+          "triangles": 1526467,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347836424347318,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.47000101347927437,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.16668355798790577,
+          "phase": "active",
+          "stateKey": "[0.47000101347927437,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.16668355798790577,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.48,
+        "progress": 0.4800091213134691,
+        "frames": 2173,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.5002280328367276,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 166,
+          "triangles": 1526467,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347836424347318,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.4800091213134691,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.3334853552244851,
+          "phase": "active",
+          "stateKey": "[0.4800091213134691,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.3334853552244851,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.49,
+        "progress": 0.4899918921658052,
+        "frames": 2266,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.7497973041451291,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1394443,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347836424347318,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.4899918921658052,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.4998648694300861,
+          "phase": "active",
+          "stateKey": "[0.4899918921658052,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.4998648694300861,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.5,
+        "progress": 0.5,
+        "frames": 2331,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.9999999999999994,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1394443,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347836424347318,
+          "portalActive": 1,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.5,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.6666666666666664,
+          "phase": "active",
+          "stateKey": "[0.5,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.6666666666666664,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.52,
+        "progress": 0.5199908786865308,
+        "frames": 2357,
+        "hiddenFrames": 0,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 1,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": false
+        },
+        "renderer": {
+          "calls": 59,
+          "triangles": 841039,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "mechanicalTier": "full",
+        "sheetTier": "full",
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9347836424347318,
+          "portalActive": 0,
+          "crackGlow": 0,
+          "crackWeb": 0,
+          "fracture": 1,
+          "openingClear": 1,
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        },
+        "narrative": {
+          "progress": 0.5199908786865308,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.9998479781088467,
+          "phase": "exiting",
+          "stateKey": "[0.5199908786865308,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.9998479781088467,\"breakthrough-emergence\",\"mechanism-driveline\",\"exiting\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        },
+        "viewport": {
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "devicePixelRatio": 1,
+          "canvasWidth": 1440,
+          "canvasHeight": 900,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "electrical": {
+          "pitReveal": 1,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      }
+    ],
+    "effects": [
+      {
+        "requested": 0.428,
+        "ok": true,
+        "capture": {
+          "portalChangedPixels": 4215,
+          "modelChangedPixels": 23337,
+          "deskChangedInsidePixels": 0,
+          "sampledInsidePixels": 29364,
+          "fullFramePortalChangedPixels": 5593,
+          "modelLitPixels": 713,
+          "modelMaxLuminance": 0.9999999999999999,
+          "profilePixels": 29364,
+          "cameraUnchanged": true,
+          "controls": [
+            {
+              "rect": [
+                0,
+                0,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            },
+            {
+              "rect": [
+                632,
+                392,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            }
+          ],
+          "clipRect": [
+            157,
+            85,
+            332,
+            256
+          ],
+          "width": 640,
+          "height": 400,
+          "sampleClipRect": {
+            "x": 157,
+            "y": 85,
+            "width": 332,
+            "height": 256
+          },
+          "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+          "fixedCamera": true,
+          "portalActive": true,
+          "modelVisible": true,
+          "deskVisible": true,
+          "capZ": -3.20048,
+          "capChangedPixels": 0,
+          "wallChangedPixels": 4215,
+          "capVisiblePixels": 0,
+          "capVisible": false,
+          "wallVisible": true,
+          "closureOccluded": true,
+          "portalVisiblePixels": 4215,
+          "portalMaxLuminance": 0.07058823529411765,
+          "portalWhitePixels": 0,
+          "portalFissurePixels": 0,
+          "shaftDepthM": 3.2,
+          "wallLevels": 11,
+          "maxRingDeviationM": 0.016349485532863185,
+          "extentM": 0.3707363753396745,
+          "occlusionMargin": 2.312795487073517,
+          "shaderValid": true
+        }
+      },
+      {
+        "requested": 0.435,
+        "ok": true,
+        "capture": {
+          "portalChangedPixels": 11937,
+          "modelChangedPixels": 12166,
+          "deskChangedInsidePixels": 0,
+          "sampledInsidePixels": 25721,
+          "fullFramePortalChangedPixels": 13403,
+          "modelLitPixels": 618,
+          "modelMaxLuminance": 0.9999999999999999,
+          "profilePixels": 25721,
+          "cameraUnchanged": true,
+          "controls": [
+            {
+              "rect": [
+                0,
+                0,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            },
+            {
+              "rect": [
+                632,
+                392,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            }
+          ],
+          "clipRect": [
+            195,
+            109,
+            318,
+            238
+          ],
+          "width": 640,
+          "height": 400,
+          "sampleClipRect": {
+            "x": 195,
+            "y": 109,
+            "width": 318,
+            "height": 238
+          },
+          "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+          "fixedCamera": true,
+          "portalActive": true,
+          "modelVisible": true,
+          "deskVisible": true,
+          "capZ": -3.20048,
+          "capChangedPixels": 0,
+          "wallChangedPixels": 11937,
+          "capVisiblePixels": 0,
+          "capVisible": false,
+          "wallVisible": true,
+          "closureOccluded": true,
+          "portalVisiblePixels": 11937,
+          "portalMaxLuminance": 0.07450980392156863,
+          "portalWhitePixels": 0,
+          "portalFissurePixels": 0,
+          "shaftDepthM": 3.2,
+          "wallLevels": 11,
+          "maxRingDeviationM": 0.016349485532863185,
+          "extentM": 0.3707363753396745,
+          "occlusionMargin": 2.312795487073517,
+          "shaderValid": true
+        }
+      },
+      {
+        "requested": 0.46,
+        "ok": true,
+        "capture": {
+          "portalChangedPixels": 7103,
+          "modelChangedPixels": 0,
+          "deskChangedInsidePixels": 0,
+          "sampledInsidePixels": 7103,
+          "fullFramePortalChangedPixels": 8932,
+          "modelLitPixels": 0,
+          "modelMaxLuminance": 0,
+          "profilePixels": 7103,
+          "cameraUnchanged": true,
+          "controls": [
+            {
+              "rect": [
+                0,
+                0,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            },
+            {
+              "rect": [
+                632,
+                392,
+                8,
+                8
+              ],
+              "pixels": 64,
+              "portalChangedPixels": 0,
+              "modelChangedPixels": 0,
+              "deskChangedPixels": 0
+            }
+          ],
+          "clipRect": [
+            178,
+            287,
+            281,
+            97
+          ],
+          "width": 640,
+          "height": 400,
+          "sampleClipRect": {
+            "x": 178,
+            "y": 287,
+            "width": 281,
+            "height": 97
+          },
+          "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+          "fixedCamera": true,
+          "portalActive": true,
+          "modelVisible": true,
+          "deskVisible": true,
+          "capZ": -3.20048,
+          "capChangedPixels": 0,
+          "wallChangedPixels": 7103,
+          "capVisiblePixels": 0,
+          "capVisible": false,
+          "wallVisible": true,
+          "closureOccluded": true,
+          "portalVisiblePixels": 7103,
+          "portalMaxLuminance": 0.07450980392156863,
+          "portalWhitePixels": 0,
+          "portalFissurePixels": 0,
+          "shaftDepthM": 3.2,
+          "wallLevels": 11,
+          "maxRingDeviationM": 0.016349485532863185,
+          "extentM": 0.3707363753396745,
+          "occlusionMargin": 2.312795487073517,
+          "shaderValid": true
+        }
+      }
+    ],
+    "holds": [
+      {
+        "requested": 0.15,
+        "positionDriftM": 0,
+        "quatDriftDeg": 0,
+        "fovDriftDeg": 0,
+        "portalLightDrift": 0,
+        "openingCanonicalDrift": 0,
+        "framesA": 2692,
+        "framesB": 2842,
+        "framesAdvanced": true
+      },
+      {
+        "requested": 0.52,
+        "positionDriftM": 0,
+        "quatDriftDeg": 0,
+        "fovDriftDeg": 0,
+        "portalLightDrift": 0,
+        "openingCanonicalDrift": 0,
+        "framesA": 2903,
+        "framesB": 3053,
+        "framesAdvanced": true
+      }
+    ],
+    "reverse": [
+      {
+        "requested": 0.52,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.5,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.49,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.48,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.47,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.46,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0.0000024148365394514667,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.435,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.428,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.426,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.424,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.423,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.422,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.42,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.415,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.408,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.395,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.36,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.32,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0.2099999272147159
+      },
+      {
+        "requested": 0.265,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0.27999994177712173
+      },
+      {
+        "requested": 0.15,
+        "positionDeltaM": 0.5235114960516752,
+        "quatDeltaDeg": 36.535638341881544,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0.4325880138981988
+      },
+      {
+        "requested": 0.06,
+        "positionDeltaM": 0.6427756587137617,
+        "quatDeltaDeg": 47.319235754819644,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0.6103835117452867
+      },
+      {
+        "requested": 0,
+        "positionDeltaM": 0.6013475946895553,
+        "quatDeltaDeg": 53.27260489242545,
+        "fovDeltaDeg": 0,
+        "portalLightDelta": 0,
+        "openingCanonicalDelta": 0.6599999417729532
+      }
+    ],
+    "seek": [
+      {
+        "requested": 0.15,
+        "positionDeltaM": 0.5235114960516752,
+        "quatDeltaDeg": 36.535638341881544,
+        "fovDeltaDeg": 0,
+        "openingCanonicalDelta": 0.4325880138981988
+      },
+      {
+        "requested": 0.435,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "openingCanonicalDelta": 0
+      },
+      {
+        "requested": 0.52,
+        "positionDeltaM": 0,
+        "quatDeltaDeg": 0,
+        "fovDeltaDeg": 0,
+        "openingCanonicalDelta": 0
+      }
+    ],
+    "continuity": [
+      {
+        "window": "sheet-to-overview",
+        "points": [
+          {
+            "requested": 0.44,
+            "position": [
+              0.35760722609687373,
+              0.4885583938729012,
+              0.1373946861297231
+            ],
+            "fov": 30.695787445188923,
+            "beatId": "breakthrough-emergence",
+            "stateKey": "[0.4400020269585487,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.20008107834194694,\"breakthrough-rupture\",\"mechanism-switch\",\"active\"]"
+          },
+          {
+            "requested": 0.445,
+            "position": [
+              0.34726733059516873,
+              0.39822310963516655,
+              0.215095429229415
+            ],
+            "fov": 33.8038171691766,
+            "beatId": "breakthrough-emergence",
+            "stateKey": "[0.44499341238471674,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.3997364953886692,\"breakthrough-rupture\",\"mechanism-switch\",\"active\"]"
+          },
+          {
+            "requested": 0.45,
+            "position": [
+              0.33264488141089904,
+              0.2704729691144025,
+              0.3249780839784775
+            ],
+            "fov": 38.1991233591391,
+            "beatId": "breakthrough-emergence",
+            "stateKey": "[0.4500101347927435,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.6004053917097391,\"breakthrough-rupture\",\"mechanism-switch\",\"active\"]"
+          },
+          {
+            "requested": 0.455,
+            "position": [
+              0.32231041795334586,
+              0.18018514234394806,
+              0.4026380071426988
+            ],
+            "fov": 41.305520285707956,
+            "beatId": "breakthrough-emergence",
+            "stateKey": "[0.45500152021891155,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.8000608087564614,\"breakthrough-rupture\",\"mechanism-switch\",\"active\"]"
+          },
+          {
+            "requested": 0.46,
+            "position": [
+              0.32000000000911893,
+              0.16000000007966814,
+              0.41999999993147447
+            ],
+            "fov": 41.99999999725898,
+            "beatId": "breakthrough-emergence",
+            "stateKey": "[0.45999290564507955,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9997162258031813,\"breakthrough-rupture\",\"mechanism-switch\",\"exiting\"]"
+          },
+          {
+            "requested": 0.465,
+            "position": [
+              0.32,
+              0.16,
+              0.42
+            ],
+            "fov": 42,
+            "beatId": "mechanism-switch",
+            "stateKey": "[0.4650096280531063,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.08349380088510476,\"breakthrough-emergence\",\"mechanism-driveline\",\"entering\"]"
+          },
+          {
+            "requested": 0.47,
+            "position": [
+              0.32,
+              0.16,
+              0.42
+            ],
+            "fov": 42,
+            "beatId": "mechanism-switch",
+            "stateKey": "[0.47000101347927437,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.16668355798790577,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]"
+          },
+          {
+            "requested": 0.475,
+            "position": [
+              0.32,
+              0.16,
+              0.42
+            ],
+            "fov": 42,
+            "beatId": "mechanism-switch",
+            "stateKey": "[0.47499239890544237,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.24987331509070584,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]"
+          },
+          {
+            "requested": 0.48,
+            "position": [
+              0.32,
+              0.16,
+              0.42
+            ],
+            "fov": 42,
+            "beatId": "mechanism-switch",
+            "stateKey": "[0.4800091213134691,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.3334853552244851,\"breakthrough-emergence\",\"mechanism-driveline\",\"active\"]"
+          }
+        ],
+        "jumps": [
+          {
+            "from": 0.44,
+            "to": 0.445,
+            "positionJumpM": 0.1196026023778028,
+            "fovJumpDeg": 3.1080297239876735
+          },
+          {
+            "from": 0.445,
+            "to": 0.45,
+            "positionJumpM": 0.16913932788657754,
+            "fovJumpDeg": 4.395306189962504
+          },
+          {
+            "from": 0.45,
+            "to": 0.455,
+            "positionJumpM": 0.1195397693814065,
+            "fovJumpDeg": 3.1063969265688556
+          },
+          {
+            "from": 0.455,
+            "to": 0.46,
+            "positionJumpM": 0.026724834759147206,
+            "fovJumpDeg": 0.6944797115510255
+          },
+          {
+            "from": 0.46,
+            "to": 0.465,
+            "positionJumpM": 1.0547944345275535e-10,
+            "fovJumpDeg": 2.741018079177593e-9
+          },
+          {
+            "from": 0.465,
+            "to": 0.47,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.47,
+            "to": 0.475,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.475,
+            "to": 0.48,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          }
+        ],
+        "maxPositionJumpM": 0.16913932788657754,
+        "maxFovJumpDeg": 4.395306189962504
+      },
+      {
+        "window": "overview-to-ring",
+        "points": [
+          {
+            "requested": 0.68,
+            "position": [
+              0.32,
+              0.16,
+              0.74
+            ],
+            "fov": 42,
+            "beatId": "mechanism-exploded-hold",
+            "stateKey": "[0.6799939191243539,14,{\"id\":\"mechanism-exploded-hold\",\"start\":0.65,\"end\":0.69,\"title\":\"Read the assembly\",\"copy\":\"Hold the measured ladder, including A000606 and K000004, for close reading.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"interaction\":\"inspect\",\"poster\":\"mechanism\"},0.7498479781088488,\"mechanism-extraction\",\"inspection-ring\",\"active\"]"
+          },
+          {
+            "requested": 0.6825,
+            "position": [
+              0.32,
+              0.16,
+              0.74
+            ],
+            "fov": 42,
+            "beatId": "mechanism-exploded-hold",
+            "stateKey": "[0.6825022803283672,14,{\"id\":\"mechanism-exploded-hold\",\"start\":0.65,\"end\":0.69,\"title\":\"Read the assembly\",\"copy\":\"Hold the measured ladder, including A000606 and K000004, for close reading.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"interaction\":\"inspect\",\"poster\":\"mechanism\"},0.812557008209182,\"mechanism-extraction\",\"inspection-ring\",\"active\"]"
+          },
+          {
+            "requested": 0.685,
+            "position": [
+              0.32,
+              0.16,
+              0.74
+            ],
+            "fov": 42,
+            "beatId": "mechanism-exploded-hold",
+            "stateKey": "[0.6850106415323807,14,{\"id\":\"mechanism-exploded-hold\",\"start\":0.65,\"end\":0.69,\"title\":\"Read the assembly\",\"copy\":\"Hold the measured ladder, including A000606 and K000004, for close reading.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"interaction\":\"inspect\",\"poster\":\"mechanism\"},0.8752660383095179,\"mechanism-extraction\",\"inspection-ring\",\"active\"]"
+          },
+          {
+            "requested": 0.6875,
+            "position": [
+              0.32,
+              0.16,
+              0.74
+            ],
+            "fov": 42,
+            "beatId": "mechanism-exploded-hold",
+            "stateKey": "[0.6874936657545353,14,{\"id\":\"mechanism-exploded-hold\",\"start\":0.65,\"end\":0.69,\"title\":\"Read the assembly\",\"copy\":\"Hold the measured ladder, including A000606 and K000004, for close reading.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"interaction\":\"inspect\",\"poster\":\"mechanism\"},0.9373416438633837,\"mechanism-extraction\",\"inspection-ring\",\"exiting\"]"
+          },
+          {
+            "requested": 0.69,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.6900020269585487,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.00004504352330631569,\"mechanism-exploded-hold\",\"inspection-shaping\",\"entering\"]"
+          },
+          {
+            "requested": 0.6925,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.692510388162562,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.055786403612491174,\"mechanism-exploded-hold\",\"inspection-shaping\",\"entering\"]"
+          },
+          {
+            "requested": 0.695,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.6949934123847167,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.11096471966037175,\"mechanism-exploded-hold\",\"inspection-shaping\",\"active\"]"
+          },
+          {
+            "requested": 0.6975,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.6975017735887301,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.1667060797495591,\"mechanism-exploded-hold\",\"inspection-shaping\",\"active\"]"
+          },
+          {
+            "requested": 0.7,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.7000101347927435,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.2224474398387464,\"mechanism-exploded-hold\",\"inspection-shaping\",\"active\"]"
+          }
+        ],
+        "jumps": [
+          {
+            "from": 0.68,
+            "to": 0.6825,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.6825,
+            "to": 0.685,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.685,
+            "to": 0.6875,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.6875,
+            "to": 0.69,
+            "positionJumpM": 0.785713230659606,
+            "fovJumpDeg": 8
+          },
+          {
+            "from": 0.69,
+            "to": 0.6925,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.6925,
+            "to": 0.695,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.695,
+            "to": 0.6975,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.6975,
+            "to": 0.7,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          }
+        ],
+        "maxPositionJumpM": 0.785713230659606,
+        "maxFovJumpDeg": 8
+      },
+      {
+        "window": "ring-to-shaft",
+        "points": [
+          {
+            "requested": 0.7275,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.7275007601094557,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.8333502246545725,\"mechanism-exploded-hold\",\"inspection-shaping\",\"active\"]"
+          },
+          {
+            "requested": 0.73,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.7300091213134692,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.8890915847437599,\"mechanism-exploded-hold\",\"inspection-shaping\",\"active\"]"
+          },
+          {
+            "requested": 0.7325,
+            "position": [
+              -0.14249931488261966,
+              0.09771381591951062,
+              0.10789233841112633
+            ],
+            "fov": 34,
+            "beatId": "inspection-ring",
+            "stateKey": "[0.7324921455356238,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.9442699007916405,\"mechanism-exploded-hold\",\"inspection-shaping\",\"exiting\"]"
+          },
+          {
+            "requested": 0.735,
+            "position": [
+              -0.23855062930924312,
+              2.921315413668831e-17,
+              -0.03533623466185086
+            ],
+            "fov": 17,
+            "beatId": "inspection-shaping",
+            "stateKey": "[0.7350005067396371,16,{\"id\":\"inspection-shaping\",\"start\":0.735,\"end\":0.795,\"title\":\"Input-shaft shaping\",\"copy\":\"Isolate P001835 and establish the button cutter at the relief groove.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.000008445660619009006,\"inspection-ring\",\"inspection-bullet-time\",\"entering\"]"
+          },
+          {
+            "requested": 0.7375,
+            "position": [
+              -0.23852608275065768,
+              -4.944855613725188e-7,
+              -0.03533233707784495
+            ],
+            "fov": 16.995302387166685,
+            "beatId": "inspection-shaping",
+            "stateKey": "[0.7375088679436506,16,{\"id\":\"inspection-shaping\",\"start\":0.735,\"end\":0.795,\"title\":\"Input-shaft shaping\",\"copy\":\"Isolate P001835 and establish the button cutter at the relief groove.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.0418144657275095,\"inspection-ring\",\"inspection-bullet-time\",\"entering\"]"
+          },
+          {
+            "requested": 0.74,
+            "position": [
+              -0.2381945920166994,
+              -0.000007172288651033605,
+              -0.035279707164722805
+            ],
+            "fov": 16.931863257814904,
+            "beatId": "inspection-shaping",
+            "stateKey": "[0.7399918921658052,16,{\"id\":\"inspection-shaping\",\"start\":0.735,\"end\":0.795,\"title\":\"Input-shaft shaping\",\"copy\":\"Isolate P001835 and establish the button cutter at the relief groove.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.08319820276341994,\"inspection-ring\",\"inspection-bullet-time\",\"entering\"]"
+          },
+          {
+            "requested": 0.7425,
+            "position": [
+              -0.2369063470143175,
+              -0.000033123468300403536,
+              -0.0350752693312092
+            ],
+            "fov": 16.68532705114589,
+            "beatId": "inspection-shaping",
+            "stateKey": "[0.7425002533698186,16,{\"id\":\"inspection-shaping\",\"start\":0.735,\"end\":0.795,\"title\":\"Input-shaft shaping\",\"copy\":\"Isolate P001835 and establish the button cutter at the relief groove.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.12500422283031043,\"inspection-ring\",\"inspection-bullet-time\",\"active\"]"
+          }
+        ],
+        "jumps": [
+          {
+            "from": 0.7275,
+            "to": 0.73,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.73,
+            "to": 0.7325,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.7325,
+            "to": 0.735,
+            "positionJumpM": 0.19821268619630594,
+            "fovJumpDeg": 17
+          },
+          {
+            "from": 0.735,
+            "to": 0.7375,
+            "positionJumpM": 0.000024858986613337467,
+            "fovJumpDeg": 0.004697612833314935
+          },
+          {
+            "from": 0.7375,
+            "to": 0.74,
+            "positionJumpM": 0.00033570911144850294,
+            "fovJumpDeg": 0.06343912935178153
+          },
+          {
+            "from": 0.74,
+            "to": 0.7425,
+            "positionJumpM": 0.0013046238835997355,
+            "fovJumpDeg": 0.24653620666901332
+          }
+        ],
+        "maxPositionJumpM": 0.19821268619630594,
+        "maxFovJumpDeg": 17
+      },
+      {
+        "window": "shaft-to-overview",
+        "points": [
+          {
+            "requested": 0.9325,
+            "position": [
+              0.21489755835726262,
+              0.045677886115702684,
+              -0.023513910373447643
+            ],
+            "fov": 18,
+            "beatId": "inspection-runout",
+            "stateKey": "[0.9325022803283672,20,{\"id\":\"inspection-runout\",\"start\":0.905,\"end\":0.94,\"title\":\"Runout and supports\",\"copy\":\"Read the runout hold, repositioned supports, and finished-shaft result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.7857794379533507,\"inspection-hobbing\",\"close-settle\",\"active\"]"
+          },
+          {
+            "requested": 0.935,
+            "position": [
+              0.21489755835726262,
+              0.045677886115702684,
+              -0.023513910373447643
+            ],
+            "fov": 18,
+            "beatId": "inspection-runout",
+            "stateKey": "[0.9350106415323807,20,{\"id\":\"inspection-runout\",\"start\":0.905,\"end\":0.94,\"title\":\"Runout and supports\",\"copy\":\"Read the runout hold, repositioned supports, and finished-shaft result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.8574469009251632,\"inspection-hobbing\",\"close-settle\",\"active\"]"
+          },
+          {
+            "requested": 0.9375,
+            "position": [
+              0.21489755835726262,
+              0.045677886115702684,
+              -0.023513910373447643
+            ],
+            "fov": 18,
+            "beatId": "inspection-runout",
+            "stateKey": "[0.9374936657545353,20,{\"id\":\"inspection-runout\",\"start\":0.905,\"end\":0.94,\"title\":\"Runout and supports\",\"copy\":\"Read the runout hold, repositioned supports, and finished-shaft result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.9283904501295813,\"inspection-hobbing\",\"close-settle\",\"exiting\"]"
+          },
+          {
+            "requested": 0.94,
+            "position": [
+              0.32,
+              0.16,
+              0.7399999975349467
+            ],
+            "fov": 42,
+            "beatId": "close-settle",
+            "stateKey": "[0.9400020269585487,21,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.00005067396371960515,\"inspection-runout\",\"close-ownership\",\"entering\"]"
+          },
+          {
+            "requested": 0.9425,
+            "position": [
+              0.32,
+              0.16,
+              0.7363769766491957
+            ],
+            "fov": 42,
+            "beatId": "close-settle",
+            "stateKey": "[0.942510388162562,21,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.06275970406405257,\"inspection-runout\",\"close-ownership\",\"entering\"]"
+          },
+          {
+            "requested": 0.945,
+            "position": [
+              0.32,
+              0.16,
+              0.7262845654488745
+            ],
+            "fov": 42,
+            "beatId": "close-settle",
+            "stateKey": "[0.9449934123847167,21,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.12483530961791822,\"inspection-runout\",\"close-ownership\",\"active\"]"
+          },
+          {
+            "requested": 0.9475,
+            "position": [
+              0.32,
+              0.16,
+              0.7104557794528601
+            ],
+            "fov": 42,
+            "beatId": "close-settle",
+            "stateKey": "[0.9475017735887301,21,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.18754433971825396,\"inspection-runout\",\"close-ownership\",\"active\"]"
+          }
+        ],
+        "jumps": [
+          {
+            "from": 0.9325,
+            "to": 0.935,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.935,
+            "to": 0.9375,
+            "positionJumpM": 0,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.9375,
+            "to": 0.94,
+            "positionJumpM": 0.7791466848622198,
+            "fovJumpDeg": 24
+          },
+          {
+            "from": 0.94,
+            "to": 0.9425,
+            "positionJumpM": 0.0036230208857510604,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.9425,
+            "to": 0.945,
+            "positionJumpM": 0.010092411200321116,
+            "fovJumpDeg": 0
+          },
+          {
+            "from": 0.945,
+            "to": 0.9475,
+            "positionJumpM": 0.01582878599601445,
+            "fovJumpDeg": 0
+          }
+        ],
+        "maxPositionJumpM": 0.7791466848622198,
+        "maxFovJumpDeg": 24
+      }
+    ],
+    "artifacts": [
+      {
+        "file": "D-p0.000.png",
+        "bytes": 1055229,
+        "sha256": "46eaba5602863437c78a94a90af88e830a9f83cad8abb1e0e9ae1544000693d9"
+      },
+      {
+        "file": "D-p0.060.png",
+        "bytes": 1181506,
+        "sha256": "d0ed1a39ac6ed78dc1c25182852063ceaf9b3f409d2acf79e4ef83d92ced21cc"
+      },
+      {
+        "file": "D-p0.150.png",
+        "bytes": 921078,
+        "sha256": "78c63b4cacde2dbe317eba2c7b2f74251f1ff831c03b131306e2281cd45e2faa"
+      },
+      {
+        "file": "D-p0.265.png",
+        "bytes": 1507772,
+        "sha256": "39687c28fc71f59a233b06f1c3af374b599dbee707e29e428f7d65653b89cdbd"
+      },
+      {
+        "file": "D-p0.320.png",
+        "bytes": 1501211,
+        "sha256": "6c9d2ceef2b7a07526a4e77dfbdb78fd533a8991ba9d351542338ebcf1173548"
+      },
+      {
+        "file": "D-p0.360.png",
+        "bytes": 639359,
+        "sha256": "f86cc7044b259ba0ae8c039bbf0ae3734b9d1b65846b84d51783b03934586b3f"
+      },
+      {
+        "file": "D-p0.395.png",
+        "bytes": 711999,
+        "sha256": "94b4e7a19239e4d1e047e41291d238069acdf126f7e41bb1926cf4ff203234fc"
+      },
+      {
+        "file": "D-p0.408.png",
+        "bytes": 463096,
+        "sha256": "7db7adcd27634c7e511c55be2cfc1420dcd22bf6b42b21646a09802a14bf1d83"
+      },
+      {
+        "file": "D-p0.415.png",
+        "bytes": 259075,
+        "sha256": "a6e9e18a02593ce6e83a5f0cf423ad08cc6efb211877ab2ee1a2ced042fde76f"
+      },
+      {
+        "file": "D-p0.420.png",
+        "bytes": 235955,
+        "sha256": "f41f80f612f24a6df561e875bb23205bd403a6797d292fd5664f4db3438b5a7f"
+      },
+      {
+        "file": "D-p0.422.png",
+        "bytes": 285906,
+        "sha256": "6970a54a5c75c0baee80be88609e7c8de71ecd99c361024fd1c7d8bdde1f92dd"
+      },
+      {
+        "file": "D-p0.423.png",
+        "bytes": 370442,
+        "sha256": "a8433e30125ca0b4ff0766ab5b8e8eccacf1c7d0671236e7c45d7f24b8d8334d"
+      },
+      {
+        "file": "D-p0.424.png",
+        "bytes": 267456,
+        "sha256": "8e0d28c36e0808a560c1720a30978a0d120c09872745866459f117258e35793f"
+      },
+      {
+        "file": "D-p0.426.png",
+        "bytes": 315279,
+        "sha256": "8e858aa491417b7e92ba71413dc84afae1c816f1caa56e8b275ba3af261f38cb"
+      },
+      {
+        "file": "D-p0.428.png",
+        "bytes": 451247,
+        "sha256": "8e62d8322794d272716195edb448d39430ab51e6dee836c53c97ba66eb15f6d7"
+      },
+      {
+        "file": "D-p0.435.png",
+        "bytes": 270729,
+        "sha256": "017c2a8a6583e24c5fe03ffd0540f77543ff6021e0782c04fbdc53630a65ce6c"
+      },
+      {
+        "file": "D-p0.460.png",
+        "bytes": 627245,
+        "sha256": "f7c02319b6fdeb7375e6f4549c1a1324b27fb4371fd8509a411ff183d8cc2f0b"
+      },
+      {
+        "file": "D-p0.470.png",
+        "bytes": 564595,
+        "sha256": "86556f2afea3de8e04b3a8f56256d4263e239f00722256e069b317ff1d8bac03"
+      },
+      {
+        "file": "D-p0.480.png",
+        "bytes": 319153,
+        "sha256": "110c452f043697ee9c6f56f4927ea77c98425b0d769c87cd727072804ac47617"
+      },
+      {
+        "file": "D-p0.490.png",
+        "bytes": 119276,
+        "sha256": "07f1f5da0e97f2bf7bb451fd9a69819832dd69e0d8ee0d1a5cd1eebb42649315"
+      },
+      {
+        "file": "D-p0.500.png",
+        "bytes": 80409,
+        "sha256": "e63be0307889c508472c5f6578241ffcae938b6c1dfcaca92cf73ed7cc21b98f"
+      },
+      {
+        "file": "D-p0.520.png",
+        "bytes": 69230,
+        "sha256": "a7dbb8c27eb5a042ef107c0bca2d704395baf546edb1eae9171c4f85bb6fa05d"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4400.png",
+        "bytes": 291050,
+        "sha256": "a0ee94d6c3aaa720593ca0d2bd23f2a10acdc8bbcf9f71caf306ccc81d33d865"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4450.png",
+        "bytes": 310067,
+        "sha256": "57f2b95a6f3762ee10c1573e83f8f33ada04951df46baf6ed39f8ab9fb4d812c"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4500.png",
+        "bytes": 384580,
+        "sha256": "3f855da3c9c4eaa7f430905095e71b8fcb89eda4d27d41786a7965af4da9f1b9"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4550.png",
+        "bytes": 644293,
+        "sha256": "4f12f5849af9cccee577f93eab95c3faa0a285cbc9a948a23747ca129ca29ae6"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4600.png",
+        "bytes": 627245,
+        "sha256": "f7c02319b6fdeb7375e6f4549c1a1324b27fb4371fd8509a411ff183d8cc2f0b"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4650.png",
+        "bytes": 610976,
+        "sha256": "1b8e0f837fa11ecfb706961f15cd55ec449ac00cf008435d785498b68b7f24a5"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4700.png",
+        "bytes": 564595,
+        "sha256": "86556f2afea3de8e04b3a8f56256d4263e239f00722256e069b317ff1d8bac03"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4750.png",
+        "bytes": 479906,
+        "sha256": "322532fc2becb862e0048715e06296fda65f739051fceda0ffa3a1e18e164db7"
+      },
+      {
+        "file": "D-h-sheet-to-overview-p0.4800.png",
+        "bytes": 319153,
+        "sha256": "110c452f043697ee9c6f56f4927ea77c98425b0d769c87cd727072804ac47617"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6800.png",
+        "bytes": 56505,
+        "sha256": "0933d8e326f875965f9c69a3b49e3943f29d7e3cc7d0b4e43cb9e303d0de2367"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6825.png",
+        "bytes": 56559,
+        "sha256": "a35217dbf092d23a8e0bf07b0b1b7307ae286ad24d62775c5a522e6fa79904e8"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6850.png",
+        "bytes": 56295,
+        "sha256": "c42ed69d60d1fdee611d7eee14cb733fe618300f8e17b402297e6a9e3a0d0207"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6875.png",
+        "bytes": 56323,
+        "sha256": "83688fab1a18111f00c505700e82513ab4ab5b61acb5739d6d6a8966da4d3f7b"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6900.png",
+        "bytes": 86144,
+        "sha256": "c57cfde166f6d834db4525da842da92678c711c46370347fadc93314c6c78d55"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6925.png",
+        "bytes": 86144,
+        "sha256": "c57cfde166f6d834db4525da842da92678c711c46370347fadc93314c6c78d55"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6950.png",
+        "bytes": 125737,
+        "sha256": "3f19223fb85557d88fb2c9921c026b484313d9b5c1c6865ec95e8f123399e569"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.6975.png",
+        "bytes": 143923,
+        "sha256": "28c4735018f03e917a66fba12e3ad115e143e454a56f46c6a93a59da3bd429c5"
+      },
+      {
+        "file": "D-h-overview-to-ring-p0.7000.png",
+        "bytes": 132400,
+        "sha256": "b29e1c8ecf36b5dbf87b6ee2117c4df00eb1f71698d3e74dce9ef1e0171eb82f"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7275.png",
+        "bytes": 189741,
+        "sha256": "e9aed52e005166fd21b0d35d587c5a893220d4ed51e02c9e49d3e706ec6e9c3a"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7300.png",
+        "bytes": 189952,
+        "sha256": "bb6c1f2179e3601a6d79e63789a95bd4f249572700c234de0622f25913061450"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7325.png",
+        "bytes": 25028,
+        "sha256": "098877a377df64f370d1efc7b4cf1850cff3044d6f2a6dc07c37f77180ff29b9"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7350.png",
+        "bytes": 22088,
+        "sha256": "0aad2681bd2fe8bb3280755569322bfa66ebee7f155812ab325cf79534b4d43b"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7375.png",
+        "bytes": 22088,
+        "sha256": "0aad2681bd2fe8bb3280755569322bfa66ebee7f155812ab325cf79534b4d43b"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7400.png",
+        "bytes": 36429,
+        "sha256": "a1f723719a83cefb2ff2c067a7cbd1974eb5930e7253b483fea4bac0bdb90561"
+      },
+      {
+        "file": "D-h-ring-to-shaft-p0.7425.png",
+        "bytes": 54752,
+        "sha256": "89b381a5504aff8d1e221554ace64b697bdcf67e553ad10a4476557e322ce28a"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9325.png",
+        "bytes": 263788,
+        "sha256": "46b3072757f5bed3a498bbfbe69413e99ba11ff1d2261bf2d5eca70612bac60a"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9350.png",
+        "bytes": 265508,
+        "sha256": "d47ac86241c8babcfe947d43264d4bd5ce6f407fa9d047a0a5edf137ffe21439"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9375.png",
+        "bytes": 265863,
+        "sha256": "dcf579d0342b81a10a2750f2e6001d3fac2343acd12486fbbdac19c00b3ae398"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9400.png",
+        "bytes": 56333,
+        "sha256": "a285ffe253d24d997f4f923fe6b1f71619de2aeb83f8af7ba7bb89972e1ba058"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9425.png",
+        "bytes": 56885,
+        "sha256": "d2c20f5e4a0c8a5120cda038faf97de8eb4c958d176e2490614400294ff917ff"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9450.png",
+        "bytes": 57219,
+        "sha256": "3d265e96133ef2a918cda43b4b02d731dd9e5b38e35e28321d57a1ad083e2166"
+      },
+      {
+        "file": "D-h-shaft-to-overview-p0.9475.png",
+        "bytes": 58498,
+        "sha256": "447ee2a4ef57e383baa327ce5f7f8a2679b5635f6d01dd3057e466669f18c4f1"
+      }
+    ],
+    "errors": [],
+    "assertions": [
+      {
+        "name": "viewport observed matches request (post-fix harness)",
+        "pass": true,
+        "actual": {
+          "requested": {
+            "width": 1440,
+            "height": 900,
+            "deviceScaleFactor": 1,
+            "isMobile": false
+          },
+          "observed": {
+            "innerWidth": 1440,
+            "innerHeight": 900,
+            "devicePixelRatio": 1
+          }
+        }
+      },
+      {
+        "name": "narrative renderer is hardware-class",
+        "pass": true,
+        "actual": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+      },
+      {
+        "name": "requested tier equals effective tier on sheet and store",
+        "pass": true,
+        "actual": {
+          "requestedTier": "full",
+          "storeTier": "full",
+          "sheetTier": "full"
+        }
+      },
+      {
+        "name": "effective DPR within approved tier ceiling",
+        "pass": true,
+        "actual": {
+          "effectiveDpr": 1,
+          "maxEffectiveDpr": 1.5
+        }
+      },
+      {
+        "name": "drawing-buffer pixels within approved tier ceiling",
+        "pass": true,
+        "actual": {
+          "bufferPixels": 1296000,
+          "maxBufferPixels": 3686400
+        }
+      },
+      {
+        "name": "required electrical fields finite at every sample",
+        "pass": true,
+        "actual": [
+          "pitReveal",
+          "pitFissureEnergy",
+          "electricalEnergy",
+          "electricalOutline",
+          "electricalBranch"
+        ]
+      },
+      {
+        "name": "every sample exposes finite opening telemetry",
+        "pass": true,
+        "actual": [
+          0,
+          0.04961643002766642,
+          0.22741192787475437,
+          0.37999999999583145,
+          0.4500000145582373,
+          0.6599999417729532,
+          0.7900000030195067,
+          0.8165034497830266,
+          0.8347892931857485,
+          0.8400000993779111,
+          0.8428807954036086,
+          0.8462435029836974,
+          0.8504731179810499,
+          0.8610663076450591,
+          0.8729495431512195,
+          0.9000000543408366,
+          0.9999999758462319,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "bake crossing solved and installed",
+        "pass": true,
+        "actual": 0.730195369840988
+      },
+      {
+        "name": "pressure is monotone non-decreasing across the forward walk",
+        "pass": true,
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1.0940904012522124e-14,
+          0.5450491200567014,
+          0.9696818946162004,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "paper still opaque part-way through the model-driven bulge",
+        "pass": true,
+        "actual": {
+          "requested": 0.415,
+          "openingClear": 0,
+          "fracture": 0
+        }
+      },
+      {
+        "name": "opening complete at the emergence handoff",
+        "pass": true,
+        "actual": {
+          "openingClear": 1,
+          "fracture": 1
+        }
+      },
+      {
+        "name": "camera pose finite at every sample",
+        "pass": true,
+        "actual": 22
+      },
+      {
+        "name": "renderer reports live draw calls",
+        "pass": true,
+        "actual": {
+          "calls": 59,
+          "triangles": 841039,
+          "geometries": 181,
+          "textures": 15,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        }
+      },
+      {
+        "name": "no page or console errors during the walk",
+        "pass": true,
+        "actual": []
+      },
+      {
+        "name": "emission bursts inside the pit window t0.845-0.87",
+        "pass": true,
+        "actual": {
+          "burst": 0.687651833837545,
+          "window": [
+            {
+              "requested": 0.422,
+              "electrical": {
+                "pitReveal": 0.014813476868541838,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1
+              }
+            },
+            {
+              "requested": 0.423,
+              "electrical": {
+                "pitReveal": 0.06548436635494242,
+                "pitFissureEnergy": 0.6270053321060559,
+                "electricalEnergy": 0.6270053321060559,
+                "electricalOutline": 1,
+                "electricalBranch": 1
+              }
+            },
+            {
+              "requested": 0.424,
+              "electrical": {
+                "pitReveal": 0.16976298433251777,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1
+              }
+            },
+            {
+              "requested": 0.426,
+              "electrical": {
+                "pitReveal": 0.5399486490465405,
+                "pitFissureEnergy": 0.687651833837545,
+                "electricalEnergy": 0.687651833837545,
+                "electricalOutline": 1,
+                "electricalBranch": 1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "outline electricity accumulated by the end of intro",
+        "pass": true,
+        "actual": {
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0.9755289909806628,
+          "electricalOutline": 1,
+          "electricalBranch": 0.042525112099202164
+        }
+      },
+      {
+        "name": "emission fields fully off after emergence (no permanent emission)",
+        "pass": true,
+        "actual": [
+          {
+            "requested": 0.46,
+            "electrical": {
+              "pitReveal": 1,
+              "pitFissureEnergy": 0,
+              "electricalEnergy": 0,
+              "electricalOutline": 1,
+              "electricalBranch": 1
+            }
+          },
+          {
+            "requested": 0.48,
+            "electrical": {
+              "pitReveal": 1,
+              "pitFissureEnergy": 0,
+              "electricalEnergy": 0,
+              "electricalOutline": 1,
+              "electricalBranch": 1
+            }
+          },
+          {
+            "requested": 0.5,
+            "electrical": {
+              "pitReveal": 1,
+              "pitFissureEnergy": 0,
+              "electricalEnergy": 0,
+              "electricalOutline": 1,
+              "electricalBranch": 1
+            }
+          },
+          {
+            "requested": 0.52,
+            "electrical": {
+              "pitReveal": 1,
+              "pitFissureEnergy": 0,
+              "electricalEnergy": 0,
+              "electricalOutline": 1,
+              "electricalBranch": 1
+            }
+          }
+        ]
+      },
+      {
+        "name": "zero portal emission after emergence",
+        "pass": true,
+        "actual": [
+          {
+            "requested": 0.46,
+            "portalLight": 0,
+            "portalPulse": 0.9347837154908272
+          },
+          {
+            "requested": 0.47,
+            "portalLight": 0,
+            "portalPulse": 0.9347836424347318
+          },
+          {
+            "requested": 0.48,
+            "portalLight": 0,
+            "portalPulse": 0.9347836424347318
+          },
+          {
+            "requested": 0.49,
+            "portalLight": 0,
+            "portalPulse": 0.9347836424347318
+          },
+          {
+            "requested": 0.5,
+            "portalLight": 0,
+            "portalPulse": 0.9347836424347318
+          },
+          {
+            "requested": 0.52,
+            "portalLight": 0,
+            "portalPulse": 0.9347836424347318
+          }
+        ]
+      },
+      {
+        "name": "electrical null-render fixed and restored at 0.395",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 6425,
+          "interiorChangedPixels": 109,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "profile and interior electricity both visible",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 6425,
+          "interiorChangedPixels": 109,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "electrical null-render fixed and restored at 0.423",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 4617,
+          "interiorChangedPixels": 2883,
+          "pitFissureChangedPixels": 311,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "pit fissure electricity visible during burst",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 4617,
+          "interiorChangedPixels": 2883,
+          "pitFissureChangedPixels": 311,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "electrical null-render fixed and restored at 0.424",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 0,
+          "interiorChangedPixels": 0,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "dark hold has no profile interior or pit emission pixels",
+        "pass": true,
+        "actual": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 0,
+          "interiorChangedPixels": 0,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        }
+      },
+      {
+        "name": "pit fully occluded before rupture",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "pit active at required effects point 0.428",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture shader programs valid at 0.428",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture camera unchanged at 0.428",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "aperture sampling non-vacuous at 0.428",
+        "pass": true,
+        "actual": 29364
+      },
+      {
+        "name": "no desk changed inside the aperture at 0.428",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "no visible far closure inside the aperture at 0.428",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "lit model visible inside the aperture during rupture at 0.428",
+        "pass": true,
+        "actual": {
+          "modelLitPixels": 713,
+          "modelMaxLuminance": 0.9999999999999999
+        }
+      },
+      {
+        "name": "shaft walls are the visible portal surface at 0.428",
+        "pass": true,
+        "actual": 4215
+      },
+      {
+        "name": "far closure occluded by design at 0.428",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "portal contribution confined to the aperture (corner controls) at 0.428",
+        "pass": true,
+        "actual": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              392,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ]
+      },
+      {
+        "name": "pit active at required effects point 0.435",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture shader programs valid at 0.435",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture camera unchanged at 0.435",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "aperture sampling non-vacuous at 0.435",
+        "pass": true,
+        "actual": 25721
+      },
+      {
+        "name": "no desk changed inside the aperture at 0.435",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "no visible far closure inside the aperture at 0.435",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "lit model visible inside the aperture during rupture at 0.435",
+        "pass": true,
+        "actual": {
+          "modelLitPixels": 618,
+          "modelMaxLuminance": 0.9999999999999999
+        }
+      },
+      {
+        "name": "shaft walls are the visible portal surface at 0.435",
+        "pass": true,
+        "actual": 11937
+      },
+      {
+        "name": "far closure occluded by design at 0.435",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "portal contribution confined to the aperture (corner controls) at 0.435",
+        "pass": true,
+        "actual": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              392,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ]
+      },
+      {
+        "name": "pit active at required effects point 0.46",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture shader programs valid at 0.460",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "effectsCapture camera unchanged at 0.460",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "aperture sampling non-vacuous at 0.460",
+        "pass": true,
+        "actual": 7103
+      },
+      {
+        "name": "no desk changed inside the aperture at 0.460",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "no visible far closure inside the aperture at 0.460",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "model no longer inside the aperture at emergence 0.460",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "shaft walls are the visible portal surface at 0.460",
+        "pass": true,
+        "actual": 7103
+      },
+      {
+        "name": "far closure occluded by design at 0.460",
+        "pass": true,
+        "actual": true
+      },
+      {
+        "name": "portal contribution confined to the aperture (corner controls) at 0.460",
+        "pass": true,
+        "actual": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              392,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ]
+      },
+      {
+        "name": "stationary hold at 0.15 freezes camera",
+        "pass": true,
+        "actual": {
+          "requested": 0.15,
+          "positionDriftM": 0,
+          "quatDriftDeg": 0,
+          "fovDriftDeg": 0,
+          "portalLightDrift": 0,
+          "openingCanonicalDrift": 0,
+          "framesA": 2692,
+          "framesB": 2842,
+          "framesAdvanced": true
+        }
+      },
+      {
+        "name": "stationary hold at 0.15 freezes opening canonical state",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "portal pulse deterministic under hold at 0.15",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "frames advance during stationary hold at 0.15 (live render, not frozen)",
+        "pass": true,
+        "actual": {
+          "framesA": 2692,
+          "framesB": 2842
+        }
+      },
+      {
+        "name": "stationary hold at 0.52 freezes camera",
+        "pass": true,
+        "actual": {
+          "requested": 0.52,
+          "positionDriftM": 0,
+          "quatDriftDeg": 0,
+          "fovDriftDeg": 0,
+          "portalLightDrift": 0,
+          "openingCanonicalDrift": 0,
+          "framesA": 2903,
+          "framesB": 3053,
+          "framesAdvanced": true
+        }
+      },
+      {
+        "name": "stationary hold at 0.52 freezes opening canonical state",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "portal pulse deterministic under hold at 0.52",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "frames advance during stationary hold at 0.52 (live render, not frozen)",
+        "pass": true,
+        "actual": {
+          "framesA": 2903,
+          "framesB": 3053
+        }
+      },
+      {
+        "name": "reverse retraces camera within contract-18 tolerances",
+        "pass": false,
+        "actual": {
+          "maxPositionDeltaM": 0.6427756587137617,
+          "maxQuatDeltaDeg": 53.27260489242545,
+          "maxFovDeltaDeg": 0
+        }
+      },
+      {
+        "name": "reverse retraces opening canonical state",
+        "pass": false,
+        "actual": 0.6599999417729532
+      },
+      {
+        "name": "reverse retraces portal pulse",
+        "pass": true,
+        "actual": 0
+      },
+      {
+        "name": "direct seek reproduces forward state within contract-18 tolerances",
+        "pass": false,
+        "actual": {
+          "max": 0.5235114960516752,
+          "maxOpening": 0.4325880138981988
+        }
+      },
+      {
+        "name": "unaltered PNG captured for every sample",
+        "pass": true,
+        "actual": 54
+      },
+      {
+        "name": "no runtime errors through complete roster",
+        "pass": true,
+        "actual": []
+      }
+    ],
+    "unverified": [
+      {
+        "name": "camera handoff continuity as Stage 4 exit evidence",
+        "reason": "windows are recorded as diagnostics only: ring/shaft windows sit outside the Stage 4 opening exit and a synthetic adjacent-sample threshold cannot claim C1; derivative classification is parent-contract/G5 scope"
+      }
+    ],
+    "observedViewport": {
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "devicePixelRatio": 1
+    },
+    "rendererName": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "tier": {
+      "requested": "full",
+      "storeTier": "full",
+      "sheetTier": "full",
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "devicePixelRatio": 1,
+      "canvasWidth": 1440,
+      "canvasHeight": 900,
+      "cssWidth": 1440,
+      "cssHeight": 900,
+      "effectiveDpr": 1,
+      "drawingBufferPixels": 1296000,
+      "ceiling": {
+        "maxEffectiveDpr": 1.5,
+        "maxBufferPixels": 3686400
+      }
+    },
+    "electricalFieldsPresent": [
+      "pitReveal",
+      "pitFissureEnergy",
+      "electricalEnergy",
+      "electricalOutline",
+      "electricalBranch"
+    ],
+    "portalResidualDiagnostic": [
+      {
+        "requested": 0.46,
+        "portalLight": 0,
+        "portalPulse": 0.9347837154908272
+      },
+      {
+        "requested": 0.47,
+        "portalLight": 0,
+        "portalPulse": 0.9347836424347318
+      },
+      {
+        "requested": 0.48,
+        "portalLight": 0,
+        "portalPulse": 0.9347836424347318
+      },
+      {
+        "requested": 0.49,
+        "portalLight": 0,
+        "portalPulse": 0.9347836424347318
+      },
+      {
+        "requested": 0.5,
+        "portalLight": 0,
+        "portalPulse": 0.9347836424347318
+      },
+      {
+        "requested": 0.52,
+        "portalLight": 0,
+        "portalPulse": 0.9347836424347318
+      }
+    ],
+    "electricalPixels": [
+      {
+        "requested": 0.395,
+        "capture": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 6425,
+          "interiorChangedPixels": 109,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        },
+        "stats": {
+          "portalLight": 0.9393466025751304,
+          "portalPulse": 0.9629099814151503,
+          "portalActive": 1,
+          "crackGlow": 0.6500000000000038,
+          "crackWeb": 0.06075019249368309,
+          "fracture": 0,
+          "openingClear": 0,
+          "pitReveal": 0,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0.9755289909806628,
+          "electricalOutline": 1,
+          "electricalBranch": 0.042525112099202164
+        }
+      },
+      {
+        "requested": 0.423,
+        "capture": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 4617,
+          "interiorChangedPixels": 2883,
+          "pitFissureChangedPixels": 311,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        },
+        "stats": {
+          "portalLight": 0.5817899885685279,
+          "portalPulse": 0.9278868277153982,
+          "portalActive": 1,
+          "crackGlow": 0.948922194243145,
+          "crackWeb": 0.9345156336450575,
+          "fracture": 0.06548436635494242,
+          "openingClear": 0,
+          "pitReveal": 0.06548436635494242,
+          "pitFissureEnergy": 0.6270053321060559,
+          "electricalEnergy": 0.6270053321060559,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      },
+      {
+        "requested": 0.424,
+        "capture": {
+          "width": 640,
+          "height": 400,
+          "profileChangedPixels": 0,
+          "interiorChangedPixels": 0,
+          "pitFissureChangedPixels": 0,
+          "controlChangedPixels": 0,
+          "restoredChangedPixels": 0,
+          "fixedCamera": true,
+          "threshold8Bit": 2
+        },
+        "stats": {
+          "portalLight": 0,
+          "portalPulse": 0.9099300725270689,
+          "portalActive": 1,
+          "crackGlow": 0.8675848722206361,
+          "crackWeb": 0.8302370156674822,
+          "fracture": 0.16976298433251777,
+          "openingClear": 0,
+          "pitReveal": 0.16976298433251777,
+          "pitFissureEnergy": 0,
+          "electricalEnergy": 0,
+          "electricalOutline": 1,
+          "electricalBranch": 1
+        }
+      }
+    ],
+    "continuityDiagnosticOnly": true,
+    "pass": false,
+    "failed": [
+      "reverse retraces camera within contract-18 tolerances",
+      "reverse retraces opening canonical state",
+      "direct seek reproduces forward state within contract-18 tolerances"
+    ]
+  }
+}

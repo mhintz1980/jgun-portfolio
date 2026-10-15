@@ -8,7 +8,7 @@ import { STAGE_IDS } from '../../data/caseStudies'
 import { buildWrenchRig } from '../rig/nodeRoles'
 import { applyWrenchMechanics, writeWrenchMechanicsProbe, type WrenchMechanicsProbe } from '../rig/wrenchMechanics'
 import { makeDrawingLayout, snapshotDrawing } from '../drawing/drawingGeometry'
-import { introCameraPose, type SheetCameraPose } from '../drawing/sheetCamera'
+import { type SheetCameraPose } from '../drawing/sheetCamera'
 import { bakeSheet, type SheetBakeResult } from '../drawing/sheet/sheetBake'
 import { applyExtractionCore, createExtractionContext } from '../drawing/poseCore'
 import { createShaftRuntime } from '../inspection/shaft/shaftRuntime'
@@ -21,9 +21,11 @@ import type { TorqueSceneProps } from './cadGate'
 import { createPrivateInspectionSample, samplePrivateInspection } from './InspectionDirector'
 import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
-import { createOpeningSampler, openingTimeAt, sampleOpening } from './OpeningDirector'
+import { createOpeningSampler, sampleOpening } from './OpeningDirector'
+import { sampleOpeningCamera } from './OpeningCamera'
+import { createCameraHandoff, type CameraHandoffPose } from './CameraHandoff'
 import { PrivateSheet } from './PrivateSheet'
-import type { DrawingFrameInput } from './privateSheetRuntime'
+import type { DrawingFrameInput, PrivateSheetRuntime } from './privateSheetRuntime'
 import { captureInstalledCutter, measureInstalledInspection } from './inspectionProof'
 import { createInspectionFailureCollector } from './inspectionFailure'
 
@@ -56,6 +58,8 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
   // Parent-lane observable: the baked sheet result is owned by this effect, but the probe port is
   // created before it exists, so registration/stats are read lazily through this ref.
   const bakedSheet = useRef<SheetBakeResult | null>(null)
+  const sheetRuntime = useRef<PrivateSheetRuntime | null>(null)
+  const installSheetRuntime = useCallback((runtime: PrivateSheetRuntime | null) => { sheetRuntime.current = runtime }, [])
   const extractionContext = useMemo(createExtractionContext, [])
   const sheetFrame = useMemo<DrawingFrameInput>(() => ({ intro: sampleOpening(0),
     tier: store.getState().tier === 'lite' ? 'lite' : 'full', reducedMotion: false,
@@ -72,6 +76,11 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
   const channels = useMemo<MechanismSample>(() => ({ shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 }), [])
   const inspection = useMemo(createPrivateInspectionSample, [])
   const target = useMemo(() => new Vector3(), [])
+  const blendCamera = useMemo(createCameraHandoff, [])
+  const handoffFrom = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
+  const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
+  const handoffResult = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
+  const shaftEntry = useMemo(createPrivateInspectionSample, [])
   const probe = useMemo(() => ({
     ready: false, frames: 0, hiddenFrames: 0, progress: 0,
     rig: {} as WrenchMechanicsProbe,
@@ -92,8 +101,26 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     const fail = (error: unknown) => { if (owned.current()) reportFailure(error) }
     const globals = window as unknown as Record<string, unknown>
     const port = {
+      pitInputs: () => sheetRuntime.current?.pitInputs(),
+      pitGeometryAb: (candidate: number[]) => {
+        if (!sheetRuntime.current) throw new Error('Private sheet unavailable')
+        return sheetRuntime.current.pitGeometryAb(gl, camera, candidate)
+      },
+      effectsCapture: () => {
+        if (!sheetRuntime.current) throw new Error('Private sheet unavailable')
+        return sheetRuntime.current.captureEffects(gl, camera)
+      },
+      electricityCapture: () => {
+        if (!sheetRuntime.current) throw new Error('Private sheet unavailable')
+        return sheetRuntime.current.captureElectricity(gl, camera)
+      },
       snapshot: () => {
         const copy = JSON.parse(JSON.stringify(probe))
+        const context = gl.getContext()
+        const debug = context.getExtension('WEBGL_debug_renderer_info')
+        copy.renderer.backend = debug ? context.getParameter(debug.UNMASKED_RENDERER_WEBGL) : null
+        copy.renderer.effectiveDpr = gl.getPixelRatio()
+        copy.renderer.drawingBuffer = [context.drawingBufferWidth, context.drawingBufferHeight]
         // pulseRegistration is lazy and cached inside the bake result; never throws for a live bake.
         copy.sheet.registration = bakedSheet.current ? bakedSheet.current.pulseRegistration() : null
         const base = (node: Object3D | null) => node ? rig.basePositions.get(node)?.z ?? null : null
@@ -102,6 +129,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         // Read the bake through its ref: this port's effect does not re-run when the bake state
         // lands, so a captured `sheetBake` binding would report a stale null forever.
         const baked = bakedSheet.current
+        copy.sheet.stats = baked ? { ...baked.stats } : {}
         copy.opening = { ...sheetFrame.intro, retirement: sheetFrame.retirement,
           sheetDistance: sheetFrame.cameraSheetDistance, tier: sheetFrame.tier,
           crossing: baked?.extraction.crossing ?? null,
@@ -224,7 +252,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
       }
       writeWrenchMechanicsProbe(rig, channels, channels.ghostOpacity, probe.rig)
       if (group.current) group.current.visible = !studyVisible && !ringVisible
-      if (ringVisible && !ring.current) {
+      if (!manual && progress >= 0.675 && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
         const failures = createInspectionFailureCollector(reportFailure)
@@ -255,7 +283,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
           camera.up.copy(runtime.camera.up); camera.fov = runtime.camera.fov
         }
       }
-      if (studyVisible && !shaft.current) {
+      if ((studyVisible || (!manual && progress >= 0.72)) && !shaft.current) {
         const failures = createInspectionFailureCollector(reportFailure)
         const session = createStorySession('shaft', { id: 1, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
@@ -298,7 +326,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
       }
       if (!studyVisible && !ringVisible) {
         if (progress < 0.46 && layout.current) {
-          introCameraPose(layout.current, aspect, openingTimeAt(progress), pose)
+          sampleOpeningCamera(layout.current, aspect, progress, pose)
           camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
         } else {
           // Provisional mechanical overview; final opening/inspection handoffs remain gates.
@@ -308,6 +336,35 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
           target.set(0, 0, -0.15 * spread)
           camera.up.set(0, 1, 0); camera.fov = narrow ? 58 : 42
         }
+      }
+      // Resolve each private domain join from current canonical samples, never a
+      // previous-frame pose. The next subject may load early but keeps its
+      // original visibility/mechanical window. Quintic weights stop at seams.
+      let handoffStart = 0, handoffEnd = 0
+      if (!manual && progress >= 0.675 && progress < 0.69 && ring.current) {
+        handoffStart = 0.675; handoffEnd = 0.69
+        handoffTo.position.copy(ring.current.camera.position)
+        handoffTo.target.copy(ring.current.camera.target)
+        handoffTo.up.copy(ring.current.camera.up); handoffTo.fov = ring.current.camera.fov
+      } else if (!manual && progress >= 0.72 && progress < 0.735) {
+        handoffStart = 0.72; handoffEnd = 0.735
+        const entry = samplePrivateInspection(0.735, aspect, shaftEntry).camera
+        shaftMetrePoint(handoffTo.position, entry.px, entry.py, entry.pz)
+        shaftMetrePoint(handoffTo.target, entry.tx, entry.ty, entry.tz)
+        shaftMetrePoint(handoffTo.up, entry.ux, entry.uy, entry.uz).normalize()
+        handoffTo.fov = entry.fov
+      } else if (!manual && progress >= 0.925 && progress < 0.94) {
+        handoffStart = 0.925; handoffEnd = 0.94
+        handoffTo.position.set(0.32, 0.16, 0.74)
+        handoffTo.target.set(0, 0, -0.15); handoffTo.up.set(0, 1, 0)
+        handoffTo.fov = aspect < 0.8 ? 58 : 42
+      }
+      if (handoffEnd > handoffStart) {
+        handoffFrom.position.copy(camera.position); handoffFrom.target.copy(target)
+        handoffFrom.up.copy(camera.up); handoffFrom.fov = camera.fov
+        blendCamera(handoffFrom, handoffTo, progress, handoffStart, handoffEnd, handoffResult)
+        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
+        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
       camera.lookAt(target); camera.updateProjectionMatrix()
       sheetFrame.cameraLookTargetWorld = target
@@ -329,7 +386,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     <group ref={group} name="private-wrench-world" dispose={null}>
       <group ref={centered} position={center}><primitive object={model} dispose={null} /></group>
     </group>
-    {sheetBake && <PrivateSheet baked={sheetBake} frame={readSheetFrame} context={extractionContext}
+    {sheetBake && <PrivateSheet baked={sheetBake} frame={readSheetFrame} context={extractionContext} onRuntime={installSheetRuntime}
       onCleanupFailure={reportSheetCleanup} />}
   </>
 }

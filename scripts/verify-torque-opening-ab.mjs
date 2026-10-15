@@ -105,7 +105,8 @@ async function cameraLawAb(candidateRev) {
 
 async function runtimeCapture(browser, args, provenance) {
   const viewport = VIEWPORTS[args.viewport]
-  const context = await browser.newContext({ ...viewport, reducedMotion: 'no-preference' })
+  const { width, height, ...device } = viewport
+  const context = await browser.newContext({ viewport: { width, height }, ...device, reducedMotion: 'no-preference' })
   const page = await context.newPage()
   const errors = []
   page.on('pageerror', e => errors.push({ kind: 'pageerror', message: String(e) }))

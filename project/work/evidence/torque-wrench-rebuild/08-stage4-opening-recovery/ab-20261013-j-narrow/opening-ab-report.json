@@ -1,0 +1,1747 @@
+{
+  "schema": "JG-038-stage4-opening-ab-v1",
+  "startedAt": "2026-10-13T09:45:11.037Z",
+  "url": "http://localhost:4195/torque-wrench/",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "provenance": {
+    "buildDir": ".scratch/jg038-stage4-20261013-j",
+    "entry": "assets/torque-wrench-BT0qBeiW.js",
+    "aggregateSha256": "1aca78b824812db1e93723c134b184f6e4c0f424487f79a385546406dbcb5718",
+    "fileCount": 29
+  },
+  "cameraLawAb": {
+    "candidateRevision": "8988c2da^",
+    "currentSheetCameraSha256": "2ea85552d011926fcb8ba73c9ad6ae39bb99895fff8bcb3f45d32bed8f7ffe08",
+    "candidateSheetCameraSha256": "cbf7cd4edf97df81e3d36ed9ef87bb6cae4f6d20b36d4515d98eb45df9cb2c75",
+    "note": "Candidate source is evaluated with the current sibling modules; only the sheetCamera law differs.",
+    "rows": [
+      {
+        "aspect": 1.6,
+        "introTime": 0,
+        "current": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.1,
+        "current": {
+          "position": [
+            0.38914029616756024,
+            0.2399372585225954,
+            -0.2761629040226763
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.22076351025891036,
+            0.2007440577982103,
+            -0.10765959710354286
+          ],
+          "target": [
+            0.03283787724158044,
+            0,
+            -0.08230281382125675
+          ],
+          "fov": 31.078874471497304
+        },
+        "deltaMetres": 0.24141295213520117,
+        "targetDeltaMetres": 0.21735189658532228,
+        "fovDeltaDegrees": 1.0788744714973042
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.2,
+        "current": {
+          "position": [
+            0.02464940439851758,
+            0.12131196698655072,
+            -0.09496036509498881
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.09
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.14633635576277632,
+            0.31822095756281515,
+            -0.0929902047819878
+          ],
+          "target": [
+            -0.07776,
+            0,
+            -0.07776
+          ],
+          "fov": 32.056
+        },
+        "deltaMetres": 0.2314837925941032,
+        "targetDeltaMetres": 0.01449259121068417,
+        "fovDeltaDegrees": 2.0559999999999974
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.3,
+        "current": {
+          "position": [
+            0.1274077262261977,
+            0.9285438835685417,
+            0.0041152263374485635
+          ],
+          "target": [
+            0.0014403292181069968,
+            0,
+            0.0041152263374485635
+          ],
+          "fov": 33.862825788751714
+        },
+        "candidate": {
+          "position": [
+            0.1274077262261977,
+            0.9285438835685417,
+            0.0041152263374485635
+          ],
+          "target": [
+            0.0014403292181069968,
+            0,
+            0.0041152263374485635
+          ],
+          "fov": 33.862825788751714
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.4,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.5,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.6,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.7,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.79,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.84,
+        "current": {
+          "position": [
+            0.4961677901286708,
+            1.5838713112220357,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.4961677901286708,
+            1.5838713112220357,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 0.92,
+        "current": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 1.6,
+        "introTime": 1,
+        "current": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0,
+        "current": {
+          "position": [
+            0.3499897987182848,
+            0.14775875407815794,
+            -0.12432079555958808
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.3499897987182848,
+            0.14775875407815794,
+            -0.12432079555958808
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.1,
+        "current": {
+          "position": [
+            0.6197335147110552,
+            0.4793066182084509,
+            -0.2922875526512161
+          ],
+          "target": [
+            0.158,
+            0,
+            -0.26
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.24211108598066855,
+            0.22354775363115248,
+            -0.11054002295331983
+          ],
+          "target": [
+            0.03283787724158044,
+            0,
+            -0.08230281382125675
+          ],
+          "fov": 31.078874471497304
+        },
+        "deltaMetres": 0.4909617704479571,
+        "targetDeltaMetres": 0.21735189658532228,
+        "fovDeltaDegrees": 1.0788744714973042
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.2,
+        "current": {
+          "position": [
+            0.20310802499948327,
+            0.35004205174922676,
+            -0.10431298509460021
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.09
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.1541405637785193,
+            0.3293030768562591,
+            -0.09352060022655638
+          ],
+          "target": [
+            -0.07776,
+            0,
+            -0.07776
+          ],
+          "fov": 32.056
+        },
+        "deltaMetres": 0.054262260450314216,
+        "targetDeltaMetres": 0.01449259121068417,
+        "fovDeltaDegrees": 2.0559999999999974
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.3,
+        "current": {
+          "position": [
+            0.4116577932446524,
+            3.023837327768089,
+            0.0041152263374485635
+          ],
+          "target": [
+            0.0014403292181069968,
+            0,
+            0.0041152263374485635
+          ],
+          "fov": 33.862825788751714
+        },
+        "candidate": {
+          "position": [
+            0.4116577932446524,
+            3.023837327768089,
+            0.0041152263374485635
+          ],
+          "target": [
+            0.0014403292181069968,
+            0,
+            0.0041152263374485635
+          ],
+          "fov": 33.862825788751714
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.4,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.5,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.6,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.7,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.79,
+        "current": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.042000000000000086,
+            1.6477004315416595,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.84,
+        "current": {
+          "position": [
+            0.4961677901286708,
+            1.5838713112220357,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.4961677901286708,
+            1.5838713112220357,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 0.92,
+        "current": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      },
+      {
+        "aspect": 0.4621,
+        "introTime": 1,
+        "current": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "candidate": {
+          "position": [
+            0.9151482003592903,
+            1.397329214005026,
+            0.12
+          ],
+          "target": [
+            0.04199999999999998,
+            0,
+            0.12
+          ],
+          "fov": 30
+        },
+        "deltaMetres": 0,
+        "targetDeltaMetres": 0,
+        "fovDeltaDegrees": 0
+      }
+    ],
+    "maxPositionDeltaMetres": 0.4909617704479571,
+    "maxTargetDeltaMetres": 0.21735189658532228,
+    "maxFovDeltaDegrees": 2.0559999999999974,
+    "identical": false
+  },
+  "runtime": {
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 3,
+      "isMobile": true
+    },
+    "samples": [
+      {
+        "requested": 0,
+        "progress": 0,
+        "camera": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "quaternion": [
+            -0.20488667827635168,
+            0.7348059425095568,
+            0.25301397641537865,
+            0.5950341197410474
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0,
+          "poseT": 0,
+          "focus": 0,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.19,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 144,
+          "triangles": 1377293,
+          "geometries": 176,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0,
+          "beatId": "drafting-detail",
+          "localProgress": 0,
+          "phase": "entering",
+          "stateKey": "[0,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0,null,\"drafting-authorship\",\"entering\"]",
+          "previousId": null,
+          "nextId": "drafting-authorship"
+        }
+      },
+      {
+        "requested": 0.06,
+        "progress": 0.06001261431725008,
+        "camera": {
+          "position": [
+            0.3673135928276577,
+            0.19671261137923396,
+            -0.26031187119997545
+          ],
+          "target": [
+            0.15898810302089214,
+            0,
+            -0.2352974244776963
+          ],
+          "quaternion": [
+            -0.24404194450209094,
+            0.6956506762838174,
+            0.27509797393220436,
+            0.617118117257873
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.04963849525254469,
+          "poseT": 0.025133415317744146,
+          "focus": 0.9998439330769947,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.28761273220024186,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 123,
+          "triangles": 1115892,
+          "geometries": 176,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.06001261431725008,
+          "beatId": "drafting-authorship",
+          "localProgress": 0.00028031816111292096,
+          "phase": "entering",
+          "stateKey": "[0.06001261431725008,1,{\"id\":\"drafting-authorship\",\"start\":0.06,\"end\":0.105,\"title\":\"The title block\",\"copy\":\"Hold on Mark Hintz, Digital Systems Architect, and the career block.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.00028031816111292096,\"drafting-detail\",\"drafting-input-note\",\"entering\"]",
+          "previousId": "drafting-detail",
+          "nextId": "drafting-input-note"
+        }
+      },
+      {
+        "requested": 0.15,
+        "progress": 0.1500157678965626,
+        "camera": {
+          "position": [
+            0.012286834915961956,
+            0.11142415405564089,
+            -0.09627569888026022
+          ],
+          "target": [
+            -0.06999999999999999,
+            0,
+            -0.0930665833010508
+          ],
+          "quaternion": [
+            -0.31218449235056367,
+            0.6435228956184949,
+            0.32459673385768895,
+            0.6189152493835723
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.2274559611732438,
+          "poseT": 0.11516757527759179,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.13855238623099456,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 113,
+          "triangles": 1058888,
+          "geometries": 176,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.1500157678965626,
+          "beatId": "drafting-output-note",
+          "localProgress": 0.00035039770139115106,
+          "phase": "entering",
+          "stateKey": "[0.1500157678965626,3,{\"id\":\"drafting-output-note\",\"start\":0.15,\"end\":0.195,\"title\":\"Read the output note\",\"copy\":\"Give the second owner annotation its own reading hold.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.00035039770139115106,\"drafting-input-note\",\"drafting-rake\",\"entering\"]",
+          "previousId": "drafting-input-note",
+          "nextId": "drafting-rake"
+        }
+      },
+      {
+        "requested": 0.265,
+        "progress": 0.2649952696310312,
+        "camera": {
+          "position": [
+            0.04200000000000004,
+            0.5999442105816061,
+            0.11999999999999998
+          ],
+          "target": [
+            0.042,
+            0,
+            0.11999999999999998
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.3799999996367564,
+          "poseT": 0.19240506310721844,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.2649952696310312,
+          "beatId": "drafting-rake",
+          "localProgress": 0.9999324233004456,
+          "phase": "exiting",
+          "stateKey": "[0.2649952696310312,4,{\"id\":\"drafting-rake\",\"start\":0.195,\"end\":0.265,\"title\":\"Across the sheet\",\"copy\":\"Travel across the oversized opaque sheet toward the side elevation.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.9999324233004456,\"drafting-output-note\",\"drafting-registered\",\"exiting\"]",
+          "previousId": "drafting-output-note",
+          "nextId": "drafting-registered"
+        }
+      },
+      {
+        "requested": 0.32,
+        "progress": 0.31999369284137497,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0.449999997238607,
+          "poseT": 0.2278480998676491,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 163,
+          "triangles": 1466869,
+          "geometries": 176,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.31999369284137497,
+          "beatId": "drafting-registered",
+          "localProgress": 0.9998853243886356,
+          "phase": "exiting",
+          "stateKey": "[0.31999369284137497,5,{\"id\":\"drafting-registered\",\"start\":0.265,\"end\":0.32,\"title\":\"Registered drawing\",\"copy\":\"Settle square to the intact drawing before the light changes.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.9998853243886356,\"drafting-rake\",\"breakthrough-anticipation\",\"exiting\"]",
+          "previousId": "drafting-rake",
+          "nextId": "breakthrough-anticipation"
+        }
+      },
+      {
+        "requested": 0.36,
+        "progress": 0.36001261431725007,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 1,
+          "t": 0.6600000506467586,
+          "poseT": 0.33417724083380185,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 6.979845791219592e-13,
+          "pulse": 1,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 164,
+          "triangles": 1507675,
+          "geometries": 177,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.36001261431725007,
+          "beatId": "breakthrough-trace",
+          "localProgress": 0.0003604090642880409,
+          "phase": "entering",
+          "stateKey": "[0.36001261431725007,7,{\"id\":\"breakthrough-trace\",\"start\":0.36,\"end\":0.395,\"title\":\"A blue profile\",\"copy\":\"The branching electrical score traces the tool across the opaque sheet; pit depth remains occluded until rupture.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"pit\",\"poster\":\"breakthrough\"},0.0003604090642880409,\"breakthrough-anticipation\",\"breakthrough-pressure\",\"entering\"]",
+          "previousId": "breakthrough-anticipation",
+          "nextId": "breakthrough-pressure"
+        }
+      },
+      {
+        "requested": 0.395,
+        "progress": 0.39498580889309365,
+        "camera": {
+          "position": [
+            0.042000000000000044,
+            0.5999442105816061,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0.060745913820188076,
+          "crackGlow": 1,
+          "t": 0.7899999359021219,
+          "poseT": 0.3999999675453782,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 0.999999999056742,
+          "crackGrowth": 0.04252262037398015,
+          "sparkAnticipation": 0,
+          "pulse": 1,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 165,
+          "triangles": 1514079,
+          "geometries": 178,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.39498580889309365,
+          "beatId": "breakthrough-trace",
+          "localProgress": 0.9995945398026752,
+          "phase": "exiting",
+          "stateKey": "[0.39498580889309365,7,{\"id\":\"breakthrough-trace\",\"start\":0.36,\"end\":0.395,\"title\":\"A blue profile\",\"copy\":\"The branching electrical score traces the tool across the opaque sheet; pit depth remains occluded until rupture.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"pit\",\"poster\":\"breakthrough\"},0.9995945398026752,\"breakthrough-anticipation\",\"breakthrough-pressure\",\"exiting\"]",
+          "previousId": "breakthrough-anticipation",
+          "nextId": "breakthrough-pressure"
+        }
+      },
+      {
+        "requested": 0.42,
+        "progress": 0.41999369284137494,
+        "camera": {
+          "position": [
+            0.20736698972375625,
+            0.5767034025563657,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4255475064709598,
+            0.5647205678354105,
+            0.4255475064709598,
+            0.5647205678354105
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 0.9999999999998906,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 1,
+          "crackGlow": 0.9999999999999618,
+          "t": 0.8399999904543457,
+          "poseT": 0.4999999809086915,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9578668989909358,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.599944210581606,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1564141,
+          "geometries": 180,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.41999369284137494,
+          "beatId": "breakthrough-pressure",
+          "localProgress": 0.9997477136549984,
+          "phase": "exiting",
+          "stateKey": "[0.41999369284137494,8,{\"id\":\"breakthrough-pressure\",\"start\":0.395,\"end\":0.42,\"title\":\"Pressure from below\",\"copy\":\"The already illuminated wrench pushes up against opaque paper.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9997477136549984,\"breakthrough-trace\",\"breakthrough-rupture\",\"exiting\"]",
+          "previousId": "breakthrough-trace",
+          "nextId": "breakthrough-rupture"
+        }
+      },
+      {
+        "requested": 0.435,
+        "progress": 0.4350047303689688,
+        "camera": {
+          "position": [
+            0.3599219946523756,
+            0.508781545583801,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.3428121700606599,
+            0.618449525877659,
+            0.3428121700606599,
+            0.618449525877659
+          ],
+          "fov": 30
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0.21999999999999997,
+          "t": 0.9000000107393127,
+          "poseT": 0.7915326795410407,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 3.4599848454463374e-14,
+          "contrast": 0.8226745070790773,
+          "drawingOpacity": 1,
+          "waveTime": 0.23034508004264595,
+          "waveActive": 1,
+          "lightSweep": 0.26801158456762186,
+          "lightSweepPosition": 0.17321104339024837,
+          "retirement": 0,
+          "sheetDistance": 0.5999442105816061,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1567273,
+          "geometries": 181,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.4350047303689688,
+          "beatId": "breakthrough-emergence",
+          "localProgress": 0.00018921475875233168,
+          "phase": "entering",
+          "stateKey": "[0.4350047303689688,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.00018921475875233168,\"breakthrough-rupture\",\"mechanism-switch\",\"entering\"]",
+          "previousId": "breakthrough-rupture",
+          "nextId": "mechanism-switch"
+        }
+      },
+      {
+        "requested": 0.46,
+        "progress": 0.4600126143172501,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.00031535793125203604,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "renderer": {
+          "calls": 166,
+          "triangles": 1526467,
+          "geometries": 181,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.4600126143172501,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.0002102386208346907,
+          "phase": "entering",
+          "stateKey": "[0.4600126143172501,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.0002102386208346907,\"breakthrough-emergence\",\"mechanism-driveline\",\"entering\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        }
+      },
+      {
+        "requested": 0.52,
+        "progress": 0.519993692841375,
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 42
+        },
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 1,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": false
+        },
+        "renderer": {
+          "calls": 59,
+          "triangles": 841039,
+          "geometries": 181,
+          "textures": 15
+        },
+        "narrative": {
+          "progress": 0.519993692841375,
+          "beatId": "mechanism-switch",
+          "localProgress": 0.9998948806895827,
+          "phase": "exiting",
+          "stateKey": "[0.519993692841375,11,{\"id\":\"mechanism-switch\",\"start\":0.46,\"end\":0.52,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.9998948806895827,\"breakthrough-emergence\",\"mechanism-driveline\",\"exiting\"]",
+          "previousId": "breakthrough-emergence",
+          "nextId": "mechanism-driveline"
+        }
+      }
+    ],
+    "artifacts": [
+      {
+        "file": "N-p0.000.png",
+        "bytes": 3761557,
+        "sha256": "fab9c485f81bf9c8f1ca627d6bcd096219fbd00c16e99accb9bb8f6cde92b29d"
+      },
+      {
+        "file": "N-p0.060.png",
+        "bytes": 4421137,
+        "sha256": "b3348ffbe286eef0d8f59ac20a2a4bfb47b3b83aa8de078b0708ec98e4df1017"
+      },
+      {
+        "file": "N-p0.150.png",
+        "bytes": 3035906,
+        "sha256": "8d63b30638c29ab2546ab3103d54b9ea8fed25aa30a03164180fbce1cff75f63"
+      },
+      {
+        "file": "N-p0.265.png",
+        "bytes": 6029670,
+        "sha256": "01cf2f5d321d4dfc16d724a18527ba78c28734f684a32e30849bb3ba5834c623"
+      },
+      {
+        "file": "N-p0.320.png",
+        "bytes": 5990929,
+        "sha256": "fc34627d55bcc3c1dac081f9454661479f2e43ba8c2d0a28b27b1ddecf6add2b"
+      },
+      {
+        "file": "N-p0.360.png",
+        "bytes": 1522294,
+        "sha256": "c854c159efa2fa29dca95646532902cc8b1b803256226d67a91615ab1dd480ad"
+      },
+      {
+        "file": "N-p0.395.png",
+        "bytes": 1826189,
+        "sha256": "e272dea9d2bb8416c97d26c04134e84f9350d122d37c41e77d8c28022cc00f69"
+      },
+      {
+        "file": "N-p0.420.png",
+        "bytes": 1258308,
+        "sha256": "c3f0f13e0061b6b6dd4fdd1f3a6b3f7114a10979c1bb11f55acbabb38b3602f5"
+      },
+      {
+        "file": "N-p0.435.png",
+        "bytes": 1011031,
+        "sha256": "45e36ffecd745699a8db882e405c1de23f4185372540fce6e919d1be12557fcc"
+      },
+      {
+        "file": "N-p0.460.png",
+        "bytes": 2364961,
+        "sha256": "bf43e38f9d00461e9116d44c5e68a967f1b578d5773aba8493ee77953826b0f0"
+      },
+      {
+        "file": "N-p0.520.png",
+        "bytes": 244575,
+        "sha256": "d1597828226c072b7988e242aa789baff23445119ad47ed1d8636617f6954739"
+      }
+    ],
+    "errors": [],
+    "assertions": [
+      {
+        "name": "every sample exposes finite opening telemetry",
+        "pass": true,
+        "actual": [
+          0,
+          0.04963849525254469,
+          0.2274559611732438,
+          0.3799999996367564,
+          0.449999997238607,
+          0.6600000506467586,
+          0.7899999359021219,
+          0.8399999904543457,
+          0.9000000107393127,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "bake crossing solved and installed",
+        "pass": true,
+        "actual": 0.730195369840988
+      },
+      {
+        "name": "pressure is monotone non-decreasing across the walk",
+        "pass": true,
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.9999999999998906,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "paper still opaque at the model-driven bulge sample",
+        "pass": true,
+        "actual": {
+          "openingClear": 0,
+          "fracture": 0
+        }
+      },
+      {
+        "name": "intact paper before the push (fracture 0, no opening)",
+        "pass": true,
+        "actual": {
+          "fracture": 0,
+          "openingClear": 0
+        }
+      },
+      {
+        "name": "opening complete at the emergence handoff",
+        "pass": true,
+        "actual": {
+          "openingClear": 1,
+          "fracture": 1
+        }
+      },
+      {
+        "name": "camera pose finite at every sample",
+        "pass": true,
+        "actual": 11
+      },
+      {
+        "name": "renderer reports hardware-class backend",
+        "pass": true,
+        "actual": {
+          "calls": 59,
+          "triangles": 841039,
+          "geometries": 181,
+          "textures": 15
+        }
+      },
+      {
+        "name": "no page or console errors during the walk",
+        "pass": true,
+        "actual": []
+      },
+      {
+        "name": "unaltered PNG captured for every sample",
+        "pass": true,
+        "actual": 11
+      }
+    ],
+    "pass": true,
+    "failed": []
+  },
+  "scope": "Measured camera-law A/B and live opening telemetry/PNG capture only. No pit-geometry attribution, no gate closure, no owner or Astra acceptance."
+}

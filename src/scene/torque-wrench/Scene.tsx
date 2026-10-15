@@ -5,8 +5,10 @@ import type { TorqueSceneProps } from './cadGate'
 import { ScrollConductor } from './ScrollConductor'
 import { TORQUE_BEATS, TORQUE_SCROLL_VIEWPORTS } from './beats'
 import RuntimeWorld from './RuntimeWorld'
+import { createPrivateRenderer } from './createPrivateRenderer'
 
 export default function TorqueScene({ store, onFailure, playback }: TorqueSceneProps) {
+  const rendererFactory = useMemo(() => createPrivateRenderer(onFailure), [onFailure])
   const rendererSupported = useMemo(() => {
     try {
       const canvas = document.createElement('canvas')
@@ -61,7 +63,7 @@ export default function TorqueScene({ store, onFailure, playback }: TorqueSceneP
       <ScrollConductor store={store} onFailure={onFailure} />
       {rendererSupported && <Canvas camera={{ near: 0.001, far: 30, position: [0.32, 0.16, 0.42], fov: 42 }}
         dpr={store.getState().tier === 'lite' ? 1 : [1, 1.5]}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        gl={rendererFactory}
       >
         <Suspense fallback={null}><RuntimeWorld store={store} onFailure={onFailure} playback={playback} /></Suspense>
       </Canvas>}

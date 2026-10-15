@@ -1,0 +1,350 @@
+{
+  "startedAt": "2026-10-14T08:03:25.780Z",
+  "url": "http://localhost:5288",
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "launchConfig": {
+    "channel": "chrome",
+    "headless": true,
+    "args": [
+      "--use-angle=d3d11",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-backgrounding-occluded-windows"
+    ]
+  },
+  "playwrightVersion": "1.56.1",
+  "checks": [
+    {
+      "id": "E-bfcache-restore",
+      "status": "UNVERIFIED",
+      "detail": {
+        "persisted": false,
+        "live": true,
+        "mode": "live",
+        "storyText": 1347,
+        "reinitialized": true,
+        "note": "no BFCache restore observed in this run; the browser reloaded the document instead — recorded, not claimed as BFCache proof"
+      }
+    }
+  ],
+  "cases": {
+    "live": {
+      "sceneReadyMs": 2158,
+      "world": {
+        "ready": true,
+        "frames": 11,
+        "hiddenFrames": 0,
+        "progress": 0,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.3114502573186421,
+            0.11697568031187505,
+            -0.11612896315134057
+          ],
+          "target": [
+            0.165,
+            0,
+            -0.085
+          ],
+          "quaternion": [
+            -0.20488667827635168,
+            0.7348059425095568,
+            0.25301397641537865,
+            0.5950341197410474
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 138,
+          "triangles": 1349761,
+          "geometries": 176,
+          "textures": 13,
+          "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+          "effectiveDpr": 1,
+          "drawingBuffer": [
+            1440,
+            900
+          ]
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 369.80000001192093,
+            "extractMs": 643.5,
+            "bakeMs": 1578.800000011921,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 0,
+            "annotationsFailed": 0,
+            "shaderWarmReady": 1,
+            "fracture": 0,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0,
+            "crackWeb": 0,
+            "paperOpacity": 1,
+            "pitReveal": 0,
+            "pitFissureEnergy": 0,
+            "electricalEnergy": 0,
+            "electricalOutline": 0,
+            "electricalBranch": 0,
+            "pitFissureGrowth": 0,
+            "pitMaxRingDeviationM": 0.016349485532863185,
+            "modelBarrierSafe": 1,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9625476190533191,
+            "portalLight": 0,
+            "phase": 0,
+            "poseT": 0,
+            "lineOpacity": 1,
+            "focus": 0,
+            "lampPower": 1,
+            "blackout": 0,
+            "readingPool": 1,
+            "localZ": -0.04053150964379311
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 0,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 0,
+          "poseT": 0,
+          "focus": 0,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 1,
+          "pulseHead": 0,
+          "crackGrowth": 0,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 1,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 0.19,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "narrative": {
+        "progress": 0,
+        "beatId": "drafting-detail",
+        "localProgress": 0,
+        "phase": "entering",
+        "stateKey": "[0,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0,null,\"drafting-authorship\",\"entering\"]",
+        "previousId": null,
+        "nextId": "drafting-authorship"
+      },
+      "dom": {
+        "mode": "live",
+        "stage": "scene",
+        "canvases": 1,
+        "chapters": [
+          "drafting",
+          "breakthrough",
+          "mechanism",
+          "inspection",
+          "close"
+        ],
+        "sheetHost": true,
+        "storyText": 1347,
+        "footer": true
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "cacheRequested": true,
+      "finalPageErrors": [],
+      "finalConsoleErrors": []
+    }
+  },
+  "summary": {
+    "pass": 0,
+    "fail": 0,
+    "unverified": 1
+  }
+}

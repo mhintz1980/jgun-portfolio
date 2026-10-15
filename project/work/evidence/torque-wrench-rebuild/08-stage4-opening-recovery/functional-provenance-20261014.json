@@ -1,0 +1,23 @@
+{
+  "schema": "JG038-functional-wave-provenance-v1",
+  "checkedAt": "2026-10-14T07:58:51.341Z",
+  "workspace": "C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench",
+  "head": "1c7a7d2d1d73b1a94d015bfcae10c101cd94b72c",
+  "buildDir": ".scratch/jg038-stage4-20261013-s",
+  "url": "http://localhost:5288/torque-wrench/",
+  "frozenInputsChecked": 347,
+  "unchangedProtectedFilesChecked": 5,
+  "authorizedProtectedDelta": "TODO.md per doc-refresh-provenance-20261014.json",
+  "frozenReviewBindingsReportsAndPngsChecked": 122,
+  "servedManifestAssetsAndHtmlChecked": 32,
+  "servedAggregateSha256": "545f7aeef922b0c94b8e11529dec5bb889e457bdfa28a780234c338bc1e861b3",
+  "failures": [],
+  "runtimeReports": [
+    {"path":"../07-autonomous-2026-10-12/runtime-timeline/functional-20261014-s-N.json","sha256":"e1a3de1f386d3e0c786d794d9765e0dd2ce78cc5585ce687b7ab267866de718b","result":"8/8 PASS"},
+    {"path":"../07-autonomous-2026-10-12/runtime-mechanical-parity/functional-20261014-s/mechanical-parity-2026-10-14T07-56-30-267Z-d6caaec4-718b-441f-835b-a04a3e1d4f4e.json","sha256":"86e6e02adef789b1410fcc77e6729614859b7e7ebc3c3375e43dc83e94780e9f","result":"13275 PASS/16 FAIL/16 UNVERIFIED; narrow buffer preconditions"},
+    {"path":"context-loss-20261014-s-D.json","sha256":"a9fc431831d473fbbe5d004a6904fa40e522a7258f9ff0988f8076f071be83e2","result":"1 PASS"},
+    {"path":"bfcache-20261014-s-E.json","sha256":"9f797762b3cc68a668a010cf729df6f05810795c651ed383e7583a6f9361a7c8","result":"1 UNVERIFIED; persisted=false"}
+  ],
+  "method": "SHA256 comparison of all unique manifest file/css/assets entries and torque-wrench HTML against decoded HTTP response bodies, status200 required; aggregate SHA256 of ordered JSON [{p,sha256}]. Source/protected check by unchanged verify-doc-refresh-20261014.mjs; review manifest binding/report/artifact hashes checked read-only.",
+  "limits": ["Manifest assets do not cover every public model/font/cache URL; per-runtime report asset checks remain separate.", "This observation precedes context-loss/BFCache runs; no source rebuild or preview restart has occurred.", "Timeline retains historical zero-GPU-placeholder wording and does not measure GL backend; its functional PASS is not hardware performance acceptance.", "No gate or owner/Astra acceptance."]
+}

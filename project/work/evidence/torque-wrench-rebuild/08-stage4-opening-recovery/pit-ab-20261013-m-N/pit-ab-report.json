@@ -1,0 +1,3263 @@
+{
+  "schema": "JG-038-pit-geometry-ab-v1",
+  "createdAt": "2026-10-13T19:32:46.706Z",
+  "viewport": "N",
+  "size": {
+    "width": 390,
+    "height": 844
+  },
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "candidateRevision": "4035be9d^",
+  "currentSourceSha256": "49e0a39dd0f34b35b977aa0176c9331f5f5f487938c279afd52102e7bee35891",
+  "candidateSourceSha256": "504ade00e85b13a36b08325f421e345a8a134cfde6a1f57f3fd813e009666650",
+  "provenance": {
+    "head": "1c7a7d2d1d73b1a94d015bfcae10c101cd94b72c",
+    "buildDir": ".scratch/jg038-stage4-20261013-m",
+    "assets": [
+      {
+        "path": "assets/BootSequence-CxKHv_qv.js",
+        "sha256": "ae3cfd0ed0aa719c158d31779300dc997feca7bd6fb48f99f5415e92b1befeb4"
+      },
+      {
+        "path": "assets/BufferGeometryUtils-DiUZtcLn.js",
+        "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873"
+      },
+      {
+        "path": "assets/draco_decoder-C32yEggz.wasm",
+        "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+      },
+      {
+        "path": "assets/draco_decoder-fzg4nYZr.js",
+        "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+      },
+      {
+        "path": "assets/draco_decoder-Z1_iN-Ht.wasm",
+        "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+      },
+      {
+        "path": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+        "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+      },
+      {
+        "path": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+        "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+      },
+      {
+        "path": "assets/DRACOLoader-BG0x9_ow.js",
+        "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191"
+      },
+      {
+        "path": "assets/index-BWkoJ37d.js",
+        "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+      },
+      {
+        "path": "assets/index-CddUWpSY.css",
+        "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+      },
+      {
+        "path": "assets/index-fDwt6Stp.js",
+        "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+      },
+      {
+        "path": "assets/jgun-ekZwhTsk.js",
+        "sha256": "f6cb37c0450800b7c87d90c11263b0079b16da9682d9abe2b06c8d9edd407836"
+      },
+      {
+        "path": "assets/lenis-D7TmsVAo.js",
+        "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603"
+      },
+      {
+        "path": "assets/PageNav-BCe4durP.js",
+        "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+      },
+      {
+        "path": "assets/portal-DenS0lUw.js",
+        "sha256": "51c22307066ef522bafacba629e71ba5b71433e6a11b32b333134301732041c4"
+      },
+      {
+        "path": "assets/quiet-machine-BzfCO-kI.js",
+        "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e"
+      },
+      {
+        "path": "assets/QuietMachinePreview-Dt1jbrqY.js",
+        "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5"
+      },
+      {
+        "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+        "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+      },
+      {
+        "path": "assets/QuietMachineScene-DlyXDuR4.js",
+        "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241"
+      },
+      {
+        "path": "assets/RingInspection-1Qk7qstV.js",
+        "sha256": "31589a548f565a28573610d488705fe7e16e580b4854952a8b872d5a4b40a810"
+      },
+      {
+        "path": "assets/Scene-BdzZSECl.js",
+        "sha256": "08a78a57fade4c1c4bddc0db2837ff303b79a88524d9cae9141cd66b79a6155c"
+      },
+      {
+        "path": "assets/SceneCanvas-BYmhcimq.js",
+        "sha256": "925ab919c7b777baba986b2f9cf997fbc21f6288c5e21bbcbf60f894b84af4ac"
+      },
+      {
+        "path": "assets/script-D7QDdYe0.js",
+        "sha256": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb"
+      },
+      {
+        "path": "assets/ScrollRig-K6bqVMRl.js",
+        "sha256": "8ddd87c151887515fef2c34f57ec6bb67aac35ab09d62ce65829fc8268148f9e"
+      },
+      {
+        "path": "assets/ScrollTrigger-a3sj5zmn.js",
+        "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+      },
+      {
+        "path": "assets/sectionRenderPass-BDUUbMLE.js",
+        "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca"
+      },
+      {
+        "path": "assets/session-CQxiOB_6.js",
+        "sha256": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa"
+      },
+      {
+        "path": "assets/torque-wrench-BMMuO9VS.js",
+        "sha256": "eaf9d2008114aebd5c0bbd568b639061031b5d5b98e8f21249d9b569ac3ba5b7"
+      },
+      {
+        "path": "assets/vanilla-m3Xdu9cz.js",
+        "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+      }
+    ],
+    "aggregateSha256": "1762726ccfaae9d0e934420a8df03672cd97602f929801ed11d0e1f9e8fe7f43"
+  },
+  "samples": [
+    {
+      "requested": 0.395,
+      "snapshot": {
+        "ready": true,
+        "frames": 204,
+        "hiddenFrames": 0,
+        "progress": 0.395011289108698,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.04200000000022835,
+            1.4580953227070996,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.49999999999996086,
+            0.5000000000000392,
+            0.49999999999996086,
+            0.5000000000000391
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1564141,
+          "geometries": 180,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 1.3463621569373371e-14,
+            "flexPeakDisplacement": 1.3463621569373371e-14,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 0,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.6500000000003927,
+            "crackWeb": 0.06075194931945744,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 0,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9629101148189558,
+            "portalLight": 0.6258915746326994,
+            "phase": 0.7900000305773462,
+            "poseT": 0.40000006115469244,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": -0.04053150964378261
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1.1219684641144476e-12,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 0.06075194931945744,
+          "crackGlow": 0.6500000000003927,
+          "t": 0.7900000305773462,
+          "poseT": 0.40000006115469244,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 0.04252613518573194,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9999999999999826,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 12,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 8,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 0,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 0,
+        "profilePixels": 0,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": null,
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": null,
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 0,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": false,
+        "closureOccluded": true,
+        "portalVisiblePixels": 0,
+        "portalMaxLuminance": 0,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 0,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.395.png",
+        "sha256": "b310e83880bb7d1325734e0079f7e180681cfb1a91cd591a307bbaeeefe42b38",
+        "bytes": 500815
+      }
+    },
+    {
+      "requested": 0.408,
+      "snapshot": {
+        "ready": true,
+        "frames": 342,
+        "hiddenFrames": 0,
+        "progress": 0.4079937641113859,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.18284909184168915,
+            1.4512765082601222,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4752373091669095,
+            0.5235928761698303,
+            0.4752373091669095,
+            0.5235928761698303
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1564141,
+          "geometries": 180,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.006532364799324614,
+            "flexPeakDisplacement": 0.006532364799324614,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.31211940732962995,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 0,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.8405273066469678,
+            "crackWeb": 1,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 0,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9501071174476622,
+            "portalLight": 0.7985909764543978,
+            "phase": 0.8164805218946664,
+            "poseT": 0.4529610437893327,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": -0.035438812615485475
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 0.5443637332770511,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 1,
+          "crackGlow": 0.8405273066469678,
+          "t": 0.8164805218946664,
+          "poseT": 0.4529610437893327,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 0.9179982568518528,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9875779636644015,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 2,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 3,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 0,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 0,
+        "profilePixels": 0,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": null,
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": null,
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 0,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": false,
+        "closureOccluded": true,
+        "portalVisiblePixels": 0,
+        "portalMaxLuminance": 0,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 0,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.408.png",
+        "sha256": "d4f32d30b69341074f9a084bdac290d5520f3725ee918cced5ef9e5784801e21",
+        "bytes": 448504
+      }
+    },
+    {
+      "requested": 0.415,
+      "snapshot": {
+        "ready": true,
+        "frames": 479,
+        "hiddenFrames": 0,
+        "progress": 0.4150091388022793,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.3829132589318144,
+            1.4176812476663472,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.43766218397128115,
+            0.5553843828570338,
+            0.43766218397128115,
+            0.555384382857034
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1564141,
+          "geometries": 180,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.01163997009048601,
+            "flexPeakDisplacement": 0.01163997009048601,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.34,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 0,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.9894991276391754,
+            "crackWeb": 1,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 0,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9417061480915333,
+            "portalLight": 0.9318174120290202,
+            "phase": 0.8348175344689416,
+            "poseT": 0.4896350689378832,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": -0.03145687237069765
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 0.9699975075405008,
+          "fracture": 0,
+          "openingClear": 0,
+          "crackWeb": 1,
+          "crackGlow": 0.9894991276391754,
+          "t": 0.8348175344689416,
+          "poseT": 0.4896350689378832,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9657669968946011,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 0,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 2,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 0,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 0,
+        "profilePixels": 0,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": null,
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": null,
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 0,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": false,
+        "closureOccluded": true,
+        "portalVisiblePixels": 0,
+        "portalMaxLuminance": 0,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 0,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.415.png",
+        "sha256": "99051d00e08c7414f866eef50f9f4cdfa6c09a2a77138ef327139253d939898b",
+        "bytes": 343974
+      }
+    },
+    {
+      "requested": 0.42,
+      "snapshot": {
+        "ready": true,
+        "frames": 613,
+        "hiddenFrames": 0,
+        "progress": 0.4200086012256747,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.4439062339696389,
+            1.4016109835459563,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.4255473439426907,
+            0.5647206903092193,
+            0.4255473439426907,
+            0.5647206903092193
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.011999999999921246,
+            "flexPeakDisplacement": 0.011999999999921246,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.34,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 6.5628138015214115e-12,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.999999999994881,
+            "crackWeb": 0.9999999999934371,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 0,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9428085417493124,
+            "portalLight": 0.9428085417444861,
+            "phase": 0.8400000591622414,
+            "poseT": 0.5001449868300168,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": -0.03117384061227971
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1,
+          "fracture": 6.5628138015214115e-12,
+          "openingClear": 0,
+          "crackWeb": 0.9999999999934371,
+          "crackGlow": 0.999999999994881,
+          "t": 0.8400000591622414,
+          "poseT": 0.5001449868300168,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.9578667894889932,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 2,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 8,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 0,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 0,
+        "profilePixels": 0,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": null,
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": null,
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 0,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": false,
+        "closureOccluded": true,
+        "portalVisiblePixels": 0,
+        "portalMaxLuminance": 0,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 0,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.420.png",
+        "sha256": "cb91135b806cda107f9f88357fa7afda490a962e11812d13cb6fdc783fec05c1",
+        "bytes": 320504
+      }
+    },
+    {
+      "requested": 0.428,
+      "snapshot": {
+        "ready": true,
+        "frames": 755,
+        "hiddenFrames": 0,
+        "progress": 0.4279916138049672,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.7605594055535871,
+            1.268745187494635,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.35608746144872483,
+            0.6109023815627197,
+            0.35608746144872483,
+            0.6109023815627198
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 168,
+          "triangles": 1573677,
+          "geometries": 181,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0.0009880924731563569,
+            "flexPeakDisplacement": 0.0009880924731563569,
+            "flexEnabled": 1,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.34,
+            "contactRadius": 0.006,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 0.9176589605703036,
+            "openingClear": 0,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.2842260107551632,
+            "crackWeb": 0.0823410394296964,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 0,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9442879446785151,
+            "portalLight": 0.7082159585088863,
+            "phase": 0.8729454582873556,
+            "poseT": 0.709648407640675,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": 0.031208883039835253
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1,
+          "fracture": 0.9176589605703036,
+          "openingClear": 0,
+          "crackWeb": 0.0823410394296964,
+          "crackGlow": 0.2842260107551632,
+          "t": 0.8729454582873556,
+          "poseT": 0.709648407640675,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 0,
+          "contrast": 0.8923548894813498,
+          "drawingOpacity": 1,
+          "waveTime": 0,
+          "waveActive": 0,
+          "lightSweep": 0,
+          "lightSweepPosition": 0,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 243,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 117,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 8978,
+        "modelChangedPixels": 55231,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 65656,
+        "profilePixels": 65656,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": [
+          78,
+          518,
+          487,
+          364
+        ],
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": {
+          "x": 78,
+          "y": 518,
+          "width": 487,
+          "height": 364
+        },
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 8978,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": true,
+        "closureOccluded": true,
+        "portalVisiblePixels": 8978,
+        "portalMaxLuminance": 0.6470588235294118,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 2920,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.428.png",
+        "sha256": "9ab7d0fd22bda90d72178d5ea588aeac7e339b6135b84c852da13c4a7f210909",
+        "bytes": 341508
+      }
+    },
+    {
+      "requested": 0.435,
+      "snapshot": {
+        "ready": true,
+        "frames": 886,
+        "hiddenFrames": 0,
+        "progress": 0.43500698849586067,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": 0,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 0,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0,
+          "ringSwitchRotZ": 0
+        },
+        "camera": {
+          "position": [
+            0.8146728005908237,
+            1.2365349624363453,
+            0.12
+          ],
+          "target": [
+            0.04200000000000001,
+            0,
+            0.12
+          ],
+          "quaternion": [
+            -0.34281217006065984,
+            0.618449525877659,
+            0.34281217006065984,
+            0.618449525877659
+          ],
+          "fov": 30
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 167,
+          "triangles": 1567273,
+          "geometries": 181,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0.2952727198331589,
+            "contactRadius": 0.00994652472060363,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 1,
+            "openingClear": 1,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0.21999999999999997,
+            "crackWeb": 0,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 1,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.949332192261585,
+            "portalLight": 0.7119991441961888,
+            "phase": 0.9000000234383869,
+            "poseT": 0.7915327134778218,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 0,
+            "blackout": 1,
+            "readingPool": 0,
+            "localZ": 0.06780546338025913
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0.21999999999999997,
+          "t": 0.9000000234383869,
+          "poseT": 0.7915327134778218,
+          "focus": 1,
+          "lampPower": 0,
+          "blackout": 1,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 0,
+          "perspective": 1.6480736836197697e-13,
+          "contrast": 0.8226744717656709,
+          "drawingOpacity": 1,
+          "waveTime": 0.23034521966988117,
+          "waveActive": 1,
+          "lightSweep": 0.26801187676452337,
+          "lightSweepPosition": 0.17321114838480303,
+          "retirement": 0,
+          "sheetDistance": 1.4580953227070996,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 0,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 963,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 123,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 25082,
+        "modelChangedPixels": 35058,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 61000,
+        "profilePixels": 61000,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": [
+          128,
+          550,
+          475,
+          348
+        ],
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": {
+          "x": 128,
+          "y": 550,
+          "width": 475,
+          "height": 348
+        },
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 25082,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": true,
+        "closureOccluded": true,
+        "portalVisiblePixels": 25082,
+        "portalMaxLuminance": 0.6823529411764706,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 7659,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.435.png",
+        "sha256": "5aad47feb92f6f03268d158e20b7fc8fe333e2813766aaec1acca55331460886",
+        "bytes": 273042
+      }
+    },
+    {
+      "requested": 0.46,
+      "snapshot": {
+        "ready": true,
+        "frames": 1029,
+        "hiddenFrames": 0,
+        "progress": 0.4600043006128373,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": -2.7512191700291474e-10,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 1.834146113352765e-8,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 1.7470241729685087e-10,
+          "ringSwitchRotZ": 3.841426636879545e-8
+        },
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 58
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 166,
+          "triangles": 1526467,
+          "geometries": 181,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.036,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 1,
+            "openingClear": 1,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0,
+            "crackWeb": 0,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 1,
+            "portalActive": 1,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9347836424347318,
+            "portalLight": 0.7010877318260489,
+            "phase": 1,
+            "poseT": 1,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 1,
+            "blackout": 0,
+            "readingPool": 0,
+            "localZ": 0.17946849035620688
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 0.00010751532093233873,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": true
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 1.834146113352765e-8,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 3312,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 128,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": true,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 46159,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 46159,
+        "profilePixels": 46159,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": [
+          2,
+          899,
+          636,
+          234
+        ],
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": {
+          "x": 2,
+          "y": 899,
+          "width": 636,
+          "height": 234
+        },
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": true,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 46159,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": true,
+        "closureOccluded": true,
+        "portalVisiblePixels": 46159,
+        "portalMaxLuminance": 0.7019607843137254,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 13029,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.460.png",
+        "sha256": "92586561a373ab856de12b4aa48b2628e5db0b7a9d1e008d5aa52c1ba83d7b89",
+        "bytes": 970293
+      }
+    },
+    {
+      "requested": 0.52,
+      "snapshot": {
+        "ready": true,
+        "frames": 1146,
+        "hiddenFrames": 0,
+        "progress": 0.5199978496935813,
+        "rig": {
+          "handleZ": 0,
+          "outputZ": 0,
+          "clutchZ": 0,
+          "slidingZ": -0.015,
+          "stageZ": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "stageRot": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "planetRot": 0,
+          "gearRotation": 0,
+          "shift": 1,
+          "ghostOpacity": 1,
+          "ghostCount": 1,
+          "explodeFactor": 0,
+          "ringSwitchZ": 0.009525,
+          "ringSwitchRotZ": 2.0943951023931953
+        },
+        "camera": {
+          "position": [
+            0.32,
+            0.16,
+            0.42
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "quaternion": [
+            -0.13888448501182227,
+            0.31636434246914374,
+            0.04688008956707482,
+            0.9372443437221963
+          ],
+          "fov": 58
+        },
+        "inspection": {
+          "ready": false,
+          "subjectTime": 0,
+          "cameraTime": 0,
+          "machiningRate": 0,
+          "arcWeight": 0
+        },
+        "renderer": {
+          "calls": 59,
+          "triangles": 841039,
+          "geometries": 181,
+          "textures": 15
+        },
+        "sheet": {
+          "baked": true,
+          "tier": "full",
+          "precomputed": 1,
+          "stats": {
+            "edgeSetMs": 0,
+            "hardEdges": 385817,
+            "smoothEdges": 886494,
+            "airMotorCutDepth": 0.03993150964379325,
+            "airMotorCutSegments": 4070,
+            "sideSegments": 18370,
+            "sideMs": 329.89999997615814,
+            "topSegments": 11031,
+            "topMs": 91.10000002384186,
+            "sectionSegments": 99355,
+            "sectionMs": 79.19999998807907,
+            "hatch": 1089,
+            "frontSegments": 15538,
+            "frontMs": 92.59999999403954,
+            "rearSegments": 17752,
+            "rearMs": 101.2999999821186,
+            "bottomSegments": 16244,
+            "bottomMs": 89,
+            "segments": 226783,
+            "fills": 21,
+            "texts": 254,
+            "totalMs": 0,
+            "cacheHit": 1,
+            "precomputed": 1,
+            "cacheMs": 1001.0999999642372,
+            "extractMs": 1510.6000000238419,
+            "bakeMs": 3865.599999964237,
+            "flexFieldPeak": 1,
+            "flexAmplitude": 0,
+            "flexPeakDisplacement": 0,
+            "flexEnabled": 0,
+            "flexNormalX": 0,
+            "flexNormalY": 1,
+            "flexNormalZ": 0,
+            "contactShadow": 0,
+            "contactRadius": 0.036,
+            "vellum": 0,
+            "annotationsReady": 1,
+            "annotationsFailed": 0,
+            "fracture": 1,
+            "openingClear": 1,
+            "fragmentCount": 99,
+            "fragmentThickness": 0.00045,
+            "fragmentArea": 0.026960870000000012,
+            "holeArea": 0.026960869999999998,
+            "maxBoundaryDeviation": 0.0003516579390511648,
+            "crackGlow": 0,
+            "crackWeb": 0,
+            "paperOpacity": 1,
+            "modelBarrierSafe": 1,
+            "portalActive": 0,
+            "portalCapZ": -3.20048,
+            "portalMouthZ": -0.00048,
+            "portalDeskZ": -0.0016,
+            "portalCapBehindModel": 1,
+            "portalInitialModelBottom": -0.08046483350396157,
+            "portalProfilePoints": 2384,
+            "portalWallLevels": 11,
+            "portalDepthWrite": 1,
+            "portalDeskDiscard": 1,
+            "portalPulse": 0.9347836424347318,
+            "portalLight": 0.7010877318260489,
+            "phase": 1,
+            "poseT": 1,
+            "lineOpacity": 1,
+            "focus": 1,
+            "lampPower": 1,
+            "blackout": 0,
+            "readingPool": 0,
+            "localZ": 0.17946849035620688
+          },
+          "registration": {
+            "ready": true,
+            "pointCount": 10203,
+            "segmentCount": 24383,
+            "maxDistance": 0.0000878836103067627,
+            "meanDistance": 0.00003259773610423831,
+            "units": "metres"
+          }
+        },
+        "stage": "stage3-model-host",
+        "opening": {
+          "pressure": 1,
+          "fracture": 1,
+          "openingClear": 1,
+          "crackWeb": 0,
+          "crackGlow": 0,
+          "t": 1,
+          "poseT": 1,
+          "focus": 1,
+          "lampPower": 1,
+          "blackout": 0,
+          "readingPool": 0,
+          "pulseHead": 1,
+          "crackGrowth": 1,
+          "sparkAnticipation": 0,
+          "pulse": 0,
+          "pbr": 1,
+          "illumination": 1,
+          "perspective": 1,
+          "contrast": 0.5152859759820886,
+          "drawingOpacity": 1,
+          "waveTime": 1,
+          "waveActive": 0,
+          "lightSweep": 1.4997597826618576e-32,
+          "lightSweepPosition": 1,
+          "retirement": 1,
+          "sheetDistance": 0.5517245689653488,
+          "tier": "full",
+          "crossing": 0.730195369840988,
+          "bakeInstalled": true,
+          "sheetVisible": false
+        },
+        "mechanical": {
+          "channels": {
+            "shift": 1,
+            "explode": 0,
+            "gearAngle": 0,
+            "idle": 0,
+            "ghostOpacity": 1
+          },
+          "tier": "full",
+          "bearingZ": 0,
+          "baseZ": {
+            "handleZ": 0,
+            "outputZ": 0,
+            "clutchZ": 0,
+            "slidingZ": 0,
+            "ringSwitchZ": 0,
+            "bearingZ": 0,
+            "stageZ": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "present": {
+            "handle": true,
+            "output": true,
+            "clutch": true,
+            "sliding": true,
+            "ringSwitch": true,
+            "bearing": true,
+            "stages": [
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "planetRotByStage": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "ghostMaterials": [
+            {
+              "mesh": "",
+              "opacity": 1,
+              "transparent": true,
+              "depthWrite": true,
+              "attached": true
+            }
+          ]
+        }
+      },
+      "ab": {
+        "width": 640,
+        "height": 1385,
+        "changedPixels": 0,
+        "controlChangedPixels": 0,
+        "restoredChangedPixels": 0,
+        "maxChannelDelta": 0,
+        "maxVertexDeltaM": 0.006153404225783222,
+        "cameraUnchanged": true,
+        "wallVisible": false,
+        "isolatedVariable": "wall-position-attribute-only",
+        "threshold8Bit": 2
+      },
+      "pixels": {
+        "portalChangedPixels": 0,
+        "modelChangedPixels": 0,
+        "deskChangedInsidePixels": 0,
+        "sampledInsidePixels": 0,
+        "profilePixels": 0,
+        "cameraUnchanged": true,
+        "controls": [
+          {
+            "rect": [
+              0,
+              0,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          },
+          {
+            "rect": [
+              632,
+              1377,
+              8,
+              8
+            ],
+            "pixels": 64,
+            "portalChangedPixels": 0,
+            "modelChangedPixels": 0,
+            "deskChangedPixels": 0
+          }
+        ],
+        "clipRect": null,
+        "width": 640,
+        "height": 1385,
+        "sampleClipRect": null,
+        "mask": "projected-torn-profile-minus-live-stock-fragments-rim-eroded-2px",
+        "fixedCamera": true,
+        "portalActive": false,
+        "modelVisible": true,
+        "deskVisible": true,
+        "capZ": -3.20048,
+        "capChangedPixels": 0,
+        "wallChangedPixels": 0,
+        "capVisiblePixels": 0,
+        "capVisible": false,
+        "wallVisible": false,
+        "closureOccluded": true,
+        "portalVisiblePixels": 0,
+        "portalMaxLuminance": 0,
+        "portalWhitePixels": 0,
+        "portalFissurePixels": 0,
+        "shaftDepthM": 3.2,
+        "wallLevels": 11,
+        "maxRingDeviationM": 0.009053094394697397,
+        "extentM": 0.3707363753396745,
+        "occlusionMargin": 2.312795487073517,
+        "shaderValid": true
+      },
+      "png": {
+        "file": "N-p0.520.png",
+        "sha256": "02403fe0520527dd872d9d53dccfe7b72c6d3d7bbe18488ab05befc027345c68",
+        "bytes": 140048
+      }
+    }
+  ],
+  "served": [
+    {
+      "path": "assets/BootSequence-CxKHv_qv.js",
+      "status": 200,
+      "sha256": "ae3cfd0ed0aa719c158d31779300dc997feca7bd6fb48f99f5415e92b1befeb4",
+      "expected": "ae3cfd0ed0aa719c158d31779300dc997feca7bd6fb48f99f5415e92b1befeb4"
+    },
+    {
+      "path": "assets/BufferGeometryUtils-DiUZtcLn.js",
+      "status": 200,
+      "sha256": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873",
+      "expected": "72c50e92d5deb27d399652eb9f3b512f06551675ecf21478acddd216ba566873"
+    },
+    {
+      "path": "assets/draco_decoder-C32yEggz.wasm",
+      "status": 200,
+      "sha256": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2",
+      "expected": "c55a594e8ffd18426d36b27fea9618af3df5e173640a3e56d46f09d76f0574f2"
+    },
+    {
+      "path": "assets/draco_decoder-fzg4nYZr.js",
+      "status": 200,
+      "sha256": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04",
+      "expected": "30e4d486fa020737af10e3c56197693e5b904bdc05b8bfa5d7b06751dec6da04"
+    },
+    {
+      "path": "assets/draco_decoder-Z1_iN-Ht.wasm",
+      "status": 200,
+      "sha256": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac",
+      "expected": "a680d927bed9cb864ddbd63521868891af2bfbe755092761b4837487618df8ac"
+    },
+    {
+      "path": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+      "status": 200,
+      "sha256": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8",
+      "expected": "e8049906ef3f8f75d3456c22a3f31bfdfe5b5b5bd09ccdec613b9e9a49d554d8"
+    },
+    {
+      "path": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+      "status": 200,
+      "sha256": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6",
+      "expected": "8bb2952d2ba7d67e1414f8df819410cb0434a666be53f671fff75f68843d76f6"
+    },
+    {
+      "path": "assets/DRACOLoader-BG0x9_ow.js",
+      "status": 200,
+      "sha256": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191",
+      "expected": "d1209ce2de7c99f7f4d33924ee3e370fc39548545ad615f7dff636129d96b191"
+    },
+    {
+      "path": "assets/index-BWkoJ37d.js",
+      "status": 200,
+      "sha256": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c",
+      "expected": "902c89c65a29ca8f75a61f64449418ab16e5b9fd9a9a145213584c6ad18f648c"
+    },
+    {
+      "path": "assets/index-CddUWpSY.css",
+      "status": 200,
+      "sha256": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+      "expected": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152"
+    },
+    {
+      "path": "assets/index-fDwt6Stp.js",
+      "status": 200,
+      "sha256": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d",
+      "expected": "391dcf6b3a2bde6bdf5641c004fab775e159b327e255ab70bb6b4ac3b7d9572d"
+    },
+    {
+      "path": "assets/jgun-ekZwhTsk.js",
+      "status": 200,
+      "sha256": "f6cb37c0450800b7c87d90c11263b0079b16da9682d9abe2b06c8d9edd407836",
+      "expected": "f6cb37c0450800b7c87d90c11263b0079b16da9682d9abe2b06c8d9edd407836"
+    },
+    {
+      "path": "assets/lenis-D7TmsVAo.js",
+      "status": 200,
+      "sha256": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603",
+      "expected": "59fbd35ce2e941e1abcf2213cea7a433df8532600909f0321fc219e2ea34e603"
+    },
+    {
+      "path": "assets/PageNav-BCe4durP.js",
+      "status": 200,
+      "sha256": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964",
+      "expected": "f3a0d0dbf09949f916a9f46d01dc8836fe049ef869820d8a0fb33e9352101964"
+    },
+    {
+      "path": "assets/portal-DenS0lUw.js",
+      "status": 200,
+      "sha256": "51c22307066ef522bafacba629e71ba5b71433e6a11b32b333134301732041c4",
+      "expected": "51c22307066ef522bafacba629e71ba5b71433e6a11b32b333134301732041c4"
+    },
+    {
+      "path": "assets/quiet-machine-BzfCO-kI.js",
+      "status": 200,
+      "sha256": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e",
+      "expected": "d1d2f6c4aa12c5c40a6b3b8945e6de027d9a147a3ee2866b74f1df5937e6036e"
+    },
+    {
+      "path": "assets/QuietMachinePreview-Dt1jbrqY.js",
+      "status": 200,
+      "sha256": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5",
+      "expected": "d53d9b7e4127b4e6cfc8621de510962c2ed9a3da96c06f9fe5c82908279c76d5"
+    },
+    {
+      "path": "assets/QuietMachinePreview-KK_fAZmk.css",
+      "status": 200,
+      "sha256": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5",
+      "expected": "38cf6a223d3f6eb1db0fa2ba1a447cce11f43cff013ea9b0c5941d10cd1af1d5"
+    },
+    {
+      "path": "assets/QuietMachineScene-DlyXDuR4.js",
+      "status": 200,
+      "sha256": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241",
+      "expected": "687699bee36b72c35581b5dd62b9ce25b92226337fd8a27ffc017d5f9523b241"
+    },
+    {
+      "path": "assets/RingInspection-1Qk7qstV.js",
+      "status": 200,
+      "sha256": "31589a548f565a28573610d488705fe7e16e580b4854952a8b872d5a4b40a810",
+      "expected": "31589a548f565a28573610d488705fe7e16e580b4854952a8b872d5a4b40a810"
+    },
+    {
+      "path": "assets/Scene-BdzZSECl.js",
+      "status": 200,
+      "sha256": "08a78a57fade4c1c4bddc0db2837ff303b79a88524d9cae9141cd66b79a6155c",
+      "expected": "08a78a57fade4c1c4bddc0db2837ff303b79a88524d9cae9141cd66b79a6155c"
+    },
+    {
+      "path": "assets/SceneCanvas-BYmhcimq.js",
+      "status": 200,
+      "sha256": "925ab919c7b777baba986b2f9cf997fbc21f6288c5e21bbcbf60f894b84af4ac",
+      "expected": "925ab919c7b777baba986b2f9cf997fbc21f6288c5e21bbcbf60f894b84af4ac"
+    },
+    {
+      "path": "assets/script-D7QDdYe0.js",
+      "status": 200,
+      "sha256": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb",
+      "expected": "94039ca174a27eb1059851ec44cca24e6d025aaa6afb326440c21435e45efeeb"
+    },
+    {
+      "path": "assets/ScrollRig-K6bqVMRl.js",
+      "status": 200,
+      "sha256": "8ddd87c151887515fef2c34f57ec6bb67aac35ab09d62ce65829fc8268148f9e",
+      "expected": "8ddd87c151887515fef2c34f57ec6bb67aac35ab09d62ce65829fc8268148f9e"
+    },
+    {
+      "path": "assets/ScrollTrigger-a3sj5zmn.js",
+      "status": 200,
+      "sha256": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8",
+      "expected": "11f2be75561459741488a454669fb26b048799f90e44d4fee6288c765734b1a8"
+    },
+    {
+      "path": "assets/sectionRenderPass-BDUUbMLE.js",
+      "status": 200,
+      "sha256": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca",
+      "expected": "a68ed433b8adb142e48e70640984ae9d3ea6ea6aca1e10ae93ece996694613ca"
+    },
+    {
+      "path": "assets/session-CQxiOB_6.js",
+      "status": 200,
+      "sha256": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa",
+      "expected": "50277379f11610afd076aa89d36b0d0e1bd62788df1a68f92766dc1758da0dfa"
+    },
+    {
+      "path": "assets/torque-wrench-BMMuO9VS.js",
+      "status": 200,
+      "sha256": "eaf9d2008114aebd5c0bbd568b639061031b5d5b98e8f21249d9b569ac3ba5b7",
+      "expected": "eaf9d2008114aebd5c0bbd568b639061031b5d5b98e8f21249d9b569ac3ba5b7"
+    },
+    {
+      "path": "assets/vanilla-m3Xdu9cz.js",
+      "status": 200,
+      "sha256": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c",
+      "expected": "65399dfdb398e1cbf16974d31f6db0f5a672116d676f86be3737ae366741074c"
+    }
+  ],
+  "assertions": [
+    {
+      "name": "actual viewport matches requested",
+      "pass": true,
+      "actual": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3
+      }
+    },
+    {
+      "name": "wall topology matches",
+      "pass": true,
+      "actual": 78672
+    },
+    {
+      "name": "lip ring remains exact",
+      "pass": true,
+      "actual": 2384
+    },
+    {
+      "name": "served byte hashes match build",
+      "pass": true,
+      "actual": 29
+    },
+    {
+      "name": "candidate geometry source differs",
+      "pass": true,
+      "actual": "4035be9d^"
+    },
+    {
+      "name": "renderer reports hardware",
+      "pass": true,
+      "actual": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "full tier actually rendered",
+      "pass": true,
+      "actual": [
+        "full",
+        "full",
+        "full",
+        "full",
+        "full",
+        "full",
+        "full",
+        "full"
+      ]
+    },
+    {
+      "name": "same-build control is exact",
+      "pass": true,
+      "actual": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "positions restore to exact render",
+      "pass": true,
+      "actual": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "no runtime errors",
+      "pass": true,
+      "actual": []
+    },
+    {
+      "name": "aperture wall contribution observable",
+      "pass": true,
+      "actual": 3
+    },
+    {
+      "name": "closure is occluded in interpreted samples",
+      "pass": true,
+      "actual": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "camera unchanged across isolated swap",
+      "pass": true,
+      "actual": null
+    },
+    {
+      "name": "geometry contribution measured with nonzero vertex delta",
+      "pass": true,
+      "actual": 0.006153404225783222
+    }
+  ],
+  "errors": [],
+  "actualViewport": {
+    "width": 390,
+    "height": 844,
+    "dpr": 3
+  },
+  "input": {
+    "points": 2384,
+    "ringDepthsM": [
+      0,
+      0.012,
+      0.032,
+      0.07,
+      0.14,
+      0.28,
+      0.55,
+      1.05,
+      1.75,
+      2.4,
+      3.2
+    ],
+    "sha256": "7d14c8df9da79bb9875d857a429de1e60cc1d2a0385cf7c5f1fbcbb8536314d7",
+    "candidatePositionsSha256": "d4fb6a1e0d169741039401446ea4a778b1902970a1ae274171baec0242aa60a2"
+  },
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "visiblePixelContributionObserved": true,
+  "pass": true,
+  "scope": "Pit wall position attribute only under the current camera/remap. Pixel changes measure this contribution, not subjective root cause or owner acceptance."
+}

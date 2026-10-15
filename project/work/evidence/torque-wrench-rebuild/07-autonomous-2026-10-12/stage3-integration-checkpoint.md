@@ -1,5 +1,7 @@
 # Stage 3 integration checkpoint — 2026-10-13
 
+> Historical intermediate checkpoint. [Stage3 leaf exit](stage3-exit-2026-10-13.md) subsequently satisfied its remaining integrated review/cutter/parity requirements to the recorded scope. Continue through [current parallel handoff](../../../../../docs/torque-wrench-rebuild/HANDOFF-2026-10-14-parallel-functional.md), not the unfinished next actions below. Formal gates and narrow/lite/continuous-clearance follow-ups remain separate.
+
 JG-038 private torque-wrench rebuild, workspace `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench`, branch `torque-wrench/rebuild`. This is a verified integration checkpoint, not a Stage 3 exit or G0–G9 closure.
 
 ## Delivered integration

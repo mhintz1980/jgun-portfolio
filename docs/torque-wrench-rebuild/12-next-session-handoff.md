@@ -1,5 +1,7 @@
 # Torque wrench rebuild — next-session handoff, 2026-10-11
 
+> Historical planning checkpoint; superseded by [HANDOFF-2026-10-14-parallel-functional.md](HANDOFF-2026-10-14-parallel-functional.md). The plan was written/authorized and implementation proceeded. Do not stop for the obsolete approval action below.
+
 ## Workspace
 
 - Work in `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench`.

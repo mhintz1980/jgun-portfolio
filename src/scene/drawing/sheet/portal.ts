@@ -54,6 +54,8 @@ void main() {
  */
 const FRAGMENT = /* glsl */ `
 uniform float uPortalLight;
+uniform float uPortalFissureEnergy;
+uniform float uPortalFissureGrowth;
 uniform float uPortalTime;
 uniform float uPortalLite;
 uniform float uPortalWall;
@@ -109,7 +111,8 @@ void main() {
     float halo = exp(-pow((1.0 - ridge) / 0.17, 2.0)) * 0.20;
     float descent = exp(-depth / ${PORTAL_FISSURE_FALLOFF_M});
     float shimmer = 1.0 + 0.05 * sin(uPortalTime * 0.9 + depth * 6.3) * (1.0 - uPortalLite);
-    float glow = (line + halo) * descent * shimmer * uPortalLight;
+    float glow = (line + halo) * descent * shimmer * uPortalFissureEnergy
+      * (1.0 - smoothstep(uPortalFissureGrowth * 0.9, uPortalFissureGrowth * 0.9 + 0.03, depth));
     c += uPortalFissure * min(glow, ${PORTAL_FISSURE_CEILING});
   }
   c *= mix(${PORTAL_AMBIENT_FLOOR}, 1.0, clamp(uPortalLight, 0.0, 1.0));
@@ -134,8 +137,10 @@ export function makePortal(
   initialModelBottom: number,
   center: Vector2,
   sharedLight: { value: number },
+  geometryFactory: typeof makePortalShaftGeometry = makePortalShaftGeometry,
+  effects?: { fissureEnergy: { value: number }; fissureGrowth: { value: number }; rocky: boolean },
 ) {
-  const shaft = makePortalShaftGeometry(outline)
+  const shaft = geometryFactory(outline)
   const profile = buildPortalShaftProfile(outline)
   const occlusion = portalOcclusionGuarantee(profile.extentM)
   const closureZ = PORTAL_MOUTH_Z - PORTAL_SHAFT_DEPTH_M
@@ -143,6 +148,8 @@ export function makePortal(
   group.name = 'profile-dimensional-portal'
   const uniforms = {
     uPortalLight: sharedLight,
+    uPortalFissureEnergy: effects?.fissureEnergy ?? sharedLight,
+    uPortalFissureGrowth: effects?.fissureGrowth ?? { value: 100 },
     uPortalTime: { value: 0 }, uPortalLite: { value: 0 },
     uPortalWall: { value: 0 }, uPortalMouthZ: { value: PORTAL_MOUTH_Z },
     uPortalCenter: { value: center.clone() },
@@ -157,8 +164,15 @@ export function makePortal(
   }
   const capMaterial = new ShaderMaterial({ uniforms, vertexShader: VERTEX, fragmentShader: FRAGMENT,
     side: DoubleSide, depthTest: true, depthWrite: true, transparent: false, toneMapped: false })
+  const privateVertex = VERTEX.replace('varying vec3 vPortal;', 'varying vec3 vPortal; varying vec3 vRockNormal;')
+    .replace('vPortal = position;', 'vPortal = position; vRockNormal = normal;')
+  const privateFragment = FRAGMENT.replace('varying vec3 vPortal;', 'varying vec3 vPortal; varying vec3 vRockNormal;')
+    .replace('vec3 rock = mix', 'facet = clamp(facet + 0.26 * dot(normalize(vRockNormal), normalize(vec3(-0.4, 0.5, 0.7))), 0.0, 1.0); vec3 rock = mix')
+    .replace(/float ridge =[^;]+;/, `float trunk = abs(fbm3(vec3(p * 61.0, depth * 7.1), octaves) - 0.5);
+      float branch = abs(fbm3(vec3(p * 123.0 + 9.3, depth * 13.7), octaves) - 0.52);
+      float ridge = 1.0 - min(trunk * 14.0, branch * 17.0 + smoothstep(0.08, 0.14, trunk));`)
   const wallMaterial = new ShaderMaterial({ uniforms: { ...uniforms, uPortalWall: { value: 1 } },
-    vertexShader: VERTEX, fragmentShader: FRAGMENT,
+    vertexShader: effects?.rocky ? privateVertex : VERTEX, fragmentShader: effects?.rocky ? privateFragment : FRAGMENT,
     side: DoubleSide, depthTest: true, depthWrite: true, transparent: false, toneMapped: false })
   const cap = new Mesh(shaft.closureGeometry, capMaterial)
   const walls = new Mesh(shaft.wallGeometry, wallMaterial)
@@ -207,13 +221,15 @@ export function makePortal(
  * are what separate a wall pixel from a visible closure pixel — the honest replacement for the
  * old "capBehindInitialModel" shorthand, which could only ever say where the cap sat.
  */
-export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, paper, fragments, edge }: {
+export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, paper, fragments, edge,
+  modelRootName = 'jgun-live-registered-model' }: {
   gl: WebGLRenderer; camera: Camera; sheet: Group; outline: number[][];
   portal: ReturnType<typeof makePortal>; desk: Mesh; paper: Mesh; fragments: Mesh[]; edge: Mesh;
+  modelRootName?: string;
 }) {
   let root: Object3D = sheet
   while (root.parent) root = root.parent
-  const model = root.getObjectByName('jgun-live-registered-model')
+  const model = root.getObjectByName(modelRootName)
   if (!model) throw new Error('Portal pixel proof requires the live registered JGun root')
   root.updateMatrixWorld(true)
   const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
@@ -274,6 +290,9 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
     let portalChangedPixels = 0, modelChangedPixels = 0, deskChangedInsidePixels = 0, sampledInsidePixels = 0
     let capChangedPixels = 0, wallChangedPixels = 0
     let portalVisiblePixels = 0, portalMaxLuminance = 0, portalWhitePixels = 0, portalFissurePixels = 0
+    let modelLitPixels = 0, modelMaxLuminance = 0
+    let fullFramePortalChangedPixels = 0
+    for (let i = 0; i < normal.length; i += 4) if (changed(normal, noPortal, i)) fullFramePortalChangedPixels++
     let xMin = width, xMax = -1, yMin = height, yMax = -1
     // Erode two pixels to reject silhouette/rim AA and partially covered departing fragments.
     for (let y = 2; y < height - 2; y++) for (let x = 2; x < width - 2; x++) {
@@ -285,7 +304,12 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
       const i = (y * width + x) * 4
       sampledInsidePixels++
       if (changed(normal, noPortal, i)) portalChangedPixels++
-      if (changed(normal, noModel, i)) modelChangedPixels++
+      if (changed(normal, noModel, i)) {
+        modelChangedPixels++
+        const luminance = (0.2126 * normal[i] + 0.7152 * normal[i + 1] + 0.0722 * normal[i + 2]) / 255
+        modelMaxLuminance = Math.max(modelMaxLuminance, luminance)
+        if (luminance > 0.08) modelLitPixels++
+      }
       if (changed(normal, noDesk, i)) deskChangedInsidePixels++
       if (changed(normal, noCap, i)) capChangedPixels++
       if (changed(normal, noWall, i)) wallChangedPixels++
@@ -314,6 +338,8 @@ export function capturePortalPixels({ gl, camera, sheet, outline, portal, desk, 
     })
     return {
       portalChangedPixels, modelChangedPixels, deskChangedInsidePixels, sampledInsidePixels,
+      fullFramePortalChangedPixels,
+      modelLitPixels, modelMaxLuminance,
       profilePixels: sampledInsidePixels, cameraUnchanged: cameraMatrix.equals(camera.matrixWorld), controls,
       clipRect: sampledInsidePixels ? [xMin, height - 1 - yMax, xMax - xMin + 1, yMax - yMin + 1] : null,
       width, height,

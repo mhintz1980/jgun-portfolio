@@ -1,5 +1,7 @@
 # Next-session handoff — 2026-10-10
 
+> Historical research checkpoint; current implementation continuation is [HANDOFF-2026-10-14-parallel-functional.md](HANDOFF-2026-10-14-parallel-functional.md). The no-implementation status below is historical.
+
 Current continuation: owner requested a handoff update with the opening recovery direction on 2026-10-10. Research is complete and independently Astra-reviewed. No product implementation has begun; formal phase approvals remain as previously recorded.
 
 ## Opening recovery addition — 2026-10-10
