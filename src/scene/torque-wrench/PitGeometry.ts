@@ -4,39 +4,62 @@ import { PORTAL_MOUTH_Z, makePortalShaftGeometry, portalClearanceM,
 export const PRIVATE_PIT_RELIEF_M = 0.018
 export const PRIVATE_PIT_MAX_DEVIATION_M = 0.13
 const smooth = (x: number) => { const u = Math.max(0, Math.min(1, x)); return u * u * (3 - 2 * u) }
+/** Triangle wave in [-1, 1]; its corners survive normal-based faceting better than sines. */
+const tri = (u: number) => 4 * Math.abs(u - Math.floor(u) - 0.5) - 1
+const hash = (x: number, y: number) => {
+  const value = Math.sin(x * 127.1 + y * 311.7) * 43758.5453
+  return value - Math.floor(value)
+}
 
-/** Exact torn mouth opens into a cavern, with broad irregular shelves and rock faces.
- * Radial displacement stays outward; depth ordering and the remote matched closure
- * stay intact. The source CAD and the registered paper aperture are never changed.
+/** Exact torn mouth opens into a cavern with independent near-wall relief.
+ *
+ * Low angular frequencies keep every displaced ring fold-free, while depth-stepped
+ * triangle facets and bounded per-vertex strata warp make adjacent wall quads non-planar.
+ * Radial displacement remains outward, same-column depth remains strictly descending, and
+ * the registered mouth/source CAD are untouched.
  */
 export function makePrivatePitGeometry(outline: number[][]): PortalShaftGeometry {
-  const shaft = makePortalShaftGeometry(outline, { ringDepthsM: [0, .008, .018, .032, .052, .078,
-    .11, .15, .2, .27, .35, .45, .58, .75, 1, 1.35, 1.75, 2.4, 3.2] })
+  const ringDepthsM = [0, .004, .009, .016, .026, .038, .054, .075, .10, .13, .17,
+    .22, .29, .38, .50, .66, .86, 1.12, 1.45, 1.85, 2.35, 3.2]
+  const shaft = makePortalShaftGeometry(outline, { ringDepthsM })
   const attribute = shaft.wallGeometry.getAttribute('position')
   const positions = attribute.array
   let maxDeviation = 0
   for (let k = 1; k < shaft.ringCount; k++) {
     const depth = shaft.ringDepthsM[k]
-    const a = PRIVATE_PIT_RELIEF_M * smooth(depth / 0.12)
-    const phase = Math.sin(depth * 7.3) * 1.2
+    const deepStrata = tri(depth / .19 + .23)
+    const stratumCell = Math.floor(depth / .085)
     for (let i = 0; i < outline.length; i++) {
       const [x, y] = outline[i]
       const rx = x - shaft.profile.centroid[0], ry = y - shaft.profile.centroid[1]
       const radius = Math.hypot(rx, ry)
       const angle = Math.atan2(ry, rx)
-      const chamber = .052 * smooth(depth / .3)
-        * (.82 + .18 * Math.sin(angle * 3 + .6) * Math.cos(depth * 3.1))
-      const buttress = a * (1 + .48 * Math.sin(angle * 7 + phase)
-        + .3 * Math.sin(angle * 13 - depth * 11.7))
+      const sector = angle / (Math.PI * 2) + .5
+      // Discrete cliff cells make adjacent wall quads intersect as real angular steps.
+      // The count stays far below the contour sampling density, so outward-only displacement
+      // cannot fold a ring; the mouth ring and final closure ring remain untouched.
+      const cellSector = Math.floor(sector * 16 + stratumCell * .37)
+      const cell = hash(cellSector, stratumCell)
+      const cellEdge = Math.abs(2 * (sector * 16 - Math.floor(sector * 16)) - 1)
+      const facet = .72 * cell + .16 * cellEdge + .12 * tri(sector * 5 - deepStrata)
+      const chamber = .052 * smooth(depth / .30)
+        * (.88 + .12 * tri(sector * 2 + deepStrata * .5))
+      const buttress = (PRIVATE_PIT_RELIEF_M + .006) * smooth(depth / .10)
+        * (.58 + .42 * facet)
       const clearance = portalClearanceM(depth) + chamber + buttress
       const o = (k * outline.length + i) * 3
       positions[o] = x + (radius > 1e-9 ? rx / radius * clearance : 0)
       positions[o + 1] = y + (radius > 1e-9 ? ry / radius * clearance : 0)
-      // Break the common horizontal ring bands without moving the mouth or deep closure.
-      const gap = Math.min(depth - shaft.ringDepthsM[k - 1],
-        k + 1 < shaft.ringCount ? shaft.ringDepthsM[k + 1] - depth : 0)
-      const reliefDepth = 0.16 * gap * Math.sin(angle * 9 + phase)
-      positions[o + 2] = PORTAL_MOUTH_Z - depth - reliefDepth
+      // Two adjacent strata bounds total 0.62 of their shared nominal gap, so every
+      // column stays descending; the last ring remains on the 3.2m closure plane.
+      const gapBefore = depth - shaft.ringDepthsM[k - 1]
+      const gapAfter = k + 1 < shaft.ringCount ? shaft.ringDepthsM[k + 1] - depth : gapBefore
+      const localGap = Math.min(gapBefore, gapAfter)
+      const strataRelief = k + 1 < shaft.ringCount
+        ? .31 * localGap * smooth(depth / .025)
+          * (.55 + .45 * hash(cellSector, stratumCell + 17))
+        : 0
+      positions[o + 2] = PORTAL_MOUTH_Z - depth - strataRelief
       maxDeviation = Math.max(maxDeviation, Math.hypot(positions[o] - x, positions[o + 1] - y))
     }
   }

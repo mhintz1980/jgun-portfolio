@@ -30,6 +30,7 @@ import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
 import { createOpeningSampler, DEFAULT_FINAL_INK_T, finalInkTimeFromStyles, sampleOpening } from './OpeningDirector'
 import { sampleOpeningCamera } from './OpeningCamera'
+import { sampleLegacyMechanismCamera } from './LegacyMechanismCamera'
 import { createCameraHandoff, type CameraHandoffPose } from './CameraHandoff'
 import { PrivateSheet } from './PrivateSheet'
 import type { DrawingFrameInput, PrivateSheetRuntime } from './privateSheetRuntime'
@@ -194,6 +195,13 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           crossing: baked?.extraction.crossing ?? null,
           finalInkT: openingFinalInkT.current,
           bakeInstalled: Boolean(baked), sheetVisible: Boolean(baked) && sheetFrame.retirement < 1 }
+        const display = rig.lcdCluster?.readout
+        if (display) {
+          display.updateWorldMatrix(true, false)
+          const centre = new Box3().setFromObject(display).getCenter(new Vector3())
+          const facing = display.getWorldDirection(new Vector3()).dot(new Vector3().subVectors(camera.position, centre).normalize())
+          copy.lcdDisplay = { centreWorld: centre.toArray(), centreNdc: centre.project(camera).toArray(), facing }
+        }
         copy.mechanical = {
           channels: { ...channels }, tier: store.getState().tier,
           bearingZ: rig.bearing?.position.z ?? null,
@@ -537,6 +545,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       if (!studyVisible && !ringVisible) {
         if (progress < 0.46 && layout.current) {
           sampleOpeningCamera(layout.current, aspect, progress, pose)
+          camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
+        } else if (progress < .69) {
+          sampleLegacyMechanismCamera(progress, aspect, channels.explode, pose)
           camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
         } else {
           // Provisional mechanical overview; final opening/inspection handoffs remain gates.

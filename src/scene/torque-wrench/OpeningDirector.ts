@@ -79,6 +79,21 @@ export function openingTimeAt(progress: number): number {
   return t0 + (t1 - t0) * u * u * (3 - 2 * u)
 }
 
+/** Physical time slows after the first separation; the lens retains openingTimeAt.
+ * A small amount of travel during the hold keeps the shards suspended rather than
+ * stopping the scroll. Pure coordinates also retrace exactly when scrolling back.
+ */
+export function breakthroughTimeAt(cameraTime: number): number {
+  const keys = [[0, 0], [.84, .84], [.86, .858], [.93, .864], [1, 1]] as const
+  const t = Math.max(0, Math.min(1, cameraTime))
+  if (t <= .84) return t
+  let i = 1
+  while (i < keys.length - 2 && t > keys[i + 1][0]) i++
+  const [a, x] = keys[i], [b, y] = keys[i + 1]
+  const u = (t - a) / (b - a)
+  return x + (y - x) * u * u * (3 - 2 * u)
+}
+
 function applyPrivateLampTiming(state: IntroState, finalInkT: number, crossing: number): void {
   if (finalInkT >= INTRO_PHASES.flickerStart) return
   if (state.t < finalInkT) {
@@ -97,7 +112,7 @@ export function sampleOpening(progress: number, crossing = 0.9, finalInkT = DEFA
   if (!Number.isFinite(finalInkT) || finalInkT < 0 || finalInkT > 1) {
     throw new RangeError('Final ink time must be finite in [0, 1]')
   }
-  const state = drawingIntroState(openingTimeAt(progress) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+  const state = drawingIntroState(breakthroughTimeAt(openingTimeAt(progress)) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
   applyPrivateLampTiming(state, finalInkT, crossing)
   return state
 }

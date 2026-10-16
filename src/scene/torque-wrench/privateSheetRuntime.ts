@@ -14,26 +14,47 @@ import type { SheetBakeResult, SheetBakeTier } from '../drawing/sheet/sheetBake'
 import { sheetReveal } from '../drawing/sheetCamera'
 import { GROUP, INK_GRAPHITE, INK_RED, WAVE_GLSL } from '../drawing/sheet/ink'
 import { paperContactShadow, paperFlexAmplitude, paperVellum } from '../drawing/sheet/paperFlex'
-import { LIGHTNING_FRAGMENT, LIGHTNING_VERTEX, makeLightningRibbon } from '../drawing/sheet/lightning'
-import { CRACK_APERTURE_GLSL } from '../drawing/sheet/breakthrough'
+import { LIGHTNING_VERTEX, makeLightningRibbon } from '../drawing/sheet/lightning'
+import { CRACK_APERTURE_GLSL, makeCrackMask } from '../drawing/sheet/breakthrough'
 import { capturePortalPixels, makePortal, PORTAL_DESK_Z, PORTAL_PROFILE_GLSL } from '../drawing/sheet/portal'
 import { makePrivatePitGeometry } from './PitGeometry'
+import { configurePrivatePitMaterial } from './privatePitMaterial'
 import { samplePit } from './PitDirector'
 import { samplePrivateElectrical } from './ElectricalDirector'
+import { makePrivateCrackGeometry } from './privateElectricGeometry'
 
-const PRIVATE_LIGHTNING_FRAGMENT = LIGHTNING_FRAGMENT
-  .replace('uniform float uPulseHead;', 'uniform float uElectricalEnergy; uniform float uPulseHead;')
-  .replace('gl_FragColor = vec4(mix', 'alpha *= uElectricalEnergy; gl_FragColor = vec4(mix')
+const PRIVATE_LIGHTNING_VERTEX = LIGHTNING_VERTEX.replace('jag * 0.00006', 'jag * 0.00085')
+
+const PRIVATE_LIGHTNING_FRAGMENT = /* glsl */ `
+uniform float uPulseHead; uniform float uCrackGlow; uniform float uElectricalEnergy;
+uniform float uFracture; uniform float uSpark;
+varying float vArc; varying float vAcross;
+void main() {
+  float cell = floor(vArc * 211.0);
+  float a = fract(sin(cell * 127.1) * 43758.5453) - .5;
+  float b = fract(sin((cell + 1.0) * 127.1) * 43758.5453) - .5;
+  float jag = mix(a, b, fract(vArc * 211.0)) * .65;
+  float d = abs(vAcross - jag);
+  float aa = max(fwidth(vAcross), .015);
+  float core = 1.0 - smoothstep(.045, .045 + aa, d);
+  float halo = exp(-d * d * 9.0) * .48;
+  float fork = abs(vAcross - jag - sin(vArc * 593.0) * .5);
+  float branch = (1.0 - smoothstep(.015, .015 + aa, fork))
+    * smoothstep(.68, .92, sin(vArc * 317.0));
+  float head = exp(-pow((vArc - uPulseHead) / .018, 2.0));
+  float grown = 1.0 - smoothstep(uPulseHead, uPulseHead + .009, vArc);
+  float spark = uSpark * (1.0 - smoothstep(.002, .012, vArc));
+  float energy = uElectricalEnergy * (grown * .72 + head * .7);
+  float retirement = 1.0 - smoothstep(.15, .9, uFracture);
+  float alpha = clamp((core + halo + branch * .55) * (energy + spark) * uCrackGlow * retirement, 0.0, 1.0);
+  gl_FragColor = vec4(mix(vec3(.12, .43, 1.0), vec3(.79, .94, 1.0), core), alpha);
+}`
 
 // Crystal-thin fissures develop under the electrical front, then extinguish as
 // separated stock begins to fall. Existing crack masks retain exact shard seams.
 const PRIVATE_CRACK_FRAGMENT = PRIVATE_LIGHTNING_FRAGMENT
   .replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb')
-  .replace(/uSpark/g, 'uCrackSpark')
-  .replace('float fibre =', 'float retirement = 1.0 - smoothstep(.05, .8, uFracture); float fibre =')
-  .replace('float alpha = clamp', 'float alpha = retirement * clamp')
-  .replace('0.075 - aa, 0.075 + aa', '0.035 - aa, 0.035 + aa')
-  .replace('4.0) * 0.42', '7.0) * 0.22')
+  .replace('jag = mix(a, b, fract(vArc * 211.0)) * .65', 'jag = mix(a, b, fract(vArc * 211.0)) * .22')
 
 const NOISE_GLSL = /* glsl */ `
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -50,14 +71,21 @@ float fbm(vec2 p) {
 const planeVertex = /* glsl */ `
 ${WAVE_GLSL}
 uniform float uDisplace;
+uniform float uFragment; uniform float uFracture;
 uniform vec2 uFragmentCenter;
 varying vec2 vPlane;
 varying float vFront;
+varying vec3 vFacetNormal;
+varying vec3 vViewDirection;
 void main() {
   vPlane = position.xy + uFragmentCenter;
   vFront = normal.z;
   vec3 p = position;
+  // Departing pieces develop a bevel-thick edge; intact drafting stays flat.
+  p.z *= 1.0 + uFragment * smoothstep(0.0, .15, uFracture) * 4.0;
   p.z += paperDisplacement(vPlane) * uDisplace;
+  vFacetNormal = normalize(normalMatrix * normal);
+  vViewDirection = -(modelViewMatrix * vec4(p, 1.0)).xyz;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 }`
 
@@ -82,6 +110,8 @@ uniform float uContrast; uniform float uOpacity; uniform float uMode;
 uniform vec2 uContact; uniform float uVellum;
 varying vec2 vPlane;
 varying float vFront;
+varying vec3 vFacetNormal;
+varying vec3 vViewDirection;
 float gridLine(float coord, float spacing, float hw) {
   float fw = max(fwidth(coord), 1e-7);
   float d = abs(fract(coord / spacing - 0.5) - 0.5) * spacing;
@@ -120,7 +150,7 @@ void main() {
   float light = (0.64 + 0.34 * key + 0.1 * pool * uReadingPool) * uLampPower;
   // Cool room bounce is independent of the failed practical lamp. The stock and
   // printed drawing remain present while the white electrical core owns the light.
-  vec3 ambient = vec3(0.034, 0.042, 0.061) * (1.0 - uLampPower);
+  vec3 ambient = vec3(0.19, 0.205, 0.23) * (1.0 - uLampPower);
   c *= light * mix(vec3(1.0), vec3(1.05, 1.0, 0.9), key) + ambient;
   // Pressure emboss: the bowed vellum under a raking lamp. Faces tilted toward the lamp
   // brighten, faces tilted away darken; the square-on camera sees no parallax, so this
@@ -147,9 +177,14 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
-    c = mix(c, vec3(0.005, 0.014, 0.025) * (0.14 + 0.86 * uLampPower), ink * step(0.001, uFracture));
-    if (abs(vFront) < 0.5) c = vec3(0.025, 0.012, 0.006) * (0.2 + uLampPower);
-    if (vFront < -0.5) c *= 0.65;
+    vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
+    float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
+    float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
+    vec3 glass = vec3(.013, .025, .041) + vec3(.08, .15, .22) * fresnel
+      + vec3(.38, .58, .72) * reflection;
+    glass *= 1.0 - ink * .48;
+    if (abs(vFront) < .5) glass += vec3(.08, .19, .27) * (.35 + fresnel);
+    c = mix(c, glass, smoothstep(0.0, .11, uFracture));
   }
   // Restrict blue spill to the torn lip; never backlight the entire profile.
   float underlight = portalRim(p) * uPortalLight;
@@ -192,7 +227,7 @@ void main() {
   vec2 s = (p - uKey.xy - vec2(0.18, -0.1)) * vec2(1.4, 3.2);
   float sheen = exp(-dot(s, s) * 3.0) * (0.6 + 0.4 * pores);
   vec3 c = (wood * (0.22 + 1.9 * key) + vec3(0.05, 0.032, 0.02) * sheen)
-    * mix(vec3(0.07, 0.09, 0.14), vec3(1.0), uLampPower);
+    * mix(vec3(0.22, 0.25, 0.31), vec3(1.0), uLampPower);
   // Contact shadow of the sheet, thrown away from the lamp.
   vec2 o = normalize(uKey.xy) * -0.007;
   vec2 q = abs(p - o) - uSheetHalf;
@@ -330,7 +365,7 @@ export function createPrivateSheetRuntime(
       fragmentShader: deskFragment, transparent: true, depthWrite: false, toneMapped: false,
     })
     const pulseMaterial = material({
-      uniforms: u, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX, fragmentShader: PRIVATE_LIGHTNING_FRAGMENT,
+      uniforms: u, vertexShader: WAVE_GLSL + PRIVATE_LIGHTNING_VERTEX, fragmentShader: PRIVATE_LIGHTNING_FRAGMENT,
       transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
     })
     const cracksMaterial = material({
@@ -354,7 +389,12 @@ export function createPrivateSheetRuntime(
     pulse.name = 'lightning'; pulse.renderOrder = 4; pulse.frustumCulled = false
     const edge = new Mesh(baked.fracture.edge, edgeMaterial)
     edge.name = 'charred-profile-edge'; edge.renderOrder = 2; edge.frustumCulled = false
-    const cracks = new Mesh(baked.fracture.cracks, cracksMaterial)
+    const cracks = new Mesh(own(makePrivateCrackGeometry(baked.fracture.cracks, baked.fracture.outline)), cracksMaterial)
+    // Match the physical hairline apertures to the private connected growth map.
+    // Empty CPU fixtures have no ribbon attributes and retain their borrowed mask.
+    if (cracks.geometry.getAttribute('position') && cracks.geometry.getAttribute('arcLength')) {
+      decorate('uCrackMask', own(makeCrackMask(baked.rendered.profilePoints, cracks.geometry, SHEET_WIDTH, SHEET_HEIGHT)))
+    }
     cracks.name = 'pressure-crack-web'; cracks.renderOrder = 4; cracks.frustumCulled = false
     const fragments = baked.fracture.fragments.map((fragment, i) => {
       const mesh = new Mesh(fragment.geometry, material({
@@ -371,29 +411,9 @@ export function createPrivateSheetRuntime(
     const initialModelBottom = 0.0006 - extraction.clearanceTravel
     const portal = factories.portal(baked.fracture.outline, initialModelBottom,
       new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), u.uPortalLight as { value: number })
-    // Private rock palette: cool reflected light reveals the broad cliff faces,
-    // while the matching closure still extinguishes beyond the visible shaft.
+    // Private faceted rock and fissures; shared portal shaders stay unchanged.
     for (const mesh of [portal.walls, portal.cap]) {
-      const shader = mesh.material as ShaderMaterial
-      shader.fragmentShader = shader.fragmentShader.replace(
-        /c \*= mix\([^;]+;/,
-        'c *= mix(uPortalRockAlive, 1.0, clamp(uPortalLight, 0.0, 1.0));',
-      )
-      shader.fragmentShader = shader.fragmentShader
-        .replace('depth * 3.1', 'depth * 32.0')
-        .replace('depth * 19.0', 'depth * 132.0')
-        .replace('float facet = clamp(0.42', 'float facet = clamp(0.36')
-        .replace('1.15 * (plate - 0.5)', '2.2 * (plate - 0.5)')
-        .replace('0.34 * (chip - 0.5)', '0.9 * (chip - 0.5)')
-      shader.uniforms.uPrivateSurroundings = { value: 1 }
-      shader.fragmentShader = 'uniform float uPrivateSurroundings;\n' + shader.fragmentShader
-      shader.fragmentShader = shader.fragmentShader.replace(/gl_FragColor = vec4\(c, 1\.0\);/,
-        'gl_FragColor = vec4(c, uPrivateSurroundings);')
-      const rock = (mesh.material as ShaderMaterial).uniforms
-      rock.uPortalRockDark?.value.set(.04, .055, .07)
-      rock.uPortalRockLight?.value.set(.21, .27, .32)
-      if (rock.uPortalRockExtinction) rock.uPortalRockExtinction.value = .48
-      rock.uPortalHaze?.value.set(.025, .04, .055)
+      configurePrivatePitMaterial(mesh.material as ShaderMaterial)
     }
     // Register each returned portal resource separately: a throwing dispose listener
     // must not prevent cleanup of its other geometry/material/light resources.
@@ -543,11 +563,13 @@ export function createPrivateSheetRuntime(
         cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0 && stockVisible
         portal.group.visible = !proof
         portal.cap.visible = portal.walls.visible = !proof && pit.visible
-        const portalStrength = proof || reducedMotion ? 0
-          : electricity.energy
+        const visibleEnergy = Math.max(electricity.energy, intro.pulseHead > 0 ? .26 : 0)
+        const pitEnergy = Math.max(electricity.pitEnergy, .35 * pit.reveal)
+        const portalStrength = proof || reducedMotion ? 0 : Math.max(visibleEnergy, pitEnergy)
         const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
         const wallUniforms = (portal.walls.material as ShaderMaterial).uniforms
-        const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1))
+        const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1)) * (1-retirement)
+        portal.group.visible = !proof && pit.visible && surroundings > 0
         for (const mesh of [portal.walls, portal.cap]) {
           const shader = mesh.material as ShaderMaterial
           shader.uniforms.uPrivateSurroundings.value = surroundings
@@ -560,7 +582,7 @@ export function createPrivateSheetRuntime(
         // Ambient cliff light remains after the transient electrical score ends.
         // A narrow mouth spill gives relief without revealing the remote cap.
         if (wallUniforms.uPortalRockAlive) wallUniforms.uPortalRockAlive.value = .5
-        if (wallUniforms.uPortalFissureEnergy) wallUniforms.uPortalFissureEnergy.value = proof || reducedMotion ? 0 : electricity.pitEnergy
+        if (wallUniforms.uPortalFissureEnergy) wallUniforms.uPortalFissureEnergy.value = proof || reducedMotion ? 0 : pitEnergy
         if (wallUniforms.uPortalFissureGrowth) wallUniforms.uPortalFissureGrowth.value = electricity.pitGrowth
         for (let i = 0; i < fragments.length; i++) {
           const f = baked.fracture.fragments[i], mesh = fragments[i]
@@ -570,10 +592,12 @@ export function createPrivateSheetRuntime(
           // Pressure lifts each shard before gravity takes it into the opening.
           // A smooth launch has no infinite derivative at the crack boundary.
           const flight = event * event * (3 - 2 * event)
-          const lift = .022 * Math.sin(Math.PI * event)
+          const lift = .065 * Math.sin(Math.PI * event)
+          const fallU = Math.max(0, Math.min(1, (event - .62) / .38))
+          const fall = fallU * fallU * (3 - 2 * fallU)
           mesh.position.set(f.center.x + f.velocity.x * flight * .65,
             f.center.y + f.velocity.y * flight * .65 - .08 * event * event,
-            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .32 * event * event)
+            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .05 * event * event - .28 * fall)
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
           mesh.visible = stockVisible
         }
@@ -583,13 +607,13 @@ export function createPrivateSheetRuntime(
         const lampPower = proof || reducedMotion ? 1 : intro.lampPower
         u.uContrast.value = contrast; u.uOpacity.value = opacity
         u.uLampPower.value = lampPower; u.uReadingPool.value = proof ? 0 : intro.readingPool
-        const inkLight = proof ? 1 : 0.14 + 0.86 * lampPower
+        const inkLight = proof ? 1 : 0.32 + 0.68 * lampPower
         u.uInk.value.multiplyScalar(inkLight)
         ;(u.uInkRed.value as Color).set(INK_RED).multiplyScalar(inkLight)
         ;(u.uInkGraphite.value as Color).set(INK_GRAPHITE).multiplyScalar(inkLight)
         text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))
         u.uPulseHead.value = intro.pulseHead
-        u.uElectricalEnergy.value = proof || reducedMotion ? 0 : electricity.energy
+        u.uElectricalEnergy.value = proof || reducedMotion ? 0 : visibleEnergy
         u.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
         u.uCrackGlow.value = proof || reducedMotion ? 0 : intro.crackGlow
         u.uCrackWeb.value = proof || reducedMotion ? 0 : intro.crackWeb
@@ -628,11 +652,13 @@ export function createPrivateSheetRuntime(
         stats.flexNormalX = matrix[8]; stats.flexNormalY = matrix[9]; stats.flexNormalZ = matrix[10]
         stats.fracture = intro.fracture; stats.openingClear = intro.openingClear
         stats.fragmentCount = fragments.length; stats.fragmentThickness = baked.fracture.thickness
+        const glassU = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, intro.fracture / .15))
+        stats.glassThickness = baked.fracture.thickness * (1 + 4 * glassU * glassU * (3 - 2 * glassU))
         stats.fragmentArea = baked.fracture.fragmentArea; stats.holeArea = baked.fracture.area
         stats.maxBoundaryDeviation = baked.fracture.maxBoundaryDeviation
         stats.crackGlow = intro.crackGlow; stats.crackWeb = intro.crackWeb; stats.paperOpacity = 1
-        stats.pitReveal = pit.reveal; stats.pitFissureEnergy = electricity.pitEnergy
-        stats.electricalEnergy = electricity.energy; stats.electricalOutline = electricity.outline
+        stats.pitReveal = pit.reveal; stats.pitFissureEnergy = proof || reducedMotion ? 0 : pitEnergy
+        stats.electricalEnergy = proof || reducedMotion ? 0 : visibleEnergy; stats.electricalOutline = electricity.outline
         stats.electricalBranch = electricity.branch; stats.pitFissureGrowth = electricity.pitGrowth
         stats.pitMaxRingDeviationM = portal.maxRingDeviationM
         stats.modelBarrierSafe = intro.openingClear || intro.poseT <= 0.4 ? 1 : 0

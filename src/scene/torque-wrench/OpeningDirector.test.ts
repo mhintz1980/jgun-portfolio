@@ -1,5 +1,16 @@
 import { expect, it } from 'vitest'
-import { createOpeningSampler, openingTimeAt, sampleOpening } from './OpeningDirector'
+import { breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening } from './OpeningDirector'
+
+it('suspends breakthrough physics while the continuous camera path keeps moving', () => {
+  const a = .868, b = .922
+  expect(breakthroughTimeAt(b) - breakthroughTimeAt(a)).toBeLessThan((b - a) * .15)
+  expect(breakthroughTimeAt(.84)).toBe(.84)
+  expect(breakthroughTimeAt(1)).toBe(1)
+  const times = [.84, .85, .86, .89, .93, .95, .99, 1]
+  const forward = times.map(breakthroughTimeAt)
+  expect(times.slice().reverse().map(breakthroughTimeAt).reverse()).toEqual(forward)
+  expect(forward.every((t, i) => !i || t >= forward[i - 1])).toBe(true)
+})
 
 it('aligns intact pressure, first rupture and completed emergence to canonical beats', () => {
   expect(openingTimeAt(0.395)).toBeCloseTo(0.79)

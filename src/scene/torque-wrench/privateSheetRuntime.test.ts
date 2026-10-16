@@ -150,7 +150,7 @@ describe('private sheet explicit frame application', () => {
     runtime.dispose()
   })
 
-  it('retires printed stock while retaining the anchored open pit at the close', () => {
+  it('retires the pit with the printed stock and restores it on reverse', () => {
     const f = fixture()
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
     runtime.apply(frame(1, { retirement: 1 }), f.context, viewport)
@@ -159,8 +159,12 @@ describe('private sheet explicit frame application', () => {
     expect(f.baked.lines.visible).toBe(false)
     expect(f.baked.text.object.visible).toBe(false)
     expect(runtime.group.getObjectByName('paper-fragment-0')!.visible).toBe(false)
-    expect(runtime.stats.pitRetained).toBe(1)
+    expect(runtime.stats.pitRetained).toBe(0)
     expect(runtime.stats.stockRetired).toBe(1)
+    runtime.apply(frame(.9, { retirement: .5 }), f.context, viewport)
+    expect(runtime.stats.pitRetained).toBe(1)
+    runtime.apply(frame(.9, { retirement: 0 }), f.context, viewport)
+    expect(runtime.stats.pitRetained).toBe(1)
     runtime.dispose()
   })
 
@@ -175,7 +179,7 @@ describe('private sheet explicit frame application', () => {
       expect(runtime.stats.flexPeakDisplacement).toBe(f.baked.uniforms.uFlexAmplitude.value * 0.75)
       expect(f.baked.uniforms.uWaveEnabled.value).toBe(0)
       expect(runtime.stats.paperOpacity).toBe(1)
-      expect(runtime.stats.portalActive).toBe(1)
+      expect(runtime.stats.portalActive).toBe(0) // no portal before actual rupture
     }
     runtime.apply(frame(0.82, { reducedMotion: true }), f.context, viewport)
     expect(f.baked.uniforms.uFlexAmplitude.value).toBe(0)
@@ -198,6 +202,20 @@ describe('private sheet explicit frame application', () => {
     expect(f.baked.uniforms.uInk.value.toArray()).toEqual(expected)
     expect(f.baked.text.update).toHaveBeenLastCalledWith(f.baked.uniforms.uReveal.value,
       input.intro.drawingOpacity * (0.88 + 0.12 * input.intro.lampPower))
+    runtime.dispose()
+  })
+
+  it('gives separated glass measurable thickness while retaining intact and reduced-motion stock', () => {
+    const f = fixture()
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    runtime.apply(frame(.86), f.context, viewport)
+    expect(runtime.stats.glassThickness).toBeGreaterThan(f.baked.fracture.thickness)
+    const shard = runtime.group.getObjectByName('paper-fragment-0') as Mesh<BufferGeometry, ShaderMaterial>
+    expect(shard.position.z).toBeGreaterThan(.04) // above intact stock during the suspended beat
+    expect(shard.material.vertexShader).toContain('smoothstep(0.0, .15, uFracture) * 4.0')
+    expect(shard.material.fragmentShader).toContain('reflect(-view, n)')
+    runtime.apply(frame(.86, { reducedMotion: true }), f.context, viewport)
+    expect(shard.material.uniforms.uFracture.value).toBe(0)
     runtime.dispose()
   })
 

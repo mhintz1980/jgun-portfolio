@@ -20,7 +20,20 @@ it('isolates private content from the shared builder and uses exact red strike w
   }
   expect(red.length).toBeGreaterThan(0)
   expect(red.every(s => s[4] === RED_STRIKE_PEN_HALF_WIDTH)).toBe(true)
-  const lowestText = Math.min(...corrected.texts.filter(t => t.group === GROUP.noteOutput).map(t => t.y))
-  expect(Math.max(...red.flatMap(s => [s[1], s[3]]))).toBeLessThan(lowestText)
   expect(applyPrivateSheetContent(source)).toEqual(corrected)
+  // RUN FEA. is the same handwriting-font route as the notes above, red, lower, and underlined by hand.
+  const runFea = corrected.texts.filter(t => t.group === GROUP.noteOutput && t.color === 'red')
+  expect(runFea.map(t => t.text).join('')).toBe('RUNFEA')
+  expect(runFea.every(t => t.weight === 'handwriting' && t.anchorY === 'baseline')).toBe(true)
+  const upper = corrected.texts.filter(t => t.group === GROUP.noteOutput && t.color === 'graphite' && t.text === 'O')
+  expect(upper.length).toBeGreaterThan(0)
+  const third = corrected.texts.filter(t => t.group === GROUP.noteOutput && t.color === 'graphite' && t.y > Math.max(...runFea.map(r => r.y)))
+  const gapAbove = Math.min(...third.map(t => t.y)) - Math.max(...runFea.map(r => r.y))
+  expect(gapAbove).toBeGreaterThan(.0068 - .0016) // spaced lower than the regular row pitch
+  const baseline = Math.min(...runFea.map(r => r.y))
+  const underline = red.filter(s => Math.max(s[1], s[3]) < baseline)
+  expect(underline.length).toBeGreaterThan(4)
+  const xs = runFea.map(r => r.x), ux = underline.flatMap(s => [s[0], s[2]])
+  expect(Math.min(...ux)).toBeLessThanOrEqual(Math.min(...xs))
+  expect(Math.max(...ux)).toBeGreaterThan(Math.max(...xs))
 })
