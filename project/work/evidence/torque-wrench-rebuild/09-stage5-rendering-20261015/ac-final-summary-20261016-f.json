@@ -1,0 +1,1857 @@
+{
+  "createdAt": "2026-10-16T09:21:02.469Z",
+  "scope": "JG-038 Lean-V1 AC phase and startup measurements on candidate f; no product changes during measurement",
+  "branch": "torque-wrench/rebuild",
+  "head": "315052e1ff7f309770e47647a7606ae95d161a2f",
+  "staged": "",
+  "product": {
+    "candidateFSourceAggregate": "b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb",
+    "productInputs": 308,
+    "productDrift": []
+  },
+  "measurementHarness": {
+    "changedFromCandidateFManifest": [
+      "scripts/lib/torque-performance-observers.mjs",
+      "scripts/lib/torque-verification-contract.mjs",
+      "scripts/lib/torque-verification-contract.test.ts",
+      "scripts/verify-torque-performance-contract.mjs"
+    ],
+    "hashes": [
+      {
+        "path": "scripts/verify-torque-performance-contract.mjs",
+        "sha256": "204a5e04ce183d3fdacc9b4132456af2c30597dc15ab8fe660e41d3409fd4268"
+      },
+      {
+        "path": "scripts/lib/torque-performance-observers.mjs",
+        "sha256": "2ab094b644c8d102f81d77f5d3bf87cf1f83e3388c820d9702775b11ccdbd1c2"
+      },
+      {
+        "path": "scripts/lib/torque-performance-observers.test.ts",
+        "sha256": "05ddbbd1b81660b9b7bedfb7d5cf16a302acd5706f65c9a376b546f94c2bb068"
+      },
+      {
+        "path": "scripts/lib/torque-verification-contract.mjs",
+        "sha256": "ccc40d64c62444a6af2fcb90fa918472be6dc3f3912cacd1e99793bc154d31fb"
+      },
+      {
+        "path": "scripts/lib/torque-verification-contract.test.ts",
+        "sha256": "9fcd1d2562bb1f308376226571b5c8999f3a796f80f003889caec424e686041d"
+      },
+      {
+        "path": ".scratch/jg038-ac-phase-roster-20261016.mjs",
+        "sha256": "efa919bb0c27bc98ac1a46edc79fd0aab7c2c679b65b5c0ccdcdefba31c45def"
+      },
+      {
+        "path": ".scratch/jg038-ac-startup-20261016.mjs",
+        "sha256": "beec7b6dedd05c6f36f95f827b5ea6312fdbe661ef84821ccb22870a0a8f4905"
+      }
+    ]
+  },
+  "environment": {
+    "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "refreshHz": 59.88,
+    "acChecks": [
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      }
+    ],
+    "lastProductDriftChecks": [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ]
+  },
+  "phase": {
+    "status": "MEASURED_WITH_FAILURES",
+    "primaryCount": 20,
+    "retryCount": 33,
+    "attemptCount": 53,
+    "pureValidation": {
+      "pass": false,
+      "errors": [
+        "D/full/1/breakthrough: p95 33.69999999999709 exceeds 20",
+        "D/full/1/breakthrough: p99 34.200000000004366 exceeds 33.4",
+        "D/full/1/breakthrough: tailPercent 6.469886702444842 exceeds 1",
+        "D/full/2/breakthrough: p99 34 exceeds 33.4",
+        "D/full/2/breakthrough: tailPercent 2.795208214489447 exceeds 1",
+        "D/lite/1/close: peakFrameTriangles 929253 exceeds 750000",
+        "D/lite/1/inspection: maximum 116.90000000000146 exceeds 100",
+        "D/lite/1/inspection: newWarmPrograms 2 exceeds 0",
+        "D/lite/1/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+        "D/lite/2/close: peakFrameTriangles 929253 exceeds 750000",
+        "D/lite/2/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+        "D/lite/3/close: peakFrameTriangles 929253 exceeds 750000",
+        "D/lite/3/inspection: maximum 117 exceeds 100",
+        "D/lite/3/inspection: newWarmPrograms 2 exceeds 0",
+        "D/lite/3/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+        "N/full/1/inspection: maximum 317.70000000000437 exceeds 100",
+        "N/full/1/inspection: newWarmPrograms 6 exceeds 0",
+        "N/full/2/inspection: maximum 267.5 exceeds 100",
+        "N/full/2/inspection: newWarmPrograms 6 exceeds 0",
+        "N/full/3/inspection: maximum 284.1000000000058 exceeds 100",
+        "N/full/3/inspection: newWarmPrograms 6 exceeds 0",
+        "N/lite/1/close: peakFrameTriangles 929253 exceeds 750000",
+        "N/lite/1/inspection: maximum 284 exceeds 100",
+        "N/lite/1/inspection: newWarmPrograms 6 exceeds 0",
+        "N/lite/1/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+        "N/lite/2/close: peakFrameTriangles 929253 exceeds 750000",
+        "N/lite/2/inspection: newWarmPrograms 2 exceeds 0",
+        "N/lite/2/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+        "N/lite/3/close: peakFrameTriangles 929253 exceeds 750000",
+        "N/lite/3/inspection: maximum 267.20000000000437 exceeds 100",
+        "N/lite/3/inspection: newWarmPrograms 6 exceeds 0",
+        "N/lite/3/mechanism: peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "D/full/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "D/full/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "D/full/1/close: Missing or invalid residentTextureTargetMiB",
+        "D/full/1/close: Missing or invalid instrumentationOverheadMs",
+        "D/full/1/drafting: Missing or invalid residentTextureTargetMiB",
+        "D/full/1/drafting: Missing or invalid instrumentationOverheadMs",
+        "D/full/1/inspection: Missing or invalid residentTextureTargetMiB",
+        "D/full/1/inspection: Missing or invalid instrumentationOverheadMs",
+        "D/full/1/mechanism: Missing or invalid residentTextureTargetMiB",
+        "D/full/1/mechanism: Missing or invalid instrumentationOverheadMs",
+        "D/full/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "D/full/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "D/full/2/close: Missing or invalid residentTextureTargetMiB",
+        "D/full/2/close: Missing or invalid instrumentationOverheadMs",
+        "D/full/3/close: Missing or invalid residentTextureTargetMiB",
+        "D/full/3/close: Missing or invalid instrumentationOverheadMs",
+        "D/lite/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "D/lite/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "D/lite/1/close: Missing or invalid residentTextureTargetMiB",
+        "D/lite/1/close: Missing or invalid instrumentationOverheadMs",
+        "D/lite/1/drafting: Missing or invalid residentTextureTargetMiB",
+        "D/lite/1/drafting: Missing or invalid instrumentationOverheadMs",
+        "D/lite/1/inspection: Missing or invalid residentTextureTargetMiB",
+        "D/lite/1/inspection: Missing or invalid instrumentationOverheadMs",
+        "D/lite/1/mechanism: Missing or invalid residentTextureTargetMiB",
+        "D/lite/1/mechanism: Missing or invalid instrumentationOverheadMs",
+        "D/lite/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "D/lite/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "D/lite/2/close: Missing or invalid residentTextureTargetMiB",
+        "D/lite/2/close: Missing or invalid instrumentationOverheadMs",
+        "D/lite/2/drafting: Missing or invalid residentTextureTargetMiB",
+        "D/lite/2/drafting: Missing or invalid instrumentationOverheadMs",
+        "D/lite/2/inspection: Missing or invalid residentTextureTargetMiB",
+        "D/lite/2/inspection: Missing or invalid instrumentationOverheadMs",
+        "D/lite/2/mechanism: Missing or invalid residentTextureTargetMiB",
+        "D/lite/2/mechanism: Missing or invalid instrumentationOverheadMs",
+        "D/lite/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "D/lite/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "D/lite/3/close: Missing or invalid residentTextureTargetMiB",
+        "D/lite/3/close: Missing or invalid instrumentationOverheadMs",
+        "D/lite/3/drafting: Missing or invalid residentTextureTargetMiB",
+        "D/lite/3/drafting: Missing or invalid instrumentationOverheadMs",
+        "D/lite/3/inspection: Missing or invalid residentTextureTargetMiB",
+        "D/lite/3/inspection: Missing or invalid instrumentationOverheadMs",
+        "D/lite/3/mechanism: Missing or invalid residentTextureTargetMiB",
+        "D/lite/3/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/full/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/full/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/full/1/close: Missing or invalid residentTextureTargetMiB",
+        "N/full/1/close: Missing or invalid instrumentationOverheadMs",
+        "N/full/1/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/full/1/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/full/1/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/full/1/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/full/1/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/full/1/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/full/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/full/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/full/2/close: Missing or invalid residentTextureTargetMiB",
+        "N/full/2/close: Missing or invalid instrumentationOverheadMs",
+        "N/full/2/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/full/2/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/full/2/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/full/2/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/full/2/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/full/2/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/full/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/full/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/full/3/close: Missing or invalid residentTextureTargetMiB",
+        "N/full/3/close: Missing or invalid instrumentationOverheadMs",
+        "N/full/3/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/full/3/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/full/3/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/full/3/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/full/3/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/full/3/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/lite/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/lite/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/lite/1/close: Missing or invalid residentTextureTargetMiB",
+        "N/lite/1/close: Missing or invalid instrumentationOverheadMs",
+        "N/lite/1/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/lite/1/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/lite/1/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/lite/1/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/lite/1/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/lite/1/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/lite/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/lite/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/lite/2/close: Missing or invalid residentTextureTargetMiB",
+        "N/lite/2/close: Missing or invalid instrumentationOverheadMs",
+        "N/lite/2/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/lite/2/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/lite/2/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/lite/2/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/lite/2/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/lite/2/mechanism: Missing or invalid instrumentationOverheadMs",
+        "N/lite/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+        "N/lite/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+        "N/lite/3/close: Missing or invalid residentTextureTargetMiB",
+        "N/lite/3/close: Missing or invalid instrumentationOverheadMs",
+        "N/lite/3/drafting: Missing or invalid residentTextureTargetMiB",
+        "N/lite/3/drafting: Missing or invalid instrumentationOverheadMs",
+        "N/lite/3/inspection: Missing or invalid residentTextureTargetMiB",
+        "N/lite/3/inspection: Missing or invalid instrumentationOverheadMs",
+        "N/lite/3/mechanism: Missing or invalid residentTextureTargetMiB",
+        "N/lite/3/mechanism: Missing or invalid instrumentationOverheadMs"
+      ],
+      "results": [
+        {
+          "key": "D/full/1/breakthrough",
+          "pass": false,
+          "errors": [
+            "p95 33.69999999999709 exceeds 20",
+            "p99 34.200000000004366 exceeds 33.4",
+            "tailPercent 6.469886702444842 exceeds 1"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/1/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/1/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/1/inspection",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/1/mechanism",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/2/breakthrough",
+          "pass": false,
+          "errors": [
+            "p99 34 exceeds 33.4",
+            "tailPercent 2.795208214489447 exceeds 1"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/2/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/full/3/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/1/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/1/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/1/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/1/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 116.90000000000146 exceeds 100",
+            "newWarmPrograms 2 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/1/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/2/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/2/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/2/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/2/inspection",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/2/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/3/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/3/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/3/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/3/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 117 exceeds 100",
+            "newWarmPrograms 2 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "D/lite/3/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/1/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/1/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/1/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/1/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 317.70000000000437 exceeds 100",
+            "newWarmPrograms 6 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/1/mechanism",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/2/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/2/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/2/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/2/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 267.5 exceeds 100",
+            "newWarmPrograms 6 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/2/mechanism",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/3/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/3/close",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/3/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/3/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 284.1000000000058 exceeds 100",
+            "newWarmPrograms 6 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/full/3/mechanism",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/1/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/1/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/1/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/1/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 284 exceeds 100",
+            "newWarmPrograms 6 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/1/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/2/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/2/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/2/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/2/inspection",
+          "pass": false,
+          "errors": [
+            "newWarmPrograms 2 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/2/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/3/breakthrough",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/3/close",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 929253 exceeds 750000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/3/drafting",
+          "pass": false,
+          "errors": [],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/3/inspection",
+          "pass": false,
+          "errors": [
+            "maximum 267.20000000000437 exceeds 100",
+            "newWarmPrograms 6 exceeds 0"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        },
+        {
+          "key": "N/lite/3/mechanism",
+          "pass": false,
+          "errors": [
+            "peakFrameTriangles 1564759 exceeds 1500000"
+          ],
+          "unverified": [
+            "Missing or invalid residentTextureTargetMiB",
+            "Missing or invalid instrumentationOverheadMs"
+          ]
+        }
+      ]
+    },
+    "failedAttempts": [
+      "D/full/breakthrough/run1",
+      "D/lite/mechanism/run1",
+      "D/lite/inspection/run1",
+      "D/lite/close/run1",
+      "N/full/inspection/run1",
+      "N/lite/mechanism/run1",
+      "N/lite/inspection/run1",
+      "N/lite/close/run1",
+      "D/full/breakthrough/run2",
+      "D/lite/mechanism/run2",
+      "D/lite/mechanism/run3",
+      "D/lite/inspection/run3",
+      "D/lite/close/run2",
+      "D/lite/close/run3",
+      "N/full/inspection/run2",
+      "N/full/inspection/run3",
+      "N/lite/mechanism/run2",
+      "N/lite/mechanism/run3",
+      "N/lite/inspection/run2",
+      "N/lite/inspection/run3",
+      "N/lite/close/run2",
+      "N/lite/close/run3"
+    ],
+    "cells": {
+      "D/full/drafting": {
+        "attempts": 1,
+        "statuses": [
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.900000000001455,
+          "p99": 17.19999999999709,
+          "maximum": 34,
+          "tailPercent": 0.08275862068965517,
+          "calls": 168,
+          "triangles": 1467017,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/full/breakthrough": {
+        "attempts": 2,
+        "statuses": [
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 33.69999999999709,
+          "p99": 34.200000000004366,
+          "maximum": 35.900000000001455,
+          "tailPercent": 6.469886702444842,
+          "calls": 173,
+          "triangles": 1611969,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/full/mechanism": {
+        "attempts": 1,
+        "statuses": [
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.900000000001455,
+          "p99": 17.400000000001455,
+          "maximum": 33.69999999999709,
+          "tailPercent": 0.027570995312930797,
+          "calls": 171,
+          "triangles": 1564759,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/full/inspection": {
+        "attempts": 1,
+        "statuses": [
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 17.099999999998545,
+          "maximum": 17.90000000000873,
+          "tailPercent": 0,
+          "calls": 96,
+          "triangles": 1121733,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/full/close": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 17.10000000000582,
+          "maximum": 17.80000000000291,
+          "tailPercent": 0,
+          "calls": 66,
+          "triangles": 929253,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/lite/drafting": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.900000000001455,
+          "p99": 17.200000000004366,
+          "maximum": 18,
+          "tailPercent": 0,
+          "calls": 168,
+          "triangles": 1467017,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/lite/breakthrough": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.900000000001455,
+          "p99": 17.200000000004366,
+          "maximum": 18.30000000000291,
+          "tailPercent": 0,
+          "calls": 173,
+          "triangles": 1611969,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/lite/mechanism": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17,
+          "p99": 17.20000000001164,
+          "maximum": 18,
+          "tailPercent": 0,
+          "calls": 171,
+          "triangles": 1564759,
+          "newWarmPrograms": 0
+        }
+      },
+      "D/lite/inspection": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "UNVERIFIED",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17.09999999999127,
+          "p99": 17.30000000000291,
+          "maximum": 117,
+          "tailPercent": 0.027578599007170437,
+          "calls": 96,
+          "triangles": 1082256,
+          "newWarmPrograms": 2
+        }
+      },
+      "D/lite/close": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17,
+          "p99": 17.30000000000291,
+          "maximum": 18.19999999999709,
+          "tailPercent": 0,
+          "calls": 66,
+          "triangles": 929253,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/full/drafting": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 17,
+          "maximum": 18,
+          "tailPercent": 0,
+          "calls": 168,
+          "triangles": 1467017,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/full/breakthrough": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 16.900000000001455,
+          "maximum": 17.60000000000582,
+          "tailPercent": 0,
+          "calls": 173,
+          "triangles": 1611969,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/full/mechanism": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "p99": 17.10000000000582,
+          "maximum": 18.19999999999709,
+          "tailPercent": 0,
+          "calls": 171,
+          "triangles": 1564759,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/full/inspection": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.900000000001455,
+          "p99": 17.30000000000291,
+          "maximum": 317.70000000000437,
+          "tailPercent": 0.027578599007170437,
+          "calls": 96,
+          "triangles": 1121733,
+          "newWarmPrograms": 6
+        }
+      },
+      "N/full/close": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 16.89999999999418,
+          "p99": 17.200000000004366,
+          "maximum": 17.79999999998836,
+          "tailPercent": 0,
+          "calls": 66,
+          "triangles": 929253,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/lite/drafting": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17.09999999999127,
+          "p99": 17.39999999999418,
+          "maximum": 18.10000000000582,
+          "tailPercent": 0,
+          "calls": 168,
+          "triangles": 1467017,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/lite/breakthrough": {
+        "attempts": 3,
+        "statuses": [
+          "UNVERIFIED",
+          "UNVERIFIED",
+          "UNVERIFIED"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17.09999999999127,
+          "p99": 17.30000000000291,
+          "maximum": 18,
+          "tailPercent": 0,
+          "calls": 173,
+          "triangles": 1611969,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/lite/mechanism": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17,
+          "p99": 17.299999999995634,
+          "maximum": 18.19999999999709,
+          "tailPercent": 0,
+          "calls": 171,
+          "triangles": 1564759,
+          "newWarmPrograms": 0
+        }
+      },
+      "N/lite/inspection": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17.09999999999127,
+          "p99": 17.30000000000291,
+          "maximum": 284,
+          "tailPercent": 0.027578599007170437,
+          "calls": 96,
+          "triangles": 1082256,
+          "newWarmPrograms": 6
+        }
+      },
+      "N/lite/close": {
+        "attempts": 3,
+        "statuses": [
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "worst": {
+          "p50": 16.69999999999709,
+          "p95": 17,
+          "p99": 17.30000000000291,
+          "maximum": 18.39999999999418,
+          "tailPercent": 0,
+          "calls": 66,
+          "triangles": 929253,
+          "newWarmPrograms": 0
+        }
+      }
+    }
+  },
+  "startup": {
+    "status": "FAIL",
+    "trials": [
+      {
+        "condition": "valid",
+        "index": 1,
+        "status": "FAIL",
+        "navigationToFullyReadyMs": 10615.79999999702,
+        "bakeMs": 1478.2000000029802,
+        "cacheMs": 370.5,
+        "basePrecomputed": 1,
+        "hardwareGL": true,
+        "tierBefore": "full",
+        "tierAfter": "full",
+        "inspectionTriggerToReadyMs": 688,
+        "inspectionBodyCompleteToReadyUpperBoundMs": 392.29999999701977,
+        "errors": 0,
+        "expectedErrors": 0,
+        "routeHits": 1,
+        "unverified": [
+          "Exact initial shader preparation completion <=3s; only CPU call durations observed",
+          "Rig consolidation, snapshot, cache decode, Troika/font and upload spans not independently exposed; aggregate cacheMs/extractMs/bakeMs and ResourceTiming retained",
+          "Exact selected-inspection decode/parse->ready <=3s and shader preparation <=1.5s; trigger and resource-body->ready upper bounds are retained, not substituted"
+        ]
+      },
+      {
+        "condition": "missing",
+        "index": 1,
+        "status": "UNVERIFIED",
+        "navigationToFullyReadyMs": 11228,
+        "bakeMs": 3577.2000000029802,
+        "cacheMs": 24.899999991059303,
+        "basePrecomputed": 0,
+        "hardwareGL": true,
+        "tierBefore": "full",
+        "tierAfter": "full",
+        "inspectionTriggerToReadyMs": 327,
+        "inspectionBodyCompleteToReadyUpperBoundMs": 210,
+        "errors": 0,
+        "expectedErrors": 1,
+        "routeHits": 1,
+        "unverified": [
+          "Exact initial shader preparation completion <=3s; only CPU call durations observed",
+          "Rig consolidation, snapshot, cache decode, Troika/font and upload spans not independently exposed; aggregate cacheMs/extractMs/bakeMs and ResourceTiming retained",
+          "Exact selected-inspection decode/parse->ready <=3s and shader preparation <=1.5s; trigger and resource-body->ready upper bounds are retained, not substituted"
+        ]
+      },
+      {
+        "condition": "stale",
+        "index": 1,
+        "status": "UNVERIFIED",
+        "navigationToFullyReadyMs": 11207.5,
+        "bakeMs": 3645.800000011921,
+        "cacheMs": 213.5,
+        "basePrecomputed": 0,
+        "hardwareGL": true,
+        "tierBefore": "full",
+        "tierAfter": "full",
+        "inspectionTriggerToReadyMs": 293.59999999403954,
+        "inspectionBodyCompleteToReadyUpperBoundMs": 193.29999999701977,
+        "errors": 0,
+        "expectedErrors": 0,
+        "routeHits": 1,
+        "unverified": [
+          "Exact initial shader preparation completion <=3s; only CPU call durations observed",
+          "Rig consolidation, snapshot, cache decode, Troika/font and upload spans not independently exposed; aggregate cacheMs/extractMs/bakeMs and ResourceTiming retained",
+          "Exact selected-inspection decode/parse->ready <=3s and shader preparation <=1.5s; trigger and resource-body->ready upper bounds are retained, not substituted"
+        ]
+      },
+      {
+        "condition": "valid",
+        "index": 2,
+        "status": "UNVERIFIED",
+        "navigationToFullyReadyMs": 8969.39999999106,
+        "bakeMs": 1302,
+        "cacheMs": 229.79999999701977,
+        "basePrecomputed": 1,
+        "hardwareGL": true,
+        "tierBefore": "full",
+        "tierAfter": "full",
+        "inspectionTriggerToReadyMs": 325.09999999403954,
+        "inspectionBodyCompleteToReadyUpperBoundMs": 210.09999999403954,
+        "errors": 0,
+        "expectedErrors": 0,
+        "routeHits": 1,
+        "unverified": [
+          "Exact initial shader preparation completion <=3s; only CPU call durations observed",
+          "Rig consolidation, snapshot, cache decode, Troika/font and upload spans not independently exposed; aggregate cacheMs/extractMs/bakeMs and ResourceTiming retained",
+          "Exact selected-inspection decode/parse->ready <=3s and shader preparation <=1.5s; trigger and resource-body->ready upper bounds are retained, not substituted"
+        ]
+      }
+    ],
+    "servedIdentityMatched": true
+  },
+  "limitations": [
+    "Physical memory residency, total observer overhead, GPU execution time and exact internal decode/parse spans are unverified",
+    "Viewport N is emulated on the reference laptop, not physical mobile",
+    "Fresh browser context is not OS/driver cold cache",
+    "No owner visual/motion acceptance, real-device hidden-start proof, publication, commit/push/deploy/cutover/archive or G8 closure"
+  ]
+}

@@ -46,7 +46,7 @@ export function summarizeFrameSamples(samples, tailThresholdMs) {
 
 export function deriveHardwareGl(renderer) {
   const value = String(renderer || '')
-  if (!value) return { hardwareGL: false, basis: 'WEBGL_debug_renderer_info unavailable' }
+  if (!value || /^(webkit webgl|webgl|webgl2|unknown|unavailable)$/i.test(value.trim())) return { hardwareGL: false, basis: 'Unmasked hardware renderer identity unavailable' }
   const software = /swiftshader|llvmpipe|software|basic render|mesa offscreen/i.test(value)
   return { hardwareGL: !software, basis: software ? 'observed WebGL renderer identifies software rendering' : 'observed WEBGL_debug_renderer_info renderer string does not identify software rendering' }
 }
@@ -141,7 +141,7 @@ export function torquePerformanceObserverInit() {
     return Object.prototype.hasOwnProperty.call(TEXEL_BYTE_SIZE, name) ? TEXEL_BYTE_SIZE[name] : null
   }
   const primitiveGeometry = (record, mode, vertexCount, instances = 1) => {
-    const ctx = record.context, count = Math.max(0, Number(vertexCount) || 0), repeat = Math.max(1, Number(instances) || 1)
+    const ctx = record.context, count = Math.max(0, Number(vertexCount) || 0), repeat = Math.max(0, Number(instances) || 0)
     let triangles = 0, lineSegments = 0, points = 0
     if (mode === ctx.POINTS) points = count
     else if (mode === ctx.LINES) lineSegments = Math.floor(count / 2)
@@ -240,7 +240,7 @@ export function torquePerformanceObserverInit() {
       ['drawArrays', (args) => [Number(args[2]), 1]],
       ['drawElements', (args) => [Number(args[1]), 1]],
       ['drawArraysInstanced', (args) => [Number(args[2]), args[3]]],
-      ['drawElementsInstanced', (args) => [Number(args[1]), args[3]]],
+      ['drawElementsInstanced', (args) => [Number(args[1]), args[4]]],
       ['drawRangeElements', (args) => [Number(args[3]), 1]],
       ['drawArraysInstancedBaseInstance', (args) => [Number(args[2]), args[3]]],
       ['drawElementsInstancedBaseVertex', (args) => [Number(args[1]), args[4]]],
@@ -466,7 +466,7 @@ export function torquePerformanceObserverInit() {
     if (context) {
       const debug = context.getExtension('WEBGL_debug_renderer_info')
       vendor = debug ? context.getParameter(debug.UNMASKED_VENDOR_WEBGL) : context.getParameter(context.VENDOR)
-      renderer = debug ? context.getParameter(debug.UNMASKED_RENDERER_WEBGL) : context.getParameter(context.RENDERER)
+      renderer = debug ? context.getParameter(debug.UNMASKED_RENDERER_WEBGL) : null
       version = context.getParameter(context.VERSION)
       shadingLanguageVersion = context.getParameter(context.SHADING_LANGUAGE_VERSION)
     }
@@ -479,6 +479,13 @@ export function torquePerformanceObserverInit() {
   }
   globalThis[PORT] = {
     installedAt: state.installedAt,
+    readiness() {
+      const last = state.programEvents.at(-1)
+      return { observed: state.programEvents.some(event => event.kind === 'create'),
+        programEventSequence: state.programEventSequence, lastProgramEventAt: last?.at ?? null,
+        idleMs: last ? performance.now() - last.at : null,
+        basis: 'observed create/attach/link/delete event idle interval after render prewarm; future unseen variants are tested by the measured zero-new-program gate' }
+    },
     beginMeasurement() {
       if (state.measurement) return { ok: false, error: 'Measurement already active' }
       state.frameSamples = []; state.currentFrame = { calls: 0, triangles: 0, lineSegments: 0, points: 0 }; state.hiddenDuringMeasurement = false

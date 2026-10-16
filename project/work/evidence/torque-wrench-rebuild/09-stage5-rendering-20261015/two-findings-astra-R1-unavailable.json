@@ -1,0 +1,15 @@
+{
+  "scope": "JG-038 two-finding correction piece, candidate f only",
+  "round": 1,
+  "authorizedMaximumRounds": 2,
+  "agentId": "01a142d6-d3b2-7ee3-93ef-1bac933b0094",
+  "reviewer": "Gauss",
+  "configuredRole": "tier-reviewer",
+  "configuredModel": "gpt-6-astra",
+  "configuredEffort": "medium",
+  "status": "UNAVAILABLE",
+  "verdict": null,
+  "error": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at Oct 16th, 2026 12:39 AM.",
+  "sourceAggregateSha256": "b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb",
+  "note": "No completed review or technical sign-off inferred. Failed launch preserved; no silent substitution or new review-budget reset. Candidate-e exhausted reviews remain historical. Resume this outstanding required review under the existing explicitly authorized two-round correction-piece budget when capacity is available."
+}

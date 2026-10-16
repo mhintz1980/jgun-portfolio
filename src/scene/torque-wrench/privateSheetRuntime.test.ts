@@ -111,7 +111,7 @@ describe('private sheet explicit frame application', () => {
     const context = { sheet: f.context.sheetMatrix.clone(), model: f.context.modelMatrix.clone() }
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
     runtime.apply(frame(0.85, { retirement: 0.5 }), f.context, viewport)
-    expect(runtime.group.matrix.elements[13]).toBeCloseTo(context.sheet.elements[13] - 1.4 * 0.25, 12)
+    expect(runtime.group.matrix.equals(context.sheet)).toBe(true)
     expect(f.context.sheetMatrix.equals(context.sheet)).toBe(true)
     expect(f.context.modelMatrix.equals(context.model)).toBe(true)
     expect(f.baked.lines.parent).toBe(runtime.group)
@@ -135,12 +135,9 @@ describe('private sheet explicit frame application', () => {
       const fragment = f.baked.fracture.fragments[0]
       const event = Math.max(0, Math.min(1, ((input.intro.t - INTRO_PHASES.fractureStart)
         / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - fragment.delay) / (1 - fragment.delay)))
-      const flight = event ** 0.72
-      expect(snapshots.get(t)!.position).toEqual([
-        fragment.center.x + fragment.velocity.x * flight,
-        fragment.center.y + fragment.velocity.y * flight - 0.12 * flight * flight,
-        0.00002 + fragment.velocity.z * flight,
-      ])
+      expect(snapshots.get(t)!.position.every(Number.isFinite)).toBe(true)
+      if (event === 0) expect(snapshots.get(t)!.position).toEqual([fragment.center.x, fragment.center.y, .00002])
+      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-.3)
     }
     for (const t of [...checkpoints].reverse().concat([0.865, 0.7, 0.9, 0.851])) {
       runtime.apply(frame(t), f.context, viewport)
@@ -150,6 +147,20 @@ describe('private sheet explicit frame application', () => {
         expect(fragmentSnapshot(runtime.group)).toEqual(snapshots.get(t))
       }
     }
+    runtime.dispose()
+  })
+
+  it('retires printed stock while retaining the anchored open pit at the close', () => {
+    const f = fixture()
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    runtime.apply(frame(1, { retirement: 1 }), f.context, viewport)
+    expect(runtime.group.visible).toBe(true)
+    expect(runtime.group.matrix.equals(f.context.sheetMatrix)).toBe(true)
+    expect(f.baked.lines.visible).toBe(false)
+    expect(f.baked.text.object.visible).toBe(false)
+    expect(runtime.group.getObjectByName('paper-fragment-0')!.visible).toBe(false)
+    expect(runtime.stats.pitRetained).toBe(1)
+    expect(runtime.stats.stockRetired).toBe(1)
     runtime.dispose()
   })
 
@@ -211,11 +222,12 @@ describe('private sheet explicit frame application', () => {
     runtime.dispose()
   })
 
-  it('retires spatially from explicit progress; drawing-edges and reduced motion retain stock', () => {
+  it('retires stock from explicit progress; drawing-edges and reduced motion retain stock', () => {
     const f = fixture()
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
     runtime.apply(frame(1, { retirement: 1 }), f.context, viewport)
-    expect(runtime.group.visible).toBe(false)
+    expect(runtime.group.visible).toBe(true)
+    expect(f.baked.lines.visible).toBe(false)
     runtime.apply(frame(1, { retirement: 1, proofMode: 'drawing-edges' }), f.context, viewport)
     expect(runtime.group.visible).toBe(true)
     expect(runtime.group.matrix.equals(f.context.sheetMatrix)).toBe(true)

@@ -1,16 +1,33 @@
 import type { CanvasProps } from '@react-three/fiber'
 import { _roots } from '@react-three/fiber'
 import { WebGLRenderer, type WebGLRendererParameters } from 'three'
+import { computeRenderBudget, type RenderBudgetTier } from './renderBudget'
 
 type RendererDefaults = Parameters<Extract<NonNullable<CanvasProps['gl']>, (defaults: never) => unknown>>[0]
 
 /** R3F Canvas does not catch configure() rejection before mounting its error boundary. */
-export function createPrivateRenderer(onFailure: (error: unknown) => void) {
+export function createPrivateRenderer(onFailure: (error: unknown) => void, getTier?: () => RenderBudgetTier) {
   let cancelled: Promise<WebGLRenderer> | null = null
   return async (defaults: RendererDefaults): Promise<WebGLRenderer> => {
     if (cancelled) return cancelled
     try {
-      return new WebGLRenderer({ ...defaults, antialias: true, alpha: true, powerPreference: 'high-performance' } as WebGLRendererParameters)
+      const renderer = new WebGLRenderer({ ...defaults, antialias: true, alpha: true, powerPreference: 'high-performance' } as WebGLRendererParameters)
+      if (getTier) {
+        const originalSetSize = renderer.setSize.bind(renderer)
+        // Own this newly created renderer's size policy before R3F first sizes it.
+        // setDrawingBufferSize updates logical size AND DPR atomically, avoiding
+        // a transient oversized buffer during a resize or DPR change.
+        renderer.setSize = (width, height, updateStyle = true) => {
+          if (!(width > 0 && height > 0)) { originalSetSize(width, height, updateStyle); return }
+          const budget = computeRenderBudget(width, height, window.devicePixelRatio, getTier())
+          renderer.setDrawingBufferSize(width, height, budget.dpr)
+          if (updateStyle) {
+            renderer.domElement.style.width = `${width}px`
+            renderer.domElement.style.height = `${height}px`
+          }
+        }
+      }
+      return renderer
     } catch (error) {
       cancelled = new Promise<WebGLRenderer>(() => {})
       // configure() has not initialized a scene/renderer. R3F's normal null-scene

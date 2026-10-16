@@ -2,6 +2,8 @@
    so the shell-* nav classes are styled here, by this page. */
 
 .torque-page {
+  /* Reserve the paced tail before lazy CAD/scene loading and native restoration. */
+  --torque-pacing-extra: 1433.25vh;
   min-height: 100vh;
   background: #05070a;
   color: #e8ecf1;
@@ -11,7 +13,7 @@
    the same document range. Terminal static modes retain compact native flow. */
 .torque-page:not([data-torque-mode='static']) .torque-main {
   position: relative;
-  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh);
+  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh + var(--torque-pacing-extra, 0px));
 }
 
 .torque-page:not([data-torque-mode='static']) .torque-stage {
@@ -20,7 +22,7 @@
 }
 
 .torque-page:not([data-torque-mode='static']) .torque-story {
-  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh);
+  min-height: calc(var(--torque-scroll-viewports, 44.1) * 100vh + var(--torque-pacing-extra, 0px));
   align-content: space-between;
 }
 

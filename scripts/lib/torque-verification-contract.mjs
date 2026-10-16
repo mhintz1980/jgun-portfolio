@@ -66,6 +66,26 @@ export function validateTorquePerformanceSample(report) {
   return { pass: errors.length === 0 && unverified.length === 0, errors, unverified }
 }
 
+export function torquePerformanceRetryReasons(report) {
+  const reasons = []
+  const result = validateTorquePerformanceSample(report)
+  if (result.errors.length || report?.extraGateFailures?.length || report?.status === 'BLOCKED') reasons.push('failed or incomplete observation')
+  const permanentMissing = /^(Missing or invalid (residentTextureTargetMiB|instrumentationOverheadMs))$/
+  if (result.unverified.some(reason => !permanentMissing.test(reason))) reasons.push('incomplete repeatable observables')
+  const budget = TORQUE_BUDGETS[report?.requestedTier]
+  const phase = TORQUE_PHASE_BUDGETS[report?.phase]?.[report?.requestedTier]
+  if (budget && phase) {
+    const limits = { ...budget, peakFrameCalls: phase[0], peakFrameTriangles: phase[1], residentTextureTargetMiB: phase[2] }
+    delete limits.p50
+    for (const [field, ceiling] of Object.entries(limits)) {
+      const value = report[field]
+      if (finite(value) && ceiling > 0 && value >= .9 * ceiling && value <= ceiling) reasons.push('near ceiling: ' + field)
+    }
+  }
+  // Missing permanently unavailable observables remain UNVERIFIED; no futile automatic repetition.
+  return reasons
+}
+
 export function validateTorquePerformanceRoster(reports) {
   const errors = [], unverified = [], results = []
   if (!Array.isArray(reports)) return { pass: false, errors, unverified: ['Missing report roster'], results }
@@ -78,7 +98,7 @@ export function validateTorquePerformanceRoster(reports) {
     results.push({ key, ...result })
     errors.push(...result.errors.map((e) => `${key}: ${e}`))
     unverified.push(...result.unverified.map((e) => `${key}: ${e}`))
-    const runKey = `${report?.viewportCase}/${report?.requestedTier}/${report?.run}`
+    const runKey = key
     if (nonempty(report?.runId)) {
       if (runIds.has(runKey) && runIds.get(runKey) !== report.runId) errors.push(`Run identity changes within ${runKey}`)
       runIds.set(runKey, report.runId)
@@ -91,10 +111,20 @@ export function validateTorquePerformanceRoster(reports) {
     if (usedIds.has(id)) errors.push(`Run ID reused across independent cases: ${runKey}`)
     usedIds.add(id)
   }
-  for (const viewport of ['D', 'N']) for (const tier of ['full', 'lite']) for (const run of [1, 2, 3]) {
+  for (const viewport of ['D', 'N']) for (const tier of ['full', 'lite']) {
     for (const phase of Object.keys(TORQUE_PHASE_BUDGETS)) {
-      const key = `${viewport}/${tier}/${run}/${phase}`
-      if (!keys.has(key)) unverified.push(`Missing ${key}`)
+      const primaryKey = `${viewport}/${tier}/1/${phase}`
+      const primary = reports.find(r => r?.viewportCase === viewport && r.requestedTier === tier && r.phase === phase && r.run === 1)
+      if (!primary) { unverified.push(`Missing ${primaryKey}`); continue }
+      const reasons = torquePerformanceRetryReasons(primary)
+      const required = reasons.some(reason => reason.startsWith('near ceiling:')) ? [2, 3] : reasons.length ? [2] : []
+      for (const run of required) {
+        const retryKey = `${viewport}/${tier}/${run}/${phase}`
+        if (!keys.has(retryKey)) unverified.push(`Missing required repeat ${retryKey}: ${reasons.join(', ')}`)
+      }
+      for (const run of [2, 3]) if (keys.has(`${viewport}/${tier}/${run}/${phase}`) && reasons.length === 0) {
+        errors.push(`Unscheduled repeat ${viewport}/${tier}/${run}/${phase}`)
+      }
     }
   }
   return { pass: errors.length === 0 && unverified.length === 0, errors, unverified, results }

@@ -38,7 +38,7 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE GUN', 'THE QUIET MACHINE', 'M249', 'TORQUE WRENCH'])
+    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'M249', 'TORQUE WRENCH'])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 

@@ -1,0 +1,32 @@
+{
+  "scope": "JG-038 two-finding correction piece, candidate f only",
+  "round": 1,
+  "authorizedMaximumRounds": 2,
+  "reviewer": "McClintock",
+  "agentId": "01a142d6-c027-7d82-9584-e585f120f08e",
+  "configuredModel": "zai/glm-5.3",
+  "configuredEffort": "high",
+  "verdict": "SHIP",
+  "blockers": [],
+  "sourceAggregateSha256": "b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb",
+  "inputs": 386,
+  "parentSavedSummaryOfReturnedReview": true,
+  "verified": [
+    "Read-only source, diagnostic harness, hash and artifact review; branch/HEAD unchanged, index empty, all 386 live source hashes match manifest",
+    "P1 canonical .69 mechanics capture, local-frame union bounds, finally restoration of live mechanics including injected capture failure",
+    "P1 hash-bound D/N diagnostic: root matrix, subject matrix, world bounds and camera match exactly at five progress samples across forward/direct/restored-.98-reverse entries",
+    "P2 same mount-scoped sample passed to both hosts; RuntimeWorld priority -2 writes after one playback.advance, BackgroundWorld priority 1 consumes in same frame; installed R3F sorts ascending priorities",
+    "P2 canonical palette/post unchanged; only isolation uses effective manual-or-scroll sample, caller-owned mutation adds no per-frame allocation or React update",
+    "P2 D/N at scroll .695/.932: four control traces per scenario, 59-85 frames each, world/background effective progress/manual/opacity and all three applied uniforms agree",
+    "Four helper/test inputs added, zero removed, exactly RuntimeWorld.tsx/BackgroundWorld.tsx/Scene.tsx changed versus candidate e",
+    "Harness SHA256 7df87eb4ebf0fec80010a4d2a7c35f3ec871543284106f20b7a0bf00fc73cc75 matches",
+    "Recorded preservation 1473 baseline files present, 1456 protected unchanged; matrix 136/136 and served identity PASS; full suite 86 files/985 passed/4 skipped; build PASS with retained large-chunk warning"
+  ],
+  "limitations": [
+    "Reviewer did not execute tests/typecheck/build/browser/GPU/server jobs; runtime conclusions rely on hash-bound parent artifacts",
+    "Typecheck PASS was parent-ledger reported, without a separate typecheck log inspected by reviewer",
+    "Functional and source approval only; no full JG-038, effects, owner, performance or broader G-gate acceptance"
+  ],
+  "pending": ["Required separate Astra review", "G8/AC performance", "Real-device hidden-start proof", "All five owner decisions", "Final 2x crack viewing confirmation"],
+  "preservedApprovals": ["Close camera position", "Footer entrance speed"]
+}

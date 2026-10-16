@@ -15,10 +15,10 @@
  *   - driver memory residency always, and the whole texture/target total whenever the WebGL format,
  *     dimension, mipmap, compressed or 3D storage estimate is incomplete;
  *   - instrumentation overhead (no non-perturbing total is observable);
- *   - startup cache and shader budgets, which are separate five-trial conditions;
+ *   - startup cache and shader budgets, evaluated by the three-condition Lean-V1 startup roster;
  *   - GPU execution time (rAF intervals are presented-frame timing, not GPU time).
  *
- * Boundaries: the parent owns browser/build/GPU scheduling, preview serving and the full 60-report
+ * Boundaries: the parent owns browser/build/GPU scheduling, preview serving and the 20-primary-report
  * roster. This script starts no server and no build, runs only when invoked, writes its report to a
  * task-owned evidence directory (never inside the served build directory), and modifies no product
  * source, frozen evidence or another lane's files. Served identity is bound to the local build for
@@ -147,7 +147,11 @@ function pageLinearSweep(options) {
   const { from, to, durationMs } = options
   return new Promise((resolve) => {
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
-    const toY = (progress) => Math.max(0, Math.min(1, progress)) * maxScroll
+    const toY = (progress) => {
+      const fraction = window.__torqueNarrative?.scrollFraction?.(progress)
+      if (!Number.isFinite(fraction)) throw new Error('Canonical scroll pacing map unavailable')
+      return Math.max(0, Math.min(1, fraction)) * maxScroll
+    }
     const startedAt = performance.now()
     const step = (now) => {
       const u = Math.min(1, (now - startedAt) / durationMs)
@@ -186,10 +190,17 @@ export function pageMeasurementSweep(options) {
   return new Promise((resolve) => {
     const readProgress = () => {
       const narrative = window.__torqueNarrative?.snapshot?.()
-      return { at: performance.now(), portion: stage, progress: narrative?.progress ?? null, beatId: narrative?.beatId ?? null, phase: narrative?.phase ?? null, hidden: document.hidden === true }
+      const progress = narrative?.progress
+      return { at: performance.now(), portion: stage, progress: progress ?? null,
+        scrollFraction: Number.isFinite(progress) ? window.__torqueNarrative.scrollFraction(progress) : null,
+        beatId: narrative?.beatId ?? null, phase: narrative?.phase ?? null, hidden: document.hidden === true }
     }
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
-    const toY = (progress) => Math.max(0, Math.min(1, progress)) * maxScroll
+    const toY = (progress) => {
+      const fraction = window.__torqueNarrative?.scrollFraction?.(progress)
+      if (!Number.isFinite(fraction)) throw new Error('Canonical scroll pacing map unavailable')
+      return Math.max(0, Math.min(1, fraction)) * maxScroll
+    }
     const portions = {
       forward: { requestedMs: forwardMs, startedAt: null, endedAt: null, scrollYMin: null, scrollYMax: null, boundaries: [] },
       reverse: { requestedMs: reverseMs, startedAt: null, endedAt: null, scrollYMin: null, scrollYMax: null, boundaries: [] },
@@ -239,7 +250,8 @@ export function pageMeasurementSweep(options) {
         }
       } else if (stage === 'transition') {
         const witness = readProgress()
-        const atTarget = typeof witness.progress === 'number' && Number.isFinite(witness.progress) && Math.abs(witness.progress - hold) * maxScroll <= 0.5
+        const atTarget = typeof witness.progress === 'number' && Number.isFinite(witness.progress)
+          && Math.abs(toY(witness.progress) - toY(hold)) <= 0.5
         if (!atTarget) portions.transition.settledAt = null
         else if (portions.transition.settledAt === null) portions.transition.settledAt = now
         if (atTarget && now - portions.transition.settledAt >= 300) {
@@ -251,7 +263,7 @@ export function pageMeasurementSweep(options) {
           portions.hold.boundaries.push(readProgress())
           lastSampleAt = null
         } else if (now - stageStartedAt >= portions.transition.timeoutMs) {
-          resolve({ ok: false, error: 'reverse-to-hold target did not settle', maxScroll, window: { start, end, hold }, portions, samples, hiddenDuringSweep })
+          resolve({ ok: false, error: 'reverse-to-hold target did not settle', maxScroll, window: { start, end, hold, holdFraction: window.__torqueNarrative.scrollFraction(hold) }, portions, samples, hiddenDuringSweep })
           return
         }
       } else {
@@ -263,7 +275,7 @@ export function pageMeasurementSweep(options) {
         portions.hold.endedAt = now
         portions.hold.boundaries.push(readProgress())
         samples.push(readProgress())
-        resolve({ ok: true, driver: 'harness native scrollTo rAF sweep (window.scrollTo each frame, instant)', maxScroll, window: { start, end, hold }, elapsedMs: now - startedAt, portions, samples, hiddenDuringSweep })
+        resolve({ ok: true, driver: 'harness native scrollTo rAF sweep (window.scrollTo each frame, instant)', maxScroll, window: { start, end, hold, holdFraction: window.__torqueNarrative.scrollFraction(hold) }, elapsedMs: now - startedAt, portions, samples, hiddenDuringSweep })
         return
       }
       requestAnimationFrame(step)
@@ -424,7 +436,9 @@ export function composePerformanceReport(input) {
   const holdTolerance = finite(sweep?.maxScroll) && sweep.maxScroll > 0 ? 0.5 / sweep.maxScroll : null
   const holdSamples = progressRows.filter((row) => row?.portion === 'hold' || (finite(row?.at) && finite(holdPortion.startedAt) && finite(holdPortion.endedAt) && row.at >= holdPortion.startedAt && row.at <= holdPortion.endedAt))
   const holdWitnesses = [...holdBoundaries, ...holdSamples]
-  const invalidHoldWitnesses = holdWitnesses.filter((row) => !holdInsideWindow(row?.progress) || !finite(holdTarget) || !finite(holdTolerance) || Math.abs(row.progress - holdTarget) > holdTolerance)
+  const invalidHoldWitnesses = holdWitnesses.filter((row) => !holdInsideWindow(row?.progress) || !finite(holdTarget) || !finite(holdTolerance)
+    || !finite(row.scrollFraction) || !finite(sweep?.window?.holdFraction)
+    || Math.abs(row.scrollFraction - sweep.window.holdFraction) > holdTolerance)
   const transition = sweep?.portions?.transition
   const transitionValid = finite(transition?.startedAt) && finite(transition?.settledAt) && finite(transition?.endedAt)
     && transition.startedAt <= transition.settledAt && transition.endedAt - transition.settledAt >= 300
@@ -520,7 +534,7 @@ export function composePerformanceReport(input) {
   if (memory.physicalResidencyObserved !== true) unverifiedObservables.push({ observable: 'physicalMemoryResidency', reason: 'WebGL API instrumentation estimates texture/renderbuffer storage; driver residency is not observable' })
   if (!finite(report.residentTextureTargetMiB)) unverifiedObservables.push({ observable: 'residentTextureTargetMiB', reason: `texture/target byte estimate incomplete (unknownFormatEvents=${memory.unknownFormatEvents ?? 'unreported'}, unsupportedAllocationEvents=${memory.unsupportedAllocationEvents ?? 'unreported'})` })
   if (!finite(report.instrumentationOverheadMs)) unverifiedObservables.push({ observable: 'instrumentationOverheadMs', reason: snapshot.instrumentationOverhead?.reason ?? 'instrumentation overhead was not observable' })
-  unverifiedObservables.push({ observable: 'startupCacheAndShaderBudgets', reason: 'startup budgets require five fresh-context trials per cache condition; this producer covers the measured phase window only' })
+  unverifiedObservables.push({ observable: 'startupCacheAndShaderBudgets', reason: 'JG-038-LEAN-V1 requires three primary fresh-context trials (valid/missing/stale), with required retries; this producer covers the measured phase window only' })
   unverifiedObservables.push({ observable: 'gpuExecutionTime', reason: 'rAF intervals are presented-frame timing, not GPU execution time' })
   unverifiedObservables.push({ observable: 'physicalMobile', reason: 'viewport N is emulated on the reference laptop; no physical narrow device is named' })
 
@@ -585,6 +599,8 @@ export function composePerformanceReport(input) {
   }
   report.hold = {
     targetProgress: finite(holdTarget) ? holdTarget : null,
+    targetScrollFraction: sweep?.window?.holdFraction ?? null,
+    toleranceDomain: 'native scroll fraction; multiply by maxScroll for CSS pixels',
     targetTolerance: holdTolerance,
     sampleCount: holdSamples.length,
     invalidWitnessCount: invalidHoldWitnesses.length,
@@ -645,7 +661,7 @@ export function composePerformanceReport(input) {
   report.limitations = [
     'No driver memory residency, GPU execution time or instrumentation overhead is claimed.',
     'Input is a harness native-scroll fixture; the contract repeatable wheel and touch rosters are separate.',
-    'Startup cache and shader budgets and the full 60-report roster are out of scope for this single sample.',
+    'Startup cache/shader budgets and the full Lean-V1 20-primary phase roster plus required retries are out of scope for this single sample.',
     'Viewport N is emulated on the reference laptop; physical mobile performance remains unverified.',
   ]
 
@@ -732,7 +748,7 @@ async function main() {
       requirement: '__torqueWorld.ready and sheet.baked inside the readiness timeout',
       startupBudgetSeconds: 10,
       startupBudgetEvaluated: false,
-      reason: 'startup budgets require five fresh-context trials per valid/stale/missing cache condition',
+      reason: 'JG-038-LEAN-V1 requires three primary fresh-context startup trials (valid/missing/stale), with required retries; separate startup harness evaluates these budgets',
     }
     page.actualViewport = await tab.evaluate(() => ({ width: innerWidth, height: innerHeight, dpr: devicePixelRatio }))
     if (ready) {
@@ -745,23 +761,50 @@ async function main() {
         if (holdProgress < windowInfo.start || holdProgress > windowInfo.end) throw new Error(`--hold-progress ${holdProgress} is outside the ${args.phase} window ${windowInfo.start}..${windowInfo.end}`)
         await tab.evaluate(pageLinearSweep, { from: 0, to: 1, durationMs: args['prewarm-seconds'] * 1000 })
         await tab.evaluate(pageLinearSweep, { from: 1, to: 0, durationMs: args['prewarm-seconds'] * 1000 })
+        const readinessRemaining = READINESS_TIMEOUT_MS - (Date.now() - navigationStartedAt)
+        if (readinessRemaining <= 0) throw new Error('Full CAD/drawing/font/inspection readiness exceeded 30s navigation deadline')
+        await tab.waitForFunction(() => {
+          const world = window.__torqueWorld?.snapshot?.()
+          return world?.ready && world.sheet.baked && world.ring.ready && world.inspection.ready
+            && world.sheet.stats.annotationsReady === 1 && world.sheet.stats.shaderWarmReady === 1
+            && document.fonts.status === 'loaded' && window.__torqueBackground?.snapshot?.().frames > 0
+        }, null, { timeout: Math.max(1, READINESS_TIMEOUT_MS - (Date.now() - navigationStartedAt)) })
+        page.readiness.fullResourceSpanMs = Date.now() - navigationStartedAt
+        if (page.readiness.fullResourceSpanMs > READINESS_TIMEOUT_MS) throw new Error('Full readiness observed after 30s navigation deadline')
+        page.readiness.resources = { cad: true, drawing: true, documentFonts: true, ring: true, shaft: true, composerPresented: true }
+        // Render the selected phase in both directions after asynchronous study resources exist.
+        await tab.evaluate(pageLinearSweep, { from: windowInfo.start, to: windowInfo.end, durationMs: args['prewarm-seconds'] * 1000 })
+        await tab.evaluate(pageLinearSweep, { from: windowInfo.end, to: windowInfo.start, durationMs: args['prewarm-seconds'] * 1000 })
         await tab.waitForTimeout(PREWARM_SETTLE_MS)
+        await tab.waitForFunction(() => {
+          const r = window.__torquePerformanceObserver.readiness()
+          return r.observed && r.idleMs >= 5000
+        }, null, { timeout: READINESS_TIMEOUT_MS })
+        page.readiness.programIdle = await tab.evaluate(() => window.__torquePerformanceObserver.readiness())
         page.prewarm = {
           complete: true,
           directions: ['forward', 'reverse'],
           secondsPerDirection: args['prewarm-seconds'],
           settleMs: PREWARM_SETTLE_MS,
-          order: 'readiness wait, then forward/reverse prewarm, then settle; the settle is the contract 5 s idle gap',
+          fullResourcesObserved: true,
+          phasePrewarm: { directions: ['forward', 'reverse'], secondsPerDirection: args['prewarm-seconds'] },
+          programIdle: page.readiness.programIdle,
+          order: 'initial bake, full-journey forward/reverse prewarm, explicit CAD/drawing/fonts/ring/shaft/composer readiness inside 30s, selected-phase forward/reverse prewarm, observed program-event idle at least 5s',
         }
         const before = await tab.evaluate(() => { const world = window.__torqueWorld?.snapshot?.(); return { tier: world?.mechanical?.tier ?? null, sheetTier: world?.opening?.tier ?? null } })
         page.tierStart = before.tier
         page.sheetTier = before.sheetTier
         // The prewarm ends at zero; enter and settle the measured phase before starting its clock.
-        await tab.evaluate(start => scrollTo(0, start * (document.documentElement.scrollHeight - innerHeight)), windowInfo.start)
+        await tab.evaluate(start => {
+          const fraction = window.__torqueNarrative.scrollFraction(start)
+          if (!Number.isFinite(fraction)) throw new Error('Canonical scroll pacing map unavailable')
+          scrollTo(0, fraction * (document.documentElement.scrollHeight - innerHeight))
+        }, windowInfo.start)
         await tab.waitForFunction(start => {
           const progress = window.__torqueNarrative?.snapshot?.().progress
           const max = document.documentElement.scrollHeight - innerHeight
-          return typeof progress === 'number' && Math.abs(progress - start) * max <= 0.5
+          return typeof progress === 'number' && Math.abs(window.__torqueNarrative.scrollFraction(progress)
+            - window.__torqueNarrative.scrollFraction(start)) * max <= 0.5
         }, windowInfo.start, { timeout: 5000 })
         await tab.waitForTimeout(300)
         const measurementStart = await tab.evaluate(() => window.__torquePerformanceObserver.beginMeasurement())

@@ -34,4 +34,27 @@ describe('private renderer construction', () => {
     expect(WebGLRenderer).toHaveBeenCalledTimes(calls + 1)
     expect(_roots.has(canvas)).toBe(false)
   })
+
+  it('caps the first and resized buffers atomically before R3F can allocate an oversized canvas', async () => {
+    vi.stubGlobal('window', { devicePixelRatio: 2 })
+    try {
+      const canvas = { width: 0, height: 0, style: { width: '', height: '' } }
+      const originalSize = vi.fn()
+      const allocate = vi.fn((width: number, height: number, dpr: number) => {
+        canvas.width = Math.floor(width * dpr); canvas.height = Math.floor(height * dpr)
+      })
+      const renderer = { domElement: canvas, setSize: originalSize, setDrawingBufferSize: allocate }
+      vi.mocked(WebGLRenderer).mockImplementationOnce(function () { return renderer as unknown as WebGLRenderer })
+      const result = await createPrivateRenderer(vi.fn(), () => 'full')({ canvas: canvas as unknown as HTMLCanvasElement })
+      for (const [width, height] of [[2560, 1440], [3840, 2160], [390, 844]]) {
+        result.setSize(width, height)
+        expect(canvas.width * canvas.height).toBeLessThanOrEqual(2560 * 1440)
+        expect(canvas.width).toBeGreaterThan(0)
+        expect(canvas.height).toBeGreaterThan(0)
+        expect(canvas.style.width).toBe(`${width}px`)
+      }
+      expect(originalSize).not.toHaveBeenCalled()
+      expect(allocate).toHaveBeenCalledTimes(3)
+    } finally { vi.unstubAllGlobals() }
+  })
 })

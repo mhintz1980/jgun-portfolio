@@ -34,7 +34,11 @@ describe('PageNav', () => {
         for (const current of ['jgun', 'torque-wrench'] as const) {
           const markup = render(<PageNav current={current} tier={tier} variant={variant} />)
           for (const page of privatePages) {
-            expect(markup, `${page.id} ${variant} ${tier} current=${current}`).not.toContain(page.label)
+            // Private/public entries can share an owner-requested display label.
+            // Their distinct destination is the isolation contract.
+            if (!PAGES.some(other => !other.private && other.label === page.label)) {
+              expect(markup, `${page.id} ${variant} ${tier} current=${current}`).not.toContain(page.label)
+            }
             expect(markup).not.toContain(page.path)
           }
         }
@@ -44,7 +48,7 @@ describe('PageNav', () => {
 
   it('links the live pages with data-fade and an href', () => {
     const markup = render(<PageNav current="quiet-machine" tier="full" variant="header" />)
-    expect(markup).toContain('<a data-fade="" href="/">TORQUE GUN</a>')
+    expect(markup).toContain('<a data-fade="" href="/">TORQUE WRENCH</a>')
     expect(markup).toContain('data-fade="" href="/quiet-machine/"')
     for (const tag of anchors(markup)) expect(tag).toContain('data-fade=""')
   })

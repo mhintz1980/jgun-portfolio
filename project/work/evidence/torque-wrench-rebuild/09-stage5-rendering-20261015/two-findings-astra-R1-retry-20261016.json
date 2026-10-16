@@ -1,0 +1,16 @@
+{
+  "scope": "JG-038 candidate-f two-finding correction piece only",
+  "round": 1,
+  "attempt": "Retry of unavailable R1; original failure preserved in two-findings-astra-R1-unavailable.json",
+  "authorizedMaximumRounds": 2,
+  "reviewer": "James",
+  "agentId": "01a14325-8c86-7422-934f-b82d7417bbad",
+  "configuredRole": "tier-reviewer",
+  "configuredModel": "gpt-6-astra",
+  "configuredEffort": "medium",
+  "verdict": "SHIP",
+  "blockers": [],
+  "inputs": 386,
+  "sourceAggregateSha256": "b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb",
+  "parentSavedReturnedReview": "VERDICT: ship — candidate-f scoped two-finding correction, outstanding round 1. No blocking findings.\n\nP1 resolved: ringAnchor.ts:10 captures canonical .69 mechanics and restores live mechanics in finally. RuntimeWorld.tsx:401 derives the local center from union bounds. Saved D/N measurements cover five points across forward, direct and restored-.98 reverse-entry journeys: actual root matrices, subject matrices, bounds and camera positions have zero differences, independently recalculated.\n\nP2 resolved: Scene.tsx:20 owns one stable mutable sample. RuntimeWorld.tsx:327–331 writes it after one playback advance at priority −2; BackgroundWorld.tsx:230 consumes it at priority 1. Palette/post remain scroll-driven. No new recurring frame allocations, React updates or lifecycle regression identified. All 16 saved manual traces contain 59–85 samples, with zero mismatches across effective progress, manual state, opacity and all three shader uniforms.\n\nIndependently verified all 386 current input hashes, aggregate b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb, diagnostic harness hash, and five recorded build-byte identities. Only the seven scoped source paths differ from candidate e. All 1,473 baseline files remain present; 1,456 protected files unchanged. Branch/HEAD match; index empty.\n\nSaved evidence supports 136/136 matrix checks and 86 test files / 985 passed / 4 skipped; build log passes. Typecheck success is parent-reported. No tests, browser, GPU, server or build were executed during this review; no writes occurred.\n\nLimitations: runtime conclusions rely on saved captures and inspected measurement code. G8/AC performance, real-device hidden-start proof, five owner decisions, final 2× crack viewing and broader gates remain pending. Preserve approved close-camera/footer-speed settings. This verdict grants no owner acceptance or commit/push/deploy/cutover/archive authorization."
+}

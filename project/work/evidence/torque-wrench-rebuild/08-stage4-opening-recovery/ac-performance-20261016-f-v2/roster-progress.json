@@ -1,0 +1,3642 @@
+{
+  "scope": "JG-038-LEAN-V1 AC phase measurements; no product changes or automatic gate acceptance",
+  "startedAt": "2026-10-16T06:19:34.660Z",
+  "productAggregate": "b80ce99ce4c7811210e0906dcca612e9f034754047371867249b6fb53e3347bb",
+  "harnessSha256": "204a5e04ce183d3fdacc9b4132456af2c30597dc15ab8fe660e41d3409fd4268",
+  "observerSha256": "2ab094b644c8d102f81d77f5d3bf87cf1f83e3388c820d9702775b11ccdbd1c2",
+  "attempts": [
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "drafting",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run1-drafting-2026-10-16T06-21-19-180Z-a0f0e02f.json",
+      "reportSha256": "db050f15cea9b91c6811b35703fa7d9c2e1e2b95a4659d265c4eae551e1213db",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.19999999999709,
+      "maximum": 34,
+      "tailPercent": 0.08275862068965517,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": []
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "breakthrough",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run1-breakthrough-2026-10-16T06-23-05-190Z-cb2b6000.json",
+      "reportSha256": "291cbb9e8fccd2e184f29dc7e5e2a8b11ac5d2a17c894d588b6c34b4f0a505f4",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 33.69999999999709,
+      "p99": 34.200000000004366,
+      "maximum": 35.900000000001455,
+      "tailPercent": 6.469886702444842,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "p95 33.69999999999709 exceeds 20",
+        "p99 34.200000000004366 exceeds 33.4",
+        "tailPercent 6.469886702444842 exceeds 1"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "mechanism",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run1-mechanism-2026-10-16T06-24-53-111Z-9ed73938.json",
+      "reportSha256": "1dac9026d203ea955e07c782a9eea0c3b5ae6e07afb0ebaa12c89b1a80f93f3e",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.400000000001455,
+      "maximum": 33.69999999999709,
+      "tailPercent": 0.027570995312930797,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": []
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "inspection",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run1-inspection-2026-10-16T06-26-37-884Z-7573579d.json",
+      "reportSha256": "9c2588131ed9cbb7267a3efdd19bce0709196c52ad1998635c84e13a90d58f10",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17.099999999998545,
+      "maximum": 17.90000000000873,
+      "tailPercent": 0,
+      "calls": 96,
+      "triangles": 1121733,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": []
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "close",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run1-close-2026-10-16T06-28-21-696Z-6fcd2bd9.json",
+      "reportSha256": "aac89cfb4bb58770c8163f384615a6ef25c6f30b1f5eb2db21c8d68d0af109d8",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17.10000000000582,
+      "maximum": 17.80000000000291,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run1-drafting-2026-10-16T06-30-04-911Z-bfd195f0.json",
+      "reportSha256": "ad64ad66f32341106c7cc8ca9b3d8dae4e423ee79ebd2bf9ff2984c7c42b11b4",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.89999999999418,
+      "p99": 17.19999999999709,
+      "maximum": 17.69999999999709,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run1-breakthrough-2026-10-16T06-31-48-012Z-b3d7e8e5.json",
+      "reportSha256": "86db4730e0765a3d2cf150a308aba4c3903032b4363c51fc412a8385ab4499f8",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.200000000004366,
+      "maximum": 18.30000000000291,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run1-mechanism-2026-10-16T06-33-31-431Z-41033add.json",
+      "reportSha256": "c0bda917c50332543d1c7a4cef030f1d18eea86f0409823c0d5442f8d9a3498a",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.20000000001164,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run1-inspection-2026-10-16T06-35-14-767Z-ba825e72.json",
+      "reportSha256": "753222762a1030f59ad5428e16f59181c47eb70539d1f1581b6f604bd9fad6ec",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.299999999995634,
+      "maximum": 116.90000000000146,
+      "tailPercent": 0.027570995312930797,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 116.90000000000146 exceeds 100",
+        "newWarmPrograms 2 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "close",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run1-close-2026-10-16T06-36-57-930Z-296cd69e.json",
+      "reportSha256": "27749460242dc961021275f8cb7810c194b6b01ad5d6d353bb5616c86ea230a7",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.19999999999709,
+      "maximum": 18.19999999999709,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "drafting",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run1-drafting-2026-10-16T06-38-41-603Z-0a670d0b.json",
+      "reportSha256": "020423b0bfe9ac3d98d5da2107dc760c3ab09488c7dd280340aa490244a70e50",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.90000000000873,
+      "maximum": 17.39999999999418,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "breakthrough",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run1-breakthrough-2026-10-16T06-40-29-394Z-167f20d4.json",
+      "reportSha256": "8a79b815d556268c3d542e4b1e49a929b019eb6bd3554aeabaee30a61d2285ef",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.900000000001455,
+      "maximum": 17.19999999999709,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "mechanism",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run1-mechanism-2026-10-16T06-42-17-086Z-b5d7533d.json",
+      "reportSha256": "07d01ed1219d7028569539652ef19523683bbddccc0a18e95db84fc5ea4a58ff",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17,
+      "maximum": 18.099999999998545,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "inspection",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run1-inspection-2026-10-16T06-44-02-031Z-cfa717b5.json",
+      "reportSha256": "84399d90bfdbd5a9545976a0b141ce8540203190aac63cedd655517372d53a02",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.89999999999418,
+      "p99": 17.200000000004366,
+      "maximum": 317.70000000000437,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1121733,
+      "memoryMiB": null,
+      "newWarmPrograms": 6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 317.70000000000437 exceeds 100",
+        "newWarmPrograms 6 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "close",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run1-close-2026-10-16T06-45-46-380Z-93d6f856.json",
+      "reportSha256": "6d8b3720b9db5526ad978bfdecd332be656da8735780f118fe851e6a2dd70ff0",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.89999999999418,
+      "p99": 17.10000000000582,
+      "maximum": 17.79999999998836,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run1-drafting-2026-10-16T06-47-30-283Z-c0fdf7b9.json",
+      "reportSha256": "a3304e03d04617288975ea72025810fadd266c40cb28a22a63c9c60c56a66a98",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 18.099999999998545,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run1-breakthrough-2026-10-16T06-49-14-129Z-7f321473.json",
+      "reportSha256": "b56cc2f7e091404e140dd5a41bec97d9e166d08d4a2f0821e7b04613db46913a",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.200000000004366,
+      "maximum": 17.89999999999418,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run1-mechanism-2026-10-16T06-50-58-136Z-45309d32.json",
+      "reportSha256": "0c0d613ddfd8817ee372160bca04c936864a5d34f340bbf515b639a1cff28765",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.299999999995634,
+      "maximum": 18.10000000000582,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run1-inspection-2026-10-16T06-52-43-911Z-a938a649.json",
+      "reportSha256": "3c6e81575cac9a0002dd3ad35ecb4a26e9faeb3014fd27c2594d12f814868cd5",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 284,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 284 exceeds 100",
+        "newWarmPrograms 6 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "close",
+      "run": 1,
+      "kind": "primary",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run1-close-2026-10-16T06-54-27-986Z-ab5cbceb.json",
+      "reportSha256": "e77a5394414769cad11edbb1b9e530e039db5afacae6bc059b92f77bdfd534ce",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.900000000001455,
+      "maximum": 18.39999999999418,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "breakthrough",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run2-breakthrough-2026-10-16T06-56-15-653Z-f5b9f9e5.json",
+      "reportSha256": "cd361c4ebe5aa1f70f73bbc6810ee073d70d2b89309eba0a96abe6e7fe727ae9",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.400000000001455,
+      "p99": 34,
+      "maximum": 34.90000000000873,
+      "tailPercent": 2.795208214489447,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "p99 34 exceeds 33.4",
+        "tailPercent 2.795208214489447 exceeds 1"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "close",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run2-close-2026-10-16T06-58-06-891Z-93cbffde.json",
+      "reportSha256": "10456d0c1f48129579b5feda047975904dc9a7f499f19a397ccf90bd253dc4b7",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.80000000000291,
+      "maximum": 17,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "close",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-full-run3-close-2026-10-16T06-59-55-955Z-7545c86a.json",
+      "reportSha256": "0e66d17cc9a295afa34ae0de0ed53970a8c29228e43c04d092f7936c6ba1a343",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.80000000000291,
+      "maximum": 17.69999999999709,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run2-drafting-2026-10-16T07-01-40-236Z-85d05442.json",
+      "reportSha256": "9969fc0b7a5c0555d0226aedac9d0e2db50cda6e9e24a8c30788b95b4110475a",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run3-drafting-2026-10-16T07-03-24-932Z-571d50ad.json",
+      "reportSha256": "93999dcba4a6b822e02968a6ebcfff722bdb7a5dd2791234ad2be2870bdd08ba",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.200000000004366,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run2-breakthrough-2026-10-16T07-05-09-376Z-e74dbad4.json",
+      "reportSha256": "c23dfb1eca9cc7f9f8a7961f9a40e6cbeaf33ecf8a55e8a44ba73b419e33afb1",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17.099999999998545,
+      "maximum": 18.200000000004366,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run3-breakthrough-2026-10-16T07-06-55-971Z-8fc6f209.json",
+      "reportSha256": "3fc410aa42a3d039dfacebe3278f7ca561922eb2a7e29b5c81fcf6e62ff428b4",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.900000000001455,
+      "maximum": 17.60000000000582,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run2-mechanism-2026-10-16T07-08-41-833Z-d332e5e9.json",
+      "reportSha256": "44b0db9138c1efccdedc498e8d78977776e5b5227db81365d00c01aaea0b58ed",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.900000000001455,
+      "maximum": 17.70000000001164,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run3-mechanism-2026-10-16T07-10-26-133Z-bb7957f6.json",
+      "reportSha256": "556ec6367f262e4472dfb1e3d658b56ef11f05e4b92a9840a6e5b04cc4e63323",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.89999999999418,
+      "p99": 17.19999999999709,
+      "maximum": 17.70000000001164,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run2-inspection-2026-10-16T07-12-11-305Z-055b2d78.json",
+      "reportSha256": "15147144a7bdbe085bc13aa87957aaf383c7f2e5610f41db0da53ba956b87839",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.09999999999127,
+      "p99": 17.30000000000291,
+      "maximum": 17.90000000000873,
+      "tailPercent": 0,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run3-inspection-2026-10-16T07-13-55-614Z-a54e343a.json",
+      "reportSha256": "efc16c655e37d198630fb11a0e915059ae6e1e92a984485017604f9539d5b620",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.09999999999127,
+      "p99": 17.30000000000291,
+      "maximum": 117,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 117 exceeds 100",
+        "newWarmPrograms 2 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "close",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run2-close-2026-10-16T07-15-39-797Z-4a617021.json",
+      "reportSha256": "1cd36eb9f103393c05a4efba7576e701313dbc45d84adabb7d41b47c7acac773",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "close",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-D-lite-run3-close-2026-10-16T07-17-24-116Z-26fa560a.json",
+      "reportSha256": "40194b39ec532584c4199778c09692fa1eb66ca1ca02a4e4e8ca356ed9465e1d",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.200000000004366,
+      "maximum": 18.099999999998545,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "drafting",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run2-drafting-2026-10-16T07-19-08-384Z-41aca4de.json",
+      "reportSha256": "c4fa2e83a65f21dd192626a8189383344caf85b60b9339e7bb2f2038e297f6d5",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "drafting",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run3-drafting-2026-10-16T07-20-53-255Z-7015f256.json",
+      "reportSha256": "ff8666fc5de6f1f8ef348cec63e2fe33363efcb3075e7fb12791fa8bbd7c979a",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17,
+      "maximum": 17.90000000000873,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "breakthrough",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run2-breakthrough-2026-10-16T07-22-36-788Z-8d90b5b8.json",
+      "reportSha256": "c7180bc0a65cb8e5964521aba86ec9d19390fb24ad55ad2c6cef99583b1d72e2",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.89999999999418,
+      "maximum": 17.60000000000582,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "breakthrough",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run3-breakthrough-2026-10-16T07-24-20-468Z-194e9cf8.json",
+      "reportSha256": "60c40f755633ea6c1bc0161d10f85a1594c36e6d647a2981f83b4b6799ac68fa",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 16.900000000001455,
+      "maximum": 17.599999999998545,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "mechanism",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run2-mechanism-2026-10-16T07-26-03-950Z-283ec401.json",
+      "reportSha256": "97367ba59d74283747408a6be83e3d12580c58ec30e1cb74500e5bab170e13f8",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "mechanism",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run3-mechanism-2026-10-16T07-27-47-334Z-52176f86.json",
+      "reportSha256": "41840432e8541c69e0df2defd45e40d7fd312d3dc86ba281a397a52e974fd5c7",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17.10000000000582,
+      "maximum": 18.19999999999709,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "inspection",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run2-inspection-2026-10-16T07-29-31-342Z-7b7bb1f6.json",
+      "reportSha256": "a2015745cbb9f3db50a30fc2cc9a8db64a1d82cdf3b74df5ee0c29f313bb2875",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.30000000000291,
+      "maximum": 267.5,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1121733,
+      "memoryMiB": null,
+      "newWarmPrograms": 6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 267.5 exceeds 100",
+        "newWarmPrograms 6 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "inspection",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run3-inspection-2026-10-16T07-31-15-292Z-64ed2a41.json",
+      "reportSha256": "68ad3a8feb151c1ad02f49d723b98f5320a60bf8554e88a7de7884385ffa6499",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.900000000001455,
+      "p99": 17.30000000000291,
+      "maximum": 284.1000000000058,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1121733,
+      "memoryMiB": null,
+      "newWarmPrograms": 6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 284.1000000000058 exceeds 100",
+        "newWarmPrograms 6 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "close",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run2-close-2026-10-16T07-32-58-672Z-85d34de0.json",
+      "reportSha256": "a606f711d6f595704ee79bc3f5e20563d31e4eae7197b3267f60b7d2e4201431",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.89999999999418,
+      "p99": 17.200000000004366,
+      "maximum": 17.700000000004366,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "close",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-full-run3-close-2026-10-16T07-34-42-214Z-62918966.json",
+      "reportSha256": "20f33871c040382530507eea9ae96d85b0ecf555363d6196b39bae34ed7c432f",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "p99": 17.10000000000582,
+      "maximum": 17.599999999998545,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run2-drafting-2026-10-16T07-36-25-259Z-034ea196.json",
+      "reportSha256": "0680a7d979be753d1ec48ec921b0644c188866631930a6b649565d2ac878f130",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.39999999999418,
+      "maximum": 18.10000000000582,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "drafting",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run3-drafting-2026-10-16T07-38-08-422Z-0ac583a8.json",
+      "reportSha256": "375249ff1ece15b2c4a15f815442de26952ce8c6fb1a2292e378782b43262e64",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.09999999999127,
+      "p99": 17.30000000000291,
+      "maximum": 18.10000000000582,
+      "tailPercent": 0,
+      "calls": 168,
+      "triangles": 1467017,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run2-breakthrough-2026-10-16T07-39-51-349Z-9536327e.json",
+      "reportSha256": "bd5b0782726d878023861a26852e8358234c0de4ba080e8104545204f779c75a",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run3-breakthrough-2026-10-16T07-41-34-583Z-ea92a6ea.json",
+      "reportSha256": "559cb32b429eea747dc53172c6bff3da4e41be2e87e47b947dba55d0c2c1a4b2",
+      "status": "UNVERIFIED",
+      "exitCode": 10,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.09999999999127,
+      "p99": 17.30000000000291,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 173,
+      "triangles": 1611969,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run2-mechanism-2026-10-16T07-43-18-290Z-17619c9b.json",
+      "reportSha256": "26eccc5aed14ddedd1ad70153797e85d7db27628cb75a1810c28b09905ccd36c",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.20000000001164,
+      "maximum": 18.099999999998545,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "mechanism",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run3-mechanism-2026-10-16T07-45-01-739Z-c0bec086.json",
+      "reportSha256": "9ec91eec2dc26971eced9062ca19a049efef265138187fa690395ddeaa5cf165",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.20000000001164,
+      "maximum": 18.19999999999709,
+      "tailPercent": 0,
+      "calls": 171,
+      "triangles": 1564759,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 1564759 exceeds 1500000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run2-inspection-2026-10-16T07-46-44-776Z-09c4171b.json",
+      "reportSha256": "8f070577f283c2a5f613454718a0fa2ea4b1afd440bbf2cd47bda35fd0b4b6a6",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17.09999999999127,
+      "p99": 17.30000000000291,
+      "maximum": 18.099999999998545,
+      "tailPercent": 0,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 2,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "newWarmPrograms 2 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "inspection",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run3-inspection-2026-10-16T07-48-28-052Z-07f869a5.json",
+      "reportSha256": "f2490a4bad4d1db55fd5845f29055227196d1a561f8387463aa6a0fb0506a3b2",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.20000000001164,
+      "maximum": 267.20000000000437,
+      "tailPercent": 0.027578599007170437,
+      "calls": 96,
+      "triangles": 1082256,
+      "memoryMiB": null,
+      "newWarmPrograms": 6,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "maximum 267.20000000000437 exceeds 100",
+        "newWarmPrograms 6 exceeds 0"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "close",
+      "run": 2,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run2-close-2026-10-16T07-50-11-261Z-0b4e2449.json",
+      "reportSha256": "aefb17e692ca069b6bed7a7dae01aba369fd3acfce4b6a8f825f05a4c0eaeb32",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 17.79999999998836,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "close",
+      "run": 3,
+      "kind": "retry",
+      "path": "project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/ac-performance-20261016-f-v2/performance-contract-N-lite-run3-close-2026-10-16T07-51-54-084Z-d9f8a11f.json",
+      "reportSha256": "bfac299f927c1559f0dd07b3f431fd36014a71a0bcb16cc45f4eba85fffa8ce1",
+      "status": "FAIL",
+      "exitCode": 1,
+      "reusedExisting": false,
+      "p50": 16.69999999999709,
+      "p95": 17,
+      "p99": 17.30000000000291,
+      "maximum": 18,
+      "tailPercent": 0,
+      "calls": 66,
+      "triangles": 929253,
+      "memoryMiB": null,
+      "newWarmPrograms": 0,
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "refreshHz": 59.88,
+      "errors": [
+        "peakFrameTriangles 929253 exceeds 750000"
+      ],
+      "unverified": [
+        "Missing or invalid residentTextureTargetMiB",
+        "Missing or invalid instrumentationOverheadMs"
+      ],
+      "extraGateFailures": [],
+      "retryReasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    }
+  ],
+  "plannedPrimary": 20,
+  "plannedRetries": [
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "breakthrough",
+      "runs": [
+        2
+      ],
+      "reasons": [
+        "failed or incomplete observation"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "full",
+      "phase": "close",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "drafting",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "mechanism",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "inspection",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "D",
+      "tier": "lite",
+      "phase": "close",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "drafting",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "breakthrough",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "mechanism",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "inspection",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "full",
+      "phase": "close",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "drafting",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr",
+        "near ceiling: peakFrameTriangles"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "breakthrough",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "mechanism",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "inspection",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    },
+    {
+      "viewport": "N",
+      "tier": "lite",
+      "phase": "close",
+      "runs": [
+        2,
+        3
+      ],
+      "reasons": [
+        "failed or incomplete observation",
+        "near ceiling: dpr"
+      ]
+    }
+  ],
+  "completedPrimary": 20,
+  "completedRetries": 33,
+  "status": "MEASURED_WITH_FAILURES",
+  "environment": [
+    {
+      "at": "2026-10-16T06:19:35.190Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:21:19.782Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:21:20.268Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:23:05.716Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:23:06.202Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:24:53.702Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:24:54.230Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:26:38.399Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:26:38.865Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:28:22.179Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:28:22.607Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:30:05.382Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:30:05.808Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:31:48.529Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:31:48.989Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:33:31.900Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:33:32.335Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:35:15.249Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:35:15.695Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:36:58.416Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:36:58.869Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:38:42.227Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:38:42.847Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:40:29.987Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:40:30.509Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:42:17.628Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:42:18.141Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:44:02.599Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:44:03.102Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:45:46.930Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:45:47.425Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:47:30.823Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:47:31.302Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:49:14.654Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:49:15.200Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:50:58.712Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:50:59.241Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:52:44.451Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:52:44.950Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:54:28.565Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:54:29.128Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:56:16.313Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:56:16.961Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:58:07.475Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:58:07.996Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:59:56.509Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T06:59:57.008Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:01:40.783Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:01:41.303Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:03:25.488Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:03:25.980Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:05:09.895Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:05:10.384Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:06:56.596Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:06:57.199Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:08:42.379Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:08:42.881Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:10:26.771Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:10:27.364Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:12:11.867Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:12:12.352Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:13:56.166Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:13:56.630Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:15:40.344Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:15:40.844Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:17:24.664Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:17:25.138Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:19:08.919Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:19:09.420Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:20:53.754Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:20:54.204Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:22:37.261Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:22:37.685Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:24:20.951Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:24:21.388Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:26:04.434Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:26:04.884Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:27:47.800Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:27:48.257Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:29:31.818Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:29:32.239Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:31:15.770Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:31:16.203Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:32:59.184Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:32:59.638Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:34:42.700Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:34:43.119Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:36:25.763Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:36:26.217Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:38:08.888Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:38:09.323Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:39:51.842Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:39:52.284Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:41:35.060Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:41:35.487Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:43:18.777Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:43:19.188Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:45:02.267Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:45:02.716Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:46:45.235Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:46:45.663Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:48:28.513Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:48:28.931Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:50:11.752Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:50:12.180Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    },
+    {
+      "at": "2026-10-16T07:51:54.599Z",
+      "power": {
+        "PowerOnline": true,
+        "Charging": true,
+        "Discharging": false
+      },
+      "drift": []
+    }
+  ],
+  "limitations": [
+    "Texture-memory estimate may be incomplete",
+    "Total observer overhead unavailable",
+    "Emulated N is not physical mobile",
+    "No owner acceptance or full G8 closure inferred"
+  ],
+  "rosterValidation": {
+    "pass": false,
+    "errors": [
+      "D/full/1/breakthrough: p95 33.69999999999709 exceeds 20",
+      "D/full/1/breakthrough: p99 34.200000000004366 exceeds 33.4",
+      "D/full/1/breakthrough: tailPercent 6.469886702444842 exceeds 1",
+      "D/full/2/breakthrough: p99 34 exceeds 33.4",
+      "D/full/2/breakthrough: tailPercent 2.795208214489447 exceeds 1",
+      "D/lite/1/close: peakFrameTriangles 929253 exceeds 750000",
+      "D/lite/1/inspection: maximum 116.90000000000146 exceeds 100",
+      "D/lite/1/inspection: newWarmPrograms 2 exceeds 0",
+      "D/lite/1/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+      "D/lite/2/close: peakFrameTriangles 929253 exceeds 750000",
+      "D/lite/2/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+      "D/lite/3/close: peakFrameTriangles 929253 exceeds 750000",
+      "D/lite/3/inspection: maximum 117 exceeds 100",
+      "D/lite/3/inspection: newWarmPrograms 2 exceeds 0",
+      "D/lite/3/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+      "N/full/1/inspection: maximum 317.70000000000437 exceeds 100",
+      "N/full/1/inspection: newWarmPrograms 6 exceeds 0",
+      "N/full/2/inspection: maximum 267.5 exceeds 100",
+      "N/full/2/inspection: newWarmPrograms 6 exceeds 0",
+      "N/full/3/inspection: maximum 284.1000000000058 exceeds 100",
+      "N/full/3/inspection: newWarmPrograms 6 exceeds 0",
+      "N/lite/1/close: peakFrameTriangles 929253 exceeds 750000",
+      "N/lite/1/inspection: maximum 284 exceeds 100",
+      "N/lite/1/inspection: newWarmPrograms 6 exceeds 0",
+      "N/lite/1/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+      "N/lite/2/close: peakFrameTriangles 929253 exceeds 750000",
+      "N/lite/2/inspection: newWarmPrograms 2 exceeds 0",
+      "N/lite/2/mechanism: peakFrameTriangles 1564759 exceeds 1500000",
+      "N/lite/3/close: peakFrameTriangles 929253 exceeds 750000",
+      "N/lite/3/inspection: maximum 267.20000000000437 exceeds 100",
+      "N/lite/3/inspection: newWarmPrograms 6 exceeds 0",
+      "N/lite/3/mechanism: peakFrameTriangles 1564759 exceeds 1500000"
+    ],
+    "unverified": [
+      "D/full/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "D/full/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "D/full/1/close: Missing or invalid residentTextureTargetMiB",
+      "D/full/1/close: Missing or invalid instrumentationOverheadMs",
+      "D/full/1/drafting: Missing or invalid residentTextureTargetMiB",
+      "D/full/1/drafting: Missing or invalid instrumentationOverheadMs",
+      "D/full/1/inspection: Missing or invalid residentTextureTargetMiB",
+      "D/full/1/inspection: Missing or invalid instrumentationOverheadMs",
+      "D/full/1/mechanism: Missing or invalid residentTextureTargetMiB",
+      "D/full/1/mechanism: Missing or invalid instrumentationOverheadMs",
+      "D/full/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "D/full/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "D/full/2/close: Missing or invalid residentTextureTargetMiB",
+      "D/full/2/close: Missing or invalid instrumentationOverheadMs",
+      "D/full/3/close: Missing or invalid residentTextureTargetMiB",
+      "D/full/3/close: Missing or invalid instrumentationOverheadMs",
+      "D/lite/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "D/lite/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "D/lite/1/close: Missing or invalid residentTextureTargetMiB",
+      "D/lite/1/close: Missing or invalid instrumentationOverheadMs",
+      "D/lite/1/drafting: Missing or invalid residentTextureTargetMiB",
+      "D/lite/1/drafting: Missing or invalid instrumentationOverheadMs",
+      "D/lite/1/inspection: Missing or invalid residentTextureTargetMiB",
+      "D/lite/1/inspection: Missing or invalid instrumentationOverheadMs",
+      "D/lite/1/mechanism: Missing or invalid residentTextureTargetMiB",
+      "D/lite/1/mechanism: Missing or invalid instrumentationOverheadMs",
+      "D/lite/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "D/lite/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "D/lite/2/close: Missing or invalid residentTextureTargetMiB",
+      "D/lite/2/close: Missing or invalid instrumentationOverheadMs",
+      "D/lite/2/drafting: Missing or invalid residentTextureTargetMiB",
+      "D/lite/2/drafting: Missing or invalid instrumentationOverheadMs",
+      "D/lite/2/inspection: Missing or invalid residentTextureTargetMiB",
+      "D/lite/2/inspection: Missing or invalid instrumentationOverheadMs",
+      "D/lite/2/mechanism: Missing or invalid residentTextureTargetMiB",
+      "D/lite/2/mechanism: Missing or invalid instrumentationOverheadMs",
+      "D/lite/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "D/lite/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "D/lite/3/close: Missing or invalid residentTextureTargetMiB",
+      "D/lite/3/close: Missing or invalid instrumentationOverheadMs",
+      "D/lite/3/drafting: Missing or invalid residentTextureTargetMiB",
+      "D/lite/3/drafting: Missing or invalid instrumentationOverheadMs",
+      "D/lite/3/inspection: Missing or invalid residentTextureTargetMiB",
+      "D/lite/3/inspection: Missing or invalid instrumentationOverheadMs",
+      "D/lite/3/mechanism: Missing or invalid residentTextureTargetMiB",
+      "D/lite/3/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/full/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/full/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/full/1/close: Missing or invalid residentTextureTargetMiB",
+      "N/full/1/close: Missing or invalid instrumentationOverheadMs",
+      "N/full/1/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/full/1/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/full/1/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/full/1/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/full/1/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/full/1/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/full/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/full/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/full/2/close: Missing or invalid residentTextureTargetMiB",
+      "N/full/2/close: Missing or invalid instrumentationOverheadMs",
+      "N/full/2/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/full/2/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/full/2/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/full/2/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/full/2/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/full/2/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/full/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/full/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/full/3/close: Missing or invalid residentTextureTargetMiB",
+      "N/full/3/close: Missing or invalid instrumentationOverheadMs",
+      "N/full/3/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/full/3/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/full/3/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/full/3/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/full/3/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/full/3/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/lite/1/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/lite/1/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/lite/1/close: Missing or invalid residentTextureTargetMiB",
+      "N/lite/1/close: Missing or invalid instrumentationOverheadMs",
+      "N/lite/1/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/lite/1/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/lite/1/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/lite/1/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/lite/1/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/lite/1/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/lite/2/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/lite/2/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/lite/2/close: Missing or invalid residentTextureTargetMiB",
+      "N/lite/2/close: Missing or invalid instrumentationOverheadMs",
+      "N/lite/2/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/lite/2/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/lite/2/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/lite/2/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/lite/2/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/lite/2/mechanism: Missing or invalid instrumentationOverheadMs",
+      "N/lite/3/breakthrough: Missing or invalid residentTextureTargetMiB",
+      "N/lite/3/breakthrough: Missing or invalid instrumentationOverheadMs",
+      "N/lite/3/close: Missing or invalid residentTextureTargetMiB",
+      "N/lite/3/close: Missing or invalid instrumentationOverheadMs",
+      "N/lite/3/drafting: Missing or invalid residentTextureTargetMiB",
+      "N/lite/3/drafting: Missing or invalid instrumentationOverheadMs",
+      "N/lite/3/inspection: Missing or invalid residentTextureTargetMiB",
+      "N/lite/3/inspection: Missing or invalid instrumentationOverheadMs",
+      "N/lite/3/mechanism: Missing or invalid residentTextureTargetMiB",
+      "N/lite/3/mechanism: Missing or invalid instrumentationOverheadMs"
+    ],
+    "results": [
+      {
+        "key": "D/full/1/breakthrough",
+        "pass": false,
+        "errors": [
+          "p95 33.69999999999709 exceeds 20",
+          "p99 34.200000000004366 exceeds 33.4",
+          "tailPercent 6.469886702444842 exceeds 1"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/1/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/1/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/1/inspection",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/1/mechanism",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/2/breakthrough",
+        "pass": false,
+        "errors": [
+          "p99 34 exceeds 33.4",
+          "tailPercent 2.795208214489447 exceeds 1"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/2/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/full/3/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/1/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/1/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/1/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/1/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 116.90000000000146 exceeds 100",
+          "newWarmPrograms 2 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/1/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/2/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/2/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/2/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/2/inspection",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/2/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/3/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/3/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/3/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/3/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 117 exceeds 100",
+          "newWarmPrograms 2 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "D/lite/3/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/1/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/1/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/1/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/1/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 317.70000000000437 exceeds 100",
+          "newWarmPrograms 6 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/1/mechanism",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/2/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/2/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/2/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/2/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 267.5 exceeds 100",
+          "newWarmPrograms 6 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/2/mechanism",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/3/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/3/close",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/3/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/3/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 284.1000000000058 exceeds 100",
+          "newWarmPrograms 6 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/full/3/mechanism",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/1/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/1/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/1/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/1/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 284 exceeds 100",
+          "newWarmPrograms 6 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/1/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/2/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/2/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/2/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/2/inspection",
+        "pass": false,
+        "errors": [
+          "newWarmPrograms 2 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/2/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/3/breakthrough",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/3/close",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 929253 exceeds 750000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/3/drafting",
+        "pass": false,
+        "errors": [],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/3/inspection",
+        "pass": false,
+        "errors": [
+          "maximum 267.20000000000437 exceeds 100",
+          "newWarmPrograms 6 exceeds 0"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      },
+      {
+        "key": "N/lite/3/mechanism",
+        "pass": false,
+        "errors": [
+          "peakFrameTriangles 1564759 exceeds 1500000"
+        ],
+        "unverified": [
+          "Missing or invalid residentTextureTargetMiB",
+          "Missing or invalid instrumentationOverheadMs"
+        ]
+      }
+    ]
+  },
+  "finishedAt": "2026-10-16T07:51:54.792Z"
+}

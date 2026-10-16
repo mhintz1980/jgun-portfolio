@@ -1,0 +1,4589 @@
+{
+  "schema": "JG-038-stage5-runtime-v1",
+  "startedAt": "2026-10-15T23:46:20.535Z",
+  "requestedUrl": "http://localhost:5288/",
+  "pageUrl": "http://localhost:5288/torque-wrench/",
+  "timeoutMs": 120000,
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-correction-20261015-d",
+  "buildDirSource": "cli",
+  "casesRequested": [
+    "d-full"
+  ],
+  "cases": [
+    {
+      "id": "d-full",
+      "kind": "live",
+      "requestedTier": "full",
+      "viewport": {
+        "key": "D",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "label": "D 1440x900 DPR1 desktop"
+      },
+      "contextOptions": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "reducedMotion": "no-preference",
+        "serviceWorkers": "block"
+      },
+      "url": "http://localhost:5288/torque-wrench/",
+      "checks": [
+        {
+          "name": "page loads (HTTP 200)",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "status": 200
+          }
+        },
+        {
+          "name": "viewport observed matches case matrix",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "requested": {
+              "width": 1440,
+              "height": 900,
+              "deviceScaleFactor": 1
+            },
+            "observed": {
+              "innerWidth": 1440,
+              "innerHeight": 900,
+              "devicePixelRatio": 1
+            }
+          }
+        },
+        {
+          "name": "telemetry surfaces present",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "world": true,
+            "background": true,
+            "narrative": true
+          }
+        },
+        {
+          "name": "live mode reached",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "mode": "live",
+            "torqueStage": "scene",
+            "narrativeCanvasCount": 1,
+            "visibility": "visible"
+          }
+        },
+        {
+          "name": "requested tier matches effective tier (store, sheet, background budget)",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "requested": "full",
+            "storeTier": "full",
+            "sheetTier": "full",
+            "backgroundBudgetTier": "full",
+            "rendererEffectiveDpr": 1,
+            "rendererDrawingBuffer": [
+              1440,
+              900
+            ],
+            "backgroundBudgetDpr": 1
+          }
+        },
+        {
+          "name": "readiness: world ready, sheet baked, background rendering",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "worldReady": true,
+            "sheetBaked": true,
+            "backgroundFrames": 38
+          }
+        },
+        {
+          "name": "canonical seeks settle within 0.001",
+          "pass": true,
+          "status": "PASS",
+          "actual": [
+            {
+              "requested": 0,
+              "achieved": 0,
+              "error": null
+            },
+            {
+              "requested": 0.32,
+              "achieved": 0.32000669280068905,
+              "error": null
+            },
+            {
+              "requested": 0.46,
+              "achieved": 0.4599913949709844,
+              "error": null
+            },
+            {
+              "requested": 0.69,
+              "achieved": 0.6900009561145453,
+              "error": null
+            },
+            {
+              "requested": 0.815,
+              "achieved": 0.8150032249218384,
+              "error": null
+            },
+            {
+              "requested": 0.94,
+              "achieved": 0.940001912229036,
+              "error": null
+            },
+            {
+              "requested": 1,
+              "achieved": 1,
+              "error": null
+            }
+          ]
+        },
+        {
+          "name": "held state stable over five seconds",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "positionDrift": 0,
+            "quatDriftDeg": 0,
+            "fovDriftDeg": 0,
+            "backgroundProgress": [
+              1,
+              1
+            ],
+            "atProgress": 1,
+            "worldFrames": [
+              785,
+              1098
+            ],
+            "backgroundFrames": [
+              811,
+              1124
+            ],
+            "error": null
+          }
+        },
+        {
+          "name": "world and background frames advance together",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "worldFrames": [
+              785,
+              1098
+            ],
+            "backgroundFrames": [
+              811,
+              1124
+            ]
+          }
+        },
+        {
+          "name": "three live depth layers present, visible, finite",
+          "pass": true,
+          "status": "PASS",
+          "actual": [
+            {
+              "id": "cavern-far",
+              "depth": 24,
+              "position": [
+                -13.482562183934249,
+                -6.746401066519551,
+                -17.959870442062584
+              ],
+              "visible": true,
+              "requestedOpacity": 0.88,
+              "effectiveAlpha": {
+                "model": "forced-opaque",
+                "peakCoverage": 1,
+                "spatiallyUniform": true
+              }
+            },
+            {
+              "id": "cavern-middle",
+              "depth": 18,
+              "position": [
+                -9.914494696872191,
+                -4.966207303902842,
+                -13.474787547030296
+              ],
+              "visible": true,
+              "requestedOpacity": 0.44,
+              "effectiveAlpha": {
+                "model": "radial-gaussian-times-strata",
+                "peakCoverage": 0.44,
+                "spatiallyUniform": false
+              }
+            },
+            {
+              "id": "atmosphere-near",
+              "depth": 12,
+              "position": [
+                -6.331748842175322,
+                -3.179314354287782,
+                -9.003440241433426
+              ],
+              "visible": true,
+              "requestedOpacity": 0.28,
+              "effectiveAlpha": {
+                "model": "radial-gaussian-times-strata",
+                "peakCoverage": 0.28,
+                "spatiallyUniform": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "identity grade through 0.46",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "samples": [
+              {
+                "requested": 0,
+                "achieved": 0,
+                "exposure": 1,
+                "saturation": 1,
+                "vignette": 0
+              },
+              {
+                "requested": 0.32,
+                "achieved": 0.32000669280068905,
+                "exposure": 1,
+                "saturation": 1,
+                "vignette": 0
+              },
+              {
+                "requested": 0.46,
+                "achieved": 0.4599913949709844,
+                "exposure": 1,
+                "saturation": 1,
+                "vignette": 0
+              }
+            ],
+            "epsilon": 0.000001
+          }
+        },
+        {
+          "name": "drawing buffer exactly 2 finite dims within 2560x1440 budget",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "pixelBudget": 3686400
+          }
+        },
+        {
+          "name": "renderer frame stats captured (whole-frame calls and triangles)",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "samples": [
+              {
+                "requested": 0,
+                "calls": 144,
+                "triangles": 1353275
+              },
+              {
+                "requested": 0.32,
+                "calls": 168,
+                "triangles": 1467017
+              },
+              {
+                "requested": 0.46,
+                "calls": 171,
+                "triangles": 1526615
+              },
+              {
+                "requested": 0.69,
+                "calls": 43,
+                "triangles": 758317
+              },
+              {
+                "requested": 0.815,
+                "calls": 11,
+                "triangles": 20355
+              },
+              {
+                "requested": 0.94,
+                "calls": 66,
+                "triangles": 891109
+              },
+              {
+                "requested": 1,
+                "calls": 66,
+                "triangles": 891109
+              }
+            ],
+            "note": "whole-frame renderer.info sum across composer passes (BackgroundWorld resets gl.info, renders the full chain, then reads); actual values only, no ceiling asserted"
+          }
+        },
+        {
+          "name": "zero page/console/network/HTTP errors",
+          "pass": true,
+          "status": "PASS",
+          "actual": []
+        },
+        {
+          "name": "served identity byte-matches build dir",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "mismatches": [],
+            "error": null
+          }
+        }
+      ],
+      "shapeViolations": [],
+      "status": "PASS",
+      "summary": {
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "pass": true
+      },
+      "errors": [],
+      "samples": [
+        {
+          "requested": 0,
+          "achieved": 0,
+          "world": {
+            "ready": true,
+            "frames": 127,
+            "hiddenFrames": 0,
+            "progress": 0,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.3114502573186421,
+                0.11697568031187505,
+                -0.11612896315134057
+              ],
+              "target": [
+                0.165,
+                0,
+                -0.085
+              ],
+              "quaternion": [
+                -0.20488667827635168,
+                0.7348059425095568,
+                0.25301397641537865,
+                0.5950341197410474
+              ],
+              "fov": 30
+            },
+            "inspection": {
+              "ready": false,
+              "subjectTime": 0,
+              "cameraTime": 0,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": false,
+              "time": 0,
+              "cameraTime": 0,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 0
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 144,
+              "triangles": 1353275,
+              "geometries": 178,
+              "textures": 18,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.006,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 0,
+                "openingClear": 0,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 0,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 0,
+                "electricalBranch": 0,
+                "pitFissureGrowth": 0,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 0,
+                "pitRetained": 0,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9625476190533191,
+                "portalLight": 0,
+                "phase": 0,
+                "poseT": 0,
+                "lineOpacity": 1,
+                "focus": 0,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 1,
+                "localZ": -0.04053150964379311
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 0,
+              "fracture": 0,
+              "openingClear": 0,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 0,
+              "poseT": 0,
+              "focus": 0,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 1,
+              "pulseHead": 0,
+              "crackGrowth": 0,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "illumination": 0,
+              "perspective": 0,
+              "contrast": 1,
+              "drawingOpacity": 1,
+              "waveTime": 0,
+              "waveActive": 0,
+              "lightSweep": 0,
+              "lightSweepPosition": 0,
+              "retirement": 0,
+              "sheetDistance": 0.19,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": true
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": true
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0,
+            "active": true,
+            "hidden": false,
+            "frames": 153,
+            "layers": [
+              {
+                "offset": [
+                  0,
+                  0
+                ],
+                "opacity": 0.9,
+                "scale": 1,
+                "color": [
+                  0.008540382112116999,
+                  0.010022825574869039,
+                  0.01532520332062848
+                ]
+              },
+              {
+                "offset": [
+                  0,
+                  0
+                ],
+                "opacity": 0.56,
+                "scale": 0.98,
+                "color": [
+                  0.039681909478526005,
+                  0.036306484118193906,
+                  0.033104766570885055
+                ]
+              },
+              {
+                "offset": [
+                  0,
+                  0
+                ],
+                "opacity": 0.42,
+                "scale": 0.96,
+                "color": [
+                  0.17064493581555268,
+                  0.147318999244498,
+                  0.1192801876221121
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -18.187529614509838,
+                  -14.658899727503927,
+                  3.815950592807476
+                ],
+                "visible": true,
+                "requestedOpacity": 0.9,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -13.56278464655272,
+                  -10.964930875549976,
+                  2.832930703817772
+                ],
+                "visible": true,
+                "requestedOpacity": 0.56,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.56,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -8.9380396785956,
+                  -7.2709620235960255,
+                  1.8499108148280679
+                ],
+                "visible": true,
+                "requestedOpacity": 0.42,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.42,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 1,
+              "vignette": 0
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 144,
+            "triangles": 1353275,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0,
+            "beatId": "drafting-detail",
+            "localProgress": 0,
+            "phase": "entering",
+            "stateKey": "[0,0,{\"id\":\"drafting-detail\",\"start\":0,\"end\":0.06,\"title\":\"Read the detail\",\"copy\":\"Begin close to the registered drawing and its engineering detail.\",\"camera\":\"rake\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0,null,\"drafting-authorship\",\"entering\"]",
+            "previousId": null,
+            "nextId": "drafting-authorship"
+          }
+        },
+        {
+          "requested": 0.32,
+          "achieved": 0.32000669280068905,
+          "world": {
+            "ready": true,
+            "frames": 242,
+            "hiddenFrames": 0,
+            "progress": 0.32000669280068905,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.042000000000000044,
+                0.5999442105816061,
+                0.12
+              ],
+              "target": [
+                0.04200000000000001,
+                0,
+                0.12
+              ],
+              "quaternion": [
+                -0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "fov": 30
+            },
+            "inspection": {
+              "ready": false,
+              "subjectTime": 0,
+              "cameraTime": 0,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": false,
+              "time": 0,
+              "cameraTime": 0,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 0
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 168,
+              "triangles": 1467017,
+              "geometries": 178,
+              "textures": 18,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.006,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 0,
+                "openingClear": 0,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 0,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 0,
+                "electricalBranch": 0,
+                "pitFissureGrowth": 0,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 0,
+                "pitRetained": 0,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9566090799967367,
+                "portalLight": 0,
+                "phase": 0.4500000176355052,
+                "poseT": 0.2278481101951925,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 0.7786960136713651,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": -0.04053150964379311
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 0,
+              "fracture": 0,
+              "openingClear": 0,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 0.4500000176355052,
+              "poseT": 0.2278481101951925,
+              "focus": 1,
+              "lampPower": 0.7786960136713651,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 0,
+              "crackGrowth": 0,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 0,
+              "illumination": 0,
+              "perspective": 0,
+              "contrast": 1,
+              "drawingOpacity": 1,
+              "waveTime": 0,
+              "waveActive": 0,
+              "lightSweep": 0,
+              "lightSweepPosition": 0,
+              "retirement": 0,
+              "sheetDistance": 0.5999442105816061,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": true
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": true
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0.32000669280068905,
+            "active": true,
+            "hidden": false,
+            "frames": 268,
+            "layers": [
+              {
+                "offset": [
+                  0.05120107084811025,
+                  0.017920374796838588
+                ],
+                "opacity": 0.9200000005484754,
+                "scale": 1.0200000003427971,
+                "color": [
+                  0.009264310842637517,
+                  0.011645430894719637,
+                  0.017389102354338763
+                ]
+              },
+              {
+                "offset": [
+                  0.08960187398419295,
+                  0.03136065589446753
+                ],
+                "opacity": 0.6000000005484754,
+                "scale": 1.0000000003427971,
+                "color": [
+                  0.04323363589098537,
+                  0.03968190945538429,
+                  0.03630648409624312
+                ]
+              },
+              {
+                "offset": [
+                  0.1344028109762894,
+                  0.04704098384170129
+                ],
+                "opacity": 0.45000000047991595,
+                "scale": 0.9900000003427971,
+                "color": [
+                  0.17886750389915543,
+                  0.15487248589798208,
+                  0.12596738769505497
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  0.024079625203161457,
+                  -23.400055789418396,
+                  0.06879892915188975
+                ],
+                "visible": true,
+                "requestedOpacity": 0.9200000005484754,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  0.010639344105532515,
+                  -17.400055789418396,
+                  0.030398126015807048
+                ],
+                "visible": true,
+                "requestedOpacity": 0.6000000005484754,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.6000000005484754,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -0.005040983841701242,
+                  -11.400055789418394,
+                  -0.014402810976289399
+                ],
+                "visible": true,
+                "requestedOpacity": 0.45000000047991595,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.45000000047991595,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 1,
+              "vignette": 0
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 168,
+            "triangles": 1467017,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0.32000669280068905,
+            "beatId": "breakthrough-anticipation",
+            "localProgress": 0.00016732001722613585,
+            "phase": "entering",
+            "stateKey": "[0.32000669280068905,6,{\"id\":\"breakthrough-anticipation\",\"start\":0.32,\"end\":0.36,\"title\":\"The light falters\",\"copy\":\"Keep the drawing legible through the failures and dark anticipation.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.00016732001722613585,\"drafting-registered\",\"breakthrough-trace\",\"entering\"]",
+            "previousId": "drafting-registered",
+            "nextId": "breakthrough-trace"
+          }
+        },
+        {
+          "requested": 0.46,
+          "achieved": 0.4599913949709844,
+          "world": {
+            "ready": true,
+            "frames": 354,
+            "hiddenFrames": 0,
+            "progress": 0.4599913949709844,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.3200000000162714,
+                0.16000000014215615,
+                0.4199999998777262
+              ],
+              "target": [
+                1.7118327588772075e-11,
+                0,
+                4.8909515326656106e-11
+              ],
+              "quaternion": [
+                -0.13888448511102525,
+                0.3163643425731065,
+                0.046880089765627304,
+                0.9372443436624722
+              ],
+              "fov": 41.99999999510905
+            },
+            "inspection": {
+              "ready": false,
+              "subjectTime": 0,
+              "cameraTime": 0,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": false,
+              "time": 0,
+              "cameraTime": 0,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 0
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 171,
+              "triangles": 1526615,
+              "geometries": 181,
+              "textures": 18,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 5.224265464676137e-14,
+                "contactRadius": 0.03599999999999539,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 0,
+                "pitRetained": 1,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.934783749912339,
+                "portalLight": 0,
+                "phase": 0.9999999644658242,
+                "poseT": 0.9999999389256322,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 0.9999999999976324,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946845433423397
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 0.9999999644658242,
+              "poseT": 0.9999999389256322,
+              "focus": 1,
+              "lampPower": 0.9999999999976324,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 0.9999999999976324,
+              "perspective": 0.9999999999996212,
+              "contrast": 0.5152860826063197,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 8.518863643439374e-13,
+              "lightSweepPosition": 0.9999997062073269,
+              "retirement": 0,
+              "sheetDistance": 0.5517245688757697,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": true
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": true
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0.4599913949709844,
+            "active": true,
+            "hidden": false,
+            "frames": 380,
+            "layers": [
+              {
+                "offset": [
+                  0.07359862319535751,
+                  0.025759518118375128
+                ],
+                "opacity": 0.999999999093345,
+                "scale": 1.0699999994333407,
+                "color": [
+                  0.008540382120321419,
+                  0.010022825593258329,
+                  0.015325203344019035
+                ]
+              },
+              {
+                "offset": [
+                  0.12879759059187565,
+                  0.045079156707156474
+                ],
+                "opacity": 0.6799999990933451,
+                "scale": 1.0499999994333407,
+                "color": [
+                  0.03968190951877838,
+                  0.036306484156448236,
+                  0.03310476660717072
+                ]
+              },
+              {
+                "offset": [
+                  0.19319638588781343,
+                  0.0676187350607347
+                ],
+                "opacity": 0.5199999992066769,
+                "scale": 1.0399999994333406,
+                "color": [
+                  0.17064493590874058,
+                  0.1473189993301031,
+                  0.11928018769789939
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -13.545973744810066,
+                  -6.775342022679837,
+                  -17.900531745799743
+                ],
+                "visible": true,
+                "requestedOpacity": 0.999999999093345,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -10.025464926193834,
+                  -5.0168539699761325,
+                  -13.370944832958736
+                ],
+                "visible": true,
+                "requestedOpacity": 0.6799999990933451,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.6799999990933451,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -6.498204184776399,
+                  -3.255284348897653,
+                  -8.847676173065024
+                ],
+                "visible": true,
+                "requestedOpacity": 0.5199999992066769,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.5199999992066769,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 1,
+              "vignette": 0
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 171,
+            "triangles": 1526615,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0.4599913949709844,
+            "beatId": "breakthrough-emergence",
+            "localProgress": 0.9996557988393753,
+            "phase": "exiting",
+            "stateKey": "[0.4599913949709844,10,{\"id\":\"breakthrough-emergence\",\"start\":0.435,\"end\":0.46,\"title\":\"Continuous emergence\",\"copy\":\"Continue the rise through the torn profile and establish the wrench above the pit.\",\"camera\":\"emergence\",\"scene\":\"pit\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.9996557988393753,\"breakthrough-rupture\",\"mechanism-switch\",\"exiting\"]",
+            "previousId": "breakthrough-rupture",
+            "nextId": "mechanism-switch"
+          }
+        },
+        {
+          "requested": 0.69,
+          "achieved": 0.6900009561145453,
+          "world": {
+            "ready": true,
+            "frames": 465,
+            "hiddenFrames": 0,
+            "progress": 0.6900009561145453,
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.306,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                50.26548245743669,
+                32.67256359733385,
+                13.823007675795091,
+                8.984954989266807,
+                21.237166338267002
+              ],
+              "planetRot": -175.92918860102841,
+              "gearRotation": 25.132741228718345,
+              "shift": 1,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.281475,
+              "ringSwitchRotZ": 2.0943951023931953
+            },
+            "camera": {
+              "position": [
+                -0.09089225450887418,
+                -0.17226577840560559,
+                -0.18353402745503444
+              ],
+              "target": [
+                -0.0775192663640309,
+                -8.425829804713632e-7,
+                -0.29142636392663535
+              ],
+              "quaternion": [
+                0.262700232914817,
+                -0.40762810801739774,
+                0.696239124414489,
+                0.5292249000332497
+              ],
+              "fov": 34
+            },
+            "inspection": {
+              "ready": false,
+              "subjectTime": 0,
+              "cameraTime": 0,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": true,
+              "time": 5.104340638517179e-8,
+              "cameraTime": 5.104340638517179e-8,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 0.9999999837731917,
+              "manual": false,
+              "ringVisible": true,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 43,
+              "triangles": 758317,
+              "geometries": 182,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 1,
+                "surroundingsOpacity": 0.9999999837731917,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.20370272751044943,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 1,
+                "explode": 1,
+                "gearAngle": 25.132741228718345,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": -0.197,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  -175.92918860102841,
+                  -175.92918860102841,
+                  -175.92918860102841,
+                  -175.92918860102841
+                ],
+                [
+                  -114.35397259066846,
+                  -114.35397259066846,
+                  -114.35397259066846,
+                  -114.35397259066846
+                ],
+                [
+                  -48.38052686528282,
+                  -48.38052686528282,
+                  -48.38052686528282,
+                  -48.38052686528282
+                ],
+                [
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824
+                ],
+                [
+                  -74.33008218393451,
+                  -74.33008218393451,
+                  -74.33008218393451,
+                  -74.33008218393451
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0.6900009561145453,
+            "active": true,
+            "hidden": false,
+            "frames": 491,
+            "layers": [
+              {
+                "offset": [
+                  0.11040015297832724,
+                  0.03864005354241453
+                ],
+                "opacity": 0.9599999999947825,
+                "scale": 1.0499999999973912,
+                "color": [
+                  0.007850573473472339,
+                  0.009264310847699669,
+                  0.013411748897908056
+                ]
+              },
+              {
+                "offset": [
+                  0.1932002677120727,
+                  0.06762009369922543
+                ],
+                "opacity": 0.5999999999921737,
+                "scale": 1.0399999999973912,
+                "color": [
+                  0.036306484118634186,
+                  0.03310476657130268,
+                  0.030074104146986604
+                ]
+              },
+              {
+                "offset": [
+                  0.289800401568109,
+                  0.10143014054883814
+                ],
+                "opacity": 0.44999999999217377,
+                "scale": 1.0199999999973912,
+                "color": [
+                  0.16264719366712796,
+                  0.143624640925325,
+                  0.11601613423234716
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  1.414624922116281,
+                  20.177331874736772,
+                  -12.818444974257321
+                ],
+                "visible": true,
+                "requestedOpacity": 0.9599999999947825,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  0.9681741053136808,
+                  15.14349132183404,
+                  -9.582888351687467
+                ],
+                "visible": true,
+                "requestedOpacity": 0.5999999999921737,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.5999999902560886,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  0.5129643481802918,
+                  10.116345626479168,
+                  -6.337728118383955
+                ],
+                "visible": true,
+                "requestedOpacity": 0.44999999999217377,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.44999999269011004,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1.0162003763221512,
+              "saturation": 1.0448015052886053,
+              "vignette": 0.18480150528860526
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 43,
+            "triangles": 758317,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0.6900009561145453,
+            "beatId": "inspection-ring",
+            "localProgress": 0.000021246989895868417,
+            "phase": "entering",
+            "stateKey": "[0.6900009561145453,15,{\"id\":\"inspection-ring\",\"start\":0.69,\"end\":0.735,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.000021246989895868417,\"mechanism-exploded-hold\",\"inspection-shaping\",\"entering\"]",
+            "previousId": "mechanism-exploded-hold",
+            "nextId": "inspection-shaping"
+          }
+        },
+        {
+          "requested": 0.815,
+          "achieved": 0.8150032249218384,
+          "world": {
+            "ready": true,
+            "frames": 557,
+            "hiddenFrames": 0,
+            "progress": 0.8150032249218384,
+            "rig": {
+              "handleZ": -0.354,
+              "outputZ": 0.05,
+              "clutchZ": -0.291,
+              "slidingZ": -0.306,
+              "stageZ": [
+                -0.255,
+                -0.23,
+                -0.142,
+                -0.099,
+                -0.177
+              ],
+              "stageRot": [
+                50.26548245743669,
+                32.67256359733385,
+                13.823007675795091,
+                8.984954989266807,
+                21.237166338267002
+              ],
+              "planetRot": -175.92918860102841,
+              "gearRotation": 25.132741228718345,
+              "shift": 1,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 1,
+              "ringSwitchZ": -0.281475,
+              "ringSwitchRotZ": 2.0943951023931953
+            },
+            "camera": {
+              "position": [
+                -0.2020023249636198,
+                -0.008006369097840456,
+                -0.02716171749742733
+              ],
+              "target": [
+                0,
+                0.0078,
+                -0.009
+              ],
+              "quaternion": [
+                0.5010743679591461,
+                0.5418143144481561,
+                -0.49542128160482957,
+                -0.45816970673151786
+              ],
+              "fov": 10.2
+            },
+            "inspection": {
+              "ready": true,
+              "subjectTime": 7.7944205256698424,
+              "cameraTime": 9.143747103157214,
+              "machiningRate": 0.22,
+              "arcWeight": 1,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 0
+            },
+            "ring": {
+              "ready": true,
+              "time": 12,
+              "cameraTime": 12,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 0,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": true
+            },
+            "renderer": {
+              "calls": 11,
+              "triangles": 20355,
+              "geometries": 188,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 0,
+                "surroundingsOpacity": 0,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.2034321227761766,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 1,
+                "explode": 1,
+                "gearAngle": 25.132741228718345,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": -0.197,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  -175.92918860102841,
+                  -175.92918860102841,
+                  -175.92918860102841,
+                  -175.92918860102841
+                ],
+                [
+                  -114.35397259066846,
+                  -114.35397259066846,
+                  -114.35397259066846,
+                  -114.35397259066846
+                ],
+                [
+                  -48.38052686528282,
+                  -48.38052686528282,
+                  -48.38052686528282,
+                  -48.38052686528282
+                ],
+                [
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824,
+                  -31.447342462433824
+                ],
+                [
+                  -74.33008218393451,
+                  -74.33008218393451,
+                  -74.33008218393451,
+                  -74.33008218393451
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0.8150032249218384,
+            "active": true,
+            "hidden": false,
+            "frames": 583,
+            "layers": [
+              {
+                "offset": [
+                  0.13040051598749414,
+                  0.04564018059562294
+                ],
+                "opacity": 0.9220724310723494,
+                "scale": 1.0310362155361747,
+                "color": [
+                  0.008504642590694781,
+                  0.009983526337628402,
+                  0.015226065760586294
+                ]
+              },
+              {
+                "offset": [
+                  0.22820090297811477,
+                  0.07987031604234017
+                ],
+                "opacity": 0.5431086466085241,
+                "scale": 1.0210362155361747,
+                "color": [
+                  0.039507026068547293,
+                  0.036140600644945675,
+                  0.03294774559643735
+                ]
+              },
+              {
+                "offset": [
+                  0.34230135446717214,
+                  0.11980547406351023
+                ],
+                "opacity": 0.39310864660852407,
+                "scale": 1.0010362155361747,
+                "color": [
+                  0.15527529959611816,
+                  0.1367738742875323,
+                  0.11297116919253233
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  23.62320624526944,
+                  1.987078420885376,
+                  2.0700174799784024
+                ],
+                "visible": true,
+                "requestedOpacity": 0.9220724310723494,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  17.66079373979383,
+                  1.6186282131859888,
+                  1.5002647468892871
+                ],
+                "visible": true,
+                "requestedOpacity": 0.5431086466085241,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  11.697617438953547,
+                  1.2664681292111541,
+                  0.9248297720851523
+                ],
+                "visible": true,
+                "requestedOpacity": 0.39310864660852407,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1.024674749924274,
+              "saturation": 1.078698999697097,
+              "vignette": 0.2186989996970969
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 11,
+            "triangles": 20355,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0.8150032249218384,
+            "beatId": "inspection-bullet-time",
+            "localProgress": 0.5000806230459602,
+            "phase": "active",
+            "stateKey": "[0.8150032249218384,17,{\"id\":\"inspection-bullet-time\",\"start\":0.795,\"end\":0.835,\"title\":\"Around the cutter\",\"copy\":\"Nearly stop the subject while the camera moves around the cutting contact.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"bullet-time\",\"poster\":\"inspection\"},0.5000806230459602,\"inspection-shaping\",\"inspection-materials\",\"active\"]",
+            "previousId": "inspection-shaping",
+            "nextId": "inspection-materials"
+          }
+        },
+        {
+          "requested": 0.94,
+          "achieved": 0.940001912229036,
+          "world": {
+            "ready": true,
+            "frames": 670,
+            "hiddenFrames": 0,
+            "progress": 0.940001912229036,
+            "rig": {
+              "handleZ": -0.3539999975729959,
+              "outputZ": 0.04999999965720281,
+              "clutchZ": -0.2909999980049203,
+              "slidingZ": -0.30599999790208116,
+              "stageZ": [
+                -0.2549999982517343,
+                -0.22999999842313293,
+                -0.14199999902645596,
+                -0.09899999932126156,
+                -0.17699999878649794
+              ],
+              "stageRot": [
+                50.26548211281936,
+                32.672563373332586,
+                13.823007581025326,
+                8.984954927666461,
+                21.23716619266618
+              ],
+              "planetRot": -175.92918739486777,
+              "gearRotation": 25.13274105640968,
+              "shift": 0.9999999931440562,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0.9999999931440562,
+              "ringSwitchZ": -0.2814749980702232,
+              "ringSwitchRotZ": 2.09439508803414
+            },
+            "camera": {
+              "position": [
+                0.32,
+                0.16,
+                0.739999997806098
+              ],
+              "target": [
+                0,
+                0,
+                -0.14999999897160843
+              ],
+              "quaternion": [
+                -0.08245161195202516,
+                0.1711209308259092,
+                0.014372372756394327,
+                0.9816887457952944
+              ],
+              "fov": 42
+            },
+            "inspection": {
+              "ready": true,
+              "subjectTime": 43,
+              "cameraTime": 43,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": true,
+              "time": 12,
+              "cameraTime": 12,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 66,
+              "triangles": 891109,
+              "geometries": 188,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 1,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.9592184288598283,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0.9999999931440562,
+                "explode": 0.9999999931440562,
+                "gearAngle": 25.13274105640968,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": -0.1969999986493791,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  -175.92918739486777,
+                  -175.92918739486777,
+                  -175.92918739486777,
+                  -175.92918739486777
+                ],
+                [
+                  -114.35397180666405,
+                  -114.35397180666405,
+                  -114.35397180666405,
+                  -114.35397180666405
+                ],
+                [
+                  -48.38052653358864,
+                  -48.38052653358864,
+                  -48.38052653358864,
+                  -48.38052653358864
+                ],
+                [
+                  -31.447342246832612,
+                  -31.447342246832612,
+                  -31.447342246832612,
+                  -31.447342246832612,
+                  -31.447342246832612
+                ],
+                [
+                  -74.33008167433164,
+                  -74.33008167433164,
+                  -74.33008167433164,
+                  -74.33008167433164
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 0.940001912229036,
+            "active": true,
+            "hidden": false,
+            "frames": 696,
+            "layers": [
+              {
+                "offset": [
+                  0.15040030595664575,
+                  0.052640107084826006
+                ],
+                "opacity": 0.8999999999390577,
+                "scale": 1.0199999999695288,
+                "color": [
+                  0.007850573471382953,
+                  0.009264310845394834,
+                  0.01341174889491198
+                ]
+              },
+              {
+                "offset": [
+                  0.2632005354241301,
+                  0.09212018739844552
+                ],
+                "opacity": 0.47999999987811526,
+                "scale": 1.0099999999695288,
+                "color": [
+                  0.03968190948386963,
+                  0.03630648412326991,
+                  0.0331047665756974
+                ]
+              },
+              {
+                "offset": [
+                  0.3948008031361951,
+                  0.13818028109766828
+                ],
+                "opacity": 0.3299999998476441,
+                "scale": 0.9899999999695288,
+                "color": [
+                  0.15106820417075142,
+                  0.13286832154322223,
+                  0.10964589926682532
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -7.547959222837187,
+                  -3.7913565631283075,
+                  -21.587279061938283
+                ],
+                "visible": true,
+                "requestedOpacity": 0.8999999999390577,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -5.442410240262512,
+                  -2.7516147856232567,
+                  -16.06460913819679
+                ],
+                "visible": true,
+                "requestedOpacity": 0.47999999987811526,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.47999999987811526,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -3.319541360579665,
+                  -1.7053851785278349,
+                  -10.54933294460462
+                ],
+                "visible": true,
+                "requestedOpacity": 0.3299999998476441,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.3299999998476441,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1.0099999999695288,
+              "saturation": 1.0299999998476441,
+              "vignette": 0.17999999987811524
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 66,
+            "triangles": 891109,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 0.940001912229036,
+            "beatId": "close-settle",
+            "localProgress": 0.00004780572590012962,
+            "phase": "entering",
+            "stateKey": "[0.940001912229036,21,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.00004780572590012962,\"inspection-runout\",\"close-ownership\",\"entering\"]",
+            "previousId": "inspection-runout",
+            "nextId": "close-ownership"
+          }
+        },
+        {
+          "requested": 1,
+          "achieved": 1,
+          "world": {
+            "ready": true,
+            "frames": 783,
+            "hiddenFrames": 0,
+            "progress": 1,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.32,
+                0.16,
+                0.42
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "quaternion": [
+                -0.13888448501182227,
+                0.31636434246914374,
+                0.04688008956707482,
+                0.9372443437221963
+              ],
+              "fov": 42
+            },
+            "inspection": {
+              "ready": true,
+              "subjectTime": 43,
+              "cameraTime": 43,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": true,
+              "time": 12,
+              "cameraTime": 12,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 66,
+              "triangles": 891109,
+              "geometries": 188,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 1,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.5517245689653488,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 1,
+            "active": true,
+            "hidden": false,
+            "frames": 809,
+            "layers": [
+              {
+                "offset": [
+                  0.16,
+                  0.055999999999999994
+                ],
+                "opacity": 0.88,
+                "scale": 1.01,
+                "color": [
+                  0.007194409291082934,
+                  0.008540382112116999,
+                  0.012510408999112432
+                ]
+              },
+              {
+                "offset": [
+                  0.28,
+                  0.098
+                ],
+                "opacity": 0.44,
+                "scale": 1,
+                "color": [
+                  0.041435575208927454,
+                  0.03797231989168777,
+                  0.03468407622580734
+                ]
+              },
+              {
+                "offset": [
+                  0.42,
+                  0.147
+                ],
+                "opacity": 0.28,
+                "scale": 0.98,
+                "color": [
+                  0.147318999244498,
+                  0.12939101805802725,
+                  0.10653922395082352
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -13.482562183934249,
+                  -6.746401066519551,
+                  -17.959870442062584
+                ],
+                "visible": true,
+                "requestedOpacity": 0.88,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -9.914494696872191,
+                  -4.966207303902842,
+                  -13.474787547030296
+                ],
+                "visible": true,
+                "requestedOpacity": 0.44,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.44,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -6.331748842175322,
+                  -3.179314354287782,
+                  -9.003440241433426
+                ],
+                "visible": true,
+                "requestedOpacity": 0.28,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.28,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 0.98,
+              "vignette": 0.14
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 66,
+            "triangles": 891109,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          },
+          "narrative": {
+            "progress": 1,
+            "beatId": "close-ownership",
+            "localProgress": 1,
+            "phase": "exiting",
+            "stateKey": "[1,22,{\"id\":\"close-ownership\",\"start\":0.98,\"end\":1,\"title\":\"Ownership and next action\",\"copy\":\"Keep the final composition settled while the story hands off to the page links.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},1,\"close-settle\",null,\"exiting\"]",
+            "previousId": "close-settle",
+            "nextId": null
+          }
+        }
+      ],
+      "hold": {
+        "before": {
+          "world": {
+            "ready": true,
+            "frames": 785,
+            "hiddenFrames": 0,
+            "progress": 1,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.32,
+                0.16,
+                0.42
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "quaternion": [
+                -0.13888448501182227,
+                0.31636434246914374,
+                0.04688008956707482,
+                0.9372443437221963
+              ],
+              "fov": 42
+            },
+            "inspection": {
+              "ready": true,
+              "subjectTime": 43,
+              "cameraTime": 43,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": true,
+              "time": 12,
+              "cameraTime": 12,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 66,
+              "triangles": 891109,
+              "geometries": 188,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 1,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.5517245689653488,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 1,
+            "active": true,
+            "hidden": false,
+            "frames": 811,
+            "layers": [
+              {
+                "offset": [
+                  0.16,
+                  0.055999999999999994
+                ],
+                "opacity": 0.88,
+                "scale": 1.01,
+                "color": [
+                  0.007194409291082934,
+                  0.008540382112116999,
+                  0.012510408999112432
+                ]
+              },
+              {
+                "offset": [
+                  0.28,
+                  0.098
+                ],
+                "opacity": 0.44,
+                "scale": 1,
+                "color": [
+                  0.041435575208927454,
+                  0.03797231989168777,
+                  0.03468407622580734
+                ]
+              },
+              {
+                "offset": [
+                  0.42,
+                  0.147
+                ],
+                "opacity": 0.28,
+                "scale": 0.98,
+                "color": [
+                  0.147318999244498,
+                  0.12939101805802725,
+                  0.10653922395082352
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -13.482562183934249,
+                  -6.746401066519551,
+                  -17.959870442062584
+                ],
+                "visible": true,
+                "requestedOpacity": 0.88,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -9.914494696872191,
+                  -4.966207303902842,
+                  -13.474787547030296
+                ],
+                "visible": true,
+                "requestedOpacity": 0.44,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.44,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -6.331748842175322,
+                  -3.179314354287782,
+                  -9.003440241433426
+                ],
+                "visible": true,
+                "requestedOpacity": 0.28,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.28,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 0.98,
+              "vignette": 0.14
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 66,
+            "triangles": 891109,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          }
+        },
+        "after": {
+          "world": {
+            "ready": true,
+            "frames": 1098,
+            "hiddenFrames": 0,
+            "progress": 1,
+            "rig": {
+              "handleZ": 0,
+              "outputZ": 0,
+              "clutchZ": 0,
+              "slidingZ": 0,
+              "stageZ": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "stageRot": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "planetRot": 0,
+              "gearRotation": 0,
+              "shift": 0,
+              "ghostOpacity": 1,
+              "ghostCount": 1,
+              "explodeFactor": 0,
+              "ringSwitchZ": 0,
+              "ringSwitchRotZ": 0
+            },
+            "camera": {
+              "position": [
+                0.32,
+                0.16,
+                0.42
+              ],
+              "target": [
+                0,
+                0,
+                0
+              ],
+              "quaternion": [
+                -0.13888448501182227,
+                0.31636434246914374,
+                0.04688008956707482,
+                0.9372443437221963
+              ],
+              "fov": 42
+            },
+            "inspection": {
+              "ready": true,
+              "subjectTime": 43,
+              "cameraTime": 43,
+              "machiningRate": 0,
+              "arcWeight": 0,
+              "feaDwellWeight": 0,
+              "hobSwingWeight": 0,
+              "surroundingsOpacity": 1
+            },
+            "ring": {
+              "ready": true,
+              "time": 12,
+              "cameraTime": 12,
+              "knurlMultiplier": 1.5,
+              "effectiveNormalStrength": 2.25
+            },
+            "isolation": {
+              "surroundingsOpacity": 1,
+              "manual": false,
+              "ringVisible": false,
+              "shaftVisible": false
+            },
+            "renderer": {
+              "calls": 66,
+              "triangles": 891109,
+              "geometries": 188,
+              "textures": 19,
+              "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+              "effectiveDpr": 1,
+              "drawingBuffer": [
+                1440,
+                900
+              ]
+            },
+            "sheet": {
+              "baked": true,
+              "tier": "full",
+              "precomputed": 0,
+              "stats": {
+                "edgeSetMs": 0,
+                "hardEdges": 385817,
+                "smoothEdges": 886494,
+                "airMotorCutDepth": 0.03993150964379325,
+                "airMotorCutSegments": 4070,
+                "sideSegments": 18370,
+                "sideMs": 329.89999997615814,
+                "topSegments": 11031,
+                "topMs": 91.10000002384186,
+                "sectionSegments": 99355,
+                "sectionMs": 79.19999998807907,
+                "hatch": 1089,
+                "frontSegments": 15538,
+                "frontMs": 92.59999999403954,
+                "rearSegments": 17752,
+                "rearMs": 101.2999999821186,
+                "bottomSegments": 16244,
+                "bottomMs": 89,
+                "segments": 226783,
+                "fills": 21,
+                "texts": 254,
+                "totalMs": 0,
+                "cacheHit": 1,
+                "precomputed": 0,
+                "cacheMs": 401.5,
+                "basePrecomputed": 1,
+                "privateContentVariant": 1,
+                "extractMs": 737.0999999940395,
+                "bakeMs": 1734.3999999910593,
+                "flexFieldPeak": 1,
+                "flexAmplitude": 0,
+                "flexPeakDisplacement": 0,
+                "flexEnabled": 0,
+                "flexNormalX": 0,
+                "flexNormalY": 1,
+                "flexNormalZ": 0,
+                "contactShadow": 0,
+                "contactRadius": 0.036,
+                "vellum": 0,
+                "annotationsReady": 1,
+                "annotationsFailed": 0,
+                "shaderWarmReady": 1,
+                "fracture": 1,
+                "openingClear": 1,
+                "fragmentCount": 99,
+                "fragmentThickness": 0.00045,
+                "fragmentArea": 0.026960870000000012,
+                "holeArea": 0.026960869999999998,
+                "maxBoundaryDeviation": 0.0003516579390511648,
+                "crackGlow": 0,
+                "crackWeb": 0,
+                "paperOpacity": 1,
+                "pitReveal": 1,
+                "pitFissureEnergy": 0,
+                "electricalEnergy": 0,
+                "electricalOutline": 1,
+                "electricalBranch": 1,
+                "pitFissureGrowth": 1,
+                "pitMaxRingDeviationM": 0.08916655055875838,
+                "modelBarrierSafe": 1,
+                "portalActive": 1,
+                "stockRetired": 1,
+                "pitRetained": 1,
+                "surroundingsOpacity": 1,
+                "portalCapZ": -3.20048,
+                "portalMouthZ": -0.00048,
+                "portalDeskZ": -0.0016,
+                "portalCapBehindModel": 1,
+                "portalInitialModelBottom": -0.08046483350396157,
+                "portalProfilePoints": 2384,
+                "portalWallLevels": 11,
+                "portalDepthWrite": 1,
+                "portalDeskDiscard": 1,
+                "portalPulse": 0.9347836424347318,
+                "portalLight": 0,
+                "phase": 1,
+                "poseT": 1,
+                "lineOpacity": 1,
+                "focus": 1,
+                "lampPower": 1,
+                "blackout": 0,
+                "readingPool": 0,
+                "localZ": 0.17946849035620688
+              },
+              "registration": {
+                "ready": true,
+                "pointCount": 10203,
+                "segmentCount": 24383,
+                "maxDistance": 0.0000878836103067627,
+                "meanDistance": 0.00003259773610423831,
+                "units": "metres"
+              }
+            },
+            "stage": "stage3-model-host",
+            "opening": {
+              "pressure": 1,
+              "fracture": 1,
+              "openingClear": 1,
+              "crackWeb": 0,
+              "crackGlow": 0,
+              "t": 1,
+              "poseT": 1,
+              "focus": 1,
+              "lampPower": 1,
+              "blackout": 0,
+              "readingPool": 0,
+              "pulseHead": 1,
+              "crackGrowth": 1,
+              "sparkAnticipation": 0,
+              "pulse": 0,
+              "pbr": 1,
+              "illumination": 1,
+              "perspective": 1,
+              "contrast": 0.5152859759820886,
+              "drawingOpacity": 1,
+              "waveTime": 1,
+              "waveActive": 0,
+              "lightSweep": 1.4997597826618576e-32,
+              "lightSweepPosition": 1,
+              "retirement": 1,
+              "sheetDistance": 0.5517245689653488,
+              "tier": "full",
+              "crossing": 0.730195369840988,
+              "finalInkT": 0.38350000286102315,
+              "bakeInstalled": true,
+              "sheetVisible": false
+            },
+            "mechanical": {
+              "channels": {
+                "shift": 0,
+                "explode": 0,
+                "gearAngle": 0,
+                "idle": 0,
+                "ghostOpacity": 1
+              },
+              "tier": "full",
+              "bearingZ": 0,
+              "baseZ": {
+                "handleZ": 0,
+                "outputZ": 0,
+                "clutchZ": 0,
+                "slidingZ": 0,
+                "ringSwitchZ": 0,
+                "bearingZ": 0,
+                "stageZ": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "present": {
+                "handle": true,
+                "output": true,
+                "clutch": true,
+                "sliding": true,
+                "ringSwitch": true,
+                "bearing": true,
+                "stages": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ]
+              },
+              "planetRotByStage": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "ghostMaterials": [
+                {
+                  "mesh": "",
+                  "opacity": 1,
+                  "transparent": true,
+                  "depthWrite": true,
+                  "attached": false
+                }
+              ]
+            }
+          },
+          "background": {
+            "progress": 1,
+            "active": true,
+            "hidden": false,
+            "frames": 1124,
+            "layers": [
+              {
+                "offset": [
+                  0.16,
+                  0.055999999999999994
+                ],
+                "opacity": 0.88,
+                "scale": 1.01,
+                "color": [
+                  0.007194409291082934,
+                  0.008540382112116999,
+                  0.012510408999112432
+                ]
+              },
+              {
+                "offset": [
+                  0.28,
+                  0.098
+                ],
+                "opacity": 0.44,
+                "scale": 1,
+                "color": [
+                  0.041435575208927454,
+                  0.03797231989168777,
+                  0.03468407622580734
+                ]
+              },
+              {
+                "offset": [
+                  0.42,
+                  0.147
+                ],
+                "opacity": 0.28,
+                "scale": 0.98,
+                "color": [
+                  0.147318999244498,
+                  0.12939101805802725,
+                  0.10653922395082352
+                ]
+              }
+            ],
+            "actualLayers": [
+              {
+                "id": "cavern-far",
+                "depth": 24,
+                "position": [
+                  -13.482562183934249,
+                  -6.746401066519551,
+                  -17.959870442062584
+                ],
+                "visible": true,
+                "requestedOpacity": 0.88,
+                "effectiveAlpha": {
+                  "model": "forced-opaque",
+                  "peakCoverage": 1,
+                  "spatiallyUniform": true
+                }
+              },
+              {
+                "id": "cavern-middle",
+                "depth": 18,
+                "position": [
+                  -9.914494696872191,
+                  -4.966207303902842,
+                  -13.474787547030296
+                ],
+                "visible": true,
+                "requestedOpacity": 0.44,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.44,
+                  "spatiallyUniform": false
+                }
+              },
+              {
+                "id": "atmosphere-near",
+                "depth": 12,
+                "position": [
+                  -6.331748842175322,
+                  -3.179314354287782,
+                  -9.003440241433426
+                ],
+                "visible": true,
+                "requestedOpacity": 0.28,
+                "effectiveAlpha": {
+                  "model": "radial-gaussian-times-strata",
+                  "peakCoverage": 0.28,
+                  "spatiallyUniform": false
+                }
+              }
+            ],
+            "post": {
+              "exposure": 1,
+              "saturation": 0.98,
+              "vignette": 0.14
+            },
+            "budget": {
+              "dpr": 1,
+              "widthPx": 1440,
+              "heightPx": 900,
+              "pixels": 1296000,
+              "pixelLimit": 3686400,
+              "deviceDpr": 1,
+              "tier": "full"
+            },
+            "actualBuffer": [
+              1440,
+              900
+            ],
+            "calls": 66,
+            "triangles": 891109,
+            "pointerWeight": 0,
+            "pointerMode": "omitted; reading/fracture suppression exact zero",
+            "noise": {
+              "method": "periodic Gaussian void ranking",
+              "size": 32,
+              "static": true
+            },
+            "antialias": {
+              "native": true,
+              "deviceMaxSamples": 8,
+              "nativeSamples": 4,
+              "colorSampleCounts": [
+                8,
+                4,
+                2,
+                1
+              ],
+              "requestedComposerSamples": 4,
+              "composerSamples": 4,
+              "configuredComposerSamples": 4,
+              "achievedComposerSamples": 4,
+              "measuredTargetSamples": [
+                4,
+                4
+              ],
+              "smaa": false
+            }
+          }
+        }
+      },
+      "cadRequests": [
+        "http://localhost:5288/models/Default.glb",
+        "http://localhost:5288/draco/draco_wasm_wrapper.js",
+        "http://localhost:5288/draco/draco_decoder.wasm",
+        "http://localhost:5288/models/knurling-tool.glb",
+        "http://localhost:5288/models/manufacturing-core-full.glb",
+        "http://localhost:5288/draco/draco_wasm_wrapper.js",
+        "http://localhost:5288/draco/draco_decoder.wasm"
+      ],
+      "requestsObserved": 51,
+      "renderer": {
+        "calls": 11,
+        "triangles": 572331,
+        "geometries": 74,
+        "textures": 11,
+        "backend": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "effectiveDpr": 1,
+        "drawingBuffer": [
+          1440,
+          900
+        ]
+      }
+    }
+  ],
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "note": "Designed entry runs: full default, owner-approved ?quality=lite, reduced-motion poster path. No quality lock/store/playback forcing. Native scroll seeks use the read-only canonical-to-physical pacing map. Status aggregates ONLY per-check pass booleans; status strings are display-only.",
+  "servedIdentity": {
+    "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-correction-20261015-d",
+    "entryFile": "assets/torque-wrench-BzA8us0V.js",
+    "sceneFile": "assets/Scene-4J_NKhvx.js",
+    "records": [
+      {
+        "name": "page HTML",
+        "url": "http://localhost:5288/torque-wrench/",
+        "buildPath": ".scratch\\jg038-correction-20261015-d\\torque-wrench\\index.html",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "2003e4d95b0e463f6f8fbd7d127b4747a07628aca2cb14c365c8d412e81c51b6",
+        "buildSha256": "2003e4d95b0e463f6f8fbd7d127b4747a07628aca2cb14c365c8d412e81c51b6",
+        "matched": true,
+        "referencesEntryFile": true
+      },
+      {
+        "name": "entry script",
+        "url": "http://localhost:5288/assets/torque-wrench-BzA8us0V.js",
+        "buildPath": ".scratch\\jg038-correction-20261015-d\\assets\\torque-wrench-BzA8us0V.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "3e0c4704d0a065ebce44de09df73e49c3bee8f8853eb439e02493ef62bf84576",
+        "buildSha256": "3e0c4704d0a065ebce44de09df73e49c3bee8f8853eb439e02493ef62bf84576",
+        "matched": true
+      },
+      {
+        "name": "Scene chunk",
+        "url": "http://localhost:5288/assets/Scene-4J_NKhvx.js",
+        "buildPath": ".scratch\\jg038-correction-20261015-d\\assets\\Scene-4J_NKhvx.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "830acee08ddd0dcbd5f92543fe6c1a527d350bd75a74341d0386d0aa4696bfdc",
+        "buildSha256": "830acee08ddd0dcbd5f92543fe6c1a527d350bd75a74341d0386d0aa4696bfdc",
+        "matched": true
+      },
+      {
+        "name": "CAD Default.glb",
+        "url": "http://localhost:5288/models/Default.glb",
+        "buildPath": ".scratch\\jg038-correction-20261015-d\\models\\Default.glb",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+        "buildSha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+        "matched": true
+      },
+      {
+        "name": "draco decoder",
+        "url": "http://localhost:5288/draco/draco_wasm_wrapper.js",
+        "buildPath": ".scratch\\jg038-correction-20261015-d\\draco\\draco_wasm_wrapper.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960",
+        "buildSha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960",
+        "matched": true
+      }
+    ],
+    "pass": true,
+    "error": null
+  },
+  "browserVersion": "155.0.8059.40",
+  "finishedAt": "2026-10-15T23:47:02.792Z",
+  "status": "PASS",
+  "shapeViolations": [],
+  "summary": {
+    "totalChecks": 15,
+    "passedChecks": 15,
+    "failedChecks": 0,
+    "pass": true
+  },
+  "failedChecks": []
+}

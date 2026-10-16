@@ -25,6 +25,16 @@ const PRIVATE_LIGHTNING_FRAGMENT = LIGHTNING_FRAGMENT
   .replace('uniform float uPulseHead;', 'uniform float uElectricalEnergy; uniform float uPulseHead;')
   .replace('gl_FragColor = vec4(mix', 'alpha *= uElectricalEnergy; gl_FragColor = vec4(mix')
 
+// Crystal-thin fissures develop under the electrical front, then extinguish as
+// separated stock begins to fall. Existing crack masks retain exact shard seams.
+const PRIVATE_CRACK_FRAGMENT = PRIVATE_LIGHTNING_FRAGMENT
+  .replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb')
+  .replace(/uSpark/g, 'uCrackSpark')
+  .replace('float fibre =', 'float retirement = 1.0 - smoothstep(.05, .8, uFracture); float fibre =')
+  .replace('float alpha = clamp', 'float alpha = retirement * clamp')
+  .replace('0.075 - aa, 0.075 + aa', '0.035 - aa, 0.035 + aa')
+  .replace('4.0) * 0.42', '7.0) * 0.22')
+
 const NOISE_GLSL = /* glsl */ `
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float noise(vec2 p) {
@@ -200,6 +210,8 @@ export interface DrawingFrameInput {
   /** Current private interface supports normal and drawing-edges only. */
   proofMode: string
   retirement: number
+  /** Shared camera-arrival/isolation fade; pit follows the surrounding assembly. */
+  surroundingsOpacity?: number
   cameraLookTargetWorld: Vector3 | null
   cameraSheetDistance: number
   delta: number
@@ -323,8 +335,7 @@ export function createPrivateSheetRuntime(
     })
     const cracksMaterial = material({
       uniforms: u, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
-      fragmentShader: PRIVATE_LIGHTNING_FRAGMENT.replace(/uPulseHead/g, 'uCrackGrowth')
-        .replace(/uCrackGlow/g, 'uCrackWeb').replace(/uSpark/g, 'uCrackSpark'),
+      fragmentShader: PRIVATE_CRACK_FRAGMENT,
       transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
     })
     const edgeMaterial = material({
@@ -360,6 +371,30 @@ export function createPrivateSheetRuntime(
     const initialModelBottom = 0.0006 - extraction.clearanceTravel
     const portal = factories.portal(baked.fracture.outline, initialModelBottom,
       new Vector2(layout.primaryCenter.x, layout.primaryCenter.y), u.uPortalLight as { value: number })
+    // Private rock palette: cool reflected light reveals the broad cliff faces,
+    // while the matching closure still extinguishes beyond the visible shaft.
+    for (const mesh of [portal.walls, portal.cap]) {
+      const shader = mesh.material as ShaderMaterial
+      shader.fragmentShader = shader.fragmentShader.replace(
+        /c \*= mix\([^;]+;/,
+        'c *= mix(uPortalRockAlive, 1.0, clamp(uPortalLight, 0.0, 1.0));',
+      )
+      shader.fragmentShader = shader.fragmentShader
+        .replace('depth * 3.1', 'depth * 32.0')
+        .replace('depth * 19.0', 'depth * 132.0')
+        .replace('float facet = clamp(0.42', 'float facet = clamp(0.36')
+        .replace('1.15 * (plate - 0.5)', '2.2 * (plate - 0.5)')
+        .replace('0.34 * (chip - 0.5)', '0.9 * (chip - 0.5)')
+      shader.uniforms.uPrivateSurroundings = { value: 1 }
+      shader.fragmentShader = 'uniform float uPrivateSurroundings;\n' + shader.fragmentShader
+      shader.fragmentShader = shader.fragmentShader.replace(/gl_FragColor = vec4\(c, 1\.0\);/,
+        'gl_FragColor = vec4(c, uPrivateSurroundings);')
+      const rock = (mesh.material as ShaderMaterial).uniforms
+      rock.uPortalRockDark?.value.set(.04, .055, .07)
+      rock.uPortalRockLight?.value.set(.21, .27, .32)
+      if (rock.uPortalRockExtinction) rock.uPortalRockExtinction.value = .48
+      rock.uPortalHaze?.value.set(.025, .04, .055)
+    }
     // Register each returned portal resource separately: a throwing dispose listener
     // must not prevent cleanup of its other geometry/material/light resources.
     own(portal.walls.geometry); own(portal.cap.geometry)
@@ -491,25 +526,40 @@ export function createPrivateSheetRuntime(
         const retirement = proof || reducedMotion ? 0 : Math.max(0, Math.min(1, frame.retirement))
         // Consume host matrices; never recompute or modify the extraction context.
         group.matrix.copy(context.sheetMatrix)
-        group.matrix.elements[13] -= 1.4 * retirement * retirement
+        // Keep the spatial pit anchored under the wrench. Retire the paper and
+        // desk individually, rather than hiding their shared parent and pit.
         group.matrixWorldNeedsUpdate = true
-        group.visible = retirement < 1 || proof || reducedMotion
+        group.visible = true
 
         const reveal = u.uReveal.value
         if (proof || reducedMotion) reveal.fill(1)
         else sheetReveal(intro.t, reveal)
         if (proof) { reveal.fill(0); reveal[GROUP.side] = 1 }
         u.uInk.value.copy(proof ? white : navy)
-        paper.visible = true; desk.visible = !proof
-        lines.visible = true; fills.visible = !proof; text.object.visible = !proof
-        edge.visible = !proof && intro.fracture > 0
-        cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0
+        const stockVisible = retirement < 1 || proof || reducedMotion
+        paper.visible = stockVisible; desk.visible = !proof && stockVisible
+        lines.visible = stockVisible; fills.visible = !proof && stockVisible; text.object.visible = !proof && stockVisible
+        edge.visible = !proof && intro.fracture > 0 && stockVisible
+        cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0 && stockVisible
         portal.group.visible = !proof
         portal.cap.visible = portal.walls.visible = !proof && pit.visible
         const portalStrength = proof || reducedMotion ? 0
           : electricity.energy
         const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
         const wallUniforms = (portal.walls.material as ShaderMaterial).uniforms
+        const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1))
+        for (const mesh of [portal.walls, portal.cap]) {
+          const shader = mesh.material as ShaderMaterial
+          shader.uniforms.uPrivateSurroundings.value = surroundings
+          if (shader.transparent !== (surroundings < 1)) {
+            shader.transparent = surroundings < 1; shader.needsUpdate = true
+          }
+          shader.depthWrite = surroundings === 1
+          mesh.visible = !proof && pit.visible && surroundings > 0
+        }
+        // Ambient cliff light remains after the transient electrical score ends.
+        // A narrow mouth spill gives relief without revealing the remote cap.
+        if (wallUniforms.uPortalRockAlive) wallUniforms.uPortalRockAlive.value = .5
         if (wallUniforms.uPortalFissureEnergy) wallUniforms.uPortalFissureEnergy.value = proof || reducedMotion ? 0 : electricity.pitEnergy
         if (wallUniforms.uPortalFissureGrowth) wallUniforms.uPortalFissureGrowth.value = electricity.pitGrowth
         for (let i = 0; i < fragments.length; i++) {
@@ -517,12 +567,15 @@ export function createPrivateSheetRuntime(
           const event = proof || reducedMotion ? 0 : Math.max(0, Math.min(1,
             ((intro.t - INTRO_PHASES.fractureStart) / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart)
               - f.delay) / (1 - f.delay)))
-          const flight = Math.pow(event, 0.72)
-          mesh.position.set(f.center.x + f.velocity.x * flight,
-            f.center.y + f.velocity.y * flight - 0.12 * flight * flight,
-            0.00002 + f.velocity.z * flight)
+          // Pressure lifts each shard before gravity takes it into the opening.
+          // A smooth launch has no infinite derivative at the crack boundary.
+          const flight = event * event * (3 - 2 * event)
+          const lift = .022 * Math.sin(Math.PI * event)
+          mesh.position.set(f.center.x + f.velocity.x * flight * .65,
+            f.center.y + f.velocity.y * flight * .65 - .08 * event * event,
+            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .32 * event * event)
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
-          mesh.visible = true
+          mesh.visible = stockVisible
         }
         u.uMode.value = proof ? 1 : 0
         const contrast = proof ? 1 : intro.contrast
@@ -548,7 +601,7 @@ export function createPrivateSheetRuntime(
         const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
         ;(u.uContact.value as Vector2).set(contactStrength, contactRadius)
         u.uVellum.value = paperVellum(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
-        pulse.visible = (u.uCrackGlow.value as number) > 0
+        pulse.visible = (u.uCrackGlow.value as number) > 0 && stockVisible
         u.uViewport.value.copy(viewport)
 
         // Only the reading lamp is transient. Null target holds its current pool;
@@ -584,12 +637,17 @@ export function createPrivateSheetRuntime(
         stats.pitMaxRingDeviationM = portal.maxRingDeviationM
         stats.modelBarrierSafe = intro.openingClear || intro.poseT <= 0.4 ? 1 : 0
         stats.portalActive = portal.group.visible && group.visible ? 1 : 0
+        stats.stockRetired = stockVisible ? 0 : 1
+        stats.pitRetained = portal.group.visible && group.visible && portal.walls.visible ? 1 : 0
+        stats.surroundingsOpacity = surroundings
         stats.portalCapZ = portal.capZ; stats.portalMouthZ = portal.mouthZ
         stats.portalDeskZ = desk.position.z
         stats.portalCapBehindModel = portal.capZ < portal.initialModelBottom ? 1 : 0
         stats.portalInitialModelBottom = portal.initialModelBottom
         stats.portalProfilePoints = portal.profilePoints; stats.portalWallLevels = portal.wallLevels
-        stats.portalDepthWrite = 1; stats.portalDeskDiscard = 1
+        stats.portalDepthWrite = (portal.walls.material as ShaderMaterial).depthWrite ? 1 : 0
+        stats.portalCapDepthWrite = (portal.cap.material as ShaderMaterial).depthWrite ? 1 : 0
+        stats.portalDeskDiscard = 1
         stats.portalPulse = portalPulse; stats.portalLight = u.uPortalLight.value as number
         stats.phase = intro.t; stats.poseT = poseT; stats.lineOpacity = opacity
         stats.focus = proof || reducedMotion ? 1 : intro.focus

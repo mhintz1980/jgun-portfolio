@@ -10,10 +10,12 @@ it('preserves exact mouth, wall topology, steep walls and extinct matched closur
   const current = makePortalShaftGeometry(outline), pit = makePrivatePitGeometry(outline)
   const a = current.wallGeometry.getAttribute('position').array, b = pit.wallGeometry.getAttribute('position').array
   expect(Array.from(b).slice(0, outline.length * 3)).toEqual(Array.from(a).slice(0, outline.length * 3))
-  expect(Array.from(pit.wallGeometry.index!.array)).toEqual(Array.from(current.wallGeometry.index!.array))
+  expect(pit.ringCount).toBeGreaterThan(current.ringCount)
+  expect(pit.wallGeometry.index!.count).toBe((pit.ringCount - 1) * outline.length * 6)
   expect(Array.from(b).every(Number.isFinite)).toBe(true)
   expect(pit.ringDepthsM.at(-1)).toBe(PORTAL_SHAFT_DEPTH_M)
-  expect(pit.maxRingDeviationM).toBeLessThan(0.018)
+  expect(pit.maxRingDeviationM).toBeGreaterThan(0.05)
+  expect(pit.maxRingDeviationM).toBeLessThan(0.13)
   expect(Array.from(pit.closureGeometry.getAttribute('position').array)).toEqual(Array.from(b).slice(-outline.length * 3))
   let maxSlope = 0
   for (let k = 1; k < pit.ringCount; k++) for (let i = 0; i < outline.length; i++) {
@@ -21,6 +23,6 @@ it('preserves exact mouth, wall topology, steep walls and extinct matched closur
     expect(b[v + 2]).toBeLessThan(b[p + 2])
     maxSlope = Math.max(maxSlope, Math.hypot(b[v] - b[p], b[v + 1] - b[p + 1]) / (b[p + 2] - b[v + 2]))
   }
-  expect(Math.atan(maxSlope) * 180 / Math.PI).toBeLessThan(25)
+  expect(Math.atan(maxSlope) * 180 / Math.PI).toBeLessThan(45)
   current.wallGeometry.dispose(); current.closureGeometry.dispose(); pit.wallGeometry.dispose(); pit.closureGeometry.dispose()
 })

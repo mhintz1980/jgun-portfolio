@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { createTorqueWrenchStore } from '../../state/torqueWrenchStore'
 import { installScrollConductor, ScrollConductor } from './ScrollConductor'
 import type { TorqueConductorDependencies } from './conductorRuntime'
+import { torqueNarrativeProgress } from './scrollPacing'
 
 const beat = {
   id: 'drafting',
@@ -93,6 +94,7 @@ describe('ScrollConductor React wrapper', () => {
     const onFailure = vi.fn()
     const cleanup = installScrollConductor(store, onFailure, makeDependencies())
     expect(store.getConductorDiagnostics().activeConductors).toBe(1)
+    expect(store.getProgress()).toBeCloseTo(torqueNarrativeProgress(.25), 10)
     cleanup()
     cleanup()
     expect(store.getConductorDiagnostics().activeConductors).toBe(0)

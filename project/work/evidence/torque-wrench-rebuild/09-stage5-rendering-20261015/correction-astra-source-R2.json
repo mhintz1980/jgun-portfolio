@@ -1,0 +1,54 @@
+{
+  "reviewer": "Gauss",
+  "agentId": "01a141ee-6a87-7662-a759-25fe69e63b7c",
+  "configuredRole": "tier-reviewer",
+  "configuredModel": "gpt-6-astra",
+  "configuredEffort": "medium",
+  "round": 2,
+  "candidate": "e",
+  "verdict": "FIX_FIRST",
+  "sourceInputs": 382,
+  "sourceAggregateSha256": "56cea3657d7354cfd9b18e9b24b285fa0562d5fe8da53478a584d910dacfd627",
+  "verified": [
+    "382 inputs, zero current drift",
+    "Matrix 136/136 PASS, including served-byte matching",
+    "Reload progress 0.9800090830863155, scrollY 51506, maximum 52295 identical before/after; demonstrated reload clamp closed",
+    "Camera position boundary deltas .69:31.56 micrometers, .735:1.41 micrometers, .94:4.21 micrometers",
+    "Manual open/close 92 frames each, maximum position steps 1.226/1.198 mm",
+    "All three layers contribute pixels at .46/.69/1; full actual AA samples 4/native 4"
+  ],
+  "remainingBlockers": [
+    {
+      "priority": "P1",
+      "file": "src/scene/torque-wrench/RuntimeWorld.tsx",
+      "line": 374,
+      "title": "History-dependent ring anchor",
+      "finding": "Reload preservation does not test reversing from .98 into ring inspection. The once-captured anchor still uses the first visited mechanical pose.",
+      "recommendation": "Derive it deterministically from the canonical inspection pose."
+    },
+    {
+      "priority": "P2",
+      "file": "src/scene/torque-wrench/BackgroundWorld.tsx",
+      "line": 225,
+      "title": "Manual/background isolation mismatch",
+      "finding": "Manual traces hold scroll at .815003, where both isolation envelopes are zero. They do not exercise the mismatch between manual study progress and scroll-driven background fading.",
+      "recommendation": "Share the effective isolation sample."
+    }
+  ],
+  "limitations": [
+    "Diagnostic PASS covers recorded checks, not these untested paths",
+    "Hidden-start GPU suppression has source guards but lacks real-device hidden-start proof here",
+    "Camera continuity does not establish subject-transform continuity",
+    "G8/AC cost remains deferred",
+    "All five owner directions remain denied pending individual new answers",
+    "Reviewer performed no writes or runtime executions"
+  ],
+  "parentFinalSuite": {
+    "command": "node node_modules/vitest/vitest.mjs run --maxWorkers=2",
+    "exitCode": 0,
+    "filesPassed": 84,
+    "testsPassed": 977,
+    "testsSkipped": 4
+  },
+  "reviewCap": "Two rounds reached for this piece. No third review launched; owner re-review held pending resolution."
+}

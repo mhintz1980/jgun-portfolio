@@ -151,3 +151,44 @@ The [local readiness record](../../project/work/evidence/torque-wrench-rebuild/0
 Owner replied “I approve. The handoff for next session and the prompt for me to paste.” in response to the request to approve document 18's matrix and numerical limits to close Stage 0. This approves the verification contract in `18-stage0-verification-contract-proposal.md` §§2–6 and closes S0.7 and Stage 0, with the delivered-shell readiness record already passed. S0.6 remains a continuing read-at-domain-entry obligation, not an unfinished readiness gate.
 
 Next session may proceed to Stage 1 under the existing accepted plan's ordered implementation authority. This approval is not a measured budget pass, private-page/runtime/effects/visual acceptance, complete G0–G9 closure, a permanent resource reservation, unilateral shared-shell/V16 change authority, Git delivery/publication or cross-chat messaging authority. Preserve every recorded boundary. Handoff and ready-to-paste prompt are saved as linked from `14-next-session-prompt.md`; this closeout starts no product implementation.
+
+## Owner camera-continuity and breakthrough-priority rulings — 2026-10-16
+
+Owner direction received 2026-10-16 (ZCode documentation session; read-only — this
+records rulings, it does not authorize implementation).
+
+**Special-sequence camera continuity.** Any special sequence that isolates a part —
+currently Ring Switch and Input Shaft — must keep the camera ON PATH: no breaking away
+abruptly to a new camera position as the current `/torque-wrench/` build does (the
+per-beat pose cross-fade in `CameraHandoff.ts` reads as a cut). The OLD Ring Switch
+sequence is the rough example of the wanted shape:
+
+1. Assembly visible; the camera sweeps closer to the Ring Switch as it rotates and
+   slides down the gearbox.
+2. Assembly fades away; the camera orbits the isolated part slightly while machining
+   happens. NO CUT TO A SECOND CAMERA FROM A NEW POSITION.
+3. Special isolation sequences are where "Bullet Time" is implemented (subjects
+   stopped/extremely slowed, camera moving at normal speed — consistent with existing
+   ruling 6). A second Bullet Time location: the shattered-glass effect when the handle
+   breaks through the drawing.
+
+**Priority ruling — drawing-breakthrough sequence first.** The "model breaking through
+the drawing" sequence is to be fixed BEFORE other parity/camera work. Fixes, in the
+owner's terms:
+
+- A. The "blue lightning" that traces the profile view, and the cracks that fill the
+  enclosed profile, need major improvement to match the owner reference images
+  (`C:\Projects\Misc\cracks.png`, `portal.png`, and the undocumented motion reference
+  `C:\Projects\Misc\lightning outline.mp4`). Index: `21-owner-reference-image-index-2026-10-16.md` §A.
+- B. The cavernous pit under the torn paper — Higgsfield-generated references,
+  canonical target `...\blue-trace-tunnel-2026-10-03\concept-media\03-deep-tunnel-feedback.png`
+  (index §B). Extends the 2026-10-10 opening-continuation ruling.
+- C. "Bullet Time" effect when the model shatters the drawing view into glass-like
+  shards (overlaps A/B staging; see also fresh feedback screenshot
+  `Pictures\Screenshots\drawing feedback_dark-glass -shatter.png`, 2026-10-16).
+
+Related same-day findings: the five-feature parity gap is documented in
+`20-owner-parity-gap-2026-10-16.md` (callout labels, FEA presentation, rear-LCD dwell,
+ring-switch port verification, pointer parallax). Fresh drawing-quality feedback
+screenshots from 2026-10-16 morning are indexed in doc 21 §C
+(crosshatch placement, detail circles/lineweight, detail-letter location).

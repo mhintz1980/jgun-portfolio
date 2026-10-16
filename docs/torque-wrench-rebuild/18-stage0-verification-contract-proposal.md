@@ -102,6 +102,7 @@ Earlier motion evidence is instrumented and incomplete: report 05 gives scroll r
 ## 6. Approved response and deterministic-state tolerances
 
 - Retain Lenis 1.1s as the initial response setting. Scroll rest ≤1.2s from the last wheel event, defined as native displacement ≤0.5px/frame for at least 300ms on the reference 60Hz run.
+  - Local tuning 2026-10-14: the private conductor's initial1.1s baseline produced confirmed-rest1285.4/1406.1/1404.8ms in `input-response-20261014-w1-D-full-wheel-V1.json`. Tune to0.8s for a fresh comparison; confirm the complete300ms rest window within the unchanged1.2s ceiling. This is a candidate until runtime proof, not a budget change or legacy-page edit.
 - Camera/lamp settle within a further .5s and ≤1.7s total after the last input. Record pose/lamp target residuals separately from native scroll rest. Compare against the same target/progress and exclude optional pointer input from this settle test.
 - Hold fixed canonical progress for 5s: narrative positional drift ≤0.1mm, quaternion-angle drift ≤0.01°, FOV drift ≤0.01°, normalized shader/lamp-channel drift ≤1e−4. Use these same tolerances for matched-progress forward/reverse/direct-seek comparison, after declared transient settling.
 - Optional pointer offset: projected displacement ≤1% of the shorter viewport dimension, angular offset ≤0.5°, center return within .8s. Reading/fracture suppression residual ≤0.25 CSS pixels. Pointer response cannot modify canonical beat/director state.

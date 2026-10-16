@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Group, PerspectiveCamera, PMREMGenerator, Vector3, type Object3D } from 'three'
+import { Box3, Group, Material, Matrix4, Mesh, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Vector3, type Object3D } from 'three'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { STAGE_IDS } from '../../data/caseStudies'
 import { buildWrenchRig } from '../rig/nodeRoles'
@@ -18,20 +18,65 @@ import type { StoryRuntime } from '../inspection/story'
 import { createRingRuntimeCore, createRingRuntimeProbe } from '../inspection/ringRuntimeCore'
 import { roleMaterial } from '../rig/materials'
 import type { TorqueSceneProps } from './cadGate'
-import { createPrivateInspectionSample, samplePrivateInspection } from './InspectionDirector'
+import {
+  createPrivateInspectionSample,
+  createPrivateRingCamera,
+  RING_KNURL_DEPTH_MULTIPLIER,
+  ringTimeAt,
+  samplePrivateInspection,
+  samplePrivateRingCamera,
+} from './InspectionDirector'
 import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
-import { createOpeningSampler, sampleOpening } from './OpeningDirector'
+import { createOpeningSampler, DEFAULT_FINAL_INK_T, finalInkTimeFromStyles, sampleOpening } from './OpeningDirector'
 import { sampleOpeningCamera } from './OpeningCamera'
 import { createCameraHandoff, type CameraHandoffPose } from './CameraHandoff'
 import { PrivateSheet } from './PrivateSheet'
 import type { DrawingFrameInput, PrivateSheetRuntime } from './privateSheetRuntime'
 import { captureInstalledCutter, measureInstalledInspection } from './inspectionProof'
 import { createInspectionFailureCollector } from './inspectionFailure'
+import { applyPrivateSheetContent } from './privateSheetContent'
+import { sampleInspectionIsolation, type InspectionIsolationSample } from './inspectionIsolation'
+import { captureCanonicalRingAnchor } from './ringAnchor'
 
 const MODEL_URL = '/models/Default.glb'
 
-export default function RuntimeWorld({ store, onFailure, playback }: TorqueSceneProps) {
+interface SurroundingMaterialEntry {
+  readonly mesh: Mesh
+  readonly source: Material | Material[]
+  readonly clone: Material | Material[]
+}
+
+interface PrivateSurroundingMaterials {
+  readonly entries: readonly SurroundingMaterialEntry[]
+  readonly unique: ReadonlyMap<Material, Material>
+}
+
+interface PrivateRingKnurlMaterial {
+  readonly mesh: Mesh
+  readonly source: MeshPhysicalMaterial
+  readonly clone: MeshPhysicalMaterial
+}
+
+function cloneMaterialShape(source: Material | Material[], unique: Map<Material, Material>): Material | Material[] {
+  if (Array.isArray(source)) return source.map(value => cloneMaterialShape(value, unique) as Material)
+  let clone = unique.get(source)
+  if (!clone) {
+    clone = source.clone()
+    clone.transparent = true
+    unique.set(source, clone)
+  }
+  return clone
+}
+
+function copyMaterialFade(source: Material, clone: Material, fade: number): void {
+  clone.opacity = source.opacity * fade
+  const transparent = source.transparent || fade < 0.999
+  if (clone.transparent !== transparent) { clone.transparent = transparent; clone.needsUpdate = true }
+  clone.depthWrite = source.depthWrite && fade > 0.5
+}
+
+export default function RuntimeWorld({ store, onFailure, playback, isolation }: TorqueSceneProps & { isolation: InspectionIsolationSample }) {
   // Explicit decoder URL is local to this hook; no global preload or root hero import.
   const { scene: model } = useGLTF(MODEL_URL, '/draco/')
   const { gl, scene, camera, size } = useThree()
@@ -52,6 +97,16 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
   }, [reportFailure])
   const shaft = useRef<StoryRuntime | null>(null)
   const ring = useRef<StoryRuntime | null>(null)
+  const ringProbe = useMemo(createRingRuntimeProbe, [])
+  const ringCamera = useMemo(createPrivateRingCamera, [])
+  const ringAnchor = useMemo(() => new Matrix4(), [])
+  const ringLocalCenter = useMemo(() => new Vector3(), [])
+  const ringWorldCenter = useMemo(() => new Vector3(), [])
+  const ringKnurlMaterials = useRef<readonly PrivateRingKnurlMaterial[] | null>(null)
+  const surroundingMaterials = useRef<PrivateSurroundingMaterials | null>(null)
+  const openingFinalInkT = useRef(DEFAULT_FINAL_INK_T)
+  const manualCamera = useMemo(() => ({ open: false, transitioning: false, elapsed: 0,
+    from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 } }), [])
   const drawing = useRef<ReturnType<typeof snapshotDrawing> | null>(null)
   const layout = useRef<ReturnType<typeof makeDrawingLayout> | null>(null)
   const [sheetBake, setSheetBake] = useState<SheetBakeResult | null>(null)
@@ -64,7 +119,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
   const sheetFrame = useMemo<DrawingFrameInput>(() => ({ intro: sampleOpening(0),
     tier: store.getState().tier === 'lite' ? 'lite' : 'full', reducedMotion: false,
     proofMode: 'normal', retirement: 0, cameraLookTargetWorld: null,
-    cameraSheetDistance: 1, delta: 0,
+    surroundingsOpacity: 1, cameraSheetDistance: 1, delta: 0,
   }), [store])
   const previousProgress = useRef<number | null>(null)
   const sampleOpeningFrame = useMemo(createOpeningSampler, [])
@@ -85,7 +140,11 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     ready: false, frames: 0, hiddenFrames: 0, progress: 0,
     rig: {} as WrenchMechanicsProbe,
     camera: { position: [0, 0, 0], target: [0, 0, 0], quaternion: [0, 0, 0, 1], fov: 34 },
-    inspection: { ready: false, subjectTime: 0, cameraTime: 0, machiningRate: 0, arcWeight: 0 },
+    inspection: { ready: false, subjectTime: 0, cameraTime: 0, machiningRate: 0, arcWeight: 0,
+      feaDwellWeight: 0, hobSwingWeight: 0, surroundingsOpacity: 1 },
+    ring: { ready: false, time: 0, cameraTime: 0, knurlMultiplier: RING_KNURL_DEPTH_MULTIPLIER,
+      effectiveNormalStrength: 0 },
+    isolation: { surroundingsOpacity: 1, manual: false, manualTransition: 'settled', ringVisible: false, shaftVisible: false },
     renderer: { calls: 0, triangles: 0, geometries: 0, textures: 0 },
     // Drawing/sheet observables: whether the bake installed, which tier it used, whether the
     // frozen precompute matched these inputs (precomputed 1) or the live bake ran (0), and the
@@ -133,6 +192,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         copy.opening = { ...sheetFrame.intro, retirement: sheetFrame.retirement,
           sheetDistance: sheetFrame.cameraSheetDistance, tier: sheetFrame.tier,
           crossing: baked?.extraction.crossing ?? null,
+          finalInkT: openingFinalInkT.current,
           bakeInstalled: Boolean(baked), sheetVisible: Boolean(baked) && sheetFrame.retirement < 1 }
         copy.mechanical = {
           channels: { ...channels }, tier: store.getState().tier,
@@ -149,6 +209,15 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
             attached: Array.isArray(mesh.material) ? mesh.material.includes(material) : mesh.material === material,
           })).sort((a, b) => a.mesh.localeCompare(b.mesh)),
         }
+        if (ring.current) {
+          const subject = ring.current.root.getObjectByName('inspection-P003068-spin')
+          ring.current.root.updateWorldMatrix(true, true)
+          copy.ring.rootMatrix = ring.current.root.matrixWorld.toArray()
+          copy.ring.subjectMatrix = subject?.matrixWorld.toArray() ?? null
+          const bounds = subject ? new Box3().setFromObject(subject) : null
+          copy.ring.worldBounds = bounds ? { min: bounds.min.toArray(), max: bounds.max.toArray() } : null
+        }
+        copy.isolation.progress = isolation.progress
         return copy
       },
       inspection: () => {
@@ -165,7 +234,20 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     const contextLost = (event: Event) => { event.preventDefault(); fail(new Error('Private WebGL context lost')) }
     gl.domElement.addEventListener('webglcontextlost', contextLost)
     owned.defer(() => gl.domElement.removeEventListener('webglcontextlost', contextLost))
+    const waitVisible = async () => {
+      if (document.hidden) await new Promise<void>((resolve, reject) => {
+        const cleanup = () => { document.removeEventListener('visibilitychange', visible); owned.signal.removeEventListener('abort', aborted) }
+        const visible = () => { if (!document.hidden) { cleanup(); resolve() } }
+        const aborted = () => { cleanup(); reject(new DOMException('Private initialization cancelled', 'AbortError')) }
+        document.addEventListener('visibilitychange', visible)
+        owned.signal.addEventListener('abort', aborted, { once: true })
+        if (owned.signal.aborted) aborted()
+      })
+    }
+    const initializeVisible = async () => {
     try {
+      await waitVisible()
+      if (!owned.current()) return
       // Rest snapshot is page-owned; cached merged rig and its materials are borrowed.
       applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
       // snapshotDrawing recenters raw CAD world positions itself. Remove the host's
@@ -188,12 +270,15 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
       owned.defer(() => { if (scene.environment === environment.texture) scene.environment = null })
       gl.localClippingEnabled = true
       probe.ready = true
-      bakeSheet({ gl, data: snapshot, layout: makeDrawingLayout(1, snapshot.bounds),
+      bakeSheet({ gl, data: snapshot, layout: makeDrawingLayout(1, snapshot.bounds), content: applyPrivateSheetContent,
+        beforeGpu: waitVisible,
         tier: store.getState().tier === 'lite' ? 'lite' : 'full', signal: owned.signal,
         onCleanupFailure: errors => { if (errors.length) onFailure(new AggregateError(errors, 'Sheet cleanup failed')) },
       }).then(result => {
         owned.own(result)
         if (owned.current()) {
+          const styles = result.lines.geometry.getAttribute('aStyle')
+          openingFinalInkT.current = finalInkTimeFromStyles(styles.array as ArrayLike<number>, styles.itemSize)
           bakedSheet.current = result
           probe.sheet.baked = true
           probe.sheet.tier = store.getState().tier === 'lite' ? 'lite' : 'full'
@@ -202,7 +287,9 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
           setSheetBake(result)
         }
       }, error => { if (owned.current()) fail(error) })
-    } catch (error) { fail(error); owned.dispose() }
+    } catch (error) { if (owned.current()) { fail(error); owned.dispose() } }
+    }
+    void initializeVisible()
     return () => {
       probe.ready = false
       bakedSheet.current = null
@@ -213,7 +300,7 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
       ring.current = null
       if (scope.current === owned) scope.current = null
     }
-  }, [gl, scene, rig, model, probe, onFailure, center])
+  }, [gl, scene, rig, model, probe, onFailure, center, isolation])
 
   useEffect(() => {
     if (drawing.current) layout.current = makeDrawingLayout(aspect, drawing.current.bounds)
@@ -226,16 +313,24 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
     try {
       const progress = store.getProgress()
       const crossing = sheetBake?.extraction.crossing ?? 0.9
-      sheetFrame.intro = sampleOpeningFrame(progress, crossing)
+      sheetFrame.intro = sampleOpeningFrame(progress, crossing, openingFinalInkT.current)
       sheetFrame.delta = previousProgress.current === progress ? 0 : Math.min(delta, 0.1)
       previousProgress.current = progress
       sheetFrame.retirement = Math.max(0, Math.min(1, (progress - 0.46) / 0.04))
       const manual = playback?.isOpen() ?? false
+      if (manual !== manualCamera.open) {
+        manualCamera.open = manual; manualCamera.transitioning = true; manualCamera.elapsed = 0
+        manualCamera.from.position.copy(camera.position); manualCamera.from.target.copy(target)
+        manualCamera.from.up.copy(camera.up); manualCamera.from.fov = camera.fov
+      }
       const studyProgress = manual
-        ? 0.735 + (playback?.advance(delta, true) ?? 0) * 0.205
+        ? 0.735 + (playback?.advance(manualCamera.transitioning ? 0 : delta, true) ?? 0) * 0.205
         : progress
       const studyVisible = manual || (progress >= 0.735 && progress < 0.94)
       const ringVisible = !manual && progress >= 0.69 && progress < 0.735
+      sampleInspectionIsolation(progress, manual, studyProgress, isolation)
+      const surroundingsOpacity = isolation.surroundingsOpacity
+      sheetFrame.surroundingsOpacity = surroundingsOpacity
       sampleMechanism(progress, channels)
       applyWrenchMechanics(rig, channels)
       if (sheetBake && group.current) {
@@ -250,34 +345,139 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         // Preserve the legacy host's transparent-capable clone and depth law.
         material.depthWrite = channels.ghostOpacity > 0.5
       }
+      if (!surroundingMaterials.current && !manual && progress >= 0.655) {
+        const unique = new Map<Material, Material>()
+        let entries: SurroundingMaterialEntry[]
+        try {
+          entries = rig.meshes.map(mesh => {
+          const source = mesh.material
+          if (!source) throw new Error('Surrounding material source unavailable')
+            return { mesh, source, clone: cloneMaterialShape(source, unique) }
+          })
+        } catch (error) {
+          for (const clone of unique.values()) clone.dispose()
+          throw error
+        }
+        for (const entry of entries) entry.mesh.material = entry.clone
+        surroundingMaterials.current = { entries, unique }
+        owned.defer(() => {
+          if (surroundingMaterials.current?.unique === unique) surroundingMaterials.current = null
+          for (const entry of entries) entry.mesh.material = entry.source
+          for (const clone of unique.values()) clone.dispose()
+        })
+      }
+      const privateSurroundings = surroundingMaterials.current
+      if (privateSurroundings) {
+        for (const { source, clone } of privateSurroundings.entries) {
+          if (Array.isArray(source) && Array.isArray(clone)) {
+            for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], surroundingsOpacity)
+          } else if (!Array.isArray(source) && !Array.isArray(clone)) {
+            copyMaterialFade(source, clone, surroundingsOpacity)
+          }
+        }
+      }
       writeWrenchMechanicsProbe(rig, channels, channels.ghostOpacity, probe.rig)
-      if (group.current) group.current.visible = !studyVisible && !ringVisible
-      if (!manual && progress >= 0.675 && !ring.current) {
+      if (group.current) group.current.visible = surroundingsOpacity > 0.001
+      probe.isolation.surroundingsOpacity = surroundingsOpacity
+      probe.isolation.manual = manual
+      probe.isolation.ringVisible = ringVisible
+      probe.isolation.shaftVisible = studyVisible
+      if (!manual && progress >= 0.655 && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
         const failures = createInspectionFailureCollector(reportFailure)
         const session = createStorySession('ring', { id: 2, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
         let runtime: StoryRuntime
+        model.updateWorldMatrix(true, true)
         try { runtime = createRingRuntimeCore(session, { gl, scene, hero: model, rig,
           tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
           source, meshes: rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')),
-          initialTime: 0, getEntryElapsed: () => 2, probe: createRingRuntimeProbe(),
+          initialTime: 0, getEntryElapsed: () => 2, probe: ringProbe,
           onCleanupError: report => failures.cleanup(report),
         }) } catch (error) { failures.reject(error); throw error }
+        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed() } })
+        source.updateWorldMatrix(true, true)
+        const inverse = source.matrixWorld.clone().invert(), union = new Box3(), bounds = new Box3(), transform = new Matrix4()
+        for (const mesh of rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch'))) {
+          mesh.geometry.computeBoundingBox()
+          bounds.copy(mesh.geometry.boundingBox!).applyMatrix4(transform.multiplyMatrices(inverse, mesh.matrixWorld))
+          union.union(bounds)
+        }
+        union.getCenter(ringLocalCenter)
+        captureCanonicalRingAnchor(rig, ringLocalCenter, channels, ringAnchor)
+        const spin = runtime.root.getObjectByName('inspection-P003068-spin')
+        if (!spin) throw new Error('Private ring material host unavailable')
+        const knurl: PrivateRingKnurlMaterial[] = []
+        try {
+          spin.traverse(object => {
+            if (!(object instanceof Mesh) || !(object.material instanceof MeshPhysicalMaterial)) return
+            const source = object.material
+            const clone = source.clone()
+            clone.onBeforeCompile = source.onBeforeCompile
+            clone.customProgramCacheKey = source.customProgramCacheKey.bind(source)
+            knurl.push({ mesh: object, source, clone })
+          })
+        } catch (error) {
+          for (const { clone } of knurl) clone.dispose()
+          throw error
+        }
+        for (const { mesh, clone } of knurl) mesh.material = clone
+        if (!knurl.length) throw new Error('Private ring knurl material unavailable')
+        ringKnurlMaterials.current = knurl
+        owned.defer(() => {
+          if (ringKnurlMaterials.current === knurl) ringKnurlMaterials.current = null
+          for (const material of knurl) { material.mesh.material = material.source; material.clone.dispose() }
+        })
         failures.loading()
         ring.current = runtime
         scene.add(runtime.root)
-        owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed() } })
-        runtime.ready.then(() => failures.resolve(), error => {
+        runtime.ready.then(() => {
+          if (owned.current()) probe.ring.ready = true
+          failures.resolve()
+        }, error => {
           if (owned.current()) failures.reject(error)
           else failures.disposed()
         })
       }
       if (ring.current) {
         const runtime = ring.current
-        runtime.sample(Math.max(0, Math.min(1, (progress - 0.69) / 0.045)) * 12)
+        const ringTime = ringTimeAt(progress)
+        runtime.sample(ringTime)
         runtime.apply(); runtime.root.visible = ringVisible
+        runtime.root.matrixAutoUpdate = false
+        runtime.root.matrix.copy(ringAnchor)
+        runtime.root.matrixWorldNeedsUpdate = true
+        const ringDistance = runtime.camera.position.length()
+        const privateRingCamera = samplePrivateRingCamera(progress, ringDistance, ringCamera)
+        runtime.camera.position.set(privateRingCamera.px, privateRingCamera.py, privateRingCamera.pz)
+        runtime.camera.target.set(privateRingCamera.tx, privateRingCamera.ty, privateRingCamera.tz)
+        runtime.camera.up.set(privateRingCamera.ux, privateRingCamera.uy, privateRingCamera.uz)
+        runtime.camera.position.applyMatrix4(ringAnchor)
+        runtime.camera.target.applyMatrix4(ringAnchor)
+        runtime.camera.up.transformDirection(ringAnchor)
+        ringWorldCenter.setFromMatrixPosition(ringAnchor)
+        runtime.camera.fov = privateRingCamera.fov
+        const knurl = ringKnurlMaterials.current
+        if (knurl) {
+          let effectiveNormalStrength = 0
+          for (const { source, clone } of knurl) {
+            clone.color.copy(source.color)
+            clone.roughness = source.roughness
+            clone.opacity = source.opacity
+            clone.transparent = source.transparent
+            if (clone.opacity < .999) clone.transparent = true
+            clone.depthWrite = source.depthWrite
+            clone.normalScale.set(
+              source.normalScale.x * RING_KNURL_DEPTH_MULTIPLIER,
+              source.normalScale.y * RING_KNURL_DEPTH_MULTIPLIER,
+            )
+            effectiveNormalStrength = Math.max(effectiveNormalStrength, clone.normalScale.x)
+          }
+          probe.ring.effectiveNormalStrength = effectiveNormalStrength
+        }
+        probe.ring.time = ringTime
+        probe.ring.cameraTime = ringTime
         if (ringVisible) {
           camera.position.copy(runtime.camera.position); target.copy(runtime.camera.target)
           camera.up.copy(runtime.camera.up); camera.fov = runtime.camera.fov
@@ -317,11 +517,21 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         probe.inspection.cameraTime = inspection.cameraTime
         probe.inspection.machiningRate = inspection.machiningRate
         probe.inspection.arcWeight = inspection.arcWeight
+        probe.inspection.feaDwellWeight = inspection.feaDwellWeight
+        probe.inspection.hobSwingWeight = inspection.hobSwingWeight
+        probe.inspection.surroundingsOpacity = inspection.surroundingsOpacity
         if (runtime.root.visible) {
           camera.position.copy(runtime.camera.position)
           target.copy(runtime.camera.target)
           camera.up.copy(runtime.camera.up)
           camera.fov = runtime.camera.fov
+        }
+      }
+      // The replacement ring shares the actual part's world pose. Hand it off
+      // at full opacity; only neighbouring components follow the isolation fade.
+      for (const mesh of rig.meshes) {
+        if (rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')) {
+          mesh.visible = !ringVisible
         }
       }
       if (!studyVisible && !ringVisible) {
@@ -366,6 +576,16 @@ export default function RuntimeWorld({ store, onFailure, playback }: TorqueScene
         camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
         camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
+      if (manualCamera.transitioning) {
+        manualCamera.elapsed = Math.min(1, manualCamera.elapsed + Math.min(delta, .1))
+        handoffTo.position.copy(camera.position); handoffTo.target.copy(target)
+        handoffTo.up.copy(camera.up); handoffTo.fov = camera.fov
+        blendCamera(manualCamera.from, handoffTo, manualCamera.elapsed, 0, 1, handoffResult)
+        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
+        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
+        if (manualCamera.elapsed === 1) manualCamera.transitioning = false
+      }
+      probe.isolation.manualTransition = manualCamera.transitioning ? (manual ? 'entering' : 'exiting') : 'settled'
       camera.lookAt(target); camera.updateProjectionMatrix()
       sheetFrame.cameraLookTargetWorld = target
       sheetFrame.cameraSheetDistance = camera.position.distanceTo(target)

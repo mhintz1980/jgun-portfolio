@@ -6,9 +6,14 @@ import {
   sampleShaftKinematics,
 } from '../inspection/shaft/kinematics'
 import {
+  createPrivateRingCamera,
   CutterCameraArc,
   createPrivateInspectionSample,
+  RING_KNURL_DEPTH_MULTIPLIER,
+  ringTimeAt,
+  sampleInspectionSurroundings,
   samplePrivateInspection,
+  samplePrivateRingCamera,
   type PrivateInspectionSample,
 } from './InspectionDirector'
 
@@ -16,10 +21,27 @@ const DESKTOP = 1440 / 900
 const NARROW = 390 / 844
 const KNOTS = [
   [0.735, 0], [0.795, 7.2], [0.835, 9.6],
-  [0.87, 24.6], [0.905, 32], [0.94, 43],
+  [0.87, 24.6], [0.884, 25], [0.902, 31.8],
+  [0.905, 32], [0.94, 43],
+] as const
+const CAMERA_SEAMS = [
+  0.735, 0.795, 0.835, 0.846, 0.863, 0.874, 0.884, 0.905, 0.925, 0.94,
 ] as const
 const at = (progress: number, aspect = DESKTOP) =>
   samplePrivateInspection(progress, aspect, createPrivateInspectionSample())
+
+it('holds ring/shaft isolation after camera arrival and restores it before close', () => {
+  expect(sampleInspectionSurroundings(.69)).toBe(1)
+  expect(sampleInspectionSurroundings(.71)).toBe(0)
+  expect(sampleInspectionSurroundings(.90)).toBe(0)
+  expect(sampleInspectionSurroundings(.94)).toBe(1)
+  expect(RING_KNURL_DEPTH_MULTIPLIER).toBe(1.5)
+  expect(ringTimeAt(.69)).toBe(0)
+  expect(ringTimeAt(.735)).toBe(12)
+  const camera = createPrivateRingCamera()
+  samplePrivateRingCamera(.71, .2, camera)
+  expect(Object.values(camera).every(Number.isFinite)).toBe(true)
+})
 
 /** Locate a subject seam without assuming a particular interpolation polynomial. */
 function progressAtTime(time: number): number {
@@ -145,13 +167,14 @@ describe('JG-038 private InspectionDirector C1', () => {
     }
   })
 
-  it.each([DESKTOP, NARROW, 0.82])('retains the baseline camera outside private cutter framing at aspect %s', (aspect) => {
+  it.each([DESKTOP, NARROW])('retains the baseline camera at clear endpoint seams at aspect %s', (aspect) => {
     const baseline = createShaftCameraSample()
-    for (const time of [0, 16, 24.6, 28, 32, 43]) {
-      const sample = at(progressAtTime(time), aspect)
-      // Bisection may land a few ulps inside a seam; its smooth weight is negligible.
+    for (const progress of [0, 0.735, 0.925, 0.94, 1]) {
+      const sample = at(progress, aspect)
+      const expectedTime = progress <= 0.735 ? 0 : 43
       expect(sample.arcWeight).toBeLessThan(1e-20)
-      sampleShaftCamera(sample.subjectTime, aspect, sample.kinematics, baseline)
+      expect(sample.hobSwingWeight).toBe(0)
+      sampleShaftCamera(expectedTime, aspect, sample.kinematics, baseline)
       for (const key of Object.keys(baseline) as (keyof typeof baseline)[]) {
         if (key === 'valid') expect(sample.camera[key]).toBe(baseline[key])
         else expect(sample.camera[key]).toBeCloseTo(baseline[key], 12)
@@ -222,8 +245,9 @@ describe('JG-038 private InspectionDirector C1', () => {
   })
 
   it.each([DESKTOP, NARROW])('is C1 at master knots and arc entry/exit seams at aspect %s', (aspect) => {
-    const seams = [...KNOTS.map(([p]) => p), progressAtTime(2), progressAtTime(6.5),
-      progressAtTime(10.3), progressAtTime(15), progressAtTime(16)]
+    const seams = [...new Set([...KNOTS.map(([p]) => p), ...CAMERA_SEAMS,
+      progressAtTime(2), progressAtTime(6.5), progressAtTime(10.3),
+      progressAtTime(15), progressAtTime(16)])]
     // Small enough to distinguish a seam from the compressed exit's curvature.
     const h = 1e-9
     const channels: [string, (s: PrivateInspectionSample) => number, number][] = [

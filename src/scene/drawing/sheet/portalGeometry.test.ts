@@ -129,7 +129,8 @@ describe('portal vertical rock shaft geometry', () => {
       expect(findFold(ring), `private ring ${k}`).toBe(null)
       expect(signedArea(ring)).toBeGreaterThan(0)
     }
-    expect(shaft.maxRingDeviationM).toBeLessThan(0.018)
+    expect(shaft.maxRingDeviationM).toBeGreaterThan(.05)
+    expect(shaft.maxRingDeviationM).toBeLessThan(.13)
     shaft.wallGeometry.dispose(); shaft.closureGeometry.dispose()
   })
 

@@ -5,7 +5,7 @@ import {
 import { bindExtractionPressure, solveExtraction, type Extraction } from '../poseCore'
 import { composeSheet } from './composeSheet'
 import { prepareDrawingCache } from './drawingCache'
-import { GROUP, makeInkFills, makeInkLines, makeSheetUniforms, type SheetUniforms } from './ink'
+import { GROUP, makeInkFills, makeInkLines, makeSheetUniforms, type InkBuilder, type SheetUniforms } from './ink'
 import { clearPaperFlexField, makePaperFlexField, type PaperFlexField } from './paperFlex'
 import { bakeProfile } from './profile'
 import { measureProfileRegistration } from './registration'
@@ -21,6 +21,9 @@ export interface SheetBakeInput {
   layout: DrawingLayout
   tier: SheetBakeTier
   cacheUrl?: string
+  /** Optional private content variant; default shared composition is unchanged. */
+  content?: (source: InkBuilder) => InkBuilder
+  beforeGpu?: () => Promise<void>
   signal?: AbortSignal
   onCleanupFailure(errors: readonly unknown[]): void
 }
@@ -72,6 +75,7 @@ export async function bakeSheet(input: SheetBakeInput): Promise<SheetBakeResult>
   try {
     checkpoint()
     const precomputed = await prepareDrawingCache(data, layout, input.cacheUrl, signal)
+    await input.beforeGpu?.()
     checkpoint()
     const cacheMs = performance.now() - started
     const extractStart = performance.now()
@@ -80,6 +84,7 @@ export async function bakeSheet(input: SheetBakeInput): Promise<SheetBakeResult>
     const extractMs = performance.now() - extractStart
     checkpoint()
     const composed = composeSheet(gl, data, layout, collect)
+    const ink = input.content ? input.content(composed.ink) : composed.ink
     checkpoint()
     const rendered = bakeProfile(gl, data, layout, collect)
     cleanups.push(() => rendered.dispose(collect))
@@ -90,7 +95,7 @@ export async function bakeSheet(input: SheetBakeInput): Promise<SheetBakeResult>
     const barrierMask = makeBarrierMask(fracture.outline, SHEET_WIDTH, SHEET_HEIGHT, collect)
     cleanups.push(() => barrierMask.dispose())
     checkpoint()
-    const fragmentPrint = makeFragmentPrint(composed.ink.segs, composed.ink.fills, SHEET_WIDTH, SHEET_HEIGHT, collect)
+    const fragmentPrint = makeFragmentPrint(ink.segs, ink.fills, SHEET_WIDTH, SHEET_HEIGHT, collect)
     cleanups.push(() => fragmentPrint.dispose())
     checkpoint()
     const crackMask = makeCrackMask(rendered.profilePoints, fracture.cracks, SHEET_WIDTH, SHEET_HEIGHT, collect)
@@ -111,22 +116,23 @@ export async function bakeSheet(input: SheetBakeInput): Promise<SheetBakeResult>
     uniforms.uFlexRect.value = flex.rect
     uniforms.uOrigin.value.set(extraction.contact.x, extraction.contact.y)
     checkpoint()
-    const lines = makeInkLines(composed.ink, uniforms, collect)
+    const lines = makeInkLines(ink, uniforms, collect)
     ownMesh(lines)
     checkpoint()
-    const fills = makeInkFills(composed.ink, uniforms, collect)
+    const fills = makeInkFills(ink, uniforms, collect)
     ownMesh(fills)
     checkpoint()
-    const text = makeSheetText(composed.ink.texts, uniforms, collect)
+    const text = makeSheetText(ink.texts, uniforms, collect)
     cleanups.push(() => text.dispose(collect))
     checkpoint()
-    const stats = { ...composed.stats, cacheMs, precomputed: precomputed ? 1 : 0, extractMs,
+    const stats = { ...composed.stats, cacheMs, precomputed: precomputed && !input.content ? 1 : 0,
+      basePrecomputed: precomputed ? 1 : 0, privateContentVariant: input.content ? 1 : 0, extractMs,
       bakeMs: performance.now() - started, flexFieldPeak: flex.peak, flexAmplitude: 0,
       flexPeakDisplacement: 0, flexEnabled: 0, flexNormalX: 0, flexNormalY: 0, flexNormalZ: 1,
       contactShadow: 0, contactRadius: 0, vellum: 0 }
     // The independent ink comparison stays lazy, exactly as in the legacy bake.
     let registration: ReturnType<typeof measureProfileRegistration> | undefined
-    const pulseRegistration = () => registration ??= measureProfileRegistration(rendered.profilePoints, composed.ink.segs, GROUP.side)
+    const pulseRegistration = () => registration ??= measureProfileRegistration(rendered.profilePoints, ink.segs, GROUP.side)
     checkpoint()
     return { layout, extraction, rendered, uniforms, lines, fills, text, flex,
       fracture, barrierMask, fragmentPrint, crackMask, stats, pulseRegistration, dispose }

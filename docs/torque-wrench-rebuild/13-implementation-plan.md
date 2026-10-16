@@ -195,6 +195,8 @@ Before **every** scrolling/cinematic edit, also read `C:/Users/Markimus/.buzz/RE
 
 ### Stage 5 — Layered background and rendering
 
+**Stage4 parent technical checkpoint2026-10-15 recorded:** [checkpoint](../../project/work/evidence/torque-wrench-rebuild/08-stage4-opening-recovery/stage4-integration-checkpoint-20261015.md). Independent camera sourceSHIP,affected64/64clearance,four259/259cutter/controlcases,16inputfunctionalcategorycellsPASS,192pointerassertionsPASS,actual30/15updateholds and currentnear-limitresponse repeats are bound there. This permits the dependency-ordered Stage5 implementation under existing authority; it is not owner visual/full-motion acceptance or G0–G9 closure. Originalfailures/UNVERIFIEDobservations remain explicit; final integrated validation still belongs to Package5.
+
 - [ ] Implement two or three explicit depth layers with different progress-driven movement rates through `backgroundLayers.ts` and `BackgroundDirector.ts`.
 - [ ] Use a gamma-correct radial base gradient with blue-noise dither and restrained atmospheric separation from subject and cavern depth.
 - [ ] Continuously blend layer opacity, offset, color, and post profile across beats; avoid boundary snaps.

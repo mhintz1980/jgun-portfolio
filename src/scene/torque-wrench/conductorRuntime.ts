@@ -71,6 +71,8 @@ export interface TorqueConductorDependencies {
 
 export interface TorqueConductorOptions extends TorqueConductorDependencies {
   store: TorqueWrenchStore
+  /** Browser-private physical pacing; omitted by isolated lifecycle callers. */
+  mapScrollProgress?: (fraction: number) => number
   onCleanupFailure?: (error: Error) => void
   /**
    * The accepted Lenis/GSAP clock requires lag smoothing off. This is a shared GSAP ticker
@@ -235,7 +237,9 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
   }
 
   try {
-    const lenis = new dependencies.Lenis({ duration: 1.1, smoothWheel: true, autoRaf: false })
+    // Private-page response tuning: the 1.1s baseline exceeded the contract's
+    // 1.2s confirmed-rest budget (including its sustained 300ms rest window).
+    const lenis = new dependencies.Lenis({ duration: 0.8, smoothWheel: true, autoRaf: false })
     ownedLenis.add(lenis)
 
     const removeLenisScrollHandler = lenis.on('scroll', () => { if (active) dependencies.scrollTrigger.update() })
@@ -266,7 +270,8 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
         if (startupComplete) publishDiagnostics()
         return
       }
-      store.setProgress(Math.min(1, Math.max(0, progress)))
+      const fraction = Math.min(1, Math.max(0, progress))
+      store.setProgress(options.mapScrollProgress ? options.mapScrollProgress(fraction) : fraction)
     }
 
     trigger = dependencies.scrollTrigger.create({

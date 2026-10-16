@@ -1,8 +1,7 @@
 // JG-038 full native input/response verifier, minimum bounded roster.
 //
-// Owned file: Erdos / GLM-5.3 high. Parent chat 01a13b10-6d9b-7f80-9ce8-3fd20d86fbe1
-// owns integration, camera/paint changes and all runtime scheduling. This authoring session
-// launches no browser/build/GPU/server and edits no existing file.
+// Interrupted Erdos scope transferred to the receiving local parent under the
+// 2026-10-14 local-session handoff. Runtime scheduling remains parent-owned.
 //
 // Usage:
 //   node scripts/verify-torque-input-response.mjs --help
@@ -219,6 +218,7 @@ function sourceIdentity() {
     'src/scene/torque-wrench/TorqueWrenchPage.tsx',
     'src/scene/torque-wrench/Scene.tsx',
     'src/scene/torque-wrench/RuntimeWorld.tsx',
+    'src/scene/torque-wrench/CameraHandoff.ts',
     'src/scene/torque-wrench/InspectionDirector.ts',
     'src/scene/torque-wrench/OpeningCamera.ts',
     'src/scene/torque-wrench/OpeningDirector.ts',
@@ -338,19 +338,25 @@ function inputProbeInit() {
     errors: [],
     seen: {},
     nativeEvents: [],
+    consumedNativeEvents: {},
     lastNativeY: null,
     start(label) {
       this.started = true; this.origin = performance.now(); this.capture = true
       this.marker = label; this.markers.length = 0; this.frames.length = 0; this.dropped = 0
       this.nativeEvents.length = 0; this.lastNativeY = null
+      this.consumedNativeEvents = {}
       this.mark(label)
     },
     mark(label) {
       this.marker = String(label)
-      const eventType = label.startsWith('wheel:') ? 'wheel' : label.startsWith('touch:end:') ? 'touchend'
-        : label.startsWith('keyboard:') && !label.endsWith(':hold') ? 'keyup'
-          : label.startsWith('scrollbar:') ? 'mouseup' : null
-      const nativeEvent = eventType ? this.nativeEvents.filter(event => event.type === eventType).at(-1) ?? null : null
+      const eventType = label.startsWith('wheel:') && label.endsWith(':end') ? 'wheel' : label.startsWith('touch:end:') ? 'touchend'
+        : label.startsWith('keyboard:') && label.endsWith(':end') ? 'keyup'
+          : label.startsWith('scrollbar:') && label.endsWith(':end') ? 'mouseup' : null
+      const candidate = eventType ? this.nativeEvents.filter(event => event.type === eventType).at(-1) ?? null : null
+      // A marker cannot borrow an earlier gesture's last trusted event. Direct
+      // scrollTo/reload observations retain marker-relative, unverified timing.
+      const nativeEvent = candidate && candidate.sequence > (this.consumedNativeEvents[eventType] ?? -1) ? candidate : null
+      if (nativeEvent) this.consumedNativeEvents[eventType] = nativeEvent.sequence
       this.markers.push({ label, t: performance.now() - this.origin, nativeEvent,
         markerLatencyMs: nativeEvent ? performance.now() - this.origin - nativeEvent.t : null })
     },
@@ -367,7 +373,8 @@ function inputProbeInit() {
       if (!probe.capture || !event.isTrusted) return
       const timestamp = event.timeStamp
       const timestampOnPerformanceClock = Number.isFinite(timestamp) && timestamp >= probe.origin && timestamp <= performance.now()
-      probe.nativeEvents.push({ type, t: timestampOnPerformanceClock ? timestamp - probe.origin : null,
+      probe.nativeEvents.push({ type, sequence: probe.eventSequence = (probe.eventSequence ?? 0) + 1,
+        t: timestampOnPerformanceClock ? timestamp - probe.origin : null,
         receivedT: performance.now() - probe.origin, timestampOnPerformanceClock, isTrusted: event.isTrusted,
         key: event.key ?? null, deltaY: event.deltaY ?? null, deltaMode: event.deltaMode ?? null })
     }, { capture: true, passive: true })
@@ -650,7 +657,7 @@ function responseAnalysis(captured, label) {
         && progressValues.every(value => finite(finalTarget.progress) && Math.abs(value - finalTarget.progress) <= PROGRESS_EPS)
       const nativeTargetStable = stableWindow.every(frame => finite(frame.nativeProgress) && finite(finalTarget.nativeProgress)
         && Math.abs(frame.nativeProgress - finalTarget.nativeProgress) <= PROGRESS_EPS)
-      if (stableEnd && residuals.length && residuals.every(residual => residual.cameraStable && residual.lampStable) && progressStable && nativeTargetStable) {
+      if (stableEnd && residuals.length && residuals.every(residual => residual.missing.length === 0 && residual.cameraStable && residual.lampStable) && progressStable && nativeTargetStable) {
         settleFrame = stableEnd
         settleResidual = {
           maxPositionM: Math.max(...residuals.map(residual => residual.position ?? 0)),
@@ -679,7 +686,7 @@ function responseAnalysis(captured, label) {
     if (key === 'nativeDelta') return Number.isFinite(frame.nativeDeltaCssPx)
     return Number.isFinite(frame.renderer?.drawingBufferPixelsDerived)
   }))
-  const lampSeen = Object.keys(frames[0]?.lampChannels ?? {}).filter(key => frames.some(frame => Number.isFinite(frame.lampChannels[key])))
+  const lampSeen = Object.keys(frames[0]?.lampChannels ?? {}).filter(key => frames.every(frame => Number.isFinite(frame.lampChannels[key])))
   const lampMissing = Object.keys(frames[0]?.lampChannels ?? {}).filter(key => !lampSeen.includes(key))
   const timing = observedTiming(frames)
   const status = !trustedAnchor || timing.status !== 'PASS' || missingObservability.length || !lampSeen.length || lampMissing.length ? 'UNVERIFIED'
@@ -949,8 +956,9 @@ async function keyboardCategory(page) {
     const direction = segment.label === 'keyboard:Home' ? -1
       : segment.label === 'keyboard:ArrowUp' || segment.label === 'keyboard:PageUp' ? -1 : 1
     const displacement = segment.before.scrollY !== null && segment.after.scrollY !== null ? segment.after.scrollY - segment.before.scrollY : null
+    const alreadyAtHome = segment.label === 'keyboard:Home' && Math.abs(segment.before.scrollY) <= .5
     check(movementAssertions, segment.label + ' produces native movement in requested direction',
-      displacement !== null && Math.abs(displacement) > 0 && Math.sign(displacement) === direction,
+      displacement !== null && (alreadyAtHome ? Math.abs(displacement) <= .5 : Math.abs(displacement) > 0 && Math.sign(displacement) === direction),
       { beforeScrollY: segment.before.scrollY, afterScrollY: segment.after.scrollY, displacementPx: displacement, direction })
   }
 
@@ -1227,7 +1235,12 @@ async function scrollbarCategory(page, viewportKey) {
       && reverse.slice(1).every((sample, i) => sample.pixels.requestedPixel !== reverse[i].pixels.requestedPixel)
       && boundary.derivatives.length > 0 && boundary.reverseDerivatives.length > 0
       && [...boundary.derivatives, ...boundary.reverseDerivatives].every(item => item.perCanonicalProgress
-        && Object.values(item.perCanonicalProgress).every(finite)), { forward: boundary.derivatives, reverse: boundary.reverseDerivatives })
+        && ['positionM', 'targetM', 'quaternionDeg', 'fovDeg'].every(key => finite(item.perCanonicalProgress[key]))),
+    { forward: boundary.derivatives, reverse: boundary.reverseDerivatives })
+  boundary.rollObservability = {
+    status: [...boundary.derivatives, ...boundary.reverseDerivatives].some(item => item.rollDeltaDegDerived === null) ? 'UNVERIFIED' : 'PASS',
+    note: 'World-up-derived roll is undefined at a top-down view; null is retained. Quaternion orientation remains the nonsingular angular witness.',
+  }
   for (const direction of ['forward', 'reverse']) {
     check(assertions, 'scrollbar ' + direction + ': every requested canonical seek lands within ±.001',
       samples[direction].every(sample => finite(sample.observedProgress) && Math.abs(sample.observedProgress - sample.requested) <= SEEK_PROGRESS_TOL),
@@ -1248,7 +1261,8 @@ async function scrollbarCategory(page, viewportKey) {
   check(assertions, 'boundary roster covers every explicit RuntimeWorld seam ±.001',
     CAMERA_BOUNDARIES.every(seam => [seam - .001, seam, seam + .001].every(target => forward.some(sample => Math.abs(sample.requested - target) <= 5e-7))), CAMERA_BOUNDARIES)
   check(assertions, 'forward/reverse matched-progress camera/lamp residuals within contract hold tolerances',
-    boundary.matchedProgressResiduals.every(item => item.residual.cameraStable && item.residual.lampStable),
+    boundary.matchedProgressResiduals.some(item => item.residual.missing.length) ? 'UNVERIFIED'
+      : boundary.matchedProgressResiduals.every(item => item.residual.cameraStable && item.residual.lampStable),
     boundary.matchedProgressResiduals.map(item => ({ requested: item.requested, residual: item.residual })))
 
   const responseStatuses = segments.flatMap(segment => [segment.response?.status, segment.hold?.status].filter(Boolean))
@@ -1332,10 +1346,16 @@ async function runCategory(browser, category, options, provenance) {
       result.boundary = scrollbar.boundary
       result.assertions.push(...scrollbar.assertions)
     }
+    await page.evaluate(() => window.__jg038InputResponseProbe.mark('ending-refresh:start'))
+    await sleep(1200)
     result.runtimeEnd = await readRuntime(page)
     runtimeIdentityAssertions(result.assertions, result.runtimeEnd, viewport, tier, category + ' end', runtime)
     const leftover = await drainProbe(page)
     result.segments.push({ label: 'end-seal', probe: leftover })
+    const endingMarker = inputMarker(leftover, 'ending-refresh:start')
+    result.endingTiming = observedTiming(endingMarker ? leftover.frames.filter(frame => frame.t >= endingMarker.t) : [])
+    check(result.assertions, category + ': ending observed reference rAF cadence',
+      result.endingTiming.status === 'PASS' ? true : 'UNVERIFIED', result.endingTiming)
     const probes = probeRecords(result.segments)
     check(result.assertions, category + ': zero probe errors', probes.every(probe => probe.errors?.length === 0), probes.flatMap(probe => probe.errors ?? ['missing errors field']))
     check(result.assertions, category + ': zero dropped samples', probes.every(probe => probe.dropped === 0), probes.map(probe => probe.dropped))
@@ -1418,11 +1438,11 @@ async function main() {
   const report = {
     harness: 'verify-torque-input-response',
     release: {
-      id: 'TempJG038release20261014',
-      checkpoint: 'C:/Users/Markimus/AppData/Local/Temp/JG-038-release-checkpoint-2026-10-14.md',
-      parentRuntimeOwner: 'chat:01a13b10-6d9b-7f80-9ce8-3fd20d86fbe1',
-      authorSeat: 'Erdos / GLM-5.3 high',
-      writeOwnership: 'scripts/verify-torque-input-response.mjs only; parent owns all runtime and fixes',
+      id: 'JG038-local-resumption-W1',
+      checkpoint: 'C:/Users/Markimus/AppData/Local/Temp/JG-038-next-local-session-handoff-2026-10-14.md',
+      parentRuntimeOwner: 'receiving local integration session',
+      authorSeat: 'Erdos interrupted snapshot; receiving parent corrections',
+      writeOwnership: 'receiving parent owns input verifier and serialized runtime',
     },
     capturedAt: new Date().toISOString(),
     url: url.toString(),
@@ -1493,7 +1513,11 @@ async function main() {
       launchConfig: config,
       note: 'Windows installed Chrome/ANGLE/D3D11 is launch configuration; report.renderer.backend is the actual runtime observation.',
     }
-    for (const category of selectedCategories) report.categories.push(await runCategory(browser, category, { url, viewport, tier }, report.build))
+    for (const category of selectedCategories) {
+      const result = await runCategory(browser, category, { url, viewport, tier }, report.build)
+      report.categories.push(result)
+      console.log(JSON.stringify({ category, functional: result.selectedFunctionalStatus, response: result.responseTimingStatus, status: result.status }))
+    }
     report.sourceEnd = sourceIdentity()
     report.sourceBuildCausality = {
       status: 'UNVERIFIED',

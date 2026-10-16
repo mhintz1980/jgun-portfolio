@@ -245,7 +245,7 @@ describe('torque wrench conductor runtime', () => {
     const handle = createTorqueScrollConductor({ store, ...fixture.deps })
 
     expect(fixture.lenisInstances).toHaveLength(1)
-    expect(fixture.lenisInstances[0].options).toEqual({ duration: 1.1, smoothWheel: true, autoRaf: false })
+    expect(fixture.lenisInstances[0].options).toEqual({ duration: 0.8, smoothWheel: true, autoRaf: false })
     expect(fixture.ticker.callbacks).toHaveLength(1)
     expect(fixture.ticker.lagSmoothingCalls).toEqual([[0, undefined]])
     expect(fixture.scrollTrigger.triggers).toHaveLength(1)

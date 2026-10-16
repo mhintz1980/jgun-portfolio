@@ -1,0 +1,200 @@
+{
+  "schema": "JG-038-stage5-runtime-v1",
+  "startedAt": "2026-10-15T16:36:03.641Z",
+  "requestedUrl": "http://localhost:5288/",
+  "pageUrl": "http://localhost:5288/torque-wrench/",
+  "timeoutMs": 120000,
+  "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage5-20261015-c",
+  "buildDirSource": "default",
+  "casesRequested": [
+    "d-static"
+  ],
+  "cases": [
+    {
+      "id": "d-static",
+      "kind": "static",
+      "requestedTier": null,
+      "viewport": {
+        "key": "D",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "label": "D 1440x900 DPR1 desktop"
+      },
+      "contextOptions": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "deviceScaleFactor": 1,
+        "isMobile": false,
+        "hasTouch": false,
+        "reducedMotion": "reduce",
+        "serviceWorkers": "block"
+      },
+      "url": "http://localhost:5288/torque-wrench/",
+      "checks": [
+        {
+          "name": "page loads (HTTP 200)",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "status": 200
+          }
+        },
+        {
+          "name": "static mode active (semantic static path present)",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "mode": "static",
+            "torqueStage": "poster",
+            "waitError": null
+          }
+        },
+        {
+          "name": "zero narrative WebGL canvases",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "narrativeCanvasCount": 0,
+            "sceneRootCount": 0,
+            "canvasCount": 0
+          }
+        },
+        {
+          "name": "zero narrative CAD requests",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "cadRequests": [],
+            "requestsObserved": 8,
+            "observationWindowMs": 1500
+          }
+        },
+        {
+          "name": "zero background allocation",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "world": "undefined",
+            "background": "undefined",
+            "narrative": "undefined"
+          }
+        },
+        {
+          "name": "zero page/console/network/HTTP errors",
+          "pass": true,
+          "status": "PASS",
+          "actual": []
+        },
+        {
+          "name": "served identity byte-matches build dir",
+          "pass": true,
+          "status": "PASS",
+          "actual": {
+            "mismatches": [],
+            "error": null
+          }
+        },
+        {
+          "name": "viewport observed matches case matrix",
+          "pass": false,
+          "status": "FAIL",
+          "actual": "UNVERIFIED: case did not reach this check (earlier failure)"
+        }
+      ],
+      "shapeViolations": [],
+      "status": "FAIL",
+      "summary": {
+        "total": 8,
+        "passed": 7,
+        "failed": 1,
+        "pass": false
+      },
+      "errors": [],
+      "samples": [],
+      "hold": null,
+      "cadRequests": [],
+      "requestsObserved": 8,
+      "renderer": null
+    }
+  ],
+  "launch": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "note": "Natural runs only: no query-param/store/playback forcing (page URL search+hash stripped; static cases use the designed prefers-reduced-motion poster path). Status aggregates ONLY per-check pass booleans (V1 defect fix); status strings are display-only.",
+  "servedIdentity": {
+    "buildDir": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\.scratch\\jg038-stage5-20261015-c",
+    "entryFile": "assets/torque-wrench-Cpx07w8c.js",
+    "sceneFile": "assets/Scene-DqtaVcSQ.js",
+    "records": [
+      {
+        "name": "page HTML",
+        "url": "http://localhost:5288/torque-wrench/",
+        "buildPath": ".scratch\\jg038-stage5-20261015-c\\torque-wrench\\index.html",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "620adf9f34ee854101fd11dd63e3ebf3c885aea2c4ca5c37aa750fb82867c3df",
+        "buildSha256": "620adf9f34ee854101fd11dd63e3ebf3c885aea2c4ca5c37aa750fb82867c3df",
+        "matched": true,
+        "referencesEntryFile": true
+      },
+      {
+        "name": "entry script",
+        "url": "http://localhost:5288/assets/torque-wrench-Cpx07w8c.js",
+        "buildPath": ".scratch\\jg038-stage5-20261015-c\\assets\\torque-wrench-Cpx07w8c.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "4c8e79b12841a9db8840f760678b9c23a50553e3acc2dd333dfc4e4888ca980f",
+        "buildSha256": "4c8e79b12841a9db8840f760678b9c23a50553e3acc2dd333dfc4e4888ca980f",
+        "matched": true
+      },
+      {
+        "name": "Scene chunk",
+        "url": "http://localhost:5288/assets/Scene-DqtaVcSQ.js",
+        "buildPath": ".scratch\\jg038-stage5-20261015-c\\assets\\Scene-DqtaVcSQ.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "c55ce9a0d540103f5a35fcdc8c910af3809ec60c5df29f696eed04f7ec2db52d",
+        "buildSha256": "c55ce9a0d540103f5a35fcdc8c910af3809ec60c5df29f696eed04f7ec2db52d",
+        "matched": true
+      },
+      {
+        "name": "CAD Default.glb",
+        "url": "http://localhost:5288/models/Default.glb",
+        "buildPath": ".scratch\\jg038-stage5-20261015-c\\models\\Default.glb",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+        "buildSha256": "8b07246cf857aca29d1832815d8d183e0a1fd8ef06da5a7a089019706a57a257",
+        "matched": true
+      },
+      {
+        "name": "draco decoder",
+        "url": "http://localhost:5288/draco/draco_wasm_wrapper.js",
+        "buildPath": ".scratch\\jg038-stage5-20261015-c\\draco\\draco_wasm_wrapper.js",
+        "httpStatus": 200,
+        "contentEncoding": null,
+        "servedSha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960",
+        "buildSha256": "f3ab54e2feabfe8bd37928b5f400bc10230dcc278c7e70bca5e025f63519d960",
+        "matched": true
+      }
+    ],
+    "pass": true,
+    "error": null
+  },
+  "browserVersion": "155.0.8059.40",
+  "finishedAt": "2026-10-15T16:36:06.282Z",
+  "status": "FAIL",
+  "shapeViolations": [],
+  "summary": {
+    "totalChecks": 8,
+    "passedChecks": 7,
+    "failedChecks": 1,
+    "pass": false
+  },
+  "failedChecks": [
+    "d-static:viewport observed matches case matrix"
+  ]
+}

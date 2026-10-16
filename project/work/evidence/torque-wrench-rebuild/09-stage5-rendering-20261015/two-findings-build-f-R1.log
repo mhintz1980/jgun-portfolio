@@ -1,0 +1,46 @@
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 777 modules transformed.
+rendering chunks...
+computing gzip size...
+.scratch/jg038-two-findings-20261015-f/index.html                                 2.81 kB │ gzip:   0.95 kB
+.scratch/jg038-two-findings-20261015-f/torque-wrench/index.html                   2.88 kB │ gzip:   1.03 kB
+.scratch/jg038-two-findings-20261015-f/quiet-machine/index.html                   3.58 kB │ gzip:   1.25 kB
+.scratch/jg038-two-findings-20261015-f/.vite/manifest.json                        7.84 kB │ gzip:   1.22 kB
+.scratch/jg038-two-findings-20261015-f/assets/draco_wasm_wrapper-fZCQGLGb.js     58.46 kB
+.scratch/jg038-two-findings-20261015-f/assets/draco_wasm_wrapper-DxJM36Ib.js     58.76 kB
+.scratch/jg038-two-findings-20261015-f/assets/draco_decoder-Z1_iN-Ht.wasm       192.42 kB │ gzip:  63.46 kB
+.scratch/jg038-two-findings-20261015-f/assets/draco_decoder-C32yEggz.wasm       285.75 kB │ gzip:  88.64 kB
+.scratch/jg038-two-findings-20261015-f/assets/draco_decoder-fzg4nYZr.js         719.41 kB
+.scratch/jg038-two-findings-20261015-f/assets/QuietMachinePreview-KK_fAZmk.css    3.77 kB │ gzip:   1.28 kB
+.scratch/jg038-two-findings-20261015-f/assets/torque-wrench-DxEVhwnV.css          4.45 kB │ gzip:   1.34 kB
+.scratch/jg038-two-findings-20261015-f/assets/RingInspection-Bgb0Kbjs.css        11.70 kB │ gzip:   3.02 kB
+.scratch/jg038-two-findings-20261015-f/assets/index-BRvIyiMy.css                 40.54 kB │ gzip:   7.79 kB
+.scratch/jg038-two-findings-20261015-f/assets/index-DQ1byfPs.js                   0.07 kB │ gzip:   0.08 kB
+.scratch/jg038-two-findings-20261015-f/assets/quiet-machine-DXupa6cd.js           0.32 kB │ gzip:   0.25 kB
+.scratch/jg038-two-findings-20261015-f/assets/vanilla-m3Xdu9cz.js                 0.34 kB │ gzip:   0.25 kB
+.scratch/jg038-two-findings-20261015-f/assets/ScrollRig-1tIZ7Fzr.js               2.30 kB │ gzip:   1.20 kB
+.scratch/jg038-two-findings-20261015-f/assets/BootSequence-CXFv3Yk1.js            3.12 kB │ gzip:   1.61 kB
+.scratch/jg038-two-findings-20261015-f/assets/script-BvYNBXXl.js                  3.36 kB │ gzip:   1.70 kB
+.scratch/jg038-two-findings-20261015-f/assets/PageNav-BH16bbi5.js                 4.96 kB │ gzip:   2.05 kB
+.scratch/jg038-two-findings-20261015-f/assets/QuietMachinePreview-BD49H6xJ.js     7.47 kB │ gzip:   3.38 kB
+.scratch/jg038-two-findings-20261015-f/assets/torque-wrench-CZT0kYQO.js          17.69 kB │ gzip:   6.40 kB
+.scratch/jg038-two-findings-20261015-f/assets/lenis-D7TmsVAo.js                  18.71 kB │ gzip:   5.44 kB
+.scratch/jg038-two-findings-20261015-f/assets/RingInspection-Cb6s6uah.js         19.21 kB │ gzip:   6.41 kB
+.scratch/jg038-two-findings-20261015-f/assets/jgun-TF1Ge_Pt.js                   47.59 kB │ gzip:  16.13 kB
+.scratch/jg038-two-findings-20261015-f/assets/QuietMachineScene-ByQrBE3q.js      83.25 kB │ gzip:  19.25 kB
+.scratch/jg038-two-findings-20261015-f/assets/Scene-D4_2mvRw.js                  86.23 kB │ gzip:  30.74 kB
+.scratch/jg038-two-findings-20261015-f/assets/sectionRenderPass-2NgHSnrY.js     106.49 kB │ gzip:  27.84 kB
+.scratch/jg038-two-findings-20261015-f/assets/ScrollTrigger-a3sj5zmn.js         114.01 kB │ gzip:  45.16 kB
+.scratch/jg038-two-findings-20261015-f/assets/SceneCanvas-CZdBGoiW.js           123.49 kB │ gzip:  43.30 kB
+.scratch/jg038-two-findings-20261015-f/assets/session-RcF7IaO2.js               163.77 kB │ gzip:  69.71 kB
+.scratch/jg038-two-findings-20261015-f/assets/index-DYFP1T7-.js                 194.38 kB │ gzip:  61.17 kB
+.scratch/jg038-two-findings-20261015-f/assets/DRACOLoader-BtXiTFdx.js           211.80 kB │ gzip:  66.95 kB
+.scratch/jg038-two-findings-20261015-f/assets/portal-B9n_Kfsf.js                360.02 kB │ gzip: 130.21 kB
+.scratch/jg038-two-findings-20261015-f/assets/BufferGeometryUtils-BoE6XH5G.js   739.22 kB │ gzip: 191.44 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.74s
