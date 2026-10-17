@@ -1,9 +1,8 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, PerformanceMonitor } from '@react-three/drei'
 import type { PerformanceMonitorApi } from '@react-three/drei'
-import { CanvasTexture, DirectionalLight, Mesh, MeshBasicMaterial, PMREMGenerator, PointLight, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import { CanvasTexture, Color, DirectionalLight, DoubleSide, Float32BufferAttribute, Mesh, MeshBasicMaterial, PlaneGeometry, PMREMGenerator, PointLight, Scene, SpotLight, WebGLRenderTarget, Vector4 } from 'three'
 import { CameraRig } from './CameraRig'
 import { InspectionScene } from './inspection/InspectionScene'
 import { StationDriver } from './stations/StationDriver'
@@ -12,7 +11,7 @@ import { SpatialRig } from './SpatialRig'
 import { SpatialWorld } from './SpatialWorld'
 import { TorqueWrenchHero } from './TorqueWrenchHero'
 import { PostProcessingComposer } from './PostProcessingComposer'
-import { degradeQuality, forcePoster, getQuality } from '../state/qualityStore'
+import { degradeQuality, forcePoster, getQuality, useQuality } from '../state/qualityStore'
 import type { QualityTier } from '../state/qualityStore'
 import { LCD_REVEAL_WINDOW } from '../data/caseStudies'
 import { getScrollState, telemetry } from '../state/scrollStore'
@@ -23,18 +22,31 @@ import { exitInspection, setInspectionSuspend, useInspection } from '../state/in
 import { renderOwnership } from './inspection/renderLease'
 import { compileWithLease } from './inspection/compileLease'
 import { explodeShadowOpacity, lcdMicroRimIntensity, studioSpotNudge } from './jgunVisualGates'
+import { computeRenderBudget } from './torque-wrench/renderBudget'
 
-/** Adaptive DPR clamp — never above 2, never above the device's own ratio. */
-const MAX_DPR = Math.min(2, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
+/** Adaptive DPR clamp — never above 1.5 or the device's own ratio. */
+const MAX_DPR = Math.min(1.5, typeof window !== 'undefined' ? window.devicePixelRatio : 1)
 
 /**
- * Explicit DPR staircase (2 → 1.5 → 1.25 → 1), clamped to the device ratio.
+ * Explicit DPR staircase (1.5 → 1.25 → 1), clamped to the device ratio.
  * When the staircase is exhausted and frames still drop, we escalate to the
  * next quality tier instead (lite: dissolve shader off; poster: no canvas).
  */
-const DPR_STEPS = [MAX_DPR, 1.5, 1.25, 1].filter(
+const DPR_STEPS = [MAX_DPR, 1.25, 1].filter(
   (value, index, all) => value <= MAX_DPR && all.indexOf(value) === index,
 )
+
+/** Apply the shared pixel ceiling to the actual Canvas CSS size, including resize. */
+function RootRenderBudget({ requestedDpr, tier }: { requestedDpr: number; tier: 'full' | 'lite' }) {
+  const { size, viewport, setDpr } = useThree()
+  useLayoutEffect(() => {
+    if (size.width <= 0 || size.height <= 0) return
+    const deviceDpr = Math.min(requestedDpr, window.devicePixelRatio)
+    const budget = computeRenderBudget(size.width, size.height, deviceDpr, tier)
+    if (viewport.dpr !== budget.dpr) setDpr(budget.dpr)
+  }, [size.width, size.height, viewport.dpr, requestedDpr, tier, setDpr])
+  return null
+}
 
 /**
  * P1 mechanical timestamp diagnostic (2026-10-08) — bounded chronology of the
@@ -113,32 +125,84 @@ if (typeof window !== 'undefined' && QUALITY_DIAGNOSTICS_ENABLED) {
   ;(window as unknown as Record<string, unknown>).__qualityEvents = () => qualityEvents.slice()
 }
 
-/**
- * Procedural IBL for the PBR assembly: PMREM-bakes three's bundled
- * RoomEnvironment (procedural geometry — no external HDR fetch) into
- * scene.environment. The GLB's metallic MeshStandardMaterials read near-black
- * under punctual lights alone; the envmap gives machined surfaces something to
- * reflect. Environment only — background/fog and the light rig stay untouched,
- * and the intensity keeps the punctual key/fill in charge so the look stays
- * restrained rather than showroom-bright.
- */
-function RoomEnvironmentIbl() {
+/** Deterministic HDR softboxes: vertex-colour roll-off, with dark flags between them. */
+function createStudioEnvironment() {
+  const studio = new Scene()
+  studio.name = 'ProceduralStudioEnvironment'
+  studio.background = new Color(0.025, 0.03, 0.04)
+
+  const addSoftbox = (width: number, height: number, position: [number, number, number], tint: string, gain: number) => {
+    const geometry = new PlaneGeometry(width, height, 32, 32)
+    const positions = geometry.getAttribute('position')
+    const colors = new Float32Array(positions.count * 3)
+    const color = new Color(tint).multiplyScalar(gain)
+    for (let i = 0; i < positions.count; i++) {
+      const u = Math.abs(positions.getX(i) / (width * 0.5))
+      const v = Math.abs(positions.getY(i) / (height * 0.5))
+      const edge = smoothstep01((1 - u) / 0.45) * smoothstep01((1 - v) / 0.45)
+      colors[i * 3] = color.r * edge
+      colors[i * 3 + 1] = color.g * edge
+      colors[i * 3 + 2] = color.b * edge
+    }
+    geometry.setAttribute('color', new Float32BufferAttribute(colors, 3))
+    const panel = new Mesh(geometry, new MeshBasicMaterial({ vertexColors: true, side: DoubleSide, toneMapped: false }))
+    panel.position.set(...position)
+    panel.lookAt(0, 0, 0)
+    studio.add(panel)
+  }
+
+  addSoftbox(6, 9, [-6, 5, 6], '#f4f6ff', 6)
+  addSoftbox(4, 7, [7, 2, 3], '#d7e8ff', 3)
+  addSoftbox(7, 5, [0, 8, -1], '#ffffff', 4.5)
+  addSoftbox(2, 8, [2, 2, -7], '#e6efff', 8)
+  // A broad neutral bounce occupies the lower/front hemisphere, restoring fill on
+  // downward-facing black metal without raising every existing highlight globally.
+  addSoftbox(14, 10, [0, -6.5, 7.5], '#f5f7f9', 1.2)
+
+  // Unlit black flags create negative fill and long dark breaks in cylindrical reflections.
+  for (const position of [[-5, 0, -4], [5, -2, 0]] as const) {
+    const flag = new Mesh(new PlaneGeometry(4, 10), new MeshBasicMaterial({ color: 0x000000, side: DoubleSide, toneMapped: false }))
+    flag.position.set(position[0], position[1], position[2])
+    flag.lookAt(0, 0, 0)
+    studio.add(flag)
+  }
+  return studio
+}
+
+/** Bake once into the existing 256-face CubeUV budget; retain only the environment target. */
+function StudioEnvironmentIbl() {
   const gl = useThree((state) => state.gl)
   const scene = useThree((state) => state.scene)
 
   useEffect(() => {
     const pmrem = new PMREMGenerator(gl)
-    const room = new RoomEnvironment()
-    const target = pmrem.fromScene(room, 0.04)
+    const studio = createStudioEnvironment()
+    const previousEnvironment = scene.environment
+    const previousIntensity = scene.environmentIntensity
+    const previousProbe = (window as any).__threeScene
+    let target: WebGLRenderTarget
+    try {
+      target = pmrem.fromScene(studio, 0.04, 0.1, 100, { size: 256 })
+    } finally {
+      studio.traverse(object => {
+        if (object instanceof Mesh) {
+          object.geometry.dispose()
+          const materials = Array.isArray(object.material) ? object.material : [object.material]
+          for (const material of materials) material.dispose()
+        }
+      })
+      pmrem.dispose()
+    }
     scene.environment = target.texture
     scene.environmentIntensity = 1.0
     ;(window as any).__threeScene = scene
     return () => {
-      ;(window as any).__threeScene = null
-      scene.environment = null
+      if ((window as any).__threeScene === scene) (window as any).__threeScene = previousProbe
+      if (scene.environment === target.texture) {
+        scene.environment = previousEnvironment
+        scene.environmentIntensity = previousIntensity
+      }
       target.dispose()
-      pmrem.dispose()
-      room.dispose()
     }
   }, [gl, scene])
 
@@ -212,6 +276,25 @@ const smoothstep01 = (x: number) => {
   return c * c * (3 - 2 * c)
 }
 
+// The studio's directional softboxes need different gains as the retained camera
+// turns from black housings to the exposed steel/LCD and the enclosure. Interpolate
+// calibrated shot values rather than globally overexposing the LCD dwell.
+const STUDIO_IBL_SHOTS: readonly (readonly [number, number])[] = [
+  [0, 1], [0.12, 1], [0.15, 16], [0.22, 8], [0.35, 6],
+  [0.47, 1.5], [0.525, 1.5], [0.565, 4], [0.72, 4], [0.76, 1], [1, 1],
+]
+
+function studioIblGain(progress: number): number {
+  for (let i = 1; i < STUDIO_IBL_SHOTS.length; i++) {
+    const [end, gain] = STUDIO_IBL_SHOTS[i]
+    if (progress <= end) {
+      const [start, previousGain] = STUDIO_IBL_SHOTS[i - 1]
+      return previousGain + (gain - previousGain) * smoothstep01((progress - start) / (end - start))
+    }
+  }
+  return STUDIO_IBL_SHOTS[STUDIO_IBL_SHOTS.length - 1][1]
+}
+
 function StudioRig() {
   const keyRef = useRef<DirectionalLight>(null)
   const sweepRef = useRef<DirectionalLight>(null)
@@ -246,7 +329,7 @@ function StudioRig() {
       spotRef.current.intensity = (STUDIO_SPOT_INTENSITY + nudge.intensity) * k
       spotRef.current.position.y = 1.2 + nudge.y
     }
-    scene.environmentIntensity = activation*(1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
+    scene.environmentIntensity = activation * studioIblGain(progress) * (1 - (1 - STUDIO_ENV_STATION2) * down * (1 - up))
   })
 
   return (
@@ -398,6 +481,15 @@ function NarrativeStationDriver() {
 export function SceneCanvas() {
   const [step, setStep] = useState(0)
   const stepRef = useRef(0)
+  const { tier } = useQuality()
+  const budgetTier = tier === 'full' ? 'full' : 'lite'
+  const requestedDpr = DPR_STEPS[step]
+  const initialDpr = computeRenderBudget(
+    typeof window !== 'undefined' ? Math.max(1, window.innerWidth) : 1,
+    typeof window !== 'undefined' ? Math.max(1, window.innerHeight) : 1,
+    requestedDpr,
+    budgetTier,
+  ).dpr
 
   const setDprStep = (next: number): void => {
     stepRef.current = next
@@ -409,8 +501,8 @@ export function SceneCanvas() {
   return (
     <div className="fixed inset-0 z-0">
       <Canvas
-        dpr={DPR_STEPS[step]}
-        gl={{ antialias: true, stencil: true, powerPreference: 'high-performance' }}
+        dpr={initialDpr}
+        gl={{ antialias: false, stencil: false, powerPreference: 'high-performance' }}
         camera={{ fov: 42, near: 0.005, far: 150, position: [0.32, 0.16, 0.42] }}
         onCreated={({ gl, camera }) => {
           // Camera probe surface for subject-bbox NDC verification (JG-021
@@ -429,10 +521,15 @@ export function SceneCanvas() {
           })
         }}
       >
+        <RootRenderBudget requestedDpr={requestedDpr} tier={budgetTier} />
         <PerformanceMonitor
           bounds={() => [45, 60] as [number, number]}
           flipflops={3}
           onDecline={(api: PerformanceMonitorApi) => {
+            if (!telemetry.performance.warmReady) {
+              api.flipped = 0
+              return
+            }
             telemetry.performance.declines++
             pushQualityEvent({ type: 'ondecline', fps: api.fps, flipped: api.flipped })
             if (stepRef.current < DPR_STEPS.length - 1) setDprStep(stepRef.current + 1)
@@ -442,10 +539,17 @@ export function SceneCanvas() {
             }
           }}
           onIncline={(api: PerformanceMonitorApi) => {
+            if (!telemetry.performance.warmReady) { api.flipped = 0; return }
             pushQualityEvent({ type: 'onincline', fps: api.fps })
             if (stepRef.current > 0) setDprStep(stepRef.current - 1)
           }}
           onFallback={(api: PerformanceMonitorApi) => {
+            if (!telemetry.performance.warmReady) {
+              // drei sets fallback before this callback; keep monitoring after warmup.
+              api.fallback = false
+              api.flipped = 0
+              return
+            }
             pushQualityEvent({ type: 'onfallback', fps: api.fps, flipped: api.flipped })
             setDprStep(DPR_STEPS.length - 1)
           }}
@@ -461,7 +565,7 @@ export function SceneCanvas() {
           <ambientLight intensity={0.25} />
           <StudioRig />
 
-          <RoomEnvironmentIbl />
+          <StudioEnvironmentIbl />
 
           <Suspense fallback={null}>
             <SpatialWorld>

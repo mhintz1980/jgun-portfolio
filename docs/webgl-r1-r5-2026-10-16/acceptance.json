@@ -1,0 +1,708 @@
+{
+  "candidate": "candidate-verified/telemetry.json",
+  "baseline": "baseline-matched/telemetry.json",
+  "historical": "../webgl-review-2026-10-16/evidence/runtime-telemetry-probe.json",
+  "runtimePassed": true,
+  "runtimeChecks": 21,
+  "lighting": [
+    {
+      "p": 0.15,
+      "subject": {
+        "pixels": 4051598,
+        "median": 18,
+        "p99": 219,
+        "clippedFraction": 0
+      },
+      "roles": {
+        "toolSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "cageSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "planetSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "clutchSteel": {
+          "pixels": 25623,
+          "median": 95,
+          "p99": 242,
+          "clippedFraction": 0
+        },
+        "rotorSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "stainlessSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "blackOxideSteel": {
+          "pixels": 2448989,
+          "median": 21,
+          "p99": 215,
+          "clippedFraction": 0
+        }
+      },
+      "note": "Geometric flat-ID mask; two-pixel erosion excludes silhouettes; translucent ghosts are black depth-occluders so composite pixels behind them are excluded. DOM overlays are retained in matching screenshot and may affect interior measurements.",
+      "pass": true
+    },
+    {
+      "p": 0.35,
+      "subject": {
+        "pixels": 465384,
+        "median": 24,
+        "p99": 222,
+        "clippedFraction": 0
+      },
+      "roles": {
+        "toolSteel": {
+          "pixels": 29447,
+          "median": 114,
+          "p99": 232,
+          "clippedFraction": 0
+        },
+        "cageSteel": {
+          "pixels": 47016,
+          "median": 133,
+          "p99": 237,
+          "clippedFraction": 0
+        },
+        "planetSteel": {
+          "pixels": 20680,
+          "median": 150,
+          "p99": 216,
+          "clippedFraction": 0
+        },
+        "clutchSteel": {
+          "pixels": 1021,
+          "median": 136,
+          "p99": 209,
+          "clippedFraction": 0
+        },
+        "rotorSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "stainlessSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "blackOxideSteel": {
+          "pixels": 80343,
+          "median": 10,
+          "p99": 126,
+          "clippedFraction": 0
+        }
+      },
+      "note": "Geometric flat-ID mask; two-pixel erosion excludes silhouettes; translucent ghosts are black depth-occluders so composite pixels behind them are excluded. DOM overlays are retained in matching screenshot and may affect interior measurements.",
+      "pass": true
+    },
+    {
+      "p": 0.47,
+      "subject": {
+        "pixels": 960296,
+        "median": 16,
+        "p99": 244,
+        "clippedFraction": 0.0004175795796296142
+      },
+      "roles": {
+        "toolSteel": {
+          "pixels": 99,
+          "median": 59,
+          "p99": 75,
+          "clippedFraction": 0
+        },
+        "cageSteel": {
+          "pixels": 3871,
+          "median": 88,
+          "p99": 226,
+          "clippedFraction": 0
+        },
+        "planetSteel": {
+          "pixels": 1413,
+          "median": 132,
+          "p99": 228,
+          "clippedFraction": 0
+        },
+        "clutchSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "rotorSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "stainlessSteel": {
+          "pixels": 3586,
+          "median": 239,
+          "p99": 254,
+          "clippedFraction": 0.11182375906302287
+        },
+        "blackOxideSteel": {
+          "pixels": 31437,
+          "median": 39,
+          "p99": 237,
+          "clippedFraction": 0
+        }
+      },
+      "note": "Geometric flat-ID mask; two-pixel erosion excludes silhouettes; translucent ghosts are black depth-occluders so composite pixels behind them are excluded. DOM overlays are retained in matching screenshot and may affect interior measurements.",
+      "pass": true
+    },
+    {
+      "p": 0.65,
+      "subject": {
+        "pixels": 210019,
+        "median": 192,
+        "p99": 215,
+        "clippedFraction": 0
+      },
+      "roles": {
+        "toolSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "cageSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "planetSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "clutchSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "rotorSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "stainlessSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        },
+        "blackOxideSteel": {
+          "pixels": 0,
+          "median": null,
+          "p99": null,
+          "clippedFraction": null
+        }
+      },
+      "note": "Geometric flat-ID mask; two-pixel erosion excludes silhouettes; translucent ghosts are black depth-occluders so composite pixels behind them are excluded. DOM overlays are retained in matching screenshot and may affect interior measurements.",
+      "pass": true
+    }
+  ],
+  "gearMedians": {
+    "toolSteel": 114,
+    "cageSteel": 133,
+    "planetSteel": 150
+  },
+  "gearMedianPairwiseGaps": [
+    19,
+    17,
+    36
+  ],
+  "lightingPassed": true,
+  "sourceIdentity": [
+    {
+      "file": "src/scene/SceneCanvas.tsx",
+      "expected": "f030f55fcfaefe97ba5880a208aff4704fc2679d821c7f8afbc4a99ad4ec59ad",
+      "actual": "f030f55fcfaefe97ba5880a208aff4704fc2679d821c7f8afbc4a99ad4ec59ad"
+    },
+    {
+      "file": "src/scene/PostProcessingComposer.tsx",
+      "expected": "f9f6c79b6ef44a1a7da1105766ccc009bdc3682b29802f86e6568b1ffabae9c2",
+      "actual": "f9f6c79b6ef44a1a7da1105766ccc009bdc3682b29802f86e6568b1ffabae9c2"
+    },
+    {
+      "file": "src/scene/rig/materials.ts",
+      "expected": "308d2694edd15feb0ea35d4990a1cbe1255de62a2ca2b02ae7cc3325a3059953",
+      "actual": "308d2694edd15feb0ea35d4990a1cbe1255de62a2ca2b02ae7cc3325a3059953"
+    },
+    {
+      "file": "src/components/ToleranceStations.tsx",
+      "expected": "f68dbfad76528b2e11950147a76e2de99016e012b8946d20847993a0b2e7656e",
+      "actual": "f68dbfad76528b2e11950147a76e2de99016e012b8946d20847993a0b2e7656e"
+    },
+    {
+      "file": "src/scene/TorqueWrenchHero.tsx",
+      "expected": "0ed29b3a283d6d4eb822efda30584a4703382708c2f6093e92c1b37096eafdf6",
+      "actual": "0ed29b3a283d6d4eb822efda30584a4703382708c2f6093e92c1b37096eafdf6"
+    }
+  ],
+  "sourceIdentityPassed": true,
+  "cameras": [
+    {
+      "p": 0.048,
+      "historicalPositionErrorMetres": 0.00004420964168677739,
+      "historicalFovErrorDegrees": 4.575895218295045e-12,
+      "freshPositionErrorMetres": 1.3348274106571949e-10,
+      "freshFovErrorDegrees": 4.689582056016661e-13,
+      "pass": true
+    },
+    {
+      "p": 0.103,
+      "historicalPositionErrorMetres": 0.000035672164753482165,
+      "historicalFovErrorDegrees": 3.552713678800501e-15,
+      "freshPositionErrorMetres": 2.1601272988726858e-12,
+      "freshFovErrorDegrees": 0,
+      "pass": true
+    },
+    {
+      "p": 0.15,
+      "historicalPositionErrorMetres": 0.00007300966732860374,
+      "historicalFovErrorDegrees": 1.6994803786474222e-8,
+      "freshPositionErrorMetres": 4.0107006670383335e-7,
+      "freshFovErrorDegrees": 2.376019381244987e-9,
+      "pass": true
+    },
+    {
+      "p": 0.35,
+      "historicalPositionErrorMetres": 0.0005984526330615859,
+      "historicalFovErrorDegrees": 0.015555525263557968,
+      "freshPositionErrorMetres": 0.00003515924139402751,
+      "freshFovErrorDegrees": 6.799965035497735e-10,
+      "pass": true
+    },
+    {
+      "p": 0.47,
+      "historicalPositionErrorMetres": 0.0003470173210985404,
+      "historicalFovErrorDegrees": 1.1800931787320224e-8,
+      "freshPositionErrorMetres": 0.00006704509976869174,
+      "freshFovErrorDegrees": 2.3135982019084622e-10,
+      "pass": true
+    },
+    {
+      "p": 0.65,
+      "historicalPositionErrorMetres": 0.00004762416035269779,
+      "historicalFovErrorDegrees": 0.0038425789950125022,
+      "freshPositionErrorMetres": 1.3921372467047461e-8,
+      "freshFovErrorDegrees": 1.998898824240314e-9,
+      "pass": true
+    },
+    {
+      "p": 0.85,
+      "historicalPositionErrorMetres": 0.029566995653205495,
+      "historicalFovErrorDegrees": 1.5269208120116673e-9,
+      "freshPositionErrorMetres": 1.2234064245777891e-9,
+      "freshFovErrorDegrees": 3.9904080040287226e-11,
+      "pass": true
+    }
+  ],
+  "cameraMatchPassed": true,
+  "historicalCameraDiscrepancy": "Historical p=.85 position was ~29.57mm short of its own goal. Fresh A/B settled positions match within0.068mm at every stop; compare fresh A/B for framing preservation, retain historical pixel deltas as observations with this confound.",
+  "pointerYawAssertion": {
+    "source": "Saved actual hero-frame callback samples, independent postprocessing assertion added after reviewer finding",
+    "pass": true
+  },
+  "compiledRoleGains": {
+    "count": 21,
+    "pass": true
+  },
+  "performance": {
+    "historical": {
+      "frames": 120,
+      "p50Ms": 33.2,
+      "p95Ms": 33.8,
+      "p99Ms": 50,
+      "maxMs": 50,
+      "over16_7Count": 93,
+      "over33_3Count": 48,
+      "qualityEvents": [
+        {
+          "t": 65385.69999998808,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 65505,
+          "type": "warmstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 65857.59999999404,
+          "type": "warmcancel",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false
+        },
+        {
+          "t": 66000.40000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 66060,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 0
+        },
+        {
+          "t": 69749.09999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 74464.5,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 1
+        },
+        {
+          "t": 76761.90000000596,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 76815.69999998808,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "index": 2
+        },
+        {
+          "t": 76921.69999998808,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 0,
+          "warmReady": false,
+          "fps": 1,
+          "flipped": 1
+        },
+        {
+          "t": 76921.90000000596,
+          "type": "dprstep",
+          "tier": "full",
+          "step": 1,
+          "warmReady": false
+        },
+        {
+          "t": 77892.59999999404,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 1,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 81274,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 1,
+          "warmReady": false,
+          "index": 3
+        },
+        {
+          "t": 81349,
+          "type": "cullrenderstart",
+          "tier": "full",
+          "step": 1,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 81808,
+          "type": "cullrenderend",
+          "tier": "full",
+          "step": 1,
+          "warmReady": false,
+          "index": 4
+        },
+        {
+          "t": 81808.09999999404,
+          "type": "warmfinish",
+          "tier": "full",
+          "step": 1,
+          "warmReady": true
+        },
+        {
+          "t": 83563.09999999404,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 1,
+          "warmReady": true,
+          "fps": 44,
+          "flipped": 2
+        },
+        {
+          "t": 83563.19999998808,
+          "type": "dprstep",
+          "tier": "full",
+          "step": 2,
+          "warmReady": true
+        },
+        {
+          "t": 98851.30000001192,
+          "type": "ondecline",
+          "tier": "full",
+          "step": 2,
+          "warmReady": true,
+          "fps": 11,
+          "flipped": 3
+        },
+        {
+          "t": 98851.5,
+          "type": "dprstep",
+          "tier": "full",
+          "step": 3,
+          "warmReady": true
+        }
+      ]
+    },
+    "freshBaseline": {
+      "frames": 120,
+      "intervals": 119,
+      "p50Ms": 16.89999999999418,
+      "p95Ms": 50.10000000000582,
+      "p99Ms": 451.3000000000029,
+      "maxMs": 685.1999999999971,
+      "over16_7Count": 76,
+      "over33_3Count": 38
+    },
+    "candidate": {
+      "frames": 120,
+      "intervals": 119,
+      "p50Ms": 16.80000000000291,
+      "p95Ms": 33.69999999999709,
+      "p99Ms": 785.3999999999942,
+      "maxMs": 969.3000000000029,
+      "over16_7Count": 75,
+      "over33_3Count": 34
+    },
+    "note": "120 rAF samples,119 intervals in fresh arms; short CPU/rAF sweep, not GPU timer-query timings or proof of steady 60fps. Hardware/driver identical; OS caches/load and adaptation differ. Historical DPR2 label is not the recorded actual DPR."
+  },
+  "symmetricPerformance": {
+    "baseline": [
+      {
+        "run": 0,
+        "warmup": true,
+        "intervals": 119,
+        "p50Ms": 33.400000000001455,
+        "p95Ms": 67,
+        "p99Ms": 150.5,
+        "maxMs": 217.09999999999854
+      },
+      {
+        "run": 1,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 33.299999999995634,
+        "p95Ms": 66.59999999999854,
+        "p99Ms": 66.90000000000146,
+        "maxMs": 66.90000000000146
+      },
+      {
+        "run": 2,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 33.400000000001455,
+        "p95Ms": 67,
+        "p99Ms": 83.70000000000437,
+        "maxMs": 100.70000000000437
+      },
+      {
+        "run": 3,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 33.299999999995634,
+        "p95Ms": 66.79999999999563,
+        "p99Ms": 66.90000000000146,
+        "maxMs": 66.90000000000146
+      }
+    ],
+    "candidate": [
+      {
+        "run": 0,
+        "warmup": true,
+        "intervals": 119,
+        "p50Ms": 33.099999999998545,
+        "p95Ms": 66.80000000000291,
+        "p99Ms": 150.5,
+        "maxMs": 217.1999999999971
+      },
+      {
+        "run": 1,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 17.19999999999709,
+        "p95Ms": 50.19999999999709,
+        "p99Ms": 66.79999999999563,
+        "maxMs": 66.80000000000291
+      },
+      {
+        "run": 2,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 33,
+        "p95Ms": 50.10000000000582,
+        "p99Ms": 66.90000000000146,
+        "maxMs": 83.59999999999854
+      },
+      {
+        "run": 3,
+        "warmup": false,
+        "intervals": 119,
+        "p50Ms": 17,
+        "p95Ms": 50.299999999995634,
+        "p99Ms": 66.80000000000291,
+        "maxMs": 83.60000000000582
+      }
+    ],
+    "note": "Separate no-mask/no-screenshot performance-only arms, same actual DPR1. First run flagged warmup; compare three subsequent sweeps, no sustained60fps claim."
+  },
+  "pixels": [
+    {
+      "id": "01-intro-registered",
+      "p": 0.048,
+      "historical": {
+        "changed": 182755,
+        "fraction": 0.03525366512345679,
+        "meanChannelDelta": 0.9560788323045267
+      },
+      "fresh": {
+        "changed": 180356,
+        "fraction": 0.034790895061728395,
+        "meanChannelDelta": 0.9465427597736625
+      }
+    },
+    {
+      "id": "02-intro-rupture",
+      "p": 0.103,
+      "historical": {
+        "changed": 31481,
+        "fraction": 0.006072723765432099,
+        "meanChannelDelta": 0.47506867283950616
+      },
+      "fresh": {
+        "changed": 14624,
+        "fraction": 0.0028209876543209876,
+        "meanChannelDelta": 0.31947646604938273
+      }
+    },
+    {
+      "id": "03-ch01-hero-pbr",
+      "p": 0.15,
+      "historical": {
+        "changed": 2226571,
+        "fraction": 0.42950829475308644,
+        "meanChannelDelta": 24.919161136831274
+      },
+      "fresh": {
+        "changed": 2214673,
+        "fraction": 0.42721315586419756,
+        "meanChannelDelta": 24.662279771090535
+      }
+    },
+    {
+      "id": "04-ch02-explode-ghost",
+      "p": 0.35,
+      "historical": {
+        "changed": 578346,
+        "fraction": 0.11156365740740741,
+        "meanChannelDelta": 4.766785558127572
+      },
+      "fresh": {
+        "changed": 567292,
+        "fraction": 0.10943132716049382,
+        "meanChannelDelta": 4.700757780349794
+      }
+    },
+    {
+      "id": "05-ch02-lcd-dwell",
+      "p": 0.47,
+      "historical": {
+        "changed": 630199,
+        "fraction": 0.12156616512345679,
+        "meanChannelDelta": 5.80915579989712
+      },
+      "fresh": {
+        "changed": 620218,
+        "fraction": 0.11964081790123457,
+        "meanChannelDelta": 5.82575970936214
+      }
+    },
+    {
+      "id": "06-ch03-station2-cut",
+      "p": 0.65,
+      "historical": {
+        "changed": 601912,
+        "fraction": 0.11610956790123457,
+        "meanChannelDelta": 3.0834164094650207
+      },
+      "fresh": {
+        "changed": 591973,
+        "fraction": 0.1141923225308642,
+        "meanChannelDelta": 3.040683191872428
+      }
+    },
+    {
+      "id": "07-ch04-station3-m249",
+      "p": 0.85,
+      "historical": {
+        "changed": 201553,
+        "fraction": 0.038879822530864194,
+        "meanChannelDelta": 2.7931891718106994
+      },
+      "fresh": {
+        "changed": 76270,
+        "fraction": 0.014712577160493828,
+        "meanChannelDelta": 1.2855523405349794
+      }
+    }
+  ],
+  "knownSuiteFailure": "Existing portalGeometry.test.ts ring7 fold [9282,9306] reproduces on pre-task module baseline; see static-checks.json.",
+  "ownerVisualApproval": "OPEN; no commit, push or deploy authorized",
+  "passed": true
+}

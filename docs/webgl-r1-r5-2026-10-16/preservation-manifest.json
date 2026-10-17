@@ -1,0 +1,9 @@
+{
+  "capturedAt": "2026-10-16T21:29:37.2399451-04:00",
+  "fileCount": 1445,
+  "sha256": "33a7fc2407a872ba65179284dc3edfb3a8353f345fe410c3ef948806ab612e9a",
+  "algorithm": "SHA256(UTF8(sorted unique relative path + ':' + lowercase file SHA256, joined by LF))",
+  "selection": "git -c core.longpaths=true ls-files --modified --others --exclude-standard plus three named protected tracked files; exclude the five lane source paths and docs/webgl-r1-r5-2026-10-16/*; leaf files only",
+  "protectedTrackedPaths": ["public/models/m249-transformed.glb", "public/models/msp-enclosure.glb", "docs/orzo-style-portfolio-implemetation-roadmap.md"],
+  "note": "Captured after dispatch, before worker delivery. All five lane source paths were clean before dispatch. No task is allowed to write .scratch or existing evidence. Use command-local core.longpaths=true for Windows evidence paths."
+}

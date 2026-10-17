@@ -6,6 +6,7 @@ import {
   MeshStandardMaterial,
   NoColorSpace,
   RepeatWrapping,
+  ShaderChunk,
   Vector2,
   type Material,
 } from 'three'
@@ -135,6 +136,28 @@ const roleMaterials = new Map<MaterialRole, Material>()
 /** All live role cases share the B1 flat-to-PBR activation; no node-name override path. */
 export const introPbrActivation = { value: 1 }
 
+// r185 replaces envMapIntensity with scene.environmentIntensity for scene IBL.
+// Patch the actual chunk text: onBeforeCompile runs BEFORE include expansion.
+const ROLE_ENVIRONMENT_FRAGMENT = ShaderChunk.envmap_physical_pars_fragment.replace(
+  /\benvMapIntensity\b/g,
+  '(envMapIntensity * uRoleEnvGain)',
+)
+
+// This chunk runs after normal_fragment_maps, so `normal` includes the knurl.
+// Keep Three's geometric AA and take the wider of it and normal-variance AA,
+// rather than adding both filters and unnecessarily blurring CAD highlights.
+const ROLE_PHYSICAL_FRAGMENT = ShaderChunk.lights_physical_fragment.replace(
+  'material.roughness += geometryRoughness;',
+  `vec3 roleNormalDx = dFdx( normal );
+vec3 roleNormalDy = dFdy( normal );
+float roleNormalVariance = 0.25 * ( dot( roleNormalDx, roleNormalDx ) + dot( roleNormalDy, roleNormalDy ) );
+float roleKernelRoughness2 = min( 2.0 * roleNormalVariance, 0.18 );
+material.roughness = max(
+  material.roughness + geometryRoughness,
+  sqrt( material.roughness * material.roughness + roleKernelRoughness2 )
+);`,
+)
+
 const KNURL_TEXTURE_SIZE = 256
 // Knurl pitch for the P003068 ring switch: Ø93 mm OD × 27.2 mm tall at a
 // ~3 mm heavy diamond pitch → 96 wraps around the circumference × 9 up the
@@ -206,12 +229,24 @@ function applyRingSwitchOdKnurlMask(material: MeshPhysicalMaterial): void {
       '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);',
     )
     shader.fragmentShader = `varying vec3 vRingSwitchObjectNormal;\n${shader.fragmentShader}`.replace(
-      'mapN.xy *= normalScale;',
-      `float ringSwitchOdMask = 1.0 - smoothstep(0.20, 0.55, abs(normalize(vRingSwitchObjectNormal).z));
+      '#include <normal_fragment_maps>',
+      ShaderChunk.normal_fragment_maps.replace(
+        'mapN.xy *= normalScale;',
+        `float ringSwitchOdMask = 1.0 - smoothstep(0.20, 0.55, abs(normalize(vRingSwitchObjectNormal).z));
 \tmapN.xy *= normalScale * ringSwitchOdMask;`,
+      ),
     )
   }
-  material.customProgramCacheKey = () => 'ring-switch-od-knurl-v1'
+  material.customProgramCacheKey = () => 'ring-switch-od-knurl-v2'
+}
+
+/** Three's Material.copy omits compile hooks; keep them through ghost/fade clones. */
+function cloneRoleMaterial<T extends MeshStandardMaterial>(this: T): T {
+  const clone = Object.getPrototypeOf(this).clone.call(this) as T
+  clone.onBeforeCompile = this.onBeforeCompile
+  clone.customProgramCacheKey = this.customProgramCacheKey
+  clone.clone = this.clone
+  return clone
 }
 
 /** Shared PBR material instance per role (ghost buckets clone it). */
@@ -455,18 +490,52 @@ export function roleMaterial(role: MaterialRole): Material {
       break
   }
 
-  const ready=material as MeshStandardMaterial
-  const compile=ready.onBeforeCompile.bind(ready)
-  const cacheKey=ready.customProgramCacheKey.bind(ready)
-  const originalKey=cacheKey()
-  ready.onBeforeCompile=(shader,renderer)=>{
-    compile(shader,renderer)
-    shader.uniforms.uIntroPbr=introPbrActivation
-    shader.fragmentShader='uniform float uIntroPbr;\n'+shader.fragmentShader
-    shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',
-      'outgoingLight = mix(vec3(0.004, 0.021, 0.037), outgoingLight, uIntroPbr);\n#include <opaque_fragment>')
+  const ready = material as MeshStandardMaterial
+  const compile = ready.onBeforeCompile
+  const originalKey = ready.customProgramCacheKey()
+  const isTurnedMetal = role === 'toolSteel' || role === 'cageSteel' ||
+    role === 'planetSteel' || role === 'clutchSteel' || role === 'rotorSteel' ||
+    role === 'stainlessSteel' || role === 'blackOxideSteel'
+
+  ready.onBeforeCompile = function (shader, renderer) {
+    compile.call(this, shader, renderer)
+    shader.uniforms.uIntroPbr = introPbrActivation
+    // Read the compiling instance so cloned role materials retain their own gain.
+    // Explicit material envMaps already use the authored gain in stock Three.
+    shader.uniforms.uRoleEnvGain = { value: this.envMap === null ? this.envMapIntensity : 1 }
+    shader.fragmentShader = `uniform float uIntroPbr;
+uniform float uRoleEnvGain;
+${shader.fragmentShader}`
+
+    if (isTurnedMetal) {
+      // Consolidated CAD positions are in the rigid unit's own metre/Z frame.
+      // No UVs/tangents; the pattern follows the part through spin/extraction.
+      shader.vertexShader = `varying float vMachinedZ;\n${shader.vertexShader}`.replace(
+        '#include <begin_vertex>',
+        '#include <begin_vertex>\n  vMachinedZ = position.z;',
+      )
+      shader.fragmentShader = `varying float vMachinedZ;\n${shader.fragmentShader}`.replace(
+        '#include <roughnessmap_fragment>',
+        `#include <roughnessmap_fragment>
+vec2 lathePhase = vMachinedZ * vec2( 2800.0, 7900.0 );
+// Fade each frequency from a quarter cycle/pixel to zero at Nyquist (PI).
+// Measure the smooth phase, not sin(phase), whose derivatives can alias.
+vec2 latheFilter = vec2( 1.0 ) - smoothstep( vec2( 1.570796 ), vec2( 3.141593 ), fwidth( lathePhase ) );
+vec2 latheBands = sin( lathePhase ) * latheFilter;
+roughnessFactor = clamp( roughnessFactor + ( latheBands.x + latheBands.y ) * 0.0175, 0.08, 1.0 );`,
+      )
+    }
+
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <envmap_physical_pars_fragment>', ROLE_ENVIRONMENT_FRAGMENT)
+      .replace('#include <lights_physical_fragment>', ROLE_PHYSICAL_FRAGMENT)
+      .replace(
+        '#include <opaque_fragment>',
+        'outgoingLight = mix(vec3(0.004, 0.021, 0.037), outgoingLight, uIntroPbr);\n#include <opaque_fragment>',
+      )
   }
-  ready.customProgramCacheKey=()=>originalKey+'-intro-pbr-v1'
+  ready.customProgramCacheKey = () => `${originalKey}-intro-pbr-v1-role-env-v1-normal-aa-v1-${isTurnedMetal ? 'lathe-v1' : 'base'}`
+  ready.clone = cloneRoleMaterial
   roleMaterials.set(role, material as Material)
   return material as Material
 }

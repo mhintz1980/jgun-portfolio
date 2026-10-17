@@ -1,0 +1,156 @@
+··stdout | src/scene/inspection/shaft/tools.test.ts > derived cutter outline > leaves 0.005 mm stock on independently recomputed flank bins, not only the crest
+A1: outline 360 points; roll 0.02 deg; bins 0.05 deg; flank stock 0.005 mm verified
+
+·stdout | src/scene/inspection/shaft/tools.test.ts > shaper cutter prop > builds within the 12k triangle budget and reports its crest cutting edge
+A3: shaper triangles=7564 budget=12000
+
+·····stdout | src/scene/inspection/shaft/tools.test.ts > hob prop > builds within the 20k triangle budget with gashes and a tilted axis
+A3: hob triangles=3596 budget=20000 (instances counted)
+
+··············x······················x···················································x··························stdout | src/scene/inspection/shaft/progression.test.ts > approved hobbing law > reproduces the approved floor at final depth within 0.01 mm
+A4: approved floor absolute errors (y:mm) 9.72:0.004425, 10.92:0.004408, 13.78:0.003829; each <0.01 mm
+
+···········stdout | src/scene/inspection/shaft/progression.test.ts > monotonicity and determinism > has no constructor, array-literal or object-literal allocations in per-call function bodies
+A4: six per-call functions allocation-free by source audit; 5000 sampled/written calls preserve caller-owned buffers
+
+·······················································x·····························································································----·········································································································································································································································································································································································································································································································································································································x·
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/scene/inspection/ringGeometryLifecycle.test.ts > inspection ring factory partial-allocation ownership > preserves the material construction fault when first-material cleanup and reporting both fail
+AssertionError: expected function to throw an error, but it didn't
+ ❯ src/scene/inspection/ringGeometryLifecycle.test.ts:86:66
+     84|       reports.push(report); throw new Error('cleanup report channel fa…
+     85|     })
+     86|     expect(() => createInspectionRing(source, [mesh], callback)).toThr…
+       |                                                                  ^
+     87|     expect(callback).toHaveBeenCalledOnce()
+     88|     expect(reports[0]).toMatchObject({ phase: 'construction', resource…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/scene/inspection/ringRuntimeCore.test.ts > tool and lifecycle ownership > forwards partial ring-factory cleanup phases/resources through the core despite a throwing reporter
+AssertionError: expected undefined to be Error: second ring material construction … // Object.is equality
+
+- Expected:
+Error {
+  "message": "second ring material construction failed",
+}
+
++ Received:
+undefined
+
+ ❯ src/scene/inspection/ringRuntimeCore.test.ts:193:20
+    191|       })
+    192|     } catch (error) { caught = error }
+    193|     expect(caught).toBe(primary)
+       |                    ^
+    194|     expect(clones).toBe(2)
+    195|     expect(geometryDispose).toHaveBeenCalledOnce()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/scene/torque-wrench/cadGate.test.ts > cadGate > resolves the page-local Scene through the default path and caches the module
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/scene/torque-wrench/cadGate.test.ts:7:3
+      5|
+      6| describe('cadGate', () => {
+      7|   it('resolves the page-local Scene through the default path and cache…
+       |   ^
+      8|     const first: TorqueSceneModule = await loadTorqueScene()
+      9|     expect(typeof first.default).toBe('function')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/scene/inspection/shaft/camera.test.ts > K5 camera continuity > is C0 across the timeline at both layouts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/scene/inspection/shaft/camera.test.ts:152:3
+    150|
+    151| describe('K5 camera continuity', () => {
+    152|   it('is C0 across the timeline at both layouts', () => {
+       |   ^
+    153|     for (const aspect of [DESKTOP_ASPECT, NARROW_ASPECT]) {
+    154|       const step = 1 / 240
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/scene/drawing/sheet/handwriting.test.ts > reference hand lettering (O2) > enforces visible gaps on actual rotated ink, including fallback pen width and late-line pairs
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/scene/drawing/sheet/handwriting.test.ts:70:3
+     68|   })
+     69|
+     70|   it('enforces visible gaps on actual rotated ink, including fallback …
+       |   ^
+     71|     for (let seed = 0; seed < 80; seed++) for (const rotation of [-0.1…
+     72|       const r = handwrite('MWI.!!? 4140 C300 ALTERNATE MATERIALS\nROTA…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/scene/drawing/sheet/portalGeometry.test.ts > portal vertical rock shaft geometry > private cavern keeps the real tracked contour fold-free at every ring
+AssertionError: private ring 7: expected [ 9282, 9306 ] to be null // Object.is equality
+
+- Expected:
+null
+
++ Received:
+[
+  9282,
+  9306,
+]
+
+ ❯ src/scene/drawing/sheet/portalGeometry.test.ts:129:51
+    127|     for (let k = 0; k < shaft.ringCount; k++) {
+    128|       const ring = ringAt(shaft.wallGeometry, profilePoints.length, k)
+    129|       expect(findFold(ring), `private ring ${k}`).toBe(null)
+       |                                                   ^
+    130|       expect(signedArea(ring)).toBeGreaterThan(0)
+    131|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+TypeError: Failed to parse URL from /models/knurling-tool.glb
+ ❯ node:internal/deps/undici/undici:13510:13
+ ❯ processTicksAndRejections node:internal/process/task_queues:105:5
+ ❯ src/scene/inspection/ringRuntimeCore.ts:247:22
+    245|   ready = (async () => {
+    246|     const url = `${import.meta.env.BASE_URL}models/knurling-tool.glb`
+    247|     const response = await fetch(url, { signal: session.signal })
+       |                      ^
+    248|     if (!response.ok) throw new Error(`Tool download failed (${respons…
+    249|     const data = await response.arrayBuffer()
+
+This error originated in "src/scene/inspection/ringRuntimeCore.test.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "disposes a parse that resolves after runtime disposal and never mounts it". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+Caused by: TypeError: Invalid URL
+ ❯ new URL node:internal/url:825:25
+ ❯ new Request node:internal/deps/undici/undici:9586:25
+ ❯ fetch node:internal/deps/undici/undici:10315:25
+ ❯ fetch node:internal/deps/undici/undici:13508:10
+ ❯ fetch node:internal/bootstrap/web/exposed-window-or-worker:75:12
+ ❯ src/scene/inspection/ringRuntimeCore.ts:247:28
+ ❯ createRingRuntimeCore src/scene/inspection/ringRuntimeCore.ts:260:3
+ ❯ src/scene/inspection/ringRuntimeCore.test.ts:188:7
+ ❯ node_modules/@vitest/runner/dist/chunk-artifact.js:302:11
+ ❯ node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'ERR_INVALID_URL', input: '/models/knurling-tool.glb' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  6 failed | 86 passed (92)
+      Tests  6 failed | 1008 passed | 4 skipped (1018)
+     Errors  1 error
+   Start at  21:35:22
+   Duration  25.41s (transform 47.31s, setup 0ms, import 72.90s, tests 139.49s, environment 27ms)

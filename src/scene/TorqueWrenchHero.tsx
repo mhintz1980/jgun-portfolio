@@ -77,6 +77,7 @@ export function TorqueWrenchHero() {
   const anim = useRef({ spin: 0, ghost: 0, explode: 0, gearRotation: 0, shift: 0 }).current
   const drawing = useMemo(() => snapshotDrawing(rig), [rig])
   const idleAngle = useRef(0)
+  const pointerOffset = useRef({ yaw: 0, pitch: 0 }).current
   const surface = useRef<'live' | 'cad' | 'fade'>('live')
   const lastMode = useRef<MaterialMode>('solid')
   const wasInspecting = useRef(false)
@@ -227,7 +228,12 @@ export function TorqueWrenchHero() {
 
   useFrame((state, delta) => {
     // Freeze all narrative material/pose/idle writes; inspection owns a separate CAD copy.
-    if (inspection.active || renderOwnership.blocked) { wasInspecting.current = true; return }
+    if (inspection.active || renderOwnership.blocked) {
+      pointerOffset.yaw = 0
+      pointerOffset.pitch = 0
+      wasInspecting.current = true
+      return
+    }
     if (wasInspecting.current) { wasInspecting.current = false; return }
     const held = heldMechanics.current
     const { progress, chapter, chapterProgress, materialMode: narrativeMaterialMode } = getScrollState()
@@ -236,6 +242,11 @@ export function TorqueWrenchHero() {
 
     const proofMode = (window as unknown as Record<string, unknown>).__drawingProofMode
     const proof = proofMode !== undefined && proofMode !== 'normal'
+    const pointerEnabled = !reducedMotion && !proof && progress > DRAWING_INTRO_WINDOW.releaseEnd
+    if (!pointerEnabled) {
+      pointerOffset.yaw = 0
+      pointerOffset.pitch = 0
+    }
     // Share the camera and drawing's registered, fully inked static frame.
     const intro = drawingIntroState(
       reducedMotion ? DRAWING_INTRO_WINDOW.releaseEnd * REDUCED_MOTION_INTRO_T : progress,
@@ -307,16 +318,18 @@ export function TorqueWrenchHero() {
 
     // 1. Lateral rotation + hover parallax.
     if (group.current) {
+      if (pointerEnabled) {
+        const pointerDamp = 1 - Math.exp(-8 * Math.min(delta, 0.1))
+        pointerOffset.yaw = MathUtils.lerp(pointerOffset.yaw, state.pointer.x * 0.08, pointerDamp)
+        pointerOffset.pitch = MathUtils.lerp(pointerOffset.pitch, state.pointer.y * 0.05, pointerDamp)
+      }
       group.current.matrixAutoUpdate = true
       group.current.position.set(0, 0, 0)
       group.current.scale.set(1, 1, 1)
       group.current.rotation.z = 0
-      group.current.rotation.y = anim.spin * Math.PI * 0.85 + state.pointer.x * 0.08
-      group.current.rotation.x = MathUtils.lerp(
-        group.current.rotation.x,
-        state.pointer.y * 0.05,
-        0.1,
-      )
+      // Scroll owns the exact base pose; only the two pointer offsets are damped.
+      group.current.rotation.y = anim.spin * Math.PI * 0.85 + pointerOffset.yaw
+      group.current.rotation.x = pointerOffset.pitch
     }
 
     // 2. Housing ghost fade (suppressed in blueprint mode — everything is wire).

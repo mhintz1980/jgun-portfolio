@@ -1,0 +1,12 @@
+{
+  "count": 1445,
+  "sha256": "33a7fc2407a872ba65179284dc3edfb3a8353f345fe410c3ef948806ab612e9a",
+  "time": "2026-10-16T23:31:24.2382210-04:00",
+  "expectedCount": 1445,
+  "expectedSha256": "33a7fc2407a872ba65179284dc3edfb3a8353f345fe410c3ef948806ab612e9a",
+  "passed": true,
+  "verifiedAt": "2026-10-16T23:34:04.5959806-04:00",
+  "verificationRuntime": "Windows PowerShell5.1.26100.9596 en-US, same runtime as initial fingerprint",
+  "alternatePowerShell7Digest": "ec599d0a06a883cb1381af35faba739284310ab07b41c251313e539d5acafed1",
+  "note": "PowerShell7.6.7 sorts paths differently from PowerShell5.1 despite en-US culture; comparison using identical original runtime matches all1445files. Named protected files and original dirty GATES/TODO/agent-skills hashes independently match their initial hashes."
+}

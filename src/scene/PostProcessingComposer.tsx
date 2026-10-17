@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { EffectComposer, ChromaticAberration, Bloom, DepthOfField, ToneMapping } from '@react-three/postprocessing'
-import { BlendFunction, ToneMappingMode } from 'postprocessing'
+import { useContext, useEffect, useMemo, useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import { EffectComposer, EffectComposerContext, ChromaticAberration, Bloom, DepthOfField, SMAA, ToneMapping } from '@react-three/postprocessing'
+import { BlendFunction, EffectPass, ToneMappingMode } from 'postprocessing'
 import type { ChromaticAberrationEffect, BloomEffect, DepthOfFieldEffect } from 'postprocessing'
 import { Vector2, Vector3 } from 'three'
+import type { WebGLRenderer } from 'three'
 import { useQuality } from '../state/qualityStore'
 import { getScrollState, telemetry } from '../state/scrollStore'
 import { STAGE_TRANSITIONS } from './stages/stageWindows'
@@ -18,8 +19,8 @@ import { renderOwnership } from './inspection/renderLease'
  * transitions without masking engineering content.
  *
  * Effect policy (from the JG-017 plan):
- *   full   — ChromaticAberration (velocity-driven offset) + Bloom
- *   lite   — Bloom only (cheaper; skips the multi-pass aberration)
+ *   full   — bounded 4x MSAA + ChromaticAberration + DepthOfField + Bloom
+ *   lite   — SMAA + Bloom (skips aberration and the opening focus rack)
  *   poster — null (no canvas; no post-processing)
  *   reducedMotion — null (static canvas pose; no motion effects)
  *
@@ -49,6 +50,49 @@ const BLOOM_REST = 0.25
 
 /** Bloom intensity ceiling during transitions. */
 const BLOOM_PEAK = 0.65
+
+/** Only request a sample count actually supported by the HalfFloatType colour target. */
+function rootMsaaSamples(gl: WebGLRenderer): number {
+  const context = gl.getContext()
+  if (!('getInternalformatParameter' in context)) return 0
+  const supported = context.getInternalformatParameter(context.RENDERBUFFER, context.RGBA16F, context.SAMPLES) as Int32Array | null
+  const limit = Math.min(4, gl.capabilities.maxSamples)
+  let samples = 0
+  for (const count of supported ?? []) {
+    if (count <= limit && count > samples) samples = count
+  }
+  return samples
+}
+
+/** Repair the installed wrapper's CSS-only resize check and handle late pass registration. */
+function ComposerBufferSync() {
+  const { composer } = useContext(EffectComposerContext)
+  const gl = useThree(state => state.gl)
+  const size = useThree(state => state.size)
+  const dpr = useThree(state => state.viewport.dpr)
+  const drawingBufferSize = useMemo(() => new Vector2(), [])
+
+  useEffect(() => {
+    // postprocessing@6.39.4 reads the renderer's physical drawing buffer itself.
+    // Its setSize arguments must remain CSS pixels, even when only DPR changed.
+    composer.setSize(size.width, size.height)
+  }, [composer, size.width, size.height, dpr])
+
+  useFrame(() => {
+    gl.getDrawingBufferSize(drawingBufferSize)
+    if (composer.inputBuffer.width !== drawingBufferSize.x || composer.inputBuffer.height !== drawingBufferSize.y ||
+        composer.outputBuffer.width !== drawingBufferSize.x || composer.outputBuffer.height !== drawingBufferSize.y) {
+      const cssSize = gl.getSize(drawingBufferSize)
+      composer.setSize(cssSize.x, cssSize.y)
+    }
+    // Effects are registered by the parent's layout effects, and can be rebuilt
+    // without remounting this child. Run before the composer's priority-1 render.
+    for (const pass of composer.passes) {
+      if (pass instanceof EffectPass && !pass.dithering) pass.dithering = true
+    }
+  })
+  return null
+}
 
 /**
  * JG-021 glow experiment 3 (Mark-directed, 2026-08-30): the owner identified
@@ -180,6 +224,8 @@ function FxDriver({
 
 export function PostProcessingComposer() {
   const { tier, reducedMotion } = useQuality()
+  const gl = useThree(state => state.gl)
+  const fullSamples = useMemo(() => rootMsaaSamples(gl), [gl])
 
   const aberrationRef = useRef<ChromaticAberrationEffect | null>(null)
   const bloomRef = useRef<BloomEffect | null>(null)
@@ -193,7 +239,8 @@ export function PostProcessingComposer() {
 
   return (
     <>
-      <EffectComposer multisampling={0} stencilBuffer renderPass={createSectionRenderPass}>
+      <EffectComposer multisampling={tier === 'full' ? fullSamples : 0} stencilBuffer={false} renderPass={createSectionRenderPass}>
+        <ComposerBufferSync />
         {enableAberration && (
           <ChromaticAberration
             ref={aberrationRef as React.RefObject<ChromaticAberrationEffect>}
@@ -218,6 +265,7 @@ export function PostProcessingComposer() {
           mipmapBlur
         />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+        {tier === 'lite' && <SMAA />}
       </EffectComposer>
       <FxDriver
         aberrationRef={aberrationRef}

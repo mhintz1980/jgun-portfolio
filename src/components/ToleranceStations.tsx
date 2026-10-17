@@ -141,13 +141,24 @@ export function ToleranceStations() {
   const layout = useRef({ index: -1, x: 0, y: 0, side: 1, fresh: true, cardW: 400, cardH: 230 })
 
   useEffect(() => {
+    const hideOverlay = (el: HTMLDivElement) => {
+      el.style.visibility = 'hidden'
+      // Explicit child visibility overrides the hidden parent in SVG/CSS.
+      // The active frame below restores each child from its own visibility gate.
+      if (datum.current) datum.current.style.visibility = 'hidden'
+      if (reticle.current) reticle.current.style.visibility = 'hidden'
+      if (leader.current) leader.current.style.visibility = 'hidden'
+      if (secondary.current) secondary.current.style.visibility = 'hidden'
+      if (axis.current) axis.current.style.visibility = 'hidden'
+      if (glint.current) glint.current.style.visibility = 'hidden'
+    }
     const apply = (f: StationFrame) => {
       const el = root.current
       if (!el) return
-      if (inspection.active) { el.style.visibility = 'hidden'; return }
+      if (inspection.active) { hideOverlay(el); return }
       if (!Number.isFinite(f.width) || !Number.isFinite(f.height) ||
           !f.model.every(Number.isFinite) || !f.anchor.every(Number.isFinite) || !f.secondary.every(Number.isFinite)) {
-        el.style.visibility = 'hidden'; layout.current.fresh = true; return
+        hideOverlay(el); layout.current.fresh = true; return
       }
       if (!Number.isFinite(layout.current.x) || !Number.isFinite(layout.current.y)) layout.current.fresh = true
       if (f.index !== layout.current.index) {
@@ -156,7 +167,7 @@ export function ToleranceStations() {
         setIndex(f.index)
       }
       if (f.index < 0 || f.index !== index) {
-        el.style.visibility = 'hidden'
+        hideOverlay(el)
         return
       }
       el.style.visibility = 'visible'

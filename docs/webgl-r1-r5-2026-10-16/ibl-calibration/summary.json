@@ -1,0 +1,162 @@
+[
+  {
+    "id": "03-ch01-hero-pbr",
+    "progress": 0.15,
+    "gain": 1,
+    "p99": 164,
+    "clippedFraction": 0,
+    "pixels": 4051570
+  },
+  {
+    "id": "03-ch01-hero-pbr",
+    "progress": 0.15,
+    "gain": 2,
+    "p99": 166,
+    "clippedFraction": 0,
+    "pixels": 4051570
+  },
+  {
+    "id": "03-ch01-hero-pbr",
+    "progress": 0.15,
+    "gain": 4,
+    "p99": 187,
+    "clippedFraction": 0,
+    "pixels": 4051570
+  },
+  {
+    "id": "03-ch01-hero-pbr",
+    "progress": 0.15,
+    "gain": 6,
+    "p99": 201,
+    "clippedFraction": 0,
+    "pixels": 4051570
+  },
+  {
+    "id": "03-ch01-hero-pbr",
+    "progress": 0.15,
+    "gain": 8,
+    "p99": 208,
+    "clippedFraction": 0,
+    "pixels": 4051570
+  },
+  {
+    "id": "04-ch02-explode-ghost",
+    "progress": 0.35,
+    "gain": 1,
+    "p99": 181,
+    "clippedFraction": 0,
+    "pixels": 568764
+  },
+  {
+    "id": "04-ch02-explode-ghost",
+    "progress": 0.35,
+    "gain": 2,
+    "p99": 189,
+    "clippedFraction": 0,
+    "pixels": 568764
+  },
+  {
+    "id": "04-ch02-explode-ghost",
+    "progress": 0.35,
+    "gain": 4,
+    "p99": 219,
+    "clippedFraction": 0,
+    "pixels": 568764
+  },
+  {
+    "id": "04-ch02-explode-ghost",
+    "progress": 0.35,
+    "gain": 6,
+    "p99": 227,
+    "clippedFraction": 0,
+    "pixels": 568764
+  },
+  {
+    "id": "04-ch02-explode-ghost",
+    "progress": 0.35,
+    "gain": 8,
+    "p99": 236,
+    "clippedFraction": 0,
+    "pixels": 568764
+  },
+  {
+    "id": "05-ch02-lcd-dwell",
+    "progress": 0.47,
+    "gain": 1,
+    "p99": 239,
+    "clippedFraction": 0.00038734465865251954,
+    "pixels": 960385
+  },
+  {
+    "id": "05-ch02-lcd-dwell",
+    "progress": 0.47,
+    "gain": 2,
+    "p99": 247,
+    "clippedFraction": 0.0004133758857125007,
+    "pixels": 960385
+  },
+  {
+    "id": "05-ch02-lcd-dwell",
+    "progress": 0.47,
+    "gain": 4,
+    "p99": 252,
+    "clippedFraction": 0.003167479708658507,
+    "pixels": 960385
+  },
+  {
+    "id": "05-ch02-lcd-dwell",
+    "progress": 0.47,
+    "gain": 6,
+    "p99": 254,
+    "clippedFraction": 0.03837002868641222,
+    "pixels": 960385
+  },
+  {
+    "id": "05-ch02-lcd-dwell",
+    "progress": 0.47,
+    "gain": 8,
+    "p99": 255,
+    "clippedFraction": 0.05131691977696445,
+    "pixels": 960385
+  },
+  {
+    "id": "06-ch03-station2-cut",
+    "progress": 0.65,
+    "gain": 1,
+    "p99": 193,
+    "clippedFraction": 0,
+    "pixels": 620060
+  },
+  {
+    "id": "06-ch03-station2-cut",
+    "progress": 0.65,
+    "gain": 2,
+    "p99": 211,
+    "clippedFraction": 0,
+    "pixels": 620060
+  },
+  {
+    "id": "06-ch03-station2-cut",
+    "progress": 0.65,
+    "gain": 4,
+    "p99": 223,
+    "clippedFraction": 0,
+    "pixels": 620060
+  },
+  {
+    "id": "06-ch03-station2-cut",
+    "progress": 0.65,
+    "gain": 6,
+    "p99": 234,
+    "clippedFraction": 0,
+    "pixels": 620060
+  },
+  {
+    "id": "06-ch03-station2-cut",
+    "progress": 0.65,
+    "gain": 8,
+    "p99": 238,
+    "clippedFraction": 0.000003225494307002548,
+    "pixels": 620060
+  }
+]
