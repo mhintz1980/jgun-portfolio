@@ -1,5 +1,30 @@
 # 21 — Owner Reference & Feedback Image Index (compiled 2026-10-16)
 
+## Latest drop — 2026-10-17 (eight images, verified and copied)
+
+Canonical copies live at the absolute directory
+`C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/references/2026-10-17-owner-corrections/`.
+Original files are preserved. See [doc25](25-owner-correction-plan-2026-10-17.md) for
+the implementation order and the distinction between visual targets and rejected output.
+
+| ID | Copied filename | Authority/use | Original absolute path |
+| --- | --- | --- | --- |
+| R1 | `rotary-hob-finishes.png` | TARGET: gold rotary hob indicated by yellow arrow; not just a gold shaper | `C:/Users/Markimus/Pictures/Screenshots/rotary-hob-finishes.png` |
+| R2 | `profile-view-cracks-low-quality-wrong-color.png` | REJECTED CURRENT OUTPUT: sparse pale/white profile and crack network | `C:/Users/Markimus/Pictures/Screenshots/profile-view-cracks-low-quality-wrong-color.png` |
+| R3 | `01-paper-webbing.png` | TARGET: electric-blue profile, branching web, blue spill on paper | `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/concept-media/01-paper-webbing.png` |
+| R4 | `cavernous-pit-should-llok-like-this.png` | TARGET: torn paper lip, fractured rock depth, blue fissures; keep the intentional filename typo | `C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/project/work/evidence/JG-035-opening-drafting-table/blue-trace-tunnel-2026-10-03/concept-media/cavernous-pit-should-llok-like-this.png` |
+| R5 | `shattered-glass-wrong-color.png` | REJECTED CURRENT OUTPUT: navy/blue glass-like fragments; owner requires paper color | `C:/Users/Markimus/Pictures/Screenshots/shattered-glass-wrong-color.png` |
+| R6 | `move-ring-switch-sequence-before-helical-anmation.png` | TIMELINE LOCATION: knurl P003068 just before its helical movement and OSHA red/blue reveal; preserve filename typo | `C:/Users/Markimus/Pictures/Screenshots/move-ring-switch-sequence-before-helical-anmation.png` |
+| R7 | `codex-clipboard-cc93b69b-01e6-4f38-af35-4a88919652c9.jpg` | GEOMETRY TARGET: dense impact zones, irregular radial fractures, fine branching and mixed shard sizes | `C:/Users/Markimus/AppData/Local/Temp/codex-clipboard-cc93b69b-01e6-4f38-af35-4a88919652c9.jpg` |
+| R8 | `codex-clipboard-e9daf951-475c-45c7-bd69-3ae476d557e7.jpg` | GEOMETRY TARGET: multiple fracture centres, long primary splits and secondary webbing; do not copy white glass reflections | `C:/Users/Markimus/AppData/Local/Temp/codex-clipboard-e9daf951-475c-45c7-bd69-3ae476d557e7.jpg` |
+
+The newest images separate **geometry (R7/R8)**, **electrical appearance (R3)**,
+**cavern appearance (R4)** and **fragment substrate (paper, not blue glass)**. R2/R5
+are diagnostic screenshots, not desired treatments. Older `C:/Projects/Misc/cracks.png`,
+`portal.png` and `lightning outline.mp4` were rechecked to exist on 2026-10-17.
+
+---
+
 Purpose: one place where any session can find the owner's reference and feedback images
 for the torque-wrench work, so references stop being "documented somewhere." Compiled by
 read-only search (2026-10-16) across both worktrees, `C:\Projects\Misc`,
@@ -105,3 +130,11 @@ P001132 / P001382 (companions to the repo's `reference drawings\` PDFs) + the
 
 — Compiled 2026-10-16 (ZCode, explorer lane; paths spot-verified). Update this index when
 new owner references arrive rather than starting new drops.
+
+## Addendum 2026-10-18 - R9
+
+| ID | File (in references/2026-10-17-owner-corrections/) | Role |
+| --- | --- | --- |
+| R9 | R9-exploded-gearbox-camera-target-2026-10-18.png | CAMERA/COMPOSITION TARGET for the view after the Input Shaft animation: exploded gearbox beside the collapsed internal cages. Original: C:/Users/Markimus/AppData/Local/Temp/codex-clipboard-09c3ef06-db28-476f-b9cc-d910a0eaec46.png (SHA256 7FFB9733FCE63BBD13C9ABBD401588D308002F1088CC95436248B27E32CF6C61, copy verified). Ignore text fragments in the image. |
+
+| R10 | R10-spark-state-wait-too-long-2026-10-18.png | TIMING REFERENCE: the state reached after lights-off, a bright blue spark at the base of the air fitting with the faint profile outline. The owner says the scroll from lights-off to this point and the first crack is far too long. Original: C:/Users/Markimus/AppData/Local/Temp/codex-clipboard-db031d45-9cab-458f-ad8f-fda29e4a8a96.png (SHA256 D0CA467DC522F9020810F935420D65ADBB34E444F7145422E61482E24CC88BE0, copy verified). Ignore browser chrome and the on-page card text. |

@@ -1,0 +1,56 @@
+You are the parent orchestrator for the JG-038 follow-on tasks in
+C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench (Windows/PowerShell, branch
+torque-wrench/rebuild). Read FIRST, before anything else:
+docs/torque-wrench-rebuild/30-argon-t1-completion-and-handoff-2026-10-19.md
+(absolute: C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench/docs/torque-wrench-rebuild/30-argon-t1-completion-and-handoff-2026-10-19.md),
+then doc 26 (owner corrections) for T4-T7 wording and doc 28 for the review rubric.
+
+State: T1 (Argon fixes A incl. D, E, B, C) is complete and owner-approved (2026-10-19,
+"all changes are approved"); committed and pushed on torque-wrench/rebuild. Evidence:
+output/playwright/jg038-lightning-20261017/ (argon-final-218..360.png,
+timing-argon-after-E.json, argon-fix-report.md); in-repo copies under
+docs/torque-wrench-rebuild/evidence-jg038-argon-20261019/. Frames are local-only
+(output/ is gitignored); regenerate with frames.mjs if missing.
+
+REVIEW PROTOCOL (owner ruling 2026-10-19) for EVERY subagent task:
+- Worker: Claude Sonnet-5.5/High or GPT-6.1-Sol/High implements (code, or the read-only
+  review report for T2).
+- Adversarial reviewer: GLM-5.3 or GLM-5.3-Flash/High attacks the result read-only (diff,
+  frames, timing JSON) and must try to fail it.
+- Decision approver: Claude Opus-5.5/High arbitrates and approves key decisions before the
+  task continues or merges.
+- Any reviewer FAIL: STOP and alert the owner. No automatic retries. This supersedes doc
+  28's Sol-then-Opus lineup; doc 28's rubric still applies.
+
+TASKS:
+1. T2 formal review of the argon frames (read-only): score vs references in
+   docs/torque-wrench-rebuild/references/2026-10-17-owner-corrections/ (R3, R4, R7, R8,
+   R10), re-run timing.mjs over .17-.335 on port 5321, verify the Fix E table in
+   argon-fix-report.md. Runs in parallel with T4/T5 authoring.
+2. T4 confirm the gold rotary hob in a served frame (source done in shaftRuntime.ts;
+   read-only check + one browser slot). Serialize all browser captures with T5.
+3. T5 C2 Ring Switch knurl relocation to just BEFORE the Ring Switch traverses down the
+   Clutch Housing (doc 25 section 5: baseline ring multiplier 8, duration 28 s, contact
+   >16 s, slow window 8..18) plus at least 2x the latest owner-viewed machining scroll.
+   Single writer of: beats.ts, MechanismDirector.ts, InspectionDirector.ts,
+   RingInspection.ts, ringAnchor.ts, RuntimeWorld.tsx, scrollPacing.ts, torque-wrench.css.
+   IMPORTANT: those files carry UNCOMMITTED drift from an earlier T5 attempt — read the
+   live state first, reconcile with the owner, and stage only what you finalize.
+4. T6 C3 bullet time: only after the owner confirms scope post-T3. Shares shatter files.
+5. T7 C1 R9 camera: BLOCKED — owner has not answered split vs morph. Do not implement.
+
+SKILLS: parent uses orchestration + parallel-workstreams + codex-tiers. Every implementer
+and verifier loads webgl-telemetry-verifier before any measurement or visibility claim.
+T5/T6 rig work: cad-scene-graph-rigging; scroll-timeline changes: r3f-scroll-performance-guard
++ gsap-scrolltrigger. T6 animation craft: animate / review-animations / improve-animations +
+the MengTo canon. Deploy discussions only: asset-and-bundle-hygiene. Do not load
+glsl-transition-shader-pipeline, spatial-hotspot-a11y, reverse-engineer-anything, unlazy,
+or context-mode unless the exact sub-problem needs them.
+
+RULES: port 5281 belongs to the owner — never start, stop or rebuild-serve it; run your own
+preview on 5321 and restart it after EVERY rebuild. Never regenerate
+public/models/{Default,m249-transformed,msp-enclosure}.glb. INTRO_KNOTS and openingTimeAt
+in OpeningDirector.ts are frozen. Keep the depthTest/renderOrder gating at
+privateSheetRuntime.ts ~714/718, the paper shards, and the seam/aperture geometry
+byte-identical. src/scene/drawing/** is shared and read-only. Never commit .scratch/; stage
+only your task's files. A reviewer pass is not owner acceptance — the owner approves at 5281.

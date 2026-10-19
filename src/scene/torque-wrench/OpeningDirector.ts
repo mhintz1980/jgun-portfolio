@@ -6,6 +6,15 @@ import {
 } from '../drawing/introTimeline'
 import { sheetReveal } from '../drawing/sheetCamera'
 import { GROUP_COUNT } from '../drawing/sheet/ink'
+import {
+  PRIVATE_SPARK_START_T,
+  PRIVATE_WEB_COMPLETE_T,
+  PRIVATE_WEB_START_T,
+  samplePrivateElectricalScore,
+} from './ElectricalDirector'
+
+const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
+const smooth01 = (x: number) => { const u = clamp01(x); return u * u * (3 - 2 * u) }
 
 /** Private semantic coordinates map to the unchanged lower-level physical channels. */
 const INTRO_KNOTS = [
@@ -114,6 +123,15 @@ export function sampleOpening(progress: number, crossing = 0.9, finalInkT = DEFA
   }
   const state = drawingIntroState(breakthroughTimeAt(openingTimeAt(progress)) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
   applyPrivateLampTiming(state, finalInkT, crossing)
+  const electrical = samplePrivateElectricalScore(state.t)
+  state.pulseHead = electrical.outline
+  state.crackGrowth = electrical.branch
+  state.sparkAnticipation = electrical.anticipation
+  state.crackWeb = smooth01((state.t - PRIVATE_WEB_START_T) / 0.010) * (1 - state.fracture)
+  state.crackGlow = state.t < PRIVATE_SPARK_START_T ? 0 : state.t <= INTRO_PHASES.pulseEnd
+    ? smooth01((state.t - PRIVATE_SPARK_START_T) / 0.006)
+    : (0.65 + 0.35 * state.pressure) * (1 - 0.78 * state.fracture) * (1 - smooth01((state.t - 0.94) / 0.05))
+  state.pulse = state.t >= PRIVATE_SPARK_START_T && state.t <= PRIVATE_WEB_COMPLETE_T ? 1 : 0
   return state
 }
 

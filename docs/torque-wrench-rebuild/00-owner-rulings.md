@@ -1,5 +1,33 @@
 # Torque wrench rebuild — owner rulings
 
+## Latest owner correction — 2026-10-17 (supersedes conflicting older visual direction)
+
+Next implementation starts with **lightning cracking**, then the **cavernous tunnel
+left after the model exits the drawing**. Current owner screenshots reject the pale,
+sparse profile crack effect and the current cavern. Use electric-blue branching light
+from `01-paper-webbing.png` and the named cavern reference; the two newly supplied
+broken-glass photographs specify fracture GEOMETRY, not white emission or glass color.
+The fractured pieces must retain the drawing paper's color and printed appearance.
+This explicitly supersedes the older dark-blue/dark-glass shard material direction;
+glass-like fracture and bullet-time motion remain relevant.
+
+The rotary HOB must receive the gold finish indicated by the yellow arrow in
+`rotary-hob-finishes.png`. The preceding iteration changed the SHAPER cutter only;
+that does not satisfy the hob request. Move the P003068 Ring Switch knurling sequence
+immediately BEFORE its helical shift through the gearbox, so the grip-making process
+explains that motion and the existing OSHA red/blue indicator lines reveal afterward.
+The revised machining presentation must require at least twice the currently viewed
+scroll distance; lengthen actual tool-contact presentation, not empty approach/exit.
+Retain the quarter-coverage knurl bullet time and assembly-before-finish fade order.
+
+Complete correction contract, exact source map, current baseline, delegation guidance,
+skills and eight copied reference images: [25-owner-correction-plan-2026-10-17.md](25-owner-correction-plan-2026-10-17.md).
+This turn authorizes docs/reference/handoff preparation; next session is to implement
+these corrections. No current visual acceptance, new commit, push, deployment or
+public route cutover is inferred. Older planning/technical SHIP does not override
+this visual rejection. Existing approved mechanics/handwriting/close and unrelated
+work remain protected.
+
 ## Opening continuation clarification — 2026-10-10
 
 Owner clarified the causal sequence: the model pushes intact paper upward, shatters it into shards and rises into the air. In its wake, both the drawing paper and underlying wooden desktop give way to a cavernous pit resembling steep mountain cliffs, with near-vertical fractured walls, no visible floor/bottom, and intermittent blue lightning-like bursts racing through selected wall cracks. The cavern is revealed by this passage, not by a separate pre-emergence preview.
@@ -192,3 +220,18 @@ Related same-day findings: the five-feature parity gap is documented in
 ring-switch port verification, pointer parallax). Fresh drawing-quality feedback
 screenshots from 2026-10-16 morning are indexed in doc 21 §C
 (crosshatch placement, detail circles/lineweight, detail-letter location).
+
+## Owner corrections - 2026-10-18 (newest; wins over earlier ordering)
+
+Recorded from the owner's message (documentation only; no acceptance inferred). Full wording, event order and status: [26-owner-corrections-2026-10-18.md](26-owner-corrections-2026-10-18.md).
+
+- After the Input Shaft animation the camera moves to a pose like reference R9 and shows the EXPLODED gearbox next to the internal cages COLLAPSED (side-by-side vs morph is an open owner question; implementation waits for the answer).
+- The Ring Switch knurling sequence moves to just BEFORE the Ring Switch traverses down the Clutch Housing: (a) shattered glass flies and the model elevates above the drawing; (b) camera swings/zooms to the Ring Switch showing the OSHA BLUE groove on the clutch housing; (c) camera moves to show the RED groove after the Ring Switch rotates 12 deg down the gearbox; (d) camera stays zoomed, all other components fade leaving the Ring Switch; (e) knurl, finish, holes fade to fresh turned aluminium and the rest of the knurling sequence plays with camera moves.
+- Bullet time must improve: super-slow motion for a couple of seconds showing the rotary hob's fraction-of-a-rotation engagement with the input shaft while the camera swings locked on the knurl dies; same for the Input Shaft and shaper cutter; it first appears in the shatter-through-the-drawing sequence. The shatter bullet time is NOT implemented until the cavernous portal and blue lightning cracks are significantly improved.
+- Blue lightning cracks and cavernous portal are delegated to GPT-6-Astra (brief: [27-astra-lightning-portal-brief-2026-10-18.md](27-astra-lightning-portal-brief-2026-10-18.md)). Gate: adversarial review by GPT-6.1-Sol/High; on failure Astra retries once and Gemini-4-Argon reviews with the same rubric; if that fails, STOP and alert the owner. Reviewer pass is not owner acceptance.
+
+## Owner direction - 2026-10-18 (evening): lightning and pit "look better, still not there"
+The owner viewed the Astra-retry build: improved, not accepted. Gemini-4-Argon is assigned to apply the three ranked fixes from his own review 2 (cavern/lip, web topology, lightning energy/colour, plus the .310 lip pop) and self-check them against R3/R4/R7/R8. Handoff: [29-argon-fix-handoff-2026-10-18.md](29-argon-fix-handoff-2026-10-18.md); prompt: 29-START-ARGON-PROMPT-2026-10-18.txt. Because Argon is now the author, the formal independent gate becomes GPT-6.1-Sol/High then Claude Opus 5.5/High (doc28 roster amended); a failure there stops the loop and alerts the owner. Following tasks (hob confirmation, Ring Switch relocation with >=2x machining scroll, improved bullet time, R9 camera) are sequenced in the handoff section 8. No acceptance is inferred.
+
+## Owner correction - 2026-10-18 (later): lightning timing
+The burst-pause-burst pattern around the profile view remains the goal, but the scroll from the lamp's last flicker (lights off) to the start of cracking (reference R10, the spark at the base of the air fitting) is far too long: measured .034 of the document (~2,140 px, 2.4 viewports) before the first burst. Reduce it (target <= .008) and use 3-4 crack sequences (not six) to complete the profile trace, then begin the internal web. Direction: earthquake cracks forming / ice on a thin lake cracking under weight. Measured baseline, targets and implementation constraints: [29-argon-fix-handoff-2026-10-18.md](29-argon-fix-handoff-2026-10-18.md) section 5 (Fix E). Skills guidance for Argon and reviewers: same handoff section 10 (essentially none; webgl-telemetry-verifier once for verification).

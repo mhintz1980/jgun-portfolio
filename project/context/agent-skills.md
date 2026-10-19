@@ -48,6 +48,19 @@ Verified 2026-10-06: it reports version `0.10.8` and exposes graph tools includi
 
 Use the active project **`C-Users-Markimus-.buzz-REPOS-jgun-portfolio`** rooted at **`C:/Users/Markimus/.buzz/REPOS/jgun-portfolio`**. `C:/Projects/jgun-portfolio` is a junction to this same physical checkout, not a separate mirror. The separate legacy registry name `jgun-portfolio` was still at 5,445 nodes / 14,975 edges on 2026-10-06; do not infer that refreshing one registry refreshes the other or prefer the legacy name without verifying its generation and coverage.
 
+**Torque-wrench worktree entry (2026-10-14):** JG-038 runs in a separate git worktree at
+`C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench` (branch `torque-wrench/rebuild`), indexed as
+**`jgun-torque-wrench-rebuild`** — query THAT project for torque-wrench runtime code. Full refresh
+2026-10-14T14:46:52Z: **9,693 nodes / 33,608 edges, 0 skipped**, coverage inventory complete (34/34
+ignored-file records); spot-verified `createPrivateSheetRuntime` spans `privateSheetRuntime.ts:238–606`
+exactly as on disk. Five partial parser ranges — `scripts/deploy-studiomark.ps1:25–26`,
+`src/index.css:1–2`, `src/scene/drawing/sheet/sheetBake.test.ts:1–860` (whole file),
+`src/scene/inspection/ringGeometryLifecycle.test.ts:12`, `src/scene/rl300/QuietMachinePreview.tsx:100` —
+read those directly. The same immediate-post-refresh `metadata_changed` caveat applies. The older
+`C-Users-Markimus-.buzz-REPOS-jgun-portfolio` entry mirrors the main worktree
+(branch `codex/jg033-signature-shot`) and does NOT contain the torque-wrench rebuild runtime;
+do not use it for JG-038 queries.
+
 A full refresh of the active entry completed on 2026-10-06: **5,820 nodes / 20,935 edges, 0 skipped files**, generation **2026-10-06T16:12:35Z**. Coverage inventory is complete (32/32 ignored-file records); the new shaft runtime symbol's indexed source exactly matches the live function. Full verification and known limits are in [graph-refresh-2026-10-06.md](../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/graph-refresh-2026-10-06.md) and the [recovered handoff](../work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/continuation-handoff-2026-10-06.md). `check_index_coverage` still reports `metadata_changed` immediately after refresh, so retain direct-source verification rather than claiming clean freshness. The two partial parser ranges are `scripts/deploy-studiomark.ps1:25–26` and `src/scene/rl300/QuietMachinePreview.tsx:64`; read them directly. Always query live `index_status` and exact-file coverage; node totals and `ready` alone do not prove completeness.
 
 **Structural scope:** the root [`.cbmignore`](../../.cbmignore) prunes `project/work/evidence/`, `*.log`, the generated `public/drawing/` cache and `__pycache__/` from indexing. Evidence packets and any helpers inside that subtree remain on disk and in the recovery backup; read them directly for runtime/geometry proof. Canonical Markdown plans/specs outside the evidence subtree, runtime source, `scripts/` helpers and small authored JSON remain eligible for full-mode indexing. The October 6 unfiltered diagnostic expanded capture data into about 16.5 million nodes and reached roughly 17 GB RSS. Excluding individual captures still overflowed the 2,000-entry coverage inventory, so the evidence subtree is pruned as a whole. Do not remove these exclusions merely to make the graph enumerate telemetry arrays. `.cbmignore` affects indexing only, not Git or the application.

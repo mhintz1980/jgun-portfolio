@@ -3,7 +3,7 @@
  * presentation resources. Shader/fragment laws copied from DrawingPrint.
  */
 import {
-  Color, DoubleSide, Group, Matrix4, Mesh, PlaneGeometry, ShaderMaterial, WebGLRenderTarget,
+  AdditiveBlending, Color, DoubleSide, Group, Matrix4, Mesh, PlaneGeometry, ShaderMaterial, WebGLRenderTarget,
   Vector2, Vector3, Vector4,
   type BufferGeometry, type ShaderMaterialParameters, type Texture, type WebGLRenderer, type Camera,
 } from 'three'
@@ -17,44 +17,96 @@ import { paperContactShadow, paperFlexAmplitude, paperVellum } from '../drawing/
 import { LIGHTNING_VERTEX, makeLightningRibbon } from '../drawing/sheet/lightning'
 import { CRACK_APERTURE_GLSL, makeCrackMask } from '../drawing/sheet/breakthrough'
 import { capturePortalPixels, makePortal, PORTAL_DESK_Z, PORTAL_PROFILE_GLSL } from '../drawing/sheet/portal'
-import { makePrivatePitGeometry } from './PitGeometry'
+import { makePrivatePitGeometry, makePrivatePitLipGeometry, makePrivatePitRockGeometry } from './PitGeometry'
 import { configurePrivatePitMaterial } from './privatePitMaterial'
 import { samplePit } from './PitDirector'
 import { samplePrivateElectrical } from './ElectricalDirector'
 import { makePrivateCrackGeometry } from './privateElectricGeometry'
+import { makePrivateFractureWebGeometry } from './privateFractureWeb'
 
-const PRIVATE_LIGHTNING_VERTEX = LIGHTNING_VERTEX.replace('jag * 0.00006', 'jag * 0.00085')
+const PRIVATE_LIGHTNING_VERTEX = LIGHTNING_VERTEX
 
 const PRIVATE_LIGHTNING_FRAGMENT = /* glsl */ `
 uniform float uPulseHead; uniform float uCrackGlow; uniform float uElectricalEnergy;
 uniform float uFracture; uniform float uSpark;
 varying float vArc; varying float vAcross;
 void main() {
-  float cell = floor(vArc * 211.0);
-  float a = fract(sin(cell * 127.1) * 43758.5453) - .5;
-  float b = fract(sin((cell + 1.0) * 127.1) * 43758.5453) - .5;
-  float jag = mix(a, b, fract(vArc * 211.0)) * .65;
+  // Non-periodic multi-octave lateral kinks inside the ribbon: sharp electrical core,
+  // no periodic sin(vArc*593) saw-teeth along straight blueprint edges.
+  float jag = 0.0, amp = .15, freq = 89.0;
+  for (int o = 0; o < 4; o++) {
+    float cell = floor(vArc * freq);
+    float a = fract(sin(cell * 127.1 + float(o) * 17.3) * 43758.5453) - .5;
+    float b = fract(sin((cell + 1.0) * 127.1 + float(o) * 17.3) * 43758.5453) - .5;
+    jag += mix(a, b, fract(vArc * freq)) * amp;
+    amp *= .52; freq *= 2.55;
+  }
   float d = abs(vAcross - jag);
-  float aa = max(fwidth(vAcross), .015);
-  float core = 1.0 - smoothstep(.045, .045 + aa, d);
-  float halo = exp(-d * d * 9.0) * .48;
-  float fork = abs(vAcross - jag - sin(vArc * 593.0) * .5);
-  float branch = (1.0 - smoothstep(.015, .015 + aa, fork))
-    * smoothstep(.68, .92, sin(vArc * 317.0));
+  float aa = max(fwidth(vAcross), .014);
+  // Narrow ice-cyan core with a royal-blue halo and soft paper spill (R3).
+  float core = 1.0 - smoothstep(.026, .026 + aa * 1.15, d);
+  float halo = exp(-d * d * 16.0) * .44 + exp(-d * d * 3.0) * .14;
   float head = exp(-pow((vArc - uPulseHead) / .018, 2.0));
   float grown = 1.0 - smoothstep(uPulseHead, uPulseHead + .009, vArc);
   float spark = uSpark * (1.0 - smoothstep(.002, .012, vArc));
-  float energy = uElectricalEnergy * (grown * .72 + head * .7);
+  float energy = uElectricalEnergy * (grown * .88 + head * .82);
   float retirement = 1.0 - smoothstep(.15, .9, uFracture);
-  float alpha = clamp((core + halo + branch * .55) * (energy + spark) * uCrackGlow * retirement, 0.0, 1.0);
-  gl_FragColor = vec4(mix(vec3(.12, .43, 1.0), vec3(.79, .94, 1.0), core), alpha);
+  float alpha = clamp((core + halo) * (energy + spark) * uCrackGlow * retirement, 0.0, 1.0);
+  // Royal-blue halo (.04, .34, 1.0) to ice-cyan core (.45, .82, 1.0), blue-tinted, never white.
+  gl_FragColor = vec4(mix(vec3(.04, .34, 1.0), vec3(.45, .82, 1.0), core * core), alpha);
 }`
 
 // Crystal-thin fissures develop under the electrical front, then extinguish as
 // separated stock begins to fall. Existing crack masks retain exact shard seams.
-const PRIVATE_CRACK_FRAGMENT = PRIVATE_LIGHTNING_FRAGMENT
-  .replace(/uPulseHead/g, 'uCrackGrowth').replace(/uCrackGlow/g, 'uCrackWeb')
-  .replace('jag = mix(a, b, fract(vArc * 211.0)) * .65', 'jag = mix(a, b, fract(vArc * 211.0)) * .22')
+const PRIVATE_WEB_VERTEX = /* glsl */ `
+attribute float arcLength; attribute float ribbonSide; attribute vec2 ribbonNormal;
+attribute float branchLevel; attribute float ribbonHalf;
+uniform float uHaloScale; uniform float uFracture;
+varying float vArc; varying float vAcross; varying float vLevel; varying vec2 vWebPlane;
+void main() {
+  vArc = arcLength; vAcross = ribbonSide; vLevel = branchLevel; vWebPlane = position.xy;
+  vec3 p = position;
+  p.xy += ribbonNormal * ribbonSide * ribbonHalf * (uHaloScale - 1.0);
+  p.z += paperDisplacement(p.xy);
+  // Keep the web above the earliest delay=0 shard micro-lift at .310 before retirement.
+  p.z += 0.012 * smoothstep(0.0, 0.02, uFracture) * (1.0 - smoothstep(0.06, 0.16, uFracture));
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+}`
+
+// Multi-scale electric web. Finer levels light slightly after their parents, so the
+// primary seams lead and hairlines propagate behind them. The core stays saturated blue.
+const privateWebFragment = (halo: boolean) => /* glsl */ `
+uniform float uElectricalTime; uniform float uCrackGrowth; uniform float uCrackWeb; uniform float uElectricalEnergy; uniform float uFracture;
+varying float vArc; varying float vAcross; varying float vLevel; varying vec2 vWebPlane;
+void main() {
+  float delay = vLevel * .025;
+  float front = uCrackGrowth - delay;
+  float grown = 1.0 - smoothstep(front, front + .012, vArc);
+  float head = exp(-pow((vArc - front) / .024, 2.0));
+  float branchHash = fract(sin(dot(floor(vWebPlane * 135.0), vec2(127.1, 311.7))) * 43758.5453);
+  float crawl = .80 + .20 * sin(vArc * 211.0 - uElectricalTime * 29.0 + branchHash * 6.283 + vLevel * 5.0);
+  float energy = uElectricalEnergy * (grown * .94 + head * .52) * crawl;
+  float retire = 1.0 - smoothstep(.15, .9, uFracture);
+  // Hierarchy by branchLevel: Level-1 primaries lead, Level-0 seams are subordinate,
+  // Level-2 secondaries and Level-3 hairlines step down cleanly.
+  float fade = vLevel < .5 ? .15 : mix(1.0, .48, (vLevel - 1.0) / 2.0);
+  float hierarchy = .68 + .32 * branchHash;
+  float w1 = fract(sin(dot(floor(vWebPlane * 520.0), vec2(127.1, 311.7))) * 43758.5453) - .5;
+  float w2 = fract(sin(dot(floor(vWebPlane * 1240.0), vec2(269.5, 183.3))) * 43758.5453) - .5;
+  float wander = .12 * w1 + .06 * w2;
+  float d = abs(vAcross - wander);
+  ${halo ? `
+  float spill = exp(-d * d * 1.9) + .35 * exp(-d * d * .42);
+  float haloFade = vLevel < .5 ? .05 : fade;
+  float a = clamp(spill * energy * uCrackWeb * retire * haloFade * hierarchy * .36, 0.0, 1.0);
+  gl_FragColor = vec4(vec3(.02, .26, .98), a);` : `
+  float aa = max(fwidth(vAcross), .018);
+  float w = vLevel < .5 ? .055 : mix(.125, .060, (vLevel - 1.0) / 2.0);
+  float core = 1.0 - smoothstep(w * .42, w + aa * 1.15, d);
+  float innerHalo = exp(-d * d * 6.8) * .38;
+  float a = clamp((core + innerHalo) * energy * uCrackWeb * retire * fade * 1.35, 0.0, 1.0);
+  gl_FragColor = vec4(mix(vec3(.04, .34, 1.0), vec3(.45, .82, 1.0), core * core), min(1.0, a * hierarchy * 1.25));`}
+}`
 
 const NOISE_GLSL = /* glsl */ `
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -177,14 +229,19 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
+    c = mix(c, vec3(.06, .09, .18), ink * .78);
     vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
     float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
     float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
-    vec3 glass = vec3(.013, .025, .041) + vec3(.08, .15, .22) * fresnel
-      + vec3(.38, .58, .72) * reflection;
-    glass *= 1.0 - ink * .48;
-    if (abs(vFront) < .5) glass += vec3(.08, .19, .27) * (.35 + fresnel);
-    c = mix(c, glass, smoothstep(0.0, .11, uFracture));
+    // Shards stay drawing paper: warm stock, printed ink on the front, a slightly
+    // shadowed verso and a pale fibrous torn edge. Glass motion, not glass colour.
+    float facing = abs(dot(n, view));
+    vec3 shard = c;
+    if (vFront < -.5) shard *= .84;
+    if (abs(vFront) < .5) shard = mix(shard, uPaper * 1.06, .75);
+    shard *= .9 + .1 * facing;
+    shard += uPaper * fresnel * .05;
+    c = mix(c, shard, smoothstep(0.0, .11, uFracture));
   }
   // Restrict blue spill to the torn lip; never backlight the entire profile.
   float underlight = portalRim(p) * uPortalLight;
@@ -339,6 +396,8 @@ export function createPrivateSheetRuntime(
         else delete u[key]
       })
     }
+    decorate('uLipOpacity', 1)
+    decorate('uElectricalTime', 0)
     decorate('uGrain', grain)
     decorate('uPaper', new Color(PAPER))
     decorate('uGrid', new Color('#7fa7c4'))
@@ -369,15 +428,21 @@ export function createPrivateSheetRuntime(
       transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
     })
     const cracksMaterial = material({
-      uniforms: u, vertexShader: WAVE_GLSL + LIGHTNING_VERTEX,
-      fragmentShader: PRIVATE_CRACK_FRAGMENT,
+      uniforms: { ...u, uHaloScale: { value: 1 } }, vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
+      fragmentShader: privateWebFragment(false),
       transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+    })
+    const crackHaloMaterial = material({
+      uniforms: { ...u, uHaloScale: { value: 4.5 } }, vertexShader: WAVE_GLSL + PRIVATE_WEB_VERTEX,
+      fragmentShader: privateWebFragment(true),
+      transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+      blending: AdditiveBlending,
     })
     const edgeMaterial = material({
       uniforms: u, vertexShader: planeVertex,
       fragmentShader: 'uniform float uLampPower; varying vec2 vPlane; ' + PORTAL_PROFILE_GLSL
-        + 'void main(){ gl_FragColor=vec4(vec3(0.012,0.006,0.003)*(0.3+uLampPower)'
-        + '+vec3(0.21,0.45,0.76)*portalRim(vPlane)*uPortalLight*0.18,1.0); }',
+        + 'void main(){ gl_FragColor=vec4(vec3(0.76,0.66,0.48)*(0.48+0.52*uLampPower)'
+        + '+vec3(0.28,0.68,0.98)*uPortalLight*0.38,1.0); }',
       side: DoubleSide, toneMapped: false,
     })
     const paper = new Mesh(baked.fracture.paper, paperMaterial)
@@ -389,11 +454,19 @@ export function createPrivateSheetRuntime(
     pulse.name = 'lightning'; pulse.renderOrder = 4; pulse.frustumCulled = false
     const edge = new Mesh(baked.fracture.edge, edgeMaterial)
     edge.name = 'charred-profile-edge'; edge.renderOrder = 2; edge.frustumCulled = false
-    const cracks = new Mesh(own(makePrivateCrackGeometry(baked.fracture.cracks, baked.fracture.outline)), cracksMaterial)
+    // Seam geometry still defines the physical hairline apertures and shard partition;
+    // the denser web only carries light. Empty CPU fixtures fall back to the seams.
+    const seams = own(makePrivateCrackGeometry(baked.fracture.cracks, baked.fracture.outline))
+    const hasSeams = !!(seams.getAttribute('position') && seams.getAttribute('arcLength'))
+    const webGeometry = hasSeams ? own(makePrivateFractureWebGeometry(baked.fracture.cracks, baked.fracture.outline)) : seams
+    const cracks = new Mesh(webGeometry, cracksMaterial)
+    const crackHalo = new Mesh(webGeometry, crackHaloMaterial)
+    crackHalo.name = 'pressure-crack-halo'; crackHalo.renderOrder = 4; crackHalo.frustumCulled = false
+    cracks.add(crackHalo)
     // Match the physical hairline apertures to the private connected growth map.
     // Empty CPU fixtures have no ribbon attributes and retain their borrowed mask.
-    if (cracks.geometry.getAttribute('position') && cracks.geometry.getAttribute('arcLength')) {
-      decorate('uCrackMask', own(makeCrackMask(baked.rendered.profilePoints, cracks.geometry, SHEET_WIDTH, SHEET_HEIGHT)))
+    if (hasSeams) {
+      decorate('uCrackMask', own(makeCrackMask(baked.rendered.profilePoints, seams, SHEET_WIDTH, SHEET_HEIGHT)))
     }
     cracks.name = 'pressure-crack-web'; cracks.renderOrder = 4; cracks.frustumCulled = false
     const fragments = baked.fracture.fragments.map((fragment, i) => {
@@ -415,6 +488,52 @@ export function createPrivateSheetRuntime(
     for (const mesh of [portal.walls, portal.cap]) {
       configurePrivatePitMaterial(mesh.material as ShaderMaterial)
     }
+    const rockWall = portal.walls.material as ShaderMaterial
+    const rocks = new Mesh(own(makePrivatePitRockGeometry(baked.fracture.outline)), material({
+      uniforms: rockWall.uniforms, vertexShader: rockWall.vertexShader, fragmentShader: rockWall.fragmentShader,
+      side: DoubleSide, transparent: true, depthWrite: true, toneMapped: false,
+    }))
+    rocks.name = 'private-projecting-rock-masses'; rocks.frustumCulled = false; rocks.renderOrder = 2
+    portal.walls.add(rocks)
+    const lip = new Mesh(own(makePrivatePitLipGeometry(baked.fracture.outline)), material({
+      uniforms: u, side: DoubleSide, toneMapped: false, transparent: true,
+      vertexShader: WAVE_GLSL + `
+        attribute vec2 aLipRoot; attribute vec2 aLipProfile;
+        uniform float uFracture; varying vec3 vLip; varying vec3 vLipNormal;
+        varying vec2 vLipProfile;
+        void main() { vLip = position; vLipNormal = normal;
+          vLipProfile = aLipProfile;
+          float open = smoothstep(0.02, 0.22, uFracture);
+          vec3 p = position;
+          p.xy = mix(aLipRoot, position.xy, open);
+          p.z = position.z * open + 0.00045 * open * sin(aLipProfile.x * 3.14159265) * (0.45 + 0.55 * aLipProfile.y);
+          p.z += paperDisplacement(p.xy);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`,
+      fragmentShader: `uniform float uLipOpacity; uniform float uFracture; uniform float uLampPower; uniform float uPortalLight; uniform vec3 uPaper;
+        varying vec3 vLip; varying vec3 vLipNormal; varying vec2 vLipProfile;
+        void main() {
+          float open = smoothstep(0.02, 0.22, uFracture);
+          if (open <= 0.001) discard;
+          float across = vLipProfile.x;
+          float tear = vLipProfile.y;
+          vec3 n = normalize(vLipNormal);
+          float light = .48 + .58 * max(0.0, dot(n, normalize(vec3(-.36,.52,.77))));
+          float grain = fract(sin(dot(vLip.xy, vec2(179231.0,91713.0))) * 43758.5453);
+          float fibre = fract(sin(dot(floor(vLip.xy * 1850.0), vec2(127.1,311.7))) * 43758.5453);
+          float deckle = 0.72 + 0.28 * tear - 0.16 * (fibre - 0.5);
+          float feather = 1.0 - smoothstep(deckle - 0.18, deckle + 0.04, across);
+          if (feather <= 0.01) discard;
+          // Vellum stock with exposed pale inner core fibre, dark root peel crease and cyan under-bleed.
+          vec3 stock = mix(uPaper * vec3(1.16, 1.08, 0.92), uPaper * vec3(0.86, 0.77, 0.62), smoothstep(0.18, 0.82, across));
+          float rootShadow = 1.0 - 0.46 * exp(-pow((across - 0.82) / 0.15, 2.0));
+          vec3 c = stock * light * rootShadow * (0.88 + 0.12 * grain + 0.09 * (fibre - 0.5));
+          c *= 0.56 + 0.44 * uLampPower;
+          c += vec3(0.38, 0.25, 0.12) * (1.0 - smoothstep(0.0, 0.58, across)) * uPortalLight * 0.68;
+          c += vec3(0.22, 0.64, 0.96) * uPortalLight * exp(-across * 6.5) * 0.62;
+          gl_FragColor = vec4(c, uLipOpacity * feather * smoothstep(0.02, 0.06, uFracture)); }`,
+    }))
+    lip.name = 'private-torn-paper-lip'; lip.renderOrder = 2; lip.frustumCulled = false
+    portal.group.add(lip)
     // Register each returned portal resource separately: a throwing dispose listener
     // must not prevent cleanup of its other geometry/material/light resources.
     own(portal.walls.geometry); own(portal.cap.geometry)
@@ -431,6 +550,13 @@ export function createPrivateSheetRuntime(
     const navy = new Color(INK)
     const white = new Color(1, 1, 1)
     const stats = baked.stats
+    stats.privateWebVertices = webGeometry.getAttribute('position')?.count ?? 0
+    stats.privateWebTriangles = (webGeometry.index?.count ?? 0) / 3
+    stats.privatePitVertices = portal.walls.geometry.getAttribute('position')?.count ?? 0
+    stats.privatePitTriangles = (portal.walls.geometry.index?.count ?? 0) / 3
+    stats.privateLipVertices = lip.geometry.getAttribute('position').count
+    stats.privateRockVertices = rocks.geometry.getAttribute('position').count
+    stats.privateRockTriangles = stats.privateRockVertices / 3
     stats.annotationsReady = 0
     stats.annotationsFailed = 0
     let readinessError: unknown
@@ -563,13 +689,20 @@ export function createPrivateSheetRuntime(
         cracks.visible = !proof && !reducedMotion && intro.crackWeb > 0 && stockVisible
         portal.group.visible = !proof
         portal.cap.visible = portal.walls.visible = !proof && pit.visible
-        const visibleEnergy = Math.max(electricity.energy, intro.pulseHead > 0 ? .26 : 0)
-        const pitEnergy = Math.max(electricity.pitEnergy, .35 * pit.reveal)
+        const visibleEnergy = Math.max(electricity.energy, electricity.afterglow, intro.pulseHead > 0 ? .26 : 0)
+        const pitEnergy = Math.max(electricity.pitEnergy, .46 * pit.reveal)
         const portalStrength = proof || reducedMotion ? 0 : Math.max(visibleEnergy, pitEnergy)
         const portalPulse = portal.update(intro.t, portalStrength, tier === 'lite', reducedMotion)
         const wallUniforms = (portal.walls.material as ShaderMaterial).uniforms
         const surroundings = Math.max(0, Math.min(1, frame.surroundingsOpacity ?? 1)) * (1-retirement)
         portal.group.visible = !proof && pit.visible && surroundings > 0
+        const fractureOpen = Math.max(0, Math.min(1, (intro.fracture - .02) / .06))
+        portal.group.position.z = -.018 * (1 - fractureOpen)
+        u.uLipOpacity.value = surroundings
+        lip.material.depthWrite = surroundings === 1
+        lip.visible = !reducedMotion && intro.fracture > .02 && stockVisible
+        rocks.visible = !proof && pit.visible && surroundings > 0 && intro.fracture > .02
+        rocks.material.depthWrite = surroundings === 1
         for (const mesh of [portal.walls, portal.cap]) {
           const shader = mesh.material as ShaderMaterial
           shader.uniforms.uPrivateSurroundings.value = surroundings
@@ -600,6 +733,13 @@ export function createPrivateSheetRuntime(
             .00002 + lift + Math.min(0, f.velocity.z) * event * event - .05 * event * event - .28 * fall)
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
           mesh.visible = stockVisible
+          // Intact stock is an opaque barrier even where the coarse CAD envelope crosses
+          // its flex mesh. Once a piece separates it resumes ordinary 3D depth testing.
+          mesh.material.depthTest = event > .035
+          // Depth testing disabled also disables depth-buffer writes in WebGL. Draw
+          // intact stock after the model's transparent pass to preserve the printed lid.
+          mesh.material.transparent = event <= .035
+          mesh.renderOrder = event > .035 ? 1 : 3
         }
         u.uMode.value = proof ? 1 : 0
         const contrast = proof ? 1 : intro.contrast
@@ -613,6 +753,7 @@ export function createPrivateSheetRuntime(
         ;(u.uInkGraphite.value as Color).set(INK_GRAPHITE).multiplyScalar(inkLight)
         text.update(reveal, opacity * (proof ? 1 : 0.88 + 0.12 * lampPower))
         u.uPulseHead.value = intro.pulseHead
+        u.uElectricalTime.value = proof || reducedMotion ? 0 : intro.t * 50
         u.uElectricalEnergy.value = proof || reducedMotion ? 0 : visibleEnergy
         u.uPulse.value = proof || reducedMotion ? 0 : intro.pulse
         u.uCrackGlow.value = proof || reducedMotion ? 0 : intro.crackGlow

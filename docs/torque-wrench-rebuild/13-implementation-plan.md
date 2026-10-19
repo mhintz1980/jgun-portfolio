@@ -1,5 +1,13 @@
 # Torque wrench rebuild — implementation plan
 
+> **Current creative frontier — 2026-10-17:** owner rejected current crack appearance,
+> cavern, shard color, unchanged rotary-hob finish and late Ring Switch placement.
+> Implement the [new correction contract](25-owner-correction-plan-2026-10-17.md):
+> lightning first, cavern second, then paper-colored shards and machining corrections.
+> It supersedes conflicting older creative direction. Use doc22's focused visual loop;
+> do not restart the full AC/G8 matrix during draft styling. Latest owner correction
+> is not visual acceptance or Git/publication authorization.
+
 ## JG-038-LEAN-V1 — owner-selected verification amendment (2026-10-14)
 
 The owner selected the lean policy in the integration/runtime handoff on 2026-10-14. [Contract18 §8](18-stage0-verification-contract-proposal.md#8-jg-038-lean-v1--owner-selected-verification-amendment-2026-10-14) supersedes only primary repetition counts: **20 phase measurements** (D/N × full/lite × five phases × one independent run) and **three fresh-context startup trials** (valid/missing/stale cache, one each). Numerical ceilings, hardware/natural-tier requirements, readiness fields, all functional coverage, and 60s phase windows (20s forward/20s reverse/20s holds) remain unchanged.

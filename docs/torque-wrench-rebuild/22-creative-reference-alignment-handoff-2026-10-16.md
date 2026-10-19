@@ -1,5 +1,13 @@
 # 22 — Creative reference-alignment handoff — 2026-10-16
 
+> **Superseded where inconsistent, 2026-10-17:** start from
+> [25-owner-correction-plan-2026-10-17.md](25-owner-correction-plan-2026-10-17.md).
+> Lightning cracking first, cavern second; newly attached glass photographs specify
+> crack geometry, while fragments must remain PAPER-colored. The older dark-glass
+> shard treatment below is no longer the owner target. Ring knurling moves before
+> helical shift; rotary hob gold and >=2x current machining-scroll presentation are
+> new corrections. This document's focused visual draft loop remains in force.
+
 ## Owner's changed operating mode
 
 Mark explicitly moved JG-038 from verification-heavy correction to **visible creative iteration**. The next session optimizes for seeing and reacting to the page. Do not launch the full suite, ten-case Stage5 matrix, G8/AC roster, broad graph/proof generation, or another review wave during draft styling.
