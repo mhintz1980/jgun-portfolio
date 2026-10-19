@@ -55,20 +55,20 @@ files (`src/scene/inspection/**`, `InspectionDirector*`, `RingInspection*`,
 `PrivatePageNav.tsx`), GATES.md (EOL-only diff), and all bulk PNG evidence under `output/`.
 The next session must reconcile this drift with the T5 owner before staging anything.
 
-## 3. Next tasks and the review protocol (owner ruling 2026-10-19)
+## 3. Next tasks and the review protocol (owner ruling 2026-10-19, revised)
 
-Every subagent task runs three seats:
+Critical subagent tasks run three seats:
 
-1. **Worker** — Claude Sonnet-5.5/High or GPT-6.1-Sol/High implements (code, or a read-only
+1. **Worker** — Claude Sonnet-5.5/High or GPT-6.1-Sol/Medium implements (code, or a read-only
    review report for T2).
-2. **Adversarial reviewer** — GLM-5.3 or GLM-5.3-Flash/High attacks the result read-only
-   (diff, frames, timing JSON) and must try to fail it.
+2. **Adversarial reviewer** — GLM-5.3 or GLM-5.3-Flash/High or Max attacks the result
+   read-only (diff, frames, timing JSON) and must try to fail it.
 3. **Decision approver** — Claude Opus-5.5/High arbitrates disagreements and approves key
    decisions (geometry approach, timing budgets, file ownership, scoring disputes) before the
    task continues or merges.
 
-Any reviewer FAIL stops the task and alerts the owner — no automatic retries. This protocol
-supersedes doc 28's Sol-then-Opus lineup; doc 28's rubric and scoring axes still apply.
+This protocol supersedes doc 28's Sol-then-Opus lineup; doc 28's rubric and scoring axes
+still apply.
 
 | Task | Scope | Files | Parallel? |
 |---|---|---|---|

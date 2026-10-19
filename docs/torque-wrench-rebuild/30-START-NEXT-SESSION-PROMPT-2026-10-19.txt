@@ -12,15 +12,14 @@ timing-argon-after-E.json, argon-fix-report.md); in-repo copies under
 docs/torque-wrench-rebuild/evidence-jg038-argon-20261019/. Frames are local-only
 (output/ is gitignored); regenerate with frames.mjs if missing.
 
-REVIEW PROTOCOL (owner ruling 2026-10-19) for EVERY subagent task:
-- Worker: Claude Sonnet-5.5/High or GPT-6.1-Sol/High implements (code, or the read-only
+REVIEW PROTOCOL (owner ruling 2026-10-19) for critical subagent tasks:
+- Worker: Claude Sonnet-5.5/High or GPT-6.1-Sol/Medium implements (code, or the read-only
   review report for T2).
-- Adversarial reviewer: GLM-5.3 or GLM-5.3-Flash/High attacks the result read-only (diff,
-  frames, timing JSON) and must try to fail it.
+- Adversarial reviewer: GLM-5.3 or GLM-5.3-Flash/High or Max attacks the result read-only
+  (diff, frames, timing JSON) and must try to fail it.
 - Decision approver: Claude Opus-5.5/High arbitrates and approves key decisions before the
   task continues or merges.
-- Any reviewer FAIL: STOP and alert the owner. No automatic retries. This supersedes doc
-  28's Sol-then-Opus lineup; doc 28's rubric still applies.
+- This supersedes doc 28's Sol-then-Opus lineup; doc 28's rubric still applies.
 
 TASKS:
 1. T2 formal review of the argon frames (read-only): score vs references in
