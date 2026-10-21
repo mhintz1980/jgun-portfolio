@@ -1,5 +1,7 @@
 import { expect, it } from 'vitest'
-import { breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening } from './OpeningDirector'
+import { breakthroughSubjectTimeAt, breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening,
+  SHATTER_SUBJECT_KNOTS } from './OpeningDirector'
+import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
 
 it('suspends breakthrough physics while the continuous camera path keeps moving', () => {
   const a = .868, b = .922
@@ -91,4 +93,81 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
   expect(sampleOpening(0.42).fracture).toBe(0)
   expect(sampleOpening(0.422).fracture).toBeGreaterThan(0)
   expect(sampleOpening(0.448).fracture).toBe(1)
+})
+
+const fnv = (text: string, seed: number) => {
+  let h = seed >>> 0
+  for (let i = 0; i < text.length; i++) { h ^= text.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0 }
+  return h.toString(16)
+}
+/** Measured native document range: 39442.74 px / 900 px viewport. */
+const BASE_VIEWPORTS = 43.825
+const nativeViewports = (p: number) => torqueScrollFraction(p) * TORQUE_PACING_SCALE * BASE_VIEWPORTS
+const event = (t: number) => Math.max(0, Math.min(1, (t - .84) / .04))
+
+it('leaves every full IntroState through progress .42 byte-identical to the pre-T6 opening', () => {
+  // Digests recorded from the unmodified source: 4,201 serialized states at p = i * 1e-4 and .42.
+  const parts: string[] = []
+  for (let i = 0; i < 4200; i++) parts.push(JSON.stringify(sampleOpening(i * 1e-4)))
+  parts.push(JSON.stringify(sampleOpening(0.42)))
+  const joined = parts.join('|')
+  expect([fnv(joined, 2166136261), fnv(joined, 305419896), joined.length]).toEqual(['27d708f1', 'ac28bd20', 1632744])
+  for (let i = 0; i <= 4200; i++) {
+    const p = i * 1e-4
+    expect(breakthroughSubjectTimeAt(p)).toBe(breakthroughTimeAt(openingTimeAt(p)))
+  }
+})
+
+it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1', () => {
+  expect(SHATTER_SUBJECT_KNOTS[0]).toEqual([.42, .84])
+  expect(breakthroughSubjectTimeAt(.46)).toBe(1)
+  expect(breakthroughSubjectTimeAt(1)).toBe(1)
+  expect(() => breakthroughSubjectTimeAt(NaN)).toThrow()
+  let prior = -1
+  for (let i = 0; i <= 8000; i++) {
+    const t = breakthroughSubjectTimeAt(.4 + i * 1e-5)
+    expect(t).toBeGreaterThanOrEqual(prior)
+    prior = t
+  }
+  const h = 1e-6
+  const left = (breakthroughSubjectTimeAt(.42) - breakthroughSubjectTimeAt(.42 - h)) / h
+  const right = (breakthroughSubjectTimeAt(.42 + h) - breakthroughSubjectTimeAt(.42)) / h
+  expect(Math.abs(right - left)).toBeLessThan(1e-3)
+  // Seek and reverse evaluation are order independent.
+  const ps = Array.from({ length: 41 }, (_, i) => .42 + i * .001)
+  expect(ps.slice().reverse().map(breakthroughSubjectTimeAt).reverse()).toEqual(ps.map(breakthroughSubjectTimeAt))
+})
+
+it('holds shard separation nearly still, then releases within the native-viewport rate bound', () => {
+  const hold = [.43008, .44212]
+  const e0 = event(breakthroughSubjectTimeAt(hold[0])), e1 = event(breakthroughSubjectTimeAt(hold[1]))
+  expect(e1 - e0).toBeLessThanOrEqual(.03)
+  expect(nativeViewports(hold[1]) - nativeViewports(hold[0])).toBeGreaterThan(2)
+  let peak = 0
+  const h = 1e-6
+  for (let p = .42; p <= .46; p += 2e-5) {
+    const rate = (event(breakthroughSubjectTimeAt(p + h)) - event(breakthroughSubjectTimeAt(p - h)))
+      / (nativeViewports(p + h) - nativeViewports(p - h))
+    peak = Math.max(peak, rate)
+    if (p >= hold[0] && p <= hold[1]) expect(rate).toBeLessThan(.05)
+  }
+  expect(peak).toBeLessThanOrEqual(1.5)
+  expect(sampleOpening(.46).t).toBe(1)
+})
+
+it('keeps the post-shatter glow fade and lamp return within .003 progress of the pre-T6 clock', () => {
+  const legacy = (p: number) => breakthroughTimeAt(openingTimeAt(p))
+  const invert = (clock: (p: number) => number, t: number) => {
+    let low = .42, high = .46
+    for (let i = 0; i < 60; i++) {
+      const mid = (low + high) / 2
+      if (clock(mid) < t) low = mid; else high = mid
+    }
+    return (low + high) / 2
+  }
+  for (const t of [.9, .92, .94, .96, .98, .99]) {
+    expect(Math.abs(invert(breakthroughSubjectTimeAt, t) - invert(legacy, t))).toBeLessThanOrEqual(.003)
+  }
+  // The shatter itself completes no later than it did before T6.
+  expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(invert(legacy, .88))
 })

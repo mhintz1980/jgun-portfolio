@@ -3,9 +3,9 @@
 // cadGate's dynamic import, triggered here for non-poster tiers; failure is terminal for the
 // document, keeps the DOM story, controls, and footer usable, and loads no further CAD.
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore, type ComponentType } from 'react'
-import { PageNav } from '../../shared/PageNav'
 import { releaseFade } from '../../shared/pageFade'
 import { createTorqueWrenchStore } from '../../state/torqueWrenchStore'
+import { PrivatePageNav } from './PrivatePageNav'
 import Poster from './Poster'
 import { SceneBoundary } from './SceneBoundary'
 import { runSceneLifecycle } from './sceneLifecycle'
@@ -71,13 +71,13 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         Skip to story
       </a>
       <header className="torque-header">
-        <PageNav current="torque-wrench" tier={tier} variant="header" />
+        <PrivatePageNav tier={tier} variant="header" />
         <div className="torque-hero">
           <p className="torque-hero__eyebrow">Private rebuild · JG-038</p>
           <h1 className="torque-hero__title">JGUN Torque Wrench</h1>
           <p className="torque-hero__intro">
-            The rebuilt torque-wrench story in five chapters. The interactive scene is pending —
-            this build presents the complete story and controls as plain DOM.
+            Five chapters in one private rebuild: drafting breaks through into mechanism,
+            inspection, and close.
           </p>
         </div>
       </header>
@@ -93,10 +93,11 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         <Story playback={playback} live={stage === 'scene'} />
       </main>
       <footer className="torque-footer">
-        <PageNav current="torque-wrench" tier={tier} variant="endcard" />
+        <PrivatePageNav tier={tier} variant="endcard" />
         <p className="torque-colophon">
-          JGUN Torque Wrench — private rebuild (JG-038). Temporary placeholder art throughout;
-          final offline posters arrive in a later stage.
+          JGUN Torque Wrench — private rebuild (JG-038). The five-chapter story runs from
+          drafting and breakthrough into mechanism, inspection, and close; final offline poster
+          art is still pending.
         </p>
       </footer>
     </div>

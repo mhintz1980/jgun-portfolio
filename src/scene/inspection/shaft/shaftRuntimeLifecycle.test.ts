@@ -63,7 +63,7 @@ describe('shaft runtime synchronous construction ownership', () => {
       expect(releases).toHaveLength(allocations.size)
       for (const geometry of allocations) expect(releases.filter(value => value === geometry)).toHaveLength(1)
       expect(lights).toHaveBeenCalledTimes(2)
-      expect(materials).toHaveBeenCalledTimes(6)
+      expect(materials).toHaveBeenCalledTimes(8) // shaper flank plus hob gold/steel surfaces
       expect(reporter).toHaveBeenCalledTimes(2)
       expect(mutableReports[0]).toEqual([{ resource: 'tool-geometry', error: toolCleanup }])
       expect(mutableReports[1]).toEqual([
@@ -80,7 +80,7 @@ describe('shaft runtime synchronous construction ownership', () => {
       session.cancel() // registered runtime rollback is idempotent after the factory fault
       expect(releases).toHaveLength(allocations.size)
       expect(lights).toHaveBeenCalledTimes(2)
-      expect(materials).toHaveBeenCalledTimes(6)
+      expect(materials).toHaveBeenCalledTimes(8)
       expect(reporter).toHaveBeenCalledTimes(2)
     },
   )

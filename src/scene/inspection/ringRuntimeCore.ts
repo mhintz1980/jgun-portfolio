@@ -1,7 +1,7 @@
 import { AnimationMixer, type AnimationAction, Box3, BufferAttribute, Color, DirectionalLight, Group, LoopOnce, Matrix4, Mesh, Quaternion, Vector3, type Material, type Object3D, type Texture } from 'three'
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { createInspectionRing, type RingGeometryCleanupResource } from './ringGeometry'
-import { ease, newFrame, odMask, rollerAngle, sampleInspection, SHOULDER, WHEEL_WIDTH } from './timeline'
+import { ease, newFrame, odMask, rollerAngle, sampleInspection, SHOULDER, WHEEL_WIDTH, type InspectionFrame } from './timeline'
 import type { StoryContext, StoryRuntime } from './story'
 import type { StorySession } from './session'
 
@@ -56,6 +56,8 @@ export interface RingRuntimeCoreInputs {
   getEntryElapsed: () => number
   probe: RingRuntimeProbe
   onCleanupError?: (report: RingCleanupReport) => void
+  /** Private hosts may reparameterize presentation without changing legacy sampling. */
+  sampleFrame?: (time: number, out: InspectionFrame) => InspectionFrame
 }
 
 export interface RingCleanupReport {
@@ -262,7 +264,7 @@ export function createRingRuntimeCore(session: StorySession, ctx: StoryContext, 
   runtime = {
     root, ready, frame, camera, render, resources,
     sample(time) {
-      sampleInspection(time, sample)
+      ;(inputs.sampleFrame ?? sampleInspection)(time, sample)
       frame.time = sample.time; frame.phase = sample.phase; frame.returnBlend = sample.returnBlend
       frame.discrete = sample.time < 1.2 ? 0 : sample.time < 2.8 ? 1 : sample.time < 4.2 ? 2 : sample.time < 6.2 ? 3 : sample.time < 8.2 ? 4 : sample.time < 10.5 ? 5 : sample.time < 12 ? 6 : 7
       frame.narrativeAlpha = sample.returnBlend; frame.ownsNarrative = true

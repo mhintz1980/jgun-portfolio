@@ -4,7 +4,7 @@ import { STAGE_IDS } from '../../data/caseStudies'
 import type { WrenchRig } from '../rig/nodeRoles'
 import { applyWrenchMechanics } from '../rig/wrenchMechanics'
 import { sampleMechanism } from './MechanismDirector'
-import { captureCanonicalRingAnchor } from './ringAnchor'
+import { captureCanonicalRingAnchor, RING_ANCHOR_PROGRESS } from './ringAnchor'
 
 function fixture() {
   const parent = new Object3D()
@@ -23,7 +23,8 @@ function fixture() {
 
 describe('canonical ring anchor', () => {
   it('captures the same subject anchor on forward, direct and reverse-first entry', () => {
-    const anchors = [.655, .7, .98].map(progress => {
+    // T5: any progress gives the same anchor because capture always resamples RING_ANCHOR_PROGRESS.
+    const anchors = [.47, .48, .50, .98].map(progress => {
       const { source, rig } = fixture()
       const frame = sampleMechanism(progress, { shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 })
       applyWrenchMechanics(rig, frame)
@@ -35,6 +36,18 @@ describe('canonical ring anchor', () => {
     })
     expect(anchors[1]).toEqual(anchors[0])
     expect(anchors[2]).toEqual(anchors[0])
+    expect(anchors[3]).toEqual(anchors[0])
+  })
+
+  it('keeps the anchor progress inside the study plateau (entry .469, exit .505)', () => {
+    expect(RING_ANCHOR_PROGRESS).toBeGreaterThanOrEqual(.469)
+    expect(RING_ANCHOR_PROGRESS).toBeLessThan(.505)
+    const blank = () => ({ shift: 0, explode: 0, gearAngle: 0, idle: 0, ghostOpacity: 1 })
+    const a = sampleMechanism(RING_ANCHOR_PROGRESS, blank())
+    for (const p of [.469, .505]) {
+      const b = sampleMechanism(p, blank())
+      expect(b.shift).toBeCloseTo(a.shift, 12); expect(b.explode).toBe(0); expect(b.gearAngle).toBe(0)
+    }
   })
 
   it('restores live mechanics if anchor capture fails', () => {

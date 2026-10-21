@@ -28,7 +28,15 @@ const SUBJECT_KNOTS: readonly TimeKnot[] = [
   { progress: 0.835, time: 9.6 },
   { progress: 0.87, time: 24.6 },
   { progress: 0.884, time: 25 },
-  { progress: 0.902, time: 31.8 },
+  // T6-C3 hob engagement. The >=60 deg camera swing is fixed by CAMERA_KNOTS at p .89116-.89888, so
+  // these knots only place the subject inside it: radial touch (25.246 s) lands at swing ~47 deg,
+  // full seat (25.700 s) inside the window, ~129 deg of hob turn across it (90-180), then a
+  // two-knot catch-up to the unchanged [.905, 32] seam, paced by the hobSeat/hobSwing spans.
+  { progress: 0.89, time: 25.257 },
+  { progress: 0.89116, time: 25.62 },
+  { progress: 0.898881, time: 26.4 },
+  { progress: 0.90071, time: 28.955 },
+  { progress: 0.90208, time: 30.508 },
   { progress: 0.905, time: 32 },
   { progress: 0.94, time: 43 },
 ]
@@ -52,11 +60,16 @@ const CAMERA_KNOTS: readonly TimeKnot[] = [
 ]
 
 const RING_TIME_KNOTS: readonly TimeKnot[] = [
-  { progress: 0.69, time: 0 },
-  { progress: 0.7, time: 2.8 },
-  { progress: 0.712, time: 6.2 },
-  { progress: 0.724, time: 10.5 },
-  { progress: 0.735, time: 12 },
+  // T5: ring study window [.46,.505]. Display time is held at 0 until ALL surroundings are hidden
+  // (isolation completes at .4725) and reaches the 28 s end at .4945, then holds through the restore.
+  { progress: 0.46, time: 0 },
+  { progress: 0.4725, time: 0 },
+  { progress: 0.475, time: 4 },
+  { progress: 0.4768, time: 8 },
+  { progress: 0.485, time: 18 },
+  { progress: 0.4905, time: 26 },
+  { progress: 0.4945, time: 28 },
+  { progress: 0.505, time: 28 },
 ]
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
@@ -80,7 +93,7 @@ function timeSlope(knots: readonly TimeKnot[], index: number): number {
   const d1 = (c.time - b.time) / h1
   const w0 = 2 * h1 + h0
   const w1 = h1 + 2 * h0
-  return (w0 + w1) / (w0 / d0 + w1 / d1)
+  return d0 <= 0 || d1 <= 0 ? 0 : (w0 + w1) / (w0 / d0 + w1 / d1)
 }
 
 function timeAt(knots: readonly TimeKnot[], progress: number, endTime: number): number {
@@ -112,22 +125,28 @@ function cameraTimeAt(progress: number): number {
   return timeAt(CAMERA_KNOTS, progress, 43)
 }
 
-/** Ring master seconds on the fixed canonical .69-.735 span. */
+/** Ring master seconds on the fixed canonical .46-.505 span. */
 export function ringTimeAt(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Ring progress must be finite')
-  return timeAt(RING_TIME_KNOTS, clamp01(progress), 12)
+  return timeAt(RING_TIME_KNOTS, clamp01(progress), 28)
 }
 
 /**
- * Camera arrival precedes isolation. Ring and shaft are one contiguous isolated
- * study, so surroundings remain black between subjects and restore only through
- * the approved close handoff (.925-.94).
+ * T5: the ring study precedes the shift. Surroundings fade out over [.469,.4725], stay black
+ * through the 28 s study, and restore over [.495,.503] while the camera hands off to the
+ * mechanism overview. They fade again over [.72,.735] so the shaft entry still starts from
+ * black, then stay black through the shaft study and restore only through the approved close
+ * handoff (.924-.94).
  */
 export function sampleInspectionSurroundings(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Isolation progress must be finite')
   const p = clamp01(progress)
-  if (p <= 0.69 || p >= 0.94) return 1
-  if (p < 0.703) return 1 - smooth01((p - 0.69) / 0.013)
+  if (p <= 0.469 || p >= 0.94) return 1
+  if (p < 0.4725) return 1 - smooth01((p - 0.469) / 0.0035)
+  if (p < 0.495) return 0
+  if (p < 0.503) return smooth01((p - 0.495) / 0.008)
+  if (p < 0.72) return 1
+  if (p < 0.735) return 1 - smooth01((p - 0.72) / 0.015)
   if (p < 0.924) return 0
   return smooth01((p - 0.924) / 0.016)
 }
@@ -335,6 +354,8 @@ interface RingCameraKnot {
   readonly elevation: number
   readonly distanceScale: number
   readonly fov: number
+  /** Ring-local metres added to the target and camera along the ring axis (groove framing). */
+  readonly targetZ?: number
 }
 
 const RING_BASE_X = -0.7
@@ -344,12 +365,34 @@ const RING_BASE_LENGTH = Math.hypot(RING_BASE_X, RING_BASE_Y, RING_BASE_Z)
 const RING_BASE_AZIMUTH = Math.atan2(RING_BASE_Z, RING_BASE_X)
 const RING_BASE_ELEVATION = Math.asin(RING_BASE_Y / RING_BASE_LENGTH)
 
+/**
+ * Groove-view framing for the C2 study entry. UNMEASURED, tunable: no parent probe has
+ * established these numbers or the sign of the ring-local axis offset. The blue (snout-side)
+ * and red (handle-side) bands sit at z=-0.08645 / -0.10715 in the clutch frame (1.5 mm wide,
+ * r=31.70 mm); targetZ is a ring-local offset in metres toward each band. Tune only these
+ * constants; never the S0 shift.
+ */
+export const RING_GROOVE_VIEW = Object.freeze({
+  blue: Object.freeze({ azimuth: RING_BASE_AZIMUTH + 0.1, elevation: 0.16, distanceScale: 0.62, fov: 30, targetZ: 0.012 }),
+  red: Object.freeze({ azimuth: RING_BASE_AZIMUTH + 0.1, elevation: 0.16, distanceScale: 0.62, fov: 30, targetZ: -0.012 }),
+})
+
+/** Canonical progress of the groove camera phases (see MechanismDirector C2 nudge). */
+export const RING_CAMERA_BLUE_AT = 0.4655
+export const RING_CAMERA_RED_AT = 0.469
+
 const RING_CAMERA_KNOTS: readonly RingCameraKnot[] = [
-  { progress: 0.69, azimuth: RING_BASE_AZIMUTH, elevation: RING_BASE_ELEVATION, distanceScale: 1, fov: 34 },
-  { progress: 0.699, azimuth: RING_BASE_AZIMUTH + 0.42, elevation: RING_BASE_ELEVATION - 0.08, distanceScale: 0.98, fov: 34 },
-  { progress: 0.708, azimuth: RING_BASE_AZIMUTH + 0.94, elevation: RING_BASE_ELEVATION + 0.13, distanceScale: 1.03, fov: 34 },
-  { progress: 0.715, azimuth: RING_BASE_AZIMUTH + 1.22, elevation: RING_BASE_ELEVATION - 0.04, distanceScale: 1.06, fov: 34 },
-  { progress: 0.723, azimuth: RING_BASE_AZIMUTH + 1.22, elevation: RING_BASE_ELEVATION - 0.04, distanceScale: 1.06, fov: 34 },
+  { progress: 0.46, azimuth: RING_BASE_AZIMUTH, elevation: RING_BASE_ELEVATION, distanceScale: 1, fov: 34 },
+  { progress: RING_CAMERA_BLUE_AT, ...RING_GROOVE_VIEW.blue },
+  { progress: RING_CAMERA_RED_AT, ...RING_GROOVE_VIEW.red },
+  { progress: 0.4725, ...RING_GROOVE_VIEW.red },
+  // Former .706 .. .728 knots, re-timed onto the new display clock (4/8/~13/18/~21/27 s).
+  { progress: 0.475, azimuth: RING_BASE_AZIMUTH + 0.25, elevation: RING_BASE_ELEVATION - 0.12, distanceScale: 1, fov: 34 },
+  { progress: 0.4768, azimuth: 2.7, elevation: 0.12, distanceScale: 0.72, fov: 29 },
+  { progress: 0.4808, azimuth: 3.35, elevation: 0.02, distanceScale: 0.64, fov: 27 },
+  { progress: 0.485, azimuth: 4.0, elevation: 0.20, distanceScale: 0.86, fov: 32 },
+  { progress: 0.4872, azimuth: 4.55, elevation: RING_BASE_ELEVATION - 0.04, distanceScale: 1.06, fov: 34 },
+  { progress: 0.4945, azimuth: 4.55, elevation: RING_BASE_ELEVATION - 0.04, distanceScale: 1.06, fov: 34 },
 ]
 
 export function createPrivateRingCamera(): PrivateRingCamera {
@@ -390,7 +433,15 @@ export function samplePrivateRingCamera(
   out.px = horizontal * Math.cos(azimuth)
   out.py = scaledDistance * Math.sin(elevation)
   out.pz = horizontal * Math.sin(azimuth)
-  out.tx = 0; out.ty = 0; out.tz = 0
+  // Read the upper roller/ring contact from the -X side. Enter and leave the
+  // closeup on the same forward arc; do not tie this camera to subject time.
+  // (.475/.4814 are the former .706/.713 on the T5 display clock; rise .0018, fall .0058.)
+  const macro = smooth01((p - .475) / .0018) * (1 - smooth01((p - .4814) / .0058))
+  const axis = lerp(a.targetZ ?? 0, b.targetZ ?? 0, u)
+  // Actual loaded roller centres are (0, +/-0.04922, -0.00686) in ring frame.
+  // Frame the upper contact at the OD (y~0.0377), rather than empty -X space.
+  out.tx = 0; out.ty = 0.0377 * macro; out.tz = -0.00686 * macro + axis
+  out.py += out.ty; out.pz += out.tz
   out.ux = 0; out.uy = 1; out.uz = 0
   out.fov = lerp(a.fov, b.fov, u)
   return out

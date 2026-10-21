@@ -9,16 +9,60 @@ export interface MechanismSample extends WrenchMechanicsFrame {
   ghostOpacity: number
 }
 
+/**
+ * T5 (interpretation, not owner acceptance): the ring study owns [.46,.505] and the whole former
+ * mechanism [.46,.69] is translated by +MECHANISM_TRANSLATION into [.505,.735]. Everything at
+ * p >= .735 (shaft, close) keeps its absolute coordinates.
+ */
+export const RING_WINDOW_START = 0.46
+export const RING_WINDOW_END = 0.505
+export const MECHANISM_TRANSLATION = RING_WINDOW_END - RING_WINDOW_START
+
+/**
+ * C2 sequence switch: owner selected 'fullAfter' on 2026-10-19.
+ * Sequence selection is separate from served-camera proof and visual acceptance.
+ * - 'preview12': the ring nudges 12 deg (shift S0 = 0.10, 0.9525 mm, exactly 12 of 120 deg) before the
+ *   study, holds S0 through it, then continues S0 -> 1 from .505.
+ * - 'fullAfter': shift stays 0 through the study, then 0 -> 1 from .505.
+ * The 120 deg / 9.525 mm law is unchanged; S0 is never increased.
+ */
+export type C2Sequence = 'preview12' | 'fullAfter'
+export const C2_SEQUENCE: C2Sequence = 'fullAfter'
+export const C2_PREVIEW_SHIFT = 0.1
+/** Nudge 0 -> S0 happens over [.4655,.469]; the plateau then spans [.469,.505]. */
+export const C2_NUDGE_START = 0.4655
+export const C2_NUDGE_END = 0.469
+/** Study anchor, inside the S0 plateau and independent of the entry progress. */
+export const RING_ANCHOR_PROGRESS = 0.48
+
+/** Baseline (pre-T5) shift/explode/gear/ghost law, evaluated at the translated coordinate q = p - W. */
+function sampleBaseline(q: number, out: MechanismSample): void {
+  out.shift = smooth((q - 0.46) / 0.055)
+  out.explode = smooth((q - 0.575) / 0.075)
+  out.gearAngle = Math.PI * 8 * smooth((q - 0.52) / 0.17)
+  const ghost = smooth((q - 0.52) / 0.035) * (1 - smooth((q - 0.64) / 0.03))
+  out.ghostOpacity = 1 - ghost * 0.85
+}
+
 /** Continuous channels spanning beats; canonical sampling has no idle clock. */
-export function sampleMechanism(progress: number, out: MechanismSample): MechanismSample {
+export function sampleMechanism(
+  progress: number,
+  out: MechanismSample,
+  sequence: C2Sequence = C2_SEQUENCE,
+): MechanismSample {
   if (!Number.isFinite(progress)) throw new RangeError('Mechanism progress must be finite')
   const p = Math.max(0, Math.min(1, progress))
   const close = 1 - smooth((p - 0.94) / 0.04)
-  out.shift = smooth((p - 0.46) / 0.055) * close
-  out.explode = smooth((p - 0.575) / 0.075) * close
-  out.gearAngle = Math.PI * 8 * smooth((p - 0.52) / 0.17) * close
+  sampleBaseline(p - MECHANISM_TRANSLATION, out)
+  if (sequence === 'preview12') {
+    const s0 = C2_PREVIEW_SHIFT
+    const nudge = smooth((p - C2_NUDGE_START) / (C2_NUDGE_END - C2_NUDGE_START))
+    // out.shift is smooth((p-.505)/.055): the remaining S0 -> 1 traverse.
+    out.shift = s0 * nudge + (1 - s0) * out.shift
+  }
+  out.shift *= close
+  out.explode *= close
+  out.gearAngle *= close
   out.idle = 0
-  const ghost = smooth((p - 0.52) / 0.035) * (1 - smooth((p - 0.64) / 0.03))
-  out.ghostOpacity = 1 - ghost * 0.85
   return out
 }

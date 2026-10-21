@@ -101,11 +101,23 @@ interface ProgressionBinding { uniforms: ProgressionUniforms; kind: ProgressionS
 interface Neighbour { carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[] }
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
+/** Owner correction R1 (2026-10-17): rotary-hob cutting surfaces are TiN-coated.
+ *  Reuse the shaper's established gold for the body/flutes and a warmer crest tone
+ *  for the helical thread. */
+const TIN_GOLD = '#c69b36'
+const TIN_GOLD_CREST = '#d4a62a'
+
+/** Caller-owned private presentation. Omitted controls preserve shared runtime behavior. */
+export interface ShaftPresentation {
+  entryOpaque?: boolean; contextOpacity?: number; phaseCorrection?: number; narrativeAlpha?: number
+}
+export interface ShaftRuntimeOptions extends ShaftLifecycleOptions { presentation?: ShaftPresentation }
+
 /** Synchronous factory; async readiness owns every parsed/created resource by this session. */
 export function createShaftRuntime(
   session: StorySession,
   ctx: StoryContext,
-  options: ShaftLifecycleOptions = {},
+  options: ShaftRuntimeOptions = {},
 ): StoryRuntime {
   const root = new Group(); root.name = 'manufacturing-study-root'
   const ownedGeometry = new Set<BufferGeometry>(), sharedGeometry = new Set<BufferGeometry>()
@@ -155,8 +167,27 @@ export function createShaftRuntime(
   ownedMaterials.add(steel)
   const shaperMaterial = steel.clone(); ownedMaterials.add(shaperMaterial)
   const shaperDetailMaterial = steel.clone(); ownedMaterials.add(shaperDetailMaterial)
+  // Ground HSS faces and TiN-coated cutting flanks, as in the owner's shaper
+  // reference. Separate surface materials preserve the certified tooth geometry.
+  shaperMaterial.color.set('#454b51'); shaperMaterial.roughness = .38
+  shaperMaterial.name = 'shaper-hardened-steel-hardware'
+  shaperDetailMaterial.color.set('#b9b9af'); shaperDetailMaterial.roughness = .31
+  shaperDetailMaterial.name = 'shaper-ground-HSS-faces'
+  const shaperFlankMaterial = steel.clone(); ownedMaterials.add(shaperFlankMaterial)
+  shaperFlankMaterial.color.set('#c69b36'); shaperFlankMaterial.metalness = .96
+  shaperFlankMaterial.roughness = .27; shaperFlankMaterial.name = 'shaper-TiN-cutting-flanks'
   const hobMaterial = steel.clone(); ownedMaterials.add(hobMaterial)
   const hobDetailMaterial = steel.clone(); ownedMaterials.add(hobDetailMaterial)
+  // The body shell, collars and flute floors are the cutting body; the thread shares
+  // the TiN coating. Only the arbor stub is ground steel. The mock has no bore mesh:
+  // the body is a closed cylinder, so the arbor is the single non-cutting surface.
+  hobMaterial.color.set(TIN_GOLD); hobMaterial.metalness = .96; hobMaterial.roughness = .34
+  hobMaterial.name = 'hob-TiN-cutting-body'
+  hobDetailMaterial.color.set(TIN_GOLD_CREST); hobDetailMaterial.metalness = .96
+  hobDetailMaterial.roughness = .30; hobDetailMaterial.name = 'hob-TiN-thread'
+  const hobArborMaterial = steel.clone(); ownedMaterials.add(hobArborMaterial)
+  hobArborMaterial.color.set('#adb4ba'); hobArborMaterial.metalness = .94
+  hobArborMaterial.roughness = .34; hobArborMaterial.name = 'hob-ground-arbor-steel'
   const chipMaterial = steel.clone(); chipMaterial.roughness = 0.38; ownedMaterials.add(chipMaterial)
   const shaper = buildShaperCutter(shaperMaterial, options)
   ownedDisposers.push({ resource: 'shaper-tool', dispose: () => shaper.dispose() })
@@ -165,8 +196,11 @@ export function createShaftRuntime(
   const toolGeometryCount = shaper.geometryCount + hob.geometryCount
   const shaperDisc = shaper.root.getObjectByName('shaper-cutter-disc') as Mesh | undefined
   const hobThread = hob.root.getObjectByName('hob-thread') as InstancedMesh | undefined
-  if (shaperDisc) shaperDisc.material = shaperDetailMaterial
+  const hobArbor = hob.root.getObjectByName('hob-arbor') as Mesh | undefined
+  // ExtrudeGeometry group 0 is the ground caps, group 1 the coated tooth walls.
+  if (shaperDisc) shaperDisc.material = [shaperDetailMaterial, shaperFlankMaterial]
   if (hobThread) hobThread.material = hobDetailMaterial
+  if (hobArbor) hobArbor.material = hobArborMaterial
   const chipGeometry = new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3)
   ownedGeometry.add(chipGeometry)
   const chip = new Mesh(chipGeometry, chipMaterial)
@@ -398,7 +432,7 @@ export function createShaftRuntime(
       }
       frame.time = t; frame.phase = schedule.beat; frame.discrete = schedule.beatIndex
       frame.chapter = t < 15 ? 0 : t < 22.6 ? 1 : t < 35 ? 2 : 3
-      frame.narrativeAlpha = schedule.narrativeAlpha; frame.ownsNarrative = true; frame.returnBlend = 0
+      frame.narrativeAlpha = options.presentation?.narrativeAlpha ?? schedule.narrativeAlpha; frame.ownsNarrative = true; frame.returnBlend = 0
       sampleShaftCamera(t, ctx.aspect, kinematics, cameraSample)
       shaftMetrePoint(camera.position, cameraSample.px, cameraSample.py, cameraSample.pz)
       shaftMetrePoint(camera.target, cameraSample.tx, cameraSample.ty, cameraSample.tz)
@@ -409,14 +443,15 @@ export function createShaftRuntime(
     apply() {
       if (disposed) return
       root.visible = true
-      partOpacity(parts.legacyshaft, schedule.legacyShaft); partOpacity(parts.approvedshaft, schedule.approvedShaft)
-      partOpacity(parts.housing, schedule.housing); partOpacity(parts.legacyhousing, schedule.legacyHousing)
-      partOpacity(parts.legacybearing, schedule.legacyBearing); partOpacity(parts.legacyring, schedule.legacyRing)
-      partOpacity(parts.approvedbearing, schedule.approvedBearing); partOpacity(parts.approvedring, schedule.approvedRing)
+      partOpacity(parts.legacyshaft, options.presentation?.entryOpaque && frame.time <= 1.2 ? 1 : schedule.legacyShaft); partOpacity(parts.approvedshaft, schedule.approvedShaft)
+      const context = options.presentation?.contextOpacity ?? 1
+      partOpacity(parts.housing, schedule.housing * context); partOpacity(parts.legacyhousing, schedule.legacyHousing * context)
+      partOpacity(parts.legacybearing, schedule.legacyBearing * context); partOpacity(parts.legacyring, schedule.legacyRing * context)
+      partOpacity(parts.approvedbearing, schedule.approvedBearing * context); partOpacity(parts.approvedring, schedule.approvedRing * context)
       const legacyAngle = kinematics.workPhi
       const approvedAngle = kinematics.hobWorkPhi + schedule.finaleAngle
       if (parts.legacyshaft) parts.legacyshaft.root.rotation.z = -legacyAngle
-      if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = -approvedAngle
+      if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = -approvedAngle * (1 - (options.presentation?.phaseCorrection ?? 0))
       if (parts.approvedring) parts.approvedring.root.rotation.z = frame.time >= 39 ? -schedule.finaleAngle : 0
       // Unsplit bearing stays fixed; only an authenticated separable inner race may spin.
       supportPair.position.copy(delta).multiplyScalar(-(1 - schedule.supportBlend))
@@ -454,7 +489,9 @@ export function createShaftRuntime(
       placeShaper(shaper.root, kinematics); shaper.root.visible = schedule.shaper > 0
       placeHob(hob.root, kinematics); hob.root.visible = schedule.hob > 0
       materialOpacity(shaperMaterial, schedule.shaper); materialOpacity(shaperDetailMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
+      materialOpacity(shaperFlankMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
       materialOpacity(hobMaterial, schedule.hob); materialOpacity(hobDetailMaterial, schedule.hob * (kinematics.softened ? 0.25 : 1))
+      materialOpacity(hobArborMaterial, schedule.hob)
       shaftMmPoint(chip.position, kinematics.chipX, kinematics.chipY, kinematics.chipZ)
       chip.rotation.set(Math.PI / 2, 0, kinematics.chipCurl); chip.scale.setScalar(0.6 + kinematics.chipCurl * 0.2)
       const chipAlpha = kinematics.chipOpacity * schedule.shaper
@@ -467,9 +504,9 @@ export function createShaftRuntime(
       for (let i = 0; i < neighbours.length; i++) {
         const neighbour = neighbours[i]
         const angle = -schedule.finaleAngle * neighbour.ratio
-        neighbour.carrier.visible = schedule.neighbours > 0; neighbour.carrier.rotation.z = angle
+        neighbour.carrier.visible = schedule.neighbours * context > 0; neighbour.carrier.rotation.z = angle
         for (let j = 0; j < neighbour.planets.length; j++) neighbour.planets[j].rotation.z = -angle * GEAR_RATIOS.planetMultiplier
-        for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours)
+        for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours * context)
       }
       root.updateWorldMatrix(true, true)
     },

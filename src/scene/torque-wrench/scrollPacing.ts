@@ -1,8 +1,15 @@
-/** Physical distance changes; canonical director/beat coordinates remain stable. */
+/** Physical pacing: shaft spans translate by -.115 with their private host clock. */
 export const TORQUE_PACING_SPANS = Object.freeze([
   Object.freeze({ start: .36, end: .435, multiplier: 2, id: 'cracks' }),
-  Object.freeze({ start: .69, end: .735, multiplier: 2, id: 'ring' }),
-  Object.freeze({ start: .735, end: .94, multiplier: 2, id: 'shaft' }),
+  Object.freeze({ start: .42, end: .46, multiplier: 3, id: 'shatter' }),
+  // T5: the ring study now owns [.46,.505]; multiplier 18 is the smallest integer giving >=2x on the
+  // 28 s operation, the contact window and the slow window versus the old .69-.735 x8 span.
+  Object.freeze({ start: .46, end: .505, multiplier: 18, id: 'ring' }),
+  Object.freeze({ start: .62, end: .825, multiplier: 2, id: 'shaft' }),
+  // T6-C3: local slow-downs on the hob engagement (old [.884,.905], host [.769,.79], each <= x8). 'hobSeat' covers
+  // touch/seat and 'hobSwing' the >=60 deg camera swing plus its catch-up; scale 2.17326.
+  Object.freeze({ start: .7756, end: .7787, multiplier: 4.8, id: 'hobSeat' }),
+  Object.freeze({ start: .7778, end: .7892, multiplier: 4.2, id: 'hobSwing' }),
 ])
 export const TORQUE_PACING_SCALE = 1 + TORQUE_PACING_SPANS.reduce(
   (sum, span) => sum + (span.end - span.start) * (span.multiplier - 1), 0,

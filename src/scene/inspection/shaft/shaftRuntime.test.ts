@@ -12,7 +12,7 @@ import { createShaftKinematicsFrame, sampleShaftKinematics, strokePhaseAt, WORK_
 import { SPACE_CLOCK_RAD, SPACE_PITCH_RAD } from './progression'
 import { HOB_LEAD_ANGLE_DEG, SHAPER_THICKNESS_MM, SHAPER_TIP_RADIUS_MM } from './toolSpec'
 import { createShaftSchedule, sampleShaftSchedule } from './schedule'
-import { createShaftRuntime, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument } from './shaftRuntime'
+import { createShaftRuntime, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
 import { buildShaperCutter } from './tools'
 
 function bundle(tier: 'full' | 'lite' = 'full'): ArrayBuffer {
@@ -50,7 +50,7 @@ function context(rig: unknown = null): StoryContext {
   return { gl: { toneMappingExposure: 1.1 } as StoryContext['gl'], scene: new Scene(), hero, rig, tier: 'full', aspect: 16 / 9 }
 }
 function session(): StorySession { return createStorySession('shaft', { id: 91, current: () => true, fail: vi.fn() }) }
-async function fixture(options: { housing?: string; legacyHousing?: boolean; rig?: unknown; tier?: 'full' | 'lite' } = {}) {
+async function fixture(options: { housing?: string; legacyHousing?: boolean; rig?: unknown; tier?: 'full' | 'lite'; runtimeOptions?: ShaftRuntimeOptions } = {}) {
   const data = bundle(options.tier), doc = readShaftBundleDocument(data)
   const scene = testScene(doc, options.housing, options.legacyHousing)
   const parsed = { scene, scenes: [scene], animations: [] } as unknown as GLTF
@@ -58,7 +58,7 @@ async function fixture(options: { housing?: string; legacyHousing?: boolean; rig
   const fetchMock = vi.fn().mockResolvedValue({ ok: true, arrayBuffer: async () => data })
   vi.stubGlobal('fetch', fetchMock)
   const ctx = context(options.rig); ctx.tier = options.tier ?? 'full'
-  const lease = session(), runtime = createShaftRuntime(lease, ctx); runtimes.push(runtime)
+  const lease = session(), runtime = createShaftRuntime(lease, ctx, options.runtimeOptions); runtimes.push(runtime)
   await runtime.ready
   return { runtime, lease, fetchMock, parse, scene, doc }
 }
@@ -220,7 +220,66 @@ describe('shaft runtime without WebGL', () => {
     }
     seek(runtime, 32.2); expect(revised.uProgressionMode.value).toBe(0); expect(revised.uStressKind.value).toBe(0)
     seek(runtime, 34); expect(revised.uStressKind.value).toBe(2); expect(old.uStressKind.value).toBe(0)
-    seek(runtime, 12); expect(material(runtime, 'shaper-cutter-disc').opacity).toBeLessThan(material(runtime, 'shaper-hub').opacity)
+    seek(runtime, 12)
+    const disc = runtime.root.getObjectByName('shaper-cutter-disc') as Mesh
+    expect(Array.isArray(disc.material)).toBe(true)
+    const surfaces = disc.material as MeshStandardMaterial[]
+    expect(surfaces.map(surface => surface.name)).toEqual(['shaper-ground-HSS-faces', 'shaper-TiN-cutting-flanks'])
+    for (const surface of surfaces) expect(surface.opacity).toBeLessThan(material(runtime, 'shaper-hub').opacity)
+  })
+
+  it('coats the hob cutting body, collars and thread in TiN gold while the arbor stays steel', async () => {
+    const { runtime } = await fixture()
+    seek(runtime, 12)
+    const disc = runtime.root.getObjectByName('shaper-cutter-disc') as Mesh
+    const shaperFlank = (disc.material as MeshStandardMaterial[])[1]
+
+    seek(runtime, 28)
+    const body = runtime.root.getObjectByName('hob-body') as Mesh
+    const drive = runtime.root.getObjectByName('hob-collar-drive') as Mesh
+    const free = runtime.root.getObjectByName('hob-collar-free') as Mesh
+    const arbor = runtime.root.getObjectByName('hob-arbor') as Mesh
+    const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
+    const bodyMaterial = body.material as MeshStandardMaterial
+    const threadMaterial = thread.material as MeshStandardMaterial
+    const arborMaterial = arbor.material as MeshStandardMaterial
+
+    // Body, both collars and flute floors share the shaper's exact TiN gold.
+    expect(bodyMaterial.name).toBe('hob-TiN-cutting-body')
+    expect(drive.material).toBe(bodyMaterial)
+    expect(free.material).toBe(bodyMaterial)
+    expect(bodyMaterial.color.getHex()).toBe(shaperFlank.color.getHex())
+    expect(bodyMaterial.color.getHexString()).toBe('c69b36')
+    // The helical thread is the warmer crest tone, with a slightly finer ground.
+    expect(Array.isArray(thread.material)).toBe(false)
+    expect(threadMaterial.name).toBe('hob-TiN-thread')
+    expect(threadMaterial.color.getHexString()).toBe('d4a62a')
+    for (const gold of [bodyMaterial, threadMaterial]) {
+      expect(gold.metalness).toBeGreaterThanOrEqual(0.9)
+      expect(gold.roughness).toBeGreaterThanOrEqual(0.28)
+      expect(gold.roughness).toBeLessThanOrEqual(0.4)
+      expect(gold.color.r).toBeGreaterThan(gold.color.b)
+    }
+    expect(threadMaterial.roughness).not.toBe(bodyMaterial.roughness)
+
+    // The arbor stub remains a separate ground-steel material.
+    expect(arborMaterial.name).toBe('hob-ground-arbor-steel')
+    expect(arborMaterial).not.toBe(bodyMaterial)
+    expect(arborMaterial.color.getHexString()).toBe('adb4ba')
+    expect(arborMaterial.metalness).toBeGreaterThanOrEqual(0.9)
+    expect(arborMaterial.color.b).toBeGreaterThan(arborMaterial.color.r)
+
+    // Fade behaviour is unchanged: body/arbor follow the hob schedule, the thread
+    // keeps the existing softened-feature reduction.
+    const schedule = sampleShaftSchedule(28, createShaftSchedule())
+    const kinematics = sampleShaftKinematics(28, createShaftKinematicsFrame())
+    expect(bodyMaterial.opacity).toBeCloseTo(schedule.hob, 12)
+    expect(arborMaterial.opacity).toBeCloseTo(schedule.hob, 12)
+    expect(threadMaterial.opacity).toBeCloseTo(schedule.hob * (kinematics.softened ? 0.25 : 1), 12)
+
+    seek(runtime, 32.2)
+    expect(runtime.root.getObjectByName('hob')!.visible).toBe(false)
+    for (const value of [bodyMaterial, threadMaterial, arborMaterial]) expect(value.opacity).toBe(0)
   })
 
   it('moves the support pair rigidly, holds the baked endpoint, sections both shaft/housing and removes the section for finale', async () => {
@@ -357,6 +416,7 @@ describe('shaft runtime without WebGL', () => {
     const { runtime, lease } = await fixture()
     const thread = runtime.root.getObjectByName('hob-thread') as InstancedMesh
     expect(thread.isInstancedMesh).toBe(true)
+    const arborMaterial = (runtime.root.getObjectByName('hob-arbor') as Mesh).material as MeshStandardMaterial
     const disposeThread = vi.spyOn(thread, 'dispose')
     const geometryDisposers = new Map()
     const materialDisposers = new Map()
@@ -367,6 +427,7 @@ describe('shaft runtime without WebGL', () => {
         if (!materialDisposers.has(value)) materialDisposers.set(value, vi.spyOn(value, 'dispose'))
       }
     })
+    expect(materialDisposers.get(arborMaterial)).toBeDefined()
     expect(runtime.resources.geometries).toBeGreaterThan(7); expect(runtime.resources.materials).toBeGreaterThan(7)
     lease.cancel(); expect(runtime.resources).toEqual({ geometries: 0, materials: 0, textures: 0, meshes: 0 })
     expect(disposeThread).toHaveBeenCalledOnce()
@@ -374,6 +435,38 @@ describe('shaft runtime without WebGL', () => {
     expect(disposeThread).toHaveBeenCalledOnce()
     for (const dispose of geometryDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
     for (const dispose of materialDisposers.values()) expect(dispose).toHaveBeenCalledOnce()
+    expect(materialDisposers.get(arborMaterial)).toHaveBeenCalledOnce()
     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(0)
+  })
+})
+
+
+describe('private journey presentation (shared clocks unchanged)',()=>{
+  it('reproduces shared defaults for explicit neutral controls',async()=>{
+    const a=await fixture(),b=await fixture({runtimeOptions:{presentation:{entryOpaque:false,contextOpacity:1,phaseCorrection:0}}})
+    for(const t of [0,.6,1.2,2,10,23,30,36,40,43]){
+      a.runtime.sample(t);a.runtime.apply();b.runtime.sample(t);b.runtime.apply()
+      const view=(r:StoryRuntime)=>{
+        const objects:unknown[]=[]
+        r.root.traverse(o=>{const m=o as Mesh;objects.push([o.name,o.visible,o.position.toArray(),o.quaternion.toArray(),m.material&&!Array.isArray(m.material)?m.material.opacity:null])})
+        return objects
+      }
+      expect(view(b.runtime)).toEqual(view(a.runtime))
+      expect(b.runtime.camera).toEqual(a.runtime.camera)
+      expect(b.runtime.frame).toEqual(a.runtime.frame)
+    }
+  })
+  it('holds entry opaque, retires all finale context, and phase-corrects only private presentation',async()=>{
+    const presentation={entryOpaque:true,contextOpacity:1,phaseCorrection:0,narrativeAlpha:0}
+    const {runtime}=await fixture({legacyHousing:true,runtimeOptions:{presentation}})
+    for(const t of [0,.4,1.2]){seek(runtime,t);expect(material(runtime,'legacyshaft').opacity).toBe(1);expect(runtime.frame.narrativeAlpha).toBe(0)}
+    seek(runtime,43)
+    const before=material(runtime,'approvedshaft').opacity
+    presentation.contextOpacity=0;presentation.phaseCorrection=1;seek(runtime,43)
+    expect(material(runtime,'approvedshaft').opacity).toBe(before)
+    expect(runtime.root.getObjectByName('study-approvedshaft')?.rotation.z).toBeCloseTo(0,14)
+    for(const name of ['housing','legacyhousing','legacybearing','legacyring','approvedbearing','approvedring'])expect(material(runtime,name).opacity).toBe(0)
+    presentation.contextOpacity=1;presentation.phaseCorrection=0;seek(runtime,43)
+    expect(material(runtime,'housing').opacity).toBeGreaterThan(0)
   })
 })

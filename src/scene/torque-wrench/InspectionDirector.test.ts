@@ -2,9 +2,17 @@ import { describe, expect, it } from 'vitest'
 import { createShaftCameraSample, sampleShaftCamera } from '../inspection/shaft/camera'
 import {
   createShaftKinematicsFrame,
+  CUTTER_RATE,
+  hobPhiAt,
+  infeedRhoAt,
   machiningRateAt,
+  machiningTimeAt,
   sampleShaftKinematics,
+  strokeCentreYAt,
+  strokePhaseAt,
 } from '../inspection/shaft/kinematics'
+import { FACE_START_MM, SHAFT_OD_MM, SHAPING_FACE_END_MM } from '../inspection/shaft/progression'
+import { SHAPER_THICKNESS_MM } from '../inspection/shaft/toolSpec'
 import {
   createPrivateRingCamera,
   CutterCameraArc,
@@ -21,8 +29,8 @@ const DESKTOP = 1440 / 900
 const NARROW = 390 / 844
 const KNOTS = [
   [0.735, 0], [0.795, 7.2], [0.835, 9.6],
-  [0.87, 24.6], [0.884, 25], [0.902, 31.8],
-  [0.905, 32], [0.94, 43],
+  [0.87, 24.6], [0.884, 25], [0.89, 25.257], [0.89116, 25.62], [0.898881, 26.4],
+  [0.90071, 28.955], [0.90208, 30.508], [0.905, 32], [0.94, 43],
 ] as const
 const CAMERA_SEAMS = [
   0.735, 0.795, 0.835, 0.846, 0.863, 0.874, 0.884, 0.905, 0.925, 0.94,
@@ -31,15 +39,38 @@ const at = (progress: number, aspect = DESKTOP) =>
   samplePrivateInspection(progress, aspect, createPrivateInspectionSample())
 
 it('holds ring/shaft isolation after camera arrival and restores it before close', () => {
-  expect(sampleInspectionSurroundings(.69)).toBe(1)
-  expect(sampleInspectionSurroundings(.71)).toBe(0)
+  // T5: ring study window [.46,.505], isolation [.469,.4725], restore [.495,.503], pre-shaft fade [.72,.735].
+  expect(sampleInspectionSurroundings(.46)).toBe(1)
+  expect(sampleInspectionSurroundings(.469)).toBe(1)
+  expect(sampleInspectionSurroundings(.4725)).toBe(0)
+  expect(sampleInspectionSurroundings(.4945)).toBe(0)
+  expect(sampleInspectionSurroundings(.495)).toBe(0)
+  expect(sampleInspectionSurroundings(.503)).toBe(1)
+  expect(sampleInspectionSurroundings(.505)).toBe(1)
+  expect(sampleInspectionSurroundings(.72)).toBe(1)
+  expect(sampleInspectionSurroundings(.728)).toBeGreaterThan(0)
+  expect(sampleInspectionSurroundings(.728)).toBeLessThan(1)
+  expect(sampleInspectionSurroundings(.735)).toBe(0)
   expect(sampleInspectionSurroundings(.90)).toBe(0)
   expect(sampleInspectionSurroundings(.94)).toBe(1)
+  let previous = 1
+  for (let p = .469; p <= .4725; p += .00005) {
+    const o = sampleInspectionSurroundings(p)
+    expect(o).toBeLessThanOrEqual(previous + 1e-12); previous = o
+  }
   expect(RING_KNURL_DEPTH_MULTIPLIER).toBe(1.5)
-  expect(ringTimeAt(.69)).toBe(0)
-  expect(ringTimeAt(.735)).toBe(12)
+  expect(ringTimeAt(.46)).toBe(0)
+  expect(ringTimeAt(.469)).toBe(0)
+  expect(ringTimeAt(.4725)).toBe(0)
+  expect(ringTimeAt(.4945)).toBe(28)
+  expect(ringTimeAt(.505)).toBe(28)
+  let time = 0
+  for (let p = .46; p <= .505; p += .0001) {
+    const t = ringTimeAt(p)
+    expect(t).toBeGreaterThanOrEqual(time - 1e-12); time = t
+  }
   const camera = createPrivateRingCamera()
-  samplePrivateRingCamera(.71, .2, camera)
+  samplePrivateRingCamera(.4775, .2, camera)
   expect(Object.values(camera).every(Number.isFinite)).toBe(true)
 })
 
@@ -273,3 +304,147 @@ describe('JG-038 private InspectionDirector C1', () => {
     }
   })
 })
+
+/** Independent restatement of the pre-T6-C3 subject table and its weighted-harmonic PCHIP. */
+const OLD_SUBJECT: readonly (readonly [number, number])[] = [
+  [0.735, 0], [0.795, 7.2], [0.8, 7.5], [0.832, 8.3], [0.835, 9.6], [0.87, 24.6],
+  [0.884, 25], [0.902, 31.8], [0.905, 32], [0.94, 43],
+]
+function oldSubjectTime(p: number): number {
+  const k = OLD_SUBJECT
+  if (p <= k[0][0]) return 0
+  if (p >= k[k.length - 1][0]) return 43
+  const slope = (i: number) => {
+    if (i === 0 || i === k.length - 1) return 0
+    const h0 = k[i][0] - k[i - 1][0], h1 = k[i + 1][0] - k[i][0]
+    const d0 = (k[i][1] - k[i - 1][1]) / h0, d1 = (k[i + 1][1] - k[i][1]) / h1
+    const w0 = 2 * h1 + h0, w1 = h1 + 2 * h0
+    return d0 <= 0 || d1 <= 0 ? 0 : (w0 + w1) / (w0 / d0 + w1 / d1)
+  }
+  let i = 0
+  while (i < k.length - 2 && p >= k[i + 1][0]) i++
+  const [a, ta] = k[i], [b, tb] = k[i + 1]
+  if (p === a) return ta
+  const h = b - a, u = (p - a) / h, u2 = u * u, u3 = u2 * u
+  const t = (2 * u3 - 3 * u2 + 1) * ta + (u3 - 2 * u2 + u) * h * slope(i)
+    + (-2 * u3 + 3 * u2) * tb + (u3 - u2) * h * slope(i + 1)
+  return Math.max(ta, Math.min(tb, t))
+}
+const SWING_P = [0.89116, 0.89888] as const
+const invertSubject = (time: number) => {
+  let lo = 0.884, hi = 0.94
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2
+    if (at(mid).subjectTime < time) lo = mid
+    else hi = mid
+  }
+  return (lo + hi) / 2
+}
+
+describe('JG-038 T6-C3 hob engagement and shaper contact', () => {
+  it.each([DESKTOP, NARROW])('keeps the >=60 deg camera swing on the fixed camera clock at aspect %s', (aspect) => {
+    let first = -1, last = -1
+    const out = createPrivateInspectionSample()
+    for (let p = 0.885; p <= 0.905; p += 2e-6) {
+      if (samplePrivateInspection(p, aspect, out).hobSwingWeight * 82 >= 60) { if (first < 0) first = p; last = p }
+    }
+    expect(first).toBeCloseTo(SWING_P[0], 4)
+    expect(Math.abs(first - SWING_P[0])).toBeLessThan(1e-5)
+    expect(Math.abs(last - SWING_P[1])).toBeLessThan(1e-5)
+  })
+
+  it.each([DESKTOP, NARROW])('touches in a rising swing, seats inside the 60 deg window and turns the hob 90-180 deg across it (aspect %s)', (aspect) => {
+    const pTouch = invertSubject(25.246)
+    expect(pTouch).toBeLessThanOrEqual(0.89)
+    expect(at(pTouch, aspect).hobSwingWeight * 82).toBeGreaterThanOrEqual(45)
+    expect(at(pTouch, aspect).hobSwingWeight * 82).toBeLessThan(60) // touch precedes the formal window
+    const pSeat = invertSubject(25.7)
+    expect(pSeat).toBeGreaterThan(SWING_P[0])
+    expect(pSeat).toBeLessThan(SWING_P[1])
+    const turn = (hobDeg(at(SWING_P[1], aspect))) - hobDeg(at(SWING_P[0], aspect))
+    expect(turn).toBeGreaterThanOrEqual(90)
+    expect(turn).toBeLessThanOrEqual(180)
+    let prior = -1, priorPhi = -1
+    for (let p = 0.884; p <= 0.905; p += 1e-5) {
+      const sample = at(p, aspect)
+      expect(sample.subjectTime).toBeGreaterThan(prior)
+      expect(hobDeg(sample)).toBeGreaterThanOrEqual(priorPhi)
+      prior = sample.subjectTime
+      priorPhi = hobDeg(sample)
+    }
+  })
+
+  it('keeps the kinematic law at shaft seams: the new knots end exactly on the unchanged [.905,32] and [.94,43]', () => {
+    expect(at(0.905).subjectTime).toBe(32)
+    expect(at(0.94).subjectTime).toBe(43)
+    for (const [progress, time] of [[0.89, 25.257], [0.89116, 25.62], [0.898881, 26.4], [0.90071, 28.955], [0.90208, 30.508]]) {
+      expect(at(progress).subjectTime).toBe(time)
+    }
+  })
+
+  it.each([DESKTOP, NARROW])('reproduces the original formula through p<=.87 and the static hob through .87-.884 (aspect %s)', (aspect) => {
+    const frame = createShaftKinematicsFrame()
+    for (let p = 0.735; p <= 0.87 + 1e-12; p += 0.001) {
+      const sample = at(p, aspect)
+      expect(sample.subjectTime).toBe(oldSubjectTime(p))
+      expect(sample.kinematics).toEqual(sampleShaftKinematics(oldSubjectTime(p), frame))
+    }
+    // The PCHIP tangent at .884 now depends on the next knot, so only the hob/mode/depth fields are
+    // compared here (hob is static before 25 s); subject time shifts by well under a frame.
+    for (let p = 0.871; p < 0.884; p += 0.001) {
+      const sample = at(p, aspect)
+      const reference = sampleShaftKinematics(oldSubjectTime(p), frame)
+      expect(sample.subjectTime).toBeLessThan(25)
+      expect(Math.abs(sample.subjectTime - oldSubjectTime(p))).toBeLessThan(0.05)
+      for (const key of ['hobPhi', 'hobWorkPhi', 'hobRevRate', 'hobYc', 'hobA', 'hobToolA', 'hobR', 'mode', 'followAzimuth'] as const) {
+        expect(sample.kinematics[key], key).toEqual(reference[key])
+      }
+      expect(sample.kinematics.spaceDepth).toEqual(reference.spaceDepth)
+    }
+  })
+
+  it.each([DESKTOP, NARROW])('keeps visible kinematics and camera equal through .905-.94 (aspect %s)', (aspect) => {
+    const frame = createShaftKinematicsFrame()
+    for (let p = 0.905; p <= 0.94 + 1e-12; p += 0.0025) {
+      const sample = at(p, aspect)
+      const reference = sampleShaftKinematics(oldSubjectTime(p), frame)
+      for (const key of ['hobPhi', 'hobWorkPhi', 'hobRevRate', 'hobYc', 'hobA', 'hobToolA', 'hobR', 'mode', 'followAzimuth', 'cutterPhi', 'workPhi', 'cutting', 'returning', 'chipOpacity'] as const) {
+        expect(sample.kinematics[key], key + ' @' + p).toEqual(reference[key])
+      }
+      expect(sample.kinematics.spaceDepth).toEqual(reference.spaceDepth)
+      const camera = createShaftCameraSample()
+      sampleShaftCamera(sample.cameraTime, aspect, reference, camera)
+      expect(sample.hobSwingWeight).toBe(0)
+      for (const key of Object.keys(camera) as (keyof typeof camera)[]) {
+        if (key === 'valid') continue
+        expect(sample.camera[key], key + ' @' + p).toBeCloseTo(camera[key] as number, 12)
+      }
+    }
+  })
+
+  it('retains the shaper contact window and cutter rotation (no shaper retime)', () => {
+    const inStock = (m: number) => {
+      const edge = strokeCentreYAt(m) + SHAPER_THICKNESS_MM / 2
+      return strokePhaseAt(m) < 0.5 && edge >= FACE_START_MM && edge <= SHAPING_FACE_END_MM && infeedRhoAt(m) < SHAFT_OD_MM - 1e-3
+    }
+    const out = createPrivateInspectionSample()
+    const segments: [number, number][] = []
+    let open = -1, prev = -1
+    for (let p = 0.79; p <= 0.8359; p += 2e-6) {
+      const on = inStock(machiningTimeAt(samplePrivateInspection(p, DESKTOP, out).subjectTime))
+      if (on && open < 0) open = p
+      if (!on && open >= 0) { segments.push([open, prev]); open = -1 }
+      prev = p
+    }
+    // The earlier stroke (.7828-.7848) precedes the bullet window; the main contact is the longest segment.
+    const main = segments.reduce((a, s) => (s[1] - s[0] > a[1] - a[0] ? s : a))
+    expect(Math.abs(main[0] - 0.7915)).toBeLessThan(1e-4)
+    expect(Math.abs(main[1] - 0.8282)).toBeLessThan(1e-4)
+    const m0 = machiningTimeAt(at(main[0]).subjectTime)
+    const m1 = machiningTimeAt(at(main[1]).subjectTime)
+    const cutterDeg = (m1 - m0) * CUTTER_RATE * 180 / Math.PI
+    expect(cutterDeg).toBeGreaterThanOrEqual(24)
+    expect(cutterDeg).toBeLessThanOrEqual(26)
+  })
+})
+function hobDeg(sample: PrivateInspectionSample) { return hobPhiAt(sample.subjectTime) * 180 / Math.PI }

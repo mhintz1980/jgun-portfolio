@@ -3,7 +3,7 @@
 
 .torque-page {
   /* Reserve the paced tail before lazy CAD/scene loading and native restoration. */
-  --torque-pacing-extra: 1433.25vh;
+  --torque-pacing-extra: 5174.0766vh;
   min-height: 100vh;
   background: #05070a;
   color: #e8ecf1;

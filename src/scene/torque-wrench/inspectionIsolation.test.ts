@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { sampleInspectionSurroundings } from './InspectionDirector'
+import { createJourneySample, sampleJourney } from './JourneyDirector'
+const sampleInspectionSurroundings=(p:number)=>sampleJourney(p,true,createJourneySample()).surroundingsOpacity
 import { createInspectionIsolationSample, sampleInspectionIsolation } from './inspectionIsolation'
 
 describe('shared effective inspection isolation', () => {
@@ -11,7 +12,7 @@ describe('shared effective inspection isolation', () => {
 
   it('reuses one output through forward, reverse and manual samples', () => {
     const sample = createInspectionIsolationSample()
-    for (const progress of [0, 0.695, 0.815, 0.932, 1, 0.932, 0.695, 0]) {
+    for (const progress of [0, 0.471, 0.815, 0.932, 1, 0.932, 0.471, 0]) {
       expect(sampleInspectionIsolation(progress, false, 0.94, sample)).toBe(sample)
       expect(sample.progress).toBe(progress)
       expect(sample.surroundingsOpacity).toBe(sampleInspectionSurroundings(progress))
@@ -22,8 +23,8 @@ describe('shared effective inspection isolation', () => {
   })
 
   it.each([
-    { progress: 0.695, studyProgress: 0.932, opacity: 0.5 },
-    { progress: 0.932, studyProgress: 0.928, opacity: 0.15625 },
+    { progress: 0.471, studyProgress: 0.932, opacity: 0 },
+    { progress: 0.85, studyProgress: 0.928, opacity: 0 },
   ])('uses manual opacity when both envelopes are nonzero at scroll $progress', ({ progress, studyProgress, opacity }) => {
     const sample = createInspectionIsolationSample()
     sampleInspectionIsolation(progress, false, studyProgress, sample)
@@ -38,12 +39,12 @@ describe('shared effective inspection isolation', () => {
     expect(sample.surroundingsOpacity).not.toBeCloseTo(scrollOpacity, 6)
   })
 
-  it.each([0.695, 0.932])('restores scroll isolation after manual start and end at scroll %s', progress => {
+  it.each([0.471, 0.85])('restores scroll isolation after manual start and end at scroll %s', progress => {
     const sample = createInspectionIsolationSample()
     sampleInspectionIsolation(progress, true, 0.735, sample)
     expect(sample).toEqual({ progress: 0.735, surroundingsOpacity: 0, manual: true })
     sampleInspectionIsolation(progress, true, 0.94, sample)
-    expect(sample).toEqual({ progress: 0.94, surroundingsOpacity: 1, manual: true })
+    expect(sample).toEqual({ progress: 0.94, surroundingsOpacity: 0, manual: true })
 
     sampleInspectionIsolation(progress, false, 0.94, sample)
     expect(sample.progress).toBe(progress)

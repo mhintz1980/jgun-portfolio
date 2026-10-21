@@ -1,10 +1,13 @@
 import { Matrix4, type Vector3 } from 'three'
 import type { WrenchRig } from '../rig/nodeRoles'
 import { applyWrenchMechanics, type WrenchMechanicsFrame } from '../rig/wrenchMechanics'
-import { sampleMechanism } from './MechanismDirector'
+import { RING_ANCHOR_PROGRESS, sampleMechanism } from './MechanismDirector'
 
-/** The ring study starts in the fully extracted, shifted mechanical pose. */
-export const RING_ANCHOR_PROGRESS = 0.69
+/**
+ * The ring study now precedes the shift: the anchor is the study-plateau pose (explode 0,
+ * shift = the C2 plateau value). Re-exported for the host and tests.
+ */
+export { RING_ANCHOR_PROGRESS }
 
 /** Construction-only capture; always restore the live mechanics, including on failure. */
 export function captureCanonicalRingAnchor(

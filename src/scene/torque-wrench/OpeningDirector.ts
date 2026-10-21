@@ -103,6 +103,49 @@ export function breakthroughTimeAt(cameraTime: number): number {
   return x + (y - x) * u * u * (3 - 2 * u)
 }
 
+/**
+ * T6-A: private subject clock for the shatter, keyed on canonical progress. The camera keeps
+ * openingTimeAt; only the shards, wrench rise and later electrical tail use this time. Knots are
+ * [progress, intro t] on a monotone cubic Hermite (weighted harmonic tangents, zero end slopes):
+ * impact .42-.43008 (event 0 -> .375), hold .43008-.44212 (event .375 -> .395), release to .46.
+ * The release knot at .4465 keeps the post-shatter glow fade and lamp return within .003 progress
+ * of their pre-T6 positions (measured at t = .94, .96, .99 by inverting both clocks).
+ * Authored against the x3 'shatter' pacing span, so the hold covers ~2.3 native viewports.
+ */
+export const SHATTER_SUBJECT_KNOTS: readonly (readonly [number, number])[] = Object.freeze([
+  Object.freeze([0.42, 0.84] as const),
+  Object.freeze([0.42685, 0.852] as const),
+  Object.freeze([0.43008, 0.855] as const),
+  Object.freeze([0.44212, 0.8558] as const),
+  Object.freeze([0.4465, 0.88] as const),
+  Object.freeze([0.46, 1] as const),
+])
+
+function shatterTangent(index: number): number {
+  const k = SHATTER_SUBJECT_KNOTS
+  if (index === 0 || index === k.length - 1) return 0
+  const h0 = k[index][0] - k[index - 1][0], h1 = k[index + 1][0] - k[index][0]
+  const d0 = (k[index][1] - k[index - 1][1]) / h0, d1 = (k[index + 1][1] - k[index][1]) / h1
+  if (d0 <= 0 || d1 <= 0) return 0
+  const w0 = 2 * h1 + h0, w1 = h1 + 2 * h0
+  return (w0 + w1) / (w0 / d0 + w1 / d1)
+}
+
+/** Pure in progress: identical to the shared opening clock through .42, no wall time or history. */
+export function breakthroughSubjectTimeAt(progress: number): number {
+  if (!Number.isFinite(progress)) throw new RangeError('Opening progress must be finite')
+  const k = SHATTER_SUBJECT_KNOTS
+  if (progress <= k[0][0]) return breakthroughTimeAt(openingTimeAt(progress))
+  if (progress >= k[k.length - 1][0]) return k[k.length - 1][1]
+  let i = 0
+  while (i < k.length - 2 && progress >= k[i + 1][0]) i++
+  const [a, ta] = k[i], [b, tb] = k[i + 1]
+  const h = b - a, u = (progress - a) / h, u2 = u * u, u3 = u2 * u
+  const value = (2 * u3 - 3 * u2 + 1) * ta + (u3 - 2 * u2 + u) * h * shatterTangent(i)
+    + (-2 * u3 + 3 * u2) * tb + (u3 - u2) * h * shatterTangent(i + 1)
+  return Math.max(ta, Math.min(tb, value))
+}
+
 function applyPrivateLampTiming(state: IntroState, finalInkT: number, crossing: number): void {
   if (finalInkT >= INTRO_PHASES.flickerStart) return
   if (state.t < finalInkT) {
@@ -121,7 +164,7 @@ export function sampleOpening(progress: number, crossing = 0.9, finalInkT = DEFA
   if (!Number.isFinite(finalInkT) || finalInkT < 0 || finalInkT > 1) {
     throw new RangeError('Final ink time must be finite in [0, 1]')
   }
-  const state = drawingIntroState(breakthroughTimeAt(openingTimeAt(progress)) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+  const state = drawingIntroState(breakthroughSubjectTimeAt(progress) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
   applyPrivateLampTiming(state, finalInkT, crossing)
   const electrical = samplePrivateElectricalScore(state.t)
   state.pulseHead = electrical.outline

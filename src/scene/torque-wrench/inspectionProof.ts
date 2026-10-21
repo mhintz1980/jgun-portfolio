@@ -7,6 +7,7 @@ export function measureInstalledInspection(runtime: StoryRuntime, camera: Perspe
   camera.updateMatrixWorld()
   const cutter = runtime.root.getObjectByName('shaper-cutter')
   if (!cutter) throw new Error('Installed shaper cutter missing')
+  const inverseStudy = runtime.root.matrixWorld.clone().invert(), studyPoint = new Vector3()
   const point = new Vector3(), closest = new Vector3(), triangle = new Triangle()
   let vertices = 0, triangles = 0, cameraClearance = Infinity
   const rect = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity, minDepth: Infinity, maxDepth: -Infinity }
@@ -21,7 +22,8 @@ export function measureInstalledInspection(runtime: StoryRuntime, camera: Perspe
       point.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld)
       // Entire near-shaft sector of the real disc, including both rake faces and
       // tooth flank vertices. Study radial plane is XY; shaft axis is -Z.
-      const contact = object.name === 'shaper-cutter-disc' && Math.hypot(point.x, point.y) <= 0.009
+      studyPoint.copy(point).applyMatrix4(inverseStudy)
+      const contact = object.name === 'shaper-cutter-disc' && Math.hypot(studyPoint.x, studyPoint.y) <= 0.009
       point.project(camera)
       rect.left = Math.min(rect.left, (point.x + 1) / 2)
       rect.right = Math.max(rect.right, (point.x + 1) / 2)

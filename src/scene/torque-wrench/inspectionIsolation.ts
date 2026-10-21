@@ -1,4 +1,4 @@
-import { sampleInspectionSurroundings } from './InspectionDirector'
+import { createJourneySample, sampleJourney, type JourneySample } from './JourneyDirector'
 
 export interface InspectionIsolationSample {
   progress: number
@@ -16,11 +16,14 @@ export function sampleInspectionIsolation(
   manual: boolean,
   studyProgress: number,
   out: InspectionIsolationSample,
+  host?: JourneySample,
 ): InspectionIsolationSample {
   const effectiveProgress = manual ? studyProgress : progress
-  const surroundingsOpacity = sampleInspectionSurroundings(effectiveProgress)
+  const surroundingsOpacity = manual ? 0 : (host ?? sampleJourney(progress, true, scratch)).surroundingsOpacity
   out.progress = effectiveProgress
   out.surroundingsOpacity = surroundingsOpacity
   out.manual = manual
   return out
 }
+
+const scratch = createJourneySample()

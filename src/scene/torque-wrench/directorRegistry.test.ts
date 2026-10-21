@@ -75,8 +75,8 @@ describe('pure director registry', () => {
     // are the same production facilities; this fixture imports no conductor, Scene, or page.
     const data: TorqueWrenchBeat[] = TORQUE_BEATS.flatMap((beat) => beat.id === 'inspection-bullet-time'
       ? [
-        { ...beat, end: 0.815 },
-        { ...beat, id: 'inspection-added-detail', start: 0.815, director: externalId, camera: 'external-detail', scene: 'external-detail' },
+        { ...beat, end: 0.7 },
+        { ...beat, id: 'inspection-added-detail', start: 0.7, director: externalId, camera: 'external-detail', scene: 'external-detail' },
       ]
       : [beat])
     const addedDirector = (sample: TorqueBeatSample): FixtureState => ({
@@ -87,18 +87,18 @@ describe('pure director registry', () => {
     const entries = [...registrations(), { id: externalId, sample: addedDirector }]
     const registry = createDirectorRegistry(known, entries)
     const timeline = createBeatTimeline(data, registry.ids)
-    const atBoundary = timeline.sample(0.815)
+    const atBoundary = timeline.sample(0.7)
     expect(atBoundary).toMatchObject({ beat: { id: 'inspection-added-detail', poster: 'inspection' }, localProgress: 0 })
     expect(atBoundary).toMatchObject({ previousId: 'inspection-bullet-time', nextId: 'inspection-materials', phase: 'entering' })
-    expect(atBoundary.stateKey).toBe(timeline.sample(0.815).stateKey)
-    expect(atBoundary.stateKey).not.toBe(timeline.sample(0.825).stateKey)
-    expect(timeline.sample(0.825).phase).toBe('active')
+    expect(atBoundary.stateKey).toBe(timeline.sample(0.7).stateKey)
+    expect(atBoundary.stateKey).not.toBe(timeline.sample(0.71).stateKey)
+    expect(timeline.sample(0.71).phase).toBe('active')
     expect(registry.sample(atBoundary).director).toBe(externalId)
-    expect(timeline.sample(0.815 - Number.EPSILON).beat.id).toBe('inspection-bullet-time')
-    expect(timeline.sample(0.835).beat.id).toBe('inspection-materials')
+    expect(timeline.sample(0.7 - Number.EPSILON).beat.id).toBe('inspection-bullet-time')
+    expect(timeline.sample(0.72).beat.id).toBe('inspection-materials')
     expect(() => createBeatTimeline(data, TORQUE_DIRECTOR_IDS)).toThrow(/Unknown/)
 
-    const points = [...new Set([0, 1, 0.815, 0.825, 0.835,
+    const points = [...new Set([0, 1, 0.7, 0.71, 0.72,
       ...data.flatMap((beat) => [beat.start, (beat.start + beat.end) / 2, beat.end]),
     ])].sort((a, b) => a - b)
     const expected = new Map(points.map((progress) => [progress, registry.sample(timeline.sample(progress))]))
@@ -114,6 +114,6 @@ describe('pure director registry', () => {
         expect(reloadedRegistry.sample(reloadedTimeline.sample(progress))).toEqual(state)
       }
     }
-    expect(expected.get(0.825)?.director).toBe(externalId)
+    expect(expected.get(0.71)?.director).toBe(externalId)
   })
 })

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { TORQUE_BEATS, TORQUE_SCROLL_VIEWPORTS, TORQUE_STORY_CHAPTER_IDS } from './beats'
 import { createBeatTimeline, sampleTorqueBeat } from './beatTimeline'
 import { TORQUE_DIRECTOR_IDS } from './directorRegistry'
@@ -46,6 +47,29 @@ describe('torque beat inventory', () => {
   it('does not introduce a separate cavern scene before first rupture', () => {
     const rupture = TORQUE_BEATS.find((beat) => beat.id === 'breakthrough-rupture')!
     expect(TORQUE_BEATS.filter((beat) => beat.start < rupture.start).some((beat) => beat.scene === 'pit')).toBe(false)
+  })
+
+  it('places the ring study at [.46,.505] and places the full shaft before final source extraction', () => {
+    const ring = TORQUE_BEATS.find((beat) => beat.id === 'inspection-ring')!
+    expect(ring).toMatchObject({ start: .46, end: .505, poster: 'mechanism', director: 'inspection' })
+    const ids = ['mechanism-switch', 'inspection-isolation', 'mechanism-extraction', 'mechanism-exploded-hold']
+    const bounds = [[.505, .56], [.56, .62], [.855, .93], [.93, .94]]
+    ids.forEach((id, i) => {
+      const beat = TORQUE_BEATS.find(candidate => candidate.id === id)!
+      expect([beat.start,beat.end]).toEqual(bounds[i])
+      expect(beat.poster).toBe(i<1?'mechanism':i<2?'inspection':'close')
+    })
+    expect(TORQUE_BEATS.find(beat => beat.id === 'inspection-shaping')).toMatchObject({start:.62,end:.68})
+    expect(TORQUE_BEATS.find((beat) => beat.id === 'breakthrough-emergence')).toMatchObject({ start: .435, end: .46 })
+  })
+
+  it('leaves the reduced-motion/static chapter output independent of beat coordinates', () => {
+    // The static path renders posterMap chapters and Story sections only; neither may read beats.
+    for (const file of ['Poster.tsx', 'Story.tsx', 'posterMap.ts']) {
+      const source = readFileSync(new URL(`./${file}`, import.meta.url), 'utf8')
+      expect(source, file).not.toMatch(/from '\.\/beats'|TORQUE_BEATS/)
+    }
+    expect(TORQUE_POSTER_CHAPTERS.map((chapter) => chapter.id)).toEqual([...TORQUE_STORY_CHAPTER_IDS])
   })
 
   it('keeps the provisional 44.1 viewport physical range out of the narrative resolver', () => {

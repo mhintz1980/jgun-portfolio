@@ -469,8 +469,10 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     material: Material
     ghost: boolean
     sources: Mesh[]
+    partNumber: string
   }
   const buckets = new Map<string, Bucket>()
+  const drawingBuckets = new Map<string, Bucket>()
   const leftovers: Mesh[] = // array-material meshes (none expected from GLTFLoader)
     []
   for (const mesh of meshes) {
@@ -496,10 +498,17 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
       curr = curr.parent
     }
     const role = materialRoleFor(unit.key, nodeName)
-    const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
+    let provenance: Object3D | null = mesh
+    while (provenance && !/P001835/i.test(provenance.name)) provenance = provenance.parent
+    const partNumber = provenance ? 'P001835' : ''
+    const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}|${partNumber}`
+    const drawingKey = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
+    const drawingBucket = drawingBuckets.get(drawingKey)
+    if (drawingBucket) drawingBucket.sources.push(mesh)
+    else drawingBuckets.set(drawingKey, { unit, role, material: roleMaterial(role), ghost, sources: [mesh], partNumber: '' })
     const bucket = buckets.get(key)
     if (bucket) bucket.sources.push(mesh)
-    else buckets.set(key, { unit, role, material: roleMaterial(role), ghost, sources: [mesh] })
+    else buckets.set(key, { unit, role, material: roleMaterial(role), ghost, sources: [mesh], partNumber })
   }
 
   const frameInverses = new Map<Object3D, Matrix4>()
@@ -517,6 +526,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
   const consumed = new Set<Mesh>()
   const bake = new Matrix4()
 
+  const renderedBuckets = new Map<Bucket, Mesh>()
   for (const bucket of buckets.values()) {
     const inv = inverseFor(bucket.unit.host)
     const geometries = bucket.sources.map((source) => {
@@ -549,11 +559,36 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const mesh = new Mesh(merged, material)
     mesh.frustumCulled = true
+    if (bucket.partNumber) { mesh.userData.partNumber = bucket.partNumber; mesh.name = 'MERGED P001835' }
     bucket.unit.host.add(mesh)
     finalMeshes.push(mesh)
+    renderedBuckets.set(bucket, mesh)
     if (bucket.ghost) ghostMaterials.set(mesh, material)
     for (const source of bucket.sources) consumed.add(source)
   }
+
+  // Keep the byte-exact old consolidation order for the immutable drawing snapshot.
+  // Virtual meshes are never attached/rendered. Their parent/bake frame is unchanged;
+  // only a bucket containing P001835 needs a retained unsplit geometry.
+  const drawingMeshes: Mesh[] = [...leftovers]
+  for (const [key, bucket] of drawingBuckets) {
+    const split = buckets.get(key + '|P001835')
+    if (!split) {
+      const rendered = renderedBuckets.get(buckets.get(key + '|')!)
+      if (rendered) drawingMeshes.push(rendered)
+      continue
+    }
+    const inv = inverseFor(bucket.unit.host)
+    const geometries = bucket.sources.map(source => source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inv, source.matrixWorld)))
+    const merged = geometries.length === 1 ? geometries[0] : mergeGeometries(geometries, false)
+    if (!merged) throw new Error('P001835 drawing conservation merge failed')
+    merged.normalizeNormals()
+    if (geometries.length > 1) for (const geometry of geometries) geometry.dispose()
+    const virtual = new Mesh(merged, bucket.material)
+    virtual.parent = bucket.unit.host
+    drawingMeshes.push(virtual)
+  }
+  const bucketMeshCount = finalMeshes.length
 
   // ---- P000420 OSHA Speed Indicator Painted Grooves (2026-08-25):
   // Annular painted bands in the physical groove channels of P000420 (clutch housing):
@@ -635,6 +670,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     sweepMax: bounds.isEmpty() ? 0.05 : bounds.max.z,
     center,
   }
+  root.userData.journeyDrawingMeshes = [...drawingMeshes, ...finalMeshes.slice(bucketMeshCount)]
   root.userData.wrenchRig = rig
   return rig
 }

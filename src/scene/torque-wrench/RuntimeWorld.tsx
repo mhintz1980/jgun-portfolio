@@ -11,7 +11,7 @@ import { makeDrawingLayout, snapshotDrawing } from '../drawing/drawingGeometry'
 import { type SheetCameraPose } from '../drawing/sheetCamera'
 import { bakeSheet, type SheetBakeResult } from '../drawing/sheet/sheetBake'
 import { applyExtractionCore, createExtractionContext } from '../drawing/poseCore'
-import { createShaftRuntime } from '../inspection/shaft/shaftRuntime'
+import { createShaftRuntime, type ShaftPresentation } from '../inspection/shaft/shaftRuntime'
 import { shaftMetrePoint } from '../inspection/shaft/frame'
 import { createStorySession } from '../inspection/session'
 import type { StoryRuntime } from '../inspection/story'
@@ -26,7 +26,7 @@ import {
   samplePrivateInspection,
   samplePrivateRingCamera,
 } from './InspectionDirector'
-import { sampleMechanism, type MechanismSample } from './MechanismDirector'
+import { MECHANISM_TRANSLATION, RING_WINDOW_END, RING_WINDOW_START, sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { createResourceScope } from './resourceScope'
 import { createOpeningSampler, DEFAULT_FINAL_INK_T, finalInkTimeFromStyles, sampleOpening } from './OpeningDirector'
 import { sampleOpeningCamera } from './OpeningCamera'
@@ -39,11 +39,28 @@ import { createInspectionFailureCollector } from './inspectionFailure'
 import { applyPrivateSheetContent } from './privateSheetContent'
 import { sampleInspectionIsolation, type InspectionIsolationSample } from './inspectionIsolation'
 import { captureCanonicalRingAnchor } from './ringAnchor'
+import { samplePrivateRing } from './RingInspection'
+import { createJourneySample, sampleJourney } from './JourneyDirector'
+import { createJourneyCameraSampler, createJourneyPose } from './JourneyCamera'
+import { createJourneyPlanes, effectiveMeshOpacity, measureShaftLandmarks, measureShaftDisplacement, registerShaft, registrationScale } from './shaftJourneyRegistration'
+import { applyShaftLook } from './shaftJourneyLook'
+import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
 
 const MODEL_URL = '/models/Default.glb'
 
+/**
+ * T5 ring-study seams (canonical progress). Lazy mount precedes the first ring camera move;
+ * the clone/source swap is bit-compatible at the anchor pose and happens inside the S0 plateau.
+ */
+const RING_LOAD_AT = 0.44
+const RING_ACTIVE_START = 0.469
+const RING_CAMERA_ENTRY_END = 0.4655
+const RING_CAMERA_EXIT_START = 0.498
+const GROOVE_NAMES = Object.freeze({ red: 'P000420 Speed Indicator (Red)', blue: 'P000420 Speed Indicator (Blue)' })
+
 interface SurroundingMaterialEntry {
   readonly mesh: Mesh
+  readonly visible: boolean
   readonly source: Material | Material[]
   readonly clone: Material | Material[]
 }
@@ -101,10 +118,16 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const ringProbe = useMemo(createRingRuntimeProbe, [])
   const ringCamera = useMemo(createPrivateRingCamera, [])
   const ringAnchor = useMemo(() => new Matrix4(), [])
+  // Canonical ring pose expressed relative to the extraction group, so the clone follows the
+  // live extraction/recentering transform instead of freezing the pose from the load frame.
+  const ringAnchorLocal = useMemo(() => new Matrix4(), [])
   const ringLocalCenter = useMemo(() => new Vector3(), [])
   const ringWorldCenter = useMemo(() => new Vector3(), [])
   const ringKnurlMaterials = useRef<readonly PrivateRingKnurlMaterial[] | null>(null)
+  // True only once the current ring runtime has resolved; the clone never replaces the source before.
+  const ringReady = useRef(false)
   const surroundingMaterials = useRef<PrivateSurroundingMaterials | null>(null)
+  const sourceRingMaterials = useRef<PrivateSurroundingMaterials | null>(null)
   const openingFinalInkT = useRef(DEFAULT_FINAL_INK_T)
   const manualCamera = useMemo(() => ({ open: false, transitioning: false, elapsed: 0,
     from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 } }), [])
@@ -136,15 +159,25 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const handoffFrom = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const handoffResult = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
-  const shaftEntry = useMemo(createPrivateInspectionSample, [])
+  const journey = useMemo(createJourneySample, [])
+  const journeyCamera = useMemo(createJourneyCameraSampler, [])
+  const journeyPose = useMemo(createJourneyPose, [])
+  const registration = useMemo(() => new Matrix4(), [])
+  const displacement = useMemo(() => new Matrix4(), [])
+  const heldDisplacement = useMemo(() => new Matrix4(), [])
+  const cameraRegistration = useMemo(() => new Matrix4(), [])
+  const shaftRestInverse = useRef<Matrix4 | null>(null)
+  const planes = useMemo(createJourneyPlanes, [])
+  const presentation = useMemo<ShaftPresentation>(() => ({ entryOpaque: true, contextOpacity: 1, phaseCorrection: 0, narrativeAlpha: 0 }), [])
+  const sourceShaftMaterials = useRef<PrivateSurroundingMaterials | null>(null)
   const probe = useMemo(() => ({
     ready: false, frames: 0, hiddenFrames: 0, progress: 0,
     rig: {} as WrenchMechanicsProbe,
-    camera: { position: [0, 0, 0], target: [0, 0, 0], quaternion: [0, 0, 0, 1], fov: 34 },
+    camera: { position: [0, 0, 0], target: [0, 0, 0], up: [0, 1, 0], quaternion: [0, 0, 0, 1], fov: 34 },
     inspection: { ready: false, subjectTime: 0, cameraTime: 0, machiningRate: 0, arcWeight: 0,
       feaDwellWeight: 0, hobSwingWeight: 0, surroundingsOpacity: 1 },
     ring: { ready: false, time: 0, cameraTime: 0, knurlMultiplier: RING_KNURL_DEPTH_MULTIPLIER,
-      effectiveNormalStrength: 0 },
+      effectiveNormalStrength: 0, returnBlend: 0, sourceOpacity: 1, sourceVisible: true, cloneOpacity: 0 },
     isolation: { surroundingsOpacity: 1, manual: false, manualTransition: 'settled', ringVisible: false, shaftVisible: false },
     renderer: { calls: 0, triangles: 0, geometries: 0, textures: 0 },
     // Drawing/sheet observables: whether the bake installed, which tier it used, whether the
@@ -152,6 +185,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     // side-view ink registration measured lazily on demand.
     sheet: { baked: false, tier: '', precomputed: -1, stats: {} as Record<string, number>,
       registration: null as unknown },
+    journey: {} as Record<string, unknown>,
     stage: 'stage3-model-host',
   }), [])
 
@@ -218,6 +252,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           })).sort((a, b) => a.mesh.localeCompare(b.mesh)),
         }
         if (ring.current) {
+          const runtimeDetail: Record<string, unknown> = {}
+          ring.current.telemetry(runtimeDetail)
+          copy.ring.runtime = { ...ringProbe, ...runtimeDetail }
           const subject = ring.current.root.getObjectByName('inspection-P003068-spin')
           ring.current.root.updateWorldMatrix(true, true)
           copy.ring.rootMatrix = ring.current.root.matrixWorld.toArray()
@@ -225,12 +262,61 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           const bounds = subject ? new Box3().setFromObject(subject) : null
           copy.ring.worldBounds = bounds ? { min: bounds.min.toArray(), max: bounds.max.toArray() } : null
         }
+        const sourceRing = rig.clutch.ringSwitch
+        if (sourceRing) {
+          sourceRing.updateWorldMatrix(true, true)
+          const bounds = new Box3().setFromObject(sourceRing)
+          copy.ring.sourceMatrix = sourceRing.matrixWorld.toArray()
+          copy.ring.sourceBounds = { min: bounds.min.toArray(), max: bounds.max.toArray() }
+        }
+        copy.isolation.surroundingMeshCount = surroundingMaterials.current?.entries.length ?? 0
+        copy.isolation.actualMaxOpacity = 0
+        for (const entry of surroundingMaterials.current?.entries ?? []) {
+          const materials = Array.isArray(entry.clone) ? entry.clone : [entry.clone]
+          for (const material of materials) copy.isolation.actualMaxOpacity = Math.max(copy.isolation.actualMaxOpacity, material.opacity)
+        }
+        const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
+        if (sourceShaft && shaft.current) copy.journey.shaftLandmarks = measureShaftLandmarks(sourceShaft, shaft.current.root, registration)
         copy.isolation.progress = isolation.progress
         return copy
       },
       inspection: () => {
         if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
         return { ...measureInstalledInspection(shaft.current, camera), playback: playback?.snapshot() }
+      },
+      grooveCapture: (options?: GrooveCaptureOptions) => {
+        if (!(camera instanceof PerspectiveCamera)) throw new Error('Perspective camera unavailable')
+        return captureGrooveProof(gl, scene, camera, rig.meshes, options)
+      },
+      /**
+       * Diagnostic, read-only: projected screen rects (px, drawing-buffer space) of the two named
+       * groove meshes plus their visibility and the current fade. Identity-isolated by NAME, so it is
+       * not contaminated by drawing ink. Beauty visible/hidden captures are left to the parent.
+       */
+      grooveRects: () => {
+        if (!(camera instanceof PerspectiveCamera)) throw new Error('Perspective camera unavailable')
+        camera.updateMatrixWorld(true)
+        const width = gl.domElement.width, height = gl.domElement.height
+        const corner = new Vector3(), box = new Box3()
+        const read = (name: string) => {
+          const mesh = rig.meshes.find(candidate => candidate.name === name)
+          if (!mesh) return null
+          mesh.updateWorldMatrix(true, false)
+          box.setFromObject(mesh)
+          let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, behind = false
+          for (let i = 0; i < 8; i++) {
+            corner.set(i & 1 ? box.max.x : box.min.x, i & 2 ? box.max.y : box.min.y, i & 4 ? box.max.z : box.min.z)
+            corner.project(camera)
+            if (corner.z > 1) behind = true
+            const x = (corner.x * 0.5 + 0.5) * width, y = (1 - (corner.y * 0.5 + 0.5)) * height
+            minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y)
+          }
+          const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material
+          return { name, visible: mesh.visible, behindCamera: behind, opacity: material?.opacity ?? null,
+            rect: [minX, minY, maxX, maxY], drawingBuffer: [width, height] }
+        }
+        return { progress: probe.progress, shift: channels.shift, blue: read(GROOVE_NAMES.blue), red: read(GROOVE_NAMES.red),
+          surroundingsOpacity: probe.isolation.surroundingsOpacity, ringVisible: probe.isolation.ringVisible }
       },
       cutterCapture: () => {
         if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
@@ -256,6 +342,14 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     try {
       await waitVisible()
       if (!owned.current()) return
+      const shaftMesh = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
+      if (!shaftMesh?.parent) throw new Error('Rendered source P001835 missing')
+      // This is a model-space displacement, independent of extraction and recentering.
+      applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
+      model.updateWorldMatrix(true, true)
+      shaftRestInverse.current = new Matrix4().copy(model.matrixWorld).invert().multiply(shaftMesh.parent.matrixWorld).invert()
+      applyWrenchMechanics(rig, { shift: 1, explode: 0, gearAngle: 0, idle: 0 })
+      measureShaftDisplacement(model, shaftMesh.parent, shaftRestInverse.current, heldDisplacement)
       // Rest snapshot is page-owned; cached merged rig and its materials are borrowed.
       applyWrenchMechanics(rig, { shift: 0, explode: 0, gearAngle: 0, idle: 0 })
       // snapshotDrawing recenters raw CAD world positions itself. Remove the host's
@@ -264,7 +358,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       host?.position.set(0, 0, 0)
       model.updateWorldMatrix(true, true)
       let snapshot: ReturnType<typeof snapshotDrawing>
-      try { snapshot = snapshotDrawing(rig) }
+      try { snapshot = snapshotDrawing({ ...rig, meshes: model.userData.journeyDrawingMeshes ?? rig.meshes }) }
       finally { host?.position.set(...center); model.updateWorldMatrix(true, true) }
       owned.own(snapshot.geometry)
       drawing.current = snapshot
@@ -300,6 +394,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     void initializeVisible()
     return () => {
       probe.ready = false
+      ringReady.current = false
+      probe.inspection.ready = false
+      probe.ring.ready = false
       bakedSheet.current = null
       probe.sheet.baked = false
       probe.sheet.stats = {}
@@ -319,7 +416,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     if (terminal.current || !owned?.current() || !probe.ready || !(camera instanceof PerspectiveCamera)) return
     if (document.hidden) { probe.hiddenFrames++; return }
     try {
-      const progress = store.getProgress()
+      const requestedProgress = store.getProgress()
+      sampleJourney(requestedProgress, probe.inspection.ready, journey)
+      const progress = journey.effectiveProgress
       const crossing = sheetBake?.extraction.crossing ?? 0.9
       sheetFrame.intro = sampleOpeningFrame(progress, crossing, openingFinalInkT.current)
       sheetFrame.delta = previousProgress.current === progress ? 0 : Math.min(delta, 0.1)
@@ -333,13 +432,20 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       const studyProgress = manual
         ? 0.735 + (playback?.advance(manualCamera.transitioning ? 0 : delta, true) ?? 0) * 0.205
-        : progress
-      const studyVisible = manual || (progress >= 0.735 && progress < 0.94)
-      const ringVisible = !manual && progress >= 0.69 && progress < 0.735
-      sampleInspectionIsolation(progress, manual, studyProgress, isolation)
+        : journey.inspectionProgress
+      const studyVisible = manual || journey.studyVisible
+      // The ring camera leads the clone: it runs from the window start, the clone/source swap only
+      // inside the S0 plateau and only once the clone runtime is ready.
+      const ringCameraWindow = !manual && progress >= RING_WINDOW_START && progress < RING_WINDOW_END
+      const ringVisible = ringCameraWindow && progress >= RING_ACTIVE_START && ringReady.current && !!ring.current
+      sampleInspectionIsolation(progress, manual, studyProgress, isolation, journey)
+      // Readiness guard: until the clone is ready the source ring stays the visible subject, so a
+      // direct seek into the study never shows a blank frame.
+      if (ringCameraWindow && !ringVisible && progress >= RING_ACTIVE_START) isolation.surroundingsOpacity = 1
+      if (!ringCameraWindow) isolation.surroundingsOpacity = manual ? 0 : journey.surroundingsOpacity
       const surroundingsOpacity = isolation.surroundingsOpacity
       sheetFrame.surroundingsOpacity = surroundingsOpacity
-      sampleMechanism(progress, channels)
+      sampleMechanism(journey.mechanismProgress, channels)
       applyWrenchMechanics(rig, channels)
       if (sheetBake && group.current) {
         applyExtractionCore(sheetFrame.intro.poseT, sheetBake.layout, sheetBake.extraction,
@@ -353,25 +459,45 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         // Preserve the legacy host's transparent-capable clone and depth law.
         material.depthWrite = channels.ghostOpacity > 0.5
       }
-      if (!surroundingMaterials.current && !manual && progress >= 0.655) {
+      if (!surroundingMaterials.current && (manual || progress >= RING_LOAD_AT)) {
         const unique = new Map<Material, Material>()
+        const ringUnique = new Map<Material, Material>()
+        const shaftUnique = new Map<Material, Material>()
+        const shaftEntries: SurroundingMaterialEntry[] = []
         let entries: SurroundingMaterialEntry[]
+        const ringEntries: SurroundingMaterialEntry[] = []
         try {
-          entries = rig.meshes.map(mesh => {
-          const source = mesh.material
-          if (!source) throw new Error('Surrounding material source unavailable')
-            return { mesh, source, clone: cloneMaterialShape(source, unique) }
-          })
+          entries = []
+          for (const mesh of rig.meshes) {
+            const source = mesh.material
+            if (!source) throw new Error('Surrounding material source unavailable')
+            const isRing = rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')
+            const isShaft = mesh.userData.partNumber === 'P001835'
+            const entry = { mesh, source, visible: mesh.visible, clone: cloneMaterialShape(source, isShaft ? shaftUnique : isRing ? ringUnique : unique) }
+            ;(isShaft ? shaftEntries : isRing ? ringEntries : entries).push(entry)
+          }
         } catch (error) {
           for (const clone of unique.values()) clone.dispose()
+          for (const clone of ringUnique.values()) clone.dispose()
+          for (const clone of shaftUnique.values()) clone.dispose()
           throw error
         }
         for (const entry of entries) entry.mesh.material = entry.clone
+        for (const entry of ringEntries) entry.mesh.material = entry.clone
+        for (const entry of shaftEntries) entry.mesh.material = entry.clone
+        sourceShaftMaterials.current = { entries: shaftEntries, unique: shaftUnique }
         surroundingMaterials.current = { entries, unique }
+        sourceRingMaterials.current = { entries: ringEntries, unique: ringUnique }
         owned.defer(() => {
           if (surroundingMaterials.current?.unique === unique) surroundingMaterials.current = null
-          for (const entry of entries) entry.mesh.material = entry.source
+          if (sourceRingMaterials.current?.unique === ringUnique) sourceRingMaterials.current = null
+          for (const entry of entries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
+          for (const entry of ringEntries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
+          for (const entry of shaftEntries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
+          if (sourceShaftMaterials.current?.unique === shaftUnique) sourceShaftMaterials.current = null
           for (const clone of unique.values()) clone.dispose()
+          for (const clone of ringUnique.values()) clone.dispose()
+          for (const clone of shaftUnique.values()) clone.dispose()
         })
       }
       const privateSurroundings = surroundingMaterials.current
@@ -390,7 +516,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.isolation.manual = manual
       probe.isolation.ringVisible = ringVisible
       probe.isolation.shaftVisible = studyVisible
-      if (!manual && progress >= 0.655 && !ring.current) {
+      if (!manual && progress >= RING_LOAD_AT && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
         const failures = createInspectionFailureCollector(reportFailure)
@@ -402,6 +528,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
           source, meshes: rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')),
           initialTime: 0, getEntryElapsed: () => 2, probe: ringProbe,
+          sampleFrame: samplePrivateRing,
           onCleanupError: report => failures.cleanup(report),
         }) } catch (error) { failures.reject(error); throw error }
         owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed() } })
@@ -414,6 +541,10 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         }
         union.getCenter(ringLocalCenter)
         captureCanonicalRingAnchor(rig, ringLocalCenter, channels, ringAnchor)
+        if (group.current) {
+          group.current.updateWorldMatrix(true, false)
+          ringAnchorLocal.copy(group.current.matrixWorld).invert().multiply(ringAnchor)
+        } else ringAnchorLocal.copy(ringAnchor)
         const spin = runtime.root.getObjectByName('inspection-P003068-spin')
         if (!spin) throw new Error('Private ring material host unavailable')
         const knurl: PrivateRingKnurlMaterial[] = []
@@ -424,6 +555,12 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             const clone = source.clone()
             clone.onBeforeCompile = source.onBeforeCompile
             clone.customProgramCacheKey = source.customProgramCacheKey.bind(source)
+            clone.polygonOffset = true
+            clone.polygonOffsetFactor = -1
+            clone.polygonOffsetUnits = -1
+            const order = object.renderOrder
+            object.renderOrder = 3
+            owned.defer(() => { object.renderOrder = order })
             knurl.push({ mesh: object, source, clone })
           })
         } catch (error) {
@@ -441,7 +578,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         ring.current = runtime
         scene.add(runtime.root)
         runtime.ready.then(() => {
-          if (owned.current()) probe.ring.ready = true
+          if (owned.current()) { probe.ring.ready = true; ringReady.current = ring.current === runtime }
           failures.resolve()
         }, error => {
           if (owned.current()) failures.reject(error)
@@ -453,6 +590,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         const ringTime = ringTimeAt(progress)
         runtime.sample(ringTime)
         runtime.apply(); runtime.root.visible = ringVisible
+        // Re-derive the world anchor from the group's CURRENT transform every frame.
+        if (group.current) {
+          group.current.updateWorldMatrix(true, false)
+          ringAnchor.multiplyMatrices(group.current.matrixWorld, ringAnchorLocal)
+        }
         runtime.root.matrixAutoUpdate = false
         runtime.root.matrix.copy(ringAnchor)
         runtime.root.matrixWorldNeedsUpdate = true
@@ -485,18 +627,15 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           probe.ring.effectiveNormalStrength = effectiveNormalStrength
         }
         probe.ring.time = ringTime
-        probe.ring.cameraTime = ringTime
-        if (ringVisible) {
-          camera.position.copy(runtime.camera.position); target.copy(runtime.camera.target)
-          camera.up.copy(runtime.camera.up); camera.fov = runtime.camera.fov
-        }
+        probe.ring.cameraTime = Math.max(0, progress - RING_WINDOW_START) * 1000
       }
-      if ((studyVisible || (!manual && progress >= 0.72)) && !shaft.current) {
+      if ((manual || journey.preload) && !shaft.current) {
         const failures = createInspectionFailureCollector(reportFailure)
         const session = createStorySession('shaft', { id: 1, current: owned.current, fail: failures.primary })
         owned.defer(() => session.cancel())
         let runtime: StoryRuntime
         try { runtime = createShaftRuntime(session, { gl, scene, hero: model, rig, tier: store.getState().tier === 'lite' ? 'lite' : 'full', aspect }, {
+          presentation,
           onCleanupFailure: reports => {
             failures.cleanupMany(reports.map(failure => ({ phase: failures.phase(), ...failure })))
           },
@@ -510,6 +649,13 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           if (owned.current()) probe.inspection.ready = true
         }, error => { if (owned.current()) failures.reject(error); else failures.disposed() })
       }
+      const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
+      if (sourceShaft?.parent && shaftRestInverse.current) {
+        measureShaftDisplacement(model, sourceShaft.parent, shaftRestInverse.current, displacement)
+        registerShaft(model.matrixWorld, displacement, registration)
+        // Camera I remains anchored to the assembled transfer pose while the source explodes.
+        registerShaft(model.matrixWorld, heldDisplacement, cameraRegistration)
+      }
       if (shaft.current) {
         const runtime = shaft.current
         samplePrivateInspection(studyProgress, aspect, inspection)
@@ -519,7 +665,13 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         shaftMetrePoint(runtime.camera.target, c.tx, c.ty, c.tz)
         shaftMetrePoint(runtime.camera.up, c.ux, c.uy, c.uz).normalize()
         runtime.camera.fov = c.fov
+        presentation.contextOpacity = manual ? 1 : journey.contextOpacity
+        presentation.phaseCorrection = manual ? 0 : journey.phaseCorrection
+        planes.restore()
         runtime.apply()
+        planes.transform(runtime.root, registration)
+        runtime.root.matrixAutoUpdate = false
+        runtime.root.matrix.copy(registration); runtime.root.matrixWorldNeedsUpdate = true
         runtime.root.visible = studyVisible
         probe.inspection.subjectTime = inspection.subjectTime
         probe.inspection.cameraTime = inspection.cameraTime
@@ -529,25 +681,44 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         probe.inspection.hobSwingWeight = inspection.hobSwingWeight
         probe.inspection.surroundingsOpacity = inspection.surroundingsOpacity
         if (runtime.root.visible) {
-          camera.position.copy(runtime.camera.position)
-          target.copy(runtime.camera.target)
-          camera.up.copy(runtime.camera.up)
+          camera.position.copy(runtime.camera.position).applyMatrix4(registration)
+          target.copy(runtime.camera.target).applyMatrix4(registration)
+          camera.up.copy(runtime.camera.up).transformDirection(registration)
           camera.fov = runtime.camera.fov
         }
       }
       // The replacement ring shares the actual part's world pose. Hand it off
-      // at full opacity; only neighbouring components follow the isolation fade.
-      for (const mesh of rig.meshes) {
-        if (rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')) {
-          mesh.visible = !ringVisible
-        }
+      // with an opaque source under the dissolving clone. Two transparent coincident
+      // shells would lose coverage at mid-fade. Non-ring parts keep their own fade.
+      const returnBlend = ring.current?.frame.returnBlend ?? 0
+      const sourceShaftFade = manual ? 0 : journey.sourceShaftOpacity
+      for (const { mesh, source, clone } of sourceShaftMaterials.current?.entries ?? []) {
+        const sources = Array.isArray(source) ? source : [source], clones = Array.isArray(clone) ? clone : [clone]
+        for (let i=0;i<sources.length;i++) { copyMaterialFade(sources[i],clones[i],sourceShaftFade); applyShaftLook(sources[i],clones[i],manual ? 0 : journey.sourceShaftLook) }
+        mesh.visible = sourceShaftFade > .001
       }
-      if (!studyVisible && !ringVisible) {
+      const sourceRingFade = manual ? 0 : ringVisible ? (returnBlend > 0 ? 1 : 0) : surroundingsOpacity
+      for (const { mesh, source, clone } of sourceRingMaterials.current?.entries ?? []) {
+        if (Array.isArray(source) && Array.isArray(clone)) {
+          for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], sourceRingFade)
+        } else if (!Array.isArray(source) && !Array.isArray(clone)) {
+          copyMaterialFade(source, clone, sourceRingFade)
+        }
+        mesh.visible = sourceRingFade > 0.001
+      }
+      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001
+      probe.ring.returnBlend = returnBlend
+      probe.ring.sourceOpacity = sourceRingFade
+      probe.ring.sourceVisible = sourceRingFade > 0.001
+      probe.ring.cloneOpacity = ringVisible ? 1 - returnBlend : 0
+      if (!studyVisible) {
         if (progress < 0.46 && layout.current) {
           sampleOpeningCamera(layout.current, aspect, progress, pose)
           camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
-        } else if (progress < .69) {
-          sampleLegacyMechanismCamera(progress, aspect, channels.explode, pose)
+        } else if (progress < .56) {
+          // The mechanism is translated by +W: the unchanged legacy camera is sampled at p - W
+          // (clamped to its own [.46,.675] domain, so the ring window holds its start pose).
+          sampleLegacyMechanismCamera(progress - MECHANISM_TRANSLATION, aspect, channels.explode, pose)
           camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov
         } else {
           // Provisional mechanical overview; final opening/inspection handoffs remain gates.
@@ -562,23 +733,23 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       // previous-frame pose. The next subject may load early but keeps its
       // original visibility/mechanical window. Quintic weights stop at seams.
       let handoffStart = 0, handoffEnd = 0
-      if (!manual && progress >= 0.675 && progress < 0.69 && ring.current) {
-        handoffStart = 0.675; handoffEnd = 0.69
-        handoffTo.position.copy(ring.current.camera.position)
-        handoffTo.target.copy(ring.current.camera.target)
-        handoffTo.up.copy(ring.current.camera.up); handoffTo.fov = ring.current.camera.fov
-      } else if (!manual && progress >= 0.72 && progress < 0.735) {
-        handoffStart = 0.72; handoffEnd = 0.735
-        const entry = samplePrivateInspection(0.735, aspect, shaftEntry).camera
-        shaftMetrePoint(handoffTo.position, entry.px, entry.py, entry.pz)
-        shaftMetrePoint(handoffTo.target, entry.tx, entry.ty, entry.tz)
-        shaftMetrePoint(handoffTo.up, entry.ux, entry.uy, entry.uz).normalize()
-        handoffTo.fov = entry.fov
-      } else if (!manual && progress >= 0.925 && progress < 0.94) {
-        handoffStart = 0.925; handoffEnd = 0.94
-        handoffTo.position.set(0.32, 0.16, 0.74)
-        handoffTo.target.set(0, 0, -0.15); handoffTo.up.set(0, 1, 0)
-        handoffTo.fov = aspect < 0.8 ? 58 : 42
+      const ringCam = ringCameraWindow && !studyVisible && ring.current ? ring.current.camera : null
+      if (ringCam && progress < RING_CAMERA_ENTRY_END) {
+        // Entry: blend the (unchanged) overview camera into the ring camera.
+        handoffStart = RING_WINDOW_START; handoffEnd = RING_CAMERA_ENTRY_END
+        handoffTo.position.copy(ringCam.position)
+        handoffTo.target.copy(ringCam.target)
+        handoffTo.up.copy(ringCam.up); handoffTo.fov = ringCam.fov
+      } else if (ringCam && progress >= RING_CAMERA_EXIT_START) {
+        // Exit: blend the ring camera back to the mechanism overview start pose (still in `pose`).
+        camera.position.copy(ringCam.position); target.copy(ringCam.target)
+        camera.up.copy(ringCam.up); camera.fov = ringCam.fov
+        handoffStart = RING_CAMERA_EXIT_START; handoffEnd = RING_WINDOW_END
+        handoffTo.position.copy(pose.position); handoffTo.target.copy(pose.target)
+        handoffTo.up.copy(pose.up); handoffTo.fov = pose.fov
+      } else if (ringCam) {
+        camera.position.copy(ringCam.position); target.copy(ringCam.target)
+        camera.up.copy(ringCam.up); camera.fov = ringCam.fov
       }
       if (handoffEnd > handoffStart) {
         handoffFrom.position.copy(camera.position); handoffFrom.target.copy(target)
@@ -587,6 +758,33 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
         camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
+      if (!manual && progress >= .56 && progress <= .94) {
+        journeyCamera(progress, aspect, cameraRegistration, journeyPose)
+        camera.position.copy(journeyPose.position);target.copy(journeyPose.target);camera.up.copy(journeyPose.up);camera.fov=journeyPose.fov
+      }
+      const sourceOpacities = rig.meshes.map(mesh => ({ part: mesh.userData.partNumber ?? mesh.name, opacity: effectiveMeshOpacity(mesh) }))
+      let studyGearboxOpacity = 0, studyShaftOpacity = 0
+      const studyContexts: Array<{name:string;opacity:number}> = []
+      shaft.current?.root.traverse(object => {
+        if (!(object instanceof Mesh)) return
+        const opacity=effectiveMeshOpacity(object)
+        let ancestor: Object3D | null=object, isShaft=false, isContext=false
+        while(ancestor && ancestor!==shaft.current?.root) {
+          if (/study-(legacyshaft|approvedshaft)/.test(ancestor.name)) isShaft=true
+          if (/study-(housing|legacyhousing|.*bearing|.*ring)|shaft-finale|shaft-rigid-support-pair|study-narrative-rest-registration/.test(ancestor.name)) isContext=true
+          ancestor=ancestor.parent
+        }
+        if(isShaft) studyShaftOpacity=Math.max(studyShaftOpacity,opacity)
+        if(isContext && !isShaft) { studyGearboxOpacity=Math.max(studyGearboxOpacity,opacity);studyContexts.push({name:object.name,opacity}) }
+      })
+      const sourceGearboxVisible=rig.meshes.some(mesh=>mesh.userData.partNumber!=='P001835'&&effectiveMeshOpacity(mesh)>.001)
+      const studyGearboxVisible=studyGearboxOpacity>.001
+      probe.journey={...journey, oldInspectionProgress:studyProgress,oldMechanismProgress:journey.mechanismProgress,
+        sourceGearboxVisible,studyGearboxVisible,visibleGearboxCount:Number(sourceGearboxVisible)+Number(studyGearboxVisible),
+        sourceShaftVisible:!!sourceShaft && effectiveMeshOpacity(sourceShaft)>.001,studyShaftVisible:studyShaftOpacity>.001,
+        sourceOpacities,studyContexts,sourceShaftOpacity:sourceShaft?effectiveMeshOpacity(sourceShaft):0,studyShaftOpacity,
+        sourceShaftMaterial:sourceShaft?(m=>({color:m.color.getHexString(),metalness:m.metalness,roughness:m.roughness,envMapIntensity:m.envMapIntensity}))(sourceShaft.material as unknown as {color:{getHexString():string};metalness:number;roughness:number;envMapIntensity:number}):null,
+        cameraRegistrationMatrix:cameraRegistration.toArray(),registrationMatrix:registration.toArray(),registrationScale:registrationScale(registration),displacement:displacement.toArray()}
       if (manualCamera.transitioning) {
         manualCamera.elapsed = Math.min(1, manualCamera.elapsed + Math.min(delta, .1))
         handoffTo.position.copy(camera.position); handoffTo.target.copy(target)
@@ -603,6 +801,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.progress = progress; probe.frames++
       camera.position.toArray(probe.camera.position)
       target.toArray(probe.camera.target)
+      camera.up.toArray(probe.camera.up)
       camera.quaternion.toArray(probe.camera.quaternion)
       probe.camera.fov = camera.fov
       probe.renderer.calls = gl.info.render.calls; probe.renderer.triangles = gl.info.render.triangles
