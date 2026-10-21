@@ -26,6 +26,8 @@ project/work/evidence/b1-b2-rebuild/**/*.png
 # large, static and reproducible from the scripts that captured them.
 project/work/evidence/**/*.png
 project/work/evidence/**/input-response-*.json
+project/work/evidence/**/*-frames.json
+project/work/evidence/**/update-stress-*.json
 docs/webgl-r1-r5-2026-10-16/**/*.png
 docs/webgl-review-2026-10-16/evidence/**/*.png
 
