@@ -3,7 +3,7 @@
 
 .torque-page {
   /* Reserve the paced tail before lazy CAD/scene loading and native restoration. */
-  --torque-pacing-extra: 5174.0766vh;
+  --torque-pacing-extra: 3688.2153vh;
   min-height: 100vh;
   background: #05070a;
   color: #e8ecf1;
@@ -284,6 +284,40 @@
   color: #5c6c7a;
   font-size: 0.8rem;
   line-height: 1.6;
+}
+
+.torque-freelook-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 12;
+  padding: 0.55rem 0.95rem;
+  background: rgba(10, 15, 20, 0.88);
+  color: #e8ecf1;
+  border: 1px solid #2e4356;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+}
+
+.torque-freelook-toggle:hover,
+.torque-freelook-toggle[aria-pressed='true'] {
+  border-color: #38e8ff;
+  color: #38e8ff;
+  box-shadow: 0 0 18px rgba(56, 232, 255, 0.28);
+}
+
+.torque-page[data-torque-freelook='true'] {
+  cursor: grab;
+  user-select: none;
+}
+
+.torque-page[data-torque-freelook-dragging='true'] {
+  cursor: grabbing;
 }
 
 @media (prefers-reduced-motion: reduce) {

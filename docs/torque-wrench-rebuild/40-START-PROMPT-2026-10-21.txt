@@ -1,0 +1,25 @@
+Resume the JGUN private torque-wrench rebuild in C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench on branch torque-wrench/rebuild.
+
+1. Read the canonical specification and handoff documents first:
+   - docs/torque-wrench-rebuild/39-OWNER-CAMERA-PATH-AND-HUD-SPEC-2026-10-21.md
+   - docs/torque-wrench-rebuild/40-HANDOFF-camera-paths-bullet-time-and-hud-2026-10-21.md
+   - Also read the camera-rig and spatial-hotspot skills in C:\Projects\skills-master:
+     * C:\Projects\skills-master\local\build-threejs-scroll-worlds\SKILL.md
+     * C:\Projects\skills-master\local\build-threejs-scroll-worlds\references\realtime-architecture.md
+     * C:\Projects\skills-master\local\spatial-hotspot-a11y\SKILL.md
+
+2. Execute Priority 1 (Fast Surgical Fixes):
+   a. Fix Item 9 (Ring Switch P003068 internal bore knurl bug): preserve `onBeforeCompile` / `customProgramCacheKey` in `RuntimeWorld.tsx` `cloneMaterialShape` and update `applyRingSwitchOdKnurlMask` in `src/scene/rig/materials.ts` so only the outer diameter (OD) is knurled and the internal bore (ID) and end faces stay smooth.
+   b. Fix Item 10 (Missing Input Shaft FEA HUD): mount `src/components/ShaftStoryLayer.tsx` in the live `/torque-wrench/` scene when the input shaft study is visible (`p in [0.62, 0.845]` or manual playback), driven by `inspection.subjectTime`.
+   c. Fix Item 7 (10% Bullet-Time Slowdown Law): update the bullet-time subject clocks in `OpeningDirector.ts`, `RingInspection.ts`, and `InspectionDirector.ts` so bullet-time windows advance at 10% of normal speed (`0.10x`) instead of freezing.
+
+3. Execute Priority 2 (Camera Path & Fade Choreography Overhaul, Items 1–6 in doc39):
+   - Move cameras smoothly during gearbox fade-outs and fade-ins.
+   - Fix Ring Switch entry framing (`0.460–0.4725`, full ring + OSHA Blue stripe, no handle/trigger crowd), clamp knurling camera swing (`ringSwitch-knurlView-camAngleLimit.png`), eliminate the overview pullback between knurling and `mechanism-switch`, hold `shift = 0` until settled on OSHA Blue, and swing slightly toward the handle during `shift: 0 -> 1` so the OSHA Red groove is unobstructed.
+   - Change `isolationCamera` (`JourneyCamera.ts`) to a profile / side-three-quarter view with a 25–30% ghost opacity plateau on mating gearbox parts (`JourneyDirector.ts`) before fading to 0% at `p = 0.600`.
+   - Add the Matrix-style low-elevation azimuth orbit during the drawing shatter (`sheetCamera.ts` / `OpeningCamera.ts`).
+
+4. Execute Priority 3 (Item 8: Clickable GD&T Callouts with Leaders & Viewer-Facing Design Copy):
+   - Integrate clickable GD&T callouts with 3D leaders for Clutch Housing (`P000420`), Ring Switch (`P003068`), LCD Manometer, and Stage-2 Planet (`P000247` in cage `A000592`), removing Air Motor, and replace meta build notes in `Story.tsx` with viewer-facing design narrative.
+
+5. Rebuild (`npm run build`), verify on `http://localhost:5341/torque-wrench/` with runtime telemetry and unit tests (`npm test`, `npm run typecheck`), and present before/after captures for owner visual review.

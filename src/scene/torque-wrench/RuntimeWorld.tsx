@@ -45,6 +45,7 @@ import { createJourneyCameraSampler, createJourneyPose } from './JourneyCamera'
 import { createJourneyPlanes, effectiveMeshOpacity, measureShaftLandmarks, measureShaftDisplacement, registerShaft, registrationScale } from './shaftJourneyRegistration'
 import { applyShaftLook } from './shaftJourneyLook'
 import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
+import { createStopAndAppreciateController, type StopAndAppreciateTelemetry } from './stopAndAppreciate'
 
 const MODEL_URL = '/models/Default.glb'
 
@@ -131,6 +132,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const openingFinalInkT = useRef(DEFAULT_FINAL_INK_T)
   const manualCamera = useMemo(() => ({ open: false, transitioning: false, elapsed: 0,
     from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 } }), [])
+  const stopAndAppreciate = useMemo(createStopAndAppreciateController, [])
+  const appreciatePose = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 }), [])
   const drawing = useRef<ReturnType<typeof snapshotDrawing> | null>(null)
   const layout = useRef<ReturnType<typeof makeDrawingLayout> | null>(null)
   const [sheetBake, setSheetBake] = useState<SheetBakeResult | null>(null)
@@ -186,6 +189,10 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     sheet: { baked: false, tier: '', precomputed: -1, stats: {} as Record<string, number>,
       registration: null as unknown },
     journey: {} as Record<string, unknown>,
+    stopAndAppreciate: {
+      mode: 'idle', freeLookActive: false, whipBackActive: false, whipBackProgress: 1,
+      passiveWeight: 0, yawDeg: 0, pitchDeg: 0, frozenProgress: null, wheelAccumPx: 0,
+    } as StopAndAppreciateTelemetry,
     stage: 'stage3-model-host',
   }), [])
 
@@ -322,9 +329,91 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         if (!shaft.current || !(camera instanceof PerspectiveCamera)) throw new Error('Installed study unavailable')
         return captureInstalledCutter(shaft.current, gl, scene, camera)
       },
+      toggleFreeLook: (force?: boolean) => stopAndAppreciate.toggleFreeLook(force, store.getProgress()),
+      stopAndAppreciate: () => stopAndAppreciate.snapshot(),
     }
     globals.__torqueWorld = port
     owned.defer(() => { if (globals.__torqueWorld === port) delete globals.__torqueWorld })
+    const hudHost = gl.domElement.parentElement
+    const pageRoot = document.querySelector<HTMLElement>('.torque-page')
+    const freeLookBtn = document.createElement('button')
+    freeLookBtn.type = 'button'
+    freeLookBtn.className = 'torque-freelook-toggle'
+    freeLookBtn.dataset.torqueFreelookToggle = 'true'
+    const syncFreeLookButton = (active: boolean) => {
+      freeLookBtn.setAttribute('aria-pressed', String(active))
+      freeLookBtn.textContent = active
+        ? 'Exit Free Look (F) · Drag / Move to Orbit · Scroll to Resume'
+        : 'Free Look / Inspect (F)'
+      if (pageRoot) {
+        if (active) pageRoot.setAttribute('data-torque-freelook', 'true')
+        else {
+          pageRoot.removeAttribute('data-torque-freelook')
+          pageRoot.removeAttribute('data-torque-freelook-dragging')
+        }
+      }
+    }
+    syncFreeLookButton(false)
+    const onFreeLookClick = () => {
+      const next = stopAndAppreciate.toggleFreeLook(undefined, store.getProgress())
+      syncFreeLookButton(next)
+    }
+    freeLookBtn.addEventListener('click', onFreeLookClick)
+    hudHost?.appendChild(freeLookBtn)
+    owned.defer(() => {
+      freeLookBtn.removeEventListener('click', onFreeLookClick)
+      freeLookBtn.remove()
+      pageRoot?.removeAttribute('data-torque-freelook')
+      pageRoot?.removeAttribute('data-torque-freelook-dragging')
+    })
+    const onPointerMove = (event: PointerEvent) => {
+      const w = Math.max(1, window.innerWidth), h = Math.max(1, window.innerHeight)
+      stopAndAppreciate.setPointerNormalized((event.clientX / w) * 2 - 1, (event.clientY / h) * 2 - 1)
+      stopAndAppreciate.movePointerDrag(event.clientX, event.clientY, w, h)
+    }
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target === freeLookBtn) return
+      if (stopAndAppreciate.snapshot().freeLookActive) {
+        pageRoot?.setAttribute('data-torque-freelook-dragging', 'true')
+      }
+      stopAndAppreciate.beginPointerDrag(event.clientX, event.clientY)
+    }
+    const onPointerUp = () => {
+      pageRoot?.removeAttribute('data-torque-freelook-dragging')
+      stopAndAppreciate.endPointerDrag()
+    }
+    const onWheel = (event: WheelEvent) => {
+      if (stopAndAppreciate.onWheelDelta(event.deltaY)) syncFreeLookButton(false)
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      const tag = (event.target as HTMLElement | null)?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+      if (event.key === 'f' || event.key === 'F') {
+        const next = stopAndAppreciate.toggleFreeLook(undefined, store.getProgress())
+        syncFreeLookButton(next)
+      } else if (event.key === 'Escape' && stopAndAppreciate.snapshot().freeLookActive) {
+        stopAndAppreciate.toggleFreeLook(false, store.getProgress())
+        syncFreeLookButton(false)
+      } else if (stopAndAppreciate.snapshot().freeLookActive) {
+        const step = 0.12
+        if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(step, 0) }
+        else if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(-step, 0) }
+        else if (event.key === 'ArrowUp' || event.key === 'w' || event.key === 'W') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(0, -step) }
+        else if (event.key === 'ArrowDown' || event.key === 's' || event.key === 'S') { event.preventDefault(); stopAndAppreciate.nudgeOrbit(0, step) }
+      }
+    }
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    window.addEventListener('pointerdown', onPointerDown, { passive: true })
+    window.addEventListener('pointerup', onPointerUp, { passive: true })
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('keydown', onKeyDown)
+    owned.defer(() => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('keydown', onKeyDown)
+    })
     const contextLost = (event: Event) => { event.preventDefault(); fail(new Error('Private WebGL context lost')) }
     gl.domElement.addEventListener('webglcontextlost', contextLost)
     owned.defer(() => gl.domElement.removeEventListener('webglcontextlost', contextLost))
@@ -416,7 +505,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     if (terminal.current || !owned?.current() || !probe.ready || !(camera instanceof PerspectiveCamera)) return
     if (document.hidden) { probe.hiddenFrames++; return }
     try {
-      const requestedProgress = store.getProgress()
+      const requestedProgress = stopAndAppreciate.resolveProgress(store.getProgress())
       sampleJourney(requestedProgress, probe.inspection.ready, journey)
       const progress = journey.effectiveProgress
       const crossing = sheetBake?.extraction.crossing ?? 0.9
@@ -795,6 +884,17 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         if (manualCamera.elapsed === 1) manualCamera.transitioning = false
       }
       probe.isolation.manualTransition = manualCamera.transitioning ? (manual ? 'entering' : 'exiting') : 'settled'
+      if (!manual && !manualCamera.transitioning) {
+        appreciatePose.position.copy(camera.position)
+        appreciatePose.target.copy(target)
+        appreciatePose.up.copy(camera.up)
+        appreciatePose.fov = camera.fov
+        stopAndAppreciate.applyCamera(delta, progress, appreciatePose, probe.stopAndAppreciate)
+        camera.position.copy(appreciatePose.position)
+        target.copy(appreciatePose.target)
+        camera.up.copy(appreciatePose.up)
+        camera.fov = appreciatePose.fov
+      }
       camera.lookAt(target); camera.updateProjectionMatrix()
       sheetFrame.cameraLookTargetWorld = target
       sheetFrame.cameraSheetDistance = camera.position.distanceTo(target)

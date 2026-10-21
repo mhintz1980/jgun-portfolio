@@ -1,13 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { torqueScrollFraction as physical, torqueNarrativeProgress as narrative,
-  TORQUE_PACING_SCALE, TORQUE_PACING_SPANS } from './scrollPacing'
+  TORQUE_PACING_RAMP, TORQUE_PACING_SCALE, TORQUE_PACING_SPANS, torquePacingKernel } from './scrollPacing'
 import { readFileSync } from 'node:fs'
 import { TORQUE_SCROLL_VIEWPORTS } from './beats'
 import { createPrivateInspectionSample, ringTimeAt, samplePrivateInspection } from './InspectionDirector'
 import { hobPhiAt } from '../inspection/shaft/kinematics'
 
 /** Independent restatement of the span integral: distance(p) = p + sum (b-a)(m-1) g((p-a)/(b-a)). */
-const g = (u: number) => { const c = Math.max(0, Math.min(1, u)); return c - Math.sin(2 * Math.PI * c) / (2 * Math.PI) }
+const g = (u: number, r = TORQUE_PACING_RAMP) => {
+  const c = Math.max(0, Math.min(1, u))
+  if (c <= 0 || c >= 1) return c <= 0 ? 0 : 1
+  const h = 1 / (1 - r)
+  if (c < r) return h * (c * c) / (2 * r)
+  if (c <= 1 - r) return h * (c - r / 2)
+  const w = 1 - c
+  return 1 - h * (w * w) / (2 * r)
+}
 const distance = (p: number, spans: readonly { start: number, end: number, multiplier: number }[]) =>
   p + spans.reduce((sum, s) => sum + (s.end - s.start) * (s.multiplier - 1) * g((p - s.start) / (s.end - s.start)), 0)
 
@@ -20,6 +28,9 @@ it('lengthens selected physical spans by their authored factors, preserving the 
   const ring = TORQUE_PACING_SPANS.find(span => span.id === 'ring')!
   expect((physical(ring.end) - physical(ring.start)) * TORQUE_PACING_SCALE)
     .toBeCloseTo(ring.multiplier * (ring.end - ring.start), 12)
+  const explodedHold = TORQUE_PACING_SPANS.find(span => span.id === 'explodedHold')!
+  expect((physical(explodedHold.end) - physical(explodedHold.start)) * TORQUE_PACING_SCALE)
+    .toBeCloseTo(explodedHold.multiplier * (explodedHold.end - explodedHold.start), 12)
   expect((physical(1) - physical(.94)) * TORQUE_PACING_SCALE).toBeCloseTo(.06, 12)
 })
 it('keeps every pre-shatter scroll pixel fixed and reserves the paced tail in the stylesheet', () => {
@@ -34,14 +45,24 @@ it('keeps every pre-shatter scroll pixel fixed and reserves the paced tail in th
   expect(reserved).not.toBeNull()
   expect(Number(reserved![1])).toBeCloseTo(TORQUE_SCROLL_VIEWPORTS * 100 * (TORQUE_PACING_SCALE - 1), 2)
 })
-it('inverts monotone seeks in both directions with continuous boundary speed', () => {
-  expect(TORQUE_PACING_SPANS.find(span => span.id === 'shatter')).toMatchObject({ start: .42, end: .46, multiplier: 3 })
+it('maintains a flat-top trapezoidal plateau and inverts monotone seeks with strictly positive derivative', () => {
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'drafting')).toMatchObject({ start: .265, end: .395, multiplier: .45 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'shatter')).toMatchObject({ start: .42, end: .46, multiplier: 3.5 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'ring')).toMatchObject({ start: .46, end: .505, multiplier: 4.5 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'switch')).toMatchObject({ start: .505, end: .56, multiplier: 2.1 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'isolation')).toMatchObject({ start: .56, end: .62, multiplier: 2.1 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'extraction')).toMatchObject({ start: .855, end: .93, multiplier: 2 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'explodedHold')).toMatchObject({ start: .93, end: .94, multiplier: 8 })
   expect(TORQUE_PACING_SCALE).toBeCloseTo(1 + TORQUE_PACING_SPANS.reduce(
     (sum, span) => sum + (span.end - span.start) * (span.multiplier - 1), 0), 12)
-  // cracks .075*1 + shatter .04*2 + ring .045*17 + shaft .205*1 + hobSeat .0031*3.8 + hobSwing .0114*3.2
-  expect(TORQUE_PACING_SCALE).toBeCloseTo(2.125 + .0031 * 3.8 + .0114 * 3.2, 12)
-  expect(TORQUE_PACING_SCALE).toBeCloseTo(2.17326, 5)
-  expect(TORQUE_PACING_SPANS.find(span => span.id === 'ring')).toMatchObject({ start: .46, end: .505, multiplier: 18 })
+  expect(TORQUE_PACING_SCALE).toBeCloseTo(1.83633, 5)
+
+  // Verify flat-top kernel constant derivative across interior [ramp, 1 - ramp]:
+  const plateauSlope = 1 / (1 - TORQUE_PACING_RAMP)
+  for (const u of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+    const du = 1e-6
+    expect((torquePacingKernel(u + du) - torquePacingKernel(u - du)) / (2 * du)).toBeCloseTo(plateauSlope, 8)
+  }
 
   let prior = -1
   for (let i = 0; i <= 1000; i++) {
@@ -53,23 +74,30 @@ it('inverts monotone seeks in both directions with continuous boundary speed', (
   for (const span of TORQUE_PACING_SPANS) for (const p of [span.start, span.end]) {
     // One-sided differences differ by h * f'' (spans now overlap), so shrink h; a true speed jump is O(1).
     const h = 1e-7
-    expect((physical(p) - physical(p - h)) / h)
-      .toBeCloseTo((physical(p + h) - physical(p)) / h, 3)
+    const left = (physical(p) - physical(p - h)) / h
+    const right = (physical(p + h) - physical(p)) / h
+    expect(left).toBeGreaterThan(0)
+    expect(left).toBeCloseTo(right, 3)
   }
   expect(narrative(0)).toBe(0); expect(narrative(1)).toBe(1)
   expect(() => narrative(NaN)).toThrow()
 })
 
-it('gives the relocated ring study at least twice the native scroll of the old .69-.735 x8 span', () => {
-  // baseRange is the viewport-independent 44.1-viewport range measured at 1440x900 (actualRange = base * scale).
+it('rebalances the ring study to ~8.9 viewports while expanding collision beats and the exploded hold to ~3.5 viewports', () => {
   const BASE = 39442.74225
-  type Span = { start: number, end: number, multiplier: number }
-  const oldSpans: Span[] = TORQUE_PACING_SPANS.map(span => span.id === 'ring'
-    ? { start: .69, end: .735, multiplier: 8 } : ['shaft','hobSeat','hobSwing'].includes(span.id) ? { ...span, start: span.start+.115, end: span.end+.115 } : span)
-  const px = (a: number, b: number, spans: readonly Span[]) => BASE * (distance(b, spans) - distance(a, spans))
+  const vp = (a: number, b: number) => (BASE / 900) * (physical(b) - physical(a)) * TORQUE_PACING_SCALE
+  // Ring study [.46, .505] at 4.5x is ~8.9 viewports (down from 35.5 viewports at 18x)
+  expect(vp(0.46, 0.505)).toBeCloseTo(8.87, 1)
+  // Drafting dead zone [.265, .395] at 0.45x is compressed to ~2.56 viewports (down from 7.1+ viewports)
+  expect(vp(0.265, 0.395)).toBeCloseTo(2.56, 1)
+  // Rushed collision beats are expanded:
+  expect(vp(0.505, 0.56)).toBeCloseTo(5.06, 1) // mechanism-switch (~5.0 vp)
+  expect(vp(0.56, 0.62)).toBeCloseTo(5.52, 1)  // inspection-isolation (~5.5 vp)
+  expect(vp(0.855, 0.93)).toBeCloseTo(6.57, 1) // mechanism-extraction (~6.5 vp)
+  expect(vp(0.93, 0.94)).toBeCloseTo(3.51, 1)  // mechanism-exploded-hold (~3.5 vp)
+
   const at = (time: number) => {
     let lo = .46, hi = .505
-    // time 0 is the END of the held approach (operation starts when ringTime leaves 0): largest p with time <= 0.
     if (time <= 0) {
       for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; if (ringTimeAt(mid) <= 0) lo = mid; else hi = mid }
       return lo
@@ -77,15 +105,7 @@ it('gives the relocated ring study at least twice the native scroll of the old .
     for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2; if (ringTimeAt(mid) < time) lo = mid; else hi = mid }
     return (lo + hi) / 2
   }
-  // Baseline progress of the same display seconds, from the previous ring clock (.703/.7075/.709/.716/.7211/.735).
-  expect(px(.703, .735, oldSpans)).toBeCloseTo(12015.99, -1)
-  expect(px(.7075112385574371, .7211199525296335, oldSpans)).toBeCloseTo(7408.35, -1)
-  expect(px(.709, .716, oldSpans)).toBeCloseTo(4065.46, -1)
-  const next = TORQUE_PACING_SPANS
-  const operation = px(at(0), at(28), next) // t=0 is the last held knot's end: [.4725,.4945]
-  expect(operation).toBeGreaterThanOrEqual(24032)
-  expect(px(at(6), at(22.975), next)).toBeGreaterThanOrEqual(14817)
-  expect(px(at(8), at(18), next)).toBeGreaterThanOrEqual(8131)
+  expect(vp(at(0), at(28))).toBeGreaterThan(4.5)
 })
 
 const NATIVE = [
@@ -101,11 +121,6 @@ it('adds exactly two hob spans inside [.884,.905], each <= x8, on top of the T5 
     expect(span.end).toBeLessThanOrEqual(.905-.115)
     expect(span.multiplier).toBeLessThanOrEqual(8)
   }
-  expect(TORQUE_PACING_SPANS.filter(span => span.id !== 'hobSeat' && span.id !== 'hobSwing'))
-    .toEqual([
-      { start: .36, end: .435, multiplier: 2, id: 'cracks' }, { start: .42, end: .46, multiplier: 3, id: 'shatter' },
-      { start: .46, end: .505, multiplier: 18, id: 'ring' }, { start: .62, end: .825, multiplier: 2, id: 'shaft' },
-    ])
 })
 
 describe.each(NATIVE)('T6-C3 composed hob pacing at $name', ({ base, height, aspect }) => {
@@ -160,13 +175,14 @@ describe.each(NATIVE)('T6-C3 composed hob pacing at $name', ({ base, height, asp
 
 
 it.each(NATIVE)('preserves every prefix pixel and every translated shaft distance at $name', ({base}) => {
-  const before = TORQUE_PACING_SPANS.map(s => ['shaft','hobSeat','hobSwing'].includes(s.id) ? {...s,start:s.start+.115,end:s.end+.115}:s)
+  const before = TORQUE_PACING_SPANS.filter(s => !['return','extraction','explodedHold'].includes(s.id)).map(s => ['shaft','materials','hobSeat','hobSwing'].includes(s.id) ? {...s,start:s.start+.115,end:s.end+.115}:s)
+  const after = TORQUE_PACING_SPANS.filter(s => !['return','extraction','explodedHold'].includes(s.id))
   for(let j=0;j<=2000;j++) {
     const p=.56*j/2000
-    expect(Math.abs((distance(p,before)-distance(p,TORQUE_PACING_SPANS))*base)).toBeLessThan(.000001)
+    expect(Math.abs((distance(p,before)-distance(p,after))*base)).toBeLessThan(.000001)
     const q=.735+.205*j/2000
     const old=distance(q,before)-distance(.735,before)
-    const next=distance(q-.115,TORQUE_PACING_SPANS)-distance(.62,TORQUE_PACING_SPANS)
+    const next=distance(q-.115,after)-distance(.62,after)
     expect(Math.abs((old-next)*base)).toBeLessThan(.000001)
   }
 })
