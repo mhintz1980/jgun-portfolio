@@ -22,6 +22,13 @@ output/
 critique-*.png
 project/work/evidence/b1-b2-rebuild/**/*.png
 
+# Evidence screenshots and bulk telemetry dumps stay local review material; they are
+# large, static and reproducible from the scripts that captured them.
+project/work/evidence/**/*.png
+project/work/evidence/**/input-response-*.json
+docs/webgl-r1-r5-2026-10-16/**/*.png
+docs/webgl-review-2026-10-16/evidence/**/*.png
+
 # Higgsfield API (local only)
 .env.local
 .env

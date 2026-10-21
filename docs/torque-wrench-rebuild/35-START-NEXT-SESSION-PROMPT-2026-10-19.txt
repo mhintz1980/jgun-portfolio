@@ -1,0 +1,29 @@
+Workspace: C:/Users/Markimus/.buzz/REPOS/jgun-torque-wrench
+Branch: torque-wrench/rebuild
+HEAD: 0f7e0f4d91894ce79f06a1d211d56f2678a37305
+
+Resume the owner-confirmed single-gearbox JG-038 sequence from a verified pause point. Read FIRST:
+1. output/playwright/jg038-single-gearbox-20261019/resume-brief.md - compact state, decisions and reading map.
+2. output/playwright/jg038-single-gearbox-20261019/parent-checkpoint.md - evidence and gotchas.
+3. docs/torque-wrench-rebuild/34-single-gearbox-owner-sequence-2026-10-19.md, sections Owner decisions and Boundaries.
+4. output/playwright/jg038-single-gearbox-20261019/opus-strategy.md, sections 1-6; this supersedes the worker plan where they differ.
+
+Do not reread the full T1/owner-history documents unless a specific ownership or intent question requires it. Skip worker-plan sections whose mapping is superseded by Opus. Read C:/Users/Markimus/.codex/skills/webgl-telemetry-verifier/SKILL.md before any runtime/visibility claim.
+
+No source writer is active. Preserve the entire dirty/untracked baseline; do not reset, broadly stage, or overwrite unrelated T1/T5/T6 work. Compare against output/playwright/jg038-single-gearbox-20261019/baseline/ and worker-stable-hashes.json. The worker ended exit 1 before writing worker-delivery.md; its last stable hashes are valid and zero-mismatch at pause.
+
+Current state:
+- Owner confirmed one gearbox throughout, ring fullAfter traverse before the shaft, complete 43s shaft episode before the explosion, shaft-only return to the identical isolation angle, restore the same source gearbox, then orbit/zoom/explode.
+- Source candidate implements JourneyDirector/JourneyCamera, registered shaft swap, P001835 selectable bucket with exact drawing parity, private finale retirement, source visibility restore and telemetry.
+- Parent tsc exit 0, build 6.78s PASS, frozen focused suite 60 files/450 tests PASS, worker final suite 63/464 PASS.
+- Initial served journey proof at 1440x900 and 390x844: 86 forward+reverse samples per case, zero errors, at most one visible gearbox and at most one visible shaft (with intentional ring-only and shaft-only gaps), exact forward/reverse camera/subject, no premature explosion. Requested .62 crossed only on desktop; requested .845 landed just below threshold on both aspects, so exact swap pixels remain open. Isolation/return camera residual 8e-8 desktop, 5.9e-9 narrow.
+
+Immediate next action:
+1. Recheck all source hashes in worker-stable-hashes.json.
+2. Independent GLM-5.3/High attack on source and evidence, then Opus-5.5/High arbitration. Use output/playwright/jg038-single-gearbox-20261019/glm-review-prompt.md and review-request.py. Maximum two rounds.
+3. On accepted source, rebuild/restart own 5321, capture identity-mask parity at .62/.845 swaps and isolation fades, and record final ring >=2x plus relocated T6-C native bounds at both aspects.
+4. Check manual play/close and direct seek/reverse. Then owner visual review at 5281.
+
+Important known gotchas are in parent-checkpoint.md: use journeyDrawingMeshes for drawingCache parity; H registration is applied exactly once; cameraRegistration is separate from the exploding source; clipping planes restore before transform; source/study shafts never coexist; Vite binds localhost; stop the node listener on 5321 after rebuild, not only its cmd wrapper; never touch 5281; the journey capture takes ~4 minutes and analyze-journey.py currently flags only the 8e-8 float pose residual.
+
+Use the remaining skills listed in the handoff: orchestration, parallel-workstreams, codex-tiers, webgl-telemetry-verifier, cad-scene-graph-rigging, r3f-scroll-performance-guard, gsap-scrolltrigger, playwright, and review-animations for final motion review. Do not infer owner visual acceptance from technical or reviewer PASS. No commit, push or deployment without explicit owner direction.

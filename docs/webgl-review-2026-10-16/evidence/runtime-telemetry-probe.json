@@ -1,0 +1,2099 @@
+{
+  "capturedAt": "2026-10-17T00:01:31.285Z",
+  "launchDescription": "installed Chrome, ANGLE/D3D11 (hardware)",
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "deviceScaleFactor": 2
+  },
+  "warmMs": 81834,
+  "baseline": {
+    "webgl": {
+      "vendor": "Google Inc. (AMD)",
+      "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "shadingLanguageVersion": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+      "contextAttributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": false,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": false,
+        "stencil": true,
+        "xrCompatible": false
+      },
+      "maxSamples": 8,
+      "defaultFbSamples": 4,
+      "defaultFbStencilBits": 8,
+      "rgba16fSamples": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "rgba8Samples": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "depth24Stencil8Samples": [
+        8,
+        4,
+        2,
+        1
+      ],
+      "hasDisjointTimerQuery": true,
+      "drawingBuffer": [
+        2160,
+        1350
+      ],
+      "pixelRatio": 1.5
+    },
+    "rendererState": {
+      "toneMapping": 0,
+      "toneMappingExposure": 1,
+      "outputColorSpace": "srgb",
+      "localClippingEnabled": true,
+      "infoMemory": {
+        "geometries": 411,
+        "textures": 53
+      },
+      "programsCount": 154
+    },
+    "sceneState": {
+      "backgroundHex": "#05070a",
+      "fog": {
+        "near": 25,
+        "far": 120,
+        "color": "#05070a"
+      },
+      "environmentIntensity": 0,
+      "hasEnvironment": true,
+      "environmentMapping": 306,
+      "environmentWidth": 768,
+      "environmentHeight": 1024,
+      "environmentType": 1016
+    },
+    "rigSummary": {
+      "meshCount": 59,
+      "ghostCount": 1,
+      "sweepMin": -0.2330312772581852,
+      "sweepMax": 0.05176519975066185,
+      "center": [
+        0.07751843654155932,
+        -1.457167719820518e-16,
+        -0.09063303875376168
+      ],
+      "totalVertices": 830908,
+      "totalTriangles": 841039,
+      "meshesWithUv": [
+        "MERGED Ring Switch (P003068)",
+        "P000420 Speed Indicator (Red)",
+        "P000420 Speed Indicator (Blue)",
+        "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+        "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+        "JG-025 Button Symbol Decal (up)",
+        "JG-025 Button Symbol Decal (enter)",
+        "JG-025 Button Symbol Decal (down)"
+      ],
+      "meshesWithTangent": [],
+      "meshes": [
+        {
+          "index": 0,
+          "name": "MERGED GB Fastener 1 (90910A815)",
+          "parentName": "MERGED GB Fastener 1 (90910A815)",
+          "vertices": 2251,
+          "triangles": 2312,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 1,
+          "name": "MERGED GB Fastener 2 (90910A815)",
+          "parentName": "MERGED GB Fastener 2 (90910A815)",
+          "vertices": 2251,
+          "triangles": 2312,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 2,
+          "name": "MERGED GB Fastener 3 (90910A815)",
+          "parentName": "MERGED GB Fastener 3 (90910A815)",
+          "vertices": 2251,
+          "triangles": 2312,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 3,
+          "name": "MERGED GB Fastener 4 (90910A815)",
+          "parentName": "MERGED GB Fastener 4 (90910A815)",
+          "vertices": 2251,
+          "triangles": 2312,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 4,
+          "name": "MERGED Output Spindle",
+          "parentName": "MERGED Output Spindle",
+          "vertices": 16884,
+          "triangles": 16898,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#4a4d50",
+          "roughness": 0.45,
+          "metalness": 0.95,
+          "envMapIntensity": 1.1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 5,
+          "name": "MERGED Housing (P000245)",
+          "parentName": "MERGED Housing (P000245)",
+          "vertices": 22277,
+          "triangles": 21700,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": true,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 6,
+          "name": "MERGED stage1 Carrier",
+          "parentName": "MERGED stage1 Carrier",
+          "vertices": 7466,
+          "triangles": 7574,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#6e7276",
+          "roughness": 0.32,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 7,
+          "name": "MERGED stage1 Planet 1",
+          "parentName": "MERGED stage1 Planet 1",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 8,
+          "name": "MERGED stage1 Planet 2",
+          "parentName": "MERGED stage1 Planet 2",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 9,
+          "name": "MERGED stage1 Planet 3",
+          "parentName": "MERGED stage1 Planet 3",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 10,
+          "name": "MERGED stage1 Planet 4",
+          "parentName": "MERGED stage1 Planet 4",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 11,
+          "name": "MERGED stage4 Planet 1",
+          "parentName": "MERGED stage4 Planet 1",
+          "vertices": 5156,
+          "triangles": 4024,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 12,
+          "name": "MERGED stage4 Planet 2",
+          "parentName": "MERGED stage4 Planet 2",
+          "vertices": 5156,
+          "triangles": 4024,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 13,
+          "name": "MERGED stage4 Carrier",
+          "parentName": "MERGED stage4 Carrier",
+          "vertices": 15291,
+          "triangles": 15202,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#6e7276",
+          "roughness": 0.32,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 14,
+          "name": "MERGED stage4 Planet 3",
+          "parentName": "MERGED stage4 Planet 3",
+          "vertices": 5156,
+          "triangles": 4024,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 15,
+          "name": "MERGED stage4 Planet 4",
+          "parentName": "MERGED stage4 Planet 4",
+          "vertices": 5156,
+          "triangles": 4024,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 16,
+          "name": "MERGED stage4 Planet 5",
+          "parentName": "MERGED stage4 Planet 5",
+          "vertices": 5156,
+          "triangles": 4024,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 17,
+          "name": "MERGED stage5 Planet 1",
+          "parentName": "MERGED stage5 Planet 1",
+          "vertices": 3444,
+          "triangles": 3372,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 18,
+          "name": "MERGED stage5 Planet 2",
+          "parentName": "MERGED stage5 Planet 2",
+          "vertices": 3444,
+          "triangles": 3372,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 19,
+          "name": "MERGED stage5 Carrier",
+          "parentName": "MERGED stage5 Carrier",
+          "vertices": 11495,
+          "triangles": 11486,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#6e7276",
+          "roughness": 0.32,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 20,
+          "name": "MERGED stage5 Planet 3",
+          "parentName": "MERGED stage5 Planet 3",
+          "vertices": 3444,
+          "triangles": 3372,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 21,
+          "name": "MERGED stage5 Planet 4",
+          "parentName": "MERGED stage5 Planet 4",
+          "vertices": 3444,
+          "triangles": 3372,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 22,
+          "name": "MERGED stage3 Planet 1",
+          "parentName": "MERGED stage3 Planet 1",
+          "vertices": 3100,
+          "triangles": 3036,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 23,
+          "name": "MERGED stage3 Planet 2",
+          "parentName": "MERGED stage3 Planet 2",
+          "vertices": 3100,
+          "triangles": 3036,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 24,
+          "name": "MERGED stage3 Carrier",
+          "parentName": "MERGED stage3 Carrier",
+          "vertices": 12999,
+          "triangles": 12070,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#6e7276",
+          "roughness": 0.32,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 25,
+          "name": "MERGED stage3 Planet 3",
+          "parentName": "MERGED stage3 Planet 3",
+          "vertices": 3100,
+          "triangles": 3036,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 26,
+          "name": "MERGED stage3 Planet 4",
+          "parentName": "MERGED stage3 Planet 4",
+          "vertices": 3100,
+          "triangles": 3036,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 27,
+          "name": "MERGED Clutch Static",
+          "parentName": "MERGED Clutch Static",
+          "vertices": 122684,
+          "triangles": 133449,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 28,
+          "name": "MERGED Ring Switch (P003068)",
+          "parentName": "MERGED Ring Switch (P003068)",
+          "vertices": 12810,
+          "triangles": 16188,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#63666a",
+          "roughness": 0.35,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 29,
+          "name": "MERGED Clutch Sliding",
+          "parentName": "MERGED Clutch Sliding",
+          "vertices": 17294,
+          "triangles": 16662,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#63666a",
+          "roughness": 0.35,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 30,
+          "name": "MERGED Ring Switch (P003068)",
+          "parentName": "MERGED Ring Switch (P003068)",
+          "vertices": 4292,
+          "triangles": 4216,
+          "attributes": [
+            "normal",
+            "position",
+            "uv"
+          ],
+          "materialType": "MeshPhysicalMaterial",
+          "color": "#040404",
+          "roughness": 0.26,
+          "metalness": 0.98,
+          "envMapIntensity": 1,
+          "clearcoat": 0,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": true
+        },
+        {
+          "index": 31,
+          "name": "MERGED stage2 Carrier",
+          "parentName": "MERGED stage2 Carrier",
+          "vertices": 7908,
+          "triangles": 8144,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#6e7276",
+          "roughness": 0.32,
+          "metalness": 0.9,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 32,
+          "name": "MERGED stage2 Planet 1",
+          "parentName": "MERGED stage2 Planet 1",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 33,
+          "name": "MERGED stage2 Planet 2",
+          "parentName": "MERGED stage2 Planet 2",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 34,
+          "name": "MERGED stage2 Planet 3",
+          "parentName": "MERGED stage2 Planet 3",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 35,
+          "name": "MERGED Bearing Ring (K000004)",
+          "parentName": "MERGED Bearing Ring (K000004)",
+          "vertices": 2120,
+          "triangles": 2080,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#3a3d40",
+          "roughness": 0.42,
+          "metalness": 0.9,
+          "envMapIntensity": 0.95,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 36,
+          "name": "MERGED stage2 Planet 4",
+          "parentName": "MERGED stage2 Planet 4",
+          "vertices": 3444,
+          "triangles": 3376,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#585c60",
+          "roughness": 0.38,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 37,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 197477,
+          "triangles": 203108,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#040404",
+          "roughness": 0.26,
+          "metalness": 0.98,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 38,
+          "name": "91251A148_NO_THREADS_Black-Oxide_Alloy_Steel_Socket_Head_Screw",
+          "parentName": "91251A148_NO_THREADS_Black-Oxide_Alloy_Steel_Socket_Head_Screw",
+          "vertices": 164368,
+          "triangles": 161300,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0d0d0d",
+          "roughness": 0.28,
+          "metalness": 0.96,
+          "envMapIntensity": 1.2,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 39,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 2927,
+          "triangles": 3044,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#c2c6cb",
+          "roughness": 0.28,
+          "metalness": 0.92,
+          "envMapIntensity": 1.25,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 40,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 30137,
+          "triangles": 33908,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#c9cdd2",
+          "roughness": 0.18,
+          "metalness": 0.9,
+          "envMapIntensity": 1.3,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 41,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 19060,
+          "triangles": 18858,
+          "attributes": [
+            "position",
+            "normal"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#3a3d40",
+          "roughness": 0.42,
+          "metalness": 0.9,
+          "envMapIntensity": 0.95,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 42,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 39353,
+          "triangles": 37890,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#10161a",
+          "roughness": 0.55,
+          "metalness": 0.15,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 43,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 1416,
+          "triangles": 1368,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#c9cbc6",
+          "roughness": 0.55,
+          "metalness": 0,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 44,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 3956,
+          "triangles": 3900,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#7a7e82",
+          "roughness": 0.3,
+          "metalness": 0.95,
+          "envMapIntensity": 1.05,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 45,
+          "name": "P002124-1",
+          "parentName": "P002124-1",
+          "vertices": 5099,
+          "triangles": 5292,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#2e0606",
+          "roughness": 0.38,
+          "metalness": 0.05,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 46,
+          "name": "P001924-1",
+          "parentName": "P001924-1",
+          "vertices": 9165,
+          "triangles": 8824,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#040404",
+          "roughness": 0.26,
+          "metalness": 0.98,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 47,
+          "name": "P002123-1",
+          "parentName": "P002123-1",
+          "vertices": 5078,
+          "triangles": 5284,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#2e0606",
+          "roughness": 0.38,
+          "metalness": 0.05,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 48,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 1651,
+          "triangles": 1958,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#1a2026",
+          "roughness": 0.6,
+          "metalness": 0.1,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 49,
+          "name": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "parentName": "HANDLE_ASSY,_D5AP-D1AP-rev1-1_<1>",
+          "vertices": 3206,
+          "triangles": 2496,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#05080b",
+          "roughness": 0.4,
+          "metalness": 0,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 50,
+          "name": "P002115-1",
+          "parentName": "P002115-1",
+          "vertices": 568,
+          "triangles": 524,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#0a0a08",
+          "roughness": 0.35,
+          "metalness": 0,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 51,
+          "name": "P002125-2",
+          "parentName": "P002125-2",
+          "vertices": 5083,
+          "triangles": 5288,
+          "attributes": [
+            "normal",
+            "position"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#2e0606",
+          "roughness": 0.38,
+          "metalness": 0.05,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 52,
+          "name": "P000420 Speed Indicator (Red)",
+          "parentName": "MERGED Clutch Static",
+          "vertices": 130,
+          "triangles": 128,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#c8102e",
+          "roughness": 0.45,
+          "metalness": 0.05,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 53,
+          "name": "P000420 Speed Indicator (Blue)",
+          "parentName": "MERGED Clutch Static",
+          "vertices": 130,
+          "triangles": 128,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshStandardMaterial",
+          "color": "#005daa",
+          "roughness": 0.45,
+          "metalness": 0.05,
+          "envMapIntensity": 1,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 54,
+          "name": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+          "parentName": "P002115-1",
+          "vertices": 56,
+          "triangles": 56,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshPhysicalMaterial",
+          "color": "#ad0707",
+          "roughness": 0.32,
+          "metalness": 0.05,
+          "envMapIntensity": 1.05,
+          "clearcoat": 0.8,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 55,
+          "name": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+          "parentName": "P002115-1",
+          "vertices": 4,
+          "triangles": 2,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshBasicMaterial",
+          "color": "#ffffff",
+          "roughness": null,
+          "metalness": null,
+          "envMapIntensity": null,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": false,
+          "depthWrite": true,
+          "hasNormalMap": false
+        },
+        {
+          "index": 56,
+          "name": "JG-025 Button Symbol Decal (up)",
+          "parentName": "P002123-1",
+          "vertices": 4,
+          "triangles": 2,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshBasicMaterial",
+          "color": "#ffffff",
+          "roughness": null,
+          "metalness": null,
+          "envMapIntensity": null,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": true,
+          "depthWrite": false,
+          "hasNormalMap": false
+        },
+        {
+          "index": 57,
+          "name": "JG-025 Button Symbol Decal (enter)",
+          "parentName": "P002124-1",
+          "vertices": 4,
+          "triangles": 2,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshBasicMaterial",
+          "color": "#ffffff",
+          "roughness": null,
+          "metalness": null,
+          "envMapIntensity": null,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": true,
+          "depthWrite": false,
+          "hasNormalMap": false
+        },
+        {
+          "index": 58,
+          "name": "JG-025 Button Symbol Decal (down)",
+          "parentName": "P002125-2",
+          "vertices": 4,
+          "triangles": 2,
+          "attributes": [
+            "position",
+            "normal",
+            "uv"
+          ],
+          "materialType": "MeshBasicMaterial",
+          "color": "#ffffff",
+          "roughness": null,
+          "metalness": null,
+          "envMapIntensity": null,
+          "clearcoat": null,
+          "dithering": false,
+          "transparent": true,
+          "depthWrite": false,
+          "hasNormalMap": false
+        }
+      ]
+    },
+    "stationCensus": {
+      "station-1-jgun": {
+        "meshes": 169,
+        "vertices": 3858765,
+        "triangles": 1935662,
+        "withUv": 10,
+        "withTangent": 0,
+        "clippedMeshes": 0,
+        "doubleSideMeshes": 107,
+        "matTypes": {
+          "ShaderMaterial": 108,
+          "MeshBasicMaterial": 6,
+          "MeshStandardMaterial": 53,
+          "MeshPhysicalMaterial": 2
+        }
+      },
+      "station-2-enclosure": {
+        "meshes": 749,
+        "vertices": 768042,
+        "triangles": 635414,
+        "withUv": 14,
+        "withTangent": 0,
+        "clippedMeshes": 407,
+        "doubleSideMeshes": 413,
+        "matTypes": {
+          "MeshStandardMaterial": 581,
+          "MeshBasicMaterial": 168
+        }
+      },
+      "station-3-m249": {
+        "meshes": 2,
+        "vertices": 37145,
+        "triangles": 50002,
+        "withUv": 2,
+        "withTangent": 1,
+        "clippedMeshes": 0,
+        "doubleSideMeshes": 1,
+        "matTypes": {
+          "MeshStandardMaterial": 1,
+          "MeshBasicMaterial": 1
+        }
+      }
+    },
+    "qualityEventsAtWarm": [
+      {
+        "t": 65385.69999998808,
+        "type": "warmstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 65505,
+        "type": "warmstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 65857.59999999404,
+        "type": "warmcancel",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 66000.40000000596,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 0
+      },
+      {
+        "t": 66060,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 0
+      },
+      {
+        "t": 69749.09999999404,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 1
+      },
+      {
+        "t": 74464.5,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 1
+      },
+      {
+        "t": 76761.90000000596,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 2
+      },
+      {
+        "t": 76815.69999998808,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 2
+      },
+      {
+        "t": 76921.69999998808,
+        "type": "ondecline",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "fps": 1,
+        "flipped": 1
+      },
+      {
+        "t": 76921.90000000596,
+        "type": "dprstep",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false
+      },
+      {
+        "t": 77892.59999999404,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 3
+      },
+      {
+        "t": 81274,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 3
+      },
+      {
+        "t": 81349,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 4
+      },
+      {
+        "t": 81808,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 4
+      },
+      {
+        "t": 81808.09999999404,
+        "type": "warmfinish",
+        "tier": "full",
+        "step": 1,
+        "warmReady": true
+      }
+    ]
+  },
+  "stops": [
+    {
+      "id": "01-intro-registered",
+      "p": 0.048,
+      "progress": 0.048,
+      "chapter": 0,
+      "chapterProgress": 0,
+      "camera": {
+        "position": [
+          0.042,
+          0.5999,
+          0.12
+        ],
+        "goalPosition": [
+          0.042,
+          0.5999,
+          0.12
+        ],
+        "goalTarget": [
+          0.042,
+          0,
+          0.12
+        ],
+        "fov": 30,
+        "distToTarget": 0.5999,
+        "sheetDistance": 0.5999,
+        "framingBias": 0
+      },
+      "scene": {
+        "environmentIntensity": 0,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 0
+      },
+      "stage": {
+        "active": 0,
+        "alpha": [
+          1,
+          0,
+          0
+        ],
+        "transitionIntensity": 0,
+        "backdropAlpha": 0.55
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 154
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\01-intro-registered.png"
+    },
+    {
+      "id": "02-intro-rupture",
+      "p": 0.103,
+      "progress": 0.103,
+      "chapter": 0,
+      "chapterProgress": 0,
+      "camera": {
+        "position": [
+          0.2899,
+          0.5463,
+          0.12
+        ],
+        "goalPosition": [
+          0.2899,
+          0.5463,
+          0.12
+        ],
+        "goalTarget": [
+          0.042,
+          0,
+          0.12
+        ],
+        "fov": 30,
+        "distToTarget": 0.5999,
+        "sheetDistance": 0.5999,
+        "framingBias": 0
+      },
+      "scene": {
+        "environmentIntensity": 0,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 0
+      },
+      "stage": {
+        "active": 0,
+        "alpha": [
+          1,
+          0,
+          0
+        ],
+        "transitionIntensity": 0,
+        "backdropAlpha": 0.55
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 158
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\02-intro-rupture.png"
+    },
+    {
+      "id": "03-ch01-hero-pbr",
+      "p": 0.15,
+      "progress": 0.15,
+      "chapter": 0,
+      "chapterProgress": 0.5114737378888322,
+      "camera": {
+        "position": [
+          0.1242,
+          0.0511,
+          0.0346
+        ],
+        "goalPosition": [
+          0.1242,
+          0.051,
+          0.0346
+        ],
+        "goalTarget": [
+          -0.0006,
+          0.012,
+          0.0277
+        ],
+        "fov": 22,
+        "distToTarget": 0.1309,
+        "sheetDistance": 0,
+        "framingBias": 0.14
+      },
+      "scene": {
+        "environmentIntensity": 1,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 0,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0.896,
+        "gearRotation": 0
+      },
+      "stage": {
+        "active": 0,
+        "alpha": [
+          1,
+          0,
+          0
+        ],
+        "transitionIntensity": 0,
+        "backdropAlpha": 1
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 158
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\03-ch01-hero-pbr.png"
+    },
+    {
+      "id": "04-ch02-explode-ghost",
+      "p": 0.35,
+      "progress": 0.35,
+      "chapter": 1,
+      "chapterProgress": 0.6375172413793103,
+      "camera": {
+        "position": [
+          0.527,
+          0.1007,
+          0.1458
+        ],
+        "goalPosition": [
+          0.5275,
+          0.1007,
+          0.1459
+        ],
+        "goalTarget": [
+          -0.0193,
+          0.0111,
+          -0.0015
+        ],
+        "fov": 37.54,
+        "distToTarget": 0.5729,
+        "sheetDistance": 0,
+        "framingBias": 0.14
+      },
+      "scene": {
+        "environmentIntensity": 1,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 0.314,
+        "ghostOpacity": 0.4459,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 14.1588
+      },
+      "stage": {
+        "active": 0,
+        "alpha": [
+          1,
+          0,
+          0
+        ],
+        "transitionIntensity": 0,
+        "backdropAlpha": 1
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 158
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\04-ch02-explode-ghost.png"
+    },
+    {
+      "id": "05-ch02-lcd-dwell",
+      "p": 0.47,
+      "progress": 0.47,
+      "chapter": 2,
+      "chapterProgress": 0.19655549480590487,
+      "camera": {
+        "position": [
+          -0.2795,
+          0.08,
+          0.7397
+        ],
+        "goalPosition": [
+          -0.2799,
+          0.08,
+          0.74
+        ],
+        "goalTarget": [
+          -0.14,
+          0,
+          0.46
+        ],
+        "fov": 31,
+        "distToTarget": 0.3227,
+        "sheetDistance": 0,
+        "framingBias": 0
+      },
+      "scene": {
+        "environmentIntensity": 1,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 1,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 25.1327
+      },
+      "stage": {
+        "active": 0,
+        "alpha": [
+          1,
+          0,
+          0
+        ],
+        "transitionIntensity": 0,
+        "backdropAlpha": 1
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 158
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\05-ch02-lcd-dwell.png"
+    },
+    {
+      "id": "06-ch03-station2-cut",
+      "p": 0.65,
+      "progress": 0.65,
+      "chapter": 3,
+      "chapterProgress": 0.00389321468298109,
+      "camera": {
+        "position": [
+          31.8172,
+          2.6495,
+          1.2447
+        ],
+        "goalPosition": [
+          31.8172,
+          2.6495,
+          1.2447
+        ],
+        "goalTarget": [
+          26.495,
+          1.2,
+          -5.5936
+        ],
+        "fov": 35.62,
+        "distToTarget": 8.7857,
+        "sheetDistance": 0,
+        "framingBias": 0.38
+      },
+      "scene": {
+        "environmentIntensity": 0.35,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 1,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 25.1327
+      },
+      "stage": {
+        "active": 1,
+        "alpha": [
+          0,
+          1,
+          0
+        ],
+        "transitionIntensity": 0.002,
+        "backdropAlpha": 1
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 158
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\06-ch03-station2-cut.png"
+    },
+    {
+      "id": "07-ch04-station3-m249",
+      "p": 0.85,
+      "progress": 0.85,
+      "chapter": 3,
+      "chapterProgress": 0.5765665554319614,
+      "camera": {
+        "position": [
+          56.4878,
+          0.7771,
+          -9.1336
+        ],
+        "goalPosition": [
+          56.515,
+          0.775,
+          -9.145
+        ],
+        "goalTarget": [
+          55.4075,
+          0,
+          -11.8931
+        ],
+        "fov": 36.5,
+        "distToTarget": 3.0637,
+        "sheetDistance": 0,
+        "framingBias": 0.38
+      },
+      "scene": {
+        "environmentIntensity": 1,
+        "fogNear": 25,
+        "fogFar": 120
+      },
+      "rig": {
+        "explodeFactor": 1,
+        "ghostOpacity": 1,
+        "ghostCount": 1,
+        "shift": 0,
+        "gearRotation": 25.1327
+      },
+      "stage": {
+        "active": 2,
+        "alpha": [
+          0,
+          0,
+          1
+        ],
+        "transitionIntensity": 0.0464,
+        "backdropAlpha": 1
+      },
+      "renderInfo": {
+        "calls": 1,
+        "triangles": 1,
+        "lines": 0,
+        "points": 0,
+        "programs": 159
+      },
+      "screenshot": "C:\\Users\\Markimus\\.buzz\\REPOS\\jgun-torque-wrench\\docs\\webgl-review-2026-10-16\\evidence\\07-ch04-station3-m249.png"
+    }
+  ],
+  "perfSweepAtDpr2": {
+    "frames": 120,
+    "p50Ms": 33.2,
+    "p95Ms": 33.8,
+    "p99Ms": 50,
+    "maxMs": 50,
+    "over16_7Count": 93,
+    "over33_3Count": 48,
+    "qualityEvents": [
+      {
+        "t": 65385.69999998808,
+        "type": "warmstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 65505,
+        "type": "warmstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 65857.59999999404,
+        "type": "warmcancel",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false
+      },
+      {
+        "t": 66000.40000000596,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 0
+      },
+      {
+        "t": 66060,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 0
+      },
+      {
+        "t": 69749.09999999404,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 1
+      },
+      {
+        "t": 74464.5,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 1
+      },
+      {
+        "t": 76761.90000000596,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 2
+      },
+      {
+        "t": 76815.69999998808,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "index": 2
+      },
+      {
+        "t": 76921.69999998808,
+        "type": "ondecline",
+        "tier": "full",
+        "step": 0,
+        "warmReady": false,
+        "fps": 1,
+        "flipped": 1
+      },
+      {
+        "t": 76921.90000000596,
+        "type": "dprstep",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false
+      },
+      {
+        "t": 77892.59999999404,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 3
+      },
+      {
+        "t": 81274,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 3
+      },
+      {
+        "t": 81349,
+        "type": "cullrenderstart",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 4
+      },
+      {
+        "t": 81808,
+        "type": "cullrenderend",
+        "tier": "full",
+        "step": 1,
+        "warmReady": false,
+        "index": 4
+      },
+      {
+        "t": 81808.09999999404,
+        "type": "warmfinish",
+        "tier": "full",
+        "step": 1,
+        "warmReady": true
+      },
+      {
+        "t": 83563.09999999404,
+        "type": "ondecline",
+        "tier": "full",
+        "step": 1,
+        "warmReady": true,
+        "fps": 44,
+        "flipped": 2
+      },
+      {
+        "t": 83563.19999998808,
+        "type": "dprstep",
+        "tier": "full",
+        "step": 2,
+        "warmReady": true
+      },
+      {
+        "t": 98851.30000001192,
+        "type": "ondecline",
+        "tier": "full",
+        "step": 2,
+        "warmReady": true,
+        "fps": 11,
+        "flipped": 3
+      },
+      {
+        "t": 98851.5,
+        "type": "dprstep",
+        "tier": "full",
+        "step": 3,
+        "warmReady": true
+      }
+    ]
+  }
+}
