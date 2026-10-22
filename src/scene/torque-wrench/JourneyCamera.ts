@@ -9,7 +9,7 @@ export const createJourneyPose = (): JourneyPose => ({position:new Vector3(),tar
 export function isolationCamera(aspect: number, h: Matrix4, out: JourneyPose): JourneyPose {
   const elevation=12*Math.PI/180
   out.target.set(0,0,-.035762)
-  out.position.set(0,.24*Math.sin(elevation),-.035762-.24*Math.cos(elevation))
+  out.position.set(-.24*Math.cos(elevation),.24*Math.sin(elevation),-.035762-.055)
   out.position.applyMatrix4(h);out.target.applyMatrix4(h);out.up.set(0,1,0).transformDirection(h)
   out.fov=aspect<.8?50:34;return out
 }
@@ -18,12 +18,13 @@ export function signedAzimuthDelta(azA:number,azB:number,sign:1|-1): number {
   const twoPi=2*Math.PI,d=((azB-azA)%twoPi+twoPi)%twoPi
   return sign>0?d:(d===0?0:d-twoPi)
 }
+const inverseFrame = new Matrix4(), aOffset = new Vector3(), bOffset = new Vector3()
 /** A single signed-azimuth leg; no waypoint or chord through the subject. */
 export function orbitCamera(a: JourneyPose,b: JourneyPose,u:number,axisFrame:Matrix4,out:JourneyPose,sign:1|-1=1): JourneyPose {
   if(u<=0) return copy(a,out)
   if(u>=1) return copy(b,out)
-  const w=quintic(u), inv=axisFrame.clone().invert()
-  const aOffset=a.position.clone().sub(a.target).transformDirection(inv), bOffset=b.position.clone().sub(b.target).transformDirection(inv)
+  const w=quintic(u), inv=inverseFrame.copy(axisFrame).invert()
+  aOffset.copy(a.position).sub(a.target).transformDirection(inv); bOffset.copy(b.position).sub(b.target).transformDirection(inv)
   const ra=a.position.distanceTo(a.target),rb=b.position.distanceTo(b.target)
   const azA=Math.atan2(aOffset.x,aOffset.z),azB=Math.atan2(bOffset.x,bOffset.z)
   const delta=signedAzimuthDelta(azA,azB,sign)
@@ -37,6 +38,13 @@ export function orbitCamera(a: JourneyPose,b: JourneyPose,u:number,axisFrame:Mat
   out.up.normalize();out.fov=a.fov+(b.fov-a.fov)*w
   return out
 }
+function shortOrbit(a:JourneyPose,b:JourneyPose,u:number,h:Matrix4,out:JourneyPose):JourneyPose {
+  inverseFrame.copy(h).invert()
+  aOffset.copy(a.position).sub(a.target).transformDirection(inverseFrame)
+  bOffset.copy(b.position).sub(b.target).transformDirection(inverseFrame)
+  const d=Math.atan2(bOffset.x,bOffset.z)-Math.atan2(aOffset.x,aOffset.z)
+  return orbitCamera(a,b,u,h,out,Math.atan2(Math.sin(d),Math.cos(d))>=0?1:-1)
+}
 function copy(a:JourneyPose,out:JourneyPose) {out.position.copy(a.position);out.target.copy(a.target);out.up.copy(a.up);out.fov=a.fov;return out}
 export function createJourneyCameraSampler() {
   const a=createJourneyPose(),i=createJourneyPose(),e=createJourneyPose(),f=createJourneyPose(),x=createJourneyPose()
@@ -47,16 +55,21 @@ export function createJourneyCameraSampler() {
     shaftMetrePoint(out.target,c.tx,c.ty,c.tz).applyMatrix4(h)
     shaftMetrePoint(out.up,c.ux,c.uy,c.uz).normalize().transformDirection(h);out.fov=c.fov
   }
-  return (p:number,aspect:number,h:Matrix4,out:JourneyPose):JourneyPose=>{
+  return (p:number,aspect:number,h:Matrix4,out:JourneyPose,ringExitPose?:JourneyPose):JourneyPose=>{
     isolationCamera(aspect,h,i)
-    if(p>=.585&&p<=.60||p>=.845&&p<=.855)return copy(i,out)
-    if(p<.585){sampleLegacyMechanismCamera(.56-MECHANISM_TRANSLATION,aspect,0,legacy);copy(legacy,a);return orbitCamera(a,i,(p-.56)/.025,h,out)}
-    if(p<.62){study(.735,aspect,h,e);return orbitCamera(i,e,(p-.60)/.02,h,out)}
+    if(p>=.590&&p<=.60||p>=.845&&p<=.855)return copy(i,out)
+    if(p<.590){
+      if(ringExitPose)copy(ringExitPose,a)
+      else {sampleLegacyMechanismCamera(.56-MECHANISM_TRANSLATION,aspect,0,legacy);copy(legacy,a)}
+      return shortOrbit(a,i,(p-.56)/.030,h,out)
+    }
+    if(p<.62){study(.735,aspect,h,e);return shortOrbit(i,e,(p-.60)/.02,h,out)}
     if(p<=.825){study(.735+p-.62,aspect,h,out);return out}
     study(.94,aspect,h,f)
     if(p<=.83)return copy(f,out)
-    if(p<.845)return orbitCamera(f,i,(p-.83)/.015,h,out)
-    x.position.set(.32,.16,.74);x.target.set(0,0,-.15);x.up.set(0,1,0);x.fov=aspect<.8?58:42
-    return orbitCamera(i,x,(p-.855)/.075,h,out,-1)
+    if(p<.845)return shortOrbit(f,i,(p-.83)/.015,h,out)
+    x.position.set(-.62,.18,.32);x.target.set(0,0,-.15);x.up.set(0,1,0);x.fov=aspect<.8?58:42
+    if(aspect<.8)x.position.lerpVectors(x.target,x.position,2.2)
+    return shortOrbit(i,x,(p-.855)/.075,h,out)
   }
 }

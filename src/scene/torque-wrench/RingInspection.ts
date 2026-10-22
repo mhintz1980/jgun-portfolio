@@ -1,21 +1,40 @@
 /** Private presentation clock. The inherited mechanical/clip law remains borrowed. */
 import { sampleInspection, MAX_FEATURE_HZ, RING_FEATURES, RING_RADIUS, WHEEL_RADIUS, ROLLER_TEETH, type InspectionFrame } from '../inspection/timeline'
+import { BULLET_TIME_RATE } from './bulletTime'
 
 export const PRIVATE_RING_DURATION = 28
 export const RING_SLOW_START = 8
 export const RING_SLOW_END = 18
-// Display seconds -> existing mechanical seconds. Near one-quarter formed OD the
-// subject crawls; the camera has its own canonical-progress clock.
-const KNOTS = [[0, 0], [4, 2.8], [6, 3.8], [8, 4.36], [9, 4.365],
-  [17, 4.375], [18, 4.5], [23, 6.5], [25, 8.2], [26, 10.5], [28, 12]] as const
+// Active machining reference is 0.5 mechanical seconds/display second;
+// bullet time is 10% of normal (0.05). Retiming 8..18 adds 0.5 mechanical
+// seconds, then rejoins the authored 12 s endpoint at display time 28.
+export const RING_NORMAL_RATE = 0.5
+const RING_BULLET_RATE = RING_NORMAL_RATE * BULLET_TIME_RATE
+const KNOTS = [[0, 0], [4, 2.8], [6, 3.8], [8, 4.36], [9, 4.36 + RING_BULLET_RATE],
+  [17, 4.36 + 9 * RING_BULLET_RATE], [18, 4.36 + 10 * RING_BULLET_RATE],
+  [23, 6.5], [25, 8.2], [26, 10.5], [28, 12]] as const
 const clamp = (x: number) => Math.max(0, Math.min(1, x))
 const smooth = (x: number) => { const u = clamp(x); return u * u * (3 - 2 * u) }
 function slope(i: number): number {
+  // The inner hold knots have an explicit 10%-of-normal tangent; surrounding
+  // intervals absorb the retiming while Hermite joins remain C1.
+  if (i >= 3 && i <= 6) return RING_BULLET_RATE
   if (i === 0 || i === KNOTS.length - 1) return 0
   const a = KNOTS[i - 1], b = KNOTS[i], c = KNOTS[i + 1]
   const h0 = b[0] - a[0], h1 = c[0] - b[0]
   const d0 = (b[1] - a[1]) / h0, d1 = (c[1] - b[1]) / h1
   return 3 * (h0 + h1) / ((2 * h1 + h0) / d0 + (h1 + 2 * h0) / d1)
+}
+
+/** Mechanical-time sample for clock-rate verification and deterministic seeks. */
+export function ringMechanicalTimeAt(time: number): number {
+  const t = Math.max(0, Math.min(PRIVATE_RING_DURATION, time))
+  let i = 0
+  while (i < KNOTS.length - 2 && t >= KNOTS[i + 1][0]) i++
+  const a = KNOTS[i], b = KNOTS[i + 1], h = b[0] - a[0], u = clamp((t - a[0]) / h)
+  const m0 = slope(i), m1 = slope(i + 1), u2 = u * u, u3 = u2 * u
+  return (2 * u3 - 3 * u2 + 1) * a[1] + (u3 - 2 * u2 + u) * h * m0
+    + (-2 * u3 + 3 * u2) * b[1] + (u3 - u2) * h * m1
 }
 
 /** No allocations; reverse/seek reproduces the same material and mechanical state. */

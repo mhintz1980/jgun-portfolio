@@ -353,7 +353,11 @@ describe('shader patch', () => {
     expect(shader.vertexShader).toContain('jgProgressedRadius(jgLocal4.xyz, jgClamp)')
     expect(shader.vertexShader).toContain('jgNew > jgRadius + 0.000001')
     expect(shader.vertexShader).not.toContain('jgRadius > 0.000001 && jgMode')
-    expect(shader.vertexShader).toContain('jgRadius > 0.0 ? atan(jgLocal.z, jgLocal.x) : 0.0')
+    expect(shader.vertexShader).toContain('jgRadius > 0.0 ? atan(jgLocal.z - uShaftAxis.z, jgLocal.x - uShaftAxis.x) : 0.0')
+    // The registered bundle places the shaft away from the local origin, so
+    // every radial law measures from the axis rather than from the origin.
+    expect(shader.vertexShader).toContain('uShaftAxis')
+    expect(shader.vertexShader).toContain('length(jgLocal.xz - uShaftAxis.xz)')
     expect(shader.vertexShader).toContain(': vec3(jgNewRadius, jgLocal4.y, 0.0)')
     expect(shader.fragmentShader).toContain(STRESS_MARKER)
     expect(shader.fragmentShader).toContain('totalEmissiveRadiance')

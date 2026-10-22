@@ -42,3 +42,16 @@ it('has stationary mechanism seams and preserves the original close law',()=>{
   expect(mechanism(.93)).toEqual(mechanism(.94))
   for(const p of [.94,.95,.97,1])expect(mechanism(p)).toEqual(sampleMechanism(p,{} as MechanismSample))
 })
+
+it('doc39 shows mating parts at .275 ghost opacity before completing isolation at .600',()=>{
+  expect(at(.585).surroundingsOpacity).toBe(1)
+  for(const p of [.590,.592,.595,.596])expect(at(p).surroundingsOpacity).toBe(.275)
+  expect(at(.598).surroundingsOpacity).toBeCloseTo(.1375,12)
+  expect(at(.600).surroundingsOpacity).toBe(0)
+  let prev=1
+  for(let n=0;n<=300;n++){
+    const s=at(.585+.015*n/300)
+    expect(s.surroundingsOpacity).toBeLessThanOrEqual(prev+1e-12);prev=s.surroundingsOpacity
+    expect(s.sourceShaftOpacity).toBe(1)
+  }
+})

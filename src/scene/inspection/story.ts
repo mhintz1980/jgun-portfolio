@@ -32,6 +32,10 @@ export interface StoryRuntime {
   sample(time: number): void
   apply(): void
   telemetry(out: Record<string, unknown>): void
+  /** Optional diagnostic: the stress bindings installed on the study surfaces. */
+  stressProbe?(): unknown
+  /** Optional diagnostic: pixel A/B proof that the FEA field reaches the screen. */
+  stressCapture?(gl: unknown, camera: unknown): unknown
   readonly resources: { geometries: number; materials: number; textures: number; meshes: number }
   dispose(): void
 }

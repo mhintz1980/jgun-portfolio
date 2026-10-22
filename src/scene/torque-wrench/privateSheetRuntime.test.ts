@@ -137,7 +137,7 @@ describe('private sheet explicit frame application', () => {
         / (INTRO_PHASES.fractureEnd - INTRO_PHASES.fractureStart) - fragment.delay) / (1 - fragment.delay)))
       expect(snapshots.get(t)!.position.every(Number.isFinite)).toBe(true)
       if (event === 0) expect(snapshots.get(t)!.position).toEqual([fragment.center.x, fragment.center.y, .00002])
-      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-.3)
+      if (event === 1) expect(snapshots.get(t)!.position[2]).toBeLessThan(-.12)
     }
     for (const t of [...checkpoints].reverse().concat([0.865, 0.7, 0.9, 0.851])) {
       runtime.apply(frame(t), f.context, viewport)
@@ -147,6 +147,19 @@ describe('private sheet explicit frame application', () => {
         expect(fragmentSnapshot(runtime.group)).toEqual(snapshots.get(t))
       }
     }
+    runtime.dispose()
+  })
+
+  it('lifts the shards higher and keeps them airborne through the bullet-time orbit', () => {
+    const f = fixture()
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    let apex = 0
+    for (const t of [0.845, 0.855, 0.865, 0.875, 0.885, 0.9]) {
+      runtime.apply(frame(t), f.context, viewport)
+      apex = Math.max(apex, fragmentSnapshot(runtime.group).position[2])
+    }
+    // The owner asked for a higher launch than the previous .065 sheet lift.
+    expect(apex).toBeGreaterThan(0.1)
     runtime.dispose()
   })
 
@@ -258,6 +271,10 @@ describe('private sheet explicit frame application', () => {
     runtime.apply(frame(1, { retirement: 1, reducedMotion: true }), f.context, viewport)
     expect(runtime.group.visible).toBe(true)
     expect(f.baked.uniforms.uReveal.value.every(v => v === 1)).toBe(true)
+    runtime.apply(frame(0.2, { reducedMotion: true }), f.context, viewport)
+    expect(f.baked.uniforms.uReveal.value[GROUP.printed]).toBe(1)
+    expect(f.baked.uniforms.uReveal.value[GROUP.side]).toBe(0)
+    expect(f.baked.uniforms.uReveal.value[GROUP.gdt]).toBe(0)
     runtime.dispose()
   })
 

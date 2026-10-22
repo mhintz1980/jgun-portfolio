@@ -22,8 +22,8 @@ export const MECHANISM_TRANSLATION = RING_WINDOW_END - RING_WINDOW_START
  * C2 sequence switch: owner selected 'fullAfter' on 2026-10-19.
  * Sequence selection is separate from served-camera proof and visual acceptance.
  * - 'preview12': the ring nudges 12 deg (shift S0 = 0.10, 0.9525 mm, exactly 12 of 120 deg) before the
- *   study, holds S0 through it, then continues S0 -> 1 from .505.
- * - 'fullAfter': shift stays 0 through the study, then 0 -> 1 from .505.
+ *   study, holds S0 through it, then continues S0 -> 1 from .520.
+ * - 'fullAfter': shift stays 0 through the study, then 0 -> 1 over .520-.560.
  * The 120 deg / 9.525 mm law is unchanged; S0 is never increased.
  */
 export type C2Sequence = 'preview12' | 'fullAfter'
@@ -37,7 +37,10 @@ export const RING_ANCHOR_PROGRESS = 0.48
 
 /** Baseline (pre-T5) shift/explode/gear/ghost law, evaluated at the translated coordinate q = p - W. */
 function sampleBaseline(q: number, out: MechanismSample): void {
-  out.shift = smooth((q - 0.46) / 0.055)
+  // Owner correction (2026-10-21): the shift completes by .545 so the OSHA
+  // Red stripe is fully uncovered when the camera reaches the red view, and
+  // the camera then holds the handle-side framing through .560.
+  out.shift = smooth((q - (0.520 - MECHANISM_TRANSLATION)) / 0.025)
   out.explode = smooth((q - 0.575) / 0.075)
   out.gearAngle = Math.PI * 8 * smooth((q - 0.52) / 0.17)
   const ghost = smooth((q - 0.52) / 0.035) * (1 - smooth((q - 0.64) / 0.03))
@@ -57,7 +60,7 @@ export function sampleMechanism(
   if (sequence === 'preview12') {
     const s0 = C2_PREVIEW_SHIFT
     const nudge = smooth((p - C2_NUDGE_START) / (C2_NUDGE_END - C2_NUDGE_START))
-    // out.shift is smooth((p-.505)/.055): the remaining S0 -> 1 traverse.
+    // The remaining S0 -> 1 traverse starts only after the camera settles at .520.
     out.shift = s0 * nudge + (1 - s0) * out.shift
   }
   out.shift *= close

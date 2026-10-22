@@ -4,8 +4,10 @@ export const TORQUE_PACING_RAMP = 0.15
 export const TORQUE_PACING_SPANS = Object.freeze([
   // Compress the static registered-drawing / lamp-flicker / trace hold (0.265..0.395) from ~8.2 vp down to ~2.6 vp.
   Object.freeze({ start: .265, end: .395, multiplier: .45, id: 'drafting' }),
-  Object.freeze({ start: .395, end: .435, multiplier: 2, id: 'cracks' }),
-  Object.freeze({ start: .42, end: .46, multiplier: 3.5, id: 'shatter' }),
+  // Move 0.02 units of physical scroll from the pre-rupture crack approach
+  // into the shatter orbit, preserving total page length and downstream joins.
+  Object.freeze({ start: .395, end: .435, multiplier: 1.5, id: 'cracks' }),
+  Object.freeze({ start: .42, end: .46, multiplier: 6, id: 'shatter' }),
   // Rebalanced ring study [.46,.505]: reduced from 18x (35.5 vp) to 4.5x (~8.9 vp) with a flat-top kernel.
   Object.freeze({ start: .46, end: .505, multiplier: 4.5, id: 'ring' }),
   // Expand rushed collision beats so camera sweeps and mechanical separations breathe cleanly.
@@ -16,7 +18,7 @@ export const TORQUE_PACING_SPANS = Object.freeze([
   // T6-C3: local slow-downs on the hob engagement (old [.884,.905], host [.769,.79], each <= x8). 'hobSeat' covers
   // touch/seat and 'hobSwing' the >=60 deg camera swing plus its catch-up.
   Object.freeze({ start: .7756, end: .7787, multiplier: 5.5, id: 'hobSeat' }),
-  Object.freeze({ start: .7778, end: .7892, multiplier: 5.2, id: 'hobSwing' }),
+  Object.freeze({ start: .7778, end: .7892, multiplier: 6.5, id: 'hobSwing' }),
   Object.freeze({ start: .825, end: .855, multiplier: 2, id: 'return' }),
   Object.freeze({ start: .855, end: .93, multiplier: 2, id: 'extraction' }),
   Object.freeze({ start: .93, end: .94, multiplier: 8, id: 'explodedHold' }),

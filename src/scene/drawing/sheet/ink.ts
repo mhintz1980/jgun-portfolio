@@ -242,7 +242,9 @@ function rollbackOwned(resources: readonly OwnedDisposable[], cleanupFailureSink
 
 export function makeSheetUniforms(): SheetUniforms {
   return {
-    uReveal: { value: new Array(GROUP_COUNT).fill(1) },
+    // The sheet furniture is pre-printed; every driven group starts blank so a
+    // warm-up or first-frame render can never expose the finished drawing.
+    uReveal: { value: Array.from({ length: GROUP_COUNT }, (_, group) => group === GROUP.printed ? 1 : 0) },
     uViewport: { value: new Vector2(1, 1) },
     uInk: { value: new Color(INK) },
     uInkRed: { value: new Color(INK_RED) },

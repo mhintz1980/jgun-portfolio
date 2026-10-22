@@ -6,6 +6,7 @@ import {
 } from '../drawing/introTimeline'
 import { sheetReveal } from '../drawing/sheetCamera'
 import { GROUP_COUNT } from '../drawing/sheet/ink'
+import { BULLET_TIME_RATE } from './bulletTime'
 import {
   PRIVATE_SPARK_START_T,
   PRIVATE_WEB_COMPLETE_T,
@@ -88,6 +89,15 @@ export function openingTimeAt(progress: number): number {
   return t0 + (t1 - t0) * u * u * (3 - 2 * u)
 }
 
+function openingRateAt(progress: number): number {
+  const p = Math.max(0, Math.min(0.46, progress))
+  let i = 0
+  while (i < INTRO_KNOTS.length - 2 && p >= INTRO_KNOTS[i + 1][0]) i++
+  const [a, t0] = INTRO_KNOTS[i], [b, t1] = INTRO_KNOTS[i + 1]
+  const u = (p - a) / (b - a)
+  return (t1 - t0) * 6 * u * (1 - u) / (b - a)
+}
+
 /** Physical time slows after the first separation; the lens retains openingTimeAt.
  * A small amount of travel during the hold keeps the shards suspended rather than
  * stopping the scroll. Pure coordinates also retrace exactly when scrolling back.
@@ -116,13 +126,14 @@ export const SHATTER_SUBJECT_KNOTS: readonly (readonly [number, number])[] = Obj
   Object.freeze([0.42, 0.84] as const),
   Object.freeze([0.42685, 0.852] as const),
   Object.freeze([0.43008, 0.855] as const),
-  Object.freeze([0.44212, 0.8558] as const),
-  Object.freeze([0.4465, 0.88] as const),
+  Object.freeze([0.452, 0.855 + (openingTimeAt(0.452) - openingTimeAt(0.43008)) * BULLET_TIME_RATE] as const),
+  Object.freeze([0.456, 0.89] as const),
   Object.freeze([0.46, 1] as const),
 ])
 
 function shatterTangent(index: number): number {
   const k = SHATTER_SUBJECT_KNOTS
+  if (index === 2 || index === 3) return openingRateAt(k[index][0]) * BULLET_TIME_RATE
   if (index === 0 || index === k.length - 1) return 0
   const h0 = k[index][0] - k[index - 1][0], h1 = k[index + 1][0] - k[index][0]
   const d0 = (k[index][1] - k[index - 1][1]) / h0, d1 = (k[index + 1][1] - k[index][1]) / h1
@@ -134,6 +145,12 @@ function shatterTangent(index: number): number {
 /** Pure in progress: identical to the shared opening clock through .42, no wall time or history. */
 export function breakthroughSubjectTimeAt(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Opening progress must be finite')
+  // During the hold, use the unslowed opening clock as the normal reference;
+  // the subject advances at exactly the shared 10% rate while the camera keeps
+  // following canonical progress independently.
+  if (progress >= 0.43008 && progress <= 0.452) {
+    return 0.855 + (openingTimeAt(progress) - openingTimeAt(0.43008)) * BULLET_TIME_RATE
+  }
   const k = SHATTER_SUBJECT_KNOTS
   if (progress <= k[0][0]) return breakthroughTimeAt(openingTimeAt(progress))
   if (progress >= k[k.length - 1][0]) return k[k.length - 1][1]

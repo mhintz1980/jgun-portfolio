@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { MeshPhysicalMaterial, RepeatWrapping } from 'three'
-import { createDiamondKnurlNormalMap, roleMaterial } from './materials'
+import { createDiamondKnurlNormalMap, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
 
 describe('P003068 heavy knurled black anodize', () => {
   it('matches the handle finish while retaining the OD normal map', () => {
@@ -27,5 +27,32 @@ describe('P003068 heavy knurled black anodize', () => {
     expect(worst).toBeLessThan(0.012)
     expect(slopes).toBeGreaterThan(pixels.length / 16)
     map.dispose()
+  })
+  it('preserves the measured 37.722 mm OD while keeping bore and axial faces smooth', () => {
+    const ring = roleMaterial('ringSwitch') as MeshPhysicalMaterial
+    const shader = {
+      uniforms: {} as Record<string, unknown>,
+      vertexShader: '#include <beginnormal_vertex>',
+      fragmentShader: '#include <normal_fragment_maps>',
+    }
+    ring.onBeforeCompile(shader as never, {} as never)
+    expect(shader.vertexShader).toContain('vRingSwitchObjectPos = position;')
+    expect(shader.fragmentShader).toContain('dot(ringSwitchRadialPos, ringSwitchRadialNormal)')
+    const radii = shader.fragmentShader.match(/smoothstep\(([\d.]+), ([\d.]+), length\(ringSwitchRadialPos\)\)/)!
+    expect(radii).toBeTruthy()
+    expect(Number(radii[1])).toBeCloseTo(RING_SWITCH_OD_MASK_START, 10)
+    expect(Number(radii[2])).toBeCloseTo(RING_SWITCH_OD_MASK_FULL, 10)
+    const mask = (radius: number, outward: number, axial: number) => {
+      const u = Math.max(0, Math.min(1, (radius - Number(radii[1])) / (Number(radii[2]) - Number(radii[1]))))
+      return u * u * (3 - 2 * u) * Number(outward >= .5) * Number(Math.abs(axial) < .20)
+    }
+    expect(mask(RING_SWITCH_OD_RADIUS, 1, 0)).toBe(1)
+    expect(mask(.03175, -1, 0)).toBe(0)
+    expect(mask(RING_SWITCH_OD_RADIUS, -1, 0)).toBe(0)
+    expect(mask(RING_SWITCH_OD_RADIUS, 0, 1)).toBe(0)
+    expect(mask(RING_SWITCH_OD_RADIUS, 1, .2)).toBe(0)
+    expect(shader.fragmentShader).toContain('ringSwitchOutward * ringSwitchOuterRadius * ringSwitchSide')
+    expect(shader.fragmentShader).toContain('max(length(ringSwitchRadialPos) * length(ringSwitchRadialNormal), 1e-8)')
+    expect(shader.fragmentShader).toContain('1.0 - step(0.20, abs(normalize(vRingSwitchObjectNormal).z))')
   })
 })

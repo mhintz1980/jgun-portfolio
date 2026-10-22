@@ -11,7 +11,7 @@
  * exactly one conversion (shaft-local +Y -> glTF -Z); the object-to-shaft matrix handed to
  * applyProgression maps render-object space back to shaft-local mm, once.
  */
-import { Matrix3, Matrix4 } from 'three'
+import { DoubleSide, Matrix3, Matrix4, ShaderMaterial, Vector2, Vector3 } from 'three'
 import type { IUniform, Material, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
 import { FOS_MAX, fosGlsl } from './fosPresentation'
 
@@ -158,6 +158,12 @@ export interface ProgressionUniforms {
   uShaftMatrix: IUniform<Matrix4>
   uShaftInverse: IUniform<Matrix4>
   uShaftNormalMatrix: IUniform<Matrix3>
+  /**
+   * The shaft axis in the local frame. The exported bundle places the shaft
+   * away from the local origin, so every radial and axial law has to measure
+   * from the axis rather than from the origin.
+   */
+  uShaftAxis: IUniform<Vector3>
   uProgressionMode: IUniform<number>
   uShaftKind: IUniform<number>
   uSpaceDepth: IUniform<Float32Array>
@@ -180,6 +186,8 @@ export interface ProgressionUniforms {
   uStressYMax: IUniform<number>
   uStressRMax: IUniform<number>
   uStressCenterY: IUniform<number>
+  /** Shaft axis in the same local frame, so the radius is measured from the axis. */
+  uStressAxis: IUniform<Vector2>
   uStressHotspotFos: IUniform<number>
   uStressBodyFos: IUniform<number>
 }
@@ -189,6 +197,7 @@ export function createProgressionUniforms(): ProgressionUniforms {
     uShaftMatrix: { value: new Matrix4() },
     uShaftInverse: { value: new Matrix4() },
     uShaftNormalMatrix: { value: new Matrix3() },
+    uShaftAxis: { value: new Vector3() },
     uProgressionMode: { value: 0 },
     uShaftKind: { value: 0 },
     uSpaceDepth: { value: new Float32Array(SHAFT_SPACES) },
@@ -211,6 +220,7 @@ export function createProgressionUniforms(): ProgressionUniforms {
     uStressYMax: { value: 0 },
     uStressRMax: { value: SHAFT_OD_MM },
     uStressCenterY: { value: 10.41 },
+    uStressAxis: { value: new Vector2() },
     uStressHotspotFos: { value: 0.55 },
     uStressBodyFos: { value: FOS_MAX },
   }
@@ -221,6 +231,10 @@ export function setShaftTransform(uniforms: ProgressionUniforms, objectToShaft: 
   uniforms.uShaftMatrix.value.copy(objectToShaft)
   uniforms.uShaftInverse.value.copy(objectToShaft).invert()
   uniforms.uShaftNormalMatrix.value.getNormalMatrix(uniforms.uShaftInverse.value)
+  // The axis passes through the bundle's own origin; its position in the local
+  // frame is the translation column of the object-to-shaft matrix.
+  const e = objectToShaft.elements
+  uniforms.uShaftAxis.value.set(e[12], e[13], e[14])
 }
 
 const MODE_VALUE: Readonly<Record<ProgressionMode, number>> = { none: 0, shaping: 1, hobbing: 2 }
@@ -264,6 +278,7 @@ const VERTEX_COMMON = /* glsl */ `
 uniform mat4 uShaftMatrix;
 uniform mat4 uShaftInverse;
 uniform mat3 uShaftNormalMatrix;
+uniform vec3 uShaftAxis;
 uniform float uProgressionMode;
 uniform float uShaftKind;
 uniform float uSpaceDepth[10];
@@ -287,15 +302,15 @@ float jgEffectiveMode() {
   return 0.0;
 }
 float jgProgressedRadius(vec3 jgLocal, out float jgClamped) {
-  float jgRadius = length(jgLocal.xz);
+  float jgRadius = length(jgLocal.xz - uShaftAxis.xz);
   float jgNew = jgRadius;
   jgClamped = 0.0;
   float jgMode = jgEffectiveMode();
-  if (jgMode > 0.5 && jgLocal.y >= uFaceStart && jgLocal.y <= uFaceEnd) {
+    if (jgMode > 0.5 && jgLocal.y >= uFaceStart && jgLocal.y <= uFaceEnd) {
     if (jgMode < 1.5) {
       if (jgRadius < uShaftOD) {
         // atan(0, 0) is undefined in GLSL; use the CPU atan2(0, 0) convention (+X).
-        float jgAngle = jgRadius > 0.0 ? atan(jgLocal.z, jgLocal.x) : 0.0;
+        float jgAngle = jgRadius > 0.0 ? atan(jgLocal.z - uShaftAxis.z, jgLocal.x - uShaftAxis.x) : 0.0;
         float jgSpace = mod(floor((jgAngle - uSpaceClock) / uSpacePitch + 0.5), 10.0);
         float jgDepth = uSpaceDepth[int(jgSpace)];
         if (abs(uEngagedSpace - jgSpace) < 0.5 && jgLocal.y > uEdgeY) jgDepth = uEngagedPreviousDepth;
@@ -326,6 +341,7 @@ uniform float uStressYMin;
 uniform float uStressYMax;
 uniform float uStressRMax;
 uniform float uStressCenterY;
+uniform vec3 uShaftAxis;
 uniform float uStressHotspotFos;
 uniform float uStressBodyFos;
 varying vec3 vShaftLocal;
@@ -353,7 +369,7 @@ const VERTEX_CHUNK = /* glsl */ `
 vec4 jgLocal4 = uShaftMatrix * vec4(position, 1.0);
 float jgClamp;
 float jgNewRadius = jgProgressedRadius(jgLocal4.xyz, jgClamp);
-float jgOldRadius = length(jgLocal4.xz);
+float jgOldRadius = length(jgLocal4.xz - uShaftAxis.xz);
 float jgScale = jgOldRadius > 0.0 ? jgNewRadius / jgOldRadius : 1.0;
 vec3 jgLocalNew = jgOldRadius > 0.0
   ? vec3(jgLocal4.x * jgScale, jgLocal4.y, jgLocal4.z * jgScale)
@@ -370,13 +386,13 @@ if (uStressKind > 0.5 && uStressMix > 0.001) {
   // Tight concentration at the measured fillet/floor, a broad skirt along the body, a bending-side bias and a
   // little low-frequency blotch so it reads as a solved field. Colours come from the shared FOS bar.
   float jgStressInBand = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
-  float jgStressRadius = length(vShaftLocal.xz);
+  float jgStressRadius = length(vShaftLocal.xz - uShaftAxis.xz);
   float jgStressInR = (1.0 - step(uStressRMax, jgStressRadius)) * step(0.0001, jgStressRadius);
   float jgDy = vShaftLocal.y - uStressCenterY;
-  float jgTheta = atan(vShaftLocal.z, vShaftLocal.x);
+  float jgTheta = atan(vShaftLocal.z - uShaftAxis.z, vShaftLocal.x - uShaftAxis.x);
   float jgSide = 0.62 + 0.38 * cos(jgTheta - 0.35);
-  float jgCore = exp(-(jgDy * jgDy) / (2.0 * 0.55 * 0.55));
-  float jgSkirt = exp(-(jgDy * jgDy) / (2.0 * 2.4 * 2.4));
+  float jgCore = exp(-(jgDy * jgDy) / (2.0 * 0.9 * 0.9));
+  float jgSkirt = exp(-(jgDy * jgDy) / (2.0 * 4.0 * 4.0));
   float jgFloorBias = 1.0 - 0.6 * smoothstep(3.9, 6.1, jgStressRadius);
   float jgBlotch = 0.1 * sin(jgTheta * 3.0 + jgDy * 2.2) + 0.06 * sin(jgTheta * 5.0 - jgDy * 3.1);
   float jgField = clamp((0.95 * jgCore * jgFloorBias + 0.38 * jgSkirt) * jgSide + jgBlotch * jgSkirt, 0.0, 1.0);
@@ -386,8 +402,13 @@ if (uStressKind > 0.5 && uStressMix > 0.001) {
   float jgReveal = 1.0 - smoothstep(jgReach - 1.2, jgReach, abs(jgDy));
   float jgStressMask = jgStressInBand * jgStressInR * jgReveal * clamp(uStressMix, 0.0, 1.0);
   vec3 jgFosRgb = jgFosColor(jgFos);
-  diffuseColor.rgb = mix(diffuseColor.rgb, jgFosRgb * 0.72, jgStressMask * 0.9);
-  totalEmissiveRadiance += jgFosRgb * jgStressMask * 0.42;
+  // The shaft is a bright coated metal. Keep the FEA field legible on that
+  // surface by replacing the base tint and damping the metallic response
+  // wherever the field is present, then adding a restrained emissive term.
+  diffuseColor.rgb = mix(diffuseColor.rgb, jgFosRgb, jgStressMask * 0.94);
+  metalnessFactor = mix(metalnessFactor, 0.18, jgStressMask);
+  roughnessFactor = mix(roughnessFactor, 0.46, jgStressMask);
+  totalEmissiveRadiance += jgFosRgb * jgStressMask * 0.34;
 }
 `
 
@@ -413,8 +434,69 @@ export function applyProgression(
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', '#include <common>\n' + FRAGMENT_COMMON)
       .replace('#include <emissivemap_fragment>', STRESS_CHUNK)
+    ;(material.userData as Record<string, unknown>).jgunStressShader = shader.fragmentShader.includes(STRESS_MARKER)
   }
-  material.customProgramCacheKey = () => 'jgun-shaft-progression-v3'
+  material.customProgramCacheKey = () => 'jgun-shaft-progression-v4:' + material.uuid
   material.needsUpdate = true
   return material
+}
+
+/**
+ * Surface-projected FEA overlay. The base shaft is polished metal whose
+ * reflections can wash out a diffuse tint; this transparent pass shares the
+ * exact stress uniforms and FOS stops and draws the field on the verified
+ * shaft surface throughout the FEA beats.
+ */
+export function makeStressOverlayMaterial(uniforms: ProgressionUniforms): ShaderMaterial {
+  return new ShaderMaterial({
+    uniforms: uniforms as unknown as Record<string, { value: unknown }>,
+    // The overlay must ride the same progression transform as the shaft
+    // surface it colours, so it reuses the shared vertex chunks verbatim.
+    vertexShader: /* glsl */ `
+${VERTEX_COMMON}
+void main() {
+${VERTEX_CHUNK}
+  // The overlay rides the same surface as the shaft, so it needs a small
+  // view-space bias TOWARD the camera to win the depth test. View-space z is
+  // negative in front of the camera, so adding pulls it closer.
+  vec4 jgOverlayPosition = modelViewMatrix * vec4(transformed, 1.0);
+  jgOverlayPosition.z += 0.0004;
+  gl_Position = projectionMatrix * jgOverlayPosition;
+}`,
+    fragmentShader: /* glsl */ `
+uniform float uStressKind;
+uniform float uStressMix;
+uniform float uStressScanProgress;
+uniform float uStressYMin;
+uniform float uStressYMax;
+uniform float uStressRMax;
+uniform float uStressCenterY;
+uniform float uStressHotspotFos;
+uniform float uStressBodyFos;
+uniform vec3 uShaftAxis;
+varying vec3 vShaftLocal;
+${fosGlsl()}
+void main() {
+  if (uStressKind < 0.5 || uStressMix < 0.001) discard;
+  float band = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
+  float radius = length(vShaftLocal.xz - uShaftAxis.xz);
+  float radial = (1.0 - step(uStressRMax, radius)) * step(0.0001, radius);
+  float dy = vShaftLocal.y - uStressCenterY;
+  float theta = atan(vShaftLocal.z - uShaftAxis.z, vShaftLocal.x - uShaftAxis.x);
+  float side = 0.62 + 0.38 * cos(theta - 0.35);
+  float core = exp(-(dy * dy) / (2.0 * 0.9 * 0.9));
+  float skirt = exp(-(dy * dy) / (2.0 * 4.0 * 4.0));
+  float floorBias = 1.0 - 0.6 * smoothstep(3.9, 6.1, radius);
+  float blotch = 0.1 * sin(theta * 3.0 + dy * 2.2) + 0.06 * sin(theta * 5.0 - dy * 3.1);
+  float field = clamp((0.95 * core * floorBias + 0.38 * skirt) * side + blotch * skirt, 0.0, 1.0);
+  float reach = uStressScanProgress * (uStressYMax - uStressYMin + 1.2);
+  float reveal = 1.0 - smoothstep(reach - 1.2, reach, abs(dy));
+  float mask = band * radial * reveal * clamp(uStressMix, 0.0, 1.0);
+  if (mask < 0.001) discard;
+  vec3 color = jgFosColor(mix(uStressBodyFos, uStressHotspotFos, field));
+  gl_FragColor = vec4(color, mask * 0.92);
+}`,
+    transparent: true, depthTest: true, depthWrite: false, side: DoubleSide, toneMapped: false,
+    polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+  })
 }

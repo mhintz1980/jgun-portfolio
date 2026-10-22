@@ -22,7 +22,7 @@ export function sampleJourney(request: number, ready: boolean, out: JourneySampl
   out.inspectionProgress = .735 + Math.max(0, Math.min(.205, p-.62))
   out.studyVisible = p >= .62 && p < .845
   out.surroundingsOpacity = p < .56 ? sampleInspectionSurroundings(p) : p < .585 ? 1
-    : p < .60 ? 1-quintic((p-.585)/.015) : p < .845 ? 0 : p < .855 ? quintic((p-.845)/.01) : 1
+    : p < .590 ? 1-.725*quintic((p-.585)/.005) : p < .596 ? .275 : p < .60 ? .275*(1-quintic((p-.596)/.004)) : p < .845 ? 0 : p < .855 ? quintic((p-.845)/.01) : 1
   out.sourceShaftOpacity = out.studyVisible ? 0 : p >= .585 && p < .855 ? 1 : out.surroundingsOpacity
   out.contextOpacity = 1-quintic((p-.825)/.005)
   // 0 = the source's black finish, 1 = the study steel; C0 at .60/.62/.845/.855, hidden-but-held in between.

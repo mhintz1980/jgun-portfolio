@@ -35,6 +35,15 @@ import {
  * (8 / 5.2 / 3.38 / 2.2 / 1.43) at ~65% speed of the previous stage. */
 const GEAR_ROTATION_SWEEP = Math.PI * 8
 
+/**
+ * Owner visual correction (2026-10-21): the 9.525 mm cam-follow projection
+ * exposes the machined teardrop groove beside the collar at full shift. The
+ * mode change still rotates 120 degrees; the displayed axial component is
+ * limited to the amount that keeps the groove covered.
+ */
+export const RING_SWITCH_TRAVEL_SCALE = 0.62
+export const RING_SWITCH_VISUAL_TRAVEL_Z = RING_SWITCH_TRAVEL_Z * RING_SWITCH_TRAVEL_SCALE
+
 /** One frame of commanded wrench mechanics. */
 export interface WrenchMechanicsFrame {
   /** 0..1 clutch */
@@ -86,7 +95,7 @@ const applyShift = (rig: WrenchRig, shift: number): void => {
   if (rs) {
     const base = rig.basePositions.get(rs)
     if (base) {
-      rs.position.z = base.z + shift * RING_SWITCH_TRAVEL_Z
+      rs.position.z = base.z + shift * RING_SWITCH_VISUAL_TRAVEL_Z
       rs.rotation.z = +shift * RING_SWITCH_ROTATION  // +Z travel = positive rotation
     }
   }
@@ -108,7 +117,7 @@ const applyExplosion = (rig: WrenchRig, explode: number, shift: number): void =>
   if (rs) {
     const base = rig.basePositions.get(rs)
     if (base) {
-      rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_TRAVEL_Z
+      rs.position.z = base.z + EXPLODE_OFFSETS.clutch * explode + shift * RING_SWITCH_VISUAL_TRAVEL_Z
       rs.rotation.z = +shift * RING_SWITCH_ROTATION
     }
   }

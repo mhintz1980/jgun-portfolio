@@ -10,6 +10,7 @@ import { createPrivateRenderer } from './createPrivateRenderer'
 import { BackgroundWorld } from './BackgroundWorld'
 import { createInspectionIsolationSample } from './inspectionIsolation'
 import { torqueScrollFraction, torqueNarrativeProgress, TORQUE_PACING_SCALE } from './scrollPacing'
+import { TorqueInspectionOverlay } from './TorqueInspectionOverlay'
 
 // This lazy module runs only in the private live document, before its first text
 // request. Keep the exact pinned symbol fallback local (not a runtime CDN lookup).
@@ -97,6 +98,7 @@ export default function TorqueScene({ store, onFailure, playback }: TorqueSceneP
         <BackgroundWorld store={store} onFailure={onFailure} isolation={isolation} />
         <Suspense fallback={null}><RuntimeWorld store={store} onFailure={onFailure} playback={playback} isolation={isolation} /></Suspense>
       </Canvas>}
+      {rendererSupported && <TorqueInspectionOverlay />}
     </div>
   )
 }

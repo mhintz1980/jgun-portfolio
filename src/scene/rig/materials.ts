@@ -216,28 +216,40 @@ export function createDiamondKnurlNormalMap(): DataTexture {
 }
 
 const ringSwitchKnurlNormalMap = createDiamondKnurlNormalMap()
+// Measured P003068 CAD radius in the merged ring unit's object frame.
+// The 75.44 mm OD must reach full weight before its outer surface.
+export const RING_SWITCH_OD_RADIUS = 0.037722
+export const RING_SWITCH_OD_MASK_START = RING_SWITCH_OD_RADIUS - 0.0008
+export const RING_SWITCH_OD_MASK_FULL = RING_SWITCH_OD_RADIUS - 0.0004
 
 /**
- * The GLB packs P003068's cylindrical OD and planar end faces into one mesh.
- * Gate tangent-space XY perturbation by the mesh-local Z normal so the knurl
- * lives on the radial OD while axial end faces retain smooth anodized metal.
+ * The GLB packs P003068's OD, bore and planar faces into one mesh. Gate the
+ * tangent-space perturbation by outward radial normal, radial position and
+ * axial normal so only the 75.44 mm OD receives knurl.
  */
 function applyRingSwitchOdKnurlMask(material: MeshPhysicalMaterial): void {
   material.onBeforeCompile = (shader) => {
-    shader.vertexShader = `varying vec3 vRingSwitchObjectNormal;\n${shader.vertexShader}`.replace(
+    shader.vertexShader = `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.vertexShader}`.replace(
       '#include <beginnormal_vertex>',
-      '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);',
+      '#include <beginnormal_vertex>\n  vRingSwitchObjectNormal = normalize(objectNormal);\n  vRingSwitchObjectPos = position;',
     )
-    shader.fragmentShader = `varying vec3 vRingSwitchObjectNormal;\n${shader.fragmentShader}`.replace(
+    shader.fragmentShader = `varying vec3 vRingSwitchObjectNormal;\nvarying vec3 vRingSwitchObjectPos;\n${shader.fragmentShader}`.replace(
       '#include <normal_fragment_maps>',
       ShaderChunk.normal_fragment_maps.replace(
         'mapN.xy *= normalScale;',
-        `float ringSwitchOdMask = 1.0 - smoothstep(0.20, 0.55, abs(normalize(vRingSwitchObjectNormal).z));
+        `vec2 ringSwitchRadialPos = vRingSwitchObjectPos.xy;
+\tvec2 ringSwitchRadialNormal = vRingSwitchObjectNormal.xy;
+\tfloat ringSwitchOutwardDot = dot(ringSwitchRadialPos, ringSwitchRadialNormal)
+\t\t/ max(length(ringSwitchRadialPos) * length(ringSwitchRadialNormal), 1e-8);
+\tfloat ringSwitchOutward = step(0.5, ringSwitchOutwardDot);
+\tfloat ringSwitchOuterRadius = smoothstep(${RING_SWITCH_OD_MASK_START.toFixed(6)}, ${RING_SWITCH_OD_MASK_FULL.toFixed(6)}, length(ringSwitchRadialPos));
+\tfloat ringSwitchSide = 1.0 - step(0.20, abs(normalize(vRingSwitchObjectNormal).z));
+\tfloat ringSwitchOdMask = ringSwitchOutward * ringSwitchOuterRadius * ringSwitchSide;
 \tmapN.xy *= normalScale * ringSwitchOdMask;`,
       ),
     )
   }
-  material.customProgramCacheKey = () => 'ring-switch-od-knurl-v2'
+  material.customProgramCacheKey = () => 'ring-switch-od-knurl-v3'
 }
 
 /** Three's Material.copy omits compile hooks; keep them through ghost/fade clones. */

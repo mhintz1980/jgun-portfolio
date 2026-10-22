@@ -8,28 +8,28 @@ import type { InspectionPlayback } from './inspectionPlayback'
 const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
   drafting: {
     title: 'Drafting',
-    lede: 'The registered drawing.',
-    body: 'The wrench begins as an engineering drawing: an intact sheet, handwritten annotations, and a traced profile held in a calm, registered view.',
+    lede: 'Design starts with the interfaces.',
+    body: 'Mark Hintz’s JGUN design connects the input shaft, planetary drivetrain and two-speed clutch. The drawing and handwritten notes introduce the geometry and manufacturing decisions behind the tool.',
   },
   breakthrough: {
     title: 'Breakthrough',
-    lede: 'The model breaks through the sheet.',
-    body: 'The solid model pushes up through the opaque paper. The printed sheet fractures along the traced profile, and the wrench rises continuously through the opening it has made.',
+    lede: 'From drawing to working assembly.',
+    body: 'The wrench rises through its drawn profile, bringing the housing, operator controls and drivetrain into three dimensions. Follow the parts from their mating interfaces to their role in the complete assembly.',
   },
   mechanism: {
     title: 'Mechanism',
     lede: 'How the wrench works.',
-    body: 'Inside the housing, the gear train, the clutch, and the extraction sequence present each stage of the assembly in its measured order.',
+    body: 'The diamond-knurled P003068 ring gives the operator a grip to select Rundown or High Torque. Its detents locate the mode, while the blue and red indicator stripes reveal the shift. Inside, the planetary stages transmit motion through the gearbox.',
   },
   inspection: {
     title: 'Inspection',
-    lede: 'Slow the subject, keep the camera alive.',
-    body: 'The input-shaft cutter is inspected in bullet time: the subject nearly stops while the camera keeps moving at normal speed around it.',
+    lede: 'A stronger shaft begins with a different cut.',
+    body: 'The original P001835 shaping process required a cutter relief groove. The 4140, 4340 and C300 attempts all failed at that groove. Mark’s revised shaft uses rotary hobbing and a smooth blank, with the bearing and retaining rings moved to support the new geometry.',
   },
   close: {
-    title: 'Close',
-    lede: 'Ownership and next action.',
-    body: 'The sequence settles on the finished wrench over the pit as the last of the unified lightning fades, and the story hands off to the live pages below.',
+    title: 'Assembly',
+    lede: 'Precision connects every stage.',
+    body: 'The exploded gearbox reveals how the carriers, planets, bearing and clutch fit together. Inspect the P000247 planet in A000592: the gears were cut in house to ISO 1328 Grade A6, with less than .001 inch total indicated runout. The finished wrench brings these design and manufacturing decisions together.',
   },
 }
 

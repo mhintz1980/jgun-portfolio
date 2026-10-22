@@ -29,7 +29,7 @@ describe('JG-038 T5 mechanism translation and C2 sequence switch', () => {
       expect(now.explode).toBeCloseTo(then.explode, 9)
       expect(now.gearAngle).toBeCloseTo(then.gearAngle, 9)
       expect(now.ghostOpacity).toBeCloseTo(then.ghostOpacity, 9)
-      if (sequence === 'fullAfter') expect(now.shift).toBeCloseTo(then.shift, 9)
+      // Doc39 retimes only shift; all other mechanical channels retain translation.
       expect(now.idle).toBe(0)
     }
   })
@@ -71,4 +71,15 @@ describe('JG-038 T5 mechanism translation and C2 sequence switch', () => {
     }
     expect(() => sampleMechanism(NaN, fresh())).toThrow(/finite/)
   })
+})
+
+it('settles first, then shifts exactly over .520-.545 so the red stripe is uncovered by the red view', () => {
+  for (const p of [.46,.495,.505,.515,.520]) expect(sampleMechanism(p,fresh(),'fullAfter').shift).toBe(0)
+  expect(sampleMechanism(.5325,fresh(),'fullAfter').shift).toBeCloseTo(.5,12)
+  expect(sampleMechanism(.545,fresh(),'fullAfter').shift).toBe(1)
+  expect(sampleMechanism(.56,fresh(),'fullAfter').shift).toBe(1)
+  for (const p of [.520,.545]) {
+    const h=1e-7, a=sampleMechanism(p-h,fresh()).shift,b=sampleMechanism(p,fresh()).shift,c=sampleMechanism(p+h,fresh()).shift
+    expect(Math.abs((c-b)-(b-a))/h).toBeLessThan(.001)
+  }
 })

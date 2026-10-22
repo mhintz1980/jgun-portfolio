@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { Box3, Vector3 } from 'three'
 import { makeDrawingLayout, SHEET_ROTATION } from './drawingGeometry'
 import { INTRO_PHASES, REDUCED_MOTION_INTRO_T } from './introTimeline'
-import { introCameraPose, PRESSURE_CAMERA_RAKE_END, sheetReveal, type SheetCameraPose } from './sheetCamera'
+import { introCameraPose, PRESSURE_CAMERA_RAKE_START, PRESSURE_CAMERA_RAKE_END, sheetReveal, type SheetCameraPose } from './sheetCamera'
+import { GROUP } from './sheet/ink'
 
 const pose = (): SheetCameraPose => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 0, ortho: 0, distance: 0 })
 const layoutFor = (aspect: number) => makeDrawingLayout(aspect, new Box3(new Vector3(-0.05, -0.04, -0.15), new Vector3(0.05, 0.04, 0.15)))
@@ -15,6 +16,14 @@ describe('drafting camera', () => {
   it('finishes the technical print before profile excitation', () => {
     expect(sheetReveal(0.4, []).every((value) => value === 1)).toBe(true)
   })
+  it('inks the side profile during the whole-sheet reveal instead of pre-filling it', () => {
+    const at = (t: number) => sheetReveal(t, [])[GROUP.side]
+    expect(at(0)).toBe(0)
+    expect(at(0.28)).toBe(0)
+    expect(at(0.33)).toBeGreaterThan(0)
+    expect(at(0.33)).toBeLessThan(1)
+    expect(at(0.39)).toBe(1)
+  })
   for (const aspect of [16 / 9, 390 / 844]) {
     it(`holds the exact square-on registration through the pulse at aspect ${aspect}`, () => {
       const layout = layoutFor(aspect)
@@ -22,7 +31,7 @@ describe('drafting camera', () => {
       expect(elevationOf(start)).toBeCloseTo(90, 9)
       expect(start.ortho).toBe(1)
       // The lit park, storm flicker, dark hold and electrical trace share the registered hold.
-      for (const t of [0.45, INTRO_PHASES.flickerStart, 0.49, INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, INTRO_PHASES.registrationEnd]) {
+      for (const t of [0.45, INTRO_PHASES.flickerStart, 0.49, INTRO_PHASES.blackoutStart, INTRO_PHASES.pulseStart, PRESSURE_CAMERA_RAKE_START]) {
         const current = introCameraPose(layout, aspect, t, pose())
         expect(current.position.distanceTo(start.position)).toBeLessThan(1e-12)
         expect(current.target.distanceTo(start.target)).toBeLessThan(1e-12)
@@ -45,45 +54,27 @@ describe('drafting camera', () => {
       }
     })
 
-    it(`tilts to the pressure view over the pressure window and holds it to the handoff at aspect ${aspect}`, () => {
-      const layout = layoutFor(aspect)
-      const held = introCameraPose(layout, aspect, INTRO_PHASES.registrationEnd, pose())
-      expect(INTRO_PHASES.riseStart).toBe(INTRO_PHASES.registrationEnd)
-      expect(PRESSURE_CAMERA_RAKE_END).toBe(0.89)
-      expect(INTRO_PHASES.orbitStart).toBe(0.9)
-      const tilted = introCameraPose(layout, aspect, PRESSURE_CAMERA_RAKE_END, pose())
-      // The pressure maximum / first fracture sits halfway through the original
-      // camera rake, not at its endpoint or in a zero-duration snap.
-      const mid = introCameraPose(layout, aspect, (INTRO_PHASES.registrationEnd + PRESSURE_CAMERA_RAKE_END) / 2, pose())
-      expect(elevationOf(held)).toBeCloseTo(90, 9)
-      expect(held.ortho).toBe(1)
-      expect(elevationOf(mid)).toBeCloseTo(74, 9)
-      expect(mid.ortho).toBeCloseTo(0.5, 12)
-      // Same focal point, distance and framing: only the elevation and projection change.
-      expect(tilted.target.distanceTo(held.target)).toBeLessThan(1e-12)
-      expect(tilted.distance).toBeCloseTo(held.distance, 12)
-      expect(tilted.fov).toBeCloseTo(held.fov, 12)
-      expect(elevationOf(tilted)).toBeCloseTo(58, 9)
-      expect(tilted.ortho).toBe(0)
-      // Monotone descent through the separately authored camera rake.
-      let previousElevation = 90
-      let previousOrtho = 1
-      for (let i = 1; i <= 40; i += 1) {
-        const t = INTRO_PHASES.registrationEnd + (PRESSURE_CAMERA_RAKE_END - INTRO_PHASES.registrationEnd) * (i / 40)
-        const current = introCameraPose(layout, aspect, t, pose())
-        const elevation = elevationOf(current)
-        expect(elevation).toBeLessThanOrEqual(previousElevation + 1e-9)
-        expect(elevation).toBeGreaterThanOrEqual(58 - 1e-6)
-        expect(current.ortho).toBeLessThanOrEqual(previousOrtho)
-        previousElevation = elevation
-        previousOrtho = current.ortho
-      }
-      // The tilted pose is constant from rake completion into the hero blend window.
-      for (const t of [PRESSURE_CAMERA_RAKE_END, INTRO_PHASES.orbitStart, 1]) {
-        const current = introCameraPose(layout, aspect, t, pose())
-        expect(current.position.distanceTo(tilted.position)).toBeLessThan(1e-12)
-        expect(current.target.distanceTo(tilted.target)).toBeLessThan(1e-12)
-        expect(current.ortho).toBe(0)
+    // Doc39 supersedes the static .79 hold / 58-degree rake with a low orbit.
+    it(`descends ahead of rupture and orbits the shatter low at aspect ${aspect}`, () => {
+      const layout=layoutFor(aspect)
+      const held=introCameraPose(layout,aspect,PRESSURE_CAMERA_RAKE_START,pose())
+      expect(elevationOf(held)).toBeCloseTo(90,9);expect(held.ortho).toBe(1)
+      const early=introCameraPose(layout,aspect,.76,pose())
+      expect(early.position.distanceTo(held.position)).toBeGreaterThan(.01)
+      const low=introCameraPose(layout,aspect,PRESSURE_CAMERA_RAKE_END,pose())
+      expect(elevationOf(low)).toBeCloseTo(22,9);expect(low.ortho).toBe(0)
+      const end=introCameraPose(layout,aspect,.9,pose())
+      expect(elevationOf(end)).toBeCloseTo(18,9)
+      const inverse=SHEET_ROTATION.clone().invert()
+      const offset=(p:SheetCameraPose)=>p.position.clone().sub(p.target).transformDirection(inverse)
+      const a=offset(low),b=offset(end)
+      expect(Math.acos(a.dot(b))*180/Math.PI).toBeGreaterThan(55)
+      for(const t of [.84,.855,.87,.885,.9,1]){
+        const current=introCameraPose(layout,aspect,t,pose())
+        expect(elevationOf(current)).toBeLessThanOrEqual(22+1e-8)
+        expect(elevationOf(current)).toBeGreaterThanOrEqual(18-1e-8)
+        expect(current.target.distanceTo(held.target)).toBeLessThan(1e-12)
+        expect(current.distance).toBeCloseTo(held.distance,12)
       }
     })
 

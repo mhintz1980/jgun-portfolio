@@ -14,7 +14,7 @@ import {
 } from '../../data/caseStudies'
 import type { StageId } from '../../data/caseStudies'
 import type { WrenchRig } from './nodeRoles'
-import { applyWrenchMechanics, writeWrenchMechanicsProbe } from './wrenchMechanics'
+import { applyWrenchMechanics, RING_SWITCH_VISUAL_TRAVEL_Z, writeWrenchMechanicsProbe } from './wrenchMechanics'
 import type { WrenchMechanicsProbe } from './wrenchMechanics'
 
 const BASE_Z = -0.06
@@ -147,7 +147,7 @@ describe('wrenchMechanics', () => {
     )
     // Ring switch rides the clutch plus its own +Z travel and positive rotation.
     expect(fx.ringSwitch.position.z).toBeCloseTo(
-      BASE_Z + EXPLODE_OFFSETS.clutch * 0.5 + 0.5 * RING_SWITCH_TRAVEL_Z,
+      BASE_Z + EXPLODE_OFFSETS.clutch * 0.5 + 0.5 * RING_SWITCH_VISUAL_TRAVEL_Z,
       15,
     )
     expect(fx.ringSwitch.rotation.z).toBeCloseTo(0.5 * RING_SWITCH_ROTATION, 15)
@@ -200,11 +200,11 @@ describe('wrenchMechanics', () => {
   it('clutch shift alone drives the fork −Z and the ring switch +Z with positive rotation', () => {
     const fx = makeFixture()
     expect(CLUTCH_SHIFT_DISTANCE).toBeLessThan(0)
-    expect(RING_SWITCH_TRAVEL_Z).toBeGreaterThan(0)
+    expect(RING_SWITCH_TRAVEL_Z).toBeGreaterThan(RING_SWITCH_VISUAL_TRAVEL_Z)
     expect(RING_SWITCH_ROTATION).toBeCloseTo((2 * Math.PI) / 3, 12)
     applyWrenchMechanics(fx.rig, { shift: 1, explode: 0, gearAngle: 0, idle: 0 })
     expect(fx.clutchSliding.position.z).toBeCloseTo(BASE_Z + CLUTCH_SHIFT_DISTANCE, 15)
-    expect(fx.ringSwitch.position.z).toBeCloseTo(BASE_Z + RING_SWITCH_TRAVEL_Z, 15)
+    expect(fx.ringSwitch.position.z).toBeCloseTo(BASE_Z + RING_SWITCH_VISUAL_TRAVEL_Z, 15)
     expect(fx.ringSwitch.rotation.z).toBeCloseTo(RING_SWITCH_ROTATION, 15)
     // Explosion channels stay at rest during a pure shift.
     expect(fx.handle.position.z).toBe(BASE_Z)

@@ -2,15 +2,17 @@ import { expect,it } from 'vitest'
 import { Matrix4,Vector3 } from 'three'
 import { createJourneyCameraSampler,createJourneyPose,isolationCamera,orbitCamera,signedAzimuthDelta } from './JourneyCamera'
 const digest=(p:ReturnType<typeof createJourneyPose>)=>[p.position.toArray(),p.target.toArray(),p.up.toArray(),p.fov]
-it.each([1.6,390/844])('holds bitwise-identical I across both fades at aspect %s',aspect=>{
+it.each([1.6,390/844])('holds profile I after the initial moving fade and across restore at aspect %s',aspect=>{
   const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),sample=createJourneyCameraSampler(),out=createJourneyPose()
   const expected=digest(isolationCamera(aspect,h,createJourneyPose()))
-  for(const p of [.585,.59,.60,.845,.85,.855])expect(digest(sample(p,aspect,h,out))).toEqual(expected)
-  expect(digest(sample(.94,aspect,h,out))).toEqual([[.32,.16,.74],[0,0,-.15],[0,1,0],aspect<.8?58:42])
+  for(const p of [.590,.595,.60,.845,.85,.855])expect(digest(sample(p,aspect,h,out))).toEqual(expected)
+  const endpoint=new Vector3(-.62,.18,.32),target=new Vector3(0,0,-.15)
+  if(aspect<.8)endpoint.lerpVectors(target,endpoint,2.2)
+  expect(digest(sample(.94,aspect,h,out))).toEqual([endpoint.toArray(),target.toArray(),[0,1,0],aspect<.8?58:42])
 })
 it('keeps continuous orbit radii, avoids polar roll and does not stop halfway',()=>{
   const sample=createJourneyCameraSampler(),out=createJourneyPose(),h=new Matrix4()
-  for(const [a,b] of [[.56,.585],[.60,.62],[.83,.845],[.855,.93]]){
+  for(const [a,b] of [[.56,.590],[.60,.62],[.83,.845],[.855,.93]]){
     let prev:Vector3|null=null,maxStep=0
     for(let j=0;j<=500;j++){
       sample(a+(b-a)*j/500,1.6,h,out)
@@ -26,7 +28,7 @@ it('keeps continuous orbit radii, avoids polar roll and does not stop halfway',(
   }
 })
 const LEGS:Array<{name:string;a:number;b:number;sign:1|-1;identityDeg:number}>=[
-  {name:'A->I',a:.56,b:.585,sign:1,identityDeg:129.7},
+  {name:'A->I',a:.56,b:.590,sign:1,identityDeg:129.7},
   {name:'I->E',a:.60,b:.62,sign:1,identityDeg:83.7},
   {name:'F->I',a:.83,b:.845,sign:1,identityDeg:86.9},
   {name:'I->X',a:.855,b:.93,sign:-1,identityDeg:-160.2},
@@ -43,15 +45,14 @@ const sweptDeg=(h:Matrix4,aspect:number,a:number,b:number)=>{
   }
   return total*180/Math.PI
 }
-it('signs each orbit leg explicitly and never takes a near-full-circle sweep',()=>{
+// Doc39 replaces axial isolation and its prescribed long signed sweeps.
+it('uses the shorter profile orbit on every leg under transformed assembly frames',()=>{
   const hs=[new Matrix4(),new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),new Matrix4().makeRotationY(Math.PI/6)]
   for(const aspect of [1.6,390/844])for(const h of hs)for(const leg of LEGS){
     const swept=sweptDeg(h,aspect,leg.a,leg.b)
-    expect(Math.sign(swept),leg.name).toBe(leg.sign)
-    expect(Math.abs(swept),leg.name).toBeLessThan(250)
-    expect(Math.abs(swept),leg.name).toBeGreaterThan(20)
+    expect(Math.abs(swept),leg.name).toBeLessThanOrEqual(180+1e-8)
+    expect(Math.abs(swept),leg.name).toBeGreaterThan(1)
   }
-  for(const aspect of [1.6,390/844])for(const leg of LEGS)expect(sweptDeg(new Matrix4(),aspect,leg.a,leg.b),leg.name).toBeCloseTo(leg.identityDeg,0)
 })
 it('falls back to a finite up when endpoint ups are antipodal',()=>{
   const a=createJourneyPose(),b=createJourneyPose(),out=createJourneyPose()
@@ -88,4 +89,21 @@ it('unwraps toward the requested sign without a discontinuity near zero travel',
   expect(signedAzimuthDelta(3,2.8,1)).toBeCloseTo(2*Math.PI-.2,12)
   expect(signedAzimuthDelta(3,2.8,-1)).toBeCloseTo(-.2,12)
   expect(signedAzimuthDelta(1,1,-1)).toBe(0)
+})
+
+it.each([1.6,390/844])('matches actual world ring exit and moves DURING the first isolation fade, aspect %s',aspect=>{
+  const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),sample=createJourneyCameraSampler(),out=createJourneyPose()
+  const ring=createJourneyPose();ring.target.set(.02,.04,-.10).applyMatrix4(h)
+  ring.position.set(-.25,.10,-.20).applyMatrix4(h);ring.up.set(0,1,0).transformDirection(h);ring.fov=32
+  const original=digest(ring)
+  expect(digest(sample(.56,aspect,h,out,ring))).toEqual(original)
+  const first=sample(.585,aspect,h,out,ring).position.clone()
+  expect(first.distanceTo(sample(.587,aspect,h,out,ring).position)).toBeGreaterThan(.0001)
+  const profile=digest(isolationCamera(aspect,h,createJourneyPose()))
+  for(const p of [.590,.596,.600])expect(digest(sample(p,aspect,h,out,ring))).toEqual(profile)
+  const axis=new Vector3(0,0,1).transformDirection(h)
+  expect(Math.abs(out.position.clone().sub(out.target).normalize().dot(axis))).toBeLessThan(.35)
+  sample(.601,aspect,h,out,ring)
+  expect(digest(out)).not.toEqual(profile)
+  expect(digest(ring)).toEqual(original)
 })

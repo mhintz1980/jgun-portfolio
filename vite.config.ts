@@ -19,6 +19,6 @@ export default defineConfig({
   },
   test: {
     // Keep working scratch (replica harnesses under .scratch/) out of the repo test gate.
-    exclude: [...configDefaults.exclude, '**/.scratch/**'],
+    exclude: [...configDefaults.exclude, '**/.scratch/**', '**/output/**'],
   },
 })

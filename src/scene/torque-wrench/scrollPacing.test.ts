@@ -19,6 +19,20 @@ const g = (u: number, r = TORQUE_PACING_RAMP) => {
 const distance = (p: number, spans: readonly { start: number, end: number, multiplier: number }[]) =>
   p + spans.reduce((sum, s) => sum + (s.end - s.start) * (s.multiplier - 1) * g((p - s.start) / (s.end - s.start)), 0)
 
+it('moves physical scroll out of the pre-rupture lull into shatter without moving downstream joins', () => {
+  const before = TORQUE_PACING_SPANS.map(span => ({ ...span,
+    multiplier: span.id === 'cracks' ? 2 : span.id === 'shatter' ? 4 : span.multiplier }))
+  expect(distance(.42, TORQUE_PACING_SPANS)).toBeLessThan(distance(.42, before))
+  expect(distance(.46, TORQUE_PACING_SPANS) - distance(.42, TORQUE_PACING_SPANS))
+    .toBeGreaterThan(distance(.46, before) - distance(.42, before))
+  // The longer shatter adds its distance before the Ring Switch join; every
+  // following chapter keeps the same authored span length.
+  const delta = distance(1, TORQUE_PACING_SPANS) - distance(1, before)
+  for (const p of [.505,.62,.94,1]) {
+    expect(distance(p, TORQUE_PACING_SPANS) - distance(p, before)).toBeCloseTo(delta, 12)
+  }
+})
+
 it('lengthens selected physical spans by their authored factors, preserving the close distance', () => {
   // Overlapping spans (cracks .36-.435 and shatter .42-.46) add their weights, so compare the full integral.
   for (const span of TORQUE_PACING_SPANS) {
@@ -33,7 +47,7 @@ it('lengthens selected physical spans by their authored factors, preserving the 
     .toBeCloseTo(explodedHold.multiplier * (explodedHold.end - explodedHold.start), 12)
   expect((physical(1) - physical(.94)) * TORQUE_PACING_SCALE).toBeCloseTo(.06, 12)
 })
-it('keeps every pre-shatter scroll pixel fixed and reserves the paced tail in the stylesheet', () => {
+it('preserves the drafting track and reserves the reallocated shatter tail in the stylesheet', () => {
   // Scene sets y = baseRange * distance(p), so a span that starts at .42 cannot move any p <= .42.
   const legacy = TORQUE_PACING_SPANS.filter(span => span.id !== 'shatter')
   for (let i = 0; i <= 420; i++) {
@@ -47,7 +61,8 @@ it('keeps every pre-shatter scroll pixel fixed and reserves the paced tail in th
 })
 it('maintains a flat-top trapezoidal plateau and inverts monotone seeks with strictly positive derivative', () => {
   expect(TORQUE_PACING_SPANS.find(span => span.id === 'drafting')).toMatchObject({ start: .265, end: .395, multiplier: .45 })
-  expect(TORQUE_PACING_SPANS.find(span => span.id === 'shatter')).toMatchObject({ start: .42, end: .46, multiplier: 3.5 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'shatter')).toMatchObject({ start: .42, end: .46, multiplier: 6 })
+  expect(TORQUE_PACING_SPANS.find(span => span.id === 'cracks')).toMatchObject({ start: .395, end: .435, multiplier: 1.5 })
   expect(TORQUE_PACING_SPANS.find(span => span.id === 'ring')).toMatchObject({ start: .46, end: .505, multiplier: 4.5 })
   expect(TORQUE_PACING_SPANS.find(span => span.id === 'switch')).toMatchObject({ start: .505, end: .56, multiplier: 2.1 })
   expect(TORQUE_PACING_SPANS.find(span => span.id === 'isolation')).toMatchObject({ start: .56, end: .62, multiplier: 2.1 })
@@ -55,7 +70,7 @@ it('maintains a flat-top trapezoidal plateau and inverts monotone seeks with str
   expect(TORQUE_PACING_SPANS.find(span => span.id === 'explodedHold')).toMatchObject({ start: .93, end: .94, multiplier: 8 })
   expect(TORQUE_PACING_SCALE).toBeCloseTo(1 + TORQUE_PACING_SPANS.reduce(
     (sum, span) => sum + (span.end - span.start) * (span.multiplier - 1), 0), 12)
-  expect(TORQUE_PACING_SCALE).toBeCloseTo(1.83633, 5)
+  expect(TORQUE_PACING_SCALE).toBeCloseTo(1.93115, 5)
 
   // Verify flat-top kernel constant derivative across interior [ramp, 1 - ramp]:
   const plateauSlope = 1 / (1 - TORQUE_PACING_RAMP)

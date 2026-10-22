@@ -1,7 +1,8 @@
 import {
   BackSide, Box3, BufferGeometry, Color, DirectionalLight, Group, Matrix4, Mesh,
   MeshStandardMaterial, Plane, Quaternion, TorusGeometry, Vector3,
-  Material, type InstancedMesh, type Object3D, type Texture,
+  Material, WebGLRenderTarget,
+  type Camera, type InstancedMesh, type Object3D, type Texture, type WebGLRenderer,
 } from 'three'
 import { creasedNormals } from './normalRepair'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
@@ -16,7 +17,7 @@ import { createShaftKinematicsFrame, sampleShaftKinematics, writeShaftProgressio
 import {
   applyProgression, createProgressionState, createProgressionUniforms, FACE_START_MM,
   HOB_INFEED_YC_MM, HOB_RETRACT_MM, HOB_VISUAL_A_MM, HOB_VISUAL_R_MM,
-  setShaftTransform, writeProgressionUniforms, writeStressUniforms,
+  makeStressOverlayMaterial, setShaftTransform, writeProgressionUniforms, writeStressUniforms,
   type ProgressionShaft, type ProgressionUniforms, type StressOverlay,
 } from './progression'
 import { createShaftSchedule, sampleShaftSchedule } from './schedule'
@@ -97,7 +98,21 @@ export function measureSupportDelta(doc: ShaftBundleDocument, out: Vector3): num
 }
 
 interface Part { root: Group; materials: MeshStandardMaterial[]; caps: Mesh[]; bindings: ProgressionBinding[] }
-interface ProgressionBinding { uniforms: ProgressionUniforms; kind: ProgressionShaft }
+interface ProgressionBinding {
+  uniforms: ProgressionUniforms; kind: ProgressionShaft; material: MeshStandardMaterial; overlay: Mesh | null
+}
+/**
+ * The registered local frame puts the shaft axis at the matrix translation, so
+ * the axial offset between the machining frame and the shader frame is that
+ * translation's Y component.
+ */
+function bindingAxisOffset(bindings: readonly ProgressionBinding[]): number {
+  for (const binding of bindings) {
+    const axis = binding.uniforms.uShaftAxis.value
+    if (Number.isFinite(axis.y) && axis.y !== 0) return axis.y
+  }
+  return 0
+}
 interface Neighbour { carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[] }
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
@@ -211,7 +226,7 @@ export function createShaftRuntime(
   const schedule = createShaftSchedule(), kinematics = createShaftKinematicsFrame(), script = createShaftScriptFrame()
   const cameraSample = createShaftCameraSample()
   const legacyState = createProgressionState(), approvedState = createProgressionState()
-  const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: 0, yMax: 24, rMax: 9, centerY: FOS_CENTER_Y.attempt, hotspotFos: 0, bodyFos: FOS_MAX }
+  const stress: StressOverlay = { kind: 'none', mix: 0, scanProgress: 0, yMin: 0, yMax: 16, rMax: 9, centerY: FOS_CENTER_Y.attempt, hotspotFos: 0, bodyFos: FOS_MAX }
   const fos = newFosPresentation()
   const camera = { valid: true, position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 34 }
   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.35, envRotationY: 0,
@@ -225,11 +240,80 @@ export function createShaftRuntime(
     teethFormed: 0, teethPartial: 0,
     cutter: { visible: false, stroke: 0, infeed: 0, rotation: 0, softened: false },
     hob: { visible: false, feed: 0, rotation: 0, softened: false },
-    card: { id: script.card, stamp: script.stamp }, stress: { kind: script.stress, mix: 0 },
+    card: { id: script.card, stamp: script.stamp }, stress: {
+      kind: script.stress, mix: 0, scanProgress: 0, shaderMaterials: 0, shaderReady: 0,
+      uniformKind: 0, uniformMix: 0, uniformScan: 0, uniformBodyFos: 0, uniformHotspotFos: 0,
+      overlayVisible: 0,
+    },
     supports: { deltaYmm: 0, witnesses: false, endpointHeld: false },
     finale: { assembled: false, shaftCount: 0, racesFollow: false, carrierCount: 0, missingCarriers: true, bearingRacePolicy: 'unsplit-fixed', ringFollowsShaft: false, bearingOuterFixed: true },
     narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
     nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
+  }
+  /** Diagnostic, read-only: the stress bindings actually installed on the shaft meshes. */
+  const stressProbe = () => bindings.map(binding => ({
+    kind: binding.kind,
+    shaderReady: binding.material.userData.jgunStressShader === true,
+    overlayVisible: binding.overlay?.visible === true,
+    uniformKind: binding.uniforms.uStressKind.value,
+    uniformMix: binding.uniforms.uStressMix.value,
+    yMin: binding.uniforms.uStressYMin.value,
+    yMax: binding.uniforms.uStressYMax.value,
+    rMax: binding.uniforms.uStressRMax.value,
+    centerY: binding.uniforms.uStressCenterY.value,
+    bodyFos: binding.uniforms.uStressBodyFos.value,
+    hotspotFos: binding.uniforms.uStressHotspotFos.value,
+    hasOverlayMaterial: (binding.overlay?.material as { type?: string } | undefined)?.type === 'ShaderMaterial',
+    baseColor: binding.material.color.getHexString(),
+    metalness: binding.material.metalness,
+    overlayWorld: binding.overlay ? binding.overlay.getWorldPosition(new Vector3()).toArray() : null,
+    overlayParentVisible: binding.overlay?.parent?.visible ?? null,
+    overlayInFrustum: binding.overlay ? !binding.overlay.frustumCulled : null,
+    overlayGeometryCount: binding.overlay?.geometry.getAttribute('position')?.count ?? 0,
+  }))
+
+  /**
+   * Diagnostic A/B: render the study with and without the stress overlays and
+   * count the pixels that actually change. The overlay is the only difference,
+   * so a positive coloured count is the proof that the FEA field is on screen.
+   */
+  const stressCapture = (gl: WebGLRenderer, camera: Camera) => {
+    const overlays = bindings.map(binding => binding.overlay).filter((overlay): overlay is Mesh => !!overlay)
+    if (!overlays.length) return { changedPixels: 0, coloredPixels: 0, totalPixels: 0, overlays: 0 }
+    const priorTarget = gl.getRenderTarget()
+    const width = 640, height = Math.max(1, Math.round(width * gl.domElement.height / gl.domElement.width))
+    const target = new WebGLRenderTarget(width, height)
+    const read = () => {
+      const pixels = new Uint8Array(width * height * 4)
+      gl.setRenderTarget(target); gl.render(root, camera)
+      gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
+      return pixels
+    }
+    try {
+      root.updateWorldMatrix(true, true)
+      const withField = read()
+      for (const overlay of overlays) overlay.visible = false
+      const withoutField = read()
+      for (const overlay of overlays) overlay.visible = true
+      let changed = 0, colored = 0
+      for (let i = 0; i < withField.length; i += 4) {
+        const delta = Math.max(
+          Math.abs(withField[i] - withoutField[i]),
+          Math.abs(withField[i + 1] - withoutField[i + 1]),
+          Math.abs(withField[i + 2] - withoutField[i + 2]))
+        if (delta > 6) {
+          changed++
+          if (withField[i + 2] > withField[i] * 1.25 || withField[i] > withField[i + 2] * 1.25) colored++
+        }
+      }
+      return {
+        changedPixels: changed, coloredPixels: colored,
+        totalPixels: width * height, overlays: overlays.length,
+      }
+    } finally {
+      for (const overlay of overlays) overlay.visible = true
+      gl.setRenderTarget(priorTarget); target.dispose()
+    }
   }
   function collect(object: Object3D, shared = false, includeGeometry = true): void {
     object.traverse(child => {
@@ -289,7 +373,22 @@ export function createShaftRuntime(
         uniforms = createProgressionUniforms()
         matrix.multiplyMatrices(toShaft, mesh.matrixWorld)
         setShaftTransform(uniforms, matrix); applyProgression(material, uniforms)
-        const binding = { uniforms, kind }; bindings.push(binding); part.bindings.push(binding)
+        const binding: ProgressionBinding = { uniforms, kind, material, overlay: null }
+        bindings.push(binding); part.bindings.push(binding)
+        const overlayMaterial = makeStressOverlayMaterial(uniforms)
+        ownedMaterials.add(overlayMaterial)
+        // The overlay must be a SIBLING of the shaft mesh carrying the same
+        // transform: as a child it would receive the mesh transform twice and
+        // draw away from the surface it colours.
+        const overlay = new Mesh(mesh.geometry, overlayMaterial)
+        overlay.name = 'study-stress-surface'
+        overlay.frustumCulled = false; overlay.renderOrder = 3; overlay.visible = false
+        overlay.position.copy(mesh.position)
+        overlay.quaternion.copy(mesh.quaternion)
+        overlay.scale.copy(mesh.scale)
+        mesh.parent?.add(overlay)
+        binding.overlay = overlay
+        resources.meshes++
       }
       if (name === 'approvedshaft' || name === 'housing') {
         // Darker clipped back faces suggest section walls. No CSG or fabricated solid cap.
@@ -416,6 +515,8 @@ export function createShaftRuntime(
 
   runtime = {
     root, ready, frame, camera, render, resources,
+    stressProbe,
+    stressCapture,
     sample(time) {
       if (disposed) return
       sampleShaftSchedule(time, schedule)
@@ -474,10 +575,19 @@ export function createShaftRuntime(
       }
       stress.kind = script.stress; stress.mix = script.stressMix; stress.scanProgress = script.scanProgress
       // The whole shaft carries the field (body blue, hotspot warm/blue); it spreads from the hotspot centre.
-      stress.yMin = 0; stress.yMax = 24; stress.rMax = 9
-      stress.centerY = script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised
+      // The field covers the whole shaft so the solved colours are visible on
+      // the surface the owner is looking at; the hotspot stays at the measured
+      // groove floor and the body stays at the far-field value.
+      stress.yMin = 0; stress.yMax = 16; stress.rMax = 9
+      // The FEA hotspot is expressed in the machining frame (0..16 mm), but the
+      // shader evaluates the field in the registered local frame whose origin
+      // is offset from the bundle origin. Shift the anchor by the same offset
+      // so the concentration lands on the measured groove floor.
+      const axisOffset = bindingAxisOffset(bindings)
+      stress.centerY = (script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised) + axisOffset
       sampleFosPresentation(frame.time, script.stress, script.stressMix, fos)
       stress.hotspotFos = fos.hotspot; stress.bodyFos = fos.body
+      let stressShaderReady = 0, overlayVisible = 0
       for (let i = 0; i < bindings.length; i++) {
         const binding = bindings[i]
         writeProgressionUniforms(binding.uniforms, binding.kind === 'legacy' ? legacyState : approvedState, binding.kind)
@@ -485,7 +595,21 @@ export function createShaftRuntime(
         stress.kind = binding.kind === 'legacy' && script.stress === 'warm' ? 'warm'
           : binding.kind === 'approved' && script.stress === 'cool' ? 'cool' : 'none'
         writeStressUniforms(binding.uniforms, stress)
+        if (binding.overlay) binding.overlay.visible = stress.kind !== 'none' && stress.mix > 0.001
+          && !schedule.wipe && !schedule.section
+        if (binding.overlay?.visible) overlayVisible++
+        if (binding.material.userData.jgunStressShader === true) stressShaderReady++
+        if (binding.kind === 'legacy') {
+          probe.stress.uniformKind = binding.uniforms.uStressKind.value
+          probe.stress.uniformMix = binding.uniforms.uStressMix.value
+          probe.stress.uniformScan = binding.uniforms.uStressScanProgress.value
+          probe.stress.uniformBodyFos = binding.uniforms.uStressBodyFos.value
+          probe.stress.uniformHotspotFos = binding.uniforms.uStressHotspotFos.value
+        }
       }
+      probe.stress.shaderMaterials = bindings.length
+      probe.stress.shaderReady = stressShaderReady
+      probe.stress.overlayVisible = overlayVisible
       placeShaper(shaper.root, kinematics); shaper.root.visible = schedule.shaper > 0
       placeHob(hob.root, kinematics); hob.root.visible = schedule.hob > 0
       materialOpacity(shaperMaterial, schedule.shaper); materialOpacity(shaperDetailMaterial, schedule.shaper * (kinematics.softened ? 0.25 : 1))
@@ -527,6 +651,7 @@ export function createShaftRuntime(
       probe.hob.visible = schedule.hob > 0; probe.hob.feed = kinematics.hobYc; probe.hob.rotation = kinematics.hobPhi; probe.hob.softened = kinematics.softened
       probe.card.id = script.card; probe.card.stamp = script.stamp
       probe.stress.kind = script.stress; probe.stress.mix = script.stressMix
+      probe.stress.scanProgress = script.scanProgress
       probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
       probe.supports.endpointHeld = loaded && schedule.endpointHeld
       probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= 39

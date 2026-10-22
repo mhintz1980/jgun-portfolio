@@ -2,6 +2,7 @@ import { expect, it } from 'vitest'
 import { breakthroughSubjectTimeAt, breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening,
   SHATTER_SUBJECT_KNOTS } from './OpeningDirector'
 import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
+import { BULLET_TIME_RATE } from './bulletTime'
 
 it('suspends breakthrough physics while the continuous camera path keeps moving', () => {
   const a = .868, b = .922
@@ -92,7 +93,8 @@ it('starts cracking shortly after lights-out, completes in 4 bursts with C1 hold
   // Shatter (fracture) boundaries remain unchanged at progress 0.42..0.46.
   expect(sampleOpening(0.42).fracture).toBe(0)
   expect(sampleOpening(0.422).fracture).toBeGreaterThan(0)
-  expect(sampleOpening(0.448).fracture).toBe(1)
+  expect(sampleOpening(0.454).fracture).toBeLessThan(1)
+  expect(sampleOpening(0.456).fracture).toBe(1)
 })
 
 const fnv = (text: string, seed: number) => {
@@ -120,6 +122,10 @@ it('leaves every full IntroState through progress .42 byte-identical to the pre-
 
 it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1', () => {
   expect(SHATTER_SUBJECT_KNOTS[0]).toEqual([.42, .84])
+  expect(SHATTER_SUBJECT_KNOTS[3][1]).toBeCloseTo(
+    .855 + (openingTimeAt(.452) - openingTimeAt(.43008)) * BULLET_TIME_RATE, 12,
+  )
+  expect(SHATTER_SUBJECT_KNOTS[3][1]).toBeGreaterThan(.857)
   expect(breakthroughSubjectTimeAt(.46)).toBe(1)
   expect(breakthroughSubjectTimeAt(1)).toBe(1)
   expect(() => breakthroughSubjectTimeAt(NaN)).toThrow()
@@ -130,6 +136,19 @@ it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1'
     prior = t
   }
   const h = 1e-6
+  const normalRate = (openingTimeAt(.43612 + h) - openingTimeAt(.43612 - h)) / (2 * h)
+  const subjectRate = (breakthroughSubjectTimeAt(.43612 + h) - breakthroughSubjectTimeAt(.43612 - h)) / (2 * h)
+  expect(subjectRate / normalRate).toBeCloseTo(BULLET_TIME_RATE, 6)
+  for (const boundary of [.43008, .452]) {
+    const epsilon = 1e-7
+    const leftRatio = ((breakthroughSubjectTimeAt(boundary) - breakthroughSubjectTimeAt(boundary - epsilon))
+      / (openingTimeAt(boundary) - openingTimeAt(boundary - epsilon)))
+    const rightRatio = ((breakthroughSubjectTimeAt(boundary + epsilon) - breakthroughSubjectTimeAt(boundary))
+      / (openingTimeAt(boundary + epsilon) - openingTimeAt(boundary)))
+    expect(leftRatio).toBeCloseTo(BULLET_TIME_RATE, 3)
+    expect(rightRatio).toBeCloseTo(BULLET_TIME_RATE, 3)
+    expect(Math.abs(leftRatio - rightRatio)).toBeLessThan(0.002)
+  }
   const left = (breakthroughSubjectTimeAt(.42) - breakthroughSubjectTimeAt(.42 - h)) / h
   const right = (breakthroughSubjectTimeAt(.42 + h) - breakthroughSubjectTimeAt(.42)) / h
   expect(Math.abs(right - left)).toBeLessThan(1e-3)
@@ -139,9 +158,10 @@ it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1'
 })
 
 it('holds shard separation nearly still, then releases within the native-viewport rate bound', () => {
-  const hold = [.43008, .44212]
+  const hold = [.43008, .452]
   const e0 = event(breakthroughSubjectTimeAt(hold[0])), e1 = event(breakthroughSubjectTimeAt(hold[1]))
-  expect(e1 - e0).toBeLessThanOrEqual(.03)
+  expect(e1 - e0).toBeGreaterThan(0)
+  expect(e1 - e0).toBeLessThanOrEqual(.25)
   expect(nativeViewports(hold[1]) - nativeViewports(hold[0])).toBeGreaterThan(2)
   let peak = 0
   const h = 1e-6
@@ -149,13 +169,13 @@ it('holds shard separation nearly still, then releases within the native-viewpor
     const rate = (event(breakthroughSubjectTimeAt(p + h)) - event(breakthroughSubjectTimeAt(p - h)))
       / (nativeViewports(p + h) - nativeViewports(p - h))
     peak = Math.max(peak, rate)
-    if (p >= hold[0] && p <= hold[1]) expect(rate).toBeLessThan(.05)
+    if (p >= hold[0] && p <= hold[1]) expect(rate).toBeLessThan(.12)
   }
   expect(peak).toBeLessThanOrEqual(1.5)
   expect(sampleOpening(.46).t).toBe(1)
 })
 
-it('keeps the post-shatter glow fade and lamp return within .003 progress of the pre-T6 clock', () => {
+it('keeps the post-shatter glow fade and lamp return tightly joined to the pre-T6 clock', () => {
   const legacy = (p: number) => breakthroughTimeAt(openingTimeAt(p))
   const invert = (clock: (p: number) => number, t: number) => {
     let low = .42, high = .46
@@ -166,8 +186,9 @@ it('keeps the post-shatter glow fade and lamp return within .003 progress of the
     return (low + high) / 2
   }
   for (const t of [.9, .92, .94, .96, .98, .99]) {
-    expect(Math.abs(invert(breakthroughSubjectTimeAt, t) - invert(legacy, t))).toBeLessThanOrEqual(.003)
+    expect(Math.abs(invert(breakthroughSubjectTimeAt, t) - invert(legacy, t))).toBeLessThanOrEqual(.01)
   }
-  // The shatter itself completes no later than it did before T6.
-  expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(invert(legacy, .88))
+  // Owner extended the airborne hold on 2026-10-21; the release now lands at
+  // .456 and still completes before the Ring Switch window at .46.
+  expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(.456)
 })

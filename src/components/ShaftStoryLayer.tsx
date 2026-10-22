@@ -79,8 +79,8 @@ function buildAnnouncement(frame: ShaftScriptFrame): string {
 
 /**
  * DOM card layer for the shaft inspection story. Renders the material cards, FAILED stamp,
- * attribution and captions from the closed-form sampler. Not mounted anywhere in the app;
- * nothing here registers a story or owns narrative state.
+ * attribution and captions from the closed-form sampler. Mounted by the private
+ * torque-wrench overlay; this layer does not register or own narrative state.
  */
 export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
   const frameRef = useRef<ShaftScriptFrame | null>(null)

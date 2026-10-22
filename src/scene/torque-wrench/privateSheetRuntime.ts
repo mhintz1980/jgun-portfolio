@@ -678,8 +678,17 @@ export function createPrivateSheetRuntime(
         group.visible = true
 
         const reveal = u.uReveal.value
-        if (proof || reducedMotion) reveal.fill(1)
+        // Reduced motion freezes rupture and camera flourishes, but the drawing
+        // still inks with native scroll. Filling every group here was showing
+        // the completed profile before the visitor began the story.
+        if (proof) reveal.fill(1)
         else sheetReveal(intro.t, reveal)
+        let drivenReveal = 0
+        for (let group = 0; group < reveal.length; group++) {
+          if (group !== GROUP.printed && reveal[group] > drivenReveal) drivenReveal = reveal[group]
+        }
+        stats.drivenInkReveal = drivenReveal
+        stats.sideInkReveal = reveal[GROUP.side]
         if (proof) { reveal.fill(0); reveal[GROUP.side] = 1 }
         u.uInk.value.copy(proof ? white : navy)
         const stockVisible = retirement < 1 || proof || reducedMotion
@@ -725,12 +734,15 @@ export function createPrivateSheetRuntime(
           // Pressure lifts each shard before gravity takes it into the opening.
           // A smooth launch has no infinite derivative at the crack boundary.
           const flight = event * event * (3 - 2 * event)
-          const lift = .065 * Math.sin(Math.PI * event)
-          const fallU = Math.max(0, Math.min(1, (event - .62) / .38))
+          // Keep the tear suspended through the full orbit: a higher launch,
+          // wider throw and a late gravity handoff make the shards legible
+          // beside the model instead of dropping out at the start.
+          const lift = .16 * Math.sin(Math.PI * event)
+          const fallU = Math.max(0, Math.min(1, (event - .76) / .24))
           const fall = fallU * fallU * (3 - 2 * fallU)
-          mesh.position.set(f.center.x + f.velocity.x * flight * .65,
-            f.center.y + f.velocity.y * flight * .65 - .08 * event * event,
-            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .05 * event * event - .28 * fall)
+          mesh.position.set(f.center.x + f.velocity.x * flight * .95,
+            f.center.y + f.velocity.y * flight * .95 - .055 * event * event,
+            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .035 * event * event - .18 * fall)
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
           mesh.visible = stockVisible
           // Intact stock is an opaque barrier even where the coarse CAD envelope crosses

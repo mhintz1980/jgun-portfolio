@@ -42,8 +42,9 @@ export interface SheetCameraPose {
 
 const centreOf = (r: [number, number, number, number]): [number, number] => [r[0] + r[2] / 2, r[1] + r[3] / 2]
 
-/** Camera rake keeps its authored .79-.89 span while the tool starts pushing at .79. */
-export const PRESSURE_CAMERA_RAKE_END = 0.89
+/** Camera starts ahead of pressure, reclaiming the pre-rupture visual lull. */
+export const PRESSURE_CAMERA_RAKE_START = 0.72
+export const PRESSURE_CAMERA_RAKE_END = 0.84
 
 /** Distance at which `width` sheet metres fill the viewport width. */
 function fitWidth(width: number, fov: number, aspect: number): number {
@@ -94,12 +95,12 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     // step from ~0.0080 to 0.01025 against the 0.01 continuity bound in sheetCamera.test.
     { t: 0.29, x: 0, y: 0, dist: whole * 1.08, elev: 82, head: 0, fov: 34, ortho: 0 },
     { t: INTRO_PHASES.onboardEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
-    { t: INTRO_PHASES.registrationEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
-    // After the registered pulse, lower the lens around the same focal point: the bowed
-    // stock has real parallax during the push and rupture. Physical rise and
-    // camera rake have separate endpoints; the hero perspective opens at .90.
-    { t: PRESSURE_CAMERA_RAKE_END, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
-    { t: 1, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
+    { t: PRESSURE_CAMERA_RAKE_START, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
+    // Descend before rupture; move around the suspended shards at desk level.
+    { t: 0.79, x: sx, y: sy, dist: settle, elev: 58, head: -20, fov: 30, ortho: 0 },
+    { t: PRESSURE_CAMERA_RAKE_END, x: sx, y: sy, dist: settle, elev: 22, head: 0, fov: 30, ortho: 0 },
+    { t: 0.9, x: sx, y: sy, dist: settle, elev: 18, head: 65, fov: 30, ortho: 0 },
+    { t: 1, x: sx, y: sy, dist: settle, elev: 22, head: 150, fov: 30, ortho: 0 },
   ]
 }
 
@@ -168,9 +169,12 @@ const WINDOWS: [number, number, number][] = [
   [GROUP.bottom, 0.24, 0.32],
   [GROUP.top, 0.26, 0.34],
   [GROUP.front, 0.27, 0.34],
-  [GROUP.side, 0.25, 0.36],
+  // Draw the profile while the establishing shot reveals the sheet, so the
+  // owner sees the side elevation being inked rather than finding it complete
+  // when the camera pulls back.
+  [GROUP.side, 0.28, 0.39],
   [GROUP.sideDims, 0.33, 0.39],
-  [GROUP.sideLabels, 0.34, 0.39],
+  [GROUP.sideLabels, 0.34, 0.395],
   [GROUP.gdt, 0.35, 0.4],
 ]
 
