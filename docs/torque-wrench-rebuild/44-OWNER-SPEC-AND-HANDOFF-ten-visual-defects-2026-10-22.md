@@ -198,13 +198,14 @@ Look at `attachPart` in `src/scene/inspection/shaft/shaftRuntime.ts:294–315` a
 ## Ready-to-Paste Continuation Prompt for Next Session
 
 ```text
-Resume in C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench on branch torque-wrench/rebuild.
+Resume on branch torque-wrench/rebuild (repo mhintz1980/jgun-portfolio; local checkout C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench if running locally).
 
 1. Read the canonical 10-defect specification and handoff first:
-   - C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\docs\torque-wrench-rebuild\44-OWNER-SPEC-AND-HANDOFF-ten-visual-defects-2026-10-22.md
-   - View the two owner reference images attached in the previous session:
-     * C:\Users\Markimus\AppData\Local\Temp\codex-clipboard-7bf313e2-5c8d-4021-9b82-e8502d010053.png (Item 8: Legacy grooved shaft — yellow/red FEA required in the cutter relief groove just below the gear)
-     * C:\Users\Markimus\AppData\Local\Temp\codex-clipboard-93fa4e23-d2e8-4347-975d-c7dcb704895b.png (Item 10: Hobbed shaft — FEA required on the tooth runout / lead-out section just below the gear teeth)
+   - docs/torque-wrench-rebuild/44-OWNER-SPEC-AND-HANDOFF-ten-visual-defects-2026-10-22.md
+   - TODO.md
+   - View the two committed owner reference images:
+     * docs/torque-wrench-rebuild/44-ref-item8-legacy-shaft-fea.png (Item 8: Legacy grooved shaft — yellow/red FEA required in the cutter relief groove just below the gear)
+     * docs/torque-wrench-rebuild/44-ref-item10-hobbed-shaft-fea.png (Item 10: Hobbed shaft — FEA required on the tooth runout / lead-out section just below the gear teeth)
 
 2. Implement all 10 fixes documented with exact root causes in doc44:
    - Item 1 (Profile blank at scroll 0): Gate uFragmentPrint / paper-fragment-* meshes in privateSheetRuntime.ts so the static pre-baked fragment print never renders while intro.fracture == 0, and tune sheetCamera.ts WINDOWS so the profile draws progressively as the user scrolls.
