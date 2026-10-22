@@ -6,6 +6,7 @@ import { StaticPoster } from './components/StaticPoster'
 import { StationNav } from './components/StationNav'
 import { TechnicalHUD } from './components/TechnicalHUD'
 import { useQuality } from './state/qualityStore'
+import { isCinematicRigRequested } from './scene/cinematic/rigRequest'
 
 // The canvas world (three/R3F/drei/GSAP/Lenis + the dissolve shader) is code-
 // split out of the entry chunk: the DOM narrative, HUD chrome and poster paint
@@ -19,6 +20,7 @@ const BootSequence = lazy(() =>
   import('./components/BootSequence').then((m) => ({ default: m.BootSequence })),
 )
 const QuietMachinePreview = lazy(() => import('./scene/rl300/QuietMachinePreview'))
+const CinematicRigRoute = lazy(() => import('./scene/cinematic/CinematicRigRoute'))
 const RingInspection = lazy(() => import('./components/RingInspection').then(m => ({ default: m.RingInspection })))
 
 export default function App() {
@@ -29,6 +31,12 @@ export default function App() {
   // always get the static poster path, so the study query must not bypass it.
   if (!reducedMotion && new URLSearchParams(window.location.search).get('study') === 'rl300') {
     return <Suspense fallback={null}><QuietMachinePreview /></Suspense>
+  }
+
+  // Cinematic camera rig sandbox (?debug=rig authoring studio, ?rig=cinematic shot reel). Same
+  // standalone pattern as ?study=rl300: it replaces the page, so no existing route is touched.
+  if (!reducedMotion && isCinematicRigRequested(window.location.search)) {
+    return <Suspense fallback={null}><CinematicRigRoute /></Suspense>
   }
 
   // Degradation wiring (see qualityStore for the tier ladder):
