@@ -174,11 +174,12 @@ const WINDOWS: [number, number, number][] = [
   // Draw the profile while the establishing shot reveals the sheet, so the
   // owner sees the side elevation being inked rather than finding it complete
   // when the camera pulls back.
-  // Windows end at .41-.42 (was .39-.40) so the 1:1 profile is still being inked while the camera frames it.
-  [GROUP.side, 0.29, 0.41],
-  [GROUP.sideDims, 0.35, 0.41],
-  [GROUP.sideLabels, 0.36, 0.415],
-  [GROUP.gdt, 0.37, 0.42],
+  // Every group is fully inked by `onboardEnd` (.38): the registered drawing is held complete through the lit
+  // recognition beat, so the profile is finished well before the light fails at .45.
+  [GROUP.side, 0.29, 0.37],
+  [GROUP.sideDims, 0.33, 0.37],
+  [GROUP.sideLabels, 0.34, 0.375],
+  [GROUP.gdt, 0.35, 0.38],
 ]
 
 export function sheetReveal(t: number, out: number[]): number[] {
