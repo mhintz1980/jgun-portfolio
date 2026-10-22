@@ -43,3 +43,7 @@ docs/webgl-review-2026-10-16/evidence/**/*.png
 .codex/
 .mimosa/
 .tmp-probe/
+
+# Playwright output
+test-results/
+playwright-report/

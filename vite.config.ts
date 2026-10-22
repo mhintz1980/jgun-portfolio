@@ -18,7 +18,8 @@ export default defineConfig({
     rollupOptions: { input },
   },
   test: {
+    // Playwright specs under tests/e2e run through `npx playwright test`, not vitest.
     // Keep working scratch (replica harnesses under .scratch/) out of the repo test gate.
-    exclude: [...configDefaults.exclude, '**/.scratch/**', '**/output/**'],
+    exclude: [...configDefaults.exclude, '**/.scratch/**', '**/output/**', 'tests/e2e/**'],
   },
 })
