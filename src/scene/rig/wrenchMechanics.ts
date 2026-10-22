@@ -40,8 +40,10 @@ const GEAR_ROTATION_SWEEP = Math.PI * 8
  * exposes the machined teardrop groove beside the collar at full shift. The
  * mode change still rotates 120 degrees; the displayed axial component is
  * limited to the amount that keeps the groove covered.
+ * Owner revision (2026-10-22): 0.62 stopped a hair early and showed only a thin edge of the OSHA Red band;
+ * 0.76 (7.24 mm of the 9.525 mm stroke) is the owner-requested 0.74-0.78 band; confirm the cam pocket stays covered visually.
  */
-export const RING_SWITCH_TRAVEL_SCALE = 0.62
+export const RING_SWITCH_TRAVEL_SCALE = 0.76
 export const RING_SWITCH_VISUAL_TRAVEL_Z = RING_SWITCH_TRAVEL_Z * RING_SWITCH_TRAVEL_SCALE
 
 /** One frame of commanded wrench mechanics. */

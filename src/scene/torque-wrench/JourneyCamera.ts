@@ -6,10 +6,17 @@ import { shaftMetrePoint } from '../inspection/shaft/frame'
 import { quintic } from './JourneyDirector'
 export interface JourneyPose { position: Vector3; target: Vector3; up: Vector3; fov: number }
 export const createJourneyPose = (): JourneyPose => ({position:new Vector3(),target:new Vector3(),up:new Vector3(0,1,0),fov:42})
+/**
+ * Owner correction (2026-10-22): the Ring Switch exit sat ~10 deg of azimuth from the old isolation profile, so the
+ * gearbox faded out with almost no camera motion. The isolation camera now swings round to the snout-side
+ * three-quarter (>= 45 deg from `ringExitPose`) and rises slightly, so the handoff into the Input Shaft reads as a move.
+ */
+export const ISOLATION_AZIMUTH_DEG = -60
+export const ISOLATION_ELEVATION_DEG = 28
 export function isolationCamera(aspect: number, h: Matrix4, out: JourneyPose): JourneyPose {
-  const elevation=12*Math.PI/180
+  const elevation=ISOLATION_ELEVATION_DEG*Math.PI/180,azimuth=ISOLATION_AZIMUTH_DEG*Math.PI/180,radius=.24
   out.target.set(0,0,-.035762)
-  out.position.set(-.24*Math.cos(elevation),.24*Math.sin(elevation),-.035762-.055)
+  out.position.set(radius*Math.cos(elevation)*Math.sin(azimuth),radius*Math.sin(elevation),-.035762+radius*Math.cos(elevation)*Math.cos(azimuth))
   out.position.applyMatrix4(h);out.target.applyMatrix4(h);out.up.set(0,1,0).transformDirection(h)
   out.fov=aspect<.8?50:34;return out
 }

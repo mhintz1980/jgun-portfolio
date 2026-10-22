@@ -14,15 +14,19 @@ const elevationOf = (p: SheetCameraPose): number =>
 
 describe('drafting camera', () => {
   it('finishes the technical print before profile excitation', () => {
-    expect(sheetReveal(0.4, []).every((value) => value === 1)).toBe(true)
+    expect(sheetReveal(0.42, []).every((value) => value === 1)).toBe(true)
+  })
+  it('opens on clean vellum: nothing but the printed border is inked at scroll 0', () => {
+    const reveal = sheetReveal(0, [])
+    for (let g = 0; g < reveal.length; g += 1) if (g !== GROUP.printed) expect(reveal[g], 'group ' + g).toBe(0)
   })
   it('inks the side profile during the whole-sheet reveal instead of pre-filling it', () => {
     const at = (t: number) => sheetReveal(t, [])[GROUP.side]
     expect(at(0)).toBe(0)
-    expect(at(0.28)).toBe(0)
+    expect(at(0.29)).toBe(0)
     expect(at(0.33)).toBeGreaterThan(0)
     expect(at(0.33)).toBeLessThan(1)
-    expect(at(0.39)).toBe(1)
+    expect(at(0.41)).toBe(1)
   })
   for (const aspect of [16 / 9, 390 / 844]) {
     it(`holds the exact square-on registration through the pulse at aspect ${aspect}`, () => {

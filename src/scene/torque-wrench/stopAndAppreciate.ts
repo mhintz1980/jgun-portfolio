@@ -321,33 +321,13 @@ export function createStopAndAppreciateController(): StopAndAppreciateController
         }
         telemetry.mode = whipBackActive ? 'whip-back' : 'idle'
       } else {
-        // Mode A: Passive SecondOrderDynamics pointer look (±25° cone when scroll is stationary, fading to 0 on scroll).
-        const inRegistrationHold = progress >= REGISTRATION_GUARD_START && progress <= REGISTRATION_GUARD_END
-        if (scrolling || inRegistrationHold || !pointerMoved) {
-          if (scrolling) idleHoldSec = 0
-          passiveWeight *= Math.exp(-16 * step)
-          if (passiveWeight < 1e-4) passiveWeight = 0
-        } else {
-          idleHoldSec += step
-          if (idleHoldSec >= SCROLL_STATIONARY_DELAY_SEC) {
-            passiveWeight += (1 - passiveWeight) * (1 - Math.exp(-8 * step))
-          }
-        }
-        const dyn = dynamics.update(step, pointerMoved ? pointerX * passiveWeight : 0, pointerMoved ? pointerY * passiveWeight : 0)
-        yaw = -dyn.x * PASSIVE_LOOK_MAX_RAD * passiveWeight
-        pitch = dyn.y * PASSIVE_LOOK_MAX_RAD * passiveWeight
-        const coneMag = Math.hypot(yaw, pitch)
-        if (coneMag > PASSIVE_LOOK_MAX_RAD) {
-          const scale = PASSIVE_LOOK_MAX_RAD / coneMag
-          yaw *= scale
-          pitch *= scale
-        }
-        if (passiveWeight > 1e-4 && coneMag > 1e-6) {
-          deflectCameraAroundTarget(pose, yaw, pitch, qYaw, qPitch, offset, forward, right, orthoUp)
-          telemetry.mode = 'passive'
-        } else {
-          telemetry.mode = 'idle'
-        }
+        // Mode A: locked. Owner ruling 2026-10-22: when scrolling stops the camera stays exactly on the
+        // authored scroll pose; pointer hover never deflects it. Only Free Look (Mode B) or a drag moves it.
+        if (scrolling) idleHoldSec = 0
+        else idleHoldSec += step
+        passiveWeight = 0
+        dynamics.update(step, 0, 0)
+        telemetry.mode = 'idle'
         telemetry.whipBackProgress = 1
       }
 

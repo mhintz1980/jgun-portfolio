@@ -21,7 +21,10 @@ import type { TorqueSceneProps } from './cadGate'
 import {
   createPrivateInspectionSample,
   createPrivateRingCamera,
+  RING_CLOSEUP_END,
+  RING_CLOSEUP_START,
   RING_KNURL_DEPTH_MULTIPLIER,
+  type PrivateRingFocus,
   ringTimeAt,
   samplePrivateInspection,
   samplePrivateRingCamera,
@@ -132,6 +135,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   // live extraction/recentering transform instead of freezing the pose from the load frame.
   const ringAnchorLocal = useMemo(() => new Matrix4(), [])
   const ringLocalCenter = useMemo(() => new Vector3(), [])
+  const ringFocusPoint = useMemo(() => new Vector3(), [])
+  const ringFocusInverse = useMemo(() => new Matrix4(), [])
   const ringWorldCenter = useMemo(() => new Vector3(), [])
   const ringKnurlMaterials = useRef<readonly PrivateRingKnurlMaterial[] | null>(null)
   // True only once the current ring runtime has resolved; the clone never replaces the source before.
@@ -821,7 +826,16 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         runtime.root.matrixAutoUpdate = false
         runtime.root.matrix.copy(ringAnchor)
         runtime.root.matrixWorldNeedsUpdate = true
-        const privateRingCamera = samplePrivateRingCamera(progress, ringBaseDistance.current, ringCamera, aspect)
+        // The knurl close-up leans toward the live upper die so it frames the roller pressing into the OD.
+        const dieWheel = runtime.root.getObjectByName('KT_UPPER_KNURL_WHEEL_RH')
+        let ringFocus: PrivateRingFocus | undefined
+        if (dieWheel && progress >= RING_CLOSEUP_START - .01 && progress <= RING_CLOSEUP_END + .01) {
+          ringFocusPoint.setFromMatrixPosition(dieWheel.matrixWorld)
+          runtime.root.updateWorldMatrix(true, false)
+          ringFocusPoint.applyMatrix4(ringFocusInverse.copy(runtime.root.matrixWorld).invert())
+          ringFocus = ringFocusPoint
+        }
+        const privateRingCamera = samplePrivateRingCamera(progress, ringBaseDistance.current, ringCamera, aspect, ringFocus)
         runtime.camera.position.set(privateRingCamera.px, privateRingCamera.py, privateRingCamera.pz)
         runtime.camera.target.set(privateRingCamera.tx, privateRingCamera.ty, privateRingCamera.tz)
         runtime.camera.up.set(privateRingCamera.ux, privateRingCamera.uy, privateRingCamera.uz)

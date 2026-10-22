@@ -3,7 +3,6 @@ import { Vector3 } from 'three'
 import {
   createSecondOrderDynamics,
   createStopAndAppreciateController,
-  PASSIVE_LOOK_MAX_DEG,
   WHEEL_RESUME_THRESHOLD_PX,
   WHIP_BACK_DURATION_SEC,
 } from './stopAndAppreciate'
@@ -49,34 +48,36 @@ describe('Stop and Appreciate Camera Controller', () => {
     expect(ctrl.snapshot().mode).toBe('idle')
   })
 
-  it('Mode A: deflects within the ±25 deg cone when stationary and fades to 0 during scroll', () => {
+  it('Mode A: never deflects the camera from the scroll pose, even with a resting pointer', () => {
     const ctrl = createStopAndAppreciateController()
     ctrl.setPointerNormalized(1, 1)
 
-    // Hold scroll stationary at p = 0.52 for 1.5s
+    // Hold scroll stationary at p = 0.52 for 1.5s with the cursor parked in a corner
     let pose = makePose()
     for (let i = 0; i < 90; i++) {
       pose = makePose()
       ctrl.applyCamera(1 / 60, 0.52, pose)
     }
     const snapStationary = ctrl.snapshot()
-    expect(snapStationary.mode).toBe('passive')
-    expect(snapStationary.passiveWeight).toBeGreaterThan(0.95)
-    const totalConeDeg = Math.hypot(snapStationary.yawDeg, snapStationary.pitchDeg)
-    expect(totalConeDeg).toBeGreaterThan(10)
-    expect(totalConeDeg).toBeLessThanOrEqual(PASSIVE_LOOK_MAX_DEG + 1e-4)
-    expect(pose.position.distanceTo(pose.target)).toBeCloseTo(1, 6)
+    expect(snapStationary.mode).toBe('idle')
+    expect(snapStationary.passiveWeight).toBe(0)
+    expect(snapStationary.yawDeg).toBe(0)
+    expect(snapStationary.pitchDeg).toBe(0)
+    expect(pose.position.distanceTo(new Vector3(0, 0, 1))).toBeLessThan(1e-9)
 
-    // Resume scrolling: passiveWeight and deflection decay back to 0
+    // Scrolling and stopping again stays locked to the authored pose
     let p = 0.52
     for (let i = 0; i < 60; i++) {
       p += 0.002
       pose = makePose()
       ctrl.applyCamera(1 / 60, p, pose)
     }
-    const snapScrolling = ctrl.snapshot()
-    expect(snapScrolling.passiveWeight).toBeLessThan(1e-3)
-    expect(pose.position.distanceTo(new Vector3(0, 0, 1))).toBeLessThan(1e-3)
+    for (let i = 0; i < 60; i++) {
+      pose = makePose()
+      ctrl.applyCamera(1 / 60, p, pose)
+    }
+    expect(ctrl.snapshot().mode).toBe('idle')
+    expect(pose.position.distanceTo(new Vector3(0, 0, 1))).toBeLessThan(1e-9)
   })
 
   it('Mode B: freezes scroll progress in Free Look, orbits around target, and executes a 0.6s quintic whip-back on wheel resume', () => {

@@ -420,6 +420,14 @@ interface RingCameraKnot {
   readonly targetZ?: number
 }
 
+/** Close-up dolly (fraction of the whole-ring distance) and how far the close-up follows the live die position. */
+export const RING_CLOSEUP_SCALE = 0.55
+const RING_CLOSEUP_FOCUS_WEIGHT = 0.8
+export const RING_CLOSEUP_START = 0.4768
+export const RING_CLOSEUP_END = 0.4905
+/** Ring-local point of the active knurling die; the close-up leans the camera toward it. */
+export interface PrivateRingFocus { x: number; y: number; z: number }
+
 const RING_BASE_X = -0.7
 const RING_BASE_Y = 0.48
 const RING_BASE_Z = 0.53
@@ -439,7 +447,10 @@ const RING_CAMERA_KNOTS: readonly RingCameraKnot[] = [
   { progress: 0.46, azimuth: RING_BASE_AZIMUTH, elevation: RING_BASE_ELEVATION, distanceScale: 1, fov: 34 },
   { progress: 0.4725, ...RING_GROOVE_VIEW.blue },
   { progress: 0.4768, azimuth: 2.7, elevation: 0.16, distanceScale: 1, fov: 32 },
-  { progress: 0.485, azimuth: 2.95, elevation: 0.14, distanceScale: 1, fov: 32 },
+  // Owner 2026-10-22: swing in on the knurling die rolling the diamond pattern into the OD, then pull back to
+  // whole-ring framing by .4945. The azimuth never passes 2.95 rad (ringSwitch-knurlView-camAngleLimit).
+  { progress: 0.481, azimuth: 2.84, elevation: 0.15, distanceScale: RING_CLOSEUP_SCALE, fov: 24 },
+  { progress: 0.4905, azimuth: 2.95, elevation: 0.16, distanceScale: RING_CLOSEUP_SCALE, fov: 24 },
   { progress: 0.4945, azimuth: 2.95, elevation: 0.18, distanceScale: 1, fov: 32 },
   // The restored assembly glides toward the handle BEFORE the shift starts.
   { progress: 0.520, azimuth: 3.35, elevation: 0.2, distanceScale: 1, fov: 32 },
@@ -459,6 +470,7 @@ export function samplePrivateRingCamera(
   distance: number,
   out: PrivateRingCamera,
   aspect = 1.6,
+  focus?: PrivateRingFocus,
 ): PrivateRingCamera {
   if (!Number.isFinite(progress) || !Number.isFinite(distance) || distance <= 0 || !Number.isFinite(aspect) || aspect <= 0) {
     throw new RangeError('Private ring camera progress and distance must be finite')
@@ -477,8 +489,13 @@ export function samplePrivateRingCamera(
   out.py = scaledDistance * Math.sin(elevation)
   out.pz = horizontal * Math.sin(azimuth)
   const axis = lerp(a.targetZ ?? 0, b.targetZ ?? 0, u)
-  out.tx = 0; out.ty = 0; out.tz = axis
-  out.pz += axis
+  // 0 on the whole-ring framing, 1 at the full close-up: derived from the dolly so the focus lean shares its easing.
+  const closeUp = focus ? clamp01((1 - lerp(a.distanceScale, b.distanceScale, u)) / (1 - RING_CLOSEUP_SCALE)) : 0
+  const lean = closeUp * RING_CLOSEUP_FOCUS_WEIGHT
+  const fx = focus ? focus.x * lean : 0, fy = focus ? focus.y * lean : 0, fz = focus ? focus.z * lean : 0
+  out.tx = fx; out.ty = fy; out.tz = axis + fz
+  out.px += fx; out.py += fy
+  out.pz += axis + fz
   out.ux = 0; out.uy = 1; out.uz = 0
   out.fov = lerp(a.fov, b.fov, u)
   return out

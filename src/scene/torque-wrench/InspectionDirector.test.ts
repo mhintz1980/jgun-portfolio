@@ -24,6 +24,9 @@ import {
   sampleInspectionSurroundings,
   samplePrivateInspection,
   samplePrivateRingCamera,
+  RING_CLOSEUP_END,
+  RING_CLOSEUP_START,
+  RING_CLOSEUP_SCALE,
   type PrivateInspectionSample,
 } from './InspectionDirector'
 
@@ -482,12 +485,14 @@ it.each([DESKTOP,NARROW])('doc39 keeps the whole ring/indicator envelope framed 
   for(let n=0;n<=200;n++){
     const p=.46+.1*n/200,c=samplePrivateRingCamera(p,.19,out,aspect)
     const radius=Math.hypot(c.px-c.tx,c.py-c.ty,c.pz-c.tz)
-    expect(radius).toBeGreaterThanOrEqual(.24*Math.max(1,.8/aspect)-1e-12)
+    // The knurl close-up (owner 2026-10-22) deliberately dollies in on the die; every other checkpoint keeps the whole ring.
+    const closeUp=p>RING_CLOSEUP_START-1e-9&&p<RING_CLOSEUP_END+.004
+    if(!closeUp)expect(radius).toBeGreaterThanOrEqual(.24*Math.max(1,.8/aspect)-1e-12)
     camera.position.set(c.px,c.py,c.pz);camera.up.set(c.ux,c.uy,c.uz)
     camera.lookAt(c.tx,c.ty,c.tz);camera.fov=c.fov;camera.aspect=aspect
     camera.updateProjectionMatrix();camera.updateMatrixWorld(true)
     if(p>=.4725&&p<=.4945)expect(Math.atan2(c.pz-c.tz,c.px-c.tx)).toBeLessThanOrEqual(3.0)
-    for(const z of [-.016,.022])for(let j=0;j<48;j++){
+    if(!closeUp)for(const z of [-.016,.022])for(let j=0;j<48;j++){
       const a=j*Math.PI/24
       point.set(.0377*Math.cos(a),.0377*Math.sin(a),z).project(camera)
       expect(Math.abs(point.x),'ring horizontal at '+p).toBeLessThan(.9)
@@ -511,4 +516,26 @@ it('doc39 ring path moves during fade-in, swings handleward during shift and ret
   const defaultPose=at(.48)
   expect(samplePrivateRingCamera(.48,.19,createPrivateRingCamera(),1.6)).toEqual(defaultPose)
   expect(()=>samplePrivateRingCamera(.48,.19,createPrivateRingCamera(),0)).toThrow(/finite/)
+})
+
+it.each([DESKTOP,NARROW])('swings in on the knurling die between .4768 and .4905 and pulls back to whole-ring framing by .4945 at aspect %s',aspect=>{
+  const at=(p:number,focus?:{x:number;y:number;z:number})=>{
+    const c=samplePrivateRingCamera(p,.24,createPrivateRingCamera(),aspect,focus)
+    return {c,radius:Math.hypot(c.px-c.tx,c.py-c.ty,c.pz-c.tz)}
+  }
+  const whole=at(.4725).radius
+  expect(at(.481).radius).toBeLessThan(whole*(RING_CLOSEUP_SCALE+.01))
+  expect(at(.4905).radius).toBeLessThan(whole*(RING_CLOSEUP_SCALE+.01))
+  expect(at(.481).c.fov).toBeLessThan(26)
+  expect(at(.4945).radius).toBeCloseTo(at(.46).radius,6)
+  expect(at(.4945).c.fov).toBe(32)
+  for(let n=0;n<=200;n++){
+    const p=.4725+.022*n/200,c=at(p).c
+    expect(Math.atan2(c.pz-c.tz,c.px-c.tx)).toBeLessThanOrEqual(2.95+1e-9)
+  }
+  // With a live die position the close-up leans toward it; whole-ring framing ignores it entirely.
+  const die={x:.02,y:.03,z:.01}
+  expect(at(.485,die).c.tx).toBeGreaterThan(at(.485).c.tx)
+  expect(at(.4725,die).c).toEqual(at(.4725).c)
+  expect(at(.4945,die).c).toEqual(at(.4945).c)
 })

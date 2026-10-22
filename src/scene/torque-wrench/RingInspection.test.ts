@@ -37,7 +37,8 @@ it('forms the OD with fully resolved heavy knurl and an independent moving camer
   // while rejecting the former oversized swing toward the gearbox axis.
   const cameraTravel = Math.hypot(cb.px - ca.px, cb.py - ca.py, cb.pz - ca.pz)
   expect(cameraTravel).toBeGreaterThan(.025)
-  expect(cameraTravel).toBeLessThan(.075)
+  // The die close-up (owner 2026-10-22) dollies in across this span, so the travel bound is wider than doc39's.
+  expect(cameraTravel).toBeLessThan(.16)
   const contact = []
   for (let t = 0; t <= 28; t += .01) if (samplePrivateRing(t, newFrame()).contact) contact.push(t)
   expect(contact.at(-1)! - contact[0]).toBeGreaterThan(16)

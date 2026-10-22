@@ -96,8 +96,9 @@ function shots(layout: DrawingLayout, aspect: number): Shot[] {
     { t: 0.29, x: 0, y: 0, dist: whole * 1.08, elev: 82, head: 0, fov: 34, ortho: 0 },
     { t: INTRO_PHASES.onboardEnd, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
     { t: PRESSURE_CAMERA_RAKE_START, x: sx, y: sy, dist: settle, elev: 90, head: 0, fov: 30, ortho: 1 },
-    // Descend before rupture; move around the suspended shards at desk level.
-    { t: 0.79, x: sx, y: sy, dist: settle, elev: 58, head: -20, fov: 30, ortho: 0 },
+    // Descend before rupture; move around the suspended shards at desk level. Heading only ever increases
+    // here (it was -20 at this key), so the rake and the bullet-time orbit turn one way without a counter-swing.
+    { t: 0.79, x: sx, y: sy, dist: settle, elev: 58, head: 0, fov: 30, ortho: 0 },
     { t: PRESSURE_CAMERA_RAKE_END, x: sx, y: sy, dist: settle, elev: 22, head: 0, fov: 30, ortho: 0 },
     { t: 0.9, x: sx, y: sy, dist: settle, elev: 18, head: 65, fov: 30, ortho: 0 },
     { t: 1, x: sx, y: sy, dist: settle, elev: 22, head: 150, fov: 30, ortho: 0 },
@@ -156,7 +157,8 @@ const WINDOWS: [number, number, number][] = [
   // Title/revision block is read first (camera arrives at .065); Detail B then the input note; Detail E and
   // the section with the output note follow the camera's order. Inking always finishes before the camera leaves.
   [GROUP.titleBlock, 0.015, 0.095],
-  [GROUP.detailD, 0.0, 0.1],
+  // Starts just above zero so scroll 0 is clean vellum + border; the first scroll tick draws it.
+  [GROUP.detailD, 0.008, 0.1],
   [GROUP.rear, 0.08, 0.17],
   [GROUP.section, 0.1, 0.19],
   [GROUP.hatch, 0.13, 0.22],
@@ -172,10 +174,11 @@ const WINDOWS: [number, number, number][] = [
   // Draw the profile while the establishing shot reveals the sheet, so the
   // owner sees the side elevation being inked rather than finding it complete
   // when the camera pulls back.
-  [GROUP.side, 0.28, 0.39],
-  [GROUP.sideDims, 0.33, 0.39],
-  [GROUP.sideLabels, 0.34, 0.395],
-  [GROUP.gdt, 0.35, 0.4],
+  // Windows end at .41-.42 (was .39-.40) so the 1:1 profile is still being inked while the camera frames it.
+  [GROUP.side, 0.29, 0.41],
+  [GROUP.sideDims, 0.35, 0.41],
+  [GROUP.sideLabels, 0.36, 0.415],
+  [GROUP.gdt, 0.37, 0.42],
 ]
 
 export function sheetReveal(t: number, out: number[]): number[] {

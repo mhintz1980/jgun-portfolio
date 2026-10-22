@@ -101,18 +101,6 @@ interface Part { root: Group; materials: MeshStandardMaterial[]; caps: Mesh[]; b
 interface ProgressionBinding {
   uniforms: ProgressionUniforms; kind: ProgressionShaft; material: MeshStandardMaterial; overlay: Mesh | null
 }
-/**
- * The registered local frame puts the shaft axis at the matrix translation, so
- * the axial offset between the machining frame and the shader frame is that
- * translation's Y component.
- */
-function bindingAxisOffset(bindings: readonly ProgressionBinding[]): number {
-  for (const binding of bindings) {
-    const axis = binding.uniforms.uShaftAxis.value
-    if (Number.isFinite(axis.y) && axis.y !== 0) return axis.y
-  }
-  return 0
-}
 interface Neighbour { carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[] }
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
@@ -232,7 +220,7 @@ export function createShaftRuntime(
   const render = { background: new Color('#05070a'), fogNear: 25, fogFar: 120, envIntensity: 0.35, envRotationY: 0,
     bloom: 0.16, aberration: 0, dofBokeh: 0, exposure: ctx.gl.toneMappingExposure }
   const frame = { time: 0, chapter: 0, phase: 'isolate', discrete: 0, narrativeAlpha: 1, returnBlend: 0, ownsNarrative: true }
-  const toShaft = studyToShaftLocal(new Matrix4()), matrix = new Matrix4(), delta = new Vector3()
+  const toShaft = studyToShaftLocal(new Matrix4()), matrix = new Matrix4(), delta = new Vector3(), rootInverse = new Matrix4()
   const wipeLegacy = new Plane(new Vector3(0, 0, -1), 0), wipeApproved = new Plane(new Vector3(0, 0, 1), 0)
   const sectionPlane = new Plane(new Vector3(1, 0, 0), 0)
   const noPlanes: Plane[] = [], legacyWipePlanes = [wipeLegacy], approvedWipePlanes = [wipeApproved], sectionPlanes = [sectionPlane]
@@ -356,13 +344,17 @@ export function createShaftRuntime(
     const part: Part = { root: group, materials: [], caps: [], bindings: [] }; parts[name] = part
     // Freeze the undeformed rest registration before sampling any spins/sections.
     root.updateWorldMatrix(true, true)
+    // The host copies the world registration onto `root.matrix` every frame, possibly before this async attach runs.
+    // The shader frame is study-ROOT-local CAD millimetres, so strip the root's own world transform: otherwise the
+    // registration (-21.43 mm axial) is baked into uShaftMatrix and every y-gated feature (teeth, FEA band) shifts.
+    rootInverse.copy(root.matrixWorld).invert()
+    const meshToShaft = (mesh: Mesh) => matrix.multiplyMatrices(rootInverse, mesh.matrixWorld).premultiply(toShaft)
     const meshes: Mesh[] = []; node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
     for (const mesh of meshes) {
       if (kind) {
         // S3: the exported shaft normals streak across sliver fans; rebuild them creased + angle-weighted (see normalRepair.ts).
         const original = mesh.geometry
-        matrix.multiplyMatrices(toShaft, mesh.matrixWorld)
-        mesh.geometry = creasedNormals(original, 40, matrix).geometry
+        mesh.geometry = creasedNormals(original, 40, meshToShaft(mesh)).geometry
         ownedGeometry.delete(original); ownedGeometry.add(mesh.geometry); original.dispose()
       }
       const material = steel.clone()
@@ -371,8 +363,7 @@ export function createShaftRuntime(
       let uniforms: ProgressionUniforms | undefined
       if (kind) {
         uniforms = createProgressionUniforms()
-        matrix.multiplyMatrices(toShaft, mesh.matrixWorld)
-        setShaftTransform(uniforms, matrix); applyProgression(material, uniforms)
+        setShaftTransform(uniforms, meshToShaft(mesh)); applyProgression(material, uniforms)
         const binding: ProgressionBinding = { uniforms, kind, material, overlay: null }
         bindings.push(binding); part.bindings.push(binding)
         const overlayMaterial = makeStressOverlayMaterial(uniforms)
@@ -578,13 +569,11 @@ export function createShaftRuntime(
       // The field covers the whole shaft so the solved colours are visible on
       // the surface the owner is looking at; the hotspot stays at the measured
       // groove floor and the body stays at the far-field value.
-      stress.yMin = 0; stress.yMax = 16; stress.rMax = 9
-      // The FEA hotspot is expressed in the machining frame (0..16 mm), but the
-      // shader evaluates the field in the registered local frame whose origin
-      // is offset from the bundle origin. Shift the anchor by the same offset
-      // so the concentration lands on the measured groove floor.
-      const axisOffset = bindingAxisOffset(bindings)
-      stress.centerY = (script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised) + axisOffset
+      // Owner correction (2026-10-22): the band spans the gear, relief groove and the shoulder above it, in true
+      // study-root-local CAD millimetres (y = 0 at the pilot tip). The hotspot sits at the measured groove floor
+      // (legacy) or hob lead-out (revised) with no frame-offset fudge.
+      stress.yMin = 2.5; stress.yMax = 18; stress.rMax = 9
+      stress.centerY = script.stress === 'warm' ? FOS_CENTER_Y.attempt : FOS_CENTER_Y.revised
       sampleFosPresentation(frame.time, script.stress, script.stressMix, fos)
       stress.hotspotFos = fos.hotspot; stress.bodyFos = fos.body
       let stressShaderReady = 0, overlayVisible = 0

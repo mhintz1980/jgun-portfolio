@@ -23,6 +23,7 @@ import { samplePit } from './PitDirector'
 import { samplePrivateElectrical } from './ElectricalDirector'
 import { makePrivateCrackGeometry } from './privateElectricGeometry'
 import { makePrivateFractureWebGeometry } from './privateFractureWeb'
+import { createShardDome } from './shardDome'
 
 const PRIVATE_LIGHTNING_VERTEX = LIGHTNING_VERTEX
 
@@ -229,7 +230,8 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
-    c = mix(c, vec3(.06, .09, .18), ink * .78);
+    // Intact stock shows only the scroll-revealed linework; the baked print rides the shards once the tear begins.
+    c = mix(c, vec3(.06, .09, .18), ink * .78 * smoothstep(0.0, .02, uFracture));
     vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
     float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
     float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
@@ -479,6 +481,7 @@ export function createPrivateSheetRuntime(
       mesh.position.set(fragment.center.x, fragment.center.y, 0)
       return mesh
     })
+    const shardDome = createShardDome(baked.fracture.fragments, layout.primaryCenter)
     // solveExtraction: clearanceTravel = -(side.min.z + initialZ) + 0.0006.
     // Recover the same bound as DrawingPrint without borrowing the CAD snapshot.
     const initialModelBottom = 0.0006 - extraction.clearanceTravel
@@ -734,15 +737,15 @@ export function createPrivateSheetRuntime(
           // Pressure lifts each shard before gravity takes it into the opening.
           // A smooth launch has no infinite derivative at the crack boundary.
           const flight = event * event * (3 - 2 * event)
-          // Keep the tear suspended through the full orbit: a higher launch,
-          // wider throw and a late gravity handoff make the shards legible
-          // beside the model instead of dropping out at the start.
-          const lift = .16 * Math.sin(Math.PI * event)
+          // Keep the tear suspended through the full orbit. Owner 2026-10-22: a dome, not a flat sheet — each shard's
+          // apex and lateral throw come from its distance to the profile centre (see shardDome.ts).
+          const dome = shardDome[i]
+          const lift = dome.apex * Math.sin(Math.PI * event)
           const fallU = Math.max(0, Math.min(1, (event - .76) / .24))
           const fall = fallU * fallU * (3 - 2 * fallU)
-          mesh.position.set(f.center.x + f.velocity.x * flight * .95,
-            f.center.y + f.velocity.y * flight * .95 - .055 * event * event,
-            .00002 + lift + Math.min(0, f.velocity.z) * event * event - .035 * event * event - .18 * fall)
+          mesh.position.set(f.center.x + dome.vx * flight * .95,
+            f.center.y + dome.vy * flight * .95 - .055 * event * event,
+            .00002 + lift - .035 * event * event - .18 * fall)
           mesh.rotation.set(f.spin.x * flight, f.spin.y * flight, f.spin.z * flight)
           mesh.visible = stockVisible
           // Intact stock is an opaque barrier even where the coarse CAD envelope crosses

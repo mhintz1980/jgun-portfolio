@@ -1,5 +1,6 @@
 import { expect,it } from 'vitest'
 import { Matrix4,Vector3 } from 'three'
+import { samplePrivateRingCamera,RING_CAMERA_RED_AT } from './InspectionDirector'
 import { createJourneyCameraSampler,createJourneyPose,isolationCamera,orbitCamera,signedAzimuthDelta } from './JourneyCamera'
 const digest=(p:ReturnType<typeof createJourneyPose>)=>[p.position.toArray(),p.target.toArray(),p.up.toArray(),p.fov]
 it.each([1.6,390/844])('holds profile I after the initial moving fade and across restore at aspect %s',aspect=>{
@@ -102,8 +103,20 @@ it.each([1.6,390/844])('matches actual world ring exit and moves DURING the firs
   const profile=digest(isolationCamera(aspect,h,createJourneyPose()))
   for(const p of [.590,.596,.600])expect(digest(sample(p,aspect,h,out,ring))).toEqual(profile)
   const axis=new Vector3(0,0,1).transformDirection(h)
-  expect(Math.abs(out.position.clone().sub(out.target).normalize().dot(axis))).toBeLessThan(.35)
+  // Owner 2026-10-22 moved the profile to a snout-side three-quarter, so the view is no longer near-perpendicular to the axis.
+  expect(Math.abs(out.position.clone().sub(out.target).normalize().dot(axis))).toBeLessThan(.5)
   sample(.601,aspect,h,out,ring)
   expect(digest(out)).not.toEqual(profile)
   expect(digest(ring)).toEqual(original)
+})
+
+it('swings at least 45 degrees between the Ring Switch exit pose and the isolation profile',()=>{
+  const h=new Matrix4(),exit=samplePrivateRingCamera(RING_CAMERA_RED_AT,.24,{px:0,py:0,pz:0,tx:0,ty:0,tz:0,ux:0,uy:1,uz:0,fov:32},1.6)
+  const offsetAz=(px:number,pz:number,tz:number)=>Math.atan2(px,pz-tz)
+  const exitAz=offsetAz(exit.px,exit.pz,exit.tz)
+  const iso=isolationCamera(1.6,h,createJourneyPose())
+  const isoAz=offsetAz(iso.position.x-iso.target.x,iso.position.z,iso.target.z)
+  let d=Math.abs(isoAz-exitAz)*180/Math.PI
+  if(d>180)d=360-d
+  expect(d).toBeGreaterThanOrEqual(45)
 })
