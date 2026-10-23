@@ -2,6 +2,7 @@ import { useMemo, useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { AlwaysStencilFunc, BackSide, BufferGeometry, DecrementWrapStencilOp, DoubleSide, FrontSide,
   Group, IncrementWrapStencilOp, MeshBasicMaterial, NotEqualStencilFunc, Plane, ReplaceStencilOp } from 'three'
+import { CLOSED_CUT } from './shot'
 
 export function createStencilMaterials(plane: Plane) {
     const back = new MeshBasicMaterial({ depthWrite: false, depthTest: false, colorWrite: false,
@@ -27,6 +28,8 @@ export function SectionCaps({ sections, plane, order = -30 }: { sections: { name
   useEffect(() => () => materials.forEach(m => { m.back.dispose(); m.front.dispose() }), [materials])
   useFrame(() => {
     ref.current?.children.forEach(g => {
+      // Closed shell: nothing is clipped, so the stencil passes only paint stray specks. Skip all three.
+      g.visible = plane.constant < CLOSED_CUT - 1e-6
       const cap = g.children[2]
       cap.position.x = plane.constant
     })

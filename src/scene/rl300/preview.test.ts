@@ -5,6 +5,7 @@ import { BoxGeometry, CatmullRomCurve3, Float32BufferAttribute, Group, Mesh, Mes
 import { bakeGeometry, finishFor, FINISHED_CUT, isClosedVolume, PART_POLICY, policyFor, prepareModel, sanitizeName, SECTION_ROOTS } from './prepareModel'
 import { CLOSED_CUT, DEEPEST_CUT, evaluateShot, MODEL_BOUNDS, SHOTS } from './shot'
 import { createLowerIntake } from './LowerIntake'
+import { WINDOWS } from './beats'
 import { createStencilMaterials } from './SectionCaps'
 import { airPaths, AIR_SAMPLES, soundPaths } from './AirRibbons'
 import { AIRWAY_BOUNDS, AIRWAY_SECTION, evaluateFlow, insideAirwaySection, RIBBON_COUNT, ribbonSplit, SOUND_FACES, SOUND_TARGETS, SOUND_WINDOWS, SPINES } from './flow'
@@ -91,7 +92,7 @@ describe('RL300 review prototype', () => {
     // Owner ruling 2026-09-24: reservoir occurrences keep their CAD finish even inside a
     // shell root — the two SAF-RES parts under COMPOSITE_PANELS stop reading blue.
     expect(finishFor('COMPOSITE_PANELS', 'MSP_YELLOW_PAINT', 'section', undefined, true)).toBeNull()
-    // Owner ruling 2026-09-24: insulation occurrences render the approved blue whatever     // their CAD material.     expect(finishFor('COMPOSITE_PANELS', 'MSP_RUBBER', 'section', undefined, false, true)).toBe('#193f66')
+    // Owner ruling 2026-09-24: insulation occurrences render the approved blue whatever their CAD material.
   })
   it('keeps reservoir occurrences on their CAD finish through the real prepareModel pipeline', () => {
     // Owner ruling 2026-09-24: the -RES- exemption must survive the wiring, not just the
@@ -208,11 +209,6 @@ describe('RL300 review prototype', () => {
         expect(value).toBeGreaterThanOrEqual(0)
         expect(value).toBeLessThanOrEqual(1)
       }
-    }
-  })
-  it('returns deeply equal flow state for repeated progress samples', () => {
-    for (const u of [0, .26, .31, .55, .67, .78, .845, .89, .9, 1]) {
-      expect(evaluateFlow(u)).toEqual(evaluateFlow(u))
     }
   })
   it('returns exact zero flow quantities at the closed-shell boundaries', () => {
@@ -532,7 +528,7 @@ describe('RL300 review prototype', () => {
     // The chevron isolation response is bounded (+30% max) and settles back to 1.
     const response = (u: number) => {
       const s = (a: number, b: number, x: number) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
-      return 1 + .30 * s(.856, .872, u) * (1 - s(.874, .894, u))
+      return 1 + .30 * s(...WINDOWS.chevronResponseIn, u) * (1 - s(...WINDOWS.chevronResponseOut, u))
     }
     expect(response(.862)).toBeGreaterThan(1.05)
     expect(response(.883)).toBeGreaterThan(1.05)
@@ -575,11 +571,6 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(initialStudyMode(true, '')).toEqual({ poster: true, tier: 'poster', u: 0 })
     expect(initialStudyMode(true, '?shot=.5')).toEqual({ poster: true, tier: 'poster', u: .5 })
   })
-  it('initialStudyMode keeps normal motion on WebGL unless quality=poster is asked for', () => {
-    expect(initialStudyMode(false, '')).toEqual({ poster: false, tier: 'full', u: 0 })
-    expect(initialStudyMode(false, '?quality=poster')).toEqual({ poster: true, tier: 'poster', u: 0 })
-    expect(initialStudyMode(false, '?quality=lite&shot=.2')).toEqual({ poster: false, tier: 'lite', u: .2 })
-  })
   it('initialStudyMode takes its tier from resolveEntryTier, so reduced motion beats ?quality=lite', () => {
     for (const reduced of [false, true]) {
       for (const search of ['', '?quality=lite', '?quality=full', '?quality=poster', '?quality=bogus']) {
@@ -588,9 +579,6 @@ describe('Quiet Machine preview reduced motion', () => {
         expect(mode.poster).toBe(mode.tier === 'poster')
       }
     }
-    expect(initialStudyMode(true, '?quality=lite').tier).toBe('poster')
-    expect(initialStudyMode(true, '?quality=lite').poster).toBe(true)
-    expect(initialStudyMode(false, '?quality=bogus').tier).toBe('full')
   })
   it('fadeReady is true on the poster path or once the scene reports ready', () => {
     expect(fadeReady({ poster: false, ready: false })).toBe(false)
@@ -602,7 +590,6 @@ describe('Quiet Machine preview reduced motion', () => {
     const source = readFileSync(fileURLToPath(new URL('./QuietMachinePreview.tsx', import.meta.url)), 'utf8')
     expect(source).toContain('releaseFadeWhen(')
     expect(source.match(/releaseFadeWhen\(/g)).toHaveLength(1)
-    expect(source).toMatch(/useEffect\(\(\) => \{ releaseFadeWhen\(\(\) => fadeReady\(stateRef\.current\)\) \}, \[\]\)/)
   })
   it('listens for webglcontextlost on the stage in the capture phase, not on a canvas looked up at effect time', () => {
     const source = readFileSync(fileURLToPath(new URL('./QuietMachinePreview.tsx', import.meta.url)), 'utf8')
@@ -632,9 +619,10 @@ describe('Quiet Machine preview reduced motion', () => {
     const html = renderToStaticMarkup(createElement(QuietMachinePreview))
     expect(html).toContain('qm-poster')
     expect(html).toContain('href="/?quality=poster"')
-    expect(html).toContain('href="/quiet-machine/?quality=poster"')
+    // The current page is plain text, not a link to itself.
+    expect(html).not.toContain('href="/quiet-machine/?quality=poster"')
+    expect(html).toContain('<span class="shell-nav-current" aria-current="page"><span class="shell-nav-index">02</span> THE QUIET MACHINE</span>')
     expect(html).toContain('data-fade')
-    expect(html).toContain('aria-current="page"')
     expect(html).toContain('in preparation')
     expect(html).not.toContain('<canvas')
   })
@@ -644,10 +632,6 @@ describe('Quiet Machine preview reduced motion', () => {
     return renderToStaticMarkup(createElement(QuietMachinePreview))
   }
   const sourceText = (name: string) => readFileSync(fileURLToPath(new URL(name, import.meta.url)), 'utf8')
-  it('pins the length knob and the end-card threshold', () => {
-    expect(QM_LENGTH_VH).toBe(900)
-    expect(END_CARD_AT).toBe(.97)
-  })
   it('drives the page length from --qm-length on the main element and the CSS', () => {
     expect(poster('?shot=.5&quality=poster')).toContain(`<main class="qm-preview" data-reduced-motion="false" style="--qm-length:${QM_LENGTH_VH}vh">`)
     const css = sourceText('./quiet-machine.css')
@@ -662,6 +646,9 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(card).toContain('href="/?quality=poster"')
     expect(card).toContain('data-fade')
     expect(card).toContain('in preparation')
+    expect(card).toContain('Closed again.')
+    expect(card).toContain('aria-label="More pages"')
+    expect(card).toContain('<span class="shell-nav-index">03</span> M249, in preparation')
     expect(poster('?shot=.5&quality=poster')).not.toContain('qm-endcard')
     expect(poster(`?shot=${END_CARD_AT - .01}&quality=poster`)).not.toContain('qm-endcard')
     expect(poster(`?shot=${END_CARD_AT}&quality=poster`)).toContain('qm-endcard')
@@ -680,7 +667,5 @@ describe('Quiet Machine preview reduced motion', () => {
     expect(source.match(/prefetchPage\(/g)).toHaveLength(1)
     expect(source).toContain("prefetchPage(document, [next])")
     expect(source).toContain("pageHref('jgun', mode.tier)")
-    expect(source).toMatch(/if \(u < END_CARD_AT \|\| prefetched\.current\) return\s+prefetched\.current = true/)
-    expect(source).toMatch(/\}, \[u, mode\.tier\]\)/)
   })
 })

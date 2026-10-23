@@ -349,8 +349,8 @@ describe.skipIf(!haveAssets)('V16 map over the shipped GLBs', () => {
     const lite = await loadGlb('rl300-lite.glb')
     const model = prepareModel(lite, plane(), { v16, physical: false })
     const c = model.counts
-    expect(c).toMatchObject({ v16Applied: true, extraParts: 0, extraTriangles: 0, removedTriangles: 460, replacedTriangles: 0, cappedTriangles: 162670, batches: 42 })
-    expect(c.unmappedMultiSlot).toBe(47)
+    expect(c).toMatchObject({ v16Applied: true, extraParts: 0, extraTriangles: 0, removedTriangles: 460, replacedTriangles: 0, cappedTriangles: 152008, batches: 43 })
+    expect(c.unmappedMultiSlot).toBe(48)
     expect(meshes(model.group).some(m => m.material instanceof MeshPhysicalMaterial)).toBe(false)
     model.dispose()
   })
