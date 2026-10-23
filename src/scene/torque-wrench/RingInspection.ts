@@ -1,15 +1,22 @@
 /** Private presentation clock. The inherited mechanical/clip law remains borrowed. */
-import { sampleInspection, MAX_FEATURE_HZ, RING_FEATURES, RING_RADIUS, WHEEL_RADIUS, ROLLER_TEETH, type InspectionFrame } from '../inspection/timeline'
-import { BULLET_TIME_RATE } from './bulletTime'
+import { sampleInspection, MAX_FEATURE_HZ, RING_FEATURES, RING_RADIUS, WHEEL_RADIUS, ROLLER_TEETH, SPIN_RATE, type InspectionFrame } from '../inspection/timeline'
 
 export const PRIVATE_RING_DURATION = 28
 export const RING_SLOW_START = 8
 export const RING_SLOW_END = 18
-// Active machining reference is 0.5 mechanical seconds/display second;
-// bullet time is 10% of normal (0.05). Retiming 8..18 adds 0.5 mechanical
-// seconds, then rejoins the authored 12 s endpoint at display time 28.
+// Active machining reference is 0.5 mechanical seconds/display second.
 export const RING_NORMAL_RATE = 0.5
-const RING_BULLET_RATE = RING_NORMAL_RATE * BULLET_TIME_RATE
+/**
+ * Owner spec (doc 44 item 4): the knurling die turns only 10-20% of a revolution
+ * across the 8..18 s bullet-time close-up. Calibrated to 0.15 die turns (54 deg),
+ * which keeps roller tooth-pass frequency ~1.9 Hz, well under MAX_FEATURE_HZ, so
+ * the close-up renders 100% of the 3D teeth (rollerDetailScale === 1). A plain
+ * 10%-of-normal clock turned the die 3.28 times and filtered 82% of the teeth.
+ * Valid because the ring cruises at SPIN_RATE across mechanical 4.36..~4.38 s.
+ */
+export const RING_DIE_BULLET_TURNS = 0.15
+export const RING_BULLET_RATE = RING_DIE_BULLET_TURNS * 2 * Math.PI * (WHEEL_RADIUS / RING_RADIUS)
+  / (SPIN_RATE * (RING_SLOW_END - RING_SLOW_START))
 const KNOTS = [[0, 0], [4, 2.8], [6, 3.8], [8, 4.36], [9, 4.36 + RING_BULLET_RATE],
   [17, 4.36 + 9 * RING_BULLET_RATE], [18, 4.36 + 10 * RING_BULLET_RATE],
   [23, 6.5], [25, 8.2], [26, 10.5], [28, 12]] as const
