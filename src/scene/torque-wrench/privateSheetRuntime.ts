@@ -230,9 +230,9 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
-    // The baked print carries the heavy profile ink. It fades in with the side elevation's own reveal window
-    // (0 at scroll 0, 1 once the profile is fully drawn) and always rides the shards once the tear begins.
-    c = mix(c, vec3(.06, .09, .18), ink * .78 * max(uFragmentInk, smoothstep(0.0, .02, uFracture)));
+    // The baked print holds the finished side view, so it waits for the progressive
+    // lines/fills to complete (or for fracture) instead of fading in all at once.
+    c = mix(c, vec3(.06, .09, .18), ink * .78 * max(smoothstep(.98, 1.0, uFragmentInk), smoothstep(0.0, .02, uFracture)));
     vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
     float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
     float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
