@@ -91,10 +91,30 @@ try {
     const add = (name, pass, evidence) => report.gates.push({ name, pass:Boolean(pass), evidence })
     const at = p => report.samples.find(x => x.requestedProgress === p)
     add('live full renderer', report.samples.every(x=>x.world.ready && x.world.mechanical?.tier === 'full'), report.samples.map(x=>x.world.mechanical?.tier))
-    for (const p of [.469,.4725,.4805,.4945,.500,.505,.520,.545]) {
+    // .4805 sits inside the 0.55x die close-up (InspectionDirector RING_CLOSEUP_*), so it is gated
+    // on close-up framing below instead of whole-ring containment.
+    for (const p of [.469,.4725,.4945,.500,.505,.520,.545]) {
       const b = at(p)?.world.ring.projectedBounds
       add(`ring contained ${p}`, b && !b.behind && b.rect[0]>=0 && b.rect[1]>=0 && b.rect[2]<=width && b.rect[3]<=height, b)
     }
+    const camDistance = cam => cam && Math.hypot(...cam.position.map((x,i)=>x-cam.target[i]))
+    const wide = at(.4725)?.world.camera, close = at(.4805)?.world.camera
+    const dollyRatio = camDistance(close) / camDistance(wide)
+    add('die close-up dolly .4805', dollyRatio > .45 && dollyRatio < .7 && close.fov <= 26 && close.fov < wide.fov,
+      { dollyRatio, fov: close?.fov, wideFov: wide?.fov })
+    // Project each knurling-die centre with the live camera; the rolling contact must be on screen.
+    const project = (cam, pt) => {
+      const [qx,qy,qz,qw] = cam.quaternion, v = pt.map((x,i)=>x-cam.position[i])
+      // Rotate by the inverse (conjugate) camera quaternion into view space.
+      const tx = 2*(-qy*v[2]+qz*v[1]), ty = 2*(-qz*v[0]+qx*v[2]), tz = 2*(-qx*v[1]+qy*v[0])
+      const vx = v[0]+qw*tx+(-qy*tz+qz*ty), vy = v[1]+qw*ty+(-qz*tx+qx*tz), vz = v[2]+qw*tz+(-qx*ty+qy*tx)
+      const f = 1/Math.tan(cam.fov*Math.PI/360), aspect = width/height
+      return { behind: vz >= 0, x: (f/aspect*vx/-vz+1)*width/2, y: (1-f*vy/-vz)*height/2 }
+    }
+    const ringRuntime = at(.4805)?.world.ring.runtime
+    const dies = (ringRuntime?.rollerCenters ?? []).map((c,i)=>({ ...project(close,c), clearance: ringRuntime.rollerClearance?.[i] }))
+    add('die contact zone visible .4805', ringRuntime?.toolVisible && dies.some(d => !d.behind && Math.abs(d.clearance) < .002
+      && d.x>=0 && d.x<=width && d.y>=0 && d.y<=height), { toolVisible: ringRuntime?.toolVisible, dies })
     add('ghost plateau 27.5%', Math.abs(at(.593)?.world.isolation.surroundingsOpacity-.275)<.005, at(.593)?.world.isolation)
     add('context gone at .600', at(.600)?.world.isolation.surroundingsOpacity < .001, at(.600)?.world.isolation)
     // Native scroll is integer CSS pixels: the nearest representable .520 seek

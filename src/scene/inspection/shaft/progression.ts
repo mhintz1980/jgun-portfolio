@@ -356,8 +356,9 @@ const NORMAL_CHUNK = /* glsl */ `
   float jgNormalClamp;
   jgProgressedRadius(jgNormalLocal.xyz, jgNormalClamp);
   if (jgNormalClamp > 0.5) {
-    vec3 jgRadialLocal = length(jgNormalLocal.xz) > 0.0
-      ? normalize(vec3(jgNormalLocal.x, 0.0, jgNormalLocal.z)) : vec3(1.0, 0.0, 0.0);
+    vec2 jgNormalRel = jgNormalLocal.xz - uShaftAxis.xz;
+    vec3 jgRadialLocal = length(jgNormalRel) > 0.0
+      ? normalize(vec3(jgNormalRel.x, 0.0, jgNormalRel.y)) : vec3(1.0, 0.0, 0.0);
     vec3 jgRadialObject = normalize(uShaftNormalMatrix * jgRadialLocal);
     objectNormal = normalize(mix(objectNormal, jgRadialObject, jgNormalClamp));
   }
@@ -371,9 +372,11 @@ float jgClamp;
 float jgNewRadius = jgProgressedRadius(jgLocal4.xyz, jgClamp);
 float jgOldRadius = length(jgLocal4.xz - uShaftAxis.xz);
 float jgScale = jgOldRadius > 0.0 ? jgNewRadius / jgOldRadius : 1.0;
-vec3 jgLocalNew = jgOldRadius > 0.0
-  ? vec3(jgLocal4.x * jgScale, jgLocal4.y, jgLocal4.z * jgScale)
-  : vec3(jgNewRadius, jgLocal4.y, 0.0);
+// Scale about the shaft axis, not the local origin: the registered bundle puts the axis off-origin.
+vec2 jgRelXZ = jgOldRadius > 0.0
+  ? (jgLocal4.xz - uShaftAxis.xz) * jgScale + uShaftAxis.xz
+  : uShaftAxis.xz + vec2(jgNewRadius, 0.0);
+vec3 jgLocalNew = vec3(jgRelXZ.x, jgLocal4.y, jgRelXZ.y);
 vShaftLocal = jgLocalNew;
 vec3 transformed = (uShaftInverse * vec4(jgLocalNew, 1.0)).xyz;
 `

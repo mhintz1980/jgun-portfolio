@@ -358,7 +358,11 @@ describe('shader patch', () => {
     // every radial law measures from the axis rather than from the origin.
     expect(shader.vertexShader).toContain('uShaftAxis')
     expect(shader.vertexShader).toContain('length(jgLocal.xz - uShaftAxis.xz)')
-    expect(shader.vertexShader).toContain(': vec3(jgNewRadius, jgLocal4.y, 0.0)')
+    // Radial scaling and the normal's radial direction are both relative to the axis (1B-2).
+    expect(shader.vertexShader).toContain('(jgLocal4.xz - uShaftAxis.xz) * jgScale + uShaftAxis.xz')
+    expect(shader.vertexShader).toContain(': uShaftAxis.xz + vec2(jgNewRadius, 0.0)')
+    expect(shader.vertexShader).toContain('vec2 jgNormalRel = jgNormalLocal.xz - uShaftAxis.xz')
+    expect(shader.vertexShader).not.toContain('jgLocal4.x * jgScale')
     expect(shader.fragmentShader).toContain(STRESS_MARKER)
     expect(shader.fragmentShader).toContain('totalEmissiveRadiance')
     expect(shader.fragmentShader).toContain('uStressKind > 0.5 && uStressMix > 0.001')
