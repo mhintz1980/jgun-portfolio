@@ -1,0 +1,16 @@
+00:01.750  blend            | Read blend: "C:\Projects\msp-render-pipeline-scene-prep\scratch\rl300-posters-v16.blend"
+00:02.078  cycles           | WARNING CUEW initialization failed: Error opening the library
+PREVIEW device: HIP:AMD Radeon 780M Graphics
+00:24.797  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f581.png'
+PREVIEW frame 581 POSTER_CAM_1 22.7 s
+00:47.422  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f582.png'
+PREVIEW frame 582 POSTER_CAM_2 22.6 s
+01:12.047  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f585.png'
+PREVIEW frame 585 POSTER_CAM_5 24.6 s
+01:35.687  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f586.png'
+PREVIEW frame 586 POSTER_CAM_6 23.6 s
+01:57.593  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f587.png'
+PREVIEW frame 587 POSTER_CAM_7 21.9 s
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
