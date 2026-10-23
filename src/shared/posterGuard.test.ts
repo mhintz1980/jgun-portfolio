@@ -11,7 +11,7 @@ const CAD_URLS = [
   '/models/rl300-extra-parts.glb#x',
 ]
 const RASTER_URLS = [
-  '/images/rl300-exterior-preview.png',
+  '/images/rl300-shot-01-poster.webp',
   '/inspection/shaft/cutter-exit-desktop.webp',
   '/inspection/shaft/cutter-exit-narrow.webp',
   '/torque-wrench/posters/opening-desktop.webp',

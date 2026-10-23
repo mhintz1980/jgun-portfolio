@@ -1,0 +1,14 @@
+00:01.453  blend            | Read blend: "C:\Projects\msp-render-pipeline-scene-prep\scratch\rl300-posters-v16.blend"
+00:01.797  cycles           | WARNING CUEW initialization failed: Error opening the library
+PREVIEW device: HIP:AMD Radeon 780M Graphics
+00:30.844  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f583.png'
+PREVIEW frame 583 POSTER_CAM_3 28.7 s
+00:51.312  render           | Saved: 'C:\Users\Markimus\.buzz\REPOS\jgun-quiet-machine\project\work\evidence\rl300-quiet-machine\38-s5-posters\preview\poster-f584.png'
+PREVIEW frame 584 POSTER_CAM_4 20.5 s
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+
+real	0m51.831s
+user	0m0.046s
+sys	0m0.000s

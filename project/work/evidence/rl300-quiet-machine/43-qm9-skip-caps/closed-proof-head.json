@@ -1,0 +1,378 @@
+{
+ "desktop": {
+  "closedCount": 16,
+  "closedSpan": [
+   0,
+   1
+  ],
+  "edge": [
+   0.13,
+   0.99
+  ],
+  "rows": [
+   {
+    "u": 0,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 14,
+     "fraction": 0.00001798288543103692,
+     "meanChannelDelta": 0.00024490977301316945
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.07,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 16,
+     "fraction": 0.000020551869064042193,
+     "meanChannelDelta": 0.0003091343638383013
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.13,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000002568983633005274,
+     "meanChannelDelta": 0.00003725026267857647
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.99,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 6,
+     "fraction": 0.000007706950899015823,
+     "meanChannelDelta": 0.00007792583686782665
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 1,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 7,
+     "fraction": 0.00000899144271551846,
+     "meanChannelDelta": 0.00011132262409689522
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   }
+  ],
+  "errors": []
+ },
+ "portrait": {
+  "closedCount": 16,
+  "closedSpan": [
+   0,
+   1
+  ],
+  "edge": [
+   0.13,
+   0.99
+  ],
+  "rows": [
+   {
+    "u": 0,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1205280,
+    "onVsOff": {
+     "changed": 3,
+     "fraction": 0.00001713208840157615,
+     "meanChannelDelta": 0.0004625663868425561
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.07,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1205280,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000011421392267717435,
+     "meanChannelDelta": 0.00023794567224411323
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.13,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1205280,
+    "onVsOff": {
+     "changed": 3,
+     "fraction": 0.00001713208840157615,
+     "meanChannelDelta": 0.00044733786381893285
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.99,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1205280,
+    "onVsOff": {
+     "changed": 10,
+     "fraction": 0.00005710696133858717,
+     "meanChannelDelta": 0.0012487388879371061
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 1,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1205280,
+    "onVsOff": {
+     "changed": 7,
+     "fraction": 0.00003997487293701102,
+     "meanChannelDelta": 0.0007728475434488798
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   }
+  ],
+  "errors": []
+ },
+ "tablet": {
+  "closedCount": 16,
+  "closedSpan": [
+   0,
+   1
+  ],
+  "edge": [
+   0.13,
+   0.99
+  ],
+  "rows": [
+   {
+    "u": 0,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 6,
+     "fraction": 0.000013130252100840337,
+     "meanChannelDelta": 0.00012765522875816994
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.07,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 6,
+     "fraction": 0.000013130252100840337,
+     "meanChannelDelta": 0.00019987161531279178
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.13,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000004376750700280112,
+     "meanChannelDelta": 0.00006638071895424836
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.99,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000004376750700280112,
+     "meanChannelDelta": 0.000008753501400560223
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 1,
+    "cutPlane": 0.85,
+    "drawCallsOn": 143,
+    "trianglesOn": 1210464,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000004376750700280112,
+     "meanChannelDelta": 0.000008753501400560223
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   }
+  ],
+  "errors": []
+ },
+ "lite": {
+  "closedCount": 16,
+  "closedSpan": [
+   0,
+   1
+  ],
+  "edge": [
+   0.13,
+   0.99
+  ],
+  "rows": [
+   {
+    "u": 0,
+    "cutPlane": 0.85,
+    "drawCallsOn": 85,
+    "trianglesOn": 551736,
+    "onVsOff": {
+     "changed": 3,
+     "fraction": 0.00001713208840157615,
+     "meanChannelDelta": 0.0004492414291968858
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.07,
+    "cutPlane": 0.85,
+    "drawCallsOn": 85,
+    "trianglesOn": 551736,
+    "onVsOff": {
+     "changed": 2,
+     "fraction": 0.000011421392267717435,
+     "meanChannelDelta": 0.0002265242799763958
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.13,
+    "cutPlane": 0.85,
+    "drawCallsOn": 85,
+    "trianglesOn": 551736,
+    "onVsOff": {
+     "changed": 3,
+     "fraction": 0.00001713208840157615,
+     "meanChannelDelta": 0.00044353073306302703
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 0.99,
+    "cutPlane": 0.85,
+    "drawCallsOn": 85,
+    "trianglesOn": 551736,
+    "onVsOff": {
+     "changed": 10,
+     "fraction": 0.00005710696133858717,
+     "meanChannelDelta": 0.0012487388879371061
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   },
+   {
+    "u": 1,
+    "cutPlane": 0.85,
+    "drawCallsOn": 85,
+    "trianglesOn": 551736,
+    "onVsOff": {
+     "changed": 7,
+     "fraction": 0.00003997487293701102,
+     "meanChannelDelta": 0.0007595225858032094
+    },
+    "onVsOn": {
+     "changed": 0,
+     "fraction": 0,
+     "meanChannelDelta": 0
+    }
+   }
+  ],
+  "errors": []
+ }
+}

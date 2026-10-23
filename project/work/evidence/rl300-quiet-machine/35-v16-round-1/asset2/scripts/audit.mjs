@@ -1,9 +1,8 @@
 // Fused/shifted-parts audit: shipped msp-enclosure.glb vs V16 (world bboxes in glTF frame from dump_bboxes.py).
 // Usage: node audit.mjs <out.md> [--json]
 import fs from 'node:fs'
-import { loadGlb } from 'file:///C:/Users/Markimus/AppData/Local/Temp/claude/C--Users-Markimus--buzz-REPOS-jgun-quiet-machine/7a0ea69b-a024-4739-ae73-5eab43caed88/scratchpad/runtime/load.mjs'
+import { loadGlb } from './load.mjs'
 const REPO = 'C:/Users/Markimus/.buzz/REPOS/jgun-quiet-machine'
-const SCR = 'C:/Users/Markimus/AppData/Local/Temp/claude/C--Users-Markimus--buzz-REPOS-jgun-quiet-machine/7a0ea69b-a024-4739-ae73-5eab43caed88/scratchpad'
 const EV = REPO + '/project/work/evidence/rl300-quiet-machine'
 const THREE = await import('file:///' + REPO + '/node_modules/three/build/three.module.js')
 const OUT = process.argv[2]
@@ -12,7 +11,7 @@ const MED_MM = 5
 
 const san = n => n.replace(/\s/g, '_').replace(/[[\].:/]/g, '')
 const fam = n => san(n.replace(/\.\d{3}$/, ''))
-const v16 = JSON.parse(fs.readFileSync(SCR + '/asset2/v16-bboxes.json', 'utf8'))
+const v16 = JSON.parse(fs.readFileSync(EV + '/35-v16-round-1/asset2/v16-bboxes.json', 'utf8'))
 const objs = JSON.parse(fs.readFileSync(EV + '/34-v16-assessment/data/v16-objs.json', 'utf8'))
 const rootOf = new Map(objs.map(o => [o.n, o.root]))
 const bySan = new Map()

@@ -1,0 +1,340 @@
+{
+ "band_a": [
+  {
+   "obj": "MirrorRL300-SIF-1004-2",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 5.7262,
+   "loc": [
+    -0.637,
+    -0.8257,
+    1.701
+   ],
+   "dot": -0.803
+  },
+  {
+   "obj": "MirrorRL300-SIF-1004-2",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 5.7293,
+   "loc": [
+    -0.6396,
+    -0.8239,
+    1.7014
+   ],
+   "dot": 0.803
+  },
+  {
+   "obj": "MirrorG2RL300-SAF-1001-6",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.7831,
+   "loc": [
+    -0.6827,
+    -0.7925,
+    1.7081
+   ],
+   "dot": -0.803
+  },
+  {
+   "obj": "MirrorG2RL300-SAF-1001-6",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.7869,
+   "loc": [
+    -0.6858,
+    -0.7903,
+    1.7086
+   ],
+   "dot": 0.803
+  }
+ ],
+ "band_b": [
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.2284,
+   "loc": [
+    -0.4135,
+    -1.3546,
+    1.5475
+   ],
+   "dot": -0.538
+  },
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.234,
+   "loc": [
+    -0.4181,
+    -1.3516,
+    1.5481
+   ],
+   "dot": 0.538
+  },
+  {
+   "obj": "MirrorRL300-SIF-1004-2",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 5.4957,
+   "loc": [
+    -0.637,
+    -1.211,
+    1.576
+   ],
+   "dot": -0.836
+  },
+  {
+   "obj": "MirrorRL300-SIF-1004-2",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 5.4987,
+   "loc": [
+    -0.6396,
+    -1.2093,
+    1.5763
+   ],
+   "dot": 0.836
+  }
+ ],
+ "band_c": [
+  {
+   "obj": "GRRL200-SAF-1172-1",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8203,
+   "loc": [
+    0.2588,
+    -1.132,
+    1.5704
+   ],
+   "dot": -0.36
+  },
+  {
+   "obj": "GRRL200-SAF-1172-1",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8288,
+   "loc": [
+    0.2523,
+    -1.1266,
+    1.5714
+   ],
+   "dot": 0.36
+  },
+  {
+   "obj": "RL200-SIF-1019-1",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 4.8387,
+   "loc": [
+    0.2446,
+    -1.1204,
+    1.5726
+   ],
+   "dot": -0.36
+  },
+  {
+   "obj": "RL200-SIF-1019-1",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 4.9092,
+   "loc": [
+    0.1905,
+    -1.076,
+    1.5811
+   ],
+   "dot": 0.36
+  }
+ ],
+ "above_skin": [
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8424,
+   "loc": [
+    0.0909,
+    -1.3546,
+    1.7521
+   ],
+   "dot": -0.58
+  },
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8475,
+   "loc": [
+    0.0868,
+    -1.3516,
+    1.7529
+   ],
+   "dot": 0.58
+  },
+  {
+   "obj": "RL200-SIF-1017-1",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 4.9264,
+   "loc": [
+    0.0238,
+    -1.3059,
+    1.7653
+   ],
+   "dot": 0.58
+  },
+  {
+   "obj": "RL300-SIF-1011-1",
+   "mat": "MSP_INSULATION_FOAM__SECTION",
+   "dist": 5.5595,
+   "loc": [
+    -0.4821,
+    -0.9384,
+    1.865
+   ],
+   "dot": -0.157
+  }
+ ],
+ "hex_mesh": [
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8037,
+   "loc": [
+    0.0913,
+    -1.3546,
+    1.4481
+   ],
+   "dot": -0.585
+  },
+  {
+   "obj": "G2RL300-SAF-1003-2",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 4.8054,
+   "loc": [
+    0.0898,
+    -1.3536,
+    1.4483
+   ],
+   "dot": 0.485
+  },
+  {
+   "obj": "GRRL200-SAF-1172-1",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.0087,
+   "loc": [
+    -0.0738,
+    -1.2347,
+    1.4677
+   ],
+   "dot": -0.346
+  },
+  {
+   "obj": "GRRL200-SAF-1172-1",
+   "mat": "MSP_YELLOW_PAINT__SECTION",
+   "dist": 5.0174,
+   "loc": [
+    -0.0809,
+    -1.2296,
+    1.4685
+   ],
+   "dot": 0.346
+  }
+ ],
+ "below_hex": [
+  {
+   "obj": "V2FTG-CAMLOCK-800AL-1",
+   "mat": "MSP_ALUMINUM_CAST_TURNED",
+   "dist": 4.3544,
+   "loc": [
+    0.4428,
+    -1.6098,
+    1.2365
+   ],
+   "dot": -0.587
+  },
+  {
+   "obj": "V2FTG-CAMLOCK-800AL-1",
+   "mat": "MSP_ALUMINUM_CAST_TURNED",
+   "dist": 4.377,
+   "loc": [
+    0.4245,
+    -1.5965,
+    1.2378
+   ],
+   "dot": 0.128
+  },
+  {
+   "obj": "V2FTG-CAMLOCK-800AL-1",
+   "mat": "MSP_ALUMINUM_CAST_TURNED",
+   "dist": 4.4143,
+   "loc": [
+    0.3943,
+    -1.5747,
+    1.2399
+   ],
+   "dot": -0.135
+  },
+  {
+   "obj": "V2FTG-CAMLOCK-800AL-1",
+   "mat": "MSP_ALUMINUM_CAST_TURNED",
+   "dist": 4.4655,
+   "loc": [
+    0.353,
+    -1.5446,
+    1.2428
+   ],
+   "dot": 0.66
+  }
+ ],
+ "bbox": {
+  "G2RL300-SAF-1003-2": {
+   "min": [
+    -0.6858,
+    -1.3546,
+    0.4564
+   ],
+   "max": [
+    0.6858,
+    -1.2946,
+    1.8598
+   ],
+   "parent": "DUCT_INTAKE",
+   "hide_render": false,
+   "verts": 3231
+  },
+  "RL200-SIF-1020-1": {
+   "min": [
+    -0.5939,
+    -0.5873,
+    1.4708
+   ],
+   "max": [
+    0.5939,
+    -0.4342,
+    1.8609
+   ],
+   "parent": "ACOUSTIC_BAFFLES",
+   "hide_render": false,
+   "verts": 24
+  },
+  "GRRL200-SAF-1172-1": {
+   "min": [
+    -0.6284,
+    -1.3516,
+    1.319
+   ],
+   "max": [
+    0.6284,
+    -0.7136,
+    1.6523
+   ],
+   "parent": "ACOUSTIC_BAFFLES",
+   "hide_render": false,
+   "verts": 542
+  },
+  "MirrorRL300-SIF-1004-2": {
+   "min": [
+    -0.6828,
+    -1.2836,
+    0.4594
+   ],
+   "max": [
+    -0.637,
+    -0.0595,
+    1.8471
+   ],
+   "parent": "ENCLOSURE_CHASSIS",
+   "hide_render": false,
+   "verts": 1005
+  }
+ }
+}
