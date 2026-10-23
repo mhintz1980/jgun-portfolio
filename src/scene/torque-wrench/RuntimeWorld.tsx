@@ -246,6 +246,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const handoffResult = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const journey = useMemo(createJourneySample, [])
+  const lastStudyProgress = useRef(0)
   const journeyCamera = useMemo(createJourneyCameraSampler, [])
   const journeyPose = useMemo(createJourneyPose, [])
   const registration = useMemo(() => new Matrix4(), [])
@@ -284,6 +285,34 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     scope.current = owned
     const fail = (error: unknown) => { if (owned.current()) reportFailure(error) }
     const globals = window as unknown as Record<string, unknown>
+    // Per-frame cost guard: this walks every source mesh and the whole study
+    // runtime graph with regex tests, so it only runs when telemetry is read.
+    const measureJourneyCensus = () => {
+      const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
+      const sourceOpacities = rig.meshes.map(mesh => ({ part: mesh.userData.partNumber ?? mesh.name, opacity: effectiveMeshOpacity(mesh) }))
+      let studyGearboxOpacity = 0, studyShaftOpacity = 0
+      const studyContexts: Array<{name:string;opacity:number}> = []
+      shaft.current?.root.traverse(object => {
+        if (!(object instanceof Mesh)) return
+        const opacity=effectiveMeshOpacity(object)
+        let ancestor: Object3D | null=object, isShaft=false, isContext=false
+        while(ancestor && ancestor!==shaft.current?.root) {
+          if (/study-(legacyshaft|approvedshaft)/.test(ancestor.name)) isShaft=true
+          if (/study-(housing|legacyhousing|.*bearing|.*ring)|shaft-finale|shaft-rigid-support-pair|study-narrative-rest-registration/.test(ancestor.name)) isContext=true
+          ancestor=ancestor.parent
+        }
+        if(isShaft) studyShaftOpacity=Math.max(studyShaftOpacity,opacity)
+        if(isContext && !isShaft) { studyGearboxOpacity=Math.max(studyGearboxOpacity,opacity);studyContexts.push({name:object.name,opacity}) }
+      })
+      const sourceGearboxVisible=rig.meshes.some(mesh=>mesh.userData.partNumber!=='P001835'&&effectiveMeshOpacity(mesh)>.001)
+      const studyGearboxVisible=studyGearboxOpacity>.001
+      return {...journey, oldInspectionProgress:lastStudyProgress.current,oldMechanismProgress:journey.mechanismProgress,
+        sourceGearboxVisible,studyGearboxVisible,visibleGearboxCount:Number(sourceGearboxVisible)+Number(studyGearboxVisible),
+        sourceShaftVisible:!!sourceShaft && effectiveMeshOpacity(sourceShaft)>.001,studyShaftVisible:studyShaftOpacity>.001,
+        sourceOpacities,studyContexts,sourceShaftOpacity:sourceShaft?effectiveMeshOpacity(sourceShaft):0,studyShaftOpacity,
+        sourceShaftMaterial:sourceShaft?(m=>({color:m.color.getHexString(),metalness:m.metalness,roughness:m.roughness,envMapIntensity:m.envMapIntensity}))(sourceShaft.material as unknown as {color:{getHexString():string};metalness:number;roughness:number;envMapIntensity:number}):null,
+        cameraRegistrationMatrix:cameraRegistration.toArray(),registrationMatrix:registration.toArray(),registrationScale:registrationScale(registration),displacement:displacement.toArray()}
+    }
     const port = {
       overlaySample: () => overlay,
       pitInputs: () => sheetRuntime.current?.pitInputs(),
@@ -389,6 +418,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           const materials = Array.isArray(entry.clone) ? entry.clone : [entry.clone]
           for (const material of materials) copy.isolation.actualMaxOpacity = Math.max(copy.isolation.actualMaxOpacity, material.opacity)
         }
+        copy.journey = JSON.parse(JSON.stringify(measureJourneyCensus()))
         const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
         if (sourceShaft && shaft.current) copy.journey.shaftLandmarks = measureShaftLandmarks(sourceShaft, shaft.current.root, registration)
         copy.isolation.progress = isolation.progress
@@ -1026,29 +1056,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
         camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
-      const sourceOpacities = rig.meshes.map(mesh => ({ part: mesh.userData.partNumber ?? mesh.name, opacity: effectiveMeshOpacity(mesh) }))
-      let studyGearboxOpacity = 0, studyShaftOpacity = 0
-      const studyContexts: Array<{name:string;opacity:number}> = []
-      shaft.current?.root.traverse(object => {
-        if (!(object instanceof Mesh)) return
-        const opacity=effectiveMeshOpacity(object)
-        let ancestor: Object3D | null=object, isShaft=false, isContext=false
-        while(ancestor && ancestor!==shaft.current?.root) {
-          if (/study-(legacyshaft|approvedshaft)/.test(ancestor.name)) isShaft=true
-          if (/study-(housing|legacyhousing|.*bearing|.*ring)|shaft-finale|shaft-rigid-support-pair|study-narrative-rest-registration/.test(ancestor.name)) isContext=true
-          ancestor=ancestor.parent
-        }
-        if(isShaft) studyShaftOpacity=Math.max(studyShaftOpacity,opacity)
-        if(isContext && !isShaft) { studyGearboxOpacity=Math.max(studyGearboxOpacity,opacity);studyContexts.push({name:object.name,opacity}) }
-      })
-      const sourceGearboxVisible=rig.meshes.some(mesh=>mesh.userData.partNumber!=='P001835'&&effectiveMeshOpacity(mesh)>.001)
-      const studyGearboxVisible=studyGearboxOpacity>.001
-      probe.journey={...journey, oldInspectionProgress:studyProgress,oldMechanismProgress:journey.mechanismProgress,
-        sourceGearboxVisible,studyGearboxVisible,visibleGearboxCount:Number(sourceGearboxVisible)+Number(studyGearboxVisible),
-        sourceShaftVisible:!!sourceShaft && effectiveMeshOpacity(sourceShaft)>.001,studyShaftVisible:studyShaftOpacity>.001,
-        sourceOpacities,studyContexts,sourceShaftOpacity:sourceShaft?effectiveMeshOpacity(sourceShaft):0,studyShaftOpacity,
-        sourceShaftMaterial:sourceShaft?(m=>({color:m.color.getHexString(),metalness:m.metalness,roughness:m.roughness,envMapIntensity:m.envMapIntensity}))(sourceShaft.material as unknown as {color:{getHexString():string};metalness:number;roughness:number;envMapIntensity:number}):null,
-        cameraRegistrationMatrix:cameraRegistration.toArray(),registrationMatrix:registration.toArray(),registrationScale:registrationScale(registration),displacement:displacement.toArray()}
+      // Journey census (opacity sweep + study traversal) is built on demand in snapshot().
+      lastStudyProgress.current = studyProgress
       if (manualCamera.transitioning) {
         manualCamera.elapsed = Math.min(1, manualCamera.elapsed + Math.min(delta, .1))
         handoffTo.position.copy(camera.position); handoffTo.target.copy(target)
