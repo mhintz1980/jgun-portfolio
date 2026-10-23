@@ -1,7 +1,7 @@
 // Page registry: the public shell interface shared by every page of the site.
 // Zero imports by design. It carries no scroll length and never reads page progress.
 
-export type PageId = 'jgun' | 'quiet-machine' | 'm249' | 'torque-wrench'
+export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench'
 
 export type TierParam = 'full' | 'lite' | 'poster'
 
@@ -28,17 +28,21 @@ export interface PageEntry {
   private: boolean
 }
 
+// Launch topology (2026-10-23): two public pages, Torque Wrench first. The site root `/` is a
+// redirect-only shell that forwards to /torque-wrench/, so no legacy root app (and no M249
+// station) is part of any build input. M249 is out of the registry until it is ready to ship.
 export const PAGES: readonly PageEntry[] = [
   {
-    id: 'jgun',
+    id: 'torque-wrench',
     index: 1,
     label: 'TORQUE WRENCH',
     name: 'JGUN Pneumatic Torque Wrench',
-    path: '/',
-    href: '/',
-    htmlEntry: 'index.html',
+    path: '/torque-wrench/',
+    href: '/torque-wrench/',
+    htmlEntry: 'torque-wrench/index.html',
     reserved: false,
-    fadeIn: false,
+    // Navigation to and from this page fades through dark, so the entry carries the shared fade block.
+    fadeIn: true,
     private: false,
   },
   {
@@ -53,32 +57,18 @@ export const PAGES: readonly PageEntry[] = [
     fadeIn: true,
     private: false,
   },
+  // Site root. A redirect-only shell (no module script): `?study=rl300` goes to the Quiet Machine,
+  // everything else to the Torque Wrench, query and fragment kept. Never listed in navigation.
   {
-    id: 'm249',
+    id: 'jgun',
     index: 3,
-    label: 'M249',
-    name: 'M249 (in preparation)',
-    path: '/m249/',
-    href: null,
-    htmlEntry: null,
-    reserved: true,
-    fadeIn: false,
-    private: false,
-  },
-  // Private torque-wrench rebuild (JG-038). Activated with its HTML entry, shared fade block and
-  // real head noindex under the Quiet Machine coordination window. Public navigation excludes it.
-  {
-    id: 'torque-wrench',
-    index: 4,
-    label: 'TORQUE WRENCH',
-    name: 'JGUN Torque Wrench (private rebuild)',
-    path: '/torque-wrench/',
-    href: '/torque-wrench/',
-    htmlEntry: 'torque-wrench/index.html',
+    label: 'HOME',
+    name: 'studiomark.dev root (forwards to the Torque Wrench)',
+    path: '/',
+    href: '/',
+    htmlEntry: 'index.html',
     reserved: false,
-    // Torque structure section 1: navigation to and from this page fades through dark, so the
-    // entry carries the shared fade block. The topology tests check the block once it is active.
-    fadeIn: true,
+    fadeIn: false,
     private: true,
   },
 ]
@@ -124,6 +114,4 @@ export const LEGACY_REDIRECTS: readonly LegacyRedirect[] = [
   { param: 'study', values: ['rl300'], to: 'quiet-machine', keepParams: true, status: 'active' },
   { param: 'station', values: ['2', 'enclosure', 'safe-enclosure'], to: 'quiet-machine', keepParams: false, status: 'cutover' },
   { param: 'chapter', values: ['2'], to: 'quiet-machine', keepParams: false, status: 'cutover' },
-  { param: 'station', values: ['3', 'm249'], to: 'm249', keepParams: false, status: 'jg-037' },
-  { param: 'chapter', values: ['3'], to: 'm249', keepParams: false, status: 'jg-037' },
 ]

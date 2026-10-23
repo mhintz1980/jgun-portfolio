@@ -1,4 +1,4 @@
-// Page composition for the private /torque-wrench/ document. Story is mounted once and never
+// Page composition for the public /torque-wrench/ document. Story is mounted once and never
 // remounted; the scene/poster stage layers swap around it. The only narrative import path is
 // cadGate's dynamic import, triggered here for non-poster tiers; failure is terminal for the
 // document, keeps the DOM story, controls, and footer usable, and loads no further CAD.
@@ -73,11 +73,10 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <header className="torque-header">
         <PrivatePageNav tier={tier} variant="header" />
         <div className="torque-hero">
-          <p className="torque-hero__eyebrow">Private rebuild · JG-038</p>
+          <p className="torque-hero__eyebrow">Case study 01</p>
           <h1 className="torque-hero__title">JGUN Torque Wrench</h1>
           <p className="torque-hero__intro">
-            Five chapters in one private rebuild: drafting breaks through into mechanism,
-            inspection, and close.
+            Five chapters: drafting breaks through into mechanism, inspection, and close.
           </p>
         </div>
       </header>
@@ -95,9 +94,8 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <footer className="torque-footer">
         <PrivatePageNav tier={tier} variant="endcard" />
         <p className="torque-colophon">
-          JGUN Torque Wrench — private rebuild (JG-038). The five-chapter story runs from
-          drafting and breakthrough into mechanism, inspection, and close; final offline poster
-          art is still pending.
+          JGUN Pneumatic Torque Wrench. The five-chapter story runs from drafting and
+          breakthrough into mechanism, inspection, and close.
         </p>
       </footer>
     </div>

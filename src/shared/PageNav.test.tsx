@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { PageLink, PageNav } from './PageNav'
-import { PAGES } from './pages'
+import { PAGES, type PageId } from './pages'
 
 // Node environment only: react-dom/server static markup, no jsdom (the staticChapter.test.tsx pattern).
 
@@ -39,7 +39,8 @@ describe('PageNav', () => {
             if (!PAGES.some(other => !other.private && other.label === page.label)) {
               expect(markup, `${page.id} ${variant} ${tier} current=${current}`).not.toContain(page.label)
             }
-            expect(markup).not.toContain(page.path)
+            expect(markup).not.toContain(`href="${page.href}"`)
+            expect(markup).not.toContain(`href="${page.href}?`)
           }
         }
       }
@@ -48,7 +49,7 @@ describe('PageNav', () => {
 
   it('links the live pages with data-fade and an href', () => {
     const markup = render(<PageNav current="quiet-machine" tier="full" variant="header" />)
-    expect(markup).toContain('<a data-fade="" href="/">TORQUE WRENCH</a>')
+    expect(markup).toContain('<a data-fade="" href="/torque-wrench/">TORQUE WRENCH</a>')
     expect(markup).toContain('data-fade="" href="/quiet-machine/"')
     for (const tag of anchors(markup)) expect(tag).toContain('data-fade=""')
   })
@@ -61,20 +62,19 @@ describe('PageNav', () => {
     expect(current[0]).toContain('href="/quiet-machine/"')
   })
 
-  it('renders the reserved m249 row as text, not a link, with the in-preparation wording', () => {
-    const markup = render(<PageNav current="jgun" tier="full" variant="header" />)
-    expect(markup).toContain('<span class="shell-nav-reserved">M249, in preparation</span>')
-    expect(markup).not.toContain('/m249/')
+  it('lists exactly the two launch pages, with no M249 row or reserved slot', () => {
+    const markup = render(<PageNav current="torque-wrench" tier="full" variant="header" />)
+    expect(markup).not.toMatch(/m249/i)
+    expect(markup).not.toContain('shell-nav-reserved')
     expect(anchors(markup)).toHaveLength(2)
-    expect(anchors(markup).join('')).not.toContain('M249')
   })
 
   it('carries the tier onto every live link', () => {
     const lite = render(<PageNav current="jgun" tier="lite" variant="header" />)
-    expect(lite).toContain('href="/?quality=lite"')
+    expect(lite).toContain('href="/torque-wrench/?quality=lite"')
     expect(lite).toContain('href="/quiet-machine/?quality=lite"')
     const poster = render(<PageNav current="jgun" tier="poster" variant="endcard" />)
-    expect(poster).toContain('href="/?quality=poster"')
+    expect(poster).toContain('href="/torque-wrench/?quality=poster"')
     expect(poster).toContain('href="/quiet-machine/?quality=poster"')
     const full = render(<PageNav current="jgun" tier="full" variant="header" />)
     expect(full).not.toContain('quality=')
@@ -98,13 +98,13 @@ describe('PageLink', () => {
     expect(markup).toBe('<a data-fade="" href="/quiet-machine/">Next</a>')
   })
 
-  it('renders a reserved page as a span with the label and the preparation wording', () => {
+  it('renders an unlinked page (no href) as a span with the label and the preparation wording', () => {
     const markup = render(
-      <PageLink id="m249" tier="lite">
-        M249
+      <PageLink id={'future' as PageId} tier="lite">
+        Next study
       </PageLink>,
     )
-    expect(markup).toBe('<span class="shell-nav-reserved">M249, in preparation</span>')
+    expect(markup).toBe('<span class="shell-nav-reserved">Next study, in preparation</span>')
   })
 
   it('puts aria-current on the element it renders for the current row', () => {
@@ -115,8 +115,8 @@ describe('PageLink', () => {
     )
     expect(link).toBe('<a data-fade="" href="/" aria-current="page">Home</a>')
     const reserved = render(
-      <PageLink id="m249" tier="full" current>
-        M249
+      <PageLink id={'future' as PageId} tier="full" current>
+        Next study
       </PageLink>,
     )
     expect(reserved).toContain('aria-current="page"')

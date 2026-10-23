@@ -58,7 +58,7 @@ export default function QuietMachinePreview() {
   useEffect(() => {
     if (u < END_CARD_AT || prefetched.current) return
     prefetched.current = true
-    const next = pageHref('jgun', mode.tier)
+    const next = pageHref('torque-wrench', mode.tier)
     if (next) prefetchPage(document, [next])
   }, [u, mode.tier])
   const seek = useCallback((value: number) => {
@@ -99,7 +99,7 @@ export default function QuietMachinePreview() {
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
       {!poster && <IntakeHotspot u={u} onSeek={navigate} />}
     </div>
-    <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" numbered currentAsText /><span>RL300 / SECTION STUDY</span></header>
+    <header className="qm-header"><PageLink id="torque-wrench" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" numbered currentAsText /><span>RL300 / SECTION STUDY</span></header>
     <div className="qm-editorial">
       <p className="qm-eyebrow">THE QUIET MACHINE <span>0{beat + 1} / 0{SHOTS.length}</span></p>
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>
