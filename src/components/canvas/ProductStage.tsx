@@ -77,10 +77,16 @@ export const rigState: WebGLTelemetryState = {
   targetWorldPos: [...INITIAL_RIG_STATE.targetWorldPos],
 }
 
+/**
+ * Resets the animated channels only. Model census (path and mesh counts) is owned by the
+ * material effect, which runs before the scroll timeline mounts, so it must survive the reset.
+ */
 export function resetRigState(): void {
+  const { modelPath, housingMeshCount, movingPartCount, explodableMeshCount } = rigState
   Object.assign(rigState, INITIAL_RIG_STATE, {
     cameraWorldPos: [...INITIAL_RIG_STATE.cameraWorldPos],
     targetWorldPos: [...INITIAL_RIG_STATE.targetWorldPos],
+    modelPath, housingMeshCount, movingPartCount, explodableMeshCount,
   })
 }
 
@@ -280,6 +286,10 @@ export function ProductStage({
       movingPartsRef.current = []
       housingMaterialsRef.current = []
       explodableMeshesRef.current = []
+      rigState.modelPath = null
+      rigState.housingMeshCount = 0
+      rigState.movingPartCount = 0
+      rigState.explodableMeshCount = 0
     }
   }, [scene, modelPath, housingNodeMatch, movingPartNodeMatch, machiningPlane, clipUniform])
 
