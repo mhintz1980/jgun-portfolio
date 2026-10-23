@@ -154,7 +154,7 @@ ${CRACK_APERTURE_GLSL}
 ${PORTAL_PROFILE_GLSL}
 uniform sampler2D uGrain;
 uniform sampler2D uFragmentPrint;
-uniform float uFragment; uniform float uFracture;
+uniform float uFragment; uniform float uFracture; uniform float uFragmentInk;
 uniform vec3 uPaper; uniform vec3 uGrid;
 uniform vec4 uFrame; uniform vec2 uSheetHalf;
 uniform vec3 uKey; uniform vec3 uLamp;
@@ -230,8 +230,9 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
-    // Intact stock shows only the scroll-revealed linework; the baked print rides the shards once the tear begins.
-    c = mix(c, vec3(.06, .09, .18), ink * .78 * smoothstep(0.0, .02, uFracture));
+    // The baked print carries the heavy profile ink. It fades in with the side elevation's own reveal window
+    // (0 at scroll 0, 1 once the profile is fully drawn) and always rides the shards once the tear begins.
+    c = mix(c, vec3(.06, .09, .18), ink * .78 * max(uFragmentInk, smoothstep(0.0, .02, uFracture)));
     vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
     float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
     float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
@@ -410,7 +411,7 @@ export function createPrivateSheetRuntime(
       uContrast: 1, uMode: 0, uDisplace: 1, uPulseHead: 0, uPulse: 0,
       uLampPower: 1, uReadingPool: 1, uFragment: 0, uCrackGlow: 0,
       uCrackWeb: 0, uCrackGrowth: 0, uSpark: 0,
-      uElectricalEnergy: 0,
+      uElectricalEnergy: 0, uFragmentInk: 0,
     })) decorate(key, value)
     decorate('uFragmentCenter', new Vector2())
     decorate('uFragmentPrint', baked.fragmentPrint)
@@ -692,6 +693,7 @@ export function createPrivateSheetRuntime(
         }
         stats.drivenInkReveal = drivenReveal
         stats.sideInkReveal = reveal[GROUP.side]
+        u.uFragmentInk.value = proof ? 1 : reveal[GROUP.side]
         if (proof) { reveal.fill(0); reveal[GROUP.side] = 1 }
         u.uInk.value.copy(proof ? white : navy)
         const stockVisible = retirement < 1 || proof || reducedMotion

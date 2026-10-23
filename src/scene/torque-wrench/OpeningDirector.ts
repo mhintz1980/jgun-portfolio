@@ -142,6 +142,26 @@ function shatterTangent(index: number): number {
   return (w0 + w1) / (w0 / d0 + w1 / d1)
 }
 
+/**
+ * Owner 2026-10-22: the model must keep travelling through the 360 deg bullet-time orbit. The subject clock runs at
+ * 10% there, which left the wrench still below the sheet plane when the orbit ended. The wrench's POSE time (only the
+ * lift; the shards and electrical tail keep the subject clock) is floored by a ramp that reaches
+ * `BULLET_TIME_RISE_PAST_CROSSING` beyond the pose time at which the lowest vertex clears the sheet, by the end of
+ * the orbit, and then holds until the natural release overtakes it. Max of two monotone curves stays monotone, and the
+ * ramp starts at the natural pose of the first orbit frame, so there is no jump.
+ */
+export const BULLET_TIME_RISE_PAST_CROSSING = 0.06
+const ORBIT_FIRST_PROGRESS = 0.43008
+const ORBIT_LAST_PROGRESS = 0.452
+
+export function bulletTimeRiseFloor(progress: number, crossing: number): number {
+  if (progress <= ORBIT_FIRST_PROGRESS) return 0
+  const start = drawingIntroState(breakthroughSubjectTimeAt(ORBIT_FIRST_PROGRESS) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).poseT
+  const end = Math.min(1, Math.max(start, crossing + BULLET_TIME_RISE_PAST_CROSSING))
+  const u = Math.max(0, Math.min(1, (progress - ORBIT_FIRST_PROGRESS) / (ORBIT_LAST_PROGRESS - ORBIT_FIRST_PROGRESS)))
+  return start + (end - start) * u * u * (3 - 2 * u)
+}
+
 /** Pure in progress: identical to the shared opening clock through .42, no wall time or history. */
 export function breakthroughSubjectTimeAt(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Opening progress must be finite')
@@ -182,6 +202,7 @@ export function sampleOpening(progress: number, crossing = 0.9, finalInkT = DEFA
     throw new RangeError('Final ink time must be finite in [0, 1]')
   }
   const state = drawingIntroState(breakthroughSubjectTimeAt(progress) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+  state.poseT = Math.max(state.poseT, bulletTimeRiseFloor(progress, crossing))
   applyPrivateLampTiming(state, finalInkT, crossing)
   const electrical = samplePrivateElectricalScore(state.t)
   state.pulseHead = electrical.outline

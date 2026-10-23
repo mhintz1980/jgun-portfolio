@@ -13,8 +13,8 @@ const elevationOf = (p: SheetCameraPose): number =>
   (Math.asin(p.position.clone().sub(p.target).normalize().dot(sheetNormal)) * 180) / Math.PI
 
 describe('drafting camera', () => {
-  it('finishes the technical print before profile excitation', () => {
-    expect(sheetReveal(0.42, []).every((value) => value === 1)).toBe(true)
+  it('finishes every ink group by the end of the drafting pass, before the lit hold and the flicker', () => {
+    expect(sheetReveal(INTRO_PHASES.onboardEnd, []).every((value) => value === 1)).toBe(true)
   })
   it('opens on clean vellum: nothing but the printed border is inked at scroll 0', () => {
     const reveal = sheetReveal(0, [])
@@ -26,7 +26,7 @@ describe('drafting camera', () => {
     expect(at(0.29)).toBe(0)
     expect(at(0.33)).toBeGreaterThan(0)
     expect(at(0.33)).toBeLessThan(1)
-    expect(at(0.41)).toBe(1)
+    expect(at(0.37)).toBe(1)
   })
   for (const aspect of [16 / 9, 390 / 844]) {
     it(`holds the exact square-on registration through the pulse at aspect ${aspect}`, () => {

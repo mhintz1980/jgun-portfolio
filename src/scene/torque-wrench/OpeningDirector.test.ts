@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { breakthroughSubjectTimeAt, breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening,
+import { breakthroughSubjectTimeAt, bulletTimeRiseFloor, BULLET_TIME_RISE_PAST_CROSSING, breakthroughTimeAt, createOpeningSampler, openingTimeAt, sampleOpening,
   SHATTER_SUBJECT_KNOTS } from './OpeningDirector'
 import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
 import { BULLET_TIME_RATE } from './bulletTime'
@@ -191,4 +191,22 @@ it('keeps the post-shatter glow fade and lamp return tightly joined to the pre-T
   // Owner extended the airborne hold on 2026-10-21; the release now lands at
   // .456 and still completes before the Ring Switch window at .46.
   expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(.456)
+})
+
+it('keeps the wrench rising through the bullet-time orbit and clears the sheet by its end', () => {
+  for (const crossing of [0.7, 0.8, 0.9]) {
+    // The floor is inactive up to the first orbit frame, so the pressure beat and rupture are untouched.
+    expect(bulletTimeRiseFloor(0.43008, crossing)).toBe(0)
+    let last = -1
+    for (let n = 0; n <= 800; n++) {
+      const p = 0.4 + 0.08 * n / 800, pose = sampleOpening(p, crossing).poseT
+      expect(pose, 'monotone at ' + p).toBeGreaterThanOrEqual(last - 1e-12); last = pose
+    }
+    // No jump where the ramp takes over, and it holds its height through the end of the orbit.
+    const before = sampleOpening(0.43008, crossing).poseT, after = sampleOpening(0.43008 + 1e-7, crossing).poseT
+    expect(Math.abs(after - before)).toBeLessThan(1e-4)
+    const endOfOrbit = sampleOpening(0.452, crossing).poseT
+    expect(endOfOrbit).toBeGreaterThanOrEqual(Math.min(1, crossing + BULLET_TIME_RISE_PAST_CROSSING) - 1e-9)
+    expect(sampleOpening(0.46, crossing).poseT).toBe(1)
+  }
 })
