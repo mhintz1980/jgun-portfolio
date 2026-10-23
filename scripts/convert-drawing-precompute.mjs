@@ -3,13 +3,18 @@
 // container without a browser or GPU: read the old asset, decode values, encode with the
 // production codec, write the new .bin.gz next to it, and prove the roundtrip is value-exact.
 //
-// Usage: node scripts/convert-drawing-precompute.mjs [path/to/jgun-sheet-v1.json.gz]
+// Usage: node scripts/convert-drawing-precompute.mjs <path/to/jgun-sheet-v1.json.gz>
+// The v1 JSON source was removed from public/drawing/ after migration; pass a copy explicitly.
 //
 // Deliberately fails (exit 1) without writing anything if the roundtrip differs in any value.
 import { gunzipSync, gzipSync } from 'node:zlib'
 import { readFile, writeFile } from 'node:fs/promises'
 
-const source = new URL(process.argv[2] ?? '../public/drawing/jgun-sheet-v1.json.gz', import.meta.url)
+if (!process.argv[2]) {
+  console.error('usage: node scripts/convert-drawing-precompute.mjs <path/to/jgun-sheet-v1.json.gz>')
+  process.exit(1)
+}
+const source = new URL(process.argv[2], new URL(`file://${process.cwd()}/`))
 const target = new URL('../public/drawing/jgun-sheet-v2.bin.gz', import.meta.url)
 
 // Import the production codec — the same module the site decodes with. Node runs TS with
