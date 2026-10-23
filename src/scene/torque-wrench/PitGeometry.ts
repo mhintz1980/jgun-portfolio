@@ -16,6 +16,23 @@ const hash = (x: number, y: number) => {
   const value = Math.sin(x * 127.1 + y * 311.7) * 43758.5453
   return value - Math.floor(value)
 }
+/**
+ * Angular cells blend into the next cell over the last `ramp` fraction of each cell. A hard
+ * step landing between two adjacent vertices of the dense traced contour (~0.125 mm pixel
+ * stairs) lets a short radial stair edge reverse, crossing its neighbours on re-entrant
+ * stretches. The offset depends on angle alone, so a continuous field cannot fold a ring.
+ * Measured window on the tracked contour: coarse cells need ramp >= .12 to stay fold-free
+ * and <= .16 to keep the sparse-ring cliff jumps; the fine rubble grain is the sharper
+ * offender and needs a wide ramp. Integer periods wrap cell indices at the atan2 seam.
+ */
+export const PRIVATE_PIT_CELL_RAMP = .14
+export const PRIVATE_PIT_FINE_CELL_RAMP = .5
+const rampedCell = (u: number, seed: number, ramp: number, period = 0) => {
+  const base = Math.floor(u)
+  const blend = smooth((u - base - (1 - ramp)) / ramp)
+  const wrap = (c: number) => period > 0 ? ((c % period) + period) % period : c
+  return hash(wrap(base), seed) * (1 - blend) + hash(wrap(base + 1), seed) * blend
+}
 const wrapDistance = (a: number, b: number) => Math.abs(((a - b) % 1 + 1.5) % 1 - 0.5)
 
 /**
@@ -93,15 +110,15 @@ export function makePrivatePitGeometry(outline: number[][]): PortalShaftGeometry
       const radius = Math.hypot(rx, ry)
       const angle = Math.atan2(ry, rx)
       const sector = angle / (Math.PI * 2) + .5
-      // Discrete cliff cells make adjacent wall quads intersect as real angular steps; the
-      // fine sub-cell grain adds rubble scale. Both stay far below the contour sampling
-      // density, so outward-only displacement cannot fold a ring.
+      // Cliff cells read as angular steps; the fine sub-cell grain adds rubble scale. Both
+      // ramp across cell boundaries (see rampedCell) so outward-only displacement cannot fold.
       const cellSector = Math.floor(sector * PRIVATE_PIT_ANGULAR_CELLS + stratumCell * .37)
-      const cell = hash(cellSector, stratumCell)
+      const cell = rampedCell(sector * PRIVATE_PIT_ANGULAR_CELLS + stratumCell * .37,
+        stratumCell, PRIVATE_PIT_CELL_RAMP, PRIVATE_PIT_ANGULAR_CELLS)
       const cellEdge = Math.abs(2 * (sector * PRIVATE_PIT_ANGULAR_CELLS
         - Math.floor(sector * PRIVATE_PIT_ANGULAR_CELLS)) - 1)
-      const fineCell = hash(Math.floor(sector * PRIVATE_PIT_ANGULAR_CELLS * 2.6
-        + stratumCell * .61), stratumCell * 1.7)
+      const fineCell = rampedCell(sector * PRIVATE_PIT_ANGULAR_CELLS * 2.6 + stratumCell * .61,
+        stratumCell * 1.7, PRIVATE_PIT_FINE_CELL_RAMP)
       const facet = .66 * cell + .18 * cellEdge + .16 * fineCell
       const buttress = (PRIVATE_PIT_RELIEF_M + .006) * smooth(depth / .10)
         * (.58 + .42 * facet)
