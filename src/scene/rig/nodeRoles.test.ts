@@ -1,5 +1,5 @@
 import { expect,it,vi } from 'vitest'
-import { readFileSync,writeFileSync } from 'node:fs'
+import { mkdirSync,readFileSync,writeFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { createRequire } from 'node:module'
 import { Box3,BufferAttribute,BufferGeometry,Group,Matrix4,Mesh,Vector3,type Object3D } from 'three'
@@ -151,6 +151,7 @@ it('preserves real source geometry, materials, mechanics and the byte-exact draw
     }
     // AABB contains the assembled housing/clutch hull: this is a conservative clearance.
     expect(hullClearance).toBeGreaterThan(.001+maxStep);expect(polar).toBeLessThan(.98)
+    mkdirSync('output/playwright/jg038-single-gearbox-20261019',{recursive:true})
     writeFileSync('output/playwright/jg038-single-gearbox-20261019/worker-real-asset.json',JSON.stringify({names,rawShaftMeshes:rawShaft.length,renderedShaftMeshes:shaft.length,renderedShaftVertices:shaft.reduce((n,m)=>n+m.geometry.getAttribute('position').count,0),vertexHash:splitHash,drawingHash:hash(snapshot.geometry),drawingCacheKey:key,delta:delta.toArray(),axisErrorDeg,sourceStudyBounds:[sourceBounds.min.toArray(),sourceBounds.max.toArray()],landmarks,hullClearance,maxCameraStep:maxStep,maxPolarUpDotView:polar,toothClocking:'Tenfold Fourier phase of exact triangle cross-sections at study z=-5 mm; 7200 uniform angular rays, modulo one tooth pitch.'},null,2))
     snapshot.geometry.dispose();original.geometry.dispose()
   }finally{vi.unstubAllGlobals()}
