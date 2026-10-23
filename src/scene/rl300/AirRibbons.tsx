@@ -19,6 +19,10 @@ import {
 import type { PreviewControl } from './QuietMachineScene'
 import { evaluateFlow, HEAT_RAMP, RIBBON_COUNT, SOUND_FACES, SOUND_FRONTS, SOUND_ORIGIN, SOUND_TARGETS, SOUND_WINDOWS, SPINES, type Bundle, type Vec3 } from './flow'
 import * as flowConfig from './flow'
+import { WINDOWS } from './beats'
+
+/** GLSL float literal for an authored window edge: the same digits the JS constant prints. */
+const glslFloat = (value: number) => Number.isInteger(value) ? value.toFixed(1) : String(value)
 
 export const AIR_SAMPLES = 144
 const SOUND_SAMPLES = 28
@@ -124,7 +128,7 @@ const FRAGMENT_SHADER = /* glsl */ `
       // it; stubs (2) ignite at their window start instead.
       extent = uReducedMotion > 0.5 ? 1.0 : smoothstep(vWindow.x, vWindow.y, uProgress);
       if (vKind == 2.0) {
-        float lit = 1.0 - smoothstep(0.87, 0.895, uProgress); // stubs extinguish on their own
+        float lit = 1.0 - smoothstep(${glslFloat(WINDOWS.stubOut[0])}, ${glslFloat(WINDOWS.stubOut[1])}, uProgress); // stubs extinguish on their own
         if (lit <= 0.0) discard;
       }
     }
@@ -158,24 +162,24 @@ const FRAGMENT_SHADER = /* glsl */ `
       color = mix(vec3(0.48, 0.68, 1.0), vec3(1.0, 0.48, 0.68), uHeat);
       alpha = 0.72 * vAlpha * startTaper * headTaper * edgeTaper;
       if (vContact > 0.5) {
-        float collapse = 1.0 - 0.75 * smoothstep(vWindow.y, vWindow.y + 0.006, uProgress);
-        float flash = 1.0 + 0.25 * smoothstep(vWindow.y, vWindow.y + 0.001, uProgress)
-                            * (1.0 - smoothstep(vWindow.y + 0.002, vWindow.y + 0.004, uProgress));
+        float collapse = 1.0 - 0.75 * smoothstep(vWindow.y, vWindow.y + ${glslFloat(WINDOWS.contactCollapse)}, uProgress);
+        float flash = 1.0 + 0.25 * smoothstep(vWindow.y, vWindow.y + ${glslFloat(WINDOWS.contactFlashIn)}, uProgress)
+                            * (1.0 - smoothstep(vWindow.y + ${glslFloat(WINDOWS.contactFlashOutFrom)}, vWindow.y + ${glslFloat(WINDOWS.contactFlashOutTo)}, uProgress));
         alpha *= collapse * flash;
       }
     } else if (vKind > 1.5) {
       // Deflection stubs: same hue family, dimmer by construction (vAlpha), igniting at
       // their contact fire and extinguishing before the beat closes.
       color = mix(vec3(0.48, 0.68, 1.0), vec3(1.0, 0.48, 0.68), uHeat);
-      float lit = 1.0 - smoothstep(0.87, 0.895, uProgress);
+      float lit = 1.0 - smoothstep(${glslFloat(WINDOWS.stubOut[0])}, ${glslFloat(WINDOWS.stubOut[1])}, uProgress);
       alpha = 0.72 * vAlpha * startTaper * headTaper * edgeTaper * lit;
     } else if (vKind > 0.5) {
       // Isolation-mount chevrons: grounded warm cue. One bounded rise-then-settle
       // response after the last contact resolves (.856) — the mounts receiving and
       // damping structure-borne energy, distinct from airborne absorption.
       color = vec3(1.0, 0.56, 0.24);
-      float response = 1.0 + 0.30 * smoothstep(0.856, 0.872, uProgress)
-                                * (1.0 - smoothstep(0.874, 0.894, uProgress));
+      float response = 1.0 + 0.30 * smoothstep(${glslFloat(WINDOWS.chevronResponseIn[0])}, ${glslFloat(WINDOWS.chevronResponseIn[1])}, uProgress)
+                                * (1.0 - smoothstep(${glslFloat(WINDOWS.chevronResponseOut[0])}, ${glslFloat(WINDOWS.chevronResponseOut[1])}, uProgress));
       alpha = 0.88 * startTaper * headTaper * edgeTaper * response;
     } else {
       float authoredHeat = clamp(vHeat * uHeat, 0.0, 1.0);
@@ -439,7 +443,7 @@ export function soundPaths(): StripPath[] {
       heat: stubPoints.map(() => 0),
       contact: stubPoints.map(() => 0),
       tracerPhase: fract((i + 1) * .41421356237),
-      window: [SOUND_WINDOWS[i][1], SOUND_WINDOWS[i][1] + .006],
+      window: [SOUND_WINDOWS[i][1], SOUND_WINDOWS[i][1] + WINDOWS.stubIgnition],
       alpha: stub.alpha,
     })
   }
@@ -461,7 +465,7 @@ export function soundPaths(): StripPath[] {
       heat: points.map(() => 0),
       contact: points.map(() => 0),
       tracerPhase: 0,
-      window: [.76, .86],
+      window: [...WINDOWS.chevrons],
       alpha: 1,
     })
   }
@@ -567,6 +571,7 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
   const [reducedMotion, setReducedMotion] = useState(readReducedMotion)
   const ribbonPlane = useMemo(() => new Plane().copy(plane), [plane])
   const clipOverride = useRef<number | null>(null)
+  const meshes = useRef<Record<string, { visible: boolean } | null>>({})
   const ribbonCounts = useMemo(() => ribbonCountsForViewport(width), [width])
   const geometries = useMemo(() => createGeometries(ribbonCounts), [ribbonCounts.main, ribbonCounts.lower, ribbonCounts.merged])
   const materials = useMemo(() => createMaterials(ribbonPlane), [ribbonPlane])
@@ -629,6 +634,16 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
     ribbonPlane.constant = override === null ? plane.constant : override
 
     const flow = evaluateFlow(control.u)
+    // Skip a bundle's two draws while its final alpha multiplier is exactly zero: the fragment
+    // shader multiplies alpha by `uWeight` for every strip kind and discards below .003, so a
+    // zero-weight bundle writes no pixels. Keyed to the value, not to beat membership, so a
+    // bundle that is still fading is never cut.
+    for (const bundle of BUNDLES) {
+      const live = flow.weight[bundle] > 0
+      const hidden = meshes.current[`${bundle}-hidden`], shown = meshes.current[bundle]
+      if (hidden) hidden.visible = live
+      if (shown) shown.visible = live
+    }
     for (const bundle of BUNDLES) {
       // Reduced motion removes the temporal draw-on/dash motion while retaining
       // authored opacity handoffs and the tapered directional heads.
@@ -645,9 +660,9 @@ export function AirRibbons({ control, plane }: { control: PreviewControl; plane:
   })
 
   return <group name="RL300_FLOW_RIBBONS">
-    {BUNDLES.map(bundle => <mesh key={`${bundle}-hidden`} geometry={geometries.geometries[bundle]}
+    {BUNDLES.map(bundle => <mesh key={`${bundle}-hidden`} ref={node => { meshes.current[`${bundle}-hidden`] = node }} geometry={geometries.geometries[bundle]}
       material={materials.hiddenMaterials[bundle]} renderOrder={20} dispose={null} />)}
-    {BUNDLES.map(bundle => <mesh key={bundle} geometry={geometries.geometries[bundle]}
+    {BUNDLES.map(bundle => <mesh key={bundle} ref={node => { meshes.current[bundle] = node }} geometry={geometries.geometries[bundle]}
       material={materials.materials[bundle]} renderOrder={21} dispose={null} />)}
   </group>
 }

@@ -1177,3 +1177,353 @@ Review round 2 (Opus, medium; the last round allowed): QM6a APPROVE; verifier RE
 - Not run: the script itself. First execution is GPU-3.
 
 Post-commit (HEAD): U.1 non-allowlisted paths: none; U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`. Ledger: gate-check on a reset copy by the orchestrator, 12 of 12 met.
+
+## S2b: beat-local beats (`e2770620`, 2026-10-11)
+tsc 0; npm test 703/703; build 0; check:station2 0; U.4 `cssEqual` true, `sourcesEqual` true; verify-jg033-preview exit 0, no errors. U.1 non-allowlisted paths: none; U.2 `hunks=1 removed=0`. `BEATS`, `WINDOWS` and `collectKeys` compared against the pre-change dump: bit-identical. No new tests, no mutation proofs (standing owner rule, revised 2026-10-11).
+
+## Intake hotspot (owner approved by PNG, Astra waived, 2026-10-11)
+tsc 0; npm test 703 passed (+1 auto-enumerated `shellBoundary` case for the new file; `camera.test.ts` K5 timed out at 5 s once under load, 17/17 alone in 2 s); build 0; check:station2 0; U.4 `cssEqual` true, `sourcesEqual` true; verify-jg033-preview exit 0, no errors. Plain-math projection cross-checked against three's PerspectiveCamera in a throwaway script (worst diff 0.0000 px, 3 viewports x 6 u). Evidence: `40-intake-hotspot/` (badge at u .31/.51/.70/.82 and open card, 3 viewports). `verify-page-transition` not run (nav and fade untouched). No new tests or gate scripts.
+
+## QM9 lite GLB regeneration (owner approved by PNG, Astra waived by "Approved. Go", 2026-10-11)
+tsc 0; npm test 701 passed (50 files); build 0; check:station2 0; verify-jg033-preview exit 0, errors [], no known-stale warnings, INTAKE_NDC.lite unchanged (6.524). `rl300-lite.glb` rebuilt by `build-jg033-lite.py` (pin a48c12e5 -> c1c919ab) in Blender 5.1: 245,092 -> 241,770 triangles, lite caps now equal full (152,008), airway 28 on both tiers. `KNOWN_STALE_LITE` and `warnStale` removed from the verifier. `v16Materials.test.ts` lite pins moved (capped 152008, batches 43, unmappedMultiSlot 48). Evidence `42-qm9-lite/`. U.1 lists `scripts/build-jg033-lite.py` and `scripts/verify-jg033-lite-asset.mjs`: neither is on the plan allowlist (the re-pin is the only change to each).
+
+### U.4 QM9-lite
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM9-lite` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-XbuE7E3Y.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (expected to FAIL the plan pass rule: two lite scripts are off the allowlist; owner asked whether to add them):
+scripts/build-jg033-lite.py
+scripts/verify-jg033-lite-asset.mjs
+U.1 grep exit: 0
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+
+## QM9 skip caps while closed
+Owner: "Ship the skip, Astra waived" (2026-10-12). Evidence `43-qm9-skip-caps/summary.md`. Closed-u delta 2-16 specks (was caps visible); open u 0 px on all four rows (cross.mjs, threshold 0).
+Gates at this tree: tsc 0; build 0; check:station2 0; U.4 cssEqual true, sourcesEqual true.
+verify-jg033-preview: first run failed with `ReferenceError: closedCaps` (a leftover in the report.checks line from this edit); fixed, re-run exit 0, errors [].
+npm test exited 1 under load (97 node processes from other sessions): 6 tests timed out at 5 s (handwriting, kinematics, portalGeometry x2, K5 camera, v16Materials). Re-run of those 5 files: 3 passed alone; portalGeometry "no floor topology" and K5 camera passed only with --testTimeout=60000. Total unchanged (701); no test reads the verifier, so the later verifier edit needs no re-run.
+U.1 pre-commit: prints nothing, then `U.1 grep exit: 1`. U.2: `hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->`.
+
+### U.4 QM9-skipcaps
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM9-skipcaps` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-QHaPEJXl.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (QM9 skip caps, 33b377b8): U.1 post grep exit: 1
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
+
+## QM test-debt: K5 camera C0 flake
+Owner: option 1 (one-file exception, allowlist amended in the plan and structure doc). `src/scene/inspection/shaft/camera.test.ts` "is C0 across the timeline at both layouts": ~20k samples x 11 expect() calls replaced by worst-case accumulators asserted once per layout, same thresholds. 2856 ms -> 191 ms alone (timed out at 5 s under full-suite load). One-off check: tightening the dp threshold to 0.0005 failed red, restored. camera.test.ts 17/17. No test added or removed (npm test total 701). Other required gates not re-run: no src/ product or verifier file changed. U.1 pre: prints nothing, `U.1 grep exit: 1`.
+U.1 post (K5 test-debt): prints nothing, U.1 grep exit: 1
+
+## S5 posters (docs and scripts only)
+Owner took over the stalled S5 session 2026-10-12: glow band fixed (REVEAL_FILL), proposed intake rebuilt, beat-4 cutaway (option b), 7 posters rendered on Modal (job rl300_posters_v16_a, estimate USD 0.1087, passed). Staged: scripts, data logs, specs, fix scripts, summary.md, two small band PNGs. Left untracked: preview/, preview-fix/, final/ PNGs and fix/exp-*.png (about 25 MB). No src/ or public/ change, so no code gates; U.1 below.
+
+## QM7b/QM10 poster repoint (owner: "accept v3", WebP, "you choose size", Astra waived)
+Owner decisions 2026-10-12: replace the three blue live-page previews with the 7 orange Blender renders; WebP; size my call; beat 4 = v3.
+- **Assets:** `public/images/rl300-shot-0N-poster.webp` (1920x1080) and `-960.webp` (960x540), N = 1..7, from `38-s5-posters/final/` (beat 4 = `poster-04-v3.png`), encoded by `38-s5-posters/scripts/encode_webp.py` (Pillow, quality 90, method 6, Lanczos for the 960). 14 files, 887 KB total (1920: 47-112 KB each; 960: 21-46 KB). The three `rl300-{exterior,section,intake}-preview.png` (about 720 KB) are deleted.
+- **Why two widths:** the page serves `srcSet` 960w/1920w with `sizes="100vw"`, `width`/`height` 1920x1080 (no layout shift), `decoding="async"`. Checked in Chrome: the 1440x900 viewport loads the 1920 file, the 390x844 phone loads the 960 file. 1920 is the render's native width, so a larger file would be upscaled.
+- **Code:** `beats.ts` loses `PosterId` and the 7 `poster:` fields; `QuietMachinePreview.tsx` derives the still from the beat index (`rl300-shot-0${beat + 1}-poster`); the stale `BEATS` import is removed. The poster CSS is unchanged: the stage is an inset box on the dark page, the light still reads fine beside the editorial column (screenshots `38-s5-posters/repoint-check/`).
+- **Verifier:** the live-page poster capture block and its `CAPTURE_POSTERS` gate are removed (otherwise a capture run would overwrite the renders with blue page captures); the two reduced-motion/poster-scenario asserts `src.includes('intake')` become `src.includes('shot-04')` (Lower intake = u .51 = beat 4). No test added; none removed.
+- **Gates at this tree:** tsc 0; build 0; npm test 701/701 (50 files); check:station2 0; verify-jg033-preview exit 0, errors [], `reducedMotionPoster` and `contextLoss` pass; U.4 `cssEqual` true, `sourcesEqual` true (build `QM10-posters`).
+- **Open copy item (owner's):** beat 1's caption still reads "A blue shell. A complex machine." over an orange render. Not changed.
+
+### U.4 QM10-posters
+
+Compare of `C:/Users/Markimus/.buzz/REPOS/qm-u4/QM10-posters` against `C:/Users/Markimus/.buzz/REPOS/qm-u4/base`: PASS.
+chunks = JS chunks in the static closure of `index.html`; requests = chunks + linked stylesheets + 1 HTML document.
+dynamicEntries is informational (dynamic entries of `index.html` present in both builds) and never changes the verdict.
+
+```json
+{
+  "cssHashBase": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssHashNew": "c95d01f6d2e17aba087e7ac10f21da0a6d028190a49795a7f2de32302949a152",
+  "cssEqual": true,
+  "sourcesEqual": true,
+  "sourcesAdded": [],
+  "sourcesRemoved": [],
+  "chunksBase": 1,
+  "chunksNew": 3,
+  "requestsBase": 3,
+  "requestsNew": 5,
+  "dynamicEntries": [
+    {
+      "key": "src/scene/SceneCanvas.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/scene/ScrollRig.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "src/components/BootSequence.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    },
+    {
+      "key": "_QuietMachinePreview-u1-tSDUy.js",
+      "baseKey": "_QuietMachinePreview-C15D7FDP.js",
+      "kind": "qm-preview",
+      "srcEqual": true,
+      "cssEqual": false,
+      "sourcesAdded": [
+        "src/scene/rl300/IntakeHotspot.tsx",
+        "src/scene/rl300/beats.ts",
+        "src/scene/rl300/v16Materials.ts",
+        "src/shared/PageNav.tsx",
+        "src/shared/pageFade.ts",
+        "src/shared/pages.ts"
+      ],
+      "sourcesRemoved": [
+        "src/App.tsx",
+        "src/components/AuthorshipNotes.tsx",
+        "src/components/Chapters.tsx",
+        "src/components/GdtSymbols.tsx",
+        "src/components/IntroTitles.tsx",
+        "src/components/StaticPoster.tsx",
+        "src/components/StationNav.tsx",
+        "src/components/TechnicalHUD.tsx",
+        "src/components/ToleranceStations.tsx",
+        "src/components/staticChapter.ts",
+        "src/data/caseStudies.ts",
+        "src/main.tsx",
+        "src/scene/drawing/drawingGeometry.ts",
+        "src/scene/drawing/electricalScore.ts",
+        "src/scene/drawing/introTimeline.ts",
+        "src/scene/drawing/scrollTracks.ts",
+        "src/scene/drawing/sheet/breakthrough.ts",
+        "src/scene/drawing/sheet/handwriting.ts",
+        "src/scene/drawing/sheet/ink.ts",
+        "src/scene/drawing/sheet/ownerAnnotations.ts",
+        "src/scene/drawing/sheet/paperFlex.ts",
+        "src/scene/drawing/sheet/referenceHandGlyphs.ts",
+        "src/scene/inspection/session.ts",
+        "src/scene/inspection/shaft/story.ts",
+        "src/scene/inspection/story.ts",
+        "src/scene/stations/stationData.ts",
+        "src/scene/stations/stationStore.ts",
+        "src/state/inspectionStore.ts",
+        "src/state/qualityStore.ts",
+        "src/state/scrollStore.ts"
+      ]
+    },
+    {
+      "key": "src/components/RingInspection.tsx",
+      "kind": "other",
+      "srcEqual": true,
+      "cssEqual": true,
+      "sourcesAdded": [],
+      "sourcesRemoved": []
+    }
+  ]
+}
+```
+
+U.1 post (QM10 posters, 3bfa549b): files outside the allowlist = []
+U.2: hunks=1 removed=0 first=<!-- shell:begin --> last=<!-- shell:end -->
