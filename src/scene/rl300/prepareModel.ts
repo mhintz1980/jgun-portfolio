@@ -197,11 +197,39 @@ export const EXTRAS_POLICY: Record<string, SectionPolicy> = {
 export const REPLACED_MAN = 'MAN-6650459107-1'
 
 /** Translation (glTF metres, world frame) of the external exhaust stack `EXHAUST PIPE-1`
- *  so it stays coaxial with the V16 connector pipe. Derivation: V16 sits +0.40 in x and
- *  -0.065 in z from the shipped stack; the extras GLB's DUCT_EXHAUST node already carries
- *  the V16-to-shipped engine-frame shift of +0.0154 in z, so the stack needs
- *  -0.065 + 0.0154 = -0.0496 to meet it. The shipped GLBs are never edited. */
-export const EXHAUST_STACK_OFFSET = [0.4, 0, -0.0496] as const
+ *  so it stays coaxial with the V16 connector pipe. V16 sits +0.40 in x and -0.065 in z
+ *  from the shipped stack. The engine-bay cluster now returns to the V16 frame (see
+ *  FRAME_SHIFT_Z), so the extras' connector carries no frame shift and the stack takes
+ *  the full -0.065. The shipped GLBs are never edited. */
+export const EXHAUST_STACK_OFFSET = [0.4, 0, -0.065] as const
+
+/** V16 frame shift (owner-approved 2026-10-12): the engine-bay cluster is exported
+ *  +14.0 to +15.0 mm in glTF z from V16 while the shell, panels and ducts are exact. Audit
+ *  `asset2/audit.md`, shipped minus V16, median per V16 root group (the fused nodes are
+ *  measured on their family union). Each node moves back by its group's constant, the same
+ *  on both tiers, and its extras follow it by root so nothing sits 15 mm off its neighbour.
+ *  Keys are scene names (GLTFLoader-sanitized), matched on any ancestor of a mesh. The
+ *  scattered groups (COMPOSITE_PANELS, bolts, tie-downs) are deliberately absent. */
+const FRAME_SHIFT_Z = new Map<string, number>()
+const shiftNodes = (dz: number, names: string[]) => names.forEach(name => FRAME_SHIFT_Z.set(name, dz))
+shiftNodes(-0.0149, [
+  '26-01305-1', '4874290_REV00_MS-1', '4874323_VG01_REV01_MS-1', '4874342_VG01_REV08_MS-1', '4901304_VG01_REV12_MS-1',
+  '4987944_VG01_REV02_PART-1', '4992387_VG01_REV02_MS-1', '5055447_REV03_MS-1', '5090203_REV03_MS-1', '5100022_REV03_MS-1',
+  '5118791_REV03_PART-1', '5182996_REV03_MS-1', '5236568_REV08_ASSY_ASM-15236568_REV08_PARTS_MS-1',
+  '5236568_REV08_ASSY_ASM-15515102_REV00_MS-1', '5257943_REV01_MS-1', '5257950_REV00_MS-1', '5286519-06_SIMP-1',
+  '5488442_REV02_MS-1', '5488455_REV05_MS-1', '5488492_REV03_MS-1', '5488512_REV04_PART-1', '5488541_REV03_MS-1',
+  '5488818_REV04_MS-1', '5488968_REV04_ASSY_ASM-15488968_XOVERPIPE_MS01-1',
+  '5488968_REV04_ASSY_ASM-15770437_ASM-15770437_CP01-1', '5495457_REV09_PART-1', '5501384_VG01_REV01_MS-1',
+  '5501498_REV00_MS-1', '5529980_REV02_MS-1', '5545242_REV03_MS-1', '5952967_REV00_MS-1', '6008619_VG01_REV00_MS-1',
+  '6008668_REV02_MS-1', '6013677_REV04_PART-1', '6103389_REV00_MS-1',
+]) // 904j-e28t_eng (34 nodes, +14.9) and 26-01305-1 (+14.9)
+shiftNodes(-0.0145, ['RM100-PX1029008D-1'])
+// RL300-CPM-3000, RL300-P-FFM-1000 and the fused control panel (+14.0).
+shiftNodes(-0.014, ['RL300-CPM-3001-1', 'RL300-P-CPM-2001-1', 'RL300-P-FFM-1001-1', 'RL300-P-FFM-1002-1', 'RL300-P-FFM-1002-2', 'V2CONTROL_PANEL,_URFS-2'])
+shiftNodes(-0.0141, [REPLACED_MAN]) // the shipped fused MAN (+14.1), replaced by the extras assembly on both tiers
+/** The extras GLB bakes the same cluster frame into each root's translation (z +0.0154 /
+ *  +0.014 / +0.0141); the roots return to V16 by that amount. Root -> world z. */
+const EXTRAS_FRAME_SHIFT_Z: Record<string, number> = { DUCT_EXHAUST: -0.0154, GAUGE_DIALS: -0.014, PUMP_HOUSING: -0.0141 }
 
 export interface PrepareOptions {
   /** V16 per-part materials. Absent: the GLB's own materials, exactly as before. */
@@ -285,14 +313,19 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       let policy: SectionPolicy | null = null
       let reservoir = false
       let insulation = false
+      let frameShiftZ = 0
       if (extra) {
         // Extras are not CAD occurrences: no liner, reservoir, insulation or exhaust-stack
         // rules, only the extras table, nearest ancestor first (the root itself counts).
-        for (; p && p !== extras; p = p.parent) if (!policy && has(EXTRAS_POLICY, p.name)) policy = EXTRAS_POLICY[p.name]
+        for (; p && p !== extras; p = p.parent) {
+          if (!policy && has(EXTRAS_POLICY, p.name)) policy = EXTRAS_POLICY[p.name]
+          if (!frameShiftZ && has(EXTRAS_FRAME_SHIFT_Z, p.name)) frameShiftZ = EXTRAS_FRAME_SHIFT_Z[p.name]
+        }
       } else {
         while (p && p !== root) {
           if (p.name === LINER_PART) liner = true
           if (!pipe) pipe = p.name === EXHAUST_PIPE || p.name.startsWith(`${EXHAUST_PIPE}_`)
+          if (!frameShiftZ) frameShiftZ = FRAME_SHIFT_Z.get(p.name) ?? 0
           if (/-RES-/.test(p.name)) reservoir = true
           if (/-SIF-/.test(p.name)) insulation = true
           if (!policy) { const found = policyFor(p.name); if (found) { policy = found.policy; named = found.name } }
@@ -376,6 +409,8 @@ export function prepareModel(source: Group, plane: Plane, options: PrepareOption
       // translation in glTF metres) is applied to the baked positions, before the bounds, the
       // closed-volume test and the merge. Both tiers carry the same node; the GLBs stay as shipped.
       if (pipe) geometry.translate(EXHAUST_STACK_OFFSET[0], EXHAUST_STACK_OFFSET[1], EXHAUST_STACK_OFFSET[2])
+      // The V16 frame shift (FRAME_SHIFT_Z), likewise a world-frame translation of the baked positions.
+      if (frameShiftZ) geometry.translate(0, 0, frameShiftZ)
       let record: PartRecord | undefined
       if (named) {
         geometry.computeBoundingBox()

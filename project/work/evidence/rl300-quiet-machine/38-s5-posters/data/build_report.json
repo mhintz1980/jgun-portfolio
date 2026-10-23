@@ -1,0 +1,479 @@
+{
+ "frames": [
+  581,
+  582,
+  583,
+  584,
+  585,
+  586,
+  587
+ ],
+ "rows": [
+  {
+   "beat": 1,
+   "frame": 581,
+   "camera": "POSTER_CAM_1",
+   "cam_loc": [
+    3.96,
+    -4.165,
+    0.99
+   ],
+   "cam_fov_v": 30.0,
+   "plane_x": 0.85,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 2,
+   "frame": 582,
+   "camera": "POSTER_CAM_2",
+   "cam_loc": [
+    3.45,
+    -3.06,
+    1.42
+   ],
+   "cam_fov_v": 32.0,
+   "plane_x": 0.523,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 3,
+   "frame": 583,
+   "camera": "POSTER_CAM_3",
+   "cam_loc": [
+    3.615,
+    -2.745,
+    1.765
+   ],
+   "cam_fov_v": 33.0,
+   "plane_x": -0.15,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 4,
+   "frame": 584,
+   "camera": "POSTER_CAM_4",
+   "cam_loc": [
+    1.05,
+    -1.05,
+    -0.13
+   ],
+   "cam_fov_v": 38.0,
+   "plane_x": -0.15,
+   "plane_yaw": 0.0,
+   "floor_hidden": true,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 5,
+   "frame": 585,
+   "camera": "POSTER_CAM_5",
+   "cam_loc": [
+    4.4,
+    0.35,
+    1.25
+   ],
+   "cam_fov_v": 36.0,
+   "plane_x": -0.15,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 6,
+   "frame": 586,
+   "camera": "POSTER_CAM_6",
+   "cam_loc": [
+    4.1,
+    -0.65,
+    1.95
+   ],
+   "cam_fov_v": 34.5,
+   "plane_x": -0.15,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  },
+  {
+   "beat": 7,
+   "frame": 587,
+   "camera": "POSTER_CAM_7",
+   "cam_loc": [
+    3.855,
+    -3.255,
+    1.845
+   ],
+   "cam_fov_v": 32.5,
+   "plane_x": 0.35,
+   "plane_yaw": 0.0,
+   "floor_hidden": false,
+   "lights": {
+    "Light": 500.0,
+    "REVEAL_FILL": 140.0,
+    "REVEAL_KEY": 700.0,
+    "REVEAL_PUMP_KEY": 520.0,
+    "REVEAL_RIM": 350.0
+   },
+   "world_strength": [
+    3.0,
+    2.6
+   ],
+   "doors_closed_like_301": true,
+   "lbap_hidden": true
+  }
+ ],
+ "ruled": [
+  {
+   "name": "MirrorRL200-AFS-2001-2",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.602,
+   "xmax": 0.677,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "RL300-AFS-2003-5",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.579,
+   "xmax": 0.677,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V23028T25_Weld-on Tie-Down Ring-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.683,
+   "xmax": 0.8,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V23028T25_Weld-on Tie-Down Ring-2",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.683,
+   "xmax": 0.8,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2RL300-WO-NP-SAFE-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.686,
+   "xmax": 0.689,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2EDW-60335 (Fuel Tank Weld On Flange)-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.545,
+   "xmax": 0.623,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2SKF-TB-2200-01-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.686,
+   "xmax": 0.698,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2MSP-MID-5406HHP24 ~-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.551,
+   "xmax": 0.617,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2MSP-MID-5406HHP24 ~-3",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.551,
+   "xmax": 0.617,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2SKF-TB-2200-01-2",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.686,
+   "xmax": 0.698,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2SKF-TB-2250-01-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": -0.006,
+   "xmax": 0.006,
+   "hidden": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "name": "V2SKF-TB-2250-01-2",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": -0.006,
+   "xmax": 0.006,
+   "hidden": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "name": "ISO_MOUNT_4",
+   "policy": "hide",
+   "present": false
+  },
+  {
+   "name": "ISO_MOUNT_5",
+   "policy": "hide",
+   "present": false
+  },
+  {
+   "name": "ISO_MOUNT_6",
+   "policy": "hide",
+   "present": false
+  },
+  {
+   "name": "V2EDW-60335 (Fuel Tank Weld On Flange)-2",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.498,
+   "xmax": 0.568,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2EDW-60335 (Fuel Tank Weld On Flange)-3",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.545,
+   "xmax": 0.623,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "V2WISC-4770-7-1",
+   "policy": "hide",
+   "present": true,
+   "meshes": 1,
+   "xmin": 0.479,
+   "xmax": 0.587,
+   "hidden": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "12335A81_Oil-Resistant Push-on Seal with Bulb-1",
+   "policy": "delete",
+   "present": false
+  }
+ ]
+}

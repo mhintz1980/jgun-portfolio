@@ -1,0 +1,74 @@
+{
+  "compositing_execution": "local",
+  "cost_estimate_usd": 0.1087,
+  "frames": [
+    {
+      "frame": "t0581",
+      "manifest": "/input/manifest-t0581.json"
+    },
+    {
+      "frame": "t0582",
+      "manifest": "/input/manifest-t0582.json"
+    },
+    {
+      "frame": "t0583",
+      "manifest": "/input/manifest-t0583.json"
+    },
+    {
+      "frame": "t0584",
+      "manifest": "/input/manifest-t0584.json"
+    },
+    {
+      "frame": "t0585",
+      "manifest": "/input/manifest-t0585.json"
+    },
+    {
+      "frame": "t0586",
+      "manifest": "/input/manifest-t0586.json"
+    },
+    {
+      "frame": "t0587",
+      "manifest": "/input/manifest-t0587.json"
+    }
+  ],
+  "inputs": {
+    "/input/cad/rl300-posters-v16.blend": "011b7a7c49a3948249ebc5104d90aa298fb846b2e4df96c3c7702f9422c163b0",
+    "/input/render_worker.py": "ce47b4e646fc4ba7607c5cffa20d10b0687c2ab91d5599c023eedb9ff141470e"
+  },
+  "job_id": "rl300_posters_v16_a",
+  "orbit": null,
+  "overrides": [],
+  "render_passes_per_frame": 1,
+  "resources": {
+    "application_retries": 0,
+    "blender_timeout_seconds": 1080,
+    "cpu": 4,
+    "gpu": "L4",
+    "max_containers": 1,
+    "memory_mib": 16384,
+    "timeout_seconds": 1200
+  },
+  "runtime": {
+    "archive_sha256": "6f9fff89fef154ef7974d1a1c4b916ab4bc1f5618bcb48d5befee1bd0a7c7f2a",
+    "archive_url": "https://download.blender.org/release/Blender5.1/blender-5.1.1-linux-x64.tar.xz",
+    "build": "b70da489d7f4",
+    "version": "5.1.1"
+  },
+  "schema_version": 1,
+  "sequence": {
+    "labels": [
+      "t0581",
+      "t0582",
+      "t0583",
+      "t0584",
+      "t0585",
+      "t0586",
+      "t0587"
+    ],
+    "timeline": {
+      "frame_end": 587,
+      "frame_start": 581,
+      "step": 1
+    }
+  }
+}

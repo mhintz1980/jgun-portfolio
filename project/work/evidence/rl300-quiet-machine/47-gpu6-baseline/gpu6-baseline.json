@@ -1,0 +1,42 @@
+{
+ "desktop-full": {
+  "n": 596,
+  "p50": 8.8,
+  "p95": 11.6,
+  "p99": 14.6,
+  "max": 73.3,
+  "maxTriangles": 1210452,
+  "maxDrawCalls": 142,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+ },
+ "desktop-lite": {
+  "n": 596,
+  "p50": 6.6,
+  "p95": 9,
+  "p99": 10.6,
+  "max": 71.6,
+  "maxTriangles": 556908,
+  "maxDrawCalls": 84,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+ },
+ "phone-size-full": {
+  "n": 596,
+  "p50": 7.1,
+  "p95": 8.9,
+  "p99": 10.8,
+  "max": 29.2,
+  "maxTriangles": 1205268,
+  "maxDrawCalls": 142,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+ },
+ "phone-size-lite": {
+  "n": 596,
+  "p50": 3.9,
+  "p95": 4.9,
+  "p99": 6.9,
+  "max": 26.7,
+  "maxTriangles": 551724,
+  "maxDrawCalls": 84,
+  "renderer": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+ }
+}

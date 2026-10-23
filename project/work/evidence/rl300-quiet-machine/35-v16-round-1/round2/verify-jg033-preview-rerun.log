@@ -1,0 +1,184 @@
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+WARN known-stale: lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)
+WARN known-stale: lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)
+{
+  "knownStale": [
+    "lite cap triangles 162670 != full 152008 (rl300-lite.glb is not derived from the current msp-enclosure.glb; owner: QM9 lite policy / asset decision)",
+    "lite airway helper is 24 triangles, full is 28 (rl300-lite.glb predates the 2026-09-24 export)"
+  ],
+  "build": "f757d3fd167ffef9db8a15af79fcf037aea4813ea40790eb3c298a813521b7b9",
+  "composer": "direct",
+  "ruledParts": 27,
+  "checks": {
+    "desktop": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 16476,
+        "fraction": 0.021163287168697448,
+        "meanChannelDelta": 2.35425085440114
+      },
+      "closedCaps": {
+        "changed": 11,
+        "fraction": 0.000014129409981529008,
+        "meanChannelDelta": 0.00024490977301316945
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.39999997615814,
+        "p95": 34.099999994039536
+      },
+      "renderCpuMs": {
+        "p50": 2.5,
+        "p95": 3.5999999940395355
+      }
+    },
+    "portrait": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 2868,
+        "fraction": 0.016378276511906802,
+        "meanChannelDelta": 1.8407477204804599
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.00001713208840157615,
+        "meanChannelDelta": 0.0004625663868425561
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.20000001788139,
+        "p95": 34.69999998807907
+      },
+      "renderCpuMs": {
+        "p50": 4.0999999940395355,
+        "p95": 7.299999982118607
+      }
+    },
+    "tablet": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 11337,
+        "fraction": 0.024809611344537814,
+        "meanChannelDelta": 2.4481048669467786
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.0000065651260504201685,
+        "meanChannelDelta": 0.00012765522875816994
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.39999997615814,
+        "p95": 34.20000001788139
+      },
+      "renderCpuMs": {
+        "p50": 2.7000000178813934,
+        "p95": 3.4000000059604645
+      }
+    },
+    "lite": {
+      "reverse": {
+        "section": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "intake": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        },
+        "exterior": {
+          "changed": 0,
+          "fraction": 0,
+          "meanChannelDelta": 0
+        }
+      },
+      "capPixels": {
+        "changed": 2868,
+        "fraction": 0.016378276511906802,
+        "meanChannelDelta": 1.8226676565206632
+      },
+      "closedCaps": {
+        "changed": 3,
+        "fraction": 0.00001713208840157615,
+        "meanChannelDelta": 0.0004492414291968858
+      },
+      "idleFrames": 0,
+      "frameResponseMs": {
+        "p50": 33.30000001192093,
+        "p95": 34.20000001788139
+      },
+      "renderCpuMs": {
+        "p50": 1.7999999821186066,
+        "p95": 2.699999988079071
+      }
+    },
+    "reducedMotionPoster": "pass: poster without a canvas, scroll inert, controls swap the poster",
+    "contextLoss": "pass: webglcontextlost falls back to the poster",
+    "poster": "pass: readable poster views without a canvas",
+    "asset-failure": "pass: readable poster views without a canvas",
+    "lite-asset-failure": "pass: readable poster views without a canvas"
+  },
+  "errors": []
+}
+VERIFIER EXIT 0
