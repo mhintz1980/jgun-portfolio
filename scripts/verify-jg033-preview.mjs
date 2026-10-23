@@ -52,7 +52,10 @@ function assertRuling(parts) {
   }
   return seen
 }
-const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome', headless: true, args: ['--use-gl=angle', '--enable-gpu', '--ignore-gpu-blocklist'] })
+// JGUN_CHROME_PATH (cloud/Linux) points at a bundled Chromium instead of installed Chrome.
+const browser = await chromium.launch(process.env.JGUN_CHROME_PATH
+  ? { executablePath: process.env.JGUN_CHROME_PATH, headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] }
+  : { channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome', headless: true, args: ['--use-gl=angle', '--enable-gpu', '--ignore-gpu-blocklist'] })
 const report = { capturedAt: new Date().toISOString(), build: hash(fs.readFileSync('dist/quiet-machine/index.html')), asset: hash(fs.readFileSync('public/models/msp-enclosure.glb')), captures: [], checks: {}, errors: [] }
 report.liteAsset = hash(fs.readFileSync('public/models/rl300-lite.glb'))
 report.composer = composer || 'direct'
