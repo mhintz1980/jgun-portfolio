@@ -1,0 +1,81 @@
+{
+  "name": "u890-390x844",
+  "file": "u890-390x844.png",
+  "pngBytes": 121346,
+  "pngSha256": "73ef0a57a15ecfc578a4ffa4377de786e049630cd8b7096923be2466149d0a1b",
+  "tier": "full",
+  "requestedTier": "full",
+  "tierMatchesRequest": true,
+  "u": 0.89,
+  "requestedU": 0.89,
+  "uMatchesRequest": true,
+  "ready": true,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "url": "http://localhost:4173/quiet-machine/?quality=full",
+  "nonFlatFraction": 0.3576588892939604,
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "stageSize": {
+    "width": 390,
+    "height": 447.34375
+  },
+  "canvasRect": {
+    "x": 0,
+    "y": 244.75,
+    "width": 390,
+    "height": 447.34375
+  },
+  "frame": 22,
+  "cutPlane": -0.15000000000000002,
+  "camera": [
+    4.198,
+    2.548,
+    2.802
+  ],
+  "fov": 35,
+  "drawCalls": 134,
+  "renderedTriangles": 1199171,
+  "geometries": 77,
+  "textures": 4,
+  "counts": {
+    "sourceTriangles": 454079,
+    "keptTriangles": 449483,
+    "linerTriangles": 108,
+    "sourceMeshes": 608,
+    "batches": 49,
+    "cappedTriangles": 152008,
+    "openSectionTriangles": 44494,
+    "keptWholeTriangles": 16750,
+    "removedTriangles": 460,
+    "skippedRoots": 1,
+    "replacedTriangles": 4000,
+    "materials": 49,
+    "mappedParts": 520,
+    "mappedPrimitives": 548,
+    "protectedPrimitives": 227,
+    "unmappedMultiSlot": 36,
+    "extraParts": 19,
+    "extraTriangles": 13411,
+    "v16Applied": true
+  },
+  "partCount": 28,
+  "partPolicies": {
+    "keep": 7,
+    "delete": 1,
+    "hide": 18,
+    "section": 2
+  },
+  "partTriangleSum": 24730,
+  "glbsRequested": [
+    "rl300-extra-parts.glb",
+    "msp-enclosure.glb"
+  ],
+  "rangeValue": 890,
+  "scrollY": 0,
+  "htmlFade": null,
+  "caps": true,
+  "composed": false,
+  "pageErrors": []
+}

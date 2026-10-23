@@ -1,0 +1,866 @@
+[
+ {
+  "px": 240,
+  "py": 110,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.809
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 110,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.752
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 110,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.355,
+   1.703
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 240,
+  "py": 115,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.784
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 115,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.729
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 115,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.355,
+   1.681
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 240,
+  "py": 120,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.759
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 120,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.705
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 120,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.355,
+   1.659
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 240,
+  "py": 125,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.733
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 125,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.682
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 125,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.355,
+   1.637
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 240,
+  "py": 130,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.708
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 130,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.659
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 130,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.355,
+   1.615
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 240,
+  "py": 135,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.683
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 135,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.635
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 135,
+  "hit": true,
+  "obj": "RL200-SIF-1020-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.479,
+   -0.528,
+   1.771
+  ],
+  "nor": [
+   0.0,
+   -0.778,
+   -0.628
+  ]
+ },
+ {
+  "px": 240,
+  "py": 140,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.658
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 140,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.612
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 140,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.186,
+   -1.072,
+   1.63
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 145,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.633
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 145,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -0.826,
+   1.701
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 145,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.53,
+   -1.354,
+   1.55
+  ],
+  "nor": [
+   0.499,
+   0.0,
+   0.867
+  ]
+ },
+ {
+  "px": 240,
+  "py": 150,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.414,
+   -1.355,
+   1.608
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 150,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.285,
+   -1.081,
+   1.621
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 360,
+  "py": 150,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.259,
+   -1.132,
+   1.57
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 155,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -1.211,
+   1.613
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 155,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.542
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 155,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.294,
+   -1.161,
+   1.542
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 160,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -1.211,
+   1.587
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 160,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.088,
+   -1.353,
+   1.519
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 160,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.329,
+   -1.189,
+   1.513
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 165,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -1.211,
+   1.56
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 165,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.156,
+   -1.175,
+   1.527
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 360,
+  "py": 165,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.363,
+   -1.217,
+   1.485
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 170,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -1.211,
+   1.534
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 170,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.114,
+   -1.205,
+   1.497
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 360,
+  "py": 170,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.396,
+   -1.244,
+   1.458
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 175,
+  "hit": true,
+  "obj": "MirrorRL300-SIF-1004-2",
+  "parent": "ENCLOSURE_CHASSIS",
+  "mat": "MSP_INSULATION_FOAM__SECTION",
+  "loc": [
+   -0.637,
+   -1.211,
+   1.507
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 300,
+  "py": 175,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.091,
+   -1.355,
+   1.448
+  ],
+  "nor": [
+   0.0,
+   -1.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 175,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.429,
+   -1.271,
+   1.431
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 180,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.617,
+   -1.224,
+   1.479
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 300,
+  "py": 180,
+  "hit": true,
+  "obj": "G2RL300-SAF-1003-2",
+  "parent": "DUCT_INTAKE",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.088,
+   -1.352,
+   1.425
+  ],
+  "nor": [
+   1.0,
+   0.0,
+   0.0
+  ]
+ },
+ {
+  "px": 360,
+  "py": 180,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.461,
+   -1.297,
+   1.405
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 240,
+  "py": 185,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   -0.569,
+   -1.255,
+   1.448
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 300,
+  "py": 185,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.005,
+   -1.292,
+   1.411
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ },
+ {
+  "px": 360,
+  "py": 185,
+  "hit": true,
+  "obj": "GRRL200-SAF-1172-1",
+  "parent": "ACOUSTIC_BAFFLES",
+  "mat": "MSP_YELLOW_PAINT__SECTION",
+  "loc": [
+   0.492,
+   -1.323,
+   1.379
+  ],
+  "nor": [
+   0.0,
+   -0.707,
+   0.707
+  ]
+ }
+]
