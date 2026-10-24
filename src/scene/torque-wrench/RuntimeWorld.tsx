@@ -48,6 +48,7 @@ import { createJourneyCameraSampler, createJourneyPose, orbitCamera } from './Jo
 import { createJourneyPlanes, effectiveMeshOpacity, measureShaftLandmarks, measureShaftDisplacement, registerShaft, registrationScale } from './shaftJourneyRegistration'
 import { applyShaftLook } from './shaftJourneyLook'
 import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
+import { isTorqueHotspotActive } from './hotspotData'
 import { createStopAndAppreciateController, type StopAndAppreciateTelemetry } from './stopAndAppreciate'
 
 const MODEL_URL = '/models/Default.glb'
@@ -206,6 +207,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     })
   }, [model, rig])
   const overlay = useMemo(() => ({ progress: 0, subjectTime: 0, studyVisible: false, manual: false,
+    explode: 0, surroundingsOpacity: 1, ringVisible: false,
     focusId: null as string | null, anchors: hotspots.map(item => item.screen) }), [hotspots])
   const focus = useMemo(() => ({ id: null as string | null, weight: 0, progress: 0, initialized: false,
     position: new Vector3(), target: new Vector3(), direction: new Vector3() }), [])
@@ -482,7 +484,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       const id = (event as CustomEvent<{ id?: string | null }>).detail?.id
       // A DOM button can be activated between projection ticks. Its part stays
       // valid during that short transition even if the center ray just changed.
-      if (id == null || (!overlay.manual && !overlay.studyVisible && overlay.progress >= .46 && overlay.progress <= .995
+      if (id == null || (isTorqueHotspotActive(id, overlay.progress, overlay.explode, overlay.surroundingsOpacity,
+        overlay.ringVisible, overlay.studyVisible, overlay.manual)
         && hotspots.some(item => item.id === id && item.node))) {
         if (id) stopAndAppreciate.toggleFreeLook(false, store.getProgress())
         focus.id = id ?? null
@@ -769,6 +772,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.isolation.shaftVisible = studyVisible
       overlay.progress = progress
       overlay.studyVisible = studyVisible; overlay.manual = manual
+      overlay.explode = channels.explode; overlay.surroundingsOpacity = surroundingsOpacity; overlay.ringVisible = ringVisible
       if (!manual && progress >= RING_LOAD_AT && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
@@ -1053,7 +1057,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       // Inspection focus is a local override. Native scroll releases it back to
       // the current authored camera without changing the narrative clock.
-      if (focus.id && (Math.abs(progress - focus.progress) > .0003 || manual || studyVisible || probe.stopAndAppreciate.freeLookActive)) focus.id = null
+      // A focused callout also releases when its own beat ends or a special sequence begins.
+      if (focus.id && (Math.abs(progress - focus.progress) > .0003 || probe.stopAndAppreciate.freeLookActive
+        || !isTorqueHotspotActive(focus.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual))) focus.id = null
       const selected = hotspots.find(item => item.id === focus.id)
       if (selected?.node) {
         selected.node.updateWorldMatrix(true, false)
@@ -1087,11 +1093,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           if (visible && effectiveMeshOpacity(mesh) >= .5) hotspotBlockers.push(mesh)
         }
         for (const item of hotspots) {
-          const active = !manual && !studyVisible && progress >= .46 && progress <= .995
-            && (item.id !== 'stage2-planet' || channels.explode > .65)
+          // One callout per dedicated beat and none during special sequences (Session 1C, owner 05-1/05-2.png).
+          const active = isTorqueHotspotActive(item.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual)
           item.screen.visible = false
           item.screen.reason = 'inactive'; item.screen.occluder = ''
-          if (!active || !item.node || (item.id !== 'ring-switch' && surroundingsOpacity < .2)) continue
+          if (!active || !item.node) continue
           if (item.id === 'stage2-planet') {
             for (const candidate of planetFeatures) {
               candidate.inverse.copy(candidate.node.matrixWorld).invert()
