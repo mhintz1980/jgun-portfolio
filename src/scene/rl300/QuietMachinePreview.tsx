@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { clamp01, evaluateShot, SHOTS } from './shot'
+import { IntakeHotspot } from './IntakeHotspot'
 import type { PreviewControl } from './QuietMachineScene'
 import { prefetchPage, releaseFadeWhen } from '../../shared/pageFade'
 import { PageLink, PageNav } from '../../shared/PageNav'
@@ -12,9 +13,9 @@ export const QM_LENGTH_VH = 900
 export const END_CARD_AT = .97
 
 const Scene = lazy(() => import('./QuietMachineScene').then(m => ({ default: m.QuietMachineScene })))
-/** Three poster frames cover seven shots; each shot names the one that stands for it, so
- *  the static fallback never asks for an image that was never captured. */
-const POSTERS = ['exterior', 'section', 'section', 'intake', 'section', 'section', 'exterior'] as const
+/** One Blender still per beat (public/images/rl300-shot-0N-poster.webp, 1920 wide, and -960 for narrow screens),
+ *  so the static fallback shows the beat the visitor is on. */
+const posterBase = (beat: number) => `/images/rl300-shot-0${beat + 1}-poster`
 /** Scrubber anchors, not a shot list: the three stops the study is navigated by. */
 const VIEWS: [string, number][] = [['Exterior', 0], ['Section', .2], ['Lower intake', .51]]
 
@@ -57,7 +58,7 @@ export default function QuietMachinePreview() {
   useEffect(() => {
     if (u < END_CARD_AT || prefetched.current) return
     prefetched.current = true
-    const next = pageHref('jgun', mode.tier)
+    const next = pageHref('torque-wrench', mode.tier)
     if (next) prefetchPage(document, [next])
   }, [u, mode.tier])
   const seek = useCallback((value: number) => {
@@ -94,16 +95,21 @@ export default function QuietMachinePreview() {
   return <main className="qm-preview" data-reduced-motion={reduced} style={{ '--qm-length': `${QM_LENGTH_VH}vh` } as React.CSSProperties}>
     <div className="qm-progress" aria-hidden="true"><span style={{ transform: `scaleX(${u})` }} /></div>
     <div className="qm-stage" ref={stageRef} aria-label="RL300 enclosure section study">
-      {poster ? <div className="qm-poster"><img src={`/images/rl300-${POSTERS[beat]}-preview.png`} alt={SHOTS[beat].caption} /></div> :
+      {poster ? <div className="qm-poster"><img src={`${posterBase(beat)}.webp`} srcSet={`${posterBase(beat)}-960.webp 960w, ${posterBase(beat)}.webp 1920w`} sizes="100vw" width={1920} height={1080} decoding="async" alt={SHOTS[beat].caption} /></div> :
         <SceneBoundary onError={onError}><Suspense fallback={null}><Scene control={control} onReady={onReady} onError={onError} lite={mode.tier === 'lite'} /></Suspense></SceneBoundary>}
+      {!poster && <IntakeHotspot u={u} onSeek={navigate} />}
     </div>
-    <header className="qm-header"><PageLink id="jgun" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" /><span>RL300 / SECTION STUDY</span></header>
+    <header className="qm-header"><PageLink id="torque-wrench" tier={mode.tier}>MARK HINTZ <span>ENGINEERING & DESIGN</span></PageLink><PageNav current="quiet-machine" tier={mode.tier} variant="header" numbered currentAsText /><span>RL300 / SECTION STUDY</span></header>
     <div className="qm-editorial">
       <p className="qm-eyebrow">THE QUIET MACHINE <span>0{beat + 1} / 0{SHOTS.length}</span></p>
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>
       <p className="qm-note">{SHOTS[beat].note}</p>
     </div>
-    {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue"><PageNav current="quiet-machine" tier={mode.tier} variant="endcard" /></aside>}
+    {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue">
+      <h2 className="qm-endcard-title">Closed again.</h2>
+      <p className="qm-endcard-body">The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it.</p>
+      <PageNav current="quiet-machine" tier={mode.tier} variant="endcard" label="More pages" numbered currentAsText />
+    </aside>}
     <footer className="qm-controls">
       <div className="qm-views" aria-label="Study views">{VIEWS.map(([label, at]) =>
         <button key={label} aria-pressed={beat === evaluateShot(at, false).beat} onClick={() => navigate(at)}>{label}</button>)}</div>

@@ -1,6 +1,7 @@
 import { Vector3 } from 'three'
 import type { DrawingGeometry, DrawingLayout } from '../drawingGeometry'
 import { GROUP, InkBuilder, PEN, PEN_COLOR, withPenColor } from './ink'
+import { OWNER_CAREER, OWNER_EXTRA_FIELDS, OWNER_NOTES, OWNER_NOTE_TEXT, OWNER_TITLE } from './ownerAnnotationStrings'
 import { handCircle, handLine, handwrite, strokeLength, type HandStroke, type Pt } from './handwriting'
 
 /**
@@ -11,38 +12,8 @@ import { handCircle, handLine, handwrite, strokeLength, type HandStroke, type Pt
  * pixels: it appends deterministic strokes to the InkBuilder and returns the anchors it used.
  */
 
-export const OWNER_TITLE = { name: 'MARK HINTZ', role: 'Digital Systems Architect' } as const
-
-/** Revisions A/B/C in the owner's listed order. No dates, initials or approvals are implied. */
-export const OWNER_CAREER = [
-  { rev: 'A', organization: 'Myers-Seth Pumps', scope: 'Product Design / R&D / 3D Product Visualizer' },
-  { rev: 'B', organization: 'Special Tool Solutions', scope: 'Lead Mechanical Designer / Product Development / 3D Product Visualization / Data Management' },
-  { rev: 'C', organization: 'Black Creek Precision', scope: 'Lead Mechanical Design / Product Development / Reverse Engineering / Materials and Processes' },
-] as const
-
-/** Suggested extra title-block fields (confirmed project facts only; no dates, certifications or contacts). */
-export const OWNER_EXTRA_FIELDS = [
-  ['DRAWN BY', 'M. HINTZ'],
-  ['DISCIPLINE', 'PRODUCT DESIGN & DIGITAL SYSTEMS'],
-  ['METHODS', 'CAD / VISUALIZATION / PROCESS DEVELOPMENT'],
-  ['PORTFOLIO', 'ENGINEERING PROJECTS'],
-] as const
-
-/** The words on the paper. Letter-for-letter the owner's request; the DOM/static copy reads these arrays. */
-export const OWNER_NOTES = {
-  input: {
-    lead: ['Failure point.', 'Alternate materials??'],
-    alloys: ['4140', '4340', 'C300'],
-    decision: ['change manufacturing method...', 'ROTARY HOBB IN LATHE!'],
-  },
-  output: ['Run FEA. Material?', 'Try C300 - Heat treat', 'to 52 to 54 HRC.'],
-} as const
-
-/** Plain reading of each note (static/DOM equivalent, transcript). */
-export const OWNER_NOTE_TEXT = {
-  input: 'Failure point. Alternate materials?? 4140, 4340 and C300 are each crossed off in red. Then: change manufacturing method... ROTARY HOBB IN LATHE! (circled)',
-  output: 'Run FEA. Material? Try C300 - Heat treat to 52 to 54 HRC.',
-} as const
+// The words live in a zero-import module so DOM copy can read them without Three.js.
+export { OWNER_CAREER, OWNER_EXTRA_FIELDS, OWNER_NOTES, OWNER_NOTE_TEXT, OWNER_TITLE }
 
 /**
  * Input-shaft sun gear (P001835, section A–A). Measured from Default.glb before the rig consolidates the

@@ -109,15 +109,22 @@ function stripComments(text: string): string {
 
 describe('the registry and its entries', () => {
   it('lists the entries this build serves', () => {
-    expect(entries.map((item) => item.entry)).toEqual(['index.html', 'quiet-machine/index.html', 'torque-wrench/index.html'])
+    expect(entries.map((item) => item.entry)).toEqual(['torque-wrench/index.html', 'quiet-machine/index.html', 'index.html'])
   })
 
-  it.each(entries.map((item) => [item.entry] as const))('%s exists and names an entry module that exists', (entry) => {
+  it.each(entries.filter((item) => item.entry !== 'index.html').map((item) => [item.entry] as const))('%s exists and names an entry module that exists', (entry) => {
     expect(existsSync(path.join(ROOT, entry))).toBe(true)
     const html = entries.find((item) => item.entry === entry)?.html ?? ''
     const src = /<script type="module" src="([^"]+)"><\/script>/.exec(html)?.[1]
     expect(src, `${entry} module script`).toBeDefined()
     expect(existsSync(path.join(ROOT, (src as string).replace(/^\//, '')))).toBe(true)
+  })
+
+  it('index.html is a redirect-only root shell: no module script, so the legacy root app never ships', () => {
+    const html = entries.find((item) => item.entry === 'index.html')?.html ?? ''
+    expect(html).not.toMatch(/<script[^>]*type="module"/)
+    expect(html).not.toContain('src/main.tsx')
+    expect(redirectBlock(html)).not.toBeNull()
   })
 
   it('the build is multi-page and its input keys are exactly the pages that have an HTML entry', async () => {
@@ -305,10 +312,19 @@ describe('the redirect sub-block', () => {
     '?study=other',
     '',
   ] as const
-  /** The only probes that redirect, with the URL each one must reach. Literal, not derived. */
+  /** Every probe redirects: study=rl300 to the Quiet Machine, everything else to the Torque Wrench. */
   const EXPECTED: Record<string, string> = {
     '?study=rl300': '/quiet-machine/',
     '?study=rl300&quality=lite': '/quiet-machine/?quality=lite',
+    '?station=2': '/torque-wrench/?station=2',
+    '?station=enclosure': '/torque-wrench/?station=enclosure',
+    '?station=safe-enclosure': '/torque-wrench/?station=safe-enclosure',
+    '?chapter=2': '/torque-wrench/?chapter=2',
+    '?station=3': '/torque-wrench/?station=3',
+    '?station=m249': '/torque-wrench/?station=m249',
+    '?chapter=3': '/torque-wrench/?chapter=3',
+    '?study=other': '/torque-wrench/?study=other',
+    '': '/torque-wrench/',
   }
 
   const index = entries.find((item) => item.entry === 'index.html')
@@ -321,14 +337,6 @@ describe('the redirect sub-block', () => {
     return calls
   }
 
-  const covered = (search: string) => {
-    const params = new URLSearchParams(search)
-    return LEGACY_REDIRECTS.some((row) => {
-      const value = params.get(row.param)
-      return row.status === 'active' && value !== null && row.values.includes(value)
-    })
-  }
-
   it('exists in index.html and in no other entry', () => {
     for (const { entry, html } of entries) {
       expect(redirectBlock(html) !== null, entry).toBe(entry === 'index.html')
@@ -336,26 +344,22 @@ describe('the redirect sub-block', () => {
     expect(body).toBeTruthy()
   })
 
-  it('at least one redirect row is active, and every active row targets the page the script names', () => {
+  it('every active row targets the page the script names', () => {
     const active = LEGACY_REDIRECTS.filter((row) => row.status === 'active')
     expect(active.length).toBeGreaterThan(0)
     for (const row of active) expect(row.to).toBe('quiet-machine')
     expect(pageHref('quiet-machine')).toBe('/quiet-machine/')
     expect(pageHref('quiet-machine', 'lite')).toBe(EXPECTED['?study=rl300&quality=lite'])
+    expect(pageHref('torque-wrench')).toBe('/torque-wrench/')
   })
 
-  it.each(PROBES.map((probe) => [probe] as const))('probe "%s" redirects if and only if an active row covers it', (probe) => {
-    const calls = run(probe)
-    expect(calls.length > 0, `redirected: ${calls.join(',')}`).toBe(covered(probe))
-    if (covered(probe)) {
-      expect(EXPECTED[probe], 'expected URL for a covered probe').toBeDefined()
-      expect(calls).toEqual([EXPECTED[probe]])
-    } else {
-      expect(calls).toEqual([])
-    }
+  it.each(PROBES.map((probe) => [probe] as const))('probe "%s" forwards exactly once to its literal target', (probe) => {
+    expect(run(probe)).toEqual([EXPECTED[probe]])
   })
 
   it('keeps the other params and the fragment, and drops only study', () => {
+    expect(run('', '#inspection')).toEqual(['/torque-wrench/#inspection'])
+    expect(run('?quality=lite', '#close')).toEqual(['/torque-wrench/?quality=lite#close'])
     expect(run('?study=rl300', '#air')).toEqual(['/quiet-machine/#air'])
     expect(run('?shot=.5&study=rl300&quality=poster')).toEqual(['/quiet-machine/?shot=.5&quality=poster'])
     expect(run('?study=rl300&quality=lite', '#heat')).toEqual(['/quiet-machine/?quality=lite#heat'])

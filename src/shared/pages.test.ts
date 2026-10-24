@@ -9,13 +9,19 @@ const byId = (id: PageId) => {
 }
 
 describe('PAGES registry', () => {
-  it('lists the four pages in owner order, the private torque page last', () => {
-    expect(PAGES.map((page) => page.id)).toEqual(['jgun', 'quiet-machine', 'm249', 'torque-wrench'])
+  it('lists the two public pages in owner order, then the private root shell', () => {
+    expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun'])
   })
 
   it('publicPages drops exactly the private rows', () => {
-    expect(publicPages().map((page) => page.id)).toEqual(['jgun', 'quiet-machine', 'm249'])
-    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['torque-wrench'])
+    expect(publicPages().map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine'])
+    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun'])
+  })
+
+  it('registers no M249 page for the launch build', () => {
+    for (const page of PAGES) {
+      expect(JSON.stringify(page), page.id).not.toMatch(/m249/i)
+    }
   })
 
   it('has unique ids', () => {
@@ -27,7 +33,7 @@ describe('PAGES registry', () => {
     const indexes = PAGES.map((page) => page.index)
     expect(new Set(indexes).size).toBe(indexes.length)
     expect(indexes).toEqual([...indexes].sort((a, b) => a - b))
-    expect(indexes).toEqual([1, 2, 3, 4])
+    expect(indexes).toEqual([1, 2, 3])
   })
 
   it('marks a page reserved exactly when it has no href and no html entry', () => {
@@ -38,17 +44,19 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'M249', 'TORQUE WRENCH'])
+    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME'])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 
-  it('pins the jgun row until the torque cutover', () => {
-    expect(byId('jgun')).toMatchObject({
-      path: '/',
-      href: '/',
-      htmlEntry: 'index.html',
+  it('pins the torque-wrench row as the first public page', () => {
+    expect(byId('torque-wrench')).toMatchObject({
+      index: 1,
+      path: '/torque-wrench/',
+      href: '/torque-wrench/',
+      htmlEntry: 'torque-wrench/index.html',
       reserved: false,
-      fadeIn: false,
+      fadeIn: true,
+      private: false,
     })
   })
 
@@ -59,28 +67,17 @@ describe('PAGES registry', () => {
       htmlEntry: 'quiet-machine/index.html',
       reserved: false,
       fadeIn: true,
-    })
-  })
-
-  it('pins the m249 row as the reserved slot', () => {
-    expect(byId('m249')).toMatchObject({
-      path: '/m249/',
-      href: null,
-      htmlEntry: null,
-      reserved: true,
-      fadeIn: false,
       private: false,
     })
   })
 
-  // Activation is pinned together with the entry list in pageTopology.test.ts.
-  it('pins the torque-wrench row as private and active with a real HTML build input', () => {
-    expect(byId('torque-wrench')).toMatchObject({
-      path: '/torque-wrench/',
-      href: '/torque-wrench/',
-      htmlEntry: 'torque-wrench/index.html',
+  it('pins the jgun row as the private root redirect shell', () => {
+    expect(byId('jgun')).toMatchObject({
+      path: '/',
+      href: '/',
+      htmlEntry: 'index.html',
       reserved: false,
-      fadeIn: true,
+      fadeIn: false,
       private: true,
     })
   })
@@ -103,15 +100,13 @@ describe('pageHref', () => {
     expect(pageHref('jgun', 'poster')).toBe('/?quality=poster')
   })
 
-  it('returns null for a reserved page at every tier', () => {
-    expect(pageHref('m249')).toBeNull()
-    expect(pageHref('m249', 'full')).toBeNull()
-    expect(pageHref('m249', 'lite')).toBeNull()
-    expect(pageHref('m249', 'poster')).toBeNull()
+  it('returns null for an unregistered page at every tier', () => {
+    const unknown = 'm249' as PageId
+    for (const tier of ['full', 'lite', 'poster'] as const) expect(pageHref(unknown, tier), tier).toBeNull()
   })
 
   // Holds before and after activation: null while the row is reserved, the tiered path once it is live.
-  it('the private torque page resolves to null while reserved and to its tiered path once live', () => {
+  it('the torque page resolves to null while reserved and to its tiered path once live', () => {
     const row = byId('torque-wrench')
     const base = row.href
     for (const tier of ['full', 'lite', 'poster'] as const) {
@@ -187,8 +182,6 @@ describe('LEGACY_REDIRECTS', () => {
       ['study', ['rl300'], 'quiet-machine', true, 'active'],
       ['station', ['2', 'enclosure', 'safe-enclosure'], 'quiet-machine', false, 'cutover'],
       ['chapter', ['2'], 'quiet-machine', false, 'cutover'],
-      ['station', ['3', 'm249'], 'm249', false, 'jg-037'],
-      ['chapter', ['3'], 'm249', false, 'jg-037'],
     ])
   })
 })

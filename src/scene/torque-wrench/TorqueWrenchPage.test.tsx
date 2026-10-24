@@ -29,7 +29,7 @@ describe('TorqueWrenchPage static foundation', () => {
       expect(markup, tier).not.toContain('href="/?quality=')
       expect(count(markup, 'aria-label="Pages"'), tier).toBe(1)
       expect(count(markup, 'aria-label="More pages"'), tier).toBe(1)
-      expect(count(markup, '<span class="shell-nav-reserved">M249, in preparation</span>'), tier).toBe(2)
+      expect(markup, tier).not.toMatch(/m249/i)
       expect(count(markup, '<a data-fade=""'), tier).toBe(4)
     }
   })

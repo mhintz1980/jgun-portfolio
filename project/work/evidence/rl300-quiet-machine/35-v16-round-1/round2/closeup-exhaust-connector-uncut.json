@@ -1,0 +1,73 @@
+{
+  "part": "exhaust-connector-uncut",
+  "name": "closeup-exhaust-connector-uncut",
+  "u": 0.225,
+  "requestedU": 0.225,
+  "uMatchesRequest": true,
+  "plane": 0.26217178913087724,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "bboxNdc": null,
+  "areaFraction": null,
+  "clip": {
+    "x": 713,
+    "y": 146,
+    "width": 360,
+    "height": 282
+  },
+  "tier": "full",
+  "requestedTier": "full",
+  "gpu": "ANGLE (AMD, AMD Radeon 780M Graphics (0x00001900) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "deviceScaleFactor": 2,
+  "fullPng": {
+    "bytes": 1103602,
+    "sha256": "7d296ac6b8c0f51fbed80f5a5b2c3cf95974cc6396d65c64215539da2e4ddf8a",
+    "nonFlat": 0.4192889660493827
+  },
+  "cropPng": {
+    "bytes": 169196,
+    "sha256": "143a02bc8a2260416ec7fa8f1149fc64e26e0b6def74364cbb895420283afcc3"
+  },
+  "glbsRequested": [
+    "rl300-extra-parts.glb",
+    "msp-enclosure.glb"
+  ],
+  "counts": {
+    "sourceTriangles": 454079,
+    "keptTriangles": 449483,
+    "linerTriangles": 108,
+    "sourceMeshes": 608,
+    "batches": 49,
+    "cappedTriangles": 152008,
+    "openSectionTriangles": 44494,
+    "keptWholeTriangles": 16750,
+    "removedTriangles": 460,
+    "skippedRoots": 1,
+    "replacedTriangles": 4000,
+    "materials": 49,
+    "mappedParts": 520,
+    "mappedPrimitives": 548,
+    "protectedPrimitives": 227,
+    "unmappedMultiSlot": 36,
+    "extraParts": 19,
+    "extraTriangles": 13411,
+    "v16Applied": true
+  },
+  "drawCalls": 142,
+  "renderedTriangles": 1210400,
+  "geometries": 77,
+  "textures": 4,
+  "stageSize": {
+    "width": 1108.8125,
+    "height": 702
+  },
+  "canvasRect": {
+    "x": 331.1875,
+    "y": 81,
+    "width": 1108.8125,
+    "height": 702
+  },
+  "pageErrors": []
+}

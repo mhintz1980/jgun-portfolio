@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest'
-import { newFrame } from '../inspection/timeline'
+import { newFrame, RING_RADIUS, WHEEL_RADIUS } from '../inspection/timeline'
 import { ringTimeAt, sampleInspectionSurroundings, createPrivateRingCamera, samplePrivateRingCamera } from './InspectionDirector'
-import { samplePrivateRing, ringMechanicalTimeAt, RING_SLOW_START, RING_SLOW_END, RING_NORMAL_RATE } from './RingInspection'
-import { BULLET_TIME_RATE } from './bulletTime'
+import { samplePrivateRing, ringMechanicalTimeAt, RING_SLOW_START, RING_SLOW_END, RING_BULLET_RATE } from './RingInspection'
+
 
 it('preserves the finished ring until ALL surrounding assembly has faded', () => {
   for (let p = .46; p <= .4725; p += .0001) {
@@ -24,8 +24,9 @@ it('forms the OD with fully resolved heavy knurl and an independent moving camer
   const a = samplePrivateRing(9, newFrame()), b = samplePrivateRing(17, newFrame())
   expect(a.knurl).toBeGreaterThan(.20); expect(a.knurl).toBeLessThan(.35)
   expect(b.knurl).toBeGreaterThan(a.knurl)
-  expect(b.angle - a.angle).toBeGreaterThan(5)
-  expect(b.angle - a.angle).toBeLessThan(5.1)
+  // 9..17 s is 80% of the bullet window: ring advances 80% of the calibrated die travel / ratio.
+  const dieTravel = (b.angle - a.angle) * RING_RADIUS / WHEEL_RADIUS
+  expect(dieTravel).toBeCloseTo(.8 * .15 * 2 * Math.PI, 6)
   for (const f of [a, b]) {
     expect(f.contact).toBe(true)
     expect(f.ringDetailScale).toBeGreaterThan(0); expect(f.ringDetailScale).toBeLessThanOrEqual(1)
@@ -52,20 +53,18 @@ it('keeps the ring clock moving through the slow window and preserves its end ev
   expect(middle.angle).toBeGreaterThan(start.angle)
   expect(end.angle).toBeGreaterThan(middle.angle)
   expect(end.time).toBe(RING_SLOW_END)
-  expect(BULLET_TIME_RATE).toBe(0.1)
   const h = 0.01
   const centralRate = (ringMechanicalTimeAt(13 + h) - ringMechanicalTimeAt(13 - h)) / (2 * h)
-  expect(centralRate).toBeCloseTo(RING_NORMAL_RATE * BULLET_TIME_RATE, 6)
-  expect(centralRate / RING_NORMAL_RATE).toBeCloseTo(BULLET_TIME_RATE, 6)
+  expect(centralRate).toBeCloseTo(RING_BULLET_RATE, 9)
   const hBoundary = 1e-4
   for (const boundary of [RING_SLOW_START, RING_SLOW_END]) {
     const leftRate = (ringMechanicalTimeAt(boundary) - ringMechanicalTimeAt(boundary - hBoundary)) / hBoundary
     const rightRate = (ringMechanicalTimeAt(boundary + hBoundary) - ringMechanicalTimeAt(boundary)) / hBoundary
-    expect(leftRate).toBeCloseTo(RING_NORMAL_RATE * BULLET_TIME_RATE, 3)
-    expect(rightRate).toBeCloseTo(RING_NORMAL_RATE * BULLET_TIME_RATE, 3)
+    expect(leftRate).toBeCloseTo(RING_BULLET_RATE, 3)
+    expect(rightRate).toBeCloseTo(RING_BULLET_RATE, 3)
     expect(Math.abs(leftRate - rightRate)).toBeLessThan(0.001)
   }
-  expect(ringMechanicalTimeAt(18)).toBeCloseTo(4.86, 12)
+  expect(ringMechanicalTimeAt(18)).toBeCloseTo(4.36 + 10 * RING_BULLET_RATE, 12)
   expect(ringMechanicalTimeAt(28)).toBe(12)
 })
 
@@ -80,4 +79,19 @@ it('reproduces reverse and arbitrary seeks and retains registered return', () =>
   for (const i of [12, 3, 7, 0, 5, 9, 1, 11]) expect(samplePrivateRing(points[i], out)).toEqual(expected[i])
   expect(expected.at(-1)!.angle).toBeCloseTo(16 * Math.PI, 10)
   expect(expected.at(-1)!.returnBlend).toBe(1)
+})
+
+it('turns the knurling die 10-20% of a revolution in bullet time with every tooth resolved (1B-1)', () => {
+  const start = samplePrivateRing(RING_SLOW_START, newFrame()), end = samplePrivateRing(RING_SLOW_END, newFrame())
+  const dieDeg = (end.angle - start.angle) * RING_RADIUS / WHEEL_RADIUS * 180 / Math.PI
+  expect(dieDeg).toBeGreaterThanOrEqual(36); expect(dieDeg).toBeLessThanOrEqual(72)
+  expect(dieDeg).toBeGreaterThanOrEqual(43); expect(dieDeg).toBeLessThanOrEqual(65)
+  const out = newFrame()
+  for (let t = RING_SLOW_START; t <= RING_SLOW_END + 1e-9; t += .05) {
+    const f = samplePrivateRing(t, out)
+    expect(f.contact).toBe(true)
+    expect(f.spin).toBeGreaterThan(0)
+    expect(f.rollerDetailScale).toBe(1)
+    expect(f.ringDetailScale).toBe(1)
+  }
 })

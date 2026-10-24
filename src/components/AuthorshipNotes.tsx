@@ -9,7 +9,7 @@
  *  - the readable inline equivalent for poster / reduced-motion tiers, which never mount the canvas.
  * Both read the SAME strings as the sheet (OWNER_*), so the copy cannot drift from the drawing.
  */
-import { OWNER_NOTES, OWNER_NOTE_TEXT, OWNER_TITLE } from '../scene/drawing/sheet/ownerAnnotations'
+import { OWNER_NOTES, OWNER_NOTE_TEXT, OWNER_TITLE } from '../scene/drawing/sheet/ownerAnnotationStrings'
 
 /** Public name only. */
 const AUTHOR_NAME = 'Mark Hintz'

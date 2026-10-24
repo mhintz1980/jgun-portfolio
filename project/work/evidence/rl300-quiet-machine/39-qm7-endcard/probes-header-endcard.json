@@ -1,0 +1,1982 @@
+[
+ {
+  "viewport": "390x667",
+  "sweep": [
+   {
+    "u": 0,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 113.703125
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 01 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.15,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 02 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.3,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 03 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.45,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.6,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.75,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 05 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.98,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     },
+     {
+      "label": "More pages",
+      "cls": "shell-nav shell-nav-endcard",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": [
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardText": "Closed again. The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it. 01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation",
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": {
+     "x": 22,
+     "y": 315.8125,
+     "w": 346,
+     "h": 191.1875
+    },
+    "controls": {
+     "x": 22,
+     "y": 530,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 07 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   }
+  ]
+ },
+ {
+  "viewport": "390x844",
+  "sweep": [
+   {
+    "u": 0,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 113.703125
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 01 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.15,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 02 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.3,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 03 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.45,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.6,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.75,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 05 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.98,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     },
+     {
+      "label": "More pages",
+      "cls": "shell-nav shell-nav-endcard",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": [
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardText": "Closed again. The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it. 01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation",
+    "header": {
+     "x": 22,
+     "y": 22,
+     "w": 346,
+     "h": 82.5
+    },
+    "editorial": {
+     "x": 22,
+     "y": 120,
+     "w": 346,
+     "h": 131.296875
+    },
+    "endcard": {
+     "x": 22,
+     "y": 492.8125,
+     "w": 346,
+     "h": 191.1875
+    },
+    "controls": {
+     "x": 22,
+     "y": 707,
+     "w": 346,
+     "h": 117
+    },
+    "eyebrow": "THE QUIET MACHINE 07 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   }
+  ]
+ },
+ {
+  "viewport": "768x1024",
+  "sweep": [
+   {
+    "u": 0,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 187.28125
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 01 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.15,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 209.375
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 02 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.3,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 248.96875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 03 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.45,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 248.96875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.6,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 248.96875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.75,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 248.96875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 05 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.98,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     },
+     {
+      "label": "More pages",
+      "cls": "shell-nav shell-nav-endcard",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": [
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardText": "Closed again. The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it. 01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation",
+    "header": {
+     "x": 30.71875,
+     "y": 36,
+     "w": 706.5625,
+     "h": 61.5
+    },
+    "editorial": {
+     "x": 30.71875,
+     "y": 133.109375,
+     "w": 230,
+     "h": 209.375
+    },
+    "endcard": {
+     "x": 397.28125,
+     "y": 601.21875,
+     "w": 340,
+     "h": 252.78125
+    },
+    "controls": {
+     "x": 30.71875,
+     "y": 935,
+     "w": 706.5625,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 07 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   }
+  ]
+ },
+ {
+  "viewport": "1440x900",
+  "sweep": [
+   {
+    "u": 0,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 211.828125
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 01 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.15,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 233.921875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 02 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.3,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 298.0625
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 03 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.45,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 298.0625
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.6,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 298.0625
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 04 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.75,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": null,
+    "endcardText": null,
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 275.96875
+    },
+    "endcard": null,
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 05 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   },
+   {
+    "u": 0.98,
+    "navs": [
+     {
+      "label": "Pages",
+      "cls": "shell-nav shell-nav-header",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     },
+     {
+      "label": "More pages",
+      "cls": "shell-nav shell-nav-endcard",
+      "shown": true,
+      "text": "01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation"
+     }
+    ],
+    "headerLinks": [
+     {
+      "tag": "A",
+      "text": "MARK HINTZ ENGINEERING & DESIGN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardLinks": [
+     {
+      "tag": "A",
+      "text": "01 TORQUE GUN",
+      "href": "/",
+      "dataFade": true,
+      "ariaCurrent": null,
+      "selfLink": false
+     },
+     {
+      "tag": "SPAN",
+      "text": "02 THE QUIET MACHINE",
+      "href": null,
+      "dataFade": false,
+      "ariaCurrent": "page",
+      "selfLink": false
+     }
+    ],
+    "endcardText": "Closed again. The section closes and the enclosure is whole: one sealed housing around the engine, with its air path worked out inside it. 01 TORQUE GUN 02 THE QUIET MACHINE 03 M249, in preparation",
+    "header": {
+     "x": 57.59375,
+     "y": 36,
+     "w": 1324.8125,
+     "h": 38.5
+    },
+    "editorial": {
+     "x": 57.59375,
+     "y": 144,
+     "w": 310,
+     "h": 211.828125
+    },
+    "endcard": {
+     "x": 1042.40625,
+     "y": 537.21875,
+     "w": 340,
+     "h": 252.78125
+    },
+    "controls": {
+     "x": 57.59375,
+     "y": 811,
+     "w": 1324.8125,
+     "h": 64
+    },
+    "eyebrow": "THE QUIET MACHINE 07 / 07",
+    "overlap": {
+     "headerEditorial": null,
+     "endcardEditorial": null,
+     "endcardControls": null,
+     "endcardHeader": null,
+     "editorialControls": null
+    }
+   }
+  ]
+ }
+]

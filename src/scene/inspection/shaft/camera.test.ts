@@ -150,21 +150,26 @@ const KEY_BEATS: ReadonlyArray<{ t: number; span: [number, number] }> = [
 
 describe('K5 camera continuity', () => {
   it('is C0 across the timeline at both layouts', () => {
+    // Worst-case accumulators, asserted once per layout: ~10k samples x 11 expect() calls per layout was
+    // the whole cost (5 s timeout under full-suite load). Same thresholds, same samples.
     for (const aspect of [DESKTOP_ASPECT, NARROW_ASPECT]) {
       const step = 1 / 240
       let prev = snapAt(0, aspect)
+      let finite = true, dp = 0, dfov = 0, duy = 0, unit = 0
       for (let t = step; t <= 43 + step; t += step) {
         const s = snapAt(t, aspect)
-        expect(Number.isFinite(s.px) && Number.isFinite(s.py) && Number.isFinite(s.pz)).toBe(true)
-        expect(Number.isFinite(s.tx) && Number.isFinite(s.ty) && Number.isFinite(s.tz)).toBe(true)
-        expect(Number.isFinite(s.fov)).toBe(true)
-        const dp = Math.hypot(s.px - prev.px, s.py - prev.py, s.pz - prev.pz)
-        expect(dp).toBeLessThanOrEqual(0.005)
-        expect(Math.abs(s.fov - prev.fov)).toBeLessThanOrEqual(0.12)
-        expect(Math.abs(s.uy - prev.uy)).toBeLessThanOrEqual(0.02)
-        expect(Math.hypot(s.ux, s.uy, s.uz)).toBeCloseTo(1, 9)
+        finite &&= Object.values(s).every(Number.isFinite)
+        dp = Math.max(dp, Math.hypot(s.px - prev.px, s.py - prev.py, s.pz - prev.pz))
+        dfov = Math.max(dfov, Math.abs(s.fov - prev.fov))
+        duy = Math.max(duy, Math.abs(s.uy - prev.uy))
+        unit = Math.max(unit, Math.abs(Math.hypot(s.ux, s.uy, s.uz) - 1))
         prev = s
       }
+      expect(finite).toBe(true)
+      expect(dp).toBeLessThanOrEqual(0.005)
+      expect(dfov).toBeLessThanOrEqual(0.12)
+      expect(duy).toBeLessThanOrEqual(0.02)
+      expect(unit).toBeLessThan(5e-10)
     }
   })
   it('is C1 through the follow-to-fixed handoff with zero follow rate at 7.2 s', () => {

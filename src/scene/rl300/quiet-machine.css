@@ -18,11 +18,22 @@
 .qm-scrubber input { accent-color: #a3deff; width: 180px; min-height: 44px; cursor: ew-resize; }
 .qm-status { margin-left: auto; font-size: 8px; letter-spacing: .13em; color: #adc2ce; }
 .qm-preview :focus-visible { outline: 2px solid #a3deff; outline-offset: 5px; }
+/* Intake badge: a layer inside the stage, clicks pass through it except on the badge and its card. */
+.qm-hotspot-layer { position: absolute; inset: 0; pointer-events: none; }
+.qm-hotspot { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; background: none; cursor: pointer; pointer-events: auto; }
+.qm-hotspot span { display: block; width: 14px; height: 14px; margin: 13px; border: 2px solid #a3deff; border-radius: 50%; background: #122330dd; box-shadow: 0 0 0 4px #a3deff33; }
+.qm-hotspot-card { position: absolute; right: 16px; bottom: 16px; width: min(280px, calc(100% - 32px)); padding: 14px 16px 10px; background: #122330ee; border: 1px solid #758d9e66; pointer-events: auto; }
+.qm-hotspot-card h2 { margin: 0 0 8px; font-size: 18px; font-weight: 400; letter-spacing: -.03em; color: #f0f2ee; }
+.qm-hotspot-card p { margin: 0; font-size: 12px; line-height: 1.6; color: #b4c6cf; }
+.qm-hotspot-card .qm-hotspot-note { margin-bottom: 8px; font-size: 8px; letter-spacing: .14em; color: #a2bbca; }
+.qm-hotspot-close { margin-top: 8px; min-height: 44px; padding: 0 4px; border: 0; background: none; color: #a3deff; font-size: 11px; letter-spacing: .13em; cursor: pointer; }
 /* unruled visual: owner looks at GPU-2 */
 /* Page nav, shared markup from PageNav. Layout and size only; colours are the ones already used on this page.
    In the header the list sits between the brand and the section label and wraps instead of overflowing. */
 .shell-nav-list { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; list-style: none; }
-.shell-nav a, .shell-nav-reserved { font-size: 10px; letter-spacing: .17em; font-weight: 400; text-decoration: none; }
+.shell-nav a, .shell-nav-reserved, .shell-nav-current { font-size: 10px; letter-spacing: .17em; font-weight: 400; text-decoration: none; }
+.shell-nav-current { color: #f0f2ee; }
+.shell-nav-index { margin-right: .5em; color: #8198a7; font-variant-numeric: tabular-nums; }
 .shell-nav a { color: #b7c9d2; }
 .shell-nav a[aria-current="page"] { color: #f0f2ee; }
 .shell-nav a:hover { color: #a3deff; }
@@ -43,9 +54,11 @@
    Only the card takes the pointer; the 44px minimum height is on its links. */
 .qm-endcard { position: fixed; right: 4vw; bottom: 110px; max-width: 340px; padding: 8px 16px; background: #122330dd; border: 1px solid #758d9e66; pointer-events: auto; }
 .shell-nav-endcard .shell-nav-list { flex-direction: column; gap: 0; }
-.shell-nav-endcard a, .shell-nav-endcard .shell-nav-reserved { display: flex; align-items: center; min-height: 44px; font-size: 11px; letter-spacing: .13em; }
+.shell-nav-endcard a, .shell-nav-endcard .shell-nav-reserved, .shell-nav-endcard .shell-nav-current { display: flex; align-items: center; min-height: 44px; font-size: 11px; letter-spacing: .13em; }
 .shell-nav-endcard a { color: #f0f2ee; }
 .shell-nav-endcard a:hover { color: #a3deff; }
+.qm-endcard-title { margin: 8px 0 6px; font-size: 20px; font-weight: 400; letter-spacing: -.03em; color: #f0f2ee; }
+.qm-endcard-body { margin: 0 0 6px; font-size: 11px; line-height: 1.6; color: #b4c6cf; }
 .qm-poster { width: 100%; height: 100%; background: #101b24; }
 .qm-poster img { width: 100%; height: 100%; object-fit: contain; }
 @media (max-width: 900px) {
@@ -60,7 +73,12 @@
   .qm-header { top: 22px; left: 22px; right: 22px; }
   .qm-header > span { font-size: 7px; }
   .qm-header .shell-nav { order: 3; flex-basis: 100%; }
-  .qm-editorial { left: 22px; right: 22px; width: auto; top: 12vh; }
+  /* Phone header in two rows: the three nav items fit one row at 8px / .08em down to 360px wide.
+     Below that the list still wraps (flex-wrap), so nothing overflows. */
+  .qm-header .shell-nav a, .qm-header .shell-nav-reserved, .qm-header .shell-nav-current { font-size: 8px; letter-spacing: .08em; }
+  .qm-header .shell-nav-list { gap: 4px 10px; }
+  .qm-header .shell-nav-index { margin-right: .3em; }
+  .qm-editorial { left: 22px; right: 22px; width: auto; top: max(12vh, 120px); }
   .qm-eyebrow { margin-bottom: 14px; font-size: 8px; }
   .qm-editorial h1 { font-size: 38px; letter-spacing: -.045em; margin-bottom: 10px; }
   .qm-caption { font-size: 11px; line-height: 1.6; max-width: 310px; }

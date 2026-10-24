@@ -7,14 +7,19 @@
     <script>
       ;(function () {
         var query = new URLSearchParams(location.search)
-        if (query.get('study') !== 'rl300') return
-        query.delete('study')
+        var target = '/torque-wrench/'
+        if (query.get('study') === 'rl300') {
+          query.delete('study')
+          target = '/quiet-machine/'
+        }
         var rest = query.toString()
-        location.replace('/quiet-machine/' + (rest ? '?' + rest : '') + location.hash)
+        location.replace(target + (rest ? '?' + rest : '') + location.hash)
       })()
     </script>
     <!-- shell:redirect:end -->
     <!-- shell:end -->
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://studiomark.dev/torque-wrench/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -22,8 +27,12 @@
       content="The Full-Stack Physical & Digital Systems Architect — 25 years of precision manufacturing meets web-native 3D and AI automation."
     />
     <meta name="theme-color" content="#05070a" />
-    <link rel="canonical" href="https://studiomark.dev/" />
     <title>Physical × Digital Systems Architect</title>
+    <style>
+      html, body { margin: 0; background: #05070a; color: #c9d4e0; font: 14px/1.5 system-ui, sans-serif; }
+      a { color: inherit; }
+      p { padding: 24px; }
+    </style>
 
     <!-- Social preview — canonical domain studiomark.dev (JG-019) -->
     <meta property="og:type" content="website" />
@@ -45,9 +54,10 @@
       content="The Full-Stack Physical & Digital Systems Architect — 25 years of precision manufacturing meets web-native 3D and AI automation."
     />
     <meta name="twitter:image" content="https://studiomark.dev/og-image.png" />
+    <noscript><meta http-equiv="refresh" content="0; url=/torque-wrench/" /></noscript>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Redirect-only root shell: no module script, so the legacy root app is not a build input. -->
+    <p><a href="/torque-wrench/">Continue to the JGUN Torque Wrench</a> · <a href="/quiet-machine/">The Quiet Machine</a></p>
   </body>
 </html>
