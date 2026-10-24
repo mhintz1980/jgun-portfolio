@@ -29,7 +29,8 @@ describe('torque hotspot gate (doc45 issue 5)', () => {
     expect(activeAt(0.545)).toEqual(['clutch-housing'])
     expect(activeAt(0.905)).toEqual(['stage2-planet'])
     expect(activeAt(0.925)).toEqual(['stage2-planet'])
-    expect(activeAt(0.985)).toEqual(['lcd-manometer'])
+    expect(activeAt(0.99)).toEqual(['lcd-manometer'])
+    expect(activeAt(0.98)).toEqual([])
   })
 
   it('blocks on manual, study, ring isolation, faded surroundings, unknown id and planet explode', () => {
