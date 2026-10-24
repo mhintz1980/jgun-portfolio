@@ -8,7 +8,8 @@ import { paperFlexAmplitude } from '../drawing/sheet/paperFlex'
 import type { SheetBakeResult } from '../drawing/sheet/sheetBake'
 import type { ExtractionContext } from '../drawing/poseCore'
 import {
-  createPrivateSheetRuntime, type DrawingFrameInput, type PrivateSheetFactories,
+  createPrivateSheetRuntime, PRIVATE_GLOW_ORDER, PRIVATE_INK_ORDER, PRIVATE_INTACT_STOCK_ORDER,
+  type DrawingFrameInput, type PrivateSheetFactories,
 } from './privateSheetRuntime'
 
 /** CPU resource fixtures; no canvas, rasterization, GPU or framing claims. */
@@ -230,6 +231,51 @@ describe('private sheet explicit frame application', () => {
     runtime.apply(frame(.86, { reducedMotion: true }), f.context, viewport)
     expect(shard.material.uniforms.uFracture.value).toBe(0)
     runtime.dispose()
+  })
+
+  it('layers live ink above intact profile stock and keeps the baked print off until fracture', () => {
+    // Owner items 1-3 (2026-10-24): intact shards (renderOrder 3, depthTest off) painted
+    // over the linework inside the profile, so it read light blue and clipped Detail C.
+    const f = fixture()
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    const shard = runtime.group.getObjectByName('paper-fragment-0') as Mesh<BufferGeometry, ShaderMaterial>
+    const lineMaterial = f.baked.lines.material as ShaderMaterial
+    const fillMaterial = f.baked.fills.material as ShaderMaterial
+    const ordered = (name: string) => runtime.group.getObjectByName(name)!.renderOrder
+    for (const t of [0.1, 0.2, 0.5, 0.8]) {
+      const input = frame(t)
+      expect(input.intro.fracture).toBe(0)
+      runtime.apply(input, f.context, viewport)
+      expect(shard.renderOrder).toBe(PRIVATE_INTACT_STOCK_ORDER)
+      expect(shard.material.depthTest).toBe(false)
+      for (const object of [f.baked.lines, f.baked.fills, f.baked.text.object]) {
+        expect(object.renderOrder).toBeGreaterThan(shard.renderOrder)
+      }
+      expect(lineMaterial.depthTest).toBe(false)
+      expect(fillMaterial.depthTest).toBe(false)
+      expect(f.baked.uniforms.uFracture.value).toBe(0)
+    }
+    for (const name of ['lightning', 'pressure-crack-web', 'pressure-crack-halo']) {
+      expect(ordered(name)).toBe(PRIVATE_GLOW_ORDER)
+      expect(ordered(name)).toBeGreaterThan(PRIVATE_INK_ORDER)
+    }
+    // The print is gated on fracture alone; completed side-view reveal no longer lays it
+    // over the intact stock.
+    expect(shard.material.fragmentShader).toContain('ink * .78 * smoothstep(0.0, .02, uFracture)')
+    expect(shard.material.fragmentShader).not.toMatch(/smoothstep\(\.98, 1\.0, uFragmentInk\)/)
+    expect(shard.material.uniforms.uFragmentInk).toBeDefined()
+    // From fracture on, the ink is cut from the opening and depth-tests normally again.
+    runtime.apply(frame(.86), f.context, viewport)
+    expect(f.baked.uniforms.uFracture.value).toBeGreaterThan(0)
+    expect(lineMaterial.depthTest).toBe(true)
+    expect(fillMaterial.depthTest).toBe(true)
+    runtime.dispose()
+    // Borrowed bake meshes get their original layering back.
+    expect(f.baked.lines.renderOrder).toBe(0)
+    expect(f.baked.fills.renderOrder).toBe(0)
+    expect(f.baked.text.object.renderOrder).toBe(0)
+    expect(lineMaterial.depthTest).toBe(true)
+    expect(fillMaterial.depthTest).toBe(true)
   })
 
   it('seeds the first explicit lamp target, freezes at zero delta, and clamps settling delta', () => {
