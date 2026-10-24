@@ -1137,11 +1137,15 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
               // The most camera-facing real surface vertex is the most useful
               // leader endpoint. Try the four nearest surface extrema.
               for (let k = 0; k < candidate.points.length; k++) candidate.scores[k] = candidate.points[k].dot(candidate.direction)
-              for (let j = 0; j < 4; j++) {
-                let best = 0
-                for (let k = 1; k < candidate.scores.length; k++) if (candidate.scores[k] > candidate.scores[best]) best = k
-                candidate.scores[best] = -Infinity
-                item.world.copy(candidate.points[best]).applyMatrix4(candidate.node.matrixWorld)
+              // The LCD readout is a flat decal: its centre is on the visible face, so try it first.
+              for (let j = item.id === 'lcd-manometer' ? -1 : 0; j < 4; j++) {
+                if (j < 0) item.world.copy(candidate.center).applyMatrix4(candidate.node.matrixWorld)
+                else {
+                  let best = 0
+                  for (let k = 1; k < candidate.scores.length; k++) if (candidate.scores[k] > candidate.scores[best]) best = k
+                  candidate.scores[best] = -Infinity
+                  item.world.copy(candidate.points[best]).applyMatrix4(candidate.node.matrixWorld)
+                }
                 item.projected.copy(item.world).project(camera)
                 item.screen.reason = 'outside-view'
                 if (Math.abs(item.projected.x) > .96 || Math.abs(item.projected.y) > .94 || Math.abs(item.projected.z) > 1) continue
@@ -1154,7 +1158,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
                 item.screen.reason = 'occluded'; item.screen.occluder = hit?.object.name || '(unnamed surface)'
                 let belongs = false, ancestor: Object3D | null = hit?.object ?? null
                 while (ancestor) { if (ancestor === candidate.node) { belongs = true; break }; ancestor = ancestor.parent }
-                if (!belongs) continue
+                // No hit: nothing stands in front (code-built decals are not raycast blockers).
+                if (hit && !belongs) continue
                 item.node = candidate.node; item.local.copy(candidate.center)
                 item.screen.x = (item.projected.x * .5 + .5) * size.width
                 item.screen.y = (.5 - item.projected.y * .5) * size.height
