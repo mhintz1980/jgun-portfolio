@@ -62,6 +62,42 @@ const RING_ACTIVE_START = 0.469
 const RING_CAMERA_ENTRY_END = 0.4725
 const GROOVE_NAMES = Object.freeze({ red: 'P000420 Speed Indicator (Red)', blue: 'P000420 Speed Indicator (Blue)' })
 
+/** 26 surface extrema of a part, in its own frame, used as candidate callout anchors. */
+function createSurfaceFeature(node: Object3D) {
+  node.updateWorldMatrix(true, true)
+  const inverse = node.matrixWorld.clone().invert(), transform = new Matrix4(), point = new Vector3()
+  const directions: Vector3[] = [], points: Vector3[] = [], scores: number[] = []
+  for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
+    if (!x && !y && !z) continue
+    directions.push(new Vector3(x, y, z).normalize()); points.push(new Vector3()); scores.push(-Infinity)
+  }
+  const meshes: Mesh[] = []
+  node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
+  const visit = (each: (p: Vector3) => void) => {
+    for (const mesh of meshes) {
+      transform.multiplyMatrices(inverse, mesh.matrixWorld)
+      const position = mesh.geometry.getAttribute('position')
+      for (let i = 0; i < position.count; i++) each(point.fromBufferAttribute(position, i).applyMatrix4(transform))
+    }
+  }
+  const bounds = new Box3()
+  visit(p => {
+    bounds.expandByPoint(p)
+    for (let j = 0; j < directions.length; j++) scores[j] = Math.max(scores[j], p.dot(directions[j]))
+  })
+  // Average every vertex within 2% of the extreme: on a band or cylinder the radial extremum
+  // is a whole edge-to-edge column, and its mid-point is the exposed face, not a chamfer edge.
+  const tolerance = .02 * Math.max(1e-6, bounds.getSize(new Vector3()).length())
+  const counts = directions.map(() => 0)
+  visit(p => {
+    for (let j = 0; j < directions.length; j++) {
+      if (p.dot(directions[j]) >= scores[j] - tolerance) { points[j].add(p); counts[j]++ }
+    }
+  })
+  for (let j = 0; j < directions.length; j++) if (counts[j]) points[j].multiplyScalar(1 / counts[j])
+  return { node, points, scores, center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())), inverse: new Matrix4(), direction: new Vector3() }
+}
+
 interface SurroundingMaterialEntry {
   readonly mesh: Mesh
   readonly visible: boolean
@@ -216,31 +252,24 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const hotspotHits = useMemo(() => [] as ReturnType<Raycaster['intersectObjects']>, [])
   const hotspotBlockers = useMemo(() => [] as Mesh[], [])
   const hotspotTick = useRef(0)
-  const planetFeatures = useMemo(() => rig.stages.stage2.planets.map(node => {
-    // Sample actual tooth vertices in the owning P000247 occurrence frame.
-    // Its pin centre is hidden by the carrier plates in an otherwise exposed
-    // exploded view, so a leader must terminate on a visible tooth surface.
-    node.updateWorldMatrix(true, true)
-    const inverse = node.matrixWorld.clone().invert(), transform = new Matrix4(), point = new Vector3()
-    const directions: Vector3[] = [], points: Vector3[] = [], scores: number[] = []
-    for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
-      if (!x && !y && !z) continue
-      directions.push(new Vector3(x, y, z).normalize()); points.push(new Vector3()); scores.push(-Infinity)
+  // Sample actual surface vertices in each part's own frame. Bounds centres sit on the
+  // drivetrain axis inside the part (a P000247 pin centre is hidden by the carrier plates,
+  // the P003068/P000420 centres sit inside the housing), so a leader must terminate on a
+  // visible surface extremum instead.
+  const planetFeatures = useMemo(() => rig.stages.stage2.planets.map(createSurfaceFeature), [rig])
+  const hotspotFeatures = useMemo(() => {
+    const groove = (name: string) => rig.meshes.find(mesh => mesh.name === name) ?? null
+    const features = (...nodes: (Object3D | null | undefined)[]) =>
+      nodes.filter((node): node is Object3D => Boolean(node)).map(createSurfaceFeature)
+    return {
+      // The exposed groove is the clutch-housing feature this beat is about: blue while the
+      // ring is down, red once it has shifted up (it covers the blue groove then).
+      clutchDown: features(groove(GROOVE_NAMES.blue), groove(GROOVE_NAMES.red), rig.clutch.static),
+      clutchUp: features(groove(GROOVE_NAMES.red), groove(GROOVE_NAMES.blue), rig.clutch.static),
+      ring: features(rig.clutch.ringSwitch),
+      lcd: features(rig.lcdCluster?.readout),
     }
-    node.traverse(child => {
-      if (!(child instanceof Mesh)) return
-      transform.multiplyMatrices(inverse, child.matrixWorld)
-      const position = child.geometry.getAttribute('position')
-      for (let i = 0; i < position.count; i++) {
-        point.fromBufferAttribute(position, i).applyMatrix4(transform)
-        for (let j = 0; j < directions.length; j++) {
-          const score = point.dot(directions[j])
-          if (score > scores[j]) { scores[j] = score; points[j].copy(point) }
-        }
-      }
-    })
-    return { node, points, scores, center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())), inverse: new Matrix4(), direction: new Vector3() }
-  }), [rig])
+  }, [rig])
   const blendCamera = useMemo(createCameraHandoff, [])
   const handoffFrom = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
@@ -1098,14 +1127,17 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           item.screen.visible = false
           item.screen.reason = 'inactive'; item.screen.occluder = ''
           if (!active || !item.node) continue
-          if (item.id === 'stage2-planet') {
-            for (const candidate of planetFeatures) {
+          {
+            const candidates = item.id === 'stage2-planet' ? planetFeatures
+              : item.id === 'clutch-housing' ? (channels.shift >= .5 ? hotspotFeatures.clutchUp : hotspotFeatures.clutchDown)
+                : item.id === 'ring-switch' ? hotspotFeatures.ring : hotspotFeatures.lcd
+            for (const candidate of candidates) {
               candidate.inverse.copy(candidate.node.matrixWorld).invert()
               candidate.direction.copy(camera.position).applyMatrix4(candidate.inverse).sub(candidate.center).normalize()
-              // The most camera-facing real tooth vertex is the most useful
-              // leader endpoint. Try the three nearest surface extrema.
+              // The most camera-facing real surface vertex is the most useful
+              // leader endpoint. Try the four nearest surface extrema.
               for (let k = 0; k < candidate.points.length; k++) candidate.scores[k] = candidate.points[k].dot(candidate.direction)
-              for (let j = 0; j < 3; j++) {
+              for (let j = 0; j < 4; j++) {
                 let best = 0
                 for (let k = 1; k < candidate.scores.length; k++) if (candidate.scores[k] > candidate.scores[best]) best = k
                 candidate.scores[best] = -Infinity
@@ -1134,28 +1166,6 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             }
             continue
           }
-          item.world.copy(item.local).applyMatrix4(item.node.matrixWorld)
-          if (item.id === 'ring-switch' && ringVisible) item.world.copy(ringWorldCenter)
-          item.projected.copy(item.world).project(camera)
-          item.screen.x = (item.projected.x * .5 + .5) * size.width
-          item.screen.y = (.5 - item.projected.y * .5) * size.height
-          item.screen.reason = 'outside-view'
-          if (Math.abs(item.projected.x) > .96 || Math.abs(item.projected.y) > .94 || Math.abs(item.projected.z) > 1) continue
-          hotspotDirection.subVectors(item.world, camera.position)
-          const distance = hotspotDirection.length()
-          hotspotRay.set(camera.position, hotspotDirection.normalize())
-          hotspotRay.far = Math.max(0, distance - .003)
-          hotspotHits.length = 0
-          hotspotRay.intersectObjects(hotspotBlockers, false, hotspotHits)
-          // Only a surface BEFORE the selected part can occlude it. Parts
-          // behind its front surface must not suppress an exposed callout.
-          const nearest = hotspotHits[0]
-          let blocking = Boolean(nearest)
-          let node: Object3D | null = nearest?.object ?? null
-          while (node) { if (node === item.node) { blocking = false; break }; node = node.parent }
-          item.screen.visible = !blocking
-          item.screen.reason = blocking ? 'occluded' : 'visible'
-          item.screen.occluder = blocking ? nearest.object.name : ''
         }
       }
       sheetFrame.cameraLookTargetWorld = target
