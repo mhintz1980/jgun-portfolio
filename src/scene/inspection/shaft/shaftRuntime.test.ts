@@ -12,7 +12,7 @@ import { createShaftKinematicsFrame, sampleShaftKinematics, strokePhaseAt, WORK_
 import { SPACE_CLOCK_RAD, SPACE_PITCH_RAD } from './progression'
 import { HOB_LEAD_ANGLE_DEG, SHAPER_THICKNESS_MM, SHAPER_TIP_RADIUS_MM } from './toolSpec'
 import { createShaftSchedule, sampleShaftSchedule } from './schedule'
-import { createShaftRuntime, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
+import { createShaftRuntime, LEGACY_INDEX_WINDOW, legacyShaftAngle, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
 import { buildShaperCutter } from './tools'
 
 function bundle(tier: 'full' | 'lite' = 'full'): ArrayBuffer {
@@ -468,5 +468,35 @@ describe('private journey presentation (shared clocks unchanged)',()=>{
     for(const name of ['housing','legacyhousing','legacybearing','legacyring','approvedbearing','approvedring'])expect(material(runtime,name).opacity).toBe(0)
     presentation.contextOpacity=1;presentation.phaseCorrection=0;seek(runtime,43)
     expect(material(runtime,'housing').opacity).toBeGreaterThan(0)
+  })
+})
+
+describe('axial wipe rotational phase (Issue 8, 08.png)', () => {
+  const TURN = 2 * Math.PI
+  const offIndex = (a: number) => { const r = ((a % TURN) + TURN) % TURN; return Math.min(r, TURN - r) }
+  it('indexes the legacy spindle home after shaping without reversing, then holds', () => {
+    const k = createShaftKinematicsFrame()
+    sampleShaftKinematics(15, k)
+    expect(offIndex(k.workPhi)).toBeGreaterThan(0.5) // the shaper really does stop ~51 deg off index
+    expect(legacyShaftAngle(LEGACY_INDEX_WINDOW.start, k.workPhi)).toBe(k.workPhi)
+    let previous = k.workPhi
+    for (let t = LEGACY_INDEX_WINDOW.start; t <= LEGACY_INDEX_WINDOW.end + 0.5; t += 0.01) {
+      sampleShaftKinematics(t, k)
+      const angle = legacyShaftAngle(t, k.workPhi)
+      expect(angle).toBeLessThanOrEqual(previous + 1e-12) // same direction as shaping (workPhi decreases)
+      expect(previous - angle).toBeLessThan(0.03) // smooth at a 100 Hz sample, no snap
+      previous = angle
+    }
+    expect(offIndex(legacyShaftAngle(LEGACY_INDEX_WINDOW.end, k.workPhi))).toBeCloseTo(0, 12)
+    for (const t of [0, 5, 12, 14.99]) { sampleShaftKinematics(t, k); expect(legacyShaftAngle(t, k.workPhi)).toBe(k.workPhi) }
+  })
+  it('keeps legacyshaft and approvedshaft in identical phase for the whole wipe', async () => {
+    const { runtime } = await fixture()
+    for (let t = 22.6; t < 25; t += 0.2) {
+      seek(runtime, t)
+      const legacy = runtime.root.getObjectByName('study-legacyshaft')!.rotation.z
+      const approved = runtime.root.getObjectByName('study-approvedshaft')!.rotation.z
+      expect(offIndex(legacy - approved)).toBeCloseTo(0, 9)
+    }
   })
 })

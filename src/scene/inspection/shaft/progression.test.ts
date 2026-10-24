@@ -30,7 +30,13 @@ import {
   writeStressUniforms,
   setShaftTransform,
   type ProgressionState,
+  makeStressOverlayMaterial,
+  stressFieldAt,
+  stressFieldGlsl,
+  stressSeverity,
+  STRESS_CORE_HALF_MM,
 } from './progression'
+import { FOS_ATTEMPTS, FOS_MAX } from './fosPresentation'
 
 const DEG = Math.PI / 180
 const PROFILE_PATH = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
@@ -436,3 +442,60 @@ describe('shader patch', () => {
   })
 })
 
+
+describe('axisymmetric FEA stress field (Issue 7, 07-1.png / 07-2.png)', () => {
+  const STUDIES = [['4140', FOS_ATTEMPTS['4140']], ['4340', FOS_ATTEMPTS['4340']], ['c300', FOS_ATTEMPTS.c300]] as const
+  const fosAt = (dy: number, hot: number, body = FOS_MAX) => body + (hot - body) * stressFieldAt(dy, hot)
+
+  it('pins the whole relief groove (|dy| <= core half-width) to the bar hotspot value for every alloy', () => {
+    for (const [, hot] of STUDIES) {
+      for (let dy = -STRESS_CORE_HALF_MM; dy <= STRESS_CORE_HALF_MM + 1e-9; dy += 0.05) {
+        expect(stressFieldAt(dy, hot)).toBe(1)
+        expect(fosAt(dy, hot)).toBeCloseTo(hot, 12)
+      }
+    }
+  })
+
+  it('is a pure function of axial distance: symmetric, monotone away from the groove, bounded', () => {
+    for (const [, hot] of STUDIES) {
+      let previous = 1
+      for (let a = 0; a <= 12; a += 0.05) {
+        const f = stressFieldAt(a, hot)
+        expect(stressFieldAt(-a, hot)).toBe(f)
+        expect(f).toBeGreaterThanOrEqual(0); expect(f).toBeLessThanOrEqual(1)
+        expect(f).toBeLessThanOrEqual(previous + 1e-12)
+        previous = f
+      }
+    }
+  })
+
+  it('spreads further for weaker alloys, so the contour visibly shifts 4140 -> 4340 -> C300', () => {
+    expect(stressSeverity(FOS_ATTEMPTS['4140'])).toBeCloseTo(1, 12)
+    expect(stressSeverity(FOS_ATTEMPTS['4340'])).toBeGreaterThan(stressSeverity(FOS_ATTEMPTS.c300))
+    // Gear tooth band (~3 mm below the groove) and upper shoulder (~3 mm above): FOS strictly rises with alloy strength.
+    for (const dy of [-5, -3, -2, 2, 3, 5]) {
+      const [a, b, c] = STUDIES.map(([, hot]) => fosAt(dy, hot))
+      expect(b - a).toBeGreaterThan(0.15)
+      expect(c - b).toBeGreaterThan(0.15)
+    }
+    // The warm (< 1.0, red..amber) zone is wider at 4140 than at C300.
+    const warmWidth = (hot: number) => { let w = 0; for (let a = 0; a < 12; a += 0.01) if (fosAt(a, hot) < 1) w = a; return w }
+    expect(warmWidth(FOS_ATTEMPTS['4140'])).toBeGreaterThan(warmWidth(FOS_ATTEMPTS.c300) + 0.3)
+  })
+
+  it('emits a GLSL twin with no azimuth, radius-attenuation or noise term in either stress shader', () => {
+    const glsl = stressFieldGlsl()
+    expect(glsl).toContain(`smoothstep(${STRESS_CORE_HALF_MM.toFixed(3)},`)
+    const material = new MeshStandardMaterial()
+    applyProgression(material, createProgressionUniforms())
+    const shader = { uniforms: {}, vertexShader: '#include <common>\n#include <beginnormal_vertex>\n#include <begin_vertex>', fragmentShader: '#include <common>\n#include <emissivemap_fragment>' }
+    ;(material.onBeforeCompile as unknown as (s: typeof shader, r: unknown) => void)(shader, {})
+    const overlay = makeStressOverlayMaterial(createProgressionUniforms())
+    for (const source of [shader.fragmentShader, overlay.fragmentShader]) {
+      expect(source).toContain('float jgStressField(float dy, float hotspotFos)')
+      expect(source).toMatch(/jgStressField\((jgDy|dy), uStressHotspotFos\)/)
+      expect(source).not.toMatch(/atan\(|Theta|theta|floorBias|FloorBias|[bB]lotch|cos\(/)
+      expect(source).not.toMatch(/(?<!smooth)step\(uStressY(Min|Max)/)
+    }
+  })
+})

@@ -117,6 +117,26 @@ export interface ShaftPresentation {
 export interface ShaftRuntimeOptions extends ShaftLifecycleOptions { presentation?: ShaftPresentation }
 
 /** Synchronous factory; async readiness owns every parsed/created resource by this session. */
+/**
+ * Issue 8 (08.png): the shaper leaves the legacy shaft ~51.5 deg off index at t = 15 s, while the approved
+ * shaft enters the 22.6..25 s axial wipe at 0 rad. Seen across the wipe plane, the two halves of the
+ * ball-detent pockets were out of phase (a vertical seam). After shaping stops, the work spindle indexes
+ * home: it keeps turning the same way to the nearest whole revolution, so both shafts meet at 0 mod 2*pi.
+ */
+export const LEGACY_INDEX_WINDOW = Object.freeze({ start: 15, end: 16 })
+
+/** Legacy shaft spin angle (rad, applied as rotation.z = -angle) at master time t, given the shaper workPhi. */
+export function legacyShaftAngle(time: number, workPhi: number): number {
+  const { start, end } = LEGACY_INDEX_WINDOW
+  if (!(time > start)) return workPhi
+  const turn = 2 * Math.PI
+  // Same direction as the shaping rotation (workPhi decreases), so the spindle never reverses.
+  const home = workPhi <= 0 ? Math.floor(workPhi / turn) * turn : Math.ceil(workPhi / turn) * turn
+  const x = time >= end ? 1 : (time - start) / (end - start)
+  const k = x * x * x * (x * (x * 6 - 15) + 10)
+  return workPhi + (home - workPhi) * k
+}
+
 export function createShaftRuntime(
   session: StorySession,
   ctx: StoryContext,
@@ -540,7 +560,7 @@ export function createShaftRuntime(
       partOpacity(parts.housing, schedule.housing * context); partOpacity(parts.legacyhousing, schedule.legacyHousing * context)
       partOpacity(parts.legacybearing, schedule.legacyBearing * context); partOpacity(parts.legacyring, schedule.legacyRing * context)
       partOpacity(parts.approvedbearing, schedule.approvedBearing * context); partOpacity(parts.approvedring, schedule.approvedRing * context)
-      const legacyAngle = kinematics.workPhi
+      const legacyAngle = legacyShaftAngle(frame.time, kinematics.workPhi)
       const approvedAngle = kinematics.hobWorkPhi + schedule.finaleAngle
       if (parts.legacyshaft) parts.legacyshaft.root.rotation.z = -legacyAngle
       if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = -approvedAngle * (1 - (options.presentation?.phaseCorrection ?? 0))
