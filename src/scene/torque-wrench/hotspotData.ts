@@ -233,14 +233,17 @@ export function layoutTorqueCallouts(inputs: readonly CalloutInput[], viewport: 
     let floor = minTop
     for (const { input, order } of group) {
       const { anchor, width, height } = input
-      // Shelf rises up-and-out from the anchor at about 45°, then levels into the card.
-      const desiredShelf = anchor.y - REACH * 0.6
+      // Shelf rises up-and-out from the anchor at about 45° into the open space above the
+      // model, then levels into the card. Near the top edge it drops below instead.
+      const rise = clamp(h * 0.2, 60, 190)
+      const desiredShelf = anchor.y - rise - SHELF_DROP >= minTop ? anchor.y - rise : anchor.y + rise
       const shelfY = clamp(desiredShelf, Math.max(minTop, floor) + SHELF_DROP, maxBottom - height + SHELF_DROP)
       const top = shelfY - SHELF_DROP
       floor = top + height + GAP
+      const reach = Math.max(REACH, Math.abs(shelfY - anchor.y))
       const shelfEnd = side > 0
-        ? clamp(anchor.x + REACH + SHELF, marginX, w - marginX - width)
-        : clamp(anchor.x - REACH - SHELF, marginX + width, w - marginX)
+        ? clamp(anchor.x + reach + SHELF, marginX, w - marginX - width)
+        : clamp(anchor.x - reach - SHELF, marginX + width, w - marginX)
       const left = side > 0 ? shelfEnd : shelfEnd - width
       const elbowX = shelfEnd - side * SHELF
       // The leader always leaves the anchor outward; if the card was clamped back past the
