@@ -36,8 +36,9 @@ export const TORQUE_HOTSPOTS = [
     id: 'lcd-manometer', title: 'LCD Manometer', part: 'P002115 / BK11356',
     summary: 'Digital pressure / torque readout',
     detail: 'The rear-handle display brings the pressure and torque readout to the operator. Inspect the LCD cluster in its handle mounting.',
-    // Post-collapse close, once the rear handle is unoccluded.
-    window: [0.975, 0.995],
+    // Post-collapse: the close camera orbits to the rear three-quarter facing the LCD by .986
+    // (verifier gate 'LCD readout after collapse .99').
+    window: [0.986, 0.995],
     fcf: null,
     fcfLabel: '',
   },
