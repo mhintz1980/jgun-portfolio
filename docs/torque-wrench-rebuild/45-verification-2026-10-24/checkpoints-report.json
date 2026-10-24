@@ -1,0 +1,9480 @@
+{
+ "launch": "bundled Chromium, ANGLE/SwiftShader (software GL — not a hardware full-tier pass)",
+ "url": "http://localhost:5341/torque-wrench/",
+ "capturedAt": "2026-10-24T19:13:02.025Z",
+ "errors": [],
+ "samples": [
+  {
+   "narrative": {
+    "progress": 0.18000978088230113,
+    "beatId": "drafting-output-note",
+    "localProgress": 0.6668840196066917,
+    "phase": "active",
+    "stateKey": "[0.18000978088230113,3,{\"id\":\"drafting-output-note\",\"start\":0.15,\"end\":0.195,\"title\":\"Read the output note\",\"copy\":\"Give the second owner annotation its own reading hold.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.6668840196066917,\"drafting-input-note\",\"drafting-rake\",\"active\"]",
+    "previousId": "drafting-input-note",
+    "nextId": "drafting-rake"
+   },
+   "camera": {
+    "position": [
+     0.12862123792448574,
+     0.900148215647329,
+     -0.000549699113351643
+    ],
+    "target": [
+     -0.0003906357749937084,
+     0,
+     -0.0005245680407058445
+    ],
+    "up": [
+     -0.9898848217181438,
+     0.14187319179500132,
+     0.0001928261845380235
+    ],
+    "quaternion": [
+     -0.46313055611645304,
+     0.5343443704183274,
+     0.4632207811549092,
+     0.5342402920968635
+    ],
+    "fov": 33.97767795571465,
+    "handleBoundsClearance": 0.9007482156473289
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.18000978088230113,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.18000978088230113,
+    "effectiveProgress": 0.18000978088230113,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.18000978088230113,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.18000978088230113,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "label": "check1-3-sheet-p0.18",
+   "requested": 0.18,
+   "seconds": 35.891
+  },
+  {
+   "narrative": {
+    "progress": 0.2800199531106955,
+    "beatId": "drafting-registered",
+    "localProgress": 0.2730900565580997,
+    "phase": "active",
+    "stateKey": "[0.2800199531106955,5,{\"id\":\"drafting-registered\",\"start\":0.265,\"end\":0.32,\"title\":\"Registered drawing\",\"copy\":\"Settle square to the intact drawing before the light changes.\",\"camera\":\"registered\",\"scene\":\"drawing\",\"director\":\"opening\",\"poster\":\"drafting\"},0.2730900565580997,\"drafting-rake\",\"breakthrough-anticipation\",\"active\"]",
+    "previousId": "drafting-rake",
+    "nextId": "breakthrough-anticipation"
+   },
+   "camera": {
+    "position": [
+     0.042000000000000044,
+     0.5999442105816061,
+     0.12
+    ],
+    "target": [
+     0.04200000000000001,
+     0,
+     0.12
+    ],
+    "up": [
+     -1,
+     6.123233995736766e-17,
+     0
+    ],
+    "quaternion": [
+     -0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "fov": 30,
+    "handleBoundsClearance": 0.6006973582794465
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.2800199531106955,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.2800199531106955,
+    "effectiveProgress": 0.2800199531106955,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.2800199531106955,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.2800199531106955,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "label": "check1-3-sheet-p0.28",
+   "requested": 0.28,
+   "seconds": 44.022
+  },
+  {
+   "narrative": {
+    "progress": 0.3499774885453917,
+    "beatId": "breakthrough-anticipation",
+    "localProgress": 0.7494372136347922,
+    "phase": "active",
+    "stateKey": "[0.3499774885453917,6,{\"id\":\"breakthrough-anticipation\",\"start\":0.32,\"end\":0.36,\"title\":\"The light falters\",\"copy\":\"Keep the drawing legible through the failures and dark anticipation.\",\"camera\":\"registered\",\"scene\":\"breakthrough\",\"director\":\"opening\",\"poster\":\"breakthrough\"},0.7494372136347922,\"drafting-registered\",\"breakthrough-trace\",\"active\"]",
+    "previousId": "drafting-registered",
+    "nextId": "breakthrough-trace"
+   },
+   "camera": {
+    "position": [
+     0.042000000000000044,
+     0.5999442105816061,
+     0.12
+    ],
+    "target": [
+     0.04200000000000001,
+     0,
+     0.12
+    ],
+    "up": [
+     -1,
+     6.123233995736766e-17,
+     0
+    ],
+    "quaternion": [
+     -0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "fov": 30,
+    "handleBoundsClearance": 0.6006973582794465
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.3499774885453917,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.3499774885453917,
+    "effectiveProgress": 0.3499774885453917,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.3499774885453917,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.3499774885453917,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.03959088456305325,
+     -0.04053150964383446,
+     0.1405683540743662,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "label": "check1-3-sheet-p0.35",
+   "requested": 0.35,
+   "seconds": 47.426
+  },
+  {
+   "narrative": {
+    "progress": 0.4800022598342366,
+    "beatId": "inspection-ring",
+    "localProgress": 0.4444946629830355,
+    "phase": "active",
+    "stateKey": "[0.4800022598342366,11,{\"id\":\"inspection-ring\",\"start\":0.46,\"end\":0.505,\"title\":\"Ring-switch finish\",\"copy\":\"Inspect the P003068 machining and black-anodized knurled finish.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"mechanism\"},0.4444946629830355,\"breakthrough-emergence\",\"mechanism-switch\",\"active\"]",
+    "previousId": "breakthrough-emergence",
+    "nextId": "mechanism-switch"
+   },
+   "camera": {
+    "position": [
+     -0.23879274031775327,
+     0.025939782057392065,
+     0.04376907750259593
+    ],
+    "target": [
+     -0.07751875132858954,
+     0.0000011399388314750625,
+     -0.009951363926635357
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.061357825072803296,
+     -0.5831199644719258,
+     -0.0442339893200471,
+     0.8088570198282445
+    ],
+    "fov": 25.13990334855342,
+    "handleBoundsClearance": 0.13604377187034172
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.4800022598342366,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.4800022598342366,
+    "effectiveProgress": 0.4800022598342366,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.4800022598342366,
+    "surroundingsOpacity": 0,
+    "sourceShaftOpacity": 0,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.4800022598342366,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": false,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "groovePixels": {
+    "blue": {
+     "changed": 0,
+     "colored": 0
+    },
+    "red": {
+     "changed": 0,
+     "colored": 0
+    }
+   },
+   "label": "check4-5-ring-isolated-p0.480",
+   "requested": 0.48,
+   "seconds": 163.604
+  },
+  {
+   "narrative": {
+    "progress": 0.5149999248801578,
+    "beatId": "mechanism-switch",
+    "localProgress": 0.18181681600286845,
+    "phase": "active",
+    "stateKey": "[0.5149999248801578,12,{\"id\":\"mechanism-switch\",\"start\":0.505,\"end\":0.56,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.18181681600286845,\"inspection-ring\",\"inspection-isolation\",\"active\"]",
+    "previousId": "inspection-ring",
+    "nextId": "inspection-isolation"
+   },
+   "camera": {
+    "position": [
+     -0.2963012750240298,
+     0.05562855256144862,
+     0.16169826115705516
+    ],
+    "target": [
+     -0.07751875132858954,
+     0.0000011399388314750625,
+     -0.003951363926635356
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.08939519124369404,
+     -0.44295101066296455,
+     -0.044443344404787456,
+     0.8909700842751563
+    ],
+    "fov": 32,
+    "handleBoundsClearance": 0.2520381585842655
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.5149999248801578,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": true,
+      "reason": "visible",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": true
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.5149999248801578,
+    "effectiveProgress": 0.5149999248801578,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.5149999248801578,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.5149999248801578,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "groovePixels": {
+    "blue": {
+     "changed": 2154,
+     "colored": 2154
+    },
+    "red": {
+     "changed": 0,
+     "colored": 0
+    }
+   },
+   "label": "check6-blue-shift0-p0.515",
+   "requested": 0.515,
+   "seconds": 107.795
+  },
+  {
+   "narrative": {
+    "progress": 0.5199952125517484,
+    "beatId": "mechanism-switch",
+    "localProgress": 0.2726402282136071,
+    "phase": "active",
+    "stateKey": "[0.5199952125517484,12,{\"id\":\"mechanism-switch\",\"start\":0.505,\"end\":0.56,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.2726402282136071,\"inspection-ring\",\"inspection-isolation\",\"active\"]",
+    "previousId": "inspection-ring",
+    "nextId": "inspection-isolation"
+   },
+   "camera": {
+    "position": [
+     -0.2963012750240298,
+     0.05562855256144862,
+     0.16169826115705516
+    ],
+    "target": [
+     -0.07751875132858954,
+     0.0000011399388314750625,
+     -0.003951363926635356
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.08939519124369404,
+     -0.44295101066296455,
+     -0.044443344404787456,
+     0.8909700842751563
+    ],
+    "fov": 32,
+    "handleBoundsClearance": 0.2520381585842655
+   },
+   "shift": 0,
+   "overlay": {
+    "progress": 0.5199952125517484,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": true,
+      "reason": "visible",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": true
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": false,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1
+   },
+   "journey": {
+    "requestedProgress": 0.5199952125517484,
+    "effectiveProgress": 0.5199952125517484,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.5199952125517484,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": false,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.5199952125517484,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   "label": "check5-p0.520",
+   "requested": 0.52,
+   "seconds": 27.694
+  },
+  {
+   "narrative": {
+    "progress": 0.5450048054749459,
+    "beatId": "mechanism-switch",
+    "localProgress": 0.7273600995444701,
+    "phase": "active",
+    "stateKey": "[0.5450048054749459,12,{\"id\":\"mechanism-switch\",\"start\":0.505,\"end\":0.56,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.7273600995444701,\"inspection-ring\",\"inspection-isolation\",\"active\"]",
+    "previousId": "inspection-ring",
+    "nextId": "inspection-isolation"
+   },
+   "camera": {
+    "position": [
+     -0.3293676963575989,
+     0.05562855256144862,
+     -0.12493622458483943
+    ],
+    "target": [
+     -0.07751875132858954,
+     0.0000011399388314750625,
+     -0.015951363926635355
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.05481081116137158,
+     -0.8316318882677408,
+     -0.08344151280514782,
+     0.5462798653957992
+    ],
+    "fov": 32,
+    "handleBoundsClearance": 0.2149195790282262
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.5450048054749459,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "occluded",
+      "occluder": "(unnamed surface)"
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Grooved blank",
+     "shaft": {
+      "teethFormed": 0,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 3.200583242661457,
+       "infeed": 8.08350744335997,
+       "rotation": 0,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 0,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 0,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.5450048054749459,
+    "effectiveProgress": 0.5450048054749459,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.5450048054749459,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.5450048054749459,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": true,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 1,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check5-p0.545",
+   "requested": 0.545,
+   "seconds": 26.436
+  },
+  {
+   "narrative": {
+    "progress": 0.5500000931465365,
+    "beatId": "mechanism-switch",
+    "localProgress": 0.8181835117552088,
+    "phase": "active",
+    "stateKey": "[0.5500000931465365,12,{\"id\":\"mechanism-switch\",\"start\":0.505,\"end\":0.56,\"title\":\"Two-speed clutch\",\"copy\":\"Read P003068 and the separate clutch-fork motion.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"mechanism\"},0.8181835117552088,\"inspection-ring\",\"inspection-isolation\",\"active\"]",
+    "previousId": "inspection-ring",
+    "nextId": "inspection-isolation"
+   },
+   "camera": {
+    "position": [
+     -0.3293676963575989,
+     0.05562855256144862,
+     -0.12493622458483943
+    ],
+    "target": [
+     -0.07751875132858954,
+     0.0000011399388314750625,
+     -0.015951363926635355
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.05481081116137158,
+     -0.8316318882677408,
+     -0.08344151280514782,
+     0.5462798653957992
+    ],
+    "fov": 32,
+    "handleBoundsClearance": 0.2149195790282262
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.5500000931465365,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "occluded",
+      "occluder": "(unnamed surface)"
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Grooved blank",
+     "shaft": {
+      "teethFormed": 0,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 3.200583242661457,
+       "infeed": 8.08350744335997,
+       "rotation": 0,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 0,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 0,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.5500000931465365,
+    "effectiveProgress": 0.5500000931465365,
+    "phase": "prefix",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.5500000931465365,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.5500000931465365,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "groovePixels": {
+    "blue": {
+     "changed": 0,
+     "colored": 0
+    },
+    "red": {
+     "changed": 400,
+     "colored": 400
+    }
+   },
+   "label": "check6-red-shift1-p0.550",
+   "requested": 0.55,
+   "seconds": 83.373
+  },
+  {
+   "narrative": {
+    "progress": 0.5899982642845316,
+    "beatId": "inspection-isolation",
+    "localProgress": 0.4999710714088598,
+    "phase": "active",
+    "stateKey": "[0.5899982642845316,13,{\"id\":\"inspection-isolation\",\"start\":0.56,\"end\":0.62,\"title\":\"Isolate the input shaft\",\"copy\":\"Orbit to the opposite side and retain the source shaft as its neighbours fade.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"poster\":\"inspection\"},0.4999710714088598,\"mechanism-switch\",\"inspection-shaping\",\"active\"]",
+    "previousId": "mechanism-switch",
+    "nextId": "inspection-shaping"
+   },
+   "camera": {
+    "position": [
+     -0.2404087829498305,
+     0.14085646384750417,
+     0.09162366946475817
+    ],
+    "target": [
+     -0.0775184344616777,
+     -4.133184214059394e-14,
+     -0.0143300416780669
+    ],
+    "up": [
+     0.16164754689568395,
+     0.9868485550390231,
+     4.149377596084613e-16
+    ],
+    "quaternion": [
+     -0.24816157120642915,
+     -0.46656074890735827,
+     -0.1887032716103727,
+     0.8277245782498568
+    ],
+    "fov": 33.99999999999613,
+    "handleBoundsClearance": 0.19180995884148924
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.5899982642845316,
+    "subjectTime": 0,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0.2750000003031361,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 0,
+    "cameraTime": 0,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Grooved blank",
+     "shaft": {
+      "teethFormed": 0,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 3.200583242661457,
+       "infeed": 8.08350744335997,
+       "rotation": 0,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 0,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 0,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.5899982642845316,
+    "effectiveProgress": 0.5899982642845316,
+    "phase": "isolate",
+    "pending": false,
+    "inspectionProgress": 0.735,
+    "mechanismProgress": 0.56,
+    "surroundingsOpacity": 0.2750000003031361,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.735,
+    "oldMechanismProgress": 0.56,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 0.2750000003031361
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 0.2750000003031361
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check5-shaft-p0.590",
+   "requested": 0.59,
+   "seconds": 31.011
+  },
+  {
+   "narrative": {
+    "progress": 0.7332771172455068,
+    "beatId": "inspection-materials",
+    "localProgress": 0.37934620701448085,
+    "phase": "active",
+    "stateKey": "[0.7332771172455068,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.37934620701448085,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+    "previousId": "inspection-bullet-time",
+    "nextId": "inspection-hobbing"
+   },
+   "camera": {
+    "position": [
+     -0.2793045981293739,
+     0.0018513042839799537,
+     -0.008301942715020341
+    ],
+    "target": [
+     -0.07625758362385095,
+     0.007697418558556218,
+     0.012431958321936247
+    ],
+    "up": [
+     -2.700353732534914e-16,
+     5.267481696664555e-16,
+     -1
+    ],
+    "quaternion": [
+     0.5171657043895999,
+     0.5322702144995697,
+     -0.48070616563241114,
+     -0.4670649154911725
+    ],
+    "fov": 10.540401634560613,
+    "handleBoundsClearance": 0.16434133964348277
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.7332771172455068,
+    "subjectTime": 16.496583683168282,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [
+    "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4140 (40-45 HRC)Min FOS = 0.55"
+   ],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 16.496583683168282,
+    "cameraTime": 10.547617261657162,
+    "machiningRate": 0,
+    "arcWeight": 0.9104206224840369,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Material attempts",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "4140",
+       "stamp": "settled"
+      },
+      "stress": {
+       "kind": "warm",
+       "mix": 1,
+       "scanProgress": 1,
+       "shaderMaterials": 2,
+       "shaderReady": 1,
+       "uniformKind": 1,
+       "uniformMix": 1,
+       "uniformScan": 1,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0.55,
+       "overlayVisible": 1
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.7332771172455068,
+    "effectiveProgress": 0.7332771172455068,
+    "phase": "shaft",
+    "pending": false,
+    "inspectionProgress": 0.8482771172455068,
+    "mechanismProgress": 0.56,
+    "surroundingsOpacity": 0,
+    "sourceShaftOpacity": 0,
+    "sourceShaftLook": 1,
+    "studyVisible": true,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.8482771172455068,
+    "oldMechanismProgress": 0.56,
+    "sourceGearboxVisible": false,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 0,
+    "sourceShaftVisible": false,
+    "studyShaftVisible": true,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P001835",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 0
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 1,
+    "sourceShaftMaterial": {
+     "color": "adb4ba",
+     "metalness": 0.94,
+     "roughness": 0.28,
+     "envMapIntensity": 1
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check7-4140-t16.5",
+   "requested": 0.73328,
+   "seconds": 30.632
+  },
+  {
+   "narrative": {
+    "progress": 0.7379192997491373,
+    "beatId": "inspection-materials",
+    "localProgress": 0.5119799928324941,
+    "phase": "active",
+    "stateKey": "[0.7379192997491373,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.5119799928324941,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+    "previousId": "inspection-bullet-time",
+    "nextId": "inspection-hobbing"
+   },
+   "camera": {
+    "position": [
+     -0.2783568217866801,
+     0.025353735155110302,
+     -0.002628497298128054
+    ],
+    "target": [
+     -0.07625758362385095,
+     0.007697418558556217,
+     0.012431958321936247
+    ],
+    "up": [
+     -2.700353732534914e-16,
+     5.267481696664555e-16,
+     -1
+    ],
+    "quaternion": [
+     -0.5402568950666897,
+     -0.4951154296128791,
+     0.45972184352127643,
+     0.5016363476479283
+    ],
+    "fov": 14,
+    "handleBoundsClearance": 0.16364491647413548
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.7379192997491373,
+    "subjectTime": 18.998281872280344,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [
+    "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: AISI 4340 (48-50 HRC)Min FOS = 0.72"
+   ],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 18.998281872280344,
+    "cameraTime": 11.435580162010336,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Material attempts",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "4340",
+       "stamp": "in"
+      },
+      "stress": {
+       "kind": "warm",
+       "mix": 1,
+       "scanProgress": 1,
+       "shaderMaterials": 2,
+       "shaderReady": 1,
+       "uniformKind": 1,
+       "uniformMix": 1,
+       "uniformScan": 1,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0.72,
+       "overlayVisible": 1
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.7379192997491373,
+    "effectiveProgress": 0.7379192997491373,
+    "phase": "shaft",
+    "pending": false,
+    "inspectionProgress": 0.8529192997491373,
+    "mechanismProgress": 0.56,
+    "surroundingsOpacity": 0,
+    "sourceShaftOpacity": 0,
+    "sourceShaftLook": 1,
+    "studyVisible": true,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.8529192997491373,
+    "oldMechanismProgress": 0.56,
+    "sourceGearboxVisible": false,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 0,
+    "sourceShaftVisible": false,
+    "studyShaftVisible": true,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P001835",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 0
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 1,
+    "sourceShaftMaterial": {
+     "color": "adb4ba",
+     "metalness": 0.94,
+     "roughness": 0.28,
+     "envMapIntensity": 1
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check7-4340-t19.0",
+   "requested": 0.73792,
+   "seconds": 6.593
+  },
+  {
+   "narrative": {
+    "progress": 0.7431408718507555,
+    "beatId": "inspection-materials",
+    "localProgress": 0.6611677671644431,
+    "phase": "active",
+    "stateKey": "[0.7431408718507555,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.6611677671644431,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+    "previousId": "inspection-bullet-time",
+    "nextId": "inspection-hobbing"
+   },
+   "camera": {
+    "position": [
+     -0.04214442751725126,
+     -0.23631546774870343,
+     -0.008388372665004314
+    ],
+    "target": [
+     -0.07625758362385095,
+     0.007697418558556218,
+     0.012431958321936247
+    ],
+    "up": [
+     -2.700353732534914e-16,
+     5.267481696664555e-16,
+     -1
+    ],
+    "quaternion": [
+     -0.051093376033819755,
+     0.7345004343177607,
+     -0.6750507620981696,
+     0.04695793333578465
+    ],
+    "fov": 14,
+    "handleBoundsClearance": 0.19642946648499418
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.7431408718507555,
+    "subjectTime": 21.50049312250374,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [
+    "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: C300 (56-58 HRC)Min FOS = 0.90"
+   ],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 21.50049312250374,
+    "cameraTime": 13.108914182482733,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Material attempts",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "c300",
+       "stamp": "in"
+      },
+      "stress": {
+       "kind": "warm",
+       "mix": 1,
+       "scanProgress": 1,
+       "shaderMaterials": 2,
+       "shaderReady": 1,
+       "uniformKind": 1,
+       "uniformMix": 1,
+       "uniformScan": 1,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0.9,
+       "overlayVisible": 1
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.7431408718507555,
+    "effectiveProgress": 0.7431408718507555,
+    "phase": "shaft",
+    "pending": false,
+    "inspectionProgress": 0.8581408718507555,
+    "mechanismProgress": 0.56,
+    "surroundingsOpacity": 0,
+    "sourceShaftOpacity": 0,
+    "sourceShaftLook": 1,
+    "studyVisible": true,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.8581408718507555,
+    "oldMechanismProgress": 0.56,
+    "sourceGearboxVisible": false,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 0,
+    "sourceShaftVisible": false,
+    "studyShaftVisible": true,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P001835",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 0
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 1,
+    "sourceShaftMaterial": {
+     "color": "adb4ba",
+     "metalness": 0.94,
+     "roughness": 0.28,
+     "envMapIntensity": 1
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check7-C300-t21.5",
+   "requested": 0.74314,
+   "seconds": 7.419
+  },
+  {
+   "narrative": {
+    "progress": 0.7497614627814073,
+    "beatId": "inspection-materials",
+    "localProgress": 0.8503275080402091,
+    "phase": "active",
+    "stateKey": "[0.7497614627814073,16,{\"id\":\"inspection-materials\",\"start\":0.72,\"end\":0.755,\"title\":\"Material attempts\",\"copy\":\"Read the 4140, 4340, and C300 attempts and the relief-groove result.\",\"camera\":\"inspection\",\"scene\":\"inspection\",\"director\":\"inspection\",\"interaction\":\"inspect\",\"poster\":\"inspection\"},0.8503275080402091,\"inspection-bullet-time\",\"inspection-hobbing\",\"active\"]",
+    "previousId": "inspection-bullet-time",
+    "nextId": "inspection-hobbing"
+   },
+   "camera": {
+    "position": [
+     0.12080178686518471,
+     0.03196614325090857,
+     0.0015908303648379356
+    ],
+    "target": [
+     -0.07775986413498194,
+     -0.0014739136400493613,
+     0.0033361374645127645
+    ],
+    "up": [
+     0.1616475468959928,
+     0.9868485550389725,
+     4.149377596092541e-16
+    ],
+    "quaternion": [
+     -0.05812746480516052,
+     0.7077816613601061,
+     0.05970327970439757,
+     0.7014997049680002
+    ],
+    "fov": 11.429441931597713,
+    "handleBoundsClearance": 0.014290683671356105
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.7497614627814073,
+    "subjectTime": 23.799893842950365,
+    "studyVisible": true,
+    "manual": false,
+    "explode": 0,
+    "surroundingsOpacity": 0,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [
+    "Model Name: Input ShaftStudy: Grooved blank (cutter runout groove)Plot type: Factor of safetyMaterial: C300 (56-58 HRC)Min FOS = 0.90"
+   ],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 23.799893842950365,
+    "cameraTime": 15.937234992267127,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0.11378994789267921,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 0,
+    "runtime": {
+     "phase": "Revised blank",
+     "shaft": {
+      "teethFormed": 0,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -4.195,
+       "rotation": 0,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "warm",
+       "mix": 0.5000663481558495,
+       "scanProgress": 1,
+       "shaderMaterials": 2,
+       "shaderReady": 2,
+       "uniformKind": 1,
+       "uniformMix": 0.5000663481558495,
+       "uniformScan": 1,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0.9,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": false
+      },
+      "finale": {
+       "assembled": false,
+       "shaftCount": 2,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": false,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.7497614627814073,
+    "effectiveProgress": 0.7497614627814073,
+    "phase": "shaft",
+    "pending": false,
+    "inspectionProgress": 0.8647614627814073,
+    "mechanismProgress": 0.56,
+    "surroundingsOpacity": 0,
+    "sourceShaftOpacity": 0,
+    "sourceShaftLook": 1,
+    "studyVisible": true,
+    "contextOpacity": 1,
+    "phaseCorrection": 0,
+    "preload": true,
+    "oldInspectionProgress": 0.8647614627814073,
+    "oldMechanismProgress": 0.56,
+    "sourceGearboxVisible": false,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 0,
+    "sourceShaftVisible": false,
+    "studyShaftVisible": true,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P001835",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 0
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 0
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 0
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 1,
+    "sourceShaftMaterial": {
+     "color": "adb4ba",
+     "metalness": 0.94,
+     "roughness": 0.28,
+     "envMapIntensity": 1
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check8-midwipe-t23.8",
+   "requested": 0.74976,
+   "seconds": 8.81
+  },
+  {
+   "narrative": {
+    "progress": 0.9000029960757274,
+    "beatId": "mechanism-extraction",
+    "localProgress": 0.6000399476763654,
+    "phase": "active",
+    "stateKey": "[0.9000029960757274,20,{\"id\":\"mechanism-extraction\",\"start\":0.855,\"end\":0.93,\"title\":\"Rearward extraction\",\"copy\":\"Orbit and zoom out as the source gearbox separates along its measured ladder.\",\"camera\":\"mechanism\",\"scene\":\"mechanism\",\"director\":\"mechanism\",\"poster\":\"close\"},0.6000399476763654,\"inspection-return\",\"mechanism-exploded-hold\",\"active\"]",
+    "previousId": "inspection-return",
+    "nextId": "mechanism-exploded-hold"
+   },
+   "camera": {
+    "position": [
+     -0.4968749916193312,
+     0.2155938386820983,
+     0.2343478929054581
+    ],
+    "target": [
+     -0.024602100948330076,
+     -1.3118227437559888e-14,
+     -0.10694229335936757
+    ],
+    "up": [
+     0.0514490380647553,
+     0.998675621251571,
+     1.3206602264355187e-16
+    ],
+    "quaternion": [
+     -0.14983661162163842,
+     -0.45042922238560196,
+     -0.09409287259871117,
+     0.8751051575467779
+    ],
+    "fov": 39.461032218292026,
+    "handleBoundsClearance": 0.6353809738986189
+   },
+   "shift": 1,
+   "overlay": {
+    "progress": 0.9000029960757274,
+    "subjectTime": 43,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0.6481342189779699,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 43,
+    "cameraTime": 43,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1,
+    "runtime": {
+     "phase": "Revised assembly",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -8,
+       "rotation": 18.221237390820804,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 2,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": true
+      },
+      "finale": {
+       "assembled": true,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": true,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.9000029960757274,
+    "effectiveProgress": 0.9000029960757274,
+    "phase": "explode",
+    "pending": false,
+    "inspectionProgress": 0.94,
+    "mechanismProgress": 0.6650069908433641,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 0,
+    "phaseCorrection": 1,
+    "preload": true,
+    "oldInspectionProgress": 0.94,
+    "oldMechanismProgress": 0.6650069908433641,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 0.15000000000000002
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     -0.16717509940065295,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     -0.1886070577225892,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323143,
+       -0.07152395106326888
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289142,
+       1.1019933869593768e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702579197455,
+        0.0000015593702579197455
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702579197455,
+        0.0000015593702579197455
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check5-p0.900",
+   "requested": 0.9,
+   "seconds": 8.002
+  },
+  {
+   "narrative": {
+    "progress": 0.954997554779311,
+    "beatId": "close-settle",
+    "localProgress": 0.37493886948277677,
+    "phase": "active",
+    "stateKey": "[0.954997554779311,22,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.37493886948277677,\"mechanism-exploded-hold\",\"close-ownership\",\"active\"]",
+    "previousId": "mechanism-exploded-hold",
+    "nextId": "close-ownership"
+   },
+   "camera": {
+    "position": [
+     -0.5812423436963603,
+     0.21120715822021519,
+     0.2501966385309031
+    ],
+    "target": [
+     0,
+     0,
+     -0.11148504994419142
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.13031074510883947,
+     -0.4802061291707316,
+     -0.07239276606648955,
+     0.864396014936027
+    ],
+    "fov": 42,
+    "handleBoundsClearance": 0.708265456635625
+   },
+   "shift": 0.6836797119866826,
+   "overlay": {
+    "progress": 0.954997554779311,
+    "subjectTime": 43,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0.6836797119866826,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 43,
+    "cameraTime": 43,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1,
+    "runtime": {
+     "phase": "Revised assembly",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -8,
+       "rotation": 18.221237390820804,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 2,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": true
+      },
+      "finale": {
+       "assembled": true,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": true,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.954997554779311,
+    "effectiveProgress": 0.954997554779311,
+    "phase": "close",
+    "pending": false,
+    "inspectionProgress": 0.94,
+    "mechanismProgress": 0.954997554779311,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 0,
+    "phaseCorrection": 1,
+    "preload": true,
+    "oldInspectionProgress": 0.94,
+    "oldMechanismProgress": 0.954997554779311,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     -0.17751883786618838,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     -0.19895079618812464,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.008864602772872704,
+       -0.008864578845323146,
+       -0.07152395106326888
+      ],
+      [
+       0.008864618078728327,
+       0.008864619478289138,
+       1.1019933869593768e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702579197455,
+        0.0000015593702579197455
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702579197455,
+        0.0000015593702579197455
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check9-collapse-p0.955",
+   "requested": 0.955,
+   "seconds": 13.518
+  },
+  {
+   "narrative": {
+    "progress": 0.9650121834342826,
+    "beatId": "close-settle",
+    "localProgress": 0.6253045858570666,
+    "phase": "active",
+    "stateKey": "[0.9650121834342826,22,{\"id\":\"close-settle\",\"start\":0.94,\"end\":0.98,\"title\":\"The finished wrench\",\"copy\":\"Return to the complete wrench above the pit as the electrical light fades.\",\"camera\":\"close\",\"scene\":\"close\",\"director\":\"close\",\"poster\":\"close\"},0.6253045858570666,\"mechanism-exploded-hold\",\"close-ownership\",\"active\"]",
+    "previousId": "mechanism-exploded-hold",
+    "nextId": "close-ownership"
+   },
+   "camera": {
+    "position": [
+     -0.4888953493969286,
+     0.2356760504253906,
+     0.16173471766931674
+    ],
+    "target": [
+     0,
+     0,
+     -0.04845880369765779
+    ],
+    "up": [
+     0,
+     1,
+     0
+    ],
+    "quaternion": [
+     -0.1728317109955309,
+     -0.5381037868059028,
+     -0.11382179283388673,
+     0.817079013177786
+    ],
+    "fov": 42,
+    "handleBoundsClearance": 0.5099603242258129
+   },
+   "shift": 0.315977995774422,
+   "overlay": {
+    "progress": 0.9650121834342826,
+    "subjectTime": 43,
+    "studyVisible": false,
+    "manual": false,
+    "explode": 0.315977995774422,
+    "surroundingsOpacity": 1,
+    "ringVisible": false,
+    "focusId": null,
+    "anchors": [
+     {
+      "id": "clutch-housing",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "ring-switch",
+      "x": 618.1147248518798,
+      "y": 497.1840321807474,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "lcd-manometer",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     },
+     {
+      "id": "stage2-planet",
+      "x": 0,
+      "y": 0,
+      "visible": false,
+      "reason": "inactive",
+      "occluder": ""
+     }
+    ]
+   },
+   "callouts": [
+    {
+     "id": "clutch-housing",
+     "visible": false
+    },
+    {
+     "id": "ring-switch",
+     "visible": false
+    },
+    {
+     "id": "lcd-manometer",
+     "visible": false
+    },
+    {
+     "id": "stage2-planet",
+     "visible": false
+    }
+   ],
+   "fos": [],
+   "inspection": {
+    "ready": true,
+    "subjectTime": 43,
+    "cameraTime": 43,
+    "machiningRate": 0,
+    "arcWeight": 0,
+    "feaDwellWeight": 0,
+    "hobSwingWeight": 0,
+    "surroundingsOpacity": 1,
+    "runtime": {
+     "phase": "Revised assembly",
+     "shaft": {
+      "teethFormed": 10,
+      "teethPartial": 0,
+      "cutter": {
+       "visible": false,
+       "stroke": 2.2079345427156665,
+       "infeed": 4.2968285963658195,
+       "rotation": 34.10827144002438,
+       "softened": false
+      },
+      "hob": {
+       "visible": false,
+       "feed": -8,
+       "rotation": 18.221237390820804,
+       "softened": false
+      },
+      "card": {
+       "id": "none",
+       "stamp": "none"
+      },
+      "stress": {
+       "kind": "none",
+       "mix": 0,
+       "scanProgress": 0,
+       "shaderMaterials": 2,
+       "shaderReady": 2,
+       "uniformKind": 0,
+       "uniformMix": 0,
+       "uniformScan": 0,
+       "uniformBodyFos": 3,
+       "uniformHotspotFos": 0,
+       "overlayVisible": 0
+      },
+      "supports": {
+       "deltaYmm": 2.749999985098839,
+       "witnesses": false,
+       "endpointHeld": true
+      },
+      "finale": {
+       "assembled": true,
+       "shaftCount": 1,
+       "racesFollow": false,
+       "carrierCount": 5,
+       "missingCarriers": false,
+       "bearingRacePolicy": "unsplit-fixed",
+       "ringFollowsShaft": true,
+       "bearingOuterFixed": true
+      },
+      "narrative": {
+       "alpha": 0,
+       "hiddenCount": 0,
+       "originalsIntact": true
+      },
+      "nodes": {
+       "housing": "approvedhousing",
+       "legacyHousing": "legacyhousing",
+       "legacyHousingPresent": true
+      }
+     },
+     "resources": {
+      "geometries": 43,
+      "materials": 23,
+      "textures": 0,
+      "meshes": 48
+     }
+    }
+   },
+   "journey": {
+    "requestedProgress": 0.9650121834342826,
+    "effectiveProgress": 0.9650121834342826,
+    "phase": "close",
+    "pending": false,
+    "inspectionProgress": 0.94,
+    "mechanismProgress": 0.9650121834342826,
+    "surroundingsOpacity": 1,
+    "sourceShaftOpacity": 1,
+    "sourceShaftLook": 0,
+    "studyVisible": false,
+    "contextOpacity": 0,
+    "phaseCorrection": 1,
+    "preload": true,
+    "oldInspectionProgress": 0.94,
+    "oldMechanismProgress": 0.9650121834342826,
+    "sourceGearboxVisible": true,
+    "studyGearboxVisible": false,
+    "visibleGearboxCount": 1,
+    "sourceShaftVisible": true,
+    "studyShaftVisible": false,
+    "sourceOpacities": [
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P001835",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Red)",
+      "opacity": 1
+     },
+     {
+      "part": "P000420 Speed Indicator (Blue)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Bezel Ring (red, sampled #ad0707)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 LCD Readout Decal (torque Nm + battery + mode)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (up)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (enter)",
+      "opacity": 1
+     },
+     {
+      "part": "JG-025 Button Symbol Decal (down)",
+      "opacity": 1
+     }
+    ],
+    "studyContexts": [
+     {
+      "name": "approvedbearing",
+      "opacity": 0
+     },
+     {
+      "name": "approvedring",
+      "opacity": 0
+     },
+     {
+      "name": "legacybearing",
+      "opacity": 0
+     },
+     {
+      "name": "legacyring",
+      "opacity": 0
+     },
+     {
+      "name": "approvedhousing",
+      "opacity": 0
+     },
+     {
+      "name": "study-section-backface",
+      "opacity": 0
+     },
+     {
+      "name": "legacyhousing",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     },
+     {
+      "name": "",
+      "opacity": 0
+     }
+    ],
+    "studyShaftOpacity": 0,
+    "sourceShaftMaterial": {
+     "color": "0d0d0d",
+     "metalness": 0.96,
+     "roughness": 0.28,
+     "envMapIntensity": 1.2
+    },
+    "cameraRegistrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     0.021431958321936243,
+     1
+    ],
+    "registrationMatrix": [
+     0.9868485331535339,
+     -0.16164754331111908,
+     -3.516315667205359e-16,
+     0,
+     0.16164754331111908,
+     0.9868485331535339,
+     4.1493775040713817e-16,
+     0,
+     2.7993343057879116e-16,
+     -4.663211247979686e-16,
+     1,
+     0,
+     -0.07751843446167768,
+     -4.135072589191799e-14,
+     -0.07051763844842054,
+     1
+    ],
+    "registrationScale": [
+     0.9999999778229006,
+     0.9999999778229006,
+     1
+    ],
+    "displacement": [
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     0,
+     0,
+     -0.09194959677035679,
+     1
+    ],
+    "shaftLandmarks": {
+     "method": "Undeformed installed asset bounds in study space; shader stock removal excluded",
+     "axisErrorDeg": 0,
+     "sourceBounds": [
+      [
+       -0.00886460277287269,
+       -0.008864578845323145,
+       -0.07152395106326886
+      ],
+      [
+       0.008864618078728341,
+       0.00886461947828914,
+       1.1019933870981546e-7
+      ]
+     ],
+     "shafts": [
+      {
+       "name": "study-legacyshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      },
+      {
+       "name": "study-approvedshaft",
+       "axialDatumErrorMm": [
+        0.0000015593702440419577,
+        0.0000015593702440419577
+       ]
+      }
+     ]
+    }
+   },
+   "label": "check9-collapse-p0.965",
+   "requested": 0.965,
+   "seconds": 12.788
+  }
+ ]
+}
