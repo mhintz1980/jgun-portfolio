@@ -1,7 +1,7 @@
 import { expect,it } from 'vitest'
 import { Matrix4,Vector3 } from 'three'
 import { samplePrivateRingCamera,RING_CAMERA_RED_AT } from './InspectionDirector'
-import { createJourneyCameraSampler,createJourneyPose,isolationCamera,orbitCamera,signedAzimuthDelta } from './JourneyCamera'
+import { COLLAPSE_END,COLLAPSE_START,READOUT_END,collapseCamera,createJourneyCameraSampler,createJourneyPose,explodedHoldCamera,isolationCamera,orbitCamera,readoutCamera,signedAzimuthDelta } from './JourneyCamera'
 const digest=(p:ReturnType<typeof createJourneyPose>)=>[p.position.toArray(),p.target.toArray(),p.up.toArray(),p.fov]
 it.each([1.6,390/844])('holds profile I after the initial moving fade and across restore at aspect %s',aspect=>{
   const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),sample=createJourneyCameraSampler(),out=createJourneyPose()
@@ -13,7 +13,7 @@ it.each([1.6,390/844])('holds profile I after the initial moving fade and across
 })
 it('keeps continuous orbit radii, avoids polar roll and does not stop halfway',()=>{
   const sample=createJourneyCameraSampler(),out=createJourneyPose(),h=new Matrix4()
-  for(const [a,b] of [[.56,.590],[.60,.62],[.83,.845],[.855,.93]]){
+  for(const [a,b] of [[.56,.590],[.60,.62],[.83,.845],[.855,.93],[.94,.98],[.98,.995]]){
     let prev:Vector3|null=null,maxStep=0
     for(let j=0;j<=500;j++){
       sample(a+(b-a)*j/500,1.6,h,out)
@@ -77,7 +77,7 @@ it.each([1.6,390/844])('has no camera roll or view snap across every orbit-leg b
     const sample=createJourneyCameraSampler(),a=createJourneyPose(),b=createJourneyPose()
     const basis=(p:ReturnType<typeof createJourneyPose>)=>{const f=p.target.clone().sub(p.position).normalize();return {f,up:p.up.clone().sub(f.clone().multiplyScalar(p.up.dot(f))).normalize()}}
     const angle=(u:Vector3,v:Vector3)=>Math.acos(Math.max(-1,Math.min(1,u.dot(v))))*180/Math.PI
-    for(const [p0,p1] of [[.5599999,.56],[.58499,.585],[.5999,.60],[.61999,.62],[.62,.62001],[.82999,.83],[.84499,.845],[.855,.85501],[.94999,.95]] as const){
+    for(const [p0,p1] of [[.5599999,.56],[.58499,.585],[.5999,.60],[.61999,.62],[.62,.62001],[.82999,.83],[.84499,.845],[.855,.85501],[.94,.94001],[.94999,.95],[.97999,.98],[.98,.98001],[.99499,.995],[.995,1]] as const){
       const A=basis(sample(p0,aspect,h,a)),B=basis(sample(p1,aspect,h,b))
       expect(angle(A.up,B.up),'up '+p0).toBeLessThan(.2)
       expect(angle(A.f,B.f),'view '+p0).toBeLessThan(.2)
@@ -119,4 +119,55 @@ it('swings at least 45 degrees between the Ring Switch exit pose and the isolati
   let d=Math.abs(isoAz-exitAz)*180/Math.PI
   if(d>180)d=360-d
   expect(d).toBeGreaterThanOrEqual(45)
+})
+
+// Issue 9 (09.png): the collapse must not be watched dead-on down the explosion axis from behind the rear handle.
+// World frame: explosion along Z, rear handle + LCD at -Z, snout at +Z. LCD normal measured live 2026-10-24.
+const LCD_NORMAL=new Vector3(-.296,0,-.958).normalize()
+const offsetOf=(p:ReturnType<typeof createJourneyPose>)=>p.position.clone().sub(p.target)
+it.each([1.6,390/844])('keeps the collapse on an elevated side three-quarter, never axial, at aspect %s',aspect=>{
+  const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),sample=createJourneyCameraSampler(),out=createJourneyPose()
+  for(let j=0;j<=400;j++){
+    const p=COLLAPSE_START+(COLLAPSE_END-COLLAPSE_START)*j/400,o=offsetOf(sample(p,aspect,h,out)),d=o.clone().normalize()
+    expect(Math.abs(d.z),'axial at '+p).toBeLessThan(.6)
+    expect(Math.asin(d.y)*180/Math.PI,'elevation at '+p).toBeGreaterThan(12)
+    expect(o.x,'side at '+p).toBeLessThan(-.2)
+    expect(d.dot(LCD_NORMAL),'LCD dead-on at '+p).toBeLessThan(.2)
+  }
+  const settled=offsetOf(sample(COLLAPSE_END,aspect,h,out)).normalize()
+  expect(Math.asin(settled.y)*180/Math.PI).toBeGreaterThanOrEqual(25)
+  expect(Math.abs(settled.z)).toBeLessThan(.35)
+})
+it.each([1.6,390/844])('moves through the collapse instead of holding a static frame at aspect %s',aspect=>{
+  const h=new Matrix4(),sample=createJourneyCameraSampler(),out=createJourneyPose()
+  const at=(p:number)=>sample(p,aspect,h,out).position.clone()
+  const start=at(COLLAPSE_START),mid=at(.955),late=at(.965),end=at(COLLAPSE_END)
+  expect(start.distanceTo(mid)).toBeGreaterThan(.02)
+  expect(mid.distanceTo(late)).toBeGreaterThan(.02)
+  expect(late.distanceTo(end)).toBeGreaterThan(.02)
+  expect(start.distanceTo(sample(COLLAPSE_START,aspect,h,out).target)).toBeGreaterThan(end.distanceTo(sample(COLLAPSE_END,aspect,h,out).target))
+})
+it.each([1.6,390/844])('lands exactly on the authored close poses and holds the readout to 1 at aspect %s',aspect=>{
+  const h=new Matrix4().makeRotationY(Math.PI/6),sample=createJourneyCameraSampler(),out=createJourneyPose()
+  expect(digest(sample(COLLAPSE_START,aspect,h,out))).toEqual(digest(explodedHoldCamera(aspect,createJourneyPose())))
+  expect(digest(sample(COLLAPSE_END,aspect,h,out))).toEqual(digest(collapseCamera(aspect,createJourneyPose())))
+  const readout=digest(readoutCamera(aspect,createJourneyPose()))
+  for(const p of [READOUT_END,.998,1])expect(digest(sample(p,aspect,h,out))).toEqual(readout)
+})
+it.each([1.6,390/844])('frames the LCD from an elevated rear three-quarter, not head-on, at aspect %s',aspect=>{
+  const d=offsetOf(readoutCamera(aspect,createJourneyPose())).normalize(),facing=d.dot(LCD_NORMAL)
+  expect(facing).toBeGreaterThan(.5)
+  expect(facing).toBeLessThan(.9)
+  expect(Math.asin(d.y)*180/Math.PI).toBeGreaterThan(18)
+  expect(d.x).toBeLessThan(-.4)
+})
+it('orbits one way through both close legs without crossing behind the handle axis',()=>{
+  const sample=createJourneyCameraSampler(),out=createJourneyPose(),h=new Matrix4()
+  let prev=Infinity
+  for(let j=0;j<=600;j++){
+    const p=COLLAPSE_START+(READOUT_END-COLLAPSE_START)*j/600,o=offsetOf(sample(p,1.6,h,out)),az=Math.atan2(o.x,o.z)
+    expect(az).toBeLessThanOrEqual(prev+1e-9)
+    expect(az).toBeLessThan(0)
+    prev=az
+  }
 })

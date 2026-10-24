@@ -52,9 +52,42 @@ function shortOrbit(a:JourneyPose,b:JourneyPose,u:number,h:Matrix4,out:JourneyPo
   const d=Math.atan2(bOffset.x,bOffset.z)-Math.atan2(aOffset.x,aOffset.z)
   return orbitCamera(a,b,u,h,out,Math.atan2(Math.sin(d),Math.cos(d))>=0?1:-1)
 }
+/**
+ * Owner correction (2026-10-24, Issue 9 / 09.png): the old .94-.995 override swung the camera 18 cm behind the rear
+ * handle along the LCD normal, so the whole collapse was watched dead-on down the explosion axis. The close beats are
+ * now authored here in world space (handle/LCD at -Z, snout at +Z, reaction arm toward +X):
+ * - close-settle [.94,.98]: crane up and push in from the exploded hold to an elevated side three-quarter on the -X
+ *   side, ~74 deg off the explosion axis, so the stages visibly slide home with depth and parallax.
+ * - close-ownership [.98,.995]: continue the same clockwise orbit to an elevated rear three-quarter that shows the
+ *   side of the body and the angled LCD face, then hold to 1.
+ */
+export const COLLAPSE_START = .94
+export const COLLAPSE_END = .98
+export const READOUT_END = .995
+export const COLLAPSE_AZIMUTH_DEG = -72
+export const COLLAPSE_ELEVATION_DEG = 28
+export const READOUT_AZIMUTH_DEG = -128
+export const READOUT_ELEVATION_DEG = 24
+const WORLD_FRAME = new Matrix4()
+function spherical(out:JourneyPose,tx:number,ty:number,tz:number,azDeg:number,elDeg:number,r:number,fov:number):JourneyPose {
+  const az=azDeg*Math.PI/180,el=elDeg*Math.PI/180
+  out.target.set(tx,ty,tz)
+  out.position.set(tx+r*Math.cos(el)*Math.sin(az),ty+r*Math.sin(el),tz+r*Math.cos(el)*Math.cos(az))
+  out.up.set(0,1,0);out.fov=fov;return out
+}
+/** Exploded-hold endpoint X (world space), unchanged from the doc39 overview. */
+export function explodedHoldCamera(aspect:number,out:JourneyPose):JourneyPose {
+  out.position.set(-.62,.18,.32);out.target.set(0,0,-.15);out.up.set(0,1,0);out.fov=aspect<.8?58:42
+  if(aspect<.8)out.position.lerpVectors(out.target,out.position,2.2)
+  return out
+}
+/** Assembled, elevated side three-quarter that close-settle lands on at p = .98. */
+export const collapseCamera=(aspect:number,out:JourneyPose)=>spherical(out,0,0,-.01,COLLAPSE_AZIMUTH_DEG,COLLAPSE_ELEVATION_DEG,aspect<.8?.9:.5,aspect<.8?58:42)
+/** Elevated rear three-quarter on the same side: angled LCD face plus the side of the wrench body. */
+export const readoutCamera=(aspect:number,out:JourneyPose)=>spherical(out,-.02,-.02,-.11,READOUT_AZIMUTH_DEG,READOUT_ELEVATION_DEG,aspect<.8?.80:.44,aspect<.8?50:36)
 function copy(a:JourneyPose,out:JourneyPose) {out.position.copy(a.position);out.target.copy(a.target);out.up.copy(a.up);out.fov=a.fov;return out}
 export function createJourneyCameraSampler() {
-  const a=createJourneyPose(),i=createJourneyPose(),e=createJourneyPose(),f=createJourneyPose(),x=createJourneyPose()
+  const a=createJourneyPose(),i=createJourneyPose(),e=createJourneyPose(),f=createJourneyPose(),x=createJourneyPose(),c=createJourneyPose(),r=createJourneyPose()
   const old=createPrivateInspectionSample(),legacy={...createJourneyPose(),ortho:0,distance:1}
   const study=(q:number,aspect:number,h:Matrix4,out:JourneyPose)=>{
     const c=samplePrivateInspection(q,aspect,old).camera
@@ -75,8 +108,12 @@ export function createJourneyCameraSampler() {
     study(.94,aspect,h,f)
     if(p<=.83)return copy(f,out)
     if(p<.845)return shortOrbit(f,i,(p-.83)/.015,h,out)
-    x.position.set(-.62,.18,.32);x.target.set(0,0,-.15);x.up.set(0,1,0);x.fov=aspect<.8?58:42
-    if(aspect<.8)x.position.lerpVectors(x.target,x.position,2.2)
-    return shortOrbit(i,x,(p-.855)/.075,h,out)
+    explodedHoldCamera(aspect,x)
+    if(p<=COLLAPSE_START)return shortOrbit(i,x,(p-.855)/.075,h,out)
+    // Close legs are authored in world space, so orbit about world +Y rather than the shaft registration frame.
+    collapseCamera(aspect,c)
+    if(p<=COLLAPSE_END)return shortOrbit(x,c,(p-COLLAPSE_START)/(COLLAPSE_END-COLLAPSE_START),WORLD_FRAME,out)
+    readoutCamera(aspect,r)
+    return shortOrbit(c,r,(p-COLLAPSE_END)/(READOUT_END-COLLAPSE_END),WORLD_FRAME,out)
   }
 }

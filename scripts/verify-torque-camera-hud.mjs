@@ -6,6 +6,9 @@ import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
 
 const args = Object.fromEntries(process.argv.slice(2).map(x => x.replace(/^--/, '').split('=')))
 const phase = args.phase ?? 'after'
+const url = args.url ?? 'http://localhost:5341/torque-wrench/'
+// Software-GL (cloud SwiftShader) frames are slow; allow a longer native-scroll settle there.
+const seekTimeout = Number(args['seek-timeout'] ?? 15000)
 const width = Number(args.width ?? 1440), height = Number(args.height ?? 900)
 const out = `output/playwright/torque-camera-hud-2026-10-21/${phase}${width < 600 ? '-narrow' : ''}`
 mkdirSync(out, { recursive: true })
@@ -17,16 +20,16 @@ page.on('pageerror', e => errors.push(String(e)))
 page.on('console', m => { if (m.type() === 'error') errors.push(m.text()) })
 const report = { phase, launch: describeLaunch(), viewport: [width,height], capturedAt: new Date().toISOString(), errors, samples: [], interactions: [], gates: [] }
 try {
-  await page.goto('http://localhost:5341/torque-wrench/', { waitUntil: 'domcontentloaded', timeout: 60000 })
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.waitForFunction(() => {
     const w = window.__torqueWorld?.snapshot?.()
     return w?.ready && w.sheet?.baked && w.sheet.stats?.annotationsReady === 1
       && w.sheet.stats?.shaderWarmReady === 1 && window.__torqueNarrative
   }, null, { timeout: 120000, polling: 500 })
-  const points = args.points ? args.points.split(',').map(Number) : args.quick ? [0.4725, 0.505, 0.735] : [0.418, 0.435, 0.442, 0.46, 0.469, 0.4725, 0.4805, 0.4945, 0.500, 0.505, 0.520, 0.545, 0.587, 0.593, 0.600, 0.735, 0.747, 0.775, 0.885, 0.905, 0.925, 0.94, 0.960]
+  const points = args.points ? args.points.split(',').map(Number) : args.quick ? [0.4725, 0.505, 0.735] : [0.418, 0.435, 0.442, 0.46, 0.469, 0.4725, 0.4805, 0.4945, 0.500, 0.505, 0.515, 0.520, 0.545, 0.550, 0.587, 0.593, 0.600, 0.735, 0.747, 0.775, 0.885, 0.905, 0.925, 0.94, 0.955, 0.960, 0.965, 0.98, 0.99]
   for (const p of points) {
     await page.evaluate(p => window.scrollTo(0, window.__torqueNarrative.scrollFraction(p) * (document.documentElement.scrollHeight - innerHeight)), p)
-    await page.waitForFunction(p => Math.abs(window.__torqueNarrative.snapshot().progress - p) < 0.00005, p, { timeout: 15000 })
+    await page.waitForFunction(p => Math.abs(window.__torqueNarrative.snapshot().progress - p) < 0.00005, p, { timeout: seekTimeout })
     await page.waitForTimeout(p === points[0] ? 1800 : 600)
     const sample = await page.evaluate(() => ({
       narrative: window.__torqueNarrative.snapshot(), world: window.__torqueWorld.snapshot(),
@@ -47,7 +50,7 @@ try {
     })
     sample.requestedProgress = p
     report.samples.push(sample)
-    if (phase === 'after' && [.4725, .520, .545].includes(p)) {
+    if (phase === 'after' && [.4725, .515, .520, .545, .550].includes(p)) {
       sample.groovePixels = await page.evaluate(async () => {
         const proof = window.__torqueWorld.grooveCapture()
         const decode = async url => {
@@ -125,8 +128,34 @@ try {
     const surface = at(.4725)?.world.ring.sourceKnurlSurface
     add('measured OD-only mask', surface?.outerVertices > 0 && surface.knurledOuterVertices === surface.outerVertices
       && surface.boreVertices > 0 && surface.faceVertices > 0 && surface.knurledBoreVertices === 0 && surface.knurledFaceVertices === 0, surface)
-    add('blue pixels at entry', at(.4725)?.groovePixels?.blue.colored>10, at(.4725)?.groovePixels)
+    // Issue 4: the P000420 grooves fade out with the Clutch Housing while the Ring Switch is isolated.
+    add('no groove paint while ring isolated .4725', at(.4725)?.groovePixels?.blue.colored===0 && at(.4725)?.groovePixels?.red.colored===0, at(.4725)?.groovePixels)
+    // Issue 6: OSHA Blue reads with the ring down (shift 0); OSHA Red reads with it up (shift 1).
+    add('blue groove at shift 0 .515', at(.515)?.world.mechanical.channels.shift < 1e-6 && at(.515)?.groovePixels?.blue.colored>10, at(.515)?.groovePixels)
     add('red pixels after shift', at(.545)?.groovePixels?.red.colored>10, at(.545)?.groovePixels)
+    add('red groove at shift 1 .55', at(.550)?.world.mechanical.channels.shift > 1-1e-6 && at(.550)?.groovePixels?.red.colored>10, at(.550)?.groovePixels)
+    // Issue 9 (09.png): the gearbox collapse [.94,.98] is an elevated side three-quarter, never the axial
+    // rear-handle/LCD close-up. World frame: explosion along Z, handle + LCD at -Z.
+    const offset = cam => cam.position.map((x,i)=>x-cam.target[i])
+    const unit = v => { const l = Math.hypot(...v); return v.map(x=>x/l) }
+    for (const p of [.955, .965]) {
+      const w = at(p)?.world, d = w && unit(offset(w.camera)), b = w?.ring.projectedBounds
+      add(`collapse camera elevated side three-quarter ${p}`, w && w.mechanical.channels.explode > .05 && w.mechanical.channels.explode < .95
+        && Math.abs(d[2]) < .6 && Math.asin(d[1])*180/Math.PI > 12 && offset(w.camera)[0] < -.2 && w.lcdDisplay?.facing < .2
+        && b && !b.behind && b.rect[0]>=0 && b.rect[1]>=0 && b.rect[2]<=width && b.rect[3]<=height,
+        { camera: w?.camera, direction: d, explode: w?.mechanical.channels.explode, lcd: w?.lcdDisplay, ringBounds: b })
+    }
+    const camMove = (a,b) => Math.hypot(...at(a).world.camera.position.map((x,i)=>x-at(b).world.camera.position[i]))
+    add('collapse camera moves with the stages', camMove(.94,.955) > .02 && camMove(.955,.965) > .02 && camMove(.965,.98) > .02,
+      { '.94-.955': camMove(.94,.955), '.955-.965': camMove(.955,.965), '.965-.98': camMove(.965,.98) })
+    const settled = at(.98)?.world, settledDir = settled && unit(offset(settled.camera))
+    add('assembled side three-quarter .98', settled?.mechanical.channels.explode < 1e-6 && Math.asin(settledDir[1])*180/Math.PI >= 25 && Math.abs(settledDir[2]) < .35,
+      { camera: settled?.camera, direction: settledDir })
+    // The LCD Manometer is visited only after the stack is home: elevated rear three-quarter, angled face.
+    const readout = at(.99)?.world, ndc = readout?.lcdDisplay?.centreNdc
+    add('LCD readout after collapse .99', readout?.mechanical.channels.explode === 0 && readout.lcdDisplay.facing > .5 && readout.lcdDisplay.facing < .95
+      && Math.abs(ndc[0]) < .9 && Math.abs(ndc[1]) < .9 && Math.asin(unit(offset(readout.camera))[1])*180/Math.PI > 18,
+      { camera: readout?.camera, lcd: readout?.lcdDisplay, lcdAnchor: at(.99)?.overlay?.anchors?.find(x=>x.id==='lcd-manometer') })
     add('four accessible focus callouts', report.interactions.length===4 && report.interactions.every(x=>x.selected===x.id && x.restored.focusId===null && x.cameraMoved>.001), report.interactions)
     // Reverse native seek must return to the same authored camera and subject.
     const reverse = []
