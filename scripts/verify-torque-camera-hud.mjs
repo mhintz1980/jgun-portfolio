@@ -9,6 +9,7 @@ const phase = args.phase ?? 'after'
 const url = args.url ?? 'http://localhost:5341/torque-wrench/'
 // Software-GL (cloud SwiftShader) frames are slow; allow a longer native-scroll settle there.
 const seekTimeout = Number(args['seek-timeout'] ?? 15000)
+const shotTimeout = Number(args['shot-timeout'] ?? 30000)
 const width = Number(args.width ?? 1440), height = Number(args.height ?? 900)
 const out = `output/playwright/torque-camera-hud-2026-10-21/${phase}${width < 600 ? '-narrow' : ''}`
 mkdirSync(out, { recursive: true })
@@ -73,7 +74,7 @@ try {
         return result
       })
     }
-    await page.screenshot({ path: `${out}/p-${p.toFixed(4)}.png` })
+    await page.screenshot({ path: `${out}/p-${p.toFixed(4)}.png`, timeout: shotTimeout })
     if (phase === 'after' || args.interactions) {
       for (const anchor of sample.overlay?.anchors ?? []) {
         if (!anchor.visible || report.interactions.some(x => x.id === anchor.id)) continue
