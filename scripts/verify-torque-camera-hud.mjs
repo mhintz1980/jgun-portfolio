@@ -157,7 +157,8 @@ try {
     add('LCD readout after collapse .99', readout?.mechanical.channels.explode === 0 && readout.lcdDisplay.facing > .5 && readout.lcdDisplay.facing < .95
       && Math.abs(ndc[0]) < .9 && Math.abs(ndc[1]) < .9 && Math.asin(unit(offset(readout.camera))[1])*180/Math.PI > 18,
       { camera: readout?.camera, lcd: readout?.lcdDisplay, lcdAnchor: at(.99)?.overlay?.anchors?.find(x=>x.id==='lcd-manometer') })
-    add('four accessible focus callouts', report.interactions.length===4 && report.interactions.every(x=>x.selected===x.id && x.restored.focusId===null && x.cameraMoved>.001), report.interactions)
+    // clutch-housing is disabled (owner 2026-10-24), so three callouts remain reachable.
+    add('three accessible focus callouts', report.interactions.length===3 && report.interactions.every(x=>x.selected===x.id && x.restored.focusId===null && x.cameraMoved>.001), report.interactions)
     // Reverse native seek must return to the same authored camera and subject.
     const reverse = []
     for (const p of [.593,.520,.4805,.435]) {

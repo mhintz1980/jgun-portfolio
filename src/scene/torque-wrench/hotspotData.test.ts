@@ -26,7 +26,9 @@ describe('torque hotspot gate (doc45 issue 5)', () => {
 
   it('gives each callout its own verifier checkpoint', () => {
     expect(activeAt(0.52)).toEqual(['ring-switch'])
-    expect(activeAt(0.545)).toEqual(['clutch-housing'])
+    // Clutch Housing is disabled by the owner (2026-10-24) until it has an exposed-anchor beat.
+    for (let p = 0; p <= 1; p += 0.0005) expect(activeAt(p)).not.toContain('clutch-housing')
+    expect(activeAt(0.545)).toEqual([])
     expect(activeAt(0.905)).toEqual(['stage2-planet'])
     expect(activeAt(0.925)).toEqual(['stage2-planet'])
     expect(activeAt(0.99)).toEqual(['lcd-manometer'])
