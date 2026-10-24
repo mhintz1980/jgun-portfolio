@@ -125,8 +125,6 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const ringExitCamera = useMemo(createPrivateRingCamera, [])
   const ringBaseDistance = useRef(.24)
   const ringExitPose = useMemo(createJourneyPose, [])
-  const lcdPose = useMemo(createJourneyPose, [])
-  const lcdNormal = useMemo(() => new Vector3(), [])
   const entryInverse = useMemo(() => new Matrix4(), [])
   const entryFromDirection = useMemo(() => new Vector3(), [])
   const entryToDirection = useMemo(() => new Vector3(), [])
@@ -751,13 +749,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         })
       }
       const privateSurroundings = surroundingMaterials.current
-      // Keep the blue mode reference through the entry composition; retire it
-      // before cutting starts, then let the ordinary context fade restore it.
-      const blueReference = !manual && progress >= .46 && progress < .475
-        ? 1 - Math.max(0, Math.min(1, (progress - .4725) / .0025)) : 0
+      // Both painted grooves are features of the Clutch Housing (P000420), so they share its
+      // context fade exactly: nothing of P000420 floats around the isolated Ring Switch (owner 04.png).
       if (privateSurroundings) {
-        for (const { mesh, source, clone } of privateSurroundings.entries) {
-          const fade = mesh.name === GROOVE_NAMES.blue ? Math.max(surroundingsOpacity, blueReference) : surroundingsOpacity
+        for (const { source, clone } of privateSurroundings.entries) {
+          const fade = surroundingsOpacity
           if (Array.isArray(source) && Array.isArray(clone)) {
             for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], fade)
           } else if (!Array.isArray(source) && !Array.isArray(clone)) {
@@ -977,7 +973,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         }
         mesh.visible = sourceRingFade > 0.001
       }
-      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001 || blueReference > .001
+      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001
       probe.ring.returnBlend = returnBlend
       probe.ring.sourceOpacity = sourceRingFade
       probe.ring.sourceVisible = sourceRingFade > 0.001
@@ -1028,33 +1024,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
         camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
-      if (!manual && progress >= .56 && progress <= .94) {
+      if (!manual && progress >= .56 && progress <= 1) {
         journeyCamera(progress, aspect, cameraRegistration, journeyPose, ring.current ? ringExitPose : undefined)
         camera.position.copy(journeyPose.position);target.copy(journeyPose.target);camera.up.copy(journeyPose.up);camera.fov=journeyPose.fov
-      }
-      // Rear-facing readout view during assembly restore: the LCD cannot share
-      // the portrait Ring Switch composition without leaving the screen.
-      if (!manual && progress > .94 && progress < .995 && hotspots[2].node) {
-        const u = Math.max(0, Math.min(1, (progress - .94) / .015))
-        const v = Math.max(0, Math.min(1, (progress - .975) / .02))
-        const weight = u * u * (3 - 2 * u) * (1 - v * v * (3 - 2 * v))
-        const display = hotspots[2].node
-        display.updateWorldMatrix(true, false)
-        lcdPose.target.copy(hotspots[2].local).applyMatrix4(display.matrixWorld)
-        display.getWorldDirection(lcdNormal)
-        lcdPose.position.copy(lcdPose.target).addScaledVector(lcdNormal, aspect < .8 ? .23 : .18)
-        lcdPose.position.y += .025
-        lcdPose.up.set(0, 1, 0); lcdPose.fov = aspect < .8 ? 50 : 34
-        handoffFrom.position.copy(camera.position); handoffFrom.target.copy(target)
-        handoffFrom.up.copy(camera.up); handoffFrom.fov = camera.fov
-        entryInverse.copy(ringAnchor).invert()
-        entryFromDirection.subVectors(handoffFrom.position, handoffFrom.target).transformDirection(entryInverse)
-        entryToDirection.subVectors(lcdPose.position, lcdPose.target).transformDirection(entryInverse)
-        const a = Math.atan2(entryFromDirection.x, entryFromDirection.z), b = Math.atan2(entryToDirection.x, entryToDirection.z)
-        const shortest = Math.atan2(Math.sin(b - a), Math.cos(b - a))
-        orbitCamera(handoffFrom, lcdPose, weight, ringAnchor, handoffResult, shortest >= 0 ? 1 : -1)
-        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
-        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
       // Journey census (opacity sweep + study traversal) is built on demand in snapshot().
       lastStudyProgress.current = studyProgress

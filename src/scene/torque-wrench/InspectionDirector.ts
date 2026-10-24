@@ -443,6 +443,11 @@ export const RING_GROOVE_VIEW = Object.freeze({
 })
 export const RING_CAMERA_BLUE_AT = 0.4725
 export const RING_CAMERA_RED_AT = 0.56
+/** Camera reaches the snout-side (OSHA Blue) framing when the assembly is fully restored. */
+export const RING_CAMERA_BLUE_HOLD_START = 0.505
+/** Shift window (MechanismDirector): shift 0 -> 1 over [.520, .545]. The camera orbit shares it. */
+export const RING_SHIFT_START = 0.520
+export const RING_SHIFT_END = 0.545
 const RING_CAMERA_KNOTS: readonly RingCameraKnot[] = [
   { progress: 0.46, azimuth: RING_BASE_AZIMUTH, elevation: RING_BASE_ELEVATION, distanceScale: 1, fov: 34 },
   { progress: 0.4725, ...RING_GROOVE_VIEW.blue },
@@ -452,9 +457,14 @@ const RING_CAMERA_KNOTS: readonly RingCameraKnot[] = [
   { progress: 0.481, azimuth: 2.84, elevation: 0.15, distanceScale: RING_CLOSEUP_SCALE, fov: 24 },
   { progress: 0.4905, azimuth: 2.95, elevation: 0.16, distanceScale: RING_CLOSEUP_SCALE, fov: 24 },
   { progress: 0.4945, azimuth: 2.95, elevation: 0.18, distanceScale: 1, fov: 32 },
-  // The restored assembly glides toward the handle BEFORE the shift starts.
-  { progress: 0.520, azimuth: 3.35, elevation: 0.2, distanceScale: 1, fov: 32 },
-  { progress: 0.560, ...RING_GROOVE_VIEW.red },
+  // Owner 2026-10-24 (06.png): while the assembly fades back in and the Ring Switch is still DOWN
+  // (shift = 0), hold the snout-side three-quarter so the OSHA Blue groove is in plain view.
+  { progress: RING_CAMERA_BLUE_HOLD_START, ...RING_GROOVE_VIEW.blue },
+  { progress: RING_SHIFT_START, ...RING_GROOVE_VIEW.blue },
+  // Orbit handleward in lockstep with the shift (.520 -> .545): the ring covers Blue and uncovers
+  // OSHA Red, which is in view when the switch is UP. Hold the red framing through .560.
+  { progress: RING_SHIFT_END, ...RING_GROOVE_VIEW.red },
+  { progress: RING_CAMERA_RED_AT, ...RING_GROOVE_VIEW.red },
 ]
 
 export function createPrivateRingCamera(): PrivateRingCamera {

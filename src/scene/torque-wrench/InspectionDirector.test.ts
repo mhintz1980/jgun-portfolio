@@ -504,11 +504,16 @@ it.each([DESKTOP,NARROW])('doc39 keeps the whole ring/indicator envelope framed 
 
 it('doc39 ring path moves during fade-in, swings handleward during shift and retraces all seams',()=>{
   const at=(p:number)=>samplePrivateRingCamera(p,.19,createPrivateRingCamera())
+  const side=(p:number)=>{const c=at(p);return c.pz-c.tz}
   expect(at(.495)).not.toEqual(at(.505))
-  expect(at(.52).pz-at(.52).tz).toBeLessThan(0)
-  expect(at(.56).pz-at(.56).tz).toBeLessThan(at(.52).pz-at(.52).tz)
+  // Owner 2026-10-24 (06.png): Ring Switch DOWN (shift 0, .505-.520) is framed from the snout side (+Z)
+  // where the OSHA Blue groove sits; the camera crosses to the handle side (-Z) only with the shift.
+  for(const p of [.505,.51,.515,.52])expect(side(p),'snout side at '+p).toBeGreaterThan(0)
+  for(const p of [.545,.55,.555,.56])expect(side(p),'handle side at '+p).toBeLessThan(0)
+  expect(side(.5325)).toBeLessThan(side(.52))
+  expect(side(.5325)).toBeGreaterThan(side(.545))
   expect(at(.56).fov).toBe(32)
-  for(const p of [.46,.4725,.4768,.485,.4945,.52,.56]){
+  for(const p of [.46,.4725,.4768,.485,.4945,.505,.52,.545,.56]){
     const a=at(p-1e-7),b=at(p+1e-7)
     expect(Math.hypot(a.px-b.px,a.py-b.py,a.pz-b.pz)).toBeLessThan(1e-5)
     expect(at(p)).toEqual(at(p))
