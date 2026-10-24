@@ -68,6 +68,11 @@ export const TORQUE_HOTSPOT_EXCLUSIONS = Object.freeze([
 export const TORQUE_HOTSPOT_MIN_SURROUNDINGS = 0.95
 export const TORQUE_HOTSPOT_MIN_EXPLODE = 0.65
 
+/** Owner 2026-10-24: the Clutch Housing callout is off until it gets a camera beat that exposes
+ * P000420 (the handle-side .532-.558 view hides every surface anchor). Its data stays for re-enable.
+ */
+export const TORQUE_HOTSPOTS_DISABLED: ReadonlySet<string> = new Set(['clutch-housing'])
+
 const hotspotById = (id: string) => TORQUE_HOTSPOTS.find(item => item.id === id)
 
 export function isTorqueHotspotInSpecialSequence(progress: number): boolean {
@@ -82,7 +87,7 @@ export function isTorqueHotspotActive(
   ringVisible: boolean, studyVisible: boolean, manual: boolean,
 ): boolean {
   const hotspot = hotspotById(id)
-  if (!hotspot || manual || studyVisible || ringVisible) return false
+  if (!hotspot || TORQUE_HOTSPOTS_DISABLED.has(id) || manual || studyVisible || ringVisible) return false
   if (!Number.isFinite(progress) || isTorqueHotspotInSpecialSequence(progress)) return false
   if (!(surroundingsOpacity >= TORQUE_HOTSPOT_MIN_SURROUNDINGS)) return false
   if (progress < hotspot.window[0] || progress > hotspot.window[1]) return false
