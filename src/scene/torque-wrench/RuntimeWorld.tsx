@@ -48,6 +48,7 @@ import { createJourneyCameraSampler, createJourneyPose, orbitCamera } from './Jo
 import { createJourneyPlanes, effectiveMeshOpacity, measureShaftLandmarks, measureShaftDisplacement, registerShaft, registrationScale } from './shaftJourneyRegistration'
 import { applyShaftLook } from './shaftJourneyLook'
 import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
+import { isTorqueHotspotActive } from './hotspotData'
 import { createStopAndAppreciateController, type StopAndAppreciateTelemetry } from './stopAndAppreciate'
 
 const MODEL_URL = '/models/Default.glb'
@@ -60,6 +61,42 @@ const RING_LOAD_AT = 0.44
 const RING_ACTIVE_START = 0.469
 const RING_CAMERA_ENTRY_END = 0.4725
 const GROOVE_NAMES = Object.freeze({ red: 'P000420 Speed Indicator (Red)', blue: 'P000420 Speed Indicator (Blue)' })
+
+/** 26 surface extrema of a part, in its own frame, used as candidate callout anchors. */
+function createSurfaceFeature(node: Object3D) {
+  node.updateWorldMatrix(true, true)
+  const inverse = node.matrixWorld.clone().invert(), transform = new Matrix4(), point = new Vector3()
+  const directions: Vector3[] = [], points: Vector3[] = [], scores: number[] = []
+  for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
+    if (!x && !y && !z) continue
+    directions.push(new Vector3(x, y, z).normalize()); points.push(new Vector3()); scores.push(-Infinity)
+  }
+  const meshes: Mesh[] = []
+  node.traverse(child => { if (child instanceof Mesh) meshes.push(child) })
+  const visit = (each: (p: Vector3) => void) => {
+    for (const mesh of meshes) {
+      transform.multiplyMatrices(inverse, mesh.matrixWorld)
+      const position = mesh.geometry.getAttribute('position')
+      for (let i = 0; i < position.count; i++) each(point.fromBufferAttribute(position, i).applyMatrix4(transform))
+    }
+  }
+  const bounds = new Box3()
+  visit(p => {
+    bounds.expandByPoint(p)
+    for (let j = 0; j < directions.length; j++) scores[j] = Math.max(scores[j], p.dot(directions[j]))
+  })
+  // Average every vertex within 2% of the extreme: on a band or cylinder the radial extremum
+  // is a whole edge-to-edge column, and its mid-point is the exposed face, not a chamfer edge.
+  const tolerance = .02 * Math.max(1e-6, bounds.getSize(new Vector3()).length())
+  const counts = directions.map(() => 0)
+  visit(p => {
+    for (let j = 0; j < directions.length; j++) {
+      if (p.dot(directions[j]) >= scores[j] - tolerance) { points[j].add(p); counts[j]++ }
+    }
+  })
+  for (let j = 0; j < directions.length; j++) if (counts[j]) points[j].multiplyScalar(1 / counts[j])
+  return { node, points, scores, center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())), inverse: new Matrix4(), direction: new Vector3() }
+}
 
 interface SurroundingMaterialEntry {
   readonly mesh: Mesh
@@ -125,8 +162,6 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const ringExitCamera = useMemo(createPrivateRingCamera, [])
   const ringBaseDistance = useRef(.24)
   const ringExitPose = useMemo(createJourneyPose, [])
-  const lcdPose = useMemo(createJourneyPose, [])
-  const lcdNormal = useMemo(() => new Vector3(), [])
   const entryInverse = useMemo(() => new Matrix4(), [])
   const entryFromDirection = useMemo(() => new Vector3(), [])
   const entryToDirection = useMemo(() => new Vector3(), [])
@@ -208,6 +243,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     })
   }, [model, rig])
   const overlay = useMemo(() => ({ progress: 0, subjectTime: 0, studyVisible: false, manual: false,
+    explode: 0, surroundingsOpacity: 1, ringVisible: false,
     focusId: null as string | null, anchors: hotspots.map(item => item.screen) }), [hotspots])
   const focus = useMemo(() => ({ id: null as string | null, weight: 0, progress: 0, initialized: false,
     position: new Vector3(), target: new Vector3(), direction: new Vector3() }), [])
@@ -216,31 +252,24 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const hotspotHits = useMemo(() => [] as ReturnType<Raycaster['intersectObjects']>, [])
   const hotspotBlockers = useMemo(() => [] as Mesh[], [])
   const hotspotTick = useRef(0)
-  const planetFeatures = useMemo(() => rig.stages.stage2.planets.map(node => {
-    // Sample actual tooth vertices in the owning P000247 occurrence frame.
-    // Its pin centre is hidden by the carrier plates in an otherwise exposed
-    // exploded view, so a leader must terminate on a visible tooth surface.
-    node.updateWorldMatrix(true, true)
-    const inverse = node.matrixWorld.clone().invert(), transform = new Matrix4(), point = new Vector3()
-    const directions: Vector3[] = [], points: Vector3[] = [], scores: number[] = []
-    for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
-      if (!x && !y && !z) continue
-      directions.push(new Vector3(x, y, z).normalize()); points.push(new Vector3()); scores.push(-Infinity)
+  // Sample actual surface vertices in each part's own frame. Bounds centres sit on the
+  // drivetrain axis inside the part (a P000247 pin centre is hidden by the carrier plates,
+  // the P003068/P000420 centres sit inside the housing), so a leader must terminate on a
+  // visible surface extremum instead.
+  const planetFeatures = useMemo(() => rig.stages.stage2.planets.map(createSurfaceFeature), [rig])
+  const hotspotFeatures = useMemo(() => {
+    const groove = (name: string) => rig.meshes.find(mesh => mesh.name === name) ?? null
+    const features = (...nodes: (Object3D | null | undefined)[]) =>
+      nodes.filter((node): node is Object3D => Boolean(node)).map(createSurfaceFeature)
+    return {
+      // The exposed groove is the clutch-housing feature this beat is about: blue while the
+      // ring is down, red once it has shifted up (it covers the blue groove then).
+      clutchDown: features(groove(GROOVE_NAMES.blue), groove(GROOVE_NAMES.red), rig.clutch.static),
+      clutchUp: features(groove(GROOVE_NAMES.red), groove(GROOVE_NAMES.blue), rig.clutch.static),
+      ring: features(rig.clutch.ringSwitch),
+      lcd: features(rig.lcdCluster?.readout),
     }
-    node.traverse(child => {
-      if (!(child instanceof Mesh)) return
-      transform.multiplyMatrices(inverse, child.matrixWorld)
-      const position = child.geometry.getAttribute('position')
-      for (let i = 0; i < position.count; i++) {
-        point.fromBufferAttribute(position, i).applyMatrix4(transform)
-        for (let j = 0; j < directions.length; j++) {
-          const score = point.dot(directions[j])
-          if (score > scores[j]) { scores[j] = score; points[j].copy(point) }
-        }
-      }
-    })
-    return { node, points, scores, center: node.worldToLocal(new Box3().setFromObject(node).getCenter(new Vector3())), inverse: new Matrix4(), direction: new Vector3() }
-  }), [rig])
+  }, [rig])
   const blendCamera = useMemo(createCameraHandoff, [])
   const handoffFrom = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
   const handoffTo = useMemo<CameraHandoffPose>(() => ({ position: new Vector3(), target: new Vector3(), up: new Vector3(), fov: 42 }), [])
@@ -484,7 +513,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       const id = (event as CustomEvent<{ id?: string | null }>).detail?.id
       // A DOM button can be activated between projection ticks. Its part stays
       // valid during that short transition even if the center ray just changed.
-      if (id == null || (!overlay.manual && !overlay.studyVisible && overlay.progress >= .46 && overlay.progress <= .995
+      if (id == null || (isTorqueHotspotActive(id, overlay.progress, overlay.explode, overlay.surroundingsOpacity,
+        overlay.ringVisible, overlay.studyVisible, overlay.manual)
         && hotspots.some(item => item.id === id && item.node))) {
         if (id) stopAndAppreciate.toggleFreeLook(false, store.getProgress())
         focus.id = id ?? null
@@ -751,13 +781,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         })
       }
       const privateSurroundings = surroundingMaterials.current
-      // Keep the blue mode reference through the entry composition; retire it
-      // before cutting starts, then let the ordinary context fade restore it.
-      const blueReference = !manual && progress >= .46 && progress < .475
-        ? 1 - Math.max(0, Math.min(1, (progress - .4725) / .0025)) : 0
+      // Both painted grooves are features of the Clutch Housing (P000420), so they share its
+      // context fade exactly: nothing of P000420 floats around the isolated Ring Switch (owner 04.png).
       if (privateSurroundings) {
-        for (const { mesh, source, clone } of privateSurroundings.entries) {
-          const fade = mesh.name === GROOVE_NAMES.blue ? Math.max(surroundingsOpacity, blueReference) : surroundingsOpacity
+        for (const { source, clone } of privateSurroundings.entries) {
+          const fade = surroundingsOpacity
           if (Array.isArray(source) && Array.isArray(clone)) {
             for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], fade)
           } else if (!Array.isArray(source) && !Array.isArray(clone)) {
@@ -773,6 +801,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.isolation.shaftVisible = studyVisible
       overlay.progress = progress
       overlay.studyVisible = studyVisible; overlay.manual = manual
+      overlay.explode = channels.explode; overlay.surroundingsOpacity = surroundingsOpacity; overlay.ringVisible = ringVisible
       if (!manual && progress >= RING_LOAD_AT && !ring.current) {
         const source = rig.clutch.ringSwitch
         if (!source) throw new Error('Private ring source unavailable')
@@ -977,7 +1006,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         }
         mesh.visible = sourceRingFade > 0.001
       }
-      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001 || blueReference > .001
+      if (group.current) group.current.visible = surroundingsOpacity > 0.001 || sourceRingFade > 0.001 || sourceShaftFade > .001
       probe.ring.returnBlend = returnBlend
       probe.ring.sourceOpacity = sourceRingFade
       probe.ring.sourceVisible = sourceRingFade > 0.001
@@ -1028,33 +1057,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
         camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
-      if (!manual && progress >= .56 && progress <= .94) {
+      if (!manual && progress >= .56 && progress <= 1) {
         journeyCamera(progress, aspect, cameraRegistration, journeyPose, ring.current ? ringExitPose : undefined)
         camera.position.copy(journeyPose.position);target.copy(journeyPose.target);camera.up.copy(journeyPose.up);camera.fov=journeyPose.fov
-      }
-      // Rear-facing readout view during assembly restore: the LCD cannot share
-      // the portrait Ring Switch composition without leaving the screen.
-      if (!manual && progress > .94 && progress < .995 && hotspots[2].node) {
-        const u = Math.max(0, Math.min(1, (progress - .94) / .015))
-        const v = Math.max(0, Math.min(1, (progress - .975) / .02))
-        const weight = u * u * (3 - 2 * u) * (1 - v * v * (3 - 2 * v))
-        const display = hotspots[2].node
-        display.updateWorldMatrix(true, false)
-        lcdPose.target.copy(hotspots[2].local).applyMatrix4(display.matrixWorld)
-        display.getWorldDirection(lcdNormal)
-        lcdPose.position.copy(lcdPose.target).addScaledVector(lcdNormal, aspect < .8 ? .23 : .18)
-        lcdPose.position.y += .025
-        lcdPose.up.set(0, 1, 0); lcdPose.fov = aspect < .8 ? 50 : 34
-        handoffFrom.position.copy(camera.position); handoffFrom.target.copy(target)
-        handoffFrom.up.copy(camera.up); handoffFrom.fov = camera.fov
-        entryInverse.copy(ringAnchor).invert()
-        entryFromDirection.subVectors(handoffFrom.position, handoffFrom.target).transformDirection(entryInverse)
-        entryToDirection.subVectors(lcdPose.position, lcdPose.target).transformDirection(entryInverse)
-        const a = Math.atan2(entryFromDirection.x, entryFromDirection.z), b = Math.atan2(entryToDirection.x, entryToDirection.z)
-        const shortest = Math.atan2(Math.sin(b - a), Math.cos(b - a))
-        orbitCamera(handoffFrom, lcdPose, weight, ringAnchor, handoffResult, shortest >= 0 ? 1 : -1)
-        camera.position.copy(handoffResult.position); target.copy(handoffResult.target)
-        camera.up.copy(handoffResult.up); camera.fov = handoffResult.fov
       }
       // Journey census (opacity sweep + study traversal) is built on demand in snapshot().
       lastStudyProgress.current = studyProgress
@@ -1081,7 +1086,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       // Inspection focus is a local override. Native scroll releases it back to
       // the current authored camera without changing the narrative clock.
-      if (focus.id && (Math.abs(progress - focus.progress) > .0003 || manual || studyVisible || probe.stopAndAppreciate.freeLookActive)) focus.id = null
+      // A focused callout also releases when its own beat ends or a special sequence begins.
+      if (focus.id && (Math.abs(progress - focus.progress) > .0003 || probe.stopAndAppreciate.freeLookActive
+        || !isTorqueHotspotActive(focus.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual))) focus.id = null
       const selected = hotspots.find(item => item.id === focus.id)
       if (selected?.node) {
         selected.node.updateWorldMatrix(true, false)
@@ -1115,19 +1122,22 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           if (visible && effectiveMeshOpacity(mesh) >= .5) hotspotBlockers.push(mesh)
         }
         for (const item of hotspots) {
-          const active = !manual && !studyVisible && progress >= .46 && progress <= .995
-            && (item.id !== 'stage2-planet' || channels.explode > .65)
+          // One callout per dedicated beat and none during special sequences (Session 1C, owner 05-1/05-2.png).
+          const active = isTorqueHotspotActive(item.id, progress, channels.explode, surroundingsOpacity, ringVisible, studyVisible, manual)
           item.screen.visible = false
           item.screen.reason = 'inactive'; item.screen.occluder = ''
-          if (!active || !item.node || (item.id !== 'ring-switch' && surroundingsOpacity < .2)) continue
-          if (item.id === 'stage2-planet') {
-            for (const candidate of planetFeatures) {
+          if (!active || !item.node) continue
+          {
+            const candidates = item.id === 'stage2-planet' ? planetFeatures
+              : item.id === 'clutch-housing' ? (channels.shift >= .5 ? hotspotFeatures.clutchUp : hotspotFeatures.clutchDown)
+                : item.id === 'ring-switch' ? hotspotFeatures.ring : hotspotFeatures.lcd
+            for (const candidate of candidates) {
               candidate.inverse.copy(candidate.node.matrixWorld).invert()
               candidate.direction.copy(camera.position).applyMatrix4(candidate.inverse).sub(candidate.center).normalize()
-              // The most camera-facing real tooth vertex is the most useful
-              // leader endpoint. Try the three nearest surface extrema.
+              // The most camera-facing real surface vertex is the most useful
+              // leader endpoint. Try the four nearest surface extrema.
               for (let k = 0; k < candidate.points.length; k++) candidate.scores[k] = candidate.points[k].dot(candidate.direction)
-              for (let j = 0; j < 3; j++) {
+              for (let j = 0; j < 4; j++) {
                 let best = 0
                 for (let k = 1; k < candidate.scores.length; k++) if (candidate.scores[k] > candidate.scores[best]) best = k
                 candidate.scores[best] = -Infinity
@@ -1156,28 +1166,6 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             }
             continue
           }
-          item.world.copy(item.local).applyMatrix4(item.node.matrixWorld)
-          if (item.id === 'ring-switch' && ringVisible) item.world.copy(ringWorldCenter)
-          item.projected.copy(item.world).project(camera)
-          item.screen.x = (item.projected.x * .5 + .5) * size.width
-          item.screen.y = (.5 - item.projected.y * .5) * size.height
-          item.screen.reason = 'outside-view'
-          if (Math.abs(item.projected.x) > .96 || Math.abs(item.projected.y) > .94 || Math.abs(item.projected.z) > 1) continue
-          hotspotDirection.subVectors(item.world, camera.position)
-          const distance = hotspotDirection.length()
-          hotspotRay.set(camera.position, hotspotDirection.normalize())
-          hotspotRay.far = Math.max(0, distance - .003)
-          hotspotHits.length = 0
-          hotspotRay.intersectObjects(hotspotBlockers, false, hotspotHits)
-          // Only a surface BEFORE the selected part can occlude it. Parts
-          // behind its front surface must not suppress an exposed callout.
-          const nearest = hotspotHits[0]
-          let blocking = Boolean(nearest)
-          let node: Object3D | null = nearest?.object ?? null
-          while (node) { if (node === item.node) { blocking = false; break }; node = node.parent }
-          item.screen.visible = !blocking
-          item.screen.reason = blocking ? 'occluded' : 'visible'
-          item.screen.occluder = blocking ? nearest.object.name : ''
         }
       }
       sheetFrame.cameraLookTargetWorld = target
