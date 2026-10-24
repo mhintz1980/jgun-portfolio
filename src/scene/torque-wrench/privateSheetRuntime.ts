@@ -25,6 +25,11 @@ import { makePrivateCrackGeometry } from './privateElectricGeometry'
 import { makePrivateFractureWebGeometry } from './privateFractureWeb'
 import { createShardDome } from './shardDome'
 
+/** Transparent-pass layering of the private sheet. Ink > intact stock; glow > ink. */
+export const PRIVATE_INTACT_STOCK_ORDER = 3
+export const PRIVATE_INK_ORDER = 4
+export const PRIVATE_GLOW_ORDER = 5
+
 const PRIVATE_LIGHTNING_VERTEX = LIGHTNING_VERTEX
 
 const PRIVATE_LIGHTNING_FRAGMENT = /* glsl */ `
@@ -230,9 +235,10 @@ void main() {
   // Every face is opaque physical stock. Printed ink rides the departing fronts.
   if (uFragment > 0.5) {
     float ink = texture2D(uFragmentPrint, p / vec2(0.8, 0.5) + 0.5).a;
-    // The baked print holds the finished side view, so it waits for the progressive
-    // lines/fills to complete (or for fracture) instead of fading in all at once.
-    c = mix(c, vec3(.06, .09, .18), ink * .78 * max(smoothstep(.98, 1.0, uFragmentInk), smoothstep(0.0, .02, uFracture)));
+    // Intact stock stays blank: the live lines/fills draw the profile on top of it in the
+    // sheet's own ink. The baked print only rides the shards once fracture begins, when
+    // cutPrintedStock removes the live ink from the opening.
+    c = mix(c, vec3(.06, .09, .18), ink * .78 * smoothstep(0.0, .02, uFracture));
     vec3 n = normalize(vFacetNormal), view = normalize(vViewDirection);
     float fresnel = pow(1.0 - abs(dot(n, view)), 3.0);
     float reflection = pow(max(0.0, dot(reflect(-view, n), normalize(vec3(-.4, .7, 1.0)))), 36.0);
@@ -385,6 +391,19 @@ export function createPrivateSheetRuntime(
       }
     })
   }
+  // Printed ink must layer ABOVE the intact profile stock (renderOrder 3, no depth test).
+  // Otherwise the opaque shards erase the live linework inside the profile perimeter and
+  // leave only the low-res baked print: light-blue profile, leaders that change colour at
+  // the perimeter and a clipped Detail C (owner items 1-3, 2026-10-24). Borrowed state is
+  // restored on dispose, like the parents above.
+  const inkMaterials = [lines.material, fills.material].flat()
+  const borrowedOrder = [lines, fills, text.object].map(object => [object, object.renderOrder] as const)
+  const borrowedDepth = inkMaterials.map(material => [material, material.depthTest] as const)
+  cleanups.push(() => {
+    for (const [object, order] of borrowedOrder) object.renderOrder = order
+    for (const [material, depthTest] of borrowedDepth) material.depthTest = depthTest
+  })
+  for (const object of [lines, fills, text.object]) object.renderOrder = PRIVATE_INK_ORDER
   cleanups.push(() => group.removeFromParent())
   try {
     const grain = own(factories.grain())
@@ -454,7 +473,7 @@ export function createPrivateSheetRuntime(
     desk.name = 'drafting-desk'; desk.position.z = PORTAL_DESK_Z
     desk.renderOrder = -1; desk.frustumCulled = false
     const pulse = new Mesh(own(factories.ribbon(baked.rendered.profilePoints)), pulseMaterial)
-    pulse.name = 'lightning'; pulse.renderOrder = 4; pulse.frustumCulled = false
+    pulse.name = 'lightning'; pulse.renderOrder = PRIVATE_GLOW_ORDER; pulse.frustumCulled = false
     const edge = new Mesh(baked.fracture.edge, edgeMaterial)
     edge.name = 'charred-profile-edge'; edge.renderOrder = 2; edge.frustumCulled = false
     // Seam geometry still defines the physical hairline apertures and shard partition;
@@ -464,14 +483,14 @@ export function createPrivateSheetRuntime(
     const webGeometry = hasSeams ? own(makePrivateFractureWebGeometry(baked.fracture.cracks, baked.fracture.outline)) : seams
     const cracks = new Mesh(webGeometry, cracksMaterial)
     const crackHalo = new Mesh(webGeometry, crackHaloMaterial)
-    crackHalo.name = 'pressure-crack-halo'; crackHalo.renderOrder = 4; crackHalo.frustumCulled = false
+    crackHalo.name = 'pressure-crack-halo'; crackHalo.renderOrder = PRIVATE_GLOW_ORDER; crackHalo.frustumCulled = false
     cracks.add(crackHalo)
     // Match the physical hairline apertures to the private connected growth map.
     // Empty CPU fixtures have no ribbon attributes and retain their borrowed mask.
     if (hasSeams) {
       decorate('uCrackMask', own(makeCrackMask(baked.rendered.profilePoints, seams, SHEET_WIDTH, SHEET_HEIGHT)))
     }
-    cracks.name = 'pressure-crack-web'; cracks.renderOrder = 4; cracks.frustumCulled = false
+    cracks.name = 'pressure-crack-web'; cracks.renderOrder = PRIVATE_GLOW_ORDER; cracks.frustumCulled = false
     const fragments = baked.fracture.fragments.map((fragment, i) => {
       const mesh = new Mesh(fragment.geometry, material({
         uniforms: { ...u, uFragmentCenter: { value: fragment.center }, uFragment: { value: 1 } },
@@ -756,7 +775,7 @@ export function createPrivateSheetRuntime(
           // Depth testing disabled also disables depth-buffer writes in WebGL. Draw
           // intact stock after the model's transparent pass to preserve the printed lid.
           mesh.material.transparent = event <= .035
-          mesh.renderOrder = event > .035 ? 1 : 3
+          mesh.renderOrder = event > .035 ? 1 : PRIVATE_INTACT_STOCK_ORDER
         }
         u.uMode.value = proof ? 1 : 0
         const contrast = proof ? 1 : intro.contrast
@@ -778,6 +797,12 @@ export function createPrivateSheetRuntime(
         u.uCrackGrowth.value = proof || reducedMotion ? 0 : intro.crackGrowth
         u.uSpark.value = proof || reducedMotion ? 0 : intro.sparkAnticipation
         u.uFracture.value = proof || reducedMotion ? 0 : intro.fracture
+        // While the sheet is intact the ink shares the stock's barrier rule: the rising CAD
+        // envelope can cross the flexed sheet, and its depth must not punch gaps in the
+        // linework. From the first fracture the ink is cut out of the opening
+        // (cutPrintedStock) and resumes ordinary depth testing against departing shards.
+        const inkDepthTest = (u.uFracture.value as number) > 0
+        for (const material of inkMaterials) material.depthTest = inkDepthTest
         u.uWaveTime.value = intro.waveTime; u.uWaveEnabled.value = 0
         u.uFlexAmplitude.value = paperFlexAmplitude(intro.t, poseT, extraction.crossing, tier, proof || reducedMotion)
         const [contactStrength, contactRadius] = paperContactShadow(poseT, extraction.crossing, intro.pbr, tier, proof || reducedMotion)
