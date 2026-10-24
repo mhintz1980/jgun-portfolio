@@ -333,6 +333,51 @@ float jgProgressedRadius(vec3 jgLocal, out float jgClamped) {
 }
 `
 
+// ---- stress field (Issue 7) ------------------------------------------------------------------
+/** Half-width (mm) of the flat-topped core: the whole relief groove plus its tooth-root/shoulder fillets sit at the hotspot FOS. */
+export const STRESS_CORE_HALF_MM = 1.1
+/** Width (mm) of the smooth roll-off from the flat core into the skirt. */
+export const STRESS_CORE_EDGE_MM = 0.5
+/** Skirt peak (fraction of the hotspot) and its axial sigma (mm) at the mildest and the most severe study. */
+export const STRESS_SKIRT_PEAK = 0.9
+export const STRESS_SKIRT_SIGMA_MM = Object.freeze({ mild: 1.4, severe: 4.0 })
+
+/** Severity in [0.35, 1]: 1 at the weakest attempt (FOS 0.55), shrinking as the alloy strengthens. */
+export function stressSeverity(hotspotFos: number): number {
+  const s = (1.15 - hotspotFos) / 0.6
+  return s < 0.35 ? 0.35 : s > 1 ? 1 : s
+}
+
+/**
+ * Normalised stress field in [0, 1] (1 = hotspot FOS, 0 = body FOS) at axial distance dy (mm) from the
+ * hotspot centre. Axisymmetric by construction: no azimuth, radius or noise term. Mirrored exactly by
+ * jgStressField in GLSL (stressFieldGlsl) so tests can pin the on-screen colours.
+ */
+export function stressFieldAt(dy: number, hotspotFos: number): number {
+  const a = Math.abs(dy)
+  const x = (a - STRESS_CORE_HALF_MM) / STRESS_CORE_EDGE_MM
+  const u = x < 0 ? 0 : x > 1 ? 1 : x
+  const core = 1 - u * u * (3 - 2 * u)
+  const severity = stressSeverity(hotspotFos)
+  const sigma = STRESS_SKIRT_SIGMA_MM.mild + (STRESS_SKIRT_SIGMA_MM.severe - STRESS_SKIRT_SIGMA_MM.mild) * severity
+  const skirt = STRESS_SKIRT_PEAK * Math.exp(-(dy * dy) / (2 * sigma * sigma))
+  return core > skirt ? core : skirt
+}
+
+/** GLSL twin of stressFieldAt, generated from the same constants. */
+export function stressFieldGlsl(): string {
+  return `
+float jgStressField(float dy, float hotspotFos) {
+  float a = abs(dy);
+  float core = 1.0 - smoothstep(${STRESS_CORE_HALF_MM.toFixed(3)}, ${(STRESS_CORE_HALF_MM + STRESS_CORE_EDGE_MM).toFixed(3)}, a);
+  float severity = clamp((1.15 - hotspotFos) / 0.6, 0.35, 1.0);
+  float sigma = mix(${STRESS_SKIRT_SIGMA_MM.mild.toFixed(3)}, ${STRESS_SKIRT_SIGMA_MM.severe.toFixed(3)}, severity);
+  float skirt = ${STRESS_SKIRT_PEAK.toFixed(3)} * exp(-(dy * dy) / (2.0 * sigma * sigma));
+  return max(core, skirt);
+}
+`
+}
+
 const FRAGMENT_COMMON = /* glsl */ `
 uniform float uStressKind;
 uniform float uStressMix;
@@ -346,6 +391,7 @@ uniform float uStressHotspotFos;
 uniform float uStressBodyFos;
 varying vec3 vShaftLocal;
 ${fosGlsl()}
+${stressFieldGlsl()}
 `
 
 const NORMAL_CHUNK = /* glsl */ `
@@ -385,26 +431,22 @@ const STRESS_CHUNK = /* glsl */ `
 #include <emissivemap_fragment>
 // ${STRESS_MARKER}
 if (uStressKind > 0.5 && uStressMix > 0.001) {
-  // FEA-style factor-of-safety field (JG-035 S2): deterministic, a pure function of shaft-local position.
-  // Tight concentration at the measured fillet/floor, a broad skirt along the body, a bending-side bias and a
-  // little low-frequency blotch so it reads as a solved field. Colours come from the shared FOS bar.
-  float jgStressInBand = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
+  // FEA-style factor-of-safety field (JG-035 S2, Issue 7 2026-10-24): deterministic and AXISYMMETRIC.
+  // Torsion loads the relief groove uniformly around all 360 deg, so the field depends only on the axial
+  // distance from the hotspot: a flat-topped core that pins the groove to the bar's hotspot value, and a
+  // severity-scaled skirt that spreads further for the weaker alloys. Colours come from the shared FOS bar.
+  float jgStressInBand = smoothstep(uStressYMin, uStressYMin + 0.8, vShaftLocal.y)
+    * (1.0 - smoothstep(uStressYMax - 0.8, uStressYMax, vShaftLocal.y));
   float jgStressRadius = length(vShaftLocal.xz - uShaftAxis.xz);
   float jgStressInR = (1.0 - step(uStressRMax, jgStressRadius)) * step(0.0001, jgStressRadius);
   float jgDy = vShaftLocal.y - uStressCenterY;
-  float jgTheta = atan(vShaftLocal.z - uShaftAxis.z, vShaftLocal.x - uShaftAxis.x);
-  float jgSide = 0.62 + 0.38 * cos(jgTheta - 0.35);
-  float jgCore = exp(-(jgDy * jgDy) / (2.0 * 0.9 * 0.9));
-  float jgSkirt = exp(-(jgDy * jgDy) / (2.0 * 4.0 * 4.0));
-  float jgFloorBias = 1.0 - 0.6 * smoothstep(3.9, 6.1, jgStressRadius);
-  float jgBlotch = 0.1 * sin(jgTheta * 3.0 + jgDy * 2.2) + 0.06 * sin(jgTheta * 5.0 - jgDy * 3.1);
-  float jgField = clamp((0.95 * jgCore * jgFloorBias + 0.38 * jgSkirt) * jgSide + jgBlotch * jgSkirt, 0.0, 1.0);
+  float jgField = jgStressField(jgDy, uStressHotspotFos);
   float jgFos = mix(uStressBodyFos, uStressHotspotFos, jgField);
   // Reveal outward from the hotspot (scan 0 -> 1) instead of sweeping the shaft end to end.
   float jgReach = uStressScanProgress * (uStressYMax - uStressYMin + 1.2);
   float jgReveal = 1.0 - smoothstep(jgReach - 1.2, jgReach, abs(jgDy));
   float jgStressMask = jgStressInBand * jgStressInR * jgReveal * clamp(uStressMix, 0.0, 1.0);
-  vec3 jgFosRgb = jgFosColor(jgFos);
+  vec3 jgFosRgb = jgFosColorLinear(jgFos);
   // The shaft is a bright coated metal. Keep the FEA field legible on that
   // surface by replacing the base tint and damping the metallic response
   // wherever the field is present, then adding a restrained emissive term.
@@ -439,7 +481,7 @@ export function applyProgression(
       .replace('#include <emissivemap_fragment>', STRESS_CHUNK)
     ;(material.userData as Record<string, unknown>).jgunStressShader = shader.fragmentShader.includes(STRESS_MARKER)
   }
-  material.customProgramCacheKey = () => 'jgun-shaft-progression-v4:' + material.uuid
+  material.customProgramCacheKey = () => 'jgun-shaft-progression-v5:' + material.uuid
   material.needsUpdate = true
   return material
 }
@@ -479,24 +521,20 @@ uniform float uStressBodyFos;
 uniform vec3 uShaftAxis;
 varying vec3 vShaftLocal;
 ${fosGlsl()}
+${stressFieldGlsl()}
 void main() {
   if (uStressKind < 0.5 || uStressMix < 0.001) discard;
-  float band = step(uStressYMin, vShaftLocal.y) * (1.0 - step(uStressYMax, vShaftLocal.y));
+  float band = smoothstep(uStressYMin, uStressYMin + 0.8, vShaftLocal.y)
+    * (1.0 - smoothstep(uStressYMax - 0.8, uStressYMax, vShaftLocal.y));
   float radius = length(vShaftLocal.xz - uShaftAxis.xz);
   float radial = (1.0 - step(uStressRMax, radius)) * step(0.0001, radius);
   float dy = vShaftLocal.y - uStressCenterY;
-  float theta = atan(vShaftLocal.z - uShaftAxis.z, vShaftLocal.x - uShaftAxis.x);
-  float side = 0.62 + 0.38 * cos(theta - 0.35);
-  float core = exp(-(dy * dy) / (2.0 * 0.9 * 0.9));
-  float skirt = exp(-(dy * dy) / (2.0 * 4.0 * 4.0));
-  float floorBias = 1.0 - 0.6 * smoothstep(3.9, 6.1, radius);
-  float blotch = 0.1 * sin(theta * 3.0 + dy * 2.2) + 0.06 * sin(theta * 5.0 - dy * 3.1);
-  float field = clamp((0.95 * core * floorBias + 0.38 * skirt) * side + blotch * skirt, 0.0, 1.0);
+  float field = jgStressField(dy, uStressHotspotFos);
   float reach = uStressScanProgress * (uStressYMax - uStressYMin + 1.2);
   float reveal = 1.0 - smoothstep(reach - 1.2, reach, abs(dy));
   float mask = band * radial * reveal * clamp(uStressMix, 0.0, 1.0);
   if (mask < 0.001) discard;
-  vec3 color = jgFosColor(mix(uStressBodyFos, uStressHotspotFos, field));
+  vec3 color = jgFosColorLinear(mix(uStressBodyFos, uStressHotspotFos, field));
   gl_FragColor = vec4(color, mask * 0.92);
 }`,
     transparent: true, depthTest: true, depthWrite: false, side: DoubleSide, toneMapped: false,

@@ -1,8 +1,11 @@
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   FOS_ATTEMPTS, FOS_MAX, FOS_MIN, FOS_REVISED, FOS_STOPS, attemptFosAt, fosColor, fosForCard, fosGlsl, newFosPresentation, sampleFosPresentation,
 } from './fosPresentation'
 import { createShaftScriptFrame, sampleShaftScript } from './script'
+import { stressFieldAt } from './progression'
 
 const hue = ([r, g, b]: number[]) => {
   const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min
@@ -64,5 +67,36 @@ describe('FOS presentation table (S2)', () => {
     const times = [34, 16, 21, 15.5, 33.2, 40]
     const forward = times.map(t => ({ ...at(t) })), reverse = [...times].reverse().map(t => ({ ...at(t) })).reverse()
     expect(reverse).toEqual(forward)
+  })
+})
+
+describe('groove colour in lockstep with the bar marker (Issue 7, Section 5 check 7)', () => {
+  it('paints the relief groove exactly the bar colour at 16.5 s (4140), 19.0 s (4340) and 21.5 s (C300)', () => {
+    const fos = newFosPresentation()
+    const hues: number[] = []
+    for (const [time, alloy] of [[16.5, '4140'], [19.0, '4340'], [21.5, 'c300']] as const) {
+      sampleFosPresentation(time, 'warm', 1, fos)
+      expect(fos.hotspot).toBeCloseTo(FOS_ATTEMPTS[alloy], 9)
+      // Field = 1 across the groove, so the shader's mix(body, hotspot, field) is the marker value itself.
+      const groove = fos.body + (fos.hotspot - fos.body) * stressFieldAt(0.5, fos.hotspot)
+      const [gr, gg, gb] = fosColor(groove), [mr, mg, mb] = fosColor(fos.hotspot)
+      expect(gr).toBeCloseTo(mr, 9); expect(gg).toBeCloseTo(mg, 9); expect(gb).toBeCloseTo(mb, 9)
+      hues.push(hue(fosColor(groove)))
+    }
+    // Deep red -> red-orange -> orange/amber: each step is a visible hue shift.
+    expect(hues[0]).toBeLessThan(10)
+    expect(hues[1] - hues[0]).toBeGreaterThan(8)
+    expect(hues[2] - hues[1]).toBeGreaterThan(12)
+  })
+})
+
+describe('shader colour space (Issue 7)', () => {
+  it('decodes the sRGB bar stops to linear before both stress shaders shade or blend them', async () => {
+    const glsl = fosGlsl()
+    expect(glsl).toContain('vec3 jgFosColorLinear(float fos)')
+    expect(glsl).toMatch(/pow\(\(c \+ 0\.055\) \/ 1\.055, vec3\(2\.4\)\)/)
+    const source = readFileSync(resolve(process.cwd(), 'src/scene/inspection/shaft/progression.ts'), 'utf8')
+    expect(source.match(/jgFosColorLinear\(/g)?.length).toBe(2)
+    expect(source).not.toMatch(/jgFosColor\(/)
   })
 })

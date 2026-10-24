@@ -47,7 +47,10 @@ export function fosColor(value: number, out: [number, number, number] = [0, 0, 0
   return out
 }
 
-/** The same colormap as a GLSL function body, generated from FOS_STOPS (single source of truth). */
+/**
+ * The same colormap as GLSL, generated from FOS_STOPS (single source of truth): jgFosColor returns the
+ * display (sRGB) colour; jgFosColorLinear returns it decoded to linear for lit or blended shader output.
+ */
 export function fosGlsl(): string {
   const stops = FOS_STOPS.map(s => `  vec4(${s[0].toFixed(3)}, ${s[1].toFixed(3)}, ${s[2].toFixed(3)}, ${s[3].toFixed(3)})`).join(',\n')
   return `
@@ -62,6 +65,13 @@ ${stops}
     c = mix(c, mix(stops[i - 1].yzw, stops[i].yzw, u), step(stops[i - 1].x, f));
   }
   return c;
+}
+// FOS_STOPS are display (sRGB) colours, as the CSS bar paints them. Three.js shades and blends in linear
+// space and encodes to sRGB on output, so shaders must decode first or every stop is drawn lighter and
+// washed out (0.55 deep red rendered as salmon, 0.90 orange as pale yellow: Issue 7, 07-1.png / 07-2.png).
+vec3 jgFosColorLinear(float fos) {
+  vec3 c = jgFosColor(fos);
+  return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)), step(vec3(0.04045), c));
 }
 `
 }
