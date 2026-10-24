@@ -14,7 +14,7 @@ const all = [
   ['check4-5-ring-isolated-p0.480', .48], ['check6-blue-shift0-p0.515', .515], ['check5-p0.520', .52],
   ['check5-p0.545', .545], ['check6-red-shift1-p0.550', .55], ['check5-shaft-p0.590', .59],
   ['check7-4140-t16.5', .73328], ['check7-4340-t19.0', .73792], ['check7-C300-t21.5', .74314],
-  ['check8-midwipe-t23.8', .74976], ['check5-p0.900', .9], ['check5-stage2-p0.920', .92], ['check9-collapse-p0.955', .955], ['check9-collapse-p0.965', .965],
+  ['check8-midwipe-t23.8', .74976], ['check5-p0.900', .9], ['check5-stage2-p0.920', .92], ['check9-collapse-p0.955', .955], ['check9-collapse-p0.965', .965], ['lcd-p0.990', .99],
 ]
 const wanted = args.points ? args.points.split(',').map(Number) : null
 const points = wanted ? all.filter(([, p]) => wanted.some(w => Math.abs(w - p) < 1e-6)) : all
