@@ -52,3 +52,13 @@ describe('private camera domain handoff', () => {
     }
   })
 })
+
+it('interpolates focus distance in log space and degrades safely for coincident position and target', () => {
+  const sample = createCameraHandoff()
+  const near = pose([0, 0, .1], [0, 0, 0], [0, 1, 0], 30), far = pose([0, 0, 2.5], [0, 0, 0], [0, 1, 0], 30)
+  const mid = sample(near, far, .5, 0, 1, fresh())
+  expect(mid.target.distanceTo(mid.position)).toBeCloseTo(Math.sqrt(.1 * 2.5), 12)
+  const degenerate = pose([1, 1, 1], [1, 1, 1], [0, 1, 0], 30)
+  const result = sample(degenerate, far, .5, 0, 1, fresh())
+  expect(result.position.toArray().every(Number.isFinite) && result.target.toArray().every(Number.isFinite)).toBe(true)
+})

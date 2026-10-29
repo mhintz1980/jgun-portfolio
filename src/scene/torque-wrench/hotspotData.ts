@@ -70,8 +70,10 @@ export const TORQUE_HOTSPOT_MIN_EXPLODE = 0.65
 
 /** Owner 2026-10-24: the Clutch Housing callout is off until it gets a camera beat that exposes
  * P000420 (the handle-side .532-.558 view hides every surface anchor). Its data stays for re-enable.
+ * Owner 2026-10-28: suspend Ring Switch and Second-Stage Planet callouts with jittering leaders.
+ * Keep all callout data, anchors and layout for later reactivation.
  */
-export const TORQUE_HOTSPOTS_DISABLED: ReadonlySet<string> = new Set(['clutch-housing'])
+export const TORQUE_HOTSPOTS_DISABLED: ReadonlySet<string> = new Set(['clutch-housing', 'ring-switch', 'stage2-planet'])
 
 const hotspotById = (id: string) => TORQUE_HOTSPOTS.find(item => item.id === id)
 

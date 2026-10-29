@@ -3,6 +3,13 @@ import {
   BufferGeometry, Group, Matrix4, Mesh, PointLight, ShaderMaterial, Texture, Vector2, Vector3,
 } from 'three'
 import { DRAWING_INTRO_WINDOW, drawingIntroState, INTRO_PHASES } from '../drawing/introTimeline'
+import * as introSource from '../drawing/introTimeline'
+import * as openingSource from './OpeningDirector'
+import * as domeSource from './shardDome'
+import * as geometrySource from '../drawing/drawingGeometry'
+import { BULLET_TIME_SHOT_SPECS } from './bulletTime'
+// @ts-expect-error Node verification helper has no declaration file.
+import { shatterPhysicalGates } from '../../../scripts/verify-page-cinematography.mjs'
 import { makeSheetUniforms, GROUP } from '../drawing/sheet/ink'
 import { paperFlexAmplitude } from '../drawing/sheet/paperFlex'
 import type { SheetBakeResult } from '../drawing/sheet/sheetBake'
@@ -100,6 +107,37 @@ function frame(t: number, overrides: Partial<DrawingFrameInput> = {}): DrawingFr
   }
 }
 const viewport = new Vector2(1440, 900)
+
+it('reconstructs actual installed shatter matrices from bake inputs and rejects motion or clock tampering', () => {
+  const f = fixture(), runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+  const sources = { opening: openingSource, dome: domeSource, intro: introSource, geometry: geometrySource }
+  const shot = BULLET_TIME_SHOT_SPECS.shatter
+  const samples = [.43, .43008, .434, .44, .446, .452].map(progress => {
+    const state = openingSource.sampleOpening(progress)
+    const release = state.poseT <= .5 ? introSource.smooth01((state.poseT - .7) / .3)
+      : state.poseT >= 1 ? 1 : Math.pow((state.poseT - .5) / .5, 1.4)
+    f.context.sheetMatrix.copy(geometrySource.SHEET_ROTATION).multiply(new Matrix4().makeTranslation(
+      -.01 * release, -.02 * release, -.18 * release))
+    runtime.apply(frame(state.t, { intro: state }), f.context, viewport)
+    runtime.group.updateMatrixWorld(true)
+    const shard = runtime.group.getObjectByName('paper-fragment-0')!
+    return { snapshot: { opening: { extraction: { initialZ: -.04, travel: .22 }, crossing: .9 } },
+      telemetry: { progress, shatter: { ...runtime.shatterInputs(), frame: runtime.group.matrixWorld.toArray(), subjectTime: state.t },
+      subjects: [{ name: 'shatter/id/paper-fragment-0', matrixWorld: shard.matrixWorld.toArray() }] } }
+  })
+  expect(shatterPhysicalGates(samples, shot, sources).every((g: { status: string }) => g.status === 'PASS')).toBe(true)
+  const tampered = structuredClone(samples)
+  tampered[2].telemetry.subjects[0].matrixWorld[12] += .001
+  expect(shatterPhysicalGates(tampered, shot, sources).some((g: { status: string }) => g.status === 'FAIL')).toBe(true)
+  const badClock = structuredClone(samples)
+  badClock[3].telemetry.shatter.subjectTime += .001
+  expect(shatterPhysicalGates(badClock, shot, sources).some((g: { status: string }) => g.status === 'FAIL')).toBe(true)
+  const missing = structuredClone(samples)
+  missing[2].telemetry.subjects = []
+  expect(shatterPhysicalGates(missing, shot, sources).some((g: { status: string }) => g.status === 'FAIL')).toBe(true)
+  expect(shatterPhysicalGates([], shot, sources)[0].status).toBe('INCOMPLETE')
+  runtime.dispose()
+})
 
 function fragmentSnapshot(group: Group) {
   const mesh = group.getObjectByName('paper-fragment-0')!

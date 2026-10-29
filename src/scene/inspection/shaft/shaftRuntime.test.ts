@@ -7,12 +7,13 @@ import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { createStorySession, sharedStoryRefCount, type StorySession } from '../session'
 import type { StoryContext, StoryRuntime } from '../story'
 import { GEAR_RATIOS } from '../../../data/caseStudies'
+import { CASCADE_PLANET_MULTIPLIERS, INPUT_TURNS_PER_OUTPUT_TURN } from './cascadeConfig'
 import { narrativeModelToStudy, placeHob, placeShaper, shaftLocalToStudy, shaftMmPoint, studyPointToShaftMm, studyToShaftLocal } from './frame'
 import { createShaftKinematicsFrame, sampleShaftKinematics, strokePhaseAt, WORK_RATE } from './kinematics'
 import { SPACE_CLOCK_RAD, SPACE_PITCH_RAD } from './progression'
-import { HOB_LEAD_ANGLE_DEG, SHAPER_THICKNESS_MM, SHAPER_TIP_RADIUS_MM } from './toolSpec'
-import { createShaftSchedule, sampleShaftSchedule } from './schedule'
-import { createShaftRuntime, LEGACY_INDEX_WINDOW, legacyShaftAngle, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
+import { HOB_LEAD_ANGLE_DEG, SHAPER_LEADING_FACE_Y_MM, SHAPER_BODY_REAR_Y_MM, SHAPER_THICKNESS_MM, SHAPER_TIP_RADIUS_MM } from './toolSpec'
+import { CASCADE_REVEAL_EVENTS, createShaftSchedule, sampleFinaleAngle, sampleFinaleDriveRate, sampleShaftSchedule } from './schedule'
+import { CASCADE_RATIOS, createShaftRuntime, LEGACY_INDEX_WINDOW, legacyShaftAngle, approvedShaftBaseAngle, SUN_TO_STAGE1_CARRIER_RATIO, DRIVELINE_CASCADE_ORDER, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
 import { buildShaperCutter } from './tools'
 
 function bundle(tier: 'full' | 'lite' = 'full'): ArrayBuffer {
@@ -134,20 +135,20 @@ describe('R3 placement math', () => {
       expect(axis.distanceTo(new Vector3(0, 0, -1))).toBeLessThan(1e-12)
     }
   })
-  it('places the actual centred disc and rake face at the sampled reveal edge and chip anchor', () => {
+  it('places the thickened disc behind the unchanged rake face, reveal edge and chip anchor', () => {
     const steel = new MeshStandardMaterial(), cutter = buildShaperCutter(steel)
     const k = createShaftKinematicsFrame(), edge = new Vector3(), centre = new Vector3()
     const disc = cutter.root.getObjectByName('shaper-cutter-disc') as Mesh
     disc.geometry.computeBoundingBox()
     const bounds = disc.geometry.boundingBox!
-    expect(bounds.min.y).toBeCloseTo(-SHAPER_THICKNESS_MM / 2000, 9)
-    expect(bounds.max.y).toBeCloseTo(SHAPER_THICKNESS_MM / 2000, 9)
+    expect(bounds.min.y).toBeCloseTo(SHAPER_BODY_REAR_Y_MM / 1000, 9)
+    expect(bounds.max.y).toBeCloseTo(SHAPER_LEADING_FACE_Y_MM / 1000, 9)
     try {
       for (const t of [2, 3.5, 6, 8.4, 10, 12, 14.9]) {
         sampleShaftKinematics(t, k); placeShaper(cutter.root, k); cutter.root.updateWorldMatrix(true, true)
         edge.copy(cutter.cuttingEdgeLocal).applyMatrix4(cutter.root.matrixWorld)
         bounds.getCenter(centre).applyMatrix4(disc.matrixWorld)
-        expect(-centre.z * 1000).toBeCloseTo(k.strokeCentreY, 6)
+        expect(-centre.z * 1000).toBeCloseTo(k.strokeCentreY+SHAPER_LEADING_FACE_Y_MM-SHAPER_THICKNESS_MM/2, 6)
         expect(-edge.z * 1000).toBeCloseTo(k.edgeY, 12)
         expect(-edge.z * 1000).toBeCloseTo(k.chipY, 12)
       }
@@ -195,7 +196,7 @@ describe('shaft runtime without WebGL', () => {
     expect(parse).toHaveBeenCalledOnce()
     const out = seek(runtime, 36) as { shaft: { nodes: { housing: string; legacyHousingPresent: boolean } } }
     expect(out.shaft.nodes.housing).toBe('approvedhousing'); expect(out.shaft.nodes.legacyHousingPresent).toBe(true)
-    expect(runtime.root.getObjectByName('study-legacyhousing')?.visible).toBe(true)
+    expect(runtime.root.getObjectByName('study-legacyhousing')?.visible).toBe(false)
     expect(runtime.camera.valid).toBe(true); expect(runtime.frame.ownsNarrative).toBe(true); expect(runtime.frame.returnBlend).toBe(0)
   })
 
@@ -282,18 +283,21 @@ describe('shaft runtime without WebGL', () => {
     for (const value of [bodyMaterial, threadMaterial, arborMaterial]) expect(value.opacity).toBe(0)
   })
 
-  it('moves the support pair rigidly, holds the baked endpoint, sections both shaft/housing and removes the section for finale', async () => {
+  it('retains the approved support datum and retires legacy section geometry throughout engagement and cascade', async () => {
     const { runtime, doc } = await fixture()
     const pair = runtime.root.getObjectByName('shaft-rigid-support-pair')!, delta = new Vector3()
     measureSupportDelta(doc, delta)
     const bearing = runtime.root.getObjectByName('study-approvedbearing')!, ring = runtime.root.getObjectByName('study-approvedring')!
     for (const t of [35.1, 35.5, 35.6, 36, 37, 37.6, 38.5]) {
       seek(runtime, t); const schedule = sampleShaftSchedule(t, createShaftSchedule())
-      expect(pair.position.distanceTo(delta.clone().multiplyScalar(-(1 - schedule.supportBlend)))).toBeLessThan(1e-12)
-      expect(bearing.quaternion.toArray()).toEqual(ring.quaternion.toArray())
-      expect(material(runtime, 'approvedshaft').clippingPlanes).toHaveLength(1)
-      expect(material(runtime, 'housing').clippingPlanes).toHaveLength(1)
-      expect(material(runtime, 'housing').clippingPlanes![0].distanceToPoint(runtime.camera.position)).toBeLessThan(0)
+      expect(pair.position.length()).toBe(0)
+      expect(bearing.rotation.z).toBe(0)
+      if (t < 38.5) expect(bearing.quaternion.toArray()).toEqual(ring.quaternion.toArray())
+      else expect(ring.rotation.z).toBe(runtime.root.getObjectByName('study-approvedshaft')!.rotation.z)
+      expect(material(runtime, 'approvedshaft').clippingPlanes).toHaveLength(0)
+      expect(material(runtime, 'housing').clippingPlanes).toHaveLength(0)
+      expect(schedule.section).toBe(false)
+      expect(material(runtime, 'approvedbearing').opacity).toBe(0)
     }
     seek(runtime, 39); expect(pair.position.length()).toBe(0)
     expect(material(runtime, 'approvedshaft').clippingPlanes).toHaveLength(0)
@@ -325,7 +329,7 @@ describe('shaft runtime without WebGL', () => {
 
   it('has identical complete runtime digests after shuffled seeks and stable sample/telemetry identities', async () => {
     const { runtime } = await fixture()
-    const times = [0, 1.2, 2, 6, 8.4, 11, 14.99, 15, 16.3, 22.6, 23.8, 25, 28, 30.2, 31.6, 32, 32.8, 35, 36.6, 37.6, 39, 40.5, 43]
+    const times = [0, 1.2, 2, 6, 8.4, 11, 14.99, 15, 16.3, 22.6, 23.8, 25, 28, 30.2, 31.6, 32, 32.8, 35, 36.6, 37.6, 39, 40.5, 43, 46.5, 49.5, 52.5, 55.5, 57.5, 66.9]
     const expected = times.map(t => digest(runtime, t))
     const frame = runtime.frame, camera = runtime.camera, position = camera.position, target = camera.target, up = camera.up, render = runtime.render
     const probe: Record<string, unknown> = {}; runtime.telemetry(probe)
@@ -341,8 +345,8 @@ describe('shaft runtime without WebGL', () => {
     }
     const a = seek(runtime, 15) as { shaft: { teethFormed: number; card: { id: string }; narrative: { alpha: number } } }
     expect(a.shaft.teethFormed).toBe(10); expect(a.shaft.card.id).toBe('4140'); expect(a.shaft.narrative.alpha).toBe(0)
-    const b = seek(runtime, 43) as { shaft: { finale: { assembled: boolean; shaftCount: number; missingCarriers: boolean }; nodes: { legacyHousingPresent: boolean } } }
-    expect(b.shaft.finale.assembled).toBe(false); expect(b.shaft.finale.shaftCount).toBe(1)
+    const b = seek(runtime, 66.9) as { shaft: { finale: { assembled: boolean; shaftCount: number; missingCarriers: boolean }; nodes: { legacyHousingPresent: boolean } } }
+    expect(b.shaft.finale.assembled).toBe(false); expect(b.shaft.finale.shaftCount).toBe(0)
     expect(b.shaft.finale.missingCarriers).toBe(true); expect(b.shaft.nodes.legacyHousingPresent).toBe(false)
   })
 
@@ -364,14 +368,15 @@ describe('shaft runtime without WebGL', () => {
     const disposeGeometry = vi.spyOn(geometry, 'dispose'), disposeTexture = vi.spyOn(texture, 'dispose'), disposeMaterial = vi.spyOn(original, 'dispose')
     const { runtime } = await fixture({ rig })
     const clone = runtime.root.getObjectByName('fixture-carrier')!, clonePlanet = runtime.root.getObjectByName('fixture-planet')!
-    expect(clone).not.toBe(carrier); expect(clone.position.toArray()).toEqual(base.toArray())
+    expect(clone).not.toBe(carrier); expect(clone.position.x).toBe(base.x); expect(clone.position.y).toBe(base.y)
+    expect(clone.position.z).toBeCloseTo(base.z + 0.028, 12)
     seek(runtime, 42)
     expect(clonePlanet.rotation.z).toBeCloseTo(-clone.rotation.z * GEAR_RATIOS.planetMultiplier, 12)
     expect(carrier.position.toArray()).toEqual([0.02, 0.01, -0.4]); expect(carrier.rotation.z).toBe(1.1); expect(planet.rotation.z).toBe(2.2)
     const cloneMaterial = ((clonePlanet.children[0]) as Mesh).material as MeshStandardMaterial
     expect(cloneMaterial).not.toBe(original); expect(cloneMaterial.map).toBe(texture)
-    const out = seek(runtime, 43) as { shaft: { finale: { assembled: boolean; shaftCount: number; racesFollow: boolean; ringFollowsShaft: boolean; bearingOuterFixed: boolean } } }
-    expect(out.shaft.finale.assembled).toBe(true); expect(out.shaft.finale.shaftCount).toBe(1)
+    const out = seek(runtime, 66.9) as { shaft: { finale: { assembled: boolean; shaftCount: number; racesFollow: boolean; ringFollowsShaft: boolean; bearingOuterFixed: boolean } } }
+    expect(out.shaft.finale.assembled).toBe(true); expect(out.shaft.finale.shaftCount).toBe(0)
     expect(out.shaft.finale.racesFollow).toBe(false); expect(out.shaft.finale.ringFollowsShaft).toBe(true); expect(out.shaft.finale.bearingOuterFixed).toBe(true)
     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(1)
     runtime.dispose(); runtime.dispose()
@@ -460,14 +465,16 @@ describe('private journey presentation (shared clocks unchanged)',()=>{
     const presentation={entryOpaque:true,contextOpacity:1,phaseCorrection:0,narrativeAlpha:0}
     const {runtime}=await fixture({legacyHousing:true,runtimeOptions:{presentation}})
     for(const t of [0,.4,1.2]){seek(runtime,t);expect(material(runtime,'legacyshaft').opacity).toBe(1);expect(runtime.frame.narrativeAlpha).toBe(0)}
-    seek(runtime,43)
+    seek(runtime,66.9)
     const before=material(runtime,'approvedshaft').opacity
-    presentation.contextOpacity=0;presentation.phaseCorrection=1;seek(runtime,43)
+    presentation.contextOpacity=0;presentation.phaseCorrection=1;seek(runtime,66.9)
     expect(material(runtime,'approvedshaft').opacity).toBe(before)
-    expect(runtime.root.getObjectByName('study-approvedshaft')?.rotation.z).toBeCloseTo(0,14)
+    expect(runtime.root.getObjectByName('study-approvedshaft')?.rotation.z).not.toBe(0)
     for(const name of ['housing','legacyhousing','legacybearing','legacyring','approvedbearing','approvedring'])expect(material(runtime,name).opacity).toBe(0)
-    presentation.contextOpacity=1;presentation.phaseCorrection=0;seek(runtime,43)
-    expect(material(runtime,'housing').opacity).toBeGreaterThan(0)
+    presentation.contextOpacity=1;presentation.phaseCorrection=0;seek(runtime,66.9)
+    expect(material(runtime,'housing').opacity).toBe(0)
+    expect(material(runtime,'approvedbearing').opacity).toBe(1)
+    expect(material(runtime,'approvedring').opacity).toBe(1)
   })
 })
 
@@ -499,4 +506,229 @@ describe('axial wipe rotational phase (Issue 8, 08.png)', () => {
       expect(offIndex(legacy - approved)).toBeCloseTo(0, 9)
     }
   })
+})
+
+describe('Stage 1 axial engagement and driveline cascade', () => {
+  function cascadeRig() {
+    const geometry = new BoxGeometry(0.003, 0.003, 0.003)
+    const sharedMaterial = new MeshStandardMaterial()
+    const basePositions = new Map<Group, Vector3>()
+    function unit(name: string, z: number) {
+      const carrier = new Group(); carrier.name = name
+      carrier.position.z = z; basePositions.set(carrier, carrier.position.clone())
+      carrier.add(new Mesh(geometry, sharedMaterial))
+      return carrier
+    }
+    const stages = Object.fromEntries(['stage1', 'stage2', 'stage3', 'stage4', 'stage5'].map((id, i) => {
+      const carrier = unit('cascade-' + id, i * 0.01), planet = new Group()
+      planet.name = 'cascade-planet-' + id; planet.add(new Mesh(geometry, sharedMaterial)); carrier.add(planet)
+      return [id, { carrier, planets: [planet] }]
+    }))
+    return { stages, basePositions, bearing: unit('cascade-bearing', 0.015),
+      outputShaft: unit('cascade-output', 0.09), housing: unit('cascade-outerHousing', 0), geometry, sharedMaterial }
+  }
+  it('homes the finished sun to a tooth pitch in the continuing hob direction', () => {
+    const phi = -0.29 * 2 * Math.PI
+    expect(approvedShaftBaseAngle(31.8, phi)).toBe(phi)
+    expect(approvedShaftBaseAngle(32.8, phi)).toBeCloseTo(-3 * SPACE_PITCH_RAD, 13)
+    let last = phi
+    for (let t = 31.8; t <= 33; t += 0.01) {
+      const angle = approvedShaftBaseAngle(t, phi)
+      expect(angle).toBeLessThanOrEqual(last + 1e-12); last = angle
+    }
+  })
+  it('owns materials per planet ancestry, preserving pin frames and disposing clones only', async () => {
+    const rig = cascadeRig(), source = rig.stages.stage2
+    const first = source.planets[0]
+    first.position.set(.012, -.006, .002)
+    ;(first.children[0] as Mesh).material = [rig.sharedMaterial, rig.sharedMaterial]
+    const nested = new Group(); nested.add(new Mesh(rig.geometry, rig.sharedMaterial)); first.add(nested)
+    const second = first.clone(true); second.name = 'cascade-planet-stage2-second'; second.position.x = -.012
+    source.carrier.add(second); source.planets.push(second)
+    const before = source.planets.map(planet => planet.position.toArray())
+    const { runtime } = await fixture({ rig })
+    const clones = source.planets.map(planet => runtime.root.getObjectByName(planet.name)!)
+    const materials = clones.map(planet => ((planet.children[0] as Mesh).material as MeshStandardMaterial[])[0])
+    const cageMaterial = (runtime.root.getObjectByName('cascade-stage2')!.children[0] as Mesh).material
+    expect(new Set([...materials, cageMaterial, rig.sharedMaterial]).size).toBe(4)
+    for (const [i, planet] of clones.entries()) {
+      expect(planet.userData.studyPlanetOccurrence).toBe(i)
+      expect(planet.parent?.name).toBe('cascade-stage2')
+      expect(planet.position.toArray()).toEqual(before[i])
+      expect(((planet.children[0] as Mesh).material as MeshStandardMaterial[])[1]).toBe(materials[i])
+      expect((planet.children[1].children[0] as Mesh).material).toBe(materials[i])
+    }
+    const disposals = materials.map(material => vi.spyOn(material, 'dispose'))
+    const borrowedDispose = vi.spyOn(rig.sharedMaterial, 'dispose')
+    const out = seek(runtime, 41.7) as { shaft: { stage1: { cascadeMembership: Array<{ planets: unknown[] }> } } }
+    expect(out.shaft.stage1.cascadeMembership[1].planets).toEqual([
+      { name: first.name, meshes: 2, materials: 1 }, { name: second.name, meshes: 2, materials: 1 },
+    ])
+    const secondAlpha = materials[1].opacity
+    materials[0].opacity = .123
+    expect(materials[1].opacity).toBe(secondAlpha)
+    expect(rig.sharedMaterial.opacity).toBe(1)
+    expect(source.planets.map(planet => planet.position.toArray())).toEqual(before)
+    runtime.dispose()
+    for (const dispose of disposals) expect(dispose).toHaveBeenCalledOnce()
+    expect(borrowedDispose).not.toHaveBeenCalled()
+    rig.geometry.dispose(); rig.sharedMaterial.dispose()
+  })
+  it('applies isolated per-unit fades, exact rolling transforms, support rotation, and context retirement', async () => {
+    const rig = cascadeRig(), presentation = { contextOpacity: 1, phaseCorrection: 0 }
+    const { runtime } = await fixture({ rig, legacyHousing: true, runtimeOptions: { presentation } })
+    const detail = () => {
+      const out: Record<string, unknown> = {}; runtime.telemetry(out)
+      return (out.shaft as { stage1: { cascadeAlpha: number[]; cascadePlanetAlpha: number[]; cascadeMembership: Array<{ unit: string; carrierMeshes: number; carrierMaterials: number; planets: Array<{ name: string; meshes: number; materials: number }> }>; cascadeOffsetZ: number[]; cascadePresent: boolean[];
+        cascadeRotZ: number[]; gearMeshClean: boolean; meshPhaseError: number; sunRotZ: number;
+        carrierRotZ: number; planetRotZ: number; datumPulseAlpha: number } }).stage1
+    }
+    seek(runtime, 35.4)
+    const identity = detail(), arrays = [identity.cascadeAlpha, identity.cascadeOffsetZ, identity.cascadeRotZ, identity.cascadePlanetAlpha]
+    expect(identity.cascadePresent).toEqual(new Array(8).fill(true))
+    expect(identity.cascadeAlpha[0]).toBeGreaterThan(0.3)
+    expect(identity.cascadeAlpha.slice(1)).toEqual(new Array(7).fill(0))
+    expect(identity.cascadeOffsetZ[0]).toBeGreaterThan(0); expect(identity.cascadeOffsetZ[0]).toBeLessThan(0.028)
+    const firstMaterial = ((runtime.root.getObjectByName('cascade-stage1')!.children[0]) as Mesh).material
+    const secondMaterial = ((runtime.root.getObjectByName('cascade-stage2')!.children[0]) as Mesh).material
+    expect(firstMaterial).not.toBe(secondMaterial)
+    expect(rig.sharedMaterial.opacity).toBe(1)
+    const pivot = runtime.root.getObjectByName('cascade-stage2')!
+    const planet = runtime.root.getObjectByName('cascade-planet-stage2')!
+    const planetMaterial = (planet.children[0] as Mesh).material as MeshStandardMaterial
+    expect(planetMaterial).not.toBe(secondMaterial)
+    expect(detail().cascadeMembership[1]).toEqual({ unit: 'stage2', carrierMeshes: 1, carrierMaterials: 1,
+      planets: [{ name: 'cascade-planet-stage2', meshes: 1, materials: 1 }] })
+    for (const t of [43.8,44.4,46,52.2,52.65,53.1,43.8]) {
+      seek(runtime, t)
+      expect(pivot.visible).toBe(true); expect(planet.visible).toBe(true)
+      expect(pivot.position.z).toBe(rig.stages.stage2.carrier.position.z)
+      expect(planetMaterial.opacity).toBe(detail().cascadePlanetAlpha[1])
+      expect((secondMaterial as MeshStandardMaterial).opacity).toBe(detail().cascadeAlpha[1])
+      expect(planet.rotation.z).toBeCloseTo(-(10/3) * pivot.rotation.z, 12)
+      expect(pivot.rotation.z).not.toBe(0)
+      if (t <= 45.3) { expect(planetMaterial.opacity).toBeGreaterThan(0); expect((secondMaterial as MeshStandardMaterial).opacity).toBe(0) }
+      if (t >= 46.2) expect((secondMaterial as MeshStandardMaterial).opacity).toBe(1)
+    }
+    expect(rig.sharedMaterial.opacity).toBe(1)
+
+    seek(runtime, 38.25); expect(detail().datumPulseAlpha).toBeGreaterThan(0.25)
+    expect(Math.abs(detail().cascadeOffsetZ[0])).toBeLessThan(0.0001)
+    for (const t of [38.8, 39.4, 40.2, 41.2, 42.5, 43, 46.5, 49.5, 52.5, 55.5, 66.9]) {
+      seek(runtime, t); const s = detail()
+      expect(s).toBe(identity); expect(s.cascadeAlpha).toBe(arrays[0]); expect(s.cascadeOffsetZ).toBe(arrays[1])
+      expect(s.cascadePlanetAlpha).toBe(arrays[3]); expect(s.cascadeRotZ).toBe(arrays[2]); expect(s.gearMeshClean).toBe(true); expect(s.meshPhaseError).toBeLessThan(1e-10)
+      expect(s.planetRotZ).toBeCloseTo(-3.5 * s.carrierRotZ, 12)
+      expect(s.sunRotZ - 3 * SPACE_PITCH_RAD).toBeCloseTo(s.carrierRotZ * SUN_TO_STAGE1_CARRIER_RATIO, 12)
+      expect(runtime.root.getObjectByName('study-approvedring')!.rotation.z).toBe(s.sunRotZ)
+      expect(runtime.root.getObjectByName('study-approvedbearing')!.rotation.z).toBe(0)
+      expect(runtime.root.getObjectByName('shaft-rigid-support-pair')!.position.length()).toBe(0)
+    }
+    expect(detail().cascadeAlpha).toEqual([0, 1, 1, 1, 1, 1, 1, 0])
+    expect(detail().cascadeOffsetZ).toEqual(new Array(8).fill(0))
+    expect(detail().cascadePlanetAlpha).toEqual([0, 1, 1, 0, 1, 1, 0, 0])
+    expect(runtime.root.getObjectByName('cascade-outerHousing')!.visible).toBe(false)
+    expect(runtime.root.getObjectByName('study-housing')!.visible).toBe(false)
+    expect(DRIVELINE_CASCADE_ORDER).toHaveLength(8)
+    // Phase alignment must happen while context still owns the visible internals;
+    // masking them first would conceal a source-swap rotation jump.
+    presentation.phaseCorrection = 1; seek(runtime, 66.9)
+    expect(detail().cascadeAlpha).toEqual([0, 1, 1, 1, 1, 1, 1, 0])
+    expect(detail().cascadeRotZ[0]).toBeCloseTo(-sampleFinaleAngle(66.9),12)
+    expect(detail().sunRotZ).toBeCloseTo(3*SPACE_PITCH_RAD-sampleFinaleAngle(66.9)*5.2,10)
+    presentation.contextOpacity = 0; presentation.phaseCorrection = 1; seek(runtime, 66.9)
+    expect(detail().cascadeAlpha).toEqual(new Array(8).fill(0))
+    expect(detail().cascadePlanetAlpha).toEqual(new Array(8).fill(0))
+    expect(detail().sunRotZ).toBeCloseTo(3*SPACE_PITCH_RAD-sampleFinaleAngle(66.9)*5.2,10)
+    runtime.dispose(); rig.geometry.dispose(); rig.sharedMaterial.dispose()
+  })
+
+  it('keeps every fully visible planet set orbiting on its invisible pivot before the cage, with shared acceleration', async () => {
+    const rig = cascadeRig(), { runtime } = await fixture({ rig })
+    expect(INPUT_TURNS_PER_OUTPUT_TURN).toBe(3250)
+    expect(SUN_TO_STAGE1_CARRIER_RATIO).toBe(5.2)
+    expect(Object.isFrozen(CASCADE_RATIOS)).toBe(true)
+    expect(CASCADE_RATIOS).toEqual([1,.2,.04,0,.008,.0016,.0016,0])
+    const visibleOrbits: Record<string, number> = {}
+    for (const event of CASCADE_REVEAL_EVENTS) {
+      const id = DRIVELINE_CASCADE_ORDER[event.index]
+      const pivot = runtime.root.getObjectByName('cascade-' + id)!
+      const planet = runtime.root.getObjectByName('cascade-planet-' + id)!
+      const cageMaterial = (pivot.children[0] as Mesh).material as MeshStandardMaterial
+      const planetMaterial = (planet.children[0] as Mesh).material as MeshStandardMaterial
+      // A nonzero pin makes world-space orbit measurable, including hidden cages.
+      planet.position.set(.012, .004, 0)
+      const samples = [event.planetStart, (event.planetStart + event.planetFull) / 2, event.planetFull,
+        (event.planetFull + event.carrierStart) / 2, event.carrierStart, (event.carrierStart + event.carrierFull) / 2, event.carrierFull]
+      const expected = samples.map(t => digest(runtime, t))
+      for (let i = samples.length - 1; i >= 0; i--) expect(digest(runtime, samples[i])).toBe(expected[i])
+      for (const i of [4, 1, 6, 0, 3, 2, 5]) expect(digest(runtime, samples[i])).toBe(expected[i])
+      seek(runtime, event.planetFull)
+      const startAngle = pivot.rotation.z
+      const worldPin = planet.getWorldPosition(new Vector3())
+      seek(runtime, (event.planetFull + event.carrierStart) / 2)
+      const midAngle = pivot.rotation.z - startAngle
+      const pinTravel = planet.getWorldPosition(new Vector3()).distanceTo(worldPin)
+      expect(pinTravel).toBeGreaterThan(1e-8)
+      // The measured model-to-study registration is rounded, so world-space
+      // chord length tolerates 10 nm while local angular ratios stay exact.
+      expect(Math.abs(pinTravel - 2 * Math.hypot(.012, .004) * Math.abs(Math.sin(midAngle / 2)))).toBeLessThan(1e-8)
+      seek(runtime, event.carrierStart)
+      const orbit = Math.abs(pivot.rotation.z - startAngle) / (2 * Math.PI)
+      visibleOrbits[id] = orbit
+      expect(pivot.visible).toBe(true); expect(planet.visible).toBe(true)
+      expect(cageMaterial.opacity).toBe(0); expect(planetMaterial.opacity).toBe(1)
+      expect(planet.rotation.z).toBeCloseTo(-pivot.rotation.z * CASCADE_PLANET_MULTIPLIERS[event.index], 12)
+      for (const t of samples.slice(1)) {
+        const result = seek(runtime, t) as { shaft: { finale: { driveAngle: number; driveRate: number; inputRpm: number } } }
+        expect(result.shaft.finale.driveAngle).toBe(sampleFinaleAngle(t))
+        expect(result.shaft.finale.driveRate).toBe(sampleFinaleDriveRate(t))
+        expect(result.shaft.finale.inputRpm).toBeCloseTo(sampleFinaleDriveRate(t) * 5.2 * 60 / (2 * Math.PI), 12)
+        for (let index = 0; index < DRIVELINE_CASCADE_ORDER.length; index++) {
+          const carrier = runtime.root.getObjectByName('cascade-' + DRIVELINE_CASCADE_ORDER[index])!
+          expect(carrier.rotation.z).toBeCloseTo(-sampleFinaleAngle(t) * CASCADE_RATIOS[index], 12)
+        }
+      }
+    }
+    seek(runtime, 64)
+    expect(runtime.root.getObjectByName('cascade-output')!.visible).toBe(true)
+    expect(runtime.root.getObjectByName('cascade-output')!.rotation.z).not.toBe(0)
+    console.info('cascade-visible-orbits', JSON.stringify(visibleOrbits))
+    expect(rig.sharedMaterial.opacity).toBe(1)
+    runtime.dispose(); rig.geometry.dispose(); rig.sharedMaterial.dispose()
+  })
+
+  it('measures 3250:1 and the exact local planet conjugacy throughout the retimed cascade', async () => {
+    const rig=cascadeRig(),{runtime}=await fixture({rig})
+    for(const t of [40.6,44.4,53.1,56.4,60,63.15,66.9]){
+      seek(runtime,t)
+      for(const [index,id] of DRIVELINE_CASCADE_ORDER.entries()){
+        const carrier=runtime.root.getObjectByName('cascade-'+id)!
+        expect(carrier.rotation.z).toBeCloseTo(-sampleFinaleAngle(t)*CASCADE_RATIOS[index],12)
+        const planet=runtime.root.getObjectByName('cascade-planet-'+id)
+        if(planet)expect(planet.rotation.z).toBeCloseTo(-carrier.rotation.z*CASCADE_PLANET_MULTIPLIERS[index],12)
+      }
+      const out=seek(runtime,t) as {shaft:{stage1:{meshPhaseError:number}}}
+      expect(out.shaft.stage1.meshPhaseError).toBeLessThan(1e-9)
+    }
+    expect(INPUT_TURNS_PER_OUTPUT_TURN).toBe(3250)
+    runtime.dispose();rig.geometry.dispose();rig.sharedMaterial.dispose()
+  })
+
+  it('holds common phase and fixed shaft index through every return seek', async () => {
+    const rig=cascadeRig(),presentation={phaseCorrection:0}
+    const {runtime}=await fixture({rig,runtimeOptions:{presentation}})
+    const objects=['study-approvedshaft','study-approvedring',...DRIVELINE_CASCADE_ORDER.map(id=>'cascade-'+id)].map(name=>runtime.root.getObjectByName(name)!)
+    seek(runtime,66.9);const angles=objects.map(o=>o.rotation.z)
+    for(const correction of [0,.1,.5,.999999,1,.5,0,1]){
+      presentation.phaseCorrection=correction
+      const out=seek(runtime,66.9) as {shaft:{stage1:{meshPhaseError:number};finale:{correctedDriveAngle:number;correctionSlope:number}}}
+      expect(objects.map(o=>o.rotation.z)).toEqual(angles)
+      expect(out.shaft.stage1.meshPhaseError).toBeLessThan(1e-9)
+      expect(out.shaft.finale.correctedDriveAngle).toBe(sampleFinaleAngle(66.9))
+      expect(out.shaft.finale.correctionSlope).toBe(0)
+    }
+    runtime.dispose();rig.geometry.dispose();rig.sharedMaterial.dispose()
+  })
+
 })

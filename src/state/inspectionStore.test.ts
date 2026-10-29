@@ -168,7 +168,7 @@ describe('session controls and absolute playhead', () => {
       expect(cold.inspection.active).toBe(true); expect(cold.inspection.static).toBe(true)
       expect(cold.inspection.epoch).toBe(epoch + 1); expect(cold.inspection.status).toBe('ready')
       expect(cold.inspection.kind).toBe('shaft'); expect(cold.inspection.storyId).toBe('shaft-p001835')
-      expect(cold.inspection.duration).toBe(43); expect(cold.inspection.time).toBe(22.6)
+      expect(cold.inspection.duration).toBe(66.9); expect(cold.inspection.time).toBe(22.6)
       expect(cold.inspectionTelemetry.chapter).toBe(2); expect(cold.inspectionTelemetry.phase).toBe('Static shaft study')
       expect(cold.inspection.runtime).toBeNull(); expect(cold.inspection.playing).toBe(false)
       expect(cold.getInspectionStory()).not.toHaveProperty('create')

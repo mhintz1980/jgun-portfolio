@@ -69,6 +69,16 @@ describe('private opening camera handoff', () => {
         expect(Math.abs(after - before) / Math.max(a.distance, c.distance)).toBeLessThan(2e-5)
         if (p === SHATTER_ORBIT_END) expect(a.position.distanceTo(c.position) / Math.max(a.distance, c.distance)).toBeLessThan(2e-5)
         expect(Math.abs(a.fov - c.fov)).toBeLessThan(1e-4)
+        // Actual component derivatives, not just tiny position steps. A smooth
+        // azimuth alone does not make radius, elevation or horizon C1.
+        for (const key of ['position', 'target', 'up'] as const) {
+          for (let axis = 0; axis < 3; axis++) {
+            const incoming = (m[key].getComponent(axis) - a[key].getComponent(axis)) / h
+            const outgoing = (c[key].getComponent(axis) - m[key].getComponent(axis)) / h
+            expect(Math.abs(incoming - outgoing), `${key}/${axis} at ${p}`).toBeLessThan(.1)
+          }
+        }
+        expect(Math.abs((c.fov - m.fov) / h - (m.fov - a.fov) / h)).toBeLessThan(.1)
       }
     })
   }

@@ -58,8 +58,9 @@ describe('shaft runtime synchronous construction ownership', () => {
       try { createShaftRuntime(session, context(), { onCleanupFailure: reporter }) }
       catch (error) { caught = error }
       expect(caught).toBe(primary)
-      // Shaper: disc/hub/clamp. Hob: the already completed shaper plus body/collar/arbor.
-      expect(allocations.size).toBe(faultMesh === 'shaper-clamp-nut' ? 3 : 7)
+      // Shaper prefix: disc/shoulder/nut. Hob: completed ten-geometry sketch
+      // shaper plus body/collar/arbor. Every allocation must still release once.
+      expect(allocations.size).toBe(faultMesh === 'shaper-clamp-nut' ? 3 : 13)
       expect(releases).toHaveLength(allocations.size)
       for (const geometry of allocations) expect(releases.filter(value => value === geometry)).toHaveLength(1)
       expect(lights).toHaveBeenCalledTimes(2)

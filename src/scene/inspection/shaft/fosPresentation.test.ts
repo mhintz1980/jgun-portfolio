@@ -71,14 +71,14 @@ describe('FOS presentation table (S2)', () => {
 })
 
 describe('groove colour in lockstep with the bar marker (Issue 7, Section 5 check 7)', () => {
-  it('paints the relief groove exactly the bar colour at 16.5 s (4140), 19.0 s (4340) and 21.5 s (C300)', () => {
+  it('paints the measured groove floor exactly the bar colour at 16.5 s (4140), 19.0 s (4340) and 21.5 s (C300)', () => {
     const fos = newFosPresentation()
     const hues: number[] = []
     for (const [time, alloy] of [[16.5, '4140'], [19.0, '4340'], [21.5, 'c300']] as const) {
       sampleFosPresentation(time, 'warm', 1, fos)
       expect(fos.hotspot).toBeCloseTo(FOS_ATTEMPTS[alloy], 9)
-      // Field = 1 across the groove, so the shader's mix(body, hotspot, field) is the marker value itself.
-      const groove = fos.body + (fos.hotspot - fos.body) * stressFieldAt(0.5, fos.hotspot)
+      // The narrow minimum is at the measured floor (dy = 0); the fillets rise smoothly away from it.
+      const groove = fos.body + (fos.hotspot - fos.body) * stressFieldAt(0, fos.hotspot)
       const [gr, gg, gb] = fosColor(groove), [mr, mg, mb] = fosColor(fos.hotspot)
       expect(gr).toBeCloseTo(mr, 9); expect(gg).toBeCloseTo(mg, 9); expect(gb).toBeCloseTo(mb, 9)
       hues.push(hue(fosColor(groove)))

@@ -3,6 +3,7 @@ import { breakthroughSubjectTimeAt, bulletTimeRiseFloor, BULLET_TIME_RISE_PAST_C
   SHATTER_SUBJECT_KNOTS } from './OpeningDirector'
 import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
 import { BULLET_TIME_RATE } from './bulletTime'
+import { drawingIntroState, DRAWING_INTRO_WINDOW } from '../drawing/introTimeline'
 
 it('suspends breakthrough physics while the continuous camera path keeps moving', () => {
   const a = .868, b = .922
@@ -122,10 +123,12 @@ it('leaves every full IntroState through progress .42 byte-identical to the pre-
 
 it('runs the shatter subject clock monotone, C1 at .42, ending exactly at t = 1', () => {
   expect(SHATTER_SUBJECT_KNOTS[0]).toEqual([.42, .84])
-  expect(SHATTER_SUBJECT_KNOTS[3][1]).toBeCloseTo(
-    .855 + (openingTimeAt(.452) - openingTimeAt(.43008)) * BULLET_TIME_RATE, 12,
+  // Plateau start is the exact integral of the entry-knee ratio (not an authored constant); the plateau end
+  // adds exactly rate * the un-dilated opening-clock displacement.
+  expect(SHATTER_SUBJECT_KNOTS[2][1]).toBeCloseTo(
+    SHATTER_SUBJECT_KNOTS[1][1] + (openingTimeAt(.452) - openingTimeAt(.43008)) * BULLET_TIME_RATE, 12,
   )
-  expect(SHATTER_SUBJECT_KNOTS[3][1]).toBeGreaterThan(.857)
+  expect(SHATTER_SUBJECT_KNOTS[2][1]).toBeGreaterThan(.857)
   expect(breakthroughSubjectTimeAt(.46)).toBe(1)
   expect(breakthroughSubjectTimeAt(1)).toBe(1)
   expect(() => breakthroughSubjectTimeAt(NaN)).toThrow()
@@ -193,20 +196,45 @@ it('keeps the post-shatter glow fade and lamp return tightly joined to the pre-T
   expect(invert(breakthroughSubjectTimeAt, .88)).toBeLessThanOrEqual(.456)
 })
 
-it('keeps the wrench rising through the bullet-time orbit and clears the sheet by its end', () => {
-  for (const crossing of [0.7, 0.8, 0.9]) {
-    // The floor is inactive up to the first orbit frame, so the pressure beat and rupture are untouched.
-    expect(bulletTimeRiseFloor(0.43008, crossing)).toBe(0)
-    let last = -1
-    for (let n = 0; n <= 800; n++) {
-      const p = 0.4 + 0.08 * n / 800, pose = sampleOpening(p, crossing).poseT
-      expect(pose, 'monotone at ' + p).toBeGreaterThanOrEqual(last - 1e-12); last = pose
+it.each([0.6, 0.865, 0.9])('continues lifting without an intermediate plateau to .46, crossing %s', crossing => {
+  expect(bulletTimeRiseFloor(0.42, crossing)).toBe(0)
+  let last = sampleOpening(0.42, crossing).poseT
+  for (let n = 1; n <= 4000; n++) {
+    const p = 0.42 + 0.04 * n / 4000, pose = sampleOpening(p, crossing).poseT
+    expect(pose, 'strict ascent at ' + p).toBeGreaterThan(last)
+    expect(pose).toBeLessThanOrEqual(1)
+    last = pose
+  }
+  expect(sampleOpening(0.452, crossing).poseT).toBeCloseTo(crossing + BULLET_TIME_RISE_PAST_CROSSING, 12)
+  expect(sampleOpening(0.456, crossing).poseT).toBeGreaterThan(sampleOpening(0.452, crossing).poseT)
+  expect(sampleOpening(0.46, crossing).poseT).toBe(1)
+  expect(sampleOpening(1, crossing).poseT).toBe(1)
+
+  const h = 1e-8
+  for (const p of [0.42, 0.43008, 0.452, 0.46]) {
+    const pose = sampleOpening(p, crossing).poseT
+    const left = (pose - sampleOpening(p - h, crossing).poseT) / h
+    const right = (sampleOpening(p + h, crossing).poseT - pose) / h
+    expect(Math.abs(left - right), 'C1 join at ' + p).toBeLessThan(0.002)
+  }
+  const ps = [.46, .452, .455, .43008, .42, .4599, .436]
+  expect(ps.slice().reverse().map(p => sampleOpening(p, crossing)).reverse()).toEqual(ps.map(p => sampleOpening(p, crossing)))
+})
+
+it('keeps fracture, pressure and the electrical subject clock independent of the new pose path', () => {
+  for (const crossing of [0.6, 0.865, 0.9]) {
+    for (let n = 0; n <= 80; n++) {
+      const p = 0.42 + n * 0.0005
+      const state = sampleOpening(p, crossing)
+      const subject = drawingIntroState(breakthroughSubjectTimeAt(p) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
+      expect(state.t).toBe(subject.t)
+      expect(state.fracture).toBe(subject.fracture)
+      expect(state.pressure).toBe(subject.pressure)
+      expect(state.lampPower).toBe(subject.lampPower)
+      expect(state.openingClear).toBe(subject.openingClear)
+      expect(state.pulseHead).toBe(sampleOpening(p).pulseHead)
+      expect(state.crackGrowth).toBe(sampleOpening(p).crackGrowth)
+      expect(state.crackGlow).toBe(sampleOpening(p).crackGlow)
     }
-    // No jump where the ramp takes over, and it holds its height through the end of the orbit.
-    const before = sampleOpening(0.43008, crossing).poseT, after = sampleOpening(0.43008 + 1e-7, crossing).poseT
-    expect(Math.abs(after - before)).toBeLessThan(1e-4)
-    const endOfOrbit = sampleOpening(0.452, crossing).poseT
-    expect(endOfOrbit).toBeGreaterThanOrEqual(Math.min(1, crossing + BULLET_TIME_RISE_PAST_CROSSING) - 1e-9)
-    expect(sampleOpening(0.46, crossing).poseT).toBe(1)
   }
 })

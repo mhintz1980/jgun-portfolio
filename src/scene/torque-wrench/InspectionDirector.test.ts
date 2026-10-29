@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { PerspectiveCamera, Vector3 } from 'three'
-import { BULLET_TIME_RATE } from './bulletTime'
+import { Mesh, MeshStandardMaterial, PerspectiveCamera, Vector3 } from 'three'
+import { BULLET_TIME_RATE, BULLET_TIME_SHOT_SPECS, sampleBulletTimeRate } from './bulletTime'
+import { TORQUE_PACING_SCALE, torqueScrollFraction } from './scrollPacing'
+import { createJourneySample, sampleJourney } from './JourneyDirector'
 import { createShaftCameraSample, sampleShaftCamera } from '../inspection/shaft/camera'
+import { buildShaperCutter } from '../inspection/shaft/tools'
+import { placeShaper, shaftMetrePoint } from '../inspection/shaft/frame'
 import {
   createShaftKinematicsFrame,
   CUTTER_RATE,
@@ -14,7 +18,7 @@ import {
   strokePhaseAt,
 } from '../inspection/shaft/kinematics'
 import { FACE_START_MM, SHAFT_OD_MM, SHAPING_FACE_END_MM } from '../inspection/shaft/progression'
-import { SHAPER_THICKNESS_MM } from '../inspection/shaft/toolSpec'
+import { SHAPER_TEETH, SHAPER_LEADING_FACE_Y_MM } from '../inspection/shaft/toolSpec'
 import {
   createPrivateRingCamera,
   CutterCameraArc,
@@ -26,22 +30,86 @@ import {
   samplePrivateRingCamera,
   RING_CLOSEUP_END,
   RING_CLOSEUP_START,
-  RING_CLOSEUP_SCALE,
   type PrivateInspectionSample,
 } from './InspectionDirector'
 
 const DESKTOP = 1440 / 900
 const NARROW = 390 / 844
+
+it.each([DESKTOP,NARROW])('keeps the actual remote arbor end outside the cutting view at aspect %s',aspect=>{
+  const material=new MeshStandardMaterial(),tool=buildShaperCutter(material)
+  const shank=tool.root.getObjectByName('shaper-arbor-shank') as Mesh
+  const positions=shank.geometry.getAttribute('position')
+  let minY=Infinity
+  for(let i=0;i<positions.count;i++)minY=Math.min(minY,positions.getY(i))
+  const camera=new PerspectiveCamera(24,aspect,.001,30),target=new Vector3(),point=new Vector3()
+  const sample=createPrivateInspectionSample()
+  try{
+    for(let i=0;i<=160;i++){
+      const p=.75+.085*i/160
+      samplePrivateInspection(p,aspect,sample)
+      if(sample.subjectTime<2||sample.subjectTime>11)continue
+      const c=sample.camera
+      shaftMetrePoint(camera.position,c.px,c.py,c.pz)
+      shaftMetrePoint(target,c.tx,c.ty,c.tz)
+      shaftMetrePoint(camera.up,c.ux,c.uy,c.uz)
+      camera.fov=c.fov;camera.lookAt(target);camera.updateProjectionMatrix();camera.updateMatrixWorld(true)
+      placeShaper(tool.root,sample.kinematics);tool.root.updateMatrixWorld(true)
+      let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity
+      for(let j=0;j<positions.count;j++)if(positions.getY(j)<=minY+1e-8){
+        point.fromBufferAttribute(positions,j).applyMatrix4(shank.matrixWorld).project(camera)
+        x0=Math.min(x0,point.x);x1=Math.max(x1,point.x);y0=Math.min(y0,point.y);y1=Math.max(y1,point.y)
+      }
+      expect(x1< -1.02||x0>1.02||y1< -1.02||y0>1.02,'arbor terminal cap at '+p).toBe(true)
+    }
+  }finally{tool.dispose();material.dispose()}
+})
 const KNOTS = [
   [0.735, 0], [0.795, 7.2], [0.835, 9.6],
   [0.87, 24.6], [0.884, 25], [0.89, 25.257], [0.89116, 25.62],
-  [0.90071, 28.955], [0.90208, 30.508], [0.905, 32], [0.94, 43],
+  [0.90071, 28.955], [0.90208, 30.508], [0.905, 32], [0.912, 35],
+  [0.922, 38.5], [0.930, 40.2], [0.94, 66.9],
 ] as const
 const CAMERA_SEAMS = [
-  0.735, 0.795, 0.835, 0.846, 0.863, 0.874, 0.884, 0.905, 0.925, 0.94,
+  0.735, 0.795, 0.835, 0.846, 0.863, 0.874, 0.884, 0.905, 0.912, 0.922, 0.930, 0.94,
 ] as const
 const at = (progress: number, aspect = DESKTOP) =>
   samplePrivateInspection(progress, aspect, createPrivateInspectionSample())
+
+const SHAPER = BULLET_TIME_SHOT_SPECS.shaperContact
+const HOB = BULLET_TIME_SHOT_SPECS.hobContact
+const RING = BULLET_TIME_SHOT_SPECS.ringSwitch
+/** Normalized CAMERA time u in [0, 1] across a shot window; the speed envelope is a function of this, not of progress. */
+function progressAtCameraU(window: readonly [number, number], u: number, aspect = DESKTOP): number {
+  const c0 = at(window[0], aspect).cameraTime, c1 = at(window[1], aspect).cameraTime
+  const target = c0 + (c1 - c0) * u
+  let lo = window[0], hi = window[1]
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2
+    if (at(mid, aspect).cameraTime < target) lo = mid
+    else hi = mid
+  }
+  return (lo + hi) / 2
+}
+/** Camera azimuth about its look-at point in the shaft/ring-local x-z plane. */
+const cameraAzimuth = (c: { px: number; pz: number; tx: number; tz: number }) => Math.atan2(c.pz - c.tz, c.px - c.tx)
+const wrapAngle = (v: number) => Math.atan2(Math.sin(v), Math.cos(v))
+/** Signed unwrapped azimuth sweep (degrees) over [lo, hi]; also reports whether every step keeps one sign. */
+function signedSweep(read: (p: number) => number, lo: number, hi: number, steps = 4000) {
+  let previous = read(lo), total = 0, positive = 0, negative = 0
+  for (let i = 1; i <= steps; i++) {
+    const d = wrapAngle(read(lo + (hi - lo) * i / steps) - previous)
+    previous = previous + d
+    total += d
+    if (d > 1e-12) positive++
+    if (d < -1e-12) negative++
+  }
+  return { degrees: total * 180 / Math.PI, monotone: positive === 0 || negative === 0 }
+}
+/** Native viewports from the page top at the measured document heights (study progress = native + .115). */
+const NATIVE_BASE = [{ base: 39442.74225, height: 900 }, { base: 37198.67711, height: 844 }] as const
+const studyViewports = (p: number, layout: 0 | 1) =>
+  torqueScrollFraction(p - .115) * TORQUE_PACING_SCALE * NATIVE_BASE[layout].base / NATIVE_BASE[layout].height
 
 it('holds ring/shaft isolation after camera arrival and restores it before close', () => {
   // T5: ring study window [.46,.505], isolation [.469,.4725], restore [.495,.505], pre-shaft fade [.72,.735].
@@ -132,8 +200,8 @@ describe('JG-038 private InspectionDirector C1', () => {
     }
     for (const progress of [0.94, 0.95, 1]) {
       const sample = at(progress)
-      expect(sample.subjectTime).toBe(43)
-      expect(sample.cameraTime).toBe(43)
+      expect(sample.subjectTime).toBe(66.9)
+      expect(sample.cameraTime).toBe(66.9)
       expect(sample.kinematics).toEqual(at(0.94).kinematics)
       expect(sample.camera).toEqual(at(0.94).camera)
     }
@@ -147,7 +215,7 @@ describe('JG-038 private InspectionDirector C1', () => {
       const sample = samplePrivateInspection(i / 2000, DESKTOP, out)
       expect(sample.subjectTime).toBeGreaterThanOrEqual(previousTime)
       expect(sample.subjectTime).toBeGreaterThanOrEqual(0)
-      expect(sample.subjectTime).toBeLessThanOrEqual(43)
+      expect(sample.subjectTime).toBeLessThanOrEqual(66.9)
       expect(sample.cameraTime).toBeGreaterThanOrEqual(previousCameraTime)
       previousTime = sample.subjectTime
       previousCameraTime = sample.cameraTime
@@ -155,6 +223,43 @@ describe('JG-038 private InspectionDirector C1', () => {
     for (const [progress] of KNOTS.slice(1, -1)) {
       const rate = (at(progress + 1e-6).subjectTime - at(progress - 1e-6).subjectTime) / 2e-6
       expect(rate).toBeGreaterThan(1)
+    }
+  })
+
+  it.each([DESKTOP, NARROW])('synchronizes cascade clocks and keeps the camera moving until the R9 shoulder (aspect %s)', (aspect) => {
+    for (const [progress, time] of [[.905, 32], [.912, 35], [.922, 38.5], [.930, 40.2], [.94, 66.9]]) {
+      expect(at(progress, aspect).cameraTime).toBe(time)
+      expect(at(progress, aspect).subjectTime).toBe(time)
+    }
+    // The incoming .905 tangents retain their independent pre-32s clocks;
+    // once the runout shoulder is complete the full curves coincide.
+    for (let i = 0; i <= 280; i++) {
+      const p = .912 + .028 * i / 280
+      expect(at(p, aspect).cameraTime).toBe(at(p, aspect).subjectTime)
+    }
+    for (const [a, b] of [[35, 36.2], [36.2, 38.2], [38.2, 38.5], [38.5, 40.2], [40.2, 41.6], [41.6, 42.6]]) {
+      for (let i = 0; i < 10; i++) {
+        const left = at(progressAtTime(a + (b - a) * i / 10), aspect)
+        const right = at(progressAtTime(a + (b - a) * (i + 1) / 10), aspect)
+        expect(positionDistance(left, right)).toBeGreaterThan(1e-6)
+      }
+    }
+    expect(at(.939, aspect).cameraTime).toBeGreaterThan(at(.938, aspect).cameraTime)
+    expect(at(.939, aspect).camera).not.toEqual(at(.94, aspect).camera)
+  })
+
+  it.each([DESKTOP, NARROW])('preserves JourneyDirector progress domains and the settled retirement handoff (aspect %s)', (aspect) => {
+    for (const [canonical, time] of [[.797, 35], [.807, 38.5], [.815, 40.2], [.825, 66.9]]) {
+      const journey = sampleJourney(canonical, true, createJourneySample())
+      const study = at(journey.inspectionProgress, aspect)
+      expect(study.subjectTime).toBeCloseTo(time, 11)
+      expect(study.cameraTime).toBeCloseTo(time, 11)
+    }
+    const endpoint = at(.94, aspect).camera
+    for (const p of [.825, .826, .83, .84]) {
+      const journey = sampleJourney(p, true, createJourneySample())
+      expect(at(journey.inspectionProgress, aspect).camera).toEqual(endpoint)
+      expect(journey.studyVisible).toBe(true)
     }
   })
 
@@ -205,9 +310,9 @@ describe('JG-038 private InspectionDirector C1', () => {
 
   it.each([DESKTOP, NARROW])('retains the baseline camera at clear endpoint seams at aspect %s', (aspect) => {
     const baseline = createShaftCameraSample()
-    for (const progress of [0, 0.735, 0.925, 0.94, 1]) {
+    for (const progress of [0, 0.735, 0.94, 1]) {
       const sample = at(progress, aspect)
-      const expectedTime = progress <= 0.735 ? 0 : 43
+      const expectedTime = progress <= 0.735 ? 0 : 66.9
       expect(sample.arcWeight).toBeLessThan(1e-20)
       expect(sample.hobSwingWeight).toBe(0)
       sampleShaftCamera(expectedTime, aspect, sample.kinematics, baseline)
@@ -231,7 +336,8 @@ describe('JG-038 private InspectionDirector C1', () => {
 
   it.each([DESKTOP, NARROW])('has observable translation AND orientation in the stable slow window at aspect %s', (aspect) => {
     // Plain CPU motion witnesses only: no projected proxies or framing acceptance.
-    const samples = [0.801, 0.809, 0.817, 0.825, 0.831].map(p => at(p, aspect))
+    // The 0.10 plateau is a function of normalized CAMERA time (u in [.15, .85]), not of progress.
+    const samples = [.15, .3, .5, .7, .85].map(u => at(progressAtCameraU(SHAPER.window, u, aspect), aspect))
     const baseline = createShaftCameraSample()
     for (const sample of samples) {
       expect(sample.subjectTime).toBeGreaterThan(7.2)
@@ -251,8 +357,9 @@ describe('JG-038 private InspectionDirector C1', () => {
       const b = samples[i]
       expect(positionDistance(a, b)).toBeGreaterThan(0.001)
       expect(orientationAngle(a, b)).toBeGreaterThan(0.005)
-      // The camera clock advances independently of slowed machining time.
-      expect((b.cameraTime - a.cameraTime) / (b.kinematics.machining - a.kinematics.machining)).toBeGreaterThan(5)
+      // The camera clock runs 1/rate = 10x faster than the slowed machining time on the plateau.
+      expect((b.cameraTime - a.cameraTime) / (b.kinematics.machining - a.kinematics.machining))
+        .toBeGreaterThan(0.9 / BULLET_TIME_RATE)
     }
   })
 
@@ -304,7 +411,10 @@ describe('JG-038 private InspectionDirector C1', () => {
         const leftRate = (read(center) - read(left)) / h
         const rightRate = (read(right) - read(center)) / h
         expect(Math.abs(read(right) - read(left)), `${name} C0 at ${p}`).toBeLessThan(2e-5)
-        expect(Math.abs(rightRate - leftRate), `${name} C1 at ${p}`).toBeLessThan(tolerance)
+        // The physical continuation arrives at nonzero clock speed. Its held
+        // endpoint has an explicit one-sided stop; camera dolly speed is zero.
+        if (p !== .94 || (name !== 'subjectTime' && name !== 'cameraTime'))
+          expect(Math.abs(rightRate - leftRate), `${name} C1 at ${p}`).toBeLessThan(tolerance)
       }
     }
   })
@@ -335,7 +445,6 @@ function oldSubjectTime(p: number): number {
     + (-2 * u3 + 3 * u2) * tb + (u3 - u2) * h * slope(i + 1)
   return Math.max(ta, Math.min(tb, t))
 }
-const SWING_P = [0.89116, 0.89888] as const
 const invertSubject = (time: number) => {
   let lo = 0.884, hi = 0.94
   for (let i = 0; i < 60; i++) {
@@ -347,29 +456,47 @@ const invertSubject = (time: number) => {
 }
 
 describe('JG-038 T6-C3 hob engagement and shaper contact', () => {
-  it.each([DESKTOP, NARROW])('keeps the >=60 deg camera swing on the fixed camera clock at aspect %s', (aspect) => {
-    let first = -1, last = -1
-    const out = createPrivateInspectionSample()
-    for (let p = 0.885; p <= 0.905; p += 2e-6) {
-      if (samplePrivateInspection(p, aspect, out).hobSwingWeight * 82 >= 60) { if (first < 0) first = p; last = p }
-    }
-    expect(first).toBeCloseTo(SWING_P[0], 4)
-    expect(Math.abs(first - SWING_P[0])).toBeLessThan(1e-5)
-    expect(Math.abs(last - SWING_P[1])).toBeLessThan(1e-5)
+  it.each([DESKTOP, NARROW])('sweeps the hob camera a signed >=60 deg in one direction on the camera clock at aspect %s', (aspect) => {
+    const sweep = signedSweep(p => cameraAzimuth(at(p, aspect).camera), HOB.window[0], HOB.window[1])
+    expect(sweep.monotone).toBe(true)
+    expect(sweep.degrees).toBeGreaterThanOrEqual(HOB.minCameraSweepDeg - 1e-6)
+    // The swing weight is a camera-clock bell: zero at both window edges, full at the middle.
+    expect(at(HOB.window[0], aspect).hobSwingWeight).toBe(0)
+    expect(at(HOB.window[1], aspect).hobSwingWeight).toBeCloseTo(0, 12)
+    expect(at(progressAtCameraU(HOB.window, .5, aspect), aspect).hobSwingWeight).toBeCloseTo(1, 9)
+    // The orbit holds its end azimuth until the transfer back to the baseline framing.
+    const end = cameraAzimuth(at(HOB.window[1], aspect).camera)
+    expect(Math.abs(wrapAngle(cameraAzimuth(at(.8995, aspect).camera) - end))).toBeLessThan(1e-9)
   })
 
-  it.each([DESKTOP, NARROW])('touches in a rising swing, seats inside the 60 deg window and turns at doc39 10% normal speed (aspect %s)', (aspect) => {
+  it.each([[DESKTOP, 0], [NARROW, 1]] as const)('peaks the shaper and hob camera at >=35 deg per native viewport (aspect %s)', (aspect, layout) => {
+    // Skill Section 3.3 pillar 2: the camera whips fastest while the subject crawls. Measured per native viewport
+    // scrolled through the live pacing map, so a pacing change that stretches the span fails this test.
+    const h = 1e-6
+    for (const spec of [SHAPER, HOB]) {
+      let peak = 0
+      for (let i = 0; i <= 600; i++) {
+        const p = spec.window[0] + (spec.window[1] - spec.window[0]) * i / 600
+        const dAz = Math.abs(wrapAngle(cameraAzimuth(at(p + h, aspect).camera) - cameraAzimuth(at(p - h, aspect).camera))) * 180 / Math.PI
+        peak = Math.max(peak, dAz / (studyViewports(p + h, layout) - studyViewports(p - h, layout)))
+      }
+      expect(peak, spec.id + ' peak deg/vp').toBeGreaterThanOrEqual(35)
+    }
+  })
+
+  it.each([DESKTOP, NARROW])('touches before the swing window, seats inside it and integrates the canonical hob area (aspect %s)', (aspect) => {
     const pTouch = invertSubject(25.246)
     expect(pTouch).toBeLessThanOrEqual(0.89)
-    expect(at(pTouch, aspect).hobSwingWeight * 82).toBeGreaterThanOrEqual(45)
-    expect(at(pTouch, aspect).hobSwingWeight * 82).toBeLessThan(60) // touch precedes the formal window
+    expect(pTouch).toBeLessThan(HOB.window[0]) // touch precedes the formal window
+    expect(at(pTouch, aspect).hobSwingWeight).toBe(0)
     const pSeat = invertSubject(25.7)
-    expect(pSeat).toBeGreaterThan(SWING_P[0])
-    expect(pSeat).toBeLessThan(SWING_P[1])
-    const turn = (hobDeg(at(SWING_P[1], aspect))) - hobDeg(at(SWING_P[0], aspect))
-    // Doc39 replaces the former 90-180-degree timing budget with exact .10x.
-    const normalTurn=(at(SWING_P[1],aspect).cameraTime-at(SWING_P[0],aspect).cameraTime)*180
-    expect(turn/normalTurn).toBeCloseTo(BULLET_TIME_RATE,10)
+    expect(pSeat).toBeGreaterThan(HOB.window[0])
+    expect(pSeat).toBeLessThan(HOB.window[1])
+    // Normal hob speed is .5 rev/s = 180 deg per camera second. Over the whole window the physical turn is
+    // that normal turn times the area of the canonical envelope: rate + ramp * (1 - rate) (full-speed knees included).
+    const turn = hobDeg(at(HOB.window[1], aspect)) - hobDeg(at(HOB.window[0], aspect))
+    const normalTurn = (at(HOB.window[1], aspect).cameraTime - at(HOB.window[0], aspect).cameraTime) * 180
+    expect(turn / normalTurn).toBeCloseTo(HOB.rate + HOB.rampFraction * (1 - HOB.rate), 9)
     let prior = -1, priorPhi = -1
     for (let p = 0.884; p <= 0.905; p += 1e-5) {
       const sample = at(p, aspect)
@@ -382,22 +509,33 @@ describe('JG-038 T6-C3 hob engagement and shaper contact', () => {
 
   it('keeps the kinematic law at shaft seams: the new knots end exactly on the unchanged [.905,32] and [.94,43]', () => {
     expect(at(0.905).subjectTime).toBe(32)
-    expect(at(0.94).subjectTime).toBe(43)
+    expect(at(0.94).subjectTime).toBe(66.9)
     for (const [progress, time] of [[0.89, 25.257], [0.89116, 25.62], [0.90071, 28.955], [0.90208, 30.508]]) {
       expect(at(progress).subjectTime).toBe(time)
     }
   })
 
-  it.each([DESKTOP, NARROW])('preserves the original formula outside the doc39 bullet retime and the static hob through .87-.884 (aspect %s)', (aspect) => {
+  it.each([DESKTOP, NARROW])('preserves the pre-shaper formula, the 9.6 s shaper exit and the static hob through .87-.884 (aspect %s)', (aspect) => {
     const frame = createShaftKinematicsFrame()
-    for (let p = 0.735; p <= 0.87 + 1e-12; p += 0.001) {
-      if(p>.795 && p<.835)continue // Explicitly superseded clock; physical kinematics tested separately.
+    // Before the shaper contact the whole law is unchanged (ratios, clock and kinematics).
+    for (let p = 0.735; p <= 0.795 + 1e-12; p += 0.001) {
       const sample = at(p, aspect)
       expect(sample.subjectTime).toBe(oldSubjectTime(p))
       expect(sample.kinematics).toEqual(sampleShaftKinematics(oldSubjectTime(p), frame))
     }
-    // The PCHIP tangent at .884 now depends on the next knot, so only the hob/mode/depth fields are
-    // compared here (hob is static before 25 s); subject time shifts by well under a frame.
+    // The canonical shaper clock replaces .795-.835 but must land exactly on the owner seams 7.2 s / 9.6 s.
+    expect(at(0.795, aspect).subjectTime).toBe(7.2)
+    expect(at(0.835, aspect).subjectTime).toBe(9.6)
+    expect(at(0.87, aspect).subjectTime).toBe(24.6)
+    // After the exit the recap catch-up leaves 9.6 s with the C1 tangent of the new shoulder, so its interior
+    // shape is no longer the legacy PCHIP: require a monotone climb that stays between the seams instead.
+    let prior = 9.6
+    for (let p = 0.835; p <= 0.87 + 1e-12; p += 0.0005) {
+      const t = at(p, aspect).subjectTime
+      expect(t).toBeGreaterThanOrEqual(prior - 1e-12)
+      expect(t).toBeLessThanOrEqual(24.6 + 1e-9)
+      prior = t
+    }
     for (let p = 0.871; p < 0.884; p += 0.001) {
       const sample = at(p, aspect)
       const reference = sampleShaftKinematics(oldSubjectTime(p), frame)
@@ -410,28 +548,54 @@ describe('JG-038 T6-C3 hob engagement and shaper contact', () => {
     }
   })
 
-  it.each([DESKTOP, NARROW])('keeps visible kinematics and camera equal through .905-.94 (aspect %s)', (aspect) => {
+  it.each([DESKTOP, NARROW])('hands the hob orbit back to the baseline camera by 35 s with unchanged kinematics through .905-.94 (aspect %s)', (aspect) => {
     const frame = createShaftKinematicsFrame()
-    for (let p = 0.905; p <= 0.94 + 1e-12; p += 0.0025) {
+    const baselineDistance = (p: number) => {
       const sample = at(p, aspect)
-      const reference = sampleShaftKinematics(oldSubjectTime(p), frame)
+      const reference = sampleShaftKinematics(sample.subjectTime, frame)
       for (const key of ['hobPhi', 'hobWorkPhi', 'hobRevRate', 'hobYc', 'hobA', 'hobToolA', 'hobR', 'mode', 'followAzimuth', 'cutterPhi', 'workPhi', 'cutting', 'returning', 'chipOpacity'] as const) {
         expect(sample.kinematics[key], key + ' @' + p).toEqual(reference[key])
       }
       expect(sample.kinematics.spaceDepth).toEqual(reference.spaceDepth)
+      expect(sample.hobSwingWeight).toBe(0)
       const camera = createShaftCameraSample()
       sampleShaftCamera(sample.cameraTime, aspect, reference, camera)
-      expect(sample.hobSwingWeight).toBe(0)
-      for (const key of Object.keys(camera) as (keyof typeof camera)[]) {
-        if (key === 'valid') continue
-        expect(sample.camera[key], key + ' @' + p).toBeCloseTo(camera[key] as number, 12)
+      return { sample, camera, distance: Math.hypot(sample.camera.px - camera.px, sample.camera.py - camera.py, sample.camera.pz - camera.pz) }
+    }
+    // The swing's end azimuth relaxes monotonically to the baseline until the 35 s transfer completes.
+    let prior = Infinity
+    for (let p = 0.905; p < 0.912; p += 0.0005) {
+      const { distance } = baselineDistance(p)
+      expect(distance).toBeLessThanOrEqual(prior + 1e-9)
+      prior = distance
+    }
+    // From 35 s until the ignition macro takes over (~.916) position, target and lens equal the baseline.
+    for (let p = 0.912; p <= 0.915 + 1e-12; p += 0.001) {
+      const { sample, camera } = baselineDistance(p)
+      for (const key of ['px', 'py', 'pz', 'tx', 'ty', 'tz', 'fov'] as const) {
+        expect(sample.camera[key], key + ' @' + p).toBeCloseTo(camera[key], 12)
       }
+    }
+  })
+
+  it.each([DESKTOP, NARROW])('restores the leaf target and lens after the hob orbit while retaining pole-safe horizon (aspect %s)', (aspect) => {
+    const frame = createShaftKinematicsFrame()
+    for (let p = 0.912; p <= 0.915 + 1e-12; p += 0.001) {
+      const sample = at(p, aspect)
+      const camera = createShaftCameraSample()
+      sampleShaftCamera(sample.cameraTime, aspect, sampleShaftKinematics(sample.subjectTime, frame), camera)
+      for (const key of ['tx', 'ty', 'tz', 'fov'] as const) expect(sample.camera[key], key + ' @' + p).toBeCloseTo(camera[key], 12)
+      const view = [sample.camera.tx - sample.camera.px, sample.camera.ty - sample.camera.py, sample.camera.tz - sample.camera.pz]
+      const length = Math.hypot(...view)
+      const upDot = Math.abs((view[0] * sample.camera.ux + view[1] * sample.camera.uy + view[2] * sample.camera.uz) / length)
+      expect(upDot, 'pole @' + p).toBeLessThan(.98)
+      expect(Math.hypot(sample.camera.ux, sample.camera.uy, sample.camera.uz)).toBeCloseTo(1, 12)
     }
   })
 
   it('retains physical shaper contact and cutter rotation under the doc39 clock retime', () => {
     const inStock = (m: number) => {
-      const edge = strokeCentreYAt(m) + SHAPER_THICKNESS_MM / 2
+      const edge = strokeCentreYAt(m) + SHAPER_LEADING_FACE_Y_MM
       return strokePhaseAt(m) < 0.5 && edge >= FACE_START_MM && edge <= SHAPING_FACE_END_MM && infeedRhoAt(m) < SHAFT_OD_MM - 1e-3
     }
     const out = createPrivateInspectionSample()
@@ -454,28 +618,38 @@ describe('JG-038 T6-C3 hob engagement and shaper contact', () => {
     const m0 = machiningTimeAt(at(main[0]).subjectTime)
     const m1 = machiningTimeAt(at(main[1]).subjectTime)
     const cutterDeg = (m1 - m0) * CUTTER_RATE * 180 / Math.PI
-    expect(cutterDeg).toBeGreaterThanOrEqual(24)
-    expect(cutterDeg).toBeLessThanOrEqual(26)
+    // Preserve the same tooth passages after the owner changes 20 -> 60 teeth.
+    const toothPitches=cutterDeg*SHAPER_TEETH/360
+    expect(toothPitches).toBeGreaterThanOrEqual(24*20/360)
+    expect(toothPitches).toBeLessThanOrEqual(26*20/360)
   })
 })
 function hobDeg(sample: PrivateInspectionSample) { return hobPhiAt(sample.subjectTime) * 180 / Math.PI }
 
 
-it('doc39 shaft interiors run at .10 of NORMAL physical speed against the camera clock',()=>{
-  const h=1e-6
-  for(const [lo,hi,read,normal] of [
-    [.8,.832,(s:PrivateInspectionSample)=>machiningTimeAt(s.subjectTime),1],
-    [.89116,.898881,(s:PrivateInspectionSample)=>hobPhiAt(s.subjectTime),Math.PI],
-  ] as const){
-    for(let i=1;i<20;i++){
-      const p=lo+(hi-lo)*i/20,a=at(p-h),b=at(p+h)
-      expect((read(b)-read(a))/((b.cameraTime-a.cameraTime)*normal)).toBeCloseTo(BULLET_TIME_RATE,7)
+it('doc39 shaft interiors run the canonical knees: 1.0x at the window edges, exactly .10 of NORMAL on camera-time u in [.15,.85]', () => {
+  const h = 1e-6
+  for (const [spec, read, normal] of [
+    [SHAPER, (s: PrivateInspectionSample) => machiningTimeAt(s.subjectTime), 1],
+    [HOB, (s: PrivateInspectionSample) => hobPhiAt(s.subjectTime), Math.PI],
+  ] as const) {
+    const ratioAt = (u: number) => {
+      const p = progressAtCameraU(spec.window, u)
+      const a = at(p - h), b = at(p + h)
+      return (read(b) - read(a)) / ((b.cameraTime - a.cameraTime) * normal)
     }
+    for (let k = 0; k <= 14; k++) expect(ratioAt(.15 + .7 * k / 14), spec.id + ' plateau u=' + k).toBeCloseTo(spec.rate, 6)
+    // Inside the C1 knees the physical ratio follows the canonical envelope of normalized camera time.
+    for (const u of [.02, .05, .1, .9, .95, .98]) {
+      expect(ratioAt(u), spec.id + ' knee u=' + u).toBeCloseTo(sampleBulletTimeRate(u, spec.rate, spec.rampFraction), 4)
+    }
+    expect(ratioAt(.001)).toBeGreaterThan(.99)
+    expect(ratioAt(.999)).toBeGreaterThan(.99)
   }
-  // Include every new shoulder and plateau boundary in the derivative check.
-  for(const p of [.795,.8,.832,.835,.89,.89116,.898881,.90071]){
-    const h=1e-8,a=at(p-h),b=at(p),c=at(p+h)
-    expect(Math.abs((c.subjectTime-b.subjectTime)-(b.subjectTime-a.subjectTime))/h).toBeLessThan(.1)
+  // Include every shoulder and plateau boundary in the derivative check.
+  for (const p of [.795, SHAPER.window[0], SHAPER.window[1], .835, .89, HOB.window[0], HOB.window[1], .90071]) {
+    const e = 1e-8, a = at(p - e), b = at(p), c = at(p + e)
+    expect(Math.abs((c.subjectTime - b.subjectTime) - (b.subjectTime - a.subjectTime)) / e, 'C1 at ' + p).toBeLessThan(.1)
   }
 })
 
@@ -491,7 +665,6 @@ it.each([DESKTOP,NARROW])('doc39 keeps the whole ring/indicator envelope framed 
     camera.position.set(c.px,c.py,c.pz);camera.up.set(c.ux,c.uy,c.uz)
     camera.lookAt(c.tx,c.ty,c.tz);camera.fov=c.fov;camera.aspect=aspect
     camera.updateProjectionMatrix();camera.updateMatrixWorld(true)
-    if(p>=.4725&&p<=.4945)expect(Math.atan2(c.pz-c.tz,c.px-c.tx)).toBeLessThanOrEqual(3.0)
     if(!closeUp)for(const z of [-.016,.022])for(let j=0;j<48;j++){
       const a=j*Math.PI/24
       point.set(.0377*Math.cos(a),.0377*Math.sin(a),z).project(camera)
@@ -500,6 +673,17 @@ it.each([DESKTOP,NARROW])('doc39 keeps the whole ring/indicator envelope framed 
       expect(point.z).toBeLessThan(1)
     }
   }
+})
+
+it.each([DESKTOP,NARROW])('sweeps the ring camera a signed >=45 deg one way across the knurl window and pulls back without a counter-swing at aspect %s',aspect=>{
+  const az=(p:number)=>cameraAzimuth(samplePrivateRingCamera(p,.19,createPrivateRingCamera(),aspect))
+  const window=signedSweep(az,RING.window[0],RING.window[1])
+  expect(window.monotone).toBe(true)
+  expect(window.degrees).toBeGreaterThanOrEqual(RING.minCameraSweepDeg-1e-6)
+  const whole=signedSweep(az,.4725,.4945)
+  expect(whole.monotone).toBe(true)
+  expect(whole.degrees).toBeGreaterThanOrEqual(window.degrees)
+  expect(whole.degrees).toBeLessThan(180)
 })
 
 it('doc39 ring path moves during fade-in, swings handleward during shift and retraces all seams',()=>{
@@ -523,24 +707,37 @@ it('doc39 ring path moves during fade-in, swings handleward during shift and ret
   expect(()=>samplePrivateRingCamera(.48,.19,createPrivateRingCamera(),0)).toThrow(/finite/)
 })
 
-it.each([DESKTOP,NARROW])('swings in on the knurling die between .4768 and .4905 and pulls back to whole-ring framing by .4945 at aspect %s',aspect=>{
+it.each([DESKTOP,NARROW])('frames the die contact close-up between .4768 and .485 and pulls back to whole-ring framing by .4945 at aspect %s',aspect=>{
   const at=(p:number,focus?:{x:number;y:number;z:number})=>{
     const c=samplePrivateRingCamera(p,.24,createPrivateRingCamera(),aspect,focus)
     return {c,radius:Math.hypot(c.px-c.tx,c.py-c.ty,c.pz-c.tz)}
   }
   const whole=at(.4725).radius
-  expect(at(.481).radius).toBeLessThan(whole*(RING_CLOSEUP_SCALE+.01))
-  expect(at(.4905).radius).toBeLessThan(whole*(RING_CLOSEUP_SCALE+.01))
-  expect(at(.481).c.fov).toBeLessThan(26)
+  const ringRadius=.0377
+  // Actual tool-contact framing (solver-authored absolute radius: desktop .31 m, narrow .5 m): far enough that
+  // the ring OD and the knurling die stay clear of the near plane (>= 6 ring radii), on a sub-assembly lens (22-36 deg).
+  expect(whole).toBeGreaterThanOrEqual(.24*Math.max(1,.8/aspect)-1e-12)
+  for(const p of [.4768,.481,.485]){
+    const shot=at(p)
+    expect(shot.radius,'minimum contact radius at '+p).toBeGreaterThanOrEqual(6*ringRadius)
+    expect(shot.c.fov).toBeGreaterThanOrEqual(22)
+    expect(shot.c.fov).toBeLessThanOrEqual(36)
+    // The look-at stays on the ring's own contact patch (inside the OD), not on the larger fixture.
+    expect(Math.hypot(shot.c.tx,shot.c.ty)).toBeLessThan(ringRadius)
+  }
+  expect(at(.4945).radius).toBeGreaterThanOrEqual(whole-1e-9)
   expect(at(.4945).radius).toBeCloseTo(at(.46).radius,6)
   expect(at(.4945).c.fov).toBe(32)
-  for(let n=0;n<=200;n++){
-    const p=.4725+.022*n/200,c=at(p).c
-    expect(Math.atan2(c.pz-c.tz,c.px-c.tx)).toBeLessThanOrEqual(2.95+1e-9)
+  // The dolly between whole-ring and contact framing is continuous in both directions (no radius pop).
+  let previous=at(.4725).radius,largestStep=0
+  for(let n=1;n<=400;n++){
+    const radius=at(.4725+(.4945-.4725)*n/400).radius
+    largestStep=Math.max(largestStep,Math.abs(radius-previous));previous=radius
   }
-  // With a live die position the close-up leans toward it; whole-ring framing ignores it entirely.
+  expect(largestStep).toBeLessThan(.02)
+  // Whole-ring framing ignores a live die position entirely; the authored contact target is not displaced by it.
   const die={x:.02,y:.03,z:.01}
-  expect(at(.485,die).c.tx).toBeGreaterThan(at(.485).c.tx)
+  expect(at(.485,die).c.tx).toBeCloseTo(at(.485).c.tx,12)
   expect(at(.4725,die).c).toEqual(at(.4725).c)
   expect(at(.4945,die).c).toEqual(at(.4945).c)
 })

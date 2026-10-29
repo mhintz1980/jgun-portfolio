@@ -1,5 +1,7 @@
 # JGun Portfolio — 3D Interactive Mechanical-to-AI Portfolio
 
+> **Historical 2026-10-26 owner corrections 56 (superseded by 59):** Adjustable 100:1 shaft cascade with a measured 158 RPM cap at authored 1× / 60 Hz; only Stage 2 requires one full visible orbit. The gearbox housing stays opaque during explosion and return. [Plan 56](docs/torque-wrench-rebuild/56-ratio-cap-solid-housing-plan-2026-10-26.md) · [evidence 57](docs/torque-wrench-rebuild/57-ratio-cap-solid-housing-evidence-2026-10-26.md). Source/build and headed playback pass; the final 158 RPM browser roster passes four cases × 23 checks. Gemini-4-Argon reviewed the implementation before the final 2 RPM calibration reduction; see evidence for that boundary. Owner acceptance OPEN; no commit/push/deployment.
+
 > **JG-035 handwriting update, 2026-10-08:** The rejected synthetic hand is replaced by a custom font traced from the owner's `ac-fast.png` reference, rendered as individual graphite glyphs with deterministic reveal. Mark clarified that close resemblance is enough and said the font looks good. [Current handwriting plan](docs/jgun-handwriting-reference-plan-2026-10-08.md) and [evidence/handoff](project/work/evidence/JG-035-opening-drafting-table/handwriting-reference-2026-10-08/README.md) supersede the handwriting status in the historical banners below. Full animation acceptance and inherited G6 remain separate.
 
 > **JG-035 owner revisions, 2026-10-07/08 (implemented; owner visual acceptance OPEN).** Handwritten owner notes on the drawing (Detail B retargeted to the input-shaft sun gear P001835, no sticky notes), personal MARK HINTZ / Digital Systems Architect title and A/B/C career block, accelerating burst/hold electrical outline with interior branches, extra close-reading scroll, Ring Switch hole concealment and knurl seam fix, cutter-viewer-right shaft camera, FEA-style factor-of-safety presentation and shaft normal repair. [Plan](docs/jgun-owner-animation-revision-plan-2026-10-07.md) · [evidence index](project/work/evidence/JG-035-opening-drafting-table/owner-revisions-2026-10-07/README.md). Captures are bundled Chromium + SwiftShader software GL in a Linux cloud container, not hardware GL; Windows hardware verification, the inherited G6 desktop-full tier drop and the final full verifier roster remain open. The handwriting is now an all-caps humanized hand in graphite ink (`2831f35`, drawing cache v7) — in progress, pending visual verification. The measured ladder and downstream windows are unchanged.
@@ -110,8 +112,9 @@ raw document scroll.
 
 CH.02 keeps its GSAP ScrollTrigger timeline (`scrub: 0.6`) on
 `[data-chapter="1"]`, animating the same proxy object as before: spin
-`.12–.47`, gear `.12–1.02`, ghost-in `.27–.47`, explode `.47–.97`,
-ghost-out `.54–.79`. Only early CH.01 cues map by `p → .12 + p/3` on
+`.12–.47`, gear `.12–1.02`, explode `.47–.97`. The old ghost-in/out cues are
+historical: owner correction 56 keeps the active private gearbox housing opaque.
+Only early CH.01 cues map by `p → .12 + p/3` on
 `0≤p≤.18`. Downstream camera/station/LCD windows are unchanged; later
 progress is not remapped. Camera damping (`1 - e^-6·Δ`), pointer parallax,
 the six-frame pulse shake, the scroll-rest orbit and the gear idle are all
@@ -135,6 +138,42 @@ removing the layers that need to settle.
 Clutch sliding adds `shift × -0.015 m`. Display turns along the physical driveline from motor to snout (stage1 → stage2 → stage5 → stage3 → stage4) are
 `8.0 / 5.2 / 3.38 / 2.20 / 1.43` (`stage1: 8`, `stage2: 5.2`, `stage5: 3.38`, `stage3: 2.2`, `stage4: 1.43`, JG-031 ~65% stage progression); planets counter-rotate by multiplier `3.5`.
 Part numbers identify units; stage names cannot reorder them.
+
+The 66.9-second Input Shaft study preserves 0–40.2 s and Stage 1's
+5.2:1:−3.5 law. Post-40.2 reveal windows are stretched by 1.5, with no orbit-count
+requirements. Stage 1 carrier drive ramps 90→270→420→1000°/s during the Stage
+5/3/4 cage fades at 55.5–56.4, 59.1–60 and 62.25–63.15 s.
+
+| Unit, physical order | Carrier / Stage 1 | Local planet / own carrier |
+|---|---:|---:|
+| Stage 1 | 1 | −3.5 |
+| Stage 2 | .2 | −10/3 |
+| Stage 5 | .04 | −36/13 |
+| Stage 3 | .008 | −52/11 |
+| Stage 4 | .0016 | −6 |
+| Output | .0016 | — |
+
+Input/output is derived as 3250:1; T=100 and the universal 158 RPM cap are retired.
+Only Stage 2's .2 relative to P001836 is owner-confirmed; later .2 reductions are
+cinematic choices, not manufacturing validation. The final drive is 866.67 input
+RPM; Stage 4/output turn at 1.6°/s and output accumulates about 12.6564°.
+The input reaches its faster rates only subject to visibility-aware alias proof:
+.35 feature period/frame design, .5 hard. Camera framing alone failed those gates. Owner approved input shaft/Stage 1
+planet retirement over 52.2–53.1 and Stage 1 cage retirement over 55.5–56.4 on
+2026-10-27. Those exact fades are implemented; final verification is in evidence 60.
+
+The continuation has a 24.095648 physical scroll multiplier at page .815–.825.
+Both clocks use physical distance with explicit 5% shoulders and constant
+interiors, ending at 66.9 s. Earlier native offsets remain fixed. Exterior fade
+is 65.4–66.9 s; the camera holds azimuth after 43.5 and translates 76 mm over
+52.2–66.9. The 2° trial and subsequent exact-axis diagnostic require pixel
+evidence. Source takeover retains the common unwrapped phase and fixed shaft
+index through the later explosion and close; it does not rewind. Main housing
+P000245 remains opaque and depth-writing in the later explosion.
+
+Current authority: [plan 59](docs/torque-wrench-rebuild/59-final-cascade-reduction-retime-plan-2026-10-26.md)
+and [evidence 60](docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md).
+Owner visual acceptance OPEN. Older 47–58 records remain historical.
 
 **Sheet and projection (owner rulings 2026-09-05).** ANSI C proportion
 22:17, landscape on every viewport, 0.905882 × 0.700 m in world units,

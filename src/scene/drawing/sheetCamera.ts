@@ -42,6 +42,25 @@ export interface SheetCameraPose {
 
 const centreOf = (r: [number, number, number, number]): [number, number] => [r[0] + r[2] / 2, r[1] + r[3] / 2]
 
+const DETAIL_D_GROUPS = Object.freeze([GROUP.detailD])
+const TITLE_GROUPS = Object.freeze([GROUP.titleBlock])
+const INPUT_GROUPS = Object.freeze([GROUP.noteInput])
+const OUTPUT_GROUPS = Object.freeze([GROUP.noteOutput])
+const SIDE_GROUPS = Object.freeze([GROUP.side, GROUP.sideDims, GROUP.sideLabels])
+const WHOLE_GROUPS = Object.freeze(Array.from({ length: GROUP_COUNT }, (_, i) => i))
+/** Owner 2026-10-28: the readable authored detail is the opening subject;
+ * surrounding sheet stock is context. Selection is by shot time, never by
+ * which vertices happen to fit the camera. Transition ownership changes at
+ * the halfway point between the existing read/reveal shot anchors. */
+export function activeDrawingDetailGroups(t:number):readonly number[] {
+  if(t<.0325)return DETAIL_D_GROUPS
+  if(t<.1125)return TITLE_GROUPS
+  if(t<.185)return INPUT_GROUPS
+  if(t<.265)return OUTPUT_GROUPS
+  if(t<(.29+INTRO_PHASES.onboardEnd)/2)return WHOLE_GROUPS
+  return SIDE_GROUPS
+}
+
 /** Camera starts ahead of pressure, reclaiming the pre-rupture visual lull. */
 export const PRESSURE_CAMERA_RAKE_START = 0.72
 export const PRESSURE_CAMERA_RAKE_END = 0.84

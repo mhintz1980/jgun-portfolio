@@ -7,7 +7,9 @@ import {
 import { creasedNormals } from './normalRepair'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import { GEAR_RATIOS, ROTATION_TURNS, STAGE_IDS } from '../../../data/caseStudies'
+import { STAGE_IDS, type StageId } from '../../../data/caseStudies'
+import { CASCADE_PLANET_MULTIPLIERS, CASCADE_RATIOS, SUN_TO_STAGE1_CARRIER_RATIO } from './cascadeConfig'
+export { CASCADE_RATIOS, SUN_TO_STAGE1_CARRIER_RATIO } from './cascadeConfig'
 import type { WrenchRig } from '../../rig/nodeRoles'
 import type { StoryContext, StoryRuntime } from '../story'
 import type { StorySession } from '../session'
@@ -36,7 +38,9 @@ interface BundleNode {
 const SHAFT_BEAT_LABELS: Readonly<Record<string, string>> = Object.freeze({
   isolate: 'Grooved blank', shaping: 'Gear shaping', 'slow-exit': 'Cutter exit into the relief groove',
   recap: 'Remaining teeth, time compressed', materials: 'Material attempts', 'revised-blank': 'Revised blank',
-  hobbing: 'Rotary hobbing', 'runout-hold': 'Runout and revised material', supports: 'Moving the supports', finale: 'Revised assembly',
+  hobbing: 'Rotary hobbing', 'runout-hold': 'Runout and revised material',
+  'stage1-mesh': 'Stage 1 planetary tooth engagement',
+  'cascade-finale': 'Epicyclic spin-up and driveline cascade',
 })
 
 export interface ShaftBundleDocument {
@@ -101,7 +105,15 @@ interface Part { root: Group; materials: MeshStandardMaterial[]; caps: Mesh[]; b
 interface ProgressionBinding {
   uniforms: ProgressionUniforms; kind: ProgressionShaft; material: MeshStandardMaterial; overlay: Mesh | null
 }
-interface Neighbour { carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[] }
+interface Neighbour {
+  carrier: Object3D; planets: Object3D[]; ratio: number; materials: Material[]
+  planetMaterials: Material[][]
+  index: number; baseZ: number
+}
+/** Physical driveline order, independent of historical stage numbering. */
+export const DRIVELINE_CASCADE_ORDER = Object.freeze([
+  'stage1', 'stage2', 'stage5', 'bearing', 'stage3', 'stage4', 'output', 'outerHousing',
+] as const)
 const CLIPPED_PARTS = ['legacyshaft', 'approvedshaft', 'housing'] as const
 
 /** Owner correction R1 (2026-10-17): rotary-hob cutting surfaces are TiN-coated.
@@ -113,6 +125,7 @@ const TIN_GOLD_CREST = '#d4a62a'
 /** Caller-owned private presentation. Omitted controls preserve shared runtime behavior. */
 export interface ShaftPresentation {
   entryOpaque?: boolean; contextOpacity?: number; phaseCorrection?: number; narrativeAlpha?: number
+  supportReturnOffset?: readonly [number, number, number]
 }
 export interface ShaftRuntimeOptions extends ShaftLifecycleOptions { presentation?: ShaftPresentation }
 
@@ -124,6 +137,18 @@ export interface ShaftRuntimeOptions extends ShaftLifecycleOptions { presentatio
  * home: it keeps turning the same way to the nearest whole revolution, so both shafts meet at 0 mod 2*pi.
  */
 export const LEGACY_INDEX_WINDOW = Object.freeze({ start: 15, end: 16 })
+export const APPROVED_INDEX_WINDOW = Object.freeze({ start: 31.8, end: 32.8 })
+
+/** Continue the hob spindle direction to the next complete 36-degree tooth pitch. */
+export function approvedShaftBaseAngle(time: number, hobWorkPhi: number): number {
+  if (!(time > APPROVED_INDEX_WINDOW.start)) return hobWorkPhi
+  const pitch = 2 * Math.PI / 10
+  const home = Math.floor(hobWorkPhi / pitch + 1e-12) * pitch
+  const x = time >= APPROVED_INDEX_WINDOW.end ? 1
+    : (time - APPROVED_INDEX_WINDOW.start) / (APPROVED_INDEX_WINDOW.end - APPROVED_INDEX_WINDOW.start)
+  const k = x * x * x * (x * (x * 6 - 15) + 10)
+  return hobWorkPhi + (home - hobWorkPhi) * k
+}
 
 /** Legacy shaft spin angle (rad, applied as rotation.z = -angle) at master time t, given the shaper workPhi. */
 export function legacyShaftAngle(time: number, workPhi: number): number {
@@ -222,14 +247,29 @@ export function createShaftRuntime(
   const hobArbor = hob.root.getObjectByName('hob-arbor') as Mesh | undefined
   // ExtrudeGeometry group 0 is the ground caps, group 1 the coated tooth walls.
   if (shaperDisc) shaperDisc.material = [shaperDetailMaterial, shaperFlankMaterial]
+  // The sketch mount borrows the existing ground-steel hardware palette.
+  // New mount pieces participate in the same opacity/lifecycle ownership.
+  for(const name of ['shaper-hub','shaper-clamp-nut','shaper-arbor','shaper-adapter-flange',
+    'shaper-adapter-taper','shaper-arbor-shank','shaper-clamp-flange','shaper-stud','shaper-stud-thread']){
+    const mesh=shaper.root.getObjectByName(name) as Mesh | undefined
+    if(mesh)mesh.material=shaperMaterial
+  }
   if (hobThread) hobThread.material = hobDetailMaterial
   if (hobArbor) hobArbor.material = hobArborMaterial
   const chipGeometry = new TorusGeometry(0.00035, 0.000045, 4, 14, Math.PI * 1.3)
   ownedGeometry.add(chipGeometry)
   const chip = new Mesh(chipGeometry, chipMaterial)
   chip.name = 'shaft-single-rake-chip'; root.add(shaper.root, hob.root, chip)
+  const datumGeometry = new TorusGeometry(0.011641, 0.00008, 8, 48)
+  const datumMaterial = new MeshStandardMaterial({ color: '#38bdf8', emissive: '#38bdf8', emissiveIntensity: 0.8, transparent: true, opacity: 0, depthWrite: false })
+  ownedGeometry.add(datumGeometry); ownedMaterials.add(datumMaterial)
+  const datumRing = new Mesh(datumGeometry, datumMaterial)
+  datumRing.name = 'stage1-pitch-datum'; datumRing.position.z = -0.00318; datumRing.visible = false
+  root.add(datumRing)
   const parts: Record<string, Part> = Object.create(null) as Record<string, Part>
   const neighbours: Neighbour[] = []
+  let ringWitness: Object3D | null = null
+  const ringWitnessMaterials: Material[] = []
   const bindings: ProgressionBinding[] = []
   const schedule = createShaftSchedule(), kinematics = createShaftKinematicsFrame(), script = createShaftScriptFrame()
   const cameraSample = createShaftCameraSample()
@@ -254,9 +294,25 @@ export function createShaftRuntime(
       overlayVisible: 0,
     },
     supports: { deltaYmm: 0, witnesses: false, endpointHeld: false },
-    finale: { assembled: false, shaftCount: 0, racesFollow: false, carrierCount: 0, missingCarriers: true, bearingRacePolicy: 'unsplit-fixed', ringFollowsShaft: false, bearingOuterFixed: true },
+    finale: { assembled: false, shaftCount: 0, racesFollow: false, carrierCount: 0, missingCarriers: true, bearingRacePolicy: 'unsplit-fixed', ringFollowsShaft: false, bearingOuterFixed: true,
+      driveAngle: 0, driveRate: 0, inputRpm: 0, correctedDriveAngle: 0, correctionSlope: 0 },
     narrative: { alpha: 1, hiddenCount: 0, originalsIntact: true },
     nodes: { housing: '', legacyHousing: '', legacyHousingPresent: false },
+    stage1: {
+      slideProgress: 0, carrierZ: 0, carrierRotZ: 0, planetRotZ: 0, sunRotZ: 0,
+      bulletTimeActive: false, gearMeshClean: false, meshPhaseError: 0,
+      housingGhostAlpha: 0, datumPulseAlpha: 0, section: false,
+      contactGlintYmm: 0, contactGlintMix: 0, housingWitnessAlpha: 0,
+      legacyHousingAlpha: 0, legacyBearingAlpha: 0, legacyRingAlpha: 0,
+      cascadeAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
+      cascadePlanetAlpha: [0, 0, 0, 0, 0, 0, 0, 0],
+      cascadeMembership: [] as Array<{ unit: string; carrierMeshes: number; carrierMaterials: number;
+        planets: Array<{ name: string; meshes: number; materials: number }> }>,
+      cascadeOffsetZ: [0, 0, 0, 0, 0, 0, 0, 0],
+      cascadeRotZ: [0, 0, 0, 0, 0, 0, 0, 0],
+      cascadePlanetRotZ: [] as number[][],
+      cascadePresent: [false, false, false, false, false, false, false, false],
+    },
   }
   /** Diagnostic, read-only: the stress bindings actually installed on the shaft meshes. */
   const stressProbe = () => bindings.map(binding => ({
@@ -341,7 +397,36 @@ export function createShaftRuntime(
       }
     })
   }
-  collect(shaper.root, false, false); collect(hob.root, false, false); collect(chip)
+  const contactCapture = (gl: WebGLRenderer, camera: Camera) => {
+    const active = bindings.filter(binding => binding.kind === 'approved')
+    const priorMix = active.map(binding => binding.uniforms.uAxialContactMix.value)
+    const priorTarget = gl.getRenderTarget()
+    const width = gl.domElement.width, height = gl.domElement.height
+    const target = new WebGLRenderTarget(width, height)
+    const read = () => {
+      const pixels = new Uint8Array(width * height * 4)
+      gl.setRenderTarget(target); gl.render(ctx.scene, camera)
+      gl.readRenderTargetPixels(target, 0, 0, width, height, pixels)
+      return pixels
+    }
+    try {
+      const withGlint = read()
+      for (const binding of active) binding.uniforms.uAxialContactMix.value = 0
+      const withoutGlint = read()
+      let changedPixels = 0, maximumDelta = 0
+      for (let i = 0; i < withGlint.length; i += 4) {
+        const delta = Math.max(Math.abs(withGlint[i] - withoutGlint[i]),
+          Math.abs(withGlint[i + 1] - withoutGlint[i + 1]), Math.abs(withGlint[i + 2] - withoutGlint[i + 2]))
+        maximumDelta = Math.max(maximumDelta, delta)
+        if (delta > 2) changedPixels++
+      }
+      return { changedPixels, maximumDelta, totalPixels: width * height, mix: Math.max(0, ...priorMix), bindingMix: priorMix }
+    } finally {
+      for (let i = 0; i < active.length; i++) active[i].uniforms.uAxialContactMix.value = priorMix[i]
+      gl.setRenderTarget(priorTarget); target.dispose()
+    }
+  }
+  collect(shaper.root, false, false); collect(hob.root, false, false); collect(chip); collect(datumRing)
   function census(): void {
     resources.geometries = ownedGeometry.size + sharedGeometry.size + toolGeometryCount
     resources.materials = ownedMaterials.size; resources.textures = ownedTextures.size + sharedTextures.size
@@ -378,7 +463,7 @@ export function createShaftRuntime(
         ownedGeometry.delete(original); ownedGeometry.add(mesh.geometry); original.dispose()
       }
       const material = steel.clone()
-      if (name.includes('housing')) { material.color.set('#596169'); material.roughness = 0.4 }
+      if (name.includes('housing')) { material.color.set('#040404'); material.roughness = 0.4 }
       ownedMaterials.add(material); part.materials.push(material); mesh.material = material
       let uniforms: ProgressionUniforms | undefined
       if (kind) {
@@ -426,44 +511,93 @@ export function createShaftRuntime(
       modelFrame.matrix.multiply(gearboxLocal)
     }
     root.add(modelFrame)
-    const materialClones = new Map<Material, Material>()
-    for (const id of STAGE_IDS) {
-      const stage = rig.stages[id], source = stage?.carrier
-      const base = source ? rig.basePositions.get(source) : undefined
-      if (!source || !base) continue
+    for (let index = 0; index < DRIVELINE_CASCADE_ORDER.length; index++) {
+      const id = DRIVELINE_CASCADE_ORDER[index]
+      const stage = id.startsWith('stage') ? rig.stages[id as StageId] : undefined
+      const source = stage?.carrier ?? (id === 'bearing' ? rig.bearing : id === 'output' ? rig.outputShaft : id === 'outerHousing' ? rig.housing : null)
+      if (!source) continue
+      const base = rig.basePositions.get(source) ?? source.position
       const carrier = source.clone(true)
+      carrier.userData.stage1CascadeIndex = index
       carrier.position.copy(base); carrier.rotation.set(0, 0, 0); carrier.visible = false
+      // Materials are shared by PBR role in the source rig. Each reveal unit must
+      // own its own clone map or one unit's opacity would overwrite another's.
+      const materialClones = new Map<Material, Material>()
       const sourceTree: Object3D[] = [], cloneTree: Object3D[] = []
       source.traverse(child => sourceTree.push(child)); carrier.traverse(child => cloneTree.push(child))
       const planets: Object3D[] = []
-      for (const planet of stage.planets) {
+      for (const planet of stage?.planets ?? []) {
         const i = sourceTree.indexOf(planet)
-        if (i >= 0) { cloneTree[i].rotation.set(0, 0, 0); planets.push(cloneTree[i]) }
+        if (i >= 0) {
+          cloneTree[i].rotation.set(0, 0, 0)
+          // Stable CAD membership survives merged meshes with empty names.
+          // The owning Stage 1 unit authenticates these as its P000247 parts.
+          cloneTree[i].userData.studyPlanetOccurrence = planets.length
+          planets.push(cloneTree[i])
+        }
       }
       const materials: Material[] = []
+      // Separate maps for every planet occurrence, even when the source uses
+      // one shared PBR role for both cage and planets. Setup-only allocations.
+      const planetClones = planets.map(() => new Map<Material, Material>())
+      const planetMaterials: Material[][] = planets.map(() => [])
+      const membership = { unit: id, carrierMeshes: 0, carrierMaterials: 0,
+        planets: planets.map(planet => ({ name: planet.name, meshes: 0, materials: 0 })) }
       carrier.traverse(child => {
         child.visible = true
         if (!(child instanceof Mesh)) return
+        let ancestor: Object3D | null = child, planetIndex = -1
+        while (ancestor && ancestor !== carrier && planetIndex < 0) {
+          planetIndex = planets.indexOf(ancestor); ancestor = ancestor.parent
+        }
+        const clones = planetIndex >= 0 ? planetClones[planetIndex] : materialClones
+        const owned = planetIndex >= 0 ? planetMaterials[planetIndex] : materials
+        if (planetIndex >= 0) membership.planets[planetIndex].meshes++
+        else membership.carrierMeshes++
         const cloneMaterial = (original: Material): Material => {
-          let material = materialClones.get(original)
+          let material = clones.get(original)
           if (!material) {
             material = original.clone()
             // A narrative shader callback may own cached, mutable hero uniforms.
             // The study keeps PBR fields/textures; it does not copy that callback.
             material.onBeforeCompile = Material.prototype.onBeforeCompile
             material.customProgramCacheKey = Material.prototype.customProgramCacheKey
-            materialClones.set(original, material); ownedMaterials.add(material)
+            if (id === 'outerHousing' && material instanceof MeshStandardMaterial) {
+              material.color.set('#040404'); material.roughness = 0.4
+              material.normalMap = null; material.bumpMap = null
+            }
+            clones.set(original, material); ownedMaterials.add(material)
           }
-          if (!materials.includes(material)) materials.push(material)
+          if (!owned.includes(material)) owned.push(material)
           return material
         }
         child.material = Array.isArray(child.material) ? child.material.map(cloneMaterial) : cloneMaterial(child.material)
       })
       carrier.visible = false; modelFrame.add(carrier); collect(carrier, true)
-      neighbours.push({ carrier, planets, ratio: ROTATION_TURNS[id] / ROTATION_TURNS.stage1, materials })
+      neighbours.push({ carrier, planets, ratio: CASCADE_RATIOS[index], materials, planetMaterials, index, baseZ: base.z })
+      probe.stage1.cascadePlanetRotZ[index] = planets.map(() => 0)
+      membership.carrierMaterials = materials.length
+      for (let i = 0; i < planets.length; i++) membership.planets[i].materials = planetMaterials[i].length
+      probe.stage1.cascadeMembership.push(membership)
+      probe.stage1.cascadePresent[index] = true
+      if (id === 'outerHousing') {
+        // A stationary, seated ring-gear witness supplies context during the
+        // tooth-push macro; the separate seated shell fades after the output.
+        ringWitness = carrier.clone(true); ringWitness.name = 'stage1-stationary-ring-witness'
+        ringWitness.traverse(child => {
+          if (!(child instanceof Mesh)) return
+          const originals = Array.isArray(child.material) ? child.material : [child.material]
+          const clones = originals.map(material => {
+            const clone = material.clone(); ownedMaterials.add(clone); ringWitnessMaterials.push(clone)
+            return clone
+          })
+          child.material = Array.isArray(child.material) ? clones : clones[0]
+        })
+        modelFrame.add(ringWitness); collect(ringWitness, true)
+      }
     }
-    probe.finale.carrierCount = neighbours.length
-    probe.finale.missingCarriers = neighbours.length !== STAGE_IDS.length
+    probe.finale.carrierCount = neighbours.filter(unit => unit.planets.length > 0).length
+    probe.finale.missingCarriers = probe.finale.carrierCount !== STAGE_IDS.length
     if (neighbours.length > 0) releaseShared = session.borrowShared('shaft-finale-carriers')
   }
 
@@ -528,6 +662,7 @@ export function createShaftRuntime(
     root, ready, frame, camera, render, resources,
     stressProbe,
     stressCapture,
+    contactCapture,
     sample(time) {
       if (disposed) return
       sampleShaftSchedule(time, schedule)
@@ -561,12 +696,27 @@ export function createShaftRuntime(
       partOpacity(parts.legacybearing, schedule.legacyBearing * context); partOpacity(parts.legacyring, schedule.legacyRing * context)
       partOpacity(parts.approvedbearing, schedule.approvedBearing * context); partOpacity(parts.approvedring, schedule.approvedRing * context)
       const legacyAngle = legacyShaftAngle(frame.time, kinematics.workPhi)
-      const approvedAngle = kinematics.hobWorkPhi + schedule.finaleAngle
+      const approvedBaseAngle = approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
+      const approvedAngle = approvedBaseAngle + schedule.finaleAngle * SUN_TO_STAGE1_CARRIER_RATIO
       if (parts.legacyshaft) parts.legacyshaft.root.rotation.z = -legacyAngle
-      if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = -approvedAngle * (1 - (options.presentation?.phaseCorrection ?? 0))
-      if (parts.approvedring) parts.approvedring.root.rotation.z = frame.time >= 39 ? -schedule.finaleAngle : 0
+      // The source inherits this exact common phase and fixed tooth index.
+      // phaseCorrection owns support translation only; visible gears never rewind.
+      const correctedShaftAngle = -approvedAngle
+      if (parts.approvedshaft) parts.approvedshaft.root.rotation.z = correctedShaftAngle
+      if (parts.approvedring) parts.approvedring.root.rotation.z = frame.time >= 38.5 ? correctedShaftAngle : 0
       // Unsplit bearing stays fixed; only an authenticated separable inner race may spin.
-      supportPair.position.copy(delta).multiplyScalar(-(1 - schedule.supportBlend))
+      const supportReturn = options.presentation?.supportReturnOffset
+      const returnWeight = options.presentation?.phaseCorrection ?? 0
+      supportPair.position.set(supportReturn ? supportReturn[0] * returnWeight : 0,
+        supportReturn ? supportReturn[1] * returnWeight : 0, supportReturn ? supportReturn[2] * returnWeight : 0)
+      datumRing.visible = schedule.datumPulseAlpha * context > 0
+      materialOpacity(datumMaterial, schedule.datumPulseAlpha * context)
+      const witnessIn = Math.max(0, Math.min(1, (frame.time - 38.2) / 0.3))
+      const witnessOut = Math.max(0, Math.min(1, (frame.time - 40.2) / 0.4))
+      const witnessAlpha = 0.18 * witnessIn * witnessIn * (3 - 2 * witnessIn)
+        * (1 - witnessOut * witnessOut * (3 - 2 * witnessOut)) * context
+      if (ringWitness) ringWitness.visible = witnessAlpha > 0
+      for (let i = 0; i < ringWitnessMaterials.length; i++) materialOpacity(ringWitnessMaterials[i], witnessAlpha)
       const wipeZ = shaftMaxZ + (shaftMinZ - shaftMaxZ) * schedule.wipeProgress
       wipeLegacy.constant = wipeZ; wipeApproved.constant = -wipeZ
       // Remove the camera-facing half, retaining the far half and its darker backs.
@@ -599,7 +749,8 @@ export function createShaftRuntime(
       let stressShaderReady = 0, overlayVisible = 0
       for (let i = 0; i < bindings.length; i++) {
         const binding = bindings[i]
-        writeProgressionUniforms(binding.uniforms, binding.kind === 'legacy' ? legacyState : approvedState, binding.kind)
+        writeProgressionUniforms(binding.uniforms, binding.kind === 'legacy' ? legacyState : approvedState, binding.kind,
+          binding.kind === 'approved' ? schedule.contactGlintYmm : 0, binding.kind === 'approved' ? schedule.contactGlintMix : 0)
         // Warm geometry leaves only with the old shaft; cool belongs only to the revision.
         stress.kind = binding.kind === 'legacy' && script.stress === 'warm' ? 'warm'
           : binding.kind === 'approved' && script.stress === 'cool' ? 'cool' : 'none'
@@ -631,15 +782,30 @@ export function createShaftRuntime(
       chip.visible = chipAlpha > 0; materialOpacity(chipMaterial, chipAlpha)
       const follow = kinematics.followAzimuth
       shaftMetrePoint(key.position, 0.08 * Math.cos(follow) + 0.06 * Math.sin(follow), 0.1, 0.06 * Math.cos(follow) - 0.08 * Math.sin(follow))
-      shaftMmPoint(key.target.position, 0, 12, 0)
-      shaftMetrePoint(graze.position, -0.025 * Math.cos(follow) + 0.075 * Math.sin(follow), 0.02, 0.075 * Math.cos(follow) + 0.025 * Math.sin(follow))
-      shaftMmPoint(graze.target.position, 0, 12, 0)
+      const approach = Math.max(0, Math.min(1, (frame.time - 35) / 3.5))
+      const rake = follow + 0.48 * approach * approach * (3 - 2 * approach)
+      // Follow the active torque region once the preserved engagement is over.
+      const targetY = frame.time > 40.2 ? cameraSample.ty * 1000
+        : 12 - 5.8 * approach * approach * (3 - 2 * approach)
+      shaftMmPoint(key.target.position, 0, targetY, 0)
+      shaftMetrePoint(graze.position, -0.025 * Math.cos(rake) + 0.075 * Math.sin(rake), 0.02, 0.075 * Math.cos(rake) + 0.025 * Math.sin(rake))
+      shaftMmPoint(graze.target.position, 0, targetY, 0)
       for (let i = 0; i < neighbours.length; i++) {
         const neighbour = neighbours[i]
         const angle = -schedule.finaleAngle * neighbour.ratio
-        neighbour.carrier.visible = schedule.neighbours * context > 0; neighbour.carrier.rotation.z = angle
-        for (let j = 0; j < neighbour.planets.length; j++) neighbour.planets[j].rotation.z = -angle * GEAR_RATIOS.planetMultiplier
-        for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], schedule.neighbours * context)
+        const alpha = schedule.cascadeAlpha[neighbour.index] * context
+        const planetAlpha = schedule.cascadePlanetAlpha[neighbour.index] * context
+        // The carrier group remains the live orbit pivot while its cage meshes
+        // are transparent. Hiding that group would suppress the early planets.
+        neighbour.carrier.visible = alpha > 0 || planetAlpha > 0; neighbour.carrier.rotation.z = angle
+        neighbour.carrier.position.z = neighbour.baseZ + schedule.cascadeOffsetZ[neighbour.index]
+        for (let j = 0; j < neighbour.planets.length; j++) {
+          neighbour.planets[j].rotation.z = -angle * CASCADE_PLANET_MULTIPLIERS[neighbour.index]
+          neighbour.planets[j].visible = planetAlpha > 0
+          const materials = neighbour.planetMaterials[j]
+          for (let k = 0; k < materials.length; k++) materialOpacity(materials[k], planetAlpha)
+        }
+        for (let j = 0; j < neighbour.materials.length; j++) materialOpacity(neighbour.materials[j], alpha)
       }
       root.updateWorldMatrix(true, true)
     },
@@ -663,12 +829,52 @@ export function createShaftRuntime(
       probe.stress.scanProgress = script.scanProgress
       probe.supports.deltaYmm = supportDeltaYmm; probe.supports.witnesses = loaded && schedule.witnesses
       probe.supports.endpointHeld = loaded && schedule.endpointHeld
-      probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= 39
+      probe.finale.assembled = loaded && !probe.finale.missingCarriers && frame.time >= shaftStory.duration
       probe.finale.shaftCount = loaded ? (schedule.legacyShaft > 0 ? 1 : 0) + (schedule.approvedShaft > 0 ? 1 : 0) : 0
       // These bundles expose an unsplit bearing: do not claim an animated inner race.
       probe.finale.racesFollow = false
-      probe.finale.ringFollowsShaft = loaded && frame.time >= 39
+      probe.finale.ringFollowsShaft = loaded && frame.time >= 38.5
+      // Authored drive before the parent's held endpoint registration correction.
+      probe.finale.driveAngle = schedule.finaleAngle
+      probe.finale.driveRate = schedule.finaleDriveRate
+      probe.finale.inputRpm = schedule.finaleDriveRate * SUN_TO_STAGE1_CARRIER_RATIO * 60 / (2 * Math.PI)
+      probe.finale.correctedDriveAngle = schedule.finaleAngle
+      probe.finale.correctionSlope = 0
       probe.narrative.alpha = frame.narrativeAlpha
+      probe.stage1.slideProgress = schedule.stage1SlideProgress
+      probe.stage1.bulletTimeActive = schedule.bulletTimeActive
+      probe.stage1.datumPulseAlpha = datumMaterial.opacity
+      probe.stage1.housingGhostAlpha = schedule.housingGhostAlpha * (options.presentation?.contextOpacity ?? 1)
+      probe.stage1.section = schedule.section
+      probe.stage1.legacyHousingAlpha = parts.legacyhousing?.materials[0]?.opacity ?? 0
+      probe.stage1.legacyBearingAlpha = parts.legacybearing?.materials[0]?.opacity ?? 0
+      probe.stage1.legacyRingAlpha = parts.legacyring?.materials[0]?.opacity ?? 0
+      probe.stage1.sunRotZ = parts.approvedshaft?.root.rotation.z ?? 0
+      probe.stage1.housingWitnessAlpha = ringWitnessMaterials[0]?.opacity ?? 0
+      for (let i = 0; i < bindings.length; i++) {
+        if (bindings[i].kind !== 'approved') continue
+        probe.stage1.contactGlintYmm = bindings[i].uniforms.uAxialContactY.value
+        probe.stage1.contactGlintMix = bindings[i].uniforms.uAxialContactMix.value
+        break
+      }
+      for (let i = 0; i < neighbours.length; i++) {
+        const unit = neighbours[i], index = unit.index
+        probe.stage1.cascadeAlpha[index] = unit.materials[0]?.opacity ?? 0
+        probe.stage1.cascadePlanetAlpha[index] = unit.planetMaterials[0]?.[0]?.opacity ?? 0
+        probe.stage1.cascadeOffsetZ[index] = unit.carrier.position.z - unit.baseZ
+        probe.stage1.cascadeRotZ[index] = unit.carrier.rotation.z
+        for (let j = 0; j < unit.planets.length; j++) probe.stage1.cascadePlanetRotZ[index][j] = unit.planets[j].rotation.z
+        if (index === 0) {
+          probe.stage1.carrierZ = unit.carrier.position.z
+          probe.stage1.carrierRotZ = unit.carrier.rotation.z
+          probe.stage1.planetRotZ = unit.planets[0]?.rotation.z ?? 0
+        }
+      }
+      const phase = 10 * (probe.stage1.sunRotZ - probe.stage1.carrierRotZ) + 12 * probe.stage1.planetRotZ
+      const reference = -10 * approvedShaftBaseAngle(frame.time, kinematics.hobWorkPhi)
+      probe.stage1.meshPhaseError = Math.abs(phase - reference)
+      probe.stage1.gearMeshClean = loaded && probe.stage1.cascadePresent[0]
+        && frame.time >= 38.5 && probe.stage1.meshPhaseError < 1e-4
       out.shaft = probe; out.resources = resources
     },
     dispose() {

@@ -62,18 +62,19 @@ export const SHAFT_TRANSCRIPT: readonly { readonly heading: string; readonly bod
     body: 'The failed groove design was replaced by a revised smooth blank, cut by rotary hobbing so all ten teeth formed with the approved lead-out. The revised shaft is AISI 4340 (H.T. 48-50 HRC); its factor-of-safety plot stays in the blue end of the scale.',
   }),
   Object.freeze({
-    heading: 'Moving the supports',
-    body: 'With the new geometry settled, the bearing and retaining-ring pair moved 2.75 millimetres into the approved final placement beside a matching housing support, and the revised assembly study returns around the operating gear train.',
+    heading: 'Stage 1 engagement and driveline cascade',
+    body: 'With the ten sun teeth hobbed in one chucking, the Stage 1 carrier (A000591) and its four twelve-tooth planet gears (P000247) slide axially into full 6.35-millimetre face engagement. At 0.10× bullet time, input torque turns the sun gear; the planets counter-rotate on their pins and walk inside the stationary ring gear, driving the carrier. The close orbit reveals the integral Stage 1 sun driving Stage 2 planets before their spinning cage appears. A near-axial dolly follows the physical order Stage 1, Stage 2, Stage 5 (A000606), Stage 3, Stage 4, then the rotating output square drive. Only then do the satin black oxide housing, external components and handle return. The 8.0 → 5.20 → 3.38 → 2.20 → 1.43 display turn ladder labels relative carrier speeds; actual elapsed turns follow the bullet-time and cascade speed ramps.',
   }),
 ])
 
-function buildAnnouncement(frame: ShaftScriptFrame): string {
+export function buildShaftAnnouncement(frame: ShaftScriptFrame): string {
   const parts: string[] = []
   if (frame.card !== 'none') parts.push(frame.cardText)
   if (frame.stamp === 'settled') parts.push(SHAFT_STAMP_TEXT)
   if (frame.remainingTeeth) parts.push(SHAFT_RECAP_CAPTION_TEXT)
   if (frame.attribution) parts.push(SHAFT_ATTRIBUTION_TEXT)
   if (frame.stressIllustrative) parts.push('Factor of safety field on the input shaft')
+  if (frame.caption !== 'none') parts.push(frame.captionText)
   return parts.join('; ')
 }
 
@@ -91,10 +92,10 @@ export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
   const fos = sampleFosPresentation(time, frame.stress, frame.stressMix, fosRef.current)
   const [status, setStatus] = useState({ version: 0, text: '' })
   useEffect(() => {
-    const text = buildAnnouncement(frame)
+    const text = buildShaftAnnouncement(frame)
     setStatus(previous => previous.text === text ? previous : { version: previous.version + 1, text })
   }, [frame.discrete])
-  return <div className="shaft-story-layer">
+  return <div className="shaft-story-layer" data-shaft-cascade={frame.caption !== 'none' ? '' : undefined}>
     <div className="shaft-story-column">
       {frame.card !== 'none' && <div className="shaft-card-slot" data-shaft-card="">
         <div className="shaft-card" style={{ opacity: frame.cardOpacity }} aria-hidden={frame.cardOpacity < 0.02}>
@@ -104,9 +105,10 @@ export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
       </div>}
       {frame.attribution && <p className="shaft-attribution" data-shaft-attribution="">{SHAFT_ATTRIBUTION_TEXT}</p>}
       {frame.remainingTeeth && <p className="shaft-caption shaft-caption-recap" data-shaft-recap="">{SHAFT_RECAP_CAPTION_TEXT}</p>}
+      {frame.caption !== 'none' && <p className="shaft-caption" data-shaft-caption={frame.caption}>{frame.captionText}</p>}
     </div>
     <FosPanels frame={frame} fos={fos} />
-    <p role="status" aria-live="polite" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
+    <p role="status" aria-live="polite" aria-atomic="true" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
     <div className="shaft-visually-hidden" data-shaft-transcript="">
       <h2>P001835 Input Shaft manufacturing study transcript</h2>
       {SHAFT_TRANSCRIPT.map(section => <section key={section.heading}>

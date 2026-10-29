@@ -7,6 +7,10 @@ import { StaticPoster } from './StaticPoster'
 import { StationNav } from './StationNav'
 import { Chapters } from './Chapters'
 import { getQuality } from '../state/qualityStore'
+import { buildShaftAnnouncement, ShaftStoryLayer, SHAFT_TRANSCRIPT } from './ShaftStoryLayer'
+import { StaticShaftStory } from './StaticShaftStory'
+import { createShaftScriptFrame, sampleShaftScript, SHAFT_CAPTION_TEXT } from '../scene/inspection/shaft/script'
+import { Story } from '../scene/torque-wrench/Story'
 
 /**
  * Fallback-QA regression tests (2026-09-27): the poster tier previously
@@ -130,5 +134,79 @@ describe('Chapters static fallback (poster tier one-card)', () => {
     expect(markup).toContain('overflow-y-auto')
     // Exactly one chapter heading — the JG-022 one-card gate.
     expect(markup.match(/<h2/g)?.length).toBe(1)
+  })
+})
+
+describe('shaft engagement narrative parity', () => {
+  const plainText = (markup: string) => markup.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ')
+
+  it('announces the current caption on forward and reverse seeks without stale material text', () => {
+    const frame = createShaftScriptFrame()
+    for (const time of [16.5, 37, 39.4, 42.5, 39.4, 37, 0]) {
+      sampleShaftScript(time, false, frame)
+      const announcement = buildShaftAnnouncement(frame)
+      if (time === 16.5) {
+        expect(announcement).toContain('AISI 4140 (40-45 HRC); FAILED')
+      } else {
+        expect(announcement).toBe(SHAFT_CAPTION_TEXT[frame.caption])
+        expect(announcement).not.toMatch(/FAILED|Factor of safety|HRC/)
+      }
+    }
+  })
+
+  it('renders exactly the active live caption and one polite atomic status region', () => {
+    for (const reducedMotion of [false, true]) {
+      for (const [time, caption] of [[35, 'stage1-mesh'], [38.5, 'bullet-time'], [40.2, 'driveline-cascade'], [43, 'driveline-cascade']] as const) {
+        const markup = renderToStaticMarkup(<ShaftStoryLayer time={time} reducedMotion={reducedMotion} />)
+        expect(markup.match(/data-shaft-caption=/g)).toHaveLength(1)
+        expect(markup).toContain(`data-shaft-caption="${caption}"`)
+        expect(plainText(markup)).toContain(SHAFT_CAPTION_TEXT[caption])
+        expect(markup.match(/role="status"/g)).toHaveLength(1)
+        expect(markup).toContain('aria-live="polite" aria-atomic="true"')
+        expect(markup).not.toContain('data-shaft-card=')
+        expect(markup).not.toContain('data-shaft-fos-model=')
+      }
+    }
+    expect(renderToStaticMarkup(<ShaftStoryLayer time={34.9} reducedMotion={false} />)).not.toContain('data-shaft-caption=')
+  })
+
+  it('shares the four-chapter transcript with the static story and explains display ratios', () => {
+    const live = plainText(renderToStaticMarkup(<ShaftStoryLayer time={39.4} reducedMotion={false} />))
+    const still = plainText(renderToStaticMarkup(<StaticShaftStory />))
+    expect(SHAFT_TRANSCRIPT).toHaveLength(4)
+    for (const section of SHAFT_TRANSCRIPT) {
+      for (const text of [live, still]) {
+        expect(text).toContain(section.heading)
+        expect(text).toContain(section.body)
+      }
+    }
+    expect(still).toContain('Stage 1 engagement and driveline cascade')
+    expect(still).toContain('labels relative carrier speeds; actual elapsed turns follow the bullet-time and cascade speed ramps')
+    expect(still).not.toMatch(/Moving the supports|2\.75 millimetres|support relocation/)
+  })
+
+  it('retains the first three chapters’ images and requests the six new responsive stills', () => {
+    const markup = renderToStaticMarkup(<StaticShaftStory />)
+    const stillIds = ['cutter-exit', 'material-attempts', 'revised-blank', 'hobbed', 'cool-stress', 'stage1-engagement', 'bullet-time', 'driveline-cascade']
+    expect(Array.from(markup.matchAll(/data-shaft-still="([^"]+)"/g), match => match[1])).toEqual(stillIds)
+    for (const id of stillIds) {
+      expect(markup).toContain(`<source media="(max-width: 600px)" srcSet="/inspection/shaft/${id}-narrow.webp"`)
+      expect(markup).toContain(`<img src="/inspection/shaft/${id}-desktop.webp" alt="`)
+    }
+    expect(markup.match(/loading="lazy" decoding="async" width="960" height="600"/g)).toHaveLength(8)
+    expect(markup).not.toMatch(/support-before|support-after|assembled-finale|<canvas|\.glb/)
+    expect(markup).not.toMatch(/alt=""/)
+  })
+
+  it('keeps the top-level chapter and inspection disclosure on the new story', () => {
+    const markup = renderToStaticMarkup(<Story />)
+    const inspection = plainText(markup.split('data-torque-chapter="inspection"')[1].split('data-torque-chapter="close"')[0])
+    expect(inspection).toContain('After the runout hold, the Stage 1 carrier (A000591)')
+    expect(inspection).toContain('0.10× bullet time')
+    expect(inspection).toContain('physical order 1, 2, 5 (A000606), 3 and 4')
+    expect(inspection).toContain('actual elapsed turns follow the timed spin-up')
+    expect(inspection).not.toMatch(/supports that moved|bearing and retaining rings moved/)
+    expect(markup).toContain('aria-controls="torque-inspection-detail"')
+    expect(markup).toContain('aria-label="Cutter inspection details" hidden=""')
   })
 })

@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { APPROVED_INDEX_WINDOW, SUN_TO_STAGE1_CARRIER_RATIO, approvedShaftBaseAngle } from './shaftRuntime'
+import { createShaftSchedule, sampleShaftSchedule } from './schedule'
 import {
   CHIP_SEED,
   CUTTER_RATE,
@@ -49,13 +51,13 @@ import {
   SHAPER_SIGNED_RATIO,
   SHAPER_STROKE_CENTRE_Y_MAX_MM,
   SHAPER_STROKE_CENTRE_Y_MIN_MM,
-  SHAPER_THICKNESS_MM,
+  SHAPER_LEADING_FACE_Y_MM,
 } from './toolSpec'
 
 /** clearance-v4 report facts (legacy groove wall y). */
 const GROOVE_WALL_Y_MM = 10.94
 /** Certified stroke/edge relation: max centre + half thickness = last tooth material 9.8749 + overtravel 0.5. */
-const MAX_EDGE_Y_MM = SHAPER_STROKE_CENTRE_Y_MAX_MM + SHAPER_THICKNESS_MM / 2
+const MAX_EDGE_Y_MM = SHAPER_STROKE_CENTRE_Y_MAX_MM + SHAPER_LEADING_FACE_Y_MM
 
 const frame = createShaftKinematicsFrame()
 const sample = (t: number) => sampleShaftKinematics(t, frame)
@@ -195,7 +197,8 @@ describe('K2 shaper kinematics', () => {
   })
   it('has ~0 signed pitch-point relative velocity (recorded tolerance)', () => {
     // tool-conventions pitch circles: work r = 5 mm, cutter r = 10 mm, contact at work +Z.
-    const vRel = 5 * WORK_RATE + 10 * CUTTER_RATE
+    // 60-tooth prototype pitch circles: work r = 5 mm, cutter r = 30 mm, contact at work +Z.
+    const vRel = 5 * WORK_RATE + 30 * CUTTER_RATE
     expect(Math.abs(vRel)).toBeLessThanOrEqual(1e-12)
   })
   it('keeps the stroke between the certified centre limits and the edge inside the groove', () => {
@@ -204,7 +207,7 @@ describe('K2 shaper kinematics', () => {
       const f = sample(t)
       expect(f.strokeCentreY).toBeGreaterThanOrEqual(SHAPER_STROKE_CENTRE_Y_MIN_MM - 1e-9)
       expect(f.strokeCentreY).toBeLessThanOrEqual(SHAPER_STROKE_CENTRE_Y_MAX_MM + 1e-9)
-      expect(f.edgeY).toBeCloseTo(f.strokeCentreY + SHAPER_THICKNESS_MM / 2, 12)
+      expect(f.edgeY).toBeCloseTo(f.strokeCentreY + SHAPER_LEADING_FACE_Y_MM, 12)
       maxEdge = Math.max(maxEdge, f.edgeY)
     }
     expect(maxEdge).toBeCloseTo(MAX_EDGE_Y_MM, 9)
@@ -248,7 +251,7 @@ describe('K2 shaper kinematics', () => {
         const edge = (x: number) => SHAPER_STROKE_CENTRE_Y_MIN_MM
           + (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
           * (1 - Math.cos(2 * Math.PI * (x / STROKE_PERIOD_M + STROKE_PHASE_OFFSET))) / 2
-          + SHAPER_THICKNESS_MM / 2
+          + SHAPER_LEADING_FACE_Y_MM
         let event = m
         if (edge(m) < FACE_START_MM) {
           let lo = m, hi = m + 0.1
@@ -489,6 +492,62 @@ describe('determinism and purity', () => {
       expect(Number.isFinite(f.chipX)).toBe(true)
       expect(Number.isFinite(f.strokeHz)).toBe(true)
       for (let i = 0; i < SHAFT_SPACES; i++) expect(Number.isFinite(f.spaceDepth[i])).toBe(true)
+    }
+  })
+})
+
+describe('Stage 1 spindle registration and conjugate rolling', () => {
+  it('indexes the actual completed hob phase to exactly three tooth pitches without a reversal', () => {
+    const frame = createShaftKinematicsFrame()
+    const hobWorkPhi = sampleShaftKinematics(31.8, frame).hobWorkPhi
+    expect(APPROVED_INDEX_WINDOW).toEqual({ start: 31.8, end: 32.8 })
+    expect(hobWorkPhi).toBeCloseTo(-0.29 * 2 * Math.PI, 12)
+    expect(approvedShaftBaseAngle(31.8, hobWorkPhi)).toBe(hobWorkPhi)
+    let previous = hobWorkPhi
+    for (let i = 0; i <= 200; i++) {
+      const t = 31.8 + i / 200
+      const angle = approvedShaftBaseAngle(t, sampleShaftKinematics(t, frame).hobWorkPhi)
+      expect(angle).toBeLessThanOrEqual(previous + 1e-12)
+      expect(angle).toBeGreaterThanOrEqual(-3 * SPACE_PITCH_RAD - 1e-12)
+      previous = angle
+    }
+    for (const t of [32.8, 35, 38.2, 38.5, 43]) {
+      const angle = approvedShaftBaseAngle(t, sampleShaftKinematics(t, frame).hobWorkPhi)
+      expect(Math.abs(angle + 3 * SPACE_PITCH_RAD)).toBeLessThan(1e-12)
+      expect(Math.abs(angle - Math.round(angle / SPACE_PITCH_RAD) * SPACE_PITCH_RAD)).toBeLessThan(1e-12)
+    }
+    const h = 1e-5
+    for (const t of [31.8, 32.8]) {
+      const left = (approvedShaftBaseAngle(t, hobWorkPhi) - approvedShaftBaseAngle(t - h, hobWorkPhi)) / h
+      const right = (approvedShaftBaseAngle(t + h, hobWorkPhi) - approvedShaftBaseAngle(t, hobWorkPhi)) / h
+      expect(Math.abs(right - left)).toBeLessThan(1e-8)
+    }
+    // An already aligned negative-angle spindle must not index a further tooth.
+    expect(approvedShaftBaseAngle(35, -3 * SPACE_PITCH_RAD)).toBe(-3 * SPACE_PITCH_RAD)
+  })
+
+  it('keeps sun/carrier/planet tooth phase locked across bullet ignition, release and shuffled seeks', () => {
+    const frame = createShaftKinematicsFrame(), schedule = createShaftSchedule()
+    expect(SUN_TO_STAGE1_CARRIER_RATIO).toBe(5.2)
+    for (let i = 0; i <= 900; i++) {
+      const t = 38.5 + ((i * 197) % 901) / 200
+      const home = approvedShaftBaseAngle(t, sampleShaftKinematics(t, frame).hobWorkPhi)
+      sampleShaftSchedule(t, schedule)
+      // Runtime study +Z rotations negate the shaft-local angles.
+      const carrier = -schedule.finaleAngle
+      const sun = -(home + schedule.finaleAngle * SUN_TO_STAGE1_CARRIER_RATIO)
+      const planetLocal = -3.5 * carrier
+      const sunFromHome = sun + home
+      const toothError = 10 * (sunFromHome - carrier) + 12 * planetLocal
+      expect(Math.abs(toothError)).toBeLessThan(1e-12)
+      const restPhase = 10 * (sun - carrier) + 12 * planetLocal
+      expect(Math.abs(restPhase - Math.round(restPhase / (2 * Math.PI)) * (2 * Math.PI))).toBeLessThan(1e-12)
+      if (carrier !== 0) {
+        // Subtracting the finite home phase loses relative precision when
+        // ignition angle approaches zero; the absolute tooth law above stays 1e-12.
+        expect(sunFromHome / carrier).toBeCloseTo(5.2, 8)
+        expect(planetLocal / carrier).toBeCloseTo(-3.5, 12)
+      }
     }
   })
 })

@@ -24,7 +24,7 @@ describe('shared effective inspection isolation', () => {
 
   it.each([
     { progress: 0.471, studyProgress: 0.932, opacity: 0 },
-    { progress: 0.85, studyProgress: 0.928, opacity: 0 },
+    { progress: 0.824, studyProgress: 0.928, opacity: 0 },
   ])('uses manual opacity when both envelopes are nonzero at scroll $progress', ({ progress, studyProgress, opacity }) => {
     const sample = createInspectionIsolationSample()
     sampleInspectionIsolation(progress, false, studyProgress, sample)
@@ -39,7 +39,7 @@ describe('shared effective inspection isolation', () => {
     expect(sample.surroundingsOpacity).not.toBeCloseTo(scrollOpacity, 6)
   })
 
-  it.each([0.471, 0.85])('restores scroll isolation after manual start and end at scroll %s', progress => {
+  it.each([0.471, 0.824])('restores scroll isolation after manual start and end at scroll %s', progress => {
     const sample = createInspectionIsolationSample()
     sampleInspectionIsolation(progress, true, 0.735, sample)
     expect(sample).toEqual({ progress: 0.735, surroundingsOpacity: 0, manual: true })

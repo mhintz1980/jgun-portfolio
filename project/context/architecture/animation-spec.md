@@ -271,9 +271,9 @@ render loop. `useFrame` applies the proxy each frame:
 |---|---:|---|
 | spin | 0.12 → 0.47 | hero yaw to `spin · π · 0.85` + pointer parallax (±0.08 x, tilt ±0.05 y) |
 | gearRotation | 0.12 → 1.02 | epicyclic sweep 0 → 8π, plus the wall-clock idle accumulation of §5.4 |
-| ghost in | 0.27 → 0.47 | opacity 1 → 0.15; depth-write disabled below 0.5 |
+| housing | whole explosion | owner correction 56: opacity 1 and depth-write enabled |
 | explode | 0.47 → 0.97 | unchanged rear-extraction ladder in §5.3 |
-| ghost out | 0.54 → 0.79 | opacity returns to 1 while the stages extract |
+| housing return | whole return | opacity remains 1 |
 
 CH.01 clutch cues alone use `remapHeroProgress(p) = .12 + p/3` on the
 original `0≤p≤.18` interval. It maps that opening interval to `.12–.18`;
@@ -467,24 +467,18 @@ planets; each planet's own `rotation.z` counter-spins it on its pin. The
 built rig is cached on `root.userData.wrenchRig` because consolidation is
 destructive and `useGLTF` caches the parsed scene per URL.
 
-### 5.2 Ghost set (who fades)
+### 5.2 Housing material classification (solid during explosion)
 
 A mesh ghosts if (a) it sits under a node matching
 `/(HOUSING|COVER|SHELL|CASE\b|CAP\b)/i`, or (b) it belongs to the gearbox's
 largest child by bbox volume (the P000245 outer shell). Ghost materials are
 cloned transparent-capable so the fade never bleeds into shared sources.
-Current verified count: **3 ghost materials** (23 before the 2026-08-24 PBR
-rework — role-based bucketing merged the housing's per-CAD-material ghost
-clones into one per (unit × role); all still fade together). Ghost is
-suppressed in blueprint mode (everything is already wireframe).
-**⚠️ Regression (measured 2026-08-25, pre-dates pass 3 Track B):**
-`ghostCount` reads **0** at repo head — `housingMeshSet` ends up empty, so
-the CH.02 fade loop no-ops and the housing stays solid (the commanded
-`ghostOpacity` still reaches 0.15). Reproduced with the Track B changes
-stashed; introduced by a pass-4 commit. P000245 carries no housing-named
-ancestor, so ghosting hinges entirely on the largest-gearbox-child bbox
-heuristic (§5.1) — suspects: bbox-volume competition or matrixWorld
-staleness at build time. OPEN — route to the pass-4 owner.
+Current consolidated count is one attached P000245 material. Owner correction
+56 removes the `MechanismDirector` ghost law: commanded and applied housing
+opacity stay exactly 1 through explosion and return, with depth writing on.
+The clone/classification infrastructure remains available to the separate
+inspection-isolation system. Its entry/exit fades are independent of the
+explosion. The old three-material/zero-material notes are historical.
 
 ### 5.3 Explosion offsets (`EXPLODE_OFFSETS`, meters — rear extraction)
 
@@ -625,9 +619,42 @@ concealed through 2.4–8.2 s (the tool first appears at 2.8 s), and reopens
 landmarks and the 12 s duration are unchanged. The knurl UV seam is split per
 triangle so the OD band has full circumference coverage.
 
-Input Shaft (43 s): story windows are unchanged (isolate 0–2, shaping 2–6,
-slow exit 6–11, recap 11–15, materials 15–22.6, blank 22.6–25, hobbing 25–32,
-runout 32–35, supports 35–39, finale 39–43). Camera (`shaft/camera.ts`): the
+The 66.9-second Input Shaft study preserves 0–40.2 s and Stage 1's
+5.2:1:−3.5 law. Post-40.2 reveal windows are stretched by 1.5, with no orbit-count
+requirements. Stage 1 carrier drive ramps 90→270→420→1000°/s during the Stage
+5/3/4 cage fades at 55.5–56.4, 59.1–60 and 62.25–63.15 s.
+
+| Unit, physical order | Carrier / Stage 1 | Local planet / own carrier |
+|---|---:|---:|
+| Stage 1 | 1 | −3.5 |
+| Stage 2 | .2 | −10/3 |
+| Stage 5 | .04 | −36/13 |
+| Stage 3 | .008 | −52/11 |
+| Stage 4 | .0016 | −6 |
+| Output | .0016 | — |
+
+Input/output is derived as 3250:1; T=100 and the universal 158 RPM cap are retired.
+Only Stage 2's .2 relative to P001836 is owner-confirmed; later .2 reductions are
+cinematic choices, not manufacturing validation. The final drive is 866.67 input
+RPM; Stage 4/output turn at 1.6°/s and output accumulates about 12.6564°.
+The input reaches its faster rates only subject to visibility-aware alias proof:
+.35 feature period/frame design, .5 hard. Camera framing alone failed those gates. Owner approved input shaft/Stage 1
+planet retirement over 52.2–53.1 and Stage 1 cage retirement over 55.5–56.4 on
+2026-10-27. Those exact fades are implemented; final verification is in evidence 60.
+
+The continuation has a 24.095648 physical scroll multiplier at page .815–.825.
+Both clocks use physical distance with explicit 5% shoulders and constant
+interiors, ending at 66.9 s. Earlier native offsets remain fixed. Exterior fade
+is 65.4–66.9 s; the camera holds azimuth after 43.5 and translates 76 mm over
+52.2–66.9. The 2° trial and subsequent exact-axis diagnostic require pixel
+evidence. Source takeover retains the common unwrapped phase and fixed shaft
+index through the later explosion and close; it does not rewind. Main housing
+P000245 remains opaque and depth-writing in the later explosion.
+
+Current authority: [plan 59](../../../docs/torque-wrench-rebuild/59-final-cascade-reduction-retime-plan-2026-10-26.md)
+and [evidence 60](../../../docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md).
+Owner visual acceptance OPEN. Older 47–58 records remain historical.
+Camera (`shaft/camera.ts`): the
 machining-era azimuth is a closed-form law, `CUTTER_VIEW_AZIMUTH_DEG = 180`
 held through 0–11 s, which puts the button cutter (machine azimuth 90°) on the
 viewer's right at zero camera-depth difference from the shaft axis; the recap

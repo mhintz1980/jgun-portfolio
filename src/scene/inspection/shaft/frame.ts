@@ -19,7 +19,8 @@ const lead = HOB_LEAD_ANGLE_DEG * Math.PI / 180
 const HOB_TILT = new Quaternion().setFromUnitVectors(Y_AXIS, new Vector3(Math.cos(lead), Math.sin(lead), 0))
 
 /** Centre moves radially with infeed/backoff; its closest crest remains at cutterRho.
- * tools.ts centres the disc on its root; the leading face is at +thickness/2.
+ * The root retains the historical stroke datum; the rake face is at the explicit
+ * SHAPER_LEADING_FACE_Y_MM offset while added body thickness extends behind it.
  */
 export function placeShaper(out: Object3D, k: ShaftKinematicsFrame): void {
   const distance = SHAPER_CENTRE_DISTANCE_MM + k.cutterRho - (SHAPER_CENTRE_DISTANCE_MM - SHAPER_TIP_RADIUS_MM)

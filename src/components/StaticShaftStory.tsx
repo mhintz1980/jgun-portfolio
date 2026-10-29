@@ -5,7 +5,7 @@ import { SHAFT_TRANSCRIPT } from './ShaftStoryLayer'
 import './ShaftStoryLayer.css'
 
 type StillId = 'cutter-exit' | 'material-attempts' | 'revised-blank' | 'hobbed' | 'cool-stress'
-  | 'support-before' | 'support-after' | 'assembled-finale'
+  | 'stage1-engagement' | 'bullet-time' | 'driveline-cascade'
 
 function ShaftStill({ id, alt, caption }: { id: StillId; alt: string; caption: string }) {
   return <figure className="shaft-static-still" data-shaft-still={id}>
@@ -60,17 +60,18 @@ export function StaticShaftStory() {
         </div>
       </section>
 
-      <section className="shaft-static-chapter" aria-labelledby="shaft-static-supports">
-        <p className="shaft-static-number" aria-hidden="true">04 / SUPPORTS AND ASSEMBLY</p>
-        <h3 id="shaft-static-supports">{SHAFT_TRANSCRIPT[3].heading}</h3>
+      <section className="shaft-static-chapter" aria-labelledby="shaft-static-cascade">
+        <p className="shaft-static-number" aria-hidden="true">04 / ENGAGEMENT AND CASCADE</p>
+        <h3 id="shaft-static-cascade">{SHAFT_TRANSCRIPT[3].heading}</h3>
         <p>{SHAFT_TRANSCRIPT[3].body}</p>
-        <div className="shaft-static-comparison" data-static-part="support-comparison" aria-label="Support placement before and after the revision">
-          <ShaftStill id="support-before" alt="Rendered section study at the start of support relocation, showing the bearing and retaining ring near the earlier placement beside the housing." caption="Before · start of support relocation" />
-          <ShaftStill id="support-after" alt="Rendered section study after support relocation, with the bearing and retaining-ring pair at the approved placement beside the matching housing support." caption="After · support pair moved +2.75 mm" />
+        <div data-static-part="stage1-engagement">
+          <ShaftStill id="stage1-engagement" alt="Stage 1 carrier A000591 with four twelve-tooth P000247 planets seated over the ten-tooth input sun gear at full 6.35 mm face engagement." caption="Stage 1 · axial approach and full tooth engagement" />
         </div>
-        <p className="shaft-static-comparison-note">Same-camera study · the design moves the bearing and retaining ring together by +2.75 mm. The stills show the start of the move and its settled end.</p>
-        <div data-static-part="assembled-finale">
-          <ShaftStill id="assembled-finale" alt="Rendered revised assembly study with the input shaft, its relocated support pair, and the surrounding gear train returned around it." caption="The revised assembly study" />
+        <div data-static-part="bullet-time">
+          <ShaftStill id="bullet-time" alt="Macro view of the sun-to-planet pitch point inside the stationary ring gear, illustrating torque ignition and planet counter-rotation at 0.10× bullet time." caption="Torque ignition · 0.10× bullet time reveals the tooth push" />
+        </div>
+        <div data-static-part="driveline-cascade">
+          <ShaftStill id="driveline-cascade" alt="Close view along the drivetrain toward the rotating output. Stage 2 planets appear before their cage; the physical order remains 1, 2, 5 (A000606), 3 and 4 before the housing and handle return." caption="Driveline cascade · planets before cage, then toward the rotating output; the 8.0 to 1.43 ladder labels relative speeds." />
         </div>
       </section>
     </div>

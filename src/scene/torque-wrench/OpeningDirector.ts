@@ -6,7 +6,7 @@ import {
 } from '../drawing/introTimeline'
 import { sheetReveal } from '../drawing/sheetCamera'
 import { GROUP_COUNT } from '../drawing/sheet/ink'
-import { BULLET_TIME_RATE } from './bulletTime'
+import { BULLET_TIME_SHOT_SPECS } from './bulletTime'
 import {
   PRIVATE_SPARK_START_T,
   PRIVATE_WEB_COMPLETE_T,
@@ -115,26 +115,69 @@ export function breakthroughTimeAt(cameraTime: number): number {
 
 /**
  * T6-A: private subject clock for the shatter, keyed on canonical progress. The camera keeps
- * openingTimeAt; only the shards, wrench rise and later electrical tail use this time. Knots are
- * [progress, intro t] on a monotone cubic Hermite (weighted harmonic tangents, zero end slopes):
- * impact .42-.43008 (event 0 -> .375), hold .43008-.44212 (event .375 -> .395), release to .46.
- * The release knot at .4465 keeps the post-shatter glow fade and lamp return within .003 progress
- * of their pre-T6 positions (measured at t = .94, .96, .99 by inverting both clocks).
- * Authored against the x3 'shatter' pacing span, so the hold covers ~2.3 native viewports.
+ * openingTimeAt; only the shards, wrench rise and later electrical tail use this time.
+ *
+ * Physical-rate contract. Let t_open(p) = openingTimeAt(p) be the un-dilated reference and
+ * rho(p) = dT_subj/dt_open the speed ratio. The clock is the exact integral
+ *   T_subj(p) = T(.42) + integral rho(q) * t_open'(q) dq,
+ * so the ratio itself is what is authored, and the opening clock's own smoothstep easing is
+ * compensated automatically instead of being stacked under the ratio:
+ *  - entry knee [.42, plateau start]: rho = 1 - (1 - rate) * s(k), s(k) = 3k^2 - 2k^3, k the
+ *    knee fraction. rho is 1 at .42 (continuous with the unslowed clock to the left), C1, and
+ *    reaches the shared rate with zero slope. The integrand is a degree-5 polynomial on each
+ *    opening-knot span, so 3-point Gauss-Legendre is exact there (no sampling error, pure in p).
+ *  - plateau [plateauWindow]: rho = rate exactly (area-corrected: T advances rate * dt_open).
+ *  - release (plateau end, .46]: the area the plateau withheld is repaid through the approved
+ *    airborne-hold knot (.456, .89) and the .46 endpoint (t = 1, zero slope). The first span starts at the
+ *    plateau's own value and velocity (rate * t_open'), so the join is C1; interior tangents are monotone
+ *    weighted-harmonic. The release is entered only after the event band (t < .88) has been crossed slowly.
+ * The release still finishes by .46 and the glow fade / lamp return stay within .01 progress of
+ * their pre-T6 positions (OpeningDirector.test).
  */
+const [ORBIT_FIRST_PROGRESS, ORBIT_LAST_PROGRESS] = BULLET_TIME_SHOT_SPECS.shatter.plateauWindow
+const SHATTER_RATE = BULLET_TIME_SHOT_SPECS.shatter.rate
+const SHATTER_ENTRY_START = 0.42
+const SHATTER_RELEASE_END = 0.46
+const SHATTER_ENTRY_TIME = 0.84
+const smoothstep3 = (k: number) => k * k * (3 - 2 * k)
+/** rho on the entry knee, k in [0, 1]: 1 -> rate with zero slope at both ends. */
+export function shatterEntryRatio(k: number): number {
+  return 1 - (1 - SHATTER_RATE) * smoothstep3(Math.max(0, Math.min(1, k)))
+}
+const GL3_NODES = [-Math.sqrt(0.6), 0, Math.sqrt(0.6)] as const
+const GL3_WEIGHTS = [5 / 9, 8 / 9, 5 / 9] as const
+/** Exact integral of rho(q) * t_open'(q) over [a, b]; exact because t_open' is quadratic per knot span. */
+function integrateOpeningRate(a: number, b: number, ratio: (q: number) => number): number {
+  let total = 0
+  let lo = a
+  for (let i = 1; i < INTRO_KNOTS.length && lo < b; i++) {
+    const hi = Math.min(b, INTRO_KNOTS[i][0])
+    if (hi <= lo) continue
+    const mid = (lo + hi) / 2, half = (hi - lo) / 2
+    for (let n = 0; n < 3; n++) {
+      const q = mid + half * GL3_NODES[n]
+      total += half * GL3_WEIGHTS[n] * ratio(q) * openingRateAt(q)
+    }
+    lo = hi
+  }
+  return total
+}
+const entryRatioAt = (q: number) => shatterEntryRatio((q - SHATTER_ENTRY_START) / (ORBIT_FIRST_PROGRESS - SHATTER_ENTRY_START))
+const SHATTER_PLATEAU_TIME = SHATTER_ENTRY_TIME + integrateOpeningRate(SHATTER_ENTRY_START, ORBIT_FIRST_PROGRESS, entryRatioAt)
+const SHATTER_PLATEAU_END_TIME = SHATTER_PLATEAU_TIME
+  + (openingTimeAt(ORBIT_LAST_PROGRESS) - openingTimeAt(ORBIT_FIRST_PROGRESS)) * SHATTER_RATE
 export const SHATTER_SUBJECT_KNOTS: readonly (readonly [number, number])[] = Object.freeze([
-  Object.freeze([0.42, 0.84] as const),
-  Object.freeze([0.42685, 0.852] as const),
-  Object.freeze([0.43008, 0.855] as const),
-  Object.freeze([0.452, 0.855 + (openingTimeAt(0.452) - openingTimeAt(0.43008)) * BULLET_TIME_RATE] as const),
+  Object.freeze([SHATTER_ENTRY_START, SHATTER_ENTRY_TIME] as const),
+  Object.freeze([ORBIT_FIRST_PROGRESS, SHATTER_PLATEAU_TIME] as const),
+  Object.freeze([ORBIT_LAST_PROGRESS, SHATTER_PLATEAU_END_TIME] as const),
   Object.freeze([0.456, 0.89] as const),
-  Object.freeze([0.46, 1] as const),
+  Object.freeze([SHATTER_RELEASE_END, 1] as const),
 ])
 
-function shatterTangent(index: number): number {
+function shatterReleaseTangent(index: number): number {
   const k = SHATTER_SUBJECT_KNOTS
-  if (index === 2 || index === 3) return openingRateAt(k[index][0]) * BULLET_TIME_RATE
-  if (index === 0 || index === k.length - 1) return 0
+  if (index === 2) return openingRateAt(k[2][0]) * SHATTER_RATE
+  if (index === k.length - 1) return 0
   const h0 = k[index][0] - k[index - 1][0], h1 = k[index + 1][0] - k[index][0]
   const d0 = (k[index][1] - k[index - 1][1]) / h0, d1 = (k[index + 1][1] - k[index][1]) / h1
   if (d0 <= 0 || d1 <= 0) return 0
@@ -145,42 +188,58 @@ function shatterTangent(index: number): number {
 /**
  * Owner 2026-10-22: the model must keep travelling through the 360 deg bullet-time orbit. The subject clock runs at
  * 10% there, which left the wrench still below the sheet plane when the orbit ended. The wrench's POSE time (only the
- * lift; the shards and electrical tail keep the subject clock) is floored by a ramp that reaches
+ * lift; the shards and electrical tail keep the subject clock) follows a C1 monotone curve that reaches
  * `BULLET_TIME_RISE_PAST_CROSSING` beyond the pose time at which the lowest vertex clears the sheet, by the end of
- * the orbit, and then holds until the natural release overtakes it. Max of two monotone curves stays monotone, and the
- * ramp starts at the natural pose of the first orbit frame, so there is no jump.
+ * the orbit, then continues to the full endpoint at .46. A single curve avoids both the old floor's
+ * plateau and the velocity discontinuities caused by taking a max with the natural subject pose.
  */
 export const BULLET_TIME_RISE_PAST_CROSSING = 0.06
-const ORBIT_FIRST_PROGRESS = 0.43008
-const ORBIT_LAST_PROGRESS = 0.452
+
+function riseTangent(a: number, b: number, ha: number, hb: number): number {
+  return a > 0 && b > 0 ? 3 * (ha + hb) / ((ha + 2 * hb) / a + (2 * ha + hb) / b) : 0
+}
+
+function riseSpan(progress: number, a: number, b: number, y0: number, y1: number, m0: number, m1: number): number {
+  const h = b - a, u = (progress - a) / h, u2 = u * u, u3 = u2 * u
+  return (2 * u3 - 3 * u2 + 1) * y0 + (u3 - 2 * u2 + u) * h * m0
+    + (-2 * u3 + 3 * u2) * y1 + (u3 - u2) * h * m1
+}
 
 export function bulletTimeRiseFloor(progress: number, crossing: number): number {
-  if (progress <= ORBIT_FIRST_PROGRESS) return 0
+  if (progress <= 0.42) return 0
+  if (progress >= 0.46) return 1
   const start = drawingIntroState(breakthroughSubjectTimeAt(ORBIT_FIRST_PROGRESS) * DRAWING_INTRO_WINDOW.releaseEnd, crossing).poseT
   const end = Math.min(1, Math.max(start, crossing + BULLET_TIME_RISE_PAST_CROSSING))
-  const u = Math.max(0, Math.min(1, (progress - ORBIT_FIRST_PROGRESS) / (ORBIT_LAST_PROGRESS - ORBIT_FIRST_PROGRESS)))
-  return start + (end - start) * u * u * (3 - 2 * u)
+  // The solved crossings (.6-.9) leave positive travel on every span. Harmonic
+  // tangents preserve monotonicity while sharing velocity across both orbit joins.
+  const h0 = ORBIT_FIRST_PROGRESS - 0.42, h1 = ORBIT_LAST_PROGRESS - ORBIT_FIRST_PROGRESS, h2 = 0.46 - ORBIT_LAST_PROGRESS
+  const d0 = (start - 0.5) / h0, d1 = (end - start) / h1, d2 = (1 - end) / h2
+  const m1 = riseTangent(d0, d1, h0, h1), m2 = riseTangent(d1, d2, h1, h2)
+  if (progress < ORBIT_FIRST_PROGRESS) return riseSpan(progress, 0.42, ORBIT_FIRST_PROGRESS, 0.5, start, 0, m1)
+  if (progress < ORBIT_LAST_PROGRESS) return riseSpan(progress, ORBIT_FIRST_PROGRESS, ORBIT_LAST_PROGRESS, start, end, m1, m2)
+  return riseSpan(progress, ORBIT_LAST_PROGRESS, 0.46, end, 1, m2, 0)
 }
 
 /** Pure in progress: identical to the shared opening clock through .42, no wall time or history. */
 export function breakthroughSubjectTimeAt(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Opening progress must be finite')
-  // During the hold, use the unslowed opening clock as the normal reference;
-  // the subject advances at exactly the shared 10% rate while the camera keeps
-  // following canonical progress independently.
-  if (progress >= 0.43008 && progress <= 0.452) {
-    return 0.855 + (openingTimeAt(progress) - openingTimeAt(0.43008)) * BULLET_TIME_RATE
+  if (progress <= SHATTER_ENTRY_START) return breakthroughTimeAt(openingTimeAt(progress))
+  if (progress < ORBIT_FIRST_PROGRESS) {
+    return SHATTER_ENTRY_TIME + integrateOpeningRate(SHATTER_ENTRY_START, progress, entryRatioAt)
   }
+  // Plateau: the subject advances at exactly the shared rate of the unslowed opening clock,
+  // so physical displacement is rate * the un-dilated displacement (no extra ease-stop stacked on it).
+  if (progress <= ORBIT_LAST_PROGRESS) {
+    return SHATTER_PLATEAU_TIME + (openingTimeAt(progress) - openingTimeAt(ORBIT_FIRST_PROGRESS)) * SHATTER_RATE
+  }
+  if (progress >= SHATTER_RELEASE_END) return 1
   const k = SHATTER_SUBJECT_KNOTS
-  if (progress <= k[0][0]) return breakthroughTimeAt(openingTimeAt(progress))
-  if (progress >= k[k.length - 1][0]) return k[k.length - 1][1]
-  let i = 0
-  while (i < k.length - 2 && progress >= k[i + 1][0]) i++
-  const [a, ta] = k[i], [b, tb] = k[i + 1]
-  const h = b - a, u = (progress - a) / h, u2 = u * u, u3 = u2 * u
-  const value = (2 * u3 - 3 * u2 + 1) * ta + (u3 - 2 * u2 + u) * h * shatterTangent(i)
-    + (-2 * u3 + 3 * u2) * tb + (u3 - u2) * h * shatterTangent(i + 1)
-  return Math.max(ta, Math.min(tb, value))
+  const i = progress < k[3][0] ? 2 : 3
+  const [x0, y0] = k[i], [x1, y1] = k[i + 1]
+  const h = x1 - x0, u = (progress - x0) / h, u2 = u * u, u3 = u2 * u
+  const value = (2 * u3 - 3 * u2 + 1) * y0 + (u3 - 2 * u2 + u) * h * shatterReleaseTangent(i)
+    + (-2 * u3 + 3 * u2) * y1 + (u3 - u2) * h * shatterReleaseTangent(i + 1)
+  return Math.max(y0, Math.min(y1, value))
 }
 
 function applyPrivateLampTiming(state: IntroState, finalInkT: number, crossing: number): void {
@@ -202,7 +261,7 @@ export function sampleOpening(progress: number, crossing = 0.9, finalInkT = DEFA
     throw new RangeError('Final ink time must be finite in [0, 1]')
   }
   const state = drawingIntroState(breakthroughSubjectTimeAt(progress) * DRAWING_INTRO_WINDOW.releaseEnd, crossing)
-  state.poseT = Math.max(state.poseT, bulletTimeRiseFloor(progress, crossing))
+  if (progress > 0.42) state.poseT = bulletTimeRiseFloor(progress, crossing)
   applyPrivateLampTiming(state, finalInkT, crossing)
   const electrical = samplePrivateElectricalScore(state.t)
   state.pulseHead = electrical.outline

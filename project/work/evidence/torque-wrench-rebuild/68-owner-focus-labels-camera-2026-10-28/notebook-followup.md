@@ -1,0 +1,9 @@
+Please correct the numeric and storyboard details in your recommendation while keeping the same owner intent. We are not asking to change mechanics, pacing, reveal timings, existing ignition, or source takeover.
+
+For a straight parallel rail with camera and target translating together, the fixed optical-axis angle to the shaft is theta = atan2(radial camera-to-axis offset r, absolute axial camera-to-target lead a). It is not determined by rail direction alone. Your suggested r=.15–.25 m and a=.08–.12 m imply theta about51–72 degrees, not35–50. Also elevation from the radial plane and angle from the shaft axis are complementary. A straight rail can have a fixed oblique view without any animated yaw.
+
+Please give ONE coherent starting pose with r, a, resulting theta, and optional small elevation/side component; label it as an unrendered creative candidate. Prefer staying around a couple-to-few inches offset (roughly50–100mm), while aiming across the parts rather than nearly end-on. A more distant six-to-ten-inch rail may demand too much lens magnification. Explain whether a fixed oblique view is the primary recommendation and whether any slow same-sign yaw is merely an optional alternative.
+
+For context accuracy, the private study40.2–66.9s reveals planets/carriers/bearing/output in physical order. It is NOT the subsequent full-source exploded-clutch/LCD sequence. Do not invent part behavior or reassign timestamps. We can take stills at actual reveal milestones from our source. The owner likes current pacing and will review your camera proposal before we change that path.
+
+Separate source-backed perspective/smooth sparse-path principles from your own camera-angle inference. No DoF, damping, cutaways, new lighting/materials, suppressed rotation, mechanical changes or copied spring implementation. Please answer under250words.

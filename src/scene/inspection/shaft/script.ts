@@ -3,6 +3,7 @@ import { shaftBeat } from './story'
 export type ShaftCardId = 'none' | '4140' | '4340' | 'c300' | '4340-ht'
 export type ShaftStampState = 'none' | 'in' | 'settled'
 export type ShaftStressKind = 'none' | 'warm' | 'cool'
+export type ShaftCaptionId = 'none' | 'stage1-mesh' | 'bullet-time' | 'driveline-cascade'
 
 /** Exact authored card strings. Hardness-range hyphens are ASCII U+002D; never normalize them. */
 export const SHAFT_CARD_TEXT = Object.freeze({
@@ -15,8 +16,15 @@ export const SHAFT_STAMP_TEXT = 'FAILED'
 export const SHAFT_ATTRIBUTION_TEXT = 'Earlier material attempts, as recounted by the designer.'
 /** Recap caption; the separator is an em dash (U+2014) exactly as pinned in the manufacturing plan. */
 export const SHAFT_RECAP_CAPTION_TEXT = 'Remaining teeth — time compressed'
+/** Stable narrative identities; continuous motion never changes the announcement text. */
+export const SHAFT_CAPTION_TEXT = Object.freeze({
+  none: '',
+  'stage1-mesh': 'Stage 1 engagement: four P000247 planets slide onto the ten sun teeth for full 6.35 mm face engagement.',
+  'bullet-time': 'Torque ignition at 0.10× bullet time: the sun pushes the planets around the stationary ring gear, driving the carrier.',
+  'driveline-cascade': 'Driveline cascade: Stage 1 → 2 → 5 → 3 → 4 → output. Each stage turns slower; the input accelerates to its cap.',
+} as const)
 
-export const SHAFT_DURATION = 43
+export const SHAFT_DURATION = 66.9
 /** Card cross-fades are distinct: fade-out completes CARD_GAP before the beat end; the next card starts fading in at the next beat start. */
 export const SHAFT_CARD_FADE = 0.14
 export const SHAFT_CARD_GAP = 0.02
@@ -40,6 +48,8 @@ const RECAP = shaftBeat('recap')
 const WARM_LEAVE_START = MATERIALS.end
 const WARM_LEAVE_END = shaftBeat('revised-blank').end
 const STUDY_END = shaftBeat('runout-hold').end
+const ENGAGEMENT_END = shaftBeat('stage1-mesh').end
+const BULLET_TIME_END = 40.2
 
 export interface ShaftMaterialAttempt { readonly card: '4140' | '4340' | 'c300'; readonly start: number; readonly end: number }
 /** 2.8 + 2.5 + 2.3 = 7.6 s of attempts inside the materials beat (15..22.6). */
@@ -52,6 +62,7 @@ export const SHAFT_MATERIAL_ATTEMPTS: readonly ShaftMaterialAttempt[] = Object.f
 const CARD_INDEX: Readonly<Record<ShaftCardId, number>> = { none: 0, '4140': 1, '4340': 2, c300: 3, '4340-ht': 4 }
 const STAMP_INDEX: Readonly<Record<ShaftStampState, number>> = { none: 0, in: 1, settled: 2 }
 const STRESS_INDEX: Readonly<Record<ShaftStressKind, number>> = { none: 0, warm: 1, cool: 2 }
+const CAPTION_INDEX: Readonly<Record<ShaftCaptionId, number>> = { none: 0, 'stage1-mesh': 1, 'bullet-time': 2, 'driveline-cascade': 3 }
 
 export interface ShaftScriptFrame {
   card: ShaftCardId
@@ -66,6 +77,8 @@ export interface ShaftScriptFrame {
   stress: ShaftStressKind
   stressMix: number
   scanProgress: number
+  caption: ShaftCaptionId
+  captionText: string
   discrete: number
 }
 
@@ -73,7 +86,7 @@ export function createShaftScriptFrame(): ShaftScriptFrame {
   return {
     card: 'none', cardText: '', cardOpacity: 0, stamp: 'none', stampScale: 1,
     attribution: false, remainingTeeth: false, stressIllustrative: false,
-    stress: 'none', stressMix: 0, scanProgress: 0, discrete: 0,
+    stress: 'none', stressMix: 0, scanProgress: 0, caption: 'none', captionText: '', discrete: 0,
   }
 }
 
@@ -148,6 +161,9 @@ export function sampleShaftScript(time: number, reducedMotion: boolean, out: Sha
   out.stressMix = stressMix
   out.scanProgress = scanProgress
   out.stressIllustrative = stress !== 'none'
-  out.discrete = ((((CARD_INDEX[card] * 3 + STAMP_INDEX[stamp]) * 2 + (out.attribution ? 1 : 0)) * 2 + (out.remainingTeeth ? 1 : 0)) * 2 + (out.stressIllustrative ? 1 : 0)) * 3 + STRESS_INDEX[stress]
+  const caption: ShaftCaptionId = t < STUDY_END ? 'none' : t < ENGAGEMENT_END ? 'stage1-mesh' : t < BULLET_TIME_END ? 'bullet-time' : 'driveline-cascade'
+  out.caption = caption
+  out.captionText = SHAFT_CAPTION_TEXT[caption]
+  out.discrete = (((((CARD_INDEX[card] * 3 + STAMP_INDEX[stamp]) * 2 + (out.attribution ? 1 : 0)) * 2 + (out.remainingTeeth ? 1 : 0)) * 2 + (out.stressIllustrative ? 1 : 0)) * 3 + STRESS_INDEX[stress]) * 4 + CAPTION_INDEX[caption]
   return out
 }

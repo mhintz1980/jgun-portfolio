@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { MeshPhysicalMaterial, RepeatWrapping } from 'three'
-import { createDiamondKnurlNormalMap, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
+import { MeshPhysicalMaterial, MeshStandardMaterial, RepeatWrapping } from 'three'
+import { createDiamondKnurlNormalMap, materialRoleFor, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
 
 describe('P003068 heavy knurled black anodize', () => {
   it('matches the handle finish while retaining the OD normal map', () => {
@@ -54,5 +54,59 @@ describe('P003068 heavy knurled black anodize', () => {
     expect(shader.fragmentShader).toContain('ringSwitchOutward * ringSwitchOuterRadius * ringSwitchSide')
     expect(shader.fragmentShader).toContain('max(length(ringSwitchRadialPos) * length(ringSwitchRadialNormal), 1e-8)')
     expect(shader.fragmentShader).toContain('1.0 - step(0.20, abs(normalize(vRingSwitchObjectNormal).z))')
+  })
+})
+
+describe('smooth black-oxide housings (P000245 gearbox, P000420 clutch)', () => {
+  const compileShader = () => ({
+    uniforms: {} as Record<string, unknown>,
+    vertexShader: '#include <begin_vertex>',
+    fragmentShader: '#include <roughnessmap_fragment>',
+  })
+
+  it('routes both housings to blackOxideSteel without the lathe band injection', () => {
+    // Part-number override and unit-default paths both land on the role.
+    expect(materialRoleFor('housing', 'occurrence_of_P000245-1')).toBe('blackOxideSteel')
+    expect(materialRoleFor('housing', 'GEARBOX_ASSY_SHELL')).toBe('blackOxideSteel')
+    expect(materialRoleFor('clutch-static', 'occurrence_of_P000420-1')).toBe('blackOxideSteel')
+    const housing = roleMaterial('blackOxideSteel') as MeshStandardMaterial
+    const shader = compileShader()
+    housing.onBeforeCompile(shader as never, {} as never)
+    expect(shader.vertexShader).not.toContain('vMachinedZ')
+    expect(shader.fragmentShader).not.toContain('vMachinedZ')
+    expect(shader.fragmentShader).not.toContain('vec2( 2800.0, 7900.0 )')
+    expect(housing.customProgramCacheKey()).not.toContain('lathe-v1')
+  })
+
+  it('retains the lathe detail on exposed bright machined steels', () => {
+    for (const role of ['toolSteel', 'cageSteel', 'planetSteel', 'clutchSteel', 'rotorSteel', 'stainlessSteel'] as const) {
+      const turned = roleMaterial(role) as MeshStandardMaterial
+      const shader = compileShader()
+      turned.onBeforeCompile(shader as never, {} as never)
+      expect(shader.vertexShader).toContain('vMachinedZ = position.z;')
+      expect(shader.fragmentShader).toContain('vMachinedZ * vec2( 2800.0, 7900.0 )')
+      expect(turned.customProgramCacheKey()).toContain('lathe-v1')
+    }
+  })
+
+  it('keeps the shader cache identity through ghost/fade clones', () => {
+    const housing = roleMaterial('blackOxideSteel') as MeshStandardMaterial
+    const ghost = housing.clone()
+    expect(ghost.customProgramCacheKey).toBe(housing.customProgramCacheKey)
+    expect(ghost.customProgramCacheKey()).toBe(housing.customProgramCacheKey())
+    const shader = compileShader()
+    ghost.onBeforeCompile(shader as never, {} as never)
+    expect(shader.fragmentShader).not.toContain('vMachinedZ')
+    expect(ghost.clone().customProgramCacheKey()).toBe(housing.customProgramCacheKey())
+  })
+
+  it('leaves the painted indicator grooves on their own finishes', () => {
+    for (const role of ['grooveRed', 'grooveBlue'] as const) {
+      const painted = roleMaterial(role) as MeshStandardMaterial
+      const shader = compileShader()
+      painted.onBeforeCompile(shader as never, {} as never)
+      expect(shader.fragmentShader).not.toContain('vMachinedZ')
+      expect(painted.customProgramCacheKey()).not.toContain('lathe-v1')
+    }
   })
 })

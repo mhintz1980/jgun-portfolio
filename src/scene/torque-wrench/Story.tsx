@@ -24,7 +24,7 @@ const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string;
   inspection: {
     title: 'Inspection',
     lede: 'A stronger shaft begins with a different cut.',
-    body: 'The original P001835 shaping process required a cutter relief groove. The 4140, 4340 and C300 attempts all failed at that groove. Mark’s revised shaft uses rotary hobbing and a smooth blank, with the bearing and retaining rings moved to support the new geometry.',
+    body: 'A cutter relief groove weakened the original P001835 shaft. Mark’s rotary-hobbed revision keeps a smooth blank. After the runout hold, the Stage 1 carrier (A000591) slides four P000247 planets onto the ten sun teeth; torque ignites at 0.10× before the five-stage cascade.',
   },
   close: {
     title: 'Assembly',
@@ -94,8 +94,14 @@ function InspectionControl({ playback, live }: { playback?: InspectionPlayback; 
         <p>
           The inspection subject is the Input Shaft, P001835: the 10-tooth sun gear drawn in
           Detail B. Its story runs from the relief groove that started it, through the material
-          attempts in 4140, 4340 and C300, the switch from shaping to hobbing, the runout hold,
-          and the supports that moved so the finished shaft runs true.
+          attempts in 4140, 4340 and C300, the switch from shaping to hobbing, and the runout hold.
+          Next, Stage 1 (A000591) slides its four P000247 planets axially onto the ten sun teeth
+          for full 6.35-millimetre face engagement. Torque ignites at 0.10× bullet time before
+          the five-stage driveline cascades in physical order 1, 2, 5 (A000606), 3 and 4 toward
+          the output square drive. The close orbit reveals Stage 2 planets before their spinning
+          cage, then a near-axial dolly follows the torque path. The housing and handle return
+          after the output is turning. The 8.0 to 1.43 display
+          turn ladder labels relative speeds; actual elapsed turns follow the timed spin-up.
         </p>
         {live && <div className="torque-inspection__playback">
           <button type="button" onClick={() => playback?.play()}>Play shaft study</button>

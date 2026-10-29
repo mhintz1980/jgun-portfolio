@@ -56,6 +56,14 @@ Whenever Mark requests a handoff, provide both the saved handoff document and an
 
 ## Skills (ZCode-local at ~/.zcode/skills; other harnesses: read the SKILL.md directly)
 
+Camera paths, bullet-time clocks, HUD framing, or scroll pacing → **read the repository-local
+[`r3f-cad-cinematography` skill](.agents/skills/r3f-cad-cinematography/SKILL.md) before work**, in every harness.
+Its Sections 2–3 define choreography and the deterministic dual-clock contract;
+`src/scene/torque-wrench/bulletTime.ts` owns shot windows, rates and readability caps.
+Use the solver at `.agents/skills/r3f-cad-cinematography/scripts/solveHudSafeFraming.ts`.
+Full browser assertions (both reverse camera and subject errors) remain completion evidence;
+`verify-torque-camera-hud.mjs --quick` is capture-only and must never be reported as PASS.
+
 Rig/scene → `cad-scene-graph-rigging`; verification → `webgl-telemetry-verifier`;
 timeline → `r3f-scroll-performance-guard`; scroll/GSAP ScrollTrigger reference →
 `gsap-scrolltrigger` (official GreenSock, ~/.agents/skills — all harnesses);

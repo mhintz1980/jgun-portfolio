@@ -1,24 +1,26 @@
 /**
  * JG-035 shaft machining kinematics (leaf spec: shaft-kinematics-camera-spec, 2026-10-05).
  *
- * Closed-form machining kinematics for the 43 s Input Shaft story, sampled from one master
+ * Closed-form machining kinematics for the 66.9 s Input Shaft story, sampled from one master
  * playhead. Everything is a pure function of time: no accumulators, no clocks, no randomness,
  * no allocation in per-frame paths, deterministic under any seek order.
  *
  * Frame: shaft-local millimetres, +Y is the shaft axis (CAD datum). The runtime loader performs
  * exactly one conversion (shaft-local +Y -> glTF -Z); nothing here converts.
  *
- * Certified tool numbers (clearance-v4 report, mirrored in toolSpec.ts):
- *   shaper N=20 disc cutter, signed work/cutter ratio -2, centre distance 15.5 mm,
- *   tip radius 11.2032 mm (near edge at root + 5 um), thickness 1.2 mm,
+ * Shaper numbers (60-tooth illustrative derived prototype, owner direction 2026-10-28; the
+ * certified clearance-v4 20-tooth values live on in toolSpec CLEARANCE_V4_SHAPER):
+ *   module 1, work 10 / cutter 60 teeth => pitch radii 5 / 30 mm, centre distance 35 mm,
+ *   signed work/cutter ratio -6, tip radius 30.7032 mm (near edge at root + 5 um), thickness 8 mm
+ *   behind the retained +.6 mm rake datum (the root is no longer the disc-body centre),
  *   stroke centre limits y 2.17..9.7749, overtravel 0.5 mm past the last tooth material,
  *   return backed off 2.0 mm. Hob R 5.87 mm tilted 5.5587 deg, centre distance 10.1618 mm,
  *   stop yc 9.5249, path: radial infeed at yc -4.195 -> feed +Y -> retract 2.5 mm -> withdraw.
  *
  * Sign conventions (tool-conventions.md, independently checked there to 1e-12 m/s):
  *   Shaper: tool and work axes +Y, cutter centre on +Z. Positive angles right-hand about +Y.
- *   External rolling at the pitch point (work z=+5, cutter z=-10 in the 5/10 mm pitch circles)
- *   gives phi_w = -2 * phi_c (toolSpec SHAPER_SIGNED_RATIO).
+ *   External rolling at the pitch point (work z=+5, cutter z=-30 in the 5/30 mm pitch circles)
+ *   gives phi_w = -6 * phi_c (toolSpec SHAPER_SIGNED_RATIO).
  *   Hob: RH one-start, axis a = [cos g, sin g, 0], shaft contact at shaft +Z = tool -Z side,
  *   so phi_w = -(starts / teeth) * phi_h = -phi_h / 10.
  */
@@ -48,12 +50,12 @@ import {
   SHAPER_STROKE_CENTRE_Y_MAX_MM,
   SHAPER_STROKE_CENTRE_Y_MIN_MM,
   SHAPER_TEETH,
-  SHAPER_THICKNESS_MM,
+  SHAPER_LEADING_FACE_Y_MM,
 } from './toolSpec'
 
 // ---- master playhead -> machining time map -----------------------------------------------
 
-export const SHAFT_KINEMATICS_DURATION = 43
+export const SHAFT_KINEMATICS_DURATION = 66.9
 /** 30 fps lite floor; repeated features above a quarter of it must be softened. */
 export const SHAFT_LITE_FPS = 30
 export const SHAFT_MAX_FEATURE_HZ = SHAFT_LITE_FPS / 4
@@ -148,10 +150,16 @@ export const MACHINING_AT_SHAPING_END = machiningTimeAt(T_SHAPING_END)
 
 // ---- shaper ------------------------------------------------------------------------------
 
-/** Work revolution period in machining seconds (ratio -2 with the cutter below). */
+/**
+ * Work revolution period in machining seconds. The work angle law phi_w(m) = WORK_RATE * m is
+ * preserved from the certified 20-tooth shot (-pi rad per machining second); the cutter rate
+ * is derived from it through the generating ratio, so a different tooth count never changes
+ * the work motion, stroke phasing or contact schedule.
+ */
 export const WORK_REV_M = 2
-export const CUTTER_RATE = Math.PI / 2
-export const WORK_RATE = SHAPER_SIGNED_RATIO * CUTTER_RATE
+export const WORK_RATE = -(2 * Math.PI) / WORK_REV_M
+/** Cutter rate = work rate / signed ratio = pi/6 (60 teeth); cutterPhi = -workPhi / 6. */
+export const CUTTER_RATE = WORK_RATE / SHAPER_SIGNED_RATIO
 /** Mesh (pitch) point azimuth in the machine frame: cutter centre sits on +Z. */
 export const MESH_AZ_RAD = Math.PI / 2
 /** Stroke period in machining seconds; 2.5 strokes per work revolution. */
@@ -161,9 +169,14 @@ export const STROKE_PERIOD_M = 0.8
  * MACHINING_AT_SLOW_MID: the readable cutter exit sits at the centre of the slow window.
  */
 export const STROKE_PHASE_OFFSET = mod1(0.5 - MACHINING_AT_SLOW_MID / STROKE_PERIOD_M)
-/** Cutter orbit period; radial infeed completes within the first quarter orbit. */
+/** Cutter orbit period (one cutter revolution); 12 machining seconds with 60 teeth. */
 export const CUTTER_ORBIT_M = (2 * Math.PI) / CUTTER_RATE
-export const INFEED_END_M = CUTTER_ORBIT_M / 4
+/**
+ * Radial infeed ends 1 machining second in. This is the certified timing (a quarter of the
+ * former 4 s cutter orbit); it is pinned explicitly so the 60-tooth cutter, whose orbit is 12 s,
+ * keeps the same infeed.
+ */
+export const INFEED_END_M = 1
 /** Cutter tip runs at work root + 5 um stock (clearance-v4 shaper fit). */
 export const ROOT_TIP_STOCK_MM = 0.005
 export const CUTTER_TIP_RHO_MM = SHAFT_ROOT_MM + ROOT_TIP_STOCK_MM
@@ -213,9 +226,9 @@ export function infeedRhoAt(m: number): number {
  * Move that event to the first actual face contact within the SAME nearest-space sector
  * (half a pitch either side of the centre). Precompute once, never allocate during sample.
  */
-const STOCK_ENTRY_PHASE = Math.acos(1 - 2 * (FACE_START_MM - SHAPER_THICKNESS_MM / 2 - SHAPER_STROKE_CENTRE_Y_MIN_MM)
+const STOCK_ENTRY_PHASE = Math.acos(1 - 2 * (FACE_START_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
   / (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) / (2 * Math.PI)
-const STOCK_EXIT_PHASE = Math.acos(1 - 2 * (SHAPING_FACE_END_MM - SHAPER_THICKNESS_MM / 2 - SHAPER_STROKE_CENTRE_Y_MIN_MM)
+const STOCK_EXIT_PHASE = Math.acos(1 - 2 * (SHAPING_FACE_END_MM - SHAPER_LEADING_FACE_Y_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)
   / (SHAPER_STROKE_CENTRE_Y_MAX_MM - SHAPER_STROKE_CENTRE_Y_MIN_MM)) / (2 * Math.PI)
 const PASS_REPEAT_M = 2 * WORK_REV_M
 const HALF_SPACE_WINDOW_M = SPACE_PITCH_RAD / (2 * Math.abs(WORK_RATE))
@@ -231,7 +244,7 @@ for (let i = 0; i < SHAFT_SPACES; i++) {
   const entry = strokeStart + STOCK_ENTRY_PHASE * STROKE_PERIOD_M
   const exit = strokeStart + STOCK_EXIT_PHASE * STROKE_PERIOD_M
   const event = Math.max(entry + CONTACT_INTERIOR_M, Math.min(c, exit - CONTACT_INTERIOR_M))
-  const eventEdge = strokeCentreYAt(event) + SHAPER_THICKNESS_MM / 2
+  const eventEdge = strokeCentreYAt(event) + SHAPER_LEADING_FACE_Y_MM
   const nearest = Math.round((MESH_AZ_RAD - SPACE_CLOCK_RAD - WORK_RATE * event) / SPACE_PITCH_RAD)
   if (event < c - HALF_SPACE_WINDOW_M || event >= c + HALF_SPACE_WINDOW_M
     || eventEdge < FACE_START_MM || eventEdge > SHAPING_FACE_END_MM
@@ -489,7 +502,7 @@ export function sampleShaftKinematics(time: number, out: ShaftKinematicsFrame): 
   const phase = strokePhaseAt(mShaping)
   const cuttingStroke = phase < 0.5
   const yc = strokeCentreYAt(mShaping)
-  const edgeY = yc + SHAPER_THICKNESS_MM * 0.5
+  const edgeY = yc + SHAPER_LEADING_FACE_Y_MM
   const backoff = backoffAt(mShaping)
   const infeedRho = infeedRhoAt(mShaping)
   out.cutterPhi = cutterPhi

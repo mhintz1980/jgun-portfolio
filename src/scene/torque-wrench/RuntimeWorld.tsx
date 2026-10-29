@@ -2,15 +2,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Box3, Group, Material, Matrix4, Mesh, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Raycaster, Vector3, type Object3D } from 'three'
+import { Box3, Group, InstancedMesh, Material, Matrix4, Mesh, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Raycaster, Vector3, type Object3D } from 'three'
+import { ConvexHull } from 'three/examples/jsm/math/ConvexHull.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { STAGE_IDS } from '../../data/caseStudies'
 import { buildWrenchRig } from '../rig/nodeRoles'
 import { applyWrenchMechanics, writeWrenchMechanicsProbe, type WrenchMechanicsProbe } from '../rig/wrenchMechanics'
 import { makeDrawingLayout, snapshotDrawing } from '../drawing/drawingGeometry'
-import { type SheetCameraPose } from '../drawing/sheetCamera'
+import { activeDrawingDetailGroups, type SheetCameraPose } from '../drawing/sheetCamera'
 import { bakeSheet, type SheetBakeResult } from '../drawing/sheet/sheetBake'
-import { applyExtractionCore, createExtractionContext } from '../drawing/poseCore'
+import { createExtractionContext } from '../drawing/poseCore'
+import { applyOpeningExtractionCore } from './openingExtraction'
 import { createShaftRuntime, type ShaftPresentation } from '../inspection/shaft/shaftRuntime'
 import { shaftMetrePoint } from '../inspection/shaft/frame'
 import { createStorySession } from '../inspection/session'
@@ -50,6 +52,11 @@ import { applyShaftLook } from './shaftJourneyLook'
 import { captureGrooveProof, type GrooveCaptureOptions } from './grooveProof'
 import { isTorqueHotspotActive } from './hotspotData'
 import { createStopAndAppreciateController, type StopAndAppreciateTelemetry } from './stopAndAppreciate'
+import { copyMaterialFade } from './surroundingFade'
+import { captureVisibilityContribution } from './visibilityProof'
+import { measureSupportHandoff } from './supportHandoff'
+import { createShaftTakeover } from './shaftTakeover'
+import { captureCascadeProof } from './cascadeProof'
 
 const MODEL_URL = '/models/Default.glb'
 
@@ -129,19 +136,37 @@ function cloneMaterialShape(source: Material | Material[], unique: Map<Material,
   return clone
 }
 
-function copyMaterialFade(source: Material, clone: Material, fade: number): void {
-  clone.opacity = source.opacity * fade
-  const transparent = source.transparent || fade < 0.999
-  if (clone.transparent !== transparent) { clone.transparent = transparent; clone.needsUpdate = true }
-  clone.depthWrite = source.depthWrite && fade > 0.5
-}
-
 export default function RuntimeWorld({ store, onFailure, playback, isolation }: TorqueSceneProps & { isolation: InspectionIsolationSample }) {
   // Explicit decoder URL is local to this hook; no global preload or root hero import.
   const { scene: model } = useGLTF(MODEL_URL, '/draco/')
   const { gl, scene, camera, size } = useThree()
   const rig = useMemo(() => buildWrenchRig(model), [model])
+  const studyOwnedMeshes = useMemo(() => {
+    const meshes = new Set<Object3D>()
+    for (const id of STAGE_IDS) rig.stages[id].carrier?.traverse(object => meshes.add(object))
+    rig.bearing?.traverse(object => meshes.add(object))
+    rig.outputShaft?.traverse(object => meshes.add(object))
+    for (const mesh of rig.meshes) if (mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211') meshes.add(mesh)
+    return meshes
+  }, [rig])
   const center = useMemo(() => [-rig.center.x, -rig.center.y, -rig.center.z] as const, [rig])
+  const sourceSupports = useMemo(() => rig.meshes.filter(mesh => mesh.userData.partNumber === 'K000210' || mesh.userData.partNumber === 'K000211'), [rig])
+  const sourceOccurrenceLabels = useMemo(() => {
+    const labels = new Map<Mesh, { unit: string; kind: string; occurrence: string }>()
+    for (const id of STAGE_IDS) {
+      const stage = rig.stages[id]
+      stage.carrier?.traverse(object => {
+        if (!(object instanceof Mesh)) return
+        let ancestor: Object3D | null = object, planet: Object3D | undefined
+        while (ancestor && ancestor !== stage.carrier) { if (stage.planets.includes(ancestor)) { planet = ancestor; break }; ancestor = ancestor.parent }
+        labels.set(object, { unit: id, kind: planet ? 'planet' : 'carrier', occurrence: planet?.name ?? stage.carrier!.name })
+      })
+    }
+    rig.handleRoot?.traverse(object => {
+      if (object instanceof Mesh) labels.set(object, { unit: 'handle', kind: rig.originalMaterials.get(object) === roleMaterial('anodizedAluminum') ? 'shell' : 'interior', occurrence: object.name || object.parent?.name || 'handle' })
+    })
+    return labels
+  }, [rig])
   const group = useRef<Group>(null)
   const centered = useRef<Group>(null)
   const aspect = size.width / Math.max(1, size.height)
@@ -284,7 +309,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   const cameraRegistration = useMemo(() => new Matrix4(), [])
   const shaftRestInverse = useRef<Matrix4 | null>(null)
   const planes = useMemo(createJourneyPlanes, [])
-  const presentation = useMemo<ShaftPresentation>(() => ({ entryOpaque: true, contextOpacity: 1, phaseCorrection: 0, narrativeAlpha: 0 }), [])
+  const supportReturnOffset = useMemo<[number, number, number]>(() => [0, 0, 0], [])
+  const presentation = useMemo<ShaftPresentation>(() => ({ entryOpaque: true, contextOpacity: 1, phaseCorrection: 0, narrativeAlpha: 0, supportReturnOffset }), [supportReturnOffset])
+  const applyShaftTakeover = useMemo(() => createShaftTakeover(rig), [rig])
   const sourceShaftMaterials = useRef<PrivateSurroundingMaterials | null>(null)
   const probe = useMemo(() => ({
     ready: false, frames: 0, hiddenFrames: 0, progress: 0,
@@ -311,6 +338,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
 
   useEffect(() => {
     const owned = createResourceScope(errors => onFailure(new AggregateError(errors, 'Private scene cleanup failed')))
+    // Restore the cached static buckets before prewarming/baking a new host.
+    applyShaftTakeover(0)
+    owned.defer(() => applyShaftTakeover(0))
     scope.current = owned
     const fail = (error: unknown) => { if (owned.current()) reportFailure(error) }
     const globals = window as unknown as Record<string, unknown>
@@ -342,6 +372,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         sourceShaftMaterial:sourceShaft?(m=>({color:m.color.getHexString(),metalness:m.metalness,roughness:m.roughness,envMapIntensity:m.envMapIntensity}))(sourceShaft.material as unknown as {color:{getHexString():string};metalness:number;roughness:number;envMapIntensity:number}):null,
         cameraRegistrationMatrix:cameraRegistration.toArray(),registrationMatrix:registration.toArray(),registrationScale:registrationScale(registration),displacement:displacement.toArray()}
     }
+    // Cache immutable local CAD hulls, never animated poses. Their affine
+    // transforms retain exact projection extrema through arbitrary seeks.
+    const geometryHulls = new WeakMap<object, { attribute: object; version: number; points: number[][] }>()
     const port = {
       overlaySample: () => overlay,
       pitInputs: () => sheetRuntime.current?.pitInputs(),
@@ -356,6 +389,153 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       electricityCapture: () => {
         if (!sheetRuntime.current) throw new Error('Private sheet unavailable')
         return sheetRuntime.current.captureElectricity(gl, camera)
+      },
+      // Per-frame motion proof must not build the expensive full scene/material census.
+      motionSample: () => {
+        const detail: Record<string, unknown> = {}
+        shaft.current?.telemetry(detail)
+        const motion = detail.shaft as { stage1: { sunRotZ: number; cascadeRotZ: number[]; cascadePlanetRotZ: number[][]; planetRotZ: number; meshPhaseError: number }; finale: { inputRpm: number; driveAngle: number } } | undefined
+        return { frames: probe.frames, progress: probe.progress, time: probe.inspection.subjectTime,
+          sun: motion?.stage1.sunRotZ, carriers: motion?.stage1.cascadeRotZ.slice(),
+          localPlanet: motion?.stage1.planetRotZ, inputRpm: motion?.finale.inputRpm,
+          planets: motion?.stage1.cascadePlanetRotZ, driveAngle: motion?.finale.driveAngle,
+          sourceCarriers: STAGE_IDS.map(id => rig.stages[id].carrier?.rotation.z ?? 0),
+          sourcePlanets: STAGE_IDS.map(id => rig.stages[id].planets.map(planet => planet.rotation.z)),
+          sourceOutput: rig.outputShaft?.rotation.z,
+          sourceInput: rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')?.rotation.z,
+          meshPhaseError: motion?.stage1.meshPhaseError }
+      },
+      // On-demand authoring/proof port. Scan actual installed vertex positions,
+      // retaining directional extrema rather than proxy box corners. No frame cost.
+      cinematography: (includeWitnesses = true) => {
+        scene.updateMatrixWorld(true); camera.updateMatrixWorld(true)
+        const subjects: Array<{ name: string; matrixWorld: number[] }> = []
+        const witnesses: Array<{ name: string; points: number[][]; kind: string }> = []
+        const point = new Vector3(), localPoint = new Vector3(), direction = new Vector3()
+        const hullPoints = (points: Vector3[]) => {
+          const unique = [...new Map(points.map(p => [p.toArray().join(','), p])).values()]
+          if (unique.length < 4) return unique.map(p => p.toArray())
+          // ConvexHull.vertices contains ALL input nodes, including interior
+          // vertices. Only face half-edges identify the actual hull witnesses.
+          const hull = new ConvexHull().setFromPoints(unique)
+          const extreme = new Map<string, Vector3>()
+          for (const face of hull.faces) {
+            let edge = face.edge
+            do { const p = edge.head().point; extreme.set(p.toArray().join(','), p); edge = edge.next } while (edge !== face.edge)
+          }
+          return extreme.size ? [...extreme.values()].map(p => p.toArray()) : unique.map(p => p.toArray())
+        }
+        const scan = (root: Object3D, prefix: string) => {
+          const inverseRoot = root.matrixWorld.clone().invert()
+          root.traverseVisible(object => {
+          if (!(object instanceof Mesh)) return
+          if (prefix === 'shatter' && !object.name.startsWith('paper-fragment-')) return
+          if (prefix === 'drawing' && object.name !== 'engineering-drawing-Z0') return
+          if (prefix === 'ring-source') {
+            // Merged primitive meshes often have no partNumber themselves.
+            // The authenticated rig unit owns every installed P003068 child.
+            let ringPart = false
+            for (let node: Object3D | null = object; node; node = node.parent) {
+              if (node === rig.clutch.ringSwitch) { ringPart = true; break }
+              if (node === root) break
+            }
+            if (!ringPart) return
+          }
+          const mats = Array.isArray(object.material) ? object.material : [object.material]
+          if (mats.every(m => !m.visible || m.opacity < .01)) return
+          const attribute = object.geometry.getAttribute('position')
+          if (!attribute) return
+          const name = `${prefix}/${object.uuid}/${object.name}`
+          let stage1Unit = false, selectedPlanet = false, sourceRingUnit = false
+          for (let ancestor: Object3D | null = object; ancestor && ancestor !== root; ancestor = ancestor.parent) {
+            if (ancestor.userData.stage1CascadeIndex === 0) stage1Unit = true
+            if (Number.isInteger(ancestor.userData.studyPlanetOccurrence)) selectedPlanet = true
+            if (ancestor === rig.clutch.ringSwitch) sourceRingUnit = true
+          }
+          const stage1Contact = stage1Unit && selectedPlanet
+          const matrices: Matrix4[] = []
+          if (object instanceof InstancedMesh) {
+            for (let i = 0; i < object.count; i++) {
+              const instance = new Matrix4()
+              object.getMatrixAt(i, instance)
+              matrices.push(instance.premultiply(object.matrixWorld))
+            }
+          } else matrices.push(object.matrixWorld)
+          for (let i = 0; i < matrices.length; i++) subjects.push({
+            name: matrices.length === 1 ? name : name + '/instance-' + i,
+            matrixWorld: matrices[i].toArray(),
+          })
+          if (!includeWitnesses) return
+          const worldPoints: Vector3[] = [], contactPoints: Vector3[] = []
+          let contactCount = 0
+          const version = 'version' in attribute ? attribute.version : attribute.data.version
+          let cached = geometryHulls.get(object.geometry)
+          if (!cached || cached.attribute !== attribute || cached.version !== version) {
+            const local = Array.from({ length: attribute.count }, (_, i) => new Vector3().fromBufferAttribute(attribute, i))
+            cached = { attribute, version, points: hullPoints(local) }
+            geometryHulls.set(object.geometry, cached)
+          }
+          for (const matrix of matrices) for (const vertex of cached.points) {
+            worldPoints.push(new Vector3(...vertex).applyMatrix4(matrix))
+          }
+          const sourceShaftContact = prefix === 'assembly' && probe.progress >= .56 && probe.progress <= .62
+            && object.userData.partNumber === 'P001835' && shaft.current
+          const contactInverse = sourceShaftContact ? shaft.current!.root.matrixWorld.clone().invert() : inverseRoot
+          const hasContact = sourceShaftContact || prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
+            || prefix === 'shaft' && (stage1Contact || /shaper-cutter-disc|hob.*(body|thread|cutter|flute)|hobbing-tool|^(legacyshaft|approvedshaft)$/i.test(object.name))
+          if (hasContact) for (const matrix of matrices) for (let i = 0; i < attribute.count; i++) {
+            point.fromBufferAttribute(attribute, i).applyMatrix4(matrix)
+            localPoint.copy(point).applyMatrix4(inverseRoot)
+            if(sourceShaftContact)localPoint.copy(point).applyMatrix4(contactInverse)
+            const ringContact = prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
+            const shaftContact = prefix === 'shaft' && (object.name === 'shaper-cutter-disc'
+              || /hob.*(body|thread|cutter|flute)|hobbing-tool/i.test(object.name)
+              || (stage1Contact && localPoint.z >= -.014 && localPoint.z <= -.002
+                && Math.hypot(localPoint.x, localPoint.y) < .012)
+              || ((object.name === 'legacyshaft' || object.name === 'approvedshaft')
+                && localPoint.z >= -.014 && localPoint.z <= -.002))
+            if (ringContact || shaftContact || sourceShaftContact && localPoint.z>=-.014 && localPoint.z<=-.002) {
+              contactPoints.push(point.clone())
+              contactCount++
+            }
+          }
+          const activeAssembly = prefix === 'assembly' && (probe.progress >= .395 && probe.progress < .46
+            || probe.progress>=.46 && probe.progress<.56 && (sourceRingUnit || object.name===GROOVE_NAMES.blue || object.name===GROOVE_NAMES.red))
+          // Suspended shards are foreground context. Their complete matrices
+          // still undergo physical/replay proof; active framing follows the wrench.
+          witnesses.push({ name, points: matrices.length === 1 ? worldPoints.map(p => p.toArray()) : hullPoints(worldPoints), kind: activeAssembly ? 'active' : prefix })
+          if (contactCount) witnesses.push({ name: name + '/' + (stage1Contact ? 'planetP000247' : 'tooth-groove'), points: hullPoints(contactPoints), kind: 'contact' })
+          })
+        }
+        if (probe.isolation.shaftVisible && shaft.current) scan(shaft.current.root, 'shaft')
+        else if (probe.isolation.ringVisible && ring.current) {
+          scan(ring.current.root, 'ring')
+          if (group.current && group.current.visible) scan(group.current, 'ring-source')
+        }
+        else if (probe.progress < .395 && sheetRuntime.current) scan(sheetRuntime.current.group, 'drawing')
+        else if (group.current) scan(group.current, 'assembly')
+        if(includeWitnesses && probe.progress<.395 && sheetRuntime.current) {
+          const groups=activeDrawingDetailGroups(sheetFrame.intro.t)
+          const points=sheetRuntime.current.drawingDetailPoints(groups).map(p=>new Vector3(...p).applyMatrix4(sheetRuntime.current!.group.matrixWorld).toArray())
+          // Empty/unready detail geometry stays explicit and cannot pass.
+          witnesses.push({name:'drawing/active-ink-groups-'+groups.join('-'),points,kind:'active'})
+        }
+        if (probe.progress >= .42 && probe.progress <= .46 && sheetRuntime.current) scan(sheetRuntime.current.group, 'shatter')
+        direction.subVectors(target, camera.position).normalize()
+        return { camera: { position: camera.position.toArray(), target: target.toArray(), up: camera.up.toArray(),
+          fov: camera instanceof PerspectiveCamera ? camera.fov : 42, quaternion: camera.quaternion.toArray() }, subjects, witnesses,
+          viewport: [size.width, size.height], progress: probe.progress,
+          frame: probe.isolation.shaftVisible ? shaft.current?.root.matrixWorld.toArray()
+            : probe.isolation.ringVisible ? ring.current?.root.matrixWorld.toArray() : undefined,
+          ringTime: ring.current?.frame.time ?? null,
+          shatter: probe.progress >= .42 && probe.progress <= .46 && sheetRuntime.current
+            ? { ...(includeWitnesses ? sheetRuntime.current.shatterInputs() : {}), frame: sheetRuntime.current.group.matrixWorld.toArray(), subjectTime: sheetFrame.intro.t } : null,
+          inspection: { subjectTime: probe.inspection.subjectTime, cameraTime: probe.inspection.cameraTime },
+          poleDot: Math.abs(direction.dot(camera.up.clone().normalize())) }
+      },
+      cascadeProof: (options?: Parameters<typeof captureCascadeProof>[5]) => {
+        if (!shaft.current) throw new Error('Cascade study unavailable')
+        return captureCascadeProof(gl, scene, camera, shaft.current.root, rig, options)
       },
       snapshot: () => {
         const copy = JSON.parse(JSON.stringify(probe))
@@ -376,8 +556,15 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         copy.opening = { ...sheetFrame.intro, retirement: sheetFrame.retirement,
           sheetDistance: sheetFrame.cameraSheetDistance, tier: sheetFrame.tier,
           crossing: baked?.extraction.crossing ?? null,
+          modelMatrix: group.current?.matrix.toArray() ?? null,
+          sheetMatrix: extractionContext.sheetMatrix.toArray(),
+          extraction: baked ? { initialZ: baked.extraction.initialZ, travel: baked.extraction.travel,
+            pressureTravel: baked.extraction.pressureTravel } : null,
           finalInkT: openingFinalInkT.current,
           bakeInstalled: Boolean(baked), sheetVisible: Boolean(baked) && sheetFrame.retirement < 1 }
+        copy.housingMaterials = rig.meshes.filter(mesh => rig.originalMaterials.get(mesh) === roleMaterial('blackOxideSteel'))
+          .map(mesh => ({ name: mesh.name, partNumber: mesh.userData.partNumber,
+            programs: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(material => material.customProgramCacheKey()) }))
         const display = rig.lcdCluster?.readout
         if (display) {
           display.updateWorldMatrix(true, false)
@@ -395,9 +582,13 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             sliding: !!rig.clutch.sliding, ringSwitch: !!rig.clutch.ringSwitch, bearing: !!rig.bearing,
             stages: STAGE_IDS.map(id => !!rig.stages[id].carrier) },
           planetRotByStage: STAGE_IDS.map(id => rig.stages[id].planets.map(planet => planet.rotation.z)),
-          ghostMaterials: [...rig.ghostMaterials].map(([mesh, material]) => ({ mesh: mesh.name,
+          ghostMaterials: [...rig.ghostMaterials].map(([mesh, material]) => ({ mesh: mesh.name, uuid: mesh.uuid,
             opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite,
             attached: Array.isArray(mesh.material) ? mesh.material.includes(material) : mesh.material === material,
+            effectiveOpacity: effectiveMeshOpacity(mesh),
+            applied: (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).map(current => ({
+              opacity: current.opacity, transparent: current.transparent, depthWrite: current.depthWrite,
+            })),
           })).sort((a, b) => a.mesh.localeCompare(b.mesh)),
         }
         if (ring.current) {
@@ -448,9 +639,18 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           for (const material of materials) copy.isolation.actualMaxOpacity = Math.max(copy.isolation.actualMaxOpacity, material.opacity)
         }
         copy.journey = JSON.parse(JSON.stringify(measureJourneyCensus()))
+        if (probe.inspection.ready && shaft.current) copy.journey.supportHandoff = measureSupportHandoff(sourceSupports, shaft.current.root)
         const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
         if (sourceShaft && shaft.current) copy.journey.shaftLandmarks = measureShaftLandmarks(sourceShaft, shaft.current.root, registration)
         copy.isolation.progress = isolation.progress
+        copy.isolation.occurrences = (surroundingMaterials.current?.entries ?? []).map(({ mesh, source, clone }) => ({
+          name: mesh.name, uuid: mesh.uuid, part: mesh.userData.partNumber ?? null,
+          ...sourceOccurrenceLabels.get(mesh),
+          parent: mesh.parent?.name, visible: effectiveMeshOpacity(mesh) > .001,
+          studyOwned: studyOwnedMeshes.has(mesh),
+          source: (Array.isArray(source) ? source : [source]).map(m => ({ opacity: m.opacity, depthWrite: m.depthWrite })),
+          applied: (Array.isArray(clone) ? clone : [clone]).map(m => ({ opacity: m.opacity, transparent: m.transparent, depthWrite: m.depthWrite })),
+        }))
         if (shaft.current) {
           const detail: Record<string, unknown> = {}
           shaft.current.telemetry(detail)
@@ -466,6 +666,39 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       stressCapture: () => {
         if (!shaft.current) throw new Error('Installed study unavailable')
         return shaft.current.stressCapture?.(gl, camera)
+      },
+      contactCapture: () => {
+        if (!shaft.current) throw new Error('Installed study unavailable')
+        return shaft.current.contactCapture?.(gl, camera)
+      },
+      visibilityCapture: (kind: 'ring' | 'mainHousing' | 'surroundings' | 'fadeOccurrences' | 'drivetrain' | 'stage2' | 'stage5' | 'stage3' | 'stage4' | 'output', individual = false) => {
+        const nodes: Object3D[] = []
+        if (kind === 'ring') {
+          // During restoration the source is opaque beneath the dissolving clone.
+          // Remove both to measure the subject's actual contribution, rather than only clone residue.
+          const clone = probe.isolation.ringVisible ? ring.current?.root.getObjectByName('inspection-P003068-spin') : null
+          if (clone) nodes.push(clone)
+          if (rig.clutch.ringSwitch) nodes.push(rig.clutch.ringSwitch)
+        } else if (kind === 'mainHousing') {
+          nodes.push(...rig.ghostMaterials.keys())
+        } else if (kind === 'surroundings' || kind === 'fadeOccurrences') {
+          nodes.push(...(surroundingMaterials.current?.entries ?? []).map(entry => entry.mesh))
+          if (kind === 'fadeOccurrences') for (let i = nodes.length - 1; i >= 0; i--) if (!sourceOccurrenceLabels.has(nodes[i] as Mesh)) nodes.splice(i, 1)
+        } else {
+          shaft.current?.root.traverse(object => {
+            if (!(object instanceof Mesh) || effectiveMeshOpacity(object) <= .001) return
+            let ancestor: Object3D | null = object
+            while (ancestor && ancestor !== shaft.current?.root) {
+              const unitIndex = ancestor.userData.stage1CascadeIndex
+              const selectedIndex = kind === 'output' ? 6 : kind === 'stage5' ? 2 : kind === 'stage3' ? 4 : kind === 'stage4' ? 5 : 1
+              if (kind === 'drivetrain' ? typeof unitIndex === 'number' && unitIndex < 7 : unitIndex === selectedIndex) { nodes.push(object); break }
+              ancestor = ancestor.parent
+            }
+          })
+        }
+        const captured = captureVisibilityContribution(gl, scene, camera, nodes, individual, kind === 'fadeOccurrences')
+        for (let i = 0; i < captured.occurrences.length; i++) Object.assign(captured.occurrences[i], sourceOccurrenceLabels.get(nodes[i] as Mesh))
+        return captured
       },
       grooveCapture: (options?: GrooveCaptureOptions) => {
         if (!(camera instanceof PerspectiveCamera)) throw new Error('Perspective camera unavailable')
@@ -727,8 +960,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       sheetFrame.surroundingsOpacity = surroundingsOpacity
       sampleMechanism(journey.mechanismProgress, channels)
       applyWrenchMechanics(rig, channels)
+      applyShaftTakeover(progress, channels.gearAngle)
       if (sheetBake && group.current) {
-        applyExtractionCore(sheetFrame.intro.poseT, sheetBake.layout, sheetBake.extraction,
+        applyOpeningExtractionCore(sheetFrame.intro.poseT, sheetBake.layout, sheetBake.extraction,
           sheetBake.flex, sheetFrame.tier, extractionContext)
         group.current.matrixAutoUpdate = false
         group.current.matrix.copy(extractionContext.modelMatrix)
@@ -736,11 +970,12 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       for (const material of rig.ghostMaterials.values()) {
         material.opacity = channels.ghostOpacity
-        // Preserve the legacy host's transparent-capable clone and depth law.
-        material.depthWrite = channels.ghostOpacity > 0.5
+        // A translucent shell must never start occluding the interior halfway through a fade.
+        material.depthWrite = channels.ghostOpacity >= .999999
       }
       if (!surroundingMaterials.current && (manual || progress >= RING_LOAD_AT)) {
         const unique = new Map<Material, Material>()
+        const studyUnique = new Map<Material, Material>()
         const ringUnique = new Map<Material, Material>()
         const shaftUnique = new Map<Material, Material>()
         const shaftEntries: SurroundingMaterialEntry[] = []
@@ -753,11 +988,12 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             if (!source) throw new Error('Surrounding material source unavailable')
             const isRing = rig.originalMaterials.get(mesh) === roleMaterial('ringSwitch')
             const isShaft = mesh.userData.partNumber === 'P001835'
-            const entry = { mesh, source, visible: mesh.visible, clone: cloneMaterialShape(source, isShaft ? shaftUnique : isRing ? ringUnique : unique) }
+            const entry = { mesh, source, visible: mesh.visible, clone: cloneMaterialShape(source, isShaft ? shaftUnique : isRing ? ringUnique : studyOwnedMeshes.has(mesh) ? studyUnique : unique) }
             ;(isShaft ? shaftEntries : isRing ? ringEntries : entries).push(entry)
           }
         } catch (error) {
           for (const clone of unique.values()) clone.dispose()
+          for (const clone of studyUnique.values()) clone.dispose()
           for (const clone of ringUnique.values()) clone.dispose()
           for (const clone of shaftUnique.values()) clone.dispose()
           throw error
@@ -776,6 +1012,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           for (const entry of shaftEntries) { entry.mesh.material = entry.source; entry.mesh.visible = entry.visible }
           if (sourceShaftMaterials.current?.unique === shaftUnique) sourceShaftMaterials.current = null
           for (const clone of unique.values()) clone.dispose()
+          for (const clone of studyUnique.values()) clone.dispose()
           for (const clone of ringUnique.values()) clone.dispose()
           for (const clone of shaftUnique.values()) clone.dispose()
         })
@@ -784,12 +1021,14 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       // Both painted grooves are features of the Clutch Housing (P000420), so they share its
       // context fade exactly: nothing of P000420 floats around the isolated Ring Switch (owner 04.png).
       if (privateSurroundings) {
-        for (const { source, clone } of privateSurroundings.entries) {
-          const fade = surroundingsOpacity
+        for (const { mesh, source, clone } of privateSurroundings.entries) {
+          // Study owns these internals until the exact source handoff. Exterior/handle may return earlier.
+          const fade = !manual && studyOwnedMeshes.has(mesh) && progress >= .62 && progress < .845 ? 0
+            : !manual && studyOwnedMeshes.has(mesh) && progress >= .845 && progress < .855 ? 1 : surroundingsOpacity
           if (Array.isArray(source) && Array.isArray(clone)) {
-            for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], fade)
+            for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], fade, !manual && studyVisible)
           } else if (!Array.isArray(source) && !Array.isArray(clone)) {
-            copyMaterialFade(source, clone, fade)
+            copyMaterialFade(source, clone, fade, !manual && studyVisible)
           }
         }
       }
@@ -889,8 +1128,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         const dieWheel = runtime.root.getObjectByName('KT_UPPER_KNURL_WHEEL_RH')
         let ringFocus: PrivateRingFocus | undefined
         if (dieWheel && progress >= RING_CLOSEUP_START - .01 && progress <= RING_CLOSEUP_END + .01) {
+          // Tool animation and anchor changed this frame. Read the die only after descendants agree.
+          runtime.root.updateWorldMatrix(true, true)
           ringFocusPoint.setFromMatrixPosition(dieWheel.matrixWorld)
-          runtime.root.updateWorldMatrix(true, false)
           ringFocusPoint.applyMatrix4(ringFocusInverse.copy(runtime.root.matrixWorld).invert())
           ringFocus = ringFocusPoint
         }
@@ -946,7 +1186,11 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         owned.defer(() => { failures.disposing(); try { runtime.dispose() } finally { failures.disposed(); runtime.root.removeFromParent() } })
         runtime.ready.then(() => {
           failures.resolve()
-          if (owned.current()) probe.inspection.ready = true
+          if (owned.current()) {
+            const measured = measureSupportHandoff(sourceSupports, runtime.root)
+            supportReturnOffset[0] = measured.offset[0]; supportReturnOffset[1] = measured.offset[1]; supportReturnOffset[2] = measured.offset[2]
+            probe.inspection.ready = true
+          }
         }, error => { if (owned.current()) failures.reject(error); else failures.disposed() })
       }
       const sourceShaft = rig.meshes.find(mesh => mesh.userData.partNumber === 'P001835')
@@ -998,6 +1242,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         mesh.visible = sourceShaftFade > .001
       }
       const sourceRingFade = manual ? 0 : ringVisible ? (returnBlend > 0 ? 1 : 0) : surroundingsOpacity
+      // The opaque source under the retiring clone must remain renderable even
+      // while all non-ring surroundings are still fully isolated.
+      if (group.current && ringCameraWindow && sourceRingFade > .001) group.current.visible = true
       for (const { mesh, source, clone } of sourceRingMaterials.current?.entries ?? []) {
         if (Array.isArray(source) && Array.isArray(clone)) {
           for (let i = 0; i < source.length; i++) copyMaterialFade(source[i], clone[i], sourceRingFade)
@@ -1011,7 +1258,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       probe.ring.sourceOpacity = sourceRingFade
       probe.ring.sourceVisible = sourceRingFade > 0.001
       probe.ring.cloneOpacity = ringVisible ? 1 - returnBlend : 0
-      if (!studyVisible) {
+      if (!studyVisible || (!manual && progress > .825)) {
         if (progress < 0.46 && layout.current) {
           sampleOpeningCamera(layout.current, aspect, progress, pose)
           camera.position.copy(pose.position); target.copy(pose.target); camera.up.copy(pose.up); camera.fov = pose.fov

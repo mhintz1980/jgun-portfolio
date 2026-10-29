@@ -17,12 +17,12 @@ describe('story descriptor registry', () => {
     expect(coldRegistry.getStoryDescriptor('shaft-p001835')).toBeUndefined()
     expect(metadata).toBe(authored.shaftStory)
     expect(metadata).not.toHaveProperty('create')
-    expect(metadata.duration).toBe(43)
+    expect(metadata.duration).toBe(66.9)
     expect(metadata.chapters).toEqual([
       { id: 'why-groove', label: 'Why the groove was needed', start: 0, end: 15 },
       { id: 'materials', label: 'Material attempts', start: 15, end: 22.6 },
       { id: 'process', label: 'Changing the process', start: 22.6, end: 35 },
-      { id: 'supports', label: 'Moving the supports', start: 35, end: 43 },
+      { id: 'stage1-cascade', label: 'Planetary mesh and driveline cascade', start: 35, end: 66.9 },
     ])
     expect(metadata.assets.map(asset => asset.url)).toEqual([
       'models/manufacturing-core-full.glb', 'models/manufacturing-core-lite.glb',

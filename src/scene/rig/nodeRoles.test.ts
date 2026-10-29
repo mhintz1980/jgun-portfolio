@@ -104,7 +104,10 @@ it('preserves real source geometry, materials, mechanics and the byte-exact draw
     const splitHash=vertexHash(rig.meshes),oldHash=vertexHash(old.meshes)
     expect(splitHash).toBe(oldHash)
     expect(materialCounts(rig.meshes)).toEqual(materialCounts(old.meshes))
-    const snapshot=snapshotDrawing({...rig,meshes:source.userData.journeyDrawingMeshes}),original=snapshotDrawing(old)
+    // New support provenance intentionally splits render buckets. The immutable drawing
+    // input has its own source list, so compare it with the baseline's drawing source.
+    const snapshot=snapshotDrawing({...rig,meshes:source.userData.journeyDrawingMeshes})
+    const original=snapshotDrawing({...old,meshes:baseline.userData.journeyDrawingMeshes})
     const hash=(g:BufferGeometry)=>createHash('sha256').update(Buffer.from(g.getAttribute('position').array.buffer)).digest('hex')
     expect(hash(snapshot.geometry)).toBe(hash(original.geometry))
     const key=await drawingCacheKey(snapshot,makeDrawingLayout(1,snapshot.bounds)),oldKey=await drawingCacheKey(original,makeDrawingLayout(1,original.bounds))

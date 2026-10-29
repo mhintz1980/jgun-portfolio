@@ -291,8 +291,11 @@ export function roleMaterial(role: MaterialRole): Material {
       })
       break
     // High-temp black oxide steel — gearbox intermediate housing (P000420)
-    // and outer shell (P000245). Turned steel with oxide finish: darker, more
-    // specular than anodized aluminum, less clearcoat than the shell role.
+    // and outer shell (P000245). Smooth oxide finish: darker, more specular
+    // than anodized aluminum, less clearcoat than the shell role. The matte
+    // oxide hides real turning marks, so this role is NOT turned metal below —
+    // the sin(vMachinedZ) roughness rings read as dark/light circumferential
+    // stripes on the large smooth housing ODs.
     case 'blackOxideSteel':
       material = new MeshStandardMaterial({
         color: '#0d0d0d',
@@ -505,9 +508,14 @@ export function roleMaterial(role: MaterialRole): Material {
   const ready = material as MeshStandardMaterial
   const compile = ready.onBeforeCompile
   const originalKey = ready.customProgramCacheKey()
+  // Lathe bands are for exposed BRIGHT machined steels only. blackOxideSteel
+  // (P000245 gearbox housing, P000420 clutch housing, fasteners) is excluded:
+  // the band phase depends only on position.z, so on the large smooth housing
+  // ODs the roughness rings render as circumferential dark/light striping
+  // (2026-10-24 housing OD stripes issue).
   const isTurnedMetal = role === 'toolSteel' || role === 'cageSteel' ||
     role === 'planetSteel' || role === 'clutchSteel' || role === 'rotorSteel' ||
-    role === 'stainlessSteel' || role === 'blackOxideSteel'
+    role === 'stainlessSteel'
 
   ready.onBeforeCompile = function (shader, renderer) {
     compile.call(this, shader, renderer)

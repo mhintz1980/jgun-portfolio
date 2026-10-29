@@ -1,19 +1,21 @@
 import { expect,it } from 'vitest'
 import { Matrix4,Vector3 } from 'three'
-import { samplePrivateRingCamera,RING_CAMERA_RED_AT } from './InspectionDirector'
-import { COLLAPSE_END,COLLAPSE_START,READOUT_END,collapseCamera,createJourneyCameraSampler,createJourneyPose,explodedHoldCamera,isolationCamera,orbitCamera,readoutCamera,signedAzimuthDelta } from './JourneyCamera'
+import { createPrivateInspectionSample,samplePrivateInspection,samplePrivateRingCamera,RING_CAMERA_RED_AT } from './InspectionDirector'
+import { createJourneySample,sampleJourney } from './JourneyDirector'
+import { shaftMetrePoint } from '../inspection/shaft/frame'
+import { COLLAPSE_END,COLLAPSE_START,READOUT_END,collapseCamera,createJourneyCameraSampler,createJourneyPose,explodedHoldCamera,isolationCamera,restorationCamera,orbitCamera,readoutCamera,signedAzimuthDelta } from './JourneyCamera'
 const digest=(p:ReturnType<typeof createJourneyPose>)=>[p.position.toArray(),p.target.toArray(),p.up.toArray(),p.fov]
-it.each([1.6,390/844])('holds profile I after the initial moving fade and across restore at aspect %s',aspect=>{
+it.each([1.6,390/844])('passes profile I at isolation and holds it only across restore at aspect %s',aspect=>{
   const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),sample=createJourneyCameraSampler(),out=createJourneyPose()
   const expected=digest(isolationCamera(aspect,h,createJourneyPose()))
-  for(const p of [.590,.595,.60,.845,.85,.855])expect(digest(sample(p,aspect,h,out))).toEqual(expected)
-  const endpoint=new Vector3(-.62,.18,.32),target=new Vector3(0,0,-.15)
-  if(aspect<.8)endpoint.lerpVectors(target,endpoint,2.2)
-  expect(digest(sample(.94,aspect,h,out))).toEqual([endpoint.toArray(),target.toArray(),[0,1,0],aspect<.8?58:42])
+  expect(digest(sample(.60,aspect,h,out))).toEqual(expected)
+  const restored=digest(restorationCamera(aspect,h,createJourneyPose()))
+  for(const p of [.845,.85,.855])expect(digest(sample(p,aspect,h,out))).toEqual(restored)
+  expect(digest(sample(.94,aspect,h,out))).toEqual(digest(explodedHoldCamera(aspect,createJourneyPose())))
 })
 it('keeps continuous orbit radii, avoids polar roll and does not stop halfway',()=>{
   const sample=createJourneyCameraSampler(),out=createJourneyPose(),h=new Matrix4()
-  for(const [a,b] of [[.56,.590],[.60,.62],[.83,.845],[.855,.93],[.94,.98],[.98,.995]]){
+  for(const [a,b] of [[.56,.60],[.60,.62],[.83,.845],[.855,.93],[.94,.98],[.98,.995]]){
     let prev:Vector3|null=null,maxStep=0
     for(let j=0;j<=500;j++){
       sample(a+(b-a)*j/500,1.6,h,out)
@@ -29,7 +31,7 @@ it('keeps continuous orbit radii, avoids polar roll and does not stop halfway',(
   }
 })
 const LEGS:Array<{name:string;a:number;b:number;sign:1|-1;identityDeg:number}>=[
-  {name:'A->I',a:.56,b:.590,sign:1,identityDeg:129.7},
+  {name:'A->I',a:.56,b:.60,sign:1,identityDeg:129.7},
   {name:'I->E',a:.60,b:.62,sign:1,identityDeg:83.7},
   {name:'F->I',a:.83,b:.845,sign:1,identityDeg:86.9},
   {name:'I->X',a:.855,b:.93,sign:-1,identityDeg:-160.2},
@@ -46,13 +48,13 @@ const sweptDeg=(h:Matrix4,aspect:number,a:number,b:number)=>{
   }
   return total*180/Math.PI
 }
-// Doc39 replaces axial isolation and its prescribed long signed sweeps.
-it('uses the shorter profile orbit on every leg under transformed assembly frames',()=>{
+it('keeps restoration legs turning in the same signed direction under transformed assembly frames',()=>{
   const hs=[new Matrix4(),new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17),new Matrix4().makeRotationY(Math.PI/6)]
-  for(const aspect of [1.6,390/844])for(const h of hs)for(const leg of LEGS){
-    const swept=sweptDeg(h,aspect,leg.a,leg.b)
-    expect(Math.abs(swept),leg.name).toBeLessThanOrEqual(180+1e-8)
-    expect(Math.abs(swept),leg.name).toBeGreaterThan(1)
+  for(const aspect of [1.6,390/844])for(const h of hs){
+    const incoming=sweptDeg(h,aspect,.825,.845),outgoing=sweptDeg(h,aspect,.855,.94)
+    expect(Math.abs(incoming)).toBeGreaterThan(1)
+    expect(Math.abs(outgoing)).toBeGreaterThan(1)
+    expect(Math.sign(incoming)).toBe(Math.sign(outgoing))
   }
 })
 it('falls back to a finite up when endpoint ups are antipodal',()=>{
@@ -101,13 +103,79 @@ it.each([1.6,390/844])('matches actual world ring exit and moves DURING the firs
   const first=sample(.585,aspect,h,out,ring).position.clone()
   expect(first.distanceTo(sample(.587,aspect,h,out,ring).position)).toBeGreaterThan(.0001)
   const profile=digest(isolationCamera(aspect,h,createJourneyPose()))
-  for(const p of [.590,.596,.600])expect(digest(sample(p,aspect,h,out,ring))).toEqual(profile)
+  for(const p of [.590,.596,.599])expect(digest(sample(p,aspect,h,out,ring))).not.toEqual(profile)
+  expect(digest(sample(.600,aspect,h,out,ring))).toEqual(profile)
   const axis=new Vector3(0,0,1).transformDirection(h)
   // Owner 2026-10-22 moved the profile to a snout-side three-quarter, so the view is no longer near-perpendicular to the axis.
   expect(Math.abs(out.position.clone().sub(out.target).normalize().dot(axis))).toBeLessThan(.5)
   sample(.601,aspect,h,out,ring)
   expect(digest(out)).not.toEqual(profile)
   expect(digest(ring)).toEqual(original)
+})
+
+const registeredRingExit=(h:Matrix4)=>{
+  const ring=createJourneyPose()
+  ring.target.set(.02,.04,-.10).applyMatrix4(h);ring.position.set(-.25,.10,-.20).applyMatrix4(h)
+  ring.up.set(0,1,0).transformDirection(h);ring.fov=32
+  return ring
+}
+const flatPose=(p:ReturnType<typeof createJourneyPose>)=>[...p.position.toArray(),...p.target.toArray(),...p.up.toArray(),p.fov]
+it.each([1.6,390/844])('has dense interior motion through the former hold and into study, in either seek direction, aspect %s',aspect=>{
+  for(const h of [new Matrix4(),new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17)])for(const supplied of [false,true]){
+    const sample=createJourneyCameraSampler(),out=createJourneyPose(),ring=supplied?registeredRingExit(h):undefined
+    const state=createJourneySample(),points=Array.from({length:1201},(_,n)=>.56+.06*n/1200)
+    const expected=points.map(p=>flatPose(sample(p,aspect,h,out,ring)))
+    for(let n=1;n<points.length;n++){
+      const p=points[n],previous=new Vector3(...expected[n-1].slice(0,3) as [number,number,number])
+      sample(p,aspect,h,out,ring)
+      if(p>=.585&&p<=.619)expect(out.position.distanceTo(previous),'camera at '+p).toBeGreaterThan(1e-6)
+      if(p>.590&&p<=.596)expect(sampleJourney(p,true,state).surroundingsOpacity,'opacity at '+p).toBeLessThan(sampleJourney(points[n-1],true,createJourneySample()).surroundingsOpacity)
+      expect(out.position.distanceTo(out.target)).toBeGreaterThan(.03)
+      expect(Math.abs(out.up.dot(out.target.clone().sub(out.position).normalize()))).toBeLessThan(.98)
+    }
+    for(const indices of [points.map((_,n)=>1200-n),points.map((_,n)=>(n*613)%1201)])for(const n of indices){
+      expect(flatPose(sample(points[n],aspect,h,out,ring))).toEqual(expected[n])
+    }
+    expect(flatPose(sample(.599,aspect,h,out,ring))).not.toEqual(flatPose(isolationCamera(aspect,h,createJourneyPose())))
+    expect(sampleJourney(.599,true,state).surroundingsOpacity).toBeGreaterThan(0)
+    expect(digest(sample(.600,aspect,h,out,ring))).toEqual(digest(isolationCamera(aspect,h,createJourneyPose())))
+    expect(sampleJourney(.600,true,state).surroundingsOpacity).toBe(0)
+  }
+})
+it.each([1.6,390/844])('has C0/C1 camera seams and passes isolation with nonzero speed, aspect %s',aspect=>{
+  const epsilon=1e-7
+  for(const h of [new Matrix4(),new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17)])for(const supplied of [false,true]){
+    const sample=createJourneyCameraSampler(),out=createJourneyPose(),ring=supplied?registeredRingExit(h):undefined
+    for(const seam of [.56,.585,.590,.596,.600,.620,.825,.830,.845,.855]){
+      const left=flatPose(sample(seam-epsilon,aspect,h,out,ring)),mid=flatPose(sample(seam,aspect,h,out,ring)),right=flatPose(sample(seam+epsilon,aspect,h,out,ring))
+      for(let k=0;k<mid.length;k++){
+        expect(Math.abs(left[k]-mid[k]),'C0 left '+seam).toBeLessThan(.001)
+        expect(Math.abs(right[k]-mid[k]),'C0 right '+seam).toBeLessThan(.001)
+        expect(Math.abs((mid[k]-left[k])/epsilon-(right[k]-mid[k])/epsilon),'C1 '+seam+' channel '+k).toBeLessThan(.1)
+      }
+      if(seam===.600)expect(new Vector3(right[0]-left[0],right[1]-left[1],right[2]-left[2]).length()/(2*epsilon)).toBeGreaterThan(.5)
+    }
+  }
+})
+it.each([1.6,390/844])('commutes with rigid registration and lands on the converted study entry, aspect %s',aspect=>{
+  const sample=createJourneyCameraSampler(),identity=new Matrix4(),h=new Matrix4().makeRotationY(.7).multiply(new Matrix4().makeRotationZ(.4)).setPosition(.08,-.04,.17)
+  const a=createJourneyPose(),b=createJourneyPose(),ring=registeredRingExit(identity),registered=registeredRingExit(h)
+  for(let n=0;n<=600;n++){
+    const p=.56+.06*n/600
+    sample(p,aspect,identity,a,ring);sample(p,aspect,h,b,registered)
+    expect(a.position.applyMatrix4(h).distanceTo(b.position)).toBeLessThan(1e-12)
+    expect(a.target.applyMatrix4(h).distanceTo(b.target)).toBeLessThan(1e-12)
+    expect(a.up.transformDirection(h).distanceTo(b.up)).toBeLessThan(1e-12)
+    expect(a.fov).toBeCloseTo(b.fov,10)
+  }
+  const c=samplePrivateInspection(.735,aspect,createPrivateInspectionSample()).camera
+  sample(.62,aspect,h,b,registered)
+  expect(b.position.distanceTo(shaftMetrePoint(new Vector3(),c.px,c.py,c.pz).applyMatrix4(h))).toBeLessThan(1e-12)
+  expect(b.target.distanceTo(shaftMetrePoint(new Vector3(),c.tx,c.ty,c.tz).applyMatrix4(h))).toBeLessThan(1e-12)
+  expect(b.up.distanceTo(shaftMetrePoint(new Vector3(),c.ux,c.uy,c.uz).normalize().transformDirection(h))).toBeLessThan(1e-12)
+  expect(b.fov).toBe(c.fov)
+  const pending=sampleJourney(.7,false,createJourneySample())
+  expect(digest(sample(pending.effectiveProgress,aspect,h,b,registered))).toEqual(digest(isolationCamera(aspect,h,createJourneyPose())))
 })
 
 it('swings at least 45 degrees between the Ring Switch exit pose and the isolation profile',()=>{
@@ -145,7 +213,7 @@ it.each([1.6,390/844])('moves through the collapse instead of holding a static f
   expect(start.distanceTo(mid)).toBeGreaterThan(.02)
   expect(mid.distanceTo(late)).toBeGreaterThan(.02)
   expect(late.distanceTo(end)).toBeGreaterThan(.02)
-  expect(start.distanceTo(sample(COLLAPSE_START,aspect,h,out).target)).toBeGreaterThan(end.distanceTo(sample(COLLAPSE_END,aspect,h,out).target))
+  expect(start.distanceTo(end)).toBeGreaterThan(.08)
 })
 it.each([1.6,390/844])('lands exactly on the authored close poses and holds the readout to 1 at aspect %s',aspect=>{
   const h=new Matrix4().makeRotationY(Math.PI/6),sample=createJourneyCameraSampler(),out=createJourneyPose()
@@ -169,5 +237,23 @@ it('orbits one way through both close legs without crossing behind the handle ax
     expect(az).toBeLessThanOrEqual(prev+1e-9)
     expect(az).toBeLessThan(0)
     prev=az
+  }
+})
+
+it.each([1.6,390/844])('tracks the extracted stack without a distant pullback and replays arbitrary seeks at aspect %s',aspect=>{
+  const h=new Matrix4().makeRotationX(.3).setPosition(.08,-.04,.17)
+  const sample=createJourneyCameraSampler(),out=createJourneyPose()
+  const begin=sample(.855,aspect,h,out).position.distanceTo(out.target)
+  const end=sample(.94,aspect,h,out).position.distanceTo(out.target)
+  const points=Array.from({length:101},(_,i)=>.855+.085*i/100)
+  const expected=points.map(p=>{
+    sample(p,aspect,h,out)
+    expect(out.position.distanceTo(out.target)).toBeLessThanOrEqual(Math.max(begin,end)+1e-12)
+    return digest(out)
+  })
+  for(let i=points.length-1;i>=0;i--)expect(digest(sample(points[i],aspect,h,out))).toEqual(expected[i])
+  for(let i=0;i<points.length;i++){
+    const n=(i*37)%points.length
+    expect(digest(sample(points[n],aspect,h,out))).toEqual(expected[n])
   }
 })

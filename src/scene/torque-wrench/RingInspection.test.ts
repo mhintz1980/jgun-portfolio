@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import { newFrame, RING_RADIUS, WHEEL_RADIUS } from '../inspection/timeline'
 import { ringTimeAt, sampleInspectionSurroundings, createPrivateRingCamera, samplePrivateRingCamera } from './InspectionDirector'
-import { samplePrivateRing, ringMechanicalTimeAt, RING_SLOW_START, RING_SLOW_END, RING_BULLET_RATE } from './RingInspection'
+import { samplePrivateRing, ringMechanicalTimeAt, RING_SLOW_START, RING_SLOW_END, RING_BULLET_RATE, RING_NORMAL_RATE, RING_BULLET_MEAN_RATE } from './RingInspection'
 
 
 it('preserves the finished ring until ALL surrounding assembly has faded', () => {
@@ -24,9 +24,10 @@ it('forms the OD with fully resolved heavy knurl and an independent moving camer
   const a = samplePrivateRing(9, newFrame()), b = samplePrivateRing(17, newFrame())
   expect(a.knurl).toBeGreaterThan(.20); expect(a.knurl).toBeLessThan(.35)
   expect(b.knurl).toBeGreaterThan(a.knurl)
-  // 9..17 s is 80% of the bullet window: ring advances 80% of the calibrated die travel / ratio.
+  // 9..17 now includes parts of both speed knees; the exact budget covers 8..18.
   const dieTravel = (b.angle - a.angle) * RING_RADIUS / WHEEL_RADIUS
-  expect(dieTravel).toBeCloseTo(.8 * .15 * 2 * Math.PI, 6)
+  expect(dieTravel).toBeGreaterThan(0)
+  expect(dieTravel).toBeLessThan(.15 * 2 * Math.PI)
   for (const f of [a, b]) {
     expect(f.contact).toBe(true)
     expect(f.ringDetailScale).toBeGreaterThan(0); expect(f.ringDetailScale).toBeLessThanOrEqual(1)
@@ -34,12 +35,14 @@ it('forms the OD with fully resolved heavy knurl and an independent moving camer
   }
   const ca = samplePrivateRingCamera(.4775, .204, createPrivateRingCamera())
   const cb = samplePrivateRingCamera(.4838, .204, createPrivateRingCamera())
-  // Doc39 clamps the knurl orbit to a three-quarter view. Keep visible travel
-  // while rejecting the former oversized swing toward the gearbox axis.
+  // Owner lifted doc39's azimuth limit for the canonical isolation sweep.
   const cameraTravel = Math.hypot(cb.px - ca.px, cb.py - ca.py, cb.pz - ca.pz)
   expect(cameraTravel).toBeGreaterThan(.025)
-  // The die close-up (owner 2026-10-22) dollies in across this span, so the travel bound is wider than doc39's.
-  expect(cameraTravel).toBeLessThan(.16)
+  const start = samplePrivateRingCamera(.4768, .204, createPrivateRingCamera())
+  const end = samplePrivateRingCamera(.485, .204, createPrivateRingCamera())
+  const azimuth = (c: typeof start) => Math.atan2(c.px - c.tx, c.pz - c.tz)
+  const sweep = Math.atan2(Math.sin(azimuth(end) - azimuth(start)), Math.cos(azimuth(end) - azimuth(start)))
+  expect(-sweep * 180 / Math.PI).toBeGreaterThanOrEqual(45)
   const contact = []
   for (let t = 0; t <= 28; t += .01) if (samplePrivateRing(t, newFrame()).contact) contact.push(t)
   expect(contact.at(-1)! - contact[0]).toBeGreaterThan(16)
@@ -60,11 +63,11 @@ it('keeps the ring clock moving through the slow window and preserves its end ev
   for (const boundary of [RING_SLOW_START, RING_SLOW_END]) {
     const leftRate = (ringMechanicalTimeAt(boundary) - ringMechanicalTimeAt(boundary - hBoundary)) / hBoundary
     const rightRate = (ringMechanicalTimeAt(boundary + hBoundary) - ringMechanicalTimeAt(boundary)) / hBoundary
-    expect(leftRate).toBeCloseTo(RING_BULLET_RATE, 3)
-    expect(rightRate).toBeCloseTo(RING_BULLET_RATE, 3)
+    expect(leftRate).toBeCloseTo(RING_NORMAL_RATE, 5)
+    expect(rightRate).toBeCloseTo(RING_NORMAL_RATE, 5)
     expect(Math.abs(leftRate - rightRate)).toBeLessThan(0.001)
   }
-  expect(ringMechanicalTimeAt(18)).toBeCloseTo(4.36 + 10 * RING_BULLET_RATE, 12)
+  expect(ringMechanicalTimeAt(18)).toBeCloseTo(4.36 + 10 * RING_BULLET_MEAN_RATE, 12)
   expect(ringMechanicalTimeAt(28)).toBe(12)
 })
 
@@ -81,11 +84,10 @@ it('reproduces reverse and arbitrary seeks and retains registered return', () =>
   expect(expected.at(-1)!.returnBlend).toBe(1)
 })
 
-it('turns the knurling die 10-20% of a revolution in bullet time with every tooth resolved (1B-1)', () => {
+it('turns the knurling die exactly .15 revolution including knees, with every tooth resolved (1B-1)', () => {
   const start = samplePrivateRing(RING_SLOW_START, newFrame()), end = samplePrivateRing(RING_SLOW_END, newFrame())
   const dieDeg = (end.angle - start.angle) * RING_RADIUS / WHEEL_RADIUS * 180 / Math.PI
-  expect(dieDeg).toBeGreaterThanOrEqual(36); expect(dieDeg).toBeLessThanOrEqual(72)
-  expect(dieDeg).toBeGreaterThanOrEqual(43); expect(dieDeg).toBeLessThanOrEqual(65)
+  expect(dieDeg).toBeCloseTo(54, 9)
   const out = newFrame()
   for (let t = RING_SLOW_START; t <= RING_SLOW_END + 1e-9; t += .05) {
     const f = samplePrivateRing(t, out)

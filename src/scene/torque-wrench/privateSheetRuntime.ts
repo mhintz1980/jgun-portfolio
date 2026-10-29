@@ -322,6 +322,9 @@ export interface PrivateSheetRuntime {
   readonly group: Group
   /** Page-local presentation probes, published into the host-owned bake stats. */
   readonly stats: Record<string, number>
+  /** Immutable bake inputs for independent installed-shard verification. */
+  shatterInputs(): { primaryCenter: { x: number; y: number }; fragments: Array<{ center: number[]; velocity: number[]; spin: number[]; delay: number }> }
+  drawingDetailPoints(groups:readonly number[]):number[][]
   pitInputs(): { outline: number[][]; ringDepthsM: readonly number[]; positions: number[]; indices: number[] }
   captureEffects(gl: WebGLRenderer, camera: Camera): ReturnType<typeof capturePortalPixels>
   captureElectricity(gl: WebGLRenderer, camera: Camera): unknown
@@ -594,6 +597,21 @@ export function createPrivateSheetRuntime(
 
     return {
       group, stats, dispose,
+      drawingDetailPoints: groups => {
+        const points:number[][]=[], seg=baked.lines.geometry.getAttribute('aSeg'), style=baked.lines.geometry.getAttribute('aStyle')
+        if(seg && style)for(let i=0;i<seg.count;i++)if(groups.includes(Math.round(style.getY(i)))) {
+          points.push([seg.getX(i),seg.getY(i),.0003],[seg.getZ(i),seg.getW(i),.0003])
+        }
+        if(typeof baked.text.captureBounds==='function')for(const id of groups)for(const item of baked.text.captureBounds(id).items) {
+          if(!item.bounds)continue
+          const [x0,y0,x1,y1]=item.bounds
+          points.push([x0,y0,.0003],[x0,y1,.0003],[x1,y0,.0003],[x1,y1,.0003])
+        }
+        return points
+      },
+      shatterInputs: () => ({ primaryCenter: { x: layout.primaryCenter.x, y: layout.primaryCenter.y },
+        fragments: baked.fracture.fragments.map(f => ({ center: [f.center.x, f.center.y],
+          velocity: f.velocity.toArray(), spin: f.spin.toArray(), delay: f.delay })) }),
       pitInputs: () => ({ outline: baked.fracture.outline, ringDepthsM: portal.ringDepthsM,
         positions: Array.from(portal.walls.geometry.getAttribute('position').array),
         indices: Array.from(portal.walls.geometry.index!.array) }),

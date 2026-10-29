@@ -1,0 +1,17 @@
+{
+  "status": "IN_APP_PLAYBACK_OBSERVED",
+  "gallery": "http://127.0.0.1:4184/revised-tool-preview/index.html",
+  "media": "http://127.0.0.1:4184/revised-tool-preview/video/screenshots-1793205319515-823b2bb1/preview.mp4",
+  "method": "CUA in-app browser, native video focus and Space playback; DOM-backed read-only properties and visible screenshots",
+  "observations": [
+    {"currentTime": 0, "duration": 12.24, "paused": true, "readyState": 4},
+    {"currentTime": 0.2802, "duration": 12.24, "paused": false, "readyState": 4, "visibleScene": "thick cutter, nut and extended arbor"},
+    {"currentTime": 5.8082, "duration": 12.24, "paused": false, "readyState": 4, "visibleScene": "planetary carrier assembly"},
+    {"currentTime": 12.24, "duration": 12.24, "paused": true, "ended": true, "readyState": 4}
+  ],
+  "mp4DecodedFrames": 153,
+  "webmDecodedFrames": 153,
+  "rejectedBlankFrames": [],
+  "mp4Faststart": true,
+  "limits": "Actual in-app MP4 playback observed. This does not establish every platform/browser, full runtime correctness or owner visual approval. Earlier file-scheme WebM playback cause remains unconfirmed."
+}

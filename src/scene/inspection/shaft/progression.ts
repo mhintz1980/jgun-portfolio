@@ -153,6 +153,7 @@ export const PROGRESSION_LAW_MARKER = 'JG-PROGRESSION-LAW-BEGIN'
 export const PROGRESSION_NORMAL_MARKER = 'JG-PROGRESSION-NORMAL-BEGIN'
 export const PROGRESSION_VERTEX_MARKER = 'JG-PROGRESSION-VERTEX-BEGIN'
 export const STRESS_MARKER = 'JG-STRESS-BEGIN'
+export const AXIAL_CONTACT_MARKER = 'JG-AXIAL-CONTACT-BEGIN'
 
 export interface ProgressionUniforms {
   uShaftMatrix: IUniform<Matrix4>
@@ -179,6 +180,8 @@ export interface ProgressionUniforms {
   uFaceEnd: IUniform<number>
   uShaftOD: IUniform<number>
   uShaftRoot: IUniform<number>
+  uAxialContactY: IUniform<number>
+  uAxialContactMix: IUniform<number>
   uStressKind: IUniform<number>
   uStressMix: IUniform<number>
   uStressScanProgress: IUniform<number>
@@ -213,6 +216,8 @@ export function createProgressionUniforms(): ProgressionUniforms {
     uFaceEnd: { value: SHAPING_FACE_END_MM },
     uShaftOD: { value: SHAFT_OD_MM },
     uShaftRoot: { value: SHAFT_ROOT_MM },
+    uAxialContactY: { value: 0 },
+    uAxialContactMix: { value: 0 },
     uStressKind: { value: 0 },
     uStressMix: { value: 0 },
     uStressScanProgress: { value: 0 },
@@ -245,6 +250,8 @@ export function writeProgressionUniforms(
   uniforms: ProgressionUniforms,
   state: ProgressionState,
   shaft?: ProgressionShaft,
+  contactYmm = 0,
+  contactMix = 0,
 ): void {
   const resolved: ProgressionShaft = shaft ?? (state.mode === 'hobbing' ? 'approved' : 'legacy')
   uniforms.uProgressionMode.value = MODE_VALUE[state.mode]
@@ -259,6 +266,9 @@ export function writeProgressionUniforms(
   uniforms.uHobYc.value = state.hobYc
   uniforms.uHobA.value = state.hobA
   uniforms.uHobR.value = state.hobR
+  uniforms.uAxialContactY.value = Number.isFinite(contactYmm) ? Math.max(0, Math.min(9.525, contactYmm)) : 0
+  uniforms.uAxialContactMix.value = resolved === 'approved' && Number.isFinite(contactMix)
+    ? Math.max(0, Math.min(1, contactMix)) : 0
 }
 
 /** Write the stress-overlay uniforms in place (no allocation). */
@@ -333,14 +343,9 @@ float jgProgressedRadius(vec3 jgLocal, out float jgClamped) {
 }
 `
 
-// ---- stress field (Issue 7) ------------------------------------------------------------------
-/** Half-width (mm) of the flat-topped core: the whole relief groove plus its tooth-root/shoulder fillets sit at the hotspot FOS. */
-export const STRESS_CORE_HALF_MM = 1.1
-/** Width (mm) of the smooth roll-off from the flat core into the skirt. */
-export const STRESS_CORE_EDGE_MM = 0.5
-/** Skirt peak (fraction of the hotspot) and its axial sigma (mm) at the mildest and the most severe study. */
-export const STRESS_SKIRT_PEAK = 0.9
-export const STRESS_SKIRT_SIGMA_MM = Object.freeze({ mild: 1.4, severe: 4.0 })
+// ---- stress field (Issue 3) ------------------------------------------------------------------
+/** Axial sigma (mm): warm colours stay near the groove; fillets/shoulders traverse the cooler bar stops. */
+export const STRESS_SIGMA_MM = Object.freeze({ mild: 0.85, severe: 1.6 })
 
 /** Severity in [0.35, 1]: 1 at the weakest attempt (FOS 0.55), shrinking as the alloy strengthens. */
 export function stressSeverity(hotspotFos: number): number {
@@ -354,31 +359,28 @@ export function stressSeverity(hotspotFos: number): number {
  * jgStressField in GLSL (stressFieldGlsl) so tests can pin the on-screen colours.
  */
 export function stressFieldAt(dy: number, hotspotFos: number): number {
-  const a = Math.abs(dy)
-  const x = (a - STRESS_CORE_HALF_MM) / STRESS_CORE_EDGE_MM
-  const u = x < 0 ? 0 : x > 1 ? 1 : x
-  const core = 1 - u * u * (3 - 2 * u)
   const severity = stressSeverity(hotspotFos)
-  const sigma = STRESS_SKIRT_SIGMA_MM.mild + (STRESS_SKIRT_SIGMA_MM.severe - STRESS_SKIRT_SIGMA_MM.mild) * severity
-  const skirt = STRESS_SKIRT_PEAK * Math.exp(-(dy * dy) / (2 * sigma * sigma))
-  return core > skirt ? core : skirt
+  const sigma = STRESS_SIGMA_MM.mild + (STRESS_SIGMA_MM.severe - STRESS_SIGMA_MM.mild) * severity
+  // A single smooth peak has no flat minimum or core/skirt crossover. Only the measured floor
+  // (dy = 0) reaches the bar minimum; every axial step into the fillet increases the FOS.
+  return Math.exp(-(dy * dy) / (2 * sigma * sigma))
 }
 
 /** GLSL twin of stressFieldAt, generated from the same constants. */
 export function stressFieldGlsl(): string {
   return `
 float jgStressField(float dy, float hotspotFos) {
-  float a = abs(dy);
-  float core = 1.0 - smoothstep(${STRESS_CORE_HALF_MM.toFixed(3)}, ${(STRESS_CORE_HALF_MM + STRESS_CORE_EDGE_MM).toFixed(3)}, a);
   float severity = clamp((1.15 - hotspotFos) / 0.6, 0.35, 1.0);
-  float sigma = mix(${STRESS_SKIRT_SIGMA_MM.mild.toFixed(3)}, ${STRESS_SKIRT_SIGMA_MM.severe.toFixed(3)}, severity);
-  float skirt = ${STRESS_SKIRT_PEAK.toFixed(3)} * exp(-(dy * dy) / (2.0 * sigma * sigma));
-  return max(core, skirt);
+  float sigma = mix(${STRESS_SIGMA_MM.mild.toFixed(3)}, ${STRESS_SIGMA_MM.severe.toFixed(3)}, severity);
+  return exp(-(dy * dy) / (2.0 * sigma * sigma));
 }
 `
 }
 
 const FRAGMENT_COMMON = /* glsl */ `
+uniform float uShaftKind;
+uniform float uAxialContactY;
+uniform float uAxialContactMix;
 uniform float uStressKind;
 uniform float uStressMix;
 uniform float uStressScanProgress;
@@ -431,10 +433,10 @@ const STRESS_CHUNK = /* glsl */ `
 #include <emissivemap_fragment>
 // ${STRESS_MARKER}
 if (uStressKind > 0.5 && uStressMix > 0.001) {
-  // FEA-style factor-of-safety field (JG-035 S2, Issue 7 2026-10-24): deterministic and AXISYMMETRIC.
+  // FEA-style factor-of-safety field (JG-035 S2, Issue 3 2026-10-24): deterministic and AXISYMMETRIC.
   // Torsion loads the relief groove uniformly around all 360 deg, so the field depends only on the axial
-  // distance from the hotspot: a flat-topped core that pins the groove to the bar's hotspot value, and a
-  // severity-scaled skirt that spreads further for the weaker alloys. Colours come from the shared FOS bar.
+  // distance from the measured groove floor: a narrow minimum with smooth falloff through the fillets
+  // and shoulders, spreading further for weaker alloys. Colours come from the shared FOS bar.
   float jgStressInBand = smoothstep(uStressYMin, uStressYMin + 0.8, vShaftLocal.y)
     * (1.0 - smoothstep(uStressYMax - 0.8, uStressYMax, vShaftLocal.y));
   float jgStressRadius = length(vShaftLocal.xz - uShaftAxis.xz);
@@ -454,6 +456,29 @@ if (uStressKind > 0.5 && uStressMix > 0.001) {
   metalnessFactor = mix(metalnessFactor, 0.18, jgStressMask);
   roughnessFactor = mix(roughnessFactor, 0.46, jgStressMask);
   totalEmissiveRadiance += jgFosRgb * jgStressMask * 0.34;
+}
+`
+
+const AXIAL_CONTACT_CHUNK = /* glsl */ `
+// ${AXIAL_CONTACT_MARKER}
+if (uShaftKind > 0.5 && uAxialContactMix > 0.0) {
+  vec2 jgContactRadial = vShaftLocal.xz - uShaftAxis.xz;
+  float jgContactR = length(jgContactRadial);
+  // Finite derivatives in the same shaft frame as the contact plane. Their
+  // tangential component selects flanks, excluding tooth tips and axial caps.
+  vec3 jgContactN = cross(dFdx(vShaftLocal), dFdy(vShaftLocal));
+  jgContactN *= inversesqrt(max(dot(jgContactN, jgContactN), 0.00000001));
+  vec3 jgContactRadialN = vec3(jgContactRadial.x, 0.0, jgContactRadial.y) / max(jgContactR, 0.0001);
+  float jgContactFlank = (1.0 - abs(jgContactN.y))
+    * (1.0 - abs(dot(jgContactN, jgContactRadialN)));
+  // 0.40 mm full-width line, with ordered smoothstep edges (GLSL-safe).
+  float jgContactLine = 1.0 - smoothstep(0.0, 0.20, abs(vShaftLocal.y - uAxialContactY));
+  float jgContactBand = step(3.15, vShaftLocal.y) * (1.0 - step(9.55, vShaftLocal.y));
+  float jgContactZone = step(4.45, jgContactR) * (1.0 - step(5.95, jgContactR));
+  float jgContactMask = clamp(jgContactLine * jgContactBand * jgContactZone
+    * jgContactFlank * clamp(uAxialContactMix, 0.0, 1.0), 0.0, 1.0);
+  roughnessFactor = mix(roughnessFactor, min(roughnessFactor, 0.16), jgContactMask);
+  totalEmissiveRadiance += vec3(0.72, 0.91, 1.0) * (0.18 * jgContactMask);
 }
 `
 
@@ -478,10 +503,10 @@ export function applyProgression(
       .replace('#include <begin_vertex>', VERTEX_CHUNK)
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', '#include <common>\n' + FRAGMENT_COMMON)
-      .replace('#include <emissivemap_fragment>', STRESS_CHUNK)
+      .replace('#include <emissivemap_fragment>', STRESS_CHUNK + AXIAL_CONTACT_CHUNK)
     ;(material.userData as Record<string, unknown>).jgunStressShader = shader.fragmentShader.includes(STRESS_MARKER)
   }
-  material.customProgramCacheKey = () => 'jgun-shaft-progression-v5:' + material.uuid
+  material.customProgramCacheKey = () => 'jgun-shaft-progression-v7:' + material.uuid
   material.needsUpdate = true
   return material
 }

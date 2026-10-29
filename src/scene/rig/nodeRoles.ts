@@ -63,6 +63,10 @@ const RING_SWITCH_RE = /(P003068|P000464|K000156)/i
 /** Sliding shift fork train (fork P000724, cam P000297) — slides −Z without rotation. */
 const CLUTCH_SLIDING_RE = /(P000724|P000297)/i
 const CLUTCH_STATIC_RE = /(A000881|P000420|P001835)/i
+/** Preserve study-owned source identities before destructive consolidation,
+ * without changing their animation unit, material role or drawing bucket. */
+const PROVENANCE_PARTS = ['P001835', 'K000210', 'K000211'] as const
+const PROVENANCE_PART_RE = /(P001835|K000210|K000211)(?!\d)/i
 /** Rear handle LCD + buttons (CR-5 emissive materials). */
 const LCD_SCREEN_RE = /P002115/i
 const LCD_BUTTONS_RE = /(P002123|P002124|P002125)/i
@@ -499,8 +503,12 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const role = materialRoleFor(unit.key, nodeName)
     let provenance: Object3D | null = mesh
-    while (provenance && !/P001835/i.test(provenance.name)) provenance = provenance.parent
-    const partNumber = provenance ? 'P001835' : ''
+    let partNumber = ''
+    while (provenance) {
+      const match = provenance.name.match(PROVENANCE_PART_RE)
+      if (match) { partNumber = match[1].toUpperCase(); break }
+      provenance = provenance.parent
+    }
     const key = `${unit.key}|${role}|${ghost ? 'g' : 's'}|${partNumber}`
     const drawingKey = `${unit.key}|${role}|${ghost ? 'g' : 's'}`
     const drawingBucket = drawingBuckets.get(drawingKey)
@@ -559,7 +567,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     }
     const mesh = new Mesh(merged, material)
     mesh.frustumCulled = true
-    if (bucket.partNumber) { mesh.userData.partNumber = bucket.partNumber; mesh.name = 'MERGED P001835' }
+    if (bucket.partNumber) { mesh.userData.partNumber = bucket.partNumber; mesh.name = `MERGED ${bucket.partNumber}` }
     bucket.unit.host.add(mesh)
     finalMeshes.push(mesh)
     renderedBuckets.set(bucket, mesh)
@@ -569,10 +577,13 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
 
   // Keep the byte-exact old consolidation order for the immutable drawing snapshot.
   // Virtual meshes are never attached/rendered. Their parent/bake frame is unchanged;
-  // only a bucket containing P001835 needs a retained unsplit geometry.
+  // only a bucket containing a preserved part needs retained unsplit geometry.
   const drawingMeshes: Mesh[] = [...leftovers]
   for (const [key, bucket] of drawingBuckets) {
-    const split = buckets.get(key + '|P001835')
+    // The drawing cache has a byte-exact legacy contract: retain the original
+    // P001835 split only. K000210/K000211 gain render provenance without
+    // changing the immutable drawing snapshot.
+    const split = PROVENANCE_PARTS.some(part => buckets.has(key + '|' + part))
     if (!split) {
       const rendered = renderedBuckets.get(buckets.get(key + '|')!)
       if (rendered) drawingMeshes.push(rendered)
@@ -581,7 +592,7 @@ export function buildWrenchRig(root: Object3D): WrenchRig {
     const inv = inverseFor(bucket.unit.host)
     const geometries = bucket.sources.map(source => source.geometry.clone().applyMatrix4(bake.multiplyMatrices(inv, source.matrixWorld)))
     const merged = geometries.length === 1 ? geometries[0] : mergeGeometries(geometries, false)
-    if (!merged) throw new Error('P001835 drawing conservation merge failed')
+    if (!merged) throw new Error('Part provenance drawing conservation merge failed')
     merged.normalizeNormals()
     if (geometries.length > 1) for (const geometry of geometries) geometry.dispose()
     const virtual = new Mesh(merged, bucket.material)

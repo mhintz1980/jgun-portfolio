@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { PerspectiveCamera, Vector3 } from 'three'
-import { createShaftCameraSample, sampleShaftCamera } from './camera'
+import { readFileSync } from 'node:fs'
+import { Matrix4, PerspectiveCamera, Quaternion, Vector3 } from 'three'
+import { createShaftCameraSample, sampleShaftCamera, SHAFT_DOLLY_START, SHAFT_DOLLY_TRAVEL_M } from './camera'
+import { BULLET_TIME_SHOT_SPECS, SHAPER_CAMERA_CLOCK } from '../../torque-wrench/bulletTime'
 import { createShaftKinematicsFrame, sampleShaftKinematics } from './kinematics'
+import { narrativeModelToStudy } from './frame'
+import { CASCADE_REVEAL_EVENTS, createShaftSchedule, sampleShaftSchedule } from './schedule'
 
 const kinematics = createShaftKinematicsFrame()
 const cam = createShaftCameraSample()
@@ -19,6 +23,36 @@ const snapAt = (t: number, aspect: number) => {
   }
 }
 
+/** Unwrapped-free camera azimuth about the shaft axis, degrees. */
+const azimuthDeg = (c: { px: number; pz: number; tx: number; tz: number }) => Math.atan2(c.pz - c.tz, c.px - c.tx) * 180 / Math.PI
+const elevationDeg = (c: { px: number; py: number; pz: number; tx: number; ty: number; tz: number }) =>
+  Math.asin((c.py - c.ty) / Math.hypot(c.px - c.tx, c.py - c.ty, c.pz - c.tz)) * 180 / Math.PI
+const smoothstep = (x: number) => { const u = Math.max(0, Math.min(1, x)); return u * u * (3 - 2 * u) }
+
+it('replays every camera channel bit-exactly under dense forward, reverse and prime-stride seeks', () => {
+  // Replaces the retired pre-retime SHA pin: the canonical contracts intentionally moved the
+  // shaper, materials, leaf hand-off, ignition and cascade poses. The invariant that survives is
+  // history independence of every channel at both layouts, an interpolated layout and every seam.
+  const times = Array.from({ length: 16057 }, (_, i) => i / 240)
+  times.push(0, 2, 6, 7.2, 7.5, 9.4, 9.7, 11, 14, 15, 22.6, 23.4, 25.4, 30.2, 31, 32, 33.2, 35, 36.2, 38.2, 38.5, 40.2, 43.5, SHAFT_DOLLY_START, 66.9)
+  const n = times.length
+  expect(n % 7919).not.toBe(0) // 7919 is prime, so the stride visits every sample exactly once
+  const channels = (s: ReturnType<typeof snapAt>) => [s.px, s.py, s.pz, s.tx, s.ty, s.tz, s.ux, s.uy, s.uz, s.fov, s.followAzimuth, s.followWeight]
+  const mismatches: string[] = []
+  for (const aspect of [1440 / 900, 390 / 844, .75]) {
+    const forward = times.map(t => channels(snapAt(t, aspect)))
+    const check = (i: number, pass: string) => {
+      const replay = channels(snapAt(times[i], aspect))
+      for (let k = 0; k < replay.length; k++) {
+        if (!Object.is(replay[k], forward[i][k]) || !Number.isFinite(replay[k])) mismatches.push(`${pass} aspect=${aspect} t=${times[i]} channel=${k}`)
+      }
+    }
+    for (let i = n - 1; i >= 0; i--) check(i, 'reverse')
+    for (let i = 0; i < n; i++) check((i * 7919) % n, 'prime-stride')
+  }
+  expect(mismatches.slice(0, 10)).toEqual([])
+}, 60_000)
+
 /** Layouts pinned by the leaf spec and the blockout layout rects. */
 const DESKTOP_ASPECT = 1440 / 900
 const NARROW_ASPECT = 390 / 844
@@ -32,6 +66,109 @@ function axisPoints(y0: number, y1: number): Vector3[] {
   const ym = (y0 + y1) / 2
   points.push(new Vector3(0, ym * MM, TIP_R * MM), new Vector3(0, ym * MM, -TIP_R * MM))
   return points
+}
+
+/** Shaft-local pitch-cylinder witnesses, mm; these are CPU bounds, not rendered CAD proof. */
+function cylinderPoints(y0: number, y1: number, radius: number): Vector3[] {
+  const points: Vector3[] = []
+  for (const y of [y0, (y0 + y1) / 2, y1]) {
+    for (let k = 0; k < 64; k++) {
+      const a = k * 2 * Math.PI / 64
+      points.push(new Vector3(radius * Math.cos(a) * MM, y * MM, radius * Math.sin(a) * MM))
+    }
+  }
+  return points
+}
+
+interface BoundNode {
+  name?: string; mesh?: number; children?: number[]; matrix?: number[]
+  translation?: number[]; rotation?: number[]; scale?: number[]
+}
+interface BoundDocument {
+  scene?: number; scenes: { nodes: number[] }[]; nodes: BoundNode[]
+  meshes: { primitives: { attributes: { POSITION: number } }[] }[]
+  accessors: { min?: number[]; max?: number[] }[]
+}
+const CASCADE_PARTS = [/A000591/, /A000592/, /A000606/, /K000004/, /A000860/, /A000861/, /P000095|P000207|K000001|K000074/, /P000245/]
+/** Conservative rotating envelopes from ALL primitive accessor corners, not a seated proxy.
+ * Planet radii are measured about each occurrence pin, then added to the pin orbit radius,
+ * so arbitrary carrier/planet rotation stays enclosed. Default.glb is read without decoding/mutation.
+ */
+function readCascadeEnvelopes(path = 'public/models/Default.glb', parts = CASCADE_PARTS, registration = narrativeModelToStudy(new Matrix4())) {
+  const bytes = readFileSync(path)
+  const doc = JSON.parse(bytes.toString('utf8', 20, 20 + bytes.readUInt32LE(12))) as BoundDocument
+  const bounds = parts.map(() => ({ y0: Infinity, y1: -Infinity, radius: 0, primitives: 0 }))
+  function visit(index: number, parent: Matrix4, unit: number, pin?: Vector3) {
+    const node = doc.nodes[index]
+    const world = node.matrix ? new Matrix4().fromArray(node.matrix) : new Matrix4().compose(
+      new Vector3().fromArray(node.translation ?? [0, 0, 0]),
+      new Quaternion().fromArray(node.rotation ?? [0, 0, 0, 1]),
+      new Vector3().fromArray(node.scale ?? [1, 1, 1]))
+    world.premultiply(parent)
+    const tag = parts.findIndex(re => re.test(node.name ?? ''))
+    if (tag >= 0) unit = tag
+    if (/occurrence.*P000247|occurrence.*P000248|occurrence.*P000069|occurrence.*P003046/.test(node.name ?? '')) {
+      pin = new Vector3().setFromMatrixPosition(world).applyMatrix4(registration)
+    }
+    if (unit >= 0 && node.mesh !== undefined) {
+      const bound = bounds[unit]
+      const transform = new Matrix4().multiplyMatrices(registration, world)
+      for (const primitive of doc.meshes[node.mesh].primitives) {
+        const accessor = doc.accessors[primitive.attributes.POSITION]
+        if (!accessor.min || !accessor.max) throw new Error('Missing CAD POSITION bounds')
+        bound.primitives++
+        for (let mask = 0; mask < 8; mask++) {
+          const p = new Vector3(...accessor.min.map((min, axis) => mask & (1 << axis) ? accessor.max![axis] : min) as [number, number, number]).applyMatrix4(transform)
+          bound.y0 = Math.min(bound.y0, -p.z * 1000)
+          bound.y1 = Math.max(bound.y1, -p.z * 1000)
+          const radius = pin ? Math.hypot(pin.x, pin.y) + Math.hypot(p.x - pin.x, p.y - pin.y) : Math.hypot(p.x, p.y)
+          bound.radius = Math.max(bound.radius, radius * 1000)
+        }
+      }
+    }
+    for (const child of node.children ?? []) visit(child, world, unit, pin)
+  }
+  for (const root of doc.scenes[doc.scene ?? 0].nodes) visit(root, new Matrix4(), -1)
+  return bounds
+}
+const CASCADE_ENVELOPES = readCascadeEnvelopes()
+const SHAFT_ENVELOPES = readCascadeEnvelopes('public/models/manufacturing-core-full.glb',
+  [/^approvedshaft$/, /^approvedbearing$/, /^approvedring$/, /^approvedhousing$/], new Matrix4())
+
+function visibleCascadePoints(t: number): Vector3[] {
+  const schedule = sampleShaftSchedule(t, createShaftSchedule())
+  const points: Vector3[] = []
+  for (const [index, bound] of CASCADE_ENVELOPES.entries()) {
+    // Exactly zero-opacity parked units are invisible in shaftRuntime.apply; every positive alpha is included.
+    if (schedule.cascadeAlpha[index] === 0 && schedule.cascadePlanetAlpha[index] === 0) continue
+    const shift = schedule.cascadeOffsetZ[index] * 1000
+    points.push(...cylinderPoints(bound.y0 - shift, bound.y1 - shift, bound.radius))
+  }
+  // The complete finished shaft, seated supports and clutch housing remain real visible geometry.
+  for (const [index, alpha] of [schedule.approvedShaft, schedule.approvedBearing, schedule.approvedRing, schedule.housing].entries()) {
+    if (alpha === 0) continue
+    const bound = SHAFT_ENVELOPES[index]
+    points.push(...cylinderPoints(bound.y0, bound.y1, bound.radius))
+  }
+  // shaftRuntime also shows a separate stationary P000245 witness during ignition.
+  if (t > 38.2 && t < 40.6) {
+    const bound = CASCADE_ENVELOPES[7]
+    points.push(...cylinderPoints(bound.y0, bound.y1, bound.radius))
+  }
+  return points
+}
+
+function expectSafeFrame(t: number, aspect: number, points: Vector3[], subject: string) {
+  const ndc = project(sampleAt(t, aspect), aspect, points)
+  let x = 0, y = 0, near = Infinity, far = -Infinity
+  for (const p of ndc) {
+    x = Math.max(x, Math.abs(p.x)); y = Math.max(y, Math.abs(p.y))
+    near = Math.min(near, p.z); far = Math.max(far, p.z)
+  }
+  expect(x, `${subject} t=${t} aspect=${aspect} max |x|=${x}, |y|=${y}`).toBeLessThan(SAFE)
+  expect(y, `${subject} t=${t} aspect=${aspect} max |x|=${x}, |y|=${y}`).toBeLessThan(SAFE)
+  expect(near).toBeGreaterThan(-1)
+  expect(far).toBeLessThan(1)
 }
 
 /** Cutter exit region (mm): face end, relief groove floor/wall, exit overtravel corner, chip origin. */
@@ -59,7 +196,8 @@ function revisedSectionPoints(): Vector3[] {
 }
 
 function project(sample: ReturnType<typeof sampleAt>, aspect: number, points: Vector3[]): Vector3[] {
-  const camera = new PerspectiveCamera(sample.fov, aspect, 0.01, 1)
+  // Match the private Canvas clipping planes (Scene.tsx), including the longer narrow stand-off.
+  const camera = new PerspectiveCamera(sample.fov, aspect, 0.001, 30)
   camera.position.set(sample.px, sample.py, sample.pz)
   camera.up.set(sample.ux, sample.uy, sample.uz)
   camera.lookAt(sample.tx, sample.ty, sample.tz)
@@ -144,8 +282,6 @@ const KEY_BEATS: ReadonlyArray<{ t: number; span: [number, number] }> = [
   { t: 31.5, span: [3.2, 14.2] },
   // Final-card runout era: the full revised section up to the journal end (y 20 mm).
   { t: 33.5, span: [3.2, 20] },
-  { t: 37, span: [3.2, 19.2] },
-  { t: 41, span: [3.2, 19.2] },
 ]
 
 describe('K5 camera continuity', () => {
@@ -156,10 +292,12 @@ describe('K5 camera continuity', () => {
       const step = 1 / 240
       let prev = snapAt(0, aspect)
       let finite = true, dp = 0, dfov = 0, duy = 0, unit = 0
-      for (let t = step; t <= 43 + step; t += step) {
+      for (let t = step; t <= 58 + step; t += step) {
         const s = snapAt(t, aspect)
         finite &&= Object.values(s).every(Number.isFinite)
-        dp = Math.max(dp, Math.hypot(s.px - prev.px, s.py - prev.py, s.pz - prev.pz))
+        const stepDistance = Math.hypot(s.px - prev.px, s.py - prev.py, s.pz - prev.pz)
+        // Keep the inherited frame-step bound across the continued close orbit.
+        dp = Math.max(dp, stepDistance)
         dfov = Math.max(dfov, Math.abs(s.fov - prev.fov))
         duy = Math.max(duy, Math.abs(s.uy - prev.uy))
         unit = Math.max(unit, Math.abs(Math.hypot(s.ux, s.uy, s.uz) - 1))
@@ -240,18 +378,28 @@ describe('K5 camera framing at the key beats', () => {
       }
     }
   })
-  it('settles the materials view from 15.0 s, before the first card is readable at 15.14 s', () => {
+  it('drifts the materials view one way from 20 to 30 degrees with fixed lens, target and stand-off (15..22.6 s)', () => {
     for (const aspect of [DESKTOP_ASPECT, NARROW_ASPECT]) {
       const ref = snapAt(15, aspect)
+      const refDistance = Math.hypot(ref.px - ref.tx, ref.py - ref.ty, ref.pz - ref.tz)
+      expect(azimuthDeg(ref)).toBeCloseTo(20, 9)
+      let last = azimuthDeg(ref)
       for (let t = 15; t <= 22.6 + 1e-9; t += 1 / 240) {
         const s = snapAt(t, aspect)
-        expect(Math.hypot(s.px - ref.px, s.py - ref.py, s.pz - ref.pz)).toBeLessThanOrEqual(1e-9)
         expect(Math.hypot(s.tx - ref.tx, s.ty - ref.ty, s.tz - ref.tz)).toBeLessThanOrEqual(1e-9)
         expect(Math.abs(s.fov - ref.fov)).toBeLessThanOrEqual(1e-9)
+        expect(Math.abs(Math.hypot(s.px - s.tx, s.py - s.ty, s.pz - s.tz) - refDistance)).toBeLessThanOrEqual(1e-12)
+        expect(elevationDeg(s)).toBeCloseTo(elevationDeg(ref), 9)
         expect(s.ux).toBeCloseTo(ref.ux, 12)
         expect(s.uy).toBeCloseTo(ref.uy, 12)
         expect(s.uz).toBeCloseTo(ref.uz, 12)
+        const az = azimuthDeg(s)
+        expect(az, `one-way materials drift at ${t}`).toBeGreaterThanOrEqual(last - 1e-12)
+        last = az
       }
+      expect(last).toBeCloseTo(30, 9)
+      // The drift starts C1 from rest: the view has moved < .05 deg when the first card is readable.
+      expect(azimuthDeg(snapAt(15.14, aspect)) - 20).toBeLessThan(.05)
     }
   })
   it('keeps the shaft and revised section outside the final 4340 card band through 33.2..35 s', () => {
@@ -264,7 +412,7 @@ describe('K5 camera framing at the key beats', () => {
       const desktop = sampleAt(t, DESKTOP_ASPECT)
       for (const ndc of project(desktop, DESKTOP_ASPECT, points)) {
         // Desktop card band: right 8..44% of width -> content stays at NDC x <= 0.12.
-        expect(ndc.x).toBeLessThanOrEqual(0.12)
+        expect(ndc.x, `final-card desktop NDC x at t=${t.toFixed(4)}`).toBeLessThanOrEqual(0.12)
         expect(ndc.x).toBeGreaterThanOrEqual(-SAFE)
         expect(Math.abs(ndc.y)).toBeLessThanOrEqual(SAFE)
       }
@@ -283,10 +431,23 @@ describe('K5 camera framing at the key beats', () => {
       for (let t = 33.2; t <= 35 + 1e-9; t += 1 / 30) expectDomClearance(t, narrow, REVISED_CAD_WITNESSES, true)
     }
   })
-  it('holds the final-card view throughout 33.2..35 s and enters/leaves both card holds with C1 continuity', () => {
+  it('absorbs the private 60-degree hob orbit into the leaf over 33.2..35 s and enters/leaves both card windows C1', () => {
+    // InspectionDirector hands its hob orbit back with transfer = 1 - smooth01((t - 33.2) / 1.8);
+    // the leaf supplies the exact complement, so the composed view stays at 24.2 + sweep = 84.2 deg.
+    const sweep = BULLET_TIME_SHOT_SPECS.hobContact.minCameraSweepDeg
+    expect(sweep).toBe(60)
     for (const aspect of [DESKTOP_ASPECT, NARROW_ASPECT]) {
       const ref = snapAt(33.2, aspect)
-      for (let t = 33.2; t <= 35 + 1e-9; t += 1 / 30) expect(snapAt(t, aspect)).toEqual(ref)
+      const refDistance = Math.hypot(ref.px - ref.tx, ref.py - ref.ty, ref.pz - ref.tz)
+      expect(azimuthDeg(ref)).toBeCloseTo(24.2, 9)
+      for (let t = 33.2; t <= 35 + 1e-9; t += 1 / 30) {
+        const s = snapAt(t, aspect)
+        expect([s.tx, s.ty, s.tz, s.ux, s.uy, s.uz, s.fov]).toEqual([ref.tx, ref.ty, ref.tz, ref.ux, ref.uy, ref.uz, ref.fov])
+        expect(Math.hypot(s.px - s.tx, s.py - s.ty, s.pz - s.tz)).toBeCloseTo(refDistance, 12)
+        expect(elevationDeg(s)).toBeCloseTo(4.2, 9)
+        expect(azimuthDeg(s) - 24.2, `leaf hand-off at ${t}`).toBeCloseTo(sweep * smoothstep((t - 33.2) / 1.8), 9)
+      }
+      expect(azimuthDeg(snapAt(35, aspect))).toBeCloseTo(84.2, 9)
       const step = 1 / 480
       for (const t of [15, 22.6, 33.2, 35]) {
         const a = snapAt(t - step, aspect), b = snapAt(t, aspect), c = snapAt(t + step, aspect)
@@ -296,12 +457,138 @@ describe('K5 camera framing at the key beats', () => {
       }
     }
   })
-  it('holds the finale settled framing for >= 1.5 s', () => {
-    const a = snapAt(41.2, DESKTOP_ASPECT)
-    const b = snapAt(42.9, DESKTOP_ASPECT)
-    expect(Math.hypot(a.px - b.px, a.py - b.py, a.pz - b.pz)).toBeLessThanOrEqual(1e-9)
-    expect(a.fov).toBe(b.fov)
+})
+
+describe('v51.1 engagement and cascade camera', () => {
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('shows the integral-sun reference before Stage 2 fades in (aspect %s)', aspect => {
+    const start = CASCADE_REVEAL_EVENTS[0].planetStart
+    const c = snapAt(start, aspect), schedule = createShaftSchedule()
+    // Preferred cascade pose: 16 degrees off the shaft axis on the output side (el -74).
+    // The rejected near-pole -88 trial exposed over-limit features and stays retired.
+    expect(azimuthDeg(c)).toBeCloseTo(-118.5, 10); expect(elevationDeg(c)).toBeCloseTo(-74, 10)
+    expect(90 - Math.abs(elevationDeg(c))).toBeCloseTo(16, 10)
+    expect(sampleShaftSchedule(start, schedule).cascadePlanetAlpha[1]).toBe(0)
+    expect(sampleShaftSchedule(start + .01, schedule).cascadePlanetAlpha[1]).toBeGreaterThan(0)
+    expect(schedule.cascadeAlpha[1]).toBe(0)
+    expect(SHAFT_DOLLY_START).toBe(52.2)
   })
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('keeps the active CAD region large during continuation (aspect %s)', (aspect) => {
+    // All primitive accessor bounds are read from the actual GLBs. Projected
+    // envelopes are CPU composition guards, not foreground/occlusion proof.
+    for (const bound of [...CASCADE_ENVELOPES, ...SHAFT_ENVELOPES]) {
+      expect(bound.primitives).toBeGreaterThan(0)
+      expect(bound.radius).toBeGreaterThan(0)
+      expect(bound.y1).toBeGreaterThan(bound.y0)
+    }
+    const windows = [...CASCADE_REVEAL_EVENTS.map(event => [event.planetStart + .05, event.carrierFull, event.index]), [56.45,57,3], [63.2,66.9,6]]
+    for (const [start, end, index] of windows) for (let i = 0; i <= 16; i++) {
+      const t = start + (end - start) * i / 16
+      const bound = CASCADE_ENVELOPES[index]
+      const center = new Vector3(0, (bound.y0 + bound.y1) * .0005, 0)
+      const c = sampleAt(t, aspect)
+      const ndcCenter = project(c, aspect, [center])[0]
+      expect(Math.abs(ndcCenter.x), `active centre x at ${t}`).toBeLessThan(SAFE)
+      expect(Math.abs(ndcCenter.y), `active centre y at ${t}`).toBeLessThan(SAFE)
+      const projected = project(c, aspect, cylinderPoints(bound.y0, bound.y1, bound.radius))
+      const width = Math.min(SAFE, Math.max(...projected.map(p => p.x))) - Math.max(-SAFE, Math.min(...projected.map(p => p.x)))
+      const height = Math.min(SAFE, Math.max(...projected.map(p => p.y))) - Math.max(-SAFE, Math.min(...projected.map(p => p.y)))
+      expect(Math.max(width, height), `active envelope occupancy at ${t}`).toBeGreaterThanOrEqual(SAFE)
+      expect(projected.every(p => p.z > -1 && p.z < 1)).toBe(true)
+      expect(visibleCascadePoints(t).length).toBeGreaterThan(0)
+    }
+    expect(sampleShaftSchedule(35.8, createShaftSchedule()).cascadeOffsetZ[0]).toBeGreaterThan(.024)
+  })
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('keeps camera pose and follow azimuth C0/C1 at authored seams (aspect %s)', (aspect) => {
+    const seams = [0, 2, 6, 7.2, 9.7, 11, 14, 15, 22.6, 23.4, 25.4, 30.2, 31, 32, 33.2, 35, 36.2, 38.2, 38.5, 40.2, 42.4, 44.4, SHAFT_DOLLY_START, 66.9]
+    const h = 1e-5
+    for (const t of seams) {
+      const left = snapAt(t - h, aspect), center = snapAt(t, aspect), right = snapAt(t + h, aspect)
+      for (const key of Object.keys(center) as (keyof typeof center)[]) {
+        // followWeight is a discrete kinematics mode flag (it jumps at 2s), not a camera pose channel.
+        if (key === 'followWeight') continue
+        const delta = right[key] - left[key]
+        const rateJump = (right[key] - center[key]) / h - (center[key] - left[key]) / h
+        expect(Math.abs(delta), `${key} C0 at ${t}`).toBeLessThan(1e-4)
+        expect(Math.abs(rateJump), `${key} C1 at ${t}`).toBeLessThan(.01)
+      }
+    }
+  })
+
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('sweeps ignition a signed 165 degrees CCW, then continues CCW to the 241.5-degree cascade view at close scale (aspect %s)', (aspect) => {
+    const azimuth = (t: number) => azimuthDeg(snapAt(t, aspect))
+    expect(azimuth(38.5)).toBeCloseTo(103.5, 10)
+    let last = azimuth(38.5)
+    const unwrapThrough = (t0: number, t1: number) => {
+      for (let i = 1; i <= 240; i++) {
+        const t = t0 + (t1 - t0) * i / 240
+        const c = snapAt(t, aspect)
+        let angle = azimuthDeg(c)
+        while (angle < last - 180) angle += 360
+        expect(angle, `CCW at ${t}`).toBeGreaterThanOrEqual(last)
+        last = angle
+        expect(Math.hypot(c.px - c.tx, c.py - c.ty, c.pz - c.tz)).toBeCloseTo(aspect === DESKTOP_ASPECT ? .22 : .32, 12)
+      }
+    }
+    unwrapThrough(38.5, 40.2)
+    expect(last - 103.5).toBeCloseTo(BULLET_TIME_SHOT_SPECS.stage1Ignition.cameraSweepDeg, 10)
+    expect(last - 103.5).toBeGreaterThanOrEqual(BULLET_TIME_SHOT_SPECS.stage1Ignition.minCameraSweepDeg)
+    expect(last).toBeCloseTo(103.5 + BULLET_TIME_SHOT_SPECS.stage1Ignition.cameraSweepDeg, 10)
+    unwrapThrough(40.2, 43.5)
+    expect(last).toBeCloseTo(601.5, 10)
+    expect(((last % 360) + 360) % 360).toBeCloseTo(241.5, 10)
+    expect(elevationDeg(snapAt(SHAFT_DOLLY_START, aspect))).toBeCloseTo(-74, 10)
+  })
+
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('dollies on one shaft-local -Y line toward output with stable lens, up and off-axis depth (aspect %s)', (aspect) => {
+    const start = snapAt(SHAFT_DOLLY_START, aspect)
+    let lastY = start.py, lastTargetY = start.ty
+    for (let i = 1; i <= 100; i++) {
+      const c = snapAt(SHAFT_DOLLY_START + (66.9 - SHAFT_DOLLY_START) * i / 100, aspect)
+      expect(c.px).toBe(start.px); expect(c.pz).toBe(start.pz)
+      expect(c.tx).toBe(start.tx); expect(c.tz).toBe(start.tz)
+      expect(c.py).toBeLessThan(lastY); expect(c.ty).toBeLessThan(lastTargetY)
+      expect(c.py - start.py).toBeCloseTo(c.ty - start.ty, 12)
+      expect([c.ux, c.uy, c.uz, c.fov]).toEqual([start.ux, start.uy, start.uz, start.fov])
+      // 16 degrees off-axis (el -74): horizontal stand-off is dist * cos(74 deg) = dist * sin(16 deg).
+      expect(Math.hypot(c.px - c.tx, c.pz - c.tz)).toBeCloseTo((aspect === DESKTOP_ASPECT ? .22 : .32)*Math.sin(16*Math.PI/180),12)
+      lastY = c.py; lastTargetY = c.ty
+    }
+    expect(lastY - start.py).toBeCloseTo(SHAFT_DOLLY_TRAVEL_M, 12)
+    expect(lastTargetY).toBeCloseTo(-.092, 12)
+  })
+
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('frames the engaging tooth-flank band at 37 s (aspect %s)', (aspect) => {
+    // Plan's radial glint/contact band reaches 5.95mm; this checks the actual macro subject.
+    expectSafeFrame(37, aspect, cylinderPoints(3.175, 9.525, 5.95), 'sun tooth-flank band')
+  })
+
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('shows rear-side contact at readable scale throughout ignition (aspect %s)', (aspect) => {
+    // Sun tooth band r4.45..5.95 and the adjacent planet's inward flank toward its
+    // r11.641 pin at 39.06deg. Includes the real 6.35mm face width; no shaft-length proxy.
+    const points: Vector3[] = []
+    for (const y of [3.175, 9.525]) for (const r of [4.45, 5.95, 10]) for (const deg of [19.06, 39.06, 59.06]) {
+      const a = deg * Math.PI / 180
+      points.push(new Vector3(r * Math.cos(a) * MM, y * MM, r * Math.sin(a) * MM))
+    }
+    const [width, height] = aspect === DESKTOP_ASPECT ? [1440, 900] : [390, 844]
+    for (let i = 0; i <= 34; i++) {
+      const t = 38.5 + i * .05
+      const phase = -sampleShaftSchedule(t, createShaftSchedule()).finaleAngle
+      const cos = Math.cos(phase), sin = Math.sin(phase)
+      const contact = points.map(p => new Vector3(p.x * cos - p.z * sin, p.y, p.x * sin + p.z * cos))
+      expectSafeFrame(t, aspect, contact, 'rotating sun/planet flank region')
+      const c = sampleAt(t, aspect)
+      const elevation = Math.asin((c.py - c.ty) / Math.hypot(c.px - c.tx, c.py - c.ty, c.pz - c.tz)) * 180 / Math.PI
+      expect(elevation).toBeGreaterThanOrEqual(40 - 1e-8)
+      expect(elevation).toBeLessThanOrEqual(55 + 1e-8)
+      const pixels = project(c, aspect, contact).map(p => [(p.x + 1) * width / 2, (1 - p.y) * height / 2])
+      let diameter = 0
+      for (const a of pixels) for (const b of pixels) diameter = Math.max(diameter, Math.hypot(a[0] - b[0], a[1] - b[1]))
+      expect(diameter, `contact diameter at ${t}`).toBeGreaterThanOrEqual(aspect === DESKTOP_ASPECT ? 70 : 80)
+    }
+  })
+
+
 })
 
 describe('camera determinism', () => {
@@ -309,7 +596,7 @@ describe('camera determinism', () => {
     const a = createShaftCameraSample()
     const b = createShaftCameraSample()
     const times: number[] = []
-    for (let i = 0; i < 400; i++) times.push(((i * 7919) % 10320) / 240)
+    for (let i = 0; i < 400; i++) times.push(((i * 7919) % 13920) / 240)
     for (const t of times) {
       sampleShaftKinematics(t, kinematics)
       sampleShaftCamera(t, 0.75, kinematics, a)
@@ -360,13 +647,16 @@ describe('S1: cutter side-by-side composition (2..11 s)', () => {
   const times: number[] = []
   for (let t = 2; t <= 11 + 1e-9; t += 0.05) times.push(+t.toFixed(2))
 
-  it.each([['desktop', DESKTOP_ASPECT], ['narrow', NARROW_ASPECT]])('puts the cutter right of the shaft at <= 1.55 mm depth difference, %s', (_, aspect) => {
+  it.each([['desktop', DESKTOP_ASPECT], ['narrow', NARROW_ASPECT]])('puts the cutter right of the shaft at <= 1.55 mm depth difference until the 7.5 s shaper sweep, %s', (_, aspect) => {
+    // The exact side-by-side law owns 2..7.5 s only; the 60-degree shaper sweep starts at
+    // SHAPER_CAMERA_CLOCK.start, after which the cutter must still read on the viewer's right.
     let worstDepth = 0, leastRight = Infinity
     for (const t of times) {
       const camera = cameraAt(t, aspect), w = cutterWitnesses()
-      worstDepth = Math.max(worstDepth, Math.abs(viewDepth(camera, w.centre) - viewDepth(camera, w.shaftAxis)) * 1000)
+      if (t <= SHAPER_CAMERA_CLOCK.start) worstDepth = Math.max(worstDepth, Math.abs(viewDepth(camera, w.centre) - viewDepth(camera, w.shaftAxis)) * 1000)
       leastRight = Math.min(leastRight, w.centre.clone().project(camera).x - w.shaftAxis.clone().project(camera).x)
     }
+    expect(SHAPER_CAMERA_CLOCK.start).toBe(7.5)
     expect(worstDepth).toBeLessThanOrEqual(1.55)
     expect(worstDepth).toBeLessThan(0.05) // the law is exact; the tolerance only guards later retuning
     expect(leastRight).toBeGreaterThan(0.1)
@@ -385,14 +675,29 @@ describe('S1: cutter side-by-side composition (2..11 s)', () => {
     }
   })
 
-  it('holds the azimuth exactly through shaping and slow exit, then swings C1 to the settled 15 s view', () => {
+  it('holds the cutter-right view until 7.5 s, sweeps 60 degrees through shaper contact, then recaps 240 -> 380 C1', () => {
     expect(CUTTER_VIEW_AZIMUTH_DEG).toBe(180)
-    for (const t of [0, 1, 2, 4, 6, 8.4, 10, 11]) expect(machiningViewAzimuthDeg(t)).toBe(180)
+    const sweep = BULLET_TIME_SHOT_SPECS.shaperContact.minCameraSweepDeg
+    expect(sweep).toBe(60)
+    expect([SHAPER_CAMERA_CLOCK.start, SHAPER_CAMERA_CLOCK.end]).toEqual([7.5, 9.4])
+    for (const t of [0, 1, 2, 4, 6, 7.2, 7.5]) expect(machiningViewAzimuthDeg(t)).toBe(180)
+    for (const t of [9.4, 10, 11]) expect(machiningViewAzimuthDeg(t)).toBe(180 + BULLET_TIME_SHOT_SPECS.shaperContact.cameraSweepDeg)
+    let previous = machiningViewAzimuthDeg(7.5)
+    for (let t = 7.5; t <= 9.4 + 1e-9; t += 1 / 240) {
+      const v = machiningViewAzimuthDeg(t)
+      expect(v).toBeGreaterThanOrEqual(previous - 1e-12)
+      previous = v
+    }
+    // Zero angular rate at both shot edges: C1 into the 180 hold and the 240 slow-exit hold.
+    const h = 1e-6
+    expect((machiningViewAzimuthDeg(7.5 + h) - machiningViewAzimuthDeg(7.5)) / h).toBeLessThan(1e-3)
+    expect((machiningViewAzimuthDeg(9.4) - machiningViewAzimuthDeg(9.4 - h)) / h).toBeLessThan(1e-3)
     expect(machiningViewAzimuthDeg(15 - 1e-9)).toBeCloseTo(180 + RECAP_SWING_DEG, 6)
     // The first sample at 15 s uses the authored anchors + frozen follow: identical total azimuth, no snap.
     const before = snapAt(15 - 1e-6, DESKTOP_ASPECT), after = snapAt(15 + 1e-6, DESKTOP_ASPECT)
     expect(Math.hypot(before.px - after.px, before.py - after.py, before.pz - after.pz)).toBeLessThan(2e-6)
     let last = machiningViewAzimuthDeg(11), peak = 0, maxStep = 0
+    expect(last).toBe(180 + BULLET_TIME_SHOT_SPECS.shaperContact.cameraSweepDeg)
     for (let t = 11; t <= 15 + 1e-9; t += 0.01) {
       const v = machiningViewAzimuthDeg(t)
       expect(v).toBeGreaterThanOrEqual(last - 1e-12)

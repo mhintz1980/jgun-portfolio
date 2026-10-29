@@ -108,6 +108,29 @@
 .torque-inspection-overlay .shaft-story-column { top: 13%; right: 7%; width: min(380px, 38%); }
 .torque-inspection-overlay .shaft-fos-bar { top: 29%; height: min(340px, 45%); }
 
+/* The engagement caption replaces the long visible chapter paragraph. Keep the
+   paragraph in the reading order while reserving the centre for tooth contact. */
+body:has(.torque-inspection-overlay [data-shaft-cascade]) .torque-page[data-torque-mode='live'] [data-torque-chapter='inspection'] .torque-chapter__body {
+  position: absolute !important; width: 1px !important; height: 1px !important;
+  margin: -1px !important; padding: 0 !important; overflow: hidden !important;
+  clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important; white-space: nowrap !important;
+}
+
+@media (min-width: 601px) {
+  /* The close axial drivetrain fills the centre. Keep its continuation copy in
+     the measured left gutter rather than over the upper-right carrier/output. */
+  body:has(.torque-inspection-overlay [data-shaft-caption='driveline-cascade']) .torque-page[data-torque-mode='live'] [data-torque-chapter='inspection'] :is(.torque-chapter__title, .torque-chapter__lede) {
+    width: 220px;
+    max-width: 220px;
+  }
+  .torque-inspection-overlay .shaft-story-layer:has([data-shaft-caption='driveline-cascade']) .shaft-story-column {
+    top: 160px;
+    left: 38px;
+    right: auto;
+    width: 220px;
+  }
+}
+
 @media (max-width: 600px) {
   /* Separate the study disclosure from the existing Free Look control. */
   .torque-page[data-torque-mode='live'] .torque-chapter[data-torque-chapter='inspection']:is([data-torque-active='true'], :has(.torque-inspection__toggle[aria-expanded='true'])) .torque-inspection {
@@ -128,6 +151,9 @@
     gap: 8px;
   }
   .torque-inspection-overlay .shaft-story-column { position: static; width: auto; gap: 6px; }
+  .torque-inspection-overlay .shaft-story-layer[data-shaft-cascade] {
+    inset: max(9rem, 17%) 4% auto;
+  }
   .torque-inspection-overlay .shaft-card { padding: 10px 12px; }
   .torque-inspection-overlay .shaft-card-text { font-size: 22px; }
   .torque-inspection-overlay .shaft-stamp { font-size: 20px; margin-top: 6px; }

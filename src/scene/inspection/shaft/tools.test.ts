@@ -6,6 +6,7 @@ import { BufferGeometry, InstancedMesh, Matrix4, Mesh, MeshStandardMaterial, Vec
 import outline from './cutterOutline.json'
 import { buildHob, buildShaperCutter, countTriangles } from './tools'
 import {
+  CLEARANCE_V4_SHAPER,
   CLEARANCE_REPORT_PATH,
   HOB_ARBOR_RADIUS_MM,
   HOB_ARBOR_LENGTH_MM,
@@ -21,20 +22,14 @@ import {
   HOB_RETRACT_MM,
   HOB_STARTS,
   HOB_STOP_YC_MM,
-  SHAPER_ARBOR_LENGTH_MM,
-  SHAPER_ARBOR_RADIUS_MM,
-  SHAPER_BACKOFF_MM,
   SHAPER_CENTRE_DISTANCE_MM,
-  SHAPER_CLAMP_LENGTH_MM,
-  SHAPER_CLAMP_RADIUS_MM,
-  SHAPER_HUB_LENGTH_MM,
-  SHAPER_HUB_RADIUS_MM,
-  SHAPER_OVERTRAVEL_MM,
+  SHAPER_ROOT_LIMIT_MM,
   SHAPER_SIGNED_RATIO,
   SHAPER_STROKE_CENTRE_Y_MAX_MM,
-  SHAPER_STROKE_CENTRE_Y_MIN_MM,
   SHAPER_TEETH,
   SHAPER_THICKNESS_MM,
+  SHAPER_LEADING_FACE_Y_MM,
+  SHAPER_BODY_REAR_Y_MM,
   SHAPER_TIP_RADIUS_MM,
 } from './toolSpec'
 
@@ -46,19 +41,27 @@ interface Report {
 const report = JSON.parse(readFileSync(resolve(process.cwd(), CLEARANCE_REPORT_PATH), 'utf8')) as Report
 
 describe('toolSpec mirrors the certified clearance-v4 report', () => {
-  it('matches report.shaper exactly', () => {
-    expect(report.shaper.teeth).toBe(SHAPER_TEETH)
-    expect(report.shaper.centre_distance_mm).toBe(SHAPER_CENTRE_DISTANCE_MM)
-    expect(report.shaper.signed_ratio_work_over_cutter).toBe(SHAPER_SIGNED_RATIO)
-    expect(report.shaper.tip_radius_mm).toBeCloseTo(SHAPER_TIP_RADIUS_MM, 9)
-    expect(report.shaper.thickness_mm).toBeCloseTo(SHAPER_THICKNESS_MM, 9)
-    expect(report.shaper.stroke_centre_y_mm).toEqual([SHAPER_STROKE_CENTRE_Y_MIN_MM, SHAPER_STROKE_CENTRE_Y_MAX_MM])
-    expect(report.shaper.overtravel_past_last_stub_mm).toBe(SHAPER_OVERTRAVEL_MM)
-    expect(report.shaper.return_backoff_mm).toBe(SHAPER_BACKOFF_MM)
+  it('keeps the frozen historical shaper equal to report.shaper while the live shaper is the 60-tooth prototype', () => {
+    const v4 = CLEARANCE_V4_SHAPER
+    expect(report.shaper.teeth).toBe(v4.teeth)
+    expect(report.shaper.centre_distance_mm).toBe(v4.centreDistanceMm)
+    expect(report.shaper.signed_ratio_work_over_cutter).toBe(v4.signedRatio)
+    expect(report.shaper.tip_radius_mm).toBeCloseTo(v4.tipRadiusMm, 9)
+    expect(report.shaper.thickness_mm).toBeCloseTo(v4.thicknessMm, 9)
+    expect(report.shaper.stroke_centre_y_mm).toEqual([...v4.strokeCentreYMm])
+    expect(report.shaper.overtravel_past_last_stub_mm).toBe(v4.overtravelMm)
+    expect(report.shaper.return_backoff_mm).toBe(v4.backoffMm)
     const holders = report.shaper.holders_radius_length_mm as Record<string, [number, number]>
-    expect(holders.hub).toEqual([SHAPER_HUB_RADIUS_MM, SHAPER_HUB_LENGTH_MM])
-    expect(holders.clamp_nut).toEqual([SHAPER_CLAMP_RADIUS_MM, SHAPER_CLAMP_LENGTH_MM])
-    expect(holders.arbor).toEqual([SHAPER_ARBOR_RADIUS_MM, SHAPER_ARBOR_LENGTH_MM])
+    expect(holders.hub).toEqual([...v4.hubRadiusLengthMm])
+    expect(holders.clamp_nut).toEqual([...v4.clampNutRadiusLengthMm])
+    expect(holders.arbor).toEqual([...v4.arborRadiusLengthMm])
+    // The live shaper deliberately diverges from the certified report (owner direction: 60 teeth).
+    expect(SHAPER_TEETH).toBe(60)
+    expect(SHAPER_TEETH).not.toBe(report.shaper.teeth)
+    expect(SHAPER_CENTRE_DISTANCE_MM).not.toBe(report.shaper.centre_distance_mm)
+    expect(SHAPER_SIGNED_RATIO).not.toBe(report.shaper.signed_ratio_work_over_cutter)
+    expect(SHAPER_THICKNESS_MM).toBe(8)
+    expect(SHAPER_LEADING_FACE_Y_MM).toBeCloseTo(v4.thicknessMm/2,9)
   })
   it('matches report.hob exactly', () => {
     expect(report.hob.R_mm).toBeCloseTo(HOB_RADIUS_MM, 9)
@@ -78,7 +81,7 @@ describe('toolSpec mirrors the certified clearance-v4 report', () => {
     expect(HOB_COLLAR_WIDTH_MM).toBe(3)
     expect(HOB_ARBOR_LENGTH_MM).toBe(12)
     expect(HOB_LEAD_MM).toBeCloseTo((Math.PI * HOB_NORMAL_MODULE_MM) / Math.cos((HOB_LEAD_ANGLE_DEG * Math.PI) / 180), 6)
-    console.log('A2: certified report matched; shaper N=20 C=15.5 tip=11.2032 thickness=1.2; hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249')
+    console.log('A2: certified report matched; historical shaper N=20 C=15.5 (frozen); hob R=5.87 lead=5.5587 yc=-4.195 stop=9.5249')
   })
 })
 
@@ -88,11 +91,12 @@ describe('derived cutter outline', () => {
     const raw = Buffer.from(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8').replace(/\r\n/g, '\n'))
     expect(outline.source.sha256).toBe(createHash('sha256').update(raw).digest('hex'))
     expect(outline.parameters).toMatchObject({
-      cutter_teeth: 20, work_teeth: 10, centre_distance_mm: 15.5,
-      signed_ratio_work_over_cutter: -2, stock_mm: 0.005,
-      tip_limit_mm: 11.2032, root_clearance_mm: 0.15,
+      cutter_teeth: SHAPER_TEETH, work_teeth: 10, centre_distance_mm: SHAPER_CENTRE_DISTANCE_MM,
+      signed_ratio_work_over_cutter: SHAPER_SIGNED_RATIO, stock_mm: 0.005,
+      tip_limit_mm: SHAPER_TIP_RADIUS_MM, root_clearance_mm: 0.15,
     })
-    expect(outline.parameters.root_limit_mm).toBeCloseTo(15.5 - 6.0834 - 0.15, 9)
+    expect(outline.parameters.root_limit_mm).toBeCloseTo(SHAPER_CENTRE_DISTANCE_MM - 6.0834 - 0.15, 9)
+    expect(outline.parameters.root_limit_mm).toBeCloseTo(SHAPER_ROOT_LIMIT_MM, 9)
     expect(outline.parameters.roll_step_deg).toBeGreaterThan(0)
     expect(outline.parameters.roll_step_deg).toBeLessThanOrEqual(0.02)
     expect(outline.parameters.bin_deg).toBeGreaterThan(0)
@@ -104,7 +108,10 @@ describe('derived cutter outline', () => {
       expect(radius).toBeGreaterThanOrEqual(outline.parameters.root_limit_mm)
       expect(radius).toBeLessThanOrEqual(outline.parameters.tip_limit_mm)
     }
-    expect(outline.tooth.angle_span_deg).toBe(18)
+    expect(outline.tooth.angle_span_deg).toBe(360 / SHAPER_TEETH)
+    expect(outline.schema).toBe('jgun-shaper-cutter-outline/v2-prototype-60t')
+    expect(outline.prototype.owner_approved).toBe(false)
+    expect(outline.prototype.manufacturing_acceptance).toBe(false)
   })
   it('leaves 0.005 mm stock on independently recomputed flank bins, not only the crest', () => {
     const study = JSON.parse(readFileSync(resolve(process.cwd(), outline.source.profile_study), 'utf8')) as {
@@ -112,28 +119,29 @@ describe('derived cutter outline', () => {
     }
     const profile = study.profiles.legacy['6.0']
     const deg = Math.PI / 180
-    const pitch = 18 * deg
-    const bins = [40, 120, 220, 300]
+    const pitch = (360 / SHAPER_TEETH) * deg
+    const toothBins = Math.round(360 / SHAPER_TEETH / 0.05)
+    const bins = [13, 40, 73, 100]
     const minima = bins.map(() => Infinity)
     // Rotate each work polar ray directly (independent of the generator's Cartesian caches).
-    for (let step = 0; step <= 900; step++) {
+    for (let step = 0; step <= Math.round(360 / SHAPER_TEETH / 0.02); step++) {
       const cutter = step * 0.02 * deg
       for (let i = 0; i < profile.length; i++) {
-        const workAngle = i * study.angular_step_deg * deg - 2 * cutter
-        const x = 15.5 + profile[i] * Math.cos(workAngle)
+        const workAngle = i * study.angular_step_deg * deg + SHAPER_SIGNED_RATIO * cutter
+        const x = SHAPER_CENTRE_DISTANCE_MM + profile[i] * Math.cos(workAngle)
         const y = profile[i] * Math.sin(workAngle)
         let angle = Math.atan2(y, x) - cutter
         angle = ((angle % pitch) + pitch) % pitch
-        const bin = Math.min(359, Math.floor(angle / pitch * 360))
+        const bin = Math.min(toothBins - 1, Math.floor(angle / pitch * toothBins))
         const j = bins.indexOf(bin)
         if (j >= 0) minima[j] = Math.min(minima[j], Math.hypot(x, y))
       }
     }
     for (let j = 0; j < bins.length; j++) {
-      const expected = Math.max(9.2666, Math.min(11.2032, minima[j] - 0.005))
+      const expected = Math.max(SHAPER_ROOT_LIMIT_MM, Math.min(SHAPER_TIP_RADIUS_MM, minima[j] - 0.005))
       expect(outline.tooth.points[bins[j]][1]).toBeCloseTo(expected, 5)
     }
-    console.log('A1: outline 360 points; roll 0.02 deg; bins 0.05 deg; flank stock 0.005 mm verified')
+    console.log('A1: 60-tooth outline 120 points; roll 0.02 deg; bins 0.05 deg; flank stock 0.005 mm verified')
   })
 })
 
@@ -153,12 +161,12 @@ describe('shaper cutter prop', () => {
     // The certified tip is a bound; conservative bin minima plus flank stock can fall below it.
     expect(radius).toBeCloseTo(outline.tooth.max_radius_mm, 5)
     expect(radius).toBeLessThanOrEqual(SHAPER_TIP_RADIUS_MM)
-    expect(cutter.cuttingEdgeLocal.y).toBeCloseTo(SHAPER_THICKNESS_MM / 2 * 1e-3, 9)
+    expect(cutter.cuttingEdgeLocal.y).toBeCloseTo(SHAPER_LEADING_FACE_Y_MM * 1e-3, 9)
     const disc = cutter.root.getObjectByName('shaper-cutter-disc') as Mesh
     disc.geometry.computeBoundingBox()
     const bounds = disc.geometry.boundingBox!
-    expect(bounds.min.y * 1000).toBeCloseTo(-0.6, 5)
-    expect(bounds.max.y * 1000).toBeCloseTo(0.6, 5)
+    expect(bounds.min.y * 1000).toBeCloseTo(SHAPER_BODY_REAR_Y_MM, 5)
+    expect(bounds.max.y * 1000).toBeCloseTo(SHAPER_LEADING_FACE_Y_MM, 5)
     const leadingFace = SHAPER_STROKE_CENTRE_Y_MAX_MM + cutter.cuttingEdgeLocal.y * 1000
     expect(leadingFace).toBeCloseTo(10.3749, 5)
     expect(10.94 - leadingFace).toBeCloseTo(0.5651, 5)

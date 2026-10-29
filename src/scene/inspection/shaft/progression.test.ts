@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { Matrix3, Matrix4, MeshPhysicalMaterial, MeshStandardMaterial, ShaderLib, Vector3 } from 'three'
+import { Color, Matrix3, Matrix4, MeshPhysicalMaterial, MeshStandardMaterial, ShaderLib, Vector3 } from 'three'
 import ts from 'typescript'
 import {
   applyProgression,
@@ -33,10 +33,8 @@ import {
   makeStressOverlayMaterial,
   stressFieldAt,
   stressFieldGlsl,
-  stressSeverity,
-  STRESS_CORE_HALF_MM,
 } from './progression'
-import { FOS_ATTEMPTS, FOS_MAX } from './fosPresentation'
+import { FOS_ATTEMPTS, FOS_CENTER_Y, FOS_MAX, FOS_REVISED, fosColor } from './fosPresentation'
 
 const DEG = Math.PI / 180
 const PROFILE_PATH = 'project/work/evidence/JG-035-opening-drafting-table/manufacturing-implementation-2026-10-05/camera/profile-study.json'
@@ -443,59 +441,192 @@ describe('shader patch', () => {
 })
 
 
-describe('axisymmetric FEA stress field (Issue 7, 07-1.png / 07-2.png)', () => {
+describe('Stage 1 axial flank contact glint', () => {
+  it('defaults off, updates caller-owned scalars, sanitizes unsafe values and clears on legacy seeks', () => {
+    const uniforms = createProgressionUniforms(), state = createProgressionState()
+    const y = uniforms.uAxialContactY, mix = uniforms.uAxialContactMix
+    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    writeProgressionUniforms(uniforms, state, 'approved', 6.35, 0.8)
+    expect(uniforms.uAxialContactY).toBe(y); expect(uniforms.uAxialContactMix).toBe(mix)
+    expect(y.value).toBe(6.35); expect(mix.value).toBe(0.8)
+    writeProgressionUniforms(uniforms, state, 'approved', 1e6, 2)
+    expect(y.value).toBe(9.525); expect(mix.value).toBe(1)
+    writeProgressionUniforms(uniforms, state, 'approved', -1, -1)
+    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    for (const bad of [NaN, Infinity, -Infinity]) {
+      writeProgressionUniforms(uniforms, state, 'approved', bad, bad)
+      expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    }
+    writeProgressionUniforms(uniforms, state, 'legacy', 6.35, 1)
+    expect(mix.value).toBe(0)
+    writeProgressionUniforms(uniforms, state, 'approved')
+    expect(y.value).toBe(0); expect(mix.value).toBe(0)
+    writeProgressionUniforms(uniforms, state)
+    expect(mix.value).toBe(0)
+  })
+
+  it('patches installed PBR shaders in the existing pass with a bounded, finite, flank-only line', () => {
+    for (const material of [new MeshStandardMaterial(), new MeshPhysicalMaterial()]) {
+      const uniforms = createProgressionUniforms()
+      applyProgression(material, uniforms)
+      const src = material instanceof MeshPhysicalMaterial ? ShaderLib.physical : ShaderLib.standard
+      const shader = { uniforms: {} as Record<string, unknown>, vertexShader: src.vertexShader, fragmentShader: src.fragmentShader }
+      ;(material.onBeforeCompile as unknown as (s: typeof shader, r: unknown) => void)(shader, {})
+      expect(shader.uniforms.uAxialContactY).toBe(uniforms.uAxialContactY)
+      expect(shader.uniforms.uAxialContactMix).toBe(uniforms.uAxialContactMix)
+      expect(shader.fragmentShader).toContain('uShaftKind > 0.5 && uAxialContactMix > 0.0')
+      expect(shader.fragmentShader).toContain('cross(dFdx(vShaftLocal), dFdy(vShaftLocal))')
+      expect(shader.fragmentShader).toContain('inversesqrt(max(dot(jgContactN, jgContactN), 0.00000001))')
+      expect(shader.fragmentShader).toContain('0.18 * jgContactMask')
+      // Evaluate the emitted scalar mask itself: exercises its ordered smoothstep,
+      // face/radius gates and mix clamp without creating a parallel CPU law.
+      const maskSource = shader.fragmentShader.slice(shader.fragmentShader.indexOf('float jgContactLine ='), shader.fragmentShader.indexOf('  roughnessFactor = mix(roughnessFactor, min'))
+        .replace(/\bfloat\b/g, 'let').replace(/vShaftLocal\.y/g, 'y')
+      const smoothstep = (a: number, b: number, x: number) => {
+        expect(b).toBeGreaterThan(a)
+        const u = Math.max(0, Math.min(1, (x - a) / (b - a)))
+        return u * u * (3 - 2 * u)
+      }
+      const mask = new Function('y', 'jgContactR', 'jgContactFlank', 'uAxialContactY', 'uAxialContactMix', 'smoothstep', 'step', 'abs', 'clamp', `${maskSource}\nreturn jgContactMask`)
+      const sample = (y: number, r = 5.2, flank = 1, mix = 1) => mask(y, r, flank, 6.35, mix, smoothstep,
+        (edge: number, x: number) => x < edge ? 0 : 1, Math.abs, (x: number, a: number, b: number) => Math.max(a, Math.min(b, x))) as number
+      expect(sample(6.35)).toBe(1)
+      expect(sample(6.25)).toBeCloseTo(0.5, 12)
+      expect(sample(6.55)).toBe(0)
+      for (const y of [0, 3.14, 9.56, 71.52]) expect(sample(y)).toBe(0)
+      for (const r of [0, 4.44, 5.96, 8.86]) expect(sample(6.35, r)).toBe(0)
+      expect(sample(6.35, 5.2, 0)).toBe(0)
+      expect(sample(6.35, 5.2, 1, 0)).toBe(0)
+      expect(sample(6.35, 5.2, 1, 2)).toBe(1)
+      expect(sample(6.35, 5.2, 1, -1)).toBe(0)
+      for (let i = 0; i <= 100; i++) {
+        const value = sample(6.1 + i * 0.005, 5.2, i / 100, i / 80)
+        expect(Number.isFinite(value)).toBe(true)
+        expect(value).toBeGreaterThanOrEqual(0); expect(value).toBeLessThanOrEqual(1)
+      }
+      material.dispose()
+    }
+  })
+})
+
+describe('axisymmetric FEA groove gradient (Issue 3)', () => {
   const STUDIES = [['4140', FOS_ATTEMPTS['4140']], ['4340', FOS_ATTEMPTS['4340']], ['c300', FOS_ATTEMPTS.c300]] as const
   const fosAt = (dy: number, hot: number, body = FOS_MAX) => body + (hot - body) * stressFieldAt(dy, hot)
+  const hueAt = (dy: number, hot: number) => new Color(...fosColor(fosAt(dy, hot))).getHSL({ h: 0, s: 0, l: 0 }).h * 360
 
-  it('pins the whole relief groove (|dy| <= core half-width) to the bar hotspot value for every alloy', () => {
+  it('reaches the exact alloy minimum only at the measured groove floor, with changing fillet colours', () => {
     for (const [, hot] of STUDIES) {
-      for (let dy = -STRESS_CORE_HALF_MM; dy <= STRESS_CORE_HALF_MM + 1e-9; dy += 0.05) {
-        expect(stressFieldAt(dy, hot)).toBe(1)
-        expect(fosAt(dy, hot)).toBeCloseTo(hot, 12)
+      expect(fosAt(0, hot)).toBeCloseTo(hot, 12)
+      // Measured legacy tooth end and upper groove edge, either side of the 10.41 mm floor.
+      for (const y of [SHAPING_FACE_END_MM, 10.94]) {
+        expect(fosAt(y - FOS_CENTER_Y.attempt, hot) - hot).toBeGreaterThan(0.08)
       }
+      expect(fosAt(0.1, hot) - hot).toBeGreaterThan(0.002)
+      expect(fosAt(0.5, hot)).toBeLessThan(fosAt(1, hot))
+      expect(fosAt(1, hot)).toBeLessThan(fosAt(1.5, hot))
     }
   })
 
-  it('is a pure function of axial distance: symmetric, monotone away from the groove, bounded', () => {
+  it('has smooth, strictly rising FOS contours on both sides, without a plateau or crossover kink', () => {
     for (const [, hot] of STUDIES) {
-      let previous = 1
-      for (let a = 0; a <= 12; a += 0.05) {
-        const f = stressFieldAt(a, hot)
-        expect(stressFieldAt(-a, hot)).toBe(f)
-        expect(f).toBeGreaterThanOrEqual(0); expect(f).toBeLessThanOrEqual(1)
-        expect(f).toBeLessThanOrEqual(previous + 1e-12)
+      let previous: number = hot
+      for (let i = 1; i <= 600; i++) {
+        const dy = i * 0.01
+        const f = fosAt(dy, hot)
+        expect(fosAt(-dy, hot)).toBe(f)
+        expect(f).toBeGreaterThan(previous)
+        expect(f).toBeLessThanOrEqual(FOS_MAX)
+        // Bound the change in slope over adjacent 0.01 mm intervals throughout the contour.
+        expect(Math.abs(fosAt(dy + 0.01, hot) - 2 * f + previous)).toBeLessThan(0.001)
         previous = f
       }
+      expect((fosAt(0.001, hot) - hot) / 0.001).toBeLessThan(0.005)
+      expect(fosAt(12, hot)).toBeCloseTo(FOS_MAX, 9)
     }
   })
 
-  it('spreads further for weaker alloys, so the contour visibly shifts 4140 -> 4340 -> C300', () => {
-    expect(stressSeverity(FOS_ATTEMPTS['4140'])).toBeCloseTo(1, 12)
-    expect(stressSeverity(FOS_ATTEMPTS['4340'])).toBeGreaterThan(stressSeverity(FOS_ATTEMPTS.c300))
-    // Gear tooth band (~3 mm below the groove) and upper shoulder (~3 mm above): FOS strictly rises with alloy strength.
-    for (const dy of [-5, -3, -2, 2, 3, 5]) {
+  it('traverses blue, cyan, green and yellow on the actual tooth-to-groove span for every alloy', () => {
+    for (const [, hot] of STUDIES) {
+      const bands = [0, 0, 0, 0] // blue, cyan, green, yellow
+      let previousHue = 360
+      for (let y = FACE_START_MM; y <= FOS_CENTER_Y.attempt; y += 0.01) {
+        const hue = hueAt(y - FOS_CENTER_Y.attempt, hot)
+        expect(hue).toBeLessThanOrEqual(previousHue + 1e-9)
+        previousHue = hue
+        if (hue >= 205) bands[0]++
+        if (hue >= 175 && hue < 205) bands[1]++
+        if (hue >= 85 && hue < 160) bands[2]++
+        if (hue >= 45 && hue < 70) bands[3]++
+      }
+      // Each intermediate hue occupies measurable surface length, not just a single sample.
+      for (const count of bands) expect(count).toBeGreaterThan(5)
+      expect(hueAt(FACE_START_MM - FOS_CENTER_Y.attempt, hot) - hueAt(0, hot)).toBeGreaterThan(180)
+      expect(fosAt(6 - FOS_CENTER_Y.attempt, hot)).toBeGreaterThan(2.9)
+      expect(fosAt(HOBBING_FACE_END_MM - FOS_CENTER_Y.attempt, hot)).toBeGreaterThan(2.7)
+    }
+    expect(hueAt(0, FOS_ATTEMPTS['4140'])).toBeLessThan(10)
+  })
+
+  it('keeps the failing zone narrow and visibly shrinks it as the alloy strengthens', () => {
+    for (const dy of [-2, -1, -0.5, 0.5, 1, 2]) {
       const [a, b, c] = STUDIES.map(([, hot]) => fosAt(dy, hot))
       expect(b - a).toBeGreaterThan(0.15)
       expect(c - b).toBeGreaterThan(0.15)
     }
-    // The warm (< 1.0, red..amber) zone is wider at 4140 than at C300.
-    const warmWidth = (hot: number) => { let w = 0; for (let a = 0; a < 12; a += 0.01) if (fosAt(a, hot) < 1) w = a; return w }
-    expect(warmWidth(FOS_ATTEMPTS['4140'])).toBeGreaterThan(warmWidth(FOS_ATTEMPTS.c300) + 0.3)
+    const widths = STUDIES.map(([, hot]) => {
+      let samples = 0
+      for (let i = -600; i <= 600; i++) if (fosAt(i * 0.01, hot) < 1) samples++
+      return samples * 0.01
+    })
+    for (const width of widths) {
+      expect(width).toBeGreaterThan(0.3)
+      expect(width).toBeLessThan(2.1)
+    }
+    expect(widths[0] - widths[1]).toBeGreaterThan(0.3)
+    expect(widths[1] - widths[2]).toBeGreaterThan(0.3)
   })
 
-  it('emits a GLSL twin with no azimuth, radius-attenuation or noise term in either stress shader', () => {
+  it('keeps the revised study within the blue end of the unchanged FOS bar', () => {
+    for (let dy = -8; dy <= 8; dy += 0.05) {
+      const f = fosAt(dy, FOS_REVISED.hotspot, FOS_REVISED.body)
+      expect(f).toBeGreaterThanOrEqual(FOS_REVISED.hotspot)
+      expect(f).toBeLessThanOrEqual(FOS_REVISED.body)
+      const [r, g, b] = fosColor(f)
+      expect(b).toBeGreaterThan(r)
+      expect(b).toBeGreaterThan(g)
+    }
+  })
+
+  it('numerically matches the emitted GLSL across the groove, shoulders and alloy transitions', () => {
+    // Execute the emitted scalar helper with JS equivalents of GLSL builtins; no second field formula.
+    const glsl = stressFieldGlsl().replace(/float jgStressField\(float dy, float hotspotFos\)/, 'function jgStressField(dy, hotspotFos)').replace(/\bfloat\b/g, 'let')
+    const gpu = new Function('clamp', 'mix', 'exp', `${glsl}\nreturn jgStressField`)(
+      (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x)),
+      (a: number, b: number, t: number) => a + (b - a) * t,
+      Math.exp,
+    ) as typeof stressFieldAt
+    for (const hot of [0.55, 0.63, 0.72, 0.81, 0.9, FOS_REVISED.hotspot]) {
+      for (let i = -240; i <= 240; i++) {
+        expect(gpu(i * 0.05, hot)).toBeCloseTo(stressFieldAt(i * 0.05, hot), 12)
+      }
+    }
+  })
+
+  it('embeds the identical field helper in both shaders, without azimuth, radial attenuation or noise', () => {
     const glsl = stressFieldGlsl()
-    expect(glsl).toContain(`smoothstep(${STRESS_CORE_HALF_MM.toFixed(3)},`)
     const material = new MeshStandardMaterial()
     applyProgression(material, createProgressionUniforms())
     const shader = { uniforms: {}, vertexShader: '#include <common>\n#include <beginnormal_vertex>\n#include <begin_vertex>', fragmentShader: '#include <common>\n#include <emissivemap_fragment>' }
     ;(material.onBeforeCompile as unknown as (s: typeof shader, r: unknown) => void)(shader, {})
     const overlay = makeStressOverlayMaterial(createProgressionUniforms())
     for (const source of [shader.fragmentShader, overlay.fragmentShader]) {
+      expect(source.split(glsl)).toHaveLength(2)
       expect(source).toContain('float jgStressField(float dy, float hotspotFos)')
       expect(source).toMatch(/jgStressField\((jgDy|dy), uStressHotspotFos\)/)
       expect(source).not.toMatch(/atan\(|Theta|theta|floorBias|FloorBias|[bB]lotch|cos\(/)
       expect(source).not.toMatch(/(?<!smooth)step\(uStressY(Min|Max)/)
     }
+    material.dispose()
+    overlay.dispose()
   })
 })

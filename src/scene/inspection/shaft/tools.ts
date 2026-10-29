@@ -6,13 +6,19 @@
  * disposed here; dispose() releases only the geometry this module creates.
  *
  *   buildShaperCutter - cutter axis parallel to the shaft axis (local +Y). The disc is one
- *     20-tooth ExtrudeGeometry (depth 1.2 mm) from cutterOutline.json; the trailing stack is
- *     hub, clamp nut then arbor along -Y, so the leading (+Y) face stays clear of the cut.
+ *     60-tooth ExtrudeGeometry (depth 8 mm, real bore) from cutterOutline.json: an illustrative
+ *     derived prototype (SHAPER_PROTOTYPE in toolSpec.ts), not the certified 20-tooth tool.
+ *     Sketch mount, a real load path along the tool axis: tapered spindle adapter, adapter flange
+ *     and locating shoulder behind the disc (-Y); the pilot arbor passes through the disc bore;
+ *     clamping flange, threaded stud (true swept helical ridge) and hex retaining nut on the +Y
+ *     face. Every mount radius is <= SHAPER_MOUNT_MAX_RADIUS_MM, well inside the 35 mm centre
+ *     distance. Mount dimensions are authoring proposals; none is measured from the reference image.
  *   buildHob - hob axis is the group's local +Y; the root quaternion points it along the
  *     clearance-v4 axis (cos(lead), sin(lead), 0) in the shaft-local CAD frame, i.e. perpendicular
  *     to the shaft axis and tilted by the lead angle. Collars and arbor are coaxial.
  */
 import {
+  BufferAttribute,
   BufferGeometry,
   CylinderGeometry,
   ExtrudeGeometry,
@@ -21,6 +27,7 @@ import {
   Matrix4,
   Mesh,
   Object3D,
+  Path,
   Quaternion,
   Shape,
   Vector3,
@@ -37,20 +44,37 @@ import {
   HOB_LENGTH_MM,
   HOB_RADIUS_MM,
   HOB_THREAD_DEPTH_MM,
-  SHAPER_ARBOR_LENGTH_MM,
-  SHAPER_ARBOR_RADIUS_MM,
-  SHAPER_CLAMP_LENGTH_MM,
-  SHAPER_CLAMP_RADIUS_MM,
-  SHAPER_HUB_LENGTH_MM,
-  SHAPER_HUB_RADIUS_MM,
+  SHAPER_ADAPTER_FLANGE_LENGTH_MM,
+  SHAPER_ADAPTER_FLANGE_RADIUS_MM,
+  SHAPER_BORE_RADIUS_MM,
+  SHAPER_CLAMP_FLANGE_LENGTH_MM,
+  SHAPER_CLAMP_FLANGE_RADIUS_MM,
+  SHAPER_NUT_ACROSS_FLATS_MM,
+  SHAPER_NUT_LENGTH_MM,
+  SHAPER_PILOT_RADIUS_MM,
+  SHAPER_SHOULDER_LENGTH_MM,
+  SHAPER_SHOULDER_RADIUS_MM,
+  SHAPER_STUD_PROTRUSION_MM,
+  SHAPER_STUD_ROOT_RADIUS_MM,
+  SHAPER_TAPER_LENGTH_MM,
+  SHAPER_TAPER_RADIUS_FAR_MM,
+  SHAPER_TAPER_RADIUS_NEAR_MM,
   SHAPER_TEETH,
   SHAPER_THICKNESS_MM,
+  SHAPER_LEADING_FACE_Y_MM,
+  SHAPER_BODY_REAR_Y_MM,
+  SHAPER_ARBOR_EXTENSION_MM,
+  SHAPER_THREAD_CREST_RADIUS_MM,
+  SHAPER_THREAD_PITCH_MM,
 } from './toolSpec'
 
 const MM = 1e-3
 const DEG = Math.PI / 180
-/** Points kept per tooth when triangulating the shaper disc; the file keeps the full 0.05 deg polyline. */
-const SHAPE_POINTS_PER_TOOTH = 90
+/** Points kept per tooth when triangulating the 60-tooth disc (stride 4 of 120); the file keeps the full 0.05 deg polyline. */
+const SHAPE_POINTS_PER_TOOTH = 30
+/** Segments of the disc bore and steps per turn of the swept stud thread. */
+const SHAPER_BORE_SEGMENTS = 96
+const SHAPER_THREAD_STEPS_PER_TURN = 24
 /** Trapezoid thread instances per helix turn (5 deg of cutter rotation each). */
 const HOB_INSTANCES_PER_TURN = 72
 const HOB_GASH_COUNT = 10
@@ -85,13 +109,55 @@ export interface ShaftLifecycleOptions {
   readonly onCleanupFailure?: (failures: readonly ShaftCleanupFailure[]) => void
 }
 
-/** Keep every stride-th outline point, always preserving index 0. */
+/** Keep every stride-th outline point, always preserving index 0, the last point and the crest maximum. */
 function decimateTooth(points: number[][], target: number): number[][] {
   const stride = Math.max(1, Math.ceil(points.length / target))
-  const kept: number[][] = []
-  for (let i = 0; i < points.length; i += stride) kept.push(points[i])
-  if (kept[kept.length - 1] !== points[points.length - 1]) kept.push(points[points.length - 1])
-  return kept
+  let peak = 0
+  for (let i = 1; i < points.length; i++) if (points[i][1] > points[peak][1]) peak = i
+  const indices = new Set<number>([points.length - 1, peak])
+  for (let i = 0; i < points.length; i += stride) indices.add(i)
+  return [...indices].sort((a, b) => a - b).map((i) => points[i])
+}
+
+/**
+ * Right-hand helical ridge swept around +Y from y = 0 (mm in, metres out). The profile ring is
+ * root-low, crest-low, crest-high, root-high; it advances one pitch per turn, so this is a true
+ * helix and not stacked rings. Open ends are capped.
+ */
+function buildHelicalThread(rootRadius: number, crestRadius: number, pitch: number, length: number, stepsPerTurn: number): BufferGeometry {
+  const profile = [[rootRadius, -0.4 * pitch], [crestRadius, -0.12 * pitch], [crestRadius, 0.12 * pitch], [rootRadius, 0.4 * pitch]]
+  const start = 0.4 * pitch
+  const turns = (length - 0.8 * pitch) / pitch
+  const steps = Math.max(1, Math.ceil(turns * stepsPerTurn))
+  const positions = new Float32Array((steps + 1) * 4 * 3)
+  for (let k = 0; k <= steps; k++) {
+    const u = (turns * k) / steps
+    const theta = u * 2 * Math.PI
+    for (let j = 0; j < 4; j++) {
+      const o = (k * 4 + j) * 3
+      positions[o] = profile[j][0] * Math.cos(theta) * MM
+      positions[o + 1] = (start + u * pitch + profile[j][1]) * MM
+      positions[o + 2] = -profile[j][0] * Math.sin(theta) * MM
+    }
+  }
+  const indices: number[] = []
+  for (let k = 0; k < steps; k++) {
+    for (let j = 0; j < 4; j++) {
+      const a = k * 4 + j
+      const b = k * 4 + ((j + 1) % 4)
+      const c = (k + 1) * 4 + j
+      const e = (k + 1) * 4 + ((j + 1) % 4)
+      indices.push(a, b, c, c, b, e)
+    }
+  }
+  const last = steps * 4
+  indices.push(0, 2, 1, 0, 3, 2)
+  indices.push(last, last + 1, last + 2, last, last + 2, last + 3)
+  const geometry = new BufferGeometry()
+  geometry.setAttribute('position', new BufferAttribute(positions, 3))
+  geometry.setIndex(indices)
+  geometry.computeVertexNormals()
+  return geometry
 }
 
 export function buildShaperCutter(material: Material, options: ShaftLifecycleOptions = {}): ShaperCutter {
@@ -121,44 +187,71 @@ export function buildShaperCutter(material: Material, options: ShaftLifecycleOpt
     }
   }
   shape.closePath()
+  // Real bore for the pilot arbor (96-gon; the pilot mesh below fills it).
+  const bore = new Path()
+  for (let i = 0; i < SHAPER_BORE_SEGMENTS; i++) {
+    const a = (i / SHAPER_BORE_SEGMENTS) * 2 * Math.PI
+    const x = SHAPER_BORE_RADIUS_MM * Math.cos(a)
+    const y = SHAPER_BORE_RADIUS_MM * Math.sin(a)
+    if (i === 0) bore.moveTo(x, y)
+    else bore.lineTo(x, y)
+  }
+  bore.closePath()
+  shape.holes.push(bore)
 
   const discGeometry = new ExtrudeGeometry(shape, { depth: SHAPER_THICKNESS_MM, bevelEnabled: false, steps: 1, curveSegments: 1 })
   geometries.push(discGeometry)
-  // Certified stroke positions are disc-centre positions; the leading face is +thickness/2.
-  discGeometry.translate(0, 0, -SHAPER_THICKNESS_MM / 2)
+  // Thicken behind the retained rake datum, preserving the real cutting path.
+  discGeometry.translate(0, 0, SHAPER_BODY_REAR_Y_MM)
   discGeometry.rotateX(-Math.PI / 2)
   discGeometry.scale(MM, MM, MM)
   const disc = new Mesh(discGeometry, material)
   disc.name = 'shaper-cutter-disc'
   root.add(disc)
 
-  const trailing = [
-    { name: 'shaper-hub', radius: SHAPER_HUB_RADIUS_MM, length: SHAPER_HUB_LENGTH_MM, y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM / 2 },
-    {
-      name: 'shaper-clamp-nut',
-      radius: SHAPER_CLAMP_RADIUS_MM,
-      length: SHAPER_CLAMP_LENGTH_MM,
-      y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM - SHAPER_CLAMP_LENGTH_MM / 2,
-    },
-    {
-      name: 'shaper-arbor',
-      radius: SHAPER_ARBOR_RADIUS_MM,
-      length: SHAPER_ARBOR_LENGTH_MM,
-      y: -SHAPER_THICKNESS_MM / 2 - SHAPER_HUB_LENGTH_MM - SHAPER_CLAMP_LENGTH_MM - SHAPER_ARBOR_LENGTH_MM / 2,
-    },
-  ]
-  for (const part of trailing) {
-    const geometry = new CylinderGeometry(part.radius * MM, part.radius * MM, part.length * MM, 24, 1, false)
+  // Sketch mount along the tool axis (tool-local mm, +Y = cutting face). Mesh add order starts
+  // disc, shaper-hub, shaper-clamp-nut: the runtime fault tests rely on that three-geometry prefix.
+  const face = SHAPER_LEADING_FACE_Y_MM
+  const rear = SHAPER_BODY_REAR_Y_MM
+  const adapterTop = rear - SHAPER_SHOULDER_LENGTH_MM
+  const taperTop = adapterTop - SHAPER_ADAPTER_FLANGE_LENGTH_MM
+  const flangeTop = face + SHAPER_CLAMP_FLANGE_LENGTH_MM
+  const nutTop = flangeTop + SHAPER_NUT_LENGTH_MM
+  const studTop = nutTop + SHAPER_STUD_PROTRUSION_MM
+  const threadStart = nutTop - SHAPER_THREAD_PITCH_MM
+  const addCylinder = (name: string, radiusTop: number, radiusBottom: number, bottom: number, top: number, segments = 32) => {
+    const geometry = new CylinderGeometry(radiusTop * MM, radiusBottom * MM, (top - bottom) * MM, segments, 1, false)
     geometries.push(geometry)
     const mesh = new Mesh(geometry, material)
-    mesh.name = part.name
-    mesh.position.y = part.y * MM
+    mesh.name = name
+    mesh.position.y = ((top + bottom) / 2) * MM
     root.add(mesh)
   }
+  // 'shaper-hub' is the locating shoulder against the disc's trailing face.
+  addCylinder('shaper-hub', SHAPER_SHOULDER_RADIUS_MM, SHAPER_SHOULDER_RADIUS_MM, adapterTop, rear)
+  // 'shaper-clamp-nut' is the hex retaining nut, kept under its historical name for materials and fault tests.
+  const nutRadius = SHAPER_NUT_ACROSS_FLATS_MM / Math.sqrt(3)
+  addCylinder('shaper-clamp-nut', nutRadius, nutRadius, flangeTop, nutTop, 6)
+  addCylinder('shaper-adapter-flange', SHAPER_ADAPTER_FLANGE_RADIUS_MM, SHAPER_ADAPTER_FLANGE_RADIUS_MM, taperTop, adapterTop)
+  addCylinder('shaper-adapter-taper', SHAPER_TAPER_RADIUS_NEAR_MM, SHAPER_TAPER_RADIUS_FAR_MM, taperTop - SHAPER_TAPER_LENGTH_MM, taperTop)
+  addCylinder('shaper-arbor-shank', SHAPER_TAPER_RADIUS_FAR_MM, SHAPER_TAPER_RADIUS_FAR_MM,
+    taperTop-SHAPER_TAPER_LENGTH_MM-SHAPER_ARBOR_EXTENSION_MM,taperTop-SHAPER_TAPER_LENGTH_MM)
+  // Pilot arbor: starts inside the shoulder, passes the disc bore, ends inside the clamping flange.
+  addCylinder('shaper-arbor', SHAPER_PILOT_RADIUS_MM, SHAPER_PILOT_RADIUS_MM, rear - 0.5, flangeTop - 0.5)
+  addCylinder('shaper-clamp-flange', SHAPER_CLAMP_FLANGE_RADIUS_MM, SHAPER_CLAMP_FLANGE_RADIUS_MM, face, flangeTop)
+  addCylinder('shaper-stud', SHAPER_STUD_ROOT_RADIUS_MM, SHAPER_STUD_ROOT_RADIUS_MM, flangeTop, studTop, 24)
+  const threadGeometry = buildHelicalThread(
+    SHAPER_STUD_ROOT_RADIUS_MM, SHAPER_THREAD_CREST_RADIUS_MM, SHAPER_THREAD_PITCH_MM, studTop - threadStart, SHAPER_THREAD_STEPS_PER_TURN,
+  )
+  geometries.push(threadGeometry)
+  const thread = new Mesh(threadGeometry, material)
+  thread.name = 'shaper-stud-thread'
+  thread.position.y = threadStart * MM
+  root.add(thread)
 
   const cuttingEdgeLocal = new Vector3(
     tipRadius * MM * Math.cos(tipAngle),
-    SHAPER_THICKNESS_MM / 2 * MM,
+    SHAPER_LEADING_FACE_Y_MM * MM,
     -tipRadius * MM * Math.sin(tipAngle),
   )
 

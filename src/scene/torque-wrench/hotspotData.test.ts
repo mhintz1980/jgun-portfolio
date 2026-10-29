@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  TORQUE_HOTSPOTS, isTorqueHotspotActive, layoutTorqueCallouts, leadersIntersect, segmentsIntersect,
+  TORQUE_HOTSPOTS, isTorqueHotspotActive, isTorqueHotspotActiveForSample, layoutTorqueCallouts, leadersIntersect, segmentsIntersect,
   torqueCalloutReveal, type CalloutInput,
 } from './hotspotData'
 
@@ -24,24 +24,42 @@ describe('torque hotspot gate (doc45 issue 5)', () => {
     for (let p = 0; p <= 1; p += 0.0005) expect(activeAt(p).length).toBeLessThanOrEqual(1)
   })
 
-  it('gives each callout its own verifier checkpoint', () => {
-    expect(activeAt(0.52)).toEqual(['ring-switch'])
-    // Clutch Housing is disabled by the owner (2026-10-24) until it has an exposed-anchor beat.
-    for (let p = 0; p <= 1; p += 0.0005) expect(activeAt(p)).not.toContain('clutch-housing')
+  it('keeps suspended callouts inactive throughout the narrative', () => {
+    for (let p = 0; p <= 1; p += 0.0005) {
+      for (const id of ['clutch-housing', 'ring-switch', 'stage2-planet']) {
+        expect(isTorqueHotspotActive(id, p, 1, 1, false, false, false)).toBe(false)
+      }
+    }
+    expect(activeAt(0.52)).toEqual([])
     expect(activeAt(0.545)).toEqual([])
-    expect(activeAt(0.905)).toEqual(['stage2-planet'])
-    expect(activeAt(0.925)).toEqual(['stage2-planet'])
+    expect(activeAt(0.905)).toEqual([])
+    expect(activeAt(0.925)).toEqual([])
+  })
+
+  it('retains the LCD callout at its existing verifier checkpoint', () => {
     expect(activeAt(0.99)).toEqual(['lcd-manometer'])
     expect(activeAt(0.98)).toEqual([])
   })
 
+  it('uses the same suspension gate for DOM samples even with visible anchors and existing focus', () => {
+    for (const hotspot of TORQUE_HOTSPOTS) {
+      const sample = {
+        progress: (hotspot.window[0] + hotspot.window[1]) / 2, subjectTime: 0,
+        studyVisible: false, manual: false, focusId: hotspot.id,
+        anchors: [{ id: hotspot.id, x: 500, y: 400, visible: true, reason: '', occluder: '' }],
+      }
+      expect(isTorqueHotspotActiveForSample(hotspot.id, sample)).toBe(hotspot.id === 'lcd-manometer')
+    }
+  })
+
   it('blocks on manual, study, ring isolation, faded surroundings, unknown id and planet explode', () => {
-    expect(activeAt(0.52, 1, 1, true)).toEqual([])
-    expect(activeAt(0.52, 1, 0.5)).toEqual([])
-    expect(activeAt(0.52, 1, 1, false, false, true)).toEqual([])
+    expect(activeAt(0.99, 1, 1, true)).toEqual([])
+    expect(activeAt(0.99, 1, 0.5)).toEqual([])
+    expect(activeAt(0.99, 1, 1, false, true)).toEqual([])
+    expect(activeAt(0.99, 1, 1, false, false, true)).toEqual([])
     expect(activeAt(0.905, 0.4)).toEqual([])
     expect(isTorqueHotspotActive('not-a-part', 0.52, 1, 1, false, false, false)).toBe(false)
-    expect(isTorqueHotspotActive('ring-switch', Number.NaN, 1, 1, false, false, false)).toBe(false)
+    expect(isTorqueHotspotActive('lcd-manometer', Number.NaN, 1, 1, false, false, false)).toBe(false)
   })
 
   it('draws the leader in and retracts it inside each window', () => {

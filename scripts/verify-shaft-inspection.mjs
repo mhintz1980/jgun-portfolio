@@ -553,7 +553,7 @@ async function dynamic(narrow) {
         // the live uniform depths, never zeroed on return.
         const partial = uni ? uni.depth.filter(d => d > 0 && d < 1).length : -1
         const formed = uni ? uni.depth.filter(d => d >= 1).length : -1
-        r.measures.sweep.push({ t, teethFormed: s.teethFormed, teethPartial: s.teethPartial, uniform: uni, model: { depths: model.depths, engaged: model.engaged, previousDepth: model.previousDepth, edgeY: model.edgeY }, cutter: s.cutter, activeCut: model.cutting, chip: tuple.chip, edgeY: s.cutter.stroke + tool.SHAPER_THICKNESS_MM / 2, sampleStamp: tuple.probe.sampleStamp, cameraSampleStamp: tuple.probe.cameraSampleStamp })
+        r.measures.sweep.push({ t, teethFormed: s.teethFormed, teethPartial: s.teethPartial, uniform: uni, model: { depths: model.depths, engaged: model.engaged, previousDepth: model.previousDepth, edgeY: model.edgeY }, cutter: s.cutter, activeCut: model.cutting, chip: tuple.chip, edgeY: s.cutter.stroke + tool.SHAPER_LEADING_FACE_Y_MM, sampleStamp: tuple.probe.sampleStamp, cameraSampleStamp: tuple.probe.cameraSampleStamp })
         assertion(r, 'S2', !!uni, `progression uniforms not captured at ${t}`)
         if (uni) {
           assertion(r, 'S2', uni.depth.length === model.depths.length && uni.depth.every((d, j) => Math.abs(d - model.depths[j]) <= 1e-7), `uniform depth departs from authored model at ${t}: ${JSON.stringify(uni.depth)} vs ${JSON.stringify(model.depths)}`, runtimeAnchors.progression)
@@ -587,7 +587,7 @@ async function dynamic(narrow) {
         const tuple = await seek(page, t)
         const matrices = await page.evaluate(() => new Promise(resolve => { const a = []; let last = -1; function tick() { const f = window.__shaftVerify.last; if (f.frames !== last) { last = f.frames; a.push(f.matrix) } if (a.length === 3) return resolve(a); requestAnimationFrame(tick) } requestAnimationFrame(tick) }))
         const delta = Math.max(...matrices.flatMap(m => m.map((v, i) => Math.abs(v - matrices[0][i]))))
-        r.measures.slowExit.push({ t, stroke: tuple.probe.shaft.cutter.stroke, edgeY: tuple.probe.shaft.cutter.stroke + tool.SHAPER_THICKNESS_MM / 2, cameraDelta: delta, matrices })
+        r.measures.slowExit.push({ t, stroke: tuple.probe.shaft.cutter.stroke, edgeY: tuple.probe.shaft.cutter.stroke + tool.SHAPER_LEADING_FACE_Y_MM, cameraDelta: delta, matrices })
         assertion(r, 'S2', delta <= 1e-12, `paused slow-exit camera moved ${delta} at ${t}`, { file: 'src/scene/inspection/shaft/camera.ts', line: 141 })
       }
       const edges = r.measures.sweep.filter(f => f.t >= slow[0] && f.t <= slow[1]).map(f => f.edgeY)

@@ -4,10 +4,18 @@ This document is the durable lookup map for agents working in `jgun-portfolio`. 
 
 > **Canonical rule:** Prefer the harness-local copy for the agent that is currently running. If a harness-local copy is absent, read the shared copy at `C:\Users\Markimus\.agents\skills\<skill>\SKILL.md` directly. Do not substitute a generic web-development workflow for one of these project-specific skills.
 
+**Repository-local exception (2026-10-27):** All harnesses must read
+[`r3f-cad-cinematography`](../../.agents/skills/r3f-cad-cinematography/SKILL.md)
+from this checkout for camera paths, bullet-time clocks, HUD framing, or scroll pacing.
+Do not substitute an older harness-local copy. Section 3 and
+[`bulletTime.ts`](../../src/scene/torque-wrench/bulletTime.ts) are the canonical
+contract; the HUD solver is bundled under that skill's `scripts/` directory.
+
 > 2026-08-29 (orchestrated-work policy): for **multi-session, parallel, or long agent tasks**, run with skills/plugins **deactivated** in the harness and read each `SKILL.md` from this map's paths **at the moment it is needed** (briefs carry exact path + read-timing — never load up front what is needed only at the end; invoked/menu-registered skills cost context in every session, subagent, and cron fire). Keep only the task's MCPs enabled (probes → chrome-devtools; it has no file fallback). Deactivate — do NOT uninstall — plugin caches must remain readable for single-skill direct reads (e.g. Superpowers `verification-before-completion`). Full procedure + cost model: vault `C:\vaults\markimus-SecondBrain\Skills\deactivate-skills-for-orchestration.md`.
 
 | Work type | Required skill | ZCode path | Claude Code path | Codex path | Shared fallback path |
 |---|---|---|---|---|---|
+| Camera paths, bullet-time clocks, HUD framing, scroll pacing | `r3f-cad-cinematography` | `.agents/skills/r3f-cad-cinematography/SKILL.md` (repo-local) | Same repo-local path | Same repo-local path | Use the current checkout; no external fallback |
 | CAD scene roles, D1-AP identity, rigid groups, explosion ladder | `cad-scene-graph-rigging` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.codex\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.agents\skills\cad-scene-graph-rigging\SKILL.md` |
 | Runtime WebGL proof, telemetry probes, no screenshot-only acceptance | `webgl-telemetry-verifier` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\webgl-telemetry-verifier\SKILL.md` | `C:\Users\Markimus\.codex\skills\webgl-telemetry-verifier\SKILL.md` | `C:\Users\Markimus\.agents\skills\webgl-telemetry-verifier\SKILL.md` |
 | R3F scrolling, frame-work budget, quality tiers, reactive-state avoidance | `r3f-scroll-performance-guard` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\r3f-scroll-performance-guard\SKILL.md` | `C:\Users\Markimus\.codex\skills\r3f-scroll-performance-guard\SKILL.md` | `C:\Users\Markimus\.agents\skills\r3f-scroll-performance-guard\SKILL.md` |
@@ -90,6 +98,7 @@ Before making exhaustive or negative codebase claims, agents must check that the
 
 | Change or task | Read before work | Required verification |
 |---|---|---|
+| Camera paths, bullet-time clocks, HUD framing, or scroll pacing | Repo-local `r3f-cad-cinematography`; plus the scroll/overlay skills below where applicable | Contract/consumer unit tests; HUD projection; full browser camera AND subject reverse gates; quick capture is not completion proof |
 | Rig roles, offsets, part identities, GLB grouping | `cad-scene-graph-rigging` | `webgl-telemetry-verifier` |
 | Any scroll behavior, GSAP timeline, or Chapter timing | `gsap-scrolltrigger` and `r3f-scroll-performance-guard` | `webgl-telemetry-verifier` after a fresh `:4173` preview restart |
 | Spatial leader lines, HTML/R3F callouts, datum/GD&T overlays | `spatial-hotspot-a11y` | Keyboard/focus behavior plus viewport and telemetry check |

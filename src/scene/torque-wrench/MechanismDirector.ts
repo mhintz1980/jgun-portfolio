@@ -35,7 +35,7 @@ export const C2_NUDGE_END = 0.469
 /** Study anchor, inside the S0 plateau and independent of the entry progress. */
 export const RING_ANCHOR_PROGRESS = 0.48
 
-/** Baseline (pre-T5) shift/explode/gear/ghost law, evaluated at the translated coordinate q = p - W. */
+/** Baseline (pre-T5) shift/explode/gear law, evaluated at the translated coordinate q = p - W. */
 function sampleBaseline(q: number, out: MechanismSample): void {
   // Owner correction (2026-10-21): the shift completes by .545 so the OSHA
   // Red stripe is fully uncovered when the camera reaches the red view, and
@@ -43,8 +43,8 @@ function sampleBaseline(q: number, out: MechanismSample): void {
   out.shift = smooth((q - (0.520 - MECHANISM_TRANSLATION)) / 0.025)
   out.explode = smooth((q - 0.575) / 0.075)
   out.gearAngle = Math.PI * 8 * smooth((q - 0.52) / 0.17)
-  const ghost = smooth((q - 0.52) / 0.035) * (1 - smooth((q - 0.64) / 0.03))
-  out.ghostOpacity = 1 - ghost * 0.85
+  // Owner correction (2026-10-26): housing stays solid through explosion and return.
+  out.ghostOpacity = 1
 }
 
 /** Continuous channels spanning beats; canonical sampling has no idle clock. */
