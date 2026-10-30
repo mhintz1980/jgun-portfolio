@@ -639,8 +639,18 @@ cinematic choices, not manufacturing validation. The final drive is 866.67 input
 RPM; Stage 4/output turn at 1.6°/s and output accumulates about 12.6564°.
 The input reaches its faster rates only subject to visibility-aware alias proof:
 .35 feature period/frame design, .5 hard. Camera framing alone failed those gates. Owner approved input shaft/Stage 1
-planet retirement over 52.2–53.1 and Stage 1 cage retirement over 55.5–56.4 on
-2026-10-27. Those exact fades are implemented; final verification is in evidence 60.
+planet retirement over 52.2–53.1 on 2026-10-27. On 2026-10-29 the owner directed
+that the input shaft stay visible while it remains on screen and selected the
+high-to-low tracking camera from four comparison previews. Authenticated Draco
+bounds now scope the proof to the shared ten-tooth face (`3.174827–9.524858 mm`;
+source shaped exit to `9.789711`; study hob lead-out to `13.938684`), the far-end
+sixfold (`61.109647–71.523950`) and the remaining shaft body; a complete-shaft
+mask is only a conservative superset. Owner Option A on 2026-10-30 retains
+Stage 1 carrier `P001836` through `61.5 s` and retires it over `61.5–62.25 s`,
+keeping its `stage1Sun` contribution below the `.35` rung. The shared functional
+tooth face then contributes zero pixels at every post-`.35` sample on desktop and
+narrow, and `inputSixfold` leaves the frame before its over-limit span. Full
+same-build roster and owner acceptance remain open.
 
 The continuation has a 24.095648 physical scroll multiplier at page .815–.825.
 Both clocks use physical distance with explicit 5% shoulders and constant

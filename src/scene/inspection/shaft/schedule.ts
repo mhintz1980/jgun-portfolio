@@ -147,12 +147,14 @@ export function sampleShaftSchedule(time: number, out: ShaftSchedule): ShaftSche
     out.cascadeAlpha[event.index] = shaftEase((t - event.carrierStart) / (event.carrierFull - event.carrierStart))
     out.cascadePlanetAlpha[event.index] = shaftEase((t - event.planetStart) / (event.planetFull - event.planetStart))
   }
-  // Owner approved these exact upstream fades on 2026-10-27 after both
-  // near-axis trials exposed over-limit features through perforated cages.
+  // Retain the input shaft during the cascade per owner direction; the earlier
+  // high-speed visibility concern remains open for runtime verification.
   const inputRetirement = 1 - shaftEase((t - 52.2) / .9)
-  out.approvedShaft *= inputRetirement
   out.cascadePlanetAlpha[0] *= inputRetirement
-  out.cascadeAlpha[0] *= 1 - shaftEase((t - 55.5) / .9)
+  // Option A (owner-selected): retain Stage 1 carrier P001836 until 61.5 s to
+  // occlude the input sun teeth while the shaft body remains visible, then
+  // retire it by 62.25 s before stage1Sun crosses 0.35 periods/frame.
+  out.cascadeAlpha[0] *= 1 - shaftEase((t - 61.5) / .75)
   // Oil-film compression is separate from monotonic travel. Squared sine makes
   // the 80 micrometre envelope C1 at first contact as well as at release.
   if (t > 38.2 && t < 38.45) {

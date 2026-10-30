@@ -463,10 +463,9 @@ describe('v51.1 engagement and cascade camera', () => {
   it.each([DESKTOP_ASPECT, NARROW_ASPECT])('shows the integral-sun reference before Stage 2 fades in (aspect %s)', aspect => {
     const start = CASCADE_REVEAL_EVENTS[0].planetStart
     const c = snapAt(start, aspect), schedule = createShaftSchedule()
-    // Preferred cascade pose: 16 degrees off the shaft axis on the output side (el -74).
-    // The rejected near-pole -88 trial exposed over-limit features and stays retired.
-    expect(azimuthDeg(c)).toBeCloseTo(-118.5, 10); expect(elevationDeg(c)).toBeCloseTo(-74, 10)
-    expect(90 - Math.abs(elevationDeg(c))).toBeCloseTo(16, 10)
+    // The selected high-to-low track starts at an elevated oblique view.
+    expect(azimuthDeg(c)).toBeCloseTo(-118.5, 10); expect(elevationDeg(c)).toBeCloseTo(-17, 10)
+    expect(90 - Math.abs(elevationDeg(c))).toBeGreaterThan(45)
     expect(sampleShaftSchedule(start, schedule).cascadePlanetAlpha[1]).toBe(0)
     expect(sampleShaftSchedule(start + .01, schedule).cascadePlanetAlpha[1]).toBeGreaterThan(0)
     expect(schedule.cascadeAlpha[1]).toBe(0)
@@ -536,24 +535,24 @@ describe('v51.1 engagement and cascade camera', () => {
     unwrapThrough(40.2, 43.5)
     expect(last).toBeCloseTo(601.5, 10)
     expect(((last % 360) + 360) % 360).toBeCloseTo(241.5, 10)
-    expect(elevationDeg(snapAt(SHAFT_DOLLY_START, aspect))).toBeCloseTo(-74, 10)
+    expect(elevationDeg(snapAt(SHAFT_DOLLY_START, aspect))).toBeLessThan(-17)
   })
 
-  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('dollies on one shaft-local -Y line toward output with stable lens, up and off-axis depth (aspect %s)', (aspect) => {
+  it.each([DESKTOP_ASPECT, NARROW_ASPECT])('tracks toward output while descending with stable lens and stand-off (aspect %s)', (aspect) => {
     const start = snapAt(SHAFT_DOLLY_START, aspect)
-    let lastY = start.py, lastTargetY = start.ty
+    let lastTargetY = start.ty, lastElevation = elevationDeg(start)
     for (let i = 1; i <= 100; i++) {
       const c = snapAt(SHAFT_DOLLY_START + (66.9 - SHAFT_DOLLY_START) * i / 100, aspect)
-      expect(c.px).toBe(start.px); expect(c.pz).toBe(start.pz)
       expect(c.tx).toBe(start.tx); expect(c.tz).toBe(start.tz)
-      expect(c.py).toBeLessThan(lastY); expect(c.ty).toBeLessThan(lastTargetY)
-      expect(c.py - start.py).toBeCloseTo(c.ty - start.ty, 12)
+      expect(c.ty).toBeLessThan(lastTargetY)
+      expect(elevationDeg(c)).toBeLessThan(lastElevation)
+      expect(90 - Math.abs(elevationDeg(c))).toBeGreaterThan(45)
       expect([c.ux, c.uy, c.uz, c.fov]).toEqual([start.ux, start.uy, start.uz, start.fov])
-      // 16 degrees off-axis (el -74): horizontal stand-off is dist * cos(74 deg) = dist * sin(16 deg).
-      expect(Math.hypot(c.px - c.tx, c.pz - c.tz)).toBeCloseTo((aspect === DESKTOP_ASPECT ? .22 : .32)*Math.sin(16*Math.PI/180),12)
-      lastY = c.py; lastTargetY = c.ty
+      expect(Math.hypot(c.px-c.tx,c.py-c.ty,c.pz-c.tz)).toBeCloseTo(aspect === DESKTOP_ASPECT ? .22 : .32, 12)
+      lastTargetY = c.ty; lastElevation = elevationDeg(c)
     }
-    expect(lastY - start.py).toBeCloseTo(SHAFT_DOLLY_TRAVEL_M, 12)
+    expect(lastTargetY - start.ty).toBeCloseTo(SHAFT_DOLLY_TRAVEL_M, 12)
+    expect(lastElevation).toBeCloseTo(-42, 10)
     expect(lastTargetY).toBeCloseTo(-.092, 12)
   })
 

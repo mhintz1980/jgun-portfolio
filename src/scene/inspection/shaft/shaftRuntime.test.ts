@@ -346,7 +346,7 @@ describe('shaft runtime without WebGL', () => {
     const a = seek(runtime, 15) as { shaft: { teethFormed: number; card: { id: string }; narrative: { alpha: number } } }
     expect(a.shaft.teethFormed).toBe(10); expect(a.shaft.card.id).toBe('4140'); expect(a.shaft.narrative.alpha).toBe(0)
     const b = seek(runtime, 66.9) as { shaft: { finale: { assembled: boolean; shaftCount: number; missingCarriers: boolean }; nodes: { legacyHousingPresent: boolean } } }
-    expect(b.shaft.finale.assembled).toBe(false); expect(b.shaft.finale.shaftCount).toBe(0)
+    expect(b.shaft.finale.assembled).toBe(false); expect(b.shaft.finale.shaftCount).toBe(1)
     expect(b.shaft.finale.missingCarriers).toBe(true); expect(b.shaft.nodes.legacyHousingPresent).toBe(false)
   })
 
@@ -376,7 +376,7 @@ describe('shaft runtime without WebGL', () => {
     const cloneMaterial = ((clonePlanet.children[0]) as Mesh).material as MeshStandardMaterial
     expect(cloneMaterial).not.toBe(original); expect(cloneMaterial.map).toBe(texture)
     const out = seek(runtime, 66.9) as { shaft: { finale: { assembled: boolean; shaftCount: number; racesFollow: boolean; ringFollowsShaft: boolean; bearingOuterFixed: boolean } } }
-    expect(out.shaft.finale.assembled).toBe(true); expect(out.shaft.finale.shaftCount).toBe(0)
+    expect(out.shaft.finale.assembled).toBe(true); expect(out.shaft.finale.shaftCount).toBe(1)
     expect(out.shaft.finale.racesFollow).toBe(false); expect(out.shaft.finale.ringFollowsShaft).toBe(true); expect(out.shaft.finale.bearingOuterFixed).toBe(true)
     expect(sharedStoryRefCount('shaft-finale-carriers')).toBe(1)
     runtime.dispose(); runtime.dispose()

@@ -68,9 +68,9 @@ describe('final cascade physical clock and source takeover', () => {
     geometry.dispose();material.dispose()
   })
 
-  it('retires only the owner-approved upstream materials before their speed thresholds',()=>{
+  it('retains the input shaft while retiring the upstream planet and carrier',()=>{
     const s=createShaftSchedule()
-    for(const [t,input,planet,cage] of [[52.2,1,1,1],[52.65,.5,.5,1],[53.1,0,0,1],[55.95,0,0,.5],[56.4,0,0,0]]){
+    for(const [t,input,planet,cage] of [[52.2,1,1,1],[52.65,1,.5,1],[53.1,1,0,1],[56.4,1,0,1],[61.5,1,0,1],[61.875,1,0,.5],[62.25,1,0,0]]){
       sampleShaftSchedule(t,s)
       expect(s.approvedShaft).toBeCloseTo(input,12)
       expect(s.cascadePlanetAlpha[0]).toBeCloseTo(planet,12)

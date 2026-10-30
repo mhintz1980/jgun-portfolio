@@ -3,6 +3,12 @@ import {
   type Camera, type Material, type Object3D, type Scene, type WebGLRenderer,
 } from 'three'
 import type { WrenchRig } from '../rig/nodeRoles'
+import {
+  AUTHENTICATED_SHAFT_FEATURE_BANDS, FEATURE_MASK_AXIS, FEATURE_MASK_VERSION,
+  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskShaderPatch,
+  validateFeatureMaskContract,
+  type FeatureMaskContract, type FeatureMaskShaderPatch, type InputFeatureBandMode, type ValidatedFeatureMask,
+} from './cascadeFeatureMask'
 
 export const CASCADE_PROOF_FEATURES = [
   'inputSunTeeth', 'inputSixfold', 'stage1Planets', 'stage1Sun',
@@ -10,6 +16,41 @@ export const CASCADE_PROOF_FEATURES = [
   'stage5Sun', 'stage3Planets', 'stage3Sun', 'stage4Planets', 'stage4Sun',
 ] as const
 type Feature = typeof CASCADE_PROOF_FEATURES[number]
+
+export type CascadeProofFeature = Feature
+
+export interface CascadeProofControlOptions {
+  /** Rerun contracted mask with full-shaft [-1, 72] mm band and compare to conservative whole-shaft pass. */
+  positiveFullBandEquivalence?: boolean
+  /** Rerun contracted mask with off-shaft [-100, -90] mm band and require exact zero. */
+  nullBandZero?: boolean
+  /** Compare sharedFunctional [3.174827, 9.524858] vs variantFull tooth bands on inputSunTeeth. */
+  functionalVsFullComparison?: boolean
+  /** Report separate study-clone vs rig-source P001835 identity/beauty pixel counts. */
+  populationBreakdown?: boolean
+  /** Optional per-pose visibility expectation for input features. */
+  expect?: Partial<Record<'inputSunTeeth' | 'inputSixfold', 'visible' | 'occludedOrOffscreen'>>
+}
+
+export interface CascadeProofOptions {
+  images?: boolean
+  features?: readonly Feature[]
+  /** Default 'variantFull'; 'sharedFunctional' restricts inputSunTeeth to [3.174827, 9.524858] mm. */
+  inputBandMode?: InputFeatureBandMode
+  /** When true, fall back to the legacy whole-shaft conservative superset for input features. */
+  useConservativeInputSupersets?: boolean
+  /**
+   * v1 region contracts (cascadeFeatureMask): authenticated axial bands plus
+   * one object-to-shaft matrix per selected mesh. Contracted features get
+   * region-scoped identity/removal passes with independent results; every
+   * other feature keeps the conservative whole-mesh superset. Invalid or
+   * partially covering contracts throw - the capture never guesses bounds or
+   * silently widens a mask.
+   */
+  featureContracts?: Partial<Record<Feature, FeatureMaskContract>>
+  /** Optional diagnostic controls executed inside the same render transaction. */
+  controls?: CascadeProofControlOptions
+}
 
 /** All selection is structural, never filtered by visibility, opacity or bounds. */
 function selectFeatures(studyRoot: Object3D, rig?: WrenchRig) {
@@ -135,15 +176,28 @@ function projectLandmarks(nodes: readonly Object3D[], camera: Camera, width: num
  * Whole approved shaft and cage meshes are CONSERVATIVE feature supersets.
  * Zero is exact only at this drawing-buffer resolution/RGBA8 and sampled pose.
  * This renders the scene directly (no postprocessing composer or DOM overlays).
+ * With options.featureContracts (cascadeFeatureMask v1: authenticated axial
+ * bands plus per-mesh object-to-shaft matrices), contracted features gain
+ * region-scoped passes: only feature fragments turn black/white (identity) or
+ * are removed (beauty B), while every other fragment keeps the original
+ * output, so the rest of the shaft stays in depth/beauty. Without a contract,
+ * behavior is unchanged and conservative; contracts fail closed on any
+ * coverage or validation problem, and the exact-zero gates stay strict.
  */
 export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Camera, studyRoot: Object3D, rig?: WrenchRig,
-  options?: { images?: boolean; features?: readonly Feature[] }) {
+  options?: CascadeProofOptions) {
   if (!studyRoot || !scene.getObjectById(studyRoot.id)) throw new Error('Cascade study root must belong to the rendered scene')
   if (scene.overrideMaterial) throw new Error('Cascade proof requires original scene materials')
   const { sets, roots } = selectFeatures(studyRoot, rig)
   const images = options?.images !== false
   const missing = CASCADE_PROOF_FEATURES.filter(id => sets[id].length === 0)
   if (missing.length) throw new Error(`Incomplete cascade feature census: ${missing.join(', ')}`)
+  const masks = new Map<Feature, ValidatedFeatureMask>()
+  for (const [id, contract] of Object.entries(options?.featureContracts ?? {})) {
+    if (!(CASCADE_PROOF_FEATURES as readonly string[]).includes(id))
+      throw new Error('Feature mask contract names an unknown cascade feature: ' + id)
+    masks.set(id as Feature, validateFeatureMaskContract(contract, sets[id as Feature].map(mesh => mesh.uuid)))
+  }
   const size = gl.getDrawingBufferSize(new Vector2()), width = size.x, height = size.y
   const target = new WebGLRenderTarget(width, height, { depthBuffer: true, stencilBuffer: gl.getContext().getContextAttributes()?.stencil ?? false })
   target.texture.colorSpace = SRGBColorSpace
@@ -170,36 +224,108 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
     // geometry's illumination/depth, and identity colors must not leak via shadows.
     gl.shadowMap.autoUpdate = false; gl.shadowMap.needsUpdate = false
     scene.updateMatrixWorld(true); camera.updateMatrixWorld(true)
+    if (!options?.useConservativeInputSupersets) {
+      const defaults = buildAuthenticatedInputFeatureContracts(
+        studyRoot,
+        { inputSunTeeth: sets.inputSunTeeth, inputSixfold: sets.inputSixfold },
+        options?.inputBandMode ?? 'variantFull',
+      )
+      if (!masks.has('inputSunTeeth'))
+        masks.set('inputSunTeeth', validateFeatureMaskContract(defaults.inputSunTeeth, sets.inputSunTeeth.map(m => m.uuid)))
+      if (!masks.has('inputSixfold'))
+        masks.set('inputSixfold', validateFeatureMaskContract(defaults.inputSixfold, sets.inputSixfold.map(m => m.uuid)))
+    }
     const beauty = render(), repeat = render(), repeatDifference = diff(beauty, repeat, width, height, images)
     const features = {} as Record<Feature, unknown>
-    // Shaft aliases share one complete conservative superset and the same PNGs.
-    for (const id of CASCADE_PROOF_FEATURES) {
-      if (options?.features && !options.features.includes(id)) continue
-      if (id === 'inputSixfold') { features[id] = features.inputSunTeeth; continue }
-      const meshes = sets[id]
-      reset(); meshes.forEach(mesh => { mesh.visible = false }); const removed = render()
-      const beautyDifference = diff(beauty, removed, width, height, images)
+    const patchClones = new Map<string, Material>()
+    let maskPassCounter = 0
+    const swapMaterials = (targets: readonly Mesh[], build: (mesh: Mesh, original: Material) => Material) => {
+      for (const mesh of targets) {
+        const convert = (original: Material) => build(mesh, original)
+        const source = materials.get(mesh)!
+        mesh.material = Array.isArray(source) ? source.map(convert) : convert(source)
+      }
+    }
+    const conservativeIdentityClone = (original: Material, white: boolean) => {
+      const key = 'conservative|' + (white ? 'white' : 'black') + '|' + original.uuid
+      let clone = patchClones.get(key)
+      if (!clone) { clone = identityMaterial(original, white); patchClones.set(key, clone); disposable.push(clone) }
+      return clone
+    }
+    const maskedClone = (mesh: Mesh, original: Material, patch: FeatureMaskShaderPatch) => {
+      const source = materials.get(mesh)!
+      const slot = Array.isArray(source) ? source.indexOf(original) : 0
+      const key = 'masked|' + maskPassCounter + '|' + mesh.uuid + '|' + slot + '|' + patch.cacheKeySuffix
+      let clone = patchClones.get(key)
+      if (!clone) { clone = createFeatureMaskedMaterial(original, patch); patchClones.set(key, clone); disposable.push(clone) }
+      return clone
+    }
+    // Removal hides the whole conservative superset, or discards only the
+    // contracted region's fragments so the rest of the shaft stays in the
+    // depth/beauty render. Occluders are never overridden in either mode.
+    const captureFeature = (meshes: readonly Mesh[], mask: ValidatedFeatureMask | null, wantImages = images) => {
+      maskPassCounter++
+      reset()
+      let removed: Uint8Array
+      if (mask) {
+        swapMaterials(meshes, (mesh, original) => maskedClone(mesh, original,
+          createFeatureMaskShaderPatch(mask, mesh.uuid, { kind: 'discard' })))
+        removed = render()
+      } else {
+        meshes.forEach(mesh => { mesh.visible = false })
+        removed = render()
+      }
+      const beautyDifference = diff(beauty, removed, width, height, wantImages)
+      // Identity puts final-RGB black/white on the whole conservative superset,
+      // or only inside the contracted region; non-feature fragments (including
+      // the rest of the shaft) keep the original shader output in both modes.
       const identityPass = (white: boolean) => {
+        maskPassCounter++
         reset()
-        const clones = new Map<Material, Material>()
-        for (const mesh of meshes) {
-          const convert = (material: Material) => {
-            let clone = clones.get(material)
-            if (!clone) { clone = identityMaterial(material, white); clones.set(material, clone); disposable.push(clone) }
-            return clone
-          }
-          const source = materials.get(mesh)!
-          mesh.material = Array.isArray(source) ? source.map(convert) : convert(source)
-        }
+        swapMaterials(meshes, (mesh, original) => {
+          if (!mask) return conservativeIdentityClone(original, white)
+          const expression = white
+            ? (original.premultipliedAlpha ? 'vec3(gl_FragColor.a)' : 'vec3(1.0)')
+            : 'vec3(0.0)'
+          return maskedClone(mesh, original, createFeatureMaskShaderPatch(mask, mesh.uuid,
+            { kind: 'rgb', expression }))
+        })
         return render()
       }
       const black = identityPass(false), white = identityPass(true)
-      const identityDifference = diff(black, white, width, height, images)
+      const identityDifference = diff(black, white, width, height, wantImages)
       reset()
+      return { removed, beautyDifference, black, white, identityDifference }
+    }
+    for (const id of CASCADE_PROOF_FEATURES) {
+      if (options?.features && !options.features.includes(id)) continue
+      const mask = masks.get(id) ?? null
+      // Region contracts make the two input features independent. Whole-shaft
+      // sharing stays only on the fully conservative path, and only when the
+      // sibling actually ran in this capture: subset selection computes sixfold
+      // on its own instead of referencing a skipped result.
+      if (!mask && id === 'inputSixfold' && features.inputSunTeeth) {
+        features[id] = { ...(features.inputSunTeeth as Record<string, unknown>),
+          sharedConservativeWith: 'inputSunTeeth', regionScoped: false }
+        continue
+      }
+      const meshes = sets[id]
+      const { removed, beautyDifference, black, white, identityDifference } = captureFeature(meshes, mask)
       features[id] = {
-        conservativeSuperset: id.startsWith('input') ? 'complete approved shaft, including teeth and sixfold feature'
-          : id.endsWith('Sun') ? `complete cage excluding planet groups (${id === 'stage1Sun' ? 'P001836' : 'P001837'})`
-            : 'all planet occurrences and descendant meshes/material slots',
+        regionScoped: mask !== null,
+        ...(mask ? {
+          mask: {
+            version: mask.version, featureId: mask.featureId, axis: FEATURE_MASK_AXIS, units: 'shaft-datum mm',
+            bands: mask.bands,
+            meshBands: mask.meshBands.size ? Object.fromEntries(mask.meshBands.entries()) : undefined,
+            coveredMeshes: mask.matrices.size, notes: mask.notes,
+            method: 'Per-fragment axial-band gate in the shaft-datum frame: feature fragments only are overridden (identity) or discarded (removal); every other fragment keeps the original output, so the rest of the shaft stays in depth/beauty.',
+          },
+        } : {
+          conservativeSuperset: id.startsWith('input') ? 'complete approved shaft, including teeth and sixfold feature'
+            : id.endsWith('Sun') ? `complete cage excluding planet groups (${id === 'stage1Sun' ? 'P001836' : 'P001837'})`
+              : 'all planet occurrences and descendant meshes/material slots',
+        }),
         meshes: meshes.map(mesh => ({ uuid: mesh.uuid, name: mesh.name, parent: mesh.parent?.name,
           vertexCount: mesh.geometry.getAttribute('position')?.count ?? 0,
           groups: mesh.geometry.groups.map(group => ({ ...group })),
@@ -219,6 +345,118 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
         exactZero: repeatDifference.pixels === 0 && beautyDifference.pixels === 0 && identityDifference.pixels === 0,
       }
     }
+    let controlReport: Record<string, unknown> | undefined
+    if (options?.controls) {
+      controlReport = {}
+      const baseDefaults = buildAuthenticatedInputFeatureContracts(
+        studyRoot,
+        { inputSunTeeth: sets.inputSunTeeth, inputSixfold: sets.inputSixfold },
+        'sharedFunctional',
+      )
+      if (options.controls.positiveFullBandEquivalence) {
+        const fullContract: FeatureMaskContract = {
+          version: FEATURE_MASK_VERSION,
+          featureId: 'inputSunTeeth',
+          bands: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.fullShaftBand,
+          objectToShaft: baseDefaults.inputSunTeeth.objectToShaft,
+          notes: 'Full-shaft [-1, 72] mm positive control',
+        }
+        const fullMask = validateFeatureMaskContract(fullContract, sets.inputSunTeeth.map(m => m.uuid))
+        const maskedFull = captureFeature(sets.inputSunTeeth, fullMask, false)
+        const conservativeFull = captureFeature(sets.inputSunTeeth, null, false)
+        controlReport.positiveFullBandEquivalence = {
+          bandMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.fullShaftBand[0],
+          maskedIdentityPixels: maskedFull.identityDifference.pixels,
+          conservativeIdentityPixels: conservativeFull.identityDifference.pixels,
+          maskedBeautyPixels: maskedFull.beautyDifference.pixels,
+          conservativeBeautyPixels: conservativeFull.beautyDifference.pixels,
+          identityExactMatch: maskedFull.identityDifference.pixels === conservativeFull.identityDifference.pixels,
+          beautyExactMatch: maskedFull.beautyDifference.pixels === conservativeFull.beautyDifference.pixels,
+          passed: maskedFull.identityDifference.pixels === conservativeFull.identityDifference.pixels,
+        }
+      }
+      if (options.controls.nullBandZero) {
+        const nullContract: FeatureMaskContract = {
+          version: FEATURE_MASK_VERSION,
+          featureId: 'inputSunTeeth',
+          bands: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.nullBand,
+          objectToShaft: baseDefaults.inputSunTeeth.objectToShaft,
+          notes: 'Off-shaft [-100, -90] mm negative control',
+        }
+        const nullMask = validateFeatureMaskContract(nullContract, sets.inputSunTeeth.map(m => m.uuid))
+        const maskedNull = captureFeature(sets.inputSunTeeth, nullMask, false)
+        controlReport.nullBandZero = {
+          bandMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.nullBand[0],
+          identityPixels: maskedNull.identityDifference.pixels,
+          beautyPixels: maskedNull.beautyDifference.pixels,
+          passed: maskedNull.identityDifference.pixels === 0 && maskedNull.beautyDifference.pixels === 0,
+        }
+      }
+      if (options.controls.functionalVsFullComparison) {
+        const sharedMask = validateFeatureMaskContract(baseDefaults.inputSunTeeth, sets.inputSunTeeth.map(m => m.uuid))
+        const variantDefaults = buildAuthenticatedInputFeatureContracts(
+          studyRoot,
+          { inputSunTeeth: sets.inputSunTeeth, inputSixfold: sets.inputSixfold },
+          'variantFull',
+        )
+        const variantMask = validateFeatureMaskContract(variantDefaults.inputSunTeeth, sets.inputSunTeeth.map(m => m.uuid))
+        const sharedRes = captureFeature(sets.inputSunTeeth, sharedMask, false)
+        const variantRes = captureFeature(sets.inputSunTeeth, variantMask, false)
+        controlReport.functionalVsFullComparison = {
+          sharedFunctional: {
+            bandsMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sharedFunctional,
+            identityPixels: sharedRes.identityDifference.pixels,
+            beautyPixels: sharedRes.beautyDifference.pixels,
+            rect: sharedRes.identityDifference.rect,
+            exactZero: repeatDifference.pixels === 0 && sharedRes.beautyDifference.pixels === 0 && sharedRes.identityDifference.pixels === 0,
+          },
+          variantFull: {
+            sourceBandsMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping,
+            studyBandsMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.studyFullHob,
+            identityPixels: variantRes.identityDifference.pixels,
+            beautyPixels: variantRes.beautyDifference.pixels,
+            rect: variantRes.identityDifference.rect,
+            exactZero: repeatDifference.pixels === 0 && variantRes.beautyDifference.pixels === 0 && variantRes.identityDifference.pixels === 0,
+          },
+        }
+      }
+      if (options.controls.populationBreakdown) {
+        const pop: Record<string, unknown> = {}
+        for (const id of ['inputSunTeeth', 'inputSixfold'] as const) {
+          const mask = masks.get(id) ?? null
+          const studyMeshes = sets[id].filter(m => m.userData.partNumber !== 'P001835')
+          const sourceMeshes = sets[id].filter(m => m.userData.partNumber === 'P001835')
+          const studyRes = studyMeshes.length ? captureFeature(studyMeshes, mask, false) : null
+          const sourceRes = sourceMeshes.length ? captureFeature(sourceMeshes, mask, false) : null
+          pop[id] = {
+            studyClone: studyRes ? {
+              meshes: studyMeshes.length,
+              identityPixels: studyRes.identityDifference.pixels,
+              beautyPixels: studyRes.beautyDifference.pixels,
+              rect: studyRes.identityDifference.rect,
+            } : null,
+            rigSource: sourceRes ? {
+              meshes: sourceMeshes.length,
+              identityPixels: sourceRes.identityDifference.pixels,
+              beautyPixels: sourceRes.beautyDifference.pixels,
+              rect: sourceRes.identityDifference.rect,
+            } : null,
+          }
+        }
+        controlReport.populationBreakdown = pop
+      }
+      if (options.controls.expect) {
+        const exp: Record<string, unknown> = {}
+        for (const [id, mode] of Object.entries(options.controls.expect)) {
+          const feat = features[id as Feature] as { identityDifference?: { pixels: number }; beautyDifference?: { pixels: number } } | undefined
+          if (!feat?.identityDifference) throw new Error('Control expectation requires captured feature ' + id)
+          const idPx = feat.identityDifference.pixels
+          const passed = mode === 'visible' ? idPx > 0 : idPx === 0
+          exp[id] = { expected: mode, identityPixels: idPx, beautyPixels: feat.beautyDifference?.pixels ?? 0, passed }
+        }
+        controlReport.expect = exp
+      }
+    }
     reset()
     const after = render(), restoreDifference = diff(beauty, after, width, height, images)
     const sourceNodes = allMeshes.filter(mesh => {
@@ -227,8 +465,11 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
     })
     return {
       version: 'cascade-proof-v1', width, height, samples: target.samples, threshold: 0, colorSpace: target.texture.colorSpace,
-      method: 'Original full scene/depth/alpha; feature-only final-RGB black/white shader difference plus feature-removal beauty A/B. No occluder override.',
-      limits: 'Conservative supersets; exact RGBA8 zeros apply only to captured poses/resolution; scene-direct beauty excludes composer and DOM.',
+      featureMaskIds: Array.from(masks.keys()),
+      inputBandMode: options?.useConservativeInputSupersets ? 'conservativeWholeShaft' : (options?.inputBandMode ?? 'variantFull'),
+      controls: controlReport,
+      method: 'Original full scene/depth/alpha; feature-only final-RGB black/white shader difference plus feature-removal beauty A/B. No occluder override. Contracted features (options.featureContracts) scope both passes to authenticated axial-band regions in the shaft-datum frame.',
+      limits: 'Conservative supersets without a contract; contracted regions apply only where the contract covers every selected mesh; exact RGBA8 zeros apply only to captured poses/resolution; scene-direct beauty excludes composer and DOM.',
       valid: repeatDifference.pixels === 0 && restoreDifference.pixels === 0,
       repeatDifference, restoreDifference, beautyA: images ? png(beauty, width, height) : undefined, features,
       camera: { matrixWorld: camera.matrixWorld.toArray(), projectionMatrix: camera.projectionMatrix.toArray() },

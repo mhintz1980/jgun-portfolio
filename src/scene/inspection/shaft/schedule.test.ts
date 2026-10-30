@@ -106,7 +106,7 @@ describe('shaft schedule', () => {
       if (t >= 1.2 && out.narrativeAlpha !== 0) violations.push(t + ': narrative')
       if (t < 22.6 && out.approvedShaft !== 0) violations.push(t + ': approved before wipe')
       if (t >= 22.6 && t < 25 && (!out.wipe || out.legacyShaft !== 1 || out.approvedShaft !== 1)) violations.push(t + ': opaque wipe')
-      if (t >= 25 && t <= 52.2 && (out.legacyShaft !== 0 || out.approvedShaft !== 1)) violations.push(t + ': shaft selection')
+      if (t >= 25 && (out.legacyShaft !== 0 || out.approvedShaft !== 1)) violations.push(t + ': shaft selection')
       if (out.section || out.legacyHousing !== 0 || out.legacyBearing !== 0 || out.legacyRing !== 0) violations.push(t + ': retired legacy section')
       if (out.approvedBearing !== out.approvedRing || out.legacyBearing !== out.legacyRing) violations.push(t + ': rigid pair visibility')
       if (out.witnesses) violations.push(t + ': witnesses')

@@ -134,23 +134,12 @@ const ANCHORS: readonly CameraAnchor[] = [
   { t: 38.2, az: 102 - FOLLOW_AZIMUTH_MOD / DEG,   el: 40, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
   { t: 38.5, az: 103.5 - FOLLOW_AZIMUTH_MOD / DEG, el: 40, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
   { t: 40.2, az: 103.5 + BULLET_TIME_SHOT_SPECS.stage1Ignition.cameraSweepDeg - FOLLOW_AZIMUTH_MOD / DEG, el: 55, dist: 0.220, distNarrow: 0.320, fovDesktop: 8.8, fovNarrow: 16.2, tgt: [4.108, 6.2, 3.333] },
-  // Stay at the contact stand-off while revealing the integral sun and Stage 2.
-  // Unwrapped increasing azimuth continues CCW for ~180 degrees. The final
-  // view is 16 degrees off the shaft axis on the output side, avoiding its pole.
-  // Planet opacity stays zero through this integral-sun reference pose.
-  // Narrow target pans 1.3 mm toward the handle (about +13 px along the screen-right axis) so the
-  // Stage 1 subject stays at least half the frame width while Stage 2 is still deliberately absent.
-  // Owner visual-first preview (2026-10-27): restore side-offset depth before
-  // choosing new motion. The straight axial track and existing reveals stay intact.
-  { t: 43.5, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -74, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
-  { t: 52.2, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -74, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
+  // Elevated oblique cascade framing; the track lowers during the reveal.
+  { t: 43.5, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -35, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
+  { t: 52.2, az: 601.5 - FOLLOW_AZIMUTH_MOD / DEG, el: -35, dist: 0.220, distNarrow: 0.320, fovDesktop: 22, fovNarrow: 32, tgt: [0, -16, 0] },
 ]
 
-/** Dolly is one straight line in shaft-local -Y (registered study +Z).
- * Ease only its speed, never its spatial path. Camera and target translate
- * together from Stage 2's integral-sun region to the measured output midpoint
- * (-91.77 mm), preserving lens, off-axis depth and +Z up at the 48.2 s seam.
- */
+/** Target tracks shaft-local -Y toward the output while the camera lowers. */
 export const SHAFT_DOLLY_START = 52.2
 export const SHAFT_DOLLY_TRAVEL_M = -0.076
 
@@ -225,8 +214,12 @@ export function sampleShaftCamera(
   // Before 15 s the azimuth is the closed-form machining view (the follow is already folded into it);
   // from 15 s the authored anchors carry the frozen follow turn as before.
   const az = t < 15 ? machiningViewAzimuthDeg(t) * DEG : (lerp(a.az, b.az, u) * DEG) + kinematics.followAzimuth
-  const el = lerp(a.el, b.el, u) * DEG
+  let el = lerp(a.el, b.el, u) * DEG
   const dist = lerp(lerp(a.distNarrow ?? a.dist, a.dist, layout), lerp(b.distNarrow ?? b.dist, b.dist, layout), u)
+  // Ease the elevated entry into a lower view as the cascade advances.
+  const entering = ease((t - 40.2) / 3.3)
+  const along = ease((t - 43.5) / (66.9 - 43.5))
+  el += (18 - 25 * along) * DEG * entering
   // Preserve a gentle lens change as the macro opens into the cascade.
   // A later shoulder completes the fit without a fast zoom at 42.4 s.
   const lensU = a.t === 40.2 ? ease((t - 40.2) / (46 - 40.2)) : u
