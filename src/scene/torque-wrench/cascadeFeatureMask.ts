@@ -245,7 +245,10 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
   const bands = new Float32Array(capacity * 2)
   for (const [index, band] of activeBands.entries()) { bands[index * 2] = band[0]; bands[index * 2 + 1] = band[1] }
   return {
-    vertexDeclarations: 'uniform mat4 uJgFeatureToShaft;\nvarying vec3 jgFeatureShaftLocal;\n',
+    // MSAA pixel centres can lie outside a covered triangle. Centroid keeps
+    // the datum interpolation inside the primitive instead of extrapolating
+    // beyond authenticated feature bounds at silhouette pixels.
+    vertexDeclarations: 'uniform mat4 uJgFeatureToShaft;\ncentroid varying vec3 jgFeatureShaftLocal;\n',
     // Original object-space position mapped once per vertex into the
     // shaft-datum frame. The progression hook may displace the transformed
     // variable afterwards, but axial Y is preserved, so bands stay datum-bound.
@@ -253,7 +256,7 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
     fragmentDeclarations:
       'uniform vec2 uJgFeatureBands[' + capacity + '];\n' +
       'uniform int uJgFeatureBandCount;\n' +
-      'varying vec3 jgFeatureShaftLocal;\n' +
+      'centroid varying vec3 jgFeatureShaftLocal;\n' +
       'bool jgFeatureInside() {\n' +
       '  for (int jgfmBand = 0; jgfmBand < ' + capacity + '; jgfmBand++) {\n' +
       '    if (jgfmBand >= uJgFeatureBandCount) break;\n' +
@@ -270,7 +273,28 @@ export function createFeatureMaskShaderPatch(mask: ValidatedFeatureMask, meshId:
       uJgFeatureBands: { value: bands },
       uJgFeatureBandCount: { value: activeBands.length },
     },
-    cacheKeySuffix: 'jgfm-v1|' + (override ? 'rgb(' + override + ')' : 'discard') + '|cap' + capacity,
+    cacheKeySuffix: 'jgfm-v1-centroid|' + (override ? 'rgb(' + override + ')' : 'discard') + '|cap' + capacity,
+  }
+}
+
+/** Diagnostic-only selector: all controls reuse one shader; only uniforms change. */
+export function createFeatureMaskControlPatch(mask: ValidatedFeatureMask, meshId: string, fragment: FeatureMaskFragment) {
+  const patch = createFeatureMaskShaderPatch(mask, meshId, fragment)
+  const count = patch.uniforms.uJgFeatureBandCount
+  const bandCount = count.value
+  const whole = { value: 0 }
+  patch.uniforms.uJgFeatureWholeControl = whole
+  patch.fragmentDeclarations = 'uniform int uJgFeatureWholeControl;\n' + patch.fragmentDeclarations.replace(
+    'bool jgFeatureInside() {\n',
+    'bool jgFeatureInside() {\n  if (uJgFeatureWholeControl == 1) return true;\n',
+  )
+  patch.cacheKeySuffix += '|same-program-controls-v1'
+  return {
+    patch,
+    select(mode: 'empty' | 'band' | 'whole') {
+      count.value = mode === 'empty' ? 0 : bandCount
+      whole.value = mode === 'whole' ? 1 : 0
+    },
   }
 }
 

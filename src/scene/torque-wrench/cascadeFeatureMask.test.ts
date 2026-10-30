@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { BoxGeometry, Group, Matrix4, Mesh, MeshBasicMaterial, ShaderMaterial, Vector3 } from 'three'
 import {
   AUTHENTICATED_SHAFT_FEATURE_BANDS, FEATURE_MASK_AXIS, FEATURE_MASK_BAND_CAPACITY, FEATURE_MASK_VERSION,
-  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskShaderPatch, insertBeforeFinalBrace,
+  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskControlPatch, createFeatureMaskShaderPatch, insertBeforeFinalBrace,
   validateFeatureMaskContract,
   type FeatureMaskContract, type ValidatedFeatureMask,
 } from './cascadeFeatureMask'
@@ -82,6 +82,8 @@ describe('cascadeFeatureMask v1', () => {
     expect(white.fragmentBody).toContain('if (jgFeatureInside()) gl_FragColor.rgb = vec3(1.0);')
     expect(white.vertexBody).toContain('jgFeatureShaftLocal = (uJgFeatureToShaft * vec4(position, 1.0)).xyz;')
     expect(white.vertexDeclarations).not.toContain('position')
+    expect(white.vertexDeclarations).toContain('centroid varying vec3 jgFeatureShaftLocal;')
+    expect(white.fragmentDeclarations).toContain('centroid varying vec3 jgFeatureShaftLocal;')
     expect(white.fragmentDeclarations).toContain('bool jgFeatureInside()')
     expect(() => createFeatureMaskShaderPatch(validMask(), 'mesh-a', { kind: 'rgb', expression: '  ' })).toThrow(/non-empty/)
     expect(() => createFeatureMaskShaderPatch(validMask(), 'mesh-unknown', { kind: 'discard' })).toThrow(/mesh-unknown/)
@@ -103,6 +105,25 @@ describe('cascadeFeatureMask v1', () => {
     const premultiplied = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'rgb', expression: 'vec3(gl_FragColor.a)' })
     const capped = createFeatureMaskShaderPatch(mask, 'mesh-a', { kind: 'discard' }, 8)
     expect(new Set([plain.cacheKeySuffix, white.cacheKeySuffix, premultiplied.cacheKeySuffix, capped.cacheKeySuffix]).size).toBe(4)
+  })
+
+  it('switches control selections only through uniforms without changing the compiled program', () => {
+    const control = createFeatureMaskControlPatch(validMask(), 'mesh-a', { kind: 'discard' })
+    const { patch } = control
+    const source = patch.fragmentDeclarations + patch.fragmentBody
+    const key = patch.cacheKeySuffix
+    expect(source).toContain('if (uJgFeatureWholeControl == 1) return true;')
+    control.select('empty')
+    expect(patch.uniforms.uJgFeatureBandCount.value).toBe(0)
+    expect(patch.uniforms.uJgFeatureWholeControl.value).toBe(0)
+    control.select('whole')
+    expect(patch.uniforms.uJgFeatureWholeControl.value).toBe(1)
+    control.select('band')
+    expect(patch.uniforms.uJgFeatureBandCount.value).toBe(1)
+    expect(patch.uniforms.uJgFeatureWholeControl.value).toBe(0)
+    expect(patch.fragmentDeclarations + patch.fragmentBody).toBe(source)
+    expect(patch.cacheKeySuffix).toBe(key)
+    expect(() => validateFeatureMaskContract(validContract({ bands: [] }))).toThrow(/at least one/)
   })
 
   it('clones materials, chains the original hook, and injects per-mesh uniforms', () => {

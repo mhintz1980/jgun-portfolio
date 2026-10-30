@@ -42,6 +42,7 @@ try {
     const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 })
     const page = await context.newPage()
     page.on('pageerror', e => item.errors.push(String(e)))
+    page.on('console', message => { if (message.type() === 'error') item.errors.push(message.text()) })
     try {
       await page.goto(`${url}?quality=full`, { waitUntil: 'domcontentloaded' })
       await page.waitForFunction(() => window.__torqueWorld?.snapshot().ready && window.__torqueWorld.snapshot().sheet?.stats?.shaderWarmReady === 1, null, { timeout: 180000 })

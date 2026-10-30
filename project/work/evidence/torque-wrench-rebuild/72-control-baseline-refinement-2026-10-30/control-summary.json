@@ -1,0 +1,12 @@
+{
+  "kind": "targeted control refinement, not full alias acceptance",
+  "url": "http://localhost:5293/torque-wrench/",
+  "executionComplete": true,
+  "aliasAccepted": false,
+  "sceneModule": "Scene-DKyzXd2k.js",
+  "sceneSha256": "d5bafd68db1e36d4836963e0676bc4bd39adedad4f4c23cd703ce173216f9a81",
+  "cases": [
+    { "width": 1440, "height": 900, "samples": 12, "controlSets": 6, "failedControls": 0, "errors": 0, "maxCameraReverseError": 0, "maxSubjectReverseError": 0 },
+    { "width": 390, "height": 844, "samples": 12, "controlSets": 6, "failedControls": 0, "errors": 0, "maxCameraReverseError": 0, "maxSubjectReverseError": 0 }
+  ]
+}

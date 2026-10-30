@@ -45,6 +45,7 @@ try{
       await page.waitForFunction(()=>window.__torqueWorld?.snapshot().ready&&window.__torqueWorld.snapshot().sheet?.stats?.shaderWarmReady===1,null,{timeout:180000})
       // Source hashes prove this is the just-built production server.
       result.modules=await page.evaluate(()=>performance.getEntriesByType('resource').map(r=>r.name).filter(n=>/\/assets\/[^/]+\.js$/.test(n)))
+      if(!result.modules.length)throw Error('Cascade proof requires an identified production build')
       result.modules=await Promise.all(result.modules.map(async u=>{
         const bytes=Buffer.from(await(await fetch(u)).arrayBuffer()),file=path.basename(new URL(u).pathname)
         const hash=b=>createHash('sha256').update(b).digest('hex')
@@ -54,24 +55,47 @@ try{
       }))
       let studyReady=false
       const seek=async(p,expectedTime=null,fast=false)=>{
-        let request=p,state
-        for(let attempt=0;attempt<4;attempt++){
-          const before=await page.evaluate(p=>{
-            const frames=window.__torqueWorld.motionSample().frames
-            window.scrollTo({top:window.__torqueNarrative.scrollFraction(p)*(document.documentElement.scrollHeight-innerHeight),behavior:'instant'})
-            return frames
-          },request)
-          if(!studyReady&&p>=.62&&p<.845){
-            await page.waitForFunction(()=>window.__torqueWorld.snapshot().inspection.ready,null,{timeout:90000})
-            studyReady=true
-          }
-          await page.waitForFunction(before=>window.__torqueWorld.motionSample().frames>=before+3,before,{timeout:20000})
-          if(!fast)await page.waitForTimeout(300)
-          state=await page.evaluate(fast=>({motion:window.__torqueWorld.motionSample(),snapshot:fast?null:window.__torqueWorld.snapshot()}),fast)
-          if(Math.abs(state.motion.progress-p)<2e-6&&(expectedTime===null||Math.abs(state.motion.time-expectedTime)<=.003))return state
-          request+=p-state.motion.progress
+        // Compare against the nearest reachable integer native-scroll position,
+        // retaining the abstract request separately; never relax replay tolerances.
+        const target=await page.evaluate(p=>{
+          const n=window.__torqueNarrative,range=document.documentElement.scrollHeight-innerHeight
+          const idealY=n.scrollFraction(p)*range
+          const candidates=[...new Set([Math.floor(idealY),Math.ceil(idealY)])].map(y=>({y,progress:n.narrativeProgress(y/range)}))
+          candidates.sort((a,b)=>Math.abs(a.progress-p)-Math.abs(b.progress-p))
+          return {requestedProgress:p,idealY,range,candidates,...candidates[0]}
+        },p)
+        const native=await page.evaluate(target=>{
+          const frames=window.__torqueWorld.motionSample().frames
+          window.scrollTo({top:target.y,behavior:'instant'})
+          // A headed browser can quantize CSS scroll positions to fractional
+          // physical pixels. Predict from the observed DOM position, never
+          // from the scene's reported progress or an assumed integer landing.
+          const actualY=scrollY,actualRange=document.documentElement.scrollHeight-innerHeight
+          if(Math.abs(actualY-target.y)>1)throw Error('Native scroll did not reach the selected pixel')
+          return {frames,actualY,actualRange,integerProgress:target.progress,
+            progress:window.__torqueNarrative.narrativeProgress(actualY/actualRange)}
+        },target)
+        const before=native.frames
+        Object.assign(target,native)
+        if(!studyReady&&p>=.62&&p<.845){
+          await page.waitForFunction(()=>window.__torqueWorld.snapshot().inspection.ready,null,{timeout:90000})
+          studyReady=true
         }
-        throw Error(`Unmatched native seek ${p} time ${expectedTime}: ${JSON.stringify(state?.motion)}`)
+        try{
+          await page.waitForFunction(({before,target})=>{
+            const motion=window.__torqueWorld.motionSample()
+            return motion.frames>=before+3&&Math.abs(scrollY-target.actualY)<1e-4&&Math.abs(motion.progress-target.progress)<2e-6
+          },{before,target},{timeout:20000})
+        }catch(e){
+          const motion=await page.evaluate(()=>window.__torqueWorld.motionSample())
+          throw Error(`Unmatched native seek: ${JSON.stringify({target,expectedTime,motion})}: ${e}`)
+        }
+        if(!fast)await page.waitForTimeout(300)
+        const state=await page.evaluate(fast=>({motion:window.__torqueWorld.motionSample(),snapshot:fast?null:window.__torqueWorld.snapshot()}),fast)
+        const timeError=expectedTime===null?null:Math.abs(state.motion.time-expectedTime)
+        if(!(Math.abs(state.motion.progress-target.progress)<2e-6&&(expectedTime===null||timeError<=.003)))
+          throw Error(`Unmatched native seek: ${JSON.stringify({target,expectedTime,timeError,motion:state.motion})}`)
+        return {target,expectedTime,timeError,...state}
       }
       const atTime=t=>clock.cascadeProgressAtTime(t)-.115
       // Warm alpha/PBR variants and decoded clones before recording.
@@ -84,7 +108,7 @@ try{
         const state=await seek(atTime(t))
         const capture=await page.evaluate(features=>window.__torqueWorld.cascadeProof(features?{features}:undefined),label.startsWith('hero')?null:config.CASCADE_ALIAS_FEATURES.map(f=>f.id))
         const limits=config.CASCADE_ALIAS_FEATURES.map(f=>({id:f.id,periodStep:config.featureStepPeriods(schedule.sampleFinaleDriveRate(state.motion.time)/60,f),exactZero:capture.features[f.id].exactZero}))
-        const record={time:t,requestedProgress:atTime(t),motion:state.motion,camera:state.snapshot.camera,limits,capture}
+        const record={time:t,requestedProgress:atTime(t),target:state.target,motion:state.motion,camera:state.snapshot.camera,limits,capture}
         extractImages(capture,dir,label);result.captures.push(record);save()
         if(!capture.valid||limits.some(l=>l.periodStep>.35&&!l.exactZero))console.log(JSON.stringify({case:name,time:t,valid:capture.valid,failed:limits.filter(l=>l.periodStep>.35&&!l.exactZero)}))
         return record
@@ -93,7 +117,7 @@ try{
       // Every hero is measured in the actual projection, with held azimuth.
       for(const t of [53.2,53.3,58.2,58.3,61.2,61.3,64,64.1])await captures(t,`hero${String(t).replace('.','-')}`)
       for(const p of [.824999,.825,.83,.844999,.845,.845001,.855,.9,1,.9,.845,.83,.825]){
-        const state=await seek(p);result.seeks.push({requested:p,motion:state.motion})
+        const state=await seek(p);result.seeks.push({requested:p,target:state.target,motion:state.motion})
       }
       if(!quick){
         const pathPoints=Array.from({length:2671},(_,i)=>({t:40.2+i/100,p:atTime(40.2+i/100)}))
@@ -128,7 +152,7 @@ try{
             const replay=await seek(s.progress,s.time,true)
             const capture=await page.evaluate(features=>window.__torqueWorld.cascadeProof({images:false,features}),s.features.filter(f=>f.periods>.35).map(f=>f.id))
             const failed=s.features.filter(f=>f.periods>.35&&!capture.features[f.id].exactZero)
-            result.dense??=[];result.dense.push({frame:i,progress:s.progress,time:s.time,actualProgress:replay.motion.progress,actualTime:replay.motion.time,valid:capture.valid,failed})
+            result.dense??=[];result.dense.push({frame:i,progress:s.progress,time:s.time,target:replay.target,timeError:replay.timeError,actualProgress:replay.motion.progress,actualTime:replay.motion.time,valid:capture.valid,failed})
             if(failed.length){const full=await page.evaluate(()=>window.__torqueWorld.cascadeProof());extractImages(full,dir,`failed-frame${i}`);writeFileSync(path.join(dir,`failed-frame${i}.json`),JSON.stringify(full));break}
             if(i%120===0){save();console.log(`${name} dense frame ${i}/${result.aliasSteps.length}`)}
           }

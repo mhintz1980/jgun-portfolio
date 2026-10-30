@@ -5,7 +5,7 @@ import {
 import type { WrenchRig } from '../rig/nodeRoles'
 import {
   AUTHENTICATED_SHAFT_FEATURE_BANDS, FEATURE_MASK_AXIS, FEATURE_MASK_VERSION,
-  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskShaderPatch,
+  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskControlPatch, createFeatureMaskShaderPatch,
   validateFeatureMaskContract,
   type FeatureMaskContract, type FeatureMaskShaderPatch, type InputFeatureBandMode, type ValidatedFeatureMask,
 } from './cascadeFeatureMask'
@@ -20,7 +20,7 @@ type Feature = typeof CASCADE_PROOF_FEATURES[number]
 export type CascadeProofFeature = Feature
 
 export interface CascadeProofControlOptions {
-  /** Rerun contracted mask with full-shaft [-1, 72] mm band and compare to conservative whole-shaft pass. */
+  /** Compare full-shaft [-1, 72] mm band to whole-shaft selection in the same patched program. */
   positiveFullBandEquivalence?: boolean
   /** Rerun contracted mask with off-shaft [-100, -90] mm band and require exact zero. */
   nullBandZero?: boolean
@@ -353,6 +353,69 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
         { inputSunTeeth: sets.inputSunTeeth, inputSixfold: sets.inputSixfold },
         'sharedFunctional',
       )
+      // Control baselines must retain the same compiled shader as the measured
+      // pass. Empty means bandCount=0, not an unpatched original material.
+      // The whole-shaft reference bypasses the band via a uniform in that same
+      // program; it independently checks whether the full band covers every
+      // selected fragment. No scene geometry or occluder material is changed.
+      const captureMaskControl = (mask: ValidatedFeatureMask, includeWhole: boolean) => {
+        const meshes = sets.inputSunTeeth
+        const capture = (kind: 'discard' | 'rgb') => {
+          reset()
+          const controls: Array<ReturnType<typeof createFeatureMaskControlPatch>> = []
+          const whites: Array<{ value: number }> = []
+          const clones: Material[] = []
+          swapMaterials(meshes, (mesh, original) => {
+            const control = createFeatureMaskControlPatch(mask, mesh.uuid, kind === 'discard'
+              ? { kind: 'discard' }
+              : { kind: 'rgb', expression: original.premultipliedAlpha
+                ? 'vec3(uJgControlWhite * gl_FragColor.a)' : 'vec3(uJgControlWhite)' })
+            if (kind === 'rgb') {
+              const white = { value: 0 }
+              whites.push(white)
+              control.patch.uniforms.uJgControlWhite = white
+              control.patch.fragmentDeclarations = 'uniform float uJgControlWhite;\n' + control.patch.fragmentDeclarations
+            }
+            const clone = createFeatureMaskedMaterial(original, control.patch)
+            disposable.push(clone); clones.push(clone); controls.push(control)
+            return clone
+          })
+          const pass = (mode: 'empty' | 'band' | 'whole', white = 0) => {
+            controls.forEach(control => control.select(mode))
+            whites.forEach(uniform => { uniform.value = white })
+            // Refresh custom uniforms even if this material was also the last
+            // draw. The cache key and shader source stay identical.
+            clones.forEach(clone => { clone.needsUpdate = true })
+            return render()
+          }
+          if (kind === 'discard') {
+            const empty = pass('empty'), repeat = pass('empty'), band = pass('band')
+            const whole = includeWhole ? pass('whole') : null
+            return { empty, repeat, band, whole }
+          }
+          const empty = pass('empty'), repeat = pass('empty', 1)
+          const band = pass('band'), bandWhite = pass('band', 1)
+          const whole = includeWhole ? pass('whole') : null
+          const wholeWhite = includeWhole ? pass('whole', 1) : null
+          return { empty, repeat, band, bandWhite, whole, wholeWhite }
+        }
+        const removal = capture('discard'), identity = capture('rgb')
+        const compare = (a: Uint8Array, b: Uint8Array) => diff(a, b, width, height, false)
+        const emptyBeautyRepeat = compare(removal.empty, removal.repeat)
+        const emptyIdentityDifference = compare(identity.empty, identity.repeat)
+        const identityDifference = compare(identity.band, identity.bandWhite!)
+        const beautyDifference = compare(removal.empty, removal.band)
+        const wholeIdentityDifference = includeWhole ? compare(identity.whole!, identity.wholeWhite!) : null
+        const wholeBeautyDifference = includeWhole ? compare(removal.empty, removal.whole!) : null
+        const blackReferenceDifference = includeWhole ? compare(identity.band, identity.whole!) : null
+        const whiteReferenceDifference = includeWhole ? compare(identity.bandWhite!, identity.wholeWhite!) : null
+        const removalReferenceDifference = includeWhole ? compare(removal.band, removal.whole!) : null
+        reset()
+        return { identityDifference, beautyDifference, wholeIdentityDifference, wholeBeautyDifference,
+          blackReferenceDifference, whiteReferenceDifference, removalReferenceDifference,
+          emptyBeautyRepeat, emptyIdentityDifference,
+          baselineValid: emptyBeautyRepeat.pixels === 0 && emptyIdentityDifference.pixels === 0 }
+      }
       if (options.controls.positiveFullBandEquivalence) {
         const fullContract: FeatureMaskContract = {
           version: FEATURE_MASK_VERSION,
@@ -362,17 +425,19 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
           notes: 'Full-shaft [-1, 72] mm positive control',
         }
         const fullMask = validateFeatureMaskContract(fullContract, sets.inputSunTeeth.map(m => m.uuid))
-        const maskedFull = captureFeature(sets.inputSunTeeth, fullMask, false)
-        const conservativeFull = captureFeature(sets.inputSunTeeth, null, false)
+        const control = captureMaskControl(fullMask, true)
+        const identityExactMatch = control.blackReferenceDifference!.pixels === 0 && control.whiteReferenceDifference!.pixels === 0
+        const beautyExactMatch = control.removalReferenceDifference!.pixels === 0
         controlReport.positiveFullBandEquivalence = {
+          baseline: 'same patched program, empty band count; whole-shaft reference selected by uniform',
           bandMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.fullShaftBand[0],
-          maskedIdentityPixels: maskedFull.identityDifference.pixels,
-          conservativeIdentityPixels: conservativeFull.identityDifference.pixels,
-          maskedBeautyPixels: maskedFull.beautyDifference.pixels,
-          conservativeBeautyPixels: conservativeFull.beautyDifference.pixels,
-          identityExactMatch: maskedFull.identityDifference.pixels === conservativeFull.identityDifference.pixels,
-          beautyExactMatch: maskedFull.beautyDifference.pixels === conservativeFull.beautyDifference.pixels,
-          passed: maskedFull.identityDifference.pixels === conservativeFull.identityDifference.pixels,
+          maskedIdentityPixels: control.identityDifference.pixels,
+          conservativeIdentityPixels: control.wholeIdentityDifference!.pixels,
+          maskedBeautyPixels: control.beautyDifference.pixels,
+          conservativeBeautyPixels: control.wholeBeautyDifference!.pixels,
+          identityExactMatch, beautyExactMatch,
+          ...control,
+          passed: control.baselineValid && identityExactMatch && beautyExactMatch,
         }
       }
       if (options.controls.nullBandZero) {
@@ -384,12 +449,14 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
           notes: 'Off-shaft [-100, -90] mm negative control',
         }
         const nullMask = validateFeatureMaskContract(nullContract, sets.inputSunTeeth.map(m => m.uuid))
-        const maskedNull = captureFeature(sets.inputSunTeeth, nullMask, false)
+        const control = captureMaskControl(nullMask, false)
         controlReport.nullBandZero = {
+          baseline: 'same patched program, empty band count',
           bandMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.controls.nullBand[0],
-          identityPixels: maskedNull.identityDifference.pixels,
-          beautyPixels: maskedNull.beautyDifference.pixels,
-          passed: maskedNull.identityDifference.pixels === 0 && maskedNull.beautyDifference.pixels === 0,
+          identityPixels: control.identityDifference.pixels,
+          beautyPixels: control.beautyDifference.pixels,
+          ...control,
+          passed: control.baselineValid && control.identityDifference.pixels === 0 && control.beautyDifference.pixels === 0,
         }
       }
       if (options.controls.functionalVsFullComparison) {
