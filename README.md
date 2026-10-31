@@ -158,22 +158,33 @@ Only Stage 2's .2 relative to P001836 is owner-confirmed; later .2 reductions ar
 cinematic choices, not manufacturing validation. The final drive is 866.67 input
 RPM; Stage 4/output turn at 1.6°/s and output accumulates about 12.6564°.
 The input reaches its faster rates only subject to visibility-aware alias proof:
-.35 feature period/frame design, .5 hard. Camera framing alone failed those gates. Owner approved input shaft/Stage 1
+.35 feature period/frame design, .5 hard. Camera framing alone failed those gates. Owner approved Stage 1
 planet retirement over 52.2–53.1 and Stage 1 cage retirement over 55.5–56.4 on
-2026-10-27. Those exact fades are implemented; final verification is in evidence 60.
+2026-10-27. On 2026-10-29 the owner directed that the input shaft stay visible
+while it remains on screen and selected the high-to-low tracking camera, which
+eases from an elevated entry into a lower view through 66.9 s. Owner Option A on
+2026-10-30 retains Stage 1 carrier `P001836` through `61.5 s` and retires it over
+`61.5–62.25 s`, keeping `stage1Sun` below the `.35` rung. Those exact fades are
+implemented in `src/scene/inspection/shaft/schedule.ts`; the feature-mask proof
+is in [evidence 70](project/work/evidence/torque-wrench-rebuild/70-high-low-feature-proof-2026-10-30/SUMMARY.md).
 
 The continuation has a 24.095648 physical scroll multiplier at page .815–.825.
 Both clocks use physical distance with explicit 5% shoulders and constant
 interiors, ending at 66.9 s. Earlier native offsets remain fixed. Exterior fade
 is 65.4–66.9 s; the camera holds azimuth after 43.5 and translates 76 mm over
-52.2–66.9. The 2° trial and subsequent exact-axis diagnostic require pixel
+52.2–66.9 on the owner-selected high-to-low arc — elevated entry easing into a
+lower view. The 2° trial and subsequent exact-axis diagnostic require pixel
 evidence. Source takeover retains the common unwrapped phase and fixed shaft
 index through the later explosion and close; it does not rewind. Main housing
 P000245 remains opaque and depth-writing in the later explosion.
 
-Current authority: [plan 59](docs/torque-wrench-rebuild/59-final-cascade-reduction-retime-plan-2026-10-26.md)
-and [evidence 60](docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md).
-Owner visual acceptance OPEN. Older 47–58 records remain historical.
+Current authority: [plan 59](docs/torque-wrench-rebuild/59-final-cascade-reduction-retime-plan-2026-10-26.md),
+[evidence 60](docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md),
+and the owner's 2026-10-29/10-30 Option A rulings — [evidence 70](project/work/evidence/torque-wrench-rebuild/70-high-low-feature-proof-2026-10-30/SUMMARY.md),
+[handoff 71](docs/torque-wrench-rebuild/71-next-session-handoff-2026-10-30.md),
+[owner review 72](docs/torque-wrench-rebuild/72-owner-review-and-control-refinement-2026-10-30.md).
+The owner approved the 2026-10-30 checkpoint (72); overall owner visual
+acceptance and the strict verification gates remain open. Older 47–58 records remain historical.
 
 **Sheet and projection (owner rulings 2026-09-05).** ANSI C proportion
 22:17, landscape on every viewport, 0.905882 × 0.700 m in world units,
