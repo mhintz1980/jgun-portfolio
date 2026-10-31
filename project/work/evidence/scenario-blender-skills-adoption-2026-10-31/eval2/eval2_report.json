@@ -1,0 +1,134 @@
+{
+  "fixture": "eval2-hard-surface",
+  "snapshots": [
+    {
+      "tag": "as_built",
+      "eval_verts": 192,
+      "eval_tris": 380,
+      "eval_bounds_min": [
+        -0.05,
+        -0.025,
+        -0.0075
+      ],
+      "eval_bounds_max": [
+        0.05,
+        0.025,
+        0.0075
+      ]
+    },
+    {
+      "tag": "after_fix",
+      "eval_verts": 192,
+      "eval_tris": 380,
+      "eval_bounds_min": [
+        -0.05,
+        -0.025,
+        -0.0075
+      ],
+      "eval_bounds_max": [
+        0.05,
+        0.025,
+        0.0075
+      ]
+    }
+  ],
+  "clamp_probe_before": {
+    "bevel": "BevelClamp",
+    "topology_changed": false,
+    "max_disp": 0.006718,
+    "ratio": 1.12,
+    "worst_at": [
+      -0.0488,
+      0.025,
+      -0.0063
+    ]
+  },
+  "clamp_culprits": [
+    "Groove"
+  ],
+  "verdict_before": [
+    "194 flat-shaded faces (cutter or base not shaded smooth): facets on bevels/cut walls",
+    "BevelClamp: Clamp Overlap moves verts by 1.12 x width (the whole bevel shrinks); caused by ['Groove']",
+    "FIX2_GROOVE_CUTTER: not smooth shaded (facets transfer into the cut)",
+    "FIX2_GROOVE_CUTTER: visible in render or solid display",
+    "FIX2_GROOVE_CUTTER: 3 faces / 4 verts within 0.012 of a target surface: thin polygons; move it clearly past or make it coincident",
+    "FIX2_GROOVE_CUTTER: cuts a gap of 0.004 (under 2 x bevel width): the rim bevels meet; widen it or thin the bevel",
+    "FIX2_GROOVE_CUTTER: 4 rounding edges reach the bevel angle limit on facets narrower than 2 x width: use more segments (facet angle well under the limit)",
+    "Groove: adds 0 edges / 3 faces smaller than the micro bevel next to beveled edges (3 near the cutter, e.g. [[-0.002, 0.0, 0.0062], [0.002, 0.0, 0.0062]])"
+  ],
+  "sliver_before": {
+    "micro_width": 0.006000000052154064,
+    "per_boolean": [
+      {
+        "boolean": "Groove",
+        "cutter": "FIX2_GROOVE_CUTTER",
+        "pre_short_added": 0,
+        "pre_thin_added": 3,
+        "post_short_added": 218,
+        "post_thin_added": 178,
+        "pre_defects_near_cutter": 3,
+        "pre_defect_sample": [
+          [
+            -0.002,
+            0.0,
+            0.0062
+          ],
+          [
+            0.002,
+            0.0,
+            0.0062
+          ],
+          [
+            0.0,
+            0.0,
+            0.005
+          ]
+        ]
+      }
+    ],
+    "pre_bevel_short_edges": 0,
+    "pre_bevel_thin_faces": 3,
+    "post_bevel_short_edges": 306,
+    "post_bevel_thin_faces": 186
+  },
+  "review_sheet": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31\\eval2_renders\\review_sheet.png",
+  "closeup_before": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31\\eval2_renders\\closeup_groove_before.png",
+  "fix": {
+    "cause": "BevelClamp width 0.006 m vs 0.004 m slot: rim bevels overlap -> Clamp Overlap bites (ratio 1.12 x width); second proximity where the through-slot rim meets the outer-face bevels at y=\u00b10.025 (probe worst_at)",
+    "corrections": [
+      {
+        "object": "FIX2_PLATE_DERIVED",
+        "modifier": "BevelClamp",
+        "setting": "width",
+        "from": 0.006,
+        "to": 0.0019
+      },
+      {
+        "object": "FIX2_GROOVE_CUTTER",
+        "setting": "dimensions.y (through slot -> blind pocket)",
+        "from": 0.06,
+        "to": 0.03
+      }
+    ]
+  },
+  "clamp_probe_after": {
+    "bevel": "BevelClamp",
+    "topology_changed": false,
+    "max_disp": 0.000956,
+    "ratio": 0.503,
+    "worst_at": [
+      -0.0487,
+      0.0237,
+      0.0075
+    ]
+  },
+  "verdict_after": [
+    "196 flat-shaded faces (cutter or base not shaded smooth): facets on bevels/cut walls",
+    "BevelClamp: Clamp Overlap moves verts by 0.503 x width (the whole bevel shrinks); caused by ['Groove']",
+    "FIX2_GROOVE_CUTTER: scale not applied",
+    "FIX2_GROOVE_CUTTER: not smooth shaded (facets transfer into the cut)",
+    "FIX2_GROOVE_CUTTER: visible in render or solid display",
+    "FIX2_GROOVE_CUTTER: 1 faces / 4 verts within 0.0038 of a target surface: thin polygons; move it clearly past or make it coincident"
+  ],
+  "closeup_after": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31\\eval2_renders\\closeup_groove_after.png"
+}

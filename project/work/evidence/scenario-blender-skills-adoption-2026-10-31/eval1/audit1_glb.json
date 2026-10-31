@@ -1,0 +1,28 @@
+{
+ "profile": "game",
+ "eps": 2e-05,
+ "tol": 0.000397,
+ "gap": 0.001984,
+ "pass": false,
+ "errors": [
+  "K000004_TEST_BEARING: floating, 0.0128 from the nearest part"
+ ],
+ "warnings": [],
+ "per_object": {
+  "K000004_TEST_BEARING": {
+   "tris": 576,
+   "parts": 1,
+   "errors": [
+    "K000004_TEST_BEARING: floating, 0.0128 from the nearest part"
+   ],
+   "warnings": []
+  },
+  "P000095_TEST_SPINDLE": {
+   "tris": 124,
+   "parts": 1,
+   "errors": [],
+   "warnings": []
+  }
+ },
+ "skipped": []
+}

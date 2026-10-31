@@ -1,0 +1,71 @@
+{
+  "reopen": "fixture3.blend",
+  "images": [
+    {
+      "name": "FIX3_PAINT_HOUSING_mr_normals",
+      "packed": false,
+      "size": [
+        64,
+        64
+      ],
+      "colorspace": "Non-Color"
+    },
+    {
+      "name": "FIX3_PaintBase",
+      "packed": false,
+      "size": [
+        32,
+        32
+      ],
+      "colorspace": "sRGB"
+    }
+  ],
+  "lights": [
+    {
+      "name": "FIX3_Fill",
+      "type": "SUN",
+      "energy": 1.5,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "FIX3_Key",
+      "type": "AREA",
+      "energy": 2.4674010276794434,
+      "location": [
+        0.20278988778591156,
+        0.2896139919757843,
+        0.39355337619781494
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "FIX3_Metal",
+      "metallic": 1.0,
+      "roughness": 0.20000000298023224,
+      "coat": 0.0,
+      "has_base_tex": false,
+      "has_normal_link": false
+    },
+    {
+      "name": "FIX3_Paint",
+      "metallic": 0.0,
+      "roughness": 0.4000000059604645,
+      "coat": 0.5,
+      "has_base_tex": true,
+      "has_normal_link": true
+    },
+    {
+      "name": "FIX3_Plastic",
+      "metallic": 0.0,
+      "roughness": 0.5,
+      "coat": 0.0,
+      "has_base_tex": false,
+      "has_normal_link": false
+    }
+  ]
+}

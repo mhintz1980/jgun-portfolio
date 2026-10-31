@@ -13,10 +13,21 @@ contract; the HUD solver is bundled under that skill's `scripts/` directory.
 
 > 2026-08-29 (orchestrated-work policy): for **multi-session, parallel, or long agent tasks**, run with skills/plugins **deactivated** in the harness and read each `SKILL.md` from this map's paths **at the moment it is needed** (briefs carry exact path + read-timing — never load up front what is needed only at the end; invoked/menu-registered skills cost context in every session, subagent, and cron fire). Keep only the task's MCPs enabled (probes → chrome-devtools; it has no file fallback). Deactivate — do NOT uninstall — plugin caches must remain readable for single-skill direct reads (e.g. Superpowers `verification-before-completion`). Full procedure + cost model: vault `C:\vaults\markimus-SecondBrain\Skills\deactivate-skills-for-orchestration.md`.
 
+> 2026-10-31 (Scenario Blender adoption): `blender-mechanical-toolkit` is a repo-local **on-demand
+router** into the pinned Scenario Blender packages in `C:\Projects\skills-master\vendor\scenario-labs-skills`
+(MIT, pin `7f4b801c`; 14 curated, `scenario-blender-blockout` excluded — Scenario-plugin workflow out
+of scope). It carries the CAD-protection contracts (derived fixtures only, no `ground()`/rescale on
+registered parts, `bx_audit.deliverable()` gap classification, M249/MSP export protections, no new
+publication gates) and resolves missing siblings locally — never Scenario MCP `skill_get`.
+`blender-agent-core` still governs Blender workflow discipline. Library provenance:
+`C:\Projects\skills-master\docs\scenario-blender-adoption.md`. Runtime verification status of the
+helpers: `project/work/evidence/scenario-blender-skills-adoption-2026-10-31/`.
+
 | Work type | Required skill | ZCode path | Claude Code path | Codex path | Shared fallback path |
 |---|---|---|---|---|---|
 | Camera paths, bullet-time clocks, HUD framing, scroll pacing | `r3f-cad-cinematography` | `.agents/skills/r3f-cad-cinematography/SKILL.md` (repo-local) | Same repo-local path | Same repo-local path | Use the current checkout; no external fallback |
 | CAD scene roles, D1-AP identity, rigid groups, explosion ladder | `cad-scene-graph-rigging` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.codex\skills\cad-scene-graph-rigging\SKILL.md` | `C:\Users\Markimus\.agents\skills\cad-scene-graph-rigging\SKILL.md` |
+| Blender/bpy authoring, diagnostics, export QA via the pinned Scenario toolkit (hard-surface, lighting/render, texturing, UV/bake, export round-trip, geometry nodes) | `blender-mechanical-toolkit` | `.agents/skills/blender-mechanical-toolkit/SKILL.md` (repo-local) | Same repo-local path | Same repo-local path | Use the current checkout; no external fallback |
 | Runtime WebGL proof, telemetry probes, no screenshot-only acceptance | `webgl-telemetry-verifier` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\webgl-telemetry-verifier\SKILL.md` | `C:\Users\Markimus\.codex\skills\webgl-telemetry-verifier\SKILL.md` | `C:\Users\Markimus\.agents\skills\webgl-telemetry-verifier\SKILL.md` |
 | R3F scrolling, frame-work budget, quality tiers, reactive-state avoidance | `r3f-scroll-performance-guard` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\r3f-scroll-performance-guard\SKILL.md` | `C:\Users\Markimus\.codex\skills\r3f-scroll-performance-guard\SKILL.md` | `C:\Users\Markimus\.agents\skills\r3f-scroll-performance-guard\SKILL.md` |
 | GSAP timelines, ScrollTrigger lifecycle, Lenis coordination, scroll beats | `gsap-scrolltrigger` | **None — read shared fallback.** | `C:\Users\Markimus\.claude\skills\gsap-scrolltrigger\SKILL.md` | `C:\Users\Markimus\.codex\skills\gsap-scrolltrigger\SKILL.md` | `C:\Users\Markimus\.agents\skills\gsap-scrolltrigger\SKILL.md` |

@@ -1,0 +1,87 @@
+{
+  "fixture": "eval3-uv-material-light",
+  "texel_density_housing": {
+    "px_per_m": 282.8,
+    "px_per_cm": 2.83,
+    "islands": [
+      282.8
+    ]
+  },
+  "uv_qa_housing_verdict": [
+    "coverage 35% < 70% (Gambrell >70, Huge Menace 75% studio minimum)",
+    "mesh is flat shaded: shade smooth (hard edges only on seams) before baking"
+  ],
+  "uv_qa_summary": {
+    "object": "FIX3_PAINT_HOUSING",
+    "uv_map": "UVMap",
+    "tex_res": 64,
+    "faces": 6,
+    "islands": 1,
+    "td_px_per_m": 292.1,
+    "td_face_spread_p95_p05": 1.1,
+    "td_island_spread_p95_p05": 1.0,
+    "angle_err_mean_deg": 0.0,
+    "angle_err_p95_deg": 0.0,
+    "area_stretch_p95_log2": 0.17,
+    "flipped_faces": 0,
+    "zero_area_faces": 0,
+    "overlap_px_pct": 0.0,
+    "overlapping_island_pairs": 0,
+    "faces_crossing_tiles": 0,
+    "gap_required_px": 0.5,
+    "sharp_edges_not_on_seams": 0,
+    "flat_shaded_share": 1.0,
+    "mirror_stacked_hint": false
+  },
+  "classify_basecolor": "base_color",
+  "classify_normal": "normal",
+  "bake_multires": {
+    "paths": {
+      "NORMALS": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31/eval3\\FIX3_PAINT_HOUSING_mr_normals.png"
+    },
+    "sanity": {
+      "NORMALS": {
+        "pixels": 1440,
+        "inverted_pct": 0.0,
+        "flat_exact_pct": 0.0,
+        "bad_length_pct": 0.0,
+        "steep_pct": 0.0,
+        "mean": [
+          0.5,
+          0.5,
+          0.998
+        ],
+        "std": [
+          0.026,
+          0.033,
+          0.002
+        ],
+        "nan": 0,
+        "problems": [],
+        "notes": []
+      }
+    },
+    "levels": {
+      "low": 0,
+      "high": 2
+    }
+  },
+  "hookup": "normal map linked",
+  "image_colorspaces": {
+    "FIX3_PaintBase": "sRGB",
+    "FIX3_PAINT_HOUSING_mr_normals": "Non-Color"
+  },
+  "bake_sanity": "{'pixels': 4096, 'inverted_pct': 0.0, 'flat_exact_pct': 44.73, 'bad_length_pct': 0.0, 'steep_pct': 0.0, 'mean': [0.5, 0.5, 0.999], 'std': [0.019, 0.024, 0.001], 'nan': 0, 'problems': ['44.73% exactly flat: rays missing the high (max_ray_distance too short, wrong selection) or no detail there'], 'notes': []}",
+  "key_light": {
+    "type": "AREA",
+    "azimuth": 35,
+    "elevation": 45,
+    "distance": 0.5,
+    "world": [
+      0.20278988778591156,
+      0.2896139919757843,
+      0.39355337619781494
+    ]
+  },
+  "blender_render": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31/eval3_renders/blender_still.png"
+}

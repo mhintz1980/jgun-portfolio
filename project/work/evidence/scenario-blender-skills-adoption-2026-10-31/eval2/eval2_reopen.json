@@ -1,0 +1,41 @@
+{
+  "reopen": "fixture2_fixed.blend",
+  "eval_bounds_min": [
+    -0.05,
+    -0.025,
+    -0.0075
+  ],
+  "eval_bounds_max": [
+    0.05,
+    0.025,
+    0.0075
+  ],
+  "eval_verts": 192,
+  "eval_tris": 380,
+  "modifier_stack_editable": [
+    {
+      "name": "Groove",
+      "type": "BOOLEAN",
+      "show_viewport": true,
+      "width": null
+    },
+    {
+      "name": "BevelClamp",
+      "type": "BEVEL",
+      "show_viewport": true,
+      "width": 0.0019000000320374966
+    }
+  ],
+  "clamp_probe_on_reopen": {
+    "bevel": "BevelClamp",
+    "topology_changed": false,
+    "max_disp": 0.000956,
+    "ratio": 0.503,
+    "worst_at": [
+      -0.0487,
+      0.0237,
+      0.0075
+    ]
+  },
+  "closeup_residual_corner": "C:\\Users\\Markimus\\AppData\\Local\\Temp\\scenario-blender-adoption-2026-10-31\\eval2_renders\\closeup_residual_corner.png"
+}

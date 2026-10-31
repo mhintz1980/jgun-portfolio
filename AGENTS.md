@@ -65,6 +65,10 @@ Full browser assertions (both reverse camera and subject errors) remain completi
 `verify-torque-camera-hud.mjs --quick` is capture-only and must never be reported as PASS.
 
 Rig/scene → `cad-scene-graph-rigging`; verification → `webgl-telemetry-verifier`;
+Blender/bpy authoring, diagnostics or export QA (pinned Scenario packages in
+`C:\Projects\skills-master`) → repo-local `blender-mechanical-toolkit`
+(`.agents/skills/blender-mechanical-toolkit/SKILL.md` — on-demand domain routing; derived
+fixtures only, registered CAD protections apply; `blender-agent-core` still governs);
 timeline → `r3f-scroll-performance-guard`; scroll/GSAP ScrollTrigger reference →
 `gsap-scrolltrigger` (official GreenSock, ~/.agents/skills — all harnesses);
 video-hero 3D landing pages (orzo-style) → `animated-3d-video-sites` (~/.agents/skills —

@@ -1,0 +1,32 @@
+{
+ "profile": "game",
+ "eps": 2e-05,
+ "tol": 0.000397,
+ "gap": 0.001984,
+ "pass": false,
+ "errors": [
+  "K000004_TEST_BEARING: floating, 0.0121 from the nearest part"
+ ],
+ "warnings": [
+  "P000095_TEST_SPINDLE: 2 n-gons"
+ ],
+ "per_object": {
+  "P000095_TEST_SPINDLE": {
+   "tris": 124,
+   "parts": 1,
+   "errors": [],
+   "warnings": [
+    "P000095_TEST_SPINDLE: 2 n-gons"
+   ]
+  },
+  "K000004_TEST_BEARING": {
+   "tris": 576,
+   "parts": 1,
+   "errors": [
+    "K000004_TEST_BEARING: floating, 0.0121 from the nearest part"
+   ],
+   "warnings": []
+  }
+ },
+ "skipped": []
+}

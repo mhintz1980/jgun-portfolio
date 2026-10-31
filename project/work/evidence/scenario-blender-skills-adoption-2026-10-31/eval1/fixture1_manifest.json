@@ -1,0 +1,124 @@
+{
+  "fixture": "eval1-mechanical-export",
+  "declared_tolerances": {
+    "matrix_abs": 1e-05,
+    "dimensions_abs": 0.0001,
+    "names": "exact",
+    "hierarchy": "exact",
+    "material_image": "same image content + sRGB colorspace"
+  },
+  "objects": [
+    {
+      "name": "FIX1_Root",
+      "parent": null,
+      "type": "EMPTY",
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix_world": [
+        0.9659258127212524,
+        -0.258819043636322,
+        0.0,
+        0.25,
+        0.258819043636322,
+        0.9659258127212524,
+        0.0,
+        -0.15000000596046448,
+        0.0,
+        0.0,
+        1.0,
+        0.10000000149011612,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "pivot_world": [
+        0.25,
+        -0.15000000596046448,
+        0.10000000149011612
+      ],
+      "material": null,
+      "vert_count": 0,
+      "image": "FIX1_BlueprintTex",
+      "image_colorspace": "sRGB"
+    },
+    {
+      "name": "P000095_TEST_SPINDLE",
+      "parent": "FIX1_Root",
+      "type": "MESH",
+      "dimensions": [
+        0.03999999910593033,
+        0.03999999910593033,
+        0.11999999731779099
+      ],
+      "matrix_world": [
+        1.0,
+        2.9802322387695312e-08,
+        0.0,
+        0.0,
+        -2.9802322387695312e-08,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.05999999865889549,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "pivot_world": [
+        0.0,
+        0.0,
+        0.05999999865889549
+      ],
+      "material": "FIX1_Steel",
+      "vert_count": 64,
+      "image": "FIX1_BlueprintTex",
+      "image_colorspace": "sRGB"
+    },
+    {
+      "name": "K000004_TEST_BEARING",
+      "parent": "FIX1_Root",
+      "type": "MESH",
+      "dimensions": [
+        0.07599999755620956,
+        0.07599999755620956,
+        0.01600000075995922
+      ],
+      "matrix_world": [
+        1.0,
+        2.9802322387695312e-08,
+        0.0,
+        0.0,
+        -2.9802322387695312e-08,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.1899999976158142,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "pivot_world": [
+        0.0,
+        0.0,
+        0.1899999976158142
+      ],
+      "material": "FIX1_Steel",
+      "vert_count": 288,
+      "image": "FIX1_BlueprintTex",
+      "image_colorspace": "sRGB"
+    }
+  ],
+  "separation_intent": "K000004_TEST_BEARING is deliberately separated from P000095_TEST_SPINDLE (gap ~0.05 m along +Z); any bx_audit floating-part finding is EXPECTED and classified intentional."
+}

@@ -1,0 +1,55 @@
+{
+ "objects": {
+  "FIX1_Root": {
+   "type": "EMPTY",
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  "K000004_TEST_BEARING": {
+   "type": "MESH",
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "size": [
+    0.076,
+    0.076,
+    0.016
+   ],
+   "tris": 576,
+   "shape_keys": [],
+   "maps": {
+    "FIX1_Steel": [
+     "Base Color"
+    ]
+   }
+  },
+  "P000095_TEST_SPINDLE": {
+   "type": "MESH",
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "size": [
+    0.04,
+    0.04,
+    0.12
+   ],
+   "tris": 124,
+   "shape_keys": [],
+   "maps": {
+    "FIX1_Steel": [
+     "Base Color"
+    ]
+   }
+  }
+ },
+ "actions": [],
+ "file": "eval1/fixture1.glb",
+ "bytes": 50188
+}

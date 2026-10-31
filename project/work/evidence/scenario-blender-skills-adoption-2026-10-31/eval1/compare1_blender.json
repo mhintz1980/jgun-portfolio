@@ -1,0 +1,104 @@
+{
+  "declared_tolerances": {
+    "matrix_abs": 1e-05,
+    "dimensions_abs": 0.0001,
+    "names": "exact",
+    "hierarchy": "exact",
+    "material_image": "same image content + sRGB colorspace"
+  },
+  "results": [
+    {
+      "name": "FIX1_Root",
+      "found": true,
+      "matrix_delta_max": 2.9802322387695312e-08,
+      "matrix_ok": true,
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions_delta_max": 0.0,
+      "dimensions_ok": true,
+      "parent": null,
+      "parent_ok": true,
+      "materials": [],
+      "material_ok": true,
+      "images": [],
+      "image_colorspace": null,
+      "image_ok": false,
+      "vert_count": 0,
+      "pivot_world": [
+        0.25,
+        -0.15000000596046448,
+        0.10000000149011612
+      ],
+      "pivot_ok": true,
+      "ok": false
+    },
+    {
+      "name": "P000095_TEST_SPINDLE",
+      "found": true,
+      "matrix_delta_max": 2.9802322387695312e-08,
+      "matrix_ok": true,
+      "dimensions": [
+        0.03999999910593033,
+        0.03999999910593033,
+        0.11999999731779099
+      ],
+      "dimensions_delta_max": 0.0,
+      "dimensions_ok": true,
+      "parent": "FIX1_Root",
+      "parent_ok": true,
+      "materials": [
+        "FIX1_Steel"
+      ],
+      "material_ok": true,
+      "images": [
+        "FIX1_BlueprintTex"
+      ],
+      "image_colorspace": "sRGB",
+      "image_ok": true,
+      "vert_count": 192,
+      "pivot_world": [
+        -2.9802322387695312e-08,
+        0.0,
+        0.05999999865889549
+      ],
+      "pivot_ok": true,
+      "ok": true
+    },
+    {
+      "name": "K000004_TEST_BEARING",
+      "found": true,
+      "matrix_delta_max": 2.9802322387695312e-08,
+      "matrix_ok": true,
+      "dimensions": [
+        0.07599999755620956,
+        0.07599999755620956,
+        0.01600000075995922
+      ],
+      "dimensions_delta_max": 0.0,
+      "dimensions_ok": true,
+      "parent": "FIX1_Root",
+      "parent_ok": true,
+      "materials": [
+        "FIX1_Steel"
+      ],
+      "material_ok": true,
+      "images": [
+        "FIX1_BlueprintTex"
+      ],
+      "image_colorspace": "sRGB",
+      "image_ok": true,
+      "vert_count": 1152,
+      "pivot_world": [
+        -2.9802322387695312e-08,
+        0.0,
+        0.1899999976158142
+      ],
+      "pivot_ok": true,
+      "ok": true
+    }
+  ],
+  "all_ok": true
+}
