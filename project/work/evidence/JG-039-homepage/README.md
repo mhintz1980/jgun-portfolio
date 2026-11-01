@@ -51,6 +51,8 @@ two CSS vars. Headless software GL, not a real phone: device check still open.
 
 ## Screenshots
 
+Gitignored here (evidence PNGs stay local by repo rule); copies are in the project's shared files at `homepage/screenshots/`.
+
 `desktop-{light,dark}-{hero,work,plus,contact,contact-pulled}.png`,
 `phone-{light,dark}-hero.png`, `phone-light-work.png`, `phone-dark-contact.png`,
 `desktop-light-reduced-hero.png`.
