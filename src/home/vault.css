@@ -1,0 +1,160 @@
+/* Ghost vault, loupe and theme toggle (W2). Colours come from the theme tokens in layout.css. */
+
+.home-vault {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Drafting grid: 24 px minor, 120 px major, static. */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+}
+
+.home-vault-plane {
+  position: absolute;
+  inset: 0;
+}
+
+.home-vault-drift {
+  position: absolute;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.home-vault-layer {
+  position: absolute;
+  inset: 0;
+  background-color: var(--ghost-ink);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  transition:
+    transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Loupe: full-ink copies of the same layers, revealed by one radial mask at the pointer. */
+.home-vault-loupe {
+  --lx: -999px;
+  --ly: -999px;
+  --lr: 100px;
+  opacity: 0;
+  mask-image: radial-gradient(circle var(--lr) at var(--lx) var(--ly), #000 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle var(--lr) at var(--lx) var(--ly), #000 60%, transparent 100%);
+  transition: opacity 300ms ease;
+}
+
+.home-vault-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 300ms ease;
+}
+
+.home-vault[data-loupe="on"] .home-vault-loupe {
+  opacity: 0.9;
+}
+
+.home-vault[data-loupe="on"] .home-vault-ring {
+  opacity: 0.85;
+}
+
+.home-vault-tick {
+  position: absolute;
+  background: var(--accent);
+}
+
+.home-vault-tick-n,
+.home-vault-tick-s {
+  left: 50%;
+  width: 1px;
+  height: 10px;
+  margin-left: -0.5px;
+}
+
+.home-vault-tick-n {
+  top: -12px;
+}
+
+.home-vault-tick-s {
+  bottom: -12px;
+}
+
+.home-vault-tick-e,
+.home-vault-tick-w {
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  margin-top: -0.5px;
+}
+
+.home-vault-tick-e {
+  right: -12px;
+}
+
+.home-vault-tick-w {
+  left: -12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-vault-layer {
+    transition: opacity 300ms ease;
+  }
+  .home-vault-loupe,
+  .home-vault-ring {
+    display: none;
+  }
+}
+
+/* Theme toggle (sits in the header flex row). */
+.home-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.home-theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.home-theme-toggle svg {
+  flex: none;
+}
+
+@media (max-width: 720px) {
+  .home-theme-toggle {
+    padding: 0;
+  }
+  .home-theme-toggle-text {
+    display: none;
+  }
+}
