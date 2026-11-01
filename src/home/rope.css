@@ -63,7 +63,8 @@
 }
 
 .home-rope.is-solved .home-rope-caption {
-  color: var(--accent);
+  /* Ink, not accent: small accent text over a ghost line drops below 4.5:1. */
+  color: var(--ink);
 }
 
 /* The keyboard control: out of sight until focused, then a plain outlined chip. */

@@ -158,3 +158,10 @@
     display: none;
   }
 }
+
+/* Touch: the sweep is not under the visitor's control and crosses text, so it inks more lightly. */
+@media (hover: none), (pointer: coarse) {
+  .home-vault[data-loupe="on"] .home-vault-loupe {
+    opacity: 0.5;
+  }
+}

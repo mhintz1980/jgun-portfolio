@@ -20,7 +20,7 @@ acceptance:
   - Playwright smoke desktop 1440x900 + phone 390x844, both themes, reduced motion; no console errors, no horizontal scroll
   - every text token pair >= 4.5:1, computed
   - layers animate only transform/opacity
-verification: null
+verification: project/work/evidence/JG-039-homepage/README.md
 commits: []
 replaces: null
 ---
@@ -50,17 +50,20 @@ redacted drawing set and reference-site fonts are follow-ups.
 
 ## Acceptance Criteria
 
-- [ ] Static gates pass (typecheck, vitest, build, verify-launch-dist).
-- [ ] Browser smoke and screenshots in both themes, desktop and phone, reduced motion.
-- [ ] Contrast computed ≥ 4.5:1 for every text pair.
-- [ ] Torque-wrench and Quiet Machine pages unchanged; root still forwards to `/torque-wrench/`.
+- [x] Static gates pass (typecheck, vitest, build, verify-launch-dist).
+- [x] Browser smoke and screenshots in both themes, desktop and phone, reduced motion.
+- [x] Contrast computed ≥ 4.5:1 for every text pair.
+- [x] Torque-wrench and Quiet Machine pages unchanged; root still forwards to `/torque-wrench/`.
 
 ## Verification Record
 
-Pending.
+Technical checks: [evidence/JG-039-homepage/README.md](../evidence/JG-039-homepage/README.md) (2026-11-01). Owner visual acceptance OPEN.
 
 ## Change Log
 
 | Date | Change | Reason |
 |---|---|---|
+| 2026-11-01 | W1–W6 built and technically verified; PR opened, not merged | Orchestrated build |
 | 2026-11-01 | Created | Mark approved Path A and the thread concept; registered at Task Intake. |
+
+- [ ] Owner visual acceptance (Mark), then the open items in the handoff.
