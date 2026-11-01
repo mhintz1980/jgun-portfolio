@@ -115,8 +115,8 @@ All copy is already written in `src/home/content.ts` (committed). Change copy th
 | `src/shared/pages.ts` (+ `home` row: index 4, path `/home/`, `fadeIn: true`, `private: true`) + `pages.test.ts`, `pageTopology.test.ts` entry lists | todo | W1 |
 | `scripts/verify-launch-dist.mjs` REQUIRED += `home/index.html` + 6 drawings | todo | W1 |
 | `src/home-main.tsx`, `src/home/HomePage.tsx` (composes `<Vault/> <Thread/> <ContactRope/>`), `src/home/layout.css` | todo | W1 skeleton → W5 |
-| `src/home/vault.ts` (pure transforms) + `Vault.tsx` + `vault.css` + `theme.ts` | todo | W2 |
-| `src/home/thread.ts` (pure path + length search) + `Thread.tsx` + `thread.css` | todo | W3 |
+| `src/home/vaultMath.ts` (pure transforms) + `Vault.tsx` + `vault.css` + `theme.ts` | todo | W2 |
+| `src/home/threadPath.ts` (pure path + length search) + `Thread.tsx` + `thread.css` | todo | W3 |
 | `src/home/rope.ts` (pure Verlet) + `ContactRope.tsx` + `rope.css` | todo | W4 |
 | `src/home/*.test.ts` (pure modules; `content.test.ts` pins copy rules below) | todo | each owner |
 
@@ -139,9 +139,10 @@ shared file: W1 lands the skeleton with stub components first; workers only edit
 
 ## Open items for Mark (do not resolve on his behalf)
 
-1. Confirm the Darrin Phipps quote is his own words and OK to publish.
-2. Employer OK for the two pump/enclosure stand-in drawings (already public on the v2 site, title
-   blocks now cropped) or send redacted replacements.
+1. ~~Confirm the Darrin Phipps quote~~ — Mark OK'd keeping it (2026-11-01).
+2. Employer names: Mark asked (2026-11-01) to remove any employer names from drawings/models. The
+   pump-assembly post decals and the armament revision-table strip were blanked; the CAT engine logo
+   (supplier, not employer) remains.
 3. ITAR/EAR check before armament drawings go live (stand-ins already public on v2).
 4. Send the redacted drawing set (2 per project) to replace the stand-ins.
 5. Reference-site fonts: screenshots, or a cloud environment with those domains allowed.

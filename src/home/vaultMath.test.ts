@@ -14,7 +14,7 @@ import {
   sweepPosition,
   transformCss,
   visibleLayers,
-} from './vault'
+} from './vaultMath'
 
 const viewport = { width: 1440, height: 900 }
 const housing = DRAWING_LAYERS.find((layer) => layer.id === 'gearbox-housing')!

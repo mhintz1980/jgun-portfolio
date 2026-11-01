@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import type { Anchor, AnchorKind, ThreadSamples } from './thread'
-import { buildThread, catmullRomPath, drawnLength, lengthNearest, makeSamples, pointAtSampled } from './thread'
+import type { Anchor, AnchorKind, ThreadSamples } from './threadPath'
+import { buildThread, catmullRomPath, drawnLength, lengthNearest, makeSamples, pointAtSampled } from './threadPath'
 import './thread.css'
 
 const SVG_NS = 'http://www.w3.org/2000/svg'

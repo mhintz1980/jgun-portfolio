@@ -16,8 +16,8 @@ import {
   sweepPosition,
   transformCss,
   visibleLayers,
-} from './vault'
-import type { Viewport } from './vault'
+} from './vaultMath'
+import type { Viewport } from './vaultMath'
 import './vault.css'
 
 export interface VaultProps {

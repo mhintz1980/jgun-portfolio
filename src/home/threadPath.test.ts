@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { Anchor, Point } from './thread'
+import type { Anchor, Point } from './threadPath'
 import {
   buildThread,
   catmullRomPath,
@@ -8,7 +8,7 @@ import {
   lengthNearest,
   makeSamples,
   pointAtSampled,
-} from './thread'
+} from './threadPath'
 
 const W = 1440
 const row = (top: number): Anchor => ({ kind: 'row', left: 216, top, width: 1008, height: 140 })
