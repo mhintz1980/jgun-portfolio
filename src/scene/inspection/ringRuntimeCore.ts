@@ -1,11 +1,12 @@
 import { AnimationMixer, type AnimationAction, Box3, BufferAttribute, Color, DirectionalLight, Group, LoopOnce, Matrix4, Mesh, Quaternion, Vector3, type Material, type Object3D, type Texture } from 'three'
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { ANODIZED_ALUMINUM_COLOR } from '../rig/materials'
 import { createInspectionRing, type RingGeometryCleanupResource } from './ringGeometry'
 import { ease, newFrame, odMask, rollerAngle, sampleInspection, SHOULDER, WHEEL_WIDTH, type InspectionFrame } from './timeline'
 import type { StoryContext, StoryRuntime } from './story'
 import type { StorySession } from './session'
 
-const black = new Color('#040404'), aluminium = new Color('#bfc5cb')
+const black = new Color(ANODIZED_ALUMINUM_COLOR), aluminium = new Color('#bfc5cb')
 
 export interface RingRuntimeProbe {
   ringMeshes: number

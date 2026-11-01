@@ -115,6 +115,29 @@
   line-height: 1.6;
 }
 
+/* Paper chapters only. Live mode puts the header and the drafting chapter over
+   the beige sheet; static/poster stays on the dark page and keeps the light
+   colors above. Breakthrough onward stays light type on the dark scene. */
+.torque-page[data-torque-mode='live'] .torque-hero__title,
+.torque-page[data-torque-mode='live'] .torque-hero__eyebrow,
+.torque-page[data-torque-mode='live'] [data-torque-chapter='drafting'] .torque-chapter__title,
+.torque-page[data-torque-mode='live'] [data-torque-chapter='drafting'] .torque-chapter__index,
+.torque-page[data-torque-mode='live'] .torque-header .shell-nav a[aria-current='page'] {
+  color: #1b2a3a;
+}
+
+.torque-page[data-torque-mode='live'] .torque-hero__intro,
+.torque-page[data-torque-mode='live'] [data-torque-chapter='drafting'] .torque-chapter__lede,
+.torque-page[data-torque-mode='live'] [data-torque-chapter='drafting'] .torque-chapter__body,
+.torque-page[data-torque-mode='live'] .torque-header .shell-nav a,
+.torque-page[data-torque-mode='live'] .torque-header .shell-nav .shell-nav-reserved {
+  color: #3b4a5a;
+}
+
+.torque-page[data-torque-mode='live'] .torque-header .shell-nav a:hover {
+  color: #1b2a3a;
+}
+
 .torque-main {
   max-width: 60rem;
   margin: 0 auto;

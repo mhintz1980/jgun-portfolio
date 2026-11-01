@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import { Box3, Group, InstancedMesh, Material, Matrix4, Mesh, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Raycaster, Vector3, type Object3D } from 'three'
+import { Box3, BoxGeometry, DirectionalLight, Group, InstancedMesh, Material, Matrix4, Mesh, MeshLambertMaterial, MeshPhysicalMaterial, PerspectiveCamera, PMREMGenerator, Raycaster, Vector3, type Object3D } from 'three'
 import { ConvexHull } from 'three/examples/jsm/math/ConvexHull.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { STAGE_IDS } from '../../data/caseStudies'
@@ -59,6 +59,58 @@ import { createShaftTakeover } from './shaftTakeover'
 import { captureCascadeProof } from './cascadeProof'
 
 const MODEL_URL = '/models/Default.glb'
+
+/**
+ * Two narrow rear strips for the exploded-hold camera (azimuth -65°, elevation
+ * 26°). They sit 22° off that view axis, left and right, so black anodize
+ * catches an edge instead of the room's even wash. RoomEnvironment.dispose
+ * frees the added meshes with the rest of the bake scene.
+ */
+function addExplodedHoldRimStrips(room: RoomEnvironment) {
+  const azimuth = -65 * Math.PI / 180
+  const elevation = 26 * Math.PI / 180
+  const view = new Vector3(
+    -Math.cos(elevation) * Math.sin(azimuth),
+    -Math.sin(elevation),
+    -Math.cos(elevation) * Math.cos(azimuth),
+  ).normalize()
+  const right = new Vector3().crossVectors(view, new Vector3(0, 1, 0))
+  if (right.lengthSq() < 1e-8) right.set(1, 0, 0)
+  right.normalize()
+  const spread = 22 * Math.PI / 180
+  for (const side of [1, -1]) {
+    const direction = view.clone().multiplyScalar(Math.cos(spread)).addScaledVector(right, side * Math.sin(spread)).normalize()
+    const strip = new Mesh(
+      new BoxGeometry(1, 1, 1),
+      new MeshLambertMaterial({ color: 0x000000, emissive: 0xfff4e8, emissiveIntensity: 160 }),
+    )
+    strip.name = 'prototype-rim-strip'
+    strip.position.copy(direction).multiplyScalar(9).sub(room.position)
+    strip.scale.set(0.28, 6.5, 0.28)
+    room.add(strip)
+  }
+}
+
+const rimView = new Vector3()
+const rimSide = new Vector3()
+
+/** Same 22° rear pair, but in camera space, so the edge survives the orbit. */
+function placeCameraRim(light: DirectionalLight | null, cameraPos: Vector3, look: Vector3, up: Vector3, side: number) {
+  if (!light) return
+  rimView.subVectors(look, cameraPos)
+  if (rimView.lengthSq() < 1e-8) return
+  rimView.normalize()
+  rimSide.crossVectors(rimView, up)
+  if (rimSide.lengthSq() < 1e-8) rimSide.set(1, 0, 0)
+  rimSide.normalize()
+  const spread = 22 * Math.PI / 180
+  light.position.copy(look)
+    .addScaledVector(rimView, 1.8 * Math.cos(spread))
+    .addScaledVector(rimSide, side * 1.8 * Math.sin(spread))
+    .addScaledVector(up, 0.28)
+  light.target.position.copy(look)
+  light.target.updateMatrixWorld()
+}
 
 /**
  * T5 ring-study seams (canonical progress). Lazy mount precedes the first ring camera move;
@@ -223,6 +275,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     return proof
   }, [rig])
   const openingFinalInkT = useRef(DEFAULT_FINAL_INK_T)
+  const rimLeft = useRef<DirectionalLight>(null)
+  const rimRight = useRef<DirectionalLight>(null)
   const manualCamera = useMemo(() => ({ open: false, transitioning: false, elapsed: 0,
     from: { position: new Vector3(), target: new Vector3(), up: new Vector3(0, 1, 0), fov: 42 } }), [])
   const stopAndAppreciate = useMemo(createStopAndAppreciateController, [])
@@ -879,6 +933,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       owned.defer(() => { if (drawing.current === snapshot) drawing.current = null })
       const pmrem = owned.own(new PMREMGenerator(gl))
       const room = owned.own(new RoomEnvironment())
+      addExplodedHoldRimStrips(room)
       const environment = owned.own(pmrem.fromScene(room, 0.04))
       scene.environment = environment.texture
       scene.environmentIntensity = 1
@@ -1358,6 +1413,8 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       overlay.focusId = focus.id
       overlay.subjectTime = inspection.subjectTime
       camera.lookAt(target); camera.updateProjectionMatrix(); camera.updateMatrixWorld(true)
+      placeCameraRim(rimLeft.current, camera.position, target, camera.up, 1)
+      placeCameraRim(rimRight.current, camera.position, target, camera.up, -1)
       hotspotTick.current += Math.min(delta, .1)
       if (hotspotTick.current >= .075) {
         hotspotTick.current = 0
@@ -1434,7 +1491,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   }, -2)
 
   return <>
-    <ambientLight intensity={0.25} />
+    <ambientLight intensity={0.05} />
+    <directionalLight ref={rimLeft} intensity={1.8} color="#fff4e8" />
+    <directionalLight ref={rimRight} intensity={1.8} color="#fff4e8" />
     <directionalLight position={[1.5, 2, 1]} intensity={1.7} />
     <directionalLight position={[-2, 1, -1.5]} intensity={0.6} color="#7dd3fc" />
     <group ref={group} name="private-wrench-world" dispose={null}>

@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { MeshPhysicalMaterial, MeshStandardMaterial, RepeatWrapping } from 'three'
-import { createDiamondKnurlNormalMap, materialRoleFor, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
+import { ANODIZED_ALUMINUM_COLOR, createDiamondKnurlNormalMap, materialRoleFor, roleMaterial, RING_SWITCH_OD_RADIUS, RING_SWITCH_OD_MASK_START, RING_SWITCH_OD_MASK_FULL } from './materials'
 
 describe('P003068 heavy knurled black anodize', () => {
   it('matches the handle finish while retaining the OD normal map', () => {
     const ring = roleMaterial('ringSwitch') as MeshPhysicalMaterial
     const handle = roleMaterial('anodizedAluminum') as MeshPhysicalMaterial
+    expect(ring.color.getHexString()).toBe(ANODIZED_ALUMINUM_COLOR.slice(1))
     expect(ring.color.equals(handle.color)).toBe(true)
     for (const key of ['roughness', 'metalness', 'envMapIntensity'] as const) expect(ring[key]).toBe(handle[key])
     expect(ring.clearcoat).toBe(handle.clearcoat ?? 0)
@@ -70,6 +71,7 @@ describe('smooth black-oxide housings (P000245 gearbox, P000420 clutch)', () => 
     expect(materialRoleFor('housing', 'GEARBOX_ASSY_SHELL')).toBe('blackOxideSteel')
     expect(materialRoleFor('clutch-static', 'occurrence_of_P000420-1')).toBe('blackOxideSteel')
     const housing = roleMaterial('blackOxideSteel') as MeshStandardMaterial
+    expect(housing.color.getHexString()).toBe('0d0d0d')
     const shader = compileShader()
     housing.onBeforeCompile(shader as never, {} as never)
     expect(shader.vertexShader).not.toContain('vMachinedZ')

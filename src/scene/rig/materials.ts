@@ -132,6 +132,15 @@ export function materialRoleFor(unitKey: string, nodeName: string): MaterialRole
   return unitDefaultRole(unitKey)
 }
 
+/**
+ * Specular base for dyed black anodize (handle, LCD housing, P003068).
+ * At metalness 0.98 this color is F0. #040404 is about 0.12% linear, so the
+ * part reflects almost nothing and disappears into the dark backdrop.
+ * #1a1a1c still reads black on screen and lets the environment draw the form.
+ * Roughness and metalness stay at the authored 0.26 / 0.98.
+ */
+export const ANODIZED_ALUMINUM_COLOR = '#1a1a1c'
+
 const roleMaterials = new Map<MaterialRole, Material>()
 /** All live role cases share the B1 flat-to-PBR activation; no node-name override path. */
 export const introPbrActivation = { value: 1 }
@@ -305,10 +314,9 @@ export function roleMaterial(role: MaterialRole): Material {
       })
       break
     // Anodized aluminum — handle assembly (body, top cap, collar adapter, trigger blade).
-    // Deep obsidian satin black (#040404, roughness 0.26, metalness 0.98) matching the gearbox.
     case 'anodizedAluminum':
       material = new MeshStandardMaterial({
-        color: '#040404',
+        color: ANODIZED_ALUMINUM_COLOR,
         roughness: 0.26,
         metalness: 0.98,
         envMapIntensity: 1.0,
@@ -328,7 +336,7 @@ export function roleMaterial(role: MaterialRole): Material {
     // (same anodized finish, no normal bump).
     case 'ringSwitch': {
       const ringSwitchMaterial = new MeshPhysicalMaterial({
-        color: '#040404',
+        color: ANODIZED_ALUMINUM_COLOR,
         roughness: 0.26,
         metalness: 0.98,
         clearcoat: 0,

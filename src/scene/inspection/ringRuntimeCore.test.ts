@@ -114,7 +114,7 @@ describe('matched ring samples', () => {
       expect(runtime.root.position.distanceTo(expectedCenter.clone().multiplyScalar(poseBlend))).toBeLessThan(1e-12)
       expect(runtime.root.quaternion.angleTo(new Quaternion().slerp(expectedEntryRotation, poseBlend))).toBeLessThan(1e-7)
       expect(runtime.root.getObjectByName('inspection-P003068-spin')!.rotation.z).toBeCloseTo(expected.angle, 12)
-      expect(material.color.lerpColors(new Color('#040404'), new Color('#bfc5cb'), expected.aluminium)).toEqual(material.color)
+      expect(material.color.lerpColors(new Color('#1a1a1c'), new Color('#bfc5cb'), expected.aluminium)).toEqual(material.color)
       expect(material.roughness).toBeCloseTo(.26 + expected.aluminium * .09, 12)
       expect(material.opacity).toBeCloseTo(1 - expected.returnBlend, 12)
       expect(material.normalScale.x).toBeCloseTo(1.5 * expected.ringDetailScale, 12)
