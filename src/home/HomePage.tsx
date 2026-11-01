@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { prefetchPage } from '../shared/pageFade'
 import ContactRope from './ContactRope'
 import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, TESTIMONIAL, WORK } from './content'
 import type { ProjectId } from './content'
@@ -11,7 +12,32 @@ import './layout.css'
 // copy lives in content.ts. Thread anchors are marked with data-thread, in reading order.
 export default function HomePage() {
   const [focus, setFocus] = useState<ProjectId | null>(null)
+  const rowsRef = useRef<HTMLOListElement>(null)
   const year = new Date().getFullYear()
+
+  // Phones (no hover): the work row crossing the viewport's centre band takes focus. A tap still
+  // navigates; nothing here intercepts it.
+  useEffect(() => {
+    const list = rowsRef.current
+    if (!list || typeof IntersectionObserver === 'undefined') return
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) return
+    const inBand = new Set<ProjectId>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).dataset.project as ProjectId
+          if (entry.isIntersecting) inBand.add(id)
+          else inBand.delete(id)
+        }
+        const next = CORE_PROJECTS.find((project) => inBand.has(project.id))
+        setFocus(next ? next.id : null)
+        if (next?.href) prefetchPage(document, [next.href])
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+    list.querySelectorAll('[data-project]').forEach((row) => observer.observe(row))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="home">
@@ -62,7 +88,7 @@ export default function HomePage() {
           <h2 id="home-work-title" className="home-h2">
             {WORK.heading}
           </h2>
-          <ol className="home-rows">
+          <ol className="home-rows" ref={rowsRef}>
             {CORE_PROJECTS.map((project) => {
               const body = (
                 <>
@@ -78,20 +104,30 @@ export default function HomePage() {
                   </span>
                 </>
               )
+              const enter = () => {
+                setFocus(project.id)
+                if (project.href) prefetchPage(document, [project.href])
+              }
               const preview = {
-                onMouseEnter: () => setFocus(project.id),
+                onMouseEnter: enter,
                 onMouseLeave: () => setFocus(null),
-                onFocus: () => setFocus(project.id),
+                onFocus: enter,
                 onBlur: () => setFocus(null),
               }
               return (
-                <li key={project.id} className="home-row-item" data-thread="row" data-project={project.id}>
+                <li
+                  key={project.id}
+                  className="home-row-item"
+                  data-thread="row"
+                  data-project={project.id}
+                  data-active={focus === project.id ? '' : undefined}
+                >
                   {project.href ? (
                     <a className="home-row" href={project.href} data-fade {...preview}>
                       {body}
                     </a>
                   ) : (
-                    <div className="home-row home-row-disabled" {...preview}>
+                    <div className="home-row home-row-disabled" aria-disabled="true" {...preview}>
                       {body}
                     </div>
                   )}

@@ -156,6 +156,11 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
+}
+
+/* Small accent text over the ghost drawings fails 4.5:1 where a line crosses it, so the cue is ink
+   and only its arrow (a graphic, 3:1 rule) is orange. */
+.home-cue a span {
   color: var(--accent);
 }
 
@@ -217,8 +222,20 @@ body {
   transition: border-color 200ms ease, transform 200ms ease;
 }
 
-a.home-row:hover {
+a.home-row:hover,
+a.home-row:focus-visible,
+.home-row-item[data-active] .home-row {
   border-color: var(--accent);
+}
+
+.home-row-disabled .home-row-status {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-row {
+    transition: none;
+  }
 }
 
 .home-row-main {
