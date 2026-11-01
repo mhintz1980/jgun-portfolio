@@ -1,7 +1,7 @@
 // Page registry: the public shell interface shared by every page of the site.
 // Zero imports by design. It carries no scroll length and never reads page progress.
 
-export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench'
+export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench' | 'home'
 
 export type TierParam = 'full' | 'lite' | 'poster'
 
@@ -69,6 +69,20 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: 'index.html',
     reserved: false,
     fadeIn: false,
+    private: true,
+  },
+  // Landing page under review (JG-039). Private until the owner approves flipping the root to it:
+  // built and reachable at /home/, noindex, never listed in navigation.
+  {
+    id: 'home',
+    index: 4,
+    label: 'HOMEPAGE',
+    name: 'Mark Hintz · Mechanical Designer + Systems Builder',
+    path: '/home/',
+    href: '/home/',
+    htmlEntry: 'home/index.html',
+    reserved: false,
+    fadeIn: true,
     private: true,
   },
 ]

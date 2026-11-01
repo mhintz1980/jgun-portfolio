@@ -14,6 +14,8 @@ const REQUIRED = [
   'index.html',
   'torque-wrench/index.html',
   'quiet-machine/index.html',
+  'home/index.html',
+  ...['armament-receiver', 'armament-sections', 'gearbox-housing', 'gearbox-sections', 'pump-assembly', 'pump-door'].map((name) => `home/drawings/${name}.webp`),
   'models/Default.glb',
   'models/knurling-tool.glb',
   'models/manufacturing-core-full.glb',

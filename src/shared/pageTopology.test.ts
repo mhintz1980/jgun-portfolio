@@ -109,7 +109,7 @@ function stripComments(text: string): string {
 
 describe('the registry and its entries', () => {
   it('lists the entries this build serves', () => {
-    expect(entries.map((item) => item.entry)).toEqual(['torque-wrench/index.html', 'quiet-machine/index.html', 'index.html'])
+    expect(entries.map((item) => item.entry)).toEqual(['torque-wrench/index.html', 'quiet-machine/index.html', 'index.html', 'home/index.html'])
   })
 
   it.each(entries.filter((item) => item.entry !== 'index.html').map((item) => [item.entry] as const))('%s exists and names an entry module that exists', (entry) => {

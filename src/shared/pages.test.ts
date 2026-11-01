@@ -9,13 +9,13 @@ const byId = (id: PageId) => {
 }
 
 describe('PAGES registry', () => {
-  it('lists the two public pages in owner order, then the private root shell', () => {
-    expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun'])
+  it('lists the two public pages in owner order, then the private root shell and the private homepage', () => {
+    expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun', 'home'])
   })
 
   it('publicPages drops exactly the private rows', () => {
     expect(publicPages().map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine'])
-    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun'])
+    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun', 'home'])
   })
 
   it('registers no M249 page for the launch build', () => {
@@ -33,7 +33,7 @@ describe('PAGES registry', () => {
     const indexes = PAGES.map((page) => page.index)
     expect(new Set(indexes).size).toBe(indexes.length)
     expect(indexes).toEqual([...indexes].sort((a, b) => a - b))
-    expect(indexes).toEqual([1, 2, 3])
+    expect(indexes).toEqual([1, 2, 3, 4])
   })
 
   it('marks a page reserved exactly when it has no href and no html entry', () => {
@@ -44,7 +44,7 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME'])
+    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME', 'HOMEPAGE'])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 
@@ -78,6 +78,18 @@ describe('PAGES registry', () => {
       htmlEntry: 'index.html',
       reserved: false,
       fadeIn: false,
+      private: true,
+    })
+  })
+
+  it('pins the home row as a private, fading page at /home/ (JG-039; the root still forwards elsewhere)', () => {
+    expect(byId('home')).toMatchObject({
+      index: 4,
+      path: '/home/',
+      href: '/home/',
+      htmlEntry: 'home/index.html',
+      reserved: false,
+      fadeIn: true,
       private: true,
     })
   })
