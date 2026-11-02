@@ -61,7 +61,7 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     id: 'torque-wrench',
     number: '01',
     title: 'Industrial Torque Wrench',
-    line: 'JGUN, a pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.',
+    line: 'A pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.',
     tags: 'Planetary gearbox · GD&T · DFM',
     status: 'Live, work in progress',
     href: '/torque-wrench/',
@@ -103,8 +103,6 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
  * removed; AI-generated images left out. */
 export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
   'torque-wrench': [
-    { src: "/home/stacks/torque-wrench/01.webp", width: 1536, height: 1024, label: "Finished tool", kind: "photo" },
-    { src: "/home/stacks/torque-wrench/02.webp", width: 793, height: 730, label: "Exploded handle assembly", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/03.webp", width: 528, height: 1152, label: "Exploded gearbox and section", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/04.webp", width: 1600, height: 1209, label: "Splined housing detail drawing", kind: "drawing" },
     { src: "/home/stacks/torque-wrench/05.webp", width: 1600, height: 1209, label: "Gear housing detail drawing", kind: "drawing" },
@@ -119,7 +117,6 @@ export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
     { src: "/home/stacks/armament/06.webp", width: 1600, height: 1008, label: "Barrel nut detail drawing", kind: "drawing" },
   ],
   'renderings': [
-    { src: "/home/stacks/renderings/01.webp", width: 1200, height: 960, label: "Pistol-grip tool concept", kind: "render" },
     { src: "/home/stacks/renderings/02.webp", width: 1024, height: 768, label: "Hydraulic square-drive wrench", kind: "render" },
     { src: "/home/stacks/renderings/03.webp", width: 1000, height: 1000, label: "Gearbox drive, low-key lighting", kind: "render" },
     { src: "/home/stacks/renderings/04.webp", width: 1024, height: 768, label: "Angle-head tool study", kind: "render" },

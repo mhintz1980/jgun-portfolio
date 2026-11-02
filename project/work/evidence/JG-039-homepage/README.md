@@ -83,3 +83,9 @@ Real touch device, devicePixelRatio > 1, Safari/Firefox, owner visual acceptance
 - Peel-through project stacks (from v2), 23 cleaned images: no company names, AI-looking images dropped. Each stack links to its 3D page; Renderings is a gallery with no page. Reduced motion shows a plain grid.
 - Checks: typecheck, vitest 1484/1484, build, verify-launch-dist OK; smoke 0 console errors, no horizontal scroll (5 cases); stack counters advance on scroll.
 - Perf (4x CPU throttle, software GPU): phone median 16.7 ms / p95 33.3; desktop median 33.3 / p95 50.0 (p95 down from 66.7 after hiding buried cards). Recheck on real hardware before go-live.
+
+## 2026-11-02 — redaction (blurred dimensions, Torque Gun removed)
+
+- `scripts/blur-dimensions.py` run on vault drawings armament-receiver, armament-sections, gearbox-housing, gearbox-sections, pump-door and stacks torque-wrench/03-06, armament/02, armament/06 (visually checked: callouts blurred, view labels sharp).
+- Removed stacks torque-wrench/01, 02 and renderings/01 (pistol-grip Torque Gun). Displayed "Torque Gun"/"JGUN" copy renamed across homepage and /torque-wrench/.
+- Checks: typecheck, vitest 1486/1486, build, verify-launch-dist OK (112 files); smoke 6 cases 0 errors, no horizontal scroll; stack counters 04/06/06/04.

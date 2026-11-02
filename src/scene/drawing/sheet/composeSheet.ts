@@ -590,7 +590,7 @@ export function composeSheet(
     ink.text({ text: 'DESIGNED BY:', x: split + 0.003, y: top - 0.0045, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.2 })
     ink.text({ text: OWNER_TITLE.name, x: midX, y: top - 0.0148, size: 0.0098, anchorX: 'center', anchorY: 'middle', weight: 'semibold', letterSpacing: 0.05, group: g, key: 0.25, dur: 0.16 })
     ink.text({ text: OWNER_TITLE.role, x: midX, y: top - 0.0232, size: 0.0046, anchorX: 'center', anchorY: 'middle', weight: 'medium', letterSpacing: 0.06, group: g, key: 0.3, dur: 0.12 })
-    ink.text({ text: 'PROJECT:  HIGH-PRECISION INDUSTRIAL TORQUE GUN', x: midX, y: top - 0.0322, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.05, group: g, key: 0.34, dur: 0.1 })
+    ink.text({ text: 'PROJECT:  HIGH-PRECISION INDUSTRIAL TORQUE WRENCH', x: midX, y: top - 0.0322, size: T.micro, anchorX: 'center', anchorY: 'middle', letterSpacing: 0.05, group: g, key: 0.34, dur: 0.1 })
     const c2 = split + (right - split) * 0.62
     ink.line(c2, rows[1], c2, rows[0], PEN.edge, g, 0.3, 0.05)
     ink.text({ text: 'DWG NO.', x: split + 0.003, y: rows[0] - 0.003, size: T.micro, anchorY: 'top', letterSpacing: 0.08, group: g, key: 0.35 })

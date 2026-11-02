@@ -4,6 +4,35 @@ Owner: Mark Hintz. Written by a Claude Code cloud thread at Mark's request ("rea
 and write a handoff ... distribute this work across several agents and have one agent be
 orchestrator"). Nothing here is approved beyond what is stated in "Approval state".
 
+## Where we left off (2026-11-02, read this first)
+
+- Built on branch `claude/project-thread-tlq9j4`, draft PR #5 (into `torque-wrench/rebuild`). Private
+  `/home/` and `/armament/` pages. Not merged, not deployed, root `/` unchanged.
+- Single-file preview for Mark: https://claude.ai/artifact/XU9XG3A6B1PTQ7YBRYexvW (project links
+  don't navigate there). Rebuild: esbuild bundle of `src/home-main.tsx` (do NOT mark `/home/*` as
+  external, it matches the absolute repo path), then inline `/home/**` images and `/fonts/home/*`
+  as data URIs.
+- Done 2026-11-02 at Mark's request ("things I like about my old one"): v2 fonts (Michroma, Archivo,
+  Space Grotesk, JetBrains Mono; `src/home/FONTS.md`), rolling hero sentence in his wording, parallax
+  drift halved, peel-through image stacks per project (`ProjectStack.tsx`, `stackMath.ts`) with
+  links to the 3D pages, a "Renderings & Visualizations" gallery row.
+- Done 2026-11-02, Mark: "ITAR is fine but we should be blurring some dimensions and company names.
+  Definitely remove the torque gun anywhere it appears as well as the company names."
+  - Dimension and note text blurred on all 5 dimensioned vault drawings and 6 stack drawings with
+    `scripts/blur-dimensions.py` (blurs callout-height words; view labels like SECTION A-A stay
+    sharp). Originals are in git history before this commit. pump-assembly has only balloons.
+  - Removed the pistol-grip Torque Gun images (finished-tool photo, exploded handle, red pistol-grip
+    render). The torque-wrench stack is now gearbox drawings only.
+  - "Torque Gun" / "JGUN" removed from displayed copy: homepage, `/torque-wrench/` title, meta and
+    hero, story text, drawing-sheet title block, station name, intro titles, root link. This
+    replaces the 2026-09-05 rule that made "High-Precision Industrial Torque Gun" the public name;
+    it is now "High-Precision Industrial Torque Wrench" (`src/data/caseStudies.ts`).
+    `content.test.ts` bans both names in homepage copy.
+  - Not checked: textures inside the GLB models and the old poster/video frames may still show the
+    brand. Check before go-live.
+- Next options Mark raised: a new video reel below the hero (old Remotion reel is not reusable as
+  is: unverified claims and logos). Not started.
+
 ## Where things are
 
 | What | Where |
@@ -143,10 +172,14 @@ shared file: W1 lands the skeleton with stub components first; workers only edit
 2. Employer names: Mark asked (2026-11-01) to remove any employer names from drawings/models. The
    pump-assembly post decals and the armament revision-table strip were blanked; the CAT engine logo
    (supplier, not employer) remains.
-3. ITAR/EAR check before armament drawings go live (stand-ins already public on v2).
+3. ~~ITAR/EAR check~~ — Mark: "ITAR is fine" (2026-11-02); dimensions blurred instead.
 4. Send the redacted drawing set (2 per project) to replace the stand-ins.
 5. Reference-site fonts: screenshots, or a cloud environment with those domains allowed.
 6. Approve flipping the root `/` to the homepage, and deploying.
+7. Keep or drop the CAT engine logo on the pump drawing.
+8. The blue hydraulic square-drive wrench render (renderings/02) is a Hytorc-style product: confirm
+   it is OK to show.
+9. GLB textures / poster frames on `/torque-wrench/`: confirm no Torque Gun branding shows.
 
 ## Acceptance checks (focused, per owner spec 2026-10-31)
 

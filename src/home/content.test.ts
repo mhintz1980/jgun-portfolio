@@ -26,6 +26,8 @@ const BANNED: readonly [string, RegExp][] = [
   ['employer Seth', /\bseth\b/i],
   ['employer MSP', /\bmsp\b/i],
   ['product RL300', /rl\s*-?300/i],
+  ['brand Torque Gun', /torque\s*gun/i],
+  ['product JGUN', /j-?gun/i],
   ['unverified headline', /built from the shop floor up/i],
   ['v2 22% claim', /22\s*%/],
   ['v2 hours claim', /\d+\+?\s*(hrs|hours)/i],

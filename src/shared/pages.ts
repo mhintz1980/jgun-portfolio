@@ -36,7 +36,7 @@ export const PAGES: readonly PageEntry[] = [
     id: 'torque-wrench',
     index: 1,
     label: 'TORQUE WRENCH',
-    name: 'JGUN Pneumatic Torque Wrench',
+    name: 'Pneumatic Torque Wrench',
     path: '/torque-wrench/',
     href: '/torque-wrench/',
     htmlEntry: 'torque-wrench/index.html',
