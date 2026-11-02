@@ -73,7 +73,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <header className="torque-header">
         <PrivatePageNav tier={tier} variant="header" />
         <div className="torque-hero">
-          <p className="torque-hero__eyebrow">Case study 01</p>
+          <p className="torque-hero__eyebrow">Case study 01 · Work in progress</p>
           <h1 className="torque-hero__title">Industrial Torque Wrench</h1>
           <p className="torque-hero__intro">
             Five chapters: drafting breaks through into mechanism, inspection, and close.
@@ -94,7 +94,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
       <footer className="torque-footer">
         <PrivatePageNav tier={tier} variant="endcard" />
         <p className="torque-colophon">
-          Pneumatic Torque Wrench. The five-chapter story runs from drafting and
+          Work in progress. Pneumatic Torque Wrench. The five-chapter story runs from drafting and
           breakthrough into mechanism, inspection, and close.
         </p>
       </footer>

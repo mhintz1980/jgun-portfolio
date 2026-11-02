@@ -125,7 +125,7 @@ export function Story({ playback, live }: { playback?: InspectionPlayback; live?
       tabIndex={-1}
     >
       <h2 id="torque-story-heading" className="torque-sr">
-        The JGUN story, five chapters
+        The torque wrench story, five chapters
       </h2>
       {TORQUE_POSTER_CHAPTERS.map((chapter, index) => {
         const copy = CHAPTER_COPY[chapter.id]
