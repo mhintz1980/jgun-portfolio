@@ -1,7 +1,7 @@
 // Page registry: the public shell interface shared by every page of the site.
 // Zero imports by design. It carries no scroll length and never reads page progress.
 
-export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench' | 'home'
+export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench' | 'home' | 'armament'
 
 export type TierParam = 'full' | 'lite' | 'poster'
 
@@ -81,6 +81,20 @@ export const PAGES: readonly PageEntry[] = [
     path: '/home/',
     href: '/home/',
     htmlEntry: 'home/index.html',
+    reserved: false,
+    fadeIn: true,
+    private: true,
+  },
+  // Armament placeholder (JG-039): a text-only "under construction" page linked from /home/. No
+  // drawings until the owner's ITAR/EAR check. Private: noindex, never in navigation.
+  {
+    id: 'armament',
+    index: 5,
+    label: 'ARMAMENT',
+    name: 'Armament (under construction)',
+    path: '/armament/',
+    href: '/armament/',
+    htmlEntry: 'armament/index.html',
     reserved: false,
     fadeIn: true,
     private: true,

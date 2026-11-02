@@ -63,7 +63,7 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     line: 'Rifle receivers and small-arms parts, drawn for the machine shop.',
     tags: 'Forgings · GD&T · machining',
     status: 'Under construction',
-    href: null,
+    href: '/armament/',
   },
 ]
 
@@ -118,6 +118,14 @@ export const CONTACT = {
   email: 'markworks.dev@gmail.com',
   linkedin: 'https://linkedin.com/in/mark-hintz-builds',
   github: 'https://github.com/mhintz1980',
+} as const
+
+export const ARMAMENT_PAGE = {
+  label: 'Portfolio · 03',
+  title: 'Armament',
+  status: 'Under construction',
+  body: 'Rifle receivers and small-arms parts, drawn for the machine shop. This page is still being built.',
+  back: 'Back to the homepage',
 } as const
 
 export const FOOTER = {

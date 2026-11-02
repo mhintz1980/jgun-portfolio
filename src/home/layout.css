@@ -275,6 +275,10 @@ a.home-row:focus-visible,
   .home-row-status {
     grid-column: 2;
   }
+  /* Room for the thread's eyelets and margin loops beside each row. */
+  .home-rows {
+    padding-inline: 14px;
+  }
   .home-row-arrow {
     display: none;
   }

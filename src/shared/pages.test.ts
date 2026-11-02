@@ -9,13 +9,13 @@ const byId = (id: PageId) => {
 }
 
 describe('PAGES registry', () => {
-  it('lists the two public pages in owner order, then the private root shell and the private homepage', () => {
-    expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun', 'home'])
+  it('lists the two public pages in owner order, then the private root shell, homepage and armament placeholder', () => {
+    expect(PAGES.map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine', 'jgun', 'home', 'armament'])
   })
 
   it('publicPages drops exactly the private rows', () => {
     expect(publicPages().map((page) => page.id)).toEqual(['torque-wrench', 'quiet-machine'])
-    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun', 'home'])
+    expect(PAGES.filter((page) => page.private).map((page) => page.id)).toEqual(['jgun', 'home', 'armament'])
   })
 
   it('registers no M249 page for the launch build', () => {
@@ -33,7 +33,7 @@ describe('PAGES registry', () => {
     const indexes = PAGES.map((page) => page.index)
     expect(new Set(indexes).size).toBe(indexes.length)
     expect(indexes).toEqual([...indexes].sort((a, b) => a - b))
-    expect(indexes).toEqual([1, 2, 3, 4])
+    expect(indexes).toEqual([1, 2, 3, 4, 5])
   })
 
   it('marks a page reserved exactly when it has no href and no html entry', () => {
@@ -44,7 +44,7 @@ describe('PAGES registry', () => {
   })
 
   it('carries the nav label and a non-empty long name on every row', () => {
-    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME', 'HOMEPAGE'])
+    expect(PAGES.map((page) => page.label)).toEqual(['TORQUE WRENCH', 'THE QUIET MACHINE', 'HOME', 'HOMEPAGE', 'ARMAMENT'])
     for (const page of PAGES) expect(page.name.length, `${page.id}: name`).toBeGreaterThan(0)
   })
 
@@ -92,6 +92,12 @@ describe('PAGES registry', () => {
       fadeIn: true,
       private: true,
     })
+  })
+})
+
+describe('armament placeholder', () => {
+  it('is private, fading and served at /armament/', () => {
+    expect(byId('armament')).toMatchObject({ index: 5, path: '/armament/', htmlEntry: 'armament/index.html', reserved: false, fadeIn: true, private: true })
   })
 })
 

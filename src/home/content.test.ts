@@ -53,12 +53,14 @@ describe('homepage copy accuracy rules', () => {
     expect(PLUS_ITEMS.find((item) => item.id === 'cad-pdm-tools')?.status).toBe('Prototype')
   })
 
-  it('the armament row is not a link yet', () => {
-    expect(CORE_PROJECTS.find((project) => project.id === 'armament')?.href).toBeNull()
+  it('the armament row links to its under-construction page', () => {
+    const row = CORE_PROJECTS.find((project) => project.id === 'armament')
+    expect(row?.href).toBe('/armament/')
+    expect(row?.status).toBe('Under construction')
   })
 
   it('the live rows link to the registered pages', () => {
-    expect(CORE_PROJECTS.filter((project) => project.href).map((project) => project.href)).toEqual(['/torque-wrench/', '/quiet-machine/'])
+    expect(CORE_PROJECTS.filter((project) => project.href).map((project) => project.href)).toEqual(['/torque-wrench/', '/quiet-machine/', '/armament/'])
   })
 
   it('contact links are plain, absolute and complete', () => {

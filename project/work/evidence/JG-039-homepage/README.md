@@ -60,3 +60,17 @@ Gitignored here (evidence PNGs stay local by repo rule); copies are in the proje
 ## Not verified
 
 Real touch device, devicePixelRatio > 1, Safari/Firefox, owner visual acceptance.
+
+## Follow-up 2026-11-02
+
+- Owner decisions 2026-11-01: Phipps quote stays; employer names removed from drawings (pump post
+  decals and armament revision strip blanked; CAT engine logo left, supplier not employer).
+- Pure modules renamed `vaultMath.ts` / `threadPath.ts`: on a case-insensitive file system
+  `./Vault` could resolve to `vault.ts`.
+- Phone rows get 14 px side padding so the thread's eyelets are no longer clipped at the screen edge.
+- Armament placeholder: private `/armament/` page (noindex, text only, no drawings), linked from
+  the homepage's 03 row; back link to `/home/`. Registered in `PAGES` (index 5) with pinned tests
+  and in the verify-launch-dist list.
+- Re-run: typecheck pass; vitest src/home + src/shared 318/318; build pass; verify-launch-dist OK
+  (53 required); 6-case homepage smoke 0 console errors, no horizontal scroll; armament page
+  desktop light + phone dark 0 errors, noindex present, back link returns to `/home/`.
