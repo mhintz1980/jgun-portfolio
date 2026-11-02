@@ -9,7 +9,7 @@ const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string;
   drafting: {
     title: 'Drafting',
     lede: 'Design starts with the interfaces.',
-    body: 'Mark Hintz’s JGUN design connects the input shaft, planetary drivetrain and two-speed clutch. The drawing and handwritten notes introduce the geometry and manufacturing decisions behind the tool.',
+    body: 'Mark Hintz’s design connects the input shaft, planetary drivetrain and two-speed clutch. The drawing and handwritten notes introduce the geometry and manufacturing decisions behind the tool.',
   },
   breakthrough: {
     title: 'Breakthrough',

@@ -1,0 +1,109 @@
+/* "Pull to untangle" contact rope (JG-039 W4). Colours come from the theme tokens in layout.css. */
+
+.home-rope {
+  margin: 0 0 8px;
+}
+
+.home-rope-stage {
+  position: relative;
+  width: 100%;
+}
+
+.home-rope-canvas {
+  display: block;
+  width: 100%;
+  height: 220px;
+}
+
+/* Where the page's thread ends: exactly the rope's pinned left end (left/top set in px). */
+.home-rope-anchor {
+  position: absolute;
+  left: 6px;
+  top: 110px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Invisible grab area around the needle. Only here is touch scrolling turned off. */
+.home-rope-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-rope-handle.is-dragging {
+  cursor: grabbing;
+}
+
+.home-rope.is-still .home-rope-handle {
+  display: none;
+}
+
+.home-rope-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
+.home-rope-caption {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.home-rope.is-solved .home-rope-caption {
+  /* Ink, not accent: small accent text over a ghost line drops below 4.5:1. */
+  color: var(--ink);
+}
+
+/* The keyboard control: out of sight until focused, then a plain outlined chip. */
+.home-rope-button {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.home-rope-button:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.home-rope-button[aria-disabled="true"] {
+  color: var(--muted);
+  cursor: default;
+}
+
+@media (max-width: 599px) {
+  .home-rope-canvas {
+    height: 180px;
+  }
+}

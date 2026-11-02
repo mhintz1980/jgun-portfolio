@@ -27,7 +27,7 @@ const CARDS: Card[] = [
     opening: true,
     kicker: 'PTG-HP-1000 · REV 03',
     lines: ['Drawn to', 'a thousandth.'],
-    body: 'A high-precision industrial torque gun. Every geared part held to less than .001" TIR.',
+    body: 'A high-precision industrial torque wrench. Every geared part held to less than .001" TIR.',
     place: 'left-[6vw] top-[8vh]',
   },
   {

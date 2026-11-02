@@ -57,7 +57,7 @@ export const CHAPTERS: ChapterDef[] = [
  * nomenclature cannot drift apart again.
  *
  * Nomenclature rule (Mark, 2026-09-05):
- *  - `PTG-HP-1000 REV03` and "High-Precision Industrial Torque Gun" are the
+ *  - `PTG-HP-1000 REV03` and "High-Precision Industrial Torque Wrench" are the
  *    only public designations for this machine.
  *  - `D1-AP` is the in-house part number shared between Mark and his partner.
  *    It must NEVER reach the screen. It stays in source comments and in
@@ -65,11 +65,12 @@ export const CHAPTERS: ChapterDef[] = [
  *    that number — renaming it there would break role classification for all
  *    316 occurrences in `role-map.json`.
  *  - `JGUN` is likewise in-house and is never displayed.
+ *  - 2026-11-02 (Mark): "Torque Gun" is a company/product name; it is never displayed.
  *  - `RL300` designates the station-2 acoustic enclosure ONLY, never this tool
  *    and never the site as a whole.
  */
 export const ASSEMBLY_IDENTITY = {
-  machine: 'High-Precision Industrial Torque Gun',
+  machine: 'High-Precision Industrial Torque Wrench',
   drawingNumber: 'PTG-HP-1000',
   revision: 'REV03',
   spec: 'Multi-stage planetary reduction · 7-axis mill-turn · ASME Y14.5 GD&T',
