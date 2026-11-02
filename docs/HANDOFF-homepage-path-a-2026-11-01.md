@@ -30,6 +30,10 @@ orchestrator"). Nothing here is approved beyond what is stated in "Approval stat
     `content.test.ts` bans both names in homepage copy.
   - Not checked: textures inside the GLB models and the old poster/video frames may still show the
     brand. Check before go-live.
+- Done 2026-11-02 (preview comment): header name is `DrawnName.tsx` + `name.css`, Archivo 900,
+  exactly 50vw wide, outline traced in Revision Orange then filled; gap 10vw (about two letters) to
+  the nav; nav is v2 style (Space Grotesk 15px, underline on hover); theme toggle is the v2 pill
+  (80x40, sliding knob, sun/moon). Hero eyebrow is now just "Jacksonville, FL".
 - Next options Mark raised: a new video reel below the hero (old Remotion reel is not reusable as
   is: unverified claims and logos). Not started.
 

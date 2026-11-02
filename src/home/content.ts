@@ -33,7 +33,7 @@ export interface PlusItem {
 }
 
 export const HERO = {
-  eyebrow: 'Mark Hintz · Jacksonville, FL',
+  eyebrow: 'Jacksonville, FL',
   titleTop: 'Mechanical Designer',
   titleBottom: 'Systems Builder',
   lede: '20+ years designing precision tooling and industrial pump packages.',

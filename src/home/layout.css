@@ -93,39 +93,81 @@ body {
   color: var(--accent);
 }
 
-/* Header */
+/* Header: the drawn name, a gap about two of its letters wide, the nav, the toggle at the right. */
 .home-header {
   display: flex;
   align-items: center;
-  gap: 24px;
-  max-width: var(--measure);
   margin: 0 auto;
-  padding: 20px var(--gutter);
+  padding: 28px var(--gutter) 20px;
 }
 
-.home-mark {
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-decoration: none;
+.home-header .home-name {
+  margin-right: 10vw;
 }
 
 .home-nav {
   display: flex;
-  gap: 20px;
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  align-items: center;
+  gap: 32px;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .home-nav a {
+  position: relative;
+  color: var(--muted);
   text-decoration: none;
+  transition: color 200ms ease;
 }
 
-.home-nav a:hover {
+.home-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 200ms ease;
+}
+
+.home-nav a:hover,
+.home-nav a:focus-visible {
   color: var(--accent);
+}
+
+.home-nav a:hover::after,
+.home-nav a:focus-visible::after {
+  width: 100%;
+}
+
+.home-header .home-theme-toggle {
+  margin-left: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-nav a,
+  .home-nav a::after {
+    transition: none;
+  }
+}
+
+/* Phones: name and toggle on the first row, the nav under them. */
+@media (max-width: 760px) {
+  .home-header {
+    flex-wrap: wrap;
+    row-gap: 18px;
+    padding-top: 20px;
+  }
+  .home-header .home-name {
+    margin-right: 16px;
+  }
+  .home-nav {
+    order: 3;
+    width: 100%;
+    gap: 28px;
+  }
 }
 
 /* Hero */
@@ -348,12 +390,6 @@ a.home-row:focus-visible,
     padding-inline: 14px;
   }
   .home-row-arrow {
-    display: none;
-  }
-  .home-nav {
-    gap: 14px;
-  }
-  .home-mark {
     display: none;
   }
 }

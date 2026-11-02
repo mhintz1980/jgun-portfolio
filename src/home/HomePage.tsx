@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { prefetchPage } from '../shared/pageFade'
 import ContactRope from './ContactRope'
+import DrawnName from './DrawnName'
 import ProjectStack from './ProjectStack'
 import RollingPhrase from './RollingPhrase'
 import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, STACKS, TESTIMONIAL, WORK } from './content'
@@ -56,9 +57,7 @@ export default function HomePage() {
       <Thread />
 
       <header className="home-header">
-        <a className="home-mark" href="#top">
-          MARK HINTZ
-        </a>
+        <DrawnName href="#top" label="Mark Hintz, back to top" />
         <nav className="home-nav" aria-label="Sections">
           <a href="#work">Work</a>
           <a href="#plus">

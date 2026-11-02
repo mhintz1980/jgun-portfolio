@@ -17,25 +17,30 @@ export default function ThemeToggle() {
   }, [])
 
   const dark = theme === 'dark'
+  // Pill switch from Mark's earlier site: the knob slides right for dark, and its icon spins.
   return (
     <button
       type="button"
       className="home-theme-toggle"
+      data-theme-state={theme}
       aria-pressed={dark}
       aria-label="Dark theme"
       onClick={() => applyTheme(document, nextTheme(theme), safeLocalStorage())}
     >
-      {dark ? (
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <path d="M10.5 1.8a6.5 6.5 0 1 0 3.7 9.9A5.5 5.5 0 0 1 10.5 1.8Z" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-        </svg>
-      ) : (
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-          <circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="1.4" />
-          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        </svg>
-      )}
-      <span className="home-theme-toggle-text">Dark</span>
+      <span className="home-theme-knob" aria-hidden="true">
+        <span className="home-theme-icon">
+          {dark ? (
+            <svg width="18" height="18" viewBox="0 0 16 16" focusable="false">
+              <path d="M10.5 1.8a6.5 6.5 0 1 0 3.7 9.9A5.5 5.5 0 0 1 10.5 1.8Z" fill="currentColor" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 16 16" focusable="false">
+              <circle cx="8" cy="8" r="3.2" fill="currentColor" />
+              <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          )}
+        </span>
+      </span>
     </button>
   )
 }

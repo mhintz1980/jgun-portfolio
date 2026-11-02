@@ -1,4 +1,5 @@
 import { ARMAMENT_PAGE, FOOTER } from './content'
+import DrawnName from './DrawnName'
 import ThemeToggle from './ThemeToggle'
 import './layout.css'
 import './armament.css'
@@ -9,9 +10,7 @@ export default function ArmamentPage() {
   return (
     <div className="home home-placeholder">
       <header className="home-header">
-        <a className="home-mark" href="/home/" data-fade>
-          MARK HINTZ
-        </a>
+        <DrawnName href="/home/" label="Mark Hintz, homepage" fade />
         <span className="home-nav" />
         <ThemeToggle />
       </header>
