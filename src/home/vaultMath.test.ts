@@ -49,9 +49,9 @@ describe('scrollTransform', () => {
   })
   it('drifts dx, dy px and ds scale per 1000 px', () => {
     const t = scrollTransform(housing, 2000)
-    expect(t.x).toBeCloseTo(120)
-    expect(t.y).toBeCloseTo(-280)
-    expect(t.scale).toBeCloseTo(1.1)
+    expect(t.x).toBeCloseTo(2 * housing.dx)
+    expect(t.y).toBeCloseTo(2 * housing.dy)
+    expect(t.scale).toBeCloseTo(1 + 2 * housing.ds)
   })
   it('stays static with reduced motion', () => {
     expect(scrollTransform(housing, 5000, true)).toEqual({ x: 0, y: 0, scale: 1 })

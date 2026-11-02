@@ -1,9 +1,31 @@
 /* Homepage layout and theme tokens (JG-039). Effects keep their own CSS files. */
 
+/* Fonts from Mark's earlier portfolio, self-hosted (see FONTS.md). */
 @font-face {
-  font-family: "Barlow Condensed";
-  src: url("/fonts/BarlowCondensed-SemiBold.ttf") format("truetype");
-  font-weight: 600;
+  font-family: "Michroma";
+  src: url("/fonts/home/Michroma.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/home/Archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/home/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/home/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 800;
   font-display: swap;
 }
 
@@ -30,9 +52,10 @@ html[data-theme="dark"] {
 }
 
 .home {
-  --display: "Barlow Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
-  --body: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --hero: "Michroma", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --body: "Space Grotesk", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --gutter: clamp(16px, 4vw, 56px);
   --measure: 1120px;
   position: relative;
@@ -126,13 +149,57 @@ body {
 }
 
 .home-title {
-  margin: 16px 0 24px;
-  font-family: var(--display);
+  margin: 20px 0 32px;
+  font-family: var(--hero);
+  font-weight: 400;
+  font-size: clamp(25px, 5.4vw, 66px);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+/* The rolling sentence: a tinted panel, the rolling words in accent. */
+.home-rolling {
+  max-width: 44rem;
+  margin: 0 0 24px;
+  padding: 18px 22px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.5;
+}
+
+.home-rolling-slot {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.home-rolling-word {
+  display: inline-block;
   font-weight: 600;
-  font-size: clamp(48px, 9vw, 128px);
-  line-height: 0.92;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  color: var(--accent);
+  animation: home-roll-in 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes home-roll-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-rolling-word {
+    animation: none;
+  }
+}
+
+.home-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .home-title-line {
@@ -145,9 +212,10 @@ body {
 }
 
 .home-lede {
-  max-width: 36ch;
+  max-width: 44ch;
   margin: 0 0 32px;
-  font-size: clamp(18px, 2vw, 22px);
+  font-size: clamp(16px, 1.6vw, 18px);
+  color: var(--muted);
 }
 
 .home-cue a {
@@ -190,10 +258,10 @@ body {
 .home-h2 {
   margin: 8px 0 32px;
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(36px, 5vw, 64px);
-  line-height: 1;
-  text-transform: uppercase;
+  font-weight: 800;
+  font-size: clamp(34px, 4.6vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
 }
 
 .home-sub {
@@ -245,10 +313,10 @@ a.home-row:focus-visible,
 
 .home-row-title {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(26px, 3vw, 36px);
-  line-height: 1.05;
-  text-transform: uppercase;
+  font-weight: 800;
+  font-size: clamp(24px, 2.6vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .home-row-line {
@@ -320,9 +388,9 @@ a.home-row:focus-visible,
 .home-card-title {
   margin: 0 0 8px;
   font-family: var(--display);
-  font-weight: 600;
-  font-size: 28px;
-  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
 }
 
 .home-card-line {

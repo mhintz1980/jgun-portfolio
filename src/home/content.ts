@@ -1,7 +1,7 @@
 // Homepage copy and drawing layers. Every claim here is checked against Mark's record
 // (content.test.ts pins the wording rules). Change copy here, not in the components.
 
-export type ProjectId = 'torque-wrench' | 'quiet-machine' | 'armament'
+export type ProjectId = 'torque-wrench' | 'quiet-machine' | 'armament' | 'renderings'
 
 export interface CoreProject {
   id: ProjectId
@@ -12,6 +12,16 @@ export interface CoreProject {
   status: string
   /** Null while the page is not built yet: the row is shown but is not a link. */
   href: string | null
+  /** Text of the link under the project's image stack. */
+  linkLabel: string
+}
+
+export interface StackImage {
+  src: string
+  width: number
+  height: number
+  label: string
+  kind: 'render' | 'drawing' | 'photo'
 }
 
 export interface PlusItem {
@@ -27,6 +37,14 @@ export const HERO = {
   titleTop: 'Mechanical Designer',
   titleBottom: 'Systems Builder',
   lede: '20+ years designing precision tooling and industrial pump packages.',
+  /** The rolling sentence from Mark's earlier site (his wording, 2026-11-02). */
+  rollingLead: 'I engineer high-integrity systems and automated workflows that',
+  rolling: [
+    'convert complex CAD into shop-floor reality.',
+    'eliminate friction between design and fabrication.',
+    'bring half-thou precision to full-stack development.',
+    'hard-code manufacturability into every assembly.',
+  ],
   cue: 'Follow the thread',
   hintPointer: 'Move the cursor to inspect the drawings',
   hintTouch: 'Scroll to inspect the drawings',
@@ -35,17 +53,19 @@ export const HERO = {
 export const WORK = {
   label: 'Portfolio',
   heading: 'Selected work',
+  stackHint: 'Scroll or drag to peel through the stack',
 } as const
 
 export const CORE_PROJECTS: readonly CoreProject[] = [
   {
     id: 'torque-wrench',
     number: '01',
-    title: 'JGUN Pneumatic Torque Wrench',
-    line: 'A pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.',
+    title: 'Industrial Torque Wrench',
+    line: 'JGUN, a pneumatic torque wrench and its planetary gearbox, taken apart in 3D as you scroll.',
     tags: 'Planetary gearbox · GD&T · DFM',
     status: 'Live, work in progress',
     href: '/torque-wrench/',
+    linkLabel: 'Open the 3D teardown',
   },
   {
     id: 'quiet-machine',
@@ -55,17 +75,65 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     tags: 'Enclosures · sheet metal · weldments',
     status: 'Live, work in progress',
     href: '/quiet-machine/',
+    linkLabel: 'Open the 3D section study',
   },
   {
     id: 'armament',
     number: '03',
-    title: 'Armament',
+    title: 'Armament Components & Receiver Systems',
     line: 'Rifle receivers and small-arms parts, drawn for the machine shop.',
     tags: 'Forgings · GD&T · machining',
     status: 'Under construction',
     href: '/armament/',
+    linkLabel: 'Open the project page',
+  },
+  {
+    id: 'renderings',
+    number: '04',
+    title: 'Renderings & Visualizations',
+    line: 'Product renders made straight from the CAD model.',
+    tags: 'Rendering · materials · lighting',
+    status: 'Gallery',
+    href: null,
+    linkLabel: '',
   },
 ]
+
+/** Image stacks per project (public/home/stacks/): company names, logos, title blocks and BOMs
+ * removed; AI-generated images left out. */
+export const STACKS: Partial<Record<ProjectId, readonly StackImage[]>> = {
+  'torque-wrench': [
+    { src: "/home/stacks/torque-wrench/01.webp", width: 1536, height: 1024, label: "Finished tool", kind: "photo" },
+    { src: "/home/stacks/torque-wrench/02.webp", width: 793, height: 730, label: "Exploded handle assembly", kind: "drawing" },
+    { src: "/home/stacks/torque-wrench/03.webp", width: 528, height: 1152, label: "Exploded gearbox and section", kind: "drawing" },
+    { src: "/home/stacks/torque-wrench/04.webp", width: 1600, height: 1209, label: "Splined housing detail drawing", kind: "drawing" },
+    { src: "/home/stacks/torque-wrench/05.webp", width: 1600, height: 1209, label: "Gear housing detail drawing", kind: "drawing" },
+    { src: "/home/stacks/torque-wrench/06.webp", width: 1600, height: 1034, label: "Output drive detail drawing", kind: "drawing" },
+  ],
+  'armament': [
+    { src: "/home/stacks/armament/01.webp", width: 871, height: 775, label: "Billet lower receiver, CAD render", kind: "render" },
+    { src: "/home/stacks/armament/02.webp", width: 1600, height: 1145, label: "Lower receiver machining drawing", kind: "drawing" },
+    { src: "/home/stacks/armament/03.webp", width: 1600, height: 1308, label: "Handguard, three views", kind: "render" },
+    { src: "/home/stacks/armament/04.webp", width: 1600, height: 1002, label: "Accessory rail mount", kind: "render" },
+    { src: "/home/stacks/armament/05.webp", width: 775, height: 638, label: "Billet upper and lower, CAD render", kind: "render" },
+    { src: "/home/stacks/armament/06.webp", width: 1600, height: 1008, label: "Barrel nut detail drawing", kind: "drawing" },
+  ],
+  'renderings': [
+    { src: "/home/stacks/renderings/01.webp", width: 1200, height: 960, label: "Pistol-grip tool concept", kind: "render" },
+    { src: "/home/stacks/renderings/02.webp", width: 1024, height: 768, label: "Hydraulic square-drive wrench", kind: "render" },
+    { src: "/home/stacks/renderings/03.webp", width: 1000, height: 1000, label: "Gearbox drive, low-key lighting", kind: "render" },
+    { src: "/home/stacks/renderings/04.webp", width: 1024, height: 768, label: "Angle-head tool study", kind: "render" },
+    { src: "/home/stacks/renderings/05.webp", width: 800, height: 600, label: "Free-float handguard", kind: "render" },
+  ],
+  'quiet-machine': [
+    { src: "/home/stacks/quiet-machine/01.webp", width: 1600, height: 900, label: "Cutaway: pump, drive and engine", kind: "render" },
+    { src: "/home/stacks/quiet-machine/02.webp", width: 1600, height: 900, label: "Sound-attenuated enclosure, closed", kind: "render" },
+    { src: "/home/stacks/quiet-machine/03.webp", width: 1600, height: 900, label: "Front cutaway, full drivetrain", kind: "render" },
+    { src: "/home/stacks/quiet-machine/04.webp", width: 1600, height: 900, label: "Enclosure framing and baffles", kind: "render" },
+    { src: "/home/stacks/quiet-machine/05.webp", width: 1600, height: 900, label: "Engine bay and intake side", kind: "render" },
+    { src: "/home/stacks/quiet-machine/06.webp", width: 1600, height: 900, label: "Skid base, under-floor detail", kind: "render" },
+  ],
+}
 
 export const PLUS = {
   label: 'The Plus',
@@ -156,11 +224,12 @@ export interface DrawingLayer {
 }
 
 // Stand-in drawings from Mark's earlier portfolio, title blocks and parts lists cropped off.
+// Drift halved 2026-11-02: Mark prefers the subtler parallax of his earlier site.
 export const DRAWING_LAYERS: readonly DrawingLayer[] = [
-  { id: 'gearbox-housing', project: 'torque-wrench', src: '/home/drawings/gearbox-housing.webp', width: 1440, height: 750, primary: true, cx: 0.7, cy: 0.3, w: 0.5, wPhone: 1.15, dx: 60, dy: -140, ds: 0.05 },
-  { id: 'gearbox-sections', project: 'torque-wrench', src: '/home/drawings/gearbox-sections.webp', width: 1440, height: 810, primary: false, cx: 0.22, cy: 0.78, w: 0.42, wPhone: 1, dx: -90, dy: 110, ds: -0.04 },
-  { id: 'pump-assembly', project: 'quiet-machine', src: '/home/drawings/pump-assembly.webp', width: 680, height: 500, primary: true, cx: 0.26, cy: 0.36, w: 0.4, wPhone: 1.05, dx: -70, dy: -90, ds: 0.06 },
-  { id: 'pump-door', project: 'quiet-machine', src: '/home/drawings/pump-door.webp', width: 1600, height: 616, primary: false, cx: 0.72, cy: 0.86, w: 0.52, wPhone: 1.1, dx: 80, dy: 70, ds: -0.03 },
-  { id: 'armament-receiver', project: 'armament', src: '/home/drawings/armament-receiver.webp', width: 1600, height: 694, primary: true, cx: 0.55, cy: 0.62, w: 0.6, wPhone: 1.3, dx: 40, dy: -60, ds: 0.04 },
-  { id: 'armament-sections', project: 'armament', src: '/home/drawings/armament-sections.webp', width: 1600, height: 473, primary: false, cx: 0.4, cy: 0.1, w: 0.5, wPhone: 1.1, dx: -50, dy: 150, ds: -0.05 },
+  { id: 'gearbox-housing', project: 'torque-wrench', src: '/home/drawings/gearbox-housing.webp', width: 1440, height: 750, primary: true, cx: 0.7, cy: 0.3, w: 0.5, wPhone: 1.15, dx: 30, dy: -70, ds: 0.025 },
+  { id: 'gearbox-sections', project: 'torque-wrench', src: '/home/drawings/gearbox-sections.webp', width: 1440, height: 810, primary: false, cx: 0.22, cy: 0.78, w: 0.42, wPhone: 1, dx: -45, dy: 55, ds: -0.02 },
+  { id: 'pump-assembly', project: 'quiet-machine', src: '/home/drawings/pump-assembly.webp', width: 680, height: 500, primary: true, cx: 0.26, cy: 0.36, w: 0.4, wPhone: 1.05, dx: -35, dy: -45, ds: 0.03 },
+  { id: 'pump-door', project: 'quiet-machine', src: '/home/drawings/pump-door.webp', width: 1600, height: 616, primary: false, cx: 0.72, cy: 0.86, w: 0.52, wPhone: 1.1, dx: 40, dy: 35, ds: -0.015 },
+  { id: 'armament-receiver', project: 'armament', src: '/home/drawings/armament-receiver.webp', width: 1600, height: 694, primary: true, cx: 0.55, cy: 0.62, w: 0.6, wPhone: 1.3, dx: 20, dy: -30, ds: 0.02 },
+  { id: 'armament-sections', project: 'armament', src: '/home/drawings/armament-sections.webp', width: 1600, height: 473, primary: false, cx: 0.4, cy: 0.1, w: 0.5, wPhone: 1.1, dx: -25, dy: 75, ds: -0.025 },
 ]

@@ -59,6 +59,10 @@ describe('homepage copy accuracy rules', () => {
     expect(row?.status).toBe('Under construction')
   })
 
+  it('the renderings row is a gallery without a page', () => {
+    expect(CORE_PROJECTS.find((project) => project.id === 'renderings')?.href).toBeNull()
+  })
+
   it('the live rows link to the registered pages', () => {
     expect(CORE_PROJECTS.filter((project) => project.href).map((project) => project.href)).toEqual(['/torque-wrench/', '/quiet-machine/', '/armament/'])
   })
@@ -85,5 +89,42 @@ describe('DRAWING_LAYERS', () => {
 
   it('points every layer at a mask under /home/drawings/', () => {
     for (const layer of DRAWING_LAYERS) expect(layer.src).toBe(`/home/drawings/${layer.id}.webp`)
+  })
+})
+
+describe('STACKS', () => {
+  it('every stack image exists, with its real pixel size', async () => {
+    const { existsSync, readFileSync } = await import('node:fs')
+    const { STACKS } = await import('./content')
+    for (const images of Object.values(STACKS)) {
+      for (const image of images ?? []) {
+        const file = `public${image.src}`
+        expect(existsSync(file), file).toBe(true)
+        // WebP VP8/VP8L/VP8X headers carry the canvas size; read it to pin width/height.
+        const buf = readFileSync(file)
+        const chunk = buf.toString('ascii', 12, 16)
+        let w = 0
+        let h = 0
+        if (chunk === 'VP8X') {
+          w = 1 + buf.readUIntLE(24, 3)
+          h = 1 + buf.readUIntLE(27, 3)
+        } else if (chunk === 'VP8 ') {
+          w = buf.readUInt16LE(26) & 0x3fff
+          h = buf.readUInt16LE(28) & 0x3fff
+        } else if (chunk === 'VP8L') {
+          const bits = buf.readUInt32LE(21)
+          w = (bits & 0x3fff) + 1
+          h = ((bits >> 14) & 0x3fff) + 1
+        }
+        expect([w, h], file).toEqual([image.width, image.height])
+      }
+    }
+  })
+
+  it('stack files carry no company or product names', async () => {
+    const { STACKS } = await import('./content')
+    for (const images of Object.values(STACKS)) {
+      for (const image of images ?? []) expect(image.src).toMatch(/^\/home\/stacks\/[a-z-]+\/\d\d\.webp$/)
+    }
   })
 })

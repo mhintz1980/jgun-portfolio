@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { prefetchPage } from '../shared/pageFade'
 import ContactRope from './ContactRope'
-import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, TESTIMONIAL, WORK } from './content'
+import ProjectStack from './ProjectStack'
+import RollingPhrase from './RollingPhrase'
+import { CONTACT, CORE_PROJECTS, FOOTER, HERO, PLUS, PLUS_ITEMS, STACKS, TESTIMONIAL, WORK } from './content'
 import type { ProjectId } from './content'
 import ThemeToggle from './ThemeToggle'
 import Thread from './Thread'
@@ -14,6 +16,15 @@ export default function HomePage() {
   const [focus, setFocus] = useState<ProjectId | null>(null)
   const rowsRef = useRef<HTMLOListElement>(null)
   const year = new Date().getFullYear()
+
+  // A pinned project stack brings that project's drawings forward in the vault (all devices).
+  const activeHandlers = useMemo(() => {
+    const handlers = {} as Record<ProjectId, (active: boolean) => void>
+    for (const project of CORE_PROJECTS) {
+      handlers[project.id] = (active) => setFocus((current) => (active ? project.id : current === project.id ? null : current))
+    }
+    return handlers
+  }, [])
 
   // Phones (no hover): the work row crossing the viewport's centre band takes focus. A tap still
   // navigates; nothing here intercepts it.
@@ -73,6 +84,7 @@ export default function HomePage() {
               {HERO.titleBottom}
             </span>
           </h1>
+          <RollingPhrase lead={HERO.rollingLead} phrases={HERO.rolling} />
           <p className="home-lede">{HERO.lede}</p>
           <p className="home-cue">
             <a href="#work">
@@ -114,23 +126,36 @@ export default function HomePage() {
                 onFocus: enter,
                 onBlur: () => setFocus(null),
               }
+              const images = STACKS[project.id] ?? []
               return (
-                <li
-                  key={project.id}
-                  className="home-row-item"
-                  data-thread="row"
-                  data-project={project.id}
-                  data-active={focus === project.id ? '' : undefined}
-                >
-                  {project.href ? (
-                    <a className="home-row" href={project.href} data-fade {...preview}>
-                      {body}
-                    </a>
-                  ) : (
-                    <div className="home-row home-row-disabled" aria-disabled="true" {...preview}>
-                      {body}
-                    </div>
-                  )}
+                <li key={project.id} className="home-project">
+                  <div
+                    className="home-row-item"
+                    data-thread="row"
+                    data-project={project.id}
+                    data-active={focus === project.id ? '' : undefined}
+                  >
+                    {project.href ? (
+                      <a className="home-row" href={project.href} data-fade {...preview}>
+                        {body}
+                      </a>
+                    ) : (
+                      <div className="home-row home-row-disabled" {...preview}>
+                        {body}
+                      </div>
+                    )}
+                  </div>
+                  {images.length > 0 ? (
+                    <ProjectStack
+                      number={project.number}
+                      title={project.title}
+                      images={images}
+                      href={project.href}
+                      linkLabel={project.linkLabel}
+                      hint={WORK.stackHint}
+                      onActive={activeHandlers[project.id]}
+                    />
+                  ) : null}
                 </li>
               )
             })}
