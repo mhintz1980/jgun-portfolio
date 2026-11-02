@@ -1,0 +1,80 @@
+/* W3: the Revision Orange thread. Sits behind <main> (z-index 2, opaque cards), so it shows only
+   in the gaps between rows and cards. Moves only with scroll; colours follow the theme tokens. */
+
+.home-thread {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-thread-path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-thread-ring {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: 1.5px;
+}
+
+.home-thread-dot {
+  fill: var(--accent);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.home-thread-eyelet {
+  opacity: 0.35;
+  transition: opacity 240ms ease;
+}
+
+.home-thread-eyelet.is-lit {
+  opacity: 1;
+}
+
+.home-thread-eyelet.is-lit .home-thread-dot {
+  opacity: 1;
+}
+
+.home-thread-tip {
+  fill: var(--accent);
+  opacity: 0;
+}
+
+@media (max-width: 720px) {
+  .home-thread-path {
+    stroke-width: 1.5px;
+  }
+  .home-thread-ring {
+    stroke-width: 1.25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-thread-eyelet,
+  .home-thread-dot {
+    transition: none;
+  }
+  .home-thread-path {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .home-thread-eyelet {
+    opacity: 1;
+  }
+  .home-thread-dot {
+    opacity: 1;
+  }
+  .home-thread-tip {
+    display: none;
+  }
+}

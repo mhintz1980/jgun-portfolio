@@ -1,7 +1,7 @@
 // Page registry: the public shell interface shared by every page of the site.
 // Zero imports by design. It carries no scroll length and never reads page progress.
 
-export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench'
+export type PageId = 'jgun' | 'quiet-machine' | 'torque-wrench' | 'home' | 'armament'
 
 export type TierParam = 'full' | 'lite' | 'poster'
 
@@ -36,7 +36,7 @@ export const PAGES: readonly PageEntry[] = [
     id: 'torque-wrench',
     index: 1,
     label: 'TORQUE WRENCH',
-    name: 'JGUN Pneumatic Torque Wrench',
+    name: 'Pneumatic Torque Wrench',
     path: '/torque-wrench/',
     href: '/torque-wrench/',
     htmlEntry: 'torque-wrench/index.html',
@@ -69,6 +69,34 @@ export const PAGES: readonly PageEntry[] = [
     htmlEntry: 'index.html',
     reserved: false,
     fadeIn: false,
+    private: true,
+  },
+  // Landing page under review (JG-039). Private until the owner approves flipping the root to it:
+  // built and reachable at /home/, noindex, never listed in navigation.
+  {
+    id: 'home',
+    index: 4,
+    label: 'HOMEPAGE',
+    name: 'Mark Hintz · Mechanical Designer + Systems Builder',
+    path: '/home/',
+    href: '/home/',
+    htmlEntry: 'home/index.html',
+    reserved: false,
+    fadeIn: true,
+    private: true,
+  },
+  // Armament placeholder (JG-039): a text-only "under construction" page linked from /home/. No
+  // drawings until the owner's ITAR/EAR check. Private: noindex, never in navigation.
+  {
+    id: 'armament',
+    index: 5,
+    label: 'ARMAMENT',
+    name: 'Armament (under construction)',
+    path: '/armament/',
+    href: '/armament/',
+    htmlEntry: 'armament/index.html',
+    reserved: false,
+    fadeIn: true,
     private: true,
   },
 ]
