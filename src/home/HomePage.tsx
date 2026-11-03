@@ -15,8 +15,154 @@ import './layout.css'
 // copy lives in content.ts. Thread anchors are marked with data-thread, in reading order.
 export default function HomePage() {
   const [focus, setFocus] = useState<ProjectId | null>(null)
+  const [compactHeader, setCompactHeader] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const restoreNavFocusRef = useRef(false)
   const rowsRef = useRef<HTMLOListElement>(null)
   const year = new Date().getFullYear()
+
+  useEffect(() => {
+    let frame = 0
+    let gateFrame = 0
+    let gateTimer = 0
+    let gateVersion = 0
+    let phase: 'expanded' | 'collapsing' | 'compact' = 'expanded'
+    let touchY: number | null = null
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const cancelGate = () => {
+      gateVersion++
+      cancelAnimationFrame(gateFrame)
+      window.clearTimeout(gateTimer)
+    }
+    const expand = () => {
+      cancelGate()
+      phase = 'expanded'
+      setCompactHeader(false)
+    }
+    const collapse = () => {
+      cancelGate()
+      phase = 'collapsing'
+      restoreNavFocusRef.current = !!document.activeElement?.closest('.home-nav')
+      setCompactHeader(true)
+      const version = gateVersion
+      // React must commit the compact state before the browser exposes its CSS transitions.
+      gateFrame = requestAnimationFrame(() => {
+        gateFrame = requestAnimationFrame(() => {
+          if (version !== gateVersion) return
+          const header = document.querySelector<HTMLElement>('.home-header')
+          const finish = () => {
+            if (version !== gateVersion || phase !== 'collapsing') return
+            window.clearTimeout(gateTimer)
+            phase = 'compact'
+          }
+          const animations = header?.getAnimations({ subtree: true }).filter((animation) => {
+            if (!(animation instanceof CSSTransition) || animation.transitionProperty !== 'transform') return false
+            const target = animation.effect instanceof KeyframeEffect ? animation.effect.target : null
+            return target instanceof Element && target.matches('.home-name, .home-letter, .home-nav-toggle, .home-wcs-spin, .home-theme-toggle')
+          }) ?? []
+          // The fallback follows the actual CSS if a transition is longer than the intended 900ms.
+          const remaining = animations.reduce((longest, animation) => {
+            const end = animation.effect?.getComputedTiming().endTime
+            return Math.max(longest, typeof end === 'number' && Number.isFinite(end) ? end : 0)
+          }, 0)
+          gateTimer = window.setTimeout(finish, Math.max(900, remaining) + 50)
+          if (animations.length) void Promise.allSettled(animations.map((animation) => animation.finished)).then(finish)
+          else if (reducedMotion.matches) finish()
+        })
+      })
+    }
+    const input = (direction: number, event: Event) => {
+      if (window.scrollY > 1 || !direction) return
+      if (direction < 0) {
+        if (phase !== 'expanded') expand()
+        return
+      }
+      if (phase === 'expanded') {
+        // Reduced motion does not need an artificial pause before native scrolling.
+        if (reducedMotion.matches) {
+          phase = 'compact'
+          setCompactHeader(true)
+          return
+        }
+        collapse()
+      }
+      if (phase === 'collapsing' && event.cancelable) event.preventDefault()
+    }
+    const wheel = (event: WheelEvent) => {
+      if (!event.ctrlKey && Math.abs(event.deltaY) > Math.abs(event.deltaX)) input(Math.sign(event.deltaY), event)
+    }
+    const touchStart = (event: TouchEvent) => {
+      touchY = event.touches.length === 1 && !(event.target instanceof Element && event.target.closest('.home-rope'))
+        ? event.touches[0].clientY : null
+    }
+    const touchMove = (event: TouchEvent) => {
+      if (touchY === null || event.touches.length !== 1) return
+      const next = event.touches[0].clientY
+      const delta = touchY - next
+      if (Math.abs(delta) >= 2) { touchY = next; input(Math.sign(delta), event) }
+    }
+    const keydown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey ||
+          (event.target instanceof Element && (event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])') ||
+            (event.key === ' ' && event.target.closest('button, a'))))) return
+      const down = event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === 'End' || (event.key === ' ' && !event.shiftKey)
+      const up = event.key === 'ArrowUp' || event.key === 'PageUp' || event.key === 'Home' || (event.key === ' ' && event.shiftKey)
+      if (down || up) input(down ? 1 : -1, event)
+    }
+    const update = () => {
+      frame = 0
+      const title = document.getElementById('home-title')
+      const location = document.querySelector('.home-identity')
+      if (!title || !location) return
+      const header = document.querySelector<HTMLElement>('.home-header')
+      const work = document.querySelector<HTMLElement>('.home-nav a')
+      const theme = document.querySelector<HTMLElement>('.home-header .home-theme-toggle')
+      if (header && work && !header.hasAttribute('data-compact')) {
+        const rect = work.getBoundingClientRect()
+        header.style.setProperty('--wcs-start-x', `${rect.left + rect.width / 2 - (document.documentElement.clientWidth - 96 - 24)}px`)
+        header.style.setProperty('--wcs-start-y', `${rect.top + rect.height / 2 - 32}px`)
+        if (theme) {
+          const box = theme.getBoundingClientRect()
+          header.style.setProperty('--theme-corner-x', `${document.documentElement.clientWidth - 8 - box.right}px`)
+          header.style.setProperty('--theme-corner-y', `${8 - box.top}px`)
+        }
+      }
+      // Native anchors, restored scroll positions and focus-driven scrolling bypass the gate.
+      if (window.scrollY > 1) {
+        if (phase === 'collapsing') cancelGate()
+        const compact = phase !== 'expanded' || title.getBoundingClientRect().top <= location.getBoundingClientRect().bottom + 24
+        phase = compact ? 'compact' : 'expanded'
+        setCompactHeader(compact)
+      } else if (phase === 'compact') expand()
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    window.addEventListener('wheel', wheel, { passive: false })
+    window.addEventListener('touchstart', touchStart, { passive: true })
+    window.addEventListener('touchmove', touchMove, { passive: false })
+    window.addEventListener('keydown', keydown)
+    update()
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      window.removeEventListener('wheel', wheel)
+      window.removeEventListener('touchstart', touchStart)
+      window.removeEventListener('touchmove', touchMove)
+      window.removeEventListener('keydown', keydown)
+      cancelGate()
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (compactHeader && restoreNavFocusRef.current) {
+      restoreNavFocusRef.current = false
+      menuButtonRef.current?.focus()
+    }
+    if (!compactHeader) setMenuOpen(false)
+  }, [compactHeader])
 
   // A pinned project stack brings that project's drawings forward in the vault (all devices).
   const activeHandlers = useMemo(() => {
@@ -56,9 +202,12 @@ export default function HomePage() {
       <Vault focus={focus} />
       <Thread />
 
-      <header className="home-header">
-        <DrawnName href="#top" label="Mark Hintz, back to top" />
-        <nav className="home-nav" aria-label="Sections">
+      <header className="home-header" data-compact={compactHeader ? '' : undefined} onKeyDown={(event) => { if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); menuButtonRef.current?.focus() } }}>
+        <div className="home-identity">
+          <DrawnName href="#top" label="Mark Hintz, back to top" />
+          <p className="home-eyebrow">{HERO.eyebrow}</p>
+        </div>
+        <nav id="home-navigation" className="home-nav" aria-label="Sections" inert={compactHeader && !menuOpen} onClick={() => setMenuOpen(false)}>
           <a href="#work">Work</a>
           <a href="#plus">
             <span className="home-accent" aria-hidden="true">
@@ -68,12 +217,22 @@ export default function HomePage() {
           </a>
           <a href="#contact">Contact</a>
         </nav>
+        <button ref={menuButtonRef} className="home-nav-toggle" type="button" aria-label="Sections menu" aria-expanded={menuOpen} aria-controls="home-navigation" tabIndex={compactHeader ? 0 : -1} onClick={() => setMenuOpen((open) => !open)} onKeyDown={(event) => { if (event.key === 'Escape') { setMenuOpen(false); menuButtonRef.current?.focus() } }}>
+          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <g className="home-wcs-spin">
+              <path className="home-wcs-y" d="M24 30V5m-4 5 4-5 4 5" />
+              <path className="home-wcs-x" d="M24 30 42 37m-6-6 6 6-8 1" />
+              <path className="home-wcs-z" d="M24 30 8 39m7-8-7 8 9 0" />
+              <circle cx="24" cy="30" r="2" fill="currentColor" />
+              <text x="26" y="8">Y</text><text x="40" y="32">X</text><text x="3" y="34">Z</text>
+            </g>
+          </svg>
+        </button>
         <ThemeToggle />
       </header>
 
       <main id="top">
         <section className="home-hero" aria-labelledby="home-title">
-          <p className="home-eyebrow">{HERO.eyebrow}</p>
           <h1 id="home-title" className="home-title">
             <span className="home-title-line">{HERO.titleTop}</span>
             <span className="home-title-line">
@@ -85,11 +244,6 @@ export default function HomePage() {
           </h1>
           <RollingPhrase lead={HERO.rollingLead} phrases={HERO.rolling} />
           <p className="home-lede">{HERO.lede}</p>
-          <p className="home-cue">
-            <a href="#work">
-              {HERO.cue} <span aria-hidden="true">↓</span>
-            </a>
-          </p>
           <p className="home-hint home-hint-pointer">{HERO.hintPointer}</p>
           <p className="home-hint home-hint-touch">{HERO.hintTouch}</p>
         </section>
@@ -148,6 +302,9 @@ export default function HomePage() {
                     <ProjectStack
                       number={project.number}
                       title={project.title}
+                      reviewLine={project.reviewLine}
+                      reviewQuote={project.reviewQuote}
+                      reviewTags={project.reviewTags}
                       images={images}
                       href={project.href}
                       linkLabel={project.linkLabel}

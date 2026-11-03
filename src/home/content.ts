@@ -14,6 +14,9 @@ export interface CoreProject {
   href: string | null
   /** Text of the link under the project's image stack. */
   linkLabel: string
+  reviewLine: string
+  reviewQuote: string
+  reviewTags: string
 }
 
 export interface StackImage {
@@ -36,7 +39,7 @@ export const HERO = {
   eyebrow: 'Jacksonville, FL',
   titleTop: 'Mechanical Designer',
   titleBottom: 'Systems Builder',
-  lede: '20+ years designing precision tooling and industrial pump packages.',
+  lede: '20+ years designing precision tooling, tactical armaments, and industrial pump packages.',
   /** The rolling sentence from Mark's earlier site (his wording, 2026-11-02). */
   rollingLead: 'I engineer high-integrity systems and automated workflows that',
   rolling: [
@@ -66,6 +69,9 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     status: 'Live, work in progress',
     href: '/torque-wrench/',
     linkLabel: 'Open the 3D teardown',
+    reviewLine: 'Mechanical design • Planetary gearboxes • Precision assemblies',
+    reviewQuote: 'DFM review',
+    reviewTags: 'SolidWorks · Planetary gearboxes · Precision machining · DFM',
   },
   {
     id: 'quiet-machine',
@@ -76,6 +82,9 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     status: 'Live, work in progress',
     href: '/quiet-machine/',
     linkLabel: 'Open the 3D section study',
+    reviewLine: 'Mechanical design • SolidWorks • DFM/DFA',
+    reviewQuote: 'Pump Package Design System (Skids, Enclosures, Mounts, Lifting)',
+    reviewTags: 'SolidWorks · DFM/DFA · GD&T · Sheet metal · Weldments',
   },
   {
     id: 'armament',
@@ -86,6 +95,9 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     status: 'Under construction',
     href: '/armament/',
     linkLabel: 'Open the project page',
+    reviewLine: 'Mechanical design • Receivers • Weapon-system components',
+    reviewQuote: 'Receiver and component geometry resolved for fit, function, and manufacturability',
+    reviewTags: 'SolidWorks · Receiver design · Fit & function · Manufacturing drawings',
   },
   {
     id: 'renderings',
@@ -96,6 +108,9 @@ export const CORE_PROJECTS: readonly CoreProject[] = [
     status: 'Gallery',
     href: null,
     linkLabel: '',
+    reviewLine: 'PhotoView 360 • SolidWorks Visualize • Product renders',
+    reviewQuote: 'Photorealistic renders',
+    reviewTags: 'PhotoView 360 · SolidWorks Visualize · KeyShot · HDRI',
   },
 ]
 

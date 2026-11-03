@@ -7,6 +7,9 @@ import './stack.css'
 interface ProjectStackProps {
   number: string
   title: string
+  reviewLine: string
+  reviewQuote: string
+  reviewTags: string
   images: readonly StackImage[]
   /** The 3D page, when the project has one. */
   href: string | null
@@ -22,7 +25,7 @@ const COMPACT = '(max-width: 720px)'
 // Peel-through image stack (from Mark's earlier site): the stage pins for a few viewports while
 // each card lifts away in turn. Scroll drives it; a mouse can also drag the stack to scrub.
 // Reduced motion: a plain grid of the same images.
-export default function ProjectStack({ number, title, images, href, linkLabel, hint, onActive }: ProjectStackProps) {
+export default function ProjectStack({ number, title, reviewLine, reviewQuote, reviewTags, images, href, linkLabel, hint, onActive }: ProjectStackProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLElement | null)[]>([])
   const countRef = useRef<HTMLSpanElement>(null)
@@ -104,10 +107,22 @@ export default function ProjectStack({ number, title, images, href, linkLabel, h
       {linkLabel} <span aria-hidden="true">→</span>
     </a>
   ) : null
+  const description = (
+    <div className="home-stack-description">
+      <span className="home-stack-kicker">Project review stack · {number}</span>
+      <h3>{title}</h3>
+      <p>{reviewLine}</p>
+      <blockquote>{reviewQuote}</blockquote>
+      <p className="home-stack-tags">{reviewTags}</p>
+      <span className="home-stack-hint">{hint}</span>
+      {link}
+    </div>
+  )
 
   if (reduced) {
     return (
       <div className="home-stack home-stack-static">
+        {description}
         <ul className="home-stack-grid">
           {images.map((image) => (
             <li key={image.src} className={`home-stack-frame is-${image.kind}`}>
@@ -116,7 +131,6 @@ export default function ProjectStack({ number, title, images, href, linkLabel, h
             </li>
           ))}
         </ul>
-        {link}
       </div>
     )
   }
@@ -124,13 +138,11 @@ export default function ProjectStack({ number, title, images, href, linkLabel, h
   return (
     <div ref={sectionRef} className="home-stack" style={{ height: `${sectionHeightVh(images.length)}vh` }}>
       <div className="home-stack-stage">
-        <div className="home-stack-head">
-          <span className="home-stack-number">{number}</span>
-          <span className="home-stack-title">{title}</span>
-          <span className="home-stack-count" ref={countRef} aria-hidden="true">
-            01 / {String(images.length).padStart(2, '0')}
-          </span>
-        </div>
+        {description}
+        <div className="home-stack-visual">
+        <span className="home-stack-count" ref={countRef} aria-hidden="true">
+          01 / {String(images.length).padStart(2, '0')}
+        </span>
         <div
           className="home-stack-cards"
           onPointerDown={onPointerDown}
@@ -164,9 +176,6 @@ export default function ProjectStack({ number, title, images, href, linkLabel, h
             </figure>
           ))}
         </div>
-        <div className="home-stack-foot">
-          <span className="home-stack-hint">{hint}</span>
-          {link}
         </div>
       </div>
     </div>
