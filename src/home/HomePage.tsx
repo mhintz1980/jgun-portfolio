@@ -18,6 +18,8 @@ export default function HomePage() {
   const [compactHeader, setCompactHeader] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const navRef = useRef<HTMLElement>(null)
+  const menuLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const restoreNavFocusRef = useRef(false)
   const rowsRef = useRef<HTMLOListElement>(null)
   const year = new Date().getFullYear()
@@ -25,52 +27,103 @@ export default function HomePage() {
   useEffect(() => {
     let frame = 0
     let gateFrame = 0
-    let gateTimer = 0
     let gateVersion = 0
     let phase: 'expanded' | 'collapsing' | 'compact' = 'expanded'
     let touchY: number | null = null
+    let touchHeld = false
+    let wasScrolled = window.scrollY > 1
+    let restoreFrame = 0
+    let restorePending = true
+    let disposed = false
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const header = document.querySelector<HTMLElement>('.home-header')
+    const theme = header?.querySelector<HTMLElement>('.home-theme-toggle')
+    const setCompact = (compact: boolean) => {
+      const active = document.activeElement
+      if (compact) header?.setAttribute('data-header-used', '')
+      if (compact && !header?.hasAttribute('data-compact') && active?.closest('.home-nav')) restoreNavFocusRef.current = true
+      if (!compact && active === menuButtonRef.current) {
+        // Work remains visually hidden during the reverse WCS sequence. The name
+        // is immediately available, so focus never lands in hidden navigation.
+        header?.querySelector<HTMLElement>('.home-name')?.focus({ preventScroll: true })
+      }
+      setCompactHeader(compact)
+    }
+    const measure = () => {
+      const work = header?.querySelector<HTMLElement>('.home-nav a')
+      if (!header || !work || !theme) return
+      // Remove the current translation mathematically: fonts/orientation may change
+      // the underlying flex layout even while the controls are compact.
+      const box = theme.getBoundingClientRect()
+      const transform = new DOMMatrixReadOnly(getComputedStyle(theme).transform)
+      header.style.setProperty('--theme-corner-x', `${document.documentElement.clientWidth - 8 - box.right + transform.m41}px`)
+      header.style.setProperty('--theme-corner-y', `${8 - box.top + transform.m42}px`)
+      // Closed compact links retain the expanded flex layout; scale(.4) leaves
+      // their centers unchanged. Keep the reverse destinations current as well.
+      if (menuButtonRef.current?.getAttribute('aria-expanded') !== 'true') {
+        const rect = work.getBoundingClientRect()
+        const startX = rect.left + rect.width / 2
+        const endX = document.documentElement.clientWidth - 96 - 24
+        header.style.setProperty('--wcs-start-x', `${startX - endX}px`)
+        header.style.setProperty('--wcs-start-y', `${rect.top + rect.height / 2 - 32}px`)
+        const links = header.querySelectorAll<HTMLElement>('.home-nav a')
+        for (const [index, name] of [[1, 'plus'], [2, 'contact']] as const) {
+          const link = links[index]?.getBoundingClientRect()
+          if (link && endX !== startX) {
+            const progress = Math.max(0, Math.min(1, (link.left + link.width / 2 - startX) / (endX - startX)))
+            header.style.setProperty(`--wcs-${name}-progress`, String(progress))
+          }
+        }
+      }
+    }
+    const clearance = () => {
+      const name = header?.querySelector('.home-name')
+      if (!header || !name || !theme || !menuButtonRef.current) return
+      const bottom = Math.max(name.getBoundingClientRect().bottom, theme.getBoundingClientRect().bottom, menuButtonRef.current.getBoundingClientRect().bottom)
+      header.closest<HTMLElement>('.home')?.style.setProperty('--header-clearance', `${Math.ceil(bottom + 16)}px`)
+    }
     const cancelGate = () => {
       gateVersion++
       cancelAnimationFrame(gateFrame)
-      window.clearTimeout(gateTimer)
     }
     const expand = () => {
       cancelGate()
       phase = 'expanded'
-      setCompactHeader(false)
+      setCompact(false)
     }
     const collapse = () => {
       cancelGate()
       phase = 'collapsing'
-      restoreNavFocusRef.current = !!document.activeElement?.closest('.home-nav')
-      setCompactHeader(true)
       const version = gateVersion
-      // React must commit the compact state before the browser exposes its CSS transitions.
-      gateFrame = requestAnimationFrame(() => {
+      const begin = () => {
+        if (version !== gateVersion) return
+        // Cold fonts may still be measuring the individual glyphs. Hold input
+        // until DrawnName's bounded font fallback has supplied the same geometry.
+        if (!header?.querySelector('.home-name[data-ready]')) { gateFrame = requestAnimationFrame(begin); return }
+        measure()
+        setCompact(true)
+        // React must commit the compact state before the browser exposes its CSS transitions.
         gateFrame = requestAnimationFrame(() => {
-          if (version !== gateVersion) return
-          const header = document.querySelector<HTMLElement>('.home-header')
-          const finish = () => {
-            if (version !== gateVersion || phase !== 'collapsing') return
-            window.clearTimeout(gateTimer)
-            phase = 'compact'
-          }
-          const animations = header?.getAnimations({ subtree: true }).filter((animation) => {
-            if (!(animation instanceof CSSTransition) || animation.transitionProperty !== 'transform') return false
-            const target = animation.effect instanceof KeyframeEffect ? animation.effect.target : null
-            return target instanceof Element && target.matches('.home-name, .home-letter, .home-nav-toggle, .home-wcs-spin, .home-theme-toggle')
-          }) ?? []
-          // The fallback follows the actual CSS if a transition is longer than the intended 900ms.
-          const remaining = animations.reduce((longest, animation) => {
-            const end = animation.effect?.getComputedTiming().endTime
-            return Math.max(longest, typeof end === 'number' && Number.isFinite(end) ? end : 0)
-          }, 0)
-          gateTimer = window.setTimeout(finish, Math.max(900, remaining) + 50)
-          if (animations.length) void Promise.allSettled(animations.map((animation) => animation.finished)).then(finish)
-          else if (reducedMotion.matches) finish()
+          gateFrame = requestAnimationFrame(() => {
+            if (version !== gateVersion) return
+            const settle = () => {
+              if (version !== gateVersion || phase !== 'collapsing') return
+              // Re-query each frame so resize/reversal/canceled transitions cannot
+              // unlock an obsolete snapshot. Include the WCS's separate translate.
+              const moving = header?.getAnimations({ subtree: true }).some((animation) => {
+                if (!(animation instanceof CSSTransition) || !['transform', 'translate', 'opacity'].includes(animation.transitionProperty)) return false
+                const target = animation.effect instanceof KeyframeEffect ? animation.effect.target : null
+                return (animation.playState === 'running' || animation.pending) && target instanceof Element &&
+                  target.matches('.home-name, .home-letter, .home-nav-toggle, .home-wcs-spin, .home-theme-toggle')
+              })
+              if (moving) gateFrame = requestAnimationFrame(settle)
+              else { phase = 'compact'; clearance() }
+            }
+            settle()
+          })
         })
-      })
+      }
+      begin()
     }
     const input = (direction: number, event: Event) => {
       if (window.scrollY > 1 || !direction) return
@@ -82,7 +135,8 @@ export default function HomePage() {
         // Reduced motion does not need an artificial pause before native scrolling.
         if (reducedMotion.matches) {
           phase = 'compact'
-          setCompactHeader(true)
+          measure()
+          setCompact(true)
           return
         }
         collapse()
@@ -90,79 +144,157 @@ export default function HomePage() {
       if (phase === 'collapsing' && event.cancelable) event.preventDefault()
     }
     const wheel = (event: WheelEvent) => {
+      restorePending = false
       if (!event.ctrlKey && Math.abs(event.deltaY) > Math.abs(event.deltaX)) input(Math.sign(event.deltaY), event)
     }
     const touchStart = (event: TouchEvent) => {
+      restorePending = false
+      touchHeld = false
       touchY = event.touches.length === 1 && !(event.target instanceof Element && event.target.closest('.home-rope'))
         ? event.touches[0].clientY : null
     }
     const touchMove = (event: TouchEvent) => {
-      if (touchY === null || event.touches.length !== 1) return
+      if (touchY === null || event.touches.length !== 1) { touchY = null; return }
       const next = event.touches[0].clientY
       const delta = touchY - next
-      if (Math.abs(delta) >= 2) { touchY = next; input(Math.sign(delta), event) }
+      if (Math.abs(delta) >= 2) {
+        touchY = next
+        input(Math.sign(delta), event)
+        if (event.defaultPrevented) touchHeld = true
+        // A canceled touchmove disables native scrolling for this entire gesture.
+        // Continue that same swipe after release; the next gesture is fully native.
+        else if (touchHeld && event.cancelable) {
+          event.preventDefault()
+          window.scrollBy({ top: delta, behavior: 'instant' })
+        }
+      }
     }
+    const touchEnd = () => { touchY = null; touchHeld = false }
     const keydown = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey ||
           (event.target instanceof Element && (event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])') ||
             (event.key === ' ' && event.target.closest('button, a'))))) return
       const down = event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === 'End' || (event.key === ' ' && !event.shiftKey)
       const up = event.key === 'ArrowUp' || event.key === 'PageUp' || event.key === 'Home' || (event.key === ' ' && event.shiftKey)
-      if (down || up) input(down ? 1 : -1, event)
+      if (down || up) { restorePending = false; input(down ? 1 : -1, event) }
     }
     const update = () => {
       frame = 0
-      const title = document.getElementById('home-title')
-      const location = document.querySelector('.home-identity')
-      if (!title || !location) return
-      const header = document.querySelector<HTMLElement>('.home-header')
-      const work = document.querySelector<HTMLElement>('.home-nav a')
-      const theme = document.querySelector<HTMLElement>('.home-header .home-theme-toggle')
-      if (header && work && !header.hasAttribute('data-compact')) {
-        const rect = work.getBoundingClientRect()
-        header.style.setProperty('--wcs-start-x', `${rect.left + rect.width / 2 - (document.documentElement.clientWidth - 96 - 24)}px`)
-        header.style.setProperty('--wcs-start-y', `${rect.top + rect.height / 2 - 32}px`)
-        if (theme) {
-          const box = theme.getBoundingClientRect()
-          header.style.setProperty('--theme-corner-x', `${document.documentElement.clientWidth - 8 - box.right}px`)
-          header.style.setProperty('--theme-corner-y', `${8 - box.top}px`)
-        }
-      }
       // Native anchors, restored scroll positions and focus-driven scrolling bypass the gate.
       if (window.scrollY > 1) {
         if (phase === 'collapsing') cancelGate()
-        const compact = phase !== 'expanded' || title.getBoundingClientRect().top <= location.getBoundingClientRect().bottom + 24
-        phase = compact ? 'compact' : 'expanded'
-        setCompactHeader(compact)
-      } else if (phase === 'compact') expand()
+        phase = 'compact'
+        setCompact(true)
+        wasScrolled = true
+      } else if (wasScrolled) { wasScrolled = false; expand() }
     }
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    const resize = () => { measure(); schedule(); if (phase === 'compact') clearance() }
+    const focusIn = (event: FocusEvent) => {
+      restorePending = false
+      const target = event.target
+      if (phase !== 'expanded' && target instanceof HTMLElement && target.closest('main') && target.getBoundingClientRect().top < 180) {
+        target.scrollIntoView({ block: 'center', behavior: 'instant' })
+      }
+    }
+    const motionChange = () => { if (phase === 'collapsing' && reducedMotion.matches) { cancelGate(); phase = 'compact'; clearance() } }
+    const transitionEnd = () => { if (phase === 'compact') clearance() }
+    const savePosition = () => {
+      // Native restoration can run before React has created the tall page.
+      // Store this entry's position, preserving any existing history metadata.
+      try { history.replaceState({ ...history.state, jgHomeScrollY: window.scrollY }, '') } catch { /* Native history remains available. */ }
+    }
     window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
+    window.addEventListener('resize', resize)
     window.addEventListener('wheel', wheel, { passive: false })
     window.addEventListener('touchstart', touchStart, { passive: true })
     window.addEventListener('touchmove', touchMove, { passive: false })
+    window.addEventListener('touchend', touchEnd)
+    window.addEventListener('touchcancel', touchEnd)
     window.addEventListener('keydown', keydown)
+    document.addEventListener('focusin', focusIn)
+    reducedMotion.addEventListener('change', motionChange)
+    header?.addEventListener('transitionend', transitionEnd)
+    window.addEventListener('pagehide', savePosition)
+    const observer = new ResizeObserver(resize)
+    if (header) observer.observe(header)
+    measure()
     update()
+    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+    const savedY = history.state?.jgHomeScrollY
+    const hash = window.location.hash
+    const restorePosition = () => {
+      if (disposed || !restorePending) return
+      restorePending = false
+      if (window.location.hash !== hash) return
+      if ((navigation?.type === 'back_forward' || navigation?.type === 'reload') && typeof savedY === 'number' && savedY > 1) {
+        window.scrollTo({ top: savedY, behavior: 'instant' })
+      } else if (hash) {
+        // A fragment may have been resolved before the client-rendered sections
+        // existed. Use the native target and its authored scroll margin.
+        try { document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ block: 'start', behavior: 'instant' }) } catch { /* Ignore malformed fragments. */ }
+      }
+      measure()
+      update()
+    }
+    void document.fonts.ready.then(() => { if (!disposed) restoreFrame = requestAnimationFrame(restorePosition) })
     return () => {
+      disposed = true
       window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
+      window.removeEventListener('resize', resize)
       window.removeEventListener('wheel', wheel)
       window.removeEventListener('touchstart', touchStart)
       window.removeEventListener('touchmove', touchMove)
+      window.removeEventListener('touchend', touchEnd)
+      window.removeEventListener('touchcancel', touchEnd)
       window.removeEventListener('keydown', keydown)
+      document.removeEventListener('focusin', focusIn)
+      reducedMotion.removeEventListener('change', motionChange)
+      header?.removeEventListener('transitionend', transitionEnd)
+      window.removeEventListener('pagehide', savePosition)
+      observer.disconnect()
       cancelGate()
       if (frame) cancelAnimationFrame(frame)
+      cancelAnimationFrame(restoreFrame)
     }
   }, [])
 
   useEffect(() => {
     if (compactHeader && restoreNavFocusRef.current) {
       restoreNavFocusRef.current = false
-      menuButtonRef.current?.focus()
+      menuButtonRef.current?.focus({ preventScroll: true })
     }
     if (!compactHeader) setMenuOpen(false)
   }, [compactHeader])
+
+  useEffect(() => {
+    const dismissOutside = (event: PointerEvent) => {
+      const target = event.target as Node
+      if (!menuButtonRef.current?.contains(target) && !navRef.current?.contains(target)) setMenuOpen(false)
+    }
+    document.addEventListener('pointerdown', dismissOutside)
+    return () => {
+      document.removeEventListener('pointerdown', dismissOutside)
+      if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current)
+    }
+  }, [])
+
+  const cancelMenuLeave = () => {
+    if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current)
+    menuLeaveTimer.current = null
+  }
+  const enterMenu = (event: React.PointerEvent) => {
+    if (!compactHeader || event.pointerType === 'touch') return
+    cancelMenuLeave()
+    setMenuOpen(true)
+  }
+  const leaveMenu = (event: React.PointerEvent) => {
+    if (!compactHeader || event.pointerType === 'touch') return
+    cancelMenuLeave()
+    menuLeaveTimer.current = setTimeout(() => {
+      if (!navRef.current?.contains(document.activeElement)) setMenuOpen(false)
+    }, 160)
+  }
 
   // A pinned project stack brings that project's drawings forward in the vault (all devices).
   const activeHandlers = useMemo(() => {
@@ -198,7 +330,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="home">
+    <div className="home" id="top">
       <Vault focus={focus} />
       <Thread />
 
@@ -207,7 +339,7 @@ export default function HomePage() {
           <DrawnName href="#top" label="Mark Hintz, back to top" />
           <p className="home-eyebrow">{HERO.eyebrow}</p>
         </div>
-        <nav id="home-navigation" className="home-nav" aria-label="Sections" inert={compactHeader && !menuOpen} onClick={() => setMenuOpen(false)}>
+        <nav ref={navRef} id="home-navigation" className="home-nav" aria-label="Sections" inert={compactHeader && !menuOpen} onPointerEnter={enterMenu} onPointerLeave={leaveMenu} onBlur={(event) => { if (compactHeader && !event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== menuButtonRef.current) setMenuOpen(false) }} onClick={() => { if (compactHeader) menuButtonRef.current?.focus({ preventScroll: true }); setMenuOpen(false) }}>
           <a href="#work">Work</a>
           <a href="#plus">
             <span className="home-accent" aria-hidden="true">
@@ -217,7 +349,7 @@ export default function HomePage() {
           </a>
           <a href="#contact">Contact</a>
         </nav>
-        <button ref={menuButtonRef} className="home-nav-toggle" type="button" aria-label="Sections menu" aria-expanded={menuOpen} aria-controls="home-navigation" tabIndex={compactHeader ? 0 : -1} onClick={() => setMenuOpen((open) => !open)} onKeyDown={(event) => { if (event.key === 'Escape') { setMenuOpen(false); menuButtonRef.current?.focus() } }}>
+        <button ref={menuButtonRef} className="home-nav-toggle" type="button" aria-label="Sections menu" aria-expanded={menuOpen} aria-controls="home-navigation" tabIndex={compactHeader ? 0 : -1} onPointerEnter={enterMenu} onPointerLeave={leaveMenu} onBlur={(event) => { if (compactHeader && !navRef.current?.contains(event.relatedTarget)) setMenuOpen(false) }} onClick={(event) => { cancelMenuLeave(); const opening = !menuOpen; setMenuOpen(opening); if (opening && event.detail === 0) requestAnimationFrame(() => navRef.current?.querySelector<HTMLElement>('a')?.focus()) }}>
           <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
             <g className="home-wcs-spin">
               <path className="home-wcs-y" d="M24 30V5m-4 5 4-5 4 5" />
@@ -231,7 +363,7 @@ export default function HomePage() {
         <ThemeToggle />
       </header>
 
-      <main id="top">
+      <main>
         <section className="home-hero" aria-labelledby="home-title">
           <h1 id="home-title" className="home-title">
             <span className="home-title-line">{HERO.titleTop}</span>

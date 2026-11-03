@@ -95,6 +95,7 @@ body {
 
 /* Header: the drawn name, a gap about two of its letters wide, the nav, the toggle at the right. */
 .home-header {
+  --header-top: 28px;
   position: sticky;
   top: 0;
   z-index: 30;
@@ -111,19 +112,39 @@ body {
 }
 
 .home-identity .home-name {
+  position: relative;
   transform-origin: left top;
-  transition: transform 400ms ease;
+  clip-path: inset(0 0 0 0);
+  transition: transform 200ms ease;
 }
 .home-letter { transition: transform var(--duration, 350ms) linear var(--reverse-delay, 0ms), opacity 1ms linear var(--reverse-delay, 0ms); }
 .home-header[data-compact] .home-letter { transform: translateX(var(--letter-travel, 0px)); opacity: 0; transition: transform var(--duration) linear, opacity 1ms linear var(--duration); }
 .home-header[data-compact] .home-letter-h { opacity: 1; }
 .home-identity .home-eyebrow {
-  transition: transform 650ms ease, opacity 450ms ease;
+  transition: transform 325ms ease, opacity 225ms ease;
   transform-origin: left top;
 }
 .home-header[data-compact] .home-name {
-  transform: translate(calc(8px - var(--gutter)), -20px) scale(.67);
-  transition: transform 250ms ease 650ms;
+  transform: translate(calc(8px - var(--gutter)), calc(8px - var(--header-top))) scale(.67);
+  clip-path: inset(0 calc(100% - var(--monogram-end, 30%)) 0 0);
+  transition: transform 125ms ease 325ms, clip-path 0s 450ms;
+}
+/* First scroll can interrupt the introductory drawing; compact MH must be visible.
+   Keep the ink filled on expansion instead of restarting the page-load drawing. */
+.home-header[data-header-used] .home-name-text {
+  animation: none;
+  fill-opacity: 1;
+  stroke-width: 0;
+  stroke-dashoffset: 0;
+}
+.home-header .home-name:focus-visible { outline-offset: -2px; }
+.home-header[data-compact] .home-name:focus-visible { outline: none; }
+.home-header[data-compact] .home-name:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--monogram-end, 30%);
+  box-shadow: inset 0 0 0 2px var(--accent);
 }
 .home-header[data-compact] .home-eyebrow {
   opacity: 0;
@@ -168,8 +189,9 @@ body {
   opacity: 0;
   visibility: hidden;
   cursor: pointer;
-  transform: translate(var(--wcs-start-x, -190px), var(--wcs-start-y, 28px)) scale(.65);
-  transition: transform 750ms cubic-bezier(.4,0,.2,1), opacity 150ms 600ms, visibility 0s 750ms;
+  transform: translateX(var(--wcs-start-x, -190px)) scale(.65);
+  translate: 0 var(--wcs-start-y, 28px);
+  transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease, opacity 70ms 380ms, visibility 0s 450ms;
 }
 .home-nav-toggle svg { width: 100%; height: 100%; overflow: visible; }
 .home-nav-toggle path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -180,23 +202,24 @@ body {
 .home-header[data-compact] .home-nav-toggle {
   opacity: 1;
   visibility: visible;
-  transform: translate(0, 0) scale(1);
-  transition: transform 750ms cubic-bezier(.4,0,.2,1), opacity 150ms, visibility 0s;
+  transform: translateX(0) scale(1);
+  translate: 0 0;
+  transition: transform 450ms linear(0, var(--wcs-plus-progress, .3) 25%, var(--wcs-plus-progress, .3) 35%, var(--wcs-contact-progress, .7) 60%, var(--wcs-contact-progress, .7) 70%, 1), translate 135ms ease 315ms, opacity 70ms, visibility 0s;
 }
-.home-wcs-spin { transform: perspective(120px) rotateY(-720deg); transform-origin: 24px 30px; transition: transform 750ms linear; }
+.home-wcs-spin { transform: perspective(120px) rotateY(-720deg); transform-origin: 24px 30px; transition: transform 450ms linear; }
 .home-header[data-compact] .home-wcs-spin { transform: perspective(120px) rotateY(0); }
 .home-header[data-compact] .home-nav:not(:has(+ .home-nav-toggle[aria-expanded="true"])) a {
   opacity: 0;
   visibility: hidden;
   transform: scale(.4);
 }
-.home-nav a { transition: color 200ms, transform 180ms, opacity 180ms, visibility 0s; }
-.home-header[data-compact] .home-nav a:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 180ms; }
-.home-header[data-compact] .home-nav a:nth-child(2) { transition-delay: 0ms, 260ms, 260ms, 440ms; }
-.home-header[data-compact] .home-nav a:nth-child(3) { transition-delay: 0ms, 500ms, 500ms, 680ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(1) { transition-delay: 0ms, 600ms, 600ms, 0ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(2) { transition-delay: 0ms, 400ms, 400ms, 0ms; }
-.home-header:not([data-compact]) .home-nav a:nth-child(3) { transition-delay: 0ms, 200ms, 200ms, 0ms; }
+.home-nav a { transition: color 200ms, transform 45ms, opacity 45ms, visibility 0s; }
+.home-header[data-compact] .home-nav a:nth-child(1) { transition-delay: 0ms, 0ms, 0ms, 45ms; }
+.home-header[data-compact] .home-nav a:nth-child(2) { transition-delay: 0ms, 113ms, 113ms, 158ms; }
+.home-header[data-compact] .home-nav a:nth-child(3) { transition-delay: 0ms, 270ms, 270ms, 315ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(1) { transition-delay: 0ms, 405ms, 405ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(2) { transition-delay: 0ms, 293ms, 293ms, 0ms; }
+.home-header:not([data-compact]) .home-nav a:nth-child(3) { transition-delay: 0ms, 135ms, 135ms, 0ms; }
 .home-header[data-compact] .home-nav:has(+ .home-nav-toggle[aria-expanded="true"]) {
   position: absolute;
   right: 8px;
@@ -237,18 +260,26 @@ body {
 
 .home-header .home-theme-toggle {
   margin-left: 32px;
-  transition: transform 500ms ease, border-color 200ms ease, background-color 300ms ease;
+  transition: transform 250ms ease, border-color 200ms ease, background-color 300ms ease;
 }
 
 /* A fixed background veil fades the scrolling page before it reaches the compact controls. */
+.home:has(.home-header[data-compact])::before,
 .home:has(.home-header[data-compact])::after {
   content: "";
   position: fixed;
   z-index: 25;
   inset: 0 0 auto;
-  height: 150px;
-  background: linear-gradient(to bottom, var(--bg) 0 55px, transparent 150px);
+  height: calc(var(--header-clearance, 100px) + 80px);
+  background: linear-gradient(to bottom, var(--bg) 0 var(--header-clearance, 100px), transparent 100%);
   pointer-events: none;
+}
+/* Fully veiled links cannot receive invisible pointer clicks. Keyboard focus is
+   scrolled below the veil by the header's focus handler. */
+.home:has(.home-header[data-compact])::before {
+  height: var(--header-clearance, 100px);
+  background: none;
+  pointer-events: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -264,6 +295,7 @@ body {
 /* Phones: name and toggle on the first row, the nav under them. */
 @media (max-width: 760px) {
   .home-header {
+    --header-top: 20px;
     flex-wrap: wrap;
     row-gap: 18px;
     padding-top: 20px;
