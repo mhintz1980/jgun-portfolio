@@ -1,5 +1,17 @@
 # Torque wrench rebuild — owner rulings
 
+## 2026-10-31 — evolving public site and visual priorities
+
+Mark wants studiomark.dev published as a growing collection of unfinished pages,
+with a work-in-progress label and incremental updates over months or longer.
+Follow the [full owner policy](../../project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md).
+It supersedes historical publication freezes and the assumption that every final
+cinematic/HUD gate must pass before release. Current HUD polish is deferred in
+favor of collaborative visual concepts; the older `main` HUD was too distracting.
+Show high-speed readability issues before spending more resources; if Mark cannot
+notice them, defer them. Small camera-angle refinements are allowed. Keep actual
+FAIL results and task/final visual acceptance distinct from publication.
+
 ## Latest owner correction — 2026-10-17 (supersedes conflicting older visual direction)
 
 Next implementation starts with **lightning cracking**, then the **cavernous tunnel
@@ -235,3 +247,41 @@ The owner viewed the Astra-retry build: improved, not accepted. Gemini-4-Argon i
 
 ## Owner correction - 2026-10-18 (later): lightning timing
 The burst-pause-burst pattern around the profile view remains the goal, but the scroll from the lamp's last flicker (lights off) to the start of cracking (reference R10, the spark at the base of the air fitting) is far too long: measured .034 of the document (~2,140 px, 2.4 viewports) before the first burst. Reduce it (target <= .008) and use 3-4 crack sequences (not six) to complete the profile trace, then begin the internal web. Direction: earthquake cracks forming / ice on a thin lake cracking under weight. Measured baseline, targets and implementation constraints: [29-argon-fix-handoff-2026-10-18.md](29-argon-fix-handoff-2026-10-18.md) section 5 (Fix E). Skills guidance for Argon and reviewers: same handoff section 10 (essentially none; webgl-telemetry-verifier once for verification).
+
+## Owner ruling - 2026-11-03: HUD direction = concept D (A+ museum caption) with inline technical content
+
+From the owner's message in the v2 review session ("Lets go with D and Inline"), reviewing
+the v2 packet at `project/work/evidence/design-os-hud-trial-2026-10-31/` (doc 07,
+`comparison-sheet-v2.jpg`, reviewer console). D is the critic-recommended A+ museum-caption
+direction: named right-edge chapter rail over an edge scrim, per-state caption anchoring with
+local washes, bounded Free Look / Inspect, labeled mobile Chapters control. "Inline" = the
+always-visible technical evidence treatment for the Inspection chapter (material attempts +
+FAILED status + FOS scale), not the one-line cue. Production implementation is registered as
+JG-040; this ruling is a direction choice, not acceptance of any implementation. Anchored
+leader lines, a fixed brand mast and live-FOS-value sync in the strip are follow-ups, not
+part of the chosen concept's minimum.
+
+## Owner ruling - 2026-11-03 (later): Stage 1 D+inline chrome visually accepted; two fixes same day
+
+Mark reviewed the shipped Stage 1 chrome against `comparison-sheet-v2.jpg` on the :5341
+preview and accepted it as-is, with two flags handled the same session (JG-040):
+
+- **Duplicate FOS bar** (owner-reported): during the Inspection materials window the old
+  vertical study FOS bar + "Model Name" block rendered alongside the HUD strip's horizontal
+  FOS scale. Fixed by an opt-out `fosPanels` prop on `ShaftStoryLayer`; the private live
+  overlay suppresses the panels, so the HUD strip is the single live FOS presentation
+  (static/main-site consumers unchanged). Live Min-FOS sync into the strip remains Stage 2.
+- **Narrow Chapters bar** (owner-flagged for work): the open sheet ghosted over the caption
+  and lacked an active marker. Fixed: caption/tech strip step aside while the sheet is open,
+  opaque takeover, gold active-row marker, inactive-row contrast bump. Minor polish notes
+  (scrim above the sheet edge, one more contrast step) parked for the Stage 2 motion review.
+- Ring Switch and Exploded sequences audited at the owner's request (11 sequence states ×
+  desktop/narrow, DOM co-visibility + vision): clean, no further stale/duplicate overlays.
+  Cosmetic notes recorded: Free Look pill grazes gear teeth at the exploded hold.
+- **Brand mast ruling (same day, closing Stage 2):** Mark chose the small fixed wordmark —
+  `studiomark`, mono caps in the concept gold, top-left, mirroring the WIP label's weight
+  (the WIP label keeps the top-right). Implemented and smoke-checked on both viewports.
+
+Visual acceptance covers the Stage 1 chrome as fixed above. Stage 2 (framing re-baseline,
+tracked leader, mast decision, live FOS sync, reduced-motion/poster caption parity, motion
+review) and deployment remain open.

@@ -324,6 +324,8 @@ export interface PrivateSheetRuntime {
   readonly stats: Record<string, number>
   /** Immutable bake inputs for independent installed-shard verification. */
   shatterInputs(): { primaryCenter: { x: number; y: number }; fragments: Array<{ center: number[]; velocity: number[]; spin: number[]; delay: number }> }
+  /** Applied reading-lamp uniforms, copied for host settling and beauty-replay probes. */
+  renderState(): { lamp: [number, number, number]; lampPower: number; readingPool: number }
   drawingDetailPoints(groups:readonly number[]):number[][]
   pitInputs(): { outline: number[][]; ringDepthsM: readonly number[]; positions: number[]; indices: number[] }
   captureEffects(gl: WebGLRenderer, camera: Camera): ReturnType<typeof capturePortalPixels>
@@ -572,7 +574,6 @@ export function createPrivateSheetRuntime(
     const inverseSheet = new Matrix4()
     const look = new Vector3()
     const lamp = new Vector3(0, 0, 0.2)
-    let lampSeeded = false
     const navy = new Color(INK)
     const white = new Color(1, 1, 1)
     const stats = baked.stats
@@ -597,6 +598,8 @@ export function createPrivateSheetRuntime(
 
     return {
       group, stats, dispose,
+      renderState: () => ({ lamp: [u.uLamp.value.x, u.uLamp.value.y, u.uLamp.value.z],
+        lampPower: u.uLampPower.value as number, readingPool: u.uReadingPool.value as number }),
       drawingDetailPoints: groups => {
         const points:number[][]=[], seg=baked.lines.geometry.getAttribute('aSeg'), style=baked.lines.geometry.getAttribute('aStyle')
         if(seg && style)for(let i=0;i<seg.count;i++)if(groups.includes(Math.round(style.getY(i)))) {
@@ -829,21 +832,18 @@ export function createPrivateSheetRuntime(
         pulse.visible = (u.uCrackGlow.value as number) > 0 && stockVisible
         u.uViewport.value.copy(viewport)
 
-        // Only the reading lamp is transient. Null target holds its current pool;
-        // the first explicit target seeds it even when delta is zero.
+        // Follow the current authored camera aim in sheet space, not elapsed frame
+        // time. Delta easing freezes on the host's first zero-delta hold frame and
+        // leaves different light pools after forward/reverse/random seeks.
+        // No camera aim uses the original centered pool, independent of history.
         if (frame.cameraLookTargetWorld) {
           inverseSheet.copy(context.sheetMatrix).invert()
           look.copy(frame.cameraLookTargetWorld).applyMatrix4(inverseSheet)
           const reach = Math.min(0.32, Math.max(0.09, (frame.cameraSheetDistance || 0.4) * 0.55))
-          if (!lampSeeded) { lamp.set(look.x, look.y, reach); lampSeeded = true }
-          else {
-            const k = 1 - Math.exp(-3 * Math.min(Math.max(frame.delta, 0), 0.1))
-            lamp.x += (look.x - lamp.x) * k
-            lamp.y += (look.y - lamp.y) * k
-            lamp.z += (reach - lamp.z) * k
-          }
-        }
+          lamp.set(look.x, look.y, reach)
+        } else lamp.set(0, 0, 0.2)
         u.uLamp.value.copy(lamp)
+        stats.lampX = u.uLamp.value.x; stats.lampY = u.uLamp.value.y; stats.lampRadius = u.uLamp.value.z
         stats.flexAmplitude = u.uFlexAmplitude.value
         stats.flexPeakDisplacement = u.uFlexAmplitude.value * baked.flex.peak
         stats.flexEnabled = u.uFlexAmplitude.value > 0 ? 1 : 0

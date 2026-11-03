@@ -1,4 +1,4 @@
-// Native-scroll captures and runtime evidence for doc39; no store mutation.
+// Native-scroll captures and runtime evidence for the current private-page contracts; no store mutation.
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { pathToFileURL } from 'node:url'
@@ -19,6 +19,66 @@ export function classifyReport(report, { quick = false } = {}) {
   return 'PASS'
 }
 
+export function ringContactFramingGate(sample, [width, height]) {
+  // InspectionDirector.samplePrivateRingCamera: the solver's absolute contact
+  // composition supersedes the earlier .55x dolly / <=26-degree lens assumption.
+  const layout = Math.max(0, Math.min(1, (width / height - .62) / .4))
+  const expectedRadius = .5 + (.31 - .5) * layout
+  const expectedFov = 36 + (30 - 36) * layout
+  const camera = sample?.world?.camera
+  const radius = camera && Math.hypot(...camera.position.map((x, i) => x - camera.target[i]))
+  return { name: 'die contact framing .4805',
+    pass: Math.abs(radius - expectedRadius) < 1e-6 && Math.abs(camera?.fov - expectedFov) < 1e-6,
+    evidence: { radius, expectedRadius, fov: camera?.fov, expectedFov } }
+}
+
+export function isolationFadeGate(samples) {
+  // JourneyDirector: one uninterrupted quintic fade [.585,.600], independent
+  // of MechanismDirector's solid explosion housing. Use actual native progress.
+  const evidence = [.587, .593, .600].map(p => {
+    const isolation = samples.find(x => x.requestedProgress === p)?.world?.isolation
+    const progress = isolation?.progress
+    const u = Math.max(0, Math.min(1, (progress - .585) / .015))
+    const expected = 1 - u*u*u*(10 + u*(-15 + 6*u))
+    return { p, progress, expected, commanded: isolation?.surroundingsOpacity, applied: isolation?.actualMaxOpacity }
+  })
+  return { name: 'continuous isolation fade .587-.600',
+    pass: evidence.every(x => Math.abs(x.progress - x.p) < .00005
+      && Math.abs(x.commanded - x.expected) < .005 && Math.abs(x.applied - x.expected) < .005)
+      && evidence[0].commanded > evidence[1].commanded && evidence[1].commanded > evidence[2].commanded,
+    evidence }
+}
+
+export function solidHousingGate(samples) {
+  // animation-spec §5.2 / owner correction 56: commanded AND installed P000245
+  // stay opaque and depth-writing during explosion and return (not isolation).
+  const evidence = [.885, .905, .925, .94, .955, .960, .965, .98].map(p => {
+    const world = samples.find(x => x.requestedProgress === p)?.world
+    return { p, commanded: world?.mechanical?.channels?.ghostOpacity, rig: world?.rig?.ghostOpacity,
+      housing: world?.isolation?.occurrences?.filter(x => x.part === 'P000245' || x.parent?.includes('Housing (P000245)')) ?? [] }
+  })
+  return { name: 'solid explosion and return housing', pass: evidence.every(x => x.commanded === 1 && x.rig === 1
+    && x.housing.length > 0 && x.housing.every(h => h.visible === true && h.applied?.length > 0
+      && h.applied.every(m => m.opacity === 1 && m.depthWrite === true))), evidence }
+}
+
+export function focusCalloutsGate(interactions) {
+  // hotspotData / owner approval in handoff 69: LCD alone remains enabled.
+  return { name: 'LCD accessible focus and keyboard return',
+    pass: interactions.length === 1 && interactions.every(x => x.id === 'lcd-manometer' && x.selected === x.id
+      && x.restored?.focusId === null && x.restored.focusRestored === true && x.cameraMoved > .001),
+    evidence: interactions }
+}
+
+export function suspendedCalloutsGate(samples) {
+  const ids = ['clutch-housing', 'ring-switch', 'stage2-planet']
+  const evidence = samples.map(sample => ({ p: sample.requestedProgress, callouts: ids.map(id => ({ id,
+    anchor: sample.overlay?.anchors?.find(x => x.id === id)?.visible,
+    card: sample.hud?.callouts?.find(x => x.id === id)?.visible })) }))
+  return { name: 'suspended callouts stay hidden', pass: evidence.length > 0
+    && evidence.every(x => x.callouts.every(c => c.anchor === false && c.card === false)), evidence }
+}
+
 async function runVerifier() {
   const { chromium } = await import('playwright')
   const { launchBrowser, describeLaunch } = await import('./lib/browser-launch.mjs')
@@ -30,7 +90,7 @@ async function runVerifier() {
   const seekTimeout = Number(args['seek-timeout'] ?? 15000)
   const shotTimeout = Number(args['shot-timeout'] ?? 30000)
   const width = Number(args.width ?? 1440), height = Number(args.height ?? 900)
-  const out = `output/playwright/torque-camera-hud-2026-10-21/${phase}${width < 600 ? '-narrow' : ''}`
+  const out = args.out ?? `output/playwright/torque-camera-hud-2026-10-21/${phase}${width < 600 ? '-narrow' : ''}`
   mkdirSync(out, { recursive: true })
   const browser = await launchBrowser(chromium)
   const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, serviceWorkers: 'block' })
@@ -56,6 +116,11 @@ async function runVerifier() {
         grooves: window.__torqueWorld.grooveRects?.(), overlay: window.__torqueWorld.overlaySample?.(),
         hud: { cards: [...document.querySelectorAll('[data-shaft-card]')].map(x => x.textContent),
           fos: [...document.querySelectorAll('[data-shaft-fos-model]')].map(x => x.textContent),
+          // JG-040 re-baseline 2026-11-03: live mode presents FOS inline in the HUD strip;
+          // the old study FosPanels are suppressed there (owner review duplicate ruling), so
+          // `fos` stays empty in live runs and `strip` is the live FOS presence evidence.
+          strip: { chapter: document.querySelector('.torque-hud')?.getAttribute('data-torque-hud-chapter') ?? null,
+            fos: !!document.querySelector('.torque-hud__fos'), tech: !!document.querySelector('.torque-hud__tech') },
           callouts: [...document.querySelectorAll('[data-torque-hotspot]')].map(x => ({ id:x.getAttribute('data-torque-hotspot'), text:x.textContent, visible:x.getBoundingClientRect().width > 0 && getComputedStyle(x).visibility !== 'hidden' })) },
       }))
       sample.controls = await page.evaluate(() => {
@@ -114,17 +179,14 @@ async function runVerifier() {
       const add = (name, pass, evidence) => report.gates.push({ name, pass:Boolean(pass), evidence })
       const at = p => report.samples.find(x => x.requestedProgress === p)
       add('live full renderer', report.samples.every(x=>x.world.ready && x.world.mechanical?.tier === 'full'), report.samples.map(x=>x.world.mechanical?.tier))
-      // .4805 sits inside the 0.55x die close-up (InspectionDirector RING_CLOSEUP_*), so it is gated
-      // on close-up framing below instead of whole-ring containment.
+      // .4805 is the solver-authored die-contact composition; it is gated on
+      // contact framing below instead of whole-ring containment.
       for (const p of [.469,.4725,.4945,.500,.505,.520,.545]) {
         const b = at(p)?.world.ring.projectedBounds
         add(`ring contained ${p}`, b && !b.behind && b.rect[0]>=0 && b.rect[1]>=0 && b.rect[2]<=width && b.rect[3]<=height, b)
       }
-      const camDistance = cam => cam && Math.hypot(...cam.position.map((x,i)=>x-cam.target[i]))
-      const wide = at(.4725)?.world.camera, close = at(.4805)?.world.camera
-      const dollyRatio = camDistance(close) / camDistance(wide)
-      add('die close-up dolly .4805', dollyRatio > .45 && dollyRatio < .7 && close.fov <= 26 && close.fov < wide.fov,
-        { dollyRatio, fov: close?.fov, wideFov: wide?.fov })
+      const close = at(.4805)?.world.camera
+      report.gates.push(ringContactFramingGate(at(.4805), [width, height]))
       // Project each knurling-die centre with the live camera; the rolling contact must be on screen.
       const project = (cam, pt) => {
         const [qx,qy,qz,qw] = cam.quaternion, v = pt.map((x,i)=>x-cam.position[i])
@@ -138,12 +200,16 @@ async function runVerifier() {
       const dies = (ringRuntime?.rollerCenters ?? []).map((c,i)=>({ ...project(close,c), clearance: ringRuntime.rollerClearance?.[i] }))
       add('die contact zone visible .4805', ringRuntime?.toolVisible && dies.some(d => !d.behind && Math.abs(d.clearance) < .002
         && d.x>=0 && d.x<=width && d.y>=0 && d.y<=height), { toolVisible: ringRuntime?.toolVisible, dies })
-      add('ghost plateau 27.5%', Math.abs(at(.593)?.world.isolation.surroundingsOpacity-.275)<.005, at(.593)?.world.isolation)
+      report.gates.push(isolationFadeGate(report.samples), solidHousingGate(report.samples))
       add('context gone at .600', at(.600)?.world.isolation.surroundingsOpacity < .001, at(.600)?.world.isolation)
       // Native scroll is integer CSS pixels: the nearest representable .520 seek
       // can land microscopically after the boundary (shift ~1e-8).
       add('camera settled before shift', at(.505)?.world.mechanical.channels.shift < 1e-6 && at(.520)?.world.mechanical.channels.shift < 1e-6, [at(.505)?.world.mechanical.channels,at(.520)?.world.mechanical.channels])
-      add('shaft FEA HUD present', at(.735)?.hud.fos.length>0 && at(.735)?.hud.cards.length>0, at(.735)?.hud)
+      // JG-040 re-baseline: same strictness, new presentation — the inline strip is the
+      // single live FOS element (old FosPanels suppressed in live mode since the owner
+      // review duplicate ruling); the material cards still render from the study sampler.
+      add('inline FOS HUD present', at(.735)?.hud.strip?.chapter === 'inspection' && at(.735)?.hud.strip?.fos === true
+        && at(.735)?.hud.strip?.tech === true && at(.735)?.hud.cards.length>0, at(.735)?.hud)
       add('OD shader retained', at(.4725)?.world.ring.sourceMaterialPrograms?.some(x=>x.includes('ring-switch-od-knurl-v3')), at(.4725)?.world.ring.sourceMaterialPrograms)
       const surface = at(.4725)?.world.ring.sourceKnurlSurface
       add('measured OD-only mask', surface?.outerVertices > 0 && surface.knurledOuterVertices === surface.outerVertices
@@ -176,8 +242,7 @@ async function runVerifier() {
       add('LCD readout after collapse .99', readout?.mechanical.channels.explode === 0 && readout.lcdDisplay.facing > .5 && readout.lcdDisplay.facing < .95
         && Math.abs(ndc[0]) < .9 && Math.abs(ndc[1]) < .9 && Math.asin(unit(offset(readout.camera))[1])*180/Math.PI > 18,
         { camera: readout?.camera, lcd: readout?.lcdDisplay, lcdAnchor: at(.99)?.overlay?.anchors?.find(x=>x.id==='lcd-manometer') })
-      // clutch-housing is disabled (owner 2026-10-24), so three callouts remain reachable.
-      add('three accessible focus callouts', report.interactions.length===3 && report.interactions.every(x=>x.selected===x.id && x.restored.focusId===null && x.cameraMoved>.001), report.interactions)
+      report.gates.push(focusCalloutsGate(report.interactions), suspendedCalloutsGate(report.samples))
       // Reverse native seek must return to the same authored camera and subject.
       const reverse = []
       for (const p of [.593,.520,.4805,.435]) {
@@ -189,6 +254,12 @@ async function runVerifier() {
       }
       report.gates.push(reverseReplayGate(reverse))
       // Exercise the existing user playback controls, not a runtime clock setter.
+      // JG-040: the cutter controls render inside the inspection chapter's HUD caption
+      // zone, so drive them from that chapter (the old always-visible story toggle is
+      // gone from live mode).
+      await page.evaluate(() => window.scrollTo(0, window.__torqueNarrative.scrollFraction(.735) * (document.documentElement.scrollHeight - innerHeight)))
+      await page.waitForFunction(() => Math.abs(window.__torqueNarrative.snapshot().progress - .735) < .00005, null, { timeout: seekTimeout })
+      await page.waitForTimeout(900)
       await page.getByRole('button',{name:'Open cutter inspection details',exact:true}).focus()
       await page.keyboard.press('Enter')
       const slider = page.getByRole('slider',{name:'Study position'})

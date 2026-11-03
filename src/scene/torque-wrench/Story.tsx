@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 import { TORQUE_POSTER_CHAPTERS, type TorquePosterChapterId } from './posterMap'
 import type { InspectionPlayback } from './inspectionPlayback'
 
-const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
+/** Shared with TorqueHUD (JG-040): one source of truth for chapter display copy. */
+export const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string; body: string }> = {
   drafting: {
     title: 'Drafting',
     lede: 'Design starts with the interfaces.',
@@ -33,7 +34,8 @@ const CHAPTER_COPY: Record<TorquePosterChapterId, { title: string; lede: string;
   },
 }
 
-function InspectionControl({ playback, live }: { playback?: InspectionPlayback; live?: boolean }) {
+/** Exported for TorqueHUD (JG-040): in live mode the HUD mounts the only instance. */
+export function InspectionControl({ playback, live }: { playback?: InspectionPlayback; live?: boolean }) {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement | null>(null)
   const seekRef = useRef<HTMLInputElement | null>(null)
@@ -118,11 +120,16 @@ function InspectionControl({ playback, live }: { playback?: InspectionPlayback; 
 
 export function Story({ playback, live }: { playback?: InspectionPlayback; live?: boolean }) {
   return (
+    // JG-040: in live mode the fixed TorqueHUD is the story's complete visible equivalent, so
+    // the flowing article goes visually hidden + inert (pacing grid, semantics and static-mode
+    // presentation are untouched; visibility keeps the grid tracks that pace the document).
     <article
       id="torque-story"
       className="torque-story"
       aria-labelledby="torque-story-heading"
       tabIndex={-1}
+      inert={live || undefined}
+      aria-hidden={live || undefined}
     >
       <h2 id="torque-story-heading" className="torque-sr">
         The torque wrench story, five chapters
@@ -139,7 +146,7 @@ export function Story({ playback, live }: { playback?: InspectionPlayback; live?
             </h3>
             <p className="torque-chapter__lede">{copy.lede}</p>
             <p className="torque-chapter__body">{copy.body}</p>
-            {chapter.id === 'inspection' && <InspectionControl playback={playback} live={live} />}
+            {chapter.id === 'inspection' && !live && <InspectionControl playback={playback} live={live} />}
           </section>
         )
       })}

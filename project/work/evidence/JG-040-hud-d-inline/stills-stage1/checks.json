@@ -1,0 +1,68 @@
+[
+  {
+    "view": "desktop",
+    "state": "breakthrough",
+    "requestedProgress": 0.418,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/desktop-breakthrough.png",
+    "chapter": "breakthrough",
+    "title": "Breakthrough",
+    "tech": false,
+    "cue": false,
+    "errors": []
+  },
+  {
+    "view": "desktop",
+    "state": "inspection",
+    "requestedProgress": 0.735,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/desktop-inspection.png",
+    "chapter": "inspection",
+    "title": "Inspection",
+    "tech": true,
+    "cue": true,
+    "errors": []
+  },
+  {
+    "view": "desktop",
+    "state": "close",
+    "requestedProgress": 0.94,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/desktop-close.png",
+    "chapter": "close",
+    "title": "Assembly",
+    "tech": false,
+    "cue": false,
+    "errors": []
+  },
+  {
+    "view": "narrow",
+    "state": "breakthrough",
+    "requestedProgress": 0.418,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/narrow-breakthrough.png",
+    "chapter": "breakthrough",
+    "title": "Breakthrough",
+    "tech": false,
+    "cue": false,
+    "errors": []
+  },
+  {
+    "view": "narrow",
+    "state": "inspection",
+    "requestedProgress": 0.735,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/narrow-inspection.png",
+    "chapter": "inspection",
+    "title": "Inspection",
+    "tech": true,
+    "cue": true,
+    "errors": []
+  },
+  {
+    "view": "narrow",
+    "state": "close",
+    "requestedProgress": 0.94,
+    "file": "project/work/evidence/JG-040-hud-d-inline/stills-stage1/narrow-close.png",
+    "chapter": "close",
+    "title": "Assembly",
+    "tech": false,
+    "cue": false,
+    "errors": []
+  }
+]

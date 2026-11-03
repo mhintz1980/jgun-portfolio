@@ -222,7 +222,9 @@ export function TorqueInspectionOverlay() {
   return createPortal(
     <div ref={root} className="torque-inspection-overlay" data-torque-overlay="">
       {shaft.visible && <div className="torque-shaft-hud" data-torque-shaft-time={shaft.time}>
-        <ShaftStoryLayer time={shaft.time} reducedMotion={false} />
+        {/* JG-040 owner review 2026-11-03: no FOS panels here — the live HUD's inline strip is
+            the single FOS presentation in this mode (the old vertical bar duplicated it). */}
+        <ShaftStoryLayer time={shaft.time} reducedMotion={false} fosPanels={false} />
       </div>}
       <svg className="torque-hotspot-leaders" aria-hidden="true">
         {TORQUE_HOTSPOTS.map((hotspot, i) => <g key={hotspot.id} data-torque-leader={hotspot.id}>

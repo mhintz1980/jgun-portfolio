@@ -11,6 +11,7 @@ import { SceneBoundary } from './SceneBoundary'
 import { runSceneLifecycle } from './sceneLifecycle'
 import type { TorqueSceneProps } from './cadGate'
 import Story from './Story'
+import TorqueHUD from './TorqueHUD'
 import { createInspectionPlayback } from './inspectionPlayback'
 import { REDUCED_MOTION_QUERY, downgradeForReducedMotion } from './tier'
 import './torque-wrench.css'
@@ -90,6 +91,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
           {posterLayer && <Poster />}
         </div>
         <Story playback={playback} live={stage === 'scene'} />
+        {stage === 'scene' && <TorqueHUD store={store} playback={playback} />}
       </main>
       <footer className="torque-footer">
         <PrivatePageNav tier={tier} variant="endcard" />

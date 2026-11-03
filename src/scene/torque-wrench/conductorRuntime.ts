@@ -12,6 +12,8 @@ export interface TorqueLenisLike {
   raf(time: number): void
   resize(): void
   destroy(): void
+  /** Present on the real Lenis; optional so CPU-test fakes need not implement it. */
+  scrollTo?(target: number | HTMLElement | string, options?: { duration?: number }): void
 }
 
 export type TorqueLenisConstructor = new (options: {
@@ -101,6 +103,21 @@ function isTerminal(store: TorqueWrenchStore): boolean {
 }
 
 const noopHandle: TorqueConductorHandle = { dispose() {} }
+
+/** Freshest live Lenis instance (JG-040 HUD chapter seeking). Null when no conductor runs. */
+let latestTorqueLenis: TorqueLenisLike | null = null
+
+/**
+ * Smooth-scroll the live document through the conductor's own Lenis, so HUD chapter controls
+ * cannot desynchronize its rAF loop. Returns false when no live conductor can accept the seek
+ * (caller may fall back to native scrolling or ignore the action).
+ */
+export function torqueLenisScrollTo(target: number | HTMLElement | string, duration = 0.8): boolean {
+  const lenis = latestTorqueLenis
+  if (!lenis?.scrollTo) return false
+  lenis.scrollTo(target, { duration })
+  return true
+}
 
 export function createTorqueScrollConductor(options: TorqueConductorOptions): TorqueConductorHandle {
   const { store } = options
@@ -211,6 +228,7 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
       try {
         lenis.destroy()
         ownedLenis.delete(lenis)
+        if (lenis === latestTorqueLenis) latestTorqueLenis = null
       } catch {
         cleanupFailures += 1
       }
@@ -241,6 +259,9 @@ export function createTorqueScrollConductor(options: TorqueConductorOptions): To
     // 1.2s confirmed-rest budget (including its sustained 300ms rest window).
     const lenis = new dependencies.Lenis({ duration: 0.8, smoothWheel: true, autoRaf: false })
     ownedLenis.add(lenis)
+    // JG-040: remember the freshest instance so HUD chapter controls can seek through the
+    // conductor's own Lenis instead of fighting it with native scrolling. Cleared on destroy.
+    latestTorqueLenis = lenis
 
     const removeLenisScrollHandler = lenis.on('scroll', () => { if (active) dependencies.scrollTrigger.update() })
     ownedLenisScrollHandlers.add(removeLenisScrollHandler)

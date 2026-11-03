@@ -57,6 +57,8 @@ import { captureVisibilityContribution } from './visibilityProof'
 import { measureSupportHandoff } from './supportHandoff'
 import { createShaftTakeover } from './shaftTakeover'
 import { captureCascadeProof } from './cascadeProof'
+import { createShaftKinematicsFrame, sampleShaftKinematics } from '../inspection/shaft/kinematics'
+import { isShaperShaftContactPoint, isShaperToolContactPoint, shaperContactRegion } from './contactWitnesses'
 
 const MODEL_URL = '/models/Default.glb'
 
@@ -269,7 +271,10 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   }, [model, rig])
   const overlay = useMemo(() => ({ progress: 0, subjectTime: 0, studyVisible: false, manual: false,
     explode: 0, surroundingsOpacity: 1, ringVisible: false,
-    focusId: null as string | null, anchors: hotspots.map(item => item.screen) }), [hotspots])
+    focusId: null as string | null, anchors: hotspots.map(item => item.screen),
+    // JG-040 tracked leader: the study look point projected to screen (HUD caption leader).
+    studyAnchor: { x: 0, y: 0, visible: false } }), [hotspots])
+  const studyAnchorProjected = useMemo(() => new Vector3(), [])
   const focus = useMemo(() => ({ id: null as string | null, weight: 0, progress: 0, initialized: false,
     position: new Vector3(), target: new Vector3(), direction: new Vector3() }), [])
   const hotspotRay = useMemo(() => new Raycaster(), [])
@@ -375,6 +380,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
     // Cache immutable local CAD hulls, never animated poses. Their affine
     // transforms retain exact projection extrema through arbitrary seeks.
     const geometryHulls = new WeakMap<object, { attribute: object; version: number; points: number[][] }>()
+    const shaperWitnessKinematics = createShaftKinematicsFrame()
     const port = {
       overlaySample: () => overlay,
       pitInputs: () => sheetRuntime.current?.pitInputs(),
@@ -411,6 +417,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
         scene.updateMatrixWorld(true); camera.updateMatrixWorld(true)
         const subjects: Array<{ name: string; matrixWorld: number[] }> = []
         const witnesses: Array<{ name: string; points: number[][]; kind: string }> = []
+        const shaperRegion = shaperContactRegion(sampleShaftKinematics(probe.inspection.subjectTime, shaperWitnessKinematics))
         const point = new Vector3(), localPoint = new Vector3(), direction = new Vector3()
         const hullPoints = (points: Vector3[]) => {
           const unique = [...new Map(points.map(p => [p.toArray().join(','), p])).values()]
@@ -488,11 +495,15 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
             localPoint.copy(point).applyMatrix4(inverseRoot)
             if(sourceShaftContact)localPoint.copy(point).applyMatrix4(contactInverse)
             const ringContact = prefix === 'ring' && /P003068-inspection-CAD|KNURL_WHEEL/.test(object.name)
-            const shaftContact = prefix === 'shaft' && (object.name === 'shaper-cutter-disc'
+            const shaperToolContact = object.name === 'shaper-cutter-disc'
+              && isShaperToolContactPoint(localPoint, shaperRegion)
+            const shaperWorkContact = shaperRegion.active && (object.name === 'legacyshaft' || object.name === 'approvedshaft')
+              && isShaperShaftContactPoint(localPoint, shaperRegion)
+            const shaftContact = prefix === 'shaft' && (shaperToolContact || shaperWorkContact
               || /hob.*(body|thread|cutter|flute)|hobbing-tool/i.test(object.name)
               || (stage1Contact && localPoint.z >= -.014 && localPoint.z <= -.002
                 && Math.hypot(localPoint.x, localPoint.y) < .012)
-              || ((object.name === 'legacyshaft' || object.name === 'approvedshaft')
+              || (!shaperRegion.active && (object.name === 'legacyshaft' || object.name === 'approvedshaft')
                 && localPoint.z >= -.014 && localPoint.z <= -.002))
             if (ringContact || shaftContact || sourceShaftContact && localPoint.z>=-.014 && localPoint.z<=-.002) {
               contactPoints.push(point.clone())
@@ -531,6 +542,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           shatter: probe.progress >= .42 && probe.progress <= .46 && sheetRuntime.current
             ? { ...(includeWitnesses ? sheetRuntime.current.shatterInputs() : {}), frame: sheetRuntime.current.group.matrixWorld.toArray(), subjectTime: sheetFrame.intro.t } : null,
           inspection: { subjectTime: probe.inspection.subjectTime, cameraTime: probe.inspection.cameraTime },
+          sheetRenderState: sheetRuntime.current?.renderState() ?? null,
           poleDot: Math.abs(direction.dot(camera.up.clone().normalize())) }
       },
       cascadeProof: (options?: Parameters<typeof captureCascadeProof>[5]) => {
@@ -1422,6 +1434,17 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       sheetFrame.cameraLookTargetWorld = target
       sheetFrame.cameraSheetDistance = camera.position.distanceTo(target)
+      // JG-040 tracked leader: while the cutter study owns the frame, the camera's look point
+      // IS the shaft subject — publish it as a projected screen point for the HUD leader.
+      overlay.studyAnchor.visible = false
+      if (overlay.studyVisible && !overlay.ringVisible) {
+        studyAnchorProjected.copy(target).project(camera)
+        if (Math.abs(studyAnchorProjected.x) < .98 && Math.abs(studyAnchorProjected.y) < .98 && Math.abs(studyAnchorProjected.z) < 1) {
+          overlay.studyAnchor.x = (studyAnchorProjected.x * .5 + .5) * size.width
+          overlay.studyAnchor.y = (.5 - studyAnchorProjected.y * .5) * size.height
+          overlay.studyAnchor.visible = true
+        }
+      }
       probe.progress = progress; probe.frames++
       camera.position.toArray(probe.camera.position)
       target.toArray(probe.camera.target)

@@ -1,0 +1,9 @@
+In `C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench` (branch `torque-wrench/rebuild`), read
+`C:\Users\Markimus\.buzz\REPOS\jgun-torque-wrench\docs\HANDOFF-jg040-hud-stage1-2026-11-03.md`
+and continue JG-040 from it. First recheck live git/build state and preserve the pre-existing
+uncommitted work. Exact next action: process the owner's visual review of the shipped D+inline
+HUD (preview `npx vite preview --port 5341` → `http://localhost:5341/torque-wrench/`), then
+execute Stage 2 per the plan (`project/work/plans/JG-040-hud-d-inline.md`), starting with the
+HUD-rect framing re-baseline. Boundaries: no commit/push/deploy without owner instruction; do
+not weaken framing thresholds; ScrollTrigger/beats/pacing stay untouched. Owner approval state:
+direction + Stage 1 only — visual acceptance, Stage 2, and deployment are open.

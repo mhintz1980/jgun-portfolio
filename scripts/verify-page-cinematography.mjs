@@ -31,6 +31,7 @@ import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { launchBrowser, describeLaunch } from './lib/browser-launch.mjs'
+import { checkpointJson } from './lib/cinematography-checkpoint.mjs'
 import { Euler, Matrix4, Quaternion, Vector3 } from 'three'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -100,6 +101,7 @@ function validTelemetry(s) {
     && Math.hypot(...s.camera.up) > 0 && finite(s.camera.fov) && s.camera.fov > 0 && s.camera.fov < 180
     && finite(s.progress) && vec(s.viewport, 2) && s.viewport.every(x => x > 0) && finite(s.poleDot) && s.poleDot >= 0
     && finite(s.inspection?.subjectTime) && finite(s.inspection?.cameraTime)
+    && vec(s.sheetRenderState?.lamp, 3) && finite(s.sheetRenderState?.lampPower) && finite(s.sheetRenderState?.readingPool)
     && (s.ringTime === null || finite(s.ringTime))
     && (s.shatter == null || finite(s.shatter.subjectTime) && vec(s.shatter.frame, 16))
     && Array.isArray(s.subjects) && s.subjects.length > 0
@@ -117,6 +119,9 @@ export function compareState(a, b) {
   if ((a.ringTime === null) !== (b.ringTime === null)) return { cameraError, subjectError: Infinity, reason: 'Ring clock presence changed' }
   if ((a.shatter == null) !== (b.shatter == null)) return { cameraError, subjectError: Infinity, reason: 'Shatter clock/frame presence changed' }
   const subjectError = Math.max(Math.abs(a.inspection.subjectTime - b.inspection.subjectTime),
+    maxDiff(a.sheetRenderState.lamp, b.sheetRenderState.lamp),
+    Math.abs(a.sheetRenderState.lampPower - b.sheetRenderState.lampPower),
+    Math.abs(a.sheetRenderState.readingPool - b.sheetRenderState.readingPool),
     Math.abs(a.inspection.cameraTime - b.inspection.cameraTime),
     a.ringTime === null ? 0 : Math.abs(a.ringTime - b.ringTime),
     a.shatter == null ? 0 : Math.abs(a.shatter.subjectTime - b.shatter.subjectTime),
@@ -128,7 +133,7 @@ export function compareState(a, b) {
 export function replayGates(records, label) {
   if (!records.length) return [gate(`${label}: evidence`, null, 'No replay samples')]
   return [gate(`${label}: camera <1e-5`, records.every(x => x.cameraError < LIMITS.replay), records),
-    gate(`${label}: subject matrices and clocks <1e-5`, records.every(x => x.subjectError < LIMITS.replay), records),
+    gate(`${label}: subject matrices, clocks and sheet lighting <1e-5`, records.every(x => x.subjectError < LIMITS.replay), records),
     gate(`${label}: decoded beauty RGBA identical`, records.every(x => typeof x.forwardHash === 'string' && x.forwardHash === x.replayHash), records)]
 }
 
@@ -281,14 +286,20 @@ export async function sourceModule(entry) {
   return { exports: module.exports, inputs: Object.keys(result.metafile.inputs).map(file => ({ file, sha256: sha(readFileSync(path.resolve(ROOT, file))) })) }
 }
 
-async function observe(page, includeWitnesses = false) {
-  return page.evaluate(includeWitnesses => {
+async function observe(page, includeWitnesses = false, fullSnapshot = false) {
+  return page.evaluate(({includeWitnesses, fullSnapshot}) => {
     const port = window.__torqueWorld, telemetry = port?.cinematography?.(includeWitnesses)
-    const snapshot = port?.snapshot?.()
+    // Frame settling needs live matrices/clocks, not the expensive material,
+    // portal and installation census. Keep that full evidence at each final pose.
+    const motion = port?.motionSample?.()
+    const snapshot = fullSnapshot ? port?.snapshot?.() : null
     const hud = []
-    // torque-shaft-hud itself is an empty inset:0 positioning wrapper. Measure
-    // its visible children, including captions and the separate FOS bar.
-    const selectors = '.torque-header,.torque-footer,.torque-nav,.torque-hud,.torque-chapter__title,.torque-chapter__lede,.torque-chapter__body,.torque-inspection__panel,.torque-inspection__toggle,.torque-inspection__footer,.torque-freelook-toggle,[data-shaft-card],[data-shaft-fos-model],.shaft-fos-bar,[data-shaft-attribution],[data-shaft-recap],[data-shaft-caption],[data-torque-hotspot]'
+    // torque-shaft-hud and .torque-hud are empty inset:0 positioning wrappers. Measure
+    // their visible children instead: the D+inline HUD chrome (JG-040 re-baseline
+    // 2026-11-03 — caption/tech strip/rail/WIP replace the old full-viewport .torque-hud
+    // entry) plus the study cards/captions and hotspot callouts. Story elements are
+    // visibility-filtered below, so they drop out naturally in live mode.
+    const selectors = '.torque-header,.torque-footer,.torque-nav,.torque-hud__caption,.torque-hud__tech,.torque-hud__rail,.torque-hud__wip,.torque-hud__mast,.torque-chapter__title,.torque-chapter__lede,.torque-chapter__body,.torque-inspection__panel,.torque-inspection__toggle,.torque-inspection__footer,.torque-freelook-toggle,[data-shaft-card],[data-shaft-fos-model],.shaft-fos-bar,[data-shaft-attribution],[data-shaft-recap],[data-shaft-caption],[data-torque-hotspot]'
     for (const el of document.querySelectorAll(selectors)) {
       let visible = true
       for (let parent = el; parent; parent = parent.parentElement) {
@@ -300,12 +311,12 @@ async function observe(page, includeWitnesses = false) {
         hud.push({ selector: el.id ? '#' + el.id : el.className, left: r.left, top: r.top, right: r.right, bottom: r.bottom })
       }
     }
-    return { telemetry, frames: snapshot?.frames, tier: snapshot?.mechanical?.tier, renderer: snapshot?.renderer,
+    return { telemetry, frames: snapshot?.frames ?? motion?.frames, tier: snapshot?.mechanical?.tier, renderer: snapshot?.renderer,
       scrollY, nativeViewport: [innerWidth, innerHeight], hud,
       snapshot: { ring: snapshot?.ring && { time: snapshot.ring.time, rootMatrix: snapshot.ring.rootMatrix, subjectMatrix: snapshot.ring.subjectMatrix },
-        opening: snapshot?.opening, inspection: snapshot?.inspection, isolation: snapshot?.isolation }, motion: port?.motionSample?.(),
+        opening: snapshot?.opening, inspection: snapshot?.inspection, isolation: snapshot?.isolation }, motion,
       canvas: document.querySelector('.torque-scene canvas')?.getBoundingClientRect().toJSON() ?? null }
-  }, includeWitnesses)
+  }, {includeWitnesses, fullSnapshot})
 }
 
 async function seek(page, progress, reachablePixel = null, includeWitnesses = true) {
@@ -332,7 +343,7 @@ async function seek(page, progress, reachablePixel = null, includeWitnesses = tr
     else { count = 0; stableAt = Date.now(); anchor = current }
     history.push({ ms: Date.now() - start, frames: current.frames, scrollY: current.scrollY, progress: current.telemetry?.progress, ...error })
     if (count >= LIMITS.stableFrames && Date.now() - stableAt >= LIMITS.stableMs) {
-      const complete = await observe(page, includeWitnesses)
+      const complete = await observe(page, includeWitnesses, true)
       return { ...complete, requestedProgress: progress, settling: { elapsedMs: Date.now() - start, stableFrames: count, stableMs: Date.now() - stableAt, last: history.slice(-12), method: 'rendered-frame camera/subject/clocks stability against previous AND window anchor' } }
     }
     previous = current
@@ -359,9 +370,31 @@ async function beauty(page, file) {
   return { ...decoded, pngSha256: sha(bytes), file: path.basename(file), hudSuppression: 'none', scope: 'entire presentation canvas screenshot, including any DOM painted over its bounds' }
 }
 
-export function makePlan(specs) {
+export function privateOpeningPoints(openingTimeAt) {
+  if (typeof openingTimeAt !== 'function') throw new Error('Private opening map is required')
+  // Current sheet-camera read anchors, registered hold, lamp failures, pressure,
+  // first rupture and emergence. These are intro times, not native progress.
+  const times = [0,.0325,.065,.1,.125,.17,.2,.24,.29,.38,.45,.66,.72,.765,.79,.8132,.84,.88,.9,1]
+  return times.map(t => {
+    if (t === 0) return 0
+    if (t === 1) return .46
+    let lo = 0, hi = .46
+    for (let i=0;i<55;i++) {
+      const mid = (lo+hi)/2
+      const value = openingTimeAt(mid)
+      if (!finite(value)) throw new Error('Invalid private opening clock')
+      if (value < t) lo=mid;else hi=mid
+    }
+    const progress=(lo+hi)/2
+    if (Math.abs(openingTimeAt(progress)-t)>1e-9) throw new Error('Unreachable private opening checkpoint')
+    return progress
+  })
+}
+
+export function makePlan(specs, openingTimeAt) {
   const shots = Object.values(specs).map(s => ({ ...s, nativeWindow: s.window.map(p => p - (s.progressSpace === 'shaft-study' ? .115 : 0)), machining: ['ringSwitch', 'shaperContact', 'hobContact', 'stage1Ignition'].includes(s.id) }))
-  const ordinary = [0, .0456, .0792, .0948, .1008, .1056, .12, .2, .395, .418, .46, .469, .4725, .495, .505, .52, .545, .56, .587, .6, .62, .64, .66, .735, .76, .79, .805, .815, .817, .82, .825, .845, .87, .9, .924, .94, .955, .965, .98, .99, .995]
+  const opening = openingTimeAt ? privateOpeningPoints(openingTimeAt) : [0,.265,.32,.36,.395,.42,.435,.46]
+  const ordinary = [...opening, .418, .469, .4725, .495, .505, .52, .545, .56, .587, .6, .62, .64, .66, .735, .76, .79, .805, .815, .817, .82, .825, .845, .87, .9, .924, .94, .955, .965, .98, .99, .995]
   const fractions = [0, .05, .15, .25, .375, .5, .625, .75, .85, .95, 1]
   const points = [...new Set([...ordinary, ...shots.flatMap(s => fractions.map(u => s.nativeWindow[0] + u * (s.nativeWindow[1] - s.nativeWindow[0])))].map(p => Number(p.toFixed(12))))].sort((a, b) => a - b)
   return { shots, points }
@@ -410,9 +443,14 @@ export async function run(argv = process.argv.slice(2)) {
   }
   const save = () => {
     report.status = classify([...report.gates, ...report.cases.flatMap(c => c.gates)], [...report.errors, ...report.cases.flatMap(c => c.errors)], [...report.omitted, ...args.cases.filter(name => !report.cases.find(c => c.name === name && c.completed))])
-    writeFileSync(path.join(args.out, 'report.json'), JSON.stringify(report, (_, value) => typeof value === 'number' && !Number.isFinite(value) ? String(value) : value, 2) + '\n')
+    writeFileSync(path.join(args.out, 'report.json'), checkpointJson(report))
   }
   let browser, api
+  const progress = (result, phase, index, total) => {
+    const phaseChanged = result.progress?.phase !== phase
+    result.progress = { phase, index, total, updatedAt: new Date().toISOString() }
+    if (phaseChanged || index % 11 === 0) save()
+  }
   save()
   try {
     const manifest = distManifest(); report.build = manifest
@@ -420,7 +458,7 @@ export async function run(argv = process.argv.slice(2)) {
     report.contractInputs = contract.inputs
     report.gates.push(canonicalGate(contract.exports.BULLET_TIME_SHOT_SPECS))
     if (report.gates.at(-1).status !== 'PASS') throw new Error('Source shot specs weaken/change required canonical targets')
-    const plan = makePlan(contract.exports.BULLET_TIME_SHOT_SPECS); report.plan = plan
+    let plan
     const sources = {}
     for (const [key, entry] of Object.entries({ clock: 'src/scene/torque-wrench/InspectionDirector.ts',
       ring: 'src/scene/torque-wrench/RingInspection.ts', timeline: 'src/scene/inspection/timeline.ts',
@@ -431,6 +469,7 @@ export async function run(argv = process.argv.slice(2)) {
       report.contractInputs.push(...source.inputs)
     }
     sources.contract = contract.exports
+    plan = makePlan(contract.exports.BULLET_TIME_SHOT_SPECS, sources.opening.openingTimeAt); report.plan = plan
     const oracle = args.oracle ? await sourceModule(args.oracle) : null
     if (oracle && typeof oracle.exports.expected !== 'function') throw new Error('Oracle must export expected({shot,sample,previous})')
     report.oracleInputs = oracle?.inputs ?? []
@@ -479,12 +518,15 @@ export async function run(argv = process.argv.slice(2)) {
           await page.evaluate(() => document.fonts.ready)
           // Warm all installed variants before the recorded ascending pass.
           result.warmup = []
-          for (const p of [.99, .82, .78, .701, .48, .44, 0]) {
+          const warmupPoints = [.99, .82, .78, .701, .48, .44, 0]
+          for (const [index,p] of warmupPoints.entries()) {
+            progress(result, 'warmup', index, warmupPoints.length)
             // Warm resources and clocks without rebuilding every CAD hull.
             const sample = await seek(page, p, null, false)
             result.warmup.push({ progress: p, settling: sample.settling, tier: sample.tier }); save()
           }
           for (let i = 0; i < plan.points.length; i++) {
+            progress(result, 'forward', i, plan.points.length)
             const sample = await seek(page, plan.points[i]), shot = shotAt(plan, sample.requestedProgress)
             sample.shot = shot?.id ?? 'ordinary'
             sample.beauty = await beauty(page, path.join(dir, `forward-${i}.png`))
@@ -506,6 +548,7 @@ export async function run(argv = process.argv.slice(2)) {
           for (const label of ['reverse', 'random']) {
             const indices = label === 'reverse' ? plan.points.map((_, i) => i).reverse() : primeOrder(plan.points.length)
             for (const i of indices) {
+              progress(result, label, result[label].length, plan.points.length)
               const forward = result.samples[i]
               // Replay compares exact matrices/clocks/camera and beauty. Hull
               // projection is unchanged for an identical installed state.
@@ -537,6 +580,7 @@ export async function run(argv = process.argv.slice(2)) {
         result.gates.push(gate('browser-loaded bundles match SAME production build', result.resources.length > 0 && result.resources.every(r => r.pass), result.resources))
         result.gates.push(gate('zero browser errors', result.errors.length === 0, result.errors))
         result.completed = true
+        progress(result, 'complete', result.samples.length, reduced ? result.samples.length : plan.points.length)
       } catch (error) { result.errors.push(error.stack ?? String(error)); result.gates.push(gate('case execution', false, String(error))) }
       finally {
         if (context) await context.close().catch(e => result.errors.push(String(e)))

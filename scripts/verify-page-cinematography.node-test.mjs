@@ -9,6 +9,7 @@ const identity = () => [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 const camera = () => ({ position: [0, 0, 0], target: [0, 0, -1], up: [0, 1, 0], quaternion: [0, 0, 0, 1], fov: 90 })
 const state = () => ({ camera: camera(), subjects: [{ name: 'shaft/a/approvedshaft', matrixWorld: identity() }],
   inspection: { subjectTime: 1, cameraTime: 2 }, ringTime: null, progress: .5, viewport: [1000, 1000], poleDot: 0,
+  sheetRenderState: {lamp:[0,0,.2],lampPower:1,readingPool:0},
   witnesses: [{ name: 'shaft/a/approvedshaft', kind: 'shaft', points: [[0, 0, -1]] }] })
 const clone = x => structuredClone(x)
 const statuses = gates => gates.map(g => g.status)
@@ -79,6 +80,15 @@ test('empty, malformed, renamed or disappeared subjects never pass replay', () =
     const b = state(); mutate(b); assert.equal(compareState(state(), b).subjectError, Infinity)
   }
   assert.deepEqual(statuses(replayGates([], 'reverse')), ['INCOMPLETE'])
+})
+
+test('applied sheet lighting participates in settling/replay, including malformed or missing uniforms', () => {
+  for (const mutate of [s => {s.sheetRenderState.lamp[0]+=.001}, s => {s.sheetRenderState.lampPower+=.001},
+    s => {s.sheetRenderState.readingPool+=.001}, s => {delete s.sheetRenderState},
+    s => {s.sheetRenderState.lamp[1]=NaN}]) {
+    const a=state(),b=clone(a);mutate(b)
+    assert.ok(compareState(a,b).subjectError>=1e-5)
+  }
 })
 
 test('strict replay threshold, decoded hash equality and every checkpoint are required', () => {

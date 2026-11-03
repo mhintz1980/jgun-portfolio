@@ -41,7 +41,16 @@ function FosPanels({ frame, fos }: { frame: ShaftScriptFrame; fos: FosPresentati
   </>
 }
 
-export interface ShaftStoryLayerProps { readonly time: number; readonly reducedMotion: boolean }
+export interface ShaftStoryLayerProps {
+  readonly time: number
+  readonly reducedMotion: boolean
+  /**
+   * JG-040 (owner review 2026-11-03): the private torque-wrench live HUD renders the FOS
+   * evidence inline, so its overlay suppresses these panels to avoid showing the scale twice.
+   * Default keeps the panels for the main-site study and every other consumer.
+   */
+  readonly fosPanels?: boolean
+}
 
 /**
  * Authored transcript of the four shaft chapters. Screen-reader available, visually hidden.
@@ -83,7 +92,7 @@ export function buildShaftAnnouncement(frame: ShaftScriptFrame): string {
  * attribution and captions from the closed-form sampler. Mounted by the private
  * torque-wrench overlay; this layer does not register or own narrative state.
  */
-export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
+export function ShaftStoryLayer({ time, reducedMotion, fosPanels = true }: ShaftStoryLayerProps) {
   const frameRef = useRef<ShaftScriptFrame | null>(null)
   if (!frameRef.current) frameRef.current = createShaftScriptFrame()
   const frame = sampleShaftScript(time, reducedMotion, frameRef.current)
@@ -107,7 +116,7 @@ export function ShaftStoryLayer({ time, reducedMotion }: ShaftStoryLayerProps) {
       {frame.remainingTeeth && <p className="shaft-caption shaft-caption-recap" data-shaft-recap="">{SHAFT_RECAP_CAPTION_TEXT}</p>}
       {frame.caption !== 'none' && <p className="shaft-caption" data-shaft-caption={frame.caption}>{frame.captionText}</p>}
     </div>
-    <FosPanels frame={frame} fos={fos} />
+    {fosPanels && <FosPanels frame={frame} fos={fos} />}
     <p role="status" aria-live="polite" aria-atomic="true" className="shaft-visually-hidden" data-shaft-status="" data-version={status.version}>{status.text}</p>
     <div className="shaft-visually-hidden" data-shaft-transcript="">
       <h2>P001835 Input Shaft manufacturing study transcript</h2>

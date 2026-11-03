@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, type MockInstance } from 'vitest'
 import {
-  BufferGeometry, Group, Matrix4, Mesh, PointLight, ShaderMaterial, Texture, Vector2, Vector3,
+  BufferGeometry, Color, Group, Matrix4, Mesh, PointLight, ShaderMaterial, Texture, Vector2, Vector3,
 } from 'three'
 import { DRAWING_INTRO_WINDOW, drawingIntroState, INTRO_PHASES } from '../drawing/introTimeline'
 import * as introSource from '../drawing/introTimeline'
@@ -316,24 +316,97 @@ describe('private sheet explicit frame application', () => {
     expect(fillMaterial.depthTest).toBe(true)
   })
 
-  it('seeds the first explicit lamp target, freezes at zero delta, and clamps settling delta', () => {
+  it('samples the current lamp aim at zero delta, retaining sheet-local aim and reach bounds', () => {
     const f = fixture()
     const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
     runtime.apply(frame(0.4, { cameraLookTargetWorld: new Vector3(0.2, 0.4, 0.3) }), f.context, viewport)
     expect(f.baked.uniforms.uLamp.value.x).toBeCloseTo(0.1, 12)
     expect(f.baked.uniforms.uLamp.value.y).toBeCloseTo(0.2, 12)
     expect(f.baked.uniforms.uLamp.value.z).toBeCloseTo(0.4 * 0.55, 12)
-    const before = f.baked.uniforms.uLamp.value.clone()
     const target = new Vector3(0.5, 0.6, 0.3)
     runtime.apply(frame(0.4, { cameraLookTargetWorld: target, delta: 0 }), f.context, viewport)
-    expect(f.baked.uniforms.uLamp.value.equals(before)).toBe(true)
-    runtime.apply(frame(0.4, { cameraLookTargetWorld: target, delta: 100 }), f.context, viewport)
-    const k = 1 - Math.exp(-3 * 0.1)
-    expect(f.baked.uniforms.uLamp.value.x).toBeCloseTo(before.x + (0.4 - before.x) * k, 12)
-    expect(f.baked.uniforms.uLamp.value.y).toBeCloseTo(before.y + (0.4 - before.y) * k, 12)
-    const settled = f.baked.uniforms.uLamp.value.clone()
-    runtime.apply(frame(0.4, { cameraLookTargetWorld: null, delta: 1 }), f.context, viewport)
-    expect(f.baked.uniforms.uLamp.value.equals(settled)).toBe(true)
+    expect(runtime.renderState().lamp[0]).toBeCloseTo(.4, 12)
+    expect(runtime.renderState().lamp[1]).toBeCloseTo(.4, 12)
+    for (const [distance, radius] of [[.01, .09], [.4, .22], [2, .32], [0, .22]]) {
+      for (const delta of [0, 1 / 60, 100]) {
+        runtime.apply(frame(.4, { cameraLookTargetWorld: target, cameraSheetDistance: distance, delta }), f.context, viewport)
+        expect(runtime.renderState().lamp[2]).toBeCloseTo(radius, 12)
+        expect(f.baked.uniforms.uLamp.value.toArray()).toEqual(runtime.renderState().lamp)
+      }
+    }
+    expect(target.toArray()).toEqual([.5, .6, .3])
+    const snapshot = runtime.renderState()
+    snapshot.lamp[0] = 999
+    expect(runtime.renderState().lamp[0]).toBeCloseTo(.4, 12)
+    expect([runtime.stats.lampX, runtime.stats.lampY, runtime.stats.lampRadius]).toEqual(runtime.renderState().lamp)
+    runtime.dispose()
+  })
+
+  it('resets a null lamp target to the same centered pool on fresh, held and revisited frames', () => {
+    const f = fixture()
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    runtime.apply(frame(.4), f.context, viewport)
+    const original = runtime.renderState()
+    expect(original.lamp).toEqual([0, 0, .2])
+    runtime.apply(frame(.8, { cameraLookTargetWorld: new Vector3(2, -3, 1), cameraSheetDistance: 2, delta: .1 }), f.context, viewport)
+    for (const delta of [0, .1, 100]) {
+      runtime.apply(frame(.4, { cameraLookTargetWorld: null, delta }), f.context, viewport)
+      expect(runtime.renderState()).toEqual(original)
+    }
+    runtime.dispose()
+  })
+
+  it.each(['normal', 'drawing-edges', 'reduced-motion'])('replays lamp and installed uniforms exactly forward/reverse/prime-stride in %s', mode => {
+    const f = fixture()
+    // A rotated, translated sheet catches accidental world-space targeting.
+    f.context.sheetMatrix.makeRotationX(.3).multiply(new Matrix4().makeRotationY(-.4)).setPosition(.1, .2, .3)
+    const runtime = createPrivateSheetRuntime(f.baked, vi.fn(), f.factories)
+    const capture = () => {
+      const uniforms: unknown[] = []
+      runtime.group.traverse(object => {
+        if (!(object instanceof Mesh)) return
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+          if (!(material instanceof ShaderMaterial)) continue
+          uniforms.push(Object.fromEntries(Object.entries(material.uniforms).map(([key, { value }]) => {
+            // Three's generic toArray overloads cannot be called through this
+            // union; narrow each concrete type before copying its components.
+            if (value instanceof Vector2) return [key, value.toArray()]
+            if (value instanceof Vector3) return [key, value.toArray()]
+            if (value instanceof Color) return [key, value.toArray()]
+            if (value instanceof Matrix4) return [key, value.toArray()]
+            return [key, Array.isArray(value) ? [...value] : value instanceof Texture ? value.uuid : value]
+          })))
+        }
+      })
+      return { render: runtime.renderState(), uniforms }
+    }
+    // 19 checkpoints and the coprime 613 stride visit every target, including
+    // null, blackout and lamp return, with varying distances and frame deltas.
+    const sample = (i: number, delta: number) => {
+      const t = i / 18
+      const local = new Vector3(.15 * Math.sin(t * 7), .2 * Math.cos(t * 5), 0)
+      runtime.apply(frame(t, { cameraLookTargetWorld: i % 5 === 0 ? null : local.clone().applyMatrix4(f.context.sheetMatrix),
+        cameraSheetDistance: .1 + t, delta, proofMode: mode === 'drawing-edges' ? mode : 'normal',
+        reducedMotion: mode === 'reduced-motion' }), f.context, viewport)
+      const render = runtime.renderState()
+      if (i % 5 === 0) expect(render.lamp).toEqual([0, 0, .2])
+      else {
+        expect(render.lamp[0]).toBeCloseTo(local.x, 12)
+        expect(render.lamp[1]).toBeCloseTo(local.y, 12)
+        expect(render.lamp[2]).toBeCloseTo(Math.min(.32, Math.max(.09, (.1 + t) * .55)), 12)
+      }
+      expect(render.lampPower).toBe(f.baked.uniforms.uLampPower.value)
+      expect(render.readingPool).toBe(f.baked.uniforms.uReadingPool.value)
+      return capture()
+    }
+    const forward = Array.from({ length: 19 }, (_, i) => sample(i, 1 / 60))
+    expect(new Set(forward.map(x => JSON.stringify(x.render))).size).toBeGreaterThan(10)
+    for (const i of Array.from({ length: 19 }, (_, n) => 18 - n).concat(
+      Array.from({ length: 19 }, (_, n) => (n * 613) % 19))) {
+      expect(sample(i, .1)).toEqual(forward[i])
+      expect(sample(i, 0)).toEqual(forward[i])
+      expect(sample(i, 100)).toEqual(forward[i])
+    }
     runtime.dispose()
   })
 
