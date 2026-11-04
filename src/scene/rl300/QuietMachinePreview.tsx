@@ -103,7 +103,7 @@ export default function QuietMachinePreview() {
     <div className="qm-editorial">
       <p className="qm-eyebrow">THE QUIET MACHINE <span>0{beat + 1} / 0{SHOTS.length}</span></p>
       <h1>{SHOTS[beat].title}</h1><p className="qm-caption">{SHOTS[beat].caption}</p>
-      <p className="qm-note">{SHOTS[beat].note}</p>
+      <p className="qm-note">{SHOTS[beat].note} Work in progress.</p>
     </div>
     {u >= END_CARD_AT && <aside className="qm-endcard" aria-label="Continue">
       <h2 className="qm-endcard-title">Closed again.</h2>

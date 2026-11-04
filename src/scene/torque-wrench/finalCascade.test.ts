@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Group, Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
 import type { WrenchRig } from '../rig/nodeRoles'
 import { CASCADE_CLOCK_WINDOWS, cascadeProgressAtTime, cascadeTimeAt, subjectTimeAt, cameraTimeAt } from './InspectionDirector'
-import { torqueScrollDistance } from './scrollPacing'
+import { torqueScrollDistance, torqueProgressAtDistance } from './scrollPacing'
 import { createShaftTakeover } from './shaftTakeover'
 import { sampleFinaleAngle } from '../inspection/shaft/schedule'
 import { CASCADE_ALIAS_FEATURES, featureStepPeriods } from '../inspection/shaft/cascadeConfig'
@@ -11,6 +11,31 @@ import { sampleMechanism, type MechanismSample } from './MechanismDirector'
 import { ROTATION_TURNS } from '../../data/caseStudies'
 
 describe('final cascade physical clock and source takeover', () => {
+  it('decelerates only the final shot into a C1 hold while preserving its time and distance endpoints', () => {
+    const last=CASCADE_CLOCK_WINDOWS.at(-1)!
+    const width=last.end.distance-last.start.distance
+    expect([last.start.time,last.end.time]).toEqual([65.4,66.9])
+    expect(last.endRate).toBe(0)
+    expect(last.endShoulderDistance/width).toBeCloseTo(.2,12)
+    expect(CASCADE_CLOCK_WINDOWS.slice(0,-1).every(w=>w.endRate>0)).toBe(true)
+    const time=(d:number)=>cascadeTimeAt(torqueProgressAtDistance(d)+.115)
+    const h=width*1e-5
+    for(const seam of [last.start.distance,last.start.distance+last.shoulderDistance,last.end.distance-last.endShoulderDistance,last.end.distance]){
+      const center=time(seam)
+      const left=(3*center-4*time(seam-h)+time(seam-2*h))/(2*h)
+      const right=(-3*center+4*time(seam+h)-time(seam+2*h))/(2*h)
+      expect(Math.abs(left-right)).toBeLessThan(.001)
+      if(seam===last.end.distance)expect(Math.max(Math.abs(left),Math.abs(right))).toBeLessThan(.001)
+    }
+    const rates=Array.from({length:11},(_,i)=>{
+      const d=last.end.distance-last.endShoulderDistance*(1-i/10)
+      return (time(d+h)-time(d-h))/(2*h)
+    })
+    for(let i=1;i<rates.length;i++)expect(rates[i]).toBeLessThan(rates[i-1])
+    expect(time(last.start.distance)).toBeCloseTo(65.4,10)
+    expect(time(last.end.distance)).toBe(66.9)
+  })
+
   it('redistributes the existing cascade distance toward later stages and has constant interior speed', () => {
     let total=0,baselineTotal=0
     for(const w of CASCADE_CLOCK_WINDOWS){

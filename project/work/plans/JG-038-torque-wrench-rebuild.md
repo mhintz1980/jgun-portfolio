@@ -1,5 +1,7 @@
 # JG-038 — Private torque-wrench page rebuild
 
+> **Owner supersession, 2026-10-31:** [Evolving portfolio and visual review](../../context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md) authorizes useful unfinished publication and incremental updates, superseding the historical private-only/delivery freeze below. Keep full task completion and final visual acceptance separate. Next creative priority is visual HUD concepts; defer provisional HUD/design-framing polish and show perceptual readability issues before further fixes. Preserve the sibling worktree and mechanical invariants.
+
 Status (2026-10-14, America/New_York): **in progress; Stages0–2 closed, Stage3 leaf exit recorded, Stage4 implemented and review evidence prepared**. Frozen build s has current effects/opening/cutter/static and desktop-timeline proof. Functional-readiness gaps, Stage5 backgrounds, Stage6 final offline art and G0–G9/Astra/owner acceptance remain open. Ordered implementation authority remains in effect; shared edits still require ownership coordination. Continue through the [current parallel handoff](../../../docs/torque-wrench-rebuild/HANDOFF-2026-10-14-parallel-functional.md).
 
 - [Canonical implementation plan](../../../docs/torque-wrench-rebuild/13-implementation-plan.md): single source for sequence, file ownership, constraints, and G0–G9. This registration links it without duplicating the plan.

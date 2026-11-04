@@ -5,9 +5,9 @@ import {
 import type { WrenchRig } from '../rig/nodeRoles'
 import {
   AUTHENTICATED_SHAFT_FEATURE_BANDS, FEATURE_MASK_AXIS, FEATURE_MASK_VERSION,
-  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskControlPatch, createFeatureMaskShaderPatch,
+  buildAuthenticatedInputFeatureContracts, createFeatureMaskedMaterial, createFeatureMaskControlPatch,
   validateFeatureMaskContract,
-  type FeatureMaskContract, type FeatureMaskShaderPatch, type InputFeatureBandMode, type ValidatedFeatureMask,
+  type FeatureMaskContract, type InputFeatureBandMode, type ValidatedFeatureMask,
 } from './cascadeFeatureMask'
 
 export const CASCADE_PROOF_FEATURES = [
@@ -238,7 +238,6 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
     const beauty = render(), repeat = render(), repeatDifference = diff(beauty, repeat, width, height, images)
     const features = {} as Record<Feature, unknown>
     const patchClones = new Map<string, Material>()
-    let maskPassCounter = 0
     const swapMaterials = (targets: readonly Mesh[], build: (mesh: Mesh, original: Material) => Material) => {
       for (const mesh of targets) {
         const convert = (original: Material) => build(mesh, original)
@@ -252,50 +251,77 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
       if (!clone) { clone = identityMaterial(original, white); patchClones.set(key, clone); disposable.push(clone) }
       return clone
     }
-    const maskedClone = (mesh: Mesh, original: Material, patch: FeatureMaskShaderPatch) => {
-      const source = materials.get(mesh)!
-      const slot = Array.isArray(source) ? source.indexOf(original) : 0
-      const key = 'masked|' + maskPassCounter + '|' + mesh.uuid + '|' + slot + '|' + patch.cacheKeySuffix
-      let clone = patchClones.get(key)
-      if (!clone) { clone = createFeatureMaskedMaterial(original, patch); patchClones.set(key, clone); disposable.push(clone) }
-      return clone
+    // Both feature measurements and controls switch only uniforms. Comparing a
+    // separately compiled black/white shader (or the unpatched beauty) can count
+    // compiler precision differences outside the authenticated region.
+    const prepareMaskedPass = (meshes: readonly Mesh[], mask: ValidatedFeatureMask, kind: 'discard' | 'rgb') => {
+      reset()
+      const controls: Array<ReturnType<typeof createFeatureMaskControlPatch>> = []
+      const whites: Array<{ value: number }> = []
+      const clones: Material[] = []
+      swapMaterials(meshes, (mesh, original) => {
+        const control = createFeatureMaskControlPatch(mask, mesh.uuid, kind === 'discard'
+          ? { kind: 'discard' }
+          : { kind: 'rgb', expression: original.premultipliedAlpha
+            ? 'vec3(uJgControlWhite * gl_FragColor.a)' : 'vec3(uJgControlWhite)' })
+        if (kind === 'rgb') {
+          const white = { value: 0 }
+          whites.push(white)
+          control.patch.uniforms.uJgControlWhite = white
+          control.patch.fragmentDeclarations = 'uniform float uJgControlWhite;\n' + control.patch.fragmentDeclarations
+        }
+        const clone = createFeatureMaskedMaterial(original, control.patch)
+        disposable.push(clone); clones.push(clone); controls.push(control)
+        return clone
+      })
+      return (mode: 'empty' | 'band' | 'whole', white = 0) => {
+        controls.forEach(control => control.select(mode))
+        whites.forEach(uniform => { uniform.value = white })
+        // Built-in materials upload custom uniforms when the material version
+        // changes. Program cache keys and shader sources remain identical.
+        clones.forEach(clone => { clone.needsUpdate = true })
+        return render()
+      }
     }
     // Removal hides the whole conservative superset, or discards only the
     // contracted region's fragments so the rest of the shaft stays in the
     // depth/beauty render. Occluders are never overridden in either mode.
     const captureFeature = (meshes: readonly Mesh[], mask: ValidatedFeatureMask | null, wantImages = images) => {
-      maskPassCounter++
       reset()
-      let removed: Uint8Array
       if (mask) {
-        swapMaterials(meshes, (mesh, original) => maskedClone(mesh, original,
-          createFeatureMaskShaderPatch(mask, mesh.uuid, { kind: 'discard' })))
-        removed = render()
-      } else {
-        meshes.forEach(mesh => { mesh.visible = false })
-        removed = render()
+        const remove = prepareMaskedPass(meshes, mask, 'discard')
+        const beautyA = remove('empty'), repeated = remove('empty'), removed = remove('band')
+        const identity = prepareMaskedPass(meshes, mask, 'rgb')
+        const emptyBlack = identity('empty'), emptyWhite = identity('empty', 1)
+        const black = identity('band'), white = identity('band', 1)
+        const emptyBeautyRepeat = diff(beautyA, repeated, width, height, false)
+        const emptyIdentityDifference = diff(emptyBlack, emptyWhite, width, height, false)
+        const baselineValid = emptyBeautyRepeat.pixels === 0 && emptyIdentityDifference.pixels === 0
+        reset()
+        return { beautyA, removed, black, white, baselineValid,
+          baseline: { method: 'same patched program; selections and RGB switched only by uniforms',
+            emptyBeautyRepeat, emptyIdentityDifference,
+            originalBeautyDifference: diff(beauty, beautyA, width, height, false) },
+          beautyDifference: diff(beautyA, removed, width, height, wantImages),
+          identityDifference: diff(black, white, width, height, wantImages) }
       }
+      meshes.forEach(mesh => { mesh.visible = false })
+      const removed = render()
       const beautyDifference = diff(beauty, removed, width, height, wantImages)
       // Identity puts final-RGB black/white on the whole conservative superset,
       // or only inside the contracted region; non-feature fragments (including
       // the rest of the shaft) keep the original shader output in both modes.
       const identityPass = (white: boolean) => {
-        maskPassCounter++
         reset()
-        swapMaterials(meshes, (mesh, original) => {
-          if (!mask) return conservativeIdentityClone(original, white)
-          const expression = white
-            ? (original.premultipliedAlpha ? 'vec3(gl_FragColor.a)' : 'vec3(1.0)')
-            : 'vec3(0.0)'
-          return maskedClone(mesh, original, createFeatureMaskShaderPatch(mask, mesh.uuid,
-            { kind: 'rgb', expression }))
-        })
+        swapMaterials(meshes, (_mesh, original) => conservativeIdentityClone(original, white))
         return render()
       }
       const black = identityPass(false), white = identityPass(true)
       const identityDifference = diff(black, white, width, height, wantImages)
       reset()
-      return { removed, beautyDifference, black, white, identityDifference }
+      return { beautyA: beauty, removed, beautyDifference, black, white, identityDifference,
+        baselineValid: repeatDifference.pixels === 0,
+        baseline: { method: 'unpatched conservative whole-mesh comparison' } }
     }
     for (const id of CASCADE_PROOF_FEATURES) {
       if (options?.features && !options.features.includes(id)) continue
@@ -310,7 +336,7 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
         continue
       }
       const meshes = sets[id]
-      const { removed, beautyDifference, black, white, identityDifference } = captureFeature(meshes, mask)
+      const { beautyA, removed, beautyDifference, black, white, identityDifference, baselineValid, baseline } = captureFeature(meshes, mask)
       features[id] = {
         regionScoped: mask !== null,
         ...(mask ? {
@@ -340,9 +366,10 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
           }
           return null
         }).filter((value): value is string => value !== null))],
-        beautyB: images ? png(removed, width, height) : undefined, beautyDifference,
+        beautyA: images ? png(beautyA, width, height) : undefined,
+        beautyB: images ? png(removed, width, height) : undefined, beautyDifference, baselineValid, baseline,
         identityBlack: images ? png(black, width, height) : undefined, identityWhite: images ? png(white, width, height) : undefined, identityDifference,
-        exactZero: repeatDifference.pixels === 0 && beautyDifference.pixels === 0 && identityDifference.pixels === 0,
+        exactZero: baselineValid && repeatDifference.pixels === 0 && beautyDifference.pixels === 0 && identityDifference.pixels === 0,
       }
     }
     let controlReport: Record<string, unknown> | undefined
@@ -361,33 +388,7 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
       const captureMaskControl = (mask: ValidatedFeatureMask, includeWhole: boolean) => {
         const meshes = sets.inputSunTeeth
         const capture = (kind: 'discard' | 'rgb') => {
-          reset()
-          const controls: Array<ReturnType<typeof createFeatureMaskControlPatch>> = []
-          const whites: Array<{ value: number }> = []
-          const clones: Material[] = []
-          swapMaterials(meshes, (mesh, original) => {
-            const control = createFeatureMaskControlPatch(mask, mesh.uuid, kind === 'discard'
-              ? { kind: 'discard' }
-              : { kind: 'rgb', expression: original.premultipliedAlpha
-                ? 'vec3(uJgControlWhite * gl_FragColor.a)' : 'vec3(uJgControlWhite)' })
-            if (kind === 'rgb') {
-              const white = { value: 0 }
-              whites.push(white)
-              control.patch.uniforms.uJgControlWhite = white
-              control.patch.fragmentDeclarations = 'uniform float uJgControlWhite;\n' + control.patch.fragmentDeclarations
-            }
-            const clone = createFeatureMaskedMaterial(original, control.patch)
-            disposable.push(clone); clones.push(clone); controls.push(control)
-            return clone
-          })
-          const pass = (mode: 'empty' | 'band' | 'whole', white = 0) => {
-            controls.forEach(control => control.select(mode))
-            whites.forEach(uniform => { uniform.value = white })
-            // Refresh custom uniforms even if this material was also the last
-            // draw. The cache key and shader source stay identical.
-            clones.forEach(clone => { clone.needsUpdate = true })
-            return render()
-          }
+          const pass = prepareMaskedPass(meshes, mask, kind)
           if (kind === 'discard') {
             const empty = pass('empty'), repeat = pass('empty'), band = pass('band')
             const whole = includeWhole ? pass('whole') : null
@@ -475,7 +476,8 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
             identityPixels: sharedRes.identityDifference.pixels,
             beautyPixels: sharedRes.beautyDifference.pixels,
             rect: sharedRes.identityDifference.rect,
-            exactZero: repeatDifference.pixels === 0 && sharedRes.beautyDifference.pixels === 0 && sharedRes.identityDifference.pixels === 0,
+            baselineValid: sharedRes.baselineValid,
+            exactZero: sharedRes.baselineValid && repeatDifference.pixels === 0 && sharedRes.beautyDifference.pixels === 0 && sharedRes.identityDifference.pixels === 0,
           },
           variantFull: {
             sourceBandsMm: AUTHENTICATED_SHAFT_FEATURE_BANDS.inputSunTeeth.sourceFullShaping,
@@ -483,7 +485,8 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
             identityPixels: variantRes.identityDifference.pixels,
             beautyPixels: variantRes.beautyDifference.pixels,
             rect: variantRes.identityDifference.rect,
-            exactZero: repeatDifference.pixels === 0 && variantRes.beautyDifference.pixels === 0 && variantRes.identityDifference.pixels === 0,
+            baselineValid: variantRes.baselineValid,
+            exactZero: variantRes.baselineValid && repeatDifference.pixels === 0 && variantRes.beautyDifference.pixels === 0 && variantRes.identityDifference.pixels === 0,
           },
         }
       }
@@ -535,9 +538,10 @@ export function captureCascadeProof(gl: WebGLRenderer, scene: Scene, camera: Cam
       featureMaskIds: Array.from(masks.keys()),
       inputBandMode: options?.useConservativeInputSupersets ? 'conservativeWholeShaft' : (options?.inputBandMode ?? 'variantFull'),
       controls: controlReport,
-      method: 'Original full scene/depth/alpha; feature-only final-RGB black/white shader difference plus feature-removal beauty A/B. No occluder override. Contracted features (options.featureContracts) scope both passes to authenticated axial-band regions in the shaft-datum frame.',
+      method: 'Original full scene/depth/alpha; feature-only final-RGB black/white difference plus feature-removal beauty A/B. Contracted features reuse the same patched program with uniform-only selections and an empty-band baseline; original-versus-patched precision differences are reported separately. No occluder override or widened region.',
       limits: 'Conservative supersets without a contract; contracted regions apply only where the contract covers every selected mesh; exact RGBA8 zeros apply only to captured poses/resolution; scene-direct beauty excludes composer and DOM.',
-      valid: repeatDifference.pixels === 0 && restoreDifference.pixels === 0,
+      valid: repeatDifference.pixels === 0 && restoreDifference.pixels === 0
+        && Object.values(features).every(feature => (feature as { baselineValid: boolean }).baselineValid === true),
       repeatDifference, restoreDifference, beautyA: images ? png(beauty, width, height) : undefined, features,
       camera: { matrixWorld: camera.matrixWorld.toArray(), projectionMatrix: camera.projectionMatrix.toArray() },
       landmarks: images ? projectLandmarks([...new Set([...roots, ...sets.stage1Planets, ...sets.stage2Planets, ...sets.stage5Planets])], camera, width, height) : [],

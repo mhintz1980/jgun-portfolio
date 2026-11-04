@@ -1,5 +1,7 @@
 # Torque wrench rebuild — implementation plan
 
+> **Owner supersession, 2026-10-31:** The [evolving-site policy](../../project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md) permits unfinished public releases with proportional functional/build/asset checks. Historical full-completion gates and delivery freezes below are not a veto on this publication. Current HUD/design-framing polish and dense alias closure are deferred; develop visual HUD concepts with Mark and show perceptual issues before more readability work. Slight camera-angle refinements are allowed; mechanics/protected assets remain preserved. No unchecked completion gate is converted to PASS.
+
 > **Current creative frontier — 2026-10-17:** owner rejected current crack appearance,
 > cavern, shard color, unchanged rotary-hob finish and late Ring Switch placement.
 > Implement the [new correction contract](25-owner-correction-plan-2026-10-17.md):

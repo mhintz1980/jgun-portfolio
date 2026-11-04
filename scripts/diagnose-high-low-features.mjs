@@ -65,19 +65,24 @@ try {
           candidates.sort((a, b) => Math.abs(a.progress - p) - Math.abs(b.progress - p))
           return { requestedProgress: p, idealY, range, candidates, ...candidates[0] }
         }, requestedProgress)
-        const before = await page.evaluate(t => {
+        const native = await page.evaluate(t => {
           const frames = window.__torqueWorld.motionSample().frames
           window.scrollTo({ top: t.y, behavior: 'instant' })
-          return frames
+          const actualY = scrollY, actualRange = document.documentElement.scrollHeight - innerHeight
+          if (Math.abs(actualY - t.y) > 1) throw Error('Native scroll did not reach the selected pixel')
+          return { frames, actualY, actualRange, integerProgress: t.progress,
+            progress: window.__torqueNarrative.narrativeProgress(actualY / actualRange) }
         }, target)
+        const before = native.frames
+        Object.assign(target, native)
         if (requestedProgress >= .62 && requestedProgress < .845) await page.waitForFunction(() => window.__torqueWorld.snapshot().inspection.ready, null, { timeout: 90000 })
         await page.waitForFunction(({ target, before }) => {
           const m = window.__torqueWorld.motionSample()
-          return m.frames >= before + 3 && Math.abs(m.progress - target.progress) < 2e-6
+          return m.frames >= before + 3 && Math.abs(scrollY - target.actualY) < 1e-4 && Math.abs(m.progress - target.progress) < 2e-6
         }, { target, before }, { timeout: 20000 })
         await page.waitForTimeout(300)
         const actual = await page.evaluate(() => ({ motion: window.__torqueWorld.motionSample(), camera: window.__torqueWorld.cinematography(false).camera, renderer: window.__torqueWorld.snapshot().renderer, scrollY, liveCanvases: [...document.querySelectorAll('canvas')].filter(c => c.width > 1 && c.height > 1).length }))
-        if (!actual.liveCanvases || actual.motion.frames <= before || Math.abs(actual.scrollY - target.y) > .01) throw Error('Native canvas/scroll liveness failed')
+        if (!actual.liveCanvases || actual.motion.frames <= before || Math.abs(actual.scrollY - target.actualY) > 1e-4) throw Error('Native canvas/scroll liveness failed')
         const timeError = expectedTime === null ? null : Math.abs(actual.motion.time - expectedTime)
         if (timeError !== null && timeError > .003) throw Error(`Strict time target is unreachable: ${JSON.stringify({ target, expectedTime, actualTime: actual.motion.time, timeError })}`)
         return { target, expectedTime, timeError, ...actual }

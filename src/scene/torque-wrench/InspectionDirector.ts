@@ -160,6 +160,8 @@ const CASCADE_NATIVE_END = .825
 const INSPECTION_PROGRESS_OFFSET = .115
 /** Each side uses 5% of its window's physical distance; the middle 90% is linear. */
 export const CASCADE_CLOCK_SHOULDER = .05
+/** Owner-approved terminal deceleration occupies the last 20% of the final shot's distance. */
+export const CASCADE_TERMINAL_SHOULDER = .2
 
 // Freeze the *old* 40.2–58 s PCHIP solely as a distance-budget reference.
 // The incoming tangent deliberately uses slopeNext (.94, 43), just as before.
@@ -229,7 +231,10 @@ const cascadeMeanRates = CASCADE_CLOCK_BOUNDARIES.slice(1).map((b, i) => {
 })
 const cascadeBoundaryRates = CASCADE_CLOCK_BOUNDARIES.map((_, i) => i === 0
   ? CASCADE_INCOMING_PROGRESS_RATE / torqueScrollDistanceRate(CASCADE_NATIVE_START)
-  : i === cascadeMeanRates.length ? cascadeMeanRates[i - 1]
+  // Owner 2026-10-30: decelerate into the final hold, preserving every boundary
+  // time/distance, gear law and final phase. The integrated last-window interior
+  // compensates this zero endpoint; all preceding windows remain unchanged.
+  : i === cascadeMeanRates.length ? 0
     : Math.sqrt(cascadeMeanRates[i - 1] * cascadeMeanRates[i]))
 
 /** Rates are seconds per baseline-page distance unit, not seconds per narrative progress. */
@@ -238,26 +243,28 @@ export const CASCADE_CLOCK_WINDOWS = Object.freeze(CASCADE_CLOCK_BOUNDARIES.slic
   const width = end.distance - start.distance
   const startRate = cascadeBoundaryRates[i], endRate = cascadeBoundaryRates[i + 1]
   // Integral of both smoothstep velocity shoulders plus the constant interior.
-  const interiorRate = (cascadeMeanRates[i] - CASCADE_CLOCK_SHOULDER * (startRate + endRate) / 2)
-    / (1 - CASCADE_CLOCK_SHOULDER)
+  const endShoulder = i === cascadeMeanRates.length - 1 ? CASCADE_TERMINAL_SHOULDER : CASCADE_CLOCK_SHOULDER
+  const interiorRate = (cascadeMeanRates[i] - (CASCADE_CLOCK_SHOULDER * startRate + endShoulder * endRate) / 2)
+    / (1 - (CASCADE_CLOCK_SHOULDER + endShoulder) / 2)
   const shoulderDistance = CASCADE_CLOCK_SHOULDER * width
+  const endShoulderDistance = endShoulder * width
   const interiorStartProgress = torqueProgressAtDistance(start.distance + shoulderDistance) + INSPECTION_PROGRESS_OFFSET
-  const interiorEndProgress = torqueProgressAtDistance(end.distance - shoulderDistance) + INSPECTION_PROGRESS_OFFSET
-  return Object.freeze({ start, end, startRate, endRate, interiorRate, shoulderDistance,
+  const interiorEndProgress = torqueProgressAtDistance(end.distance - endShoulderDistance) + INSPECTION_PROGRESS_OFFSET
+  return Object.freeze({ start, end, startRate, endRate, interiorRate, shoulderDistance, endShoulderDistance,
     interiorStartProgress, interiorEndProgress })
 }))
 
 /** Integral of smoothstep velocity from 0 to u. */
 const shoulderIntegral = (u: number) => u * u * u * (1 - u / 2)
 
-/** Shared, stateless continuation clock. No PCHIP or zero-rate endpoint in this era. */
+/** Shared, stateless continuation clock; the terminal shoulder eases into its hold. */
 export function cascadeTimeAt(progress: number): number {
   if (!Number.isFinite(progress)) throw new RangeError('Cascade progress must be finite')
   if (progress <= CASCADE_PROGRESS_START) return CASCADE_CLOCK_START
   if (progress >= CASCADE_PROGRESS_END) return CASCADE_CLOCK_END
   let i = 0
   while (i < CASCADE_CLOCK_WINDOWS.length - 1 && progress >= CASCADE_CLOCK_WINDOWS[i].end.progress) i++
-  const { start, end, startRate, endRate, interiorRate, shoulderDistance } = CASCADE_CLOCK_WINDOWS[i]
+  const { start, end, startRate, endRate, interiorRate, shoulderDistance, endShoulderDistance } = CASCADE_CLOCK_WINDOWS[i]
   if (progress === start.progress) return start.time
   const distance = torqueScrollDistance(progress - INSPECTION_PROGRESS_OFFSET)
   const traveled = distance - start.distance
@@ -266,9 +273,9 @@ export function cascadeTimeAt(progress: number): number {
     const u = traveled / shoulderDistance
     return start.time + shoulderDistance * (startRate * u + (interiorRate - startRate) * shoulderIntegral(u))
   }
-  if (remaining < shoulderDistance) {
-    const u = remaining / shoulderDistance
-    return end.time - shoulderDistance * (endRate * u + (interiorRate - endRate) * shoulderIntegral(u))
+  if (remaining < endShoulderDistance) {
+    const u = remaining / endShoulderDistance
+    return end.time - endShoulderDistance * (endRate * u + (interiorRate - endRate) * shoulderIntegral(u))
   }
   return start.time + shoulderDistance * (startRate + interiorRate) / 2
     + interiorRate * (traveled - shoulderDistance)

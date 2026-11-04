@@ -6,6 +6,8 @@ import { BULLET_TIME_SHOT_SPECS, SHAPER_CAMERA_CLOCK } from '../../torque-wrench
 import { createShaftKinematicsFrame, sampleShaftKinematics } from './kinematics'
 import { narrativeModelToStudy } from './frame'
 import { CASCADE_REVEAL_EVENTS, createShaftSchedule, sampleShaftSchedule } from './schedule'
+import { cameraTimeAt, subjectTimeAt } from '../../torque-wrench/InspectionDirector'
+import { createJourneyCameraSampler, createJourneyPose } from '../../torque-wrench/JourneyCamera'
 
 const kinematics = createShaftKinematicsFrame()
 const cam = createShaftCameraSample()
@@ -28,6 +30,66 @@ const azimuthDeg = (c: { px: number; pz: number; tx: number; tz: number }) => Ma
 const elevationDeg = (c: { px: number; py: number; pz: number; tx: number; ty: number; tz: number }) =>
   Math.asin((c.py - c.ty) / Math.hypot(c.px - c.tx, c.py - c.ty, c.pz - c.tz)) * 180 / Math.PI
 const smoothstep = (x: number) => { const u = Math.max(0, Math.min(1, x)); return u * u * (3 - 2 * u) }
+
+describe('terminal 66.9 s camera seam', () => {
+  // Measure the installed journey camera as well as the leaf: the host replaces
+  // runtime.camera with this sampler, then enters the return at native p=.825.
+  it.each([1440 / 900, 390 / 844, .75])('measures position, target, up, lens and look rotation tangents (aspect %s)', aspect => {
+    const journey = createJourneyCameraSampler(), pose = createJourneyPose(), registration = new Matrix4()
+    const rotation = new Quaternion(), look = new Matrix4()
+    const position = new Vector3(), target = new Vector3(), up = new Vector3()
+    const channels = () => {
+      rotation.setFromRotationMatrix(look.lookAt(position, target, up))
+      return [...position.toArray(), ...target.toArray(), ...up.toArray(), pose.fov, ...rotation.toArray()]
+    }
+    const leaf = (t: number) => {
+      const c = snapAt(t, aspect)
+      position.set(c.px, c.py, c.pz); target.set(c.tx, c.ty, c.tz); up.set(c.ux, c.uy, c.uz); pose.fov = c.fov
+      return channels()
+    }
+    const installed = (p: number) => {
+      journey(p, aspect, registration, pose)
+      position.copy(pose.position); target.copy(pose.target); up.copy(pose.up)
+      return channels()
+    }
+    const measures: unknown[] = []
+    for (const [label, seam, sample] of [
+      ['leaf / master second', 66.9, leaf],
+      ['journey / native progress', .825, installed],
+      ['source visibility takeover / native progress', .845, installed],
+    ] as const) {
+      const h = 1e-7, center = sample(seam), left = sample(seam - h), left2 = sample(seam - 2 * h)
+      const right = sample(seam + h), right2 = sample(seam + 2 * h)
+      const incoming = center.map((v, i) => (3 * v - 4 * left[i] + left2[i]) / (2 * h))
+      const outgoing = center.map((v, i) => (-3 * v + 4 * right[i] - right2[i]) / (2 * h))
+      for (const rates of [incoming, outgoing]) {
+        expect(Math.max(...rates.map(Math.abs)), label).toBeLessThan(1e-4)
+      }
+      expect(Math.max(...center.map((_, i) => Math.abs(left[i] - right[i]))), `${label} C0`).toBeLessThan(1e-4)
+      const summary = (rates: number[]) => ({
+        position: rates.slice(0, 3), target: rates.slice(3, 6), up: rates.slice(6, 9), fov: rates[9],
+        // q' * inverse(q) gives half the angular velocity in this frame.
+        angularSpeed: 2 * new Quaternion(...rates.slice(10) as [number, number, number, number])
+          .multiply(new Quaternion(...center.slice(10) as [number, number, number, number]).invert()).toArray().slice(0, 3)
+          .reduce((sum, value) => sum + value * value, 0) ** .5,
+      })
+      measures.push({ label, incoming: summary(incoming), outgoing: summary(outgoing) })
+    }
+    // Both clocks decelerate into the final hold; this checks the installed
+    // progress composition, independently of the leaf's master-second camera.
+    const clock = (p: number) => p + .115
+    const h = 1e-7
+    for (const sample of [subjectTimeAt, cameraTimeAt]) {
+      const center = sample(clock(.825))
+      const incoming = (3 * center - 4 * sample(clock(.825 - h)) + sample(clock(.825 - 2 * h))) / (2 * h)
+      const outgoing = (sample(clock(.825 + h)) - center) / h
+      expect(Math.abs(incoming)).toBeLessThan(1e-4)
+      expect(outgoing).toBe(0)
+      measures.push({ label: sample.name, incoming, outgoing })
+    }
+    console.info('terminal-camera-derivatives', JSON.stringify({ aspect, measures }))
+  })
+})
 
 it('replays every camera channel bit-exactly under dense forward, reverse and prime-stride seeks', () => {
   // Replaces the retired pre-retime SHA pin: the canonical contracts intentionally moved the

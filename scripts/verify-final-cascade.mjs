@@ -9,6 +9,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { launchConfig, describeLaunch } from './lib/browser-launch.mjs'
+import { cascadeWindowBudget } from './lib/cascade-window-budget.mjs'
 
 const arg=(key,fallback)=>process.argv.find(a=>a.startsWith(`--${key}=`))?.slice(key.length+3)??fallback
 const url=arg('url','http://localhost:5293/torque-wrench/')
@@ -167,7 +168,8 @@ try{
 }finally{await browser.close()}
 report.finished=new Date().toISOString()
 report.gates.sampledPixelAlias=report.cases.every(c=>c.complete&&c.captures.every(x=>x.capture.valid&&x.limits.every(l=>l.periodStep<=.35||l.exactZero)))
-report.gates.windowPixels=report.cases.every(c=>c.windows?.every(w=>Math.abs(w.ratio/1.5-1)<=.02))
+report.windowBudgets=report.cases.map(c=>({case:c.name,...cascadeWindowBudget(c.windows)}))
+report.gates.windowPixels=report.cases.length===variants.length&&report.windowBudgets.every(b=>b.passed)
 report.gates.mesh=report.cases.every(c=>c.captures.every(x=>x.motion.meshPhaseError<1e-9))
 report.gates.errors=report.cases.every(c=>!c.error&&!c.errors.length)
 report.gates.densePixels=report.cases.every(c=>c.complete&&c.aliasSteps&&c.dense?.length===c.aliasSteps.filter(s=>s.features.some(f=>f.periods>.35)).length&&c.dense.every(s=>s.valid&&!s.failed.length))

@@ -1,0 +1,56 @@
+{
+  "status": "FAIL",
+  "coverage": "six completed cases, using an explicit same-build narrow-lite recovery",
+  "buildSha256": "38018273dd1ad85595a691381440b93a88ca9223226facd669ce6c3da217b1f9",
+  "primaryReport": "output/playwright/page-cinematography/73-reconciliation-final/report.json",
+  "recoveryReport": "output/playwright/page-cinematography/73-narrow-lite-recovery/report.json",
+  "primaryFinishedUtc": "2026-10-31T04:31:35.232Z",
+  "recoveryFinishedUtc": "2026-10-31T04:41:44.911Z",
+  "sameBuildVerified": true,
+  "sourceAndServedBuildChecks": "all four global gates PASS in both reports",
+  "canonicalCheckpoints": 1270,
+  "decodedBeautyReplayComparisons": 840,
+  "decodedBeautyReplayMismatches": 0,
+  "maxCameraReplayError": 0,
+  "maxSubjectAndLightingReplayError": 0,
+  "completedCaseBrowserErrors": 0,
+  "cases": [
+    { "name": "desktop-full", "report": "primaryReport", "completed": true, "status": "FAIL", "forward": 105, "reverse": 105, "random": 105, "framingFailures": 27, "hudFailures": 11, "otherFailures": 0 },
+    { "name": "desktop-lite", "report": "primaryReport", "completed": true, "status": "FAIL", "forward": 105, "reverse": 105, "random": 105, "framingFailures": 27, "hudFailures": 11, "otherFailures": 0 },
+    { "name": "desktop-reduced", "report": "primaryReport", "completed": true, "status": "PASS", "forward": 5, "reverse": 0, "random": 0, "framingFailures": 0, "hudFailures": 0, "otherFailures": 0 },
+    { "name": "narrow-full", "report": "primaryReport", "completed": true, "status": "FAIL", "forward": 105, "reverse": 105, "random": 105, "framingFailures": 36, "hudFailures": 3, "otherFailures": 0 },
+    { "name": "narrow-lite", "report": "recoveryReport", "completed": true, "status": "FAIL", "forward": 105, "reverse": 105, "random": 105, "framingFailures": 36, "hudFailures": 3, "otherFailures": 0 },
+    { "name": "narrow-reduced", "report": "primaryReport", "completed": true, "status": "PASS", "forward": 5, "reverse": 0, "random": 0, "framingFailures": 0, "hudFailures": 0, "otherFailures": 0 }
+  ],
+  "shaperContact": { "sampledPosesPerAnimatedCase": 11, "framingOrHudFailures": 0 },
+  "cameraHudFinal": {
+    "desktop": { "report": "output/playwright/torque-camera-hud-73-final/desktop/runtime.json", "status": "PASS", "samples": 29, "gates": 30, "browserErrors": 0 },
+    "narrow": { "report": "output/playwright/torque-camera-hud-73-final/narrow/runtime.json", "status": "PASS", "samples": 29, "gates": 30, "browserErrors": 0 }
+  },
+  "terminalNativeSeek": {
+    "report": "output/high-low-feature-proof/73-terminal-final/report.json",
+    "executionComplete": true,
+    "samplesPerAspect": 16,
+    "browserErrors": 0,
+    "maxCameraReverseError": 0,
+    "maxSubjectReverseError": 0,
+    "aliasAccepted": false
+  },
+  "retainedInterruptedAttempt": {
+    "report": "primaryReport",
+    "case": "narrow-lite",
+    "completed": false,
+    "forwardSamples": 45,
+    "requestedProgress": 0.495,
+    "observedProgress": 0.4949984423233752,
+    "observedGapMs": 10753859,
+    "caseExecutionErrors": 1,
+    "note": "Original attempt remains failed and incomplete; the separate recovery supplies this case's completed evidence."
+  },
+  "open": [
+    "Strict framing and HUD witness assertions remain failed; approved composition was preserved.",
+    "Dense alias acceptance remains failed: accepted study lead-out and actual desktop sixfold residual are not waived.",
+    "Legacy opening-specific semantic proof is not replaced by page replay alone.",
+    "Fresh independent review unavailable after two provider 502/DNS failures."
+  ]
+}

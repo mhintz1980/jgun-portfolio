@@ -649,12 +649,19 @@ mask is only a conservative superset. Owner Option A on 2026-10-30 retains
 Stage 1 carrier `P001836` through `61.5 s` and retires it over `61.5–62.25 s`,
 keeping its `stage1Sun` contribution below the `.35` rung. The shared functional
 tooth face then contributes zero pixels at every post-`.35` sample on desktop and
-narrow, and `inputSixfold` leaves the frame before its over-limit span. Full
-same-build roster and owner acceptance remain open.
+narrow. Desktop `inputSixfold` retains one bottom-edge identity/beauty pixel near
+56.25 s above the `.35` rung; narrow reports zero there. That strict failure is
+not waived. Mark approved the baseline checkpoint `ccb215b2`; full verification
+remains separate.
 
 The continuation has a 24.095648 physical scroll multiplier at page .815–.825.
 Both clocks use physical distance with explicit 5% shoulders and constant
-interiors, ending at 66.9 s. Earlier native offsets remain fixed. Exterior fade
+interiors, ending at 66.9 s. Owner-approved reconciliation 73 changes only the
+final 65.4–66.9 s window: its exit shoulder occupies 20% of that window's physical
+distance and reaches zero clock rate at the hold. The analytic interior integral
+compensates this taper, preserving every boundary time/distance, total scroll
+budget, mechanical law, ratio and final unwrapped phase. Earlier windows and
+native offsets remain fixed. Exterior fade
 is 65.4–66.9 s; the camera holds azimuth after 43.5 and translates 76 mm over
 52.2–66.9. The 2° trial and subsequent exact-axis diagnostic require pixel
 evidence. Source takeover retains the common unwrapped phase and fixed shaft
@@ -662,8 +669,11 @@ index through the later explosion and close; it does not rewind. Main housing
 P000245 remains opaque and depth-writing in the later explosion.
 
 Current authority: [plan 59](../../../docs/torque-wrench-rebuild/59-final-cascade-reduction-retime-plan-2026-10-26.md)
-and [evidence 60](../../../docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md).
-Owner visual acceptance OPEN. Older 47–58 records remain historical.
+and [evidence 60](../../../docs/torque-wrench-rebuild/60-final-cascade-reduction-retime-evidence-2026-10-26.md),
+with the terminal clock and verification corrections in
+[plan 73](../../../docs/torque-wrench-rebuild/73-verification-reconciliation-plan-2026-10-30.md).
+Owner approved the baseline and terminal deceleration; full runtime gates remain
+independent. Older 47–58 records remain historical.
 Camera (`shaft/camera.ts`): the
 machining-era azimuth is a closed-form law, `CUTTER_VIEW_AZIMUTH_DEG = 180`
 held through 0–11 s, which puts the button cutter (machine azimuth 90°) on the

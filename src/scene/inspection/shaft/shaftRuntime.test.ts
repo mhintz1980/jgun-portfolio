@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import ts from 'typescript'
-import { Box3, BoxGeometry, Group, InstancedMesh, Matrix4, Mesh, MeshStandardMaterial, Scene, Texture, Vector3 } from 'three'
+import { Box3, BoxGeometry, Group, InstancedMesh, Matrix4, Mesh, MeshStandardMaterial, Quaternion, Scene, Texture, Vector3 } from 'three'
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { createStorySession, sharedStoryRefCount, type StorySession } from '../session'
 import type { StoryContext, StoryRuntime } from '../story'
@@ -15,6 +15,10 @@ import { HOB_LEAD_ANGLE_DEG, SHAPER_LEADING_FACE_Y_MM, SHAPER_BODY_REAR_Y_MM, SH
 import { CASCADE_REVEAL_EVENTS, createShaftSchedule, sampleFinaleAngle, sampleFinaleDriveRate, sampleShaftSchedule } from './schedule'
 import { CASCADE_RATIOS, createShaftRuntime, LEGACY_INDEX_WINDOW, legacyShaftAngle, approvedShaftBaseAngle, SUN_TO_STAGE1_CARRIER_RATIO, DRIVELINE_CASCADE_ORDER, exportedNodeBounds, measureSupportDelta, readShaftBundleDocument, type ShaftBundleDocument, type ShaftRuntimeOptions } from './shaftRuntime'
 import { buildShaperCutter } from './tools'
+import { CASCADE_CLOCK_WINDOWS, cameraTimeAt, subjectTimeAt } from '../../torque-wrench/InspectionDirector'
+import { createJourneySample, sampleJourney } from '../../torque-wrench/JourneyDirector'
+import { torqueScrollDistanceRate } from '../../torque-wrench/scrollPacing'
+import { createShaftTakeover } from '../../torque-wrench/shaftTakeover'
 
 function bundle(tier: 'full' | 'lite' = 'full'): ArrayBuffer {
   const b = readFileSync(resolve('public/models/manufacturing-core-' + tier + '.glb'))
@@ -729,6 +733,118 @@ describe('Stage 1 axial engagement and driveline cascade', () => {
       expect(out.shaft.finale.correctionSlope).toBe(0)
     }
     runtime.dispose();rig.geometry.dispose();rig.sharedMaterial.dispose()
+  })
+
+  it('composes unchanged master gear laws into a C1 installed hold with phase-identical takeover and replay', async () => {
+    const rig = cascadeRig(), presentation = { phaseCorrection: 0 }
+    for (const stage of Object.values(rig.stages)) stage.planets[0].position.set(.012, .004, 0)
+    const sourceShaft = new Mesh(rig.geometry, rig.sharedMaterial), sourceRing = new Mesh(rig.geometry, rig.sharedMaterial)
+    sourceShaft.userData.partNumber = 'P001835'; sourceRing.userData.partNumber = 'K000211'
+    const sourceRig = { ...rig, meshes: [sourceShaft, sourceRing] }
+    const sourceTakeover = createShaftTakeover(sourceRig as unknown as Parameters<typeof createShaftTakeover>[0])
+    const { runtime } = await fixture({ rig: sourceRig, runtimeOptions: { presentation } })
+    const journey = createJourneySample(), k = createShaftKinematicsFrame()
+    const names = ['study-approvedshaft', 'study-approvedring', 'study-approvedbearing', 'study-housing', 'shaft-rigid-support-pair',
+      ...DRIVELINE_CASCADE_ORDER.map(id => 'cascade-' + id),
+      ...Object.keys(rig.stages).map(id => 'cascade-planet-' + id)]
+    const objects = names.map(name => runtime.root.getObjectByName(name)!)
+    expect(objects.every(Boolean)).toBe(true)
+    const point = new Vector3(), world = new Vector3(), rotation = new Quaternion()
+    const snapshot = (value: number, native: boolean) => {
+      sampleJourney(native ? value : .825, true, journey)
+      presentation.phaseCorrection = native ? journey.phaseCorrection : 0
+      const t = native ? subjectTimeAt(journey.inspectionProgress) : value
+      const out = seek(runtime, t) as { shaft: { finale: { driveAngle: number; driveRate: number }; stage1: { meshPhaseError: number } } }
+      sampleShaftKinematics(t, k)
+      sourceTakeover(native ? value : .825)
+      const poses = objects.map(object => {
+        object.getWorldPosition(world); object.getWorldQuaternion(rotation)
+        point.set(.006, 0, 0).applyMatrix4(object.matrixWorld)
+        return [...object.position.toArray(), object.rotation.x, object.rotation.y, object.rotation.z,
+          ...world.toArray(), ...rotation.toArray(), ...point.toArray()]
+      })
+      return { poses, time: runtime.frame.time, cameraTime: native ? cameraTimeAt(journey.inspectionProgress) : runtime.frame.time,
+        drive: out.shaft.finale.driveAngle, reportedDriveRate: out.shaft.finale.driveRate,
+        kinematics: Object.fromEntries(Object.entries(k).filter(([, value]) => typeof value === 'number')) as Record<string, number>,
+        source: [sourceShaft.rotation.z, sourceRing.rotation.z, ...DRIVELINE_CASCADE_ORDER.map(id =>
+          id.startsWith('stage') ? rig.stages[id].carrier.rotation.z : id === 'output' ? rig.outputShaft.rotation.z : 0)],
+        meshPhaseError: out.shaft.stage1.meshPhaseError }
+    }
+    // Second-order one-sided estimates separate a genuine derivative jump from
+    // the finite first-order secant of an otherwise smooth endpoint.
+    const rate = (center: number, near: number, far: number, h: number, side: number) => {
+      const delta = 4 * (near - center) - (far - center)
+      return delta === 0 ? 0 : side * delta / (2 * h)
+    }
+    const incomingDrive = 50 * Math.PI / 9
+    const reports: unknown[] = []
+    for (const [native, seam, h] of [[false, 66.9, 1e-5], [true, .825, 1e-7]] as const) {
+      const c = snapshot(seam, native), l = snapshot(seam - h, native), ll = snapshot(seam - 2 * h, native)
+      const r = snapshot(seam + h, native), rr = snapshot(seam + 2 * h, native)
+      const clockRate = native ? CASCADE_CLOCK_WINDOWS.at(-1)!.endRate * torqueScrollDistanceRate(.825) : 1
+      const d = (center: number, left: number, left2: number, right: number, right2: number) => [
+        rate(center, left, left2, h, -1), rate(center, right, right2, h, 1),
+      ]
+      const clocks = { subject: d(c.time, l.time, ll.time, r.time, rr.time), camera: d(c.cameraTime, l.cameraTime, ll.cameraTime, r.cameraTime, rr.cameraTime),
+        drive: d(c.drive, l.drive, ll.drive, r.drive, rr.drive) }
+      if (native) {
+        expect(clockRate).toBe(0)
+        expect(Math.max(...Object.values(clocks).map(rates => Math.abs(rates[0])))).toBeLessThan(1e-3)
+      } else {
+        expect(clocks.subject[0] / clockRate).toBeCloseTo(1, 6)
+        expect(clocks.camera[0] / clockRate).toBeCloseTo(1, 6)
+        expect(clocks.drive[0] / (incomingDrive * clockRate)).toBeCloseTo(1, 6)
+      }
+      expect(clocks.subject[1]).toBe(0); expect(clocks.camera[1]).toBe(0); expect(clocks.drive[1]).toBe(0)
+      // The reported rate is the authored incoming rate, NOT the derivative of
+      // the held pose. Preserve that distinction rather than report a false 0.
+      for (const s of [l, c, r]) expect(s.reportedDriveRate).toBeCloseTo(incomingDrive, 12)
+      const derivatives = names.map((name, index) => {
+        const tangent = c.poses[index].map((v, channel) => d(v, l.poses[index][channel], ll.poses[index][channel], r.poses[index][channel], rr.poses[index][channel]))
+        const incoming = tangent.map(pair => pair[0]), outgoing = tangent.map(pair => pair[1])
+        const expected = name === 'study-approvedshaft' || name === 'study-approvedring' ? -incomingDrive * 5.2
+          : name.startsWith('cascade-planet-') ? incomingDrive * CASCADE_RATIOS[DRIVELINE_CASCADE_ORDER.indexOf(name.slice(15) as typeof DRIVELINE_CASCADE_ORDER[number])]
+            * CASCADE_PLANET_MULTIPLIERS[DRIVELINE_CASCADE_ORDER.indexOf(name.slice(15) as typeof DRIVELINE_CASCADE_ORDER[number])]
+          : name.startsWith('cascade-') ? -incomingDrive * CASCADE_RATIOS[DRIVELINE_CASCADE_ORDER.indexOf(name.slice(8) as typeof DRIVELINE_CASCADE_ORDER[number])] : 0
+        expect(incoming.slice(0, 5), name + ' fixed local translation / tilt').toEqual([0, 0, 0, 0, 0])
+        if (native) expect(Math.max(...incoming.map(Math.abs)), name + ' C1 installed tangent').toBeLessThan(1e-3)
+        else if (expected) expect(incoming[5] / (expected * clockRate), name + ' incoming rad/s').toBeCloseTo(1, 6)
+        else expect(incoming[5], name + ' fixed angle').toBe(0)
+        // All transforms (including orbital planet centres and off-axis surface
+        // witnesses) settle to the same zero tangent at the installed seam.
+        expect(Math.max(...outgoing.map(Math.abs)), name + ' held tangent').toBeLessThan(1e-6)
+        const angular = new Quaternion(...incoming.slice(9, 13) as [number, number, number, number])
+          .multiply(new Quaternion(...c.poses[index].slice(9, 13) as [number, number, number, number]).invert())
+        return { name, localRotationZ: [incoming[5], outgoing[5]], worldPosition: [incoming.slice(6, 9), outgoing.slice(6, 9)],
+          worldAngularVelocity: [angular.x * 2, angular.y * 2, angular.z * 2],
+          surfaceSpeed: Math.hypot(...incoming.slice(13)), heldSurfaceSpeed: Math.hypot(...outgoing.slice(13)) }
+      })
+      const numericKinematics = Object.keys(c.kinematics).filter(key => key !== 'time').map(key => ({ key,
+        derivative: d(c.kinematics[key], l.kinematics[key], ll.kinematics[key], r.kinematics[key], rr.kinematics[key]) }))
+      expect(Math.max(...numericKinematics.flatMap(({ derivative }) => derivative.map(Math.abs)))).toBeLessThan(1e-6)
+      if (native) {
+        for (const [index, studyIndex] of [[0, 0], [1, 1], [2, 5], [3, 6], [4, 7], [6, 9], [7, 10], [8, 11]]) {
+          const sourceRate = d(c.source[index], l.source[index], ll.source[index], r.source[index], rr.source[index])
+          expect(Math.abs(sourceRate[0] - derivatives[studyIndex].localRotationZ[0])).toBeLessThan(1e-3)
+          expect(sourceRate[1]).toBe(0)
+        }
+      }
+      reports.push({ domain: native ? 'native progress .825' : 'master second 66.9', clocks, numericKinematics, derivatives })
+    }
+    // Dense replay crosses the actual stop and the later visibility swap. It
+    // protects the shared phase without claiming that phase equality proves C1.
+    const values = Array.from({ length: 257 }, (_, i) => .824 + i * .022 / 256)
+    values.push(.825 - 1e-7, .825, .825 + 1e-7, .845 - 1e-7, .845, .845 + 1e-7)
+    const signatures = values.map(p => JSON.stringify(snapshot(p, true)))
+    for (let i = values.length - 1; i >= 0; i--) expect(JSON.stringify(snapshot(values[i], true))).toBe(signatures[i])
+    for (let n = 0; n < values.length; n++) {
+      const i = (n * 613) % values.length
+      expect(JSON.stringify(snapshot(values[i], true))).toBe(signatures[i])
+    }
+    const beforeSwap = snapshot(.845 - 1e-7, true), afterSwap = snapshot(.845 + 1e-7, true)
+    expect(beforeSwap.poses).toEqual(afterSwap.poses); expect(beforeSwap.source).toEqual(afterSwap.source)
+    console.info('terminal-subject-derivatives', JSON.stringify(reports))
+    rig.geometry.dispose(); rig.sharedMaterial.dispose()
   })
 
 })
