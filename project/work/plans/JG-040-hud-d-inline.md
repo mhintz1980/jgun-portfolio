@@ -82,3 +82,13 @@ controls. Static/poster fallback modes keep today's flowing document unchanged.
   same session with a dual-viewport smoke. **Remaining: owner visual acceptance of the
   Stage 2 additions (leader, live FOS sync, mast, caption motion) and the two parked
   polish notes; deployment open.**
+- 2026-11-04 owner review: Mark had not yet seen the Stage 2 additions; visual acceptance
+  stays open. He directed two corrections, now implemented: narrow Inspection overlaps
+  (tech panel raised to clear the caption title; duplicate study card/attribution hidden in
+  narrow live mode with their content kept in the transcript; study captions moved to the
+  top band) and desktop rail/leader contrast at the bright C300 frame (wider/darker edge
+  scrim, brighter rail text, leader drop-shadow and dark dot ring). Verified on a fresh
+  production build: typecheck/build clean, `verify-torque-camera-hud.mjs` PASS 30/30 on
+  desktop and narrow with 0 browser errors. The strict page-cinematography narrow roster
+  retains its known HUD-over-subject clearance failures (no threshold changed). Owner
+  visual acceptance of the Stage 2 additions remains open.

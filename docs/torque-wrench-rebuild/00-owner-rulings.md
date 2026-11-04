@@ -285,3 +285,22 @@ preview and accepted it as-is, with two flags handled the same session (JG-040):
 Visual acceptance covers the Stage 1 chrome as fixed above. Stage 2 (framing re-baseline,
 tracked leader, mast decision, live FOS sync, reduced-motion/poster caption parity, motion
 review) and deployment remain open.
+
+## Owner direction - 2026-11-04: Stage 2 not yet reviewed; narrow and contrast corrections authorized
+
+Mark had not yet seen the Stage 2 additions (tracked leader, live Min-FOS sync, fixed
+`studiomark` mast, 360 ms caption fade/rise), so their visual acceptance remains **open**.
+In the same review he directed two corrections on the private `/torque-wrench/` page:
+
+- **Fix both narrow Inspection overlaps:** the caption title sat behind the inline tech
+  panel, and the shaft study's AISI material card covered the panel's 4340/C300/FOS rows.
+- **Raise the rail and leader contrast** at the bright C300 study frame, where the polished
+  shaft washed out the right-edge rail rows and made the leader faint.
+
+Implemented 2026-11-04 (narrow tech panel raised to `bottom: 27rem`, duplicate study card
+and attribution hidden in narrow live mode with their content kept in the transcript, study
+captions moved to the top band; wider/darker edge scrim, brighter rail text, leader
+drop-shadow and dark dot ring). Focused narrow camera/HUD verifier PASS 30/30 with zero
+browser errors. The strict page-cinematography narrow roster retains its known
+HUD-over-subject clearance failures; no threshold was weakened. This entry records the
+correction direction, not acceptance of the Stage 2 additions.

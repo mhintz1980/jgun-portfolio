@@ -26,9 +26,12 @@
 
 .torque-hud__scrim-edge {
   inset: 0 0 0 auto;
-  width: 170px;
-  max-width: 14vw;
-  background: linear-gradient(270deg, rgba(5, 8, 10, 0.5), rgba(5, 8, 10, 0));
+  /* Owner correction 2026-11-04: at the C300 study frame the polished shaft fills the
+     right edge and the old 0.5 → 0 scrim left the rail names and indices washed out.
+     Wider, darker edge pool; the rail itself also gained a local text shadow below. */
+  width: 240px;
+  max-width: 18vw;
+  background: linear-gradient(270deg, rgba(5, 8, 10, 0.68), rgba(5, 8, 10, 0.22) 55%, rgba(5, 8, 10, 0));
 }
 
 /* Fixed brand mast (owner ruling 2026-11-03): quiet mono caps in the concept gold,
@@ -295,12 +298,15 @@
   fill: none;
   stroke: #d2bd8b;
   stroke-width: 1;
-  opacity: 0.72;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.55));
 }
 
 .torque-hud__leader circle {
   fill: #d2bd8b;
-  opacity: 0.85;
+  stroke: rgba(3, 5, 8, 0.9);
+  stroke-width: 1.5;
+  opacity: 0.98;
 }
 
 /* Chapter rail — always named on desktop over the edge scrim; a labeled disclosure on narrow. */
@@ -331,12 +337,12 @@
   padding: 0.15rem 0;
   background: none;
   border: 0;
-  color: #9ba5a0;
+  color: #b9c2bc;
   font: 0.64rem monospace;
   letter-spacing: 0.05em;
   text-align: left;
   cursor: pointer;
-  text-shadow: 0 1px 8px #000;
+  text-shadow: 0 1px 3px #000, 0 0 10px rgba(0, 0, 0, 0.9);
 }
 
 .torque-hud__rail-index {
@@ -389,7 +395,9 @@
   .torque-hud__tech {
     left: 1rem;
     right: 1rem;
-    bottom: 20rem;
+    /* Owner correction 2026-11-04: the Inspection caption's title sat behind this panel.
+       27rem puts the panel at 188–412 at 390×844, clear of the caption title (460–489). */
+    bottom: 27rem;
     width: auto;
   }
 

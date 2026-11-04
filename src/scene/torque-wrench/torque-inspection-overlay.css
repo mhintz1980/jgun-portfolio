@@ -159,4 +159,20 @@ body:has(.torque-inspection-overlay [data-shaft-cascade]) .torque-page[data-torq
   .torque-inspection-overlay .shaft-stamp { font-size: 20px; margin-top: 6px; }
   .torque-inspection-overlay .shaft-fos-model { position: static; width: auto; font-size: 10px; }
   .torque-inspection-overlay .shaft-fos-bar { position: static; width: auto; height: 24px; }
+
+  /* Owner correction 2026-11-04: on narrow live mode the HUD's inline technical panel is
+     the single visible evidence presentation. The study's material card and attribution
+     painted over that panel (and its card over the caption title). Keep their content in
+     the screen-reader transcript above; hide only the duplicate visual copy. */
+  body:has(.torque-page[data-torque-mode='live']) .torque-inspection-overlay .shaft-card-slot,
+  body:has(.torque-page[data-torque-mode='live']) .torque-inspection-overlay .shaft-attribution {
+    display: none;
+  }
+
+  /* Keep the remaining study captions in their own band above the HUD stack: at 390×844
+     the cascade caption sat at 144–208 and the raised tech panel begins at 188. */
+  body:has(.torque-page[data-torque-mode='live']) .torque-inspection-overlay .shaft-story-layer,
+  body:has(.torque-page[data-torque-mode='live']) .torque-inspection-overlay .shaft-story-layer[data-shaft-cascade] {
+    inset: 5.5rem 4% auto;
+  }
 }
