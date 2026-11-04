@@ -271,10 +271,7 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
   }, [model, rig])
   const overlay = useMemo(() => ({ progress: 0, subjectTime: 0, studyVisible: false, manual: false,
     explode: 0, surroundingsOpacity: 1, ringVisible: false,
-    focusId: null as string | null, anchors: hotspots.map(item => item.screen),
-    // JG-040 tracked leader: the study look point projected to screen (HUD caption leader).
-    studyAnchor: { x: 0, y: 0, visible: false } }), [hotspots])
-  const studyAnchorProjected = useMemo(() => new Vector3(), [])
+    focusId: null as string | null, anchors: hotspots.map(item => item.screen) }), [hotspots])
   const focus = useMemo(() => ({ id: null as string | null, weight: 0, progress: 0, initialized: false,
     position: new Vector3(), target: new Vector3(), direction: new Vector3() }), [])
   const hotspotRay = useMemo(() => new Raycaster(), [])
@@ -1437,17 +1434,6 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
       }
       sheetFrame.cameraLookTargetWorld = target
       sheetFrame.cameraSheetDistance = camera.position.distanceTo(target)
-      // JG-040 tracked leader: while the cutter study owns the frame, the camera's look point
-      // IS the shaft subject — publish it as a projected screen point for the HUD leader.
-      overlay.studyAnchor.visible = false
-      if (overlay.studyVisible && !overlay.ringVisible) {
-        studyAnchorProjected.copy(target).project(camera)
-        if (Math.abs(studyAnchorProjected.x) < .98 && Math.abs(studyAnchorProjected.y) < .98 && Math.abs(studyAnchorProjected.z) < 1) {
-          overlay.studyAnchor.x = (studyAnchorProjected.x * .5 + .5) * size.width
-          overlay.studyAnchor.y = (.5 - studyAnchorProjected.y * .5) * size.height
-          overlay.studyAnchor.visible = true
-        }
-      }
       probe.progress = progress; probe.frames++
       camera.position.toArray(probe.camera.position)
       target.toArray(probe.camera.target)

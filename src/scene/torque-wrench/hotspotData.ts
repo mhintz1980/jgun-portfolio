@@ -129,9 +129,6 @@ export interface TorqueOverlaySample {
   readonly explode?: number
   readonly surroundingsOpacity?: number
   readonly ringVisible?: boolean
-  /** JG-040 tracked leader: the study subject's projected look point, for the HUD caption
-   *  leader. Optional — runtimes that do not publish it simply have no leader. */
-  readonly studyAnchor?: { x: number; y: number; visible: boolean }
   readonly anchors: readonly {
     readonly id: string
     readonly x: number

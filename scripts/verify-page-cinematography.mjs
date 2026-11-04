@@ -325,6 +325,14 @@ async function seek(page, progress, reachablePixel = null, includeWitnesses = tr
     window.scrollTo({ top: y, behavior: 'instant' })
     return { y, requested: p }
   }, { p: progress, pixel: reachablePixel })
+  // Scene readiness alone does not mean the manufacturing-core GLB is installed.
+  // Wait before the settling window so a stable unloaded study cannot be captured.
+  if (progress >= .62 && progress < .845) {
+    await page.waitForFunction(() => {
+      const w = window.__torqueWorld?.snapshot?.()
+      return w?.ready && w.inspection?.ready
+    }, null, { timeout: 180000, polling: 500 })
+  }
   const start = Date.now(), history = []
   let anchor = null, previous = null, stableAt = 0, count = 0
   while (Date.now() - start < LIMITS.seekTimeoutMs) {

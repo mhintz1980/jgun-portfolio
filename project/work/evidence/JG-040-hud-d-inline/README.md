@@ -1,5 +1,11 @@
 # JG-040 — Stage 1 evidence: D museum-caption HUD with inline technical content
 
+> **2026-11-04 Stage 3 owner corrections:** [current verification and review packet](stage3-2026-11-04/README.md).
+> Inspection follows effective study visibility; desktop rail moved to bottom; FOS bar .9rem;
+> rejected leader removed. Mark approved the corrections and authorized commit/push/deploy
+> on 2026-11-04; release verification is in progress.
+> The Stage 1/2 results below remain historical evidence.
+
 Date: 2026-11-03. Branch `torque-wrench/rebuild`. **Committed `009aa4ae` (same day,
 unpushed): the full Stage 1 + review-fixes + Stage 2 set, verified in an isolated worktree
 (typecheck clean — which caught a real closure miss, the dirty `privateSheetRuntime.ts`

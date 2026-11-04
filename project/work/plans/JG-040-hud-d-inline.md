@@ -99,10 +99,27 @@ controls. Static/poster fallback modes keep today's flowing document unchanged.
   the part and overstays). The `studiomark` mast and the caption fade/rise were approved.
   No runtime change was made after this ruling. Stage 2 is not accepted as a whole.
 
-## Stage 3 — owner review corrections (next session)
+## Stage 3 — owner review corrections (active 2026-11-04)
 
 Scope is limited to the four ruled corrections plus their verification. Do not reopen
 unrelated HUD styling.
+
+Execution checklist (this continuation; no deploy before Mark reviews):
+
+- [x] Keep Mechanism caption through .56–.62; Inspection chrome only in [.62,.845),
+  gated by effective runtime visibility (including cold asset loading), retain rail chapter
+  semantics and seek Inspection to .621 (isolation start + seek epsilon).
+- [x] Move desktop rail to a horizontal bottom bar; preserve narrow disclosure.
+- [x] Increase only the colored FOS scale height from .6rem to .9rem.
+- [x] Remove tracked leader DOM/drawing/CSS and `studyAnchor` producer/type.
+- [x] Typecheck, focused suites (503 tests), production build in a separate output directory;
+  30 pure Node verifier tests, 58 topology tests and launch/asset gate PASS.
+- [x] Full camera/HUD verifier: 30/30 desktop and narrow, zero browser errors.
+- [x] Capture and measure .56/.6199/.62/.735/.80/.845 on both aspects; 68/68 focused
+  browser checks including delayed asset loading, no rail overlap, FOS sibling sizes and
+  keyboard seek. [Final review packet](../evidence/JG-040-hud-d-inline/stage3-2026-11-04/README.md).
+- [x] Mark reviewed and approved the corrections, then explicitly authorized commit, push
+  and deployment on 2026-11-04. Release follows isolated commit verification and live smoke.
 
 1. **Hold the Inspection chrome until the shaft is isolated.**
    `TorqueHUD` currently derives its chapter from `sample.beat.poster`

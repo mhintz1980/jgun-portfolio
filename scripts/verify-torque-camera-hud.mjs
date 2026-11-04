@@ -105,24 +105,50 @@ async function runVerifier() {
       const w = window.__torqueWorld?.snapshot?.()
       return w?.ready && w.sheet?.baked && w.sheet.stats?.annotationsReady === 1
         && w.sheet.stats?.shaderWarmReady === 1 && window.__torqueNarrative
+        && typeof window.__torqueWorld?.overlaySample === 'function'
     }, null, { timeout: 120000, polling: 500 })
     const points = args.points ? args.points.split(',').map(Number) : args.quick ? [0.4725, 0.505, 0.735] : [0.418, 0.435, 0.442, 0.46, 0.469, 0.4725, 0.4805, 0.4945, 0.500, 0.505, 0.515, 0.520, 0.545, 0.550, 0.587, 0.593, 0.600, 0.735, 0.747, 0.775, 0.885, 0.905, 0.925, 0.94, 0.955, 0.960, 0.965, 0.98, 0.99]
     for (const p of points) {
       await page.evaluate(p => window.scrollTo(0, window.__torqueNarrative.scrollFraction(p) * (document.documentElement.scrollHeight - innerHeight)), p)
       await page.waitForFunction(p => Math.abs(window.__torqueNarrative.snapshot().progress - p) < 0.00005, p, { timeout: seekTimeout })
+      // The manufacturing-core GLB can finish after the main scene is ready.
+      // Do not sample an uninstalled shaft study as missing HUD/runtime evidence.
+      if (p >= .62 && p < .845) {
+        await page.waitForFunction(() => {
+          const w = window.__torqueWorld?.snapshot?.()
+          return w?.ready && w.inspection?.ready
+        }, null, { timeout: 120000, polling: 500 })
+      }
       await page.waitForTimeout(p === points[0] ? 1800 : 600)
-      const sample = await page.evaluate(() => ({
-        narrative: window.__torqueNarrative.snapshot(), world: window.__torqueWorld.snapshot(),
-        grooves: window.__torqueWorld.grooveRects?.(), overlay: window.__torqueWorld.overlaySample?.(),
-        hud: { cards: [...document.querySelectorAll('[data-shaft-card]')].map(x => x.textContent),
-          fos: [...document.querySelectorAll('[data-shaft-fos-model]')].map(x => x.textContent),
-          // JG-040 re-baseline 2026-11-03: live mode presents FOS inline in the HUD strip;
-          // the old study FosPanels are suppressed there (owner review duplicate ruling), so
-          // `fos` stays empty in live runs and `strip` is the live FOS presence evidence.
-          strip: { chapter: document.querySelector('.torque-hud')?.getAttribute('data-torque-hud-chapter') ?? null,
-            fos: !!document.querySelector('.torque-hud__fos'), tech: !!document.querySelector('.torque-hud__tech') },
-          callouts: [...document.querySelectorAll('[data-torque-hotspot]')].map(x => ({ id:x.getAttribute('data-torque-hotspot'), text:x.textContent, visible:x.getBoundingClientRect().width > 0 && getComputedStyle(x).visibility !== 'hidden' })) },
-      }))
+      const sample = await page.evaluate(() => {
+        const rects = []
+        // Measure visible chrome, not the full-viewport positioning wrapper or
+        // decorative scrims. The rail's live DOM rect follows its bottom layout.
+        const selectors = '.torque-header,.torque-footer,.torque-nav,.torque-hud__caption,.torque-hud__tech,.torque-hud__rail,.torque-hud__wip,.torque-hud__mast,.torque-inspection__panel,.torque-inspection__toggle,.torque-inspection__footer,.torque-freelook-toggle'
+        for (const el of document.querySelectorAll(selectors)) {
+          let visible = true
+          for (let parent = el; parent; parent = parent.parentElement) {
+            const style = getComputedStyle(parent)
+            if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) <= .01) { visible = false; break }
+          }
+          const r = el.getBoundingClientRect()
+          if (visible && r.width > 0 && r.height > 0 && r.right > 0 && r.bottom > 0 && r.left < innerWidth && r.top < innerHeight) {
+            rects.push({ selector: el.id ? '#' + el.id : el.className, left: r.left, top: r.top, right: r.right, bottom: r.bottom })
+          }
+        }
+        return {
+          narrative: window.__torqueNarrative.snapshot(), world: window.__torqueWorld.snapshot(),
+          grooves: window.__torqueWorld.grooveRects?.(), overlay: window.__torqueWorld.overlaySample?.(),
+          hud: { rects, cards: [...document.querySelectorAll('[data-shaft-card]')].map(x => x.textContent),
+            fos: [...document.querySelectorAll('[data-shaft-fos-model]')].map(x => x.textContent),
+            // JG-040 re-baseline 2026-11-03: live mode presents FOS inline in the HUD strip;
+            // the old study FosPanels are suppressed there (owner review duplicate ruling), so
+            // `fos` stays empty in live runs and `strip` is the live FOS presence evidence.
+            strip: { chapter: document.querySelector('.torque-hud')?.getAttribute('data-torque-hud-chapter') ?? null,
+              fos: !!document.querySelector('.torque-hud__fos'), tech: !!document.querySelector('.torque-hud__tech') },
+            callouts: [...document.querySelectorAll('[data-torque-hotspot]')].map(x => ({ id:x.getAttribute('data-torque-hotspot'), text:x.textContent, visible:x.getBoundingClientRect().width > 0 && getComputedStyle(x).visibility !== 'hidden' })) },
+        }
+      })
       sample.controls = await page.evaluate(() => {
         const rect = selector => {
           const element = document.querySelector(selector)

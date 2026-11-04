@@ -240,7 +240,7 @@
 .torque-hud__fos-scale {
   position: relative;
   display: block;
-  height: 0.6rem;
+  height: 0.9rem;
   border-radius: 2px;
   /* Same semantic ramp as the shared FOS presentation (low red → high blue). */
   background: linear-gradient(90deg, #b8422c 0%, #cf7a33 20%, #d9b13f 33%, #b7c46b 50%, #6f9f8f 66%, #4c7fae 82%, #3a63a0 100%);
@@ -284,37 +284,13 @@
   color: #c3cbc5;
 }
 
-/* Stage 2 tracked leader: caption → study shaft look point (anchor → elbow → shelf,
-   the anchored-callout language). Quiet gold hairline; never interactive. */
-.torque-hud__leader {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.torque-hud__leader polyline {
-  fill: none;
-  stroke: #d2bd8b;
-  stroke-width: 1;
-  opacity: 0.92;
-  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.55));
-}
-
-.torque-hud__leader circle {
-  fill: #d2bd8b;
-  stroke: rgba(3, 5, 8, 0.9);
-  stroke-width: 1.5;
-  opacity: 0.98;
-}
-
-/* Chapter rail — always named on desktop over the edge scrim; a labeled disclosure on narrow. */
+/* Owner ruling 2026-11-04: bottom desktop rail clears the caption, tech panel and Free Look.
+   The narrow disclosure keeps its existing layout below. */
 .torque-hud__rail {
   position: absolute;
-  right: clamp(1rem, 3vw, 2.6rem);
-  top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  bottom: 4rem;
+  transform: translateX(-50%);
   pointer-events: auto;
 }
 
@@ -324,15 +300,15 @@
 
 .torque-hud__rail-list {
   display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  flex-direction: row;
+  gap: clamp(0.75rem, 2vw, 1.8rem);
 }
 
 .torque-hud__rail-button {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 8.4rem;
+  width: auto;
   gap: 0.7rem;
   padding: 0.15rem 0;
   background: none;
@@ -342,6 +318,7 @@
   letter-spacing: 0.05em;
   text-align: left;
   cursor: pointer;
+  white-space: nowrap;
   text-shadow: 0 1px 3px #000, 0 0 10px rgba(0, 0, 0, 0.9);
 }
 
@@ -430,6 +407,7 @@
 
   .torque-hud__rail-list {
     display: none;
+    flex-direction: column;
     position: absolute;
     bottom: 100%;
     left: 0;

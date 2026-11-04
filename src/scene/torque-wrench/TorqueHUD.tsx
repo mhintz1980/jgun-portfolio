@@ -12,6 +12,7 @@ import { TORQUE_BEATS } from './beats'
 import { torqueScrollFraction } from './scrollPacing'
 import { CHAPTER_COPY, InspectionControl } from './Story'
 import { readTorqueOverlaySample } from './hotspotData'
+import { torqueHudChapter, torqueHudSeekStart } from './hudChapter'
 import { createShaftScriptFrame, sampleShaftScript } from '../inspection/shaft/script'
 import { FOS_MAX, FOS_MIN, newFosPresentation, sampleFosPresentation } from '../inspection/shaft/fosPresentation'
 import type { TorqueWrenchStore } from '../../state/torqueWrenchStore'
@@ -34,62 +35,32 @@ function chapterFromPoster(poster: string | undefined, fallback: TorquePosterCha
 }
 
 export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playback: InspectionPlayback }) {
-  const [chapter, setChapter] = useState<TorquePosterChapterId>(() =>
+  const [railChapter, setRailChapter] = useState<TorquePosterChapterId>(() =>
     chapterFromPoster(store.getNarrativeSample().beat.poster, 'drafting'))
+  const [chapter, setChapter] = useState(() => torqueHudChapter(railChapter, readTorqueOverlaySample()?.studyVisible === true))
   const [railOpen, setRailOpen] = useState(false)
   const fosMarkerRef = useRef<HTMLSpanElement>(null)
   const fosValueRef = useRef<HTMLSpanElement>(null)
-  const captionRef = useRef<HTMLElement>(null)
-  const leaderRef = useRef<SVGPolylineElement>(null)
-  const leaderDotRef = useRef<SVGCircleElement>(null)
 
   // Stage 2 live Min-FOS sync (JG-040): while the cutter study runs, the strip's marker and
   // a small value track the same closed-form study presentation the (now suppressed) study
   // FosPanels used. Same discipline as the overlay: one pre-allocated frame + presentation,
   // 15 Hz quantized subject time, DOM writes only on discrete change, no React state.
-  // The same loop drives the tracked caption→shaft leader (RuntimeWorld publishes the
-  // projected study look point in the overlay sample).
   useEffect(() => {
     if (chapter !== 'inspection') return
     const frame = createShaftScriptFrame()
     const fos = newFosPresentation()
     const STATIC_LEFT = '28%'
     let raf = 0, lastTime = -1, live = false
-    let captionRect: { left: number; top: number; right: number; bottom: number } | null = null
-    const measureCaption = () => {
-      const r = captionRef.current?.getBoundingClientRect()
-      captionRect = r ? { left: r.left, top: r.top, right: r.right, bottom: r.bottom } : null
-    }
     const reset = () => {
       if (!live) return
       live = false
       if (fosMarkerRef.current) fosMarkerRef.current.style.left = STATIC_LEFT
       if (fosValueRef.current) fosValueRef.current.textContent = ''
     }
-    const hideLeader = () => {
-      leaderRef.current?.setAttribute('visibility', 'hidden')
-      leaderDotRef.current?.setAttribute('visibility', 'hidden')
-    }
-    const drawLeader = (x: number, y: number) => {
-      const rect = captionRect
-      const line = leaderRef.current, dot = leaderDotRef.current
-      if (!rect || !line || !dot) return hideLeader()
-      // Tangled stubs: the anchor sits inside (or brushes) the caption block.
-      if (x < rect.right + 24 && y > rect.top - 24 && y < rect.bottom + 24) return hideLeader()
-      const sx = rect.right - 6, sy = rect.top
-      line.setAttribute('points', `${sx.toFixed(1)},${sy.toFixed(1)} ${(x - 18).toFixed(1)},${y.toFixed(1)} ${(x - 6).toFixed(1)},${y.toFixed(1)}`)
-      dot.setAttribute('cx', x.toFixed(1)); dot.setAttribute('cy', y.toFixed(1))
-      line.setAttribute('visibility', 'visible')
-      dot.setAttribute('visibility', 'visible')
-    }
-    measureCaption()
-    window.addEventListener('resize', measureCaption)
     const tick = () => {
       raf = 0
       const sample = document.hidden ? null : readTorqueOverlaySample()
-      const anchor = sample?.studyAnchor
-      if (anchor && anchor.visible) drawLeader(anchor.x, anchor.y)
-      else hideLeader()
       const active = Boolean(sample?.studyVisible && Number.isFinite(sample?.subjectTime))
       if (!active) { lastTime = -1; reset() }
       else {
@@ -112,14 +83,30 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    return () => { cancelAnimationFrame(raf); reset(); hideLeader(); window.removeEventListener('resize', measureCaption) }
+    return () => { cancelAnimationFrame(raf); reset() }
   }, [chapter])
 
   useEffect(() => {
     // Same subscription pattern as Scene's activateStory: beat granularity, never per-frame.
-    setChapter(current => chapterFromPoster(store.getNarrativeSample().beat.poster, current))
-    return store.subscribeBeat(sample => setChapter(current => chapterFromPoster(sample.beat.poster, current)))
+    setRailChapter(current => chapterFromPoster(store.getNarrativeSample().beat.poster, current))
+    return store.subscribeBeat(sample => setRailChapter(current => chapterFromPoster(sample.beat.poster, current)))
   }, [store])
+
+  useEffect(() => {
+    // .845 is inside inspection-return: beat subscriptions alone miss the source handoff.
+    // Use effective runtime visibility so a cold seek holds Mechanism while the shaft loads.
+    // Poll the imperative port, but publish React state only on a discrete chrome change.
+    let raf = 0
+    let current = torqueHudChapter(railChapter, readTorqueOverlaySample()?.studyVisible === true)
+    setChapter(current)
+    const tick = () => {
+      const next = torqueHudChapter(railChapter, readTorqueOverlaySample()?.studyVisible === true)
+      if (next !== current) { current = next; setChapter(next) }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [store, railChapter])
 
   const index = TORQUE_POSTER_CHAPTERS.findIndex(entry => entry.id === chapter)
   const copy = CHAPTER_COPY[chapter]
@@ -138,8 +125,9 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
 
   const seekChapter = (id: TorquePosterChapterId) => {
     setRailOpen(false)
-    const start = chapterStart.get(id)
-    if (start === undefined) return
+    const beatStart = chapterStart.get(id)
+    if (beatStart === undefined) return
+    const start = torqueHudSeekStart(id, beatStart)
     const max = document.documentElement.scrollHeight - window.innerHeight
     if (max <= 0) return
     const target = torqueScrollFraction(Math.min(1, start + 0.001)) * max
@@ -155,14 +143,7 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
       <p className="torque-hud__mast">studiomark</p>
       <p className="torque-hud__wip">Work in progress</p>
 
-      {chapter === 'inspection' && (
-        <svg className="torque-hud__leader" aria-hidden="true">
-          <polyline ref={leaderRef} visibility="hidden" />
-          <circle ref={leaderDotRef} r="2.5" visibility="hidden" />
-        </svg>
-      )}
-
-      <section ref={captionRef} className="torque-hud__caption" aria-live="polite" aria-label="Current chapter">
+      <section className="torque-hud__caption" aria-live="polite" aria-label="Current chapter">
         {/* Keyed by chapter: the copy remounts on chapter change and fades/rises in
             (motion review, JG-040 Stage 2) — a quiet swap, never a scroll-driven effect. */}
         <div className="torque-hud__caption-copy" key={chapter}>
@@ -228,7 +209,7 @@ export function TorqueHUD({ store, playback }: { store: TorqueWrenchStore; playb
               key={entry.id}
               type="button"
               className="torque-hud__rail-button"
-              aria-current={entry.id === chapter ? 'step' : undefined}
+              aria-current={entry.id === railChapter ? 'step' : undefined}
               onClick={() => seekChapter(entry.id)}
             >
               <span className="torque-hud__rail-index">{String(entryIndex + 1).padStart(2, '0')}</span>
