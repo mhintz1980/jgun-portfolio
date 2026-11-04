@@ -912,6 +912,9 @@ export default function RuntimeWorld({ store, onFailure, playback, isolation }: 
           probe.sheet.precomputed = result.stats.precomputed ?? -1
           probe.sheet.stats = { ...result.stats }
           setSheetBake(result)
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('torque-sheet-ready', { detail: { stats: result.stats } }))
+          }
         }
       }, error => { if (owned.current()) fail(error) })
     } catch (error) { if (owned.current()) { fail(error); owned.dispose() } }

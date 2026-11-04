@@ -1,0 +1,244 @@
+/* Torque Preloader: Metrology Reticle Plus Countdown Overlay */
+
+.torque-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #05070a;
+  color: #e2e8f0;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: auto;
+  user-select: none;
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), visibility 600ms;
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+}
+
+.torque-preloader[data-exiting='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Top bar */
+.torque-preloader-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.68rem, 1.2vw, 0.78rem);
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  z-index: 2;
+}
+
+.torque-preloader-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.torque-preloader-brand-name {
+  color: #64748b;
+  letter-spacing: 0.08em;
+}
+
+.torque-preloader-role-mech {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.torque-preloader-plus-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #f0703a;
+  text-shadow: 0 0 16px rgba(240, 112, 58, 0.6);
+}
+
+.torque-preloader-role-sys {
+  color: #cbd5e1;
+}
+
+.torque-preloader-spec {
+  color: #64748b;
+  text-align: right;
+}
+
+/* Center Stage */
+.torque-preloader-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
+  z-index: 2;
+}
+
+.torque-preloader-gauge-box {
+  position: relative;
+  width: clamp(220px, 28vw, 280px);
+  height: clamp(220px, 28vw, 280px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.torque-preloader-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.torque-preloader-rotator {
+  transform-origin: center;
+  transition: transform 120ms ease-out;
+}
+
+.torque-preloader-core {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.torque-preloader-plus-icon {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #f0703a;
+  text-shadow: 0 0 20px rgba(240, 112, 58, 0.7);
+  margin-bottom: 0.15rem;
+  transition: transform 120ms ease-out, color 300ms ease;
+  transform-origin: center center;
+}
+
+/* Zoom-through the Plus animation at 100% */
+.torque-preloader[data-zooming='true'] .torque-preloader-header,
+.torque-preloader[data-zooming='true'] .torque-preloader-footer,
+.torque-preloader[data-zooming='true'] .torque-preloader-svg,
+.torque-preloader[data-zooming='true'] .torque-preloader-number,
+.torque-preloader[data-zooming='true'] .torque-preloader-unit,
+.torque-preloader[data-zooming='true'] .torque-preloader-ticker-box {
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+}
+
+.torque-preloader[data-zooming='true'] .torque-preloader-plus-icon {
+  transform: scale(90) !important;
+  opacity: 0;
+  color: #38bdf8;
+  text-shadow: 0 0 80px rgba(56, 189, 248, 1);
+  transition: transform 700ms cubic-bezier(0.7, 0, 0.84, 0), opacity 450ms ease 220ms !important;
+}
+
+.torque-preloader-number {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(3.2rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  transition: text-shadow 300ms ease;
+}
+
+.torque-preloader-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #94a3b8;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* Status Ticker */
+.torque-preloader-ticker-box {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 440px;
+  width: 100%;
+}
+
+.torque-preloader-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.7rem, 1.1vw, 0.76rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #f1f5f9;
+  text-align: center;
+  text-transform: uppercase;
+  min-height: 1.25rem;
+  transition: opacity 200ms ease;
+}
+
+.torque-preloader-bar-track {
+  width: clamp(200px, 24vw, 260px);
+  height: 3px;
+  background-color: #0b121c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.torque-preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 9999px;
+  transition: width 100ms ease-out, background-color 300ms ease;
+}
+
+/* Footer bar */
+.torque-preloader-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.65rem, 1vw, 0.72rem);
+  letter-spacing: 0.06em;
+  color: #64748b;
+  z-index: 2;
+}
+
+.torque-preloader-tagline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.torque-preloader-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #f0703a;
+  box-shadow: 0 0 8px #f0703a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .torque-preloader {
+    transition: none;
+  }
+  .torque-preloader-rotator {
+    transition: none;
+  }
+}
+

@@ -12,6 +12,7 @@ import { runSceneLifecycle } from './sceneLifecycle'
 import type { TorqueSceneProps } from './cadGate'
 import Story from './Story'
 import TorqueHUD from './TorqueHUD'
+import { TorquePreloader } from './TorquePreloader'
 import { createInspectionPlayback } from './inspectionPlayback'
 import { REDUCED_MOTION_QUERY, downgradeForReducedMotion } from './tier'
 import './torque-wrench.css'
@@ -82,6 +83,7 @@ export function TorqueWrenchPage({ store }: TorqueWrenchPageProps) {
         </div>
       </header>
       <main className="torque-main">
+        {!posterLayer && <TorquePreloader />}
         <div className="torque-stage" data-torque-stage={stage} aria-hidden="true">
           {SceneComponent && sceneStatus === 'ready' && !posterLayer && (
             <SceneBoundary onFailure={failScene}>
