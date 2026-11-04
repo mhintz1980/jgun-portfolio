@@ -88,6 +88,25 @@ shaft fills the lower frame behind the caption, so the cue line and cutter butto
 bright metal without a wash. The caption wash currently exists only on drafting,
 breakthrough and close.
 
+## Deployment 2026-11-04
+
+Published the corrections only (the Stage 2 additions were already live):
+
+- Source commit `53b2847d` on `torque-wrench/rebuild`, pushed to `origin`.
+- Cloudflare Pages deployment **`81b234d0`** —
+  <https://81b234d0.jgun-portfolio.pages.dev>.
+- Deploy gate: typecheck PASS; **127 test files / 1,504 tests PASS**; production build PASS;
+  launch gate PASS; upload 111 files with 9 new.
+- Live document `https://www.studiomark.dev/torque-wrench/` SHA-256
+  `19121197821f06147fc25051265f52c78d01b84db5ff30516009b36d949d4b18` equals the local
+  `dist/torque-wrench/index.html`.
+- Live probe `deployed-2026-11-04/`: desktop .75 FOS `0.90`, leader drop-shadow and rail
+  `rgb(185,194,188)` computed; narrow .735 tech panel [16,188→374,412], caption title
+  [16,460→374,489] hit-tests as itself, study card `display:none`, FOS `0.55`; zero browser
+  errors on both.
+- Public topology unchanged: `/home/` 200, apex 301 → `www`, `/armament/` 200 (private,
+  noindex as before).
+
 ## Captures
 
 - `desktop-{breakthrough-42,inspection-4140,inspection-c300,hobbing,close-94}.png`
