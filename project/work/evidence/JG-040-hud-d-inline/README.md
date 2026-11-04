@@ -1,9 +1,12 @@
 # JG-040 — Stage 1 evidence: D museum-caption HUD with inline technical content
 
-Date: 2026-11-03. Branch `torque-wrench/rebuild`, working tree (uncommitted, per session
-state). Owner ruling: `docs/torque-wrench-rebuild/00-owner-rulings.md` § 2026-11-03
-("Lets go with D and Inline" via the v2 reviewer console). Plan:
-`project/work/plans/JG-040-hud-d-inline.md`.
+Date: 2026-11-03. Branch `torque-wrench/rebuild`. **Committed `009aa4ae` (same day,
+unpushed): the full Stage 1 + review-fixes + Stage 2 set, verified in an isolated worktree
+(typecheck clean — which caught a real closure miss, the dirty `privateSheetRuntime.ts`
+`renderState` member RuntimeWorld consumes — plus 31/31 verifier node tests). Evidence
+PNGs stay local per the repo's gitignore policy.** Owner ruling:
+`docs/torque-wrench-rebuild/00-owner-rulings.md` § 2026-11-03 ("Lets go with D and Inline"
+via the v2 reviewer console). Plan: `project/work/plans/JG-040-hud-d-inline.md`.
 
 ## What shipped (Stage 1)
 

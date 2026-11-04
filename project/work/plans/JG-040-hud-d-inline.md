@@ -66,6 +66,12 @@ controls. Static/poster fallback modes keep today's flowing document unchanged.
   audited at the owner's request — clean. Re-verified: typecheck, build, focused suites,
   22-state dual-viewport audit re-run (duplicate gone, zero console errors). Stage 2 in
   progress.
+- 2026-11-03 wrap: committed `009aa4ae` (28 files, unpushed) — the full JG-040 set through
+  Stage 2 plus the Stage 1 wiring it requires; commit tree verified in isolation (fresh
+  worktree typecheck clean — which caught and fixed a real closure miss: the dirty
+  `privateSheetRuntime.ts` `renderState` member — + 31/31 verifier node tests). Concurrent
+  homepage-session and prior-lineage files deliberately left uncommitted. Push + deploy
+  await owner instruction.
 - 2026-11-03 Stage 2 executed (same session): HUD-rect re-baseline (measured chrome rects,
   verifier selector sets + `inline FOS HUD present` gate updated, manual-control exercise
   seeks the inspection chapter; no threshold weakened), live Min-FOS sync into the strip,

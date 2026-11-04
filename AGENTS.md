@@ -3,13 +3,31 @@
 Mark's portfolio site (Vite + React + R3F). Hero feature: the JGun Torque Wrench
 interactive exploded-view rig (Default.glb, D1-AP part numbers).
 
+## Evolving public site and visual priorities — owner direction 2026-10-31
+
+Read [the current owner policy](project/context/owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md)
+before release, HUD, readability or verification planning. studiomark.dev is an
+ongoing collection of learning/build pages. Publish useful unfinished work with
+a discreet work-in-progress label and update it incrementally; a finished site,
+final HUD and all cinematic gates are not prerequisites. This owner request
+supersedes older session-specific delivery freezes. Use build, asset/route and
+focused runtime smoke checks; retain actual FAIL/deferred results without claiming
+full technical completion or final visual acceptance.
+
+The current HUD is provisional. Next creative priority: visual concepts with
+Mark, keeping the models central. The older sibling `jgun-portfolio` `main` HUD
+was too busy; it is reference, not the target. Defer strict HUD/design-framing
+polish. Show high-speed readability issues first; if Mark cannot notice them,
+defer them. Try a slight camera-angle shift before expensive fixes for visible
+issues; earlier camera choices allow this refinement.
+
 ## Handoff delivery preference
 
 Whenever Mark requests a handoff, provide both the saved handoff document and an accompanying ready-to-paste prompt for the receiving session. Put the prompt in the final response and save it with the handoff. Include the absolute handoff path, intended workspace, exact next action, and relevant boundaries or approval state. Preserve existing goals and do not imply authorization beyond the owner's request. This applies to every agent working in this repository.
 
 ## Session start
 
-1. Read `TODO.md` — canonical approved task queue.
+1. Read `TODO.md` — canonical approved task queue, newest owner direction first.
 2. Read `project/README.md` — the project knowledge map and work-ID protocol.
 3. Read-first context: `project/context/architecture/animation-spec.md` §5–§5.4 (canonical, measured reality).
    `project/context/owner-specs/animation-exploded-owner-spec.md` is Mark's owner spec — its prose ±Z
@@ -24,8 +42,21 @@ Whenever Mark requests a handoff, provide both the saved handoff document and an
 
 ## Hard rules
 
-- GitHub `origin` (`mhintz1980/jgun-portfolio`) is the authoritative repository. Push only after the relevant plan evidence and repository checks are complete.
+- GitHub `origin` (`mhintz1980/jgun-portfolio`) is the authoritative repository. Record the intended update and proportional checks before delivery. Public work-in-progress delivery is separate from full task completion under the owner policy. A Git push and a Cloudflare upload are distinct actions; verify the actual deployment mechanism.
 - Never ship credentials or commit `.scratch/` or protected parallel-session material.
+- **Committing from the shared dirty tree (JG-040 lesson, 2026-11-03):** stage by explicit
+  path only, and verify the commit tree **in isolation** — `git worktree add <temp> HEAD` +
+  an `mklink /J` of `node_modules`, then `npx tsc --noEmit` (and the pure node tests).
+  Import-name checks are NOT closure: a dirty file left unstaged can still break the commit
+  because a committed file uses a *member* that exists only in the dirty version
+  (`RuntimeWorld` → `privateSheetRuntime.renderState` shipped broken until the isolated
+  typecheck caught it). Deliberately excluded files must satisfy imports AND member use at
+  HEAD; disclose mixed-lineage files in the commit message.
+- **Browser probes against this page:** `window.__torqueWorld` ports (`overlaySample`,
+  `cinematography`) attach only after the lazy Scene module loads, and the shaft study needs
+  `inspection.ready` (the manufacturing-core GLB). Wait for `snapshot().ready` (+
+  `inspection.ready` inside the .62–.825 band) before sampling; a null `overlaySample()` or
+  `studyVisible:false` right after load is a load race, not a HUD/runtime bug.
 - Part numbers (A000606, K000004, P000725…) are the stable key. Stage names are not —
   Mark has used conflicting stage names for the same part; never reorder logic on
   names alone.
@@ -46,13 +77,15 @@ Whenever Mark requests a handoff, provide both the saved handoff document and an
   it to `sync-assets.ps1`. 7 roots: `ENCLOSURE_CHASSIS`, `COMPOSITE_PANELS`,
   `PUMP_HOUSING`, `ACOUSTIC_BAFFLES`, `ISOLATION_MOUNTS`, `DUCT_INTAKE`,
   `DUCT_EXHAUST` (a rename pass to `DUCT_LABYRINTH`/`EXHAUST_PORT` may re-commit it).
-- Verify with runtime telemetry, never vision alone — vision confabulates on the dark
-  scene.
+- Verify runtime/geometry claims with telemetry, never vision alone. Use visual
+  examples and Mark's perceptual review for HUD concepts and visual significance;
+  a numerical readability failure alone does not justify an expensive fix.
 - Restart the :4173 preview server after EVERY rebuild (stale server + rotated hashes →
   canvas never mounts).
 - Opening verifier: `node scripts/verify-jgun-opening.mjs` needs `--url=http://localhost:5199`
   (the vite dev server refuses `127.0.0.1`), and `--quick` (~2 min, desktop+narrow) is the
-  iteration pass — the full 6-case roster is "done" evidence only. Protocol: `TODO.md:13`.
+  iteration pass — the full 6-case roster is "done" evidence only, not a routine
+  work-in-progress publication requirement. Follow the current TODO verification policy.
 
 ## Skills (ZCode-local at ~/.zcode/skills; other harnesses: read the SKILL.md directly)
 
@@ -62,6 +95,7 @@ Its Sections 2–3 define choreography and the deterministic dual-clock contract
 `src/scene/torque-wrench/bulletTime.ts` owns shot windows, rates and readability caps.
 Use the solver at `.agents/skills/r3f-cad-cinematography/scripts/solveHudSafeFraming.ts`.
 Full browser assertions (both reverse camera and subject errors) remain completion evidence;
+they are not prerequisites for every work-in-progress release under the owner policy.
 `verify-torque-camera-hud.mjs --quick` is capture-only and must never be reported as PASS.
 
 Rig/scene → `cad-scene-graph-rigging`; verification → `webgl-telemetry-verifier`;
@@ -80,6 +114,13 @@ all harnesses); deploy readiness → `asset-and-bundle-hygiene`; CH.04 shader �
 `build-threejs-scroll-worlds`, `scroll-scrubbed-visual-sequence` (MengTo
 subset, ~/.agents/skills — all harnesses). Per-phase activation rosters:
 `project/context/session-phases.md`.
+
+CAD-driven 3D scroll product pages — live reference gathering, camera path, look dev,
+HUD callouts, type pairing → repo-local `motion-webgl-inspiration`
+(`.agents/skills/motion-webgl-inspiration/SKILL.md`). It writes a Reference Brief before
+implementation code, ships a runnable vanilla three.js starter (`assets/starter-vanilla/`)
+and frame-capture/link-check scripts (`scripts/`), and complements `r3f-cad-cinematography`
+(motion law) and `animated-3d-video-sites`.
 
 
 ## Cross-Agent Skill Locations
