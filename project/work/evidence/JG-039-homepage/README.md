@@ -1,10 +1,11 @@
 # JG-039 — homepage build verification (2026-11-01)
 
-> **Current continuation, 2026-11-03:** Header scroll gate/fade implementation is
-> locally verified. WCS hover navigation and full-bleed torque-wrench images are
-> now implemented locally. See the [current
-> status and temporary handoff location](../../../../docs/homepage-header-scroll-2026-11-03.md).
-> Earlier cloud/PR/build statements below remain historical evidence.
+> **Current result, 2026-11-03:** Mark approved the corrected homepage. WCS hover
+> navigation and full-bleed torque-wrench images are verified, and deployment
+> `2b33b2f4` serves `/home/` as the public landing page. See the
+> [current status](../../../../docs/homepage-header-scroll-2026-11-03.md) and
+> [public release evidence](release-2026-11-03.md). Earlier statements below remain
+> historical evidence.
 
 Build: branch `claude/project-thread-tlq9j4` (W1 + W5 by the orchestrator; W2 vault/loupe/theme,
 W3 thread, W4 rope by parallel workers on local sub-branches, merged). Checks run in the cloud
@@ -113,9 +114,8 @@ Verifier: `scripts/verify-home-header.mjs`; local evidence:
 Local preview last served at <http://127.0.0.1:4187/home/>; recheck/restart if needed.
 This continuation made no commit, push or deployment.
 
-**Pending owner corrections:** WCS hover must reveal the original three navigation
-buttons; Mark reports no apparent clicked-open exit. Torque-wrench images must
-fill all card edges, with crop/zoom allowed. Existing browser checks predate those
-changes and do not establish their completion. Exact requirements and next-session
-handoff location are in the current implementation record. The follow-up closeout
-updated documentation only; runtime files were not changed again.
+**Owner correction resolution:** WCS hover reveals the original three navigation
+buttons with pointer travel/exit plus touch and keyboard dismissal; the four
+torque-wrench images fill their cards on desktop, mobile and reduced-motion paths.
+The expanded 20/20 browser verifier passed. These checks and the public release
+are recorded in the linked status and release evidence.

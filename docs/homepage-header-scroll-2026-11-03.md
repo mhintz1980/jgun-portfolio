@@ -1,9 +1,19 @@
 # Homepage header scroll refinement — 2026-11-03
 
-Current continuation: the scroll gate, WCS hover navigation and full-bleed
-torque-wrench images are implemented locally. Mark approved the local result on
-2026-11-03 and requested a commit and push.
+Current status: the corrected homepage is **public**. Mark approved the local
+result and requested release; deployment `2b33b2f4` serves `/home/` from clean
+commit `876f11fc`, with `https://studiomark.dev/` forwarding to it.
 This document is the current homepage status record; earlier results follow.
+
+## Public release — 2026-11-03
+
+The clean-tree release gate passed TypeScript, all **1,499** unit tests, the
+production build, the 112-file launch/asset gate, and **9/9** live desktop,
+narrow and reduced-motion smoke cases. Live document hashes match `dist/`, the
+root opens `/home/`, an unknown route returns 404, and a hashed asset receives the
+immutable cache policy. Full evidence and rollback reference:
+`project/work/evidence/JG-039-homepage/release-2026-11-03.md`.
+Publication does not close the broader cinematic/alias/opening gates.
 
 ## Hover and image correction — local continuation
 
@@ -22,12 +32,13 @@ at desktop and mobile sizes in both motion modes, and existing scroll and anchor
 regressions. See `output/playwright/home-header/summary.json` for the latest run
 and `torque-*.png` for its crop captures. Preview: http://127.0.0.1:4187/home/.
 The reduced-motion desktop and mobile screenshots were visually inspected; physical
-devices and other browser engines were not tested. The owner approved this local
-homepage result; broader site and cinematic acceptance are separate. No root-route
-change or deployment is authorized by this approval.
+devices and other browser engines were not tested. The owner approved this homepage
+result and its public release; broader site and cinematic acceptance are separate.
 
-Scope: continue the dirty JG-039 homepage in place. Preserve the approved glyph/WCS
-choreography and existing 450 ms speed refinement. No commit, push or deployment.
+Historical scope for the initial gate work: continue the then-dirty JG-039 homepage
+in place and preserve the approved glyph/WCS choreography and 450 ms speed
+refinement. The later owner approval and release request superseded its temporary
+no-delivery boundary.
 
 - [x] Hold the first downward wheel/key/touch input at the document top until all
   header geometry transitions finish; allow reversal and native anchor/focus jumps.
@@ -79,9 +90,10 @@ Local evidence: `output/playwright/home-header/summary.json`, `wheel-frames.json
 `mobile-reduced.png`. Initial failing runs informed the fixes; the final summary
 records the passing rebuilt implementation.
 
-Implementation changes are limited to `src/home/HomePage.tsx`, `DrawnName.tsx`
+Implementation changes were limited to `src/home/HomePage.tsx`, `DrawnName.tsx`
 and `layout.css`, plus this record and the new verifier. Existing homepage edits
-were continued in place. No staging, commit, push or deployment was performed.
+were continued in place. The later release commits and deployment are recorded
+above; this paragraph preserves the earlier checkpoint's boundary.
 
 ## Owner corrections recorded 2026-11-03 — historical request
 
@@ -117,14 +129,17 @@ Implementation starting points (inspected, not changed by this documentation tur
   Use a project-specific class/prop or equivalent scoped styling rather than
   changing every drawing stack's presentation by accident.
 
-The subsequent verification extends `scripts/verify-home-header.mjs` for hover enter,
+The subsequent verification extended `scripts/verify-home-header.mjs` for hover enter,
 icon-to-links pointer travel, leave/re-entry, touch/keyboard dismissal and focus,
 and retain the existing scroll/anchor/reduced-motion cases. Inspect all four image
-crops in desktop/mobile and the reduced grid; use browser geometry plus screenshots
-to prove coverage. The existing 13/13 browser result and 84 tests predate these
-corrections and do not certify them. No new runtime checks were run for this
-documentation-only closeout. Final owner visual acceptance remains OPEN.
+crops in desktop/mobile and the reduced grid using browser geometry plus screenshots.
+The completed run passed 20/20 cases; Mark then approved the result and requested
+publication.
 
-Next-session handoff:
+Historical pre-correction handoff:
 `C:\Users\Markimus\AppData\Local\Temp\HANDOFF-2026-11-03-homepage-hover-nav-full-bleed.md`.
 Companion prompt: same directory, `PROMPT-2026-11-03-homepage-hover-nav-full-bleed.txt`.
+
+Current post-release handoff:
+`C:\Users\Markimus\AppData\Local\Temp\HANDOFF-2026-11-04-studiomark-home-release.md`.
+Companion prompt: same directory, `PROMPT-2026-11-04-studiomark-home-release.txt`.

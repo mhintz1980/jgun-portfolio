@@ -9,11 +9,11 @@ HUD polish in favor of visual concept work, and requires showing perceptual
 readability issues before expensive fixes. It supersedes older delivery freezes
 below; historical test results remain accurate.
 
-Homepage `/home/` status (2026-11-03): the faster initial header scroll gate and
-content fade are verified locally. WCS hover navigation and full-bleed
-torque-wrench project-card images are implemented locally. See the [current homepage
-record and handoff location](docs/homepage-header-scroll-2026-11-03.md).
-Mark approved the corrected homepage on 2026-11-03 and requested its public release.
+Homepage `/home/` is the public landing page (2026-11-03). The corrected WCS hover
+navigation and full-bleed torque-wrench cards are owner-approved; deployment
+`2b33b2f4` passes the clean build/asset gate and 9/9 live smoke cases. See the
+[homepage record](docs/homepage-header-scroll-2026-11-03.md) and
+[release evidence](project/work/evidence/JG-039-homepage/release-2026-11-03.md).
 
 > **Historical 2026-10-26 owner corrections 56 (superseded by 59):** Adjustable 100:1 shaft cascade with a measured 158 RPM cap at authored 1× / 60 Hz; only Stage 2 requires one full visible orbit. The gearbox housing stays opaque during explosion and return. [Plan 56](docs/torque-wrench-rebuild/56-ratio-cap-solid-housing-plan-2026-10-26.md) · [evidence 57](docs/torque-wrench-rebuild/57-ratio-cap-solid-housing-evidence-2026-10-26.md). Source/build and headed playback pass; the final 158 RPM browser roster passes four cases × 23 checks. Gemini-4-Argon reviewed the implementation before the final 2 RPM calibration reduction; see evidence for that boundary. Owner acceptance OPEN; no commit/push/deployment.
 

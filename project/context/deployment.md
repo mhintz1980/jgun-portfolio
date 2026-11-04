@@ -3,14 +3,13 @@
 Durable deployment context for the JGUN portfolio. Task record:
 [`../work/evidence/JG-019-deployment-and-hosting-verification.md`](../work/evidence/JG-019-deployment-and-hosting-verification.md).
 
-## Current release policy and state — 2026-10-31
+## Current release policy and state — 2026-11-03
 
-**Published:** [Evidence 74](../work/evidence/torque-wrench-rebuild/74-work-in-progress-publication-2026-10-31/SUMMARY.md)
-records deployment `6ea9c78a`, both public pages returning 200, matching local
-HTML hashes, and 6/6 live publication smoke cases PASS. Wrangler was
-reauthenticated; Cloudflare MCP registration/OAuth and global skills are also
-complete. The 2026-11-03 homepage release supersedes that root topology; its evidence
-records the new deployment identity. The earlier preflight below is history.
+**Published:** [JG-039 homepage release](../work/evidence/JG-039-homepage/release-2026-11-03.md)
+records clean commit `876f11fc`, Cloudflare Pages deployment `2b33b2f4`, the
+public `/home/` landing route, matching local/live HTML hashes, and 9/9 live
+publication smoke cases PASS. The prior `6ea9c78a` two-page deployment is rollback
+history. The earlier preflight below is also history.
 
 Read the [owner's evolving-site policy](owner-specs/evolving-portfolio-and-visual-review-2026-10-31.md).
 Publish useful unfinished pages with a discreet work-in-progress label, then update
