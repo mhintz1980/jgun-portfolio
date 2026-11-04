@@ -92,3 +92,50 @@ controls. Static/poster fallback modes keep today's flowing document unchanged.
   desktop and narrow with 0 browser errors. The strict page-cinematography narrow roster
   retains its known HUD-over-subject clearance failures (no threshold changed). Owner
   visual acceptance of the Stage 2 additions remains open.
+- 2026-11-04 (later) owner reviewed the live page and ruled: **Inspection timing FAIL**
+  (chrome appears at .56 before the input shaft is isolated; `studyVisible` is .62),
+  **desktop rail overlap FAIL** (tech panel covers rows 04/05; move the chapter selection to
+  the bottom), **FOS bar thickness +50%**, and **remove the tracked leader** (does not track
+  the part and overstays). The `studiomark` mast and the caption fade/rise were approved.
+  No runtime change was made after this ruling. Stage 2 is not accepted as a whole.
+
+## Stage 3 — owner review corrections (next session)
+
+Scope is limited to the four ruled corrections plus their verification. Do not reopen
+unrelated HUD styling.
+
+1. **Hold the Inspection chrome until the shaft is isolated.**
+   `TorqueHUD` currently derives its chapter from `sample.beat.poster`
+   (`TorqueHUD.tsx:120-121`), and the inspection chapter starts at the
+   `inspection-isolation` beat (`beats.ts:58`, start .56). The isolated-shaft domain is
+   already published as `studyVisible = p >= .62 && p < .845`
+   (`JourneyDirector.ts:23`, mirrored in `RuntimeWorld`'s overlay sample). Gate the
+   Inspection caption/cue/tech/cutter chrome on that visibility (or an equivalent
+   `progress >= .62` threshold), while keeping the rail's chapter semantics intact.
+   Decide and record the handoff copy for .56-.62 (keeping Mechanism visible until the
+   shaft isolates is the likely answer). Verify at .56 (no Inspection chrome), .6199 (still
+   no), .62 (Inspection chrome), and .845 (returns to the source view).
+2. **Move the desktop chapter rail to the bottom.**
+   `.torque-hud__rail` is the vertical right-edge rail (`torque-hud.css:313`), currently
+   under the inline tech panel. Make it a horizontal bottom bar (centered or right-of-centre
+   with clearance from the caption and Free Look). Keep the narrow Chapters disclosure as
+   is; preserve names, indices, `aria-current="step"`, keyboard focus and seek behavior.
+   Re-measure the HUD rects used by `verify-page-cinematography.mjs` and
+   `verify-torque-camera-hud.mjs`; no threshold change.
+3. **FOS bar +50% thickness, other items unchanged.**
+   `.torque-hud__fos-scale` height `0.6rem` → `0.9rem` (`torque-hud.css:240`). Keep the
+   FOS title, live value, ticks, marker width (2 px), panel padding and row sizes as they
+   are. Assert the computed bar height in the browser check.
+4. **Remove the tracked leader for now.**
+   Delete the HUD SVG and drawing loop (`TorqueHUD.tsx` refs ~43-44, effect 52-116, SVG
+   157-163) and the `studyAnchor` producer/type (`RuntimeWorld.tsx:276-277,1442-1448`;
+   `hotspotData.ts:134`), or leave the projection plumbing dormant with a clear comment if
+   it will speed the later true-tracking implementation. Do not re-attempt the leader in
+   this pass. Verify it is absent at every inspection state.
+
+Acceptance for Stage 3: typecheck clean; focused torque-wrench suites pass; production
+build clean; `verify-torque-camera-hud.mjs` 30/30 desktop + narrow with zero browser
+errors; owner-review stills at .56/.6199/.62/.735/.80/.845; no rail/tech overlap; FOS bar
+height measured at 0.9rem with unchanged siblings; zero leader nodes in the DOM. Record any
+strict page-cinematography failures honestly; do not weaken thresholds. Ask Mark to review
+before deploying again.

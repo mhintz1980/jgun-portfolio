@@ -107,6 +107,21 @@ Published the corrections only (the Stage 2 additions were already live):
 - Public topology unchanged: `/home/` 200, apex 301 → `www`, `/armament/` 200 (private,
   noindex as before).
 
+## Owner review of this deployment — 2026-11-04 (later)
+
+Stage 2 is **not accepted as a whole**. Mark's live review found:
+
+- Inspection chrome starts at .56, before the input shaft is isolated (studyVisible is .62).
+- The desktop tech panel still covers rail rows 04/05; the chapter rail must move to the
+  bottom.
+- The FOS bar needs +50% thickness; its container siblings stay the current size.
+- The tracked leader does not track the part and overstays; remove it for now.
+- The `studiomark` mast and caption fade/rise were approved.
+
+The owner screenshots and the next-session scope are in
+`../owner-review-2026-11-04/` and plan § Stage 3. This deployment still serves the rejected
+leader and the rail overlap.
+
 ## Captures
 
 - `desktop-{breakthrough-42,inspection-4140,inspection-c300,hobbing,close-94}.png`

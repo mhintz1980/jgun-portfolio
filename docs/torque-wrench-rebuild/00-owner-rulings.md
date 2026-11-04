@@ -304,3 +304,34 @@ drop-shadow and dark dot ring). Focused narrow camera/HUD verifier PASS 30/30 wi
 browser errors. The strict page-cinematography narrow roster retains its known
 HUD-over-subject clearance failures; no threshold was weakened. This entry records the
 correction direction, not acceptance of the Stage 2 additions.
+
+## Owner visual ruling - 2026-11-04 (later): Stage 2 reviewed live; leader rejected, timing and rail fail
+
+Mark reviewed the live page (deployment `81b234d0`, commit `53b2847d`) and ruled on the
+walkthrough. Owner screenshots are copied to
+`project/work/evidence/JG-040-hud-d-inline/owner-review-2026-11-04/`.
+
+- **Inspection timing - FAIL.** The Inspection chrome appears at the chapter's first beat
+  (`inspection-isolation`, progress .56) while the camera still shows the whole wrench.
+  It must wait until the input shaft is isolated. `JourneyDirector.ts` already defines that
+  moment: `studyVisible = p >= .62 && p < .845`. Evidence: `Inspect-start.png` (whole
+  wrench) and `Inspect-stop.png` (driveline, still no isolated shaft).
+- **Desktop chapter-rail overlap - FAIL.** The inline technical panel paints over rail rows
+  04/05. Mark's instruction: move the chapter selection to the bottom of the screen.
+  Evidence: `overlap.png`, `Inspect-start.png`, `Inspect-stop.png`.
+- **FOS bar - correction.** Increase the colored FOS bar's thickness by 50% so it is more
+  noticeable; leave the other items in its container at their current size. Current
+  `.torque-hud__fos-scale` height is `0.6rem`; target `0.9rem`.
+- **Tracked leader - FAIL, remove.** It does not track the part, points at unrelated
+  drivetrain geometry, and remains well past its intended window. Remove it for now; a
+  later session will re-implement it. Evidence: `Screenshot 2026-11-04 131700.png`,
+  `...131727.png`, `...131736.png`.
+- **Approved:** item 2 (fixed `studiomark` mast), and items 5-6 as marked (caption
+  fade/rise and the narrow-layout/cutter walkthrough). An approval line also follows the
+  leader paragraph; the unambiguous approvals are the mast, caption motion, and the narrow
+  layout/cutter controls. The leader is explicitly rejected.
+
+Stage 2 therefore is **not accepted as a whole**. No further runtime change was made after
+this ruling; the next session implements the four corrections and re-runs the focused
+camera/HUD checks before asking Mark to review again. The live deployment still carries the
+rejected leader and the rail overlap.
